@@ -1194,7 +1194,7 @@ Vehicle::add(const std::string& vehID,
 
 void
 Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex,
-                  const double x, const double y, double angle, const int keepRoute) {
+                  const double x, const double y, double angle, const int keepRoute, double matchThreshold) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1237,7 +1237,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
     double bestDistance = std::numeric_limits<double>::max();
     int routeOffset = 0;
     bool found;
-    double maxRouteDistance = 100;
+    double maxRouteDistance = matchThreshold;
     /* EGO vehicle is known to have a fixed route. @todo make this into a parameter of the TraCI call */
     if (doKeepRoute) {
         // case a): vehicle is on its earlier route

@@ -471,10 +471,10 @@ Person::moveTo(const std::string& personID, const std::string& edgeID, double po
 
 
 void
-Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute) {
+Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute, double matchThreshold) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
+    content.writeInt(6);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(edgeID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
@@ -485,6 +485,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     content.writeDouble(angle);
     content.writeUnsignedByte(libsumo::TYPE_BYTE);
     content.writeByte(keepRoute);
+    StoHelp::writeTypedDouble(content, matchThreshold);
     Dom::set(libsumo::MOVE_TO_XY, personID, &content);
 }
 

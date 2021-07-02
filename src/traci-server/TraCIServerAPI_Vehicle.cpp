@@ -1057,8 +1057,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "MoveToXY vehicle requires a compound object.", outputStorage);
                 }
                 const int numArgs = inputStorage.readInt();
-                if (numArgs != 5 && numArgs != 6) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "MoveToXY vehicle should obtain: edgeID, lane, x, y, angle and optionally keepRouteFlag.", outputStorage);
+                if (numArgs < 5 || numArgs > 7) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "MoveToXY vehicle should obtain: edgeID, lane, x, y, angle and optionally keepRouteFlag and matchThreshold.", outputStorage);
                 }
                 // edge ID
                 std::string edgeID;
@@ -1087,12 +1087,18 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
 
                 int keepRouteFlag = 1;
-                if (numArgs == 6) {
+                if (numArgs >= 6) {
                     if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
                     }
                 }
-                libsumo::Vehicle::moveToXY(id, edgeID, laneNum, x, y, angle, keepRouteFlag);
+                double matchThreshold = 100;
+                if (numArgs == 7) {
+                    if (!server.readTypeCheckingDouble(inputStorage, matchThreshold)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The seventh parameter for moveToXY must be the matchThreshold given as a double.", outputStorage);
+                    }
+                }
+                libsumo::Vehicle::moveToXY(id, edgeID, laneNum, x, y, angle, keepRouteFlag, matchThreshold);
             }
             break;
             case libsumo::VAR_SPEED_FACTOR: {
