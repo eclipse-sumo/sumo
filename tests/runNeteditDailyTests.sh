@@ -37,6 +37,8 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.bugs "$@" &
   texttest -a netedit.daily.selection "$@" &
   texttest -a netedit.daily.volatileRecomputing "$@" &
+  texttest -a netedit.daily.data.edgeData "$@" &
+  texttest -a netedit.daily.data.edgeRelData "$@" &
   wait
   texttest -a netedit.daily.additional.access "$@" &
   texttest -a netedit.daily.additional.basic "$@" &
@@ -66,7 +68,6 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.shape.poly "$@" &
   texttest -a netedit.daily.TAZ.basic "$@" &
   texttest -a netedit.daily.TAZ.taz "$@" &
-  wait
   texttest -a netedit.daily.net.connections "$@" &
   texttest -a netedit.daily.net.crossings "$@" &
   texttest -a netedit.daily.net.edges "$@" &
@@ -90,8 +91,6 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.demand.stop.containerstop "$@" &
   texttest -a netedit.daily.demand.stop.lane "$@" &
   texttest -a netedit.daily.demand.stop.parkingarea "$@" &
-  texttest -a netedit.daily.data.edgeData "$@" &
-  texttest -a netedit.daily.data.edgeRelData "$@" &
   texttest -a netedit.daily.complex "$@" &
   wait
 else
@@ -99,6 +98,8 @@ else
   texttest.py -a netedit.daily.bugs "$@" &
   texttest.py -a netedit.daily.selection "$@" &
   texttest.py -a netedit.daily.volatileRecomputing "$@" &
+  texttest.py -a netedit.daily.data.edgeData "$@" &
+  texttest.py -a netedit.daily.data.edgeRelData "$@" &
   wait
   texttest.py -a netedit.daily.additional.access "$@" &
   texttest.py -a netedit.daily.additional.basic "$@" &
@@ -128,7 +129,6 @@ else
   texttest.py -a netedit.daily.shape.poly "$@" &
   texttest.py -a netedit.daily.TAZ.basic "$@" &
   texttest.py -a netedit.daily.TAZ.taz "$@" &
-  wait
   texttest.py -a netedit.daily.net.connections "$@" &
   texttest.py -a netedit.daily.net.crossings "$@" &
   texttest.py -a netedit.daily.net.edges "$@" &
@@ -152,8 +152,6 @@ else
   texttest.py -a netedit.daily.demand.stop.containerstop "$@" &
   texttest.py -a netedit.daily.demand.stop.lane "$@" &
   texttest.py -a netedit.daily.demand.stop.parkingarea "$@" &
-  texttest.py -a netedit.daily.data.edgeData "$@" &
-  texttest.py -a netedit.daily.data.edgeRelData "$@" &
   texttest.py -a netedit.daily.complex "$@" &
   wait
 fi
