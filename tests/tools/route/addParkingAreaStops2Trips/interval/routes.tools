@@ -2,6 +2,6 @@
 
 <routes>
     <trip depart="0.00" from="WC" id="vehicle_0" to="CN">
-        <stop duration="1851" parkingArea="parkingArea_WC_3_0"/>
+        <stop duration="3109" parkingArea="parkingArea_WC_3_0"/>
     </trip>
 </routes>

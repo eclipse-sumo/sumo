@@ -24,7 +24,7 @@ from __future__ import absolute_import
 import os
 import sys
 import optparse
-import random
+from random import Random
 
 # (seed)
 
@@ -68,8 +68,11 @@ def get_options(args=None):
 
 
 def main(options):
+    R1 = Random()
+    R2 = Random()
     if not options.random:
-        random.seed(options.seed)
+        R1.seed(options.seed)
+        R2.seed(options.seed)
     infile = options.routefile
     # set default output file
     if not options.outfile:
@@ -88,11 +91,11 @@ def main(options):
         # iterate over trips
         for trip in sumolib.xml.parse(infile, "trip", heterogeneous=True):
             # obtain random parking
-            random_parking = random.choice(parkings)
+            random_parking = R1.choice(parkings)
             # add child depending of durations
             if (options.durationBegin and options.durationEnd):
                 #obtain random duration
-                duration = random.randint(int(options.durationBegin), int(options.durationEnd))
+                duration = R2.randint(int(options.durationBegin), int(options.durationEnd))
                 trip.addChild("stop", {"parkingArea": random_parking.id, "duration": duration})
             elif options.until:
                 trip.addChild("stop", {"parkingArea": random_parking.id, "until": options.until})
