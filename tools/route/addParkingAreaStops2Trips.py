@@ -49,6 +49,8 @@ def get_options(args=None):
                          help="define the parking duration (in seconds)", default=3600)
     optParser.add_option("-u", "--parking-until", dest="until",
                          help="define the parking until duration (in seconds)")
+    optParser.add_option("-l", "--parking-untilend", dest="untilend",
+                         help="define the parking until end variable duration (in seconds)")
     optParser.add_option("-b", "--parking-duration-begin", dest="durationBegin",
                          help="define the minimum parking duration (in seconds)")
     optParser.add_option("-e", "--parking-duration-end", dest="durationEnd",
@@ -98,7 +100,12 @@ def main(options):
                 duration = R2.randint(int(options.durationBegin), int(options.durationEnd))
                 trip.addChild("stop", {"parkingArea": random_parking.id, "duration": duration})
             elif options.until:
-                trip.addChild("stop", {"parkingArea": random_parking.id, "until": options.until})
+                if options.untilvariable:
+                    #obtain random duration
+                    until = R2.randint(int(options.until), int(options.untilend))
+                    trip.addChild("stop", {"parkingArea": random_parking.id, "until": until})
+                else:
+                    trip.addChild("stop", {"parkingArea": random_parking.id, "until": options.until})
             else:
                 trip.addChild("stop", {"parkingArea": random_parking.id, "duration": int(options.duration)})
             # write trip
