@@ -39,7 +39,6 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.volatileRecomputing "$@" &
   texttest -a netedit.daily.data.edgeData "$@" &
   texttest -a netedit.daily.data.edgeRelData "$@" &
-  wait
   texttest -a netedit.daily.additional.access "$@" &
   texttest -a netedit.daily.additional.basic "$@" &
   texttest -a netedit.daily.additional.busstop "$@" &
@@ -100,7 +99,6 @@ else
   texttest.py -a netedit.daily.volatileRecomputing "$@" &
   texttest.py -a netedit.daily.data.edgeData "$@" &
   texttest.py -a netedit.daily.data.edgeRelData "$@" &
-  wait
   texttest.py -a netedit.daily.additional.access "$@" &
   texttest.py -a netedit.daily.additional.basic "$@" &
   texttest.py -a netedit.daily.additional.busstop "$@" &
