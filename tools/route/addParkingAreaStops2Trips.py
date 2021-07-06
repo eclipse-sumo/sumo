@@ -100,7 +100,7 @@ def main(options):
                 duration = R2.randint(int(options.durationBegin), int(options.durationEnd))
                 trip.addChild("stop", {"parkingArea": random_parking.id, "duration": duration})
             elif options.until:
-                if options.untilvariable:
+                if options.untilend:
                     #obtain random duration
                     until = R2.randint(int(options.until), int(options.untilend))
                     trip.addChild("stop", {"parkingArea": random_parking.id, "until": until})
