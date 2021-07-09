@@ -626,7 +626,7 @@ private:
     bool restrictLane(SUMOVehicleClass vclass);
 
     /// @brief add restricted lane
-    bool addRestrictedLane(SUMOVehicleClass vclass);
+    bool addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront);
 
     /// @brief remove restricted lane
     bool removeRestrictedLane(SUMOVehicleClass vclass);

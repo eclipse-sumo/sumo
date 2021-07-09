@@ -164,7 +164,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,                       GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                           GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                            GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE,                     GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_FRONT,               GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_BACK,                GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,                    GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                        GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                         GNEViewNet::onCmdLaneOperation),
@@ -2181,13 +2182,15 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
         case MID_GNE_LANE_TRANSFORM_GREENVERGE:
             return restrictLane(SVC_IGNORING);
         case MID_GNE_LANE_ADD_SIDEWALK:
-            return addRestrictedLane(SVC_PEDESTRIAN);
+            return addRestrictedLane(SVC_PEDESTRIAN, false);
         case MID_GNE_LANE_ADD_BIKE:
-            return addRestrictedLane(SVC_BICYCLE);
+            return addRestrictedLane(SVC_BICYCLE, false);
         case MID_GNE_LANE_ADD_BUS:
-            return addRestrictedLane(SVC_BUS);
-        case MID_GNE_LANE_ADD_GREENVERGE:
-            return addRestrictedLane(SVC_IGNORING);
+            return addRestrictedLane(SVC_BUS, false);
+        case MID_GNE_LANE_ADD_GREENVERGE_FRONT:
+            return addRestrictedLane(SVC_IGNORING, true);
+        case MID_GNE_LANE_ADD_GREENVERGE_BACK:
+            return addRestrictedLane(SVC_IGNORING, false);
         case MID_GNE_LANE_REMOVE_SIDEWALK:
             return removeRestrictedLane(SVC_PEDESTRIAN);
         case MID_GNE_LANE_REMOVE_BIKE:
@@ -2315,9 +2318,9 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
 
 
 bool
-GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
-    GNELane* lane = getLaneAtPopupPosition();
-    if (lane != nullptr) {
+GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront) {
+    GNELane* clickedLane = getLaneAtPopupPosition();
+    if (clickedLane != nullptr) {
         // Get selected edges
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         // get selected lanes
@@ -2325,13 +2328,13 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for (auto i : edges) {
-            setOfEdges.insert(i);
+        for (const auto &edge : edges) {
+            setOfEdges.insert(edge);
         }
         // iterate over selected lanes
-        for (auto it : lanes) {
+        for (const auto &lane : lanes) {
             // Insert pointer to edge into set of edges (To avoid duplicates)
-            setOfEdges.insert(myNet->retrieveEdge(it->getParentEdge()->getID()));
+            setOfEdges.insert(myNet->retrieveEdge(lane->getParentEdge()->getID()));
         }
         // If we handeln a set of edges
         if (setOfEdges.size() > 0) {
@@ -2384,12 +2387,18 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             // Add restricted lane
             if (vclass == SVC_PEDESTRIAN) {
                 // always add pedestrian lanes on the right
-                myNet->addRestrictedLane(vclass, lane->getParentEdge(), 0, myUndoList);
-            } else if (lane->getParentEdge()->getLanes().size() == 1) {
+                myNet->addRestrictedLane(vclass, clickedLane->getParentEdge(), 0, myUndoList);
+            } else if (vclass == SVC_IGNORING) {
+                if (insertAtFront) {
+                    myNet->addGreenVergeLane(clickedLane->getParentEdge(), clickedLane->getIndex() + 1, myUndoList);
+                } else {
+                    myNet->addGreenVergeLane(clickedLane->getParentEdge(), clickedLane->getIndex(), myUndoList);
+                }
+            } else if (clickedLane->getParentEdge()->getLanes().size() == 1) {
                 // guess insertion position if there is only 1 lane
-                myNet->addRestrictedLane(vclass, lane->getParentEdge(), -1, myUndoList);
+                myNet->addRestrictedLane(vclass, clickedLane->getParentEdge(), -1, myUndoList);
             } else {
-                myNet->addRestrictedLane(vclass, lane->getParentEdge(), lane->getIndex(), myUndoList);
+                myNet->addRestrictedLane(vclass, clickedLane->getParentEdge(), clickedLane->getIndex(), myUndoList);
             }
             // end undo/redo operation
             myUndoList->p_end();
