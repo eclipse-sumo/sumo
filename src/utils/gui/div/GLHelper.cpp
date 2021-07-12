@@ -47,6 +47,7 @@
 #include "GLHelper.h"
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
+//#define CHECK_PUSHPOP // enable or disable check push and pop matrix/names
 
 
 // ===========================================================================
@@ -83,44 +84,56 @@ void APIENTRY combCallback(GLdouble coords[3],
 void 
 GLHelper::pushMatrix() {
     glPushMatrix();
+#ifdef CHECK_PUSHPOP
     myMatrixCounter++;
+#endif
 }
 
 
 void 
 GLHelper::popMatrix() {
     glPopMatrix();
+#ifdef CHECK_PUSHPOP
     myMatrixCounter--;
+#endif
 }
 
 
 void 
 GLHelper::pushName(unsigned int name) {
     glPushName(name);
+#ifdef CHECK_PUSHPOP
     myNameCounter++;
+#endif
 }
 
 
 void 
 GLHelper::popName() {
     glPopName();
+#ifdef CHECK_PUSHPOP
     myNameCounter--;
+#endif
 }
 
 
 void 
 GLHelper::checkCounterMatrix() {
+#ifdef CHECK_PUSHPOP
     if (myMatrixCounter != 0) {
         WRITE_WARNING("invalid matrix counter. Check that number of pushMatrix and popMatrix functions calls are the same");
     }
+#endif
 }
 
 
 void 
 GLHelper::checkCounterName() {
+#ifdef CHECK_PUSHPOP
     if (myNameCounter != 0) {
         WRITE_WARNING("invalid Name counter. Check that number of pushName and popName functions calls are the same");
     }
+#endif
 }
 
 
