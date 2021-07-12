@@ -82,6 +82,7 @@ const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
  * @brief Structure representing possible vehicle parameter
  */
 class SUMOVTypeParameter : public Parameterised {
+
 public:
     /// @brief struct for default values that depend of VClass
     struct VClassDefaultValues {
@@ -205,6 +206,9 @@ public:
     std::string getJMParamString(const SumoXMLAttr attr, const std::string defaultValue) const;
 
     void cacheParamRestrictions(const std::vector<std::string>& restrictionKeys);
+
+    /// @brief init Rail Visualization Parameters
+    void initRailVisualizationParameters();
 
     /// @brief The vehicle type's id
     std::string id;

@@ -564,10 +564,6 @@ public:
      */
     void check();
 
-protected:
-    /// @brief init Rail Visualization Parameters
-    void initRailVisualizationParameters();
-
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;

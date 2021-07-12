@@ -347,7 +347,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
     }
     // init Rail visualization parameters
-    vtype->initRailVisualizationParameters();
+    vtype->myParameter.initRailVisualizationParameters();
     vtype->check();
     return vtype;
 }
@@ -464,50 +464,5 @@ MSVehicleType::setTau(double tau) {
     myCarFollowModel->setHeadwayTime(tau);
     myParameter.cfParameter[SUMO_ATTR_TAU] = toString(tau);
 }
-
-
-void
-MSVehicleType::initRailVisualizationParameters() {
-    if (myParameter.knowsParameter("carriageLength")) {
-        myParameter.carriageLength = StringUtils::toDouble(myParameter.getParameter("carriageLength"));
-    } else if (myParameter.wasSet(VTYPEPARS_SHAPE_SET)) {
-        switch (myParameter.shape) {
-            case SVS_BUS_FLEXIBLE:
-                myParameter.carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
-                myParameter.carriageGap = 0;
-                break;
-            case SVS_RAIL:
-                myParameter.carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
-                break;
-            case SVS_RAIL_CAR:
-                myParameter.carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
-                break;
-            case SVS_RAIL_CARGO:
-                myParameter.carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
-                break;
-            case SVS_TRUCK_SEMITRAILER:
-                myParameter.carriageLength = 13.5;
-                myParameter.locomotiveLength = 2.5;
-                myParameter.carriageGap = 0.5;
-                break;
-            case SVS_TRUCK_1TRAILER:
-                myParameter.carriageLength = 6.75;
-                myParameter.locomotiveLength = 2.5 + 6.75;
-                myParameter.carriageGap = 0.5;
-                break;
-            default:
-                break;
-        }
-    }
-    if (myParameter.knowsParameter("locomotiveLength")) {
-        myParameter.locomotiveLength = StringUtils::toDouble(myParameter.getParameter("locomotiveLength"));
-    } else if (myParameter.locomotiveLength <= 0) {
-        myParameter.locomotiveLength = myParameter.carriageLength;
-    }
-    if (myParameter.knowsParameter("carriageGap")) {
-        myParameter.carriageGap = StringUtils::toDouble(myParameter.getParameter("carriageGap"));
-    }
-}
-
 
 /****************************************************************************/
