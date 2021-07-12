@@ -142,7 +142,7 @@ GNEPOI::updateCenteringBoundary(const bool updateGrid) {
     // add position (this POI)
     myBoundary.add(*this);
     // grow boundary
-    myBoundary.grow(10 + std::max(getWidth(), getHeight()));
+    myBoundary.grow(10 + std::max(getWidth() * 0.5, getHeight() * 0.5));
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
@@ -233,7 +233,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 if (getShapeImgFile().empty()) {
                     GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, *this, getWidth(), getHeight(), 0, 0, getShapeNaviDegree(), POIExaggeration);
+                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // check if front dotted contour has to be drawn
@@ -241,7 +241,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 if (getShapeImgFile().empty()) {
                     GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, *this, getWidth(), getHeight(), 0, 0, getShapeNaviDegree(), POIExaggeration);
+                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // pop name
