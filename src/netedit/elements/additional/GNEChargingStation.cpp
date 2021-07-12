@@ -90,7 +90,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 signColor = s.stoppingPlaceSettings.chargingStationColorSign;
             }
             // Start drawing adding an gl identificator
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // Add a draw matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -111,7 +111,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             GLHelper::popMatrix();
             // Pop name
-            glPopName();
+            GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration);

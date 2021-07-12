@@ -157,7 +157,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     // draw the area
     glTranslated(0, 0, getType());
@@ -223,7 +223,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
     drawName(myFGSignPos, s.scale, s.addName, s.angle);
 }
 

@@ -367,7 +367,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // check if person can be drawn
         if (!(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
             // push GL ID
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -390,7 +390,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix
             GLHelper::popMatrix();
             // pop name
-            glPopName();
+            GLHelper::popName();
             // draw name
             drawName(personPosition, s.scale, s.personName, s.angle);
             if (s.personValue.show) {

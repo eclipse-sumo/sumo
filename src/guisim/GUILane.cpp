@@ -357,13 +357,13 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
             case LINKSTATE_TL_YELLOW_MINOR:
             case LINKSTATE_TL_OFF_BLINKING:
             case LINKSTATE_TL_OFF_NOSIGNAL:
-                glPushName(net.getLinkTLID(link));
+                GLHelper::pushName(net.getLinkTLID(link));
                 break;
             case LINKSTATE_MAJOR:
             case LINKSTATE_MINOR:
             case LINKSTATE_EQUAL:
             default:
-                glPushName(getGlID());
+                GLHelper::pushName(getGlID());
                 break;
         }
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
@@ -382,7 +382,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
             glVertex2d(x2 - myHalfLaneWidth, 0.0);
             glEnd();
         }
-        glPopName();
+        GLHelper::popName();
         GLHelper::popMatrix();
     }
 }
@@ -484,7 +484,7 @@ GUILane::drawLane2LaneConnections(double exaggeration) const {
 void
 GUILane::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     const bool isCrossing = myEdge->isCrossing();
     const bool isWalkingArea = myEdge->isWalkingArea();
     const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
@@ -704,7 +704,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         // allow lane simulation
         releaseVehicles();
     }
-    glPopName();
+    GLHelper::popName();
 }
 
 

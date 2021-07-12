@@ -377,7 +377,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Push name
         if (pushGLID) {
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
         }
         // Push layer matrix
         GLHelper::pushMatrix();
@@ -427,7 +427,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Pop name
             if (pushGLID) {
-                glPopName();
+                GLHelper::popName();
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {

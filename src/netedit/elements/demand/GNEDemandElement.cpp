@@ -506,7 +506,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // get color
         const RGBColor& pathColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -522,7 +522,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // check if this is the last segment
         if (segment->isLastSegment()) {
             // calculate circle width
@@ -608,7 +608,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // get color
         const RGBColor& color = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // push a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -630,7 +630,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // check if shape dotted contour has to be drawn
         if (fromLane->getLane2laneConnections().exist(toLane) && (s.drawDottedContour() || dottedElement)) {
             // draw lane2lane inspected dotted geometry

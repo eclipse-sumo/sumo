@@ -202,7 +202,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // check that current mode isn't TLS
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
             // push name
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -251,7 +251,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // pop name
-            glPopName();
+            GLHelper::popName();
         }
         // link indices must be drawn in all edit modes if isn't being drawn for selecting
         if (s.drawLinkTLIndex.show && !s.drawForRectangleSelection) {

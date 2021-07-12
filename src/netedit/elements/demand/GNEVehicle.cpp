@@ -589,7 +589,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         // check that position is valid
         if (vehiclePosition != Position::INVALID) {
             // first push name
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // first check if if mouse is enought near to this vehicle to draw it
             if (s.drawForRectangleSelection && (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
                 // push draw matrix
@@ -693,7 +693,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // pop name
-            glPopName();
+            GLHelper::popName();
         }
     }
 }
@@ -789,7 +789,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // obtain color
         const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTrips;
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -844,7 +844,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             }
         }
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || dottedElement) {
             // declare trim geometry to draw
@@ -877,7 +877,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             (drawNetworkMode || drawDemandMode || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // obtain lane2lane geometry
         const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
@@ -911,7 +911,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             }
         }
         // Pop name
-        glPopName();
+        GLHelper::popName();
     }
 }
 

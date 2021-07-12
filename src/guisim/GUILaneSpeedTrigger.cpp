@@ -314,7 +314,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
 
 void
 GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     const double exaggeration = s.addSize.getExaggeration(s, this);
@@ -371,7 +371,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

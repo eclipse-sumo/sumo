@@ -117,7 +117,7 @@ GUIParkingArea::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     RGBColor grey(177, 184, 186, 171);
     RGBColor blue(83, 89, 172, 255);
@@ -182,7 +182,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (s.addFullName.show && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), mySignPos, s.scale, s.getTextAngle(mySignRot), GLO_MAX - getType());
     }
-    glPopName();
+    GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
     // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
     myLane.getVehiclesSecure();

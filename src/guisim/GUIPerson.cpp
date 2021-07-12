@@ -271,7 +271,7 @@ GUIPerson::getCenteringBoundary() const {
 
 void
 GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     Position p1 = getGUIPosition();
     double angle = getGUIAngle();
@@ -307,7 +307,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
         const double value = getColorValue(s, s.personColorer.getActive());
         GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
     }
-    glPopName();
+    GLHelper::popName();
 }
 
 
@@ -341,7 +341,7 @@ GUIPerson::isJammed() const {
 
 void
 GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_WALKINGAREA_PATH)) {
@@ -364,7 +364,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
         }
     }
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
 }
 
 

@@ -367,7 +367,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
         // check if container can be drawn
         if (!(s.drawForPositionSelection && (containerPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
             // push GL ID
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -390,7 +390,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix
             GLHelper::popMatrix();
             // pop name
-            glPopName();
+            GLHelper::popName();
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
             if (s.personValue.show) {

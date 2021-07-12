@@ -363,7 +363,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // obtain color
         const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -375,7 +375,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // draw additional ID
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
@@ -429,7 +429,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         // get flag for show only contour
         const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -464,7 +464,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry
@@ -623,7 +623,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             GLHelper::drawBoundary(getCenteringBoundary());
         }
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -647,7 +647,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // Pop layer matrix
         GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // push connection matrix
         GLHelper::pushMatrix();
         // translate to front

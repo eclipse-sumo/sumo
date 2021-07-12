@@ -129,7 +129,7 @@ GUIChargingStation::getCenteringBoundary() const {
 void
 GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Draw Charging Station
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
 
     // draw the area depending if the vehicle is charging
@@ -181,7 +181,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
 }
 

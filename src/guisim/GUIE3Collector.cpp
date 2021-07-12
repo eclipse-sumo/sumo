@@ -90,7 +90,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
@@ -106,7 +106,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

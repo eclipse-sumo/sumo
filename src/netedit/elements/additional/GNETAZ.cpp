@@ -254,7 +254,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        glPushName(GNETAZElement::getGlID());
+        GLHelper::pushName(GNETAZElement::getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -332,14 +332,14 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
-        glPopName();
+        GLHelper::popName();
         /* temporal */
         // draw TAZRel datas
         for (const auto& TAZRel : getChildGenericDatas()) {
             // only draw for the first TAZ
             if ((TAZRel->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (TAZRel->getParentTAZElements().front() == this)) {
                 // push name (needed for getGUIGlObjectsUnderCursor(...)
-                glPushName(TAZRel->getGlID());
+                GLHelper::pushName(TAZRel->getGlID());
                 // push matrix
                 GLHelper::pushMatrix();
                 // set custom line width
@@ -352,7 +352,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // pop matrix
                 GLHelper::popMatrix();
                 // pop name
-                glPopName();
+                GLHelper::popName();
             }
         }
         // get name position

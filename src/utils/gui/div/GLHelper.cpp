@@ -53,7 +53,8 @@
 // static member definitions
 // ===========================================================================
 
-int GLHelper::myCounterMatrix = 0;
+int GLHelper::myMatrixCounter = 0;
+int GLHelper::myNameCounter = 0;
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
 FONScontext* GLHelper::myFont = nullptr;
@@ -82,21 +83,43 @@ void APIENTRY combCallback(GLdouble coords[3],
 void 
 GLHelper::pushMatrix() {
     glPushMatrix();
-    myCounterMatrix++;
+    myMatrixCounter++;
 }
 
 
 void 
 GLHelper::popMatrix() {
     glPopMatrix();
-    myCounterMatrix--;
+    myMatrixCounter--;
 }
 
 
 void 
-GLHelper::checkMatrixCounter() {
-    if (myCounterMatrix != 0) {
+GLHelper::pushName(unsigned int name) {
+    glPushName(name);
+    myNameCounter++;
+}
+
+
+void 
+GLHelper::popName() {
+    glPopName();
+    myNameCounter--;
+}
+
+
+void 
+GLHelper::checkCounterMatrix() {
+    if (myMatrixCounter != 0) {
         WRITE_WARNING("invalid matrix counter. Check that number of pushMatrix and popMatrix functions calls are the same");
+    }
+}
+
+
+void 
+GLHelper::checkCounterName() {
+    if (myNameCounter != 0) {
+        WRITE_WARNING("invalid Name counter. Check that number of pushName and popName functions calls are the same");
     }
 }
 

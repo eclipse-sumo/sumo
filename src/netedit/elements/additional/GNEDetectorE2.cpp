@@ -256,7 +256,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                 textColor = RGBColor::BLACK;
             }
             // Start drawing adding an gl identificator
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -275,7 +275,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
-            glPopName();
+            GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);

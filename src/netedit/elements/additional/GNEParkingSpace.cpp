@@ -118,7 +118,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // check exaggeration
         if (s.drawAdditionals(parkingAreaExaggeration)) {
             // push name
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // push later matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -153,7 +153,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // pop name
-            glPopName();
+            GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedContourClosedShape

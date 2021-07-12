@@ -340,7 +340,7 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
 
 void
 GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     std::string flow = "-";
     std::string speed = "-";
     if (myCalibrator->isActive()) {
@@ -384,7 +384,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
     }
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

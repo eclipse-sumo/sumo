@@ -136,7 +136,7 @@ GUIOverheadWire::getCenteringBoundary() const {
 void
 GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     // Draw overhead wire segment
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     RGBColor lightgray(211, 211, 211, 255);
     RGBColor green(76, 170, 50, 255);
@@ -307,7 +307,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
 
 
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 }
 
@@ -352,7 +352,7 @@ GUIOverheadWireClamp::getCenteringBoundary() const {
 void
 GUIOverheadWireClamp::drawGL(const GUIVisualizationSettings& s) const {
     // Draw overhead wire segment
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     RGBColor lightgray(211, 211, 211, 255);
     RGBColor green(76, 170, 50, 255);
@@ -399,7 +399,7 @@ GUIOverheadWireClamp::drawGL(const GUIVisualizationSettings& s) const {
 
 
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 }
 

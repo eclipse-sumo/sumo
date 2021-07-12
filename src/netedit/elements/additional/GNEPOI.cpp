@@ -212,7 +212,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // obtain POIExaggeration
             const double POIExaggeration = s.poiSize.getExaggeration(s, this);
             // push name (needed for getGUIGlObjectsUnderCursor(...)
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // draw inner polygon
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT);
@@ -245,7 +245,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // pop name
-            glPopName();
+            GLHelper::popName();
         }
     }
 }

@@ -418,7 +418,7 @@ void
 GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s, this);
     if (s.scale * exaggeration >= 3) {
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         const double prob = myParent->getProbability();
         if (myEdgeType == REROUTER_CLOSED_EDGE) {
             // draw closing symbol onto all lanes
@@ -531,7 +531,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 }
             }
         }
-        glPopName();
+        GLHelper::popName();
     }
 }
 

@@ -471,9 +471,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
     const bool spreadSuperposed = s.spreadSuperposed && drawRailway && myParentEdge->getNBEdge()->isBidiRail();
     // Push edge parent name
-    glPushName(myParentEdge->getGlID());
+    GLHelper::pushName(myParentEdge->getGlID());
     // Push lane name
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     // Push layer matrix
     GLHelper::pushMatrix();
     // translate to front (note: Special case)
@@ -487,7 +487,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop draw matrix 1
         GLHelper::popMatrix();
         // Pop Lane Name
-        glPopName();
+        GLHelper::popName();
     } else {
         if ((s.scale * laneDrawingConstants.exaggeration) < 1.) {
             // draw lane as line, depending of myShapeColors
@@ -536,9 +536,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop layer matrix
         GLHelper::popMatrix();
         // Pop lane Name
-        glPopName();
+        GLHelper::popName();
         // Pop edge Name
-        glPopName();
+        GLHelper::popName();
         // only draw links number depending of the scale and if isn't being drawn for selecting
         if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             // draw link number

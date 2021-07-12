@@ -172,7 +172,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
         // Start drawing adding an gl identificator
         if (!onlyDrawContour) {
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
         }
         // Add a draw matrix
         GLHelper::pushMatrix();
@@ -196,7 +196,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         GLHelper::popMatrix();
         // Pop name
         if (!onlyDrawContour) {
-            glPopName();
+            GLHelper::popName();
         }
         // draw filtered attribute
         if (getParentEdges().front()->getLanes().front() == lane) {

@@ -374,7 +374,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // only continue if exaggeration is greather than 0
     if (junctionExaggeration > 0) {
         // push junction name
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -486,7 +486,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer Matrix
             GLHelper::popMatrix();
             // pop junction name
-            glPopName();
+            GLHelper::popName();
             // draw name and ID
             if (!s.drawForRectangleSelection) {
                 drawName(myNBNode->getPosition(), s.scale, s.junctionID);

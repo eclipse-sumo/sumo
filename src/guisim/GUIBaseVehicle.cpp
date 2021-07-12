@@ -394,7 +394,7 @@ GUIBaseVehicle::getOptionalName() const {
 
 void
 GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const double angle) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     Position p1 = pos;
     const double degAngle = RAD2DEG(angle + M_PI / 2.);
@@ -600,7 +600,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     }
 
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
     drawAction_drawPersonsAndContainers(s);
 }
 
@@ -616,7 +616,7 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
     if (!myVehicle.isOnRoad()) {
         drawGL(s);
     }
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
@@ -644,7 +644,7 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
         drawAction_drawLinkItems(s);
     }
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
 }
 
 
@@ -852,7 +852,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
         }
     }
 #ifdef DRAW_BOUNDING_BOX
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     PositionVector boundingBox = getBoundingBox();
@@ -864,7 +864,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
     GLHelper::drawLine(smallBB);
     //GLHelper::drawBoxLines(getBoundingBox(), 0.5);
     GLHelper::popMatrix();
-    glPopName();
+    GLHelper::popName();
 #endif
 }
 

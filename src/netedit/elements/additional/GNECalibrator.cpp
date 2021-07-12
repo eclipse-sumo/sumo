@@ -149,7 +149,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         if (s.drawAdditionals(exaggeration)) {
             // begin push name
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // draw first symbol
             drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
             // continue with the other symbols
@@ -157,7 +157,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
                 drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
             }
             // pop name
-            glPopName();
+            GLHelper::popName();
         }
         // draw additional ID
         drawAdditionalID(s);

@@ -136,7 +136,7 @@ GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
 void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // push name
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -154,7 +154,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // pop layer matrix
     GLHelper::popMatrix();
     // pop name
-    glPopName();
+    GLHelper::popName();
 }
 
 

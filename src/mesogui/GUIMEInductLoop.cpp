@@ -112,7 +112,7 @@ GUIMEInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     glPolygonOffset(0, -2);
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
@@ -160,7 +160,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

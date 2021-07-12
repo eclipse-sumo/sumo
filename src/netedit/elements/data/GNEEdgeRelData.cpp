@@ -134,7 +134,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
         // Start drawing adding an gl identificator
         if (!onlyDrawContour) {
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
         }
         // Add a draw matrix
         GLHelper::pushMatrix();
@@ -158,7 +158,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         GLHelper::popMatrix();
         // Pop name
         if (!onlyDrawContour) {
-            glPopName();
+            GLHelper::popName();
         }
         // draw filtered attribute
         if (getParentEdges().front()->getLanes().front() == lane) {
@@ -185,7 +185,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 (getParentEdges().front() != getParentEdges().back())) {
             // Start drawing adding an gl identificator
             if (!onlyDrawContour) {
-                glPushName(getGlID());
+                GLHelper::pushName(getGlID());
             }
             // draw lanes
             const auto fromLanes = fromLane->getParentEdge()->getLanes();
@@ -239,7 +239,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             }
             // Pop name
             if (!onlyDrawContour) {
-                glPopName();
+                GLHelper::popName();
             }
             // draw dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {

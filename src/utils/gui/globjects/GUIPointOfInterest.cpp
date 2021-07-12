@@ -91,11 +91,11 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     // check if POI can be drawn
     if (checkDraw(s, this)) {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // draw inner polygon
         drawInnerPOI(s, this, this, false, getShapeLayer());
         // pop name
-        glPopName();
+        GLHelper::popName();
     }
 }
 

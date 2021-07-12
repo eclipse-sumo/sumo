@@ -156,7 +156,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         //    storeTesselation(s.polySize.getExaggeration(s));
         //}
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // draw inner polygon
         if (myRotatedShape) {
             drawInnerPolygon(s, this, this, *myRotatedShape, getShapeLayer(), false);
@@ -164,7 +164,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
             drawInnerPolygon(s, this, this, myShape, getShapeLayer(), false);
         }
         // pop name
-        glPopName();
+        GLHelper::popName();
     }
 }
 

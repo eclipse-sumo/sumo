@@ -109,7 +109,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Push layer matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -218,7 +218,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator
-        glPopName();
+        GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
     }

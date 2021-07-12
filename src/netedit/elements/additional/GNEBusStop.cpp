@@ -91,7 +91,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 signColor = s.stoppingPlaceSettings.busStopColorSign;
             }
             // Start drawing adding an gl identificator
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
             // Add a draw matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -112,7 +112,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             GLHelper::popMatrix();
             // Pop name
-            glPopName();
+            GLHelper::popName();
             // draw connection betwen access
             drawConnectionAccess(s, baseColor);
             // check if dotted contours has to be drawn

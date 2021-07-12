@@ -348,7 +348,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -364,7 +364,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // check if we have to draw a red line to the next segment
         if (segment->getNextSegment()) {
             // push draw matrix
@@ -420,7 +420,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -432,7 +432,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || dottedElement) {
             // check if exist lane2lane connection

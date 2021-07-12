@@ -299,7 +299,8 @@ GUISUMOAbstractView::paintGL() {
 
     Boundary bound = applyGLTransform();
     doPaintGL(GL_RENDER, bound);
-    GLHelper::checkMatrixCounter();
+    GLHelper::checkCounterMatrix();
+    GLHelper::checkCounterName();
     displayLegends();
     const long end = SysUtils::getCurrentMillis();
     myFrameDrawTime = end - start;
@@ -1543,7 +1544,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
 
 void
 GUISUMOAbstractView::drawDecals() {
-    glPushName(0);
+    GLHelper::pushName(0);
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l = myDecals.begin(); l != myDecals.end(); ++l) {
         GUISUMOAbstractView::Decal& d = *l;
@@ -1584,7 +1585,7 @@ GUISUMOAbstractView::drawDecals() {
         GLHelper::popMatrix();
     }
     myDecalsLock.unlock();
-    glPopName();
+    GLHelper::popName();
 }
 
 

@@ -105,7 +105,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             centralLineColor = RGBColor::WHITE;
         }
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add layer matrix matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -145,7 +145,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // pop layer matrix
         GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn

@@ -254,7 +254,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             stopColor = s.colorSettings.stops;
         }
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // set Color
@@ -321,7 +321,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
         }
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
             getParentDemandElements().front()->drawGL(s);
