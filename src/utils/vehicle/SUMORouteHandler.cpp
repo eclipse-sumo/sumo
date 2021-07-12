@@ -401,6 +401,9 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_STARTPOS)) {
         stop.parametersSet |= STOP_START_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_POSITION_LAT)) {
+        stop.parametersSet |= STOP_POSLAT_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
         stop.parametersSet |= STOP_TRIGGER_SET;
     }
@@ -531,6 +534,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
     stop.started = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1);
     stop.ended = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1);
+    stop.posLat = attrs.getOpt<double>(SUMO_ATTR_POSITION_LAT, nullptr, ok, INVALID_DOUBLE);
     return true;
 }
 

@@ -8,11 +8,10 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.00,3.60,55.00,23.60
 Error: Attribute 'length' in definition of parkingArea 'parkingArea_1' is not of type float.
-Debug: Adding parkingArea 'parkingArea_2' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_2 into SUMORTree with boundary 2.00,3.60,51.00,23.60
+Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute length cannot be negative.
 Debug: Adding parkingArea 'parkingArea_3' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_3 into SUMORTree with boundary -0.00,3.60,49.00,23.60
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun095412.18776\netedit.gui\additionalElements\parkingarea\load\lenght\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.29Jun113700.7052\netedit.gui\additionalElements\parkingarea\load\lenght\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -30,8 +29,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced parkingArea 'parkingArea_3'
 GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary -0.00,3.60,49.00,23.60
-Debug: Deleting unreferenced parkingArea 'parkingArea_2'
-GLDebug: 	Removed object parkingArea:parkingArea_2 from SUMORTree with boundary 2.00,3.60,51.00,23.60
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.00,3.60,55.00,23.60
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

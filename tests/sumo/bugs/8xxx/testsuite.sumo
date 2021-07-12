@@ -9,3 +9,6 @@ ticket8404
 
 # vehicle briefly invisible (at time 1.2)
 ticket8749
+
+# invalid deceleration
+ticket8798

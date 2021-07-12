@@ -328,6 +328,12 @@ extern bool isRailway(SVCPermissions permissions);
  */
 extern bool isTram(SVCPermissions permissions);
 
+/** @brief Returns whether an edge with the given permission is a bicycle edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a bicycle edge
+ */
+extern bool isBikepath(SVCPermissions permissions);
+
 /** @brief Returns whether an edge with the given permission is a waterway edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a waterway edge

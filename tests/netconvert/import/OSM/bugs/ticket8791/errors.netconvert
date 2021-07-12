@@ -1,0 +1,30 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '9261006').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '11645842').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '19431425').
+Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '203574457').
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 216083 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 233378 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1526252 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1817063 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2141597 are ignored
+Warning: No way found for reference '264888946' in relation '3559808'
+Warning: Ignoring restriction relation '3559808' with unknown from-way.
+Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
+Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
+Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
+Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
+Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
+Warning: PT stop '1792502642' has been moved to edge '-76424358'.
+Warning: PT stop '8341032348' has been moved to edge '-19431426#9'.
+Warning: PT stop '2705494849' has been moved to edge '-39546438'.
+Warning: PT stop '1711953916' has been moved to edge '-11646390'.
+Warning: Cannot assign stop 1711974496 on edge '206357901' to pt line '3651123'. Ignoring!
+Warning: Found sharp turn with radius 6.32 at the start of edge '-387523449'.
+Warning: Found sharp turn with radius 7.22 at the start of edge '-848475453'.
+Warning: Found sharp turn with radius 7.22 at the end of edge '848475453'.
+Warning: The traffic light '2696124617' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2696124617'
+Warning: The traffic light '665421850' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '665421850'
+Warning: 23 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
+Warning: 26 total messages of type: Incomplete route for pt line '%'%.

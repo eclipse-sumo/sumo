@@ -67,6 +67,9 @@ public:
     /// @brief Destructor
     ~MSRailSignal();
 
+    /**@brief Sets a parameter and updates internal constants */
+    void setParameter(const std::string& key, const std::string& value);
+
     /** @brief Adds a link on building
      * @param[in] link The controlled link
      * @param[in] lane The lane this link starts at
@@ -407,6 +410,9 @@ protected:
         /// @brief try rerouting vehicle if reservation failed
         void reroute(SUMOVehicle* veh, const MSEdgeVector& occupied);
 
+        /// @brief init LinkInfo
+        void reset();
+
         SUMOTime myLastRerouteTime;
         SUMOVehicle* myLastRerouteVehicle;
     };
@@ -449,6 +455,9 @@ protected:
 
     /// @brief MSTrafficLightLogic requires that the phase index changes whenever signals change their state
     int myPhaseIndex;
+
+    /// @brief whether the signal is in moving block mode (only protects from oncoming and flanking trains)
+    bool myMovingBlock;
 
     /// @brief map from tripId to constraint list
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;

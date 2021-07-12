@@ -277,18 +277,14 @@ private:
     /** @brief the map from OSM way ids to platform shapes */
     std::map<long long int, Edge*> myPlatformShapes;
 
-    /** @brief the map from stop_area relations to member node */
-    std::map<long long int, std::set<long long int> > myStopAreas;
-
     /// @brief The compounds types that do not contain known types
     std::set<std::string> myUnusableTypes;
 
     /// @brief The compound types that have already been mapped to other known types
     std::map<std::string, std::string> myKnownCompoundTypes;
 
-    /// @brief import lane specifc access restrictions
+    /// @brief import lane specific access restrictions
     bool myImportLaneAccess;
-
 
     /** @brief Builds an NBNode
      *
@@ -349,7 +345,6 @@ protected:
      * @class NodesHandler
      * @brief A class which extracts OSM-nodes from a parsed OSM-file
      */
-    friend class NodesHandler;
     class NodesHandler : public SUMOSAXHandler {
     public:
         /** @brief Contructor
@@ -501,6 +496,9 @@ protected:
         /// @brief extra attributes to import
         std::set<std::string> myExtraAttributes;
 
+        /// @brief import bike path specific permissions and directions
+        bool myImportBikeAccess;
+
 
     private:
         /** @brief invalidated copy constructor */
@@ -630,6 +628,9 @@ protected:
         /// @brief bus stop references
         std::vector<long long int> myStops;
 
+        /// @brief myStops which are actually platforms (in case there is no stop_position)
+        std::set<long long int> myPlatformStops;
+
 
         struct NIIPTPlatform {
             long long int ref;
@@ -662,6 +663,10 @@ protected:
 
         /// @brief night service information of the pt line
         std::string myNightService;
+
+        /** @brief the map from stop area member to stop_area id */
+        std::map<long long int, long long int > myStopAreas;
+
     };
 
 };

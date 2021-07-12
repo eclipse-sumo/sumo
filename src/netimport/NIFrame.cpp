@@ -192,6 +192,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.lane-access", new Option_Bool(false));
     oc.addDescription("osm.lane-access", "Formats", "Import lane-specific access restrictions");
 
+    oc.doRegister("osm.bike-access", new Option_Bool(false));
+    oc.addDescription("osm.bike-access", "Formats", "Check additional attributes to fix directions and permissions on bike paths");
+
     oc.doRegister("osm.stop-output.length", new Option_Float(25));
     oc.addDescription("osm.stop-output.length", "Formats", "The default length of a public transport stop in FLOAT m");
     oc.doRegister("osm.stop-output.length.bus", new Option_Float(15));
@@ -204,7 +207,7 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.all-attributes", new Option_Bool(false));
     oc.addDescription("osm.all-attributes", "Formats", "Whether additional attributes shall be imported");
 
-    oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({"bridge", "tunnel", "layer", "postal_code"})));
+    oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({ "bridge", "tunnel", "layer", "postal_code" })));
     oc.addDescription("osm.extra-attributes", "Formats", "List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all)");
 
 

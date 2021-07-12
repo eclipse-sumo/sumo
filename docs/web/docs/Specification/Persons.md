@@ -138,6 +138,7 @@ They are child elements of plan definitions.
 | _speed_    | float(m/s) | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
 | _departPos_| float(m)   |                    | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
 | arrivalPos | float(m)   |                    | middle of edge  | arrival position on the destination edge                                        |
+| departPosLat | float(m)   |                    | right side in walking direction  | custom lateral position on lane at departure |
 
 You can define either a `route`-id, or a list of `edges` to travel or a `from` and a `to` edge.
 In the first and second case the route edges are traveled in the listed

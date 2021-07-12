@@ -38,16 +38,16 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(9, "reference center")
 
 # create trainStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 233, 235)
 
 # change to move mode
 netedit.moveMode()
 
 # move trainStop to right
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 233, 260, 371, 260)
 
 # move trainStop back
-netedit.moveElement(referencePosition, 350, 250, 250, 250)
+netedit.moveElement(referencePosition, 371, 260, 277, 260)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

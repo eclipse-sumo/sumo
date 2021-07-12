@@ -800,15 +800,16 @@ Vehicle::add(const std::string& vehID,
 
 void
 Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex,
-                  const double x, const double y, double angle, const int keepRoute) {
+                  const double x, const double y, double angle, const int keepRoute, double matchThreshold) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 6);
+    StoHelp::writeCompound(content, 7);
     StoHelp::writeTypedString(content, edgeID);
     StoHelp::writeTypedInt(content, laneIndex);
     StoHelp::writeTypedDouble(content, x);
     StoHelp::writeTypedDouble(content, y);
     StoHelp::writeTypedDouble(content, angle);
     StoHelp::writeTypedByte(content, keepRoute);
+    StoHelp::writeTypedDouble(content, matchThreshold);
     Dom::set(libsumo::MOVE_TO_XY, vehID, &content);
 }
 

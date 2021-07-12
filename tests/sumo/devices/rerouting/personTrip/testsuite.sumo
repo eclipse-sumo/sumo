@@ -1,6 +1,9 @@
 # test attributes fromJunction toJunction and viaJunctions
 junctionTaz
 
+# test routing on shared roads
+opposite-factor
+
 # Copy of basic
 basic
 

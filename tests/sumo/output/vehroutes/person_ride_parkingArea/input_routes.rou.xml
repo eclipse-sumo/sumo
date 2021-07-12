@@ -5,6 +5,6 @@
 		<stop busStop="end_0" until="210"/>
 	</trip>
     <person id="p0" depart="0">
-        <ride from="beg" parkingArea="pEnd" modes="public" lines="car"/>
+        <ride from="beg" parkingArea="pEnd" lines="car"/>
     </person>
 </routes>

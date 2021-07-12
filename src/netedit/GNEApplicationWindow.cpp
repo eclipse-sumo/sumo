@@ -1682,8 +1682,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         }
         // now check if additionals must be loaded and are saved
         if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getNumberOfAdditionals() > 0) &&
-                (myViewNet->getNet()->isAdditionalsSaved() == false)) {
+                (myViewNet->getNet()->getNumberOfAdditionals() > 0)) {
             // save additionals
             onCmdSaveAdditionals(nullptr, 0, nullptr);
             // check if additionals were sucesfully saved. If not, abort
@@ -1693,8 +1692,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         }
         // finally check if demand elements must be loaded and are saved
         if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getNumberOfDemandElements() > 0) &&
-                (myViewNet->getNet()->isDemandElementsSaved() == false)) {
+                (myViewNet->getNet()->getNumberOfDemandElements() > 0)) {
             // save additionals
             onCmdSaveDemandElements(nullptr, 0, nullptr);
             // check if demand elements were sucesfully saved. If not, abort

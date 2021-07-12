@@ -1311,7 +1311,9 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
                 std::cout << "        partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
             }
 #endif
-            ahead.addLeader(*vehPart, false, latOffset);
+            if (!(MSGlobals::gLaneChangeDuration > 0 && (*vehPart)->getLaneChangeModel().isOpposite() && (*vehPart)->getLateralOverlap() < NUMERICAL_EPS)) {
+                ahead.addLeader(*vehPart, false, latOffset);
+            }
             ++vehPart;
             morePartialVehsAhead = vehPart != myPartialVehicles.rend();
         } else {
@@ -1561,7 +1563,8 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                           << "\n";
             }
 #endif
-            if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())) {
+            if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())
+                    && collider->getBoundingPoly().overlapsWith((*it_p)->getBoundingBox())) {
                 std::string collisionType = "junctionPedestrian";
                 if (foeLane->getEdge().isCrossing()) {
                     collisionType = "crossing";

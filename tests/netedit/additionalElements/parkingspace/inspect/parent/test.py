@@ -61,13 +61,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 275)
 
 # Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(8, "dummyParent", False)
+netedit.modifyAttribute(9, "dummyParent", False)
 
 # Change parameter 8 with a non valid value (empty)
-netedit.modifyAttribute(8, "", False)
+netedit.modifyAttribute(9, "", False)
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "parkingArea_gneE2_1_1", False)
+netedit.modifyAttribute(9, "parkingArea_gneE2_1_1", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

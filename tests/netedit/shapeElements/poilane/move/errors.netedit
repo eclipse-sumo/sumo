@@ -1,8 +1,9 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiLane' in TagSelector
 Debug: Adding poiLane 'poi_0' into viewNet
-Debug: Setting new attribute pos '29.00' into poiLane 'poi_0'
+Debug: Setting new attribute pos '28.00' into poiLane 'poi_0'
 Debug: Setting new attribute pos '39.00' into poiLane 'poi_0'
 Debug: Setting new attribute pos '34.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -10,7 +11,7 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '39.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '29.00' into poiLane 'poi_0'
+Debug: Setting previous attribute pos '28.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '44.00' into poiLane 'poi_0'
@@ -22,7 +23,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding poiLane 'poi_0' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '29.00' into poiLane 'poi_0'
+Debug: Setting new attribute pos '28.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute pos '39.00' into poiLane 'poi_0'

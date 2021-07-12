@@ -61,6 +61,9 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
         out.writeAttr(SUMO_ATTR_LINEWIDTH, getLineWidth());
     }
     out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer());
+    if (!getShapeName().empty()) {
+        out.writeAttr(SUMO_ATTR_NAME, getShapeName());
+    }
     PositionVector shape = getShape();
     if (geo) {
         out.writeAttr(SUMO_ATTR_GEO, true);

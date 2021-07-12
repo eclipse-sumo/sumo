@@ -1592,7 +1592,7 @@ class VehicleDomain(Domain):
            Reasons are defined in module constants and start with REMOVE_'''
         self._setCmd(tc.REMOVE, vehID, "b", reason)
 
-    def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1):
+    def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
         '''Place vehicle at the given x,y coordinates and force it's angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
@@ -1602,8 +1602,11 @@ class VehicleDomain(Domain):
         any edge in the network but it's route then only consists of that edge.
         If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
-        edgeID and lane are optional placement hints to resolve ambiguities'''
-        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddb", 6, edgeID, lane, x, y, angle, keepRoute)
+        edgeID and lane are optional placement hints to resolve ambiguities.
+        The command fails if no suitable target position is found within the
+        distance given by matchThreshold.
+        '''
+        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddbd", 7, edgeID, lane, x, y, angle, keepRoute, matchThreshold)
 
     def addSubscriptionFilterLanes(self, lanes, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLanes(list(integer), bool, double, double) -> None

@@ -76,6 +76,19 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing access 'busStopB' in GNEChange_Additional
+Debug: Removing busStop 'busStopB' in GNEChange_Additional
+Debug: Removing access 'busStopA' in GNEChange_Additional
+Debug: Removing busStop 'busStopA' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding busStop 'busStopA' in GNEChange_Additional
+Debug: Adding access 'busStopA' in GNEChange_Additional
+Debug: Adding busStop 'busStopB' in GNEChange_Additional
+Debug: Adding access 'busStopB' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -114,6 +127,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into access 'busStopA'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into access 'busStopB'
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

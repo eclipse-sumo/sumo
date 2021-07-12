@@ -40,8 +40,11 @@ netedit.selectionInvertDemand()
 # go to inspect mode
 netedit.inspectMode()
 
+# apply zoom
+netedit.setZoom("14", "17", "12") 
+
 # inspect vehicle
-netedit.leftClick(referencePosition, 112, 394)
+netedit.leftClick(referencePosition, 330, 150)
 
 # change arrivalPos with an invalid value
 netedit.modifyAttribute(7, "", True)

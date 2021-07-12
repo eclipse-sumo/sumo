@@ -121,3 +121,6 @@ ticket7761
 
 # traffic light corruption when using option --geometry.remove
 ticket8413
+
+# turnaround in input ignored
+ticket8796

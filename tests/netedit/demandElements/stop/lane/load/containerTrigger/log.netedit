@@ -1,0 +1,9 @@
+Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane '' in route ''.
+Error: Attribute 'containerTriggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane '' in route ''.
+Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane '' in route ''.
+Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane '' in route ''.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.lane.02Jul080812.2562/netedit.daily.demand.stop.lane/demandElements/stop/lane/load/containerTrigger/input_routes.rou.xml failed.

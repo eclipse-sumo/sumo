@@ -44,7 +44,7 @@ For this tutorial we imported the network of Eichwalde with the osmWebWizard too
 There are several sources for GTFS data usually on the website of you local
 transit agency. [Some examples from Germany](https://gist.github.com/highsource/67d0846029a43ea28dfd90540bacb1ee):
 
-- [Berlin and Brandenburg (VBB)](https://www.vbb.de/unsere-themen/vbbdigital/api-entwicklerinfos/datensaetze)
+- [Berlin and Brandenburg (VBB)](https://www.vbb.de/vbb-services/api-open-data/datensaetze/)
 - [Lower Saxony and Bremen](https://www.vbn.de/service/entwicklerinfos/)
 - [Hamburg](https://suche.transparenz.hamburg.de/?q=gtfs)
 

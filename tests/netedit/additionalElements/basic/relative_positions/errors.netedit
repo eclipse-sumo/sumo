@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE1_1' in GNEChange_Additional
@@ -13,6 +14,7 @@ Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additio
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Setting new attribute length '25' into edge 'gneE1'
@@ -29,6 +31,7 @@ Debug: Setting new attribute endPos '25.00' into chargingStation 'chargingStatio
 Debug: Additionals saved after dialog
 Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
 Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
+Debug: Deleting unreferenced vaporizer 'gneE1'
 Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Debug: Deleting unreferenced rerouterSymbol 'rerouter_0'
 Debug: Deleting unreferenced rerouter 'rerouter_0'

@@ -809,7 +809,7 @@ Person::moveTo(const std::string& personID, const std::string& edgeID, double /*
 
 
 void
-Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute) {
+Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute, double matchThreshold) {
     MSPerson* p = getPerson(personID);
     const bool doKeepRoute = (keepRoute & 1) != 0;
     const bool mayLeaveNetwork = (keepRoute & 2) != 0;
@@ -842,7 +842,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     double bestDistance = std::numeric_limits<double>::max();
     int routeOffset = 0;
     bool found = false;
-    double maxRouteDistance = 100;
+    double maxRouteDistance = matchThreshold;
 
     ConstMSEdgeVector ev;
     ev.push_back(p->getEdge());

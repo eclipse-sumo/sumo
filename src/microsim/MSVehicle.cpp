@@ -1723,6 +1723,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 
                 boardTransportables(stop);
+                if (stop.pars.posLat != INVALID_DOUBLE) {
+                    myState.myPosLat = stop.pars.posLat;
+                }
             }
         }
     }
@@ -1999,7 +2002,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         laneMaxV = std::numeric_limits<double>::max();
     }
     // v is the initial maximum velocity of this vehicle in this step
-    double v = MIN2(maxV, laneMaxV);
+    double v = cfModel.maximumLaneSpeedCF(maxV, laneMaxV);
     // if we are modelling parking then we dawdle until the manoeuvre is complete - by setting a very low max speed
     //   in practice this only applies to exit manoeuvre because entry manoeuvre just delays setting stop.reached - when the vehicle is virtually stopped
     if (MSGlobals::gModelParkingManoeuver && !manoeuvreIsComplete()) {
@@ -5065,7 +5068,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     int seen = 0;
     double seenLength = 0;
     bool progress = true;
-    const double maxBrakeDist = getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap();
+    // bestLanes must cover the braking distance even when at the very end of the current lane to avoid unecessary slow down
+    const double maxBrakeDist = startLane->getLength() + getCarFollowModel().getHeadwayTime() * getMaxSpeed() + getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap();
     for (MSRouteIterator ce = myCurrEdge; progress;) {
         std::vector<LaneQ> currentLanes;
         const std::vector<MSLane*>* allowed = nullptr;
@@ -5381,8 +5385,12 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
         return lanes;
     }
 
-    distance += getPositionOnLane();
-    MSLane* lane = myLane;
+    if (!myLaneChangeModel->isOpposite()) {
+        distance += getPositionOnLane();
+    } else {
+        distance += myLane->getOppositePos(getPositionOnLane());
+    }
+    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getOpposite() : myLane;
     while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();
@@ -5447,8 +5455,12 @@ MSVehicle::getPastLanesUntil(double distance) const {
     }
 
     MSRouteIterator routeIt = myCurrEdge;
-    distance += myLane->getLength() - getPositionOnLane();
-    MSLane* lane = myLane;
+    if (!myLaneChangeModel->isOpposite()) {
+        distance += myLane->getLength() - getPositionOnLane();
+    } else {
+        distance += myLane->getOpposite()->getLength() - myLane->getOppositePos(getPositionOnLane());
+    }
+    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getOpposite() : myLane;
     while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();

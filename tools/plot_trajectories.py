@@ -43,8 +43,8 @@ from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select two letters from [t, s, d, a, i, x, y] to plot"
-                         + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position."
+                         help="select two letters from [t, s, d, a, i, x, y, k] to plot"
+                         + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position, Kilometrage."
                          + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("--persons", action="store_true", default=False, help="plot person trajectories")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
@@ -119,6 +119,7 @@ def main(options):
         'i': ('Angle', 4),
         'x': ('x-Position', 5),
         'y': ('y-Position', 6),
+        'k': ('kilometrage', 7),
     }
 
     shortFileNames = short_names(options.fcdfiles)
@@ -140,11 +141,17 @@ def main(options):
         location = 'edge'
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
-    data = defaultdict(lambda: ([], [], [], [], [], [], []))
+    # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions, kilometrage)
+    attrs = ['id', 'x', 'y', 'angle', 'speed', location]
+    if 'k' in options.ttype:
+        attrs.append('distance')
+    data = defaultdict(lambda: tuple(([] for i in range(len(attrs) + 1))))
     for fileIndex, fcdfile in enumerate(options.fcdfiles):
+        totalVehs = 0
+        filteredVehs = 0
         for timestep, vehicle in parse_fast_nested(fcdfile, 'timestep', ['time'],
-                                                   element, ['id', 'x', 'y', 'angle', 'speed', location]):
+                                                   element, attrs):
+            totalVehs += 1
             vehID = vehicle.id
             if options.filterIDs and vehID not in options.filterIDs:
                 continue
@@ -174,6 +181,8 @@ def main(options):
             data[vehID][4].append(float(vehicle.angle))
             data[vehID][5].append(float(vehicle.x))
             data[vehID][6].append(float(vehicle.y))
+            if 'k' in options.ttype:
+                data[vehID][7].append(float(vehicle.distance))
             if prevTime == time:
                 data[vehID][3].append(0)
             else:
@@ -184,6 +193,10 @@ def main(options):
             else:
                 avgSpeed = speed
             data[vehID][2].append(prevDist + (time - prevTime) * avgSpeed)
+            filteredVehs += 1
+        if totalVehs == 0 or filteredVehs == 0 or options.verbose:
+            print("Found %s datapoints in %s and kept %s" % (
+                totalVehs, fcdfile, filteredVehs))
 
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
@@ -207,6 +220,7 @@ def main(options):
     maxY = uMin
     minX = uMax
     maxX = uMin
+
 
     for vehID, d in data.items():
         if options.filterRoute is not None:

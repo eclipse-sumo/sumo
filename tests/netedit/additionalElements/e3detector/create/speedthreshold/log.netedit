@@ -1,3 +1,1 @@
-Warning: An e3Detector need at least one detEntry detector
-Warning: An e3Detector need at least one detExit detector
-Warning: e3Detector with ID='e3Detector_1' cannot be written
+Error: Could not build e3Detector with ID 'e3Detector_0' in netedit; attribute speedThreshold cannot be negative.

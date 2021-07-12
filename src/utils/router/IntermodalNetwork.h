@@ -44,30 +44,6 @@
 
 
 // ===========================================================================
-// function definitions
-// ===========================================================================
-template <class E, class L>
-inline const L* getSidewalk(const E* edge) {
-    if (edge == nullptr) {
-        return nullptr;
-    }
-    // prefer lanes that are exclusive to pedestrians
-    const std::vector<L*>& lanes = edge->getLanes();
-    for (const L* const lane : lanes) {
-        if (lane->getPermissions() == SVC_PEDESTRIAN) {
-            return lane;
-        }
-    }
-    for (const L* const lane : lanes) {
-        if (lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
-            return lane;
-        }
-    }
-    return nullptr;
-}
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /// @brief the intermodal network storing edges, connections and the mappings to the "real" edges

@@ -216,42 +216,48 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
     }
     SUMOTime firstEventOffset = 0;
     int step = 0;
-    MSTrafficLightLogic* existing = nullptr;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
-    if (myLogicType != TrafficLightType::RAIL_SIGNAL && myLogicType != TrafficLightType::RAIL_CROSSING) {
-        if (myAbsDuration == 0) {
-            existing = getTLLogicControlToUse().get(myActiveKey, myActiveProgram);
-            if (existing == nullptr) {
-                throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
-            } else {
-                // only modify the offset of an existing logic
-                myAbsDuration = existing->getDefaultCycleTime();
-                i = existing->getPhases().begin();
+    MSTrafficLightLogic* existing = getTLLogicControlToUse().get(myActiveKey, myActiveProgram);
+    if (existing != nullptr && (existing->getLogicType() == TrafficLightType::RAIL_SIGNAL || existing->getLogicType() == TrafficLightType::RAIL_CROSSING)) {
+        existing->updateParameters(myAdditionalParameter);
+        return;
+    } else {
+        if (myLogicType != TrafficLightType::RAIL_SIGNAL && myLogicType != TrafficLightType::RAIL_CROSSING) {
+            if (myAbsDuration == 0) {
+                if (existing == nullptr) {
+                    throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
+                } else {
+                    // only modify the offset of an existing logic
+                    myAbsDuration = existing->getDefaultCycleTime();
+                    i = existing->getPhases().begin();
+                }
+            } else if (existing != nullptr) {
+                throw InvalidArgument("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
             }
-        }
-        // compute the initial step and first switch time of the tls-logic
-        // a positive offset delays all phases by x (advance by absDuration - x) while a negative offset advances all phases by x seconds
-        // @note The implementation of % for negative values is implementation defined in ISO1998
-        SUMOTime offset; // the time to run the traffic light in advance
-        if (myOffset >= 0) {
-            offset = (myNet.getCurrentTimeStep() + myAbsDuration - (myOffset % myAbsDuration)) % myAbsDuration;
-        } else {
-            offset = (myNet.getCurrentTimeStep() + ((-myOffset) % myAbsDuration)) % myAbsDuration;
-        }
-        while (offset >= (*i)->duration) {
-            step++;
-            offset -= (*i)->duration;
-            ++i;
-        }
-        firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
-        if (existing != nullptr) {
-            existing->changeStepAndDuration(getTLLogicControlToUse(),
-                                            myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
-            // parameters that are used when initializing a logic will not take
-            // effect but parameters that are checked at runtime can be used
-            // here (i.e. device.glosa.range)
-            existing->updateParameters(myAdditionalParameter);
-            return;
+            // compute the initial step and first switch time of the tls-logic
+            // a positive offset delays all phases by x (advance by absDuration - x) while a negative offset advances all phases by x seconds
+            // @note The implementation of % for negative values is implementation defined in ISO1998
+            SUMOTime offset; // the time to run the traffic light in advance
+            if (myOffset >= 0) {
+                offset = (myNet.getCurrentTimeStep() + myAbsDuration - (myOffset % myAbsDuration)) % myAbsDuration;
+            } else {
+                offset = (myNet.getCurrentTimeStep() + ((-myOffset) % myAbsDuration)) % myAbsDuration;
+            }
+            while (offset >= (*i)->duration) {
+                step++;
+                offset -= (*i)->duration;
+                ++i;
+            }
+            firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
+            if (existing != nullptr) {
+                existing->changeStepAndDuration(getTLLogicControlToUse(),
+                        myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
+                // parameters that are used when initializing a logic will not take
+                // effect but parameters that are checked at runtime can be used
+                // here (i.e. device.glosa.range)
+                existing->updateParameters(myAdditionalParameter);
+                return;
+            }
         }
     }
 

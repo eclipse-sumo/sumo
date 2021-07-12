@@ -32,25 +32,25 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # select second POI
-netedit.leftClick(referencePosition, 153, 67)
+netedit.leftClick(referencePosition, 153, 57)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 103, 67)
+netedit.leftClick(referencePosition, 103, 57)
 
 # Change parameter 8 with a non valid value (invalid)
-netedit.modifyAttribute(6, "%$$%%%%%", False)
+netedit.modifyAttribute(7, "%$$%%%%%", False)
 
 # Change parameter 8 with a non valid value (no exist)
-netedit.modifyAttribute(6, "paris.ico", False)
+netedit.modifyAttribute(7, "paris.ico", False)
 
 # Change parameter 8 with a valid value (valid)
-netedit.modifyAttribute(6, "berlin_icon.ico", False)
+netedit.modifyAttribute(7, "berlin_icon.ico", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

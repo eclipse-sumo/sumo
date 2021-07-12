@@ -190,8 +190,14 @@ MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
     const bool closeLater = myWriteStopPriorEdges || mySaveExits;
     stop.write(myStopOut, !closeLater);
     if (myWriteStopPriorEdges) {
+        // calculate length
+        double priorEdgesLength = 0;
+        for (const auto &edge : myPriorEdges) {
+            priorEdgesLength += edge->getLength();
+        }
         myStopOut.writeAttr("priorEdges", myPriorEdges);
         myPriorEdges.clear();
+        myStopOut.writeAttr("priorEdgesLength", priorEdgesLength);
     }
     if (mySaveExits) {
         myStopOut.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));

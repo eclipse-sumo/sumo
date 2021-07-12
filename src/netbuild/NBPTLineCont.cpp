@@ -75,7 +75,10 @@ void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
             }
         }
         line->deleteInvalidStops(ec, sc);
-        line->deleteDuplicateStops();
+        //line->deleteDuplicateStops();
+        for (NBPTStop* stop : line->getStops()) {
+            myServedPTStops.insert(stop->getID());
+        }
     }
 }
 
@@ -158,10 +161,16 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
                 WRITE_WARNINGF("Could not re-assign PT stop '%', probably broken osm file.", stop->getID());
                 continue;
             }
+            if (stop->getLines().size() > 0) {
+                NBPTStop* reverseStop = sc.getReverseStop(stop, ec);
+                sc.insert(reverseStop);
+                line->replaceStop(stop, reverseStop);
+                stop = reverseStop;
+            } else {
+                WRITE_WARNINGF("PT stop '%' has been moved to edge '%'.", stop->getID(), reverse->getID());
+            }
             stop->setEdgeId(reverse->getID(), ec);
-            WRITE_WARNINGF("PT stop '%' has been moved to edge '%'.", stop->getID(), reverse->getID());
         }
-        myServedPTStops.insert(stop->getID());
         stop->addLine(line->getRef());
     }
 }
@@ -181,7 +190,6 @@ void NBPTLineCont::reviseSingleWayStops(NBPTLine* line, const NBEdgeCont& ec, NB
             // warning already given
             continue;
         }
-        myServedPTStops.insert(stop->getID());
         stop->addLine(line->getRef());
     }
 

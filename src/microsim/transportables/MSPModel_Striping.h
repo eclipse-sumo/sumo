@@ -294,6 +294,8 @@ protected:
         int myDir;
         /// @brief the current walking speed
         double mySpeed;
+        /// @brief the current lateral walking speed
+        double mySpeedLat;
         /// @brief whether the pedestrian is waiting to start its walk
         bool myWaitingToEnter;
         /// @brief the consecutive time spent at speed 0

@@ -72,6 +72,7 @@ Debug: Setting new attribute selected 'true' into route 'routeA'
 Debug: Setting new attribute selected 'true' into route 'routeB'
 Debug: Setting new attribute selected 'true' into vehicle 'vehicleA'
 Debug: Setting new attribute selected 'true' into vehicle 'vehicleB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute departPos 'base' into vehicle 'vehicleA'
 Debug: Setting new attribute departPos 'base' into vehicle 'vehicleB'
 Debug: Value 'dummyPos' for attribute departPos of vehicle isn't valid

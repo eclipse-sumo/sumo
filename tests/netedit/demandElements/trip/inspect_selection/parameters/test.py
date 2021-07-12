@@ -40,11 +40,14 @@ netedit.selectionInvertDemand()
 # go to inspect mode
 netedit.inspectMode()
 
+# apply zoom
+netedit.setZoom("14", "17", "12") 
+
 # inspect vehicle
-netedit.leftClick(referencePosition, 586, 303)
+netedit.leftClick(referencePosition, 330, 150)
 
 # check parameters
-netedit.checkParameters(referencePosition, 16, True)
+netedit.checkParameters(referencePosition, 16, False)
 
 # save routes
 netedit.saveRoutes(referencePosition)

@@ -227,9 +227,17 @@ public:
     /**@brief add restricted lane to edge
      * @param[in] vclass vehicle class to restrict
      * @param[in] edge The edge in which insert restricted lane
+     * @param[in] index to be changed
      * @param[in] undoList The undolist in which to mark changes
      */
     bool addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNEUndoList* undoList);
+
+    /**@brief add restricted lane to edge
+     * @param[in] edge The edge in which insert restricted lane
+     * @param[in] index to be changed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    bool addGreenVergeLane(GNEEdge* edge, int index, GNEUndoList* undoList);
 
     /**@brief remove restricted lane
      * @param[in] vclass vehicle class to restrict

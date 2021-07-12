@@ -37,9 +37,6 @@ netedit.forceSaveAdditionals()
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)
 
-# set invalid value
-netedit.modifyAttribute(2, "dummyType", False)
-
 # change type of junction
 netedit.modifyAttribute(2, "allway_stop", False)
 

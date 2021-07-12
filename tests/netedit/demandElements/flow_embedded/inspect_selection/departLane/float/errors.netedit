@@ -70,6 +70,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
 Debug: Setting new attribute selected 'true' into flowWithRoute 'flowB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute departLane 'first' into flowWithRoute 'flowA'
 Debug: Setting new attribute departLane 'first' into flowWithRoute 'flowB'
 Debug: Value 'dummyDepart' for attribute departLane of flowWithRoute isn't valid

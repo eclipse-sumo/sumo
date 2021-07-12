@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-15 14:59:42 by Eclipse SUMO netedit Version v1_9_2+0562-734b028973
+<!-- generated on 2021-06-28 15:57:23 by Eclipse SUMO netedit Version v1_9_2+0696-9145c9eb66
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\speedthreshold\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\speedthreshold\log.txt"/>
     </report>
 
 </configuration>
@@ -61,10 +61,6 @@
     <e3Detector id="e3Detector_0" pos="26.00,10.00" freq="100.00" file="fileA.txt">
         <detEntry lane="gneE1_0" pos="32.00"/>
         <detExit lane="gneE0_0" pos="32.00"/>
-    </e3Detector>
-    <e3Detector id="e3Detector_2" pos="30.00,10.00" freq="100.00" file="fileA.txt" speedThreshold="-2.12">
-        <detEntry lane="gneE1_0" pos="36.00"/>
-        <detExit lane="gneE0_0" pos="36.00"/>
     </e3Detector>
     <e3Detector id="e3Detector_3" pos="32.00,10.00" freq="100.00" file="fileA.txt" speedThreshold="3.19">
         <detEntry lane="gneE1_0" pos="38.00"/>

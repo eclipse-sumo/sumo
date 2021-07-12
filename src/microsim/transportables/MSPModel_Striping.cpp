@@ -931,6 +931,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             tp->myRelY = usableWidth - p->myRelY;
                             tp->myDir = !path->dir;
                             tp->mySpeed = -p->mySpeed;
+						    tp->mySpeedLat = -p->mySpeedLat;
                             toDelete.push_back(tp);
                             transformedPeds.push_back(tp);
                             if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (semi-transformed), vecCoord="
@@ -946,6 +947,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             // only an obstacle, speed may be orthogonal to dir
                             tp->myDir = !dir;
                             tp->mySpeed = 0;
+                            tp->mySpeedLat = 0;
                             toDelete.push_back(tp);
                             transformedPeds.push_back(tp);
                             if (path == debugPath) {
@@ -1423,6 +1425,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
     myRelY(stage->getDepartPosLat()),
     myDir(FORWARD),
     mySpeed(0),
+    mySpeedLat(0),
     myWaitingToEnter(true),
     myWaitingTime(0),
     myWalkingAreaPath(nullptr),
@@ -1469,8 +1472,8 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
         // better start next to the road if nothing was specified
         myRelY -= stripeWidth;
     }
-    if (myDir == FORWARD) {
-        // start at the right side of the sidewalk
+    if (myDir == FORWARD || lane->getPermissions() != SVC_PEDESTRIAN) {
+        // start at the right side of the sidewalk on shared roads
         myRelY = stripeWidth * (numStripes(lane) - 1) - myRelY;
     }
     if DEBUGCOND(*this) {
@@ -1488,6 +1491,7 @@ MSPModel_Striping::PState::PState():
     myRelY(0),
     myDir(UNDEFINED_DIRECTION),
     mySpeed(0),
+    mySpeedLat(0),
     myWaitingToEnter(false),
     myWaitingTime(0),
     myWalkingAreaPath(nullptr),
@@ -1750,8 +1754,8 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // adapt utility based on obstacles
     for (int i = 0; i < stripes; ++i) {
         if (obs[i].speed * myDir < 0) {
-            // penalize evasion to the left
-            if (myDir == FORWARD && i > 0) {
+            // penalize evasion to the left unless the obstacle is a vehicle
+            if ((myDir == FORWARD || obs[i].type == OBSTACLE_VEHICLE) && i > 0) {
                 utility[i - 1] -= 0.5;
             } else if (myDir == BACKWARD && i < sMax) {
                 utility[i + 1] -= 0.5;
@@ -1768,7 +1772,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
             utility[i] += ONCOMING_CONFLICT_PENALTY + distance[i];
         }
     }
-    // discourage use of the leftmost lane (in walking direction) if there are oncoming
+    // discourage use of the leftmost stripe (in walking direction) if there are oncoming
     if (myDir == FORWARD && obs[0].speed < 0) {
         utility[0] += ONCOMING_CONFLICT_PENALTY;
     } else if (myDir == BACKWARD && obs[sMax].speed > 0) {
@@ -1778,6 +1782,14 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     if (distance[current] > 0 && myWaitingTime == 0) {
         for (int i = 0; i < stripes; ++i) {
             utility[i] += abs(i - current) * LATERAL_PENALTY;
+        }
+    }
+    // walk on the right side on shared space
+    if (myLane->getPermissions() != SVC_PEDESTRIAN && myDir == BACKWARD) {
+        for (int i = 0; i < stripes; ++i) {
+            if (i <= current) {
+                utility[i] += (sMax - i + 1) * LATERAL_PENALTY;
+            }
         }
     }
 
@@ -1866,8 +1878,16 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                // only when the vehicle is moving on the same lane
                && !myLane->getEdge().isCrossing()) {
         // step aside to let the vehicle pass
-        myRelY += myDir * vMax;
+        int stepAsideDir = myDir;
+        if (myLane->getEdge().getLanes().size() > 1 || current > sMax / 2) {
+            // always step to the right on multi-lane edges or when closer to
+            // the right side
+            stepAsideDir = FORWARD;
+        }
+        myAmJammed = true; // ignore pedestrian-pedestrian collisions
+        ySpeed = stepAsideDir * vMax;
     }
+
     // DEBUG
     if DEBUGCOND(*this) {
         std::cout << SIMTIME
@@ -1915,6 +1935,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     }
     myRelX += SPEED2DIST(xSpeed * myDir);
     myRelY += SPEED2DIST(ySpeed);
+    mySpeedLat = ySpeed;
     mySpeed = xSpeed;
     if (xSpeed >= SUMO_const_haltingSpeed) {
         myWaitingToEnter = false;
@@ -1979,6 +2000,11 @@ MSPModel_Striping::PState::getAngle(const MSStageMoving&, SUMOTime) const {
     const PositionVector& shp = myWalkingAreaPath == nullptr ? myLane->getShape() : myWalkingAreaPath->shape;
     double geomX = myWalkingAreaPath == nullptr ? myLane->interpolateLanePosToGeometryPos(myRelX) : myRelX;
     double angle = shp.rotationAtOffset(geomX) + (myDir == MSPModel::BACKWARD ? M_PI : 0);
+    if (myDir == MSPModel::BACKWARD) {
+        angle += atan2(mySpeedLat, MAX2(mySpeed, NUMERICAL_EPS));
+    } else { // myDir == MSPModel::FORWARD
+        angle -= atan2(mySpeedLat, MAX2(mySpeed, NUMERICAL_EPS));
+    }
     if (angle > M_PI) {
         angle -= 2 * M_PI;
     }

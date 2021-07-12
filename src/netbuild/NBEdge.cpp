@@ -109,6 +109,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     permissions(SVC_UNSPECIFIED),
     changeLeft(SVC_UNSPECIFIED),
     changeRight(SVC_UNSPECIFIED),
+    indirectLeft(false),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
     haveVia(false),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
@@ -134,6 +135,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     permissions(permissions_),
     changeLeft(changeLeft_),
     changeRight(changeRight_),
+    indirectLeft(false),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
     vmax(UNSPECIFIED_SPEED),
     haveVia(haveVia_),
@@ -2411,6 +2413,10 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
                 fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), (*i)->getAngleAtNode(myTo))) > 90) {
             continue;
         }
+        if (*i == myTurnDestination) {
+            // will be added by appendTurnaround
+            continue;
+        }
         myConnections.push_back(Connection(-1, *i, -1));
     }
     myStep = EdgeBuildingStep::EDGE2EDGES;
@@ -2739,12 +2745,19 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         divideSelectedLanesOnEdges(outgoing, availableLanes);
     }
     // clean up unassigned fromLanes
+    bool explicitTurnaround = false;
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).fromLane == -1) {
+            if ((*i).toEdge == myTurnDestination && myTurnDestination != nullptr) {
+                explicitTurnaround = true;
+            }
             i = myConnections.erase(i);
         } else {
             ++i;
         }
+    }
+    if (explicitTurnaround) {
+        myConnections.push_back(Connection(myLanes.size() - 1, myTurnDestination, myTurnDestination->getNumLanes() - 1));
     }
     sortOutgoingConnectionsByIndex();
 }

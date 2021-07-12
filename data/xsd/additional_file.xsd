@@ -491,6 +491,7 @@
         <xsd:attribute name="x" type="xsd:float" use="required"/>
         <xsd:attribute name="y" type="xsd:float" use="required"/>
         <xsd:attribute name="z" type="xsd:float" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
@@ -563,6 +564,7 @@
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
         <xsd:attribute name="lineWidth" type="xsd:float" use="optional"/>
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="poiType">
@@ -584,6 +586,7 @@
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="xsd:float" use="optional"/>
         <xsd:attribute name="height" type="xsd:float" use="optional"/>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <!-- differs from baseTypes.xsd/tlLogicType in 'type' being optional here -->

@@ -1,6 +1,0 @@
-Error: Attribute 'until' in definition of a stop is not a real number.
-Error: Invalid duration or end time is given for a stop on lane '' in route ''.
-Error: Attribute 'until' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop on lane '' in route ''.
-Error: Invalid duration or end time is given for a stop on lane '' in route ''.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Feb095558.4692\netedit.gui\demandElements\stop\stopLane\load\until\input_routes.rou.xml failed.

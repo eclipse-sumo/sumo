@@ -1,12 +1,13 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'keyA1|valueA1' into poi
+Debug: Inserting generic parameter 'keyA2|valueA2' into poi
+Debug: Inserting generic parameter 'keyA3|valueA3' into poi
 Debug: Adding poiLane 'POI_1' into viewNet
-Debug: Inserting parameter 'keyA1|valueA1' into shape poiLane.
-Debug: Inserting parameter 'keyA2|valueA2' into shape poiLane.
-Debug: Inserting parameter 'keyA3|valueA3' into shape poiLane.
+Debug: Inserting generic parameter 'keyB1|valueB1' into poi
+Debug: Inserting generic parameter 'keyB2|valueB2' into poi
+Debug: Inserting generic parameter 'keyB3|valueB3' into poi
 Debug: Adding poiLane 'POI_2' into viewNet
-Debug: Inserting parameter 'keyB1|valueB1' into shape poiLane.
-Debug: Inserting parameter 'keyB2|valueB2' into shape poiLane.
-Debug: Inserting parameter 'keyB3|valueB3' into shape poiLane.
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poiLane 'POI_1'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poiLane 'POI_2'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poiLane 'POI_1'
@@ -53,6 +54,8 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'POI_2' from viewNet
 Debug: Removing poiLane 'POI_1' from viewNet
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poiLane 'POI_1' into viewNet
@@ -85,6 +88,8 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poiLane 'POI_1'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poiLane 'POI_2'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

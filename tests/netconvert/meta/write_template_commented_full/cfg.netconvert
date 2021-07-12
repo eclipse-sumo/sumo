@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-04-23 10:14:03 by Eclipse SUMO netconvert Version v1_9_0+0191-e1fbe42
+<!-- generated on 2021-06-28 13:14:51 by Eclipse SUMO netconvert Version v1_9_2+0642-094e94aeb8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -770,6 +770,9 @@
 
         <!-- Import lane-specific access restrictions -->
         <osm.lane-access value="false" type="BOOL"/>
+
+        <!-- Check additional attributes to fix directions and permissions on bike paths -->
+        <osm.bike-access value="false" type="BOOL"/>
 
         <!-- The default length of a public transport stop in FLOAT m -->
         <osm.stop-output.length value="25" type="FLOAT"/>

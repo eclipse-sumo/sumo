@@ -1100,8 +1100,10 @@ enum {
     MID_GNE_LANE_ADD_BIKE,
     /// @brief add busLane
     MID_GNE_LANE_ADD_BUS,
-    /// @brief add greenVerge
-    MID_GNE_LANE_ADD_GREENVERGE,
+    /// @brief add greenVerge front of current lane
+    MID_GNE_LANE_ADD_GREENVERGE_FRONT,
+    /// @brief add greenVerge back of current laen
+    MID_GNE_LANE_ADD_GREENVERGE_BACK,
     /// @brief remove sidewalk
     MID_GNE_LANE_REMOVE_SIDEWALK,
     /// @brief remove bikelane

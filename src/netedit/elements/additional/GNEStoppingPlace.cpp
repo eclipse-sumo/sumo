@@ -228,6 +228,7 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     myAdditionalGeometry.updateGeometry(laneShape, getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane(), myMoveElementLateralOffset);
 }
 
+
 double
 GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {

@@ -132,6 +132,9 @@ public:
         }
         out.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
         out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer() + zOffset);
+        if (!getShapeName().empty()) {
+            out.writeAttr(SUMO_ATTR_NAME, getShapeName());
+        }
         if (laneID != "") {
             out.writeAttr(SUMO_ATTR_LANE, laneID);
             out.writeAttr(SUMO_ATTR_POSITION, pos);
