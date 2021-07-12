@@ -22,6 +22,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEDetectorE1Instant.h"
 #include "GNEAdditionalHandler.h"
@@ -121,7 +122,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
             // start drawing
             glPushName(getGlID());
             // push layer matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
             // draw E1Instant shape
@@ -134,7 +135,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E1InstantExaggeration, 1, 0, true);
             }
             // pop layer matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // Pop name
             glPopName();
             // check if dotted contours has to be drawn

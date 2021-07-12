@@ -222,11 +222,11 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // draw an orange square mode if there is an image(see #4036)
             if (!getShapeImgFile().empty() && myNet->getViewNet()->getTestingMode().isTestingEnabled()) {
                 // Add a draw matrix for drawing logo
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 glTranslated(x(), y(), getType() + 0.01);
                 GLHelper::setColor(RGBColor::ORANGE);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {

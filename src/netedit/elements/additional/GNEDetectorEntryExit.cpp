@@ -111,7 +111,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         // Start drawing adding gl identificator
         glPushName(getGlID());
         // Push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
         // Set color
@@ -124,7 +124,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         // Push polygon matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane
         GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
@@ -161,11 +161,11 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             glEnd();
         }
         // Pop polygon matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Check if the distance is enought to draw details
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, entryExitExaggeration)) {
             // Push matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Traslate to center of detector
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
             // rotate over lane
@@ -207,12 +207,12 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // pop matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, true, 0.4);
         // Pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);

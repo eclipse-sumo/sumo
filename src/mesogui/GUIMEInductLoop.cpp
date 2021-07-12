@@ -119,7 +119,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // shape
     glColor3d(1, 1, 0);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), getType());
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(exaggeration, exaggeration, exaggeration);
@@ -158,7 +158,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -1.7);
         glEnd();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     glPopName();
 }

@@ -266,7 +266,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
         // only continue if there is links
         if (noLinks > 0) {
             // push link matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // move front
             glTranslated(0, 0, GLO_TEXTNAME);
             // calculate width
@@ -286,7 +286,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
                 x1 -= width;
             }
             // pop link matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -303,7 +303,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
         // only continue if there is lnks
         if (noLinks > 0) {
             // push link matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // move t front
             glTranslated(0, 0, GLO_TEXTNAME);
             // calculate width
@@ -322,7 +322,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
                 x1 -= w;
             }
             // pop link matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -342,7 +342,7 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
         const Position& end = myLaneGeometry.getShape().back();
         const double rot = GNEGeometry::calculateRotation(begin, end);
         // push arrow matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // move front (note: must draw on top of junction shape?
         glTranslated(0, 0, 0.1);
         // change color to white
@@ -407,14 +407,14 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
             }
         }
         // pop arrow matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
 
 void
 GNELane::drawLane2LaneConnections() const {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, 0.1); // must draw on top of junction shape
     std::vector<NBEdge::Connection> connections = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
     NBNode* node = myParentEdge->getNBEdge()->getToNode();
@@ -456,7 +456,7 @@ GNELane::drawLane2LaneConnections() const {
         glEnd();
         GLHelper::drawTriangleAtEnd(startPos, endPos, (double) 1.5, (double) .2);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -475,7 +475,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // Push lane name
     glPushName(getGlID());
     // Push layer matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // translate to front (note: Special case)
     if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
         glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
@@ -485,7 +485,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // recognize full transparency and simply don't draw
     if ((color.alpha() == 0) || ((s.scale * laneDrawingConstants.exaggeration) < s.laneMinSize)) {
         // Pop draw matrix 1
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop Lane Name
         glPopName();
     } else {
@@ -507,7 +507,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
             if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
                 // Push matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // move back
                 glTranslated(0, 0, -0.1);
                 // set selected edge color
@@ -515,7 +515,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 // draw again to show the selected edge
                 GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
                 // Pop matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
             // only draw details depending of the scale and if isn't being drawn for selecting
             if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
@@ -534,7 +534,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             myParentEdge->drawEdgeGeometryPoints(s, this);
         }
         // Pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop lane Name
         glPopName();
         // Pop edge Name
@@ -594,7 +594,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
         const double myHalfLaneWidth = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
         const int lefthand = s.lefthand ? -1 : 1;
         // push matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // move top
         glTranslated(0, 0, 0.1);
         // optionally draw inverse markings
@@ -605,7 +605,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
             // iterate over lane shape
             for (int i = 0; i < (int) myLaneGeometry.getShape().size() - 1; ++i) {
                 // push matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // move to gemetry point
                 glTranslated(myLaneGeometry.getShape()[i].x(), myLaneGeometry.getShape()[i].y(), 0.1);
                 // rotate
@@ -623,13 +623,13 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
                     glEnd();
                 }
                 // pop matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
         // pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // push background matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // move back
         glTranslated(0, 0, -0.1);
         // draw white boundings and white markings
@@ -637,7 +637,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
         // draw geometry
         GNEGeometry::drawGeometry(myNet->getViewNet(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
         // pop background matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -1291,13 +1291,13 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s, double exagg
         const double width = MAX2(NUMERICAL_EPS, (myParentEdge->getNBEdge()->getLaneWidth(myIndex) * exaggeration * (spreadSuperposed ? 0.4 : 1)));
         const double sideOffset = spreadSuperposed ? width * -0.5 : 0;
         // push direction indicator matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // move to front
         glTranslated(0, 0, 0.1);
         // iterate over shape
         for (int i = 0; i < (int) myLaneGeometry.getShape().size() - 1; ++i) {
             // push triangle matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // move front
             glTranslated(myLaneGeometry.getShape()[i].x(), myLaneGeometry.getShape()[i].y(), 0.1);
             // rotate
@@ -1314,10 +1314,10 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s, double exagg
                 glEnd();
             }
             // pop triangle matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // pop direction indicator matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -1386,7 +1386,7 @@ GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConsta
         // Draw list of icons
         for (int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
             // Push draw matrix 2
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Set white color
             glColor3d(1, 1, 1);
             // Traslate matrix 2
@@ -1403,7 +1403,7 @@ GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConsta
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LANE_BUS), iconWidth);
             }
             // Pop draw matrix 2
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -1427,7 +1427,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // draw s depending of detail
         if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
             // push start matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // move to shape start position
             glTranslated(customShape.front().x(), customShape.front().y(), 0.1);
             // draw circle
@@ -1440,10 +1440,10 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText("S", Position(), 0.1, circleWidth, RGBColor::WHITE);
             }
             // pop start matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // draw line between junction and start position
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // move top
         glTranslated(0, 0, 0.1);
         // set line width
@@ -1451,11 +1451,11 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // draw line
         GLHelper::drawLine(customShape.front(), myParentEdge->getParentJunctions().front()->getPositionInView());
         // pop line matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // draw "e" depending of detail
         if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
             // push start matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // move to end position
             glTranslated(customShape.back().x(), customShape.back().y(), 0.1);
             // draw filled circle
@@ -1468,10 +1468,10 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
             }
             // pop start matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // draw line between Junction and end position
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // move top
         glTranslated(0, 0, 0.1);
         // set line width
@@ -1479,7 +1479,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // draw line
         GLHelper::drawLine(customShape.back(), myParentEdge->getParentJunctions().back()->getPositionInView());
         // pop line matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

@@ -148,7 +148,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         return;
     }
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     double dwidth = 1;
     const double exaggeration = s.addSize.getExaggeration(s, this);
@@ -169,7 +169,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     glPopName();
 }

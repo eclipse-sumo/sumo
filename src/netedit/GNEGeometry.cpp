@@ -702,7 +702,7 @@ GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSetti
     // Iterate over myConnectionPositions
     for (const auto& connectionGeometry : connectionsGeometries) {
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Set color
         if (AC->isAttributeCarrierSelected()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor.changedBrightness(-32));
@@ -712,7 +712,7 @@ GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSetti
         // Draw box lines
         GLHelper::drawBoxLines(connectionGeometry.getShape(), connectionGeometry.getShapeRotations(), connectionGeometry.getShapeLengths(), exaggeration * 0.1);
         // Pop draw matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -724,7 +724,7 @@ GNEGeometry::HierarchicalConnections::drawDottedConnection(const DottedContourTy
         // calculate dotted geometry
         GNEGeometry::DottedGeometry dottedGeometry(s, connectionGeometry.getShape(), false);
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // traslate back
         if (type == DottedContourType::INSPECT) {
             glTranslated(0, 0, (-1 * GLO_DOTTEDCONTOUR_INSPECTED) - 0.01);
@@ -736,7 +736,7 @@ GNEGeometry::HierarchicalConnections::drawDottedConnection(const DottedContourTy
         // use drawDottedContourGeometry to draw it
         GNEGeometry::drawDottedContourGeometry(type, s, dottedGeometry, exaggeration * 0.1, false, false);
         // Pop draw matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -798,13 +798,13 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
         // if mouse is over segment
         if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width * width)) {
             // push matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
             GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings().getCircleResolution());
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     } else if (viewNet->getVisualisationSettings().scale * width < 1) {
         // draw line (needed for zoom out)
@@ -856,7 +856,7 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
         // if drawForPositionSelection is enabled, check distance between mouse and vertex
         if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(vertex) <= exaggeratedRadioSquared)) {
             // push geometry point matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // move to vertex
             glTranslated(vertex.x(), vertex.y(), 0.2);
             // set color
@@ -864,7 +864,7 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
             // draw circle
             GLHelper::drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
             // pop geometry point matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // draw elevation or special symbols (Start, End and Block)
             if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
                 // get draw detail
@@ -872,25 +872,25 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
                 // draw text
                 if (viewNet->getNetworkViewOptions().editingElevation()) {
                     // Push Z matrix
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     // draw Z (elevation)
                     GLHelper::drawText(toString(vertex.z()), vertex, 0.3, 0.7, textColor);
                     // pop Z matrix
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 } else if ((vertex == shape.front()) && drawDetail) {
                     // push "S" matrix
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     // draw a "s" over first point
                     GLHelper::drawText("S", vertex, 0.3, 2 * exaggeratedRadio, textColor);
                     // pop "S" matrix
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 } else if ((vertex == shape.back()) && (shape.isClosed() == false) && drawDetail) {
                     // push "E" matrix
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     // draw a "e" over last point if polygon isn't closed
                     GLHelper::drawText("E", vertex, 0.3, 2 * exaggeratedRadio, textColor);
                     // pop "E" matrix
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 }
             }
         }
@@ -927,7 +927,7 @@ GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet*
             // calculate hintPos
             const Position hintPos = shape.size() > 1 ? positionOverLane : shape[0];
             // push hintPos matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to hintPos
             glTranslated(hintPos.x(), hintPos.y(), 0.2);
             // set color
@@ -935,7 +935,7 @@ GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet*
             // draw filled circle
             GLHelper:: drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
             // pop hintPos matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -968,13 +968,13 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& s
         // if mouse is over segment
         if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width * width)) {
             // push matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
             GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings().getCircleResolution());
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     } else if (colors.size() > 0) {
         // draw box lines with own colors
@@ -1001,7 +1001,7 @@ GNEGeometry::drawDottedContourGeometry(const DottedContourType type, const GUIVi
     // calculate extremes
     DottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
     // Push draw matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // draw inspect or front dotted contour
     if (type == DottedContourType::INSPECT) {
         // translate to front
@@ -1031,7 +1031,7 @@ GNEGeometry::drawDottedContourGeometry(const DottedContourType type, const GUIVi
         extremes.drawFrontDottedGeometry(dottedGeometryColor);
     }
     // pop matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -1062,7 +1062,7 @@ GNEGeometry::drawDottedContourEdge(const DottedContourType type, const GUIVisual
         // calculate extremes
         DottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
         // Push draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw inspect or front dotted contour
         if (type == DottedContourType::INSPECT) {
             // translate to front
@@ -1092,7 +1092,7 @@ GNEGeometry::drawDottedContourEdge(const DottedContourType type, const GUIVisual
             extremes.drawFrontDottedGeometry(dottedGeometryColor);
         }
         // pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -1109,7 +1109,7 @@ GNEGeometry::drawDottedContourClosedShape(const DottedContourType type, const GU
         // calculate dotted geometry
         GNEGeometry::DottedGeometry dottedGeometry(s, scaledShape, true);
         // Push draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw inspect or front dotted contour
         if (type == DottedContourType::INSPECT) {
             // translate to front
@@ -1123,7 +1123,7 @@ GNEGeometry::drawDottedContourClosedShape(const DottedContourType type, const GU
             dottedGeometry.drawFrontDottedGeometry(dottedGeometryColor);
         }
         // pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

@@ -256,7 +256,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // set Color
         GLHelper::setColor(stopColor);
         // Start with the drawing of the area traslating matrix to origin
@@ -269,9 +269,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
                                    getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * -0.5);
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // Add a draw matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // move to geometry front
             glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), getType());
             if (myDemandElementGeometry.getShapeRotations().size() > 0) {
@@ -301,7 +301,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
             }
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // check if dotted contour has to be drawn
@@ -318,7 +318,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, exaggeration * 0.8);
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // Pop name
         glPopName();

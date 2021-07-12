@@ -210,7 +210,7 @@ GUIContainer::getCenteringBoundary() const {
 void
 GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     Position p1 = getPosition();
     double angle = getAngle();
     if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle()) {
@@ -235,7 +235,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
             drawAction_drawAsImage(s);
             break;
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 
     drawName(p1, s.scale, s.containerName, s.angle);
     glPopName();
@@ -245,7 +245,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUIContainer::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GUIVisualizationSettings& /* s */) const {
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     /*
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
@@ -289,7 +289,7 @@ GUIContainer::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GU
         }
     }
     */
-    glPopMatrix();
+    GLHelper::popMatrix();
     glPopName();
 }
 

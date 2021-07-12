@@ -317,7 +317,7 @@ GNECalibrator::getHierarchyName() const {
 
 void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
     // push layer matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // translate to front
     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
     // translate to position
@@ -359,7 +359,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
         }
     }
     // pop layer matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
     // check if dotted contours has to be drawn
     if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, pos, 2, 1, 2, 0, rot, exaggeration);

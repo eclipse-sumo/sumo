@@ -329,7 +329,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_ALPHA_TEST);
     glEnable(GL_BLEND);
@@ -361,7 +361,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
         GUINet::getGUIInstance()->unlock();
         glTranslated(0, 0, .01);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     /*
     // draw legends
     glMatrixMode(GL_MODELVIEW);

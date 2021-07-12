@@ -103,13 +103,13 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             glPushName(getParentAdditionals().front()->getGlID());
         }
         // push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
         // draw rerouter symbol over all lanes
         for (const auto& symbolGeometry : mySymbolGeometries) {
             // push symbol matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to position
             glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
             // rotate over lane
@@ -150,10 +150,10 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText(probability.c_str(), Position(0, 4), .1, 0.7, textColor, 180);
             }
             // pop symbol matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
             glPopName();

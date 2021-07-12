@@ -234,7 +234,7 @@ GNEStopContainer::drawGL(const GUIVisualizationSettings& s) const {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add layer matrix matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // check if draw stopContainer over stopContainer oder over lane
@@ -244,7 +244,7 @@ GNEStopContainer::drawGL(const GUIVisualizationSettings& s) const {
             drawStopContainerOverLane(s, exaggeration, stopColor);
         }
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         glPopName();
         // check if dotted contours has to be drawn

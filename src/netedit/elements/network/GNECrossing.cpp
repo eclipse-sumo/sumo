@@ -204,7 +204,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // push name
             glPushName(getGlID());
             // push layer matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
             // set color
@@ -215,12 +215,12 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(myCrossingGeometry.getShape(), halfWidth);
             } else {
                 // push rail matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // draw on top of of the white area between the rails
                 glTranslated(0, 0, 0.1);
                 for (int i = 0; i < (int)myCrossingGeometry.getShape().size() - 1; i++) {
                     // push draw matrix
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     // translate and rotate
                     glTranslated(myCrossingGeometry.getShape()[i].x(), myCrossingGeometry.getShape()[i].y(), 0.0);
                     glRotated(myCrossingGeometry.getShapeRotations()[i], 0, 0, 1);
@@ -234,10 +234,10 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                         glEnd();
                     }
                     // pop draw matrix
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 }
                 // pop rail matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
             // draw shape points only in Network supemode
             if (myShapeEdited && s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
@@ -249,7 +249,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
             }
             // pop layer matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // pop name
             glPopName();
         }
@@ -272,7 +272,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNECrossing::drawTLSLinkNo(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const {
     // push matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // move to GLO_Crossing
     glTranslated(0, 0, GLO_CROSSING + 0.5);
     // make a copy of shape
@@ -286,7 +286,7 @@ GNECrossing::drawTLSLinkNo(const GUIVisualizationSettings& s, const NBNode::Cros
     GLHelper::drawTextAtEnd(toString(linkNo2), shape, 0, s.drawLinkTLIndex, s.scale);
     GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex, s.scale);
     // push matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 

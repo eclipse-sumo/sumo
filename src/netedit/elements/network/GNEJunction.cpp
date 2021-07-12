@@ -376,7 +376,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // push junction name
         glPushName(getGlID());
         // push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         if (myAmCreateEdgeSource) {
             glTranslated(0, 0, GLO_TEMPORALSHAPE);
@@ -409,13 +409,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // only draw a point if mouse is around shape
                         if (junctionClosedShape.around(mousePosition)) {
                             // push matrix
-                            glPushMatrix();
+                            GLHelper::pushMatrix();
                             // move to mouse position
                             glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
                             // draw a simple circle
                             GLHelper::drawFilledCircle(1, s.getCircleResolution());
                             // pop matrix
-                            glPopMatrix();
+                            GLHelper::popMatrix();
                         }
                     } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) < 40.) {
                         // draw shape
@@ -460,7 +460,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
                     if (!s.drawForPositionSelection || mouseInBubble) {
                         // push matrix
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         // set color
                         GLHelper::setColor(bubbleColor);
                         // move matrix junction center
@@ -468,7 +468,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // draw filled circle
                         GLHelper::drawFilledCircle(bubbleRadius, s.getCircleResolution());
                         // pop matrix
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
@@ -476,15 +476,15 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSIcon(s);
             // draw elevation
             if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // Translate to center of junction
                 glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
                 // draw Z value
                 GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
             // pop layer Matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // pop junction name
             glPopName();
             // draw name and ID
@@ -1248,14 +1248,14 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     // draw TLS icon if isn't being drawn for selecting
     if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
             (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         Position pos = myNBNode->getPosition();
         glTranslated(pos.x(), pos.y(), 0.2);
         glColor3d(1, 1, 1);
         const double halfWidth = 32 / s.scale;
         const double halfHeight = 64 / s.scale;
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

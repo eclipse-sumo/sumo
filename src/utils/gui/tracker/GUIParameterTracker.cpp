@@ -275,7 +275,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     const double fontHeight = 0.1 * 300. /  myHeightInPixels;
     //
     // apply scaling
-    glPushMatrix();
+    GLHelper::pushMatrix();
 
     // apply the positiopn offset of the display
     glScaled(0.8, 0.8, 1);
@@ -309,7 +309,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     const std::vector<double>& values = desc.getAggregatedValues();
     double latest = 0;
     if (values.size() < 2) {
-        glPopMatrix();
+        GLHelper::popMatrix();
         desc.unlockValues();
         return;
     } else {
@@ -332,7 +332,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
             xp = xn;
         }
         desc.unlockValues();
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 
     // draw value bounderies and descriptions

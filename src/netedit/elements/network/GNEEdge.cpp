@@ -1230,26 +1230,26 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
         // recognize full transparency and simply don't draw
         if (color.alpha() > 0) {
             // add edge layer matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             glTranslated(0, 0, 1);
             // draw geometry points expect initial and final
             for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
                 Position pos = myNBEdge->getGeometry()[i];
                 if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                     // draw elevation or special symbols (Start, End and Block)
                     if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         // Translate to geometry point
                         glTranslated(pos.x(), pos.y(), 0.2);
                         // draw Z value
                         GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
@@ -1259,55 +1259,55 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     // calculate angle
                     const double angle = RAD2DEG(myNBEdge->getGeometry().front().angleTo2D(myNBEdge->getGeometry()[1])) * -1;
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                     // draw a "s" over last point depending of drawForRectangleSelection
                     if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.2);
                         GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor(0, 50, 255));
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                         // draw line between Junction and point
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(0, 0, 0.1);
                         glLineWidth(4);
                         GLHelper::drawLine(myNBEdge->getGeometry().front(), getParentJunctions().front()->getNBNode()->getPosition());
                         // draw line between begin point of last lane shape and the first edge shape point
                         GLHelper::drawLine(myNBEdge->getGeometry().front(), myNBEdge->getLanes().back().shape.front());
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
                 if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
                     // calculate angle
                     const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                     // draw a "e" over last point depending of drawForRectangleSelection
                     if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.2);
                         GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor(0, 50, 255));
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                         // draw line between Junction and point
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(0, 0, 0.1);
                         glLineWidth(4);
                         GLHelper::drawLine(myNBEdge->getGeometry().back(), getParentJunctions().back()->getNBNode()->getPosition());
                         // draw line between last point of first lane shape and the last edge shape point
                         GLHelper::drawLine(myNBEdge->getGeometry().back(), myNBEdge->getLanes().back().shape.back());
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
             // pop edge layer matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }

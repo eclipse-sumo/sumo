@@ -109,7 +109,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Start drawing adding an gl identificator
             glPushName(getGlID());
             // Add a draw matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_AREA);
             // set base color
@@ -130,7 +130,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // Pop name
             glPopName();
             // check if dotted contours has to be drawn

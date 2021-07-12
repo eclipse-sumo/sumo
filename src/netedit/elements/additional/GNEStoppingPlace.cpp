@@ -281,7 +281,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
         // Iterate over every line
         for (int i = 0; i < (int)lines.size(); ++i) {
             // push a new matrix for every line
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // rotate over lane
@@ -293,7 +293,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
                 GLHelper::drawText(lines[i].c_str(), Position(1.2, (double)i), .1, 1.f, color, 0, FONS_ALIGN_LEFT);
             }
             // pop matrix for every line
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -310,7 +310,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
         // only draw circle depending of distance between sign and mouse cursor
         if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
             // push matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Start drawing sign traslating matrix to signal position
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // rotate over lane
@@ -322,11 +322,11 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
             // Draw circle
             GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     } else {
         // push matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
         // rotate over lane
@@ -349,7 +349,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
             GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor);
         }
         // pop draw matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

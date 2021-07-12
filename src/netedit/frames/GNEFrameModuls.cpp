@@ -2507,7 +2507,7 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s
         const double lineWidth = 0.35;
         const double lineWidthin = 0.25;
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, GLO_MAX - 0.1);
         // set first color
@@ -2566,7 +2566,7 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s
             }
         }
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 #if defined(_MSC_VER) && _MSC_VER == 1800

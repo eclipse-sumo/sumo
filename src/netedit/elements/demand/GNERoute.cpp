@@ -350,7 +350,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
         // Set color
@@ -358,7 +358,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // draw route geometry
         GNEGeometry::drawGeometry(myNet->getViewNet(), routeGeometry, routeWidth);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
@@ -368,7 +368,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // check if we have to draw a red line to the next segment
         if (segment->getNextSegment()) {
             // push draw matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // Set red color
@@ -382,7 +382,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                                   RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
                                   firstPosition.distanceTo2D(arrivalPos), .05);
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || dottedElement) {
@@ -422,7 +422,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
         // Set color
@@ -430,7 +430,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // draw lane2lane
         GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, routeWidth);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn

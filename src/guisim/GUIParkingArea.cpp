@@ -118,7 +118,7 @@ GUIParkingArea::getParameterWindow(GUIMainWindow& app,
 void
 GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     RGBColor grey(177, 184, 186, 171);
     RGBColor blue(83, 89, 172, 255);
     RGBColor red(255, 0, 0, 255);
@@ -152,7 +152,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw the lines
         for (size_t i = 0; i != myLines.size(); ++i) {
             // push a new matrix for every line
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // traslate and rotate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(180, 1, 0, 0);
@@ -160,7 +160,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // draw line
             GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
-            glPopMatrix();
+            GLHelper::popMatrix();
 
         }
         // draw the sign
@@ -178,7 +178,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText("P", Position(), .1, 1.6, blue, mySignRot);
         }
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     if (s.addFullName.show && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), mySignPos, s.scale, s.getTextAngle(mySignRot), GLO_MAX - getType());
     }

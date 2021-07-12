@@ -153,7 +153,7 @@ void
 GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
                          const RGBColor& mainColor, const RGBColor& secondColor) const {
     // push matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // set line width
     glLineWidth(1.0);
     // translate to center geometry
@@ -210,7 +210,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
         glEnd();
     }
     // pop matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -230,7 +230,7 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
             rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         }
         // Start pushing matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // rotate over lane
@@ -242,7 +242,7 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // draw E1 logo
         GLHelper::drawText(logo, Position(), .1, 1.5, textColor);
         // pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

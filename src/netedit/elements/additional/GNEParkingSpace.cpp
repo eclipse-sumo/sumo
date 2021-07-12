@@ -120,7 +120,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // push name
             glPushName(getGlID());
             // push later matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
             // translate to position
@@ -151,7 +151,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, false);
             // pop layer matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // pop name
             glPopName();
             // check if dotted contours has to be drawn

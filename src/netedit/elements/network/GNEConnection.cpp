@@ -380,7 +380,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             glPushName(getGlID());
         }
         // Push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION, (editedNetworkElement == this) ? 1 : 0);
         // Set color
@@ -412,7 +412,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
             }
             // Pop layer matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // check if edge value has to be shown
             if (s.edgeValue.show) {
                 NBEdge::Connection& nbCon = getNBEdgeConnection();

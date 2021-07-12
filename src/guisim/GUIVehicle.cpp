@@ -312,7 +312,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     const double carriageGap = getVehicleType().getParameter().carriageGap * upscaleLength;
     const double length = totalLength * upscaleLength;
     const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
-    glPopMatrix(); // undo initial translation and rotation
+    GLHelper::popMatrix(); // undo initial translation and rotation
     const double xCornerCut = 0.3 * exaggeration;
     const double yCornerCut = 0.4 * exaggeration;
     // round to closest integer
@@ -394,7 +394,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         if (i >= firstContainerCarriage) {
             computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
         }
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
         if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), curCLength / exaggeration)) {
@@ -428,20 +428,20 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                 }
             }
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
         carriageOffset -= (curCLength + carriageGap);
         carriageBackOffset -= carriageLengthWithGap;
     }
     if (getVType().getGuiShape() == SVS_RAIL_CAR) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
         drawAction_drawVehicleBlinker(curCLength);
         drawAction_drawVehicleBrakeLight(curCLength);
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     // restore matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     front = getPosition();
     glTranslated(front.x(), front.y(), getType());
     const double degAngle = RAD2DEG(getAngle() + M_PI / 2.);
@@ -461,14 +461,14 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
 inline void
 drawAction_drawBlinker(double dir, double length) {
     glColor3d(1.f, .8f, 0);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(dir, BLINKER_POS_FRONT, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
-    glPopMatrix();
-    glPushMatrix();
+    GLHelper::popMatrix();
+    GLHelper::pushMatrix();
     glTranslated(dir, length - BLINKER_POS_BACK, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -497,29 +497,29 @@ GUIVehicle::drawAction_drawVehicleBrakeLight(double length, bool onlyOne) const 
         return;
     }
     glColor3f(1.f, .2f, 0);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     if (onlyOne) {
         glTranslated(0, length, -0.1);
         GLHelper::drawFilledCircle(.5, 6);
     } else {
         glTranslated(-getVehicleType().getWidth() * 0.5, length, -0.1);
         GLHelper::drawFilledCircle(.5, 6);
-        glPopMatrix();
-        glPushMatrix();
+        GLHelper::popMatrix();
+        GLHelper::pushMatrix();
         glTranslated(getVehicleType().getWidth() * 0.5, length, -0.1);
         GLHelper::drawFilledCircle(.5, 6);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 inline void
 GUIVehicle::drawAction_drawVehicleBlueLight() const {
     if (signalSet(MSVehicle::VEH_SIGNAL_EMERGENCY_BLUE)) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(0, 2.5, .5);
         glColor3f(0, 0, 1);
         GLHelper::drawFilledCircle(.5, 6);
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

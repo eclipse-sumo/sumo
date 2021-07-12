@@ -508,7 +508,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
         // Set color
@@ -516,7 +516,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // draw geometry
         GNEGeometry::drawGeometry(myNet->getViewNet(), personPlanGeometry, pathWidth);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
@@ -534,7 +534,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             // check if endPos can be drawn
             if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
                 // push draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // Start with the drawing of the area traslating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
@@ -544,13 +544,13 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 // pop draw matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
         // check if we have to draw a red line to the next segment
         if (segment->getNextSegment()) {
             // push draw matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // Set red color
@@ -564,7 +564,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
                                   RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
                                   firstPosition.distanceTo2D(arrivalPos), .05);
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || dottedElement) {
@@ -610,7 +610,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // push a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
         // check if draw lane2lane connection or a red line
@@ -628,7 +628,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * pathWidth));
         }
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn

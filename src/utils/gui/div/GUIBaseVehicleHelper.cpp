@@ -93,7 +93,7 @@ static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 
 
 void
 GUIBaseVehicleHelper::drawPoly(const double* poses, const double offset) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, offset * .1);
     glPolygonOffset(0, (GLfloat) - offset);
     glBegin(GL_TRIANGLE_FAN);
@@ -103,12 +103,12 @@ GUIBaseVehicleHelper::drawPoly(const double* poses, const double offset) {
         i = i + 2;
     }
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 void
 GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(const double width, const double length) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glScaled(width, length, 1.);
     glBegin(GL_TRIANGLE_STRIP);
     glVertex2d(0., 0.);
@@ -117,7 +117,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(const double width, const 
     glVertex2d(-.5, 1.);
     glVertex2d(.5, 1.);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -127,14 +127,14 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, c
         drawAction_drawVehicleAsBoxPlus(width, length);
         return;
     }
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glScaled(width, length, 1.);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(-.5, 1.);
     glVertex2d(.5, 1.);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -152,7 +152,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
     RGBColor darker = current.changedBrightness(-51);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glRotated(90, 0, 0, 1);
     glScaled(length, width, 1.);
 
@@ -182,25 +182,25 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             // body
             drawPoly(vehiclePoly_Cyclist, 4);
             // head
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(0.4, 0, .5);
             glScaled(0.1, 0.2, 1);
             GLHelper::setColor(darker);
             GLHelper::drawFilledCircle(1);
-            glPopMatrix();
+            GLHelper::popMatrix();
             // bike frame
             GLHelper::setColor(RGBColor::GREY);
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(0.5, 0, .3);
             glScaled(0.5, 0.05, 1);
             GLHelper::drawFilledCircle(1);
-            glPopMatrix();
+            GLHelper::popMatrix();
             // handle bar
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(0.25, 0, .3);
             glScaled(0.02, 0.5, 1);
             GLHelper::drawFilledCircle(1);
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         break;
         case SVS_PASSENGER:
@@ -322,7 +322,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             //drawPoly(vehiclePoly_EVehicleBackGlass, 4.5);
             break;
         case SVS_ANT:
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // ant is stretched via vehicle length
             GLHelper::setColor(darker);
             // draw left side
@@ -351,7 +351,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawFilledCircle(.2, 16);
             glTranslated(.4, 0, 0);
             GLHelper::drawFilledCircle(.3, 16);
-            glPopMatrix();
+            GLHelper::popMatrix();
             break;
         case SVS_SHIP: {
             drawPoly(vehiclePoly_Ship, 4);
@@ -416,15 +416,15 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             // wheels
             GLHelper::setColor(darker);
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(.5, .5, -0.1);
             GLHelper::drawFilledCircle(.3, 6);
-            glPopMatrix();
+            GLHelper::popMatrix();
             //other wheel
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(.5, -.5, -0.1);
             GLHelper::drawFilledCircle(.3, 6);
-            glPopMatrix();
+            GLHelper::popMatrix();
             break;
         default: // same as passenger
             drawPoly(vehiclePoly_PassengerCarBody, 4);
@@ -514,7 +514,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             break;
         }
         case SVS_BUS_TROLLEY:
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(0, 0, .1);
             GLHelper::setColor(darker);
             GLHelper::drawBoxLine(Position(3.8, 0), 90., 1, .3);
@@ -524,7 +524,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawBoxLine(Position(4.3, -.2), 90., 1, .06);
             GLHelper::drawBoxLine(Position(5.3, .2), 90., 3, .03);
             GLHelper::drawBoxLine(Position(5.3, -.2), 90., 3, .03);
-            glPopMatrix();
+            GLHelper::popMatrix();
             break;
         case SVS_BUS:
         case SVS_BUS_COACH:
@@ -615,7 +615,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
     glEnd();
     */
 
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 

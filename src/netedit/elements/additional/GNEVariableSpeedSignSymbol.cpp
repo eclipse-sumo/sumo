@@ -95,7 +95,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             glPushName(getParentAdditionals().front()->getGlID());
         }
         // start drawing symbol
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
         // translate to position
@@ -134,7 +134,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // Pop symbol matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop VSS name
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
             glPopName();

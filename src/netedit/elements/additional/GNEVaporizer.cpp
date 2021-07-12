@@ -104,7 +104,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add layer matrix matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VAPORIZER);
         // set base color
@@ -140,7 +140,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize * vaporizerExaggeration);
         }
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         glPopName();
         // draw additional name

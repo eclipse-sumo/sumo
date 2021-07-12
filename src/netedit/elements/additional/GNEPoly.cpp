@@ -257,7 +257,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
         // check if we're drawing a polygon or a polyline
@@ -266,7 +266,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 // check if mouse is within geometry
                 if (myPolygonGeometry.getShape().around(mousePosition)) {
                     // push matrix
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     // move to mouse position
                     glTranslated(mousePosition.x(), mousePosition.y(), 0);
                     // set color
@@ -274,7 +274,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     // draw circle
                     GLHelper::drawFilledCircle(1, s.getCircleResolution());
                     // pop matrix
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 }
             } else {
                 // draw inner polygon
@@ -282,18 +282,18 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else {
             // push matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // set color
             GLHelper::setColor(color);
             // draw geometry (polyline)
             GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
             // pop matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // draw contour if shape isn't blocked
         if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
             // push contour matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             glTranslated(0, 0, 0.1);
             // set color
@@ -301,7 +301,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // draw polygon contour
             GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
             // pop contour matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
@@ -331,7 +331,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // pop name
         glPopName();
         // get name position

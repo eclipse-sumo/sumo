@@ -1477,7 +1477,7 @@ GNEViewNetHelper::SelectingArea::processShapeSelection(const PositionVector& sha
 void
 GNEViewNetHelper::SelectingArea::drawRectangleSelection(const RGBColor& color) const {
     if (selectingUsingRectangle) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(0, 0, GLO_RECTANGLESELECTION);
         GLHelper::setColor(color);
         glLineWidth(2);
@@ -1488,7 +1488,7 @@ GNEViewNetHelper::SelectingArea::drawRectangleSelection(const RGBColor& color) c
         glVertex2d(selectionCorner2.x(), selectionCorner2.y());
         glVertex2d(selectionCorner2.x(), selectionCorner1.y());
         glEnd();
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -1628,7 +1628,7 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
         }
         //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << mainWindow->getWidth() << ", " << mainWindow->getHeight() << "\n";
         // draw pink square in the upper left corner on top of everything
-        glPushMatrix();
+        GLHelper::pushMatrix();
         const double size = myViewNet->p2m(32);
         Position center = myViewNet->screenPos2NetPos(8, 8);
         GLHelper::setColor(RGBColor::MAGENTA);
@@ -1640,13 +1640,13 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
         glVertex2d(size, -size);
         glVertex2d(size, 0);
         glEnd();
-        glPopMatrix();
-        glPushMatrix();
+        GLHelper::popMatrix();
+        GLHelper::pushMatrix();
         // show box with the current position relative to pink square
         Position posRelative = myViewNet->screenPos2NetPos(myViewNet->getWidth() - 40, myViewNet->getHeight() - 20);
         // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
         GLHelper::drawTextBox(toString(myViewNet->getWindowCursorPosition().x() - 24) + " " + toString(myViewNet->getWindowCursorPosition().y() - 25), posRelative, GLO_TESTELEMENT, myViewNet->p2m(20), RGBColor::BLACK, RGBColor::WHITE);
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -3387,7 +3387,7 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const GN
         // get texture
         const GUIGlID lockTexture = getLockIcon(AC);
         // Start pushing matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // rotate depending of overlane
@@ -3404,7 +3404,7 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const GN
         // Draw lock icon
         GUITexturesHelper::drawTexturedBox(lockTexture, size);
         // Pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

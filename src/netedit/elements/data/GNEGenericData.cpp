@@ -96,10 +96,10 @@ GNEGenericData::drawAttribute(const PositionVector& shape) const {
                 // calculate center position
                 const Position centerPosition = shape.positionAtOffset2D(shape.length2D() / 2);
                 // Add a draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 GLHelper::drawText(value, centerPosition, GLO_MAX, 2, RGBColor::BLUE);
                 // pop draw matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
     }
@@ -208,11 +208,11 @@ GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const P
         const Position pos = laneShape.positionAtOffset2D(laneShape.length2D() * 0.5);
         const double rot = laneShape.rotationDegreeAtOffset(laneShape.length2D() * 0.5);
         // Add a draw matrix for details
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw value
         GLHelper::drawText(getParameter(attribute), pos, GLO_MAX - 1, 2, RGBColor::BLACK, s.getTextAngle(rot + 90));
         // pop draw matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

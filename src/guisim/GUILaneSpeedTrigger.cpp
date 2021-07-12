@@ -315,13 +315,13 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
 void
 GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     const double exaggeration = s.addSize.getExaggeration(s, this);
     for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         double rot = myFGRotations[i];
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
         glTranslated(0, -1.5, 0);
@@ -367,9 +367,9 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             // draw last value string
             GLHelper::drawText(myLastValueString.c_str(), Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     glPopName();
 }

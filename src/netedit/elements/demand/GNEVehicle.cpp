@@ -593,7 +593,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // first check if if mouse is enought near to this vehicle to draw it
             if (s.drawForRectangleSelection && (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
                 // push draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // Start with the drawing of the area traslating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to drawing position
@@ -603,11 +603,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, (-1) * length * exaggeration, 0);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 // Pop last matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             } else {
                 SUMOVehicleShape shape = getVehicleShapeID(getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
                 // push draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // Start with the drawing of the area traslating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to drawing position
@@ -673,7 +673,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     }
                 }
                 // pop draw matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
                     drawStackLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
@@ -791,7 +791,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
         // Set color
@@ -799,7 +799,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // draw geometry
         GNEGeometry::drawGeometry(myNet->getViewNet(), vehicleGeometry, width);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
@@ -807,7 +807,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // check if we have to draw a red line to the next segment
         if (segment->getNextSegment()) {
             // push draw matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // Set red color
@@ -821,7 +821,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                                   RAD2DEG(firstPosition.angleTo2D(arrivalPosition)) - 90,
                                   firstPosition.distanceTo2D(arrivalPosition), .05);
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // check if this is the last segment
         if (segment->isLastSegment()) {
@@ -830,7 +830,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // check if endPos can be drawn
             if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
                 // push draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // Start with the drawing of the area traslating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to geometryEndPos
@@ -840,7 +840,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(myArrivalPositionDiameter, s.getCircleResolution());
                 // pop draw matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
         // Pop name
@@ -883,7 +883,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
         // Set color of the base
@@ -895,7 +895,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // draw lane2lane
         GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || dottedElement) {
             // check if exist lane2lane connection
@@ -2007,7 +2007,7 @@ GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicle
     // declare contour width
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // Traslate to vehicle top
     glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
     glRotated(vehicleRotation, 0, 0, -1);
@@ -2022,7 +2022,7 @@ GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicle
     // draw stack label
     GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::WHITE, 90, 0, -1);
     // pop draw matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -2031,7 +2031,7 @@ GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleR
     // declare contour width
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // Traslate to vehicle bot
     glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
     glRotated(vehicleRotation, 0, 0, -1);
@@ -2046,7 +2046,7 @@ GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleR
     // draw stack label
     GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
     // pop draw matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 

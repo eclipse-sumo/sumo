@@ -382,7 +382,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                 }
                 segmentOffset += length;
             }
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         vehicleControl->releaseVehicles();
     }

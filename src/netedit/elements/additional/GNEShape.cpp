@@ -23,6 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEShape.h"
 
@@ -72,7 +73,7 @@ void
 GNEShape::draw(const Position& pos, double layer, double size) const {
     if (myNet->getViewNet()->showLockIcon()) {
         // Start pushing matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Traslate to middle of shape
         glTranslated(pos.x(), pos.y(), layer + 0.1);
         // Rotate 180 degrees
@@ -98,7 +99,7 @@ GNEShape::draw(const Position& pos, double layer, double size) const {
             }
         }
         // Pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

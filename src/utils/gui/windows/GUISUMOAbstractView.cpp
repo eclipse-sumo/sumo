@@ -299,6 +299,7 @@ GUISUMOAbstractView::paintGL() {
 
     Boundary bound = applyGLTransform();
     doPaintGL(GL_RENDER, bound);
+    GLHelper::checkMatrixCounter();
     displayLegends();
     const long end = SysUtils::getCurrentMillis();
     myFrameDrawTime = end - start;
@@ -578,10 +579,10 @@ GUISUMOAbstractView::displayLegend() {
     glLineWidth(1.0);
 
     glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
 
     // draw the scale bar
@@ -590,7 +591,7 @@ GUISUMOAbstractView::displayLegend() {
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, z);
 
     double len = (double) pixelSize / (double)(getWidth() - 1) * (double) 2.0;
@@ -609,7 +610,7 @@ GUISUMOAbstractView::displayLegend() {
     glVertex2d(-.98 + len, -1. + o);
     glVertex2d(-.98 + len, -1. + o2);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 
     const double fontHeight = 0.1 * 300. / getHeight();
     const double fontWidth = 0.1 * 300. / getWidth();
@@ -621,9 +622,9 @@ GUISUMOAbstractView::displayLegend() {
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
+    GLHelper::popMatrix();
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 void
@@ -644,16 +645,16 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     // compute the scale bar length
     glLineWidth(1.0);
     glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
 
     const double z = -1;
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, z);
 
     const bool fixed = scheme.isFixed();
@@ -739,12 +740,12 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         glTranslated(0, 0, -0.1);
         GLHelper::drawText(text, Position(textX, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     // restore matrices
     glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
+    GLHelper::popMatrix();
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -756,10 +757,10 @@ GUISUMOAbstractView::getFPS() const {
 void
 GUISUMOAbstractView::drawFPS() {
     glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     const double fontHeight = 0.2 * 300. / getHeight();
     const double fontWidth = 0.2 * 300. / getWidth();
@@ -767,9 +768,9 @@ GUISUMOAbstractView::drawFPS() {
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
+    GLHelper::popMatrix();
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -1189,7 +1190,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
                            GL2PS_DRAW_BACKGROUND | GL2PS_USE_CURRENT_VIEWPORT,
                            GL_RGBA, 0, NULL, 0, 0, 0, buffsize, fp, "out.eps");
             glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glDisable(GL_TEXTURE_2D);
             glDisable(GL_ALPHA_TEST);
             glDisable(GL_BLEND);
@@ -1564,7 +1565,7 @@ GUISUMOAbstractView::drawDecals() {
                 d.skip2D = true;
             }
         }
-        glPushMatrix();
+        GLHelper::pushMatrix();
         if (d.screenRelative) {
             Position center = screenPos2NetPos((int)d.centerX, (int)d.centerY);
             glTranslated(center.x(), center.y(), d.layer);
@@ -1580,7 +1581,7 @@ GUISUMOAbstractView::drawDecals() {
             halfHeight = p2m(halfHeight);
         }
         GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     myDecalsLock.unlock();
     glPopName();

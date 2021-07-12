@@ -93,7 +93,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Start drawing adding an gl identificator
             glPushName(getGlID());
             // Add a draw matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
             // set base color
@@ -110,7 +110,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? 0.5 : 0.25);
             }
             // pop draw matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // Pop name
             glPopName();
             // draw connection betwen access
@@ -321,7 +321,7 @@ void
 GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor& color) const {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // Add a draw matrix for details
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // move to GLO_BUS_STOP
         glTranslated(0, 0, GLO_BUS_STOP);
         // set color
@@ -337,7 +337,7 @@ GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBCol
                                   busStopCenter.distanceTo2D(accessCenter), .05);
         }
         // pop draw matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

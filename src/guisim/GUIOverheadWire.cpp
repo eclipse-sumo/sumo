@@ -137,7 +137,7 @@ void
 GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     // Draw overhead wire segment
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     RGBColor lightgray(211, 211, 211, 255);
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
@@ -277,11 +277,11 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 10 && myVoltageSource) {
 
         // push charging power matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw charging power
         GLHelper::drawText((toString(getTractionSubstation()->getSubstationVoltage()) + " V").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), myFGSignRot, FONS_ALIGN_LEFT);
         // pop charging power matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
 
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
@@ -306,7 +306,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     }
 
 
-    glPopMatrix();
+    GLHelper::popMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 }
@@ -353,7 +353,7 @@ void
 GUIOverheadWireClamp::drawGL(const GUIVisualizationSettings& s) const {
     // Draw overhead wire segment
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     RGBColor lightgray(211, 211, 211, 255);
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
@@ -398,7 +398,7 @@ GUIOverheadWireClamp::drawGL(const GUIVisualizationSettings& s) const {
 
 
 
-    glPopMatrix();
+    GLHelper::popMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 }

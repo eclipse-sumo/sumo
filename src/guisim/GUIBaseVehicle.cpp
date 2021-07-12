@@ -395,7 +395,7 @@ GUIBaseVehicle::getOptionalName() const {
 void
 GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const double angle) const {
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     Position p1 = pos;
     const double degAngle = RAD2DEG(angle + M_PI / 2.);
     const double length = getVType().getLength();
@@ -599,7 +599,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPositions, myContainerPositions);
     }
 
-    glPopMatrix();
+    GLHelper::popMatrix();
     glPopName();
     drawAction_drawPersonsAndContainers(s);
 }
@@ -617,7 +617,7 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
         drawGL(s);
     }
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
         drawBestLanes();
@@ -643,7 +643,7 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
     if (hasActiveAddVisualisation(parent, VO_SHOW_LFLINKITEMS)) {
         drawAction_drawLinkItems(s);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     glPopName();
 }
 
@@ -853,7 +853,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
     }
 #ifdef DRAW_BOUNDING_BOX
     glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     PositionVector boundingBox = getBoundingBox();
     boundingBox.push_back(boundingBox.front());
@@ -863,7 +863,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
     glColor3d(0.5, .8, 0);
     GLHelper::drawLine(smallBB);
     //GLHelper::drawBoxLines(getBoundingBox(), 0.5);
-    glPopMatrix();
+    GLHelper::popMatrix();
     glPopName();
 #endif
 }

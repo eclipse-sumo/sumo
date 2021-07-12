@@ -431,7 +431,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     for (int j = 0; j < noLanes; ++j) {
                         Position pos = myFGPositions[j];
                         double rot = myFGRotations[j];
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(pos.x(), pos.y(), 0);
                         glRotated(rot, 0, 0, 1);
                         glTranslated(0, -1.5, 0);
@@ -460,7 +460,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                         glVertex2d(0 - .3, -1.);
                         glVertex2d(0 + .3, 1.);
                         glEnd();
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
@@ -470,7 +470,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
             for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                 const Position& pos = myFGPositions[i];
                 double rot = myFGRotations[i];
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 glTranslated(pos.x(), pos.y(), 0);
                 glRotated(rot, 0, 0, 1);
                 glTranslated(0, 0, getType());
@@ -494,7 +494,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 // draw Probability
                 GLHelper::drawText((toString((int)(prob * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
 
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         } else if (myEdgeType == REROUTER_SWITCH_EDGE) {
             const RerouteInterval* const ri =
@@ -504,7 +504,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                     const Position& pos = myFGPositions[i];
                     double rot = myFGRotations[i];
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0);
                     glRotated(rot, 0, 0, 1);
                     glTranslated(0, 0, getType());
@@ -527,7 +527,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     // draw Probability for this target edge
                     GLHelper::drawText((toString((int)(routeProb * 100)) + "%").c_str(), Position(0, 5), .1, 0.7, RGBColor::BLACK, 180);
 
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 }
             }
         }

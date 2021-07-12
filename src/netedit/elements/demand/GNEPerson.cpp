@@ -369,7 +369,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // push GL ID
             glPushName(getGlID());
             // push draw matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // translate and rotate
@@ -388,7 +388,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
             // pop matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // pop name
             glPopName();
             // draw name

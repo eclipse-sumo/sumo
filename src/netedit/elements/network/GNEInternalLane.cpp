@@ -138,7 +138,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // push name
     glPushName(getGlID());
     // push layer matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // translate to front
     myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
     // move front again
@@ -152,7 +152,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
         GNEGeometry::drawGeometry(myEditor->getViewNet(), myInternalLaneGeometry, 0.2);
     }
     // pop layer matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
     // pop name
     glPopName();
 }

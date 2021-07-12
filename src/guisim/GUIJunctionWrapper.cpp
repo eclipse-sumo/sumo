@@ -136,7 +136,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // check whether it is not too small
         const double exaggeration = s.junctionSize.getExaggeration(s, this, 4);
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glPushName(getGlID());
             const double colorValue = getColorValue(s, s.junctionColorer.getActive());
             const RGBColor color = s.junctionColorer.getScheme().getColor(colorValue);
@@ -165,7 +165,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             glPopName();
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
     if (myIsInternal) {

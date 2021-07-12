@@ -146,7 +146,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
         // set color depending of selection
@@ -166,7 +166,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, accessExaggeration, 0, 0, true, 0.3);
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // pop gl identficador
         glPopName();
         // check if dotted contours has to be drawn

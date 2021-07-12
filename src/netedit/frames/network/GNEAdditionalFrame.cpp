@@ -760,7 +760,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
         const double lineWidth = 0.35;
         const double lineWidthin = 0.25;
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // set first color
@@ -812,7 +812,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
         // draw geometry points
         GNEGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet(), {firstPosition, secondPosition}, pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
