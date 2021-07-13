@@ -581,12 +581,13 @@
         <xsd:attribute name="lat" type="xsd:float" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
         <xsd:attribute name="pos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
         <xsd:attribute name="posLat" type="xsd:float" use="optional"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="xsd:float" use="optional"/>
         <xsd:attribute name="height" type="xsd:float" use="optional"/>
-		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <!-- differs from baseTypes.xsd/tlLogicType in 'type' being optional here -->
