@@ -1558,15 +1558,15 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 void 
 GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-    const RGBColor& color, const std::string& laneID, double posOverLane, double posLat, double layer, double angle, const std::string& imgFile, 
-    bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
+    const RGBColor& color, const std::string& laneID, double posOverLane, const bool friendlyPosition, double posLat, double layer, double angle, 
+    const std::string& imgFile, bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
     } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
         writeErrorInvalidName(SUMO_TAG_POI, id, SUMO_ATTR_NAME);
     } else if (!SUMOXMLDefinitions::isValidAttribute(type)) {
-        writeErrorInvalidName(SUMO_TAG_POLY, id, SUMO_ATTR_TYPE);
+        writeErrorInvalidName(SUMO_TAG_POI, id, SUMO_ATTR_TYPE);
     } else if (width < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
     } else if (height < 0) {
@@ -1581,7 +1581,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_POI, SUMO_TAG_LANE);
-        } else if (!checkSinglePositionOverLane(posOverLane, lane->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
+        } else if (!checkSinglePositionOverLane(posOverLane, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_POI, id);
         } else {
             // create POI

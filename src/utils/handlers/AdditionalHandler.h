@@ -521,6 +521,7 @@ public:
      * @param[in] color The color of the POI
      * @param[in] laneID The Lane in which this POI is placed
      * @param[in] posOverLane The position over Lane
+     * @param[in] friendlyPos enable or disable friendly position
      * @param[in] posLat The position lateral over Lane
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
@@ -531,9 +532,9 @@ public:
      * @param[in] name POI name
      * @param[in] parameters generic parameters
      */
-    virtual void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-                              const RGBColor& color, const std::string& laneID, const double posOverLane, const double posLat, const double layer, const double angle, 
-                              const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name, 
+    virtual void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color, 
+                              const std::string& laneID, const double posOverLane, const bool friendlyPosition, const double posLat, const double layer, 
+                              const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name, 
                               const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a POI in GEO coordinaten using the given values
