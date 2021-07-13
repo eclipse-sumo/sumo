@@ -209,14 +209,14 @@ def main():
     # start traci
     if options.sumocfg:
         run_traci = [SUMO, "-c", options.sumocfg,
-                     '--tripinfo-output.write-unfinished', "--no-step-log",
+                     '--tripinfo-output.write-unfinished',
                      '--routing-algorithm', options.routing_algorithm]
     else:
         run_traci = [SUMO, '--net-file', '%s' % options.network, '-r',
                      '%s,%s' % (options.reservations, options.taxis), '-l',
                      'log.txt', '--device.taxi.dispatch-algorithm', 'traci',
                      '--tripinfo-output', '%s' % options.output,
-                     '--tripinfo-output.write-unfinished', "--no-step-log",
+                     '--tripinfo-output.write-unfinished',
                      '--routing-algorithm', options.routing_algorithm,
                      '--stop-output', 'stops_%s' % options.output]
         if options.gui_settings:
