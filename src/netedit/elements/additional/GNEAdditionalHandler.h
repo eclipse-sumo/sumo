@@ -527,7 +527,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color, 
-                      const std::string& laneID, const double posOverLane, const bool friendlyPosition, const double posLat, const double layer, 
+                      const std::string& laneID, const double posOverLane, const bool friendlyPos, const double posLat, const double layer, 
                       const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name, 
                       const std::map<std::string, std::string> &parameters);
 

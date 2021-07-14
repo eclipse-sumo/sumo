@@ -46,7 +46,6 @@ public:
     /// @brief Constructor
     GUIShapeContainer(SUMORTree& vis);
 
-
     /// @brief Destructor
     virtual ~GUIShapeContainer();
 
@@ -91,6 +90,7 @@ public:
      * @param[in[ geo use GEO coordinates (lon/lat)
      * @param[in] lane The Lane in which this POI is placed
      * @param[in] posOverLane The position over Lane
+     * @param[in] friendlyPos enable or disable friendly position over lane
      * @param[in] posLat The position lateral over Lane
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
@@ -101,10 +101,8 @@ public:
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                        const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
                         const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false) override;
-
-
 
     /** @brief Removes a polygon from the container
      * @param[in] id The id of the polygon
@@ -112,14 +110,11 @@ public:
      */
     virtual bool removePolygon(const std::string& id, bool useLock = true) override;
 
-
     /** @brief Removes a PoI from the container
      * @param[in] id The id of the PoI
      * @return Whether the poi could be removed
      */
     virtual bool removePOI(const std::string& id) override;
-
-
 
     /** @brief Assigns a new position to the named PoI
      * @param[in] id The id of the PoI to move
@@ -127,24 +122,20 @@ public:
      */
     virtual void movePOI(const std::string& id, const Position& pos) override;
 
-
     /** @brief Assigns a shape to the named polygon
      * @param[in] id The id of the polygon to reshape
      * @param[in] shape The polygon's new shape
      */
     virtual void reshapePolygon(const std::string& id, const PositionVector& shape) override;
 
-
-
-    /// Returns the gl-ids of all pois
+    /// @brief Returns the gl-ids of all pois
     std::vector<GUIGlID> getPOIIds() const;
-    /// Returns the gl-ids of all polygons
+
+    /// @brief Returns the gl-ids of all polygons
     std::vector<GUIGlID> getPolygonIDs() const;
 
-
-    void allowReplacement() {
-        myAllowReplacement = true;
-    }
+    /// @brief allow replacement
+    void allowReplacement();
 
 private:
     /// @brief The mutex for adding/removing operations
@@ -152,7 +143,6 @@ private:
 
     /// @brief The RTree structure to add and remove visualization elements
     SUMORTree& myVis;
-
 
     /// @brief whether existing ids shall be replaced
     bool myAllowReplacement;

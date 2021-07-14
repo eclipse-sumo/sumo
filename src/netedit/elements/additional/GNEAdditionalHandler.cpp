@@ -1558,7 +1558,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 void 
 GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, 
-    const RGBColor& color, const std::string& laneID, double posOverLane, const bool friendlyPosition, double posLat, double layer, double angle, 
+    const RGBColor& color, const std::string& laneID, double posOverLane, const bool friendlyPos, double posLat, double layer, double angle, 
     const std::string& imgFile, bool relativePath, double width, double height, const std::string& name, const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
@@ -1581,11 +1581,11 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_POI, SUMO_TAG_LANE);
-        } else if (!checkSinglePositionOverLane(posOverLane, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
+        } else if (!checkSinglePositionOverLane(posOverLane, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             writeErrorInvalidPosition(SUMO_TAG_POI, id);
         } else {
             // create POI
-            GNEShape* POILane = new GNEPOI(myNet, id, type, color, lane, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters, neteditParameters.blockMovement);
+            GNEShape* POILane = new GNEPOI(myNet, id, type, color, lane, friendlyPos, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters, neteditParameters.blockMovement);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + POILane->getTagStr());

@@ -185,7 +185,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                 }
             }
         }
-        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
+        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
             WRITE_ERROR("PoI '" + id + "' already exists.");
         }
         myLastParameterised = myShapeContainer.getPOIs().get(id);

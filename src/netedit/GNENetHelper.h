@@ -169,6 +169,7 @@ struct GNENetHelper {
         * @param[in[ geo use GEO coordinates (lon/lat)
         * @param[in] lane The Lane in which this POI is placed
         * @param[in] posOverLane The position over Lane
+        * @param[in] friendlyPos enable or disable friendlyPos over lane
         * @param[in] posLat The position lateral over Lane
         * @param[in] layer The layer of the POI
         * @param[in] angle The rotation of the POI
@@ -179,7 +180,7 @@ struct GNENetHelper {
         * @return whether the poi could be added
         */
         bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                    const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                    const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
                     const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
 
         /// @}

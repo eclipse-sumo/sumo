@@ -29,6 +29,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/Position.h>
 #include <utils/iodevices/OutputDevice.h>
+
 #include "Shape.h"
 
 
@@ -48,6 +49,7 @@ public:
      * @param[in] pos The position of the POI
      * @param[in[ geo use GEO coordinates (lon/lat)
      * @param[in] lane The Lane in which this POI is placed
+     * @param[in] friendlyPos friendly position
      * @param[in] posOverLane The position over Lane
      * @param[in] posLat The position lateral over Lane
      * @param[in] layer The layer of the POI
@@ -61,7 +63,8 @@ public:
      */
     PointOfInterest(const std::string& id, const std::string& type,
                     const RGBColor& color, const Position& pos, bool geo,
-                    const std::string& lane, double posOverLane, double posLat,
+                    const std::string& lane, double posOverLane, 
+                    bool friendlyPos, double posLat,
                     double layer = DEFAULT_LAYER,
                     double angle = DEFAULT_ANGLE,
                     const std::string& imgFile = DEFAULT_IMG_FILE,
@@ -76,15 +79,14 @@ public:
         myGeo(geo),
         myLane(lane),
         myPosOverLane(posOverLane),
+        myFriendlyPos(friendlyPos),
         myPosLat(posLat),
         myHalfImgWidth(width / 2.0),
         myHalfImgHeight(height / 2.0) {
     }
 
-
     /// @brief Destructor
     virtual ~PointOfInterest() { }
-
 
     /// @name Getter
     /// @{
@@ -102,6 +104,11 @@ public:
     /// @brief Returns the image center of the POI
     Position getCenter() const {
         return {x() + myHalfImgWidth, y() + myHalfImgHeight};
+    }
+
+    /// @brief returns friendly position
+    bool getFriendlyPos() const {
+        return myFriendlyPos;
     }
     /// @}
 
@@ -188,6 +195,9 @@ protected:
 
     /// @brief position over lane in which this POI is placed (main used by netedit)
     double myPosOverLane;
+
+    /// @brief friendlyPos enable or disable friendly position for position over lane
+    bool myFriendlyPos;
 
     /// @brief latereal position over lane in which this POI is placed (main used by netedit)
     double myPosLat;

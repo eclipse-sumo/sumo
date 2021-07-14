@@ -253,7 +253,7 @@ GNENetHelper::AttributeCarriers::addPolygon(const std::string& /*id*/, const std
 
 bool
 GNENetHelper::AttributeCarriers::addPOI(const std::string& /*id*/, const std::string& /*type*/, const RGBColor& /*color*/, const Position& /*pos*/, bool /*geo*/,
-    const std::string& /*lane*/, double /*posOverLane*/, double /*posLat*/, double /*layer*/, double /*angle*/, const std::string& /*imgFile*/, bool /*relativePath*/,
+    const std::string& /*lane*/, double /*posOverLane*/, bool /*friendlyPos*/, double /*posLat*/, double /*layer*/, double /*angle*/, const std::string& /*imgFile*/, bool /*relativePath*/,
     double /*width*/, double /*height*/, bool /*ignorePruning*/) {
     return false;
 }
