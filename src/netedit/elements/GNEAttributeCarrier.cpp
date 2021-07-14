@@ -2808,6 +2808,12 @@ GNEAttributeCarrier::fillShapes() {
                                               "The position on the named lane or in the net in meters at which the " + toString(currentTag) + " is located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_POSITION_LAT,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The lateral offset on the named lane at which the " + toString(currentTag) + " is located at",

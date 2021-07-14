@@ -113,7 +113,7 @@ GNEPOI::writeShape(OutputDevice& device) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > getParentLanes().at(0)->getLaneShape().length() ? getParentLanes().at(0)->getLaneShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // write POILane using POI::writeXML
-        writeXML(device, false, 0, getParentLanes().at(0)->getID(), fixedPositionOverLane, myPosLat);
+        writeXML(device, false, 0, getParentLanes().at(0)->getID(), fixedPositionOverLane, myFriendlyPos, myPosLat);
     } else {
         writeXML(device, myGeo);
     }
@@ -266,6 +266,8 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(*this);
             }
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(getFriendlyPos());
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
         case SUMO_ATTR_LON: {
@@ -324,6 +326,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_POSITION_LAT:
         case SUMO_ATTR_LON:
         case SUMO_ATTR_LAT:
@@ -362,6 +365,8 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<Position>(value);
             }
+        case SUMO_ATTR_FRIENDLY_POS:
+            return canParse<bool>(value);
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_LON:
@@ -455,6 +460,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateCenteringBoundary(true);
             break;
         }
+        case SUMO_ATTR_FRIENDLY_POS:
+            setFriendlyPos(parse<bool>(value));
+            break;
         case SUMO_ATTR_POSITION_LAT:
             myPosLat = parse<double>(value);
             // update centering boundary

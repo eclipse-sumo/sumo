@@ -1585,7 +1585,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
             writeErrorInvalidPosition(SUMO_TAG_POI, id);
         } else {
             // create POI
-            GNEShape* POILane = new GNEPOI(myNet, id, type, color, lane, friendlyPos, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters, neteditParameters.blockMovement);
+            GNEShape* POILane = new GNEPOI(myNet, id, type, color, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters, neteditParameters.blockMovement);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + POILane->getTagStr());
