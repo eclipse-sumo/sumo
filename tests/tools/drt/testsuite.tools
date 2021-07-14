@@ -12,3 +12,6 @@ stop_duration
 
 # test definition of pick-up, drop-off and waiting time for requests
 customized_times
+
+# test time out to process a reservation
+max_processing

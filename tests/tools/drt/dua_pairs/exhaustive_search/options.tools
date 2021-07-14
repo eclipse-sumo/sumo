@@ -1,1 +1,1 @@
--n net.net.xml -r input_routes2.rou.xml -v input_routes.rou.xml --darp-solver exhaustive_search tools/drt/drtOnline.py --dua-times --max-wait 100
+-c sim.sumocfg -n net.net.xml -r input_routes2.rou.xml --darp-solver exhaustive_search --max-wait 100 --dua-times --verbose --end-time 1500 tools/drt/drtOnline.py

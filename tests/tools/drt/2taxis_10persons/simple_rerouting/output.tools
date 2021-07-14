@@ -1,3 +1,72 @@
+Loading configuration ... done.
+
+Run dispatcher
+New reservations: ['0']
+Pending reservations: []
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiB_0y_0z
+
+Run dispatcher
+New reservations: ['1', '2', '3']
+Pending reservations: []
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiB_0y_2y_1y_0z_1z_2z
+
+Run dispatcher
+New reservations: ['4', '5', '6']
+Pending reservations: ['3']
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiA_6y_5y_3y_3z_6z_5z
+
+Run dispatcher
+New reservations: ['7', '8', '9']
+Pending reservations: ['4']
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiB_1y_8y_8z_0z_1z_2z
+
+Run dispatcher
+Pending reservations: ['4', '7', '9']
+Solve DARP with simple_rerouting
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['4', '7', '9']
+Solve DARP with simple_rerouting
+
+Run dispatcher
+Pending reservations: ['4', '7', '9']
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiB_0z_7y_2z_7z_1z
+
+Run dispatcher
+Pending reservations: ['4', '9']
+Solve DARP with simple_rerouting
+
+Run dispatcher
+Pending reservations: ['4', '9']
+Solve DARP with simple_rerouting
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['4', '9']
+Solve DARP with simple_rerouting
+
+Run dispatcher
+Pending reservations: ['4', '9']
+Solve DARP with simple_rerouting
 Reservation 4 (person ('4',)) cannot be served
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with simple_rerouting
+Reservation 9 (person ('9',)) cannot be served
+Solve ILP
+
 Approximate solution found.
 DRT simulation ended

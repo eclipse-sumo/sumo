@@ -1,2 +1,55 @@
+Loading configuration ... done.
+
+Run dispatcher
+New reservations: ['0']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiB_0y_0z
+
+Run dispatcher
+New reservations: ['1', '2', '3']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiB_0y_2y_3y_1y_3z_0z_1z_2z
+
+Run dispatcher
+New reservations: ['4', '5', '6']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiB_2y_3y_4y_3z_1y_0z_1z_2z_4z
+Dispatch: taxiA_5y_6y_5z_6z
+
+Run dispatcher
+New reservations: ['7', '8', '9']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiA_5y_7y_6y_8y_8z_7z_6z_5z
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiB_3z_1y_0z_1z_4z_2z
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Solve ILP
+Dispatch: taxiB_1y_0z_9y_1z_2z_4z_9z
+
 Exact solution found.
 DRT simulation ended

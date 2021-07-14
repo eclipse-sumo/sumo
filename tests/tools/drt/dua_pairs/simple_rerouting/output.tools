@@ -1,5 +1,53 @@
 Reading up to time step: 0.00Reading up to time step: 200.00Success.
+Loading configuration ... done.
+Calculate travel time between edges with duarouter
+
+Run dispatcher
+New reservations: ['0']
+Pending reservations: []
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiA_0y_0z
+
+Run dispatcher
+New reservations: ['1']
+Pending reservations: []
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiA_1y_1z
+
+Run dispatcher
+New reservations: ['2']
+Pending reservations: []
+Solve DARP with simple_rerouting
+
+Run dispatcher
+Pending reservations: ['2']
+Solve DARP with simple_rerouting
+
+Run dispatcher
+Pending reservations: ['2']
+Solve DARP with simple_rerouting
 Reservation 2 (person ('2',)) cannot be served
+
+Run dispatcher
+New reservations: ['3']
+Pending reservations: []
+Solve DARP with simple_rerouting
 Reservation 3 (person ('3',)) cannot be served
+
+Run dispatcher
+New reservations: ['4']
+Pending reservations: []
+Solve DARP with simple_rerouting
+Reservation 4 (person ('4',)) cannot be served
+
+Run dispatcher
+New reservations: ['5']
+Pending reservations: []
+Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiA_5y_5z
+
 Approximate solution found.
 DRT simulation ended
