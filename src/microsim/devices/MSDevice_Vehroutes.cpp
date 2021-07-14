@@ -192,8 +192,12 @@ MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
     if (myWriteStopPriorEdges) {
         // calculate length
         double priorEdgesLength = 0;
-        for (const auto &edge : myPriorEdges) {
-            priorEdgesLength += edge->getLength();
+        for (int i = 0; i < (int)myPriorEdges.size(); i++) {
+            if (i == 0) {
+                priorEdgesLength += myPriorEdges.at(i)->getLength();
+            } else if (myPriorEdges.at(i)->getID() != myPriorEdges.at(i-1)->getID()) {
+                priorEdgesLength += myPriorEdges.at(i)->getLength();
+            }
         }
         myStopOut.writeAttr("priorEdges", myPriorEdges);
         myPriorEdges.clear();
