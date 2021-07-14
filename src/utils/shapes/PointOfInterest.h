@@ -125,6 +125,11 @@ public:
     inline void setHeight(double height) {
         myHalfImgHeight = height / 2.0;
     }
+
+    /// @brief set friendly position
+    inline void setFriendlyPos(const bool friendlyPos) {
+        myFriendlyPos = friendlyPos;
+    }
     /// @}
 
     /* @brief POI definition to the given device

@@ -118,12 +118,12 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     }
     // write pois
     const double zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
-    for (auto i : myPOIs) {
-        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(i.first);
+    for (const auto &POI : myPOIs) {
+        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(POI.first);
         if (it == myLanePosPois.end()) {
             i.second->writeXML(out, useGeo, zOffset);
         } else {
-            i.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.posLat);
+            i.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.friendlyPos, it->second.posLat);
         }
     }
     out.close();
