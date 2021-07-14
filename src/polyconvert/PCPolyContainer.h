@@ -91,8 +91,8 @@ public:
      */
     bool add(PointOfInterest* poi, bool ignorePruning = false);
 
-
-    void addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
+    /// @brief add lane pos
+    void addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, const double friendlyPos, double lanePosLat);
 
     /** @brief Saves the stored polygons and pois into the given file
      * @param[in] file The name of the file to write stored objects' definitions into
@@ -117,16 +117,26 @@ public:
      */
     int getEnumIDFor(const std::string& key);
 
-
 private:
-
+    /// @brief LanePos
     struct LanePos {
-        LanePos() {}
-        LanePos(const std::string& _laneID, double _pos, double _posLat) :
-            laneID(_laneID), pos(_pos), posLat(_posLat) {}
-        std::string laneID;
-        double pos;
-        double posLat;
+        /// @brief default constructor
+        LanePos();
+
+        /// @brief parameter constructor
+        LanePos(const std::string& laneID, const double pos, const bool friendlyPos, const double posLat);
+
+        /// @brief laneID
+        const std::string laneID;
+
+        /// @brief pos over lane
+        const double pos;
+
+        /// @brief friendly position
+        const bool friendlyPos;
+
+        /// @brief pos lateral over lane
+        const double posLat;
     };
 
     /// @brief An id to pos map for lane pos specs
@@ -144,14 +154,12 @@ private:
     /// @brief List of names of polygons/pois that shall be removed
     std::vector<std::string> myRemoveByNames;
 
+    /// @brief write DLR TDP Header
     static void writeDlrTDPHeader(OutputDevice& device, const OptionsCont& oc);
 
-private:
     /// @brief Invalidated copy constructor
     PCPolyContainer(const PCPolyContainer& s);
 
     /// @brief Invalidated assignment operator
-    PCPolyContainer& operator=(const PCPolyContainer& s);
-
-
+    PCPolyContainer& operator=(const PCPolyContainer& s) = delete;
 };

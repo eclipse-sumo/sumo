@@ -93,8 +93,8 @@ PCPolyContainer::add(PointOfInterest* poi, bool ignorePruning) {
 
 
 void
-PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
-    myLanePosPois[poiID] = LanePos(laneID, lanePos, lanePosLat);
+PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, const double friendlyPos, double lanePosLat) {
+    myLanePosPois[poiID] = LanePos(laneID, lanePos, friendlyPos, lanePosLat);
 }
 
 
@@ -201,5 +201,19 @@ PCPolyContainer::getEnumIDFor(const std::string& key) {
     return myIDEnums[key]++;
 }
 
+
+PCPolyContainer::LanePos::LanePos() :
+    pos(0),
+    friendlyPos(false),
+    posLat(0) {
+}
+
+
+PCPolyContainer::LanePos::LanePos(const std::string& _laneID, const double _pos, const bool _friendlyPos, const double _posLat) :
+    laneID(_laneID), 
+    pos(_pos), 
+    friendlyPos(_friendlyPos), 
+    posLat(_posLat) {
+}
 
 /****************************************************************************/

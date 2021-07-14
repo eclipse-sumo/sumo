@@ -120,11 +120,10 @@ public:
     }
     /// @}
 
-
     /* @brief POI definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const double posLat = 0.) {
+    void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const bool friendlyPos = false, const double posLat = 0.) {
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
         if (getShapeType().size() > 0) {
@@ -140,6 +139,9 @@ public:
             out.writeAttr(SUMO_ATTR_POSITION, pos);
             if (posLat != 0) {
                 out.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
+            }
+            if (friendlyPos) {
+                out.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
             }
         } else {
             if (geo) {
@@ -177,7 +179,6 @@ public:
         out.closeTag();
     }
 
-
 protected:
     /// @brief flag to check if POI was loaded as GEO Position (main used by netedit)
     bool myGeo;
@@ -196,5 +197,4 @@ protected:
 
     /// @brief The half height of the image when rendering this POI
     double myHalfImgHeight;
-
 };
