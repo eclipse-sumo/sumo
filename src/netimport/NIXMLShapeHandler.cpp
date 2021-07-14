@@ -37,7 +37,7 @@ NIXMLShapeHandler::NIXMLShapeHandler(ShapeContainer& sc, const NBEdgeCont& ec) :
 {}
 
 Position
-NIXMLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, const bool friendlyPos, double lanePosLat) {
+NIXMLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, bool friendlyPos, double lanePosLat) {
     std::string edgeID;
     int laneIndex;
     NBHelpers::interpretLaneID(laneID, edgeID, laneIndex);

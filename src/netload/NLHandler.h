@@ -60,7 +60,7 @@ public:
     /// @brief Destructor
     virtual ~NLShapeHandler() {}
 
-    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, const bool friendlyPos, double lanePosLat);
+    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, bool friendlyPos, double lanePosLat);
 
     virtual bool addLanePosParams() {
         return true;
