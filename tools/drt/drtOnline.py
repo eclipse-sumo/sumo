@@ -227,6 +227,10 @@ def main():
     if options.dua_times:
         if options.verbose:
             print('Calculate travel time between edges with duarouter')
+            if not options.reservations:
+                sys.exit("please specify the reservation file with the option '--reservations'")  # noqa
+            if not options.network:
+                sys.exit("please specify the sumo network file with the option '--network'")  # noqa
         pairs_dua_times = find_dua_times(options)
     else:
         pairs_dua_times = {}
