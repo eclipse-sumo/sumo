@@ -83,7 +83,7 @@ def initOptions():
     ap.add_argument("--routing-mode", type=int, default=0,
                     help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
     ap.add_argument("--dua-times", action='store_true')
-    ap.add_argument("--debug", action='store_true')
+    ap.add_argument("--verbose", action='store_true')
 
     return ap
 
@@ -223,7 +223,7 @@ def main():
             run_traci.extend(['-g', '%s' % options.gui_settings])
 
     if options.dua_times:
-        if options.debug:
+        if options.verbose:
             print('Calculate travel time between edges with duarouter')
         pairs_dua_times = find_dua_times(options)
     else:
@@ -333,12 +333,12 @@ def main():
 
         # if reservations pending
         if res_id_unassigned:
-            if options.debug:
+            if options.verbose:
                 print('\nRun dispatcher')
                 if res_id_new:
-                    print('New reservations: ', res_id_new)
-                print('Unassigned reservations: ',
-                      list(set(res_id_unassigned)-set(res_id_new)))
+                    print('New reservations:', sorted(res_id_new))
+                print('Pending reservations:',
+                      sorted(set(res_id_unassigned)-set(res_id_new)))
 
             # get fleet
             fleet = traci.vehicle.getTaxiFleet(-1)
@@ -371,7 +371,7 @@ def main():
             res_id_picked = [res.id for res in traci.person.getTaxiReservations(8)]  # noqa
 
             # call DARP solver to find the best routes
-            if options.debug:
+            if options.verbose:
                 print('Solve DARP with %s' % options.darp_solver)
 
             darp_solution = darpSolvers.main(options, step, fleet, veh_type,
@@ -414,7 +414,7 @@ def main():
                     # generate dict with served reservations in the trip
                     res_constraints.update({idx: routes[trip_id][2]})
 
-                if options.debug:
+                if options.verbose:
                     print('Solve ILP')
                 ilp_result = ilp_solve(options, len(fleet), len(ilp_res_cons),
                                        costs, veh_constraints, res_constraints)
@@ -486,8 +486,8 @@ def main():
                     tt_new_route = routes[route_id][0]
                     if tt_new_route >= tt_current_route:
                         continue  # current route better than new found
-                if options.debug:
-                    print('Dispatch: ', route_id)
+                if options.verbose:
+                    print('Dispatch:', route_id)
                 traci.vehicle.dispatchTaxi(veh_id, stops[1:])
                 # assign vehicle to reservations
                 # TODO to avoid major changes in the pick-up time when assigning new passengers,  # noqa
@@ -504,9 +504,9 @@ def main():
         step += options.sim_step
 
     if all(exact_sol):
-        print('Exact solution found.')
+        print('\nExact solution found.')
     else:
-        print('Approximate solution found.')
+        print('\nApproximate solution found.')
     print('DRT simulation ended')
     traci.close()
 

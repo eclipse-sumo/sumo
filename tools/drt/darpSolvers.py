@@ -399,7 +399,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
                     pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
                                             routingMode=options.routing_mode).travelTime # noqa
                 rv_dict[route_id][0] = pickup_time+veh_time_pickup
-                if options.debug and step+pickup_time > res.tw_pickup[1]:  # Debug only # noqa
+                if options.verbose and step+pickup_time > res.tw_pickup[1]:  # Debug only # noqa
                     print("Time window surpassed by", step+pickup_time - res.tw_pickup[1]) # noqa
 
         elif res_id in res_id_picked:
