@@ -160,7 +160,7 @@ POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, 
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     bool ok = shapeCont.addPOI(poiID, poiType,
                                Helper::makeRGBColor(color),
-                               Position(x, y), false, "", 0, 0, (double)layer,
+                               Position(x, y), false, "", 0, false, 0, (double)layer,
                                angle,
                                imgFile,
                                Shape::DEFAULT_RELATIVEPATH,

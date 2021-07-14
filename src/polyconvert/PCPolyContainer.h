@@ -124,19 +124,19 @@ private:
         LanePos();
 
         /// @brief parameter constructor
-        LanePos(const std::string& laneID, const double pos, const bool friendlyPos, const double posLat);
+        LanePos(const std::string& laneID, double pos, bool friendlyPos, double posLat);
 
         /// @brief laneID
-        const std::string laneID;
+        std::string laneID;
 
         /// @brief pos over lane
-        const double pos;
+        double pos;
 
         /// @brief friendly position
-        const bool friendlyPos;
+        bool friendlyPos;
 
         /// @brief pos lateral over lane
-        const double posLat;
+        double posLat;
     };
 
     /// @brief An id to pos map for lane pos specs

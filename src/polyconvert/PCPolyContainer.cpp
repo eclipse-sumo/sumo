@@ -121,9 +121,9 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     for (const auto &POI : myPOIs) {
         std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(POI.first);
         if (it == myLanePosPois.end()) {
-            i.second->writeXML(out, useGeo, zOffset);
+            POI.second->writeXML(out, useGeo, zOffset);
         } else {
-            i.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.friendlyPos, it->second.posLat);
+            POI.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.friendlyPos, it->second.posLat);
         }
     }
     out.close();
@@ -209,7 +209,7 @@ PCPolyContainer::LanePos::LanePos() :
 }
 
 
-PCPolyContainer::LanePos::LanePos(const std::string& _laneID, const double _pos, const bool _friendlyPos, const double _posLat) :
+PCPolyContainer::LanePos::LanePos(const std::string& _laneID, double _pos, bool _friendlyPos, double _posLat) :
     laneID(_laneID), 
     pos(_pos), 
     friendlyPos(_friendlyPos), 

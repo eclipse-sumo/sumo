@@ -196,7 +196,8 @@ GUIShapeContainer::getPolygonIDs() const {
 }
 
 
-inline void GUIShapeContainer::allowReplacement() {
+void 
+GUIShapeContainer::allowReplacement() {
     myAllowReplacement = true;
 }
 
