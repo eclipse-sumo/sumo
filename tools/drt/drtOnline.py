@@ -74,6 +74,8 @@ def initOptions():
                     help="Minimum time difference allowed between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")  # noqa
     ap.add_argument("--max-wait", type=int, default=900,
                     help="Maximum waiting time for pickup (default 900 seconds)")  # noqa
+    ap.add_argument("--max-processing", type=int,
+                    help="Maximum number of attempts to process a request (default unlimited)")  # noqa
     ap.add_argument("--sim-step", type=int, default=30,
                     help="Step time to collect new reservations (default 30 seconds)")  # noqa
     ap.add_argument("--end-time", type=int, default=90000,
@@ -322,14 +324,34 @@ def main():
             setattr(res, 'tw_pickup', [pickup_earliest, pickup_latest])
             setattr(res, 'tw_dropoff', [dropoff_earliest, dropoff_latest])
 
+            # time out for request processing
+            if options.max_processing:
+                setattr(res, 'max_processing',
+                        step + options.max_processing*options.sim_step)
+            else:
+                setattr(res, 'max_processing', pickup_latest+options.sim_step)
+
             # add reservation id to new reservations
             res_id_new.append(res.id)
             # add reservation object to list
             res_all[res.id] = res
 
-        # unassigned reservations
-        res_id_unassigned = [res.id for res in res_all.values()
-                             if not res.vehicle]
+        # find unassigned reservations and
+        # remove reservations which have exceeded the processing time
+        res_id_unassigned = []
+        res_id_proc_exceeded = []
+        for res_key, res_values in res_all.items():
+            if not res_values.vehicle:
+                if step >= res_values.max_processing:
+                    res_id_proc_exceeded.append(res_key)
+                    print("\nProcessing time for reservation %s -person %s- was exceeded. Reservation can not be served" % (res_key, res_values.persons))  # noqa
+                    for person in res_values.persons:
+                        traci.person.removeStages(person)
+                else:
+                    res_id_unassigned.append(res_key)
+
+        # remove reservations
+        [res_all.pop(key) for key in res_id_proc_exceeded]
 
         # if reservations pending
         if res_id_unassigned:
@@ -378,7 +400,7 @@ def main():
                                              veh_time_pickup, veh_time_dropoff,
                                              res_all, res_id_new,
                                              res_id_unassigned, res_id_picked,
-                                             res_id_served, veh_edges,
+                                             veh_edges,
                                              pairs_dua_times)
             routes, ilp_res_cons, exact_sol = darp_solution
 

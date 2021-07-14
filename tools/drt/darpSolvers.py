@@ -278,7 +278,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
             rv_dict[pair] = [res2d_res1p, 1, [res2.id, res1.id]]
 
 
-def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
+def get_rv(options, res_id_new, res_id_picked, res_all,
            veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
            veh_edges, pairs_dua_times):
     """
@@ -287,9 +287,12 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
     vehicle with the required travel time, the number of passengers picked up
     or dropped off and the reservation id and/or vehicle id of the pair.
     """
-    # remove reservations already served
+    # remove reservations already served or rejected due to processing time
+    id_current = []
+    [id_current.extend(veh_id) for veh_id in veh_edges.values()]
+    id_current.extend(res_all.keys())
     [rv_dict.pop(key) for key in list(rv_dict)
-        if set(res_id_served) & set(rv_dict[key][2])]
+     if set(rv_dict[key][2]) - set(id_current)]
 
     res_rv_remove = []
     res_all_remove = []
@@ -431,7 +434,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
         [res_all.pop(key) for key in res_all_remove]
 
 
-def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
+def simple_rerouting(options, res_id_unassigned, res_id_picked,
                      res_all, fleet, rv_dict, step):
     """
     Search possible trips allowing vehicles to change their trip in real time
@@ -439,9 +442,15 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
     """
     rtv_dict = {}
     trip_id = {}
+    # remove reservations already served or rejected due to processing time
+    id_current = []
+    id_current.extend(fleet)
+    id_current.extend(res_all.keys())
+    [rv_dict.pop(key) for key in list(rv_dict)
+     if set(rv_dict[key][2]) - set(id_current)]
+
     # list with all not served requests needed for res_bin for ILP
     rtv_res = list(res_all.keys())
-    rtv_res = list(set(rtv_res) - set(res_id_served))
     for veh_id in fleet:
         veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
         veh_bin[fleet.index(veh_id)] = 1
@@ -849,7 +858,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
 
 
 def main(options, step, fleet, veh_type, veh_time_pickup, veh_time_dropoff,
-         res_all, res_id_new, res_id_unassigned, res_id_picked, res_id_served,
+         res_all, res_id_new, res_id_unassigned, res_id_picked,
          veh_edges, pairs_dua_times):
     """
     Run specified solver
@@ -865,7 +874,7 @@ def main(options, step, fleet, veh_type, veh_time_pickup, veh_time_dropoff,
     if options.darp_solver == 'exhaustive_search':
 
         # search reservation-vehicles pairs (RV-Graph)
-        get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
+        get_rv(options, res_id_new, res_id_picked, res_all,
                veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
                veh_edges, pairs_dua_times)
 
@@ -879,13 +888,13 @@ def main(options, step, fleet, veh_type, veh_time_pickup, veh_time_dropoff,
     elif options.darp_solver == 'simple_rerouting':
 
         # search reservation-vehicles pairs (RV-Graph)
-        get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
+        get_rv(options, res_id_new, res_id_picked, res_all,
                veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
                veh_edges, pairs_dua_times)
 
         # search trips (RTV-Graph)
         rtv_dict, rtv_res = simple_rerouting(options, res_id_unassigned,
-                                             res_id_picked, res_id_served,
+                                             res_id_picked,
                                              res_all, fleet, rv_dict, step)
 
         return (rtv_dict, rtv_res, [False])
