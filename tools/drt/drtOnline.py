@@ -497,8 +497,7 @@ def main():
                     res.vehicle = veh_id
 
         # TODO ticket #8385
-        if step > options.end_time or (traci.simulation.getMinExpectedNumber()
-                                       <= 0 and not traci.person.getIDList()):
+        if step > options.end_time:
             rerouting = False
 
         step += options.sim_step
