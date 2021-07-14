@@ -292,7 +292,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 while (toFill.getPOIs().get(id) != nullptr) {
                     id = origId + "#" + toString(index++);
                 }
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer);
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer);
                 toFill.add(poi);
             }
         }
@@ -388,7 +388,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     while (toFill.getPOIs().get(id) != nullptr) {
                         id = origId + "#" + toString(index++);
                     }
-                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer);
+                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer);
                     toFill.add(poi);
                 }
             }
