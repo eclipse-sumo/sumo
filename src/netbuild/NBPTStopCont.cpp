@@ -159,9 +159,9 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
 
 
 NBPTStop*
-NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
+NBPTStopCont::getReverseStop(NBPTStop* pStop, const NBEdgeCont& ec) {
     std::string edgeId = pStop->getEdgeId();
-    NBEdge* edge = cont.getByID(edgeId);
+    NBEdge* edge = ec.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     if (reverse != nullptr) {
         const std::string reverseID = getReverseID(pStop->getID());
@@ -363,16 +363,23 @@ void
 NBPTStopCont::alignIdSigns() {
     PTStopsCont stops = myPTStops;
     for (auto& i : stops) {
-        const std::string& stopId = i.second->getID();
-        if (i.second->getEdgeId() == "") {
+        NBPTStop* s = i.second;
+        const std::string& stopId = s->getID();
+        if (s->getEdgeId() == "") {
             continue;
         }
-        const char edgeSign = i.second->getEdgeId().at(0);
+        const char edgeSign = s->getEdgeId().at(0);
         const char stopSign = stopId.at(0);
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
-            i.second->setPTStopId(getReverseID(stopId));
+            const std::string reverseID = getReverseID(stopId);
+            NBPTStop* rs = get(reverseID);
+            s->setPTStopId(reverseID);
             myPTStops.erase(stopId);
-            myPTStops[i.second->getID()] = i.second;
+            myPTStops[reverseID] = s;
+            if (rs != nullptr) {
+                rs->setPTStopId(stopId);
+                myPTStops[stopId] = rs;
+            }
         }
     }
 }

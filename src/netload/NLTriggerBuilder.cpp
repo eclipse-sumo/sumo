@@ -564,12 +564,13 @@ NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& 
     double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
     double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, 0);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    const std::string departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, id.c_str(), ok, "");
     if (!ok || (myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
         throw InvalidArgument("Invalid position for parking area '" + id + "'.");
     }
     const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
     // build the parking area
-    beginParkingArea(net, id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad);
+    beginParkingArea(net, id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos);
 }
 
 
@@ -774,9 +775,10 @@ NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                    MSLane* lane, double frompos, double topos,
                                    unsigned int capacity,
                                    double width, double length, double angle, const std::string& name,
-                                   bool onRoad) {
+                                   bool onRoad,
+                                   const std::string& departPos) {
     // Close previous parking area if there are not lots inside
-    MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name, onRoad);
+    MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos);
     if (!net.addStoppingPlace(SUMO_TAG_PARKING_AREA, stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");

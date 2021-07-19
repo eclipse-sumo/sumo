@@ -1,4 +1,8 @@
-#!/usr/bin/env python
+# apply zoom
+netedit.setZoom("14", "17", "12") 
+
+# inspect vehicle
+netedit.leftClick(referencePosition, 330, 150)#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -44,13 +48,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 114, 396)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "", True)
+netedit.modifyAttribute(14, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "dummyDepart", True)
+netedit.modifyAttribute(14, "dummyDepart", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(14, "containerTriggered", True)
+netedit.modifyAttribute(14, "containerTriggered", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

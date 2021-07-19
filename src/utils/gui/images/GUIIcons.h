@@ -191,6 +191,7 @@ enum class GUIIcon {
     BIGARROWLEFT,
     BIGARROWRIGHT,
     FRONTELEMENT,
+    COMPUTEPATHMANAGER,
     /// @}
 
     /// @name NETEDIT common mode specific icons
@@ -217,9 +218,12 @@ enum class GUIIcon {
     /// @name NETEDIT demand mode specific icons
     /// @{
     DEMANDMODE_CHECKBOX_HIDESHAPES,
+    DEMANDMODE_CHECKBOX_SHOWTRIPS,
     DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS,
     DEMANDMODE_CHECKBOX_SHOWPERSONPLANS,
     DEMANDMODE_CHECKBOX_LOCKPERSON,
+    DEMANDMODE_CHECKBOX_SHOWCONTAINERPLANS,
+    DEMANDMODE_CHECKBOX_LOCKCONTAINER,
     /// @}
 
     /// @name NETEDIT data mode specific icons
@@ -238,9 +242,9 @@ enum class GUIIcon {
 
     /// @name lane icons
     /// @{
-    LANEPEDESTRIAN,
-    LANEBUS,
-    LANEBIKE,
+    LANE_PEDESTRIAN,
+    LANE_BUS,
+    LANE_BIKE,
     LANEGREENVERGE,
     /// @}
 
@@ -285,6 +289,8 @@ enum class GUIIcon {
     MODEPERSONTYPE,
     MODEPERSON,
     MODEPERSONPLAN,
+    MODECONTAINER,
+    MODECONTAINERPLAN,
     /// @}
 
     /// @name NETEDIT Edge modes icons
@@ -302,6 +308,7 @@ enum class GUIIcon {
     COMPUTEDEMAND,
     CLEANROUTES,
     JOINROUTES,
+    ADJUSTPERSONPLANS,
     OPTIONS,
     /// @}
 
@@ -320,6 +327,7 @@ enum class GUIIcon {
     /// @name NETEDIT additional elements icons
     /// @{
     BUSSTOP,
+    TRAINSTOP,
     ACCESS,
     CONTAINERSTOP,
     CHARGINGSTATION,
@@ -367,9 +375,13 @@ enum class GUIIcon {
     WALK_ROUTE,
     RIDE_FROMTO,
     RIDE_BUSSTOP,
-    PERSON_BUSSTOP,
-    PERSON_CONTAINERSTOP,
-    PERSON_LANESTOP,
+    CONTAINER,
+    CONTAINERFLOW,
+    TRANSPORT_FROMTO,
+    TRANSPORT_CONTAINERSTOP,
+    TRANSHIP_EDGES,
+    TRANSHIP_FROMTO,
+    TRANSHIP_CONTAINERSTOP,
     /// @}
 
     /// @name NETEDIT data elements icons

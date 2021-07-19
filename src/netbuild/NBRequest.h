@@ -154,6 +154,10 @@ public:
     bool oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
                                   const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
+    /// @brief whether straight and indirect left turn are in conflict
+    bool indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                                  const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+
 
     /// @brief whether there are conflicting streams of traffic at this node
     bool hasConflict() const;

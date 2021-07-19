@@ -1,12 +1,13 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'KeyA1|valueA1' into parkingArea
+Debug: Inserting generic parameter 'KeyA2|valueA2' into parkingArea
+Debug: Inserting generic parameter 'KeyA3|valueA3' into parkingArea
 Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
-Debug: Inserting parameter 'KeyA1|valueA1' into additional parkingArea.
-Debug: Inserting parameter 'KeyA2|valueA2' into additional parkingArea.
-Debug: Inserting parameter 'KeyA3|valueA3' into additional parkingArea.
+Debug: Inserting generic parameter 'KeyB1|valueB1' into parkingArea
+Debug: Inserting generic parameter 'KeyB2|valueB2' into parkingArea
+Debug: Inserting generic parameter 'KeyB3|valueB3' into parkingArea
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
-Debug: Inserting parameter 'KeyB1|valueB1' into additional parkingArea.
-Debug: Inserting parameter 'KeyB2|valueB2' into additional parkingArea.
-Debug: Inserting parameter 'KeyB3|valueB3' into additional parkingArea.
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -63,6 +64,15 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing parkingArea 'parkingAreaB' in GNEChange_Additional
+Debug: Removing parkingArea 'parkingAreaA' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -99,6 +109,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into parkingArea 'parkingAreaA'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into parkingArea 'parkingAreaB'
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

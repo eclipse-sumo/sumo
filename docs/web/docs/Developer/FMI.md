@@ -55,7 +55,7 @@ end note
 note right of [sumo2fmi_bridge]
  Logic to build the bridge
  between the FMI2 functions
- and functions in lubsumocpp;
+ and functions in libsumocpp;
  should be independent of FMI,
  C file
 end note

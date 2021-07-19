@@ -4,10 +4,10 @@ block_cipher = None
 
 
 a = Analysis(['runner.py'],
-             pathex=['..', '.'],
+             pathex=[SPECPATH + '/..'],
              binaries=[('../../bin/sumo.exe', '.'), ('../../bin/sumo-gui.exe', '.'), ('../../bin/*.dll', '.')],
              datas=[('A10KW', 'A10KW'), ('bs3d', 'bs3d'), ('corridor', 'corridor'), ('cross', 'cross'), ('DRT', 'DRT'),
-			        ('grid6', 'grid6'), ('highway', 'highway'), ('ramp', 'ramp'), ('sounds', 'sounds'), ('square', 'square'),
+                    ('grid6', 'grid6'), ('highway', 'highway'), ('ramp', 'ramp'), ('sounds', 'sounds'), ('square', 'square'),
                     ('*.sumocfg', '.'), ('*.gif', '.'), ('*.xml', '.')],
              hiddenimports=[],
              hookspath=[],

@@ -124,28 +124,28 @@ public:
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
-    * @param[in] key The attribute key
-    * @return string with the value associated to key
-    */
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
-    * @param[in] key The attribute key
-    * @param[in] value The new value
-    * @param[in] undoList The undoList on which to register changes
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /* @brief method for checking if the key and their conrrespond attribute are valids
-    * @param[in] key The attribute key
-    * @param[in] value The value asociated to key key
-    * @return true if the value is valid, false in other case
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The value asociated to key key
+     * @return true if the value is valid, false in other case
+     */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
     /* @brief method for check if the value for certain attribute is set
-    * @param[in] key The attribute key
-    */
+     * @param[in] key The attribute key
+     */
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 

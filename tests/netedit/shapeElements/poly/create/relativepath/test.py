@@ -41,10 +41,10 @@ netedit.changeDefaultValue(4, "white")
 netedit.changeDefaultBoolValue(5)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(9, "berlin_icon.ico")
+netedit.changeDefaultValue(10, "berlin_icon.ico")
 
 # change relativePos
-netedit.changeDefaultBoolValue(10)
+netedit.changeDefaultBoolValue(11)
 
 # create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)

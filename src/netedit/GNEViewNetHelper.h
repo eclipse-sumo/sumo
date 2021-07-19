@@ -32,6 +32,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GNEGeometry.h"
+#include "GNEMoveElement.h"
 
 // ===========================================================================
 // enum
@@ -102,7 +103,11 @@ enum class DemandEditMode {
     ///@brief Mode for editing person
     DEMAND_PERSON,
     ///@brief Mode for editing person plan
-    DEMAND_PERSONPLAN
+    DEMAND_PERSONPLAN,
+    ///@brief Mode for editing container
+    DEMAND_CONTAINER,
+    ///@brief Mode for editing container plan
+    DEMAND_CONTAINERPLAN
 };
 
 /// @brie enum for data edit modes
@@ -616,6 +621,9 @@ struct GNEViewNetHelper {
         /// @brief check if shapes has to be drawn
         bool showShapes() const;
 
+        /// @brief check if trips has to be drawn
+        bool showAllTrips() const;
+
         /// @brief check all person plans has to be show
         bool showAllPersonPlans() const;
 
@@ -628,6 +636,18 @@ struct GNEViewNetHelper {
         /// @brief get locked person
         const GNEDemandElement* getLockedPerson() const;
 
+        /// @brief check all container plans has to be show
+        bool showAllContainerPlans() const;
+
+        /// @brief lock container
+        void lockContainer(const GNEDemandElement* container);
+
+        /// @brief unlock container
+        void unlockContainer();
+
+        /// @brief get locked container
+        const GNEDemandElement* getLockedContainer() const;
+
         /// @brief menu check to show grid button
         MFXCheckableButton* menuCheckToggleGrid;
 
@@ -637,11 +657,20 @@ struct GNEViewNetHelper {
         /// @brief Hide shapes (Polygons and POIs)
         MFXCheckableButton* menuCheckHideShapes;
 
+        /// @brief show all trips
+        MFXCheckableButton* menuCheckShowAllTrips;
+
         /// @brief show all person plans
         MFXCheckableButton* menuCheckShowAllPersonPlans;
 
         /// @brief Lock Person
         MFXCheckableButton* menuCheckLockPerson;
+
+        /// @brief show all container plans
+        MFXCheckableButton* menuCheckShowAllContainerPlans;
+
+        /// @brief Lock Container
+        MFXCheckableButton* menuCheckLockContainer;
 
         /// @brief Hide non inspected demand elements
         MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
@@ -652,6 +681,9 @@ struct GNEViewNetHelper {
 
         /// @brief pointer to locked person
         const GNEDemandElement* myLockedPerson;
+
+        /// @brief pointer to locked container
+        const GNEDemandElement* myLockedContainer;
 
         /// @brief Invalidated copy constructor.
         DemandViewOptions(const DemandViewOptions&) = delete;
@@ -855,7 +887,7 @@ struct GNEViewNetHelper {
 
     protected:
         /// @brief calculate offset
-        Position calculateOffset() const;
+        const GNEMoveOffset calculateMoveOffset() const;
 
         /// @brief calculate move operation for shape
         bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector& shape, const double radius);
@@ -866,9 +898,6 @@ struct GNEViewNetHelper {
 
         /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
         Position myRelativeClickedPosition;
-
-        /// @brief the demand element which position is being moved
-        GNEDemandElement* myDemandElementToMove;
 
         /// @brief move operations
         std::vector<GNEMoveOperation*> myMoveOperations;
@@ -893,8 +922,8 @@ struct GNEViewNetHelper {
         bool isMovingSelection() const;
 
     protected:
-        /// @brief calculate offset
-        Position calculateOffset() const;
+        /// @brief calculate move offset
+        const GNEMoveOffset calculateMoveOffset() const;
 
         /// @brief calculate junction selection
         void calculateJunctionSelection();
@@ -1156,6 +1185,12 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for edit mode create person plans
         MFXCheckableButton* personPlanButton;
+
+        /// @brief chekable button for edit mode create containers
+        MFXCheckableButton* containerButton;
+
+        /// @brief chekable button for edit mode create container plans
+        MFXCheckableButton* containerPlanButton;
 
     private:
         /// @brief pointer to net

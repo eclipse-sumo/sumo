@@ -116,7 +116,7 @@ enum GUIGlObjectType {
     /// @brief a Acces
     GLO_ACCESS = 119,
     /// @brief a segment of an overhead line
-    GLO_OVERHEAD_WIRE_SEGMENT = 121,
+    GLO_OVERHEAD_WIRE_SEGMENT = 120,
 
     /// @}
 
@@ -159,6 +159,10 @@ enum GUIGlObjectType {
     GLO_WALK = 321,
     /// @brief a person trip
     GLO_PERSONTRIP = 322,
+    /// @brief a container transport
+    GLO_TRANSPORT = 323,
+    /// @brief a container tranship
+    GLO_TRANSHIP = 324,
 
     /// @}
 
@@ -168,7 +172,9 @@ enum GUIGlObjectType {
     /// @brief a stop
     GLO_STOP = 330,
     /// @brief a person stop
-    GLO_PERSONSTOP = 331,
+    GLO_STOP_PERSON = 331,
+    /// @brief a container stop
+    GLO_STOP_CONTAINER = 332,
 
     /// @}
 
@@ -191,6 +197,8 @@ enum GUIGlObjectType {
 
     /// @brief a container
     GLO_CONTAINER = 350,
+    /// @brief a person flow
+    GLO_CONTAINERFLOW = 351,
 
     /// @}
 

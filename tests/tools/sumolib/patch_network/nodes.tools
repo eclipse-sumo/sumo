@@ -3,9 +3,18 @@
     <node id="C" x="120.0" y="87.0">
         <param key="jk1" value="jv1"/>
         <param key="jk2" value="jv2"/>
+        <param key="origPos" value="100.00 100.00"/>
     </node>
-    <node id="E" x="181.0" y="97.0"/>
-    <node id="N" x="95.0" y="194.0"/>
-    <node id="S" x="88.0" y="-14.0"/>
-    <node id="W" x="14.0" y="85.0"/>
+    <node id="E" x="181.0" y="97.0">
+        <param key="origPos" value="200.00 100.00"/>
+    </node>
+    <node id="N" x="95.0" y="194.0">
+        <param key="origPos" value="100.00 200.00"/>
+    </node>
+    <node id="S" x="88.0" y="-14.0">
+        <param key="origPos" value="100.00 0.00"/>
+    </node>
+    <node id="W" x="14.0" y="85.0">
+        <param key="origPos" value="0.00 100.00"/>
+    </node>
 </nodes>

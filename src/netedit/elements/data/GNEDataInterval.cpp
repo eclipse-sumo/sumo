@@ -187,6 +187,8 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(genericData);
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
+        // delete path element
+        myNet->getPathManager()->removePath(genericData);
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }

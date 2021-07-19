@@ -240,7 +240,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
     for (const auto& i : invalidDemandElements) {
         if (i->getTagProperty().isVehicle()) {
             myInvalidVehicles.push_back(i);
-        } else if (i->getTagProperty().isStop() || i->getTagProperty().isPersonStop()) {
+        } else if (i->getTagProperty().isStop() || i->getTagProperty().isStopPerson()) {
             myInvalidStops.push_back(i);
         } else if (i->getTagProperty().isPersonPlan()) {
             myInvalidPersonPlans.push_back(i);

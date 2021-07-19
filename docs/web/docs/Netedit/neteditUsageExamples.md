@@ -159,3 +159,11 @@ directions. To make a unidirectional track usable in both directions,
 5.  make the edge bidirectional as explained above in [Make an existing track bidirectional](#make_an_existing_track_bidirectional)
 6.  in [Create Edges](editModesNetwork.md#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
 7.  continue to created edges. Each click will create bidirectional track
+
+## Creating a zipper merge
+
+1. use inspect mode to set junction type to 'zipper'
+2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with CTRL+Click to override conflict protection.
+3. optionally: use inspect mode and enable 'show connections' (Alt+5). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
+
+![](../images/neteditZipper.png)

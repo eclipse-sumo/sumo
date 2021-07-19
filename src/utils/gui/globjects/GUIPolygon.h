@@ -54,7 +54,8 @@ public:
      */
     GUIPolygon(const std::string& id, const std::string& type,
                const RGBColor& color, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-               double layer = 0, double angle = 0, const std::string& imgFile = "", bool relativePath = false);
+               double layer = 0, double angle = 0, const std::string& imgFile = "", bool relativePath = false,
+               const std::string& name = DEFAULT_NAME);
 
     /// @brief Destructor
     ~GUIPolygon();

@@ -7,6 +7,9 @@ histogram_output
 # analyze tripinfo timeloss
 full_output
 
+# analyze tripinfo timeloss
+xml_output
+
 # analyze tripinfo 
 attribute
 

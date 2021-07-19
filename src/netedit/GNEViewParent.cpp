@@ -21,15 +21,16 @@
 // structures than to write everything from scratch.
 /****************************************************************************/
 
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/dialogs/GNEDialogACChooser.h>
+#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -45,9 +46,7 @@
 #include <netedit/frames/network/GNEProhibitionFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
@@ -97,6 +96,12 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Create undo/redo buttons
     myUndoButton = new FXButton(myGripNavigationToolbar, "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
     myRedoButton = new FXButton(myGripNavigationToolbar, "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
+
+    // Create Vertical separator
+    new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
+
+    // create compute path manager button
+    myComputePathManagerButton = new FXButton(myGripNavigationToolbar, "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
@@ -286,6 +291,18 @@ GNEViewParent::getPersonFrame() const {
 GNEPersonPlanFrame*
 GNEViewParent::getPersonPlanFrame() const {
     return myDemandFrames.personPlanFrame;
+}
+
+
+GNEContainerFrame*
+GNEViewParent::getContainerFrame() const {
+    return myDemandFrames.containerFrame;
+}
+
+
+GNEContainerPlanFrame*
+GNEViewParent::getContainerPlanFrame() const {
+    return myDemandFrames.containerPlanFrame;
 }
 
 
@@ -622,9 +639,6 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI)) {
                         ACsToLocate.push_back(POI.second);
                     }
-                    for (const auto& POILane : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE)) {
-                        ACsToLocate.push_back(POILane.second);
-                    }
                     myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);
                 }
                 break;
@@ -867,9 +881,11 @@ GNEViewParent::DemandFrames::DemandFrames() :
     vehicleFrame(nullptr),
     vehicleTypeFrame(nullptr),
     stopFrame(nullptr),
-    personFrame(nullptr),
     personTypeFrame(nullptr),
-    personPlanFrame(nullptr) {
+    personFrame(nullptr),
+    personPlanFrame(nullptr),
+    containerFrame(nullptr),
+    containerPlanFrame(nullptr) {
 }
 
 
@@ -882,6 +898,8 @@ GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEVie
     personTypeFrame = new GNEPersonTypeFrame(viewParent->myFramesArea, viewNet);
     personFrame = new GNEPersonFrame(viewParent->myFramesArea, viewNet);
     personPlanFrame = new GNEPersonPlanFrame(viewParent->myFramesArea, viewNet);
+    containerFrame = new GNEContainerFrame(viewParent->myFramesArea, viewNet);
+    containerPlanFrame = new GNEContainerPlanFrame(viewParent->myFramesArea, viewNet);
 }
 
 
@@ -894,6 +912,8 @@ GNEViewParent::DemandFrames::hideDemandFrames() {
     personTypeFrame->hide();
     personFrame->hide();
     personPlanFrame->hide();
+    containerFrame->hide();
+    containerPlanFrame->hide();
 }
 
 
@@ -907,6 +927,8 @@ GNEViewParent::DemandFrames::setDemandFramesWidth(int frameWidth) {
     personTypeFrame->setFrameWidth(frameWidth);
     personFrame->setFrameWidth(frameWidth);
     personPlanFrame->setFrameWidth(frameWidth);
+    containerFrame->setFrameWidth(frameWidth);
+    containerPlanFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -926,6 +948,10 @@ GNEViewParent::DemandFrames::isDemandFrameShown() const {
     } else if (personFrame->shown()) {
         return true;
     } else if (personPlanFrame->shown()) {
+        return true;
+    } else if (containerFrame->shown()) {
+        return true;
+    } else if (containerPlanFrame->shown()) {
         return true;
     } else {
         return false;
@@ -950,6 +976,10 @@ GNEViewParent::DemandFrames::getCurrentShownFrame() const {
         return personFrame;
     } else if (personPlanFrame->shown()) {
         return personPlanFrame;
+    } else if (containerFrame->shown()) {
+        return containerFrame;
+    } else if (containerPlanFrame->shown()) {
+        return containerPlanFrame;
     } else {
         return nullptr;
     }

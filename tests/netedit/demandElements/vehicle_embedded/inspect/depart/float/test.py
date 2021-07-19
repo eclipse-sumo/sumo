@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change depart with an invalid value
-netedit.modifyAttribute(15, "", True)
+netedit.modifyAttribute(17, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(15, "dummyDepart", True)
+netedit.modifyAttribute(17, "dummyDepart", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(15, "-3", True)
+netedit.modifyAttribute(17, "-3", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(15, "10.2", True)
+netedit.modifyAttribute(17, "10.2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

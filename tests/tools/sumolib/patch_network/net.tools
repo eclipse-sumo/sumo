@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 26 12:05:04 2021 by Eclipse SUMO netconvert Version v1_8_0+1899-f88c15b771
+<!-- generated on 2021-06-02 15:15:54 by Eclipse SUMO netconvert Version v1_9_2+0301-ae6a010
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -205,18 +205,23 @@
         <request index="17" response="000000100001100000" foes="000000100001100000" cont="1"/>
         <param key="jk1" value="jv1"/>
         <param key="jk2" value="jv2"/>
+        <param key="origPos" value="100.00 100.00"/>
     </junction>
     <junction id="E" type="priority" x="181.00" y="97.00" incLanes="CE_0 CE_1" intLanes=":E_0_0" shape="181.00,97.00 182.04,90.68 181.00,97.00">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="origPos" value="200.00 100.00"/>
     </junction>
     <junction id="N" type="priority" x="95.00" y="194.00" incLanes="CN_0 CN_1" intLanes=":N_0_0" shape="95.00,194.00 101.23,195.46 95.00,194.00">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="origPos" value="100.00 200.00"/>
     </junction>
     <junction id="S" type="priority" x="88.00" y="-14.00" incLanes="CS_0 CS_1" intLanes=":S_0_0" shape="88.00,-14.00 81.90,-12.07 88.00,-14.00">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="origPos" value="100.00 0.00"/>
     </junction>
     <junction id="W" type="priority" x="14.00" y="85.00" incLanes="CW_0 CW_1" intLanes=":W_0_0" shape="14.00,85.00 13.88,91.40 14.00,85.00">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="origPos" value="0.00 100.00"/>
     </junction>
 
     <junction id=":C_18_0" type="internal" x="123.30" y="87.65" incLanes=":C_2_0 WC_0 WC_1" intLanes=":C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_10_0 :C_14_0 :C_14_1 :C_16_0"/>

@@ -98,7 +98,7 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     myTypeEntries[GLO_PERSONTRIP] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "PersonTrips");
     myTypeEntries[GLO_RIDE] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Rides");
     myTypeEntries[GLO_WALK] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "Walks");
-    myTypeEntries[GLO_PERSONSTOP] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "PersonStops");
+    myTypeEntries[GLO_STOP_PERSON] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DEMAND, "StopPersons");
     // create typeEntries for Data elements
     myTypeEntries[GLO_EDGEDATA] =           new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeDatas");
     myTypeEntries[GLO_EDGERELDATA] =        new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeRelDatas");
@@ -569,13 +569,6 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                         POI.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
-                for (const auto& POILane : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE)) {
-                    if (POILane.second->isAttributeCarrierSelected()) {
-                        POILane.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        POILane.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
             }
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // invert routes
@@ -687,14 +680,14 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // invert person trip
             if (!locks->IsObjectTypeLocked(GLO_PERSONTRIP)) {
-                for (const auto& personTripFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE_EDGE)) {
+                for (const auto& personTripFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE)) {
                     if (personTripFromTo.second->isAttributeCarrierSelected()) {
                         personTripFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         personTripFromTo.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
-                for (const auto& personTripBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP)) {
+                for (const auto& personTripBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_BUSSTOP)) {
                     if (personTripBusStop.second->isAttributeCarrierSelected()) {
                         personTripBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
@@ -704,14 +697,14 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // invert ride
             if (!locks->IsObjectTypeLocked(GLO_RIDE)) {
-                for (const auto& rideFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE_EDGE)) {
+                for (const auto& rideFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE)) {
                     if (rideFromTo.second->isAttributeCarrierSelected()) {
                         rideFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         rideFromTo.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
-                for (const auto& rideBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE_BUSSTOP)) {
+                for (const auto& rideBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_BUSSTOP)) {
                     if (rideBusStop.second->isAttributeCarrierSelected()) {
                         rideBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
@@ -721,18 +714,25 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // invert walks
             if (!locks->IsObjectTypeLocked(GLO_WALK)) {
-                for (const auto& walkFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_EDGE)) {
+                for (const auto& walkFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE)) {
                     if (walkFromTo.second->isAttributeCarrierSelected()) {
                         walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
-                for (const auto& walkBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_BUSSTOP)) {
+                for (const auto& walkBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_BUSSTOP)) {
                     if (walkBusStop.second->isAttributeCarrierSelected()) {
                         walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
                         walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+                for (const auto& walkEdges : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGES)) {
+                    if (walkEdges.second->isAttributeCarrierSelected()) {
+                        walkEdges.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        walkEdges.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
                 for (const auto& walkRoute : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_ROUTE)) {
@@ -744,19 +744,19 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 }
             }
             // invert person stops
-            if (!locks->IsObjectTypeLocked(GLO_PERSONSTOP)) {
-                for (const auto& personStopLane : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONSTOP_EDGE)) {
-                    if (personStopLane.second->isAttributeCarrierSelected()) {
-                        personStopLane.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            if (!locks->IsObjectTypeLocked(GLO_STOP_PERSON)) {
+                for (const auto& stopPersonLane : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOPPERSON_EDGE)) {
+                    if (stopPersonLane.second->isAttributeCarrierSelected()) {
+                        stopPersonLane.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
-                        personStopLane.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        stopPersonLane.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
-                for (const auto& personStopBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONSTOP_BUSSTOP)) {
-                    if (personStopBusStop.second->isAttributeCarrierSelected()) {
-                        personStopBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                for (const auto& stopPersonBusStop : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOPPERSON_BUSSTOP)) {
+                    if (stopPersonBusStop.second->isAttributeCarrierSelected()) {
+                        stopPersonBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
-                        personStopBusStop.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        stopPersonBusStop.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
             }
@@ -938,11 +938,6 @@ GNESelectorFrame::clearCurrentSelection() const {
                         POI.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
-                for (const auto& POILane : myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE)) {
-                    if (POILane.second->isAttributeCarrierSelected()) {
-                        POILane.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-                    }
-                }
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // unselect routes
@@ -1037,12 +1032,12 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // unselect person trips
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
-                for (const auto& personTripFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE_EDGE)) {
-                    if (personTripFromTo.second->isAttributeCarrierSelected()) {
-                        personTripFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                for (const auto& personTripBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE)) {
+                    if (personTripBusStop.second->isAttributeCarrierSelected()) {
+                        personTripBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
-                for (const auto& personTripBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP)) {
+                for (const auto& personTripBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_BUSSTOP)) {
                     if (personTripBusStop.second->isAttributeCarrierSelected()) {
                         personTripBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
@@ -1050,12 +1045,12 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // unselect ride
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
-                for (const auto& rideFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE_EDGE)) {
+                for (const auto& rideFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE)) {
                     if (rideFromTo.second->isAttributeCarrierSelected()) {
                         rideFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
-                for (const auto& rideBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE_BUSSTOP)) {
+                for (const auto& rideBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_BUSSTOP)) {
                     if (rideBusStop.second->isAttributeCarrierSelected()) {
                         rideBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
@@ -1063,14 +1058,21 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // unselect walks
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
-                for (const auto& walkFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_EDGE)) {
-                    if (walkFromTo.second->isAttributeCarrierSelected()) {
-                        walkFromTo.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
+                    for (const auto& walkBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE)) {
+                        if (walkBusStop.second->isAttributeCarrierSelected()) {
+                            walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
+                    }
+                    for (const auto& walkBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_BUSSTOP)) {
+                        if (walkBusStop.second->isAttributeCarrierSelected()) {
+                            walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
                     }
                 }
-                for (const auto& walkBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_BUSSTOP)) {
-                    if (walkBusStop.second->isAttributeCarrierSelected()) {
-                        walkBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                for (const auto& walkEdges : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGES)) {
+                    if (walkEdges.second->isAttributeCarrierSelected()) {
+                        walkEdges.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
                 for (const auto& walkRoute : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_ROUTE)) {
@@ -1080,15 +1082,15 @@ GNESelectorFrame::clearCurrentSelection() const {
                 }
             }
             // unselect person stops
-            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
-                for (const auto& personStopLane : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONSTOP_EDGE)) {
-                    if (personStopLane.second->isAttributeCarrierSelected()) {
-                        personStopLane.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_STOP_PERSON)) {
+                for (const auto& stopPersonLane : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOPPERSON_EDGE)) {
+                    if (stopPersonLane.second->isAttributeCarrierSelected()) {
+                        stopPersonLane.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
-                for (const auto& personStopBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONSTOP_BUSSTOP)) {
-                    if (personStopBusStop.second->isAttributeCarrierSelected()) {
-                        personStopBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                for (const auto& stopPersonBusStop : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_STOPPERSON_BUSSTOP)) {
+                    if (stopPersonBusStop.second->isAttributeCarrierSelected()) {
+                        stopPersonBusStop.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
             }
@@ -1369,13 +1371,12 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check polygons
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) &&
-                (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size() > 0)) {
+                (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0)) {
             return true;
         }
         // check POIs
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) &&
-                ((myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0) ||
-                 (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE).size() > 0))) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && 
+             (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0)) {
             return true;
         }
     } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
@@ -1423,30 +1424,31 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check persontrips
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
-            if ((demandElementsMap.at(GNE_TAG_PERSONTRIP_EDGE_EDGE).size() > 0) ||
-                    (demandElementsMap.at(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP).size() > 0)) {
+            if ((demandElementsMap.at(GNE_TAG_PERSONTRIP_EDGE).size() > 0) ||
+                    (demandElementsMap.at(GNE_TAG_PERSONTRIP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
         // check ride
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
-            if ((demandElementsMap.at(GNE_TAG_RIDE_EDGE_EDGE).size() > 0) ||
-                    (demandElementsMap.at(GNE_TAG_RIDE_EDGE_BUSSTOP).size() > 0)) {
+            if ((demandElementsMap.at(GNE_TAG_RIDE_EDGE).size() > 0) ||
+                    (demandElementsMap.at(GNE_TAG_RIDE_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
         // check walks
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
-            if ((demandElementsMap.at(GNE_TAG_WALK_EDGE_EDGE).size() > 0) ||
-                    (demandElementsMap.at(GNE_TAG_WALK_EDGE_BUSSTOP).size() > 0) ||
+            if ((demandElementsMap.at(GNE_TAG_WALK_EDGE).size() > 0) ||
+                    (demandElementsMap.at(GNE_TAG_WALK_BUSSTOP).size() > 0) ||
+                    (demandElementsMap.at(GNE_TAG_WALK_EDGES).size() > 0) ||
                     (demandElementsMap.at(GNE_TAG_WALK_ROUTE).size() > 0)) {
                 return true;
             }
         }
         // check person stops
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
-            if ((demandElementsMap.at(GNE_TAG_PERSONSTOP_EDGE).size() > 0) ||
-                    (demandElementsMap.at(GNE_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_STOP_PERSON)) {
+            if ((demandElementsMap.at(GNE_TAG_STOPPERSON_EDGE).size() > 0) ||
+                    (demandElementsMap.at(GNE_TAG_STOPPERSON_BUSSTOP).size() > 0)) {
                 return true;
             }
         }

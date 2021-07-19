@@ -96,7 +96,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOTrafficObject& veh, double oldPos, do
     // entry and exit times (will be modified below)
     double timeBeforeEnter = 0.;
     double timeBeforeEnterBack = 0.;
-    double timeBeforeLeaveFront = newPos < myLaneLength ? TS : 0.;
+    double timeBeforeLeaveFront = newPos <= myLaneLength ? TS : 0.;
     double timeBeforeLeave = TS;
 
     // Treat the case that the vehicle entered the lane in the last step

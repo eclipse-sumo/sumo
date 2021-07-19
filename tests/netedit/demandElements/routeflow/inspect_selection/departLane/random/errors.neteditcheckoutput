@@ -4,9 +4,8 @@ Error: Vehicle 'flowB.8' will not be able to depart using the given velocity (sl
 Error: Vehicle 'flowB.9' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
 Error: Vehicle 'flowB.11' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_1_1', time=310.00.
 Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time 310.00.
 Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_1_1', time=615.00.

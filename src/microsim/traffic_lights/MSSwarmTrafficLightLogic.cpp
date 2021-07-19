@@ -33,7 +33,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::SWARM_BASED, phases, step, delay, parameters) {
 
     std::string pols = getPoliciesParam();
-    std::transform(pols.begin(), pols.end(), pols.begin(), ::tolower);
+    pols = StringUtils::to_lower_case(pols);
 #ifdef SWARM_DEBUG
     std::ostringstream str;
     str << "policies: " << pols;

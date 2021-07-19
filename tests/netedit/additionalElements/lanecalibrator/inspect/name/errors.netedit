@@ -1,7 +1,7 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'laneCalibrator' in TagSelector
-Debug: Format of optional optional string attribute 'routeProbe' of laneCalibrator with ID 'laneCalibrator_gneE3_1_0' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Value '///' for attribute name of laneCalibrator isn't valid
 Debug: Setting new attribute name 'customName' into laneCalibrator 'laneCalibrator_gneE3_1_0'

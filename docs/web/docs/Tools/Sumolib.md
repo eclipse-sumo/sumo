@@ -149,12 +149,28 @@ lon, lat = net.convertXY2LonLat(x, y, True)
 # from lane position to network coordinates
 x,y = sumolib.geomhelper.positionAtShapeOffset(net.getLane(laneID).getShape(), lanePos)
 # from network coordinates to lane position
-lane = net.getNeighboringLanes(x, y, radius) (see "locate nearby edges based on the geo-coordinate" above)
+lane, d = net.getNeighboringLanes(x, y, radius)[0] (see "locate nearby edges based on the geo-coordinate" above)
 lanePos, dist = sumolib.geomhelper.polygonOffsetAndDistanceToPoint((x,y), lane.getShape())
 ```
 
 see also
 [TraCI/Interfacing_TraCI_from_Python\#coordinate_transformations](../TraCI/Interfacing_TraCI_from_Python.md#coordinate_transformations)
+
+## Manipulating and writing xml
+
+```
+with open("patched.nod.xml", 'w') as outf:
+    # setting attrs is optional, it results in a cleaner patch file
+    attrs = {'node': ['id', 'x', 'y']}  # other attrs are not needed for patching
+    # parse always returns a generator but there is only one root element
+    nodes = list(sumolib.xml.parse('plain.nod.xml', 'nodes', attrs))[0]
+    for node in nodes.node:
+        node.addChild("param", { "key": "origPos", "value" : "%s %s" % (node.x, node.y) } )
+        node.x = float(node.x) + random.randint(-20, 20)
+        node.y = float(node.y) + random.randint(-20, 20)
+    outf.write(nodes.toXML())
+
+```
 
 # Further Examples
 

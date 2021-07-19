@@ -70,7 +70,8 @@ def main(options):
                 continue
             lastUntil = None
             for stop in vehicle.stop:
-                if stop.parking in ["true", "True", "1"] and options.ignoreParking:
+                isParking = stop.parking in ["true", "True", "1"]
+                if isParking and options.ignoreParking:
                     continue
                 if options.untilFromDuration:
                     if stop.arrival:
@@ -94,12 +95,20 @@ def main(options):
                     print("Vehicle %s has 'until' (%s) before previous 'until' (%s) at stop %s" % (
                         vehicle.id, tf(until), tf(lastUntil), stop.busStop), file=sys.stderr)
                 lastUntil = until
-                stopTimes[stop.busStop].append((arrival, until, vehicle.id, stop.getAttributeSecure("tripId", "")))
+                flags = ''
+                if isParking:
+                    flags += "p"
+                stopTimes[stop.busStop].append((arrival, until, vehicle.id,
+                    stop.getAttributeSecure("tripId", ""),
+                    stop.getAttributeSecure("started", ""),
+                    stop.getAttributeSecure("ended", ""),
+                    flags
+                    ))
 
     for stop, times in stopTimes.items():
         times.sort()
-        for i, (a, u, v, t) in enumerate(times):
-            for a2, u2, v2, t2 in times[i + 1:]:
+        for i, (a, u, v, t, s, e, f) in enumerate(times):
+            for a2, u2, v2, t2, s2, e2, f in times[i + 1:]:
                 if u2 <= u:
                     print("Vehicle %s (%s, %s) overtakes %s (%s, %s) at stop %s" % (
                         v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
@@ -108,9 +117,9 @@ def main(options):
         if options.stopTable in stopTimes:
             times = stopTimes[options.stopTable]
             print("# busStop: %s" % options.stopTable)
-            print("arrival\tuntil\tveh\ttripId")
-            for a, u, v, t in sorted(times):
-                print("%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t))
+            print("arrival\tuntil\tveh\ttripId\tstarted\tended\tflags")
+            for a, u, v, t, s, e, f in sorted(times):
+                print("%s\t%s\t%s\t%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t, s, e, f))
         else:
             print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
 

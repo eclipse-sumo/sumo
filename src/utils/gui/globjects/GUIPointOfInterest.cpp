@@ -40,11 +40,10 @@
 // ===========================================================================
 
 GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
-                                       const RGBColor& color, const Position& pos, bool geo,
-                                       const std::string& lane, double posOverLane, double posLat,
-                                       double layer, double angle, const std::string& imgFile,
-                                       bool relativePath, double width, double height) :
-    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
+        const RGBColor& color, const Position& pos, bool geo, const std::string& lane, 
+        double posOverLane, bool friendlyPos, double posLat, double layer, double angle, 
+        const std::string& imgFile, bool relativePath, double width, double height) :
+    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height),
     GUIGlObject_AbstractAdd(GLO_POI, id) {
 }
 
@@ -91,11 +90,11 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     // check if POI can be drawn
     if (checkDraw(s, this)) {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // draw inner polygon
         drawInnerPOI(s, this, this, false, getShapeLayer());
         // pop name
-        glPopName();
+        GLHelper::popName();
     }
 }
 
@@ -131,7 +130,7 @@ void
 GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o,
                                  const bool disableSelectionColor, const double layer) {
     const double exaggeration = s.poiSize.getExaggeration(s, o);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     setColor(s, POI, o, disableSelectionColor);
     glTranslated(POI->x(), POI->y(), layer);
     glRotated(-POI->getShapeNaviDegree(), 0, 0, 1);
@@ -152,7 +151,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 16);
         }
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     if (!s.drawForRectangleSelection) {
         const Position namePos = *POI;
         o->drawName(namePos, s.scale, s.poiName, s.angle);
@@ -161,7 +160,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
             GLHelper::drawTextSettings(s.poiType, POI->getShapeType(), p, s.scale, s.angle);
         }
         if (s.poiText.show) {
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(POI->x(), POI->y(), 0);
             std::string value = POI->getParameter(s.poiTextParam, "");
             if (value != "") {
@@ -180,7 +179,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
                     glRotated(s.angle, 0, 0, 1);
                 }
             }
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }

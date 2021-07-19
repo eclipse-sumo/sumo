@@ -50,7 +50,7 @@ python path you should be able to use them as described below.
 
 ## Python
 
-```
+```py
 import libsumo
 libsumo.start(["sumo", "-c", "test.sumocfg"])
 libsumo.simulationStep()
@@ -58,7 +58,7 @@ libsumo.simulationStep()
 
 Existing traci scripts can mostly be reused by calling
 
-```
+```py
 import libsumo as traci
 ```
 
@@ -71,7 +71,7 @@ import as above.
 
 ### Example Code (test.cpp)
 
-```
+```cpp
 #include <iostream>
 #include <libsumo/Simulation.h>
 
@@ -93,15 +93,18 @@ g++ -o test -std=c++11 -I$SUMO_HOME/src test.cpp -L$SUMO_HOME/bin -lsumocpp
 ```
 
 ### running on Linux
+
 ```
 LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 ```
 
 ## Java
 
+You might want to use the available [Maven package](Developer/Maven.md).
+
 ### Example Code (Test.java)
 
-```
+```java
 import org.eclipse.sumo.libsumo.Simulation;
 import org.eclipse.sumo.libsumo.StringVector;
 
@@ -124,6 +127,7 @@ javac -cp $SUMO_HOME/bin/libsumo-1.8.0-SNAPSHOT.jar Test.java
 ```
 
 ### running on Linux
+
 ```
 java -Djava.library.path=$SUMO_HOME/bin -cp $SUMO_HOME/bin/libsumo-1.8.0-SNAPSHOT.jar:. Test
 ```

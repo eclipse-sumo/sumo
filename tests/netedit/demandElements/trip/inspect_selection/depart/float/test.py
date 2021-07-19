@@ -40,20 +40,23 @@ netedit.selectionInvertDemand()
 # go to inspect mode
 netedit.inspectMode()
 
+# apply zoom
+netedit.setZoom("14", "17", "12") 
+
 # inspect vehicle
-netedit.leftClick(referencePosition, 586, 303)
+netedit.leftClick(referencePosition, 330, 150)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "", True)
+netedit.modifyAttribute(14, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "dummyDepart", True)
+netedit.modifyAttribute(14, "dummyDepart", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "-3", True)
+netedit.modifyAttribute(14, "-3", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(14, "10.2", True)
+netedit.modifyAttribute(14, "10.2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

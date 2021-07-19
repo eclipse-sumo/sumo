@@ -34,13 +34,14 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const std::string& frequency,
-                             const std::string& name, const std::string& filename, SUMOTime begin) :
-    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false,
-{}, {edge}, {}, {}, {}, {}, {}, {}),
-myFrequency(frequency),
-myFilename(filename),
-myBegin(begin) {
+GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name, 
+        const std::string& filename, SUMOTime begin, const std::map<std::string, std::string> &parameters) :
+    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
+        {}, {edge}, {}, {}, {}, {}, {}, {},
+        parameters, false),
+    myFrequency(frequency),
+    myFilename(filename),
+    myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -104,9 +105,9 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             centralLineColor = RGBColor::WHITE;
         }
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add layer matrix matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ROUTEPROBE);
         // set base color
@@ -131,9 +132,9 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             glRotated(180, 0, 0, 1);
             // draw texture
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::ROUTEPROBE_SELECTED), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::ROUTEPROBE), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
             }
         } else {
             // set route probe color
@@ -142,9 +143,9 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.routeProbeSize, s.additionalSettings.routeProbeSize * routeProbeExaggeration);
         }
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
@@ -170,7 +171,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_FREQUENCY:
-            return toString(myFrequency);
+            return time2string(myFrequency);
         case SUMO_ATTR_BEGIN:
             return time2string(myBegin);
         case GNE_ATTR_SELECTED:
@@ -286,7 +287,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = value;
+            myFrequency = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<SUMOTime>(value);

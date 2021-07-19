@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 
@@ -35,11 +36,13 @@ public:
     /**@brief Constructor
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] edge edge in which this vaporizer is placed
-     * @param[in] begin start time of vaporizer
+     * @param[in] from start time of vaporizer
      * @param[in] end end time of vaporizer
      * @param[in] name Vaporizer name
+     * @param[in] parameters generic parameters
      */
-    GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name);
+    GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name, 
+                 const std::map<std::string, std::string> &parameters);
 
     /// @brief Destructor
     ~GNEVaporizer();

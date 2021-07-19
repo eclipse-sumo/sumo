@@ -67,7 +67,7 @@ following:
 
 ```xml
 <meandata>
-    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<MEASUREMENT_ID>">
       <edge id="<EDGE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
             traveltime="<MEAN_TRAVEL_TIME>" \
             density="<MEAN_DENSITY>" occupancy="<MEAN_OCCUPANCY>" \
@@ -94,7 +94,7 @@ The generated output looks like the following:
 
 ```xml
 <meandata>
-    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<MEASUREMENT_ID>">
       <edge id="<EDGE_ID>">
           <lane id="<LANE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
                 traveltime="<MEAN_TRAVEL_TIME>" \
@@ -178,14 +178,13 @@ have long and slow vehicles you cannot aggregate as above.
 The following measurements can be derived from the values given (period
 denotes the length of the aggregation interval):
 
-- Average number of vehicles on the edge (\#) = sampledSeconds /
-  period
-- Average traffic volume (\#/h) = speed \* 3.6 \* density
-- Traffic volume at the begin of the lane / edge (\#/h) = 3600 \*
-  entered / period
-- Traffic volume at the end of the lane / edge (\#/h) = 3600 \* left /
-  period
-- Total distance travelled (m) = speed \* sampledSeconds
+- Average number of vehicles on the edge (\#) = `sampledSeconds /  period`
+- Average traffic volume (\#/h) = `speed * 3.6 * density`
+- Traffic volume at the begin of the lane / edge (\#/h) = `3600 * entered / period`
+- Traffic volume at the end of the lane / edge (\#/h) = `3600 * left /  period`
+- Total distance travelled (m) = `speed * sampledSeconds`
+- Edge length = `sampledSeconds / period * 1000 / density`
+
 
 Sometimes one wants to know how many vehicles were on an edge. The exact
 definition of this value depends on how departed, arrived and

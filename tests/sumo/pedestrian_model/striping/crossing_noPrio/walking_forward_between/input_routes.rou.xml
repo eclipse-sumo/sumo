@@ -1,0 +1,14 @@
+<routes>
+
+    <route id="WE" edges="WC CE"/>
+    <route id="EW" edges="EC CW"/>
+
+    <vType id="car" vClass="passenger" sigma="0"/>
+
+    <flow id="cWE"  route="WE" type="car" begin="0" end="300" period="7" departLane="best" departSpeed="max"/>
+
+    <personFlow id="p" begin="0" end="300" period="5" departPos="-20">
+        <walk edges="EC WC" arrivalPos="-20"/>
+</personFlow>
+
+</routes>

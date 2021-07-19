@@ -91,8 +91,9 @@ static const GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        const RGBColor& color, const PositionVector& shape, bool geo,
                        bool fill, double lineWidth, double layer, double angle, const std::string& imgFile,
-                       bool relativePath):
-    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
+                       bool relativePath,
+                       const std::string& name):
+    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myDisplayList(0),
     myRotatedShape(nullptr) {
@@ -130,6 +131,7 @@ GUIPolygon::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("type", false, getShapeType());
     ret->mkItem("layer", false, toString(getShapeLayer()));
+    ret->mkItem("name", false, toString(getShapeName()));
     ret->closeBuilding(this);
     return ret;
 }
@@ -154,7 +156,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         //    storeTesselation(s.polySize.getExaggeration(s));
         //}
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // draw inner polygon
         if (myRotatedShape) {
             drawInnerPolygon(s, this, this, *myRotatedShape, getShapeLayer(), false);
@@ -162,7 +164,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
             drawInnerPolygon(s, this, this, myShape, getShapeLayer(), false);
         }
         // pop name
-        glPopName();
+        GLHelper::popName();
     }
 }
 
@@ -278,7 +280,7 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
                              const PositionVector shape, double layer, bool disableSelectionColor) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, layer);
     setColor(s, polygon, o, disableSelectionColor);
     int textureID = -1;
@@ -325,7 +327,7 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
 #ifdef GUIPolygon_DEBUG_DRAW_VERTICES
     GLHelper::debugVertices(shape, 80 / s.scale);
 #endif
-    glPopMatrix();
+    GLHelper::popMatrix();
     const Position& namePos = shape.getPolygonCenter();
     o->drawName(namePos, s.scale, s.polyName, s.angle);
     if (s.polyType.show) {

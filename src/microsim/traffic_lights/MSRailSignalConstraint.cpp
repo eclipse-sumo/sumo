@@ -49,7 +49,6 @@ MSRailSignalConstraint::cleanup() {
 
 void
 MSRailSignalConstraint::saveState(OutputDevice& out) {
-    MSRailSignalConstraint_Predecessor::saveState(out);
     if (OptionsCont::getOptions().getBool("save-state.constraints")) {
         for (MSRailSignal* s : MSRailSignalControl::getInstance().getSignals()) {
             if (s->getConstraints().size() > 0 || s->getInsertionConstraints().size() > 0) {
@@ -69,6 +68,7 @@ MSRailSignalConstraint::saveState(OutputDevice& out) {
             }
         }
     }
+    MSRailSignalConstraint_Predecessor::saveState(out);
 }
 
 void

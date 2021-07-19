@@ -74,7 +74,7 @@ to say) of the inserted option. The character "abbr" within the second
 call is the possible one-char abbreviation of the name.
 
 ```
-Caution: The behaviour after adding the same abbreviation for two different options is not defined.
+Caution: The behavior after adding the same abbreviation for two different options is not defined.
 ```
 
 The third parameter is an option that shall be assigned to the name(s).
@@ -155,7 +155,7 @@ const IntVector &OptionsCont::getIntVector(const std::string &name) const;
 const StringVector &OptionsCont::getStringVector(const std::string &name) const;
 ```
 
-Using an inproper method yields an exception.
+Using an improper method yields an exception.
 
 You may have noticed, that there is one method to retrieve a certain
 value less than types available. The type **Option_FileName** returns a
@@ -163,7 +163,7 @@ string-vector, too. The only difference is their type which allows a different
 processing of the values to set when parsing.
 
 Please note, that it is good style to use the long (longest in fact)
-name for retrieving an option's value and that the same name (synonyme)
+name for retrieving an option's value and that the same name (synonym)
 should be used at all places. This makes it easier to locate this
 option's usage.
 

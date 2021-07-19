@@ -1,0 +1,7 @@
+<routes>
+    <vType sigma="0" id="custom">
+        <param key="device.glosa.range" value="200"/>
+    </vType>
+    <trip id="veh0" type="custom" depart="10" from="WC" to="CE" departSpeed="max"/>
+
+</routes>

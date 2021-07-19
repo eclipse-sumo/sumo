@@ -86,7 +86,7 @@ protected:
     //@}
 
     /// @brief get position for a given laneID (Has to be implemented in all child)
-    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) = 0;
+    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, bool friendlyPos, double lanePosLat) = 0;
 
     /// @brief Whether some input attributes shall be automatically added as params  (Can be implemented in all child)
     virtual bool addLanePosParams();

@@ -22,7 +22,6 @@
 
 """
 Run duarouter and sumo alternating to perform a dynamic user assignment or a dynamic system optimal assignment
-Based on the Perl script dua_iterate.pl.
 """
 from __future__ import print_function
 from __future__ import absolute_import
@@ -39,6 +38,8 @@ from costMemory import CostMemory
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.options import get_long_option_names  # noqa
+
+DEBUGLOG = None
 
 
 def addGenericOptions(argParser):
@@ -152,6 +153,9 @@ def initOptions():
     argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weightes for duarouter")
+    argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
+                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step. " +
+                                "If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
     argParser.add_argument("--router-verbose", action="store_true",
@@ -170,6 +174,8 @@ def initOptions():
     argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
     argParser.add_argument("--marginal-cost", action="store_true", default=False,
                            help="use marginal cost to perform system optimal traffic assignment")
+    argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",
+                           help="apply the given exponent on the current traffic count when computing marginal cost")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -223,6 +229,13 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
         args += ['--additional-files', options.districts]
     if options.logit:
         args += ['--route-choice-method', 'logit']
+        if options.convergenceSteps:
+            if options.convergenceSteps > 0:
+                probKeepRoute = max(0, min(step / float(options.convergenceSteps), 1))
+            else:
+                startStep = -options.convergenceSteps
+                probKeepRoute = 0 if step > startStep else 1 - 1.0 / (step - startStep)
+            args += ['--keep-route-probability', str(probKeepRoute)]
 
     if step > 0 or options.addweights:
         weightpath = ""
@@ -437,6 +450,8 @@ def get_basename(demand_file):
 
 def calcMarginalCost(step, options):
     if step > 1:
+        if DEBUGLOG:
+            log = open("marginal_cost2.log", "w" if step == 2 else "a")
         tree_sumo_cur = ET.parse(os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
         tree_sumo_prv = ET.parse(os.path.join(str(step - 2), get_weightfilename(options, step - 2, "dump")))
         for interval_cur in tree_sumo_cur.getroot():
@@ -451,13 +466,29 @@ def calcMarginalCost(step, options):
                                 veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
                                 veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
                                 tt_cur = float(edge_cur.get("traveltime"))
-                                tt_prv = float(edge_prv.get("traveltime"))
+                                tt_prv = float(edge_prv.get("overlapTraveltime"))
+                                mc_prv = float(edge_prv.get("traveltime"))
                                 dif_tt = abs(tt_cur - tt_prv)
-                                dif_veh = abs(veh_cur - veh_prv)
-                                if dif_veh != 0:
-                                    edge_cur.set("traveltime", str(dif_tt / dif_veh + tt_cur))
+                                dif_veh = veh_cur - veh_prv
+                                if dif_veh > 0:
+                                    mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
+                                else:
+                                    # previous marginal cost
+                                    mc_cur = mc_prv
+
+                                edge_cur.set("traveltime", str(mc_cur))
+                                edge_cur.set("overlapTraveltime", str(tt_cur))
+                                edgeID = edge_cur.get("id")
+                                if DEBUGLOG:
+                                    if begin_cur == "1800.00":
+                                        print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
+                                              (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
+                                               mc_cur, mc_prv), file=log)
         tree_sumo_cur.write(
             os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
+
+        if DEBUGLOG:
+            log.close()
 
 
 def main(args=None):

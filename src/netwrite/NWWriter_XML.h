@@ -105,7 +105,7 @@ private:
      * @param[in] nc The pt stop container from which to read data
      */
     static void writePTStops(const OptionsCont& oc, NBPTStopCont& ec);
-    static void writePTLines(const OptionsCont& cont, NBPTLineCont& lc, NBEdgeCont& ec);
+    static void writePTLines(const OptionsCont& cont, NBPTLineCont& lc);
 
     /// @brief writes imported parking areas to file
     static void writeParkingAreas(const OptionsCont& cont, NBParkingCont& pc, NBEdgeCont& ec);

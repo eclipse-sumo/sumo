@@ -54,52 +54,51 @@ public:
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows, and routeFlows)
         ROUTE =             1 << 10, // Routes and embedded routes
         STOP =              1 << 11, // Stops
+        // persons
         PERSON =            1 << 12, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, personTrips and personStops)
+        PERSONPLAN =        1 << 13, // Person plans (Walks, rides, personTrips and stopPersons)
         PERSONTRIP =        1 << 14, // Person Trips
         WALK =              1 << 15, // Walks
         RIDE =              1 << 16, // Rides
-        PERSONSTOP =        1 << 17, // Person stops
+        STOPPERSON =        1 << 17, // Person stops
+        // containers
+        CONTAINER =         1 << 18, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1 << 19, // Container plans (tranship and transport)
+        TRANSPORT =         1 << 20, // Transport
+        TRANSHIP =          1 << 21, // Tranship
+        STOPCONTAINER =     1 << 22, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 18, // Generic data (GNEEdgeData, GNELaneData...)
+        GENERICDATA =       1 << 23, // Generic data (GNEEdgeData, GNELaneData...)
         // other
-        SYMBOL =            1 << 19, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 20, // Internal Lane
+        SYMBOL =            1 << 24, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 25, // Internal Lane
     };
 
     enum TagProperty {
         DRAWABLE =                  1 << 0,     // Element can be drawed in view
         BLOCKMOVEMENT =             1 << 1,     // Element can block their movement
         CLOSESHAPE =                1 << 2,     // Element can close their shape
-        GEOPOSITION =               1 << 3,     // Element's position can be defined using a GEO position
-        GEOSHAPE =                  1 << 4,     // Element's shape acn be defined using a GEO Shape
-        DIALOG =                    1 << 5,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        SLAVE =                     1 << 6,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
-        MINIMUMCHILDREN =           1 << 7,     // Element will be only writed in XML if has a minimum number of children
-        REPARENT =                  1 << 8,     // Element can be reparent
-        SYNONYM =                   1 << 9,    // Element will be written with a different name in der XML
-        SELECTABLE =                1 << 10,    // Element is selectable
-        MASKSTARTENDPOS =           1 << 11,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        MASKXYZPOSITION =           1 << 12,    // Element mask attributes X, Y and Z as "Position"
-        WRITECHILDRENSEPARATE =     1 << 13,    // Element writes their children in a separated filename
-        NOPARAMETERS =              1 << 14,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        PARAMETERSDOUBLE =          1 << 15,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
-        RTREE =                     1 << 16,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 17,    // Camera is moved after element creation
-        PERSONPLAN_START_EDGE =     1 << 18,    // Person plan starts in an edge
-        PERSONPLAN_END_EDGE =       1 << 19,    // Person plan ends in an edge
-        PERSONPLAN_START_BUSSTOP =  1 << 20,    // Person plan starts in a busStop
-        PERSONPLAN_END_BUSSTOP =    1 << 21,    // Person plan ends in a busStop
-        PERSONPLAN_START_STOP =     1 << 22,    // Person plan starts in a stop
-        PERSONPLAN_END_STOP =       1 << 23,    // Person plan ends in a stop
-        EMBEDDED_ROUTE =            1 << 24,    // Element has an embedded route
+        GEOSHAPE =                  1 << 3,     // Element's shape acn be defined using a GEO Shape
+        DIALOG =                    1 << 4,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        SLAVE =                     1 << 5,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
+        MINIMUMCHILDREN =           1 << 6,     // Element will be only writed in XML if has a minimum number of children
+        REPARENT =                  1 << 7,     // Element can be reparent
+        SELECTABLE =                1 << 8,     // Element is selectable
+        MASKSTARTENDPOS =           1 << 9,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        MASKXYZPOSITION =           1 << 10,    // Element mask attributes X, Y and Z as "Position"
+        WRITECHILDRENSEPARATE =     1 << 11,    // Element writes their children in a separated filename
+        NOPARAMETERS =              1 << 12,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        PARAMETERSDOUBLE =          1 << 13,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
+        RTREE =                     1 << 14,    // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 15,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 16,    // Element has an embedded route
     };
 
     /// @brief default constructor
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag>& master_tag = {}, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+    GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag>& masterTags = {});
 
     /// @brief destructor
     ~GNETagProperties();
@@ -140,11 +139,11 @@ public:
     /// @brief get GUI icon associated to this Tag
     GUIIcon getGUIIcon() const;
 
+    /// @brief get XML tag
+    SumoXMLTag getXMLTag() const;
+
     /// @brief get master tags
     const std::vector<SumoXMLTag>& getMasterTags() const;
-
-    /// @brief get tag synonym
-    SumoXMLTag getTagSynonym() const;
 
     /// @brief check if current TagProperties owns the attribute "attr"
     bool hasAttribute(SumoXMLAttr attr) const;
@@ -201,7 +200,22 @@ public:
     bool isRide() const;
 
     /// @brief return true if tag correspond to a person stop element
-    bool isPersonStop() const;
+    bool isStopPerson() const;
+
+    /// @brief return true if tag correspond to a container element
+    bool isContainer() const;
+
+    /// @brief return true if tag correspond to a container plan
+    bool isContainerPlan() const;
+
+    /// @brief return true if tag correspond to a transport
+    bool isTransportPlan() const;
+
+    /// @brief return true if tag correspond to a tranship
+    bool isTranshipPlan() const;
+
+    /// @brief return true if tag correspond to a container stop element
+    bool isStopContainer() const;
 
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
@@ -227,14 +241,8 @@ public:
     /// @brief return true if tag correspond to an element that can close their shape
     bool canCloseShape() const;
 
-    /// @brief return true if tag correspond to an element that can use a geo position
-    bool hasGEOPosition() const;
-
     /// @brief return true if tag correspond to an element that can use a geo shape
     bool hasGEOShape() const;
-
-    /// @brief return true if tag correspond to an element that will be written in XML with another tag
-    bool hasTagSynonym() const;
 
     /// @brief return true if tag correspond to an element that can be edited using a dialog
     bool hasDialog() const;
@@ -266,24 +274,6 @@ public:
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;
 
-    /// @brief return true if tag correspond to a person plan that starts in an edge
-    bool personPlanStartEdge() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in an edge
-    bool personPlanEndEdge() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a busStop
-    bool personPlanStartBusStop() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a busStop
-    bool personPlanEndBusStop() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a Stop
-    bool personPlanStartStop() const;
-
-    /// @brief return true if tag correspond to a person plan that starts in a Stop
-    bool personPlanEndStop() const;
-
     /// @brief return true if tag correspond to an element that owns a embebbed route
     bool embebbedRoute() const;
 
@@ -309,11 +299,11 @@ private:
     /// @brief icon associated to this Tag
     GUIIcon myIcon;
 
+    /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
+    SumoXMLTag myXMLTag;
+
     /// @brief vector with master tags (used by slave elements)
     std::vector<SumoXMLTag> myMasterTags;
-
-    /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
-    SumoXMLTag myTagSynonym;
 
     /// @brief List with the deprecated Attributes
     std::vector<SumoXMLAttr> myDeprecatedAttributes;

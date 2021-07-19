@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 140, 210)
 
 # Change parameter Height with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummyHeight", True)
+netedit.modifyAttribute(7, "dummyHeight", True)
 
 # Change parameter Height with a non valid value (negative)
-netedit.modifyAttribute(6, "-3", True)
+netedit.modifyAttribute(7, "-3", True)
 
 # Change parameter Height with a valid value
-netedit.modifyAttribute(6, "6.5", True)
+netedit.modifyAttribute(7, "6.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

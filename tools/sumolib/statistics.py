@@ -195,7 +195,12 @@ class Statistics:
         else:
             return "Histogramm is deactivated"
 
-    def toString(self, precision=2):
+    def toString(self, precision=2, histStyle=1):
+        """histStyle
+            0 : not shown
+            1 : one line
+            2 : fancy
+            """
         if len(self.values) > 0:
             min = ''
             if self.printMin:
@@ -210,12 +215,35 @@ class Statistics:
             result += setPrecision(' Q1 %.2f, median %.2f, Q3 %.2f', precision) % self.quartiles()
             if self.abs:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision) % (
-                    self.avg_abs(), self.mean_abs())
+                    self.avg_abs(), self.median_abs())
             if self.counts is not None:
-                result += '\n histogram: %s' % self.histogram()
+                if histStyle == 1:
+                    result += '\n histogram: %s' % self.histogram()
+                elif histStyle == 2:
+                    keylen = len("%.0f" % (self.scale * max(self.counts.keys())))
+                    formatStr = "%%%i.0f: %%s" % keylen
+                    result = 'histogram of %s:\n%s\n%s' % (self.label,
+                                                           '\n'.join([formatStr % x for x in self.histogram()]),
+                                                           result)
             return result
         else:
             return '%s: no values' % self.label
+
+    def toXML(self, precision=2):
+        result = '    <statistic description="%s"' % self.label
+        if len(self.values) > 0:
+            result += setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"', precision) % (
+                self.min, self.min_label, self.max, self.max_label, self.avg())
+            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision) % self.quartiles()
+            result += setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision) % (self.avg_abs(), self.median_abs())
+        if self.counts is not None:
+            result += '>\n'
+            for kv in self.histogram():
+                result += setPrecision(8 * ' ' + '<hist key="%.2f" value="%i"/>\n', precision) % kv
+            result += '    </statistic>\n'
+        else:
+            result += '/>\n'
+        return result
 
     def __str__(self):
         return self.toString()

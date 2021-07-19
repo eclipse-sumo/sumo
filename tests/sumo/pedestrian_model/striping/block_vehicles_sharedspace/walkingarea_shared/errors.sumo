@@ -1,3 +1,1 @@
-Warning: Teleporting vehicle 'WN.2'; waited too long (jam), lane=':C_14_0', time=550.00.
-Warning: Vehicle 'WN.2' ends teleporting on edge 'CN', time 550.00.
-Warning: Vehicle 'WN.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=612.00.
+Warning: Vehicle 'EN.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=290.00.

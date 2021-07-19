@@ -28,7 +28,9 @@
 #include "PHEMConstants.h"
 #endif
 #include <foreign/PHEMlight/cpp/Constants.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
+
 #include "HelpersPHEMlight.h"
 
 // idle speed is usually given in rpm (but may depend on electrical consumers). Actual speed depends on the gear so this number is only a rough estimate
@@ -86,9 +88,7 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
 #ifdef INTERNAL_PHEM
     }
 #endif
-    std::string eclower = eClass;
-    std::transform(eclower.begin(), eclower.end(), eclower.begin(), tolower);
-    myEmissionClassStrings.addAlias(eclower, index);
+    myEmissionClassStrings.addAlias(StringUtils::to_lower_case(eClass), index);
     return index;
 }
 

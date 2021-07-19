@@ -75,6 +75,15 @@ The following order of steps is taken to retrieve the travel time for each edge.
 The [smoothed travel times](../Demand/Automatic_Routing.md#edge_weights) computed for
 the *rerouting device* are used. Note, that these can also be modified via TraCI.
 
+## Randomimzed travel times
+
+[Sumo](../sumo.md) and [duarouter](../duarouter.md) support option **--weights.random-factor FLOAT**. When this option is set, edge weights (i.e. traveltimes) for routing are dynamically disturbed by a random factor drawn uniformly from `[1,FLOAT)`. The value of FLOAT thereby sets an upper bound on the difference in travel time between the actual fastest path and the routing result. With a value of `2`. The result will have twice the travel time / cost of the optimal path in the worst case (In the unlikely event where all edges of the fastest path happen to get a disturbance factor of 2). 
+
+Randomized edge weights can be useful in grid networks where there are many paths have the same (or almost the same) travel cost and the default routing algorithm would send all vehicles on the same path. It can also be used to model imperfection in travel time estimation.
+
+!!! caution
+    By default, runs with the same inputs will still yield the same outcome. To vary the randomness between runs, options [--seed or --random](Randomness.md#random_number_generation_rng) must be used.
+
 ## Special cases
 
 - When rerouting with the *rerouting device* the travel time always
@@ -171,7 +180,7 @@ shortestDistance = stage.length
 
 Applications that perform routing ([sumo](../sumo.md),
 [sumo-gui](../sumo-gui.md), [duarouter](../duarouter.md),
-[marouter](../marouter.md)) support the option **--routing.algorithm** for selecting among
+[marouter](../marouter.md)) support the option **--routing-algorithm** for selecting among
 the following values:
 
 - *dijkstra*: (default)
@@ -196,9 +205,8 @@ search and is often faster than dijkstra. Here, the metric *euclidean distance /
 is preprocessing-based routing algorithm. This is very efficient
 when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
-performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. The
-preprocessing is done without restrictions on vehicle class which
-reduces efficiency in multi-modal networks.
-- *CHWrapper*: This works like *CH* but performs separate
-preprocessing for every vehicle class that is encountered, thereby
-increasing routing efficiency.
+performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. 
+  - When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks
+  - When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.
+- *CHWrapper*: This works like *CH* but performs separate preprocessing for every vehicle class that is encountered, thereby
+enabling routing in multi modal scenarios

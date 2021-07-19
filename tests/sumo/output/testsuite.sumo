@@ -31,6 +31,7 @@ tripinfo
 
 # Tests for vehroutes-output
 vehroutes
+stop-output
 
 # Tests for rawdump-output
 rawdump

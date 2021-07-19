@@ -92,6 +92,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get lane geometry
+    const GNEGeometry::Geometry& getLaneGeometry() const;
+
     /// @brief get elements shape
     const PositionVector& getLaneShape() const;
 
@@ -217,27 +220,6 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-    /// @brief add path additional element (used by GNEPathElement)
-    void addPathAdditionalElement(GNEAdditional* additionalElement);
-
-    /// @brief remove path additional element (used by GNEPathElement)
-    void removePathAdditionalElement(GNEAdditional* additionalElement);
-
-    /// @brief add path demand element (used by GNEPathElement)
-    void addPathDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief remove path demand element (used by GNEPathElement)
-    void removePathDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief add path demand element (used by GNEPathElement)
-    void addPathGenericData(GNEGenericData* genericData);
-
-    /// @brief remove path demand element (used by GNEPathElement)
-    void removePathGenericData(GNEGenericData* genericData);
-
-    /// @brief invalidate path element childs
-    void invalidatePathElements();
-
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color
      */
@@ -288,15 +270,6 @@ private:
     /// @brief lane2lane connections
     GNEGeometry::Lane2laneConnection myLane2laneConnections;
 
-    /// @brief map with references to path additional elements
-    std::map<SumoXMLTag, std::vector<GNEAdditional*> > myPathAdditionalElements;
-
-    /// @brief map with references to path demand elements
-    std::map<SumoXMLTag, std::vector<GNEDemandElement*> > myPathDemandElements;
-
-    /// @brief map with references to path generic data elements
-    std::map<SumoXMLTag, std::vector<GNEGenericData*> > myPathGenericDatas;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
@@ -308,15 +281,6 @@ private:
 
     /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;
-
-    /// @brief path additional elements
-    void drawPathAdditionalElements(const GUIVisualizationSettings& s) const;
-
-    /// @brief path demand elements
-    void drawPathDemandElements(const GUIVisualizationSettings& s) const;
-
-    /// @brief path generic data elements
-    void drawPathGenericDataElements(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
     void drawMarkings(const GUIVisualizationSettings& s, const double exaggeration, const bool drawRailway) const;

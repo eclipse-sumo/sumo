@@ -22,11 +22,11 @@
                 <xsd:element minOccurs="0" ref="bluelight"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="timeType"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="departLane" use="required" type="xsd:string"/>
-            <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="departPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="departPosLat" use="optional" type="xsd:float"/>
-            <xsd:attribute name="departSpeed" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="departSpeed" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="departDelay" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrivalLane" use="required" type="xsd:string"/>

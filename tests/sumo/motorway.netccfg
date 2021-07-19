@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep  6 09:32:36 2018 by Eclipse SUMO netconvert Version v1_0_0+0032-77a1026
+<!-- generated on 2021-07-01 09:53:52 by Eclipse SUMO netconvert Version v1_9_2+0786-faea4df
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -18,5 +18,9 @@
     <processing>
         <offset.disable-normalization value="true"/>
     </processing>
+
+    <junctions>
+        <junctions.small-radius value="4"/>
+    </junctions>
 
 </configuration>

@@ -1,6 +1,7 @@
 <hTitles >SUMO User Documentation<hr style="border: 0.5px solid #338033;"></hTitles>
 
-"**S**imulation of **U**rban **MO**bility" (SUMO) is an open source, highly portable, microscopic and continuous traffic simulation package designed to handle large networks. It allows for intermodal simulation including pedestrians and comes with a large set of tools for scenario creation. It is mainly developed by employees of the [Institute of Transportation Systems](https://www.dlr.de/ts) at the [German Aerospace Center](https://www.dlr.de). SUMO is licensed under the [EPL 2.0](https://eclipse.org/legal/epl-v20.html).
+"**S**imulation of **U**rban **MO**bility" (SUMO) is an open source, highly portable, microscopic and continuous traffic simulation package designed to handle large networks. It allows for intermodal simulation including pedestrians and comes with a large set of tools for scenario creation. It is mainly developed by employees of the [Institute of Transportation Systems](https://www.dlr.de/ts) at the [German Aerospace Center](https://www.dlr.de). SUMO is licensed under the [EPL 2.0](https://eclipse.org/legal/epl-v20.html). The source code may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the EPL 2.0 are satisfied: [GPL2 or later](https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html).
 
 Please use the [mailing lists](Contact.md) for sharing your results or for asking questions. Answers to some common questions may also be found in the [FAQ](FAQ.md).
 
@@ -121,6 +122,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Emergency Vehicles](Simulation/Emergency.md)
 - [Simple Platooning (Simpla)](Simpla.md)
 - [Demand Responsive Transport (DRT) / Taxis](Simulation/Taxi.md)
+- [Green Light Optimal Speed Advisory (GLOSA)](Simulation/GLOSA.md)
 
 ## Model details
 
@@ -187,9 +189,16 @@ Below are links to some of the most important/used tools:
 - [emissionsMap](Tools/Emissions.md#emissionsmap)
 - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle)
 
+# Software Contributions
+Some people extended SUMO or built tools to make it more usable. Not all of these extensions are part of the "SUMO core".
+
+- [Included in the distribution](Contributed/index.md#included_in_the_distribution)
+- [External](Contributed/index.md#external_extensions)
+
 # Appendices
 
 - [ChangeLog](ChangeLog.md)
 - [Glossary](Other/Glossary.md)
 - [FAQ](FAQ.md)
 - [Known File Extensions](Other/File_Extensions.md)
+

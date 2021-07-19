@@ -31,14 +31,17 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, double slope, bool blockMovement) :
-    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
-{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}),
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle),
-mySlope(slope) {
+GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position &pos, 
+    const std::string &width, const std::string &length, const std::string &angle, double slope, 
+    const std::string &name, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
+        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
+        parameters, blockMovement),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle),
+    mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -67,15 +70,18 @@ GNEParkingSpace::updateGeometry() {
 
 void
 GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // obtain double values
+    const double width = myWidth.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+    const double length = myLength.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
     // first reset boundary
     myBoundary.reset();
     // add position
     myBoundary.add(myPosition);
     // grow width and lenght
     if (myWidth > myLength) {
-        myBoundary.grow(myWidth);
+        myBoundary.grow(width);
     } else {
-        myBoundary.grow(myLength);
+        myBoundary.grow(length);
     }
     // grow
     myBoundary.grow(10);
@@ -100,61 +106,68 @@ void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
-    // obtain values with exaggeration
-    const double widthExaggeration = myWidth * parkingAreaExaggeration;
-    const double lengthExaggeration = myLength * parkingAreaExaggeration;
     // first check if additional has to be drawn
-    if (s.drawAdditionals(parkingAreaExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // push name
-        glPushName(getGlID());
-        // push later matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-        // translate to position
-        glTranslated(myPosition.x(), myPosition.y(), 0);
-        // rotate
-        glRotated(myAngle, 0, 0, 1);
-        // only drawn small box if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // obtain double values
+        const double width = myWidth.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+        const double length = myLength.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
+        const double angle = myAngle.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
+        // obtain values with exaggeration
+        const double widthExaggeration = width * parkingAreaExaggeration;
+        const double lengthExaggeration = length * parkingAreaExaggeration;
+        // check exaggeration
+        if (s.drawAdditionals(parkingAreaExaggeration)) {
+            // push name
+            GLHelper::pushName(getGlID());
+            // push later matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+            // translate to position
+            glTranslated(myPosition.x(), myPosition.y(), 0);
+            // rotate
+            glRotated(angle, 0, 0, 1);
+            // only drawn small box if isn't being drawn for selecting
+            if (!s.drawForRectangleSelection) {
+                // Set Color depending of selection
+                if (drawUsingSelectColor()) {
+                    GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+                } else {
+                    GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorContour);
+                }
+                GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
+            }
+            // Traslate matrix and draw blue innen
+            glTranslated(0, 0, 0.1);
             // Set Color depending of selection
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorContour);
+                GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
             }
-            GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
+            GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
+            // Traslate matrix and draw lock icon if isn't being drawn for selecting
+            glTranslated(0, lengthExaggeration * 0.5, 0.1);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, false);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                // draw using drawDottedContourClosedShape
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
+            }
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                // draw using drawDottedContourClosedShape
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
+            }
         }
-        // Traslate matrix and draw blue innen
-        glTranslated(0, 0, 0.1);
-        // Set Color depending of selection
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
-        }
-        GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
-        // Traslate matrix and draw lock icon if isn't being drawn for selecting
-        glTranslated(0, lengthExaggeration * 0.5, 0.1);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, false);
-        // pop layer matrix
-        glPopMatrix();
-        // pop name
-        glPopName();
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
-        }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
-        }
     }
 }
 
@@ -166,12 +179,14 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             return getID();
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_WIDTH:
-            return toString(myWidth);
+            return myWidth;
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            return myLength;
         case SUMO_ATTR_ANGLE:
-            return toString(myAngle);
+            return myAngle;
         case SUMO_ATTR_SLOPE:
             return toString(mySlope);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -201,6 +216,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     }
     switch (key) {
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
@@ -222,6 +238,8 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_LENGTH:
@@ -273,25 +291,26 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update boundary
             updateCenteringBoundary(true);
             break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
+            break;
         case SUMO_ATTR_WIDTH:
-            myWidth = parse<double>(value);
+            myWidth = value;
             // update boundary
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            myLength = value;
             // update boundary
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_ANGLE:
-            myAngle = parse<double>(value);
+            myAngle = value;
             // update boundary
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_SLOPE:
             mySlope = parse<double>(value);
-            // update boundary
-            updateCenteringBoundary(true);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
@@ -330,6 +349,5 @@ GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* u
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->p_end();
 }
-
 
 /****************************************************************************/

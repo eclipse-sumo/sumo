@@ -377,10 +377,10 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Push name
         if (pushGLID) {
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
         }
         // Push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION, (editedNetworkElement == this) ? 1 : 0);
         // Set color
@@ -412,7 +412,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
             }
             // Pop layer matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // check if edge value has to be shown
             if (s.edgeValue.show) {
                 NBEdge::Connection& nbCon = getNBEdgeConnection();
@@ -427,23 +427,23 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Pop name
             if (pushGLID) {
-                glPopName();
+                GLHelper::popName();
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // calculate dotted geometry
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
                 dottedConnectionGeometry.setWidth(0.1);
-                // use drawDottedContourLane to draw it
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                // use drawDottedContourGeometry to draw it
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
             // check if front contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 // calculate dotted geometry
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
                 dottedConnectionGeometry.setWidth(0.1);
-                // use drawDottedContourLane to draw it
-                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                // use drawDottedContourGeometry to draw it
+                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
         }
     }
@@ -475,6 +475,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.toLane);
         case SUMO_ATTR_PASS:
             return toString(nbCon.mayDefinitelyPass);
+        case SUMO_ATTR_INDIRECT:
+            return toString(nbCon.indirectLeft);
         case SUMO_ATTR_KEEP_CLEAR:
             return toString(nbCon.keepClear);
         case SUMO_ATTR_CONTPOS:
@@ -544,6 +546,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FROM_LANE:
         case SUMO_ATTR_TO_LANE:
         case SUMO_ATTR_PASS:
+        case SUMO_ATTR_INDIRECT:
         case SUMO_ATTR_KEEP_CLEAR:
         case SUMO_ATTR_CONTPOS:
         case SUMO_ATTR_UNCONTROLLED:
@@ -617,6 +620,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO_LANE:
             return false;
         case SUMO_ATTR_PASS:
+            return canParse<bool>(value);
+        case SUMO_ATTR_INDIRECT:
             return canParse<bool>(value);
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
@@ -713,6 +718,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PASS:
             nbCon.mayDefinitelyPass = parse<bool>(value);
             break;
+        case SUMO_ATTR_INDIRECT:
+            nbCon.indirectLeft = parse<bool>(value);
+            break;
         case SUMO_ATTR_KEEP_CLEAR:
             nbCon.keepClear = parse<bool>(value) ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE;
             break;
@@ -783,6 +791,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         markConnectionGeometryDeprecated();
         updateGeometry();
     }
+    // invalidate path calculator
+    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 

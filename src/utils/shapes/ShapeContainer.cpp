@@ -63,8 +63,9 @@ bool
 ShapeContainer::addPolygon(const std::string& id, const std::string& type,
                            const RGBColor& color, double layer,
                            double angle, const std::string& imgFile, bool relativePath,
-                           const PositionVector& shape, bool geo, bool fill, double lineWidth, bool ignorePruning) {
-    return add(new SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath), ignorePruning);
+                           const PositionVector& shape, bool geo, bool fill, double lineWidth, bool ignorePruning,
+                           const std::string& name) {
+    return add(new SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name), ignorePruning);
 }
 
 
@@ -142,9 +143,9 @@ ShapeContainer::removePolygonDynamics(const std::string& polyID) {
 
 bool
 ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                       const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                       const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
                        const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning) {
-    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height), ignorePruning);
+    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height), ignorePruning);
 }
 
 

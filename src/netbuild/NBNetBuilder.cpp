@@ -626,10 +626,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         int maxCount = oc.getInt("railway.max-accesses");
         myPTStopCont.findAccessEdgesForRailStops(myEdgeCont, maxRadius, maxCount, accessFactor);
         PROGRESS_TIME_MESSAGE(before);
-        if (numBidiStops > 0) {
-            if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
+        if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
+            if (numBidiStops > 0) {
                 myPTLineCont.fixBidiStops(myEdgeCont);
             }
+            myPTLineCont.removeInvalidEdges(myEdgeCont);
+            // ensure that all turning lanes have sufficient permissions
+            myPTLineCont.fixPermissions();
         }
     }
 

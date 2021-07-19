@@ -136,8 +136,8 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // check whether it is not too small
         const double exaggeration = s.junctionSize.getExaggeration(s, this, 4);
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
-            glPushMatrix();
-            glPushName(getGlID());
+            GLHelper::pushMatrix();
+            GLHelper::pushName(getGlID());
             const double colorValue = getColorValue(s, s.junctionColorer.getActive());
             const RGBColor color = s.junctionColorer.getScheme().getColor(colorValue);
             GLHelper::setColor(color);
@@ -164,8 +164,8 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledCircle(2 * exaggeration, 12);
                 }
             }
-            glPopName();
-            glPopMatrix();
+            GLHelper::popName();
+            GLHelper::popMatrix();
         }
     }
     if (myIsInternal) {

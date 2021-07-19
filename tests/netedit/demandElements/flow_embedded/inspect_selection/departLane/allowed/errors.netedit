@@ -16,6 +16,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding flowWithRoute 'flowA' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flowA' in GNEChange_DemandElement
 Debug: Adding flowWithRoute 'flowB' in GNEChange_DemandElement
@@ -69,6 +70,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
 Debug: Setting new attribute selected 'true' into flowWithRoute 'flowB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute departLane 'first' into flowWithRoute 'flowA'
 Debug: Setting new attribute departLane 'first' into flowWithRoute 'flowB'
 Debug: Value 'dummyDepart' for attribute departLane of flowWithRoute isn't valid

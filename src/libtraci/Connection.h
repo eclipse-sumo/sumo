@@ -89,7 +89,7 @@ public:
 
     /** @brief Sends a SetOrder command
      */
-    void send_commandSetOrder(int order);
+    void setOrder(int order);
 
     /** @brief Sends a GetVariable / SetVariable request if mySocket is connected.
      * Otherwise writes to myOutput only.

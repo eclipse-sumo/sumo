@@ -340,7 +340,7 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
 
 void
 GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     std::string flow = "-";
     std::string speed = "-";
     if (myCalibrator->isActive()) {
@@ -356,7 +356,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
     for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         double rot = myFGRotations[i];
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(pos.x(), pos.y(), getType());
         glRotated(rot, 0, 0, 1);
         glTranslated(0, 0, getType());
@@ -381,10 +381,10 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(flow, Position(0, 4), 0.1, 0.7, RGBColor::BLACK, 180);
             GLHelper::drawText(speed, Position(0, 5), 0.1, 0.7, RGBColor::BLACK, 180);
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

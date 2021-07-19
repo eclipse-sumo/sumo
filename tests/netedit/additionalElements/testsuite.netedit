@@ -4,6 +4,9 @@ basic
 # bus stops
 busstop
 
+# train stops
+trainstop
+
 # access
 access
 
@@ -20,7 +23,7 @@ e1detector
 e2detector
 
 # e2 multilane 
-e2MultiLaneDetector
+e2multiLanedetector
 
 # e3 detector
 e3detector
@@ -32,7 +35,7 @@ detentry
 detexit
 
 # E1 Instant detector
-e1InstantDetector
+e1instantdetector
 
 # calibrator
 calibrator
@@ -53,7 +56,7 @@ routeprobe
 vaporizer
 
 # rerouter
-#rerouter
+rerouter
 
 # variable speed sign
-#variablespeedsign
+variablespeedsign

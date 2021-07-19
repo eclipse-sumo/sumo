@@ -16,8 +16,9 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Invalid route '' used in vehicle 'vehicle_0'.
-Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.01Dec142124.16752\netedit.gui\demandElements\vehicle_embedded\load\no_route\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\vehicle_embedded\load\no_route\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved

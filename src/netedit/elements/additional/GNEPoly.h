@@ -59,11 +59,13 @@ public:
      * @param[in] relativePath set image file as relative path
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
-     * @param[in] movementBlocked if movement of POI is blocked
-     * @param[in] shapeBlocked if shape of POI is blocked
+     * @param[in] name Poly's name
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable shape movement
      */
-    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-            const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked);
+    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, 
+            double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, 
+            const std::string &name, const std::map<std::string, std::string> &parameters, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPoly();
@@ -94,8 +96,8 @@ public:
     void updateCenteringBoundary(const bool updateGrid);
 
     /**@brief writte shape element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
+     * @param[in] device device in which write parameters of additional element
+     */
     void writeShape(OutputDevice& device);
 
     /// @brief Returns the numerical id of the object

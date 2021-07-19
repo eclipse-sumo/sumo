@@ -40,16 +40,15 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "edge",                           SUMO_TAG_EDGE },
     { "lane",                           SUMO_TAG_LANE },
     { "neigh",                          SUMO_TAG_NEIGH },
-    { "poi",                            SUMO_TAG_POI },
-    { "poiLane",                        SUMO_TAG_POILANE },
     { "poly",                           SUMO_TAG_POLY },
+    { "poi",                            SUMO_TAG_POI },
     { "junction",                       SUMO_TAG_JUNCTION },
     { "restriction",                    SUMO_TAG_RESTRICTION },
     { "meso",                           SUMO_TAG_MESO },
     { "e1Detector",                     SUMO_TAG_E1DETECTOR },
     { "inductionLoop",                  SUMO_TAG_INDUCTION_LOOP },
     { "e2Detector",                     SUMO_TAG_E2DETECTOR },
-    { "e2MultilaneDetector",            SUMO_TAG_E2DETECTOR_MULTILANE },
+    { "e2MultilaneDetector",            GNE_TAG_E2DETECTOR_MULTILANE },
     { "laneAreaDetector",               SUMO_TAG_LANE_AREA_DETECTOR },
     { "e3Detector",                     SUMO_TAG_E3DETECTOR },
     { "entryExitDetector",              SUMO_TAG_ENTRY_EXIT_DETECTOR },
@@ -93,7 +92,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "trip",                           SUMO_TAG_TRIP },
     { "tripTAZ",                        SUMO_TAG_TRIP_TAZ },
     { "flow",                           SUMO_TAG_FLOW },
-    { "flowCalibrator",                 SUMO_TAG_FLOW_CALIBRATOR },
     { "flowState",                      SUMO_TAG_FLOWSTATE },
     { "step",                           SUMO_TAG_STEP },
     { "interval",                       SUMO_TAG_INTERVAL },
@@ -240,6 +238,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parameters",                     AGEN_TAG_PARAM },
     // NETEDIT
     { "internalLane",                   GNE_TAG_INTERNAL_LANE },
+    { "flowCalibrator",                 GNE_TAG_FLOW_CALIBRATOR },
+    { "poiLane",                        GNE_TAG_POILANE },
+    { "poiGeo",                         GNE_TAG_POIGEO },
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
     { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },
@@ -247,41 +248,30 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
     // GNE Person trips
-    { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE_EDGE },
-    { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
-    { "personTrip: edge->stop",         GNE_TAG_PERSONTRIP_EDGE_STOP },
-    { "personTrip: busStop->edge",      GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
-    { "personTrip: busStop->busStop",   GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
-    { "personTrip: busStop->stop",      GNE_TAG_PERSONTRIP_BUSSTOP_STOP },
-    { "personTrip: stop->edge",         GNE_TAG_PERSONTRIP_STOP_EDGE },
-    { "personTrip: stop->busStop",      GNE_TAG_PERSONTRIP_STOP_BUSSTOP },
-    { "personTrip: stop->stop",         GNE_TAG_PERSONTRIP_STOP_STOP },
+    { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE },
+    { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },
     // GNE Walks
-    { "walk: edge->edge",               GNE_TAG_WALK_EDGE_EDGE },
-    { "walk: edge->busStop",            GNE_TAG_WALK_EDGE_BUSSTOP },
-    { "walk: edge->stop",               GNE_TAG_WALK_EDGE_STOP },
-    { "walk: busStop->edge",            GNE_TAG_WALK_BUSSTOP_EDGE },
-    { "walk: busStop->busStop",         GNE_TAG_WALK_BUSSTOP_BUSSTOP },
-    { "walk: busStop->stop",            GNE_TAG_WALK_BUSSTOP_STOP },
-    { "walk: stop->edge",               GNE_TAG_WALK_STOP_EDGE },
-    { "walk: stop->busStop",            GNE_TAG_WALK_STOP_BUSSTOP },
-    { "walk: stop->stop",               GNE_TAG_WALK_STOP_STOP },
+    { "walk: edge->edge",               GNE_TAG_WALK_EDGE },
+    { "walk: edge->busStop",            GNE_TAG_WALK_BUSSTOP },
     { "walk: edges",                    GNE_TAG_WALK_EDGES },
     { "walk: route",                    GNE_TAG_WALK_ROUTE },
     // GNE Rides
-    { "ride: edge->edge",               GNE_TAG_RIDE_EDGE_EDGE },
-    { "ride: edge->busStop",            GNE_TAG_RIDE_EDGE_BUSSTOP },
-    { "ride: edge->stop",               GNE_TAG_RIDE_EDGE_STOP },
-    { "ride: busStop->edge",            GNE_TAG_RIDE_BUSSTOP_EDGE },
-    { "ride: busStop->busStop",         GNE_TAG_RIDE_BUSSTOP_BUSSTOP },
-    { "ride: busStop->stop",            GNE_TAG_RIDE_BUSSTOP_STOP },
-    { "ride: stop->edge",               GNE_TAG_RIDE_STOP_EDGE },
-    { "ride: stop->busStop",            GNE_TAG_RIDE_STOP_BUSSTOP },
-    { "ride: stop->stop",               GNE_TAG_RIDE_STOP_STOP },
+    { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
+    { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
     // GNE person Stops
-    { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
-    { "personStop: edge",               GNE_TAG_PERSONSTOP_EDGE },
-    // Other
+    { "stopPerson: busStop",            GNE_TAG_STOPPERSON_BUSSTOP },
+    { "stopPerson: edge",               GNE_TAG_STOPPERSON_EDGE },
+    // GNE transports
+    { "transport: edge->edge",          GNE_TAG_TRANSPORT_EDGE },
+    { "transport: edge->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP },
+    // GNE tranships
+    { "tranship: edge->edge",           GNE_TAG_TRANSHIP_EDGE },
+    { "tranship: edge->containerStop",  GNE_TAG_TRANSHIP_CONTAINERSTOP },
+    { "tranship: edges",                GNE_TAG_TRANSHIP_EDGES },
+    // GNE container Stops
+    { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
+    { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
+    // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
 
@@ -379,6 +369,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "request",                SUMO_ATTR_REQUEST },
     { "response",               SUMO_ATTR_RESPONSE },
     { "programID",              SUMO_ATTR_PROGRAMID },
+    { "phase",                  SUMO_ATTR_PHASE },
     { "offset",                 SUMO_ATTR_OFFSET },
     { "endOffset",              SUMO_ATTR_ENDOFFSET },
     { "incLanes",               SUMO_ATTR_INCLANES },
@@ -553,6 +544,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "cost",                   SUMO_ATTR_COST },
     { "costs",                  SUMO_ATTR_COSTS },
     { "savings",                SUMO_ATTR_SAVINGS },
+    { "exitTimes",              SUMO_ATTR_EXITTIMES },
     { "probability",            SUMO_ATTR_PROB },
     { "count",                  SUMO_ATTR_COUNT },
     { "probabilities",          SUMO_ATTR_PROBS },
@@ -592,8 +584,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "duration",               SUMO_ATTR_DURATION },
     { "until",                  SUMO_ATTR_UNTIL },
     { "arrival",                SUMO_ATTR_ARRIVAL },
-    { "actualArrival",          SUMO_ATTR_ACTUALARRIVAL },
     { "extension",              SUMO_ATTR_EXTENSION },
+    { "started",                SUMO_ATTR_STARTED },
+    { "ended",                  SUMO_ATTR_ENDED },
     { "routeProbe",             SUMO_ATTR_ROUTEPROBE },
     { "crossingEdges",          SUMO_ATTR_CROSSING_EDGES },
     // Traffic light & Nodes
@@ -610,6 +603,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "radius",                 SUMO_ATTR_RADIUS },
     { "customShape",            SUMO_ATTR_CUSTOMSHAPE },
     { "keepClear",              SUMO_ATTR_KEEP_CLEAR },
+    { "indirect",               SUMO_ATTR_INDIRECT },
     { "rightOfWay",             SUMO_ATTR_RIGHT_OF_WAY },
     { "fringe",                 SUMO_ATTR_FRINGE },
     { "color",                  SUMO_ATTR_COLOR },
@@ -659,6 +653,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "uncontrolled",           SUMO_ATTR_UNCONTROLLED },
     { "pass",                   SUMO_ATTR_PASS },
     { "busStop",                SUMO_ATTR_BUS_STOP },
+    { "trainStop",              SUMO_ATTR_TRAIN_STOP },
     { "containerStop",          SUMO_ATTR_CONTAINER_STOP },
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },
@@ -715,7 +710,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lat",                    SUMO_ATTR_LAT },
     { "geo",                    SUMO_ATTR_GEO },
     { "geoShape",               SUMO_ATTR_GEOSHAPE },
-    { "lon/lat",                SUMO_ATTR_GEOPOSITION },
     { "k",                      SUMO_ATTR_K },
     { "v",                      SUMO_ATTR_V },
     { "ref",                    SUMO_ATTR_REF },
@@ -780,6 +774,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "checkLaneFoesRoundabout", SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT },
     { "tlsIgnoreInternalJunctionJam", SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM },
     { "avoidOverlap",           SUMO_ATTR_AVOID_OVERLAP },
+    { "junctionHigherSpeed",    SUMO_ATTR_HIGHER_SPEED },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "startTime",              SUMO_ATTR_STARTTIME },
@@ -843,11 +838,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "genericParameter",                   GNE_ATTR_PARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
-    { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
-    { "fromStop",                           GNE_ATTR_FROM_STOP },
-    { "toStop",                             GNE_ATTR_TO_STOP },
-    { "opposite",                              GNE_ATTR_OPPOSITE },
+    { "toContainerStop",                    GNE_ATTR_TO_CONTAINERSTOP },
+    { "opposite",                           GNE_ATTR_OPPOSITE },
+    { "center",                             GNE_ATTR_CENTER },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
@@ -1209,13 +1203,18 @@ SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
-    const std::vector<std::string>& typeIDs = StringTokenizer(value).getVector();
+    return isValidListOfTypeID(StringTokenizer(value).getVector());
+}
+
+
+bool
+SUMOXMLDefinitions::isValidListOfTypeID(const std::vector<std::string>& typeIDs) {
     if (typeIDs.empty()) {
         return false;
     } else {
         // check that gives IDs are valid
-        for (const auto& i : typeIDs) {
-            if (!SUMOXMLDefinitions::isValidTypeID(i)) {
+        for (const auto& typeID : typeIDs) {
+            if (!SUMOXMLDefinitions::isValidTypeID(typeID)) {
                 return false;
             }
         }

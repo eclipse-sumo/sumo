@@ -47,10 +47,15 @@
 #include "GLHelper.h"
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
+//#define CHECK_PUSHPOP // enable or disable check push and pop matrix/names
+
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
+int GLHelper::myMatrixCounter = 0;
+int GLHelper::myNameCounter = 0;
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
 FONScontext* GLHelper::myFont = nullptr;
@@ -75,6 +80,61 @@ void APIENTRY combCallback(GLdouble coords[3],
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+void 
+GLHelper::pushMatrix() {
+    glPushMatrix();
+#ifdef CHECK_PUSHPOP
+    myMatrixCounter++;
+#endif
+}
+
+
+void 
+GLHelper::popMatrix() {
+    glPopMatrix();
+#ifdef CHECK_PUSHPOP
+    myMatrixCounter--;
+#endif
+}
+
+
+void 
+GLHelper::pushName(unsigned int name) {
+    glPushName(name);
+#ifdef CHECK_PUSHPOP
+    myNameCounter++;
+#endif
+}
+
+
+void 
+GLHelper::popName() {
+    glPopName();
+#ifdef CHECK_PUSHPOP
+    myNameCounter--;
+#endif
+}
+
+
+void 
+GLHelper::checkCounterMatrix() {
+#ifdef CHECK_PUSHPOP
+    if (myMatrixCounter != 0) {
+        WRITE_WARNING("invalid matrix counter. Check that number of pushMatrix and popMatrix functions calls are the same");
+    }
+#endif
+}
+
+
+void 
+GLHelper::checkCounterName() {
+#ifdef CHECK_PUSHPOP
+    if (myNameCounter != 0) {
+        WRITE_WARNING("invalid Name counter. Check that number of pushName and popName functions calls are the same");
+    }
+#endif
+}
 
 
 void
@@ -134,7 +194,7 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
 void
 GLHelper::drawBoxLine(const Position& beg, double rot, double visLength,
                       double width, double offset) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_QUADS);
@@ -143,7 +203,7 @@ GLHelper::drawBoxLine(const Position& beg, double rot, double visLength,
     glVertex2d(width - offset, -visLength);
     glVertex2d(width - offset, 0);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -151,7 +211,7 @@ void
 GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
                       double rot, double visLength,
                       double width) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated((beg2.x() + beg1.x())*.5, (beg2.y() + beg1.y())*.5, 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_QUADS);
@@ -160,7 +220,7 @@ GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
     glVertex2d(width, -visLength);
     glVertex2d(width, 0);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -190,7 +250,7 @@ GLHelper::drawBoxLines(const PositionVector& geom,
     // draw the corner details
     if (cornerDetail > 0) {
         for (int i = 1; i < e; i++) {
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(geom[i].x(), geom[i].y(), 0.1);
             double angleBeg = -rots[i - 1];
             double angleEnd = 180 - rots[i];
@@ -212,7 +272,7 @@ GLHelper::drawBoxLines(const PositionVector& geom,
                 angleEnd -= 360;
             }
             drawFilledCircle(width + offset, cornerDetail, angleBeg, angleEnd);
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -231,12 +291,12 @@ GLHelper::drawBoxLines(const PositionVector& geom,
     }
     if (cornerDetail > 0) {
         for (int i = 1; i < e; i++) {
-            glPushMatrix();
+            GLHelper::pushMatrix();
             setColor(cols[i]);
             glTranslated(geom[i].x(), geom[i].y(), 0);
             drawFilledCircle(width, cornerDetail);
             glEnd();
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -271,28 +331,28 @@ GLHelper::drawBoxLines(const PositionVector& geom, double width) {
 
 void
 GLHelper::drawLine(const Position& beg, double rot, double visLength) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_LINES);
     glVertex2d(0, 0);
     glVertex2d(0, -visLength);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
 void
 GLHelper::drawLine(const Position& beg1, const Position& beg2,
                    double rot, double visLength) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated((beg2.x() + beg1.x())*.5, (beg2.y() + beg1.y())*.5, 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_LINES);
     glVertex2d(0, 0);
     glVertex2d(0, -visLength);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -430,7 +490,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
         tLength = length;
     }
     Position rl(PositionVector::positionAtOffset(p1, p2, length - tLength));
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(rl.x(), rl.y(), 0);
     glRotated(-GeomHelper::naviDegree(p1.angleTo2D(p2)), 0, 0, 1);
     glBegin(GL_TRIANGLES);
@@ -438,7 +498,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
     glVertex2d(-tWidth, 0);
     glVertex2d(+tWidth, 0);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -496,7 +556,7 @@ GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, c
     geom.push_back(Position(pos.x(), pos.y(), pos.z()));
     */
     // push matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // translate
     glTranslated(pos.x(), pos.y(), pos.z());
     // rotate
@@ -506,7 +566,7 @@ GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, c
     // draw box lines
     GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
     // pop matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -547,7 +607,7 @@ GLHelper::drawText(const std::string& text, const Position& pos, const double la
     if (!initFont()) {
         return;
     }
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glAlphaFunc(GL_GREATER, 0.5);
     glEnable(GL_ALPHA_TEST);
 #ifdef HAVE_GL2PS
@@ -555,7 +615,7 @@ GLHelper::drawText(const std::string& text, const Position& pos, const double la
         glRasterPos3d(pos.x(), pos.y(), layer);
         GLfloat color[] = {col.red() / 255.f, col.green() / 255.f, col.blue() / 255.f, col.alpha() / 255.f};
         gl2psTextOptColor(text.c_str(), "Roboto", 10, align == 0 ? GL2PS_TEXT_C : align, (GLfloat) - angle, color);
-        glPopMatrix();
+        GLHelper::popMatrix();
         return;
     }
 #endif
@@ -565,7 +625,7 @@ GLHelper::drawText(const std::string& text, const Position& pos, const double la
     fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE : align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
     fonsDrawText(myFont, 0., 0., text.c_str(), nullptr);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -603,7 +663,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
         const double borderWidth = size * relBorder;
         const double boxHeight = size * (0.32 + 0.6 * relMargin);
         const double boxWidth = stringWidth + size * relMargin;
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glTranslated(pos.x(), pos.y(), layer);
         glRotated(-angle, 0, 0, 1);
@@ -614,7 +674,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
         setColor(bgColor);
         glTranslated(0, 0, 0.01);
         drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     drawText(text, pos, layer + 0.02, size, txtColor, angle, align);
 }
@@ -623,7 +683,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
 void
 GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, double x,
                         const GUIVisualizationTextSettings& settings, const double scale) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     const Position& end = shape.back();
     const Position& f = shape[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
@@ -635,7 +695,7 @@ GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, do
                 settings.bgColor,
                 RGBColor::INVISIBLE,
                 180, 0, 0.2);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 void
@@ -644,12 +704,12 @@ GLHelper::drawCrossTies(const PositionVector& geom,
                         const std::vector<double>& lengths,
                         double length, double spacing,
                         double halfWidth, bool drawForSelection) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
     int e = (int) geom.size() - 1;
     for (int i = 0; i < e; ++i) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(geom[i].x(), geom[i].y(), 0.0);
         glRotated(rots[i], 0, 0, 1);
         // draw crossing depending if isn't being drawn for selecting
@@ -672,9 +732,9 @@ GLHelper::drawCrossTies(const PositionVector& geom,
             glEnd();
         }
         // pop three draw matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -689,7 +749,7 @@ GLHelper::debugVertices(const PositionVector& shape, double size, double layer) 
 
 void
 GLHelper::drawBoundary(const Boundary& b) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     GLHelper::setColor(RGBColor::MAGENTA);
     // draw on top
     glTranslated(0, 0, 1024);
@@ -697,7 +757,7 @@ GLHelper::drawBoundary(const Boundary& b) {
     drawLine(Position(b.xmax(), b.ymax()), Position(b.xmax(), b.ymin()));
     drawLine(Position(b.xmax(), b.ymin()), Position(b.xmin(), b.ymin()));
     drawLine(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()));
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 

@@ -118,6 +118,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     double lon = attrs.getOpt<double>(SUMO_ATTR_LON, id.c_str(), ok, INVALID_POSITION);
     double lat = attrs.getOpt<double>(SUMO_ATTR_LAT, id.c_str(), ok, INVALID_POSITION);
     const double lanePos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, 0);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const double lanePosLat = attrs.getOpt<double>(SUMO_ATTR_POSITION_LAT, id.c_str(), ok, 0);
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
@@ -160,7 +161,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
         if ((x == INVALID_POSITION) || (y == INVALID_POSITION)) {
             // try computing x,y from lane,pos
             if (laneID != "") {
-                pos = getLanePos(id, laneID, lanePos, lanePosLat);
+                pos = getLanePos(id, laneID, lanePos, friendlyPos, lanePosLat);
             } else {
                 // try computing x,y from lon,lat
                 if ((lat == INVALID_POSITION) || (lon == INVALID_POSITION)) {
@@ -184,7 +185,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                 }
             }
         }
-        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
+        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
             WRITE_ERROR("PoI '" + id + "' already exists.");
         }
         myLastParameterised = myShapeContainer.getPOIs().get(id);

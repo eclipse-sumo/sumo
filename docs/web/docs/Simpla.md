@@ -119,7 +119,7 @@ and the platoon management is executed at the end of each call to
 !!! caution
     (1) simpla changes the vehicle types, speedfactors, and lane changemodes of all connected vehicles. If your application does so as well, this might have unintended consequences.
 
-    (2) Currently, steps of lengths other than DeltaT are not supported (i.e. if traci.simulationStep() is called with argument when simpla is running this may yield undesired behaviour). 
+    (2) Currently, steps of lengths other than DeltaT are not supported (i.e. if traci.simulationStep() is called with argument when simpla is running this may yield undesired behavior). 
 
     (3) simpla adds subscriptions to VAR_SPEED, VAR_ROAD_ID, VAR_LANE_ID, and VAR_LANE_INDEX and removes them when stopped (per `simpla.stop()`).
 

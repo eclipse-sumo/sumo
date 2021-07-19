@@ -366,6 +366,7 @@ NLBuilder::buildNet() {
     // if anthing goes wrong after this point, the net is responsible for cleaning up
     myNet.closeBuilding(myOptions, edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
                         myXMLHandler.haveSeenInternalEdge(),
+                        myXMLHandler.hasJunctionHigherSpeeds(),
                         myXMLHandler.networkVersion());
 }
 

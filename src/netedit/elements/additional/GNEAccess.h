@@ -44,9 +44,11 @@ public:
      * @param[in] pos position of the Access on the lane
      * @param[in] length The length of the Access in meters.
      * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, bool blockMovement);
+    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, 
+              bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -131,8 +133,8 @@ protected:
     /// @brief position over lane
     double myPositionOverLane;
 
-    /// @brief Acces length
-    std::string myLength;
+    /// @brief Access length
+    double myLength;
 
     /// @brief flag to check if friendly position is enabled
     bool myFriendlyPosition;

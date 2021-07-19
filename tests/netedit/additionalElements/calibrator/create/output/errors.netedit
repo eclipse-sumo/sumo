@@ -1,8 +1,8 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'calibrator' in TagSelector
 Debug: Invalid input parameter of calibrator: input contains invalid characters for a filename
-Debug: Format of optional optional string attribute 'routeProbe' of calibrator with ID 'calibrator_gneE0_0' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
 Debug: Adding calibrator 'calibrator_gneE0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

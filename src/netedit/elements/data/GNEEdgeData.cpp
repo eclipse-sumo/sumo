@@ -106,8 +106,8 @@ GNEEdgeData::isGenericDataVisible() const {
 
 void
 GNEEdgeData::updateGeometry() {
-    // calculate generic data path
-    calculateGenericDataLanePath(getParentEdges());
+    // calculate path
+    myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
 }
 
 
@@ -158,7 +158,13 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+GNEEdgeData::computePathElement() {
+    // nothing to compute
+}
+
+
+void
+GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
@@ -166,10 +172,10 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
         // Start drawing adding an gl identificator
         if (!onlyDrawContour) {
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
         }
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
         // Set orange color
@@ -187,10 +193,10 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         // draw interne box lines
         GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         if (!onlyDrawContour) {
-            glPopName();
+            GLHelper::popName();
         }
         // draw filtered attribute
         if (getParentEdges().front()->getLanes().front() == lane) {
@@ -205,8 +211,22 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
 
 
 void
-GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const double /*offsetFront*/) const {
+GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // EdgeDatas don't use drawPartialGL over junction
+}
+
+
+GNELane*
+GNEEdgeData::getFirstPathLane() const {
+    /* temporal */
+    return nullptr;
+}
+
+
+GNELane*
+GNEEdgeData::getLastPathLane() const {
+    /* temporal */
+    return nullptr;
 }
 
 

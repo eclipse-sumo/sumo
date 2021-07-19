@@ -8,9 +8,9 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'calibrator' in TagSelector
-Debug: Format of optional optional string attribute 'routeProbe' of calibrator with ID 'calibrator_gneE2_0' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
 Debug: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
 Debug: Value 'dummyPos' for attribute pos of calibrator isn't valid
 Debug: Value '-12' for attribute pos of calibrator isn't valid

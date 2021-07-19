@@ -93,8 +93,8 @@ PCPolyContainer::add(PointOfInterest* poi, bool ignorePruning) {
 
 
 void
-PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
-    myLanePosPois[poiID] = LanePos(laneID, lanePos, lanePosLat);
+PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, const double friendlyPos, double lanePosLat) {
+    myLanePosPois[poiID] = LanePos(laneID, lanePos, friendlyPos, lanePosLat);
 }
 
 
@@ -118,12 +118,12 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     }
     // write pois
     const double zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
-    for (auto i : myPOIs) {
-        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(i.first);
+    for (const auto &POI : myPOIs) {
+        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(POI.first);
         if (it == myLanePosPois.end()) {
-            i.second->writeXML(out, useGeo, zOffset);
+            POI.second->writeXML(out, useGeo, zOffset);
         } else {
-            i.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.posLat);
+            POI.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.friendlyPos, it->second.posLat);
         }
     }
     out.close();
@@ -201,5 +201,19 @@ PCPolyContainer::getEnumIDFor(const std::string& key) {
     return myIDEnums[key]++;
 }
 
+
+PCPolyContainer::LanePos::LanePos() :
+    pos(0),
+    friendlyPos(false),
+    posLat(0) {
+}
+
+
+PCPolyContainer::LanePos::LanePos(const std::string& _laneID, double _pos, bool _friendlyPos, double _posLat) :
+    laneID(_laneID), 
+    pos(_pos), 
+    friendlyPos(_friendlyPos), 
+    posLat(_posLat) {
+}
 
 /****************************************************************************/

@@ -299,7 +299,7 @@ MSInsertionControl::clearPendingVehicles(const std::string& route) {
 
 int
 MSInsertionControl::getPendingEmits(const MSLane* lane) {
-    if (MSNet::getInstance()->getCurrentTimeStep() > myPendingEmitsUpdateTime) {
+    if (MSNet::getInstance()->getCurrentTimeStep() != myPendingEmitsUpdateTime) {
         // updated pending emits (only once per time step)
         myPendingEmitsForLane.clear();
         for (const SUMOVehicle* const veh : myPendingEmits) {
@@ -357,7 +357,7 @@ MSInsertionControl::clearState() {
     myPendingEmits.clear();
     myEmitCandidates.clear();
     myAbortedEmits.clear();
-    myPendingEmitsForLane.clear();
+    // myPendingEmitsForLane must not be cleared since it updates itself on the next call
 }
 
 SUMOTime

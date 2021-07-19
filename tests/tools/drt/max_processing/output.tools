@@ -1,0 +1,43 @@
+Loading configuration ... done.
+
+Run dispatcher
+New reservations: ['0']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Dispatch: taxiA_0y_0z
+
+Run dispatcher
+New reservations: ['1', '2', '3']
+Pending reservations: []
+Solve DARP with exhaustive_search
+Dispatch: taxiA_0y_2y_1y_0z_1z_2z
+
+Run dispatcher
+New reservations: ['4', '5', '6']
+Pending reservations: ['3']
+Solve DARP with exhaustive_search
+Dispatch: taxiA_2y_1y_0z_1z_5y_2z_5z
+
+Processing time for reservation 3 -person ('3',)- was exceeded. Reservation can not be served
+
+Run dispatcher
+New reservations: ['7', '8', '9']
+Pending reservations: ['4', '6']
+Solve DARP with exhaustive_search
+
+Processing time for reservation 4 -person ('4',)- was exceeded. Reservation can not be served
+
+Processing time for reservation 6 -person ('6',)- was exceeded. Reservation can not be served
+
+Run dispatcher
+Pending reservations: ['7', '8', '9']
+Solve DARP with exhaustive_search
+
+Processing time for reservation 7 -person ('7',)- was exceeded. Reservation can not be served
+
+Processing time for reservation 8 -person ('8',)- was exceeded. Reservation can not be served
+
+Processing time for reservation 9 -person ('9',)- was exceeded. Reservation can not be served
+
+Exact solution found.
+DRT simulation ended

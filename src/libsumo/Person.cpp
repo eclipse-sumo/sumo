@@ -363,7 +363,7 @@ Person::getLength(const std::string& personID) {
 
 double
 Person::getSpeedFactor(const std::string& personID) {
-    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter()[0];
+    return getPerson(personID)->getSpeedFactor();
 }
 
 
@@ -809,7 +809,7 @@ Person::moveTo(const std::string& personID, const std::string& edgeID, double /*
 
 
 void
-Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute) {
+Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute, double matchThreshold) {
     MSPerson* p = getPerson(personID);
     const bool doKeepRoute = (keepRoute & 1) != 0;
     const bool mayLeaveNetwork = (keepRoute & 2) != 0;
@@ -842,7 +842,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     double bestDistance = std::numeric_limits<double>::max();
     int routeOffset = 0;
     bool found = false;
-    double maxRouteDistance = 100;
+    double maxRouteDistance = matchThreshold;
 
     ConstMSEdgeVector ev;
     ev.push_back(p->getEdge());
@@ -1086,7 +1086,7 @@ Person::setLateralAlignment(const std::string& personID, const std::string& latA
 
 void
 Person::setSpeedFactor(const std::string& personID, double factor) {
-    getPerson(personID)->getSingularType().setSpeedFactor(factor);
+    getPerson(personID)->setSpeedFactor(factor);
 }
 
 
@@ -1154,6 +1154,8 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
         case VAR_TYPE:
             return wrapper->wrapString(objID, variable, getTypeID(objID));
+        case VAR_SPEED_FACTOR:
+            return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
         case VAR_NEXT_EDGE:
             return wrapper->wrapString(objID, variable, getNextEdge(objID));
         case VAR_STAGES_REMAINING:

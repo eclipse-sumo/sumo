@@ -189,11 +189,11 @@ MSStoppingPlace::getStoppingPosition(const SUMOVehicle* veh) const {
     }
 }
 
-std::vector<MSTransportable*>
+std::vector<const MSTransportable*>
 MSStoppingPlace::getTransportables() const {
-    std::vector<MSTransportable*> result;
-    for (std::map<MSTransportable*, int>::const_iterator it = myWaitingTransportables.begin(); it != myWaitingTransportables.end(); it++) {
-        result.push_back(it->first);
+    std::vector<const MSTransportable*> result;
+    for (auto item : myWaitingTransportables) {
+        result.push_back(item.first);
     }
     return result;
 }
@@ -204,7 +204,7 @@ MSStoppingPlace::hasSpaceForTransportable() const {
 }
 
 bool
-MSStoppingPlace::addTransportable(MSTransportable* p) {
+MSStoppingPlace::addTransportable(const MSTransportable* p) {
     int spot = -1;
     if (!hasSpaceForTransportable()) {
         return false;
@@ -217,7 +217,7 @@ MSStoppingPlace::addTransportable(MSTransportable* p) {
 
 
 void
-MSStoppingPlace::removeTransportable(MSTransportable* p) {
+MSStoppingPlace::removeTransportable(const MSTransportable* p) {
     auto i = myWaitingTransportables.find(p);
     if (i != myWaitingTransportables.end()) {
         if (i->second >= 0) {
@@ -269,13 +269,7 @@ MSStoppingPlace::getAccessDistance(const MSEdge* edge) const {
     for (const auto& access : myAccessPos) {
         const MSLane* const accLane = std::get<0>(access);
         if (edge == &accLane->getEdge()) {
-            const double length = std::get<2>(access);
-            if (length >= 0.) {
-                return length;
-            }
-            const Position accPos = accLane->geometryPositionAtOffset(std::get<1>(access));
-            const Position stopPos = myLane.geometryPositionAtOffset((myBegPos + myEndPos) / 2.);
-            return accPos.distanceTo(stopPos);
+            return std::get<2>(access);
         }
     }
     return -1.;
@@ -295,12 +289,17 @@ MSStoppingPlace::getColor() const {
 
 
 bool
-MSStoppingPlace::addAccess(MSLane* lane, const double pos, const double length) {
+MSStoppingPlace::addAccess(MSLane* lane, const double pos, double length) {
     // prevent multiple accesss on the same lane
     for (const auto& access : myAccessPos) {
         if (lane == std::get<0>(access)) {
             return false;
         }
+    }
+    if (length < 0.) {
+        const Position accPos = lane->geometryPositionAtOffset(pos);
+        const Position stopPos = myLane.geometryPositionAtOffset((myBegPos + myEndPos) / 2.);
+        length  = accPos.distanceTo(stopPos);
     }
     myAccessPos.push_back(std::make_tuple(lane, pos, length));
     return true;

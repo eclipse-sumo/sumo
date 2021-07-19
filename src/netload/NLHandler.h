@@ -60,7 +60,7 @@ public:
     /// @brief Destructor
     virtual ~NLShapeHandler() {}
 
-    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
+    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, bool friendlyPos, double lanePosLat);
 
     virtual bool addLanePosParams() {
         return true;
@@ -102,6 +102,10 @@ public:
 
     bool haveSeenInternalEdge() const {
         return myHaveSeenInternalEdge;
+    }
+
+    bool hasJunctionHigherSpeeds() const {
+        return myHaveJunctionHigherSpeeds;
     }
 
     bool haveSeenDefaultLength() const {
@@ -339,6 +343,9 @@ protected:
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
+
+    /// @brief Whether the network was built with higher speed on junctions
+    bool myHaveJunctionHigherSpeeds;
 
     /// @brief whether the loaded network contains edges with default lengths
     bool myHaveSeenDefaultLength;

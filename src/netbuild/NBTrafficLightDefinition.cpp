@@ -451,6 +451,7 @@ void
 NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
     int tlIndex = 0;
     // build the list of links which are controled by the traffic light
+    std::vector<int> indirectLeft;
     for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         NBEdge* incoming = *i;
         int noLanes = incoming->getNumLanes();
@@ -472,11 +473,31 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
                         // turnarounds stay uncontrolled at rail signal
                     } else {
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));
+                        if (el.indirectLeft) {
+                            indirectLeft.push_back(into.size() - 1);
+                        }
                     }
                 }
             }
         }
     }
+    if (indirectLeft.size() > 0) {
+        // assign linkIndex2 to indirect left turns
+        for (int i : indirectLeft) {
+            NBConnection& c = into[i];
+            // find straight connection with the same toEdge
+            for (const NBConnection& c2 : into) {
+                if (c2.getTo() == c.getTo() && c2.getFrom() != c.getFrom()) {
+                    LinkDirection dir =  c.getFrom()->getToNode()->getDirection(c2.getFrom(), c2.getTo());
+                    if (dir == LinkDirection::STRAIGHT) {
+                        c.setTLIndex2(c2.getTLIndex());
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     if (into.size() > 0 && tlIndex == 0) {
         WRITE_WARNINGF("The rail crossing '%' does not have any roads.", getID());
     }

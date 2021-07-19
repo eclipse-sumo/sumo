@@ -54,10 +54,11 @@ markdown_extensions:
       user: eclipse
       repo: sumo
   - plantuml_markdown
+  - codehilite
 
 extra:
-    Version: 1.9.0
-    ReleaseDate: 13.04.2021
+    Version: 1.9.2
+    ReleaseDate: 18.05.2021
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'

@@ -274,8 +274,13 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 mcRoundabout->disable();
             }
         }
-        FXMenuCommand* mcClearConnections = GUIDesigns::buildFXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
-        FXMenuCommand* mcResetConnections = GUIDesigns::buildFXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
+        std::string multi;
+        const int junctionSelSize = (int)myNet->retrieveJunctions(true).size();
+        if (junctionSelSize > 1 && isAttributeCarrierSelected()) {
+            multi = " of " + toString(junctionSelSize) + " junctions";
+        }
+        FXMenuCommand* mcClearConnections = GUIDesigns::buildFXMenuCommand(ret, "Clear connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
+        FXMenuCommand* mcResetConnections = GUIDesigns::buildFXMenuCommand(ret, "Reset connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
         // check if current mode  is correct
         if (wrongMode) {
             mcCustomShape->disable();
@@ -369,9 +374,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // only continue if exaggeration is greather than 0
     if (junctionExaggeration > 0) {
         // push junction name
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         if (myAmCreateEdgeSource) {
             glTranslated(0, 0, GLO_TEMPORALSHAPE);
@@ -404,13 +409,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // only draw a point if mouse is around shape
                         if (junctionClosedShape.around(mousePosition)) {
                             // push matrix
-                            glPushMatrix();
+                            GLHelper::pushMatrix();
                             // move to mouse position
                             glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
                             // draw a simple circle
                             GLHelper::drawFilledCircle(1, s.getCircleResolution());
                             // pop matrix
-                            glPopMatrix();
+                            GLHelper::popMatrix();
                         }
                     } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) < 40.) {
                         // draw shape
@@ -455,7 +460,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
                     if (!s.drawForPositionSelection || mouseInBubble) {
                         // push matrix
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         // set color
                         GLHelper::setColor(bubbleColor);
                         // move matrix junction center
@@ -463,7 +468,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // draw filled circle
                         GLHelper::drawFilledCircle(bubbleRadius, s.getCircleResolution());
                         // pop matrix
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
@@ -471,17 +476,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSIcon(s);
             // draw elevation
             if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // Translate to center of junction
                 glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
                 // draw Z value
                 GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
             // pop layer Matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
             // pop junction name
-            glPopName();
+            GLHelper::popName();
             // draw name and ID
             if (!s.drawForRectangleSelection) {
                 drawName(myNBNode->getPosition(), s.scale, s.junctionID);
@@ -491,6 +496,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw Junction childs
             drawJunctionChildren(s);
+            // draw path additional elements
+            myNet->getPathManager()->drawJunctionPathElements(s, this);
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (drawShape) {
@@ -927,103 +934,6 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
 }
 
 
-void
-GNEJunction::addPathAdditionalElement(GNEAdditional* additionalElement) {
-    // get tag
-    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement) == myPathAdditionalElements[tag].end()) {
-        myPathAdditionalElements[tag].push_back(additionalElement);
-    }
-}
-
-
-void
-GNEJunction::removePathAdditionalElement(GNEAdditional* additionalElement) {
-    // get tag
-    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement);
-    if (it != myPathAdditionalElements[tag].end()) {
-        myPathAdditionalElements[tag].erase(it);
-    }
-}
-
-
-void
-GNEJunction::addPathDemandElement(GNEDemandElement* demandElement) {
-    // get tag
-    SumoXMLTag tag = demandElement->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement) == myPathDemandElements[tag].end()) {
-        myPathDemandElements[tag].push_back(demandElement);
-    }
-}
-
-
-void
-GNEJunction::removePathDemandElement(GNEDemandElement* demandElement) {
-    // get tag
-    SumoXMLTag tag = demandElement->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement);
-    if (it != myPathDemandElements[tag].end()) {
-        myPathDemandElements[tag].erase(it);
-    }
-}
-
-
-void
-GNEJunction::addPathGenericData(GNEGenericData* genericData) {
-    // get tag
-    SumoXMLTag tag = genericData->getTagProperty().getTag();
-    // avoid insert duplicated path element childs
-    if (std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData) == myPathGenericDatas[tag].end()) {
-        myPathGenericDatas[tag].push_back(genericData);
-    }
-}
-
-
-void
-GNEJunction::removePathGenericData(GNEGenericData* genericData) {
-    // get tag
-    SumoXMLTag tag = genericData->getTagProperty().getTag();
-    // search and remove pathElementChild
-    auto it = std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData);
-    if (it != myPathGenericDatas[tag].end()) {
-        myPathGenericDatas[tag].erase(it);
-    }
-}
-
-
-void
-GNEJunction::invalidatePathElements() {
-    // make a copy of myPathAdditionalElements
-    auto copyOfPathAdditionalElements = myPathAdditionalElements;
-    for (const auto& tag : copyOfPathAdditionalElements) {
-        for (const auto& additionalElement : tag.second) {
-            // note: currently additional elements don't use compute/invalidate paths
-            additionalElement->updateGeometry();
-        }
-    }
-    // make a copy of myPathDemandElements
-    auto copyOfPathDemandElements = myPathDemandElements;
-    for (const auto& tag : copyOfPathDemandElements) {
-        for (const auto& demandElement : tag.second) {
-            demandElement->invalidatePath();
-        }
-    }
-    // make a copy of myPathGenericDatas
-    auto copyOfPathGenericDatas = myPathGenericDatas;
-    for (const auto& tag : copyOfPathGenericDatas) {
-        for (const auto& genericData : tag.second) {
-            // note: currently generic datas don't use compute/invalidate paths
-            genericData->updateGeometry();
-        }
-    }
-}
-
-
 std::string
 GNEJunction::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -1338,14 +1248,14 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     // draw TLS icon if isn't being drawn for selecting
     if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
             (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         Position pos = myNBNode->getPosition();
         glTranslated(pos.x(), pos.y(), 0.2);
         glColor3d(1, 1, 1);
         const double halfWidth = 32 / s.scale;
         const double halfHeight = 64 / s.scale;
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
-        glPopMatrix();
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
+        GLHelper::popMatrix();
     }
 }
 
@@ -1366,24 +1276,6 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     for (const auto& demandElement : getChildDemandElements()) {
         if (!demandElement->getTagProperty().isPlacedInRTree()) {
             demandElement->drawGL(s);
-        }
-    }
-    // draw child path additionals
-    for (const auto& tag : myPathAdditionalElements) {
-        for (const auto& element : tag.second) {
-            element->drawJunctionPathChildren(s, this, 0);
-        }
-    }
-    // draw child path demand elements
-    for (const auto& tag : myPathDemandElements) {
-        for (const GNEDemandElement* const element : tag.second) {
-            element->drawJunctionPathChildren(s, this, 0);
-        }
-    }
-    // draw child path generic datas
-    for (const auto& tag : myPathGenericDatas) {
-        for (const GNEGenericData* const element : tag.second) {
-            element->drawJunctionPathChildren(s, this, 0);
         }
     }
 }
@@ -1473,6 +1365,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // invalidate path calculator
+    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 

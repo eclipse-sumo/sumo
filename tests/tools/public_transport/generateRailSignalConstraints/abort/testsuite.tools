@@ -19,5 +19,9 @@ insertion3
 # 
 multiStop2
 
+# each train has multiple stops. If a train has a self-inconsistent schedule, other trains should not wait for it. Even with --ignore-parking, two vehicles with the same until time cannot be ignored.
+# 
+multistop_cannot_ignore_parking
+
 # one train passes the stop and the other train is inserted there
 foeInsertion

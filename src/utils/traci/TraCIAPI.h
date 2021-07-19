@@ -443,6 +443,8 @@ public:
         double getDistance2D(double x1, double y1, double x2, double y2, bool isGeo = false, bool isDriving = false);
         double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
         libsumo::TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", double pos = -1., int routingMode = 0) const;
+        void loadState(const std::string& path) const;
+        void saveState(const std::string& destination) const;
         void writeMessage(const std::string msg);
     };
 
@@ -770,6 +772,7 @@ public:
         std::string getRoadID(const std::string& personID) const;
         std::string getLaneID(const std::string& personID) const;
         std::string getTypeID(const std::string& personID) const;
+        double getSpeedFactor(const std::string& personID) const;
         double getWaitingTime(const std::string& personID) const;
         std::string getNextEdge(const std::string& personID) const;
         std::string getVehicle(const std::string& personID) const;
@@ -795,8 +798,11 @@ public:
         void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
         void removeStage(const std::string& personID, int nextStageIndex) const;
         void rerouteTraveltime(const std::string& personID) const;
+        void moveTo(const std::string& personID, const std::string& edgeID, double position) const;
+        void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute) const;
         void setSpeed(const std::string& personID, double speed) const;
         void setType(const std::string& personID, const std::string& typeID) const;
+        void setSpeedFactor(const std::string& personID, double factor) const;
         void setLength(const std::string& personID, double length) const;
         void setWidth(const std::string& personID, double width) const;
         void setHeight(const std::string& personID, double height) const;

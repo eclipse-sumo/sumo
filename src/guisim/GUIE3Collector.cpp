@@ -90,8 +90,8 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
@@ -104,9 +104,9 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     for (i = myExitDefinitions.begin(); i != myExitDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 
@@ -114,7 +114,7 @@ void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
         double rot, double upscale) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(pos.x(), pos.y(), 0);
     glRotated(rot, 0, 0, 1);
     glScaled(upscale, upscale, 1);
@@ -135,7 +135,7 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
     glTranslated(-3, 0, 0);
     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
     GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 

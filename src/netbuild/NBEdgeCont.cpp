@@ -1108,9 +1108,9 @@ void
 NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
                                      KeepClear keepClear, double contPos, double visibility, double speed, double length,
                                      const PositionVector& customShape, bool uncontrolled, bool warnOnly,
-                                     SVCPermissions permissions, SVCPermissions changeLeft, SVCPermissions changeRight) {
+                                     SVCPermissions permissions, bool indirectLeft, SVCPermissions changeLeft, SVCPermissions changeRight) {
     myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility,
-                                  speed, length, customShape, uncontrolled, warnOnly, permissions, changeLeft, changeRight));
+                                  speed, length, customShape, uncontrolled, warnOnly, permissions, indirectLeft, changeLeft, changeRight));
 }
 
 bool
@@ -1141,7 +1141,7 @@ NBEdgeCont::recheckPostProcessConnections() {
             if (from == nullptr || to == nullptr ||
                     !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::Lane2LaneInfoType::USER, true, (*i).mayDefinitelyPass,
                                                   (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customLength, (*i).customShape,
-                                                  (*i).uncontrolled, (*i).permissions, (*i).changeLeft, (*i).changeRight,
+                                                  (*i).uncontrolled, (*i).permissions, (*i).indirectLeft, (*i).changeLeft, (*i).changeRight,
                                                   true)) {
                 const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
                 if (warnOnly || (*i).warnOnly) {

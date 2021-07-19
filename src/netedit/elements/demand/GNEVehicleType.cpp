@@ -76,6 +76,12 @@ myDefaultVehicleTypeModified(false) {
 GNEVehicleType::~GNEVehicleType() {}
 
 
+GNEMoveOperation*
+GNEVehicleType::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
+}
+
+
 void
 GNEVehicleType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
@@ -102,47 +108,11 @@ GNEVehicleType::getColor() const {
 
 
 void
-GNEVehicleType::startGeometryMoving() {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::endGeometryMoving() {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::moveGeometry(const Position&) {
-    // VTypes cannot be moved
-}
-
-
-void
-GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
-    // VTypes cannot be moved
-}
-
-
-void
 GNEVehicleType::updateGeometry() {
     // update geometry of all childrens
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
-}
-
-
-void
-GNEVehicleType::computePath() {
-    // nothing to compute
-}
-
-
-void
-GNEVehicleType::invalidatePath() {
-    // nothing to invalidate
 }
 
 
@@ -178,14 +148,34 @@ GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
 
 
 void
-GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
+GNEVehicleType::computePathElement() {
+    // nothing to compute
+}
+
+
+void
+GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // vehicleTypes don't use drawPartialGL
 }
 
 
 void
-GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* fromLane */, const GNELane* /* toLane */, const double /*offsetFront*/) const {
+GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // vehicleTypes don't use drawPartialGL
+}
+
+
+GNELane*
+GNEVehicleType::getFirstPathLane() const {
+    // vehicle types don't use lanes
+    return nullptr;
+}
+
+
+GNELane*
+GNEVehicleType::getLastPathLane() const {
+    // vehicle types don't use lanes
+    return nullptr;
 }
 
 
@@ -482,6 +472,12 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
+}
+
+
+Position
+GNEVehicleType::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
 }
 
 
@@ -1102,53 +1098,6 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     undoList->p_end();
 }
 
-
-void
-GNEVehicleType::initRailVisualizationParameters() {
-    if (SUMOVTypeParameter::knowsParameter("carriageLength")) {
-        carriageLength = StringUtils::toDouble(SUMOVTypeParameter::getParameter("carriageLength"));
-        parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
-    } else if (wasSet(VTYPEPARS_SHAPE_SET)) {
-        switch (shape) {
-            case SVS_BUS_FLEXIBLE:
-                carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
-                carriageGap = 0;
-                break;
-            case SVS_RAIL:
-                carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
-                break;
-            case SVS_RAIL_CAR:
-                carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
-                break;
-            case SVS_RAIL_CARGO:
-                carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
-                break;
-            case SVS_TRUCK_SEMITRAILER:
-                carriageLength = 13.5;
-                locomotiveLength = 2.5;
-                carriageGap = 0.5;
-                break;
-            case SVS_TRUCK_1TRAILER:
-                carriageLength = 6.75;
-                locomotiveLength = 2.5 + 6.75;
-                carriageGap = 0.5;
-                break;
-            default:
-                break;
-        }
-    }
-    if (SUMOVTypeParameter::knowsParameter("locomotiveLength")) {
-        locomotiveLength = StringUtils::toDouble(SUMOVTypeParameter::getParameter("locomotiveLength"));
-        parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
-    } else if (locomotiveLength <= 0) {
-        locomotiveLength = carriageLength;
-    }
-    if (SUMOVTypeParameter::knowsParameter("carriageGap")) {
-        carriageGap = StringUtils::toDouble(SUMOVTypeParameter::getParameter("carriageGap"));
-        parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
-    }
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -1632,6 +1581,18 @@ GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void
+GNEVehicleType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // vehicleTypes cannot be moved
+}
+
+
+void
+GNEVehicleType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // vehicleTypes cannot be moved
+}
+
+
+void
 GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues) {
     if (!wasSet(VTYPEPARS_LENGTH_SET)) {
         length = defaultValues.length;
@@ -1673,6 +1634,5 @@ GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& default
         locomotiveLength = defaultValues.locomotiveLength;
     }
 }
-
 
 /****************************************************************************/

@@ -129,8 +129,8 @@ GUIChargingStation::getCenteringBoundary() const {
 void
 GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Draw Charging Station
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
 
     // draw the area depending if the vehicle is charging
     glTranslated(0, 0, getType());
@@ -148,13 +148,13 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
 
         // push charging power matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw charging power
         GLHelper::drawText((toString(myChargingPower) + " W").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, s.stoppingPlaceSettings.chargingStationColor, myFGSignRot, FONS_ALIGN_LEFT);
         // pop charging power matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
 
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
@@ -174,14 +174,14 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         glTranslated(5, 0, 0);
-        glPopMatrix();
+        GLHelper::popMatrix();
 
     }
     if (s.addFullName.show && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
-    glPopMatrix();
-    glPopName();
+    GLHelper::popMatrix();
+    GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
 }
 

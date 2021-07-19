@@ -129,7 +129,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myEnd->setText(toString(myIntervals.begin()->first.second).c_str());
         myEnd->setTextColor(FXRGB(0, 0, 0));
         // get generic datas
-        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
         // fill combo box
         for (const auto& genericDataTag : genericDataTags) {
             myMatchGenericDataTagComboBox->appendItem(genericDataTag.second.c_str());
@@ -249,11 +249,11 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // get generic data tags
-    const auto listOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+    const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
     // fill myMatchGenericDataTagComboBox
     for (const auto& genericDataTag : listOfTags) {
         if (genericDataTag.second == myMatchGenericDataTagComboBox->getText().text()) {
-            myCurrentTag = genericDataTag.first;
+            myCurrentTag = genericDataTag.first.getTag();
         }
     }
     // check that typed-by-user value is correct

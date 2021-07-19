@@ -28,10 +28,10 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.3         # 0.2
-DELAY_KEY_TAB = 0.2     # 0.1
+DELAY_KEY = 0.5         # 0.2 0.3
+DELAY_KEY_TAB = 0.5     # 0.1 0.2
 DELAY_MOUSE_MOVE = 0.5  # 0.1
-DELAY_MOUSE_CLICK = 0.7  # 0.5
+DELAY_MOUSE_CLICK = 1  # 0.5 0.7
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
 DELAY_START_NETEDIT = 3
@@ -43,7 +43,7 @@ DELAY_RECOMPUTE = 3
 DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 2
 DELAY_CHANGEMODE = 1
-DELAY_REFERENCE = 3
+DELAY_REFERENCE = 15
 
 _NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")
 _TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", os.getcwd())
@@ -189,7 +189,7 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
         pyautogui.hotkey('ctrl', 'v')
     else:
         pyautogui.typewrite(translateKeys(value, layout))
-
+    
 
 def leftClick(referencePosition, positionx, positiony):
     """
@@ -509,6 +509,8 @@ def undo(referencePosition, number, posX=0, posY=0):
     """
     # first wait
     time.sleep(DELAY_UNDOREDO)
+    # focus current frame
+    focusOnFrame()
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
@@ -524,6 +526,8 @@ def redo(referencePosition, number, posX=0, posY=0):
     """
     # first wait
     time.sleep(DELAY_UNDOREDO)
+    # focus current frame
+    focusOnFrame()
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
@@ -998,10 +1002,10 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
-    # Check undo (including load/creation)
-    undo(referencePosition, 8)
+    # Check undo
+    undo(referencePosition, 10)
     # Check redo
-    redo(referencePosition, 8)
+    redo(referencePosition, 10)
 
 
 def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):

@@ -1,3 +1,4 @@
-Warning: Essential unique string attribute 'id' of parkingArea is missing; parkingArea cannot be created
-Warning: Format of essential unique string attribute 'id' of parkingArea is invalid; ID contains invalid characters; parkingArea cannot be created
-Warning: There is another parkingArea with the same ID='parkingArea_0'.
+Error: Attribute 'id' is missing in definition of a parkingArea.
+Error: Could not build parkingArea with ID 'ID with spaces' in netedit; ID contains invalid characters.
+Error: Could not build parkingArea with ID 'parkingArea_0' in netedit; declared twice.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun095412.18776\netedit.gui\additionalElements\parkingarea\load\id\input_additionals.add.xml failed.

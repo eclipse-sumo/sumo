@@ -41,11 +41,15 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
      * @param[in] lines lines of the busStop
+     * @param[in] containerCapacity larger numbers of containers trying to enter will create an upstream jam on the sidewalk.
+     * @param[in] parkingLength parking length
      * @param[in] friendlyPos enable or disable friendly position
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const int parametersSet,
-                     const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
+    GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+                     const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, 
+                     bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEContainerStop();
@@ -92,6 +96,12 @@ public:
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
+
+    /// @brief maximum number of container that can wait at this stop
+    int myContainerCapacity;
+
+    /// @brief custom space for vehicles that park at this stop
+    double myParkingLength;
 
 private:
     /// @brief set attribute after validation

@@ -543,6 +543,7 @@ public:
                                   bool uncontrolled,
                                   bool warnOnly,
                                   SVCPermissions permissions = SVC_UNSPECIFIED,
+                                  bool indirectLeft = false,
                                   SVCPermissions changeLeft = SVC_UNSPECIFIED,
                                   SVCPermissions changeRight = SVC_UNSPECIFIED);
 
@@ -646,6 +647,7 @@ private:
                               bool uncontrolled_,
                               bool warnOnly_,
                               SVCPermissions permissions_,
+                              bool indirectLeft_,
                               SVCPermissions changeLeft_,
                               SVCPermissions changeRight_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
@@ -655,6 +657,7 @@ private:
             customShape(customShape_),
             uncontrolled(uncontrolled_),
             permissions(permissions_),
+            indirectLeft(indirectLeft_),
             changeLeft(changeLeft_),
             changeRight(changeRight_),
             warnOnly(warnOnly_)
@@ -685,6 +688,8 @@ private:
         bool uncontrolled;
         /// @brief custom permissions for connection
         SVCPermissions permissions;
+        /// @brief whether this connection is an indirect left turn
+        bool indirectLeft;
         /// @brief custom lane changing permissions for connection
         SVCPermissions changeLeft;
         /// @brief custom lane changing permissions for connection

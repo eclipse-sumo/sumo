@@ -14,6 +14,7 @@ sumo --save-state.times TIME1,TIME2,TIME3
 ```
 
 Alternatively, the option **--save-state.period** {{DT_TIME}} can be used to save states periodically.
+The option **--save-state.period.keep N** can be used to remove all but the last **N** state files.
 
 By default the state will be written to files named *<PREFIX\>_<TIME\><SUFFIX\>* where *<PREFIX\>* can be set via option **--save-state.prefix** (default *state*), *<TIME\>* is the simulation time and *<SUFFIX\>* is either one of *.sbx* or *.xml* as controlled by the option **--save-state.suffix** (default *.sbx*). 
 

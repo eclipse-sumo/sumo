@@ -88,6 +88,10 @@ target_link_libraries(od2trips od router ${commonvehiclelibs})
 add_dependencies(od2trips generate-version-h)
 
 install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin)
+install(DIRECTORY libsumo DESTINATION include
+        FILES_MATCHING PATTERN "*.h"
+        PATTERN "*Helper.h" EXCLUDE
+        PATTERN "Subscription.h" EXCLUDE)
 
 configure_file(config.h.cmake config.h)
 

@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 290)
 
 # Change parameter onRoad with a different value
-netedit.modifyAttribute(2, "true", False)
+netedit.modifyAttribute(3, "true", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

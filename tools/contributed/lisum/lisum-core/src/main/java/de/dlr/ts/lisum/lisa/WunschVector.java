@@ -19,6 +19,8 @@
 /****************************************************************************/
 package de.dlr.ts.lisum.lisa;
 
+import org.apache.maven.artifact.versioning.ComparableVersion;
+
 /**
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
@@ -37,6 +39,8 @@ class WunschVector {
 
     private final LisaSignalPrograms signalPrograms;
 
+    private final static ComparableVersion version72 = new ComparableVersion("7.2");
+
 
     //1;1;0;2;1;0;0;0
     public String getVector() {
@@ -49,8 +53,9 @@ class WunschVector {
         //sb.append("{");
         sb.append(ebene).append(";");
         
-        //to be compatible with LISA 7.2 and higher
-        sb.append("0;0;0;");
+        if (Lisa.minVersion(version72)) {
+            sb.append("0;0;0;");
+        }
         
         sb.append(betriebsArt).append(";");
         sb.append(signalProg).append(";");

@@ -108,11 +108,17 @@ public:
     /// encoding of the string-option default.emergencydecel
     static double gDefaultEmergencyDecel;
 
+    /// whether the simulation should replay previous stop times
+    static bool gUseStopEnded;
+
     /// whether unit tests are being run
     static bool gUnitTests;
 
     /// whether the simulationLoop is in the lane changing phase
     static bool gComputeLC;
+
+    /// whether the simulation is in the process of clearing state (MSNet::clearState)
+    static bool gClearState;
 
     /// how many threads to use for simulation
     static int gNumSimThreads;

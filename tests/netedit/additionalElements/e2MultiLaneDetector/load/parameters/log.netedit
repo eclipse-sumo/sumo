@@ -1,7 +1,0 @@
-Warning: Error parsing key from additional parameter. Key doesn't exist
-Error: Attribute 'key' in definition of a param is empty.
-Warning: Error parsing key from additional parameter. Key cannot be empty
-Warning: Error parsing key from additional parameter. Key contains invalid characters
-Warning: Error parsing key from additional parameter. Key contains invalid characters
-Warning: Parameters has to be declared within the definition of an additional, shape or TAZ element
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\additionalElements\e2MultiLaneDetector\load\parameters\input_additionals.add.xml failed.

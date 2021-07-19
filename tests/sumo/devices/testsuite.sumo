@@ -24,3 +24,6 @@ driverstate
 
 # tests for the taxi device
 taxi
+
+# test glosa device
+glosa

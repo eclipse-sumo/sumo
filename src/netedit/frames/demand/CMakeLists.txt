@@ -7,6 +7,10 @@ set(netedit_frames_demand_SRCS
    GNEPersonFrame.cpp
    GNEPersonPlanFrame.h
    GNEPersonPlanFrame.cpp
+   GNEContainerFrame.h
+   GNEContainerFrame.cpp
+   GNEContainerPlanFrame.h
+   GNEContainerPlanFrame.cpp
    GNEVehicleFrame.h
    GNEVehicleFrame.cpp
    GNEVehicleTypeFrame.h

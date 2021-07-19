@@ -31,8 +31,9 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
-    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "", false,
-{}, {edge}, {}, {rerouterParent}, {}, {}, {}, {}) {
+    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "",
+        {}, {edge}, {}, {rerouterParent}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -58,7 +59,7 @@ GNERerouterSymbol::updateGeometry() {
         // declare geometry
         GNEGeometry::Geometry symbolGeometry;
         // update it with lane and pos over lane
-        symbolGeometry.updateGeometry(lane, lane->getLaneShape().length2D() - 6);
+        symbolGeometry.updateGeometry(lane->getLaneShape(), lane->getLaneShape().length2D() - 6, 0);
         // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
     }
@@ -99,16 +100,16 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator (except in Move mode)
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-            glPushName(getParentAdditionals().front()->getGlID());
+            GLHelper::pushName(getParentAdditionals().front()->getGlID());
         }
         // push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
         // draw rerouter symbol over all lanes
         for (const auto& symbolGeometry : mySymbolGeometries) {
             // push symbol matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to position
             glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
             // rotate over lane
@@ -149,13 +150,13 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText(probability.c_str(), Position(0, 4), .1, 0.7, textColor, 180);
             }
             // pop symbol matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-            glPopName();
+            GLHelper::popName();
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {

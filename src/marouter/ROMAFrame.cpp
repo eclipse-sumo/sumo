@@ -152,6 +152,9 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("max-alternatives", new Option_Integer(5));
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
 
+    oc.doRegister("capacities.default", new Option_Bool(false));
+    oc.addDescription("capacities.default", "Processing", "Ignore edge priorities when calculating capacities and restraints");
+
     oc.doRegister("weights.interpolate", new Option_Bool(false));
     oc.addSynonyme("weights.interpolate", "interpolate", true);
     oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");

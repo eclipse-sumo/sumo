@@ -248,7 +248,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (s.hideConnectors && myFunction == SumoXMLEdgeFunc::CONNECTOR) {
         return;
     }
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     // draw the lanes
     if (MSGlobals::gUseMesoSim) {
         setColor(s);
@@ -261,7 +261,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawMesoVehicles(s);
         }
     }
-    glPopName();
+    GLHelper::popName();
     // (optionally) draw the name and/or the street name
     const bool drawEdgeName = s.edgeName.show && myFunction == SumoXMLEdgeFunc::NORMAL;
     const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == SumoXMLEdgeFunc::INTERNAL;
@@ -382,7 +382,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                 }
                 segmentOffset += length;
             }
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         vehicleControl->releaseVehicles();
     }

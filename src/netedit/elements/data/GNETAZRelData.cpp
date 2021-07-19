@@ -147,14 +147,32 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
-    //
+GNETAZRelData::computePathElement() {
+    // nothing to compute
 }
 
 
 void
-GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const double /*offsetFront*/) const {
-    //
+GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // nothing to draw
+}
+
+
+void
+GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // nothing to draw
+}
+
+
+GNELane*
+GNETAZRelData::getFirstPathLane() const {
+    return nullptr;
+}
+
+
+GNELane*
+GNETAZRelData::getLastPathLane() const {
+    return nullptr;
 }
 
 

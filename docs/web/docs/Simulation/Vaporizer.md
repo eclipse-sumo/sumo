@@ -10,6 +10,6 @@ following declaration line to an "additional file":
 
 ```xml
 <additional>
-    <vaporizer id="<EDGE_ID>" from="<START_TIME>" end="<END_TIME>"/>
+    <vaporizer id="<EDGE_ID>" begin="<START_TIME>" end="<END_TIME>"/>
 </additional>
 ```

@@ -166,6 +166,13 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LENGTH, personID)
 
+    def getSpeedFactor(self, personID):
+        """getSpeedFactor(string) -> double
+
+        Returns the quotient of this persons maximum speed and the maximum speed of its type
+        """
+        return self._getUniversal(tc.VAR_SPEED_FACTOR, personID)
+
     def getWaitingTime(self, personID):
         """getWaitingTime() -> double
         The waiting time of a person is defined as the time (in seconds) spent with a
@@ -338,7 +345,7 @@ class PersonDomain(Domain):
         """
         self._setCmd(tc.CMD_REROUTE_TRAVELTIME, personID, "t", 0)
 
-    def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1):
+    def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold = 100):
         '''Place person at the given x,y coordinates and force it's angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
@@ -348,9 +355,12 @@ class PersonDomain(Domain):
         any edge in the network but it's route then only consists of that edge.
         If keepRoute is set to 2 the person has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
-        edgeID is an optional placement hint to resolve ambiguities'''
-        format = "tsdddb"
-        values = [5, edgeID, x, y, angle, keepRoute]
+        edgeID is an optional placement hint to resolve ambiguities.
+        The command fails if no suitable target position is found within the
+        distance given by matchThreshold.
+        '''
+        format = "tsdddbd"
+        values = [6, edgeID, x, y, angle, keepRoute, matchThreshold]
         self._setCmd(tc.MOVE_TO_XY, personID, format, *values)
 
     def setSpeed(self, personID, speed):
@@ -387,6 +397,12 @@ class PersonDomain(Domain):
         Sets the length in m for the given person.
         """
         self._setCmd(tc.VAR_LENGTH, personID, "d", length)
+
+    def setSpeedFactor(self, personID, factor):
+        """setSpeedFactor(string, double) -> None
+        Sets the speed factor (multiplier on the maximum speed of the type of this person).
+        """
+        self._setCmd(tc.VAR_SPEED_FACTOR, personID, "d", factor)
 
     def setMinGap(self, personID, minGap):
         """setMinGap(string, double) -> None

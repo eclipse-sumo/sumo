@@ -53,7 +53,6 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMa
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign) :
     GNEAdditionalDialog(editedVariableSpeedSign, false, 300, 400),
     myStepsValids(false) {
-
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
@@ -62,18 +61,14 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     // create Button and Label for sort intervals
     mySortStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick);
-
     // create List with the data
     myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignTableAdditionals);
     myStepsTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myStepsTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
-
     // update table
     updateTableSteps();
-
     // start a undo list for editing local to this additional
     initChanges();
-
     // Open dialog as modal
     openAsModalDialog();
 }
@@ -85,7 +80,7 @@ GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
 long
 GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
     // create step
-    GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(myEditedAdditional, 0, 30);
+    GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(myEditedAdditional, 0, "30");
     // add it using GNEChange_additional
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
     // Update table
@@ -115,11 +110,11 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
             // we need filter attribute (to avoid problemes as 1 != 1.00)
-            double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
-            double speed = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 1)->getText().text());
+            const double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
+            const std::string speed = myStepsTable->getItem(i, 1)->getText().text();
             // set new values in Closing  reroute
             step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedAdditional->getNet()->getViewNet()->getUndoList());
-            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedAdditional->getNet()->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_SPEED, speed, myEditedAdditional->getNet()->getViewNet()->getUndoList());
             // set Correct label
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
         }

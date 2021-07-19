@@ -1,10 +1,10 @@
  Retrying in 1 seconds
 shortcut via trainStop:
-  Stage(type=2, destStop=trainstop1, edges=('beg2left',), travelTime=240.00192, cost=240.00192, length=490.002, depart=0.0, departPos=0.0, arrivalPos=250.0)
-  Stage(type=2, edges=('beg2left2',), travelTime=95.6112, cost=95.6112, length=298.785, depart=240.00192, departPos=0.0, arrivalPos=99.595)
+  Stage(type=2, destStop=trainstop1, edges=('beg2left',), travelTime=290.29094844, cost=290.29094844, length=542.386404625, depart=0.0, departPos=0.0, arrivalPos=250.0)
+  Stage(type=2, edges=('beg2left2',), travelTime=95.6112, cost=95.6112, length=298.785, depart=290.29094844, departPos=0.0, arrivalPos=99.595)
 
 train ride
-  Stage(type=2, destStop=trainstop1, edges=('beg2left',), travelTime=240.00096, cost=240.00096, length=490.001, depart=0.0, departPos=0.0, arrivalPos=250.0)
-  Stage(type=3, line=train, destStop=trainstop2, edges=('gneE0',), travelTime=89.99996, cost=89.99996, length=2019.99819256, intended=train.0, depart=300.0, departPos=0.0, arrivalPos=1009.99719256)
-  Stage(type=2, edges=('left2end',), travelTime=0.3888, cost=0.3888, length=250.405, depart=330.00092, departPos=250.0, arrivalPos=249.595)
+  Stage(type=2, destStop=trainstop1, edges=('beg2left',), travelTime=264.541362002, cost=264.541362002, length=515.563918752, depart=0.0, departPos=0.0, arrivalPos=250.0)
+  Stage(type=3, line=train, destStop=trainstop2, edges=('gneE0',), travelTime=86.2762918054, cost=86.2762918054, length=2041.68187153, intended=train.0, depart=300.0, departPos=0.0, arrivalPos=1009.99719256)
+  Stage(type=2, edges=('left2end',), travelTime=0.3888, cost=0.3888, length=250.405, depart=350.817653807, departPos=250.0, arrivalPos=249.595)
 

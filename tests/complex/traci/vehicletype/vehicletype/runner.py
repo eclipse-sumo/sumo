@@ -102,7 +102,7 @@ traci.vehicletype.setWidth(typeID, 1.1)
 print("width", traci.vehicletype.getWidth(typeID))
 traci.vehicletype.setHeight(typeID, 1.9)
 print("height", traci.vehicletype.getHeight(typeID))
-traci.vehicletype.setColor(typeID, (1, 0, 0, 1))
+traci.vehicletype.setColor(typeID, (255, 0, 0, 255))
 print("color", traci.vehicletype.getColor(typeID))
 copyID = typeID + "_copy"
 print("Copying vType '%s' to '%s'" % (typeID, copyID))

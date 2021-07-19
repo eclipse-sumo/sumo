@@ -157,8 +157,8 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(getColor());
@@ -167,7 +167,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
     // draw details unless zoomed out to far
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw the lines
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         // Iterate over every line
@@ -177,14 +177,14 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         const double textOffset2 = s.flippedTextAngle(rotSign * myFGSignRot) ? -1 : 0.3;
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // traslate and rotate
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(lineAngle, 0, 0, 1);
             // draw line
             GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         GLHelper::setColor(getColor());
         for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
@@ -210,7 +210,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText("H", Position(), .1, 1.6, s.stoppingPlaceSettings.busStopColor, myFGSignRot);
             }
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     if (s.addFullName.show && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
@@ -222,8 +222,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             myTransportableExaggeration = s.personSize.getExaggeration(s, nullptr);
         }
     }
-    glPopMatrix();
-    glPopName();
+    GLHelper::popMatrix();
+    GLHelper::popName();
     drawName(myFGSignPos, s.scale, s.addName, s.angle);
 }
 

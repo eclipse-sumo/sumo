@@ -347,9 +347,6 @@ public:
     */
     int indexOfClosest(const Position& p, bool twoD = false) const;
 
-    /// @brief index of the closest position to p when projecting vector and p onto the plan
-    int indexOfClosest2D(const Position& p) const;
-
     /// @brief distances of all my points to s and all of s points to myself
     /// @note if perpendicular is set to true, only the perpendicular distances are returned
     std::vector<double> distances(const PositionVector& s, bool perpendicular = false) const;

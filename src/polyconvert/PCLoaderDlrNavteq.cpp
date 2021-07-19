@@ -157,7 +157,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             color = c;
         }
         if (!discard) {
-            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, false, "", 0, 0, layer);
+            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, false, "", 0, false, 0, layer);
             toFill.add(poi, OptionsCont::getOptions().isInStringVector("prune.keep-list", name));
         }
     }

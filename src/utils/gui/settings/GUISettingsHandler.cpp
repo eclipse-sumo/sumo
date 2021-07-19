@@ -77,7 +77,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             break;
         case SUMO_TAG_VIEWSETTINGS:
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "default");
-            std::transform(myViewType.begin(), myViewType.end(), myViewType.begin(), tolower);
+            myViewType = StringUtils::to_lower_case(myViewType);
             break;
         case SUMO_TAG_DELAY:
             myDelay = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, myDelay);

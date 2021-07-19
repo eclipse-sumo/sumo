@@ -7,5 +7,8 @@ poi
 # POILanes (Points of Interest placed over lanes)
 poilane
 
+# POIGEOs (Points of Interest in geo coordinates)
+poigeo
+
 # polygons
 poly

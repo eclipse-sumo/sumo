@@ -265,6 +265,7 @@ visualised as a time line along the simulation time.
 | **-i** {{DT_FILE}}\[,{{DT_FILE}}\]\*<br>**--summary-inputs** {{DT_FILE}}[,{{DT_FILE}}]* | Defines the [summary-file](../Simulation/Output/Summary.md)(s) to read            |
 | **-m** {{DT_STR}}<br>**--measure** {{DT_STR}}                        | Defines the measure to read from the summary file; default: *running* |
 | **-v**<br>**--verbose**                                          | If set, the progress is printed on the screen                       |
+| **--dpi** {{DT_FLOAT}}                                           | Define dpi resolution for figures; default: *None*                       |
 
 ## plot_tripinfo_distributions.py
 

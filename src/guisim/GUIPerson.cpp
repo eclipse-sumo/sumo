@@ -271,8 +271,8 @@ GUIPerson::getCenteringBoundary() const {
 
 void
 GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     Position p1 = getGUIPosition();
     double angle = getGUIAngle();
     glTranslated(p1.x(), p1.y(), getType());
@@ -297,7 +297,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
                     getVehicleType().getImgFile(), getVehicleType().getGuiShape(), exaggeration);
             break;
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 #ifdef GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS
     drawAction_drawWalkingareaPath(s);
 #endif
@@ -307,7 +307,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
         const double value = getColorValue(s, s.personColorer.getActive());
         GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
     }
-    glPopName();
+    GLHelper::popName();
 }
 
 
@@ -320,10 +320,10 @@ GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) con
         if (stripingState != nullptr) {
             const MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
             if (waPath != nullptr) {
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 glTranslated(0, 0, getType());
                 GLHelper::drawBoxLines(waPath->shape, 0.05);
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
     }
@@ -341,8 +341,8 @@ GUIPerson::isJammed() const {
 
 void
 GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_WALKINGAREA_PATH)) {
         drawAction_drawWalkingareaPath(s);
@@ -363,8 +363,8 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             }
         }
     }
-    glPopMatrix();
-    glPopName();
+    GLHelper::popMatrix();
+    GLHelper::popName();
 }
 
 

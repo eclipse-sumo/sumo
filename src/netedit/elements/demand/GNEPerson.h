@@ -108,6 +108,11 @@ public:
     /// @brief destructor
     ~GNEPerson();
 
+    /**@brief get move operation for the given shapeOffset
+     * @note returned GNEMoveOperation can be nullptr
+     */
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Person", and it has to be implemented as children
      * @throw invalid argument if demand element doesn't has a begin time
@@ -140,30 +145,8 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief start geometry movement
-    void startGeometryMoving();
-
-    /// @brief end geometry movement
-    void endGeometryMoving();
-
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offset Position used for calculate new position of geometry without updating RTree
-     */
-    void moveGeometry(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void commitGeometryMoving(GNEUndoList* undoList);
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
-
-    /// @brief compute path
-    void computePath();
-
-    /// @brief invalidate path
-    void invalidatePath();
 
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
@@ -199,28 +182,44 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @}
+
+    /// @name inherited from GNEPathManager::PathElement
+    /// @{
+
+    /// @brief compute pathElement
+    void computePathElement();
+
     /**@brief Draws partial object
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] lane lane in which draw partial
-     * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+     * @param[in] segment PathManager segment (used for segment options)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const;
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object (junction)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] fromLane from GNELane
      * @param[in] toLane to GNELane
-     * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+     * @param[in] segment PathManager segment (used for segment options)
+     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const;
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+
+    /// @brief get first path lane
+    GNELane* getFirstPathLane() const;
+
+    /// @brief get last path lane
+    GNELane* getLastPathLane() const;
     /// @}
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
-    * @param[in] key The attribute key
-    * @return string with the value associated to key
-    */
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
@@ -229,19 +228,25 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in Position format (used in person plans)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform demand element changes
-    * @param[in] key The attribute key
-    * @param[in] value The new value
-    * @param[in] undoList The undoList on which to register changes
-    * @param[in] net optionally the GNENet to inform about gui updates
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     * @param[in] net optionally the GNENet to inform about gui updates
+     */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /* @brief method for setting the attribute and letting the object perform demand element changes
-    * @param[in] key The attribute key
-    * @param[in] value The new value
-    * @param[in] undoList The undoList on which to register changes
-    */
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
     /* @brief method for enable attribute
@@ -311,6 +316,12 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
+
+    /// @brief set move shape
+    void setMoveShape(const GNEMoveResult& moveResult);
+
+    /// @brief commit move shape
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEPerson(const GNEPerson&) = delete;

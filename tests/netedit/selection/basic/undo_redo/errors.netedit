@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding e1Detector 'detector1' in GNEChange_Additional
 Debug: Adding e1Detector 'detector2' in GNEChange_Additional
@@ -49,50 +50,182 @@ Debug: Setting new attribute selected '1' into e1Detector 'detector4'
 Debug: Setting new attribute selected '1' into e1Detector 'detector5'
 Debug: Setting new attribute selected '1' into e1Detector 'detector6'
 Debug: Setting new attribute selected '1' into poly 'poly'
+Debug: Setting new attribute selected '1' into connection 'from5_1to4_1'
+Debug: Setting new attribute selected '1' into connection 'from5_1to2_1'
+Debug: Setting new attribute selected '1' into connection 'from5_2to2_2'
+Debug: Setting new attribute selected '1' into connection 'from5_2to3_2'
+Debug: Setting new attribute selected '1' into connection 'from6_1to3_1'
+Debug: Setting new attribute selected '1' into connection 'from6_1to1_1'
+Debug: Setting new attribute selected '1' into connection 'from6_2to1_2'
+Debug: Setting new attribute selected '1' into connection 'from6_2to4_2'
+Debug: Setting new attribute selected '1' into connection 'from7_1to1_1'
+Debug: Setting new attribute selected '1' into connection 'from7_1to4_1'
+Debug: Setting new attribute selected '1' into connection 'from7_2to4_2'
+Debug: Setting new attribute selected '1' into connection 'from7_2to2_2'
+Debug: Setting new attribute selected '1' into connection 'from8_1to2_1'
+Debug: Setting new attribute selected '1' into connection 'from8_1to3_1'
+Debug: Setting new attribute selected '1' into connection 'from8_2to3_2'
+Debug: Setting new attribute selected '1' into connection 'from8_2to1_2'
+Debug: Setting new attribute selected '1' into junction 'A'
+Debug: Setting new attribute selected '1' into junction 'B'
+Debug: Setting new attribute selected '1' into junction 'C'
+Debug: Setting new attribute selected '1' into junction 'D'
 Debug: Key DEL (delete) pressed
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_1->4_1' from edge '5'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_1->2_1' from edge '5'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_2->2_2' from edge '5'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_2->3_2' from edge '5'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_1->3_1' from edge '6'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_1->1_1' from edge '6'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_2->1_2' from edge '6'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_2->4_2' from edge '6'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_1->1_1' from edge '7'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_1->4_1' from edge '7'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_2->4_2' from edge '7'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_2->2_2' from edge '7'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_1->2_1' from edge '8'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_1->3_1' from edge '8'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_2->3_2' from edge '8'
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_2->1_2' from edge '8'
 Debug: Removing e1Detector 'detector3' in GNEChange_Additional
 Debug: Removing e1Detector 'detector4' in GNEChange_Additional
 Debug: Removing e1Detector 'detector5' in GNEChange_Additional
 Debug: Removing e1Detector 'detector6' in GNEChange_Additional
 Debug: Removing busStop 'busStop' in GNEChange_Additional
-Debug: Removing connection '6_2->4_2' from edge '6'
-Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
-Debug: Removing connection '6_2->1_2' from edge '6'
-Debug: Deleting unreferenced connection 'from6_2to1_2' in removeConnection()
-Debug: Removing connection '6_1->1_1' from edge '6'
-Debug: Deleting unreferenced connection 'from6_1to1_1' in removeConnection()
-Debug: Removing connection '6_1->3_1' from edge '6'
-Debug: Deleting unreferenced connection 'from6_1to3_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
-Debug: Removing connection '8_2->1_2' from edge '8'
-Debug: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
-Debug: Removing connection '8_2->3_2' from edge '8'
-Debug: Deleting unreferenced connection 'from8_2to3_2' in removeConnection()
-Debug: Removing connection '8_1->3_1' from edge '8'
-Debug: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
-Debug: Removing connection '8_1->2_1' from edge '8'
-Debug: Deleting unreferenced connection 'from8_1to2_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-Debug: Removing connection '5_2->3_2' from edge '5'
-Debug: Deleting unreferenced connection 'from5_2to3_2' in removeConnection()
-Debug: Removing connection '5_2->2_2' from edge '5'
-Debug: Deleting unreferenced connection 'from5_2to2_2' in removeConnection()
-Debug: Removing connection '5_1->2_1' from edge '5'
-Debug: Deleting unreferenced connection 'from5_1to2_1' in removeConnection()
-Debug: Removing connection '5_1->4_1' from edge '5'
-Debug: Deleting unreferenced connection 'from5_1to4_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-Debug: Removing connection '7_2->2_2' from edge '7'
-Debug: Deleting unreferenced connection 'from7_2to2_2' in removeConnection()
-Debug: Removing connection '7_2->4_2' from edge '7'
-Debug: Deleting unreferenced connection 'from7_2to4_2' in removeConnection()
-Debug: Removing connection '7_1->4_1' from edge '7'
-Debug: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()
-Debug: Removing connection '7_1->1_1' from edge '7'
-Debug: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -177,14 +310,30 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '8' from net
+Debug: Setting new attribute type 'priority' into junction 'A'
+Debug: Removing junction 'A' from net
+Debug: Setting new attribute type 'priority' into junction 'B'
+Debug: Removing junction 'B' from net
+Debug: Setting new attribute type 'priority' into junction 'C'
+Debug: Removing junction 'C' from net
 Debug: Removing junction 'Center' from net
+Debug: Setting new attribute type 'priority' into junction 'D'
+Debug: Removing junction 'D' from net
 Debug: Removing poly 'poly' from viewNet
 Debug: Removing taz 'TAZ' from viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding taz 'TAZ' into viewNet
 Debug: Adding poly 'poly' into viewNet
+Debug: Adding junction 'D' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'D'
 Debug: Adding junction 'Center' into net
+Debug: Adding junction 'C' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'C'
+Debug: Adding junction 'B' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'B'
+Debug: Adding junction 'A' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'A'
 Debug: Adding edge '8' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -267,96 +416,352 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Debug: declaring connections of edge '1' as loaded (It will not be removed)
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Adding connection '7_1->1_1' into edge '7'
-Debug: Created connection 'from7_1to1_1' in retrieveGNEConnection()
-Debug: Adding connection '7_1->4_1' into edge '7'
-Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
-Debug: Adding connection '7_2->4_2' into edge '7'
-Debug: Created connection 'from7_2to4_2' in retrieveGNEConnection()
-Debug: Adding connection '7_2->2_2' into edge '7'
-Debug: Created connection 'from7_2to2_2' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Adding connection '5_1->4_1' into edge '5'
-Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
-Debug: Adding connection '5_1->2_1' into edge '5'
-Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
-Debug: Adding connection '5_2->2_2' into edge '5'
-Debug: Created connection 'from5_2to2_2' in retrieveGNEConnection()
-Debug: Adding connection '5_2->3_2' into edge '5'
-Debug: Created connection 'from5_2to3_2' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Adding connection '8_1->2_1' into edge '8'
-Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
-Debug: Adding connection '8_1->3_1' into edge '8'
-Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
-Debug: Adding connection '8_2->3_2' into edge '8'
-Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
-Debug: Adding connection '8_2->1_2' into edge '8'
-Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding connection '6_1->3_1' into edge '6'
-Debug: Created connection 'from6_1to3_1' in retrieveGNEConnection()
-Debug: Adding connection '6_1->1_1' into edge '6'
-Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
-Debug: Adding connection '6_2->1_2' into edge '6'
-Debug: Created connection 'from6_2to1_2' in retrieveGNEConnection()
-Debug: Adding connection '6_2->4_2' into edge '6'
-Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding e1Detector 'detector6' in GNEChange_Additional
 Debug: Adding e1Detector 'detector5' in GNEChange_Additional
 Debug: Adding e1Detector 'detector4' in GNEChange_Additional
 Debug: Adding e1Detector 'detector3' in GNEChange_Additional
+Debug: Adding a previously selected connection '8_2->1_2' into edge '8'
+Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_2->3_2' into edge '8'
+Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_1->3_1' into edge '8'
+Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_1->2_1' into edge '8'
+Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_2->2_2' into edge '7'
+Debug: Created connection 'from7_2to2_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_2->4_2' into edge '7'
+Debug: Created connection 'from7_2to4_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_1->4_1' into edge '7'
+Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_1->1_1' into edge '7'
+Debug: Created connection 'from7_1to1_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_2->4_2' into edge '6'
+Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_2->1_2' into edge '6'
+Debug: Created connection 'from6_2to1_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_1->1_1' into edge '6'
+Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_1->3_1' into edge '6'
+Debug: Created connection 'from6_1to3_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_2->3_2' into edge '5'
+Debug: Created connection 'from5_2to3_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_2->2_2' into edge '5'
+Debug: Created connection 'from5_2to2_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_1->2_1' into edge '5'
+Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_1->4_1' into edge '5'
+Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_1->4_1' from edge '5'
+Debug: Deleting unreferenced connection 'from5_1to4_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_1->2_1' from edge '5'
+Debug: Deleting unreferenced connection 'from5_1to2_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_2->2_2' from edge '5'
+Debug: Deleting unreferenced connection 'from5_2to2_2' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_2->3_2' from edge '5'
+Debug: Deleting unreferenced connection 'from5_2to3_2' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_1->3_1' from edge '6'
+Debug: Deleting unreferenced connection 'from6_1to3_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_1->1_1' from edge '6'
+Debug: Deleting unreferenced connection 'from6_1to1_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_2->1_2' from edge '6'
+Debug: Deleting unreferenced connection 'from6_2to1_2' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_2->4_2' from edge '6'
+Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_1->1_1' from edge '7'
+Debug: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_1->4_1' from edge '7'
+Debug: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_2->4_2' from edge '7'
+Debug: Deleting unreferenced connection 'from7_2to4_2' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_2->2_2' from edge '7'
+Debug: Deleting unreferenced connection 'from7_2to2_2' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_1->2_1' from edge '8'
+Debug: Deleting unreferenced connection 'from8_1to2_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_1->3_1' from edge '8'
+Debug: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_2->3_2' from edge '8'
+Debug: Deleting unreferenced connection 'from8_2to3_2' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '8_2->1_2' from edge '8'
+Debug: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
 Debug: Removing e1Detector 'detector3' in GNEChange_Additional
 Debug: Removing e1Detector 'detector4' in GNEChange_Additional
 Debug: Removing e1Detector 'detector5' in GNEChange_Additional
 Debug: Removing e1Detector 'detector6' in GNEChange_Additional
 Debug: Removing busStop 'busStop' in GNEChange_Additional
-Debug: Removing connection '6_2->4_2' from edge '6'
-Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
-Debug: Removing connection '6_2->1_2' from edge '6'
-Debug: Deleting unreferenced connection 'from6_2to1_2' in removeConnection()
-Debug: Removing connection '6_1->1_1' from edge '6'
-Debug: Deleting unreferenced connection 'from6_1to1_1' in removeConnection()
-Debug: Removing connection '6_1->3_1' from edge '6'
-Debug: Deleting unreferenced connection 'from6_1to3_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
-Debug: Removing connection '8_2->1_2' from edge '8'
-Debug: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
-Debug: Removing connection '8_2->3_2' from edge '8'
-Debug: Deleting unreferenced connection 'from8_2to3_2' in removeConnection()
-Debug: Removing connection '8_1->3_1' from edge '8'
-Debug: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
-Debug: Removing connection '8_1->2_1' from edge '8'
-Debug: Deleting unreferenced connection 'from8_1to2_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-Debug: Removing connection '5_2->3_2' from edge '5'
-Debug: Deleting unreferenced connection 'from5_2to3_2' in removeConnection()
-Debug: Removing connection '5_2->2_2' from edge '5'
-Debug: Deleting unreferenced connection 'from5_2to2_2' in removeConnection()
-Debug: Removing connection '5_1->2_1' from edge '5'
-Debug: Deleting unreferenced connection 'from5_1to2_1' in removeConnection()
-Debug: Removing connection '5_1->4_1' from edge '5'
-Debug: Deleting unreferenced connection 'from5_1to4_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-Debug: Removing connection '7_2->2_2' from edge '7'
-Debug: Deleting unreferenced connection 'from7_2to2_2' in removeConnection()
-Debug: Removing connection '7_2->4_2' from edge '7'
-Debug: Deleting unreferenced connection 'from7_2to4_2' in removeConnection()
-Debug: Removing connection '7_1->4_1' from edge '7'
-Debug: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()
-Debug: Removing connection '7_1->1_1' from edge '7'
-Debug: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -441,14 +846,30 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '8' from net
+Debug: Setting new attribute type 'priority' into junction 'A'
+Debug: Removing junction 'A' from net
+Debug: Setting new attribute type 'priority' into junction 'B'
+Debug: Removing junction 'B' from net
+Debug: Setting new attribute type 'priority' into junction 'C'
+Debug: Removing junction 'C' from net
 Debug: Removing junction 'Center' from net
+Debug: Setting new attribute type 'priority' into junction 'D'
+Debug: Removing junction 'D' from net
 Debug: Removing poly 'poly' from viewNet
 Debug: Removing taz 'TAZ' from viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding taz 'TAZ' into viewNet
 Debug: Adding poly 'poly' into viewNet
+Debug: Adding junction 'D' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'D'
 Debug: Adding junction 'Center' into net
+Debug: Adding junction 'C' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'C'
+Debug: Adding junction 'B' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'B'
+Debug: Adding junction 'A' into net
+Debug: Setting previous attribute type 'dead_end' into junction 'A'
 Debug: Adding edge '8' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -531,52 +952,196 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Debug: declaring connections of edge '1' as loaded (It will not be removed)
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Adding connection '7_1->1_1' into edge '7'
-Debug: Created connection 'from7_1to1_1' in retrieveGNEConnection()
-Debug: Adding connection '7_1->4_1' into edge '7'
-Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
-Debug: Adding connection '7_2->4_2' into edge '7'
-Debug: Created connection 'from7_2to4_2' in retrieveGNEConnection()
-Debug: Adding connection '7_2->2_2' into edge '7'
-Debug: Created connection 'from7_2to2_2' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Adding connection '5_1->4_1' into edge '5'
-Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
-Debug: Adding connection '5_1->2_1' into edge '5'
-Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
-Debug: Adding connection '5_2->2_2' into edge '5'
-Debug: Created connection 'from5_2to2_2' in retrieveGNEConnection()
-Debug: Adding connection '5_2->3_2' into edge '5'
-Debug: Created connection 'from5_2to3_2' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Adding connection '8_1->2_1' into edge '8'
-Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
-Debug: Adding connection '8_1->3_1' into edge '8'
-Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
-Debug: Adding connection '8_2->3_2' into edge '8'
-Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
-Debug: Adding connection '8_2->1_2' into edge '8'
-Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding connection '6_1->3_1' into edge '6'
-Debug: Created connection 'from6_1to3_1' in retrieveGNEConnection()
-Debug: Adding connection '6_1->1_1' into edge '6'
-Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
-Debug: Adding connection '6_2->1_2' into edge '6'
-Debug: Created connection 'from6_2to1_2' in retrieveGNEConnection()
-Debug: Adding connection '6_2->4_2' into edge '6'
-Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding e1Detector 'detector6' in GNEChange_Additional
 Debug: Adding e1Detector 'detector5' in GNEChange_Additional
 Debug: Adding e1Detector 'detector4' in GNEChange_Additional
 Debug: Adding e1Detector 'detector3' in GNEChange_Additional
+Debug: Adding a previously selected connection '8_2->1_2' into edge '8'
+Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_2->3_2' into edge '8'
+Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_1->3_1' into edge '8'
+Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_1->2_1' into edge '8'
+Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_2->2_2' into edge '7'
+Debug: Created connection 'from7_2to2_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_2->4_2' into edge '7'
+Debug: Created connection 'from7_2to4_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_1->4_1' into edge '7'
+Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_1->1_1' into edge '7'
+Debug: Created connection 'from7_1to1_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_2->4_2' into edge '6'
+Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_2->1_2' into edge '6'
+Debug: Created connection 'from6_2to1_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_1->1_1' into edge '6'
+Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_1->3_1' into edge '6'
+Debug: Created connection 'from6_1to3_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_2->3_2' into edge '5'
+Debug: Created connection 'from5_2to3_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_2->2_2' into edge '5'
+Debug: Created connection 'from5_2to2_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_1->2_1' into edge '5'
+Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '5_1->4_1' into edge '5'
+Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Additionals saved
+Debug: Deleting unreferenced connection 'from8_2to1_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from8_2to3_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from8_1to3_1' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from8_1to2_1' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from7_2to2_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from7_2to4_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from7_1to4_1' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from7_1to1_1' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from6_2to4_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from6_2to1_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from6_1to1_1' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from6_1to3_1' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from5_2to3_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from5_2to2_2' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from5_1to2_1' in GNEChange_Attribute
+Debug: Deleting unreferenced connection 'from5_1to4_1' in GNEChange_Attribute
 Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()

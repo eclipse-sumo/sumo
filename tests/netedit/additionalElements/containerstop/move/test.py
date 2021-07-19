@@ -35,23 +35,23 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.changeDefaultValue(7, "reference center")
+netedit.changeDefaultValue(9, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 233, 235)
 
 # change to move mode
 netedit.moveMode()
 
-# move containerStop to left
-netedit.moveElement(referencePosition, 250, 255, 100, 255)
+# move containerStop to right
+netedit.moveElement(referencePosition, 233, 250, 371, 250)
 
-# move back
-netedit.moveElement(referencePosition, 100, 255, 350, 255)
+# move containerStop back
+netedit.moveElement(referencePosition, 371, 250, 277, 250)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

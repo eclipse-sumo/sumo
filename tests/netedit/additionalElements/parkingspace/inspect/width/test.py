@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 250, 180)
 netedit.changeElement("space")
 
 # create space
-netedit.selectAdditionalChild(8, 0)
+netedit.selectAdditionalChild(10, 0)
 netedit.leftClick(referencePosition, 231, 285)
 
 # go to inspect mode
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 275)
 
 # Change parameter width with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyWidth", False)
+netedit.modifyAttribute(2, "dummyWidth", False)
 
 # Change parameter width with a non valid value (negative)
-netedit.modifyAttribute(1, "-5", False)
+netedit.modifyAttribute(2, "-5", False)
 
 # Change parameter width with a non valid value (0)
-netedit.modifyAttribute(1, "0", False)
+netedit.modifyAttribute(2, "0", False)
 
 # Change parameter width with a valid value
-netedit.modifyAttribute(1, "2.3", False)
+netedit.modifyAttribute(2, "2.3", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

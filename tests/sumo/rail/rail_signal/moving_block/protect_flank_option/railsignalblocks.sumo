@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-07-02 23:32:47 by Eclipse SUMO sumo Version v1_9_2+0829-3c89482
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <railsignal-moving-block value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="gneJ6">
+        <link linkIndex="0" from="-a_0" to=":gneJ6_0_0">
+            <driveWay edges="-b c e">
+                <forward lanes=":gneJ6_0_0 -b_0 :gneJ1_1_0 c_0 :gneJ9_0_0 e_0"/>
+                <bidi lanes=""/>
+                <flank lanes=":gneJ1_0_0 b_0 :gneJ8_0_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="gneJ8_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="gneJ8">
+        <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
+            <driveWay edges="b c e">
+                <forward lanes=":gneJ8_0_0 b_0 :gneJ1_0_0 c_0 :gneJ9_0_0 e_0"/>
+                <bidi lanes=""/>
+                <flank lanes=":gneJ1_1_0 -b_0 :gneJ6_0_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="gneJ6_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+</railsignal-block-output>

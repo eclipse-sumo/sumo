@@ -41,15 +41,22 @@ NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::st
 { }
 
 void NBPTLine::addPTStop(NBPTStop* pStop) {
+    if (!myPTStops.empty() && pStop->getName() != "" && myPTStops.back()->getName() == pStop->getName()) {
+        // avoid duplicate stop when both platform and stop_position are given as nodes
+        if (myPTStops.back()->isPlatform() && !pStop->isPlatform()) {
+            myPTStops.pop_back();
+        } else if (pStop->isPlatform()) {
+            return;
+        }
+    }
     myPTStops.push_back(pStop);
-
 }
 
 std::vector<NBPTStop*> NBPTLine::getStops() {
     return myPTStops;
 }
 
-void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
+void NBPTLine::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_PT_LINE);
     device.writeAttr(SUMO_ATTR_ID, myPTLineId);
     if (!myName.empty()) {
@@ -68,17 +75,9 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     }
     device.writeAttr("completeness", toString((double)myPTStops.size() / (double)myNumOfStops));
 
-    std::vector<std::string> validEdgeIDs;
-    // filter out edges that have been removed due to joining junctions
-    // (the rest of the route is valid)
-    for (NBEdge* e : myRoute) {
-        if (ec.retrieve(e->getID())) {
-            validEdgeIDs.push_back(e->getID());
-        }
-    }
     if (!myRoute.empty()) {
         device.openTag(SUMO_TAG_ROUTE);
-        device.writeAttr(SUMO_ATTR_EDGES, validEdgeIDs);
+        device.writeAttr(SUMO_ATTR_EDGES, myRoute);
         device.closeTag();
     }
 
@@ -258,14 +257,31 @@ void
 NBPTLine::deleteDuplicateStops() {
     // delete subsequent stops that belong to the same stopArea
     long long int lastAreaID = -1;
+    std::string lastName = "";
     for (auto it = myPTStops.begin(); it != myPTStops.end();) {
         NBPTStop* stop = *it;
         if (lastAreaID != -1 && stop->getAreaID() == lastAreaID) {
             WRITE_WARNINGF("Removed duplicate stop '%' at area '%' from line '%'.", stop->getID(), toString(lastAreaID), getLineID());
             it = myPTStops.erase(it);
+        } else if (lastName != "" && stop->getName() == lastName) {
+            WRITE_WARNINGF("Removed duplicate stop '%' named '%' from line '%'.", stop->getID(), lastName, getLineID());
+            it = myPTStops.erase(it);
         } else {
             it++;
         }
         lastAreaID = stop->getAreaID();
+        lastName = stop->getName();
+    }
+}
+
+void
+NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
+    for (auto it = myRoute.begin(); it != myRoute.end(); ) {
+        NBEdge* e = *it;
+        if (ec.retrieve(e->getID())) {
+            it++;
+        } else {
+            it = myRoute.erase(it);
+        }
     }
 }

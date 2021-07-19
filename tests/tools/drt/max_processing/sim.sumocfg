@@ -1,0 +1,13 @@
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes2.rou.xml,input_routes.rou.xml"/>
+    </input>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+    </taxi_device>
+
+    <no-step-log value="true"/>
+</configuration>

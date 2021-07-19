@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  5 10:34:31 2020 by Eclipse SUMO duarouter Version v1_7_0+0826-2186410a7b
+<!-- generated on 2021-06-10 09:08:41 by Eclipse SUMO duarouter Version v1_9_2+0439-960336d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -129,28 +129,28 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="rend_depart_connector:rend_car-1.00:taxi" line="!access" length="0.00" successors="rend_car-1.00"/>
     <edge id="beg2left" line="!stop" length="240.00" successors="beg2left:beg2left_fwd250.00 beg2left:beg2left_bwd-1.00 train:left2end"/>
     <edge id="beg2left_fwd250.00" line="!ped" length="245.30" successors="left_fwd-1.00 beg2left_arrival_connector250.00"/>
-    <edge id="beg2left_fwd-1.00:beg2left" line="!access" length="0.00" successors="beg2left"/>
-    <edge id="beg2left:beg2left_fwd250.00" line="!access" length="0.00" successors="beg2left_fwd250.00"/>
+    <edge id="beg2left_fwd-1.00:beg2left" line="!access" length="24.16" successors="beg2left"/>
+    <edge id="beg2left:beg2left_fwd250.00" line="!access" length="24.16" successors="beg2left_fwd250.00"/>
     <edge id="beg2left_bwd-1.00" line="!ped" length="250.00" successors=":beg_1_bwd-1.00 :beg_w0-1.00 beg2left_arrival_connector"/>
-    <edge id="beg2left_bwd250.00:beg2left" line="!access" length="0.00" successors="beg2left"/>
-    <edge id="beg2left:beg2left_bwd-1.00" line="!access" length="0.00" successors="beg2left_bwd-1.00"/>
+    <edge id="beg2left_bwd250.00:beg2left" line="!access" length="24.16" successors="beg2left"/>
+    <edge id="beg2left:beg2left_bwd-1.00" line="!access" length="24.16" successors="beg2left_bwd-1.00"/>
     <edge id="beg2left_car250.00" line="!car" length="245.30" successors="left_car-1.00 beg2left_arrival_connector250.00"/>
-    <edge id="beg2left_car-1.00:beg2left" line="!access" length="0.00" successors="beg2left"/>
-    <edge id="beg2left_car-1.00:beg2left_fwd250.00" line="!access" length="0.00" successors="beg2left_fwd250.00"/>
-    <edge id="beg2left_car-1.00:beg2left_bwd-1.00" line="!access" length="0.00" successors="beg2left_bwd-1.00"/>
+    <edge id="beg2left_car-1.00:beg2left" line="!access" length="24.16" successors="beg2left"/>
+    <edge id="beg2left_car-1.00:beg2left_fwd250.00" line="!access" length="24.16" successors="beg2left_fwd250.00"/>
+    <edge id="beg2left_car-1.00:beg2left_bwd-1.00" line="!access" length="24.16" successors="beg2left_bwd-1.00"/>
     <edge id="beg2left_depart_connector250.00" line="!connector" length="245.30" successors="beg2left_fwd250.00 beg2left_bwd250.00 beg2left_car250.00"/>
     <edge id="beg2left_arrival_connector250.00" line="!connector" length="245.30" successors=""/>
     <edge id="left2end" line="!stop" length="1000.00" successors="left2end:left2end_fwd250.00 left2end:left2end_bwd-1.00"/>
     <edge id="left2end_fwd250.00" line="!ped" length="243.80" successors=":end_w0-1.00 left2end_arrival_connector250.00"/>
-    <edge id="left2end_fwd-1.00:left2end" line="!access" length="0.00" successors="left2end"/>
-    <edge id="left2end:left2end_fwd250.00" line="!access" length="0.00" successors="left2end_fwd250.00"/>
+    <edge id="left2end_fwd-1.00:left2end" line="!access" length="24.54" successors="left2end"/>
+    <edge id="left2end:left2end_fwd250.00" line="!access" length="24.54" successors="left2end_fwd250.00"/>
     <edge id="left2end_bwd-1.00" line="!ped" length="250.00" successors=":endleft_0_bwd-1.00 :endleft_w0-1.00 left2end_arrival_connector"/>
-    <edge id="left2end_bwd250.00:left2end" line="!access" length="0.00" successors="left2end"/>
-    <edge id="left2end:left2end_bwd-1.00" line="!access" length="0.00" successors="left2end_bwd-1.00"/>
+    <edge id="left2end_bwd250.00:left2end" line="!access" length="24.54" successors="left2end"/>
+    <edge id="left2end:left2end_bwd-1.00" line="!access" length="24.54" successors="left2end_bwd-1.00"/>
     <edge id="left2end_car250.00" line="!car" length="243.80" successors="left2end_arrival_connector250.00"/>
-    <edge id="left2end_car-1.00:left2end" line="!access" length="0.00" successors="left2end"/>
-    <edge id="left2end_car-1.00:left2end_fwd250.00" line="!access" length="0.00" successors="left2end_fwd250.00"/>
-    <edge id="left2end_car-1.00:left2end_bwd-1.00" line="!access" length="0.00" successors="left2end_bwd-1.00"/>
+    <edge id="left2end_car-1.00:left2end" line="!access" length="24.54" successors="left2end"/>
+    <edge id="left2end_car-1.00:left2end_fwd250.00" line="!access" length="24.54" successors="left2end_fwd250.00"/>
+    <edge id="left2end_car-1.00:left2end_bwd-1.00" line="!access" length="24.54" successors="left2end_bwd-1.00"/>
     <edge id="left2end_depart_connector250.00" line="!connector" length="243.80" successors="left2end_fwd250.00 left2end_bwd250.00 left2end_car250.00"/>
     <edge id="left2end_arrival_connector250.00" line="!connector" length="243.80" successors=""/>
     <edge id="train:left2end" line="train" length="1379.19" successors="left2end"/>

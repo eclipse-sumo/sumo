@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
@@ -16,7 +17,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 Debug: Deleting unreferenced detExit 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
@@ -42,19 +42,6 @@ Debug: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
-Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
-Debug: Adding busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_0_0' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE11_1to-gneE10_1' in retrieveGNEConnection()
@@ -85,19 +72,6 @@ Debug: Created connection 'fromgneE7_1togneE4_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'
-Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9'
-Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0'
-Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5'
-Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
-Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
-Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
-Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -243,4 +217,18 @@ Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ9_c0' in GNEJunction destructor
+Debug: Deleting unreferenced e3Detector 'e3Detector_0' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

@@ -73,8 +73,8 @@ myUpdateGeometry(true) {
         myLanes.back()->incRef("GNEEdge::GNEEdge");
     }
     // update Lane geometries
-    for (const auto& i : myLanes) {
-        i->updateGeometry();
+    for (const auto& lane : myLanes) {
+        lane->updateGeometry();
     }
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -119,17 +119,28 @@ GNEEdge::updateGeometry() {
             connection->updateGeometry();
         }
         // Update geometry of additionals children vinculated to this edge
-        for (const auto& childAdditionals : getChildAdditionals()) {
-            childAdditionals->updateGeometry();
+        for (const auto& childAdditional : getChildAdditionals()) {
+            childAdditional->updateGeometry();
         }
         // Update geometry of additionals demand elements vinculated to this edge
-        for (const auto& childDemandElements : getChildDemandElements()) {
-            childDemandElements->computePath();
-            childDemandElements->updateGeometry();
+        for (const auto& childDemandElement : getChildDemandElements()) {
+            childDemandElement->updateGeometry();
         }
         // Update geometry of additionals generic datas vinculated to this edge
         for (const auto& childGenericData : getChildGenericDatas()) {
             childGenericData->updateGeometry();
+        }
+        // compute geometry of path elements elements vinculated with this edge (depending of showDemandElements)
+        if (myNet->getViewNet() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+            for (const auto& childAdditional : getChildAdditionals()) {
+                childAdditional->computePathElement();
+            }
+            for (const auto& childDemandElement : getChildDemandElements()) {
+                childDemandElement->computePathElement();
+            }
+            for (const auto& childGenericData : getChildGenericDatas()) {
+                childGenericData->computePathElement();
+            }
         }
     }
     // update vehicle geometry
@@ -401,9 +412,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw person stops
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
-        for (const auto& personStopEdge : getChildDemandElements()) {
-            if (personStopEdge->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
-                personStopEdge->drawGL(s);
+        for (const auto& stopPersonEdge : getChildDemandElements()) {
+            if (stopPersonEdge->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) {
+                stopPersonEdge->drawGL(s);
             }
         }
     }
@@ -1219,26 +1230,26 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
         // recognize full transparency and simply don't draw
         if (color.alpha() > 0) {
             // add edge layer matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // translate to front
             glTranslated(0, 0, 1);
             // draw geometry points expect initial and final
             for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
                 Position pos = myNBEdge->getGeometry()[i];
                 if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                     // draw elevation or special symbols (Start, End and Block)
                     if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         // Translate to geometry point
                         glTranslated(pos.x(), pos.y(), 0.2);
                         // draw Z value
                         GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
@@ -1248,55 +1259,55 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     // calculate angle
                     const double angle = RAD2DEG(myNBEdge->getGeometry().front().angleTo2D(myNBEdge->getGeometry()[1])) * -1;
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                     // draw a "s" over last point depending of drawForRectangleSelection
                     if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.2);
                         GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor(0, 50, 255));
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                         // draw line between Junction and point
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(0, 0, 0.1);
                         glLineWidth(4);
                         GLHelper::drawLine(myNBEdge->getGeometry().front(), getParentJunctions().front()->getNBNode()->getPosition());
                         // draw line between begin point of last lane shape and the first edge shape point
                         GLHelper::drawLine(myNBEdge->getGeometry().front(), myNBEdge->getLanes().back().shape.front());
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
                 if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
                     // calculate angle
                     const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
                     GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                     // draw a "e" over last point depending of drawForRectangleSelection
                     if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.2);
                         GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor(0, 50, 255));
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                         // draw line between Junction and point
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(0, 0, 0.1);
                         glLineWidth(4);
                         GLHelper::drawLine(myNBEdge->getGeometry().back(), getParentJunctions().back()->getNBNode()->getPosition());
                         // draw line between last point of first lane shape and the last edge shape point
                         GLHelper::drawLine(myNBEdge->getGeometry().back(), myNBEdge->getLanes().back().shape.back());
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
             // pop edge layer matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
@@ -1478,6 +1489,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (updateTemplate) {
         templateEditor->updateEdgeTemplate(this);
     }
+    // invalidate path calculator
+    myNet->getPathManager()->getPathCalculator()->invalidatePathCalculator();
 }
 
 
@@ -1522,7 +1535,7 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
         // update shape
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
         // check if we have to update shape end
-        if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), (moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
+        if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), (int)(moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
             undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
         }
         undoList->p_end();
@@ -1964,7 +1977,7 @@ GNEEdge::getVehiclesOverEdgeMap() const {
     }
     // now split vehicles by lanes
     for (const auto& vehicle : vehiclesOverEdge) {
-        const GNELane* vehicleLane = vehicle->getFirstAllowedVehicleLane();
+        const GNELane* vehicleLane = vehicle->getFirstPathLane();
         if (vehicleLane) {
             vehiclesOverEdgeMap[vehicleLane].push_back(vehicle);
         }

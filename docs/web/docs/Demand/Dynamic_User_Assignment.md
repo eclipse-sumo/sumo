@@ -9,7 +9,7 @@ For a given set of vehicles with of origin-destination relations
 of edges) that are used to reach the destination from the origin edge.
 The simplest method to find these routes is by computing shortest or
 fastest routes through the network using a routing algorithm such as
-Djikstra or A\*. These algorithms require assumptions regarding the
+Dijkstra or A\*. These algorithms require assumptions regarding the
 travel time for each network edge which is commonly not known before
 running the simulation due to the fact that travel times depend on the
 number of vehicles in the network.
@@ -104,6 +104,9 @@ The probabilities are calculated from an exponential function with
 parameter <img src="http://latex.codecogs.com/gif.latex?\theta" border="0" style="margin:0;"/> scaled by the sum over all route values:
 
 <img src="http://latex.codecogs.com/gif.latex?p_r' = \frac{\exp(\theta c_r')}{\sum_{s\in R}\exp(\theta c_s')}" border="0" style="margin:0;"/>
+
+!!! caution
+    It is recommended to set option **--convergence-steps** (i.e. to the same number as **-last-step**) to ensure convergence. Otherwise Logit route choice may keep oscillating, especially with higher values of **--logittheta**.
 
 ## Termination
 

@@ -32,11 +32,13 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
-    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false,
-{}, {edge}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
+        const std::map<std::string, std::string> &parameters) :
+    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
+        {}, {edge}, {}, {}, {}, {}, {}, {},
+        parameters, false),
+    myBegin(from),
+    myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -100,9 +102,9 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             centralLineColor = RGBColor::WHITE;
         }
         // Start drawing adding an gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Add layer matrix matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VAPORIZER);
         // set base color
@@ -127,9 +129,9 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             glRotated(180, 0, 0, 1);
             // draw texture
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::VAPORIZER_SELECTED), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::VAPORIZER), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
             }
         } else {
             // set route probe color
@@ -138,9 +140,9 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize * vaporizerExaggeration);
         }
         // pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
-        glPopName();
+        GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn

@@ -91,7 +91,7 @@ NBNodeShapeComputer::compute() {
     //  node (one in and one out or two in and two out, pair-wise continuations)
     // also in this case "computeNodeShapeSmall" is used
     bool geometryLike = myNode.isSimpleContinuation(true, true);
-    if (geometryLike) {
+    if (geometryLike && myNode.getCrossings().size() == 0) {
         // additionally, the angle between the edges must not be larger than 45 degrees
         //  (otherwise, we will try to compute the shape in a different way)
         const EdgeVector& incoming = myNode.getIncomingEdges();
@@ -284,10 +284,17 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     if (radius2 > NUMERICAL_EPS || openDriveOutput) {
                         radius2 = MAX2(0.15, radius2);
                     }
+                    if (myNode.getCrossings().size() > 0) {
+                        double width = myNode.getCrossings()[0]->customWidth;
+                        if (width == NBEdge::UNSPECIFIED_WIDTH) {
+                            width = OptionsCont::getOptions().getFloat("default.crossing-width");
+                        }
+                        radius2 = MAX2(radius2, width / 2);
+                    }
                     dist += radius2;
 #ifdef DEBUG_NODE_SHAPE
                     if (DEBUGCOND) {
-                        std::cout << " using radius=" << fabs(ccad - cad) * (*i)->getNumLanes() << " ccad=" << ccad << " cad=" << cad << "\n";
+                        std::cout << " using radius=" << radius2 << " ccad=" << ccad << " cad=" << cad << "\n";
                     }
 #endif
                 }

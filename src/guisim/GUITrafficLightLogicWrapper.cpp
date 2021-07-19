@@ -310,7 +310,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
             for (std::vector<int>::iterator it_idx = nextGreen.begin(); it_idx != nextGreen.end(); it_idx++) {
                 const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     // split circle in red and yellow
                     Position pos = (*it_lane)->getShape().back();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
@@ -320,7 +320,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, -90, 90);
                     GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_YELLOW_MAJOR));
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, 90, 270);
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 }
             }
         }

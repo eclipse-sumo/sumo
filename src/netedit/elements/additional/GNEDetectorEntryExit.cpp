@@ -32,10 +32,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, "", "", "", friendlyPos, blockMovement, {
-    lane
-}) {
+GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
+        const bool friendlyPos, const std::map<std::string, std::string> &parameters,  bool blockMovement) :
+    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {lane}, "", "", friendlyPos, parameters, blockMovement) {
     // check that this is a Entry/Exit
     if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");
@@ -61,17 +60,23 @@ GNEDetectorEntryExit::isAdditionalValid() const {
 
 std::string
 GNEDetectorEntryExit::getAdditionalProblem() const {
-    // declare variable for error position
-    std::string errorPosition;
+    // obtain final lenght
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    // check positions over lane
-    if (myPositionOverLane < -len) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+    // check if detector has a problem
+    if (GNEAdditionalHandler::checkSinglePositionOverLane(myPositionOverLane, len, myFriendlyPosition)) {
+        return "";
+    } else {
+        // declare variable for error position
+        std::string errorPosition;
+        // check positions over lane
+        if (myPositionOverLane < 0) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        }
+        if (myPositionOverLane > len) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+        }
+        return errorPosition;
     }
-    if (myPositionOverLane > len) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
-    }
-    return errorPosition;
 }
 
 
@@ -79,8 +84,8 @@ void
 GNEDetectorEntryExit::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
-    // fix pos and length  checkAndFixDetectorPosition
-    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
+    // fix pos and length checkAndFixDetectorPosition
+    GNEAdditionalHandler::fixSinglePositionOverLane(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
@@ -89,7 +94,9 @@ GNEDetectorEntryExit::fixAdditionalProblem() {
 void
 GNEDetectorEntryExit::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
     // update E3 parent children
     getParentAdditionals().at(0)->updateHierarchicalConnections();
 }
@@ -102,9 +109,9 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding gl identificator
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // Push layer matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
         // Set color
@@ -117,10 +124,10 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         // Push polygon matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() - 90);
+        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
         // scale
         glScaled(entryExitExaggeration, entryExitExaggeration, 1);
         // draw details if isn't being drawn for selecting
@@ -154,15 +161,15 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             glEnd();
         }
         // Pop polygon matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Check if the distance is enought to draw details
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, entryExitExaggeration)) {
             // Push matrix
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // Traslate to center of detector
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
             // rotate over lane
-            GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 180);
+            GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
             //move to logo position
             glTranslated(1.9, 0, 0);
             // scale
@@ -200,18 +207,18 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // pop matrix
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, true, 0.4);
         // Pop layer matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator
-        glPopName();
+        GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
     }
@@ -237,6 +244,17 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double
+GNEDetectorEntryExit::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_POSITION:
+            return myPositionOverLane;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

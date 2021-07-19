@@ -41,8 +41,8 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # block movement
-netedit.selectAdditionalChild(8, 0)
-netedit.changeDefaultBoolValue(6)
+netedit.selectAdditionalChild(10, 0)
+netedit.changeDefaultBoolValue(8)
 
 # create area
 netedit.leftClick(referencePosition, 330, 100)

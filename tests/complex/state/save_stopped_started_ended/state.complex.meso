@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Nov 23 20:41:02 2020 by Eclipse SUMO sumo Version v1_7_0+1213-669ca66b46
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <save-state.times value="20"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1213-669ca66b46" time="20.00" type="meso">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="2" begin="2" end="0" depart="4.00" time="0.00"/>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.00" state="0 1 0 0 0 36199 7000 9223372036854775807">
+        <stop lane="middle_0" startPos="9.80" endPos="10.00" duration="2.00" parking="0" tripId="testTripID" line="testLine"/>
+        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="20.00" parking="0"/>
+        <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00" parking="0" tripId="testTripID2" line="testLine2"/>
+        <stop busStop="busstop" duration="20.00" parking="1"/>
+        <device id="tripinfo_v0" state="1 7 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="v1" type="t0" depart="3.00" route="r0" distance="7 0" speedFactor="1.00" state="7000 1 0 0 0 37868 15630 9223372036854775807">
+        <device id="tripinfo_v1" state="0.811124 7 0 0 0 0 -1"/>
+    </vehicle>
+    <segment id="beg:0">
+        <vehicles time="24260" value=""/>
+    </segment>
+    <segment id="middle:0">
+        <vehicles time="-1" value="v1 v0"/>
+    </segment>
+</snapshot>

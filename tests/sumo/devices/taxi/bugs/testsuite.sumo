@@ -9,3 +9,6 @@ ticket7893_container
 
 # dispatch-rerouting must handle the case where the vehicle is too close to the junction to reroute to an arbitrary successor (reroute-origin is the next edge).
 ticket8423
+
+# ride destination is a busStop only reachable via access
+ticket8578

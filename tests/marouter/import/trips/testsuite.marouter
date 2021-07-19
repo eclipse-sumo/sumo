@@ -11,3 +11,9 @@ ignoreUnknown
 
 # use trip attributes from,to directly
 ignore_taz
+
+# single trips without taz and fromJunction/toJunction
+fromToJunctions
+
+# use trip attributes fromJunction,toJunction directly
+ignore_taz_fromToJunctions

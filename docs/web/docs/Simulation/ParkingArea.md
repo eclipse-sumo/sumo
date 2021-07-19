@@ -71,6 +71,7 @@ The space element supports the following attributes:
 | width          | float          |             | width value of the parent parking area                                   | The width of the parking space                  |
 | length         | float          |             | length value of the parent parking area                                  | The length of the parking space                 |
 | angle          | float (degree) |             | absolute angle of the parent parking area (lane angle + angle attribute) | Absolute angle of the parking space             |
+| slope          | float (degree) |             | 0                                                                        | Slope angle of the parking space                |
 
 !!! caution
     Please note that parking areas must be added to a config via the *--additional-files* parameter (see {{AdditionalFile}}).

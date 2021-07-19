@@ -23,9 +23,6 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERerouter.h"
 #include "GNERerouterSymbol.h"
@@ -35,17 +32,18 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos,
-                         const std::string& name, const std::string& filename, double probability,
-                         bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
-    GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myPosition(pos),
-myFilename(filename),
-myProbability(probability),
-myOff(off),
-myTimeThreshold(timeThreshold),
-myVTypes(vTypes) {
+GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, 
+    const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes, 
+    const std::map<std::string, std::string> &parameters, bool blockMovement) :
+    GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
+        {}, {}, {}, {}, {}, {}, {}, {},
+        parameters, blockMovement),
+    myPosition(pos),
+    myFilename(filename),
+    myProbability(probability),
+    myOff(off),
+    myTimeThreshold(timeThreshold),
+    myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -70,7 +68,7 @@ GNERerouter::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNERerouter::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateGeometry(myPosition, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
     // Update Hierarchical connections geometry
     myHierarchicalConnections.update();
 }
@@ -118,72 +116,8 @@ GNERerouter::getParentName() const {
 
 void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double rerouterExaggeration = s.addSize.getExaggeration(s, this);
-    // first check if additional has to be drawn
-    if (s.drawAdditionals(rerouterExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
-        // push name
-        glPushName(getGlID());
-        // push layer matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
-        // Add layer matrix
-        glPushMatrix();
-        // translate to position
-        glTranslated(myPosition.x(), myPosition.y(), 0);
-        // scale
-        glScaled(rerouterExaggeration, rerouterExaggeration, 1);
-        // Draw icon depending of detector is selected and if isn't being drawn for selecting
-        if (!s.drawForPositionSelection) {
-            // set White color
-            glColor3d(1, 1, 1);
-            // rotate
-            glRotated(180, 0, 0, 1);
-            // draw texture depending of selection
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), s.additionalSettings.rerouterSize);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), s.additionalSettings.rerouterSize);
-            }
-        } else {
-            // set redcolor
-            GLHelper::setColor(RGBColor::RED);
-            // just draw a square
-            GLHelper::drawBoxLine(Position(0, s.additionalSettings.rerouterSize), 0, 2 * s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize);
-        }
-        // Pop texture matrix
-        glPopMatrix();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, rerouterExaggeration, -0.5, -0.5, false, 0.4);
-        // Pop layer matrix
-        glPopMatrix();
-        // Pop name
-        glPopName();
-        // push connection matrix
-        glPushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER, -0.1);
-        // Draw child connections
-        drawHierarchicalConnections(s, this, rerouterExaggeration);
-        // Pop connection matrix
-        glPopMatrix();
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize, 0, 0, 0, rerouterExaggeration);
-        }
-        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize, 0, 0, 0, rerouterExaggeration);
-        }
-    }
+    // draw Rerouter
+    drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
 }
 
 
@@ -212,7 +146,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_VTYPES:
-            return myVTypes;
+            return toString(myVTypes);
         case SUMO_ATTR_OFF:
             return toString(myOff);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -352,7 +286,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myTimeThreshold = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_VTYPES:
-            myVTypes = value;
+            myVTypes = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);

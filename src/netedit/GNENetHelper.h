@@ -74,6 +74,7 @@ struct GNENetHelper {
     class AttributeCarriers : ShapeContainer {
 
         /// @brief declare friend class
+        //friend class GNEAdditionalHandler;
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEChange_Junction;
@@ -168,6 +169,7 @@ struct GNENetHelper {
         * @param[in[ geo use GEO coordinates (lon/lat)
         * @param[in] lane The Lane in which this POI is placed
         * @param[in] posOverLane The position over Lane
+        * @param[in] friendlyPos enable or disable friendlyPos over lane
         * @param[in] posLat The position lateral over Lane
         * @param[in] layer The layer of the POI
         * @param[in] angle The rotation of the POI
@@ -178,7 +180,7 @@ struct GNENetHelper {
         * @return whether the poi could be added
         */
         bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                    const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                    const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
                     const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
 
         /// @}
@@ -402,7 +404,7 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
 
-        /// @brief map with the ID and pointer to shape elements of net
+/// @brief map with the ID and pointer to shape elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEShape*> > myShapes;
 
         /// @brief map with the ID and pointer to TAZElement elements of net
@@ -425,39 +427,6 @@ struct GNENetHelper {
 
         /// @brief Invalidated assignment operator.
         AttributeCarriers& operator=(const AttributeCarriers&) = delete;
-    };
-
-    /// @brief class used to calculate paths in nets
-    class PathCalculator {
-
-    public:
-        /// @brief constructor
-        PathCalculator(const GNENet* net);
-
-        /// @brief destructor
-        ~PathCalculator();
-
-        /// @brief update path calculator (called when SuperModes Demand or Data is selected)
-        void updatePathCalculator();
-
-        /// @brief calculate Dijkstra path between a list of partial edges
-        std::vector<GNEEdge*> calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
-
-        /// @brief calculate reachability for given edge
-        void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
-
-        /// @brief check if exist a path between the two given consecutives edges for the given VClass
-        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
-
-        /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
-        bool busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const;
-
-    private:
-        /// @brief pointer to net
-        const GNENet* myNet;
-
-        /// @brief SUMO Abstract myDijkstraRouter
-        SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
     };
 
     /// @brief class for GNEChange_ReplaceEdgeInTLS

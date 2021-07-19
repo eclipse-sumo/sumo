@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-04-23 12:17:32 by Eclipse SUMO sumo Version v1_9_0+0197-60bdb10
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <stop-output value="stops.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="v0" type="t1" lane="a_0" pos="54.99" parking="0" started="11.00" ended="100.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_a" tripId="t0"/>
+    <stopinfo id="v1" type="t1" lane="f_0" pos="54.99" parking="0" started="13.00" ended="100.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_f" tripId="t2"/>
+    <stopinfo id="v0" type="t1" lane="c_0" pos="54.28" parking="0" started="122.00" ended="200.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_c"/>
+    <stopinfo id="v1" type="t1" lane="c_0" pos="54.26" parking="0" started="209.00" ended="269.00" delay="109.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_c"/>
+    <stopinfo id="v0" type="t1" lane="c_0" pos="154.28" parking="0" started="217.00" ended="300.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_c2" tripId="t1"/>
+    <stopinfo id="v1" type="t1" lane="c_0" pos="154.28" parking="0" started="309.00" ended="369.00" delay="149.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_c2" tripId="t3"/>
+    <stopinfo id="v0" type="t1" lane="e_0" pos="54.99" parking="0" started="320.00" ended="400.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_e"/>
+    <stopinfo id="v1" type="t1" lane="i_0" pos="54.34" parking="0" started="396.00" ended="456.00" delay="176.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="stop_i"/>
+</stops>

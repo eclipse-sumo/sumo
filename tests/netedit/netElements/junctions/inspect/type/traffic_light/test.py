@@ -37,9 +37,6 @@ netedit.forceSaveAdditionals()
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)
 
-# set invalid value
-netedit.modifyAttribute(2, "dummyType", False)
-
 # change type of junction (should not be possible due is a dead_end)
 netedit.modifyAttribute(2, "traffic_light", False)
 

@@ -47,3 +47,6 @@ wide_lane_merge2_zipper
 # test lane changing while on an intersection with turning lanes joined into one edge
 2lanes_turn_joined
 lefthand
+
+# mopeds make an indirect left turn and wait at the internal junction until the flow across gets the green light.
+indirect_left_moped

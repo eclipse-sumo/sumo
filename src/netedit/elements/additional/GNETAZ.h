@@ -40,9 +40,12 @@ public:
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] name TAZ's name
+     * @param[in] parameters generic parameters
+     * @param[in] blockMovement enable or disable additional movement
      */
-    GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement);
+    GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string &name,
+           const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();

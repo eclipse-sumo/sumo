@@ -338,10 +338,9 @@ Simulation::getBusStopWaitingIDList(const std::string& stopID) {
     if (s == nullptr) {
         throw TraCIException("Unknown bus stop '" + stopID + "'.");
     }
-    std::vector<MSTransportable*> transportables = s->getTransportables();
     std::vector<std::string> result;
-    for (std::vector<MSTransportable*>::iterator it = transportables.begin(); it != transportables.end(); it++) {
-        result.push_back((*it)->getID());
+    for (const MSTransportable* t : s->getTransportables()) {
+        result.push_back(t->getID());
     }
     return result;
 }
@@ -710,6 +709,14 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid overhead wire parameter '" + attrName + "'");
         }
+    } else if (StringUtils::startsWith(key, "net.")) {
+        const std::string attrName = key.substr(4);
+        Position b = GeoConvHelper::getFinal().getOffsetBase();
+        if (attrName == toString(SUMO_ATTR_NET_OFFSET)) {
+            return toString(GeoConvHelper::getFinal().getOffsetBase());
+        } else {
+            throw TraCIException("Invalid net parameter '" + attrName + "'");
+        }
     } else if (StringUtils::startsWith(key, "parkingArea.")) {
         const std::string attrName = key.substr(12);
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));
@@ -792,6 +799,7 @@ Simulation::loadState(const std::string& fileName) {
     Helper::clearTransportableStates();
     Helper::clearSubscriptions();
     PROGRESS_TIME_MESSAGE(before);
+    MSNet::getInstance()->updateGUI();
     return STEPS2TIME(newTime);
 }
 

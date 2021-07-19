@@ -558,6 +558,53 @@ SUMOVTypeParameter::cacheParamRestrictions(const std::vector<std::string>& restr
 }
 
 
+void
+SUMOVTypeParameter::initRailVisualizationParameters() {
+    if (knowsParameter("carriageLength")) {
+        carriageLength = StringUtils::toDouble(getParameter("carriageLength"));
+        parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
+    } else if (wasSet(VTYPEPARS_SHAPE_SET)) {
+        switch (shape) {
+            case SVS_BUS_FLEXIBLE:
+                carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
+                carriageGap = 0;
+                break;
+            case SVS_RAIL:
+                carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
+                break;
+            case SVS_RAIL_CAR:
+                carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
+                break;
+            case SVS_RAIL_CARGO:
+                carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
+                break;
+            case SVS_TRUCK_SEMITRAILER:
+                carriageLength = 13.5;
+                locomotiveLength = 2.5;
+                carriageGap = 0.5;
+                break;
+            case SVS_TRUCK_1TRAILER:
+                carriageLength = 6.75;
+                locomotiveLength = 2.5 + 6.75;
+                carriageGap = 0.5;
+                break;
+            default:
+                break;
+        }
+    }
+    if (knowsParameter("locomotiveLength")) {
+        locomotiveLength = StringUtils::toDouble(getParameter("locomotiveLength"));
+        parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
+    } else if (locomotiveLength <= 0) {
+        locomotiveLength = carriageLength;
+    }
+    if (knowsParameter("carriageGap")) {
+        carriageGap = StringUtils::toDouble(getParameter("carriageGap"));
+        parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
+    }
+}
+
+
 double
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
     switch (vc) {

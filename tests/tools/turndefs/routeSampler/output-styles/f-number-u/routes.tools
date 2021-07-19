@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-03-05 20:58:44.151834 by $Id$ v1_8_0+1508-1a217e5cd8
+<!-- generated on 2021-04-20 19:36:50.153657 by $Id$ v1_9_0+0129-5219d47f05
   options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f number -u routeDist
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
-    <routeDistribution id="routeDist"/>
+    <routeDistribution id="routeDist">
         <route id="0" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27" probability="1"/>
         <route id="1" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27 -27.80.00" probability="1"/>
         <route id="3" edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00" probability="1"/>

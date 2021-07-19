@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO duarouter Version v1_8_0+1985-b3699bc617
+<!-- generated on 2021-05-17 19:55:16 by Eclipse SUMO duarouter Version v1_9_1+0332-3c09636b84
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -84,6 +84,7 @@
             <xsd:element name="gawron.a" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="keep-all-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="skip-new-routes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="keep-route-probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="ptline-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="logit" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="route-choice-method" type="strOptionType" minOccurs="0"/>

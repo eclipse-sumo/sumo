@@ -91,6 +91,8 @@ def get_options(args=None):
                            help="use the given edge parameter as factor for edge")
     optParser.add_argument("--speed-exponent", type=float, dest="speed_exponent",
                            default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
+    optParser.add_argument("--fringe-speed-exponent", type=float, dest="fringe_speed_exponent",
+                           help="weight fringe edge probability by speed^<FLOAT> (default: speed exponent)")
     optParser.add_argument("--angle", type=float, dest="angle",
                            default=90.0, help="weight edge probability by angle [0-360] relative to the network center")
     optParser.add_argument("--angle-factor", type=float, dest="angle_weight",
@@ -174,6 +176,8 @@ def get_options(args=None):
 
     if options.viaEdgeTypes:
         options.viaEdgeTypes = options.viaEdgeTypes.split(',')
+    if options.fringe_speed_exponent is None:
+        options.fringe_speed_exponent = options.speed_exponent
 
     return options
 
@@ -275,7 +279,10 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 prob *= edge.getLength()
         if options.lanes:
             prob *= edge.getLaneNumber()
-        prob *= (edge.getSpeed() ** options.speed_exponent)
+        if edge.is_fringe():
+            prob *= (edge.getSpeed() ** options.fringe_speed_exponent)
+        else:
+            prob *= (edge.getSpeed() ** options.speed_exponent)
         if (options.fringe_factor != 1.0 and
                 not options.pedestrians and
                 fringe_bonus is not None and

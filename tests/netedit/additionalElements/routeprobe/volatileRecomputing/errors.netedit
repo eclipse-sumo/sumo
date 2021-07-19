@@ -8,6 +8,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
@@ -16,16 +17,19 @@ Debug: Adding routeProbe 'routeProbe_06' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
+Error: Attribute 'file' is missing in definition of routeProbe 'routeProbe_10'.
+Error: Attribute 'file' is missing in definition of routeProbe 'routeProbe_11'.
+Error: Attribute 'file' is missing in definition of routeProbe 'routeProbe_12'.
 Debug: Adding routeProbe 'routeProbe_13' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun142428.2364\netedit.gui\additionalElements\routeprobe\volatileRecomputing\input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -58,19 +62,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-14.20,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,14.20
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,47.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_05' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_06' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_13' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
-Debug: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-15.20,10.00,15.20
@@ -96,19 +87,6 @@ Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
-Debug: Deleting unreferenced routeProbe 'routeProbe_17'
-Debug: Deleting unreferenced routeProbe 'routeProbe_16'
-Debug: Deleting unreferenced routeProbe 'routeProbe_15'
-Debug: Deleting unreferenced routeProbe 'routeProbe_14'
-Debug: Deleting unreferenced routeProbe 'routeProbe_13'
-Debug: Deleting unreferenced routeProbe 'routeProbe_09'
-Debug: Deleting unreferenced routeProbe 'routeProbe_08'
-Debug: Deleting unreferenced routeProbe 'routeProbe_07'
-Debug: Deleting unreferenced routeProbe 'routeProbe_06'
-Debug: Deleting unreferenced routeProbe 'routeProbe_05'
-Debug: Deleting unreferenced routeProbe 'routeProbe_03'
-Debug: Deleting unreferenced routeProbe 'routeProbe_02'
-Debug: Deleting unreferenced routeProbe 'routeProbe_01'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -132,5 +110,21 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_01' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_02' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_03' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_05' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_06' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_07' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_08' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_09' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_13' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_14' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_15' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_16' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_17' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

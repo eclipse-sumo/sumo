@@ -32,6 +32,7 @@ traci.start([sumoBinary,
              "-n", "input_net.net.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
+             #"--step-length", "0.25",
              ] + sys.argv[1:])
 
 vehID = "ego"
@@ -41,8 +42,8 @@ while traci.simulation.getMinExpectedNumber() > 0:
     try:
         followerAutoDist = traci.vehicle.getFollower(vehID)
         followerLowDist = traci.vehicle.getFollower(vehID, 5)
-        print("%s: followerAuto=%s followerShort=%s" % (
-            t, followerAutoDist, followerLowDist))
+        print("%s: egoLane=%s followerAuto=%s followerShort=%s" % (
+            t, traci.vehicle.getLaneID(vehID), followerAutoDist, followerLowDist))
     except traci.TraCIException:
         # ego left the simulation
         break

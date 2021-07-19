@@ -1,5 +1,6 @@
 GLDebug: initJunctionsAndEdges function called in GNENet constructor
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Enabled auto opposite edge throught alt + 5
 Debug: Adding junction 'gneJ0' into net
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary 38.00,78.00,62.00,102.00

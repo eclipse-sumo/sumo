@@ -1,10 +1,10 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'calibrator' in TagSelector
-Debug: Format of optional optional string attribute 'routeProbe' of calibrator with ID 'calibrator_gneE2_0' is invalid; RouteProbe ID contains invalid characters; Default value will be used.
 Debug: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
 Debug: Value 'dummyFreq' for attribute freq of calibrator isn't valid
-Debug: Value '-12' for attribute freq of calibrator isn't valid
+Debug: Value 'dummyFreq' for attribute freq of calibrator isn't valid
 Debug: Setting new attribute freq '12.5' into calibrator 'calibrator_gneE2_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

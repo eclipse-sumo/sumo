@@ -124,8 +124,8 @@ public:
     /// @}
 
     /* @brief method for setting the special color of the connection
-    * @param[in] color Pointer to new special color
-    */
+     * @param[in] color Pointer to new special color
+     */
     void setSpecialColor(const RGBColor* Color2);
 
     /// @name inherited from GNEAttributeCarrier

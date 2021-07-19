@@ -1,0 +1,12 @@
+# started and ended information is available for the first of two trains
+first_ended
+
+# started and ended information is available for the second of two trains.
+# This implies an order swap.
+second_ended
+
+# started and ended information is available for both trains
+both_ended
+
+# started and ended information is available for both trains and indicates swapped order
+both_ended_swapped

@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(11, "reference center")
+netedit.changeDefaultValue(12, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,10 +47,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(4, "%%%$$$$%$", True)
+netedit.modifyAttribute(5, "%%%$$$$%$", True)
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(4, "new Parking Area Name", True)
+netedit.modifyAttribute(5, "new Parking Area Name", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

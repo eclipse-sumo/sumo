@@ -153,7 +153,17 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, double length, double foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
+    MSLink(MSLane* predLane,
+            MSLane* succLane,
+            MSLane* via,
+            LinkDirection dir,
+            LinkState state,
+            double length,
+            double foeVisibilityDistance,
+            bool keepClear,
+            MSTrafficLightLogic* logic,
+            int tlLinkIdx,
+            bool indirect);
 
 
     /// @brief Destructor
@@ -424,6 +434,11 @@ public:
     /// @brief whether the junction after this link must be kept clear
     bool keepClear() const {
         return myKeepClear;
+    }
+
+    /// @brief whether this link is the start of an indirect turn
+    bool isIndirect() const {
+        return myAmIndirect;
     }
 
     /// @brief whether this is a link past an internal junction which currently has priority
@@ -722,6 +737,9 @@ private:
 
     MSLink* myParallelRight;
     MSLink* myParallelLeft;
+
+    /// @brief whether this connection is an indirect turning movement
+    const bool myAmIndirect;
 
     /// @brief the junction to which this link belongs
     MSJunction* myJunction;

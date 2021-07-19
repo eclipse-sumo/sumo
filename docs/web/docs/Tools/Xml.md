@@ -10,7 +10,7 @@ opened in [LibreOffice](http://www.libreoffice.org/) or Microsoft Excel.
 Usage:
 
 ```
-python xml2csv.py input.xml
+python tools/xml/xml2csv.py input.xml
 ```
 
 With the option **--separator** {{DT_STR}} you can customize the field separator (default is
@@ -39,7 +39,7 @@ limited to only one type of child elements.
 This is the inverse tool to xml2csv.py. Usage:
 
 ```
-python csv2xml.py -x schema.xsd input.csv
+python tools/xml/csv2xml.py -x schema.xsd input.csv
 ```
 
 The options have the same meaning as above. For some file types as
@@ -57,7 +57,7 @@ require the protoc compiler as well as the protobuf packages for python
 and your target language to be installed. Usage:
 
 ```
-python xml2protobuf.py -x schema.xsd input.xml
+python tools/xml/xml2protobuf.py -x schema.xsd input.xml
 ```
 
 The xsd schema file needs to be given the using **--xsd** {{DT_FILE}} and the **--validation** option will
@@ -72,7 +72,7 @@ protomsg file containing the binary stream.
 This is the inverse tool to xml2protobuf.py. Usage:
 
 ```
-python protobuf2xml.py -x schema.xsd input.protomsg
+python tools/xml/protobuf2xml.py -x schema.xsd input.protomsg
 ```
 
 The options have the same meaning as above.
@@ -90,6 +90,6 @@ This sets/removes the specified attribute on all tags (elements) in the input fi
 If option **--value** (**-v**) is not given, the attribute is removed. Otherwise it is added/modified to the given value.
 
 ```
-python tools/xml/changeAttrbiute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
+python tools/xml/tools/xml/changeAttrbiute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
 ```
 

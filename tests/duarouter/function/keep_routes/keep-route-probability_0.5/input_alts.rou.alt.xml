@@ -1,0 +1,9 @@
+<routes>
+    <!-- strongly prefer shortest route unless skipping -->
+    <vType id="DEFAULT_VEHTYPE" maxSpeed="10"/>
+    <route id="detour" edges="beg beg2left left left2end end rend"/>
+    <flow id="0" begin="0" end="100" number="10">
+        <route edges="beg beg2left left left2end end rend"/>
+    </flow>
+    <flow id="1" begin="0" end="100" route="detour" number="10"/>
+</routes>

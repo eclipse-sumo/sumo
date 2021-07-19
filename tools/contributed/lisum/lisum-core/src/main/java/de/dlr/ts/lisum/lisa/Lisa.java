@@ -27,6 +27,7 @@ import de.dlr.ts.lisum.simulation.LisumSimulation;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.maven.artifact.versioning.ComparableVersion;
 
 /**
  *
@@ -38,6 +39,7 @@ public class Lisa implements CityInterface
     private final LisaCommands lisaCommands;
     private final LisaControlUnits lisaControlUnits = new LisaControlUnits();
     private File lisaDirectory;
+    private static ComparableVersion lisaVersion = new ComparableVersion("7.2");
 
     /**
      *
@@ -132,4 +134,19 @@ public class Lisa implements CityInterface
         return this.lisaControlUnits.getControlUnit(name);
     }
 
+     /**
+     *
+     * @param lisaVersionString
+     */
+    public static void setVersion(String lisaVersionString) {
+        lisaVersion = new ComparableVersion(lisaVersionString);
+    }
+
+     /**
+     *
+     * @param version
+     */
+    public static boolean minVersion(ComparableVersion version) {
+        return lisaVersion.compareTo(version) >= 0;
+    }
 }

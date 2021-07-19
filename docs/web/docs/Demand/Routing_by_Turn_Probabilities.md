@@ -63,7 +63,7 @@ probability of 10%. Another possibility to save time on preparing the
 description is to use default values. The parameter **--turn-defaults (-T) <TURN_DEFAULTS\>** can be used to
 describe the default ratios that will be used for all junctions for all
 time steps. <TURN_DEFAULTS\> is a list of doubles, separated by a ','. To
-achieve the same behaviour as in the example above, use **--turn-defaults 20,70,10**. The values
+achieve the same behavior as in the example above, use **--turn-defaults 20,70,10**. The values
 will be applied to an edge's following edges beginning at the right edge
 (20%) and ending at the leftmost edge (10%). As the number of possible
 followers changes for different edges, the values are resampled for
@@ -77,7 +77,7 @@ the one to the left with 45%.
 For automatic, yet artificial, turn definitions generation based on the
 network structure, see [generateTurnDefs.py](../Tools/Turns.md#generateturndefspy).
 
-You can also generate turn definitions from an existing route file. see [genrateTurnRatios.py](../Tools/Turns.md#generateturnratiospy).
+You can also generate turn definitions from an existing route file. see [generateTurnRatios.py](../Tools/Turns.md#generateturnratiospy).
 
 ## Sinks Definitions
 

@@ -2,6 +2,7 @@ add_subdirectory(common)
 add_subdirectory(distribution)
 add_subdirectory(emissions)
 add_subdirectory(geom)
+add_subdirectory(handlers)
 add_subdirectory(importio)
 add_subdirectory(iodevices)
 add_subdirectory(options)
@@ -17,7 +18,7 @@ if (FOX_FOUND)
 endif ()
 
 if (SUMO_UTILS)
-    set(utillibs utils_distribution utils_shapes utils_options utils_xml
+    set(utillibs utils_distribution utils_handlers utils_shapes utils_options utils_xml
         utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${PROJ_LIBRARY})
     file(WRITE empty.cpp "")
     add_library(sumoutils SHARED empty.cpp)

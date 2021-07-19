@@ -213,6 +213,7 @@ public:
     static const int FOUR_CONTROL_POINTS;
     static const int AVOID_INTERSECTING_LEFT_TURNS;
     static const int SCURVE_IGNORE;
+    static const int INDIRECT_LEFT;
 
 public:
     /**@brief Constructor
@@ -607,6 +608,8 @@ public:
             bool& ok, NBNode* recordError = 0, double straightThresh = DEG2RAD(5),
             int shapeFlag = 0);
 
+    /// @brief compute shape of indirect left turn
+    PositionVector indirectLeftShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints) const;
 
     /// @brief compute the displacement error during s-curve computation
     double getDisplacementError() const {
@@ -838,6 +841,9 @@ private:
                          const std::set<const NBEdge*, ComparatorIdLess>& sub);
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
+
+    /// @brief ensure connectivity for all vClasses
+    void recheckVClassConnections(NBEdge* currentOutgoing);
 
     /// @brief get the reduction in driving lanes at this junction
     void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const;

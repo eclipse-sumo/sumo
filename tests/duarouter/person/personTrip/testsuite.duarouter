@@ -170,6 +170,12 @@ car_access_allJunctions
 # ride to train station and use access
 car_access_ptStops
 
+# test reading trips with geo-coordinates
+geoTrips
+
+# test reading trips with geo-coordinates
+geoTrips_lonLat
+
 # test routing taxi trips
 taxi
 errors

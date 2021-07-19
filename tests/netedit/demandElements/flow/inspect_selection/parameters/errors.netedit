@@ -16,6 +16,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding flow 'flowA' in GNEChange_DemandElement
 Debug: Adding flow 'flowB' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
@@ -67,6 +68,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into flow 'flowA'
 Debug: Setting new attribute selected 'true' into flow 'flowB'
+Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flow 'flowA'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flow 'flowB'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into flow 'flowA'
@@ -228,3 +230,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destru
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :27096.0 broken (explicit kill or server shutdown).

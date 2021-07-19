@@ -308,11 +308,20 @@ public:
     /// @brief toggle hide shapes in super mode demand
     long onCmdToggleHideShapes(FXObject*, FXSelector, void*);
 
+    /// @brief toggle show all trips in super mode demand
+    long onCmdToggleShowTrips(FXObject*, FXSelector, void*);
+
     /// @brief toggle show all person plans in super mode demand
     long onCmdToggleShowAllPersonPlans(FXObject*, FXSelector, void*);
 
     /// @brief toggle lock person in super mode demand
     long onCmdToggleLockPerson(FXObject*, FXSelector, void*);
+
+    /// @brief toggle show all container plans in super mode demand
+    long onCmdToggleShowAllContainerPlans(FXObject*, FXSelector, void*);
+
+    /// @brief toggle lock container in super mode demand
+    long onCmdToggleLockContainer(FXObject*, FXSelector, void*);
 
     /// @brief toggle show additionals in super mode data
     long onCmdToggleShowAdditionals(FXObject*, FXSelector, void*);
@@ -617,7 +626,7 @@ private:
     bool restrictLane(SUMOVehicleClass vclass);
 
     /// @brief add restricted lane
-    bool addRestrictedLane(SUMOVehicleClass vclass);
+    bool addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront);
 
     /// @brief remove restricted lane
     bool removeRestrictedLane(SUMOVehicleClass vclass);

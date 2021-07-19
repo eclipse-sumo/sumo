@@ -32,6 +32,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSStoppingPlace.h>
 
 #include "MSDispatch.h"
 #include "MSDispatch_Greedy.h"
@@ -149,6 +150,11 @@ MSDevice_Taxi::initDispatch() {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myDispatchCommand, now + delay);
 }
 
+bool
+MSDevice_Taxi::isReservation(const std::set<std::string>& lines) {
+    return lines.size() == 1 && *lines.begin() == TAXI_SERVICE;
+}
+
 void
 MSDevice_Taxi::addReservation(MSTransportable* person,
                               const std::set<std::string>& lines,
@@ -157,12 +163,23 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
                               const MSEdge* from, double fromPos,
                               const MSEdge* to, double toPos,
                               const std::string& group) {
-    if (lines.size() == 1 && *lines.begin() == TAXI_SERVICE) {
-        if (myDispatchCommand == nullptr) {
-            initDispatch();
-        }
-        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity, myMaxContainerCapacity);
+    if (!isReservation(lines)) {
+        return;
     }
+    if ((to->getPermissions() & SVC_TAXI) == 0) {
+        throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
+                           + " '" + person->getID() + "' because destination edge '" + to->getID() + "'"
+                           + " does not permit taxi access");
+    }
+    if ((from->getPermissions() & SVC_TAXI) == 0) {
+        throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
+                           + " '" + person->getID() + "' because origin edge '" + from->getID() + "'"
+                           + " does not permit taxi access");
+    }
+    if (myDispatchCommand == nullptr) {
+        initDispatch();
+    }
+    myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity, myMaxContainerCapacity);
 }
 
 void
@@ -457,7 +474,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     }
     lastPos = stopPos;
     SUMOVehicleParameter::Stop stop;
-    stop.lane = getStopLane(stopEdge)->getID();
+    stop.lane = getStopLane(stopEdge, action)->getID();
     stop.startPos = stopPos;
     stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));
     stop.parking = getBoolParam(myHolder, OptionsCont::getOptions(), "taxi.parking", true, false);
@@ -468,10 +485,10 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
 
 
 MSLane*
-MSDevice_Taxi::getStopLane(const MSEdge* edge) {
+MSDevice_Taxi::getStopLane(const MSEdge* edge, const std::string& action) {
     const std::vector<MSLane*>* allowedLanes = edge->allowedLanes(myHolder.getVClass());
     if (allowedLanes == nullptr) {
-        throw ProcessError("Taxi '" + myHolder.getID() + "' cannot pick up person on edge '" + edge->getID() + "'");
+        throw ProcessError("Taxi vehicle '" + myHolder.getID() + "' cannot stop on edge '" + edge->getID() + "' (" + action + ")");
     }
     return allowedLanes->front();
 }
@@ -617,6 +634,10 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
         return toString(myState);
     } else if (key == "currentCustomers") {
         return joinNamedToStringSorting(myCustomers, " ");
+    } else if (key == "pickUpDuration") {
+        return getStringParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", "0", false);
+    } else if (key == "dropOffDuration") {
+        return getStringParam(myHolder, OptionsCont::getOptions(), "taxi.dropOffDuration", "60", false);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -630,8 +651,13 @@ MSDevice_Taxi::setParameter(const std::string& key, const std::string& value) {
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
-    UNUSED_PARAMETER(doubleValue);
-    throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    if (key == "pickUpDuration" || key == "dropOffDuration") {
+        // store as generic vehicle parameters
+        ((SUMOVehicleParameter&)myHolder.getParameter()).setParameter("device.taxi." + key, value);
+    } else {
+        UNUSED_PARAMETER(doubleValue);
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    }
 }
 
 

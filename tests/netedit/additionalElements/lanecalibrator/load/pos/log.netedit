@@ -1,3 +1,3 @@
-Warning: Essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator01' is missing; laneCalibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator02' is invalid; Cannot be parsed to float; laneCalibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator03' is invalid; Cannot be negative; laneCalibrator cannot be created
+Error: Attribute 'pos' is missing in definition of calibrator 'calibrator01'.
+Error: Attribute 'pos' in definition of calibrator 'calibrator02' is not of type float.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\pos\input_additionals.add.xml failed.

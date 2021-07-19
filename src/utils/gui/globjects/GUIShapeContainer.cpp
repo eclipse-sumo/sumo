@@ -43,9 +43,9 @@ GUIShapeContainer::~GUIShapeContainer() {}
 
 bool
 GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                          const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                          const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
                           const std::string& imgFile, bool relativePath, double width, double height, bool /* ignorePruning */) {
-    GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height);
+    GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height);
     FXMutexLock locker(myLock);
     if (!myPOIs.add(id, p)) {
         if (myAllowReplacement) {
@@ -68,8 +68,9 @@ bool
 GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
                               const RGBColor& color, double layer,
                               double angle, const std::string& imgFile, bool relativePath,
-                              const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /* ignorePruning */) {
-    GUIPolygon* p = new GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath);
+                              const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /* ignorePruning */,
+                              const std::string& name) {
+    GUIPolygon* p = new GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name);
     FXMutexLock locker(myLock);
     if (!myPolygons.add(id, p)) {
         if (myAllowReplacement) {
@@ -194,5 +195,10 @@ GUIShapeContainer::getPolygonIDs() const {
     return ret;
 }
 
+
+void 
+GUIShapeContainer::allowReplacement() {
+    myAllowReplacement = true;
+}
 
 /****************************************************************************/

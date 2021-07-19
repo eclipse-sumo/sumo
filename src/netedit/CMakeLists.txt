@@ -27,6 +27,8 @@ set(netedit_SRCS
    GNEGeometry.cpp
    GNEMoveElement.h
    GNEMoveElement.cpp
+   GNEPathManager.h
+   GNEPathManager.cpp
    GNEReferenceCounter.h
    GNEEvent_NetworkLoaded.h
 )

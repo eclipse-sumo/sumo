@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_8_0+1567-230a699
+Eclipse SUMO marouter Version v1_9_2+0021-08879bef84
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -59,6 +59,8 @@ Processing Options:
   --aggregation-interval TIME        Defines the time interval when aggregating
                                       single vehicle input; Defaults to one hour
   --max-alternatives INT             Prune the number of alternatives to INT
+  --capacities.default               Ignore edge priorities when calculating
+                                      capacities and restraints
   --weights.interpolate              Interpolate edge weights at interval
                                       boundaries
   --weights.expand                   Expand weights behind the simulation's end

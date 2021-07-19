@@ -147,57 +147,46 @@ integrated approach by now.
 <tr class="odd">
 <td><p>Daniel Krajzewicz</p></td>
 <td><p>Everything</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td><p>Julia Ringel</p></td>
 <td><p>Traffic Light &amp; WAUT Algorithms</p></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><p>Eric Nicolay</p></td>
 <td><p>Everything</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td><p>Michael Behrisch</p></td>
 <td><p>Everything</p></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><p>Yun-Pang Wang</p></td>
 <td><p>User Assignment</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td><p>Danilot Teta Boyom</p></td>
 <td><p>Vehicular Communication Model (removed from the source)</p></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><p>Sascha Krieg</p></td>
-<td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><p>Lena Kalleske</p></td>
 <td></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><p>Laura Bieker</p></td>
 <td><p>Tests, Python scripts</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td><p>Jakob Erdmann</p></td>
 <td><p>network import, <a href="netedit/index.html">netedit</a></p></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><p>Andreas Gaubatz</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td></td>
@@ -212,12 +201,10 @@ integrated approach by now.
 <tr class="even">
 <td><p>Thimor Bohn</p></td>
 <td><p>TraCI</p></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><p>Friedemann Wesner</p></td>
 <td><p>TraCI</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td></td>
@@ -243,17 +230,14 @@ integrated approach by now.
 <tr class="odd">
 <td><p>David Eckhoff</p></td>
 <td><p>TraCI, deterministic simulation behavior</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td><p>Falko Dressler</p></td>
 <td><p>TraCI</p></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><p>Tobias Mayer</p></td>
 <td><p>Traffic model abstraction, IDM model port</p></td>
-<td></td>
 </tr>
 <tr class="even">
 <td><p>HU Berlin</p></td>
@@ -270,11 +254,9 @@ integrated approach by now.
 <tr class="even">
 <td><p>Walter Bamberger</p></td>
 <td><p>Development of <a href="activitygen.html">activitygen</a> as a base for the evaluation of trust scenarios in VANETs. The work is part of the project <a href="http://www.ldv.ei.tum.de/fidens/">Fidens: Trust between Cooperative Systems</a> featuring trusted probabilistic knowledge processing in vehicular networks.</p></td>
-<td></td>
 </tr>
 <tr class="odd">
 <td><p>Matthew Fullerton</p></td>
-<td></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -303,3 +285,5 @@ integrated approach by now.
 </tr>
 </tbody>
 </table>
+
+and many [other contributors]({{Source}}AUTHORS).

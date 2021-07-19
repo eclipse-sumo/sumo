@@ -29,11 +29,10 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
-    '-v',
-    '--duration-log.disable', 'false',
-    ] + sys.argv[1:])
+             '-v',
+             '--duration-log.disable', 'false',
+             ] + sys.argv[1:])
 
 for i in range(10):
     traci.simulationStep()

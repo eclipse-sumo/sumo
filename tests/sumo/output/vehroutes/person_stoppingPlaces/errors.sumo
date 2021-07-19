@@ -1,0 +1,7 @@
+Warning: Person 'p24' is jammed on edge 'end', time=1782.00.
+Warning: Person 'p25' is jammed on edge 'end', time=2557.00.
+Warning: Person 'p1' aborted waiting for ANY at busStop 'bs'.
+Warning: Person 'p2' aborted waiting for ANY at busStop 'ts'.
+Warning: Person 'p3' aborted waiting for ANY at busStop 'cs'.
+Warning: Person 'p4' aborted waiting for ANY at busStop 'pa'.
+Warning: Person 'p5' aborted waiting for ANY at busStop 'cc'.

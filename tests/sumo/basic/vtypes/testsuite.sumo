@@ -35,5 +35,9 @@ vclass_specific_speed_limit_internal
 # infer vClass-specific speed restriction of internal edge from successor and predecessor type and then apply restrictions on junction
 vclass_specific_speed_limit_internal_2types
 
+# infer vClass-specific speed restriction of internal edge from successor and predecessor type and then apply restrictions on junction.
+# Network was built with option --junctions.higher-speed
+vclass_specific_speed_limit_internal_2types_higherSpeed
+
 # The vehicles are defined with an invalid type
 invalid_type

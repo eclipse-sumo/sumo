@@ -23,6 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEShape.h"
 
@@ -31,15 +32,16 @@
 // method definitions
 // ===========================================================================
 
-GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool movementBlocked,
-                   const std::vector<GNEJunction*>& junctionParents,
-                   const std::vector<GNEEdge*>& edgeParents,
-                   const std::vector<GNELane*>& laneParents,
-                   const std::vector<GNEAdditional*>& additionalParents,
-                   const std::vector<GNEShape*>& shapeParents,
-                   const std::vector<GNETAZElement*>& TAZElementParents,
-                   const std::vector<GNEDemandElement*>& demandElementParents,
-                   const std::vector<GNEGenericData*>& genericDataParents) :
+GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+        const std::vector<GNEJunction*>& junctionParents,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNETAZElement*>& TAZElementParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        bool movementBlocked) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     myBlockMovement(movementBlocked) {
@@ -71,7 +73,7 @@ void
 GNEShape::draw(const Position& pos, double layer, double size) const {
     if (myNet->getViewNet()->showLockIcon()) {
         // Start pushing matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Traslate to middle of shape
         glTranslated(pos.x(), pos.y(), layer + 0.1);
         // Rotate 180 degrees
@@ -82,22 +84,22 @@ GNEShape::draw(const Position& pos, double layer, double size) const {
         if (mySelected) {
             if (myBlockMovement) {
                 // Draw lock texture if shape is movable, is blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LOCK_SELECTED), size);
             } else {
                 // Draw empty texture if shape is movable, isn't blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::EMPTY_SELECTED), size);
             }
         } else {
             if (myBlockMovement) {
                 // Draw lock texture if shape is movable and is blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LOCK), size);
             } else {
                 // Draw empty texture if shape is movable and isn't blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTY), size);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::EMPTY), size);
             }
         }
         // Pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

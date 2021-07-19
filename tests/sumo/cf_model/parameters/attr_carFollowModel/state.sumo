@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 21 17:19:41 2021 by Eclipse SUMO sumo Version v1_8_0+0648-16ba97d7de
+<!-- generated on 2021-05-27 16:25:26 by Eclipse SUMO sumo Version v1_9_2+0085-7da2bb1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0648-16ba97d7de" time="2.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0085-7da2bb1" time="2.00" type="micro">
     <route id="!0" state="0" edges="1si"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="idm" length="5.00" minGap="2.00" carFollowModel="IDM" accel="0.5" decel="3" tau="1" delta="1"/>
@@ -40,4 +40,5 @@ SPDX-License-Identifier: EPL-2.0
     <lane id="1si_0">
         <vehicles value="0"/>
     </lane>
+    <tlLogic id="0" programID="0" phase="0" duration="2000"/>
 </snapshot>

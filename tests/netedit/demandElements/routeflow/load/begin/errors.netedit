@@ -16,24 +16,19 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_0'.
 Error: Attribute 'begin' in definition of flow 'flow_1' is empty.
-Error: flow cannot be created
-Error: Attribute 'begin' in definition of flow 'flow_2' is not a time value.
-Error: flow cannot be created
-Error: Negative begin time in the definition of flow 'flow_3'.
-Error: Flow 'flow_4' ends before its begin time.
-Debug: Adding flowRoute 'flow_5' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.3_from_16Feb165957.10892\netedit.gui\demandElements\routeflow\load\begin\input_routes.rou.xml failed.
+Error: Invalid begin time for flow 'flow_1';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_21Jun131711.2112\netedit.gui\demandElements\routeflow\load\begin\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing flowRoute 'flow_5' in GNEChange_DemandElement
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Adding flowRoute 'flow_5' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
@@ -82,7 +77,6 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced flowRoute 'flow_5'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

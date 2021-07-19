@@ -41,19 +41,19 @@ netedit.changeDefaultValue(4, "white")
 netedit.changeDefaultBoolValue(5)
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(9, "%%$%$&$%$%$")
+netedit.changeDefaultValue(10, "%%$%$&$%$%$")
 
 # try to create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # change imgfile (inexistent)
-netedit.changeDefaultValue(9, "paris.ico")
+netedit.changeDefaultValue(10, "paris.ico")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 282, 130, 200, True)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(9, "berlin_icon.ico")
+netedit.changeDefaultValue(10, "berlin_icon.ico")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)

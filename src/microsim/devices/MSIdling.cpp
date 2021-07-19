@@ -50,7 +50,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         double brakeGap = 0;
         std::pair<const MSLane*, double> stopPos;
         if (MSGlobals::gUseMesoSim) {
-            stopPos = std::make_pair(taxi->getHolder().getLane(), taxi->getHolder().getPositionOnLane());
+            stopPos = std::make_pair((*taxi->getHolder().getCurrentRouteEdge())->getLanes()[0], taxi->getHolder().getPositionOnLane());
         } else {
             MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
             brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed());

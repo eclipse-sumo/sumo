@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'vaporizer' in TagSelector
 Debug: Invalid input parameter of vaporizer: 'end' doesn't have a valid SUMOTime format

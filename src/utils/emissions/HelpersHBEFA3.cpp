@@ -24,6 +24,8 @@
 #include <limits>
 #include <cmath>
 #include <algorithm>
+#include <utils/common/StringUtils.h>
+
 #include "HelpersHBEFA3.h"
 
 
@@ -453,13 +455,13 @@ HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3", HBEFA3_BA
     std::string heavy[] = { "Bus", "Coach", "HDV", "HDV_G", "HDV_D_EU0", "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East"};
     for (int i = 0; i < 33; i++) {
         myEmissionClassStrings.insert(light[i], index);
-        std::transform(light[i].begin(), light[i].end(), light[i].begin(), tolower);
+        light[i] = StringUtils::to_lower_case(light[i]);
         myEmissionClassStrings.addAlias(light[i], index);
         index++;
     }
     for (int i = 0; i < 12; i++) {
         myEmissionClassStrings.insert(heavy[i], index | PollutantsInterface::HEAVY_BIT);
-        std::transform(heavy[i].begin(), heavy[i].end(), heavy[i].begin(), tolower);
+        heavy[i] = StringUtils::to_lower_case(heavy[i]);
         myEmissionClassStrings.addAlias(heavy[i], index | PollutantsInterface::HEAVY_BIT);
         index++;
     }

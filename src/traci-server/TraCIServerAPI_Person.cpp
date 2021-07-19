@@ -136,6 +136,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != libsumo::MOVE_TO_XY
             && variable != libsumo::VAR_SPEED
             && variable != libsumo::VAR_TYPE
+            && variable != libsumo::VAR_SPEED_FACTOR
             && variable != libsumo::VAR_LENGTH
             && variable != libsumo::VAR_WIDTH
             && variable != libsumo::VAR_HEIGHT
@@ -177,6 +178,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 libsumo::Person::setType(id, vTypeID);
                 break;
             }
+            case libsumo::VAR_SPEED_FACTOR: {
+                double speedfactor = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, speedfactor)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting SpeedFactor requires a double.", outputStorage);
+                }
+                libsumo::Person::setSpeedFactor(id, speedfactor);
+            }
+            break;
             case libsumo::VAR_COLOR: {
                 libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
@@ -337,8 +346,8 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person requires a compound object.", outputStorage);
                 }
                 const int numArgs = inputStorage.readInt();
-                if (numArgs != 5) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person should obtain: edgeID, x, y, angle and keepRouteFlag.", outputStorage);
+                if (numArgs != 5 && numArgs != 6) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person should obtain: edgeID, x, y, angle, keepRouteFlag and optionally matchThreshold.", outputStorage);
                 }
                 // edge ID
                 std::string edgeID;
@@ -364,7 +373,13 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The fifth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
                 }
-                libsumo::Person::moveToXY(id, edgeID, x, y, angle, keepRouteFlag);
+                double matchThreshold = 100;
+                if (numArgs == 6) {
+                    if (!server.readTypeCheckingDouble(inputStorage, matchThreshold)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth parameter for moveToXY must be the matchThreshold given as a double.", outputStorage);
+                    }
+                }
+                libsumo::Person::moveToXY(id, edgeID, x, y, angle, keepRouteFlag, matchThreshold);
             }
             break;
             case libsumo::VAR_PARAMETER: {

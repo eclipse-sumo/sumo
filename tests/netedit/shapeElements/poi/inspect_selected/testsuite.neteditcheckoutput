@@ -23,9 +23,6 @@ relativepath
 # edit POI angle
 angle
 
-# edit use geo
-geo_use
-
 # edit POI parameters
 parameters
 

@@ -455,9 +455,11 @@ def parse_args():
                          dest="patchImport",
                          default=False, help="generate patch that can be applied during initial network import" +
                          " (exports additional connection elements)")
-    optParser.add_option(
-        "-c", "--copy", help="comma-separated list of element names to copy (if they are unchanged)")
+    optParser.add_option("-c", "--copy",
+                         help="comma-separated list of element names to copy (if they are unchanged)")
     optParser.add_option("--path", dest="path", help="Path to binaries")
+    optParser.add_option("--remove-plain", action="store_true",
+                         help="avoid saving plain xml files of source and destination networks")
     options, args = optParser.parse_args()
     if len(args) != 3:
         sys.exit(USAGE)
@@ -590,6 +592,9 @@ def main():
                     type,
                     copy_tags,
                     options.patchImport)
+            if options.remove_plain:
+                os.remove(options.source + type)
+                os.remove(options.dest + type)
 
 
 if __name__ == "__main__":

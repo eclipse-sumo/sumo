@@ -64,8 +64,8 @@ public:
     /** @brief Constructor
      */
     CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename SUMOAbstractRouter<E, V>::Operation operation,
-                    const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, const int numThreads) :
-        SUMOAbstractRouter<E, V>("CHRouterWrapper", ignoreErrors, operation, nullptr, false, false),
+                    const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, bool havePermissions, const int numThreads) :
+        SUMOAbstractRouter<E, V>("CHRouterWrapper", ignoreErrors, operation, nullptr, havePermissions, false),
         myEdges(edges),
         myIgnoreErrors(ignoreErrors),
         myBegin(begin),
@@ -82,7 +82,7 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        CHRouterWrapper<E, V>* clone = new CHRouterWrapper<E, V>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, myMaxNumInstances);
+        CHRouterWrapper<E, V>* clone = new CHRouterWrapper<E, V>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, this->myHavePermissions, myMaxNumInstances);
         for (const auto& item : myRouters) {
             clone->myRouters[item.first] = static_cast<CHRouterType*>(item.second->clone());
         }

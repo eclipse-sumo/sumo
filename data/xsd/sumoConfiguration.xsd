@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO sumo Version v1_8_0+1985-b3699bc617
+<!-- generated on 2021-05-17 19:55:17 by Eclipse SUMO sumo Version v1_9_1+0332-3c09636b84
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -27,6 +27,7 @@
             <xsd:element name="fcd_device" type="fcd_deviceTopicType" minOccurs="0"/>
             <xsd:element name="elechybrid_device" type="elechybrid_deviceTopicType" minOccurs="0"/>
             <xsd:element name="taxi_device" type="taxi_deviceTopicType" minOccurs="0"/>
+            <xsd:element name="glosa_device" type="glosa_deviceTopicType" minOccurs="0"/>
             <xsd:element name="tripinfo_device" type="tripinfo_deviceTopicType" minOccurs="0"/>
             <xsd:element name="vehroutes_device" type="vehroutes_deviceTopicType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverTopicType" minOccurs="0"/>
@@ -88,6 +89,7 @@
             <xsd:element name="person-summary-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tripinfo-output.write-undeparted" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.exit-times" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.last-route" type="boolOptionType" minOccurs="0"/>
@@ -172,6 +174,7 @@
             <xsd:element name="overhead-wire-solver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emergencydecel.warning-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="parking.maneuver" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="use-stop-ended" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
@@ -386,6 +389,17 @@
             <xsd:element name="device.taxi.dispatch-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm.output" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="glosa_deviceTopicType">
+        <xsd:all>
+            <xsd:element name="device.glosa.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.range" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.max-speedfactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.min-speed" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

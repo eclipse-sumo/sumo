@@ -5,7 +5,6 @@ Warning: Vehicle 'flow_1.23' ends teleporting on edge 'CS', time 141.00.
 Warning: Teleporting vehicle 'flow_1.25'; junction collision with vehicle 'flow_2.7', lane=':C_1_1', gap=-1.00', latGap=0.00, time=146.00 stage=move.
 Warning: Vehicle 'flow_1.25' ends teleporting on edge 'CS', time 146.00.
 Warning: Teleporting vehicle 'flow_0.37'; junction collision with vehicle 'flow_2.21', lane=':C_9_0', gap=-1.00', latGap=0.00, time=315.00 stage=move.
-Warning: Teleporting vehicle 'flow_0.37'; junction collision with vehicle 'flow_2.22', lane=':C_9_0', gap=-1.00', latGap=0.00, time=315.00 stage=move.
 Warning: Vehicle 'flow_0.37' ends teleporting on edge 'CN', time 315.00.
 Warning: Teleporting vehicle 'flow_1.59'; junction collision with vehicle 'flow_2.20', lane=':C_1_1', gap=-1.00', latGap=0.00, time=324.00 stage=move.
 Warning: Vehicle 'flow_1.59' ends teleporting on edge 'CS', time 325.00.
@@ -29,5 +28,9 @@ Warning: Vehicle 'flow_1.166' ends teleporting on edge 'CS', time 861.00.
 Warning: Vehicle 'flow_1.167' ends teleporting on edge 'CS', time 861.00.
 Warning: Teleporting vehicle 'flow_1.168'; junction collision with vehicle 'flow_2.65', lane=':C_1_1', gap=-1.00', latGap=0.00, time=864.00 stage=move.
 Warning: Vehicle 'flow_1.168' ends teleporting on edge 'CS', time 864.00.
+Warning: Teleporting vehicle 'flow_0.129'; junction collision with vehicle 'flow_2.75', lane=':C_9_0', gap=-1.00', latGap=0.00, time=951.00 stage=move.
+Warning: Vehicle 'flow_0.129' ends teleporting on edge 'CN', time 951.00.
+Warning: Teleporting vehicle 'flow_2.76'; junction collision with vehicle 'flow_0.132', lane=':C_10_0', gap=-1.00', latGap=0.00, time=952.00 stage=move.
+Warning: Vehicle 'flow_2.76' ends teleporting on edge 'CW', time 952.00.
 Warning: Teleporting vehicle 'flow_1.188'; junction collision with vehicle 'flow_2.74', lane=':C_1_1', gap=-1.00', latGap=0.00, time=956.00 stage=move.
 Warning: Vehicle 'flow_1.188' ends teleporting on edge 'CS', time 956.00.

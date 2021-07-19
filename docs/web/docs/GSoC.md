@@ -102,7 +102,7 @@ accounting principles to ensure balanced books and accurate reports.
 
 ## Why is your organization applying to participate in Google Summer of Code 2012? What do you hope to gain by participating?
 
-The aim of the SUMO project lies in strengthening the microscop-traffic
+The aim of the SUMO project lies in strengthening the microscopic-traffic
 simulation community. Instead of multiple short-lived projects with low
 comparability we wish to establish a standard simulation package for
 everyone to use and improve. While the first goal has been met and SUMO

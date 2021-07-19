@@ -14,6 +14,7 @@ persons ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 person count 5
 examining horiz
 speed 1.22501255666
+speedFactor 1.0
 pos (759.1336009754515, 504.95000000000005)
 pos3D (759.1336009754515, 504.95000000000005, 0.0)
 angle 270.0
@@ -42,6 +43,7 @@ persons ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 person count 5
 examining horiz
 speed 1.30985007064
+speedFactor 1.2
 pos (755.303019221229, 504.95000000000005)
 pos3D (755.303019221229, 504.95000000000005, 0.0)
 angle 270.0
@@ -94,7 +96,7 @@ remaining stages for 'newPerson' remaining plan before jump
 prio stages for 'newPerson' past plan
   -4: Stage(type=0, edges=('3si',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=225.05, description=waiting (awaiting departure))
   -3: Stage(type=2, edges=('3si', '2si'), travelTime=7.0, cost=INVALID, length=54.5277393985, depart=0.0, departPos=225.05, arrivalPos=215.05, description=walking)
-  -2: Stage(type=1, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=7.0, departPos=INVALID, arrivalPos=231.794681405, description=waiting (last stage removed))
+  -2: Stage(type=1, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=7.0, departPos=INVALID, arrivalPos=232.856344219, description=waiting (last stage removed))
   -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', ':0_10'), travelTime=10.0, cost=INVALID, length=14.1178279391, depart=7.0, departPos=INVALID, arrivalPos=9.06782793907, description=driving)
 remaining stages for 'newPerson' remaining plan after jump
   0: Stage(type=1, edges=(':0_10',), travelTime=INVALID, cost=INVALID, length=0.0, depart=17.0, departPos=INVALID, arrivalPos=9.06782793907, description=waiting (last stage removed))
@@ -104,7 +106,7 @@ remaining stages for 'newPerson' remaining plan after jump
 detour2 edges ('3si', '2o', '2fi', '2si', '4si')
 detour2 edges after routing (':0_w2', '4si')
 :0_w1
-10.0744419375
+10.2049085069
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index

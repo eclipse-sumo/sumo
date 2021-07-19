@@ -12,3 +12,9 @@ subpart_file
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 intermediate
+
+# restrict included data by departure time
+begin_end
+
+# restrict included data by departure time
+period

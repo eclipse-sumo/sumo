@@ -30,8 +30,6 @@ This model is activated using the option **--lateral-resolution** {{DT_FLOAT}}. 
 [in proceedings of
 SUMO2016](http://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
 
-!!! caution
-    The sublane model is a developing subject. It is not compatible with [opposite direction driving](../Simulation/OppositeDirectionDriving.md) so far.
 
 ## Lateral Resolution and Vehicle Position
 When the sublane model is activated, the lateral vehicle position (measured as offset from the centerline of the lane) can take on any value between [-laneWidth/2, laneWidth/2] regardless of the lateral resolution value.
@@ -157,6 +155,7 @@ with *maxSpeedLat* this constrains lateral movement speed.
   - compact: stay close to the neighboring vehicle on the right
   - nice: align with the nearest sublane boundary to the right. (to
     avoid using more sublanes than necessary)
+- **lcMaxSpeedLatStanding**, **lcMaxSpeedLatFactor**: Compute a boundary on lateral speed using lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * speed. If factor > 0 this is an upper bound on lateral speed and if factor < it acts as a lower bound.
 
 ### Misc
 

@@ -143,7 +143,7 @@ Connection::simulationStep(double time) {
 
 
 void
-Connection::send_commandSetOrder(int order) {
+Connection::setOrder(int order) {
     tcpip::Storage outMsg;
     // command length
     outMsg.writeUnsignedByte(1 + 1 + 4);
@@ -152,6 +152,9 @@ Connection::send_commandSetOrder(int order) {
     // client index
     outMsg.writeInt(order);
     mySocket.sendExact(outMsg);
+
+    tcpip::Storage inMsg;
+    check_resultState(inMsg, libsumo::CMD_SETORDER);
 }
 
 

@@ -47,7 +47,7 @@ public:
     /// @brief Destructor
     virtual ~NIXMLShapeHandler() {}
 
-    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
+    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, bool friendlyPos, double lanePosLat);
 
     virtual bool addLanePosParams() {
         return true;

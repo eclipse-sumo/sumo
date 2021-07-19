@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 23.02.2021 09:42:49 by Eclipse SUMO netedit Version v1_8_0+1342-32ebcde4b7
+<!-- generated on 2021-06-09 14:34:11 by Eclipse SUMO netedit Version v1_9_2+0429-8218a3ee18
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb094204.7308\netedit.gui\additionalElements\e2detector\move\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun141735.208\netedit.gui\additionalElements\e2detector\move\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="e2Detector_gneE0_0_0" lane="gneE0_0" pos="19.00" length="10.00" freq="900.00" file="e2Detector_gneE0_0_0.xml"/>
+    <e2Detector id="e2Detector_gneE0_0_0" lane="gneE0_0" pos="19.00" length="10.00" freq="300.00" file="e2Detector_gneE0_0_0.xml"/>
 </additional>

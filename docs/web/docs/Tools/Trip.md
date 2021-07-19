@@ -30,9 +30,10 @@ edge distribution until enough trips with sufficient distance are found.
 
 ## Randomization
 
-When running *randomTrips.py* twice with the same parameters, different
-output files will be created due to randomness. The option **--seed** {{DT_INT}} can be used
-to get repeatable pseudo-randomness.
+When running *randomTrips.py* twice with the same parameters, the same results will be created
+because the random number generator is initialized with the same value. To get "true" randomness
+(always a different output) use the option **--random**. The option **--seed** {{DT_INT}} can be used
+to set an initial value and get different but still repeatable pseudo-randomness.
 
 ## Edge Probabilities
 

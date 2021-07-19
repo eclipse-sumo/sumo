@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
 Debug: Invalid input parameter of e2Detector: 'timeThreshold' doesn't have a valid SUMOTime format

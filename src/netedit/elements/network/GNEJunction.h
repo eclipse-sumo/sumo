@@ -225,27 +225,6 @@ public:
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
-    /// @brief add path additional element (used by GNEPathElement)
-    void addPathAdditionalElement(GNEAdditional* additionalElement);
-
-    /// @brief remove path additional element (used by GNEPathElement)
-    void removePathAdditionalElement(GNEAdditional* additionalElement);
-
-    /// @brief add path demand element (used by GNEPathElement)
-    void addPathDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief remove path demand element (used by GNEPathElement)
-    void removePathDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief add path demand element (used by GNEPathElement)
-    void addPathGenericData(GNEGenericData* genericData);
-
-    /// @brief remove path demand element (used by GNEPathElement)
-    void removePathGenericData(GNEGenericData* genericData);
-
-    /// @brief invalidate path element childs
-    void invalidatePathElements();
-
 protected:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
@@ -258,15 +237,6 @@ protected:
 
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myGNECrossings;
-
-    /// @brief map with references to path additional elements
-    std::map<SumoXMLTag, std::vector<GNEAdditional*> > myPathAdditionalElements;
-
-    /// @brief map with references to path demand elements
-    std::map<SumoXMLTag, std::vector<GNEDemandElement*> > myPathDemandElements;
-
-    /// @brief map with references to path generic data elements
-    std::map<SumoXMLTag, std::vector<GNEGenericData*> > myPathGenericDatas;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxDrawingSize;
@@ -307,9 +277,9 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /**@brief reposition the node at pos without updating GRID and informs the edges
-    * @param[in] pos The new position
-    * @note: those operations are not added to the undoList.
-    */
+     * @param[in] pos The new position
+     * @note: those operations are not added to the undoList.
+     */
     void moveJunctionGeometry(const Position& pos, const bool updateEdgeBoundaries);
 
     /// @brief sets junction color depending on circumstances

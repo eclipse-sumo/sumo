@@ -397,8 +397,6 @@ public:
         return 0;
     }
 
-    SUMOTime getWaitingTime(SUMOTime now) const;
-
     std::string getStageDescription(const bool isPerson) const {
         UNUSED_PARAMETER(isPerson);
         return "waiting (" + myActType + ")";

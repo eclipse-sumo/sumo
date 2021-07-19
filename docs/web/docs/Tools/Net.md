@@ -57,6 +57,24 @@ connections are guessed during network import, all connections for an
 edge must be included in the patch file if any of them were changed. This
 is accomplished by setting **-i** (**--patch-on-import**).
 
+## patching a network different from the original
+
+Sometimes it may be useful to apply the difference between networks *A* and *B* to another network *C* than differs slightly from *A*.
+In this case it may be useful to only consider some of the changes (i.e. only created elements).
+
+If only the newly created elements in *B* (relative to *A*) shall be considered, open each of the difference files (ie. diff.edg.xml, diff.nod.xml, diff.con.xml, diff.tll.xml) and keep only the elements below the heading
+
+```
+<!-- Created Elements -->"
+```
+
+This way the patch should be applicable to network *C* regardless of how it differs from the original *A*.
+
+Sometimes, errors may occur due to inconsistent connections or traffic lights. In this case, it may be useful to only update *C* with 'diff.nod.xml and 'diff.edg.xml' and let netconvert guess
+the respective connections and traffic lights.
+
+In the end all regions where the area of *C* and *B* borders each other should be checked manually for consistency.
+
 # createRoundaboutConnections.py
 
 This script generates additional connections for roundabouts from a

@@ -16,6 +16,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding route 'route_1' in GNEChange_DemandElement
@@ -71,7 +72,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,45.80,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,34.20
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,25.80,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,54.20
-Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -121,7 +121,6 @@ Debug: Created connection 'fromgneE6_1togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_1togneE3_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE11_1' in retrieveGNEConnection()
-Debug: Deleting unreferenced busStop 'busStop'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE10_1' in GNEEdge destructor
@@ -175,6 +174,7 @@ Debug: Deleting unreferenced crossing ':gneJ7_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.02.2021 10:04:12 by Eclipse SUMO netedit Version v1_8_0+1360-4b150fce9e
+<!-- generated on 2021-06-16 10:03:22 by Eclipse SUMO netedit Version v1_9_2+0572-e90aded036
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,32 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Feb100251.11976\netedit.gui\additionalElements\parkingarea\lock_unlock\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun100200.5456\netedit.gui\additionalElements\parkingarea\lock_unlock\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="40.00" endPos="50.00"/>
+    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="7.00" endPos="17.00"/>
 </additional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 21 17:25:19 2021 by Eclipse SUMO sumo Version v1_8_0+0648-16ba97d7de
+<!-- generated on 2021-05-27 16:28:25 by Eclipse SUMO sumo Version v1_9_2+0085-7da2bb1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0648-16ba97d7de" time="00:00:25" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0085-7da2bb1" time="00:00:25" type="micro">
     <route id="!0" state="1" edges="SC CW"/>
     <flowState id="0" index="3" reroute="1"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="17.00"/>
@@ -42,4 +42,5 @@
     <lane id="SC_1">
         <vehicles value="0.2"/>
     </lane>
+    <tlLogic id="C" programID="0" phase="0" duration="25000"/>
 </snapshot>

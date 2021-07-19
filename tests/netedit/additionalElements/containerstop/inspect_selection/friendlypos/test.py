@@ -37,8 +37,8 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect containerStops
-netedit.leftClick(referencePosition, 160, 280)
+# inspect containerstops
+netedit.leftClick(referencePosition, 160, 270)
 
 # Set friendlyPos
 netedit.modifyAttribute(1, "true", False)

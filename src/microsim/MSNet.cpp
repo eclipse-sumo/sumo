@@ -199,6 +199,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myPersonsMoved(0),
     myHavePermissions(false),
     myHasInternalLinks(false),
+    myJunctionHigherSpeeds(false),
     myHasElevation(false),
     myHasPedestrianNetwork(false),
     myHasBidiEdges(false),
@@ -246,6 +247,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
                      std::vector<SUMOTime> stateDumpTimes,
                      std::vector<std::string> stateDumpFiles,
                      bool hasInternalLinks,
+                     bool junctionHigherSpeeds,
                      double version) {
     myEdges = edges;
     myJunctions = junctions;
@@ -262,6 +264,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     mySimBeginMillis = SysUtils::getCurrentMillis();
     myTraCIMillis = 0;
     myHasInternalLinks = hasInternalLinks;
+    myJunctionHigherSpeeds = junctionHigherSpeeds;
     myHasElevation = checkElevation();
     myHasPedestrianNetwork = checkWalkingarea();
     myHasBidiEdges = checkBidiEdges();
@@ -609,7 +612,14 @@ MSNet::simulationStep() {
     if (myStateDumpPeriod > 0 && myStep % myStateDumpPeriod == 0) {
         std::string timeStamp = time2string(myStep);
         std::replace(timeStamp.begin(), timeStamp.end(), ':', '-');
-        MSStateHandler::saveState(myStateDumpPrefix + "_" + timeStamp + myStateDumpSuffix, myStep);
+        const std::string filename = myStateDumpPrefix + "_" + timeStamp + myStateDumpSuffix;
+        MSStateHandler::saveState(filename, myStep);
+        myPeriodicStateFiles.push_back(filename);
+        int keep = OptionsCont::getOptions().getInt("save-state.period.keep");
+        if (keep > 0 && (int)myPeriodicStateFiles.size() > keep) {
+            std::remove(myPeriodicStateFiles.front().c_str());
+            myPeriodicStateFiles.erase(myPeriodicStateFiles.begin());
+        }
     }
     myBeginOfTimestepEvents->execute(myStep);
     MSRailSignal::recheckGreen();
@@ -801,10 +811,7 @@ MSNet::clearAll() {
 
 void
 MSNet::clearState(const SUMOTime step) {
-    myInserter->clearState();
-    myVehicleControl->clearState();
-    MSVehicleTransfer::getInstance()->clearState();
-    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
+    MSGlobals::gClearState = true;
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->clearState();
         for (int i = 0; i < MSEdge::dictSize(); i++) {
@@ -815,11 +822,17 @@ MSNet::clearState(const SUMOTime step) {
     } else {
         for (int i = 0; i < MSEdge::dictSize(); i++) {
             const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
-            for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-                (*it)->clearState();
+            for (MSLane* lane : lanes) {
+                lane->getVehiclesSecure();
+                lane->clearState();
+                lane->releaseVehicles();
             }
         }
     }
+    myInserter->clearState();
+    myVehicleControl->clearState();
+    MSVehicleTransfer::getInstance()->clearState();
+    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
     myLogics->clearState();
     myDetectorControl->updateDetectors(myStep);
     myDetectorControl->writeOutput(myStep, true);
@@ -834,6 +847,7 @@ MSNet::clearState(const SUMOTime step) {
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
     myStep = step;
+    MSGlobals::gClearState = false;
 }
 
 
@@ -1378,21 +1392,22 @@ void
 MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
     // add access to all parking areas
-    for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
-        const MSEdge* const edge = &i.second->getLane().getEdge();
-        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), SUMO_TAG_PARKING_AREA, false, taxiWait);
-    }
     EffortCalculator* const external = router.getExternalEffort();
-    // add access to all public transport stops
-    for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
-        const MSEdge* const edge = &i.second->getLane().getEdge();
-        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge),
-                                       i.second->getAccessDistance(edge), SUMO_TAG_BUS_STOP, false, taxiWait);
-        for (const auto& a : i.second->getAllAccessPos()) {
-            router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, true, taxiWait);
-        }
-        if (external != nullptr) {
-            external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);
+    for (const auto& stopType : myInstance->myStoppingPlaces) {
+        // add access to all stopping places
+        const SumoXMLTag element = stopType.first;
+        for (const auto& i : stopType.second) {
+            const MSEdge* const edge = &i.second->getLane().getEdge();
+            router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), element, false, taxiWait);
+            if (element == SUMO_TAG_BUS_STOP) {
+                // add access to all public transport stops
+                for (const auto& a : i.second->getAllAccessPos()) {
+                    router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), element, true, taxiWait);
+                }
+                if (external != nullptr) {
+                    external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);
+                }
+            }
         }
     }
     myInstance->getInsertionControl().adaptIntermodalRouter(router);

@@ -4,6 +4,8 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Error: Attribute 'length' in definition of a space is empty.
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,43.20,14.80
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,43.20,14.80
@@ -12,38 +14,17 @@ Debug: Adding space 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,43.20,14.80
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,43.20,14.80
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,43.20,14.80
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,45.00,30.00
-Debug: Format of optional positive optional float attribute 'length' of space is invalid; Cannot be parsed to float; Default value will be used.
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,45.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,45.00,30.00
+GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,43.30,28.30
+Error: Could not build space with ID 'parkingArea_0' in netedit; attribute length cannot be parse to float.
+Error: Could not build space with ID 'parkingArea_0' in netedit; attribute length cannot be negative.
+GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,43.30,28.30
+GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,43.30,28.30
 Debug: Adding space 'parkingArea_0' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,45.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,45.00,30.00
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,45.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-Debug: Format of optional positive optional float attribute 'length' of space is invalid; Cannot be parsed to float; Default value will be used.
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-Debug: Adding space 'parkingArea_0' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-Debug: Format of optional positive optional float attribute 'length' of space is invalid; Cannot be negative; Default value will be used.
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-Debug: Adding space 'parkingArea_0' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-Debug: Adding space 'parkingArea_0' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.00,30.00
-GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,50.00,30.00
+GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,43.30,28.30
+GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,43.30,28.30
+GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 6.80,-5.20,43.30,28.30
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-5.20,50.50,30.50
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Jul103411.2356\netedit.gui\additionalElements\parkingspace\load\lenght\input_additionals.add.xml failed.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -59,9 +40,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced space 'parkingArea_0'
-Debug: Deleting unreferenced space 'parkingArea_0'
-Debug: Deleting unreferenced space 'parkingArea_0'
 Debug: Deleting unreferenced space 'parkingArea_0'
 Debug: Deleting unreferenced space 'parkingArea_0'
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'

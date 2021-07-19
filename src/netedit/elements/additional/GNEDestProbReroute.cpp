@@ -30,10 +30,11 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-myNewEdgeDestination(newEdgeDestination),
-myProbability(probability) {
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "",
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false),
+    myNewEdgeDestination(newEdgeDestination),
+    myProbability(probability) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

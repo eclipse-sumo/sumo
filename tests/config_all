@@ -28,6 +28,10 @@ errors:std::_Ios_Fmtflags
 shapes:imgFile=\"(.*?)berlin_icon.ico\"{REPLACE imgFile="berlin_icon.ico"}
 shapes:imgFile=\"(.*?)paris.ico\"{REPLACE imgFile="paris.ico"}
 cfg:<!-- generated on{[->]}-->
+dxf:TDCREATE{LINES 3}
+dxf:TDUPDATE{LINES 3}
+dxf:FINGERPRINTGUID{LINES 3}
+dxf:VERSIONGUID{LINES 3}
 
 [bug_system_location]
 trac:https://sumo.dlr.de/trac.wsgi/

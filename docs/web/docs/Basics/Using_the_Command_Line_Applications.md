@@ -43,7 +43,7 @@ Eclipse SUMO netgenerate Version {{Version}}
 # Options
 
 Each application has a set of options which define which files shall be
-processed or generated, or which define the application's behaviour.
+processed or generated, or which define the application's behavior.
 Normally, an application needs at least two parameter - an input file
 and an output file - but almost always more parameter are used for a
 fine-grained control. Each application's options are described within
@@ -119,7 +119,7 @@ configuration file. For the boolean options the value should be either
 For the example above, the configuration file (let's save it under
 "test.sumocfg", see below) would look like:
 
-```
+```xml
 <configuration>
     <input>
         <net-file value="test.net.xml"/>
@@ -134,7 +134,7 @@ documentation purposes and no functional meaning.
 
 A less verbose but equivalent version would look like:
 
-```
+```xml
 <configuration>
     <n v="test.net.xml"/>
     <r v="test.rou.xml"/>
@@ -339,7 +339,7 @@ All time values in options and xml input may always be given as seconds or in "H
 
 Many [tools](../Tools/index.md) that are distributed by SUMO (in the
 {{SUMO}}/tools folder are written in the [python](https://www.python.org/)
-programming language. To use them, **python 2.7** must be [installed on your computer](https://www.python.org/downloads/).
+programming language. To use them, **Python 3.7 or later** must be [installed on your computer](https://www.python.org/downloads/).
 
 Then you need to make sure that the [environment variable *SUMO_HOME*](#additional_environment_variables) is set. The
 easiest way is to open the command-line window using

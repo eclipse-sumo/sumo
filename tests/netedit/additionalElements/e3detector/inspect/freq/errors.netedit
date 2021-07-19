@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
@@ -12,7 +13,7 @@ Debug: Value '-100' for attribute freq of e3Detector isn't valid
 Debug: Setting new attribute freq '120' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute freq '900.00' into e3Detector 'e3Detector_0'
+Debug: Setting previous attribute freq '300.00' into e3Detector 'e3Detector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional

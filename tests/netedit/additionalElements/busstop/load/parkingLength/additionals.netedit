@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 23.02.2021 10:10:55 by Eclipse SUMO netedit Version v1_8_0+1342-32ebcde4b7
+<!-- generated on 2021-06-03 09:41:56 by Eclipse SUMO netedit Version v1_9_2+0304-09105bc1d7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb101048.11492\netedit.gui\additionalElements\busstop\load\parkingLength\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun093911.1396\netedit.gui\additionalElements\busstop\load\parkingLength\log.txt"/>
     </report>
 
 </configuration>
@@ -59,8 +59,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_01" lane="gneE0_0" startPos="25.00" endPos="30.00" name="busStop"/>
-    <busStop id="busStop_02" lane="gneE0_0" startPos="35.00" endPos="40.00" name="busStop"/>
-    <busStop id="busStop_03" lane="gneE0_0" startPos="35.00" endPos="40.00" name="busStop" parkingLength="-7.00"/>
     <busStop id="busStop_04" lane="gneE0_0" startPos="35.00" endPos="40.00" name="busStop" parkingLength="2.50"/>
     <busStop id="busStop_05" lane="gneE0_0" startPos="45.00" endPos="50.00" name="busStop" parkingLength="6.00"/>
 </additional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 28 11:06:39 2018 by SUMO duarouter Version v0_32_0+0923-1eeb288
+<!-- generated on 2021-05-06 14:24:07 by Eclipse SUMO duarouter Version v1_9_1+0246-dc3018a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,13 +15,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
         <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,8 +31,8 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00">
-        <walk edges="beg beg2left" busStop="beg2left"/>
-        <ride busStop="left2end" lines="train" intended="train.3" depart="910.00"/>
+        <walk edges="beg beg2left" trainStop="beg2left"/>
+        <ride trainStop="left2end" lines="train" intended="train.3" depart="910.00"/>
         <walk edges="left2end end"/>
     </person>
 </routes>

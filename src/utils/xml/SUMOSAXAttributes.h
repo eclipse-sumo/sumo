@@ -35,6 +35,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class Position;
 class PositionVector;
 class Boundary;
 class RGBColor;
@@ -328,6 +329,12 @@ public:
      */
     virtual RGBColor getColor() const = 0;
 
+     /** @brief Tries to read given attribute assuming it is a Position
+      *
+      * @param[in] attr The id of the attribute to read
+      * @return The read value if given and not empty; empty position if an error occurred
+      */
+    virtual Position getPosition(int attr) const = 0;
 
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *
@@ -413,10 +420,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    SUMOSAXAttributes(const SUMOSAXAttributes& src);
+    SUMOSAXAttributes(const SUMOSAXAttributes& src) = delete;
 
     /// @brief Invalidated assignment operator.
-    SUMOSAXAttributes& operator=(const SUMOSAXAttributes& src);
+    SUMOSAXAttributes& operator=(const SUMOSAXAttributes& src) = delete;
 
     /// @brief the object type to use in error reporting
     std::string myObjectType;
@@ -462,6 +469,11 @@ template<> struct invalid_return<std::string> {
 
 template<> struct invalid_return<RGBColor> {
     static const RGBColor value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<Position> {
+    static const Position value;
     static const std::string type;
 };
 

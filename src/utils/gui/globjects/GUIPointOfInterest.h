@@ -50,6 +50,7 @@ public:
      * @param[in[ geo use GEO coordinates (lon/lat)
      * @param[in] lane The Lane in which this POI is placed
      * @param[in] posOverLane The position over Lane
+     * @param[in] friendlyPos enable or disable friendlyPos
      * @param[in] posLat The position lateral over Lane
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
@@ -58,16 +59,13 @@ public:
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      */
-    GUIPointOfInterest(const std::string& id, const std::string& type,
-                       const RGBColor& color, const Position& pos, bool geo,
-                       const std::string& lane, double posOverLane, double posLat,
-                       double layer, double angle, const std::string& imgFile,
+    GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, 
+                       const Position& pos, bool geo, const std::string& lane, double posOverLane, 
+                       bool friendlyPos, double posLat, double layer, double angle, const std::string& imgFile,
                        bool relativePath, double width, double height);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();
-
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -82,7 +80,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -93,14 +90,12 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
     Boundary getCenteringBoundary() const;
-
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

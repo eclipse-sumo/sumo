@@ -35,31 +35,31 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # set invalid angle (dummy)
-netedit.changeDefaultValue(9, "dummyHeight")
+netedit.changeDefaultValue(10, "dummyHeight")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set invalid angle (empty)
-netedit.changeDefaultValue(9, "")
+netedit.changeDefaultValue(10, "")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set valid angle (negative)
-netedit.changeDefaultValue(9, "-4")
+netedit.changeDefaultValue(10, "-4")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set valid angle (>360)
-netedit.changeDefaultValue(9, "500")
+netedit.changeDefaultValue(10, "500")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)
 
 # set valid angle
-netedit.changeDefaultValue(9, "120")
+netedit.changeDefaultValue(10, "120")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 220, 250)

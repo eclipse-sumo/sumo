@@ -160,18 +160,18 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
  * Writes the travel times for a single interval
  */
 void
-writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROVehicle* const veh) {
+writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROMAAssignments& a) {
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(begin)).writeAttr(SUMO_ATTR_END, time2string(end));
     for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
         ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
         if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL) {
             dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
-            const double traveltime = edge->getTravelTime(veh, STEPS2TIME(begin));
+            const double traveltime = edge->getTravelTime(a.getDefaultVehicle(), STEPS2TIME(begin));
             const double flow = edge->getFlow(STEPS2TIME(begin));
             dev.writeAttr("traveltime", traveltime);
             dev.writeAttr("speed", edge->getLength() / traveltime);
             dev.writeAttr("entered", flow);
-            dev.writeAttr("flowCapacityRatio", 100. * flow / ROMAAssignments::getCapacity(edge));
+            dev.writeAttr("flowCapacityRatio", 100. * flow / a.getCapacity(edge));
             dev.closeTag();
         }
     }
@@ -203,18 +203,19 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttOp, nullptr, false, nullptr, net.hasPermissions());
         } else if (routingAlgorithm == "astar") {
             router = new AStarRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttOp, nullptr, net.hasPermissions());
-        } else if (routingAlgorithm == "CH") {
+        } else if (routingAlgorithm == "CH" && !net.hasPermissions()) {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, net.hasPermissions(), false);
-        } else if (routingAlgorithm == "CHWrapper") {
+        } else if (routingAlgorithm == "CHWrapper" || routingAlgorithm == "CH") {
+            // use CHWrapper instead of CH if the net has permissions
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
-                begin, end, weightPeriod, oc.getInt("routing-threads"));
+                begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
@@ -260,7 +261,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         }
         matrix.sortByBeginTime();
         ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-        ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"), oc.getInt("max-alternatives"), net, matrix, *router);
+        ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"),
+                          oc.getInt("max-alternatives"), oc.getBool("capacities.default"), net, matrix, *router);
         a.resetFlows();
 #ifdef HAVE_FOX
         // this is just to init the CHRouter with the default vehicle
@@ -358,7 +360,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         }
         if (OutputDevice::createDeviceByOption("netload-output", "meandata")) {
             if (oc.getBool("additive-traffic")) {
-                writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a.getDefaultVehicle());
+                writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a);
             } else {
                 SUMOTime lastCell = 0;
                 for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
@@ -368,7 +370,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 }
                 const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
                 for (SUMOTime start = begin; start < MIN2(end, lastCell); start += interval) {
-                    writeInterval(OutputDevice::getDeviceByOption("netload-output"), start, start + interval, net, a.getDefaultVehicle());
+                    writeInterval(OutputDevice::getDeviceByOption("netload-output"), start, start + interval, net, a);
                 }
             }
             haveOutput = true;

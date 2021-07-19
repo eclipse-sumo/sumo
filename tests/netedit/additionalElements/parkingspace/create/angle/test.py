@@ -41,34 +41,34 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeElement("space")
 
 # set invalid Angle (dummy)
-netedit.selectAdditionalChild(8, 0)
-netedit.changeDefaultValue(4, "dummyAngle")
+netedit.selectAdditionalChild(10, 0)
+netedit.changeDefaultValue(5, "dummyAngle")
 
 # try to create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set invalid angle (empty)
-netedit.changeDefaultValue(4, "")
+netedit.changeDefaultValue(5, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (negative)
-netedit.changeDefaultValue(4, "-4")
+netedit.changeDefaultValue(5, "-4")
 
 # create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (>360)
-netedit.selectAdditionalChild(8, 0)
-netedit.changeDefaultValue(4, "500")
+netedit.selectAdditionalChild(10, 0)
+netedit.changeDefaultValue(5, "500")
 
 # create area
 netedit.leftClick(referencePosition, 320, 100)
 
 # set valid angle
-netedit.selectAdditionalChild(8, 0)
-netedit.changeDefaultValue(4, "120")
+netedit.selectAdditionalChild(10, 0)
+netedit.changeDefaultValue(5, "120")
 
 # create area
 netedit.leftClick(referencePosition, 340, 100)

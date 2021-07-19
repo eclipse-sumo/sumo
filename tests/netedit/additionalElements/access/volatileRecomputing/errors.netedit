@@ -8,6 +8,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE1_0_2' in GNEChange_Additional
 Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
 Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
@@ -27,7 +28,6 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -62,21 +62,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Adding busStop 'busStop_gneE1_0_2' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE2_0_5' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE2_0_5' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE2_0_5' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE2_0_5' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE2_0_5' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE4_0_0' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -102,21 +87,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_4togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE2_4' in retrieveGNEConnection()
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_2'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -137,5 +107,11 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE1_0_2' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE2_0_5' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE4_0_0' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

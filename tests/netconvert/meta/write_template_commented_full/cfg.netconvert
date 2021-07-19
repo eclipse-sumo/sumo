@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  5 16:25:34 2021 by Eclipse SUMO netconvert Version v1_8_0+1526-3d5d2c8
+<!-- generated on 2021-06-28 13:14:51 by Eclipse SUMO netconvert Version v1_9_2+0642-094e94aeb8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -648,6 +648,9 @@
         <!-- Default radius for junctions that do not require wide vehicle turns -->
         <junctions.small-radius value="1.5" type="FLOAT"/>
 
+        <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
+        <junctions.higher-speed value="false" type="BOOL"/>
+
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>
 
@@ -767,6 +770,9 @@
 
         <!-- Import lane-specific access restrictions -->
         <osm.lane-access value="false" type="BOOL"/>
+
+        <!-- Check additional attributes to fix directions and permissions on bike paths -->
+        <osm.bike-access value="false" type="BOOL"/>
 
         <!-- The default length of a public transport stop in FLOAT m -->
         <osm.stop-output.length value="25" type="FLOAT"/>

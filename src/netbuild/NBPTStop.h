@@ -82,6 +82,14 @@ public:
     void setPTStopId(std::string id) {
         myPTStopId = id;
     }
+
+    void setIsPlatform() {
+        myIsPlatform = true;
+    }
+
+    bool isPlatform() const {
+        return myIsPlatform;
+    }
     void addAccess(std::string laneID, double offset, double length);
 
     /// @brief remove all access definitions
@@ -104,6 +112,10 @@ public:
 
     double getEndPos() const {
         return myEndPos;
+    }
+
+    const std::vector<std::string>& getLines() const {
+        return myLines;
     }
 
     /// @brief mirror coordinates along the x-axis
@@ -150,6 +162,9 @@ private:
 
     /// @brief whether the stop was not part of the road network and must be mapped
     bool myIsLoose;
+
+    /// @brief whether this stop was build from a platform position
+    bool myIsPlatform;
 
     std::vector<NBPTPlatform> myPlatformCands;
     bool myIsMultipleStopPositions;

@@ -98,6 +98,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
     myPhaseIndex(0) {
     myDefaultCycleTime = DELTA_T;
+    myMovingBlock = OptionsCont::getOptions().getBool("railsignal-moving-block");
     MSRailSignalControl::getInstance().addSignal(this);
 }
 
@@ -476,7 +477,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
 }
 
 bool
-MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
+MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info) {
     if (link->getJunction() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
         if (rs != nullptr && rs->myInsertionConstraints.size() > 0) {
@@ -490,6 +491,7 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
                             std::cout << SIMTIME << " rsl=" << rs->getID() << " insertion constraint '" << c->getDescription() << "' for vehicle '" << veh->getID() << "' not cleared\n";
                         }
 #endif
+                        info = c->getDescription();
                         return true;
                     }
                 }
@@ -504,11 +506,20 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
 // ===========================================================================
 
 MSRailSignal::LinkInfo::LinkInfo(MSLink* link):
-    myLink(link), myUniqueDriveWay(false),
-    myLastRerouteTime(-1),
-    myLastRerouteVehicle(nullptr) {
+    myLink(link)
+{
+    reset();
+}
+
+
+void
+MSRailSignal::LinkInfo::reset() {
+    myUniqueDriveWay = false;
+    myLastRerouteTime = -1;
+    myLastRerouteVehicle = nullptr;
+    myDriveways.clear();
     ConstMSEdgeVector dummyRoute;
-    dummyRoute.push_back(&link->getLane()->getEdge());
+    dummyRoute.push_back(&myLink->getLane()->getEdge());
     DriveWay dw = buildDriveWay(dummyRoute.begin(), dummyRoute.end());
     myDriveways.push_back(dw);
 }
@@ -589,7 +600,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     // - search forward recursive from outgoing lane until controlled railSignal link found
     //   -> add all found lanes to conflictLanes
     //
-    // bidiBlock (if any forwardBlock edge edge has bidi edge)
+    // bidiBlock (if any forwardBlock edge has bidi edge)
     // - search bidi backward recursive until first switch
     //   - from switch search backward recursive all other incoming until controlled rail signal link
     //     -> add final links to conflictLinks
@@ -636,12 +647,13 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
                   << "\n";
     }
 #endif
-
-    dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myForward.begin(), dw.myForward.end());
+    MSRailSignal* rs = const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(myLink->getTLLogic()));
+    if (!rs->myMovingBlock) {
+        dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myForward.begin(), dw.myForward.end());
+    }
     dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myBidi.begin(), dw.myBidi.end());
     dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myFlank.begin(), dw.myFlank.end());
     if (dw.myProtectedBidi != nullptr) {
-        MSRailSignal* rs = const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(myLink->getTLLogic()));
         MSRailSignalControl::getInstance().registerProtectedDriveway(rs, dw.myNumericalID, dw.myProtectedBidi);
     }
 
@@ -1530,6 +1542,24 @@ MSRailSignal::getConstraintInfo() const {
         }
         return result;
     }
+}
+
+void
+MSRailSignal::setParameter(const std::string& key, const std::string& value) {
+    // some pre-defined parameters can be updated at runtime
+    if (key == "moving-block") {
+        bool movingBlock = StringUtils::toBool(value);
+        if (movingBlock != myMovingBlock) {
+            // recompute driveways
+            myMovingBlock = movingBlock;
+            for (LinkInfo& li : myLinkInfos) {
+                li.reset();
+            }
+            updateCurrentPhase();
+            setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+        }
+    }
+    Parameterised::setParameter(key, value);
 }
 
 /****************************************************************************/

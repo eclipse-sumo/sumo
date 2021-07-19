@@ -1,3 +1,4 @@
-Warning: Essential unique string attribute 'id' of busStop is missing; busStop cannot be created
-Warning: Format of essential unique string attribute 'id' of busStop is invalid; ID contains invalid characters; busStop cannot be created
-Warning: There is another busStop with the same ID='busStop_00'.
+Error: Attribute 'id' is missing in definition of a busStop.
+Error: Could not build busStop with ID 'ID with spaces' in netedit; ID contains invalid characters.
+Error: Could not build busStop with ID 'busStop_00' in netedit; declared twice.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jun084654.18268\netedit.gui\additionalElements\busstop\load\id\input_additionals.add.xml failed.

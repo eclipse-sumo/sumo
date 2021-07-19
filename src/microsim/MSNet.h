@@ -207,6 +207,7 @@ public:
      * @param[in] stateDumpTimes List of time steps at which state shall be written
      * @param[in] stateDumpFiles Filenames for states
      * @param[in] hasInternalLinks Whether the network actually contains internal links
+     * @param[in] junctionHigherSpeeds Whether the network was built with higher junction speeds
      * @param[in] version The network version
      * @todo Try to move all this to the constructor?
      */
@@ -214,6 +215,7 @@ public:
                        SUMORouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
                        bool hasInternalLinks,
+                       bool junctionHigherSpeeds,
                        double version);
 
 
@@ -598,6 +600,8 @@ public:
     virtual bool isSelected(const MSTrafficLightLogic*) const {
         return false;
     }
+    /// @brief update view after simulation.loadState
+    virtual void updateGUI() const { }
 
     /// @name Notification about vehicle state changes
     /// @{
@@ -781,6 +785,11 @@ public:
         return myHasInternalLinks;
     }
 
+    /// @brief return whether the network was built with higher junction speeds
+    bool hasJunctionHigherSpeeds() const {
+        return myJunctionHigherSpeeds;
+    }
+
     /// @brief return whether the network contains elevation data
     bool hasElevation() const {
         return myHasElevation;
@@ -913,6 +922,8 @@ protected:
     std::vector<SUMOTime> myStateDumpTimes;
     /// @brief The names for the state files
     std::vector<std::string> myStateDumpFiles;
+    /// @brief The names of the last K periodic state files (only only K shall be kept)
+    std::vector<std::string> myPeriodicStateFiles;
     /// @brief The period for writing state
     SUMOTime myStateDumpPeriod;
     /// @brief name components for periodic state
@@ -933,6 +944,9 @@ protected:
 
     /// @brief Whether the network contains internal links/lanes/edges
     bool myHasInternalLinks;
+
+    /// @brief Whether the network was built with higher speed on junctions
+    bool myJunctionHigherSpeeds;
 
     /// @brief Whether the network contains elevation data
     bool myHasElevation;

@@ -157,6 +157,9 @@ packages can be obtained:
 <li>Windows 64bit debug version: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64Debug-git.zip">https://sumo.dlr.de/daily/sumo-win64Debug-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64Debug-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64Debug-git.zip","d");?></span></li>
 </ul>
 
+The nightly builds are also available from the [Python packaging index test instance](https://test.pypi.org/project/eclipse-sumo/).
+To install the latest nightly version use `pip install -i https://test.pypi.org/simple/ eclipse-sumo`.
+
 The Linux [repositories](#repositories) contain a nightly build as well.
 
 [The corresponding documentation](https://sumo.dlr.de/daily/userdoc) is

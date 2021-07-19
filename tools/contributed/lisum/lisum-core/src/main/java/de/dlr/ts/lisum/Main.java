@@ -29,6 +29,7 @@ import de.dlr.ts.commons.logger.LogLevel;
 import de.dlr.ts.commons.tools.FileTools;
 import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
 import de.dlr.ts.lisum.interfaces.SignalProgramInterface;
+import de.dlr.ts.lisum.lisa.Lisa;
 import de.dlr.ts.lisum.simulation.LisumSimulation;
 import de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
@@ -40,6 +41,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.xml.sax.SAXException;
 
 /**
@@ -67,12 +70,13 @@ public class Main {
         SplashScreen sc = new SplashScreen("LiSuM 1.0.1");
         sc.setYear(2018);
 
-        sc.addRuntimeOption("-log            ", "logging level", "INFO");
-        sc.addRuntimeOption("-f or -file     ", "lisum_xml Project file", "");
-        sc.addRuntimeOption("-c or -conf     ", "config file", "");
-        sc.addRuntimeOption("-s or -sumoexec ", "Sumo executable", "");
-        sc.addRuntimeOption("-S or -sumocfg  ", "Sumo configuration", "");
-        sc.addRuntimeOption("-p              ", "Pause before starting", "");
+        sc.addRuntimeOption("-log               ", "logging level", "INFO");
+        sc.addRuntimeOption("-f or -file        ", "lisum_xml Project file", "");
+        sc.addRuntimeOption("-c or -conf        ", "config file", "");
+        sc.addRuntimeOption("-s or -sumoexec    ", "sumo executable", "");
+        sc.addRuntimeOption("-S or -sumocfg     ", "sumo configuration", "");
+        sc.addRuntimeOption("-p                 ", "Pause before starting", "");
+        sc.addRuntimeOption("-lisa-version or -L", "Supported LISA version", "7.2");
         //sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "localhost");
         sc.showSplashScreen();
 
@@ -114,7 +118,7 @@ public class Main {
                 DLRLogger.info("Setting sumoExec: " + sumoExec);
 
                 if (!new File(sumoExec).exists()) {
-                    DLRLogger.severe(String.format("Error: Couldn't find Sumo exec file (%s). Quitting.", sumoExec));
+                    DLRLogger.severe(String.format("Error: Couldn't find sumo executable (%s). Quitting.", sumoExec));
                     System.exit(0);
                 }
             }
@@ -124,7 +128,7 @@ public class Main {
                 DLRLogger.info("Setting sumoConfig: " + sumoConfig);
 
                 if (!new File(sumoConfig).exists()) {
-                    DLRLogger.severe(String.format("Error: Couldn't find Sumo coniguration file (%s). Quitting.", sumoConfig));
+                    DLRLogger.severe(String.format("Error: Couldn't find sumo configuration file (%s). Quitting.", sumoConfig));
                     System.exit(0);
                 }
             }
@@ -135,7 +139,12 @@ public class Main {
 
             if (args[i].equals("-lisa") || args[i].equals("-l")) {
                 lisaRestFulServerDir = args[i + 1];
-                DLRLogger.info("Setting Lisa Server: " + lisaRestFulServerDir);
+                DLRLogger.info("Setting LISA Server: " + lisaRestFulServerDir);
+            }
+
+            if (args[i].equals("-lisa-version") || args[i].equals("-L")) {
+                Lisa.setVersion(args[i + 1]);
+                DLRLogger.info("Setting LISA Version: " + args[i + 1]);
             }
 
             if (args[i].equals("-log")) {
@@ -148,7 +157,7 @@ public class Main {
                 DLRLogger.info("Project file: " + lisumFile);
 
                 if (!new File(lisumFile).exists()) {
-                    DLRLogger.severe(String.format("Error: Couldn't find projec file (%s). Quitting.", lisumFile));
+                    DLRLogger.severe(String.format("Error: Couldn't find project file (%s). Quitting.", lisumFile));
                     System.exit(0);
                 }
             }

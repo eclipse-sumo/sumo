@@ -41,8 +41,7 @@ GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool f
     GNEChange(genericData, forward, genericData->isAttributeCarrierSelected()),
     myGenericData(genericData),
     myDataSetParent(genericData->getDataIntervalParent()->getDataSetParent()),
-    myDataIntervalParent(genericData->getDataIntervalParent()),
-    myPath(genericData->getPath()) {
+    myDataIntervalParent(genericData->getDataIntervalParent()) {
     myGenericData->incRef("GNEChange_GenericData");
 }
 
@@ -59,13 +58,6 @@ GNEChange_GenericData::~GNEChange_GenericData() {
                 myDataIntervalParent->hasGenericDataChild(myGenericData)) {
             // delete generic data from interval parent
             myDataIntervalParent->removeGenericDataChild(myGenericData);
-            // remove element from path
-            for (const auto& pathElement : myPath) {
-                pathElement.getLane()->removePathGenericData(myGenericData);
-                if (pathElement.getJunction()) {
-                    pathElement.getJunction()->removePathGenericData(myGenericData);
-                }
-            }
         }
         // delete generic data
         delete myGenericData;
@@ -84,13 +76,6 @@ GNEChange_GenericData::undo() {
         }
         // delete generic data from interval parent
         myDataIntervalParent->removeGenericDataChild(myGenericData);
-        // remove element from path
-        for (const auto& pathElement : myPath) {
-            pathElement.getLane()->removePathGenericData(myGenericData);
-            if (pathElement.getJunction()) {
-                pathElement.getJunction()->removePathGenericData(myGenericData);
-            }
-        }
         // restore container
         restoreHierarchicalContainers();
     } else {
@@ -132,13 +117,6 @@ GNEChange_GenericData::redo() {
         }
         // delete generic data from interval parent
         myDataIntervalParent->removeGenericDataChild(myGenericData);
-        // remove element from path
-        for (const auto& pathElement : myPath) {
-            pathElement.getLane()->removePathGenericData(myGenericData);
-            if (pathElement.getJunction()) {
-                pathElement.getJunction()->removePathGenericData(myGenericData);
-            }
-        }
         // remove genericData from parents and children
         removeElementFromParentsAndChildren(myGenericData);
     }

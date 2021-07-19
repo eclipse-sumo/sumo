@@ -378,7 +378,7 @@ od2trips -n <NET> -d <MATRIX> -o <OUTPUT> --scale <SKALIERUNG> \
 # Generated traffic modes
 
 By default [od2trips](../../od2trips.md) generates vehicular traffic.
-Different types of traffic (passanger cars, trucks,...) can be created by using the option
+Different types of traffic (passenger cars, trucks,...) can be created by using the option
 **--vtype** and **--prefix** (the latter is needed so that different types use distinct vehicle ids).
 
 By setting one of the options **--pedestrians** or **--persontrips**, other modes can be generated.

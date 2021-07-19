@@ -1,4 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE4_0to-gneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE4_0togneE6_0' in retrieveGNEConnection()

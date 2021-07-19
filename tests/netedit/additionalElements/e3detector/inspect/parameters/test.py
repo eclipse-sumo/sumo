@@ -59,6 +59,7 @@ netedit.inspectMode()
 
 # inspect first E3
 netedit.leftClick(referencePosition, 250, 110)
+
 # check parameters
 netedit.checkParameters(referencePosition, 9, False)
 

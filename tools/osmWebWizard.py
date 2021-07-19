@@ -187,7 +187,7 @@ class Builder(object):
         else:
             self.report("Downloading map data")
             osmGet.get(
-                ["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix, "-d", self.tmp])
+                ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp])
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         self.additionalFiles = []
@@ -205,6 +205,7 @@ class Builder(object):
         # misinterpreted as options
         netconvertOptions = " " + osmBuild.DEFAULT_NETCONVERT_OPTS
         netconvertOptions += ",--tls.default-type,actuated"
+        #netconvertOptions += ",--default.spreadtype,roadCenter"
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"

@@ -45,7 +45,26 @@ struct GUIVisualizationTextSettings;
  * This class offers some static methods for drawing primitives in openGL.
  */
 class GLHelper {
+
 public:
+    /// @brief push matrix
+    static void pushMatrix();
+
+    /// @brief pop matrix 
+    static void popMatrix();
+
+    /// @brief push Name
+    static void pushName(unsigned int name);
+
+    /// @brief pop Name
+    static void popName();
+
+    /// @brief check counter matrix
+    static void checkCounterMatrix();
+
+    /// @brief check counter name
+    static void checkCounterName();
+
     /** @brief Draws a filled polygon described by the list of points
      * @note this only works well for convex polygons
      *
@@ -347,6 +366,12 @@ private:
 
     /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
     static const std::vector<RGBColor>& getDottedcontourColors(const int size);
+
+    /// @brief matrix counter
+    static int myMatrixCounter;
+
+    /// @brief name counter
+    static int myNameCounter;
 
     /// @brief Storage for precomputed sin/cos-values describing a circle
     static std::vector<std::pair<double, double> > myCircleCoords;

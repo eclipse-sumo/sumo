@@ -51,6 +51,7 @@ negative.
   [TransAID](https://www.transaid.eu).
 - The model is primarily intended for use in specific traffic
   situations.
+- When there is no leader vehicle, the model uses the same speed as the Krauss model to approach junctions and speed limits
 
 ## References
 

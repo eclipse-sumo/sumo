@@ -1,3 +1,4 @@
+Warning: Cannot check for all deadlocks on swapConstraints because the route for vehicle 't2' is not computed yet
 Warning: Teleporting vehicle 't1'; waited too long (yield), lane='h_0', time=367.00.
 Warning: Teleporting vehicle 't0'; waited too long (yield), lane='c_0', time=367.00.
 Warning: Vehicle 't0' ends teleporting on edge 'f', time 367.00.

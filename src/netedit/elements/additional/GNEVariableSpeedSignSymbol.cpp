@@ -31,8 +31,9 @@
 // ===========================================================================
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
-    GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, "", false,
-{}, {}, {lane}, {VSSParent}, {}, {}, {}, {}) {
+    GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, "",
+        {}, {}, {lane}, {VSSParent}, {}, {}, {}, {},
+        std::map<std::string, std::string>(), false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -52,7 +53,7 @@ GNEVariableSpeedSignSymbol::getMoveOperation(const double /*shapeOffset*/) {
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front(), 1.5);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), 1.5, 0);
     // update boundary (needed for connections)
     // add shape boundary
     myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
@@ -91,10 +92,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator (except in Move mode)
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-            glPushName(getParentAdditionals().front()->getGlID());
+            GLHelper::pushName(getParentAdditionals().front()->getGlID());
         }
         // start drawing symbol
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
         // translate to position
@@ -133,10 +134,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // Pop symbol matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop VSS name
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-            glPopName();
+            GLHelper::popName();
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {

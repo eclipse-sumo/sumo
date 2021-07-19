@@ -1,0 +1,9 @@
+Error: Attribute 'startPos' in definition of a stop is not of type float.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Attribute 'startPos' in definition of a stop is empty.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.lane.02Jul080812.2562/netedit.daily.demand.stop.lane/demandElements/stop/lane/load/startPos/input_routes.rou.xml failed.

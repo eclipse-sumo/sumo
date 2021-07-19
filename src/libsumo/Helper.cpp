@@ -36,6 +36,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPerson.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
@@ -513,7 +514,7 @@ Helper::getVehicleType(const std::string& vehicleID) {
 
 SUMOVehicleParameter::Stop
 Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
-                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
+                            double pos, int laneIndex, double startPos, int flags, double duration, double until) {
     SUMOVehicleParameter::Stop newStop;
     newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
     newStop.until = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
@@ -649,8 +650,8 @@ Helper::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
                              stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
                              stopPar.until >= 0 ? STEPS2TIME(stopPar.until) : INVALID_DOUBLE_VALUE,
                              stopPar.arrival >= 0 ? STEPS2TIME(stopPar.arrival) : INVALID_DOUBLE_VALUE,
-                             stopPar.actualArrival >= 0 ? STEPS2TIME(stopPar.actualArrival) : INVALID_DOUBLE_VALUE,
-                             stopPar.depart >= 0 ? STEPS2TIME(stopPar.depart) : INVALID_DOUBLE_VALUE,
+                             stopPar.started >= 0 ? STEPS2TIME(stopPar.started) : INVALID_DOUBLE_VALUE,
+                             stopPar.ended >= 0 ? STEPS2TIME(stopPar.ended) : INVALID_DOUBLE_VALUE,
                              stopPar.split,
                              stopPar.join,
                              stopPar.actType,
@@ -976,15 +977,20 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #endif
 
 #ifdef DEBUG_SURROUNDING
-            std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "'" << std::endl;
+            std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "', pos " << v->getPositionOnLane() << std::endl;
+            std::cout << "FILTER_LATERAL_DIST: opposite lane is '" << v->getLane()->getOpposite()->getID() << "'" << std::endl;
 #endif
+            double frontPosOnLane = v->getPositionOnLane();
+            if (v->getLaneChangeModel().isOpposite()) {
+                frontPosOnLane = v->getLane()->getOppositePos(frontPosOnLane);
+            }
             // 1st pass: downstream (make sure that the whole length of the vehicle is included in the match)
-            const double backPosOnLane = MAX2(0.0, v->getPositionOnLane() - v->getVehicleType().getLength());
+            const double backPosOnLane = MAX2(0.0, frontPosOnLane - v->getVehicleType().getLength());
             applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist),
                     backPosOnLane, v->getLateralPositionOnLane(), true);
             // 2nd pass: upstream
             applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist),
-                    v->getPositionOnLane(), v->getLateralPositionOnLane(), false);
+                    frontPosOnLane, v->getLateralPositionOnLane(), false);
 
             objIDs.clear();
         } else {

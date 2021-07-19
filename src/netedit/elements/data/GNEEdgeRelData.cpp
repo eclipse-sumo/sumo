@@ -107,8 +107,8 @@ GNEEdgeRelData::isGenericDataVisible() const {
 
 void
 GNEEdgeRelData::updateGeometry() {
-    // calculate generic data path
-    calculateGenericDataLanePath(getParentEdges());
+    // just compute path
+    computePathElement();
 }
 
 
@@ -119,7 +119,14 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
+GNEEdgeRelData::computePathElement() {
+    // calculate path
+    myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
+}
+
+
+void
+GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
@@ -127,10 +134,10 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
         // Start drawing adding an gl identificator
         if (!onlyDrawContour) {
-            glPushName(getGlID());
+            GLHelper::pushName(getGlID());
         }
         // Add a draw matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGERELDATA, offsetFront);
         // Set orange color
@@ -148,10 +155,10 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         // draw interne box lines
         GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // Pop last matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
         // Pop name
         if (!onlyDrawContour) {
-            glPopName();
+            GLHelper::popName();
         }
         // draw filtered attribute
         if (getParentEdges().front()->getLanes().front() == lane) {
@@ -170,7 +177,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
+GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
@@ -178,7 +185,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 (getParentEdges().front() != getParentEdges().back())) {
             // Start drawing adding an gl identificator
             if (!onlyDrawContour) {
-                glPushName(getGlID());
+                GLHelper::pushName(getGlID());
             }
             // draw lanes
             const auto fromLanes = fromLane->getParentEdge()->getLanes();
@@ -193,14 +200,14 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
                 const double laneWidth = laneWidthFrom < laneWidthTo ? laneWidthFrom : laneWidthTo;
                 // Add a draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // translate to GLO
                 glTranslated(0, 0, getType() + offsetFront);
                 // Set color
                 GLHelper::setColor(RGBColor::BLACK);
                 if (from->getLane2laneConnections().exist(to)) {
                     // draw box lines
-                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth, onlyDrawContour, false);
+                    GNEGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
                     // translate to top
                     glTranslated(0, 0, 0.01);
                     // Set color
@@ -210,7 +217,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                         GLHelper::setColor(getColor());
                     }
                     // draw interne box lines
-                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1, onlyDrawContour, false);
+                    GNEGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
                 } else {
                     // draw line between end of first shape and first position of second shape
                     GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);
@@ -226,13 +233,13 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth - 0.1);
                 }
                 // Pop last matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
                 // update index
                 index++;
             }
             // Pop name
             if (!onlyDrawContour) {
-                glPopName();
+                GLHelper::popName();
             }
             // draw dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
@@ -247,7 +254,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 // declare DottedGeometryColor
                 GNEGeometry::DottedGeometryColor dottedGeometryColor(s);
                 // Push draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 // translate to front
                 glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
                 // check if lane2lane connection exist
@@ -295,10 +302,24 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
                 }
                 // pop matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
     }
+}
+
+
+GNELane*
+GNEEdgeRelData::getFirstPathLane() const {
+    /* temporal */
+    return nullptr;
+}
+
+
+GNELane*
+GNEEdgeRelData::getLastPathLane() const {
+    /* temporal */
+    return nullptr;
 }
 
 

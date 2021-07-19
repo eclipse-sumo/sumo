@@ -95,7 +95,7 @@ extended character information use TeX or HTML notation instead.
   namespace ..."-statements within the .h-files\!** It's possible that
   an included library tries to use a different implementation - who
   knows? Using a "using namespace ..."-statement within your .h-file
-  may yield in an unexpected behaviour.
+  may yield in an unexpected behavior.
 
 ## Throw-declarations
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 22 15:27:32 2021 by Eclipse SUMO duarouter Version v1_8_0+0678-194dd5d
+<!-- generated on 2021-06-30 15:44:23 by Eclipse SUMO duarouter Version v1_9_2+0769-54ef62a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -72,6 +72,7 @@
         <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
         <keep-all-routes value="false" type="BOOL" help="Save routes with near zero probability"/>
         <skip-new-routes value="false" type="BOOL" help="Only reuse routes from input, do not calculate new ones"/>
+        <keep-route-probability value="0" type="FLOAT" help="The probability of keeping the old route"/>
         <ptline-routing value="false" type="BOOL" help="Route all public transport input"/>
         <logit value="false" type="BOOL" help="Use c-logit model (deprecated in favor of --route-choice-method logit)"/>
         <route-choice-method value="gawron" type="STR" help="Choose a route choice method: gawron, logit, or lohse"/>
@@ -79,6 +80,7 @@
         <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit&apos;s gamma"/>
         <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit&apos;s theta (negative values mean auto-estimation)"/>
         <persontrip.walkfactor value="0.75" type="FLOAT" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"/>
+        <persontrip.walk-opposite-factor value="1" type="FLOAT" help="Use FLOAT as a factor on walking speed against vehicle traffic direction"/>
         <persontrip.transfer.car-walk value="parkingAreas" type="STR[]" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations)"/>
         <persontrip.transfer.taxi-walk value="" type="STR[]" help="Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;)"/>
         <persontrip.transfer.walk-taxi value="" type="STR[]" help="Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;)"/>

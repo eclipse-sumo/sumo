@@ -37,7 +37,7 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect busstops
+# inspect containerstops
 netedit.leftClick(referencePosition, 278, 200)
 
 # disable friendlyPos

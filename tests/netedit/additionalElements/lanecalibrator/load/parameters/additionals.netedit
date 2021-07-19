@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 20.08.2020 09:19:15 by Eclipse SUMO netedit Version v1_6_0+1683-16cb017b62
+<!-- generated on 2021-06-23 08:53:22 by Eclipse SUMO netedit Version v1_9_2+0632-d66d78bf07
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,35 +30,35 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Aug091901.13600\netedit.gui\additionalElements\lanecalibrator\load\parameters\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\parameters\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" output="calibrator01.txt">
+    <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator01.txt">
         <param key="key1" value="value4"/>
         <param key="key2" value=""/>
         <param key="key3" value="$$value with spaces%%"/>

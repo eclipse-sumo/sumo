@@ -806,7 +806,7 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
-        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        subtopic = StringUtils::to_lower_case(subtopic);
         const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
         bool hadOne = false;
         for (const std::string& name : entries) {
@@ -875,7 +875,7 @@ OptionsCont::writeSchema(std::ostream& os) {
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
-        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        subtopic = StringUtils::to_lower_case(subtopic);
         os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "TopicType\" minOccurs=\"0\"/>\n";
     }
     os << "        </xsd:all>\n";
@@ -886,14 +886,14 @@ OptionsCont::writeSchema(std::ostream& os) {
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
-        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        subtopic = StringUtils::to_lower_case(subtopic);
         os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
         const std::vector<std::string>& entries = mySubTopicEntries[*i];
         for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
             Option* o = getSecure(*j);
             std::string type = o->getTypeName();
-            std::transform(type.begin(), type.end(), type.begin(), tolower);
+            type = StringUtils::to_lower_case(type);
             if (type == "int[]") {
                 type = "intArray";
             }
@@ -916,7 +916,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
 
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     time(&rawtime);
-    strftime(buffer, 80, "<!-- generated on %c by ", localtime(&rawtime));
+    strftime(buffer, 80, "<!-- generated on %F %T by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
     if (myWriteLicense) {
         os << "This data file and the accompanying materials\n";

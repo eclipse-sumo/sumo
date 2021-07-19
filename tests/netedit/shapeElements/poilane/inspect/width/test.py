@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 140, 210)
 
 # Change parameter Width with a non valid value (dummy)
-netedit.modifyAttribute(8, "dummyWidth", True)
+netedit.modifyAttribute(9, "dummyWidth", True)
 
 # Change parameter Width with a non valid value (negative)
-netedit.modifyAttribute(8, "-2", True)
+netedit.modifyAttribute(9, "-2", True)
 
 # Change parameter Width with a valid value
-netedit.modifyAttribute(8, "5.5", True)
+netedit.modifyAttribute(9, "5.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

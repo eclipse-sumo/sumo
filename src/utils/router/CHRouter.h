@@ -257,7 +257,7 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        if (myWeightPeriod == SUMOTime_MAX) {
+        if (myWeightPeriod == SUMOTime_MAX && myHierarchy != nullptr) {
             // we only need one hierarchy
             return new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                                       mySVC, myHierarchy, this->myHavePermissions, this->myHaveRestrictions);

@@ -113,12 +113,18 @@ following things need to be there:
   - windows installer (msi, Win32 and x64, includes docs)
   - check presence of RPMs on
     <https://build.opensuse.org/package/show/home:behrisch/sumo_nightly>
+- check the wheels on PyPI
+  - https://pypi.org/project/eclipse-sumo/ 
+  - https://pypi.org/project/libsumo/
+  - https://pypi.org/project/sumolib/
+  - https://pypi.org/project/traci/
+  - https://pypi.org/project/libtraci/
 
 If everything is fine:
 
-- make a new folder in S:\\Sumo\\Releases
+- make a new folder in S:\Releases
 - make new sumo.dlr.de-release
-  - copy the folder from S:\Sumo\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
+  - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - make new sourceforge-release
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
@@ -128,7 +134,7 @@ If everything is fine:
 - update the ubuntu ppa (see
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
   - this assumes you have the devscripts package as well as all sumo dependencies installed
-  - if you try this on Windows Linux Subsystem you will also need to do `sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp`
+    - if you try this on Windows Linux Subsystem you will also need to do `sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp`
   - unzip the special source release `sumo_{{Version}}+dfsg1.orig.tar.gz`
   - copy the debian dir one level up
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
@@ -144,8 +150,6 @@ If everything is fine:
   - trigger update of main website at <https://sumo.dlr.de>
 - close [the milestone](https://github.com/eclipse/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
-- create a [release on github](https://github.com/eclipse/sumo/releases) to trigger the build of the release python wheels
-- publish the wheels on PyPI
 
 ### After-release cleanup
 
@@ -153,6 +157,6 @@ The trunk is now open for changes again.
 
 - re-enable HAVE_VERSION_H in src/config.h.cmake
 - rename version to "git" in CMakeLists.txt
-- insert a new empty "Git master" section at the top of the [ChangeLog](../ChangeLog.md)
+- insert a new empty "Git Main" section at the top of the [ChangeLog](../ChangeLog.md)
 - commit changes
 - drink your favorite beverage

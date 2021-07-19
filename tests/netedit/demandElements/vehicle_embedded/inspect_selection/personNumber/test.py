@@ -40,23 +40,26 @@ netedit.selectionInvertDemand()
 # go to inspect mode
 netedit.inspectMode()
 
+# apply zoom
+netedit.setZoom("14", "17", "12") 
+
 # inspect vehicle
-netedit.leftClick(referencePosition, 114, 396)
+netedit.leftClick(referencePosition, 330, 150)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "", True)
+netedit.modifyAttribute(10, "", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "dummyNumber", True)
+netedit.modifyAttribute(10, "dummyNumber", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "-5", True)
+netedit.modifyAttribute(10, "-5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "2.5", True)
+netedit.modifyAttribute(10, "2.5", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(10, "3", True)
+netedit.modifyAttribute(10, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

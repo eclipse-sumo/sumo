@@ -1,4 +1,7 @@
 personTrip
+
+# test routing on shared roads
+opposite-factor
 basic
 
 # use edges instead of from and to
@@ -28,3 +31,6 @@ unknown_to
 
 # parsing an existing plan
 full_plan
+
+# test stages that end at a stopping place (busStop etc)
+stoppingPlace

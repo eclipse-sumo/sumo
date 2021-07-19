@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 250, 180)
 netedit.changeElement("space")
 
 # create space
-netedit.selectAdditionalChild(8, 0)
+netedit.selectAdditionalChild(10, 0)
 netedit.leftClick(referencePosition, 231, 285)
 
 # go to inspect mode
@@ -51,7 +51,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 275)
 
 # Change parameter block movement with a valid value
-netedit.modifyBoolAttribute(5, True)
+netedit.modifyBoolAttribute(7, True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

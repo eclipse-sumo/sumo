@@ -165,13 +165,15 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
 
     toClean = [makeLog, makeAllLog]
     toolsDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"))
+    shareDir = os.path.join(options.rootDir, options.binDir.replace("bin", "share"))
     for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
     toClean += glob.glob(os.path.join(toolsDir, "lib*", "*lib*"))
+    toClean += glob.glob(os.path.join(shareDir, "*", "*"))
     for f in toClean:
         try:
             os.remove(f)
-        except Exception as e:
+        except Exception:
             pass
     # we need to use io.open here due to http://bugs.python.org/issue16273
     with io.open(makeLog, 'a') as log:
@@ -237,6 +239,8 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 zipf.write(os.path.join(buildDir, "src", "version.h"), os.path.join(includeDir, "version.h"))
                 for f in glob.glob(os.path.join(toolsDir, "lib*", "*lib*.py*")):
                     zipf.write(f, binDir.replace("bin", "tools") + f[len(toolsDir):])
+                for f in glob.glob(os.path.join(shareDir, "*", "*")):
+                    zipf.write(f, binDir.replace("bin", "share") + f[len(shareDir):])
                 zipf.close()
                 if options.suffix == "":
                     # installers only for the vanilla build
@@ -254,7 +258,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 except ImportError:
                     subprocess.call(["cmake", "--build", ".", "--target", "game"],
                                     cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-                    shutil.move("sumo-game.zip", binaryZip.replace("sumo-", "sumo-game-"))
+                    shutil.move(os.path.join(buildDir, "sumo-game.zip"), binaryZip.replace("sumo-", "sumo-game-"))
             except Exception as e:
                 status.printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
         with open(makeAllLog, 'a') as debugLog:

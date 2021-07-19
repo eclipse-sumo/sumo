@@ -94,17 +94,17 @@ void
 GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     // get tags for the given element set
     if (type == (GNEElementSet::Type::NETWORK)) {
-        myTagStringVector = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
-        myTagStringVector = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
     } else if (type == GNEElementSet::Type::SHAPE) {
-        myTagStringVector = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE, true);
     } else if (type == GNEElementSet::Type::TAZ) {
-        myTagStringVector = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT, true);
     } else if (type == GNEElementSet::Type::DEMAND) {
-        myTagStringVector = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else if (type == GNEElementSet::Type::DATA) {
-        myTagStringVector = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
     } else {
         throw ProcessError("Unkown set");
     }
@@ -135,10 +135,10 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     // set invalid color
     myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
     // iterate over tags
-    for (const auto& tagString : myTagStringVector) {
+    for (const auto& tagString : myTagPropertiesString) {
         if (tagString.second == myMatchTagComboBox->getText().text()) {
             // set valid tag
-            myCurrentTag = tagString.first;
+            myCurrentTag = tagString.first.getTag();
             // set valid color
             myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
         }
@@ -323,12 +323,12 @@ GNEMatchAttribute::updateTag() {
     // fill combo box tags
     myMatchTagComboBox->clearItems();
     myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
-    // itreate over myTagStringVector
-    for (int i = 0; i < (int)myTagStringVector.size(); i++) {
+    // itreate over myTagPropertiesString
+    for (int i = 0; i < (int)myTagPropertiesString.size(); i++) {
         // add tag in combo Box
-        myMatchTagComboBox->appendItem(myTagStringVector.at(i).second.c_str());
+        myMatchTagComboBox->appendItem(myTagPropertiesString.at(i).second.c_str());
         // check tag index
-        if (myTagStringVector.at(i).first == myCurrentTag) {
+        if (myTagPropertiesString.at(i).first.getTag() == myCurrentTag) {
             tagIndex = i;
         }
     }
@@ -337,7 +337,7 @@ GNEMatchAttribute::updateTag() {
     // check tagIndex
     if (tagIndex == -1) {
         myMatchTagComboBox->setCurrentItem(0);
-        myCurrentTag = myTagStringVector.front().first;
+        myCurrentTag = myTagPropertiesString.front().first.getTag();
     } else {
         myMatchTagComboBox->setCurrentItem(tagIndex);
     }

@@ -55,7 +55,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
     GUIGlObject(type, dataIntervalParent->getID()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
     GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathElements(this),
+    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
 }
 
@@ -96,10 +96,10 @@ GNEGenericData::drawAttribute(const PositionVector& shape) const {
                 // calculate center position
                 const Position centerPosition = shape.positionAtOffset2D(shape.length2D() / 2);
                 // Add a draw matrix
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 GLHelper::drawText(value, centerPosition, GLO_MAX, 2, RGBColor::BLUE);
                 // pop draw matrix
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
     }
@@ -169,11 +169,38 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
+double
+GNEGenericData::getPathElementDepartValue() const {
+    return 0;
+}
+
+
+Position
+GNEGenericData::getPathElementDepartPos() const {
+    return Position();
+}
+
+
+double
+GNEGenericData::getPathElementArrivalValue() const {
+    return 0;
+}
+
+
+Position
+GNEGenericData::getPathElementArrivalPos() const {
+    return Position();
+}
+
+
 const std::map<std::string, std::string>&
 GNEGenericData::getACParametersMap() const {
     return getParametersMap();
 }
 
+// ---------------------------------------------------------------------------
+// GNEGenericData - protected methods
+// ---------------------------------------------------------------------------
 
 void
 GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const {
@@ -181,11 +208,11 @@ GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const P
         const Position pos = laneShape.positionAtOffset2D(laneShape.length2D() * 0.5);
         const double rot = laneShape.rotationDegreeAtOffset(laneShape.length2D() * 0.5);
         // Add a draw matrix for details
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // draw value
         GLHelper::drawText(getParameter(attribute), pos, GLO_MAX - 1, 2, RGBColor::BLACK, s.getTextAngle(rot + 90));
         // pop draw matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 

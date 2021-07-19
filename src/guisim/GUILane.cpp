@@ -307,7 +307,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         const Position& f = myShape[-2];
         const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
         GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         glTranslated(0, stopOffsetPassenger, 0);
@@ -317,7 +317,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         glVertex2d(myHalfLaneWidth, 0.2);
         glVertex2d(myHalfLaneWidth, 0.0);
         glEnd();
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -333,7 +333,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         } else {
             GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LINKSTATE_DEADEND));
         }
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         glBegin(GL_QUADS);
@@ -342,9 +342,9 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         glVertex2d(myHalfLaneWidth, 0.5);
         glVertex2d(myHalfLaneWidth, 0.0);
         glEnd();
-        glPopMatrix();
+        GLHelper::popMatrix();
     } else {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         // select glID
@@ -357,13 +357,13 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
             case LINKSTATE_TL_YELLOW_MINOR:
             case LINKSTATE_TL_OFF_BLINKING:
             case LINKSTATE_TL_OFF_NOSIGNAL:
-                glPushName(net.getLinkTLID(link));
+                GLHelper::pushName(net.getLinkTLID(link));
                 break;
             case LINKSTATE_MAJOR:
             case LINKSTATE_MINOR:
             case LINKSTATE_EQUAL:
             default:
-                glPushName(getGlID());
+                GLHelper::pushName(getGlID());
                 break;
         }
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
@@ -382,8 +382,8 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
             glVertex2d(x2 - myHalfLaneWidth, 0.0);
             glEnd();
         }
-        glPopName();
-        glPopMatrix();
+        GLHelper::popName();
+        GLHelper::popMatrix();
     }
 }
 
@@ -396,7 +396,7 @@ GUILane::drawArrows() const {
     const Position& end = getShape().back();
     const Position& f = getShape()[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -450,7 +450,7 @@ GUILane::drawArrows() const {
                 break;
         }
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -483,8 +483,8 @@ GUILane::drawLane2LaneConnections(double exaggeration) const {
 
 void
 GUILane::drawGL(const GUIVisualizationSettings& s) const {
-    glPushMatrix();
-    glPushName(getGlID());
+    GLHelper::pushMatrix();
+    GLHelper::pushName(getGlID());
     const bool isCrossing = myEdge->isCrossing();
     const bool isWalkingArea = myEdge->isWalkingArea();
     const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
@@ -542,7 +542,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawLine(myShape);
                 }
             }
-            glPopMatrix();
+            GLHelper::popMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
             const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr && drawRails;
@@ -618,10 +618,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 debugDrawFoeIntersections();
             }
 #endif
-            glPopMatrix();
+            GLHelper::popMatrix();
             // draw details
             if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || s.drawForPositionSelection || junctionExaggeration > 1)) {
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
                 if (drawDetails) {
@@ -671,7 +671,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     //  draw from end of first to the begin of second but respect junction scaling
                     drawLane2LaneConnections(junctionExaggeration);
                 }
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
         if (mustDrawMarkings && drawDetails && s.laneShowBorders && !hiddenBidi) { // needs matrix reset
@@ -686,7 +686,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             drawJunctionChangeProhibitions();
         }
     } else {
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     // draw vehicles
     if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {
@@ -704,13 +704,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         // allow lane simulation
         releaseVehicles();
     }
-    glPopName();
+    GLHelper::popName();
 }
 
 
 void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     setColor(s);
     // optionally draw inverse markings
@@ -726,7 +726,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
             }
             int e = (int) getShape().size() - 1;
             for (int i = 0; i < e; ++i) {
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 glTranslated(getShape()[i].x(), getShape()[i].y(), 2.1);
                 glRotated(myShapeRotations[i], 0, 0, 1);
                 for (double t = 0; t < myShapeLengths[i]; t += 6) {
@@ -748,7 +748,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
                         glEnd();
                     }
                 }
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
     }
@@ -759,7 +759,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
         getShapeRotations(),
         getShapeLengths(),
         (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -771,7 +771,7 @@ GUILane::drawBikeMarkings() const {
     const double markWidth = 0.1;
     const double mw = myHalfLaneWidth;
     for (int i = 0; i < e; ++i) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.4);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (double t = 0; t < myShapeLengths[i]; t += 0.5) {
@@ -785,7 +785,7 @@ GUILane::drawBikeMarkings() const {
                 glEnd();
             }
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
@@ -827,7 +827,7 @@ GUILane::drawJunctionChangeProhibitions() const {
         }
         int e = (int) getShape().size() - 1;
         for (int i = 0; i < e; ++i) {
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.4);
             glRotated(myShapeRotations[i], 0, 0, 1);
             for (double t = 0; t < myShapeLengths[i]; t += 6) {
@@ -848,14 +848,14 @@ GUILane::drawJunctionChangeProhibitions() const {
                     glEnd();
                 }
             }
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
     }
 }
 
 void
 GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     int e = (int) getShape().size() - 1;
     const double widthFactor = spreadSuperposed ? 0.4 : 1;
@@ -864,7 +864,7 @@ GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
     const double w4 = MAX2(POSITION_EPS, myQuarterLaneWidth * widthFactor);
     const double sideOffset = spreadSuperposed ? w * -0.5 : 0;
     for (int i = 0; i < e; ++i) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (double t = 0; t < myShapeLengths[i]; t += w) {
@@ -875,15 +875,15 @@ GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
             glVertex2d(sideOffset + w4 * exaggeration, -t);
             glEnd();
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
 void
 GUILane::debugDrawFoeIntersections() const {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glColor3d(1.0, 0.3, 0.3);
     const double orthoLength = 0.5;
     const MSLink* link = getLinkCont().front();
@@ -901,7 +901,7 @@ GUILane::debugDrawFoeIntersections() const {
             //std::cout << "foe=" << l->getID() << " lanePos=" << l->getLength() - lengthsBehind[i].second << " pos=" << pos << "\n";
         }
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 

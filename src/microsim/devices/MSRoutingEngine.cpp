@@ -291,6 +291,7 @@ void
 MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     OptionsCont& oc = OptionsCont::getOptions();
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
+    const bool hasPermissions = MSNet::getInstance()->hasPermissions();
     myBikeSpeeds = oc.getBool("device.rerouting.bike-speeds");
     myEffortFunc = ((gWeightsRandomFactor != 1 || myPriorityFactor != 0 || myBikeSpeeds) ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
 
@@ -308,21 +309,22 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             vehicle->setChosenSpeedFactor(1);
             CHRouterWrapper<MSEdge, SUMOVehicle> chrouter(
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
-                string2time(oc.getString("begin")), string2time(oc.getString("end")), SUMOTime_MAX, 1);
+                string2time(oc.getString("begin")), string2time(oc.getString("end")), SUMOTime_MAX, hasPermissions, 1);
             lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &chrouter,
                      nullptr, vehicle, "", oc.getInt("device.rerouting.threads"));
             vehicle->setChosenSpeedFactor(speedFactor);
         }
         router = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);
-    } else if (routingAlgorithm == "CH") {
+    } else if (routingAlgorithm == "CH" && !hasPermissions ) {
         const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : SUMOTime_MAX;
         router = new CHRouter<MSEdge, SUMOVehicle>(
             MSEdge::getAllEdges(), true, myEffortFunc, vehicle == nullptr ? SVC_PASSENGER : vehicle->getVClass(), weightPeriod, true, false);
-    } else if (routingAlgorithm == "CHWrapper") {
+    } else if (routingAlgorithm == "CHWrapper" || routingAlgorithm == "CH") {
+        // use CHWrapper instead of CH if the net has permissions
         const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : SUMOTime_MAX;
         router = new CHRouterWrapper<MSEdge, SUMOVehicle>(
             MSEdge::getAllEdges(), true, myEffortFunc,
-            string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, oc.getInt("device.rerouting.threads"));
+            string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, hasPermissions, oc.getInt("device.rerouting.threads"));
     } else {
         throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
     }

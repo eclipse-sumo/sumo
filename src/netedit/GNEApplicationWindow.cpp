@@ -18,14 +18,12 @@
 // Functions from main window of NETEDIT
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
-#include <netbuild/NBNetBuilder.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -39,7 +37,6 @@
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -80,7 +77,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                 GNEApplicationWindow::onCmdQuit),
 
     // toolbar file
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_WINDOW,                                     GNEApplicationWindow::onCmdNewWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,                  GNEApplicationWindow::onCmdNewWindow),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_NEWNETWORK,                       GNEApplicationWindow::onCmdNewNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_NEWNETWORK,                       GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                                   GNEApplicationWindow::onCmdOpenNetwork),
@@ -155,25 +152,29 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DATA,       GNEApplicationWindow::onCmdSetSuperMode),
 
     // Toolbar modes
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODES_EDGE_EDGEDATA,               GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_M_MODES_MOVE,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODES_DELETE,                      GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_MODES_INSPECT,                     GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODES_SELECT,                      GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,          GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_MODES_TLS_VTYPE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODES_ADDITIONAL_STOP,             GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,  GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_MODES_TAZ_TAZREL,                  GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,          GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODES_DELETE,                      GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODES_EDGE_EDGEDATA,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_G_MODE_CONTAINER,                    GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_H_MODE_CONTAINERDATA,                GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_MODES_INSPECT,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_M_MODES_MOVE,                        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_MODES_POLYGON_PERSON,              GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,  GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODES_SELECT,                      GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_MODES_TLS_VTYPE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_MODES_VEHICLE,                     GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,      GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_MODES_TAZ_TAZREL,                  GNEApplicationWindow::onCmdSetMode),
 
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,                         GNEApplicationWindow::onCmdUndo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Z_UNDO,                         GNEApplicationWindow::onUpdUndo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onCmdComputePathManager),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onUpdComputePathManager),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,           GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,           GNEApplicationWindow::onUpdToggleViewOption),
@@ -208,10 +209,16 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,             GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,             GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,    GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,         GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,         GNEApplicationWindow::onUpdToggleViewOption),
     // Data view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEApplicationWindow::onUpdToggleViewOption),
@@ -249,6 +256,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,                GNEApplicationWindow::onCmdProcessButton),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,                GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOptions),
@@ -964,11 +973,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
-            GNEAdditionalHandler additionalHandler(additionalFile, myNet);
+            // declare additional handler
+            GNEAdditionalHandler additionalHandler(myNet, additionalFile, true);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
-            if (!XMLSubSys::runParser(additionalHandler, additionalFile, false)) {
+            if (!additionalHandler.parse()) {
                 WRITE_ERROR("Loading of " + additionalFile + " failed.");
             }
             // disable validation for additionals
@@ -1015,10 +1025,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every data file
         for (const auto& dataElementsFile : dataElementsFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
-            GNEDataHandler dataHandler(dataElementsFile, myNet);
+            GNEDataHandler dataHandler(myNet, dataElementsFile, true);
             // disable validation for data elements
             XMLSubSys::setValidation("never", "auto", "auto");
-            if (!XMLSubSys::runParser(dataHandler, dataElementsFile, false)) {
+            if (!dataHandler.parse()) {
                 WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
             }
             // disable validation for data elements
@@ -1594,7 +1604,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                 default:
                     break;
             }
-        } else {
+        } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
                 case MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND:
@@ -1612,6 +1622,11 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                     // show extra information for tests
                     WRITE_DEBUG("Key F7 (JoinRoutes) pressed");
                     myNet->joinRoutes(myUndoList);
+                    break;
+                case MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F7 (AdjustPersonPlans) pressed");
+                    myNet->adjustPersonPlans(myUndoList);
                     break;
                 case MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS:
                     // show extra information for tests
@@ -1667,8 +1682,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         }
         // now check if additionals must be loaded and are saved
         if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getNumberOfAdditionals() > 0) &&
-                (myViewNet->getNet()->isAdditionalsSaved() == false)) {
+                (myViewNet->getNet()->getNumberOfAdditionals() > 0)) {
             // save additionals
             onCmdSaveAdditionals(nullptr, 0, nullptr);
             // check if additionals were sucesfully saved. If not, abort
@@ -1678,8 +1692,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         }
         // finally check if demand elements must be loaded and are saved
         if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getNumberOfDemandElements() > 0) &&
-                (myViewNet->getNet()->isDemandElementsSaved() == false)) {
+                (myViewNet->getNet()->getNumberOfDemandElements() > 0)) {
             // save additionals
             onCmdSaveDemandElements(nullptr, 0, nullptr);
             // check if demand elements were sucesfully saved. If not, abort
@@ -2009,6 +2022,16 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GNEApplicationWindow::onCmdComputePathManager(FXObject*, FXSelector, void*) {
+    // first check viewNet
+    if (myViewNet) {
+        // update path calculator
+        myViewNet->getNet()->getPathManager()->getPathCalculator()->updatePathCalculator();
+    }
+    return 1;
+}
+
 
 long
 GNEApplicationWindow::onCmdCut(FXObject*, FXSelector, void*) {
@@ -2291,6 +2314,28 @@ GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
 
 
 long
+GNEApplicationWindow::onUpdComputePathManager(FXObject* sender, FXSelector /*sel*/, void* /*ptr*/) {
+    // first check viewNet
+    if (myViewNet) {
+        // check supermode network
+        if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+            // disable
+            return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        } else if (myViewNet->getNet()->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+            // disable
+            return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        } else {
+            // enable
+            return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        }
+    } else {
+        // disable
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+}
+
+
+long
 GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void* ptr) {
     // check viewNet
     if (myViewNet) {
@@ -2328,10 +2373,16 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 return myViewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
                 return myViewNet->onCmdToggleHideShapes(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS:
+                return myViewNet->onCmdToggleShowTrips(obj, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS:
                 return myViewNet->onCmdToggleShowAllPersonPlans(obj, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON:
                 return myViewNet->onCmdToggleLockPerson(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS:
+                return myViewNet->onCmdToggleShowAllContainerPlans(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER:
+                return myViewNet->onCmdToggleLockContainer(obj, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
                 return myViewNet->onCmdToggleShowAdditionals(obj, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES:
@@ -2460,6 +2511,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                     menuCheck->setCheck(FALSE);
                 }
                 break;
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS:
+                if (myViewNet->getDemandViewOptions().menuCheckShowAllTrips->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS:
                 if (myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->amChecked()) {
                     menuCheck->setCheck(TRUE);
@@ -2475,6 +2533,26 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 }
                 // special case for lock persons
                 if (myViewNet->getDemandViewOptions().menuCheckLockPerson->isEnabled()) {
+                    menuCheck->enable();
+                } else {
+                    menuCheck->disable();
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS:
+                if (myViewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER:
+                if (myViewNet->getDemandViewOptions().menuCheckLockContainer->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                // special case for lock containers
+                if (myViewNet->getDemandViewOptions().menuCheckLockContainer->isEnabled()) {
                     menuCheck->enable();
                 } else {
                     menuCheck->disable();
@@ -2758,11 +2836,11 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(file, myNet);
+        GNEAdditionalHandler additionalHandler(myNet, file, true);
         // begin undoList operation
         myUndoList->p_begin("Loading additionals from '" + file + "'");
-        // Run parser for additionals
-        if (!XMLSubSys::runParser(additionalHandler, file, false)) {
+        // Run parser
+        if (!additionalHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
@@ -2785,13 +2863,13 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEAdditionalHandler additionalHandler(file, myNet);
+    GNEAdditionalHandler additionalHandler(myNet, file, true);
     // begin undoList operation
     myUndoList->p_begin("Reloading additionals from '" + file + "'");
     // clear additionals
     myNet->clearAdditionalElements(myUndoList);
     // Run parser for additionals
-    if (!XMLSubSys::runParser(additionalHandler, file, false)) {
+    if (!additionalHandler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // end undoList operation and update view
@@ -3093,14 +3171,14 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myViewNet->getIntervalBar().disableIntervalBarUpdate();
         // disable update data
         myViewNet->getNet()->disableUpdateData();
-        // disable validation for additionals
+        // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEDataHandler dataHandler(file, myNet);
+        // Create data handler
+        GNEDataHandler dataHandler(myNet, file, true);
         // begin undoList operation
         myUndoList->p_begin("Loading data elements from '" + file + "'");
-        // Run parser for additionals
-        if (!XMLSubSys::runParser(dataHandler, file, false)) {
+        // Run data parser
+        if (!dataHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // restore validation for data
@@ -3132,13 +3210,13 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEDataHandler dataHandler(file, myNet);
+    GNEDataHandler dataHandler(myNet, file, true);
     // begin undoList operation
     myUndoList->p_begin("Reloading data elements from '" + file + "'");
     // clear data elements
     myNet->clearDemandElements(myUndoList);
-    // Run parser for additionals
-    if (!XMLSubSys::runParser(dataHandler, file, false)) {
+    // Run data parser
+    if (!dataHandler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // restore validation for data
