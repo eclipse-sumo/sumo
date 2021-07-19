@@ -149,7 +149,7 @@ lon, lat = net.convertXY2LonLat(x, y, True)
 # from lane position to network coordinates
 x,y = sumolib.geomhelper.positionAtShapeOffset(net.getLane(laneID).getShape(), lanePos)
 # from network coordinates to lane position
-lane = net.getNeighboringLanes(x, y, radius) (see "locate nearby edges based on the geo-coordinate" above)
+lane, d = net.getNeighboringLanes(x, y, radius)[0] (see "locate nearby edges based on the geo-coordinate" above)
 lanePos, dist = sumolib.geomhelper.polygonOffsetAndDistanceToPoint((x,y), lane.getShape())
 ```
 
