@@ -474,7 +474,7 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
                     } else {
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));
                         if (el.indirectLeft) {
-                            indirectLeft.push_back(into.size() - 1);
+                            indirectLeft.push_back((int)into.size() - 1);
                         }
                     }
                 }

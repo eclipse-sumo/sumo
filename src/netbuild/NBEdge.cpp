@@ -2757,7 +2757,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         }
     }
     if (explicitTurnaround) {
-        myConnections.push_back(Connection(myLanes.size() - 1, myTurnDestination, myTurnDestination->getNumLanes() - 1));
+        myConnections.push_back(Connection((int)myLanes.size() - 1, myTurnDestination, myTurnDestination->getNumLanes() - 1));
     }
     sortOutgoingConnectionsByIndex();
 }
