@@ -22,7 +22,6 @@
 
 import os
 import sys
-import csv
 import re
 from typing import Any, List, Tuple, Union
 import xml.dom.minidom
@@ -209,38 +208,44 @@ class CreateVehTypeDistribution:
         self.decimal_places = decimal_places
         self.attributes: List[VehAttribute] = []
 
-    def add_attribute(self, attribute: VehAttribute):
+    def add_attribute(self, attribute: Union[VehAttribute, dict],):
         """
         Add an instance of the attribute class to the Parameters. Pass the sampling attempts "global" parameter
         Args:
-            attribute (VehAttribute): [description]
+            attribute (VehAttribute or dict): Should be either an instance of VehAttribute or a dictionary to be passed to VehAttribute instance
         """
+        attribute = attribute if isinstance(attribute, VehAttribute) else VehAttribute(**attribute)
         attribute.add_sampling_attempts(self.resampling)
         self.attributes.append(attribute)
 
-    def write_dist(self, file_path) -> None:
-
-        xml_dom, existing_file = self._check_existing(file_path)
-
+    def create_veh_dist(self, xml_dom: xml.dom.minidom.Document) -> xml.dom.minidom.Element:
         # create the vehicleDist node
-        vTypeDistNode = xml_dom.createElement("vTypeDistribution")
-        vTypeDistNode.setAttribute("id", self.name)
+        vtype_dist_node = xml_dom.createElement("vTypeDistribution")
+        vtype_dist_node.setAttribute("id", self.name)
 
         # create the vehicle types
         for i in range(self.size):
             veh_type_node = xml_dom.createElement("vType")
             veh_type_node.setAttribute("id", self.name + str(i))
             self._generate_vehType(xml_dom, veh_type_node)
-            vTypeDistNode.appendChild(veh_type_node)
+            vtype_dist_node.appendChild(veh_type_node)
+
+        return vtype_dist_node
+
+    def to_xml(self, file_path) -> None:
+
+        xml_dom, existing_file = self._check_existing(file_path)
+
+        vtype_dist_node = self.create_veh_dist(xml_dom)
 
         if existing_file:
-            self._handle_existing(xml_dom, vTypeDistNode)
+            self._handle_existing(xml_dom, vtype_dist_node)
             with open(file_path, 'w') as f:
-                # f.write(xml_dom.toprettyxml("   "))
-                xml_dom.documentElement.writexml(f, addindent="    ", newl="\n")
+                dom_string = xml_dom.toprettyxml()
+                # super annoying but this makes re-writing the xml a little bit prettier
+                f.write(os.linesep.join([s for s in dom_string.splitlines() if s.strip()]))
         else:
-            write_additional_minidom(
-                xml_dom, vTypeDistNode, file_path=file_path)
+            write_additional_minidom(xml_dom, vtype_dist_node, file_path=file_path)
         sys.stdout.write("Output written to %s" % file_path)
 
     def _handle_existing(self, xml_dom: xml.dom.minidom.Document, veh_dist_node: xml.dom.minidom.Element) -> None:
@@ -291,28 +296,83 @@ class CreateVehTypeDistribution:
             f.write(
                 json.dumps(
                     self,
-                    default=lambda o: {key: param for key, param in o.__dict__.items() if '_' not in key[0]},
+                    default=lambda o: {
+                        key: param for key, param in o.__dict__.items() if '_' not in key[0]},
                     sort_keys=True,
                     indent=4,
                 )
             )
 
+
+class CreateMultiVehTypeDistributions(CreateVehTypeDistribution):
+
+    def __init__(self, ) -> None:
+
+        self.distributions: List[CreateVehTypeDistribution] = []
+
+    def register_veh_type_distribution(self, veh_type_dist: Union[dict, CreateVehTypeDistribution], veh_attributes: List[Union[dict, VehAttribute]]) -> None:
+        
+        veh_type_dist = veh_type_dist if isinstance(veh_type_dist, CreateVehTypeDistribution) else CreateVehTypeDistribution(**veh_type_dist)
+        
+        for attr in veh_attributes: 
+            veh_type_dist.add_attribute(attr if isinstance(attr, VehAttribute) else VehAttribute(**attr))
+
+        self.distributions.append(veh_type_dist)
+
+    def write_xml(self, file_path):
+        """
+        This function will overwrite existing files
+
+        Args:
+            file_path (str): Path to the file to write to
+        """
+        
+        xml_dom, _ = self._check_existing(file_path)
+
+        veh_dist_nodes = [dist.create_veh_dist(xml_dom=xml_dom) for dist in self.distributions]
+
+        write_additional_minidom(xml_dom, veh_dist_nodes, file_path=file_path)
+        
+
 # if __name__ == "__main__":
 
-#     d = CreateVehTypeDistribution(seed=42, size=300, name="testDist", resampling=50, decimal_places=3)
+#     for i in range(3):
+#         d = CreateVehTypeDistribution(seed=42, size=300, name=f"testDist{i}", resampling=50, decimal_places=3)
+#         params = [{'name': "tau", 'distribution': 'uniform', 'distribution_params': {'a': 0.8, 'b': 0.1}},
+#                 {'name': "sigma", 'distribution': 'lognormal', 'distribution_params': {'mu': 0.5, 'sd': 0.2}},
+#                 {'name': "length", 'distribution': 'normalCapped', 'distribution_params': {'mu': 4.9, 'sd': 0.2, "max": 8, "min": 0}},
+#                 {'name': "myCustomParameter", "is_param": True, 'distribution': 'gamma', 'distribution_params': {'alpha': 0.5, 'beta': 0.2}, 'bounds': (0, 12)},
+#                 {'name': "vClass", 'attribute_value': 'small_car'},
+#                 {'name': "carFollowModel", 'attribute_value': 'Krauss'},
+#         ]
+
+#         for param in params:
+#             d.add_attribute(param)
+
+#         d.to_xml("test.xml")
+#         d.save_myself("test.json")
 
 
-#     params = [{'name': "tau", 'distribution': 'uniform', 'distribution_params': {'a': 0.8, 'b': 0.1}},
-#               {'name': "sigma", 'distribution': 'lognormal', 'distribution_params': {'mu': 0.5, 'sd': 0.2}},
-#               {'name': "length", 'distribution': 'normalCapped', 'distribution_params': {'mu': 4.9, 'sd': 0.2, "max": 8, "min": 0}},
-#               {'name': "myCustomParameter", "is_param": True, 'distribution': 'gamma', 'distribution_params': {'alpha': 0.5, 'beta': 0.2}, 'bounds': (0, 12)},
-#               {'name': "vClass", 'attribute_value': 'passenger'},
-#               {'name': "carFollowModel", 'attribute_value': 'Krauss'},
-#     ]
+#     params = []
+#     dists = []
+#     for i in range(3):
 
-#     for param in params:
-#         d.add_attribute(VehAttribute(**param))
+#         dists.append(dict(seed=i, size=int((i + 1) * 50), name=f"testDist{i}", resampling=50, decimal_places=3))
+
+
+#         params.append([{'name': "tau", 'distribution': 'uniform', 'distribution_params': {'a': 0.8, 'b': 0.1}},
+#                 {'name': "sigma", 'distribution': 'lognormal', 'distribution_params': {'mu': 0.5, 'sd': 0.2}},
+#                 {'name': "length", 'distribution': 'normalCapped', 'distribution_params': {'mu': 4.9, 'sd': 0.2, "max": 8, "min": 0}},
+#                 {'name': "myCustomParameter", "is_param": True, 'distribution': 'gamma', 'distribution_params': {'alpha': 0.5, 'beta': 0.2}, 'bounds': (0, 12)},
+#                 {'name': "vClass", 'attribute_value': 'small_car'},
+#                 {'name': "carFollowModel", 'attribute_value': 'Krauss'},
+#         ])
+
+#     c = CreateMultiVehTypeDistributions()
+#     for dist, param_list in zip(dists, params): 
+#         c.register_veh_type_distribution(veh_type_dist=dist, veh_attributes=param_list)
     
-#     d.write_dist("test.xml")
+#     c.write_xml("test2.xml")
+#     c.save_myself("test2.json")
 
-#     d.save_myself("test.json")
+
