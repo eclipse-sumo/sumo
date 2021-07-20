@@ -15,4 +15,4 @@
 # @date    2021-07-19
 
 from __future__ import absolute_import
-from .vehtype_distribution import CreateVehTypeDistribution, VehAttribute  # noqa
+from .vehtype_distribution import *  # noqa
