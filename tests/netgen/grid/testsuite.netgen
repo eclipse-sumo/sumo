@@ -53,5 +53,8 @@ flat
 # a single node with attachments
 cross
 
+# removing an edge from the grid
+remove_edge
+
 # Tests processing of errors in input
 errors
