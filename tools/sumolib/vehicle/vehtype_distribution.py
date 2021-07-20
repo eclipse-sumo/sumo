@@ -142,7 +142,7 @@ _DIST_DICT = {
 }
 
 
-class Attribute:
+class VehAttribute:
 
     def __init__(self, name: str, is_param: bool = False, distribution: str = None, distribution_params: Union[dict, Any] = None, bounds: tuple = None, attribute_value: str = None) -> None:
         """
@@ -189,11 +189,11 @@ class Attribute:
             self.d_obj.setMaxSamplingAttempts(attempts)
 
 
-class Parameters:
+class CreateVehTypeDistribution:
 
     def __init__(self, seed: int = 42, size: int = 100, name: str = 'vehDist', resampling: int = 100, decimal_places: int = 3) -> None:
         """
-        Parameters is a helper object to store the parameters for generating a vehicle type distribution
+        Creates a VehicleType Distribution. See https://sumo.dlr.de/docs/Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#vehicle_type_distributions
 
         Args:
             seed (int, optional): random seed. Defaults to 42.
@@ -207,23 +207,16 @@ class Parameters:
         self.name = name
         self.resampling = resampling
         self.decimal_places = decimal_places
-        self.attributes: List[Attribute] = []
+        self.attributes: List[VehAttribute] = []
 
-    def add_attribute(self, attribute: Attribute):
+    def add_attribute(self, attribute: VehAttribute):
         """
         Add an instance of the attribute class to the Parameters. Pass the sampling attempts "global" parameter
         Args:
-            attribute (Attribute): [description]
+            attribute (VehAttribute): [description]
         """
         attribute.add_sampling_attempts(self.resampling)
         self.attributes.append(attribute)
-
-
-class CreateVehTypeDistribution(Parameters):
-
-    def __init__(self, seed, size, name, resampling, decimal_places) -> None:
-
-        Parameters.__init__(self, seed, size, name, resampling, decimal_places)
 
     def write_dist(self, file_path) -> None:
 
@@ -318,7 +311,7 @@ class CreateVehTypeDistribution(Parameters):
 #     ]
 
 #     for param in params:
-#         d.add_attribute(Attribute(**param))
+#         d.add_attribute(VehAttribute(**param))
     
 #     d.write_dist("test.xml")
 
