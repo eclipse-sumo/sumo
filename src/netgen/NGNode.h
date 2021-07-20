@@ -161,12 +161,16 @@ public:
     void removeLink(NGEdge* link);
 
 
+    const NGEdgeList& getLinks() const {
+        return myLinkList;
+    }
+
     /** @brief Returns whether the other node is connected
      *
      * @param[in] node The link to check whether it is connected
      * @return Whether the given node is connected
      */
-    bool connected(NGNode* node) const;
+    bool connected(const NGNode* const node, const bool withDir=false) const;
 
 
     /** @brief Returns whether the node has the given position
@@ -175,21 +179,18 @@ public:
      * @return Whether the given node is connected
      */
     bool samePos(int xPos, int yPos) const {
-        return xID == xPos && yID == yPos;
+        return myXID == xPos && myYID == yPos;
     }
-
-    // NGRandomNetBuilder needs access to links
-    friend class NGRandomNetBuilder;
 
 private:
     /// @brief Integer x-position (x-id)
-    int xID;
+    int myXID;
 
     /// @brief Integer y-position (y-id)
-    int yID;
+    int myYID;
 
     /// @brief List of connected links
-    NGEdgeList LinkList;
+    NGEdgeList myLinkList;
 
     /// @brief The position of the node
     Position myPosition;

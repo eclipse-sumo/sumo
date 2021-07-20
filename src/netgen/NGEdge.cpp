@@ -60,7 +60,7 @@ NGEdge::~NGEdge() {
 
 
 NBEdge*
-NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type) const {
+NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type, const bool reversed) const {
     int priority = nb.getTypeCont().getEdgeTypePriority(type);
     if (priority > 1 && OptionsCont::getOptions().getBool("rand.random-priority")) {
         priority = RandHelper::rand(priority) + 1;
@@ -76,12 +76,11 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type) const {
         lsf = LaneSpreadFunction::CENTER;
     }
     NBEdge* result = new NBEdge(
-        myID,
-        nb.getNodeCont().retrieve(myStartNode->getID()), // from
-        nb.getNodeCont().retrieve(myEndNode->getID()), // to
+        (reversed ? "-" : "") + myID,
+        nb.getNodeCont().retrieve(reversed ? myEndNode->getID() : myStartNode->getID()), // from
+        nb.getNodeCont().retrieve(reversed ? myStartNode->getID() : myEndNode->getID()), // to
         type, nb.getTypeCont().getEdgeTypeSpeed(type), lanenumber,
-        priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET,
-        lsf, "");
+        priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET, lsf);
     result->setPermissions(permissions);
     return result;
 }

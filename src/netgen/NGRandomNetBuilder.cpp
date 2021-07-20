@@ -57,31 +57,29 @@ NGRandomNetBuilder::removeOuterNode(NGNode* node) {
 
 
 bool
-NGRandomNetBuilder::checkAngles(NGNode* node) {
+NGRandomNetBuilder::checkAngles(const NGNode* const node) {
     bool check = true;
 
-    if (node->LinkList.size() >  1) {
+    if (node->getLinks().size() >  1) {
         // loop over all links
-        NGEdgeList::iterator li;
         NGNode* ni;
-        for (li = node->LinkList.begin(); li != node->LinkList.end(); ++li) {
+        for (NGEdge* const li : node->getLinks()) {
             // calc vector of currentnode
-            if ((*li)->getStartNode() == node) {
-                ni = (*li)->getEndNode();
+            if (li->getStartNode() == node) {
+                ni = li->getEndNode();
             } else {
-                ni = (*li)->getStartNode();
+                ni = li->getStartNode();
             }
             Position v1(
                 ni->getPosition().x() - node->getPosition().x(),
                 ni->getPosition().y() - node->getPosition().y());
             // loop over all links
-            NGEdgeList::iterator lj;
-            for (lj = node->LinkList.begin(); lj != node->LinkList.end(); ++lj) {
+            for (NGEdge* const lj : node->getLinks()) {
                 if (li != lj) {
-                    if ((*lj)->getStartNode() == node) {
-                        ni = (*lj)->getEndNode();
+                    if (lj->getStartNode() == node) {
+                        ni = lj->getEndNode();
                     } else {
-                        ni = (*lj)->getStartNode();
+                        ni = lj->getStartNode();
                     }
                     Position v2(
                         ni->getPosition().x() - node->getPosition().x(),
@@ -156,8 +154,8 @@ NGRandomNetBuilder::findPossibleOuterNodes(NGNode* node) {
     for (ni = myOuterNodes.begin(); ni != myOuterNodes.end(); ++ni) {
         NGNode* on = *ni;
         if (!node->connected(on)) {
-            if ((node->getMaxNeighbours() > (int)node->LinkList.size()) &&
-                    (on->getMaxNeighbours() > (int)on->LinkList.size())) {
+            if ((node->getMaxNeighbours() > (int)node->getLinks().size()) &&
+                    (on->getMaxNeighbours() > (int)on->getLinks().size())) {
                 if (canConnect(node, on)) {
                     myConNodes.push_back(on);
                 }
@@ -193,7 +191,7 @@ NGRandomNetBuilder::createNewNode(NGNode* baseNode, bool gridMode) {
         myNet.add(newLink);
         myOuterLinks.push_back(newLink);
         // check basenode for being outer node
-        if ((int)baseNode->LinkList.size() >= baseNode->getMaxNeighbours()) {
+        if ((int)baseNode->getLinks().size() >= baseNode->getMaxNeighbours()) {
             removeOuterNode(baseNode);
         }
         return true;
@@ -234,10 +232,10 @@ NGRandomNetBuilder::createNet(int numNodes, bool gridMode) {
                 myNet.add(newLink);
                 myOuterLinks.push_back(newLink);
                 // check nodes for being outer node
-                if ((int)outerNode->LinkList.size() >= outerNode->getMaxNeighbours()) {
+                if ((int)outerNode->getLinks().size() >= outerNode->getMaxNeighbours()) {
                     removeOuterNode(outerNode);
                 }
-                if ((int)myConNodes.back()->LinkList.size() >= myConNodes.back()->getMaxNeighbours()) {
+                if ((int)myConNodes.back()->getLinks().size() >= myConNodes.back()->getMaxNeighbours()) {
                     removeOuterNode(myConNodes.back());
                 }
                 created = true;
@@ -251,7 +249,7 @@ NGRandomNetBuilder::createNet(int numNodes, bool gridMode) {
                 count++;
             } while ((count <= myNumTries) && !created);
             if (!created) {
-                outerNode->setMaxNeighbours((int)outerNode->LinkList.size());
+                outerNode->setMaxNeighbours((int)outerNode->getLinks().size());
                 myOuterNodes.remove(outerNode);
             }
         }

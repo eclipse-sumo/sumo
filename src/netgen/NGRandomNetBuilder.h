@@ -76,7 +76,7 @@ private:
      * @param[in] node The node to check connections of
      * @return Whether the settings allow to connect both nodes
      */
-    bool checkAngles(NGNode* node);
+    bool checkAngles(const NGNode* const node);
 
 
     /** @brief Checks whether connecting the given two nodes complies with the set restrictions

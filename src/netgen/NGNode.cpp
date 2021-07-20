@@ -42,21 +42,21 @@
 // method definitions
 // ===========================================================================
 NGNode::NGNode(const std::string& id)
-    : Named(id), xID(-1), yID(-1), myAmCenter(false), myAmFringe(false) {}
+    : Named(id), myXID(-1), myYID(-1), myAmCenter(false), myAmFringe(false) {}
 
 
 NGNode::NGNode(const std::string& id, int xIDa, int yIDa)
-    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(false), myAmFringe(false) {}
+    : Named(id), myXID(xIDa), myYID(yIDa), myAmCenter(false), myAmFringe(false) {}
 
 
 NGNode::NGNode(const std::string& id, int xIDa, int yIDa, bool amCenter)
-    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(amCenter), myAmFringe(false) {}
+    : Named(id), myXID(xIDa), myYID(yIDa), myAmCenter(amCenter), myAmFringe(false) {}
 
 
 NGNode::~NGNode() {
     NGEdgeList::iterator li;
-    while (LinkList.size() != 0) {
-        li = LinkList.begin();
+    while (myLinkList.size() != 0) {
+        li = myLinkList.begin();
         delete (*li);
     }
 }
@@ -103,20 +103,23 @@ NGNode::buildNBNode(NBNetBuilder& nb, const Position& perturb) const {
 
 void
 NGNode::addLink(NGEdge* link) {
-    LinkList.push_back(link);
+    myLinkList.push_back(link);
 }
 
 
 void
 NGNode::removeLink(NGEdge* link) {
-    LinkList.remove(link);
+    myLinkList.remove(link);
 }
 
 
 bool
-NGNode::connected(NGNode* node) const {
-    for (NGEdgeList::const_iterator i = LinkList.begin(); i != LinkList.end(); ++i) {
-        if (find(node->LinkList.begin(), node->LinkList.end(), *i) != node->LinkList.end()) {
+NGNode::connected(const NGNode* const node, const bool withDir) const {
+    for (NGEdge* ngEdge : myLinkList) {
+        if (ngEdge->getStartNode() == this && ngEdge->getEndNode() == node) {
+            return true;
+        }
+        if (!withDir && ngEdge->getEndNode() == this && ngEdge->getStartNode() == node) {
             return true;
         }
     }

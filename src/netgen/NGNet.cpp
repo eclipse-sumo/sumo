@@ -229,6 +229,7 @@ NGNet::getDistribution(const std::string& option) {
     }
 }
 
+
 void
 NGNet::toNB() const {
     Distribution_Parameterized perturbx = getDistribution("perturb-x");
@@ -245,23 +246,12 @@ NGNet::toNB() const {
         myNetBuilder.getNodeCont().insert(node);
     }
     const std::string type = OptionsCont::getOptions().getString("default.type");
-    for (NGEdgeList::const_iterator i2 = myEdgeList.begin(); i2 != myEdgeList.end(); i2++) {
-        NBEdge* edge = (*i2)->buildNBEdge(myNetBuilder, type);
-        myNetBuilder.getEdgeCont().insert(edge);
-    }
-    // now, let's append the reverse directions...
-    double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
-    for (std::vector<NBNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
-        NBNode* node = *i;
-        for (NBEdge* e : node->getIncomingEdges()) {
-            if (node->getConnectionTo(e->getFromNode()) == nullptr && RandHelper::rand() <= bidiProb) {
-                NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getEdgeTypeSpeed(""),
-                                          e->getNumLanes(), e->getPriority(),
-                                          myNetBuilder.getTypeCont().getEdgeTypeWidth(""),
-                                          NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
-                myNetBuilder.getEdgeCont().insert(back);
-            }
+    const double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
+    for (const NGEdge* const ngEdge : myEdgeList) {
+        myNetBuilder.getEdgeCont().insert(ngEdge->buildNBEdge(myNetBuilder, type));
+        // now, let's append the reverse directions...
+        if (!ngEdge->getEndNode()->connected(ngEdge->getStartNode(), true) && RandHelper::rand() <= bidiProb) {
+            myNetBuilder.getEdgeCont().insert(ngEdge->buildNBEdge(myNetBuilder, type, true));
         }
     }
     // add splits depending on turn-lane options

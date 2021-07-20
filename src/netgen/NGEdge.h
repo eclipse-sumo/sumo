@@ -73,18 +73,18 @@ public:
      *
      * @return The start node of the link
      */
-    NGNode* getStartNode() {
+    NGNode* getStartNode() const {
         return myStartNode;
-    };
+    }
 
 
     /** @brief Returns this link's end node
      *
      * @return The end node of the link
      */
-    NGNode* getEndNode() {
+    NGNode* getEndNode() const {
         return myEndNode;
-    };
+    }
 
 
     /** @brief Builds and returns this link's netbuild-representation
@@ -96,7 +96,7 @@ public:
      * @param[in] nb The netbuilder to retrieve the referenced nodes from
      * @return The built edge
      */
-    NBEdge* buildNBEdge(NBNetBuilder& nb, const std::string& type) const;
+    NBEdge* buildNBEdge(NBNetBuilder& nb, const std::string& type, const bool reversed=false) const;
 
 
 private:
