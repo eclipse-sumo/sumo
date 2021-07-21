@@ -612,9 +612,7 @@ public:
     * resumes a vehicle from stopping
     * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
     */
-    virtual bool resumeFromStopping() {
-        return false;
-    }
+    virtual bool resumeFromStopping() = 0;
 
     /// @brief deletes the next stop at the given index if it exists
     bool abortNextStop(int nextStopIndex = 0);

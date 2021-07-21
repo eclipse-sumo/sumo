@@ -233,13 +233,51 @@ MEVehicle::checkStop(SUMOTime time) {
             if (!hadStop) {
                 MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
             } else {
-                WRITE_WARNING("Vehicle '" + getID() + "' has multiple stops on segment '" + mySegment->getID()
-                              + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " (stop-output will be merged)");
+                WRITE_WARNINGF("Vehicle '%' has multiple stops on segment '%', time % (stop-output will be merged).",
+                               getID(), mySegment->getID(), time2string(time));
+            }
+        }
+        if (stop.triggered || stop.containerTriggered) {
+            MSNet* const net = MSNet::getInstance();
+            bool wait = true;
+            SUMOTime dummy = -1; // boarding- and loading-time are not considered
+            if (net->hasPersons()) {
+                wait = !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
+            }
+            if (net->hasContainers()) {
+                wait = !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
+            }
+            if (wait) {
+                net->getVehicleControl().registerOneWaiting();
             }
         }
         hadStop = true;
     }
     return time;
+}
+
+
+bool
+MEVehicle::resumeFromStopping() {
+    if (isStopped()) {
+        MSStop& stop = myStops.front();
+        MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
+        if (vehroutes != nullptr) {
+            vehroutes->stopEnded(stop.pars);
+        }
+        if (MSStopOut::active()) {
+            MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
+        }
+        SUMOVehicleParameter::Stop pars = stop.pars;
+//        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
+        myPastStops.emplace_back(pars);
+        myStops.pop_front();
+        if (stop.triggered || stop.containerTriggered) {
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+        }
+        return true;
+    }
+    return false;
 }
 
 
@@ -265,11 +303,10 @@ MEVehicle::getCurrentStoppingTimeSeconds() const {
 void
 MEVehicle::processStop() {
     assert(isStopped());
-    MSEdge* edge = const_cast<MSEdge*>(getEdge());
     double lastPos = 0;
     bool hadStop = false;
-    for (auto it = myStops.begin(); it != myStops.end();) {
-        MSStop& stop = *it;
+    while (!myStops.empty()) {
+        MSStop& stop = myStops.front();
         if (stop.edge != myCurrEdge || stop.segment != mySegment || stop.pars.endPos <= lastPos) {
             break;
         }
@@ -277,25 +314,15 @@ MEVehicle::processStop() {
         MSNet* const net = MSNet::getInstance();
         SUMOTime dummy = -1; // boarding- and loading-time are not considered
         if (net->hasPersons()) {
-            net->getPersonControl().boardAnyWaiting(edge, this, stop.pars, dummy, dummy);
+            net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
         if (net->hasContainers()) {
-            net->getContainerControl().loadAnyWaiting(edge, this, stop.pars, dummy, dummy);
+            net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
-        SUMOVehicleParameter::Stop pars = stop.pars;
-        pars.ended = MSNet::getInstance()->getCurrentTimeStep();
-        MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
-        if (vehroutes != nullptr) {
-            vehroutes->stopEnded(pars);
+        if (hadStop && MSStopOut::active()) {
+            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
         }
-        if (MSStopOut::active()) {
-            if (hadStop) {
-                MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
-            }
-            MSStopOut::getInstance()->stopEnded(this, pars, mySegment->getEdge().getID());
-        }
-        myPastStops.emplace_back(pars);
-        it = myStops.erase(it);
+        resumeFromStopping();
         hadStop = true;
     }
     mySegment->getEdge().removeWaiting(this);
@@ -303,15 +330,27 @@ MEVehicle::processStop() {
 
 
 bool
-MEVehicle::mayProceed() const {
+MEVehicle::mayProceed() {
     if (mySegment == nullptr) {
         return true;
     }
+    MSNet* const net = MSNet::getInstance();
+    SUMOTime dummy = -1; // boarding- and loading-time are not considered
     for (const MSStop& stop : myStops) {
         if (!stop.reached) {
             break;
         }
-        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
+        if (stop.triggered) {
+            if (!net->hasPersons() || !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+                return false;
+            }
+        }
+        if (stop.containerTriggered) {
+            if (!net->hasContainers() || !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+                return false;
+            }
+        }
+        if (stop.joinTriggered) {
             return false;
         }
     }

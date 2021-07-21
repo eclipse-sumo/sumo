@@ -179,6 +179,11 @@ public:
      */
     SUMOTime checkStop(SUMOTime time);
 
+    /**
+    * resumes a vehicle from stopping
+    * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
+    */
+    bool resumeFromStopping();
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap() const {
@@ -327,10 +332,10 @@ public:
     /// Replaces the current route by the given one
     bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true);
 
-    /** @brief Returns whether the vehicle is allowed to pass the next junction
+    /** @brief Returns whether the vehicle is allowed to pass the next junction, checks also for triggered stops
      * @return true iff the vehicle may drive over the next junction
      */
-    bool mayProceed() const;
+    bool mayProceed();
 
     /** @brief Updates a single vehicle detector if present
      */
