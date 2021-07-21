@@ -1780,7 +1780,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()),
-            this, GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), opts, 10, 10, 200);
+            this, GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), opts, 10, 10, 200, 100);
     GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet(), vt);
     if (oldView != nullptr) {
         // copy viewport
