@@ -638,16 +638,18 @@ MSDevice_Tripinfo::getAvgRideRouteLength() {
 
 void
 MSDevice_Tripinfo::saveState(OutputDevice& out) const {
-    out.openTag(SUMO_TAG_DEVICE);
-    out.writeAttr(SUMO_ATTR_ID, getID());
-    std::ostringstream internals;
-    if (!MSGlobals::gUseMesoSim) {
-        internals << myDepartLane << " " << myDepartPosLat << " ";
+    if (myHolder.hasDeparted()) {
+        out.openTag(SUMO_TAG_DEVICE);
+        out.writeAttr(SUMO_ATTR_ID, getID());
+        std::ostringstream internals;
+        if (!MSGlobals::gUseMesoSim) {
+            internals << myDepartLane << " " << myDepartPosLat << " ";
+        }
+        internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
+        internals << myStoppingTime << " " << myParkingStarted;
+        out.writeAttr(SUMO_ATTR_STATE, internals.str());
+        out.closeTag();
     }
-    internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
-    internals << myStoppingTime << " " << myParkingStarted;
-    out.writeAttr(SUMO_ATTR_STATE, internals.str());
-    out.closeTag();
 }
 
 

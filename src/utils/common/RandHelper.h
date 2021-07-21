@@ -54,8 +54,8 @@ public:
             rng = &myRandomNumberGenerator;
         }
         const double res = double((*rng)() / 4294967296.0);
-#ifdef DEBUG_RANDCALLS
         myCallCount[rng]++;
+#ifdef DEBUG_RANDCALLS
         if (myCallCount[rng] == myDebugIndex) {
             std::cout << "DEBUG\n"; // for setting breakpoint
         }
@@ -156,7 +156,11 @@ public:
             rng = &myRandomNumberGenerator;
         }
         std::ostringstream oss;
-        oss << (*rng);
+        if (myCallCount[rng] < 10000) {
+            oss << myCallCount[rng];
+        } else {
+            oss << (*rng);
+        }
         return oss.str();
     }
 
@@ -166,7 +170,12 @@ public:
             rng = &myRandomNumberGenerator;
         }
         std::istringstream iss(state);
-        iss >> (*rng);
+        if (state.size() < 10) {
+            iss >> myCallCount[rng];
+            rng->discard(myCallCount[rng]);
+        } else {
+            iss >> (*rng);
+        }
     }
 
 
@@ -174,8 +183,8 @@ protected:
     /// @brief the random number generator to use
     static std::mt19937 myRandomNumberGenerator;
 
-#ifdef DEBUG_RANDCALLS
     static std::map<std::mt19937*, int> myCallCount;
+#ifdef DEBUG_RANDCALLS
     static std::map<std::mt19937*, int> myRngId;
     static int myDebugIndex;
 #endif
