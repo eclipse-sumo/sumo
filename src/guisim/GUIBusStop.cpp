@@ -91,8 +91,8 @@ GUIBusStop::~GUIBusStop() {}
 
 
 bool
-GUIBusStop::addAccess(MSLane* lane, const double pos, const double length) {
-    bool added = MSStoppingPlace::addAccess(lane, pos, length);
+GUIBusStop::addAccess(MSLane* lane, const double pos, double length) {
+    const bool added = MSStoppingPlace::addAccess(lane, pos, length);
     if (added) {
         myAccessCoords.push_back(lane->geometryPositionAtOffset(pos));
     }

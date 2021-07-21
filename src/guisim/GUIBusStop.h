@@ -81,7 +81,7 @@ public:
 
 
     /// @brief adds an access point to this stop
-    bool addAccess(MSLane* lane, const double pos, const double length);
+    bool addAccess(MSLane* lane, const double pos, double length);
 
     /// @name inherited from GUIGlObject
     //@{
