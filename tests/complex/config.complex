@@ -74,6 +74,7 @@ stops:stops.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
 ssm:ssm.xml
+summary:summary.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -109,6 +110,7 @@ stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
+summary:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->
