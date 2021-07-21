@@ -192,8 +192,7 @@ MSTransportableControl::addWaiting(const MSEdge* const edge, MSTransportable* tr
 
 
 bool
-MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const SUMOVehicleParameter::Stop& stop, SUMOTime& timeToBoardNextPerson, SUMOTime& stopDuration) {
-    UNUSED_PARAMETER(stop);
+MSTransportableControl::boardAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToBoardNextPerson, SUMOTime& stopDuration) {
     bool ret = false;
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         TransportableVector& wait = myWaiting4Vehicle[edge];
@@ -241,8 +240,7 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
 
 
 bool
-MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const SUMOVehicleParameter::Stop& stop, SUMOTime& timeToLoadNextContainer, SUMOTime& stopDuration) {
-    UNUSED_PARAMETER(stop);
+MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNextContainer, SUMOTime& stopDuration) {
     bool ret = false;
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();

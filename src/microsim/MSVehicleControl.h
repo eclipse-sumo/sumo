@@ -622,7 +622,7 @@ private:
     /// @brief Whether the default taxi type was already used or can still be replaced
     bool myDefaultTaxiTypeMayBeDeleted;
 
-    /// the number of vehicles wainting for persons or containers contained in myWaiting which can only continue by being triggered
+    /// the number of vehicles waiting for persons or containers contained in myWaiting which can only continue by being triggered
     int myWaitingForTransportable;
 
     /// @brief The scaling factor (especially for inc-dua)

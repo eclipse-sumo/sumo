@@ -1284,7 +1284,7 @@ protected:
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     /// @brief take action upon collision
-    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
+    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
                                 double gap, double latGap,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;

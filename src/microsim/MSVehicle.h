@@ -1655,7 +1655,7 @@ public:
     const Position getBackPosition() const;
 
     /// @brief whether this vehicle is except from collision checks
-    bool ignoreCollision();
+    bool ignoreCollision() const;
 
     /// @brief update state while parking
     void updateParkingState();

@@ -1496,7 +1496,7 @@ MSVehicle::collisionStopTime() const {
 
 
 bool
-MSVehicle::ignoreCollision() {
+MSVehicle::ignoreCollision() const {
     return myCollisionImmunity > 0;
 }
 
@@ -1741,12 +1741,12 @@ MSVehicle::boardTransportables(MSStop& stop) {
     MSNet* const net = MSNet::getInstance();
     const bool boarded = (time <= stop.endBoarding
                           && net->hasPersons()
-                          && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToBoardNextPerson, stop.duration)
+                          && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, stop.timeToBoardNextPerson, stop.duration)
                           && stop.numExpectedPerson == 0);
     // load containers
     const bool loaded = (time <= stop.endBoarding
                          && net->hasContainers()
-                         && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, stop.pars, stop.timeToLoadNextContainer, stop.duration)
+                         && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, stop.timeToLoadNextContainer, stop.duration)
                          && stop.numExpectedContainer == 0);
 
     bool unregister = false;

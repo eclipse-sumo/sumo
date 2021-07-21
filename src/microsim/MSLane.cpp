@@ -1366,12 +1366,13 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 #endif
         assert(myLinks.size() == 1);
         const std::vector<const MSLane*>& foeLanes = myLinks.front()->getFoeLanes();
-        for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
-            MSVehicle* collider = const_cast<MSVehicle*>(*veh);
+        // save the iterator, it might get modified, see #8842
+        MSLane::AnyVehicleIterator end = anyVehiclesEnd();
+        for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != end; ++veh) {
+            const MSVehicle* const collider = *veh;
             //std::cout << "   collider " << collider->getID() << "\n";
             PositionVector colliderBoundary = collider->getBoundingBox(myCheckJunctionCollisionMinGap);
-            for (std::vector<const MSLane*>::const_iterator it = foeLanes.begin(); it != foeLanes.end(); ++it) {
-                const MSLane* foeLane = *it;
+            for (const MSLane* const foeLane : foeLanes) {
 #ifdef DEBUG_JUNCTION_COLLISIONS
                 if (DEBUG_COND) {
                     std::cout << "     foeLane " << foeLane->getID()
@@ -1379,9 +1380,9 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                               << " foePart=" << toString(foeLane->myPartialVehicles) << "\n";
                 }
 #endif
-                MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
-                for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
-                    MSVehicle* victim = (MSVehicle*)*it_veh;
+                MSLane::AnyVehicleIterator foeEnd = foeLane->anyVehiclesEnd();
+                for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != foeEnd; ++it_veh) {
+                    const MSVehicle* const victim = *it_veh;
                     if (victim == collider) {
                         // may happen if the vehicles lane and shadow lane are siblings
                         continue;
@@ -1665,7 +1666,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 
 
 void
-MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
+MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     if (collider->ignoreCollision() || victim->ignoreCollision()) {
@@ -1714,7 +1715,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             stop.startPos = victimStopPos;
             stop.endPos = stop.startPos;
             stop.parametersSet |= STOP_START_SET | STOP_END_SET;
-            victim->addStop(stop, dummyError, 0, true);
+            ((MSBaseVehicle*)victim)->addStop(stop, dummyError, 0, true);
         }
         if (collider->collisionStopTime() < 0) {
             stop.lane = collider->getLane()->getID();
@@ -1723,7 +1724,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                                       collider->getPositionOnLane() - SPEED2DIST(collider->getSpeed())));
             stop.endPos = stop.startPos;
             stop.parametersSet |= STOP_START_SET | STOP_END_SET;
-            collider->addStop(stop, dummyError, 0, true);
+            ((MSBaseVehicle*)collider)->addStop(stop, dummyError, 0, true);
         }
         //std::cout << " collisionAngle=" << collisionAngle
         //    << "\n    vPos=" << victim->getPositionOnLane()   << " vStop=" << victimStopPos  << " vSpeed=" << victimOrigSpeed     << " vSpeed2=" << victimSpeed   << " vSpeed3=" << victim->getSpeed()
@@ -1742,8 +1743,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 prefix = "Removing " + collisionType + " participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
                 bool removeCollider = true;
                 bool removeVictim = true;
-                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep));
-                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep));
+                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer()->isRemoteAffected(timestep));
+                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer()->isRemoteAffected(timestep));
                 if (removeVictim) {
                     toRemove.insert(victim);
                 }
