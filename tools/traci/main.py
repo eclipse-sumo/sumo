@@ -252,18 +252,33 @@ def removeStepListener(listenerID):
 
 
 def getVersion():
+    """getVersion() -> tuple
+
+    Returns a tuple containing the TraCI API version number (integer) 
+    and a string identifying the SUMO version running on the TraCI server in human-readable form.
+    """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
     return _connections[""].getVersion()
 
 
 def setOrder(order):
+    """
+    Tells TraCI to give the current client the given position in the
+    execution order. It is mandatory to send this as the first command after
+    connecting to the TraCI server when using multiple clients. Each client
+    must be assigned a unique integer but there are not further restrictions
+    on numbering.
+    """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
     return _connections[""].setOrder(order)
 
 
 def close(wait=True):
+    """
+    Tells TraCI to close the connection.
+    """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
     _connections[""].close(wait)
