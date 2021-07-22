@@ -71,13 +71,13 @@ GNEDataHandler::buildDataSet(const std::string& dataSetID) {
 
 
 void
-GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, 
+GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */, 
     const std::string& dataSetID, const double begin, const double end) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(dataSetID, false);
     // first check if dataSet exist
     if (dataSet == nullptr) {
-        GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
+        dataSet = new GNEDataSet(myNet, dataSetID);
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET) + " and " + toString(SUMO_TAG_DATAINTERVAL));
