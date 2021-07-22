@@ -30,7 +30,7 @@
 // static member variables
 // ===========================================================================
 std::mt19937 RandHelper::myRandomNumberGenerator;
-std::map<std::mt19937*, int> RandHelper::myCallCount;
+std::map<std::mt19937*, unsigned long long int> RandHelper::myCallCount;
 #ifdef DEBUG_RANDCALLS
 std::map<std::mt19937*, int> RandHelper::myRngId;
 int RandHelper::myDebugIndex(7);

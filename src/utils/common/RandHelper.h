@@ -50,11 +50,11 @@ public:
 
     /// @brief Returns a random real number in [0, 1)
     static inline double rand(std::mt19937* rng = nullptr) {
-        if (rng == 0) {
+        if (rng == nullptr) {
             rng = &myRandomNumberGenerator;
         }
         const double res = double((*rng)() / 4294967296.0);
-        myCallCount[rng]++;
+        myCallCount[rng]++; // this slows down the rand call to about 180% on Windows, using an unordered_map makes it even worse
 #ifdef DEBUG_RANDCALLS
         if (myCallCount[rng] == myDebugIndex) {
             std::cout << "DEBUG\n"; // for setting breakpoint
@@ -67,18 +67,18 @@ public:
     }
 
     /// @brief Returns a random real number in [0, maxV)
-    static inline double rand(double maxV, std::mt19937* rng = 0) {
+    static inline double rand(double maxV, std::mt19937* rng = nullptr) {
         return maxV * rand(rng);
     }
 
     /// @brief Returns a random real number in [minV, maxV)
-    static inline double rand(double minV, double maxV, std::mt19937* rng = 0) {
+    static inline double rand(double minV, double maxV, std::mt19937* rng = nullptr) {
         return minV + (maxV - minV) * rand(rng);
     }
 
     /// @brief Returns a random integer in [0, maxV-1]
-    static inline int rand(int maxV, std::mt19937* rng = 0) {
-        if (rng == 0) {
+    static inline int rand(int maxV, std::mt19937* rng = nullptr) {
+        if (rng == nullptr) {
             rng = &myRandomNumberGenerator;
         }
         unsigned int usedBits = maxV - 1;
@@ -92,21 +92,22 @@ public:
         int result;
         do {
             result = (*rng)() & usedBits;
+            myCallCount[rng]++;
         } while (result >= maxV);
         return result;
     }
 
     /// @brief Returns a random integer in [minV, maxV-1]
-    static inline int rand(int minV, int maxV, std::mt19937* rng = 0) {
+    static inline int rand(int minV, int maxV, std::mt19937* rng = nullptr) {
         return minV + rand(maxV - minV, rng);
     }
 
     /// @brief Returns a random 64 bit integer in [0, maxV-1]
-    static inline long long int rand(long long int maxV, std::mt19937* rng = 0) {
+    static inline long long int rand(long long int maxV, std::mt19937* rng = nullptr) {
         if (maxV <= std::numeric_limits<int>::max()) {
             return rand((int)maxV, rng);
         }
-        if (rng == 0) {
+        if (rng == nullptr) {
             rng = &myRandomNumberGenerator;
         }
         unsigned long long int usedBits = maxV - 1;
@@ -121,17 +122,18 @@ public:
         long long int result;
         do {
             result = (((unsigned long long int)(*rng)() << 32) | (*rng)()) & usedBits;    // toss unused bits to shorten search
+            myCallCount[rng] += 2;
         } while (result >= maxV);
         return result;
     }
 
     /// @brief Returns a random 64 bit integer in [minV, maxV-1]
-    static inline long long int rand(long long int minV, long long int maxV, std::mt19937* rng = 0) {
+    static inline long long int rand(long long int minV, long long int maxV, std::mt19937* rng = nullptr) {
         return minV + rand(maxV - minV, rng);
     }
 
     /// @brief Access to a random number from a normal distribution
-    static inline double randNorm(double mean, double variance, std::mt19937* rng = 0) {
+    static inline double randNorm(double mean, double variance, std::mt19937* rng = nullptr) {
         // Polar method to avoid cosine
         double u, q;
         do {
@@ -145,18 +147,18 @@ public:
     /// @brief Returns a random element from the given vector
     template<class T>
     static inline const T&
-    getRandomFrom(const std::vector<T>& v, std::mt19937* rng = 0) {
+    getRandomFrom(const std::vector<T>& v, std::mt19937* rng = nullptr) {
         assert(v.size() > 0);
         return v[rand((int)v.size(), rng)];
     }
 
     /// @brief save rng state to string
-    static std::string saveState(std::mt19937* rng = 0) {
-        if (rng == 0) {
+    static std::string saveState(std::mt19937* rng = nullptr) {
+        if (rng == nullptr) {
             rng = &myRandomNumberGenerator;
         }
         std::ostringstream oss;
-        if (myCallCount[rng] < 10000) {
+        if (myCallCount[rng] < 1000000) { // TODO make this configurable
             oss << myCallCount[rng];
         } else {
             oss << (*rng);
@@ -165,8 +167,8 @@ public:
     }
 
     /// @brief load rng state from string
-    static void loadState(const std::string& state, std::mt19937* rng = 0) {
-        if (rng == 0) {
+    static void loadState(const std::string& state, std::mt19937* rng = nullptr) {
+        if (rng == nullptr) {
             rng = &myRandomNumberGenerator;
         }
         std::istringstream iss(state);
@@ -180,10 +182,10 @@ public:
 
 
 protected:
-    /// @brief the random number generator to use
+    /// @brief the default random number generator to use
     static std::mt19937 myRandomNumberGenerator;
 
-    static std::map<std::mt19937*, int> myCallCount;
+    static std::map<std::mt19937*, unsigned long long int> myCallCount;
 #ifdef DEBUG_RANDCALLS
     static std::map<std::mt19937*, int> myRngId;
     static int myDebugIndex;
