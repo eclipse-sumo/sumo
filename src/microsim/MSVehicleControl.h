@@ -407,7 +407,7 @@ public:
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or nullptr if no such type exists
      */
-    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, std::mt19937* rng = nullptr, bool readOnly = false);
+    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, SumoRNG* rng = nullptr, bool readOnly = false);
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector

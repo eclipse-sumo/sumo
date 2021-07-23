@@ -43,7 +43,7 @@
 bool MSDevice_BTreceiver::myWasInitialised = false;
 double MSDevice_BTreceiver::myRange = -1.;
 double MSDevice_BTreceiver::myOffTime = -1.;
-std::mt19937 MSDevice_BTreceiver::sRecognitionRNG;
+SumoRNG MSDevice_BTreceiver::sRecognitionRNG;
 std::map<std::string, MSDevice_BTreceiver::VehicleInformation*> MSDevice_BTreceiver::sVehicles;
 
 

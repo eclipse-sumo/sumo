@@ -57,7 +57,7 @@ MSCFModel_KraussX::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double 
 
 
 double
-MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax, std::mt19937* rng) const {
+MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax, SumoRNG* rng) const {
     double speed = vMax;
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate

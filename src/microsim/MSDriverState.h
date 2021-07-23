@@ -75,7 +75,7 @@ public:
     double getState() const;
 
 
-    static std::mt19937* getRNG() {
+    static SumoRNG* getRNG() {
         return &myRNG;
     }
 
@@ -93,7 +93,7 @@ private:
     double myNoiseIntensity;
 
     /// @brief Random generator for OUProcesses
-    static std::mt19937 myRNG;
+    static SumoRNG myRNG;
 };
 
 

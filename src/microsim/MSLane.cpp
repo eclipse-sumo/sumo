@@ -102,7 +102,7 @@ double MSLane::myCheckJunctionCollisionMinGap(0);
 SUMOTime MSLane::myCollisionStopTime(0);
 double MSLane::myCollisionMinGapFactor(1.0);
 bool MSLane::myExtrapolateSubstepDepart(false);
-std::vector<std::mt19937> MSLane::myRNGs;
+std::vector<SumoRNG> MSLane::myRNGs;
 
 
 // ===========================================================================
@@ -3914,7 +3914,7 @@ MSLane::initRNGs(const OptionsCont& oc) {
     int seed = oc.getInt("seed");
     myRNGs.reserve(numRNGs); // this is needed for stable pointers on debugging
     for (int i = 0; i < numRNGs; i++) {
-        myRNGs.push_back(std::mt19937());
+        myRNGs.push_back(SumoRNG());
         RandHelper::initRand(&myRNGs.back(), random, seed++);
     }
 }

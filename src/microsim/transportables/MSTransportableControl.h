@@ -136,7 +136,7 @@ public:
      * @param[in] rng The RNG to compute the optional speed deviation
      */
     virtual MSTransportable* buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan,
-                                         std::mt19937* rng) const;
+                                         SumoRNG* rng) const;
 
     /** @brief Builds a new container
     * @param[in] pars The parameter

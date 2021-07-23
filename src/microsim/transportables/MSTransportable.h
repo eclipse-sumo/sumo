@@ -135,7 +135,7 @@ public:
     }
 
     /// @brief returns the associated RNG
-    std::mt19937* getRNG() const;
+    SumoRNG* getRNG() const;
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const;

@@ -23,6 +23,7 @@
 #include <config.h>
 #include <iostream>
 #include <random>
+#include <utils/common/RandHelper.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -107,7 +108,7 @@ public:
     /// @brief obtain inverted of current RGBColor
     RGBColor invertedColor() const;
 
-    static std::mt19937* getColorRNG() {
+    static SumoRNG* getColorRNG() {
         return &myRNG;
     }
 
@@ -208,5 +209,5 @@ private:
     unsigned char myRed, myGreen, myBlue, myAlpha;
 
     /// @brief A random number generator to generate random colors independent of other randomness
-    static std::mt19937 myRNG;
+    static SumoRNG myRNG;
 };

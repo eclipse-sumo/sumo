@@ -146,7 +146,7 @@ private:
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    virtual double dawdle(double speed, std::mt19937* rng) const;
+    virtual double dawdle(double speed, SumoRNG* rng) const;
 
     virtual void updateMyHeadway(const MSVehicle* const veh) const {
         // this is the point were the preferred headway changes slowly:

@@ -97,7 +97,7 @@ Distribution_Parameterized::isValidDescription(const std::string& description) {
 
 
 double
-Distribution_Parameterized::sample(std::mt19937* which) const {
+Distribution_Parameterized::sample(SumoRNG* which) const {
     if (myParameter[1] == 0.) {
         return myParameter[0];
     }

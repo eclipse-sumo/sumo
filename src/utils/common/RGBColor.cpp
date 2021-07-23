@@ -54,7 +54,7 @@ const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::YELLOW;
 const std::string RGBColor::DEFAULT_COLOR_STRING = toString(RGBColor::DEFAULT_COLOR);
 
 // random colors do not affect the simulation. No initialization is necessary
-std::mt19937 RGBColor::myRNG;
+SumoRNG RGBColor::myRNG;
 
 // ===========================================================================
 // method definitions

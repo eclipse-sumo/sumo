@@ -73,7 +73,7 @@ MSTransportable::~MSTransportable() {
     }
 }
 
-std::mt19937*
+SumoRNG*
 MSTransportable::getRNG() const {
     return getEdge()->getLanes()[0]->getRNG();
 }

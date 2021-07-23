@@ -90,7 +90,7 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
 }
 
 double
-MSCFModel_Krauss::dawdle2(double speed, double sigma, std::mt19937* rng) const {
+MSCFModel_Krauss::dawdle2(double speed, double sigma, SumoRNG* rng) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.

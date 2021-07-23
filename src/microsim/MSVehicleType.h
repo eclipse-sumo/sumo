@@ -163,7 +163,7 @@ public:
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    double computeChosenSpeedDeviation(std::mt19937* rng, const double minDev = -1.) const;
+    double computeChosenSpeedDeviation(SumoRNG* rng, const double minDev = -1.) const;
 
 
     /** @brief Get the default probability of this vehicle type

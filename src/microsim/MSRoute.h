@@ -236,7 +236,7 @@ public:
      * @param[in] id    the id of the route or the distribution
      * @return          the route (sample)
      */
-    static const MSRoute* dictionary(const std::string& id, std::mt19937* rng = 0);
+    static const MSRoute* dictionary(const std::string& id, SumoRNG* rng = 0);
 
     /// @brief returns whether a route with the given id exists
     static bool hasRoute(const std::string& id);

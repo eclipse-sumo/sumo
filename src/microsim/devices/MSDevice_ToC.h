@@ -173,7 +173,7 @@ public:
         return myOutputFile != nullptr;
     }
 
-    static std::mt19937* getResponseTimeRNG() {
+    static SumoRNG* getResponseTimeRNG() {
         return &myResponseTimeRNG;
     }
 private:
@@ -369,7 +369,7 @@ private:
     static std::vector<std::vector<double> > lookupResponseTimeVariances;
 
     /// @brief Random generator for ToC devices
-    static std::mt19937 myResponseTimeRNG;
+    static SumoRNG myResponseTimeRNG;
 
     /// @brief Samples a random driver response time from a truncated Gaussian with
     /// parameters according to the lookup tables

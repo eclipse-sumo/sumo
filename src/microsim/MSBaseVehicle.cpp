@@ -1668,7 +1668,7 @@ MSBaseVehicle::getRNGIndex() const {
 }
 
 
-std::mt19937*
+SumoRNG*
 MSBaseVehicle::getRNG() const {
     const MSLane* lane = getLane();
     if (lane == nullptr) {

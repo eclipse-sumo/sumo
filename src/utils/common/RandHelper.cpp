@@ -29,10 +29,10 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-std::mt19937 RandHelper::myRandomNumberGenerator;
-std::map<std::mt19937*, unsigned long long int> RandHelper::myCallCount;
+SumoRNG RandHelper::myRandomNumberGenerator;
+std::map<SumoRNG*, unsigned long long int> RandHelper::myCallCount;
 #ifdef DEBUG_RANDCALLS
-std::map<std::mt19937*, int> RandHelper::myRngId;
+std::map<SumoRNG*, int> RandHelper::myRngId;
 int RandHelper::myDebugIndex(7);
 #endif
 
@@ -57,7 +57,7 @@ RandHelper::insertRandOptions() {
 
 
 void
-RandHelper::initRand(std::mt19937* which, const bool random, const int seed) {
+RandHelper::initRand(SumoRNG* which, const bool random, const int seed) {
     if (which == nullptr) {
         which = &myRandomNumberGenerator;
     }
@@ -73,7 +73,7 @@ RandHelper::initRand(std::mt19937* which, const bool random, const int seed) {
 
 
 void
-RandHelper::initRandGlobal(std::mt19937* which) {
+RandHelper::initRandGlobal(SumoRNG* which) {
     OptionsCont& oc = OptionsCont::getOptions();
     initRand(which, oc.getBool("random"), oc.getInt("seed"));
 }

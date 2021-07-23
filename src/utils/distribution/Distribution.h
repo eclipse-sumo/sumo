@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <random>
 #include <utils/common/Named.h>
+#include <utils/common/RandHelper.h>
 
 
 // ===========================================================================
@@ -47,7 +47,7 @@ public:
     * @param[in] which The random number generator to use; the static one will be used if 0 is passed
     * @return the drawn member
     */
-    virtual double sample(std::mt19937* which = 0) const = 0;
+    virtual double sample(SumoRNG* which = 0) const = 0;
 
     /// Returns the maximum value of this distribution
     virtual double getMax() const = 0;

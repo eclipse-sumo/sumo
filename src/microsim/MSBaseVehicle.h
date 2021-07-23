@@ -639,7 +639,7 @@ public:
     int getRNGIndex() const;
 
     /// @brief @return The vehicle's associated RNG
-    std::mt19937* getRNG() const;
+    SumoRNG* getRNG() const;
 
     inline NumericalID getNumericalID() const {
         return myNumericalID;

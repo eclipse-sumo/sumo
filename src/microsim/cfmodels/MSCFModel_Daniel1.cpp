@@ -78,7 +78,7 @@ MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, const double speed, dou
 
 
 double
-MSCFModel_Daniel1::dawdle(double speed, std::mt19937* rng) const {
+MSCFModel_Daniel1::dawdle(double speed, SumoRNG* rng) const {
     return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand(rng)));
 }
 

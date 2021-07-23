@@ -153,7 +153,7 @@ public:
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
 
     /// @brief parse departPos or arrivalPos for a walk
-    static double parseWalkPos(SumoXMLAttr attr, const bool hardFail, const std::string& id, double maxPos, const std::string& val, std::mt19937* rng = 0);
+    static double parseWalkPos(SumoXMLAttr attr, const bool hardFail, const std::string& id, double maxPos, const std::string& val, SumoRNG* rng = 0);
 
     /** @brief Checks and converts given value for the action step length from seconds
      *   to miliseconds assuring it being a positive multiple of the simulation step width

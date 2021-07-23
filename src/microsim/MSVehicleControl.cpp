@@ -424,7 +424,7 @@ MSVehicleControl::hasVTypeDistribution(const std::string& id) const {
 
 
 MSVehicleType*
-MSVehicleControl::getVType(const std::string& id, std::mt19937* rng, bool readOnly) {
+MSVehicleControl::getVType(const std::string& id, SumoRNG* rng, bool readOnly) {
     VTypeDictType::iterator it = myVTypeDict.find(id);
     if (it == myVTypeDict.end()) {
         VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);

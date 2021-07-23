@@ -214,7 +214,7 @@ public:
     }
 
     /// @brief return the associated RNG
-    std::mt19937* getRNG() const {
+    SumoRNG* getRNG() const {
         return &myRNGs[myRNGIndex];
     }
 
@@ -1473,7 +1473,7 @@ protected:
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
-    static std::vector<std::mt19937> myRNGs;
+    static std::vector<SumoRNG> myRNGs;
 
 private:
     /// @brief This lane's move reminder

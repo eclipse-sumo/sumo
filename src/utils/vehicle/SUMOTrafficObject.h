@@ -98,7 +98,7 @@ public:
     /** @brief Returns the associated RNG for this object
     * @return The vehicle's associated RNG
     */
-    virtual std::mt19937* getRNG() const = 0;
+    virtual SumoRNG* getRNG() const = 0;
 
     /** @brief Returns whether the object is at a stop
      * @return Whether it has stopped

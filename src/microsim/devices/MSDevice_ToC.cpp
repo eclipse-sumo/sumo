@@ -98,7 +98,7 @@
 std::set<MSDevice_ToC*, ComparatorNumericalIdLess> MSDevice_ToC::myInstances = std::set<MSDevice_ToC*, ComparatorNumericalIdLess>();
 std::set<std::string> MSDevice_ToC::createdOutputFiles;
 int MSDevice_ToC::LCModeMRM = 768; // = 0b001100000000 - no autonomous changes, no speed adaptation
-std::mt19937 MSDevice_ToC::myResponseTimeRNG;
+SumoRNG MSDevice_ToC::myResponseTimeRNG;
 
 
 // ===========================================================================
@@ -1194,14 +1194,13 @@ MSDevice_ToC::sampleResponseTime(double leadTime) const {
 #endif
     const double mean = responseTimeMean(leadTime);
     const double var = interpolateVariance(leadTime, myMRMProbability);
-    std::normal_distribution<double> d(mean, var);
-    double rt = d(myResponseTimeRNG);
+    double rt = RandHelper::randNorm(mean, var, &myResponseTimeRNG);
 #ifdef DEBUG_DYNAMIC_TOC
     std::cout << "  mean=" << mean << ", variance=" << var << " => sampled responseTime=" << rt << std::endl;
 #endif
     int it_count = 0;
     while (rt < 0 && it_count < MAX_RESPONSETIME_SAMPLE_TRIES) {
-        rt = d(myResponseTimeRNG);
+        rt = RandHelper::randNorm(mean, var, &myResponseTimeRNG);
         it_count++;
     }
     if (rt < 0) {

@@ -162,7 +162,7 @@ public:
     void clearState();
 
     /// @brief retrieve internal RNG
-    std::mt19937* getFlowRNG() {
+    SumoRNG* getFlowRNG() {
         return &myFlowRNG;
     }
 
@@ -252,6 +252,6 @@ private:
     MSInsertionControl& operator=(const MSInsertionControl&);
 
     /// @brief A random number generator for probabilistic flows
-    std::mt19937 myFlowRNG;
+    SumoRNG myFlowRNG;
 
 };

@@ -73,7 +73,7 @@ public:
     }
 
 
-    static std::mt19937* getRNG() {
+    static SumoRNG* getRNG() {
         return &sRecognitionRNG;
     }
 
@@ -363,7 +363,7 @@ private:
     static double inquiryDelaySlots(const int backoffLimit);
 
     /// @brief A random number generator used to determine whether the opposite was recognized
-    static std::mt19937 sRecognitionRNG;
+    static SumoRNG sRecognitionRNG;
 
     /// @brief The list of arrived receivers
     static std::map<std::string, VehicleInformation*> sVehicles;

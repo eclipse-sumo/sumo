@@ -85,7 +85,7 @@ public:
     */
     static void buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into);
 
-    static std::mt19937* getEquipmentRNG() {
+    static SumoRNG* getEquipmentRNG() {
         return &myEquipmentRNG;
     }
 
@@ -187,7 +187,7 @@ private:
     static std::map<std::string, std::set<std::string> > myExplicitIDs;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static std::mt19937 myEquipmentRNG;
+    static SumoRNG myEquipmentRNG;
 
 
 private:

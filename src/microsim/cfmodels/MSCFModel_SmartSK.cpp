@@ -136,7 +136,7 @@ MSCFModel_SmartSK::patchSpeedBeforeLC(const MSVehicle* veh, double /*vMin*/, dou
 }
 
 double
-MSCFModel_SmartSK::dawdle(double speed, std::mt19937* rng) const {
+MSCFModel_SmartSK::dawdle(double speed, SumoRNG* rng) const {
     return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand(rng)));
 }
 
