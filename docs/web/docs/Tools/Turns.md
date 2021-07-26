@@ -110,11 +110,19 @@ python tools/randomTrips.py -n input_net.net.xml 
   --attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
-This would make the rvehicles be distributed randomly on their
+The above attriutes would make the vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
+    
+The distinguish vehicles of different types, the 'type' attribute may be set. The corresponding type should then be defined in an additional xml file and loaded with option **--additional-files**.
+    
+```
+python tools/randomTrips.py -n input_net.net.xml 
+  --attributes="type=\"customType\""
+```
 
-!!! caution
-    Quoting of trip attributes on Linux must use the style **--attributes 'departLane="best" departSpeed="max" departPos="random"'**
+    
+!!! note
+    Quoting of trip attributes on Linux may also use the style **--attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
 ## Sampling
 By default, sampling will be performed iteratively by 
