@@ -761,6 +761,7 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
         <xsd:attribute name="priorEdges" type="xsd:string"/>
+        <xsd:attribute name="priorEdgesLength" type="xsd:float"/>
         <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
         <!-- save-state backward compatibility -->
