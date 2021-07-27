@@ -23,13 +23,6 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
-#ifndef LIBTRACI
-#ifndef SWIGJAVA
-#ifndef SWIGPYTHON
-#include <microsim/traffic_lights/MSTLLogicControl.h>
-#endif
-#endif
-#endif
 
 // ===========================================================================
 // class declarations
@@ -98,13 +91,6 @@ private:
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
-
-private:
-#ifndef SWIGJAVA
-#ifndef SWIGPYTHON
-    static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
-#endif
-#endif
 
 private:
     static SubscriptionResults mySubscriptionResults;

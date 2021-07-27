@@ -36,6 +36,7 @@
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <netload/NLDetectorBuilder.h>
 #include <libsumo/TraCIConstants.h>
+#include "Helper.h"
 #include "TrafficLight.h"
 
 //#define DEBUG_CONSTRAINT_DEADLOCK
@@ -65,14 +66,14 @@ TrafficLight::getIDCount() {
 
 std::string
 TrafficLight::getRedYellowGreenState(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getCurrentPhaseDef().getState();
+    return Helper::getTLS(tlsID).getActive()->getCurrentPhaseDef().getState();
 }
 
 
 std::vector<TraCILogic>
 TrafficLight::getAllProgramLogics(const std::string& tlsID) {
     std::vector<TraCILogic> result;
-    const std::vector<MSTrafficLightLogic*> logics = getTLS(tlsID).getAllLogics();
+    const std::vector<MSTrafficLightLogic*> logics = Helper::getTLS(tlsID).getAllLogics();
     for (MSTrafficLightLogic* logic : logics) {
         TraCILogic l(logic->getProgramID(), (int)logic->getLogicType(), logic->getCurrentPhaseIndex());
         l.subParameter = logic->getParametersMap();
@@ -90,7 +91,7 @@ TrafficLight::getAllProgramLogics(const std::string& tlsID) {
 std::vector<std::string>
 TrafficLight::getControlledJunctions(const std::string& tlsID) {
     std::set<std::string> junctionIDs;
-    const MSTrafficLightLogic::LinkVectorVector& links = getTLS(tlsID).getActive()->getLinks();
+    const MSTrafficLightLogic::LinkVectorVector& links = Helper::getTLS(tlsID).getActive()->getLinks();
     for (const MSTrafficLightLogic::LinkVector& llinks : links) {
         for (const MSLink* l : llinks) {
             junctionIDs.insert(l->getJunction()->getID());
@@ -103,7 +104,7 @@ TrafficLight::getControlledJunctions(const std::string& tlsID) {
 std::vector<std::string>
 TrafficLight::getControlledLanes(const std::string& tlsID) {
     std::vector<std::string> laneIDs;
-    const MSTrafficLightLogic::LaneVectorVector& lanes = getTLS(tlsID).getActive()->getLaneVectors();
+    const MSTrafficLightLogic::LaneVectorVector& lanes = Helper::getTLS(tlsID).getActive()->getLaneVectors();
     for (const MSTrafficLightLogic::LaneVector& llanes : lanes) {
         for (const MSLane* l : llanes) {
             laneIDs.push_back(l->getID());
@@ -116,8 +117,8 @@ TrafficLight::getControlledLanes(const std::string& tlsID) {
 std::vector<std::vector<TraCILink> >
 TrafficLight::getControlledLinks(const std::string& tlsID) {
     std::vector<std::vector<TraCILink> > result;
-    const MSTrafficLightLogic::LaneVectorVector& lanes = getTLS(tlsID).getActive()->getLaneVectors();
-    const MSTrafficLightLogic::LinkVectorVector& links = getTLS(tlsID).getActive()->getLinks();
+    const MSTrafficLightLogic::LaneVectorVector& lanes = Helper::getTLS(tlsID).getActive()->getLaneVectors();
+    const MSTrafficLightLogic::LinkVectorVector& links = Helper::getTLS(tlsID).getActive()->getLinks();
     for (int i = 0; i < (int)lanes.size(); ++i) {
         std::vector<TraCILink> subList;
         const MSTrafficLightLogic::LaneVector& llanes = lanes[i];
@@ -139,36 +140,36 @@ TrafficLight::getControlledLinks(const std::string& tlsID) {
 
 std::string
 TrafficLight::getProgram(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getProgramID();
+    return Helper::getTLS(tlsID).getActive()->getProgramID();
 }
 
 
 int
 TrafficLight::getPhase(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getCurrentPhaseIndex();
+    return Helper::getTLS(tlsID).getActive()->getCurrentPhaseIndex();
 }
 
 
 std::string
 TrafficLight::getPhaseName(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getCurrentPhaseDef().getName();
+    return Helper::getTLS(tlsID).getActive()->getCurrentPhaseDef().getName();
 }
 
 
 double
 TrafficLight::getPhaseDuration(const std::string& tlsID) {
-    return STEPS2TIME(getTLS(tlsID).getActive()->getCurrentPhaseDef().duration);
+    return STEPS2TIME(Helper::getTLS(tlsID).getActive()->getCurrentPhaseDef().duration);
 }
 
 
 double
 TrafficLight::getNextSwitch(const std::string& tlsID) {
-    return STEPS2TIME(getTLS(tlsID).getActive()->getNextSwitchTime());
+    return STEPS2TIME(Helper::getTLS(tlsID).getActive()->getNextSwitchTime());
 }
 
 int
 TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     if (index < 0 || active->getPhaseNumber() <= index) {
         throw TraCIException("The phase index " + toString(index) + " is not in the allowed range [0,"
                              + toString(active->getPhaseNumber() - 1) + "].");
@@ -210,7 +211,7 @@ std::vector<std::string>
 TrafficLight::getBlockingVehicles(const std::string& tlsID, int linkIndex) {
     std::vector<std::string> result;
     // for railsignals we cannot use the "online" program
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
         throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
                              + toString(active->getNumLinks() - 1) + "].");
@@ -224,7 +225,7 @@ TrafficLight::getBlockingVehicles(const std::string& tlsID, int linkIndex) {
 std::vector<std::string>
 TrafficLight::getRivalVehicles(const std::string& tlsID, int linkIndex) {
     std::vector<std::string> result;
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
         throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
                              + toString(active->getNumLinks() - 1) + "].");
@@ -238,7 +239,7 @@ TrafficLight::getRivalVehicles(const std::string& tlsID, int linkIndex) {
 std::vector<std::string>
 TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
     std::vector<std::string> result;
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
         throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
                              + toString(active->getNumLinks() - 1) + "].");
@@ -252,7 +253,7 @@ TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
 std::vector<TraCISignalConstraint>
 TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId) {
     std::vector<TraCISignalConstraint> result;
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
     if (s == nullptr) {
         throw TraCIException("'" + tlsID + "' is not a rail signal");
@@ -282,7 +283,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     // @note could improve efficiency by storing a map of rail signals in MSRailSignalControl
     std::vector<TraCISignalConstraint> result;
     for (const std::string& tlsID : getIDList()) {
-        MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+        MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
         MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
         if (s != nullptr) {
             for (auto item : s->getConstraints()) {
@@ -313,8 +314,8 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
 #ifdef DEBUG_CONSTRAINT_DEADLOCK
     std::cout << "swapConstraints tlsId=" << tlsID << " tripId=" << tripId << " foeSignal=" << foeSignal << " foeId=" << foeId << "\n";
 #endif
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
-    MSTrafficLightLogic* const active2 = getTLS(foeSignal).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active2 = Helper::getTLS(foeSignal).getDefault();
     MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
     MSRailSignal* s2 = dynamic_cast<MSRailSignal*>(active2);
     if (s == nullptr) {
@@ -352,7 +353,7 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
     // @note could improve efficiency by storing a map of rail signals in MSRailSignalControl
     for (const std::string& tlsCand : getIDList()) {
         if (tlsID == "" || tlsCand == tlsID) {
-            MSTrafficLightLogic* const active = getTLS(tlsCand).getDefault();
+            MSTrafficLightLogic* const active = Helper::getTLS(tlsCand).getDefault();
             MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
             if (s != nullptr) {
                 auto cands = s->getConstraints(); // make copy
@@ -580,7 +581,7 @@ TrafficLight::getVehicleByTripId(const std::string tripOrVehID) {
 
 std::string
 TrafficLight::getParameter(const std::string& tlsID, const std::string& paramName) {
-    return getTLS(tlsID).getActive()->getParameter(paramName, "");
+    return Helper::getTLS(tlsID).getActive()->getParameter(paramName, "");
 }
 
 
@@ -589,13 +590,13 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(TrafficLight)
 
 void
 TrafficLight::setRedYellowGreenState(const std::string& tlsID, const std::string& state) {
-    getTLS(tlsID).setStateInstantiatingOnline(MSNet::getInstance()->getTLSControl(), state);
+    Helper::getTLS(tlsID).setStateInstantiatingOnline(MSNet::getInstance()->getTLSControl(), state);
 }
 
 
 void
 TrafficLight::setPhase(const std::string& tlsID, const int index) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     if (index < 0 || active->getPhaseNumber() <= index) {
         throw TraCIException("The phase index " + toString(index) + " is not in the allowed range [0,"
                              + toString(active->getPhaseNumber() - 1) + "].");
@@ -607,7 +608,7 @@ TrafficLight::setPhase(const std::string& tlsID, const int index) {
 
 void
 TrafficLight::setPhaseName(const std::string& tlsID, const std::string& name) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     const_cast<MSPhaseDefinition&>(active->getCurrentPhaseDef()).setName(name);
 }
 
@@ -615,7 +616,7 @@ TrafficLight::setPhaseName(const std::string& tlsID, const std::string& name) {
 void
 TrafficLight::setProgram(const std::string& tlsID, const std::string& programID) {
     try {
-        getTLS(tlsID).switchTo(MSNet::getInstance()->getTLSControl(), programID);
+        Helper::getTLS(tlsID).switchTo(MSNet::getInstance()->getTLSControl(), programID);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
@@ -624,7 +625,7 @@ TrafficLight::setProgram(const std::string& tlsID, const std::string& programID)
 
 void
 TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDuration) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     const SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
     active->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, -1, TIME2STEPS(phaseDuration));
 }
@@ -632,7 +633,7 @@ TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDurat
 
 void
 TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic) {
-    MSTLLogicControl::TLSLogicVariants& vars = getTLS(tlsID);
+    MSTLLogicControl::TLSLogicVariants& vars = Helper::getTLS(tlsID);
     // make sure index and phaseNo are consistent
     if (logic.currentPhaseIndex >= (int)logic.phases.size()) {
         throw TraCIException("set program: parameter index must be less than parameter phase number.");
@@ -681,20 +682,11 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
 
 void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
-    return getTLS(tlsID).getActive()->setParameter(paramName, value);
+    return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
 }
 
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
-
-
-MSTLLogicControl::TLSLogicVariants&
-TrafficLight::getTLS(const std::string& id) {
-    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-        throw TraCIException("Traffic light '" + id + "' is not known");
-    }
-    return MSNet::getInstance()->getTLSControl().get(id);
-}
 
 
 libsumo::TraCISignalConstraint

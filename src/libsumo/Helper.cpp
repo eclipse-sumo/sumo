@@ -512,6 +512,15 @@ Helper::getVehicleType(const std::string& vehicleID) {
 }
 
 
+MSTLLogicControl::TLSLogicVariants&
+Helper::getTLS(const std::string& id) {
+    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
+        throw TraCIException("Traffic light '" + id + "' is not known");
+    }
+    return MSNet::getInstance()->getTLSControl().get(id);
+}
+
+
 SUMOVehicleParameter::Stop
 Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
