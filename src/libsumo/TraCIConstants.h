@@ -28,7 +28,6 @@
 // holds codes used for TraCI
 /****************************************************************************/
 #pragma once
-#include <config.h>
 
 #if __cplusplus >= 201103L
 #define TRACI_CONST constexpr
