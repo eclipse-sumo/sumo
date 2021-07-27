@@ -499,7 +499,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myEventTime;
     bis >> myLastEntryTime;
     bis >> myBlockTime;
-    myDepartPos *= 1000; // was stored as mm
+    myDepartPos /= 1000.; // was stored as mm
     if (hasDeparted()) {
         myDeparture -= offset;
         myEventTime -= offset;
