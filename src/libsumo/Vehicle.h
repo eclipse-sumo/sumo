@@ -30,6 +30,7 @@
 // class declarations
 // ===========================================================================
 #ifndef LIBTRACI
+class PositionVector;
 class SUMOVehicle;
 #endif
 
