@@ -1259,6 +1259,10 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         errorMsg = ("Invalid nextStopIndex '" + toString(nextStopIndex) + "' for " + toString(n) + " remaining stops");
         return false;
     }
+    if (nextStopIndex == 0 && isStopped()) {
+        errorMsg = "Cannot replace reached stop";
+        return false;
+    }
     const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     MSLane* stopLane = MSLane::dictionary(stop.lane);
     MSEdge* stopEdge = &stopLane->getEdge();
