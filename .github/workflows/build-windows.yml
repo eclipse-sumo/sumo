@@ -77,7 +77,7 @@ jobs:
       if: matrix.build-type == 'plain' && matrix.python != '3.8'
       run: |
         cd sumo
-        cmake --build build_msvc --config Release --target libsumo
+        cmake --build build_msvc --config Release --target install_dll libsumo
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Building SUMO extra
