@@ -217,11 +217,16 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         if walkEdges:
                             if walkEdges[-1] != planItem.edges.split()[-1]:
                                 planItem.busStop = None
+                                planItem.trainStop = None
                                 numParts += 1
                             if walkEdges[0] != planItem.edges.split()[0] and len(newPlan) > 0:
                                 numParts += 1
                             remaining.update(walkEdges)
                             planItem.edges = " ".join(walkEdges)
+                            if planItem.busStop and planItem.busStop not in busStopEdges:
+                                planItem.busStop = None
+                            if planItem.trainStop and planItem.trainStop not in busStopEdges:
+                                planItem.trainStop = None
                         else:
                             planItem = None
                     elif planItem.name == "ride":
@@ -237,6 +242,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                         planItem = None
                                     else:
                                         planItem.busStop = None
+                                        planItem.trainStop = None
                                         planItem.setAttribute("to", ptRoute[-1])
                                         numParts += 1
                                 else:
@@ -541,7 +547,7 @@ def main(options):
     oldPTRoutes = {}
     if options.pt_input:
         allRouteFiles = options.routeFiles
-        options.routeFiles = [options.pt_input]
+        options.routeFiles = options.pt_input.split(",")
         ptExternalRoutes = {}
         with io.open(options.pt_output if options.pt_output else options.pt_input + ".cut", 'w', encoding="utf8") as f:
             writeHeader(f, os.path.basename(__file__), 'routes')
