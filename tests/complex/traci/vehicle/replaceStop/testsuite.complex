@@ -46,5 +46,8 @@ all
 # replace stop with invalid index
 invalid
 
+# try to replace the current stop after it has been reached
+reached_invalid
+
 # test replaceStop failure
 unreachable
