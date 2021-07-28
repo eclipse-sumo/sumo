@@ -6,8 +6,8 @@ title: Assign
 
 ## duaIterate.py
 
-"duaIterate.py" helps you to perform the computation of a dynamic user
-assignment (DUA). It works by alternatingly running the simulation to
+"duaIterate.py" helps you to perform the computation of a [dynamic user
+assignment (DUA)](../Demand/Dynamic_User_Assignment.md). It works by alternatingly running the simulation to
 discover travel times and then assigning alternative routes to some of
 the vehicles according to these travel times. This is repeated for a
 defined number of iteration steps. At least two files have to be given
