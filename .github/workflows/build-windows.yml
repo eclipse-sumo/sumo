@@ -94,7 +94,11 @@ jobs:
       run: |
         python -m pip install wheel
         cd sumo
-        cmake --build build_msvc --config Release
+        mkdir build_py35
+        cd build_py35
+        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=false
+        cmake --build . --config Release --target libsumo
+        cd ..
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Configuring Python 3.6
@@ -109,7 +113,11 @@ jobs:
       run: |
         python -m pip install wheel
         cd sumo
-        cmake --build build_msvc --config Release
+        mkdir build_py36
+        cd build_py36
+        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=false
+        cmake --build . --config Release --target libsumo
+        cd ..
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Configuring Python 3.7
@@ -124,7 +132,30 @@ jobs:
       run: |
         python -m pip install wheel
         cd sumo
-        cmake --build build_msvc --config Release
+        mkdir build_py37
+        cd build_py37
+        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=false
+        cmake --build . --config Release --target libsumo
+        cd ..
+        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
+
+    - name: Configuring Python 3.9
+      if: matrix.build-type == 'plain'
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.9
+        architecture: x64
+
+    - name: Building libsumo with Python 3.9
+      if: matrix.build-type == 'plain'
+      run: |
+        python -m pip install wheel
+        cd sumo
+        mkdir build_py39
+        cd build_py39
+        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=false
+        cmake --build . --config Release --target libsumo
+        cd ..
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Building TraaS
