@@ -10,6 +10,9 @@ one_vehicle_waiting
 # one vehicle is moving, timestep is subseconds
 one_vehicle_subsecond
 
+# one vehicle is moving, timestep is subseconds and output is scaled to step-length
+one_vehicle_subsecond_scaled
+
 # a small driving cycle with different emission models
 models_cycle
 
