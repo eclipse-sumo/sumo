@@ -1267,7 +1267,7 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     std::advance(itStop, nextStopIndex);
     MSStop& replacedStop = *itStop;
 
-    if (replacedStop.lane == stopLane && replacedStop.pars.endPos == stop.endPos) {
+    if (replacedStop.lane == stopLane && replacedStop.pars.endPos == stop.endPos && !teleport) {
         // only replace stop attributes
         const_cast<SUMOVehicleParameter::Stop&>(replacedStop.pars) = stop;
         replacedStop.initPars(stop);
