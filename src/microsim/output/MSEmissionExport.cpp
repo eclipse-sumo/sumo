@@ -42,6 +42,7 @@ void
 MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.emissions.period"));
     const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    const bool scaled = OptionsCont::getOptions().getBool("emission-output.step-scaled");
     if (period > 0 && (timestep - begin) % period != 0) {
         return;
     }
@@ -58,6 +59,11 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                     veh->getVehicleType().getEmissionClass(),
                     veh->getSpeed(), veh->getAcceleration(), veh->getSlope(),
                     veh->getEmissionParameters());
+            if (scaled) {
+                PollutantsInterface::Emissions tmp;
+                tmp.addScaled(emiss, TS);
+                emiss = tmp;
+            }
             of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", PollutantsInterface::getName(veh->getVehicleType().getEmissionClass()));
             of.writeAttr("CO2", emiss.CO2).writeAttr("CO", emiss.CO).writeAttr("HC", emiss.HC).writeAttr("NOx", emiss.NOx);
             of.writeAttr("PMx", emiss.PMx).writeAttr("fuel", emiss.fuel).writeAttr("electricity", emiss.electricity);
