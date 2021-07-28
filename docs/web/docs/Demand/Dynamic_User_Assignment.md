@@ -110,10 +110,24 @@ parameter <img src="http://latex.codecogs.com/gif.latex?\theta" border="0" style
 
 ## Termination
 
+DuaIterate convergence is hard to predict and results may continue to vary even after 1000 iterations.
+There are several strategies in this regard:
+
+### Default
+
+By default, a fixed number of iterations, configured via **--first-step** and **--last-step** (default 50) is performed.
+
+### Deviation in Average Travel times
+
 The option **--max-convergence-deviation** may be used to detect convergence and abort iterations
-automatically. Otherwise, a fixed number of iterations is used. Once the
-script finishes any of the resulting *.rou.xml* files may be used for
-simulation but the last one(s) should be the best.
+automatically. In each iteration, the average travel time of all trips is computed. From the sequence of these values (one per iteration), the relative standard deviation is computed. Onece a minimum number of iterations has been computed (**--convergence-iterations**, default 10) and this deviation falls below the max-convergence deviation threshold, iterations are aborted 
+
+### Forced convergence
+
+Option **--convergence-steps** may used to force convergence by iteratively reducing the fraction of vehicles that may alter their route.
+
+- If a positive value x is used, the fraction of vehicles that keep their old route is set to `max(0, min(step / x, 1)` which prevents changes in assignment after step x.
+- If a negative value x is used, the fraction of vehicles that keep their old route is set to `1 - 1.0 / (step - |x|)` for steps after `|x|` which asymptotically reduces assignment after `|x|` steps.
 
 ## Usage Examples
 
