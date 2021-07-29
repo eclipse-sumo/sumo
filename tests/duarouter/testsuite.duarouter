@@ -4,6 +4,9 @@ meta
 # Testing trip processing
 trips
 
+# map matching tests (x,y / lon,lat)
+trips_geo
+
 # Testing flow processing
 flows
 
