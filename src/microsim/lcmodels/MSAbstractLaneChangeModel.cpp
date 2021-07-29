@@ -109,7 +109,6 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myAlreadyChanged(false),
     myShadowLane(nullptr),
     myTargetLane(nullptr),
-    myCarFollowModel(v.getCarFollowModel()),
     myModel(model),
     myLastLateralGapLeft(0.),
     myLastLateralGapRight(0.),
@@ -273,7 +272,7 @@ MSAbstractLaneChangeModel::predInteraction(const std::pair<MSVehicle*, double>& 
     if (leader.first->getSpeed() < (80.0 / 3.6)) {
         return false;
     }
-    return leader.second < myCarFollowModel.interactionGap(&myVehicle, leader.first->getSpeed());
+    return leader.second < getCarFollowModel().interactionGap(&myVehicle, leader.first->getSpeed());
 }
 
 

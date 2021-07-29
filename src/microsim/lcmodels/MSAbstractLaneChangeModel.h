@@ -656,7 +656,9 @@ protected:
     std::vector<MSLane*> myFurtherTargetLanes;
 
     /// @brief The vehicle's car following model
-    const MSCFModel& myCarFollowModel;
+    inline const MSCFModel& getCarFollowModel() const {
+        return myVehicle.getCarFollowModel();
+    }
 
     /// @brief the type of this model
     const LaneChangeModel myModel;

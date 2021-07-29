@@ -558,7 +558,7 @@ MSLCM_SL2015::informLeader(int blocked,
             // cannot overtake
             msg(neighLead, -1, dir | LCA_AMBLOCKINGLEADER);
             // slow down smoothly to follow leader
-            const double targetSpeed = myCarFollowModel.followSpeed(
+            const double targetSpeed = getCarFollowModel().followSpeed(
                                            &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
             if (targetSpeed < myVehicle.getSpeed()) {
                 // slow down smoothly to follow leader
@@ -631,7 +631,7 @@ MSLCM_SL2015::informLeader(int blocked,
             // Estimated gap reduction until next action step if own speed stays constant
             dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
         }
-        const double targetSpeed = myCarFollowModel.followSpeed(
+        const double targetSpeed = getCarFollowModel().followSpeed(
                                        &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
         addLCSpeedAdvice(targetSpeed);
 #ifdef DEBUG_INFORM
@@ -1967,7 +1967,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
                 } else {
                     state |= LCA_AMBACKBLOCKER;
                 }
-                addLCSpeedAdvice(myCarFollowModel.followSpeed(
+                addLCSpeedAdvice(getCarFollowModel().followSpeed(
                                      &myVehicle, myVehicle.getSpeed(),
                                      (gap - POSITION_EPS), (*blocked)->getSpeed(),
                                      (*blocked)->getCarFollowModel().getMaxDecel()));
@@ -2056,13 +2056,13 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
             double vSafe;
             if (leader == nullptr) {
                 const double dist = preb[laneIndex].length - myVehicle.getPositionOnLane();
-                vSafe = myCarFollowModel.followSpeed(&myVehicle, vMax, dist, 0, 0);
+                vSafe = getCarFollowModel().followSpeed(&myVehicle, vMax, dist, 0, 0);
             } else {
                 if (leader->getAcceleration() > 0.5 * leader->getCarFollowModel().getMaxAccel()) {
                     // assume that the leader will continue accelerating to its maximum speed
                     vSafe = leader->getLane()->getVehicleMaxSpeed(leader);
                 } else {
-                    vSafe = myCarFollowModel.followSpeed(
+                    vSafe = getCarFollowModel().followSpeed(
                                 &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
 #ifdef DEBUG_EXPECTED_SLSPEED
                     if (DEBUG_COND) {
@@ -2094,7 +2094,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 const PersonDist pedLeader = lane->nextBlocking(myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength(), foeRight, foeLeft);
                 if (pedLeader.first != 0) {
                     const double pedGap = pedLeader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
-                    vSafe = MIN2(vSafe, myCarFollowModel.stopSpeed(&myVehicle, vMax, pedGap));
+                    vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap));
                 }
             }
             vSafe = MIN2(vMax, vSafe);
@@ -2674,7 +2674,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             CLeaderDist cld = getSlowest(neighLeaders);
             const MSVehicle* nv = cld.first;
             if (nv->getSpeed() < myVehicle.getSpeed()) {
-                const double vSafe = myCarFollowModel.followSpeed(
+                const double vSafe = getCarFollowModel().followSpeed(
                                          &myVehicle, myVehicle.getSpeed(), cld.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 addLCSpeedAdvice(vSafe);
                 if (vSafe < myVehicle.getSpeed()) {
