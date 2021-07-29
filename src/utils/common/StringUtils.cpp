@@ -38,6 +38,7 @@
 // static member definitions
 // ===========================================================================
 std::string StringUtils::emptyString;
+XERCES_CPP_NAMESPACE::XMLLCPTranscoder* StringUtils::myLCPTranscoder = nullptr;
 
 
 // ===========================================================================
@@ -406,6 +407,39 @@ StringUtils::transcode(const XMLCh* const data, int length) {
         return "?";
     }
 #endif
+}
+
+
+std::string
+StringUtils::transcodeFromLocal(const std::string& localString) {
+#if _XERCES_VERSION > 30100
+    try {
+        if (myLCPTranscoder == nullptr) {
+            myLCPTranscoder = XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager);
+        }
+        if (myLCPTranscoder != nullptr) {
+            return transcode(myLCPTranscoder->transcode(localString.c_str()));
+        }
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {}
+#endif
+    return localString;
+}
+
+
+std::string
+StringUtils::transcodeToLocal(const std::string& utf8String) {
+#if _XERCES_VERSION > 30100
+    try {
+        if (myLCPTranscoder == nullptr) {
+            myLCPTranscoder = XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager);
+        }
+        if (myLCPTranscoder != nullptr) {
+            XERCES_CPP_NAMESPACE::TranscodeFromStr utf8(reinterpret_cast<const XMLByte*>(utf8String.c_str()), utf8String.size(), "UTF-8");
+            return myLCPTranscoder->transcode(utf8.str());
+        }
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {}
+#endif
+    return utf8String;
 }
 
 

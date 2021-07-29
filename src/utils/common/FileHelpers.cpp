@@ -33,6 +33,7 @@
 #include <sys/stat.h>
 #include "FileHelpers.h"
 #include "StringTokenizer.h"
+#include "StringUtils.h"
 #include "MsgHandler.h"
 
 
@@ -55,17 +56,17 @@ FileHelpers::isReadable(std::string path) {
     if (path.length() == 0) {
         return false;
     }
-    return access(path.c_str(), R_OK) == 0;
+    return access(StringUtils::transcodeToLocal(path).c_str(), R_OK) == 0;
 }
 
 bool
 FileHelpers::isDirectory(std::string path) {
 #ifdef _MSC_VER
     struct _stat64 fileInfo;
-    if (_stat64(path.c_str(), &fileInfo) != 0) {
+    if (_stat64(StringUtils::transcodeToLocal(path).c_str(), &fileInfo) != 0) {
 #else
     struct stat fileInfo;
-    if (stat(path.c_str(), &fileInfo) != 0) {
+    if (stat(StringUtils::transcodeToLocal(path).c_str(), &fileInfo) != 0) {
 #endif
         throw ProcessError("Cannot get file attributes for file '" + path + "'!");
     }

@@ -46,8 +46,7 @@ OutputDevice_COUT::getDevice() {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_COUT::OutputDevice_COUT() {
-    myFilename = "COUT";
+OutputDevice_COUT::OutputDevice_COUT() : OutputDevice(0, "COUT") {
 }
 
 

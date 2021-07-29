@@ -38,7 +38,7 @@
 // method definitions
 // ==========================================================================
 OutputDevice_Network::OutputDevice_Network(const std::string& host,
-        const int port) {
+        const int port) : OutputDevice(0, host + ":" + toString(port)) {
     mySocket = new tcpip::Socket(host, port);
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -58,7 +58,6 @@ OutputDevice_Network::OutputDevice_Network(const std::string& host,
             std::this_thread::sleep_for(std::chrono::milliseconds(wait));
         }
     }
-    myFilename = host + ":" + toString(port);
 }
 
 

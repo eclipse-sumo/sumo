@@ -46,8 +46,7 @@ OutputDevice_CERR::getDevice() {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_CERR::OutputDevice_CERR() {
-    myFilename = "CERR";
+OutputDevice_CERR::OutputDevice_CERR() : OutputDevice(0, "CERR") {
 }
 
 

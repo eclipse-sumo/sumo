@@ -140,6 +140,12 @@ public:
      */
     static std::string transcode(const XMLCh* const data, int length);
 
+    /// @brief convert a string from the local codepage to UTF-8
+    static std::string transcodeFromLocal(const std::string& localString);
+
+    /// @brief convert a string from UTF-8 to the local codepage
+    static std::string transcodeToLocal(const std::string& utf8String);
+
     /// @brief remove leading whitespace from string
     static std::string trim_left(const std::string s, const std::string& t = " \t\n");
 
@@ -148,5 +154,9 @@ public:
 
     /// @brief remove leading and trailing whitespace
     static std::string trim(const std::string s, const std::string& t = " \t\n");
+
+private:
+    static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
+
 
 };

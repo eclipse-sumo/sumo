@@ -340,21 +340,22 @@ private:
     /// @brief map from names to output devices
     static std::map<std::string, OutputDevice*> myOutputDevices;
 
+    /// @brief old console code page to restore after ending
+    static int myPrevConsoleCP;
+
 
 private:
     /// @brief The formatter for XML
-    OutputFormatter* myFormatter;
+    OutputFormatter* const myFormatter;
 
 protected:
-    std::string myFilename;
-
-public:
-    /// @brief Invalidated copy constructor.
-    OutputDevice(const OutputDevice&);
+    const std::string myFilename;
 
 private:
+    /// @brief Invalidated copy constructor.
+    OutputDevice(const OutputDevice&) = delete;
 
     /// @brief Invalidated assignment operator.
-    OutputDevice& operator=(const OutputDevice&);
+    OutputDevice& operator=(const OutputDevice&) = delete;
 
 };

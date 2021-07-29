@@ -26,6 +26,11 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#endif
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
@@ -44,6 +49,7 @@
 // static member definitions
 // ===========================================================================
 std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
+int OutputDevice::myPrevConsoleCP = -1;
 
 
 // ===========================================================================
@@ -51,6 +57,13 @@ std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
 // ===========================================================================
 OutputDevice&
 OutputDevice::getDevice(const std::string& name) {
+#ifdef WIN32
+    // fix the windows console output on first call
+    if (myPrevConsoleCP == -1) {
+        myPrevConsoleCP = GetConsoleOutputCP();
+        SetConsoleOutputCP(CP_UTF8);
+    }
+#endif
     // check whether the device has already been aqcuired
     if (myOutputDevices.find(name) != myOutputDevices.end()) {
         return *myOutputDevices[name];
@@ -132,24 +145,28 @@ OutputDevice::closeAll(bool keepErrorRetrievers) {
             nonErrorDevices.push_back(i->second);
         }
     }
-    for (std::vector<OutputDevice*>::iterator i = nonErrorDevices.begin(); i != nonErrorDevices.end(); ++i) {
+    for (OutputDevice* const dev : nonErrorDevices) {
         try {
-            //std::cout << "  close '" << (*i)->getFilename() << "'\n";
-            (*i)->close();
+            dev->close();
         } catch (const IOError& e) {
             WRITE_ERROR("Error on closing output devices.");
             WRITE_ERROR(e.what());
         }
     }
     if (!keepErrorRetrievers) {
-        for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
+        for (OutputDevice* const dev : errorDevices) {
             try {
-                (*i)->close();
+                dev->close();
             } catch (const IOError& e) {
                 std::cerr << "Error on closing error output devices." << std::endl;
                 std::cerr << e.what() << std::endl;
             }
         }
+#ifdef WIN32
+        if (myPrevConsoleCP != -1) {
+            SetConsoleOutputCP(myPrevConsoleCP);
+        }
+#endif
     }
 }
 
@@ -176,8 +193,7 @@ OutputDevice::realString(const double v, const int precision) {
 // member method definitions
 // ===========================================================================
 OutputDevice::OutputDevice(const int defaultIndentation, const std::string& filename) :
-    myFilename(filename) {
-    myFormatter = new PlainXMLFormatter(defaultIndentation);
+    myFilename(filename), myFormatter(new PlainXMLFormatter(defaultIndentation)) {
 }
 
 

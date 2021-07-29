@@ -27,6 +27,7 @@
 #ifdef HAVE_ZLIB
 #include <foreign/zstr/zstr.hpp>
 #endif
+#include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
 #include "OutputDevice_File.h"
 
@@ -46,19 +47,20 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
         return;
     }
 #endif
+    const std::string& localName = StringUtils::transcodeToLocal(fullName);
 #ifdef HAVE_ZLIB
     if (compressed) {
         try {
-            myFileStream = new zstr::ofstream(fullName.c_str(), std::ios_base::out);
+            myFileStream = new zstr::ofstream(localName.c_str(), std::ios_base::out);
         } catch (zstr::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }
     } else {
-        myFileStream = new std::ofstream(fullName.c_str(), std::ios_base::out);
+        myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
     }
 #else
     UNUSED_PARAMETER(compressed);
-    myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+    myFileStream = new std::ofstream(localName.c_str(), binary ? std::ios::binary : std::ios_base::out);
 #endif
     if (!myFileStream->good()) {
         delete myFileStream;

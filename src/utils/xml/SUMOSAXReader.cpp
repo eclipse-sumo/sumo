@@ -99,10 +99,10 @@ SUMOSAXReader::parse(std::string systemID) {
         throw ProcessError("File '" + systemID + "' is a directory!");
     }
 #ifdef HAVE_ZLIB
-    zstr::ifstream istream(systemID.c_str(), std::fstream::in | std::fstream::binary);
+    zstr::ifstream istream(StringUtils::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary);
     myXMLReader->parse(IStreamInputSource(istream));
 #else
-    myXMLReader->parse(systemID.c_str());
+    myXMLReader->parse(StringUtils::transcodeToLocal(systemID).c_str());
 #endif
 }
 
@@ -127,11 +127,11 @@ SUMOSAXReader::parseFirst(std::string systemID) {
     }
     myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
 #ifdef HAVE_ZLIB
-    myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(systemID.c_str(), std::fstream::in | std::fstream::binary));
+    myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(StringUtils::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary));
     myInputStream = std::unique_ptr<IStreamInputSource>(new IStreamInputSource(*myIStream));
     return myXMLReader->parseFirst(*myInputStream, myToken);
 #else
-    return myXMLReader->parseFirst(systemID.c_str(), myToken);
+    return myXMLReader->parseFirst(StringUtils::transcodeToLocal(systemID).c_str(), myToken);
 #endif
 }
 

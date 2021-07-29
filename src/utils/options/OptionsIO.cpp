@@ -57,7 +57,13 @@ char** OptionsIO::myArgV;
 void
 OptionsIO::setArgs(int argc, char** argv) {
     myArgC = argc;
-    myArgV = argv;
+    char** codedArgv = new char* [myArgC];
+    for (int i = 0; i < argc; i++) {
+        const std::string& a = StringUtils::transcodeFromLocal(argv[i]);
+        codedArgv[i] = new char[a.size() + 1];
+        std::strcpy(codedArgv[i], a.c_str());
+    }
+    myArgV = codedArgv;
 }
 
 
@@ -151,11 +157,11 @@ OptionsIO::getRoot(const std::string& filename) {
             throw ProcessError("Could not open '" + filename + "'.");
         }
 #ifdef HAVE_ZLIB
-        zstr::ifstream istream(filename.c_str(), std::fstream::in | std::fstream::binary);
+        zstr::ifstream istream(StringUtils::transcodeToLocal(filename).c_str(), std::fstream::in | std::fstream::binary);
         IStreamInputSource inputStream(istream);
         const bool result = parser.parseFirst(inputStream, token);
 #else
-        const bool result = parser.parseFirst(filename.c_str(), token);
+        const bool result = parser.parseFirst(StringUtils::transcodeToLocal(filename).c_str(), token);
 #endif
         if (!result) {
             throw ProcessError("Can not read XML-file '" + filename + "'.");
