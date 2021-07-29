@@ -18,3 +18,6 @@ geoTrips_junctions_writeGeo
 
 # test mapmatching trips with geo-coordinates to junctions and then writing junction locations
 geoTrips_junctions_writeJunctions
+
+# handle mutiple locations on the same edge
+dense
