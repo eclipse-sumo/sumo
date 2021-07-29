@@ -719,14 +719,21 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
   street. This mapping can be done using the python sumolib coming
   with sumo, see
   [Tools/Sumolib\#locate_nearby_edges_based_on_the_geo-coordinate](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
-  or directly by using duarouter's functionality to map (geo) coordinates
+  
+  Duarouter supports mapping of x,y and lon,lat coordinates
   using the attributes [fromXY, fromLonLat and their relatives](Demand/Shortest_or_Optimal_Path_Routing.md).
+  For high-quality GPS data it is sufficient to define
+  ```
+    <trip id="myVeh" viaLonLat="Lon0,Lat0  Lon1,Lat1  Lon2,Lat2 ..." depart="0"/>
+  ```
 
   This will fail when there is an edge in the route which did not get
   hit by a data point or if you have a mismatch (for instance matching
   an edge which goes in the "wrong" direction). In the former case you
   can easily repair the route using [duarouter](duarouter.md)
-  with **--repair**. Another small script which helps here is
+  with **--repair** (happens automatically when using via-coordinates). 
+  
+  Another small script which helps here is
   [Tools/Routes\#tracemapper.py](Tools/Routes.md#tracemapperpy).
   You can also use the map matching plugin from
   [Contributed/SUMOPy](Contributed/SUMOPy.md) here.
