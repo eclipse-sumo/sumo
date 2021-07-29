@@ -261,6 +261,8 @@ ROEdge::getNumPredecessors() const {
 }
 
 
+#pragma optimize( "", off )
+// #8885
 const ROEdge*
 ROEdge::getNormalBefore() const {
     const ROEdge* result = this;
@@ -270,8 +272,12 @@ ROEdge::getNormalBefore() const {
     }
     return result;
 }
+#pragma optimize( "", on )
 
 
+
+#pragma optimize( "", off )
+// #8885
 const ROEdge*
 ROEdge::getNormalAfter() const {
     const ROEdge* result = this;
@@ -281,6 +287,7 @@ ROEdge::getNormalAfter() const {
     }
     return result;
 }
+#pragma optimize( "", on )
 
 
 void
