@@ -82,6 +82,9 @@ via
 # test trip with multiple intermediate edges
 via2
 
+# test trip with disconnected intermediate edge
+via_unreachable
+
 # test trip with intermediate stop
 stop
 
