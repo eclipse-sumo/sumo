@@ -3567,8 +3567,8 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         //if (isSelected()) std::cout << "   check1 passed\n";
 
         // ensure that the vehicle is fully on bidi edges that allow reversal
-        const int neededFutureRoute = 1 + (MSGlobals::gUsingInternalLanes
-            ? (int)myFurtherLanes.size()
+        const int neededFutureRoute = 1 + (int)(MSGlobals::gUsingInternalLanes
+            ? myFurtherLanes.size()
             : ceil(myFurtherLanes.size() / 2.0));
         const int remainingRoute = int(myRoute->end() - myCurrEdge) - 1;
         if (remainingRoute < neededFutureRoute) {
