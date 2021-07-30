@@ -60,7 +60,7 @@ complex/tutorial/manhattan;../docs/tutorial/manhattan
 complex/tutorial/osm_activitygen;../docs/tutorial/osm_activitygen
 complex/tutorial/output_parsing;../docs/tutorial/output_parsing
 complex/tutorial/quickstart;../docs/tutorial/quickstart
-complex/tutorial/san_pablo_dam;../docs/tutorial/san_pablo_dam
+#complex/tutorial/san_pablo_dam;../docs/tutorial/san_pablo_dam
 complex/tutorial/sumolympics;../docs/tutorial/sumolympics
 complex/tutorial/traci_pedestrian_crossing;../docs/tutorial/traci_pedestrian_crossing
 complex/tutorial/traci_taxi;../docs/tutorial/traci_taxi

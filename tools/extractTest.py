@@ -113,7 +113,7 @@ from os.path import abspath, dirname, join
 THIS_DIR = abspath(dirname(__file__))
 SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(THIS_DIR)))
 os.environ["SUMO_HOME"] = SUMO_HOME
-for p in [
+for d, p in [
 ''')
     for source, target, app in targets:
         optionsFiles = defaultdict(list)
@@ -231,8 +231,8 @@ for p in [
                     call = ['join(SUMO_HOME, "bin", "%s")' % app] + ['"%s"' % a for a in appOptions]
                 prefix = os.path.commonprefix((testPath, os.path.abspath(pyBatch.name)))
                 up = os.path.abspath(pyBatch.name)[len(prefix):].count(os.sep) * "../"
-                pyBatch.write('    subprocess.Popen([%s], cwd=join(THIS_DIR, r"%s%s")),\n' %
-                              (', '.join(call), up, testPath[len(prefix):]))
+                pyBatch.write('    (r"%s", subprocess.Popen([%s], cwd=join(THIS_DIR, r"%s%s"))),\n' %
+                              (testPath[len(prefix):], ', '.join(call), up, testPath[len(prefix):]))
             if options.skip_configuration:
                 continue
             oldWorkDir = os.getcwd()
@@ -288,7 +288,7 @@ for p in [
     if options.python_script:
         pyBatch.write("""]:
     if p.wait() != 0:
-        print("Error: '%s' failed!" % " ".join(p.args))
+        print("Error: '%s' failed for '%s'!" % (" ".join(p.args), d))
         sys.exit(1)\n""")
 
 
