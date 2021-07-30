@@ -219,11 +219,14 @@ for p in [
                     call[1] = 'join(SUMO_HOME, "%s")' % appOptions[0]
                 elif app == "complex":
                     call = ['"python"']
-                    for o in appOptions:
-                        if o.endswith(".py"):
-                            call.insert(1, '"./%s"' % os.path.basename(o))
+                    for a in appOptions:
+                        if a.endswith(".py"):
+                            if os.path.exists(join(testPath, os.path.basename(a))):
+                                call.insert(1, '"./%s"' % os.path.basename(a))
+                            else:
+                                call.insert(1, 'join(SUMO_HOME, "%s")' % a)
                         else:
-                            call.append('"%s"' % o)
+                            call.append('"%s"' % a)
                 else:
                     call = ['join(SUMO_HOME, "bin", "%s")' % app] + ['"%s"' % a for a in appOptions]
                 prefix = os.path.commonprefix((testPath, os.path.abspath(pyBatch.name)))
@@ -266,6 +269,8 @@ for p in [
                     if a.endswith(".py"):
                         if os.path.exists(join(testPath, os.path.basename(a))):
                             a = os.path.basename(a)
+                        else:
+                            a = '"$SUMO_HOME/%s"' % a
                         del appOptions[i:i+1]
                         appOptions[0:0] = [os.environ.get("PYTHON", "python"), a]
                         break
@@ -281,7 +286,10 @@ for p in [
         if not haveVariant:
             print("No suitable variant found for %s." % source, file=sys.stderr)
     if options.python_script:
-        pyBatch.write(']:\n    if p.wait() != 0:\n        sys.exit(1)\n')
+        pyBatch.write("""]:
+    if p.wait() != 0:
+        print("Error: '%s' failed!" % " ".join(p.args))
+        sys.exit(1)\n""")
 
 
 if __name__ == "__main__":
