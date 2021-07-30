@@ -152,8 +152,10 @@ MSLaneChangerSublane::change() {
     }
 #endif
     vehicle->updateBestLanes(); // needed?
-    for (int i = 0; i < (int) myChanger.size(); ++i) {
-        vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
+    if (!vehicle->getLaneChangeModel().isOpposite()) {
+        for (int i = 0; i < (int) myChanger.size(); ++i) {
+            vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
+        }
     }
     // update leaders beyond the current edge for all lanes
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
@@ -416,7 +418,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // Update maneuver reservations on target lanes
     MSLane* targetLane = vehicle->getLaneChangeModel().updateTargetLane();
     if (!changedToNewLane && targetLane != nullptr
-            && vehicle->getActionStepLength() > DELTA_T) {
+            && vehicle->getActionStepLength() > DELTA_T
+            && &targetLane->getEdge() == &source->getEdge()
+            ) {
         const int dir = (vehicle->getLaneChangeModel().getManeuverDist() > 0 ? 1 : -1);
         ChangerIt target = from + dir;
         const double actionStepDist = dir * vehicle->getVehicleType().getMaxSpeedLat() * vehicle->getActionStepLengthSecs();
