@@ -2055,7 +2055,8 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
             const double gap = ahead[sublane].second;
             double vSafe;
             if (leader == nullptr) {
-                const double dist = preb[laneIndex].length - myVehicle.getPositionOnLane();
+                const int prebIndex = isOpposite() ? (int)preb.size() - 1 : laneIndex;
+                const double dist = preb[prebIndex].length - myVehicle.getPositionOnLane();
                 vSafe = getCarFollowModel().followSpeed(&myVehicle, vMax, dist, 0, 0);
             } else {
                 if (leader->getAcceleration() > 0.5 * leader->getCarFollowModel().getMaxAccel()) {
