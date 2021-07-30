@@ -14,3 +14,6 @@ ticket5860
 
 # crash on invalid Changer iterator
 ticket8889
+
+# crash on invalid Changer iterator
+ticket8890
