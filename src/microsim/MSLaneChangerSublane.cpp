@@ -403,7 +403,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     MSLane* oldShadowLane = vehicle->getLaneChangeModel().getShadowLane();
     vehicle->getLaneChangeModel().updateShadowLane();
     MSLane* shadowLane = vehicle->getLaneChangeModel().getShadowLane();
-    if (shadowLane != nullptr && shadowLane != oldShadowLane) {
+    if (shadowLane != nullptr && shadowLane != oldShadowLane
+            && &shadowLane->getEdge() == &source->getEdge()) {
         assert(oldShadowLane == 0 || vehicle->getLaneChangeModel().isOpposite() || to != from);
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
