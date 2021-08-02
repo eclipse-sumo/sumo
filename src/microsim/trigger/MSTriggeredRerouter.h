@@ -216,6 +216,9 @@ protected:
 
 
 protected:
+    /// @brief edges where vehicles are notified
+    const MSEdgeVector myEdges;
+
     /// List of rerouting definition intervals
     std::vector<RerouteInterval> myIntervals;
 

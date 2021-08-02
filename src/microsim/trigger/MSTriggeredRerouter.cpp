@@ -76,6 +76,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     MSTrigger(id),
     MSMoveReminder(id),
     SUMOSAXHandler(file),
+    myEdges(edges),
     myProbability(prob),
     myUserProbability(prob),
     myAmInUserMode(false),
@@ -284,6 +285,7 @@ MSTriggeredRerouter::myEndElement(int element) {
 
 SUMOTime
 MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
+    bool updateVehicles = false;
     for (std::vector<RerouteInterval>::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
         if (i->begin == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
             for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
@@ -292,10 +294,12 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
                     (*l)->setPermissions(i->permissions, i->id);
                 }
                 (*e)->rebuildAllowedLanes();
+                updateVehicles = true;
             }
             for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
                 (*l)->setPermissions(i->permissions, i->id);
                 (*l)->getEdge().rebuildAllowedLanes();
+                updateVehicles = true;
             }
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                 new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i->end);
@@ -307,11 +311,20 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
                     //std::cout << SIMTIME << " opening: intervalID=" << i->id << " lane=" << (*l)->getID() << " restore prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << "\n";
                 }
                 (*e)->rebuildAllowedLanes();
+                updateVehicles = true;
             }
             for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
                 (*l)->resetPermissions(i->id);
                 (*l)->getEdge().rebuildAllowedLanes();
+                updateVehicles = true;
             }
+        }
+    }
+    if (updateVehicles) {
+        // only vehicles on the affected lanes had their bestlanes updated so far
+        for (MSEdge* e : myEdges) {
+            // also updates vehicles
+            e->rebuildAllowedTargets();
         }
     }
     return 0;
