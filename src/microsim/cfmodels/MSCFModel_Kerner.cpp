@@ -18,6 +18,9 @@
 /// @date    03.04.2010
 ///
 // car-following model by B. Kerner
+// Implementation based on "B. S. Kerner, S. L. Klenov, A. Brakemeier, Testbed for Wireless Vehicle Communication: a
+// Simulation Approach based on Three-Phase Traffic Theory"
+// https://arxiv.org/abs/0712.2711
 /****************************************************************************/
 #include <config.h>
 
