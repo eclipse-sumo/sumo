@@ -3196,6 +3196,15 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                 }
 #endif
             }
+            if (link == nullptr && myLFLinkLanes.size() == 1
+                    && getBestLanesContinuation().size() > 1
+                    && getBestLanesContinuation()[1]->hadPermissionChanges()
+                    && myLane->getFirstAnyVehicle() == this) {
+                // temporal lane closing without notification, visible to the
+                // vehicle at the front of the queue
+                updateBestLanes(true);
+                //std::cout << SIMTIME << " veh=" << getID() << " updated bestLanes=" << toString(getBestLanesContinuation()) << "\n";
+            }
             break;
         }
     }
