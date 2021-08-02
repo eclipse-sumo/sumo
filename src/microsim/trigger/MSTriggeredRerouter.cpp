@@ -286,36 +286,36 @@ MSTriggeredRerouter::myEndElement(int element) {
 SUMOTime
 MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
     bool updateVehicles = false;
-    for (std::vector<RerouteInterval>::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
-        if (i->begin == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
-            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
-                for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
-                    //std::cout << SIMTIME << " closing: intervalID=" << i->id << " lane=" << (*l)->getID() << " prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << " new=" << getVehicleClassNames(i->permissions) << "\n";
-                    (*l)->setPermissions(i->permissions, i->id);
+    for (const RerouteInterval& i : myIntervals) {
+        if (i.begin == currentTime && !(i.closed.empty() && i.closedLanes.empty()) && i.permissions != SVCAll) {
+            for (MSEdge* e : i.closed) {
+                for (MSLane* lane : e->getLanes()) {
+                    //std::cout << SIMTIME << " closing: intervalID=" << i.id << " lane=" << (*l)->getID() << " prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << " new=" << getVehicleClassNames(i.permissions) << "\n";
+                    lane->setPermissions(i.permissions, i.id);
                 }
-                (*e)->rebuildAllowedLanes();
+                e->rebuildAllowedLanes();
                 updateVehicles = true;
             }
-            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
-                (*l)->setPermissions(i->permissions, i->id);
-                (*l)->getEdge().rebuildAllowedLanes();
+            for (MSLane* lane : i.closedLanes) {
+                lane->setPermissions(i.permissions, i.id);
+                lane->getEdge().rebuildAllowedLanes();
                 updateVehicles = true;
             }
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i->end);
+                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i.end);
         }
-        if (i->end == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
-            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
-                for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
-                    (*l)->resetPermissions(i->id);
-                    //std::cout << SIMTIME << " opening: intervalID=" << i->id << " lane=" << (*l)->getID() << " restore prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << "\n";
+        if (i.end == currentTime && !(i.closed.empty() && i.closedLanes.empty()) && i.permissions != SVCAll) {
+            for (MSEdge* e : i.closed) {
+                for (MSLane* lane : e->getLanes()) {
+                    lane->resetPermissions(i.id);
+                    //std::cout << SIMTIME << " opening: intervalID=" << i.id << " lane=" << (*l)->getID() << " restore prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << "\n";
                 }
-                (*e)->rebuildAllowedLanes();
+                e->rebuildAllowedLanes();
                 updateVehicles = true;
             }
-            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
-                (*l)->resetPermissions(i->id);
-                (*l)->getEdge().rebuildAllowedLanes();
+            for (MSLane* lane : i.closedLanes) {
+                lane->resetPermissions(i.id);
+                lane->getEdge().rebuildAllowedLanes();
                 updateVehicles = true;
             }
         }
