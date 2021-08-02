@@ -552,9 +552,6 @@ GUIEdge::closeTraffic(const GUILane* lane) {
         }
     }
     rebuildAllowedLanes();
-    for (MSEdge* const pred : getPredecessors()) {
-        pred->rebuildAllowedTargets();
-    }
 }
 
 

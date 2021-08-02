@@ -808,6 +808,7 @@ public:
      */
     void setPermissions(SVCPermissions permissions, long long transientID);
     void resetPermissions(long long transientID);
+    bool hadPermissionChanges() const;
 
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {

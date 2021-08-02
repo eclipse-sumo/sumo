@@ -1407,9 +1407,6 @@ GUILane::closeTraffic(bool rebuildAllowed) {
     myAmClosed = !myAmClosed;
     if (rebuildAllowed) {
         getEdge().rebuildAllowedLanes();
-        for (MSEdge* const pred : getEdge().getPredecessors()) {
-            pred->rebuildAllowedTargets();
-        }
     }
 }
 

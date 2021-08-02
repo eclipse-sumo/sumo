@@ -282,6 +282,9 @@ MSEdge::rebuildAllowedLanes() {
         }
     }
     rebuildAllowedTargets(false);
+    for (MSEdge* pred : myPredecessors) {
+        pred->rebuildAllowedTargets(false);
+    }
 }
 
 

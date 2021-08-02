@@ -3859,6 +3859,12 @@ MSLane::resetPermissions(long long transientID) {
 
 
 bool
+MSLane::hadPermissionChanges() const {
+    return !myPermissionChanges.empty();
+}
+
+
+bool
 MSLane::hasPedestrians() const {
     MSNet* const net = MSNet::getInstance();
     return net->hasPersons() && net->getPersonControl().getMovementModel()->hasPedestrians(this);
