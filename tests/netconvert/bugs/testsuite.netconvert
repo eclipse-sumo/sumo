@@ -124,3 +124,6 @@ ticket8413
 
 # turnaround in input ignored
 ticket8796
+
+# connectivity on bike lane start
+ticket8899
