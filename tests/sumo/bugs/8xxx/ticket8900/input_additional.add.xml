@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-08-02 10:23:16.183690 by cutRoutes.py v1_9_2+0938-5f20f6e761e
+  options: <doubleminus>subnet-file scenario_workdir/mitte2017/mitte.net.xml <doubleminus>net-file scenario_workdir/mitte2017/net.net.xml.gz <doubleminus>iteration-dir scenario_workdir/mitte2017/iteration000/
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <busStop endPos="13" friendlyPos="true" id="070101005168_0" lane="4615623#0_2" name="U Strausberger Platz (Berlin)" startPos="0"/>
+    <vehicle depart="0.00" id="142" line="17317_700_1" type="bus">
+        <route edges="273390877#0 4615623#0"/>
+        <stop busStop="070101005168_0" duration="10"/>
+    </vehicle>
+</additional>

@@ -12,3 +12,6 @@ ticket8749
 
 # invalid deceleration
 ticket8798
+
+# invalid bestlanes lead to wrong lane teleport
+ticket8900
