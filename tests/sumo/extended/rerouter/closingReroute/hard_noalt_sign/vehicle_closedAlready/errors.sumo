@@ -1,2 +1,2 @@
-Error: Vehicle 'VehicleClosedAlready' has no valid route. No connection between edge 'middle2' and edge 'end'.
+Error: Vehicle 'VehicleClosedAlready' has no valid route. No connection between edge 'middle' and edge 'middle2'.
 Quitting (on error).
