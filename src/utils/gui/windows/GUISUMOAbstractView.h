@@ -158,8 +158,11 @@ public:
     virtual long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     //@}
 
-    //@brief open object dialog
-    virtual void openObjectDialog();
+    /// @brief open object dialog at the cursor position
+    virtual void openObjectDialogAtCursor();
+
+    /// @brief open object dialog for the given object
+    void openObjectDialog(GUIGlObject* o);
 
     /// @brief A method that updates the tooltip
     void updateToolTip();

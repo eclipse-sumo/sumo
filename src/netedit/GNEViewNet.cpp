@@ -407,7 +407,7 @@ GNEViewNet::setColorScheme(const std::string& name) {
 
 
 void
-GNEViewNet::openObjectDialog() {
+GNEViewNet::openObjectDialogAtCursor() {
     // reimplemented from GUISUMOAbstractView due OverlappedInspection
     ungrab();
     // make network current
@@ -415,36 +415,18 @@ GNEViewNet::openObjectDialog() {
         // fill objects under cursor
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
         // get GUIGLObject front
-        GUIGlObject* GlObject = myObjectsUnderCursor.getGUIGlObjectFront();
+        GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();
         // we need to check if we're inspecting a overlapping element
         if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
                 myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
                 myInspectedAttributeCarriers.size() > 0) {
-            GlObject = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
+            o = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
         }
         // if GlObject is null, use net
-        if (GlObject == nullptr) {
-            GlObject = myNet;
+        if (o == nullptr) {
+            o = myNet;
         }
-        // check if open popup menu can be opened
-        if (GlObject != nullptr) {
-            // get popup menu
-            myPopup = GlObject->getPopUpMenu(*myApp, *this);
-            // create popup
-            int x, y;
-            FXuint b;
-            myApp->getCursorPosition(x, y, b);
-            myPopup->setX(x + myApp->getX());
-            myPopup->setY(y + myApp->getY());
-            myPopup->create();
-            myPopup->show();
-            myPopupPosition = getPositionInformation();
-            // call onRightBtnRelease
-            myChanger->onRightBtnRelease(nullptr);
-            // set focus in viewNet
-            setFocus();
-        }
-        // make network non current
+        openObjectDialog(o);
         makeNonCurrent();
     }
 }

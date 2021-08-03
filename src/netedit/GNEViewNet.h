@@ -98,7 +98,7 @@ public:
     std::vector<std::string> getEdgeDataAttrs() const;
 
     /// @brief open object dialog
-    void openObjectDialog();
+    void openObjectDialogAtCursor();
 
     // save visualization settings
     void saveVisualizationSettings() const;

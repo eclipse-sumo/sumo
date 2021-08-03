@@ -985,7 +985,7 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* ptr) {
     destroyPopup();
     onMouseMove(o, sel, ptr);
     if (!myChanger->onRightBtnRelease(ptr) && !myApp->isGaming()) {
-        openObjectDialog();
+        openObjectDialogAtCursor();
     }
     if (myApp->isGaming()) {
         onGamingRightClick(getPositionInformation());
@@ -1045,7 +1045,7 @@ GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
 
 
 void
-GUISUMOAbstractView::openObjectDialog() {
+GUISUMOAbstractView::openObjectDialogAtCursor() {
     ungrab();
     if (!isEnabled() || !myAmInitialised) {
         return;
@@ -1059,27 +1059,32 @@ GUISUMOAbstractView::openObjectDialog() {
         } else {
             o = GUIGlObjectStorage::gIDStorage.getNetObject();
         }
-        if (o != nullptr) {
-            myPopup = o->getPopUpMenu(*myApp, *this);
-            int x, y;
-            FXuint b;
-            myApp->getCursorPosition(x, y, b);
-            int popX = x + myApp->getX();
-            int popY = y + myApp->getY();
-            myPopup->setX(popX);
-            myPopup->setY(popY);
-            myPopup->create();
-            myPopup->show();
-            // try to stay on screen
-            popX = MAX2(0, MIN2(popX, getApp()->getRootWindow()->getWidth() - myPopup->getWidth()));
-            popY = MAX2(0, MIN2(popY, getApp()->getRootWindow()->getHeight() - myPopup->getHeight()));
-            myPopup->move(popX, popY);
-            myPopupPosition = getPositionInformation();
-            myChanger->onRightBtnRelease(nullptr);
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
-            setFocus();
-        }
+        openObjectDialog(o);
         makeNonCurrent();
+    }
+}
+
+void
+GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
+    if (o != nullptr) {
+        myPopup = o->getPopUpMenu(*myApp, *this);
+        int x, y;
+        FXuint b;
+        myApp->getCursorPosition(x, y, b);
+        int popX = x + myApp->getX();
+        int popY = y + myApp->getY();
+        myPopup->setX(popX);
+        myPopup->setY(popY);
+        myPopup->create();
+        myPopup->show();
+        // try to stay on screen
+        popX = MAX2(0, MIN2(popX, getApp()->getRootWindow()->getWidth() - myPopup->getWidth()));
+        popY = MAX2(0, MIN2(popY, getApp()->getRootWindow()->getHeight() - myPopup->getHeight()));
+        myPopup->move(popX, popY);
+        myPopupPosition = getPositionInformation();
+        myChanger->onRightBtnRelease(nullptr);
+        GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
+        setFocus();
     }
 }
 
