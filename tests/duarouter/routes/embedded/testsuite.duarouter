@@ -53,6 +53,9 @@ with_stops
 # specifying stop on an junction
 with_stops_on_junction
 
+# specifying stop on an junction
+with_stops_on_junction_afer_internal_junction
+
 # same as noid_one_time but with a bus stop
 with_busstops
 
