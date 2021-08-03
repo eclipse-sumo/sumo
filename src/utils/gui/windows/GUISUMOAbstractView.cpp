@@ -1064,10 +1064,16 @@ GUISUMOAbstractView::openObjectDialog() {
             int x, y;
             FXuint b;
             myApp->getCursorPosition(x, y, b);
-            myPopup->setX(x + myApp->getX());
-            myPopup->setY(y + myApp->getY());
+            int popX = x + myApp->getX();
+            int popY = y + myApp->getY();
+            myPopup->setX(popX);
+            myPopup->setY(popY);
             myPopup->create();
             myPopup->show();
+            // try to stay on screen
+            popX = MAX2(0, MIN2(popX, getApp()->getRootWindow()->getWidth() - myPopup->getWidth()));
+            popY = MAX2(0, MIN2(popY, getApp()->getRootWindow()->getHeight() - myPopup->getHeight()));
+            myPopup->move(popX, popY);
             myPopupPosition = getPositionInformation();
             myChanger->onRightBtnRelease(nullptr);
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
