@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-02 16:18:40 by Eclipse SUMO netedit Version v1_9_2+0915-d5bb258209
+<!-- generated on 2021-08-03 12:24:37 by Eclipse SUMO netedit Version v1_9_2+0956-00ed1c6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\behr_mi\Projekte\urmo\mitte\berlin_mitte.net.xml.gz"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\behr_mi\Projekte\sumo\repos\sumo\tests\_8816\connect.net.xml"/>
-        <plain-output-prefix value="C:\Users\behr_mi\Projekte\sumo\repos\sumo\tests\_8816\connect"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/_bugs_ticket8899/input_plain"/>
         <output.street-names value="true"/>
     </output>
 
@@ -21,7 +21,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.5"/>
@@ -29,7 +28,7 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="false"/>
     </pedestrian>
 
     <report>
@@ -40,17 +39,13 @@
 -->
 
 <nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="-339139.35,-5778999.45" convBoundary="53138.24,39267.54,59996.38,41184.67" origBoundary="12.629591,51.877564,14.475032,53.389797" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-393420.76,-5819746.43" convBoundary="0.00,0.00,486.92,127.26" origBoundary="12.629591,51.877564,14.475032,53.389797" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <node id="2094266923" x="53138.24" y="41150.56" type="dead_end"/>
-    <node id="2094266965" x="53173.58" y="41184.67" type="dead_end"/>
-    <node id="2757332329" x="54768.33" y="40748.70" type="dead_end"/>
-    <node id="2782577071" x="54522.11" y="40757.82" type="dead_end"/>
-    <node id="3069560068" x="54461.31" y="40808.71" type="dead_end"/>
-    <node id="3230525600" x="54626.59" y="40792.45" type="dead_end"/>
-    <node id="3230525602" x="54539.00" y="40867.49" type="dead_end"/>
-    <node id="3951294982" x="59996.38" y="39275.37" type="dead_end"/>
-    <node id="4174670471" x="59984.88" y="39267.54" type="dead_end"/>
-    <node id="6711622876" x="54281.41" y="40872.86" type="dead_end"/>
-    <node id="cluster_29271377_29271394" x="54530.08" y="40802.45" type="traffic_light" tl="GS_cluster_29271377_29271394"/>
+    <node id="2757332329" x="486.92" y="1.72" type="dead_end"/>
+    <node id="2782577071" x="240.70" y="10.84" type="priority"/>
+    <node id="3069560068" x="179.90" y="61.73" type="dead_end"/>
+    <node id="3230525600" x="345.18" y="45.47" type="dead_end"/>
+    <node id="3230525602" x="257.59" y="120.51" type="priority"/>
+    <node id="6711622876" x="0.00" y="125.88" type="dead_end"/>
+    <node id="C" x="248.67" y="55.47" type="traffic_light" tl="GS_cluster_29271377_29271394"/>
 </nodes>
