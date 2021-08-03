@@ -42,6 +42,9 @@ adlershof_dlr
 # find joinable circle in complex cluster
 circle4
 
+# test whether long-edge-pruning interferes with circle search
+circle4_long_edge
+
 # find joinable circle in complex cluster
 circle2
 
