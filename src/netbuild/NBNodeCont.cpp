@@ -1616,8 +1616,8 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     }
 #ifdef DEBUG_JOINJUNCTIONS
     std::cout << "joining cluster " << joinNamedToString(cluster, ' ') << "\n"
-              << "  incoming=" << toString(clusterIncoming) << "\n"
-              << "  inside=" << toString(inside) << "\n";
+              << "  incoming=" << joinNamedToString(clusterIncoming, ' ') << "\n"
+              << "  inside=" << joinNamedToString(inside, ' ') << "\n";
 #endif
     analyzeCluster(cluster, id, pos, setTL, type, nodeType);
     NBNode* newNode = nullptr;
