@@ -762,8 +762,6 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         // remove nodes that can be eliminated by geometry.remove
         pruneClusterFringe(cluster);
-        // avoid removal of long edges (must have been added via an alternative path).
-        pruneLongEdges(cluster, maxDist);
         // remove nodes that are part of a bypass lane (typically for turning right without waiting at a traffic light)
         pruneSlipLaneNodes(cluster);
         if (cluster.size() < 2) {
@@ -801,6 +799,13 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 }
             }
         }
+        // avoid removal of long edges (must have been added via an alternative path).
+        pruneLongEdges(cluster, maxDist);
+        if (cluster.size() < 2) {
+            continue;
+        }
+        origCluster = joinNamedToString(cluster, ',');
+        feasible = feasibleCluster(cluster, ec, sc, origReason);
         if (!feasible) {
             WRITE_WARNINGF("Not joining junctions % (%).", origCluster, origReason);
             continue;
