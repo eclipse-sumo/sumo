@@ -1078,8 +1078,8 @@ GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
         myPopup->create();
         myPopup->show();
         // try to stay on screen
-        popX = MAX2(0, MIN2(popX, getApp()->getRootWindow()->getWidth() - myPopup->getWidth()));
-        popY = MAX2(0, MIN2(popY, getApp()->getRootWindow()->getHeight() - myPopup->getHeight()));
+        popX = MAX2(0, MIN2(popX, getApp()->getRootWindow()->getWidth() - myPopup->getWidth() - 10));
+        popY = MAX2(0, MIN2(popY, getApp()->getRootWindow()->getHeight() - myPopup->getHeight() - 50));
         myPopup->move(popX, popY);
         myPopupPosition = getPositionInformation();
         myChanger->onRightBtnRelease(nullptr);
