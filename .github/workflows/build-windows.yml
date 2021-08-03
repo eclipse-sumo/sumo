@@ -66,19 +66,18 @@ jobs:
         cd build_msvc
         cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=false
 
+    - name: Building libsumo plain
+      if: matrix.build-type == 'plain'
+      run: |
+        cd sumo
+        cmake --build build_msvc --config Release --target install_dll libsumo
+        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
+
     - name: Building SUMO plain
       if: matrix.build-type == 'plain' && matrix.python == '3.8'
       run: |
         cd sumo
         cmake --build build_msvc --config Release
-        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
-
-    - name: Building libsumo plain
-      if: matrix.build-type == 'plain' && matrix.python != '3.8'
-      run: |
-        cd sumo
-        cmake --build build_msvc --config Release --target install_dll libsumo
-        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Building SUMO extra
       if: matrix.build-type == 'extra'
