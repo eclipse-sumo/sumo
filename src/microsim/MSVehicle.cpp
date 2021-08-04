@@ -4028,6 +4028,7 @@ MSVehicle::executeMove() {
         } else {
             myState.myPos = myLane->getOppositePos(myState.myPos);
             myLane = myLane->getOpposite();
+            oldLane = oldLane->getOpposite();
             myCachedPosition = Position::INVALID;
             myLaneChangeModel->updateShadowLane();
         }
