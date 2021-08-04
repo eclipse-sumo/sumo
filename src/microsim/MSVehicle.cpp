@@ -5204,7 +5204,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 bestConnectedNext.length = -1;
                 if ((*j).allowsContinuation) {
                     for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m) {
-                        if ((*m).lane->isApproachedFrom(&cE, (*j).lane)) {
+                        if (((*m).lane->allowsVehicleClass(getVClass()) || (*m).lane->hadPermissionChanges())
+                                && (*m).lane->isApproachedFrom(&cE, (*j).lane)) {
                             if (bestConnectedNext.length < (*m).length || (bestConnectedNext.length == (*m).length && abs(bestConnectedNext.bestLaneOffset) > abs((*m).bestLaneOffset))) {
                                 bestConnectedNext = *m;
                             }
