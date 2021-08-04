@@ -536,6 +536,51 @@ public:
         /// @brief Row for Adapt Time
         CarFollowingModelRow* myAdaptTimeRow;
 
+        /// @brief Row for Look ahead/preview Time
+        CarFollowingModelRow* myTpreviewRow;
+
+        /// @brief Row for Reaction Time
+        CarFollowingModelRow* myTreactionRow;
+
+        /// @brief Row for Wiener Process Driving Error
+        CarFollowingModelRow* myTPersDriveRow;
+
+        /// @brief Row for Wiener Process Estimation Error
+        CarFollowingModelRow* myTPersEstimateRow;
+
+        /// @brief Row for Coolness parameter
+        CarFollowingModelRow* myCcoolnessRow;
+
+        /// @brief Row for leader speed estimation error
+        CarFollowingModelRow* mySigmaleaderRow;
+
+        /// @brief Row for Gap estimation error
+        CarFollowingModelRow* mySigmagapRow;
+
+        /// @brief Row for Driving Error
+        CarFollowingModelRow* mySigmaerrorRow;
+
+        /// @brief Row for max jerk
+        CarFollowingModelRow* myJerkmaxRow;
+
+        /// @brief Row for AP Driver Update threshold
+        CarFollowingModelRow* myEpsilonaccRow;
+
+        /// @brief Row for Startup Time to acc_max
+        CarFollowingModelRow* myTaccmaxRow;
+
+        /// @brief Row for Startup M flatness
+        CarFollowingModelRow* myMflatnessRow;
+
+        /// @brief Row for Startup M begin
+        CarFollowingModelRow* myMbeginRow;
+        
+        /// @brief Row for Using vehicle dynamics
+        CarFollowingModelRow* myUseVehDynamicsRow;
+
+        /// @brief Row for Using vehicle preview
+        CarFollowingModelRow* myMaxVehPreviewRow;
+
         /// @brief temporal label for incomplete attributes
         FXLabel* myLabelIncompleteAttribute;
     };

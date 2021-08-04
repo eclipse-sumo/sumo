@@ -1311,6 +1311,66 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     myAdaptTimeRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDMM_ADAPT_TIME);
     myRows.push_back(myAdaptTimeRow);
 
+    // X1 create FX and Label for Look ahead/preview Time
+    myTpreviewRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD);
+    myRows.push_back(myTpreviewRow);
+
+    // X2 create FX and Label for Reaction Time
+    myTreactionRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_T_REACTION);
+    myRows.push_back(myTreactionRow);
+
+    // X3 create FX and Label for Wiener Process Driving Error
+    myTPersDriveRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE);
+    myRows.push_back(myTPersDriveRow);
+
+    // X4 create FX and Label for Wiener Process Estimation Error
+    myTPersEstimateRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE);
+    myRows.push_back(myTPersEstimateRow);
+
+    // X5 create FX and Label for Coolness parameter
+    myCcoolnessRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_C_COOLNESS);
+    myRows.push_back(myCcoolnessRow);
+
+    // X6 create FX and Label for leader speed estimation error
+    mySigmaleaderRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_SIG_LEADER);
+    myRows.push_back(mySigmaleaderRow);
+
+    // X7 create FX and Label for Gap estimation error
+    mySigmagapRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_SIG_GAP);
+    myRows.push_back(mySigmagapRow);
+
+    // X8 create FX and Label for Driving Error
+    mySigmaerrorRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_SIG_ERROR);
+    myRows.push_back(mySigmaerrorRow);
+
+    // X9 create FX and Label for max jerk
+    myJerkmaxRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_JERK_MAX);
+    myRows.push_back(myJerkmaxRow);
+
+    // X10 create FX and Label for AP Driver Update threshold
+    myEpsilonaccRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_EPSILON_ACC);
+    myRows.push_back(myEpsilonaccRow);
+
+    // X11 create FX and Label for Startup Time to acc_max
+    myTaccmaxRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_T_ACC_MAX);
+    myRows.push_back(myTaccmaxRow);
+
+    // X12 create FX and Label for Startup M flatness
+    myMflatnessRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_M_FLATNESS);
+    myRows.push_back(myMflatnessRow);
+
+    // X13 create FX and Label for Startup M begin
+    myMbeginRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_M_BEGIN);
+    myRows.push_back(myMbeginRow);
+    
+    // X14 create FX and Label for using vehicle dynamics
+    myUseVehDynamicsRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS);
+    myRows.push_back(myUseVehDynamicsRow);
+
+    // X14 create FX and Label for using vehicle dynamics
+    myMaxVehPreviewRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW);
+    myRows.push_back(myMaxVehPreviewRow);
+
     // create myLabelIncompleteAttribute
     myLabelIncompleteAttribute = new FXLabel(myVerticalFrameRows, "Some attributes wasn't\nimplemented yet", nullptr, GUIDesignLabelAboutInfoCenter);
     myLabelIncompleteAttribute->hide();
@@ -1379,6 +1439,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
                 myAccelRow->show();
                 myDecelRow->show();
                 myEmergencyDecelRow->show();
+                myDeltaRow->show();
                 mySteppingRow->show();
                 myMinGapFactorRow->show();
                 break;
@@ -1387,10 +1448,34 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
                 myAccelRow->show();
                 myDecelRow->show();
                 myEmergencyDecelRow->show();
+                myDeltaRow->show();
                 mySteppingRow->show();
                 myMinGapFactorRow->show();
                 myAdaptFactorRow->show();
                 myAdaptTimeRow->show();
+                break;
+            case SUMO_TAG_CF_EIDM:
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                myDeltaRow->show();
+                myMinGapFactorRow->show();
+                myTpreviewRow->show();
+                myTreactionRow->show();
+                myTPersDriveRow->show();
+                myTPersEstimateRow->show();
+                myCcoolnessRow->show();
+                mySigmaleaderRow->show();
+                mySigmagapRow->show();
+                mySigmaerrorRow->show();
+                myJerkmaxRow->show();
+                myEpsilonaccRow->show();
+                myTaccmaxRow->show();
+                myMflatnessRow->show();
+                myMbeginRow->show();
+                myUseVehDynamicsRow->show();
+                myMaxVehPreviewRow->show();
                 break;
             case SUMO_TAG_CF_BKERNER:
                 myTauRow->show();

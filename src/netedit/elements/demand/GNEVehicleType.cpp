@@ -241,6 +241,21 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
+        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
+        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
+        case SUMO_ATTR_CF_EIDM_T_REACTION:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
+        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
+        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
+        case SUMO_ATTR_CF_EIDM_SIG_GAP:
+        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
+        case SUMO_ATTR_CF_EIDM_JERK_MAX:
+        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
+        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
+        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
+        case SUMO_ATTR_CF_EIDM_M_BEGIN:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -504,6 +519,21 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
+        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
+        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
+        case SUMO_ATTR_CF_EIDM_T_REACTION:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
+        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
+        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
+        case SUMO_ATTR_CF_EIDM_SIG_GAP:
+        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
+        case SUMO_ATTR_CF_EIDM_JERK_MAX:
+        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
+        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
+        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
+        case SUMO_ATTR_CF_EIDM_M_BEGIN:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -629,6 +659,21 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
+        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
+        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
+        case SUMO_ATTR_CF_EIDM_T_REACTION:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
+        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
+        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
+        case SUMO_ATTR_CF_EIDM_SIG_GAP:
+        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
+        case SUMO_ATTR_CF_EIDM_JERK_MAX:
+        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
+        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
+        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
+        case SUMO_ATTR_CF_EIDM_M_BEGIN:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -880,6 +925,51 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP5, "").empty()) {
         vType->setAttribute(SUMO_ATTR_TMP5, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP5, 0)), undoList);
     }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_REACTION, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_REACTION, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_REACTION, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_C_COOLNESS, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_C_COOLNESS, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_C_COOLNESS, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_SIG_LEADER, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_LEADER, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_SIG_LEADER, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_SIG_GAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_GAP, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_SIG_GAP, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_SIG_ERROR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_ERROR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_JERK_MAX, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_JERK_MAX, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_JERK_MAX, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_EPSILON_ACC, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_EPSILON_ACC, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_EPSILON_ACC, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_ACC_MAX, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_ACC_MAX, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_ACC_MAX, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_M_FLATNESS, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_M_FLATNESS, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_M_FLATNESS, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_M_BEGIN, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_M_BEGIN, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0)), undoList);
+    }
     if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_PWAGNER2009_TAULAST, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_TAULAST, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0)), undoList);
     }
@@ -1125,6 +1215,21 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
+        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
+        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
+        case SUMO_ATTR_CF_EIDM_T_REACTION:
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
+        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
+        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
+        case SUMO_ATTR_CF_EIDM_SIG_GAP:
+        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
+        case SUMO_ATTR_CF_EIDM_JERK_MAX:
+        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
+        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
+        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
+        case SUMO_ATTR_CF_EIDM_M_BEGIN:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
