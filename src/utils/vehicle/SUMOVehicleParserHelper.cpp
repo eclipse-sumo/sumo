@@ -1157,6 +1157,31 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_IDM] = idmParams;
         allParams.insert(idmParams.begin(), idmParams.end());
 
+        std::set<SumoXMLAttr> eidmParams;
+        eidmParams.insert(SUMO_ATTR_ACCEL);
+        eidmParams.insert(SUMO_ATTR_DECEL);
+        eidmParams.insert(SUMO_ATTR_EMERGENCYDECEL);
+        eidmParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
+        eidmParams.insert(SUMO_ATTR_TAU);
+        eidmParams.insert(SUMO_ATTR_CF_IDM_DELTA);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_T_REACTION);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_C_COOLNESS);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_SIG_LEADER);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_SIG_GAP);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_SIG_ERROR);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_JERK_MAX);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_EPSILON_ACC);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_T_ACC_MAX);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_M_FLATNESS);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_M_BEGIN);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS);
+        eidmParams.insert(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW);
+        allowedCFModelAttrs[SUMO_TAG_CF_EIDM] = eidmParams;
+        allParams.insert(eidmParams.begin(), eidmParams.end());
+
         std::set<SumoXMLAttr> idmmParams;
         idmmParams.insert(SUMO_ATTR_ACCEL);
         idmmParams.insert(SUMO_ATTR_DECEL);
