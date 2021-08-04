@@ -27,10 +27,11 @@ Warning: No way found for reference '134833998' in relation '3832461'
 Warning: Ignoring restriction relation '4806373' with unknown to-way.
 Warning: Ignoring restriction relation '7778535' with unknown to-way.
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
+Warning: Reducing junction cluster 1673585734,26701256,29192960,3590535061,3590535063,4590472038,5632884667 (5 incoming edges).
 Warning: Not joining junctions 27005148,3378459428 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 30731510,588181257,588181258,588181259 (only 1 exit node).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=7.19)).
-Warning: Reducing junction cluster 3513423869,3513423870,3513423873,3513423881,3513423882 (not compact (maxEdge=4612961#1 length=9.63)).
+Warning: Reducing junction cluster 3513423869,3513423870,3513423873,3513423879,3513423880,3513423881,3513423882 (parallel outgoing -310176513#6,54698846#0).
 Warning: Ambiguous node type for node cluster 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3781110313_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' (rail_crossing,unknown), setting to 'priority'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
