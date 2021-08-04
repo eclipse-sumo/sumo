@@ -122,10 +122,10 @@ ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
             if (s->isTazConnector() && getToJunction() != nullptr) {
                 s->myBoundary.add(getToJunction()->getPosition());
             }
-            if (via != nullptr) {
-                if (via->myApproachingEdges.size() == 0) {
-                    via->myApproachingEdges.push_back(this);
-                }
+        }
+        if (via != nullptr) {
+            if (via->myApproachingEdges.size() == 0) {
+                via->myApproachingEdges.push_back(this);
             }
         }
     }
@@ -261,33 +261,27 @@ ROEdge::getNumPredecessors() const {
 }
 
 
-#pragma optimize( "", off )
-// #8885
 const ROEdge*
 ROEdge::getNormalBefore() const {
     const ROEdge* result = this;
     while (result->isInternal()) {
         assert(myApproachingEdges.size() == 1);
-        result = myApproachingEdges.front();
+        result = result->myApproachingEdges.front();
     }
     return result;
 }
-#pragma optimize( "", on )
 
 
 
-#pragma optimize( "", off )
-// #8885
 const ROEdge*
 ROEdge::getNormalAfter() const {
     const ROEdge* result = this;
     while (result->isInternal()) {
         assert(myFollowingEdges.size() == 1);
-        result = myFollowingEdges.front();
+        result = result->myFollowingEdges.front();
     }
     return result;
 }
-#pragma optimize( "", on )
 
 
 void
