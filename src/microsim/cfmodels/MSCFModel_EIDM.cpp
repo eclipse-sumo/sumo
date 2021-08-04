@@ -24,6 +24,10 @@
 /// @version $Id$
 ///
 // The Extended Intelligent Driver Model (EIDM) car-following model
+//
+// Publication: Salles, Dominik, S. Kaufmann and H. Reuss. “Extending the Intelligent Driver
+// Model in SUMO and Verifying the Drive Off Trajectories with Aerial
+// Measurements.” (2020).
 /****************************************************************************/
 
 
