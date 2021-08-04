@@ -198,7 +198,7 @@ public:
      * @param[in] maxSpeed The maximum achievable speed in the next step
      * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
      */
-    double maximumLaneSpeedCF(double maxSpeed, double maxSpeedLane) const {
+    double maximumLaneSpeedCF(double maxSpeed, double /*maxSpeedLane*/) const {
         return maxSpeed;
     }
 
