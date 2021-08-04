@@ -58,7 +58,7 @@ For additional ways to influence edge probabilities call
 python tools/randomTrips.py --help
 ```
 
-## Arrival rate
+## Traffic Volume / Arrival rate
 
 The arrival rate is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
 generates vehicles with a constant period and arrival rate of (1/period)
