@@ -112,8 +112,8 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     // map center-line based coordinates into [0, myWidth] coordinates
     const double vehCenter = veh->getLateralPositionOnLane() + 0.5 * myWidth + latOffset;
     const double vehHalfWidth = 0.5 * veh->getVehicleType().getWidth();
-    double rightVehSide = MAX2(0.,  vehCenter - vehHalfWidth);
-    double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
+    double rightVehSide = vehCenter - vehHalfWidth;
+    double leftVehSide = vehCenter + vehHalfWidth;
     // Reserve some additional space if the vehicle is performing a maneuver continuation.
     if (veh->getActionStepLength() != DELTA_T) {
         if (veh->getLaneChangeModel().getManeuverDist() < 0. || veh->getLaneChangeModel().getSpeedLat() < 0.) {
@@ -125,13 +125,21 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
             leftVehSide += maneuverDist;
         }
     }
-
-    rightmost = MAX2(0, (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution));
-    leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
-    //if (veh->getID() == "Pepoli_11_41") std::cout << SIMTIME << " veh=" << veh->getID()
+    if (rightVehSide > myWidth || leftVehSide < 0) {
+        // vehicle does not touch this lane
+        // set the values so that an iteration
+        // for (i = rightmost; i  <= leftmost; i++) stops immediately
+        rightmost = -1000;
+        leftmost = -2000;
+    } else {
+        rightmost = MAX2(0, (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution));
+        leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
+    }
+    //if (veh->getID() == "flow_0.33" && SIMTIME == 264) std::cout << SIMTIME << " veh=" << veh->getID()
     //    << std::setprecision(10)
     //    << " posLat=" << veh->getLateralPositionOnLane()
     //    << " latOffset=" << latOffset
+    //    << " vehCenter=" << vehCenter
     //    << " rightVehSide=" << rightVehSide
     //    << " leftVehSide=" << leftVehSide
     //    << " rightmost=" << rightmost
