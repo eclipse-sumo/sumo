@@ -627,7 +627,6 @@ MSNet::simulationStep() {
     MSRoutingEngine::waitForAll();
 #endif
     if (MSGlobals::gCheck4Accidents) {
-        myCollisions.clear();
         myEdges->detectCollisions(myStep, STAGE_EVENTS);
     }
     // check whether the tls programs need to be switched
@@ -693,6 +692,11 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         myTraCIStepDuration += SysUtils::getCurrentMillis();
         myTraCIMillis += myTraCIStepDuration;
+    }
+    if (MSGlobals::gCheck4Accidents) {
+        // collisions from the previous step were kept to avoid duplicate
+        // warnings. we must remove them now to ensure correct output.
+        removeOutdatedCollisions();
     }
     // update and write (if needed) detector values
     writeOutput();
@@ -1164,8 +1168,15 @@ bool
 MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObject* victim, const std::string& collisionType, const MSLane* lane, double pos) {
     auto it = myCollisions.find(collider->getID());
     if (it != myCollisions.end()) {
-        for (const Collision& old : it->second) {
+        for (Collision& old : it->second) {
             if (old.victim == victim->getID()) {
+                // collision from previous step continues
+                old.colliderSpeed = collider->getSpeed();
+                old.victimSpeed = victim->getSpeed();
+                old.type = collisionType;
+                old.lane = lane;
+                old.pos = pos;
+                old.time = myStep;
                 return false;
             }
         }
@@ -1179,8 +1190,28 @@ MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObj
     c.type = collisionType;
     c.lane = lane;
     c.pos = pos;
+    c.time = myStep;
     myCollisions[collider->getID()].push_back(c);
     return true;
+}
+
+
+void
+MSNet::removeOutdatedCollisions() {
+    for (auto it = myCollisions.begin(); it != myCollisions.end();) {
+        for (auto it2 = it->second.begin(); it2 != it->second.end();) {
+            if (it2->time != myStep) {
+                it2 = it->second.erase(it2);
+            } else {
+                it2++;
+            }
+        }
+        if (it->second.size() == 0) {
+            it = myCollisions.erase(it);
+        } else {
+            it++;
+        }
+    }
 }
 
 

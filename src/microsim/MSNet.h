@@ -139,6 +139,7 @@ public:
         std::string type;
         const MSLane* lane;
         double pos;
+        SUMOTime time;
     };
 
     typedef std::map<std::string, std::vector<Collision> > CollisionMap;
@@ -836,6 +837,9 @@ protected:
 
     /// @brief check wether bidirectional edges occur in the network
     bool checkBidiEdges();
+
+    /// @brief remove collisions from the previous simulation step
+    void removeOutdatedCollisions();
 
 protected:
     /// @brief Unique instance of MSNet
