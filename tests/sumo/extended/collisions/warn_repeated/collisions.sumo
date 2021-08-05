@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-05 15:55:18 by Eclipse SUMO sumo Version v1_9_2+0982-676e85a
+<!-- generated on 2021-08-05 16:06:17 by Eclipse SUMO sumo Version v1_9_2+0984-92e1ef0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,12 +46,12 @@ SPDX-License-Identifier: EPL-2.0
 
 <collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
     <collision time="8.00" type="collision" lane="SC_0" pos="54.47" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="8.23" victimSpeed="0.00"/>
-    <collision time="8.50" type="collision" lane="SC_0" pos="54.47" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="8.23" victimSpeed="0.00"/>
+    <collision time="8.50" type="collision" lane="SC_0" pos="57.83" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="6.73" victimSpeed="0.00"/>
     <collision time="9.00" type="collision" lane="SC_0" pos="60.00" collider="v" victim="c" colliderType="surprise" victimType="chump" colliderSpeed="0.00" victimSpeed="5.23"/>
     <collision time="107.50" type="collision" lane="SC_0" pos="53.33" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="4.10" victimSpeed="0.00"/>
-    <collision time="108.00" type="collision" lane="SC_0" pos="53.33" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="4.10" victimSpeed="0.00"/>
+    <collision time="108.00" type="collision" lane="SC_0" pos="54.63" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="2.60" victimSpeed="0.00"/>
     <collision time="197.50" type="collision" lane="SC_0" pos="53.33" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="4.10" victimSpeed="0.00"/>
-    <collision time="198.00" type="collision" lane="SC_0" pos="53.33" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="4.10" victimSpeed="0.00"/>
+    <collision time="198.00" type="collision" lane="SC_0" pos="54.63" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="2.60" victimSpeed="0.00"/>
     <collision time="287.50" type="collision" lane="SC_0" pos="53.33" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="4.10" victimSpeed="0.00"/>
-    <collision time="288.00" type="collision" lane="SC_0" pos="53.33" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="4.10" victimSpeed="0.00"/>
+    <collision time="288.00" type="collision" lane="SC_0" pos="54.63" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="2.60" victimSpeed="0.00"/>
 </collisions>
