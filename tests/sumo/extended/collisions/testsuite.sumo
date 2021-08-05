@@ -24,4 +24,7 @@ stoptime_remove_highspeed
 
 # fix inlap into earlier lanes
 stop_inlap
+
+# the same pair of vehicles has multiple distinct collisions
+warn_repeated
 check_junctions
