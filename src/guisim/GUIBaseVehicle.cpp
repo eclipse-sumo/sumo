@@ -401,8 +401,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     const double length = getVType().getLength();
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(degAngle, 0, 0, 1);
-    // set lane color
-    setColor(s);
+    // set vehicle color
+    RGBColor col = setColor(s);
     // scale
     const double upscale = s.vehicleSize.getExaggeration(s, this);
     double upscaleLength = upscale;
@@ -431,130 +431,110 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
                                      : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor() : 1)))
                                    : 1);
     const double scaledLength = length * geometryFactor;
-    switch (s.vehicleQuality) {
-        case 0:
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(getVType().getWidth(), scaledLength);
-            break;
-        case 1:
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), scaledLength);
-            break;
-        case 2:
-            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength);
-            // draw flashing blue light for emergency vehicles
-            if (getVType().getGuiShape() == SVS_EMERGENCY) {
-                glTranslated(0, 0, .1);
-                drawAction_drawVehicleBlueLight();
-            }
-            break;
-        case 3:
-            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength, true);
-            break;
-        case 4:
-            // do not scale circle radius by lengthGeometryFactor
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), length, s.scale * upscale);
-            break;
-        default:
-            break;
-    }
-    if (s.drawMinGap) {
-        const double minGap = -getVType().getMinGap();
-        glColor3d(0., 1., 0.);
-        glBegin(GL_LINES);
-        glVertex2d(0., 0);
-        glVertex2d(0., minGap);
-        glVertex2d(-.5, minGap);
-        glVertex2d(.5, minGap);
-        glEnd();
-    }
-    if (s.drawBrakeGap && !MSGlobals::gUseMesoSim
-            && (!s.vehicleSize.constantSizeSelected || myVehicle.isSelected())) {
-        const double brakeGap = -static_cast<MSVehicle&>(myVehicle).getCarFollowModel().brakeGap(myVehicle.getSpeed());
-        glColor3d(1., 0., 0.);
-        glBegin(GL_LINES);
-        glVertex2d(0., 0);
-        glVertex2d(0., brakeGap);
-        glVertex2d(-.5, brakeGap);
-        glVertex2d(.5, brakeGap);
-        glEnd();
-    }
-    MSDevice_BTreceiver* dev = static_cast<MSDevice_BTreceiver*>(myVehicle.getDevice(typeid(MSDevice_BTreceiver)));
-    if (dev != nullptr && s.showBTRange) {
-        glColor3d(1., 0., 0.);
-        GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange() - .2, 32);
-    }
-    // draw the blinker and brakelights if wished
-    if (s.showBlinker) {
-        glTranslated(0, 0, .1);
-        switch (getVType().getGuiShape()) {
-            case SVS_PEDESTRIAN:
-            case SVS_BICYCLE:
-            case SVS_ANT:
-            case SVS_SHIP:
-            case SVS_RAIL:
-            case SVS_RAIL_CARGO:
-            case SVS_RAIL_CAR:
+    if (col.alpha() != 0) {
+        switch (s.vehicleQuality) {
+            case 0:
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(getVType().getWidth(), scaledLength);
                 break;
-            case SVS_MOTORCYCLE:
-            case SVS_MOPED:
-                drawAction_drawVehicleBlinker(scaledLength);
-                drawAction_drawVehicleBrakeLight(scaledLength, true);
+            case 1:
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), scaledLength);
+                break;
+            case 2:
+                drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength);
+                // draw flashing blue light for emergency vehicles
+                if (getVType().getGuiShape() == SVS_EMERGENCY) {
+                    glTranslated(0, 0, .1);
+                    drawAction_drawVehicleBlueLight();
+                }
+                break;
+            case 3:
+                drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength, true);
+                break;
+            case 4:
+                // do not scale circle radius by lengthGeometryFactor
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), length, s.scale * upscale);
                 break;
             default:
-                // only SVS_RAIL_CAR has blinkers and brake lights but they are drawn along with the carriages
-                if (!drawCarriages) {
-                    drawAction_drawVehicleBlinker(scaledLength);
-                    drawAction_drawVehicleBrakeLight(scaledLength);
-                }
                 break;
         }
-    }
-    // draw the wish to change the lane
-    if (s.drawLaneChangePreference) {
-        /*
-                if(gSelected.isSelected(GLO_VEHICLE, veh->getGlID())) {
-                MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
-                glColor3d(.5, .5, 1);
-                glBegin(GL_LINES);
-                glVertex2f(0, 0);
-                glVertex2f(m.getChangeProbability(), .5);
-                glEnd();
+        if (s.drawMinGap) {
+            const double minGap = -getVType().getMinGap();
+            glColor3d(0., 1., 0.);
+            glBegin(GL_LINES);
+            glVertex2d(0., 0);
+            glVertex2d(0., minGap);
+            glVertex2d(-.5, minGap);
+            glVertex2d(.5, minGap);
+            glEnd();
+        }
+        if (s.drawBrakeGap && !MSGlobals::gUseMesoSim
+                && (!s.vehicleSize.constantSizeSelected || myVehicle.isSelected())) {
+            const double brakeGap = -static_cast<MSVehicle&>(myVehicle).getCarFollowModel().brakeGap(myVehicle.getSpeed());
+            glColor3d(1., 0., 0.);
+            glBegin(GL_LINES);
+            glVertex2d(0., 0);
+            glVertex2d(0., brakeGap);
+            glVertex2d(-.5, brakeGap);
+            glVertex2d(.5, brakeGap);
+            glEnd();
+        }
+        MSDevice_BTreceiver* dev = static_cast<MSDevice_BTreceiver*>(myVehicle.getDevice(typeid(MSDevice_BTreceiver)));
+        if (dev != nullptr && s.showBTRange) {
+            glColor3d(1., 0., 0.);
+            GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange() - .2, 32);
+        }
+        // draw the blinker and brakelights if wished
+        if (s.showBlinker) {
+            glTranslated(0, 0, .1);
+            switch (getVType().getGuiShape()) {
+                case SVS_PEDESTRIAN:
+                case SVS_BICYCLE:
+                case SVS_ANT:
+                case SVS_SHIP:
+                case SVS_RAIL:
+                case SVS_RAIL_CARGO:
+                case SVS_RAIL_CAR:
+                    break;
+                case SVS_MOTORCYCLE:
+                case SVS_MOPED:
+                    drawAction_drawVehicleBlinker(scaledLength);
+                    drawAction_drawVehicleBrakeLight(scaledLength, true);
+                    break;
+                default:
+                    // only SVS_RAIL_CAR has blinkers and brake lights but they are drawn along with the carriages
+                    if (!drawCarriages) {
+                        drawAction_drawVehicleBlinker(scaledLength);
+                        drawAction_drawVehicleBrakeLight(scaledLength);
+                    }
+                    break;
+            }
+        }
+        // draw the wish to change the lane
+        if (s.drawLaneChangePreference) {
+            /*
+               if(gSelected.isSelected(GLO_VEHICLE, veh->getGlID())) {
+               MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+               glColor3d(.5, .5, 1);
+               glBegin(GL_LINES);
+               glVertex2f(0, 0);
+               glVertex2f(m.getChangeProbability(), .5);
+               glEnd();
 
-                glColor3d(1, 0, 0);
-                glBegin(GL_LINES);
-                glVertex2f(0.1, 0);
-                glVertex2f(0.1, m.myMaxJam1);
-                glEnd();
+               glColor3d(1, 0, 0);
+               glBegin(GL_LINES);
+               glVertex2f(0.1, 0);
+               glVertex2f(0.1, m.myMaxJam1);
+               glEnd();
 
-                glColor3d(0, 1, 0);
-                glBegin(GL_LINES);
-                glVertex2f(-0.1, 0);
-                glVertex2f(-0.1, m.myTDist);
-                glEnd();
-                }
-                */
+               glColor3d(0, 1, 0);
+               glBegin(GL_LINES);
+               glVertex2f(-0.1, 0);
+               glVertex2f(-0.1, m.myTDist);
+               glEnd();
+               }
+               */
+        }
     }
-    // draw best lanes
-    /*
-    if (true) {
-        const MSLane &l = veh->getLane();
-        double r1 = veh->allowedContinuationsLength(&l, 0);
-        double r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
-        double r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
-        double mmax = MAX3(r1, r2, r3);
-        glBegin(GL_LINES);
-        glVertex2f(0, 0);
-        glVertex2f(0, r1/mmax/2.);
-        glEnd();
-        glBegin(GL_LINES);
-        glVertex2f(.4, 0);
-        glVertex2f(.4, r2/mmax/2.);
-        glEnd();
-        glBegin(GL_LINES);
-        glVertex2f(-.4, 0);
-        glVertex2f(-.4, r3/mmax/2.);
-        glEnd();
-    }
-    */
     glTranslated(0, MIN2(scaledLength / 2, double(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
     glScaled(1 / upscale, 1 / upscaleLength, 1);
     glRotated(-degAngle, 0, 0, 1);
