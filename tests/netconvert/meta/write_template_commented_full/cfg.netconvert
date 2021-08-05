@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-28 13:14:51 by Eclipse SUMO netconvert Version v1_9_2+0642-094e94aeb8
+<!-- generated on 2021-08-05 11:23:27 by Eclipse SUMO netconvert Version v1_9_2+0975-19cfc19
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -720,7 +720,7 @@
         <!-- Repair topology of the railway network just enough to let loaded public transport lines to work -->
         <railway.topology.repair.minimal value="false" type="BOOL"/>
 
-        <!-- Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle -->
+        <!-- Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle -->
         <railway.topology.repair.connect-straight value="false" type="BOOL"/>
 
         <!-- Add turn-around connections at all loaded stops. -->
