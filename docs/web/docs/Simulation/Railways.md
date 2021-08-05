@@ -118,12 +118,15 @@ automatically imported as superposed edges.
 
 Commonly, rail networks import from OSM are incomplete in regard to
 bidirectional track usage. One example would be terminal tracks which a
-train can only leave by reversing direction. A large number of these
-issues can be fixed automatically be setting the
-[netconvert](../netconvert.md)-option **--railway.topology.repair**. To analyze problems with
-bidirectional tracks, the option **--railway.topology.output** {{DT_FILE}} can be used to identify problematic
-tracks. The option **--railway.topology.all-bidi** can be used to make all tracks usable in both
-directions.
+train can only leave by reversing direction. [netconvert](../netconvert.md) provides several options to deal with this problem:
+
+- **--railway.topology.output** {{DT_FILE}}: Identify problematic tracks (i.e. for manual correction).
+- **--railway.topology.repair** : Automatically fixes problems by analyzing rail network topology and adding bidirectional tracks
+- **--railway.topology.repair.minimal** : Applys automated fixes but only those which are needed for the operation loaded public transport lines
+- **--railway.topology.repair.connect-straight** : Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle
+- **--railway.topology.repair.stop-turn** : Add turn-around connections at all loaded stops (to enable direction reversal).
+- **--railway.topology.all-bidi** : make all tracks usable in both directions.
+- **--railway.topology.all-bidi.input-file** : Load edge ids from text file and make those tracks usable in both directions. (one edge id per line, optionally prefixed with 'edge:' as in a [selection file created with netedit](../Netedit/editModesCommon.md#selection_operations)).
 
 ## Rail Signals
 
