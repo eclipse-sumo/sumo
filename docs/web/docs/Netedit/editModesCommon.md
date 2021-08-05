@@ -162,6 +162,16 @@ The 'Match Attribute' controls allow to specify a set of objects by matching the
 
 ![](../images/ModeSelect8.png)With the invert button, we select all elements of net.
 
+## Selection Operations
+
+The following operations can be performed on the whole selection
+
+- **Clear** : Clear the whole selection except for "locked" object types (shortcut `<ESC>`)
+- **Invert** : Invert selection status for all object types except "locked". Can be used to delete everything *except* the selected elements
+- **Save**: Save selection to a text file. This can be loaded in sumo-gui and also used by some [netconvert](../netconvert.md) options
+- **Load**: Load selection from text file. This is combined with the current selection according to the active [Modification Mode](#modification_mode).
+- **Delete**: Delete all selected objects including "locked". (shortcut `<DEL>`)   
+
 # Move
 
 Move junctions by dragging with the left mouse button. Dragging edges creates or moves geometry points. Dragging a junction on top of another junction joins them into a single junction. By default, the junction shape is updated while moving. However the
