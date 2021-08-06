@@ -551,6 +551,8 @@ enum {
     MID_CHOOSEN_SAVE,
     /// @brief Clear set
     MID_CHOOSEN_CLEAR,
+    /// @brief delete set
+    MID_CHOOSEN_DELETE,
     /// @brief Reset set
     MID_CHOOSEN_RESET,
     /// @brief Deselect selected items

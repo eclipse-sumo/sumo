@@ -279,6 +279,10 @@ public:
          */
         long onCmdClear(FXObject*, FXSelector, void*);
 
+        /**@brief Called when the user presses the delete-button
+         */
+        long onCmdDelete(FXObject*, FXSelector, void*);
+
         /**@brief Called when the user presses the Invert-button
          * @note invert the selection and repaints itself
          */
