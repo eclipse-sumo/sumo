@@ -164,6 +164,21 @@ MSPModel_Striping::add(MSTransportable* transportable, MSStageMoving* stage, SUM
     }
     assert(person->getCurrentStageType() == MSStageType::WALKING);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge(), person->getVClass());
+    if (stage->getDepartLane() >= 0) {
+        const std::vector<MSLane*>& departLanes = person->getEdge()->getLanes();
+        const int laneIndex = stage->getDepartLane();
+        if ((int)departLanes.size() <= laneIndex || !departLanes[laneIndex]->allowsVehicleClass(transportable->getVClass())) {
+            std::string error = "Invalid departLane '" + toString(laneIndex) + "' for person '" + person->getID() + "'";
+            if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+                WRITE_WARNING(error);
+                return nullptr;
+            } else {
+                throw ProcessError(error);
+            }
+        } else {
+            lane = departLanes[laneIndex];
+        }
+    }
     if (lane == nullptr) {
         std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
                             + time2string(net->getCurrentTimeStep()) + ".";

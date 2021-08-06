@@ -54,8 +54,8 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
         const ConstMSEdgeVector& route,
         MSStoppingPlace* toStop,
         SUMOTime walkingTime, double speed,
-        double departPos, double arrivalPos, double departPosLat) :
-    MSStageMoving(route, toStop, speed, departPos, arrivalPos, departPosLat, MSStageType::WALKING),
+        double departPos, double arrivalPos, double departPosLat, int departLane) :
+    MSStageMoving(route, toStop, speed, departPos, arrivalPos, departPosLat, departLane, MSStageType::WALKING),
     myWalkingTime(walkingTime),
     myExitTimes(nullptr) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,

@@ -453,9 +453,10 @@ class MSStageMoving : public MSStage {
 public:
     /// constructor
     MSStageMoving(const std::vector<const MSEdge*>& route, MSStoppingPlace* toStop, const double speed,
-                  const double departPos, const double arrivalPos, const double departPosLat, MSStageType type) :
+                  const double departPos, const double arrivalPos, const double departPosLat, const int departLane, MSStageType type) :
         MSStage(route.back(), toStop, arrivalPos, type),
-        myState(nullptr), myRoute(route), mySpeed(speed), myDepartPos(departPos), myDepartPosLat(departPosLat) {}
+        myState(nullptr), myRoute(route), mySpeed(speed), myDepartPos(departPos),
+        myDepartPosLat(departPosLat), myDepartLane(departLane) {}
 
     /// destructor
     virtual ~MSStageMoving();
@@ -520,6 +521,10 @@ public:
         return myDepartPosLat;
     }
 
+    inline int getDepartLane() const {
+        return myDepartLane;
+    }
+
 protected:
     /// @brief state that is to be manipulated by MSPModel
     MSTransportableStateAdapter* myState;
@@ -541,4 +546,7 @@ protected:
 
     /// @brief the lateral depart position
     double myDepartPosLat;
+
+    /// @brief the depart lane or -1
+    int myDepartLane;
 };

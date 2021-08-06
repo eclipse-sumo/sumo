@@ -69,7 +69,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Walking(const std::string& personID, const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
-                              double speed, double departPos, double arrivalPos, double departPosLat);
+                              double speed, double departPos, double arrivalPos, double departPosLat, int departLane = -1);
 
         /// destructor
         ~MSPersonStage_Walking();
@@ -146,6 +146,7 @@ public:
 
 
     private:
+
         /// the time the person is walking
         SUMOTime myWalkingTime;
 

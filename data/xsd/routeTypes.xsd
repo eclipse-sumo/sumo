@@ -931,6 +931,7 @@
                     <xsd:attribute name="duration" type="positiveFloatType"/>
                     <xsd:attribute name="departPos" type="departPosType"/>
                     <xsd:attribute name="departPosLat" type="xsd:float"/>
+                    <xsd:attribute name="departLane" type="xsd:nonNegativeInteger"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
