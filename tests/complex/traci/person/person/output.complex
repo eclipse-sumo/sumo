@@ -9,7 +9,7 @@ step 2.0
 detour edges ('3si', '2o', '2fi', '2si', '4o')
 detour edges after routing ('3si', '4o')
 tripTest edges after routing ('2fi', '2si', '1si', '1fi')
-type pType2@horiz
+type pType3@horiz
 persons ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 person count 5
 examining horiz
@@ -21,7 +21,7 @@ angle 270.0
 slope 0.0
 road 2fi
 lane 2fi_0
-type pType2@horiz
+type pType3@horiz
 lanePos 240.866399025
 color (0, 0, 255, 255)
 length 2.0
@@ -50,7 +50,7 @@ angle 270.0
 slope 0.0
 road 2fi
 lane 2fi_0
-type pType2@horiz
+type pType3@horiz
 lanePos 244.696980779
 color (0, 0, 255, 255)
 length 2.0

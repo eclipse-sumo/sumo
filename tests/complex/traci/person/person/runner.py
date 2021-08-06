@@ -94,6 +94,7 @@ print("tripTest edges after routing", traci.person.getEdges("tripTest"))
 
 personID = "horiz"
 traci.person.setType(personID, "pType2")
+traci.person.setType(personID, "pType3")
 traci.person.setLength(personID, 2)
 traci.person.setHeight(personID, 1.9)
 traci.person.setWidth(personID, 1.11)
