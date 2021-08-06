@@ -166,8 +166,8 @@ enum class DepartPosDefinition {
 
 
 /**
- * @enum DepartPosDefinition
- * @brief Possible ways to choose the departure position
+ * @enum DepartPosLatDefinition
+ * @brief Possible ways to choose the lateral departure position
  */
 enum class DepartPosLatDefinition {
     /// @brief No information given; use default
@@ -261,7 +261,7 @@ enum class ArrivalPosDefinition {
 
 /**
  * @enum ArrivalPosLatDefinition
- * @brief Possible ways to choose the departure position
+ * @brief Possible ways to choose the lateral arrival position
  */
 enum class ArrivalPosLatDefinition {
     /// @brief No information given; use default
@@ -505,9 +505,9 @@ public:
      * @param[in] element The name of the type of the parsed element, for building the error message
      * @param[in] id The id of the parsed element, for building the error message
      * @param[out] pos The parsed position, if given
-     * @param[out] dpd The parsed departPos definition
+     * @param[out] dpd The parsed departPosLat definition
      * @param[out] error Error message, if an error occures
-     * @return Whether the given value is a valid departPos definition
+     * @return Whether the given value is a valid departPosLat definition
      */
     static bool parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
                                   double& pos, DepartPosLatDefinition& dpd, std::string& error);
@@ -566,9 +566,9 @@ public:
      * @param[in] element The name of the type of the parsed element, for building the error message
      * @param[in] id The id of the parsed element, for building the error message
      * @param[out] pos The parsed position, if given
-     * @param[out] apd The parsed arrivalPos definition
+     * @param[out] apd The parsed arrivalPosLat definition
      * @param[out] error Error message, if an error occures
-     * @return Whether the given value is a valid arrivalPos definition
+     * @return Whether the given value is a valid arrivalPosLat definition
      */
     static bool parseArrivalPosLat(const std::string& val, const std::string& element, const std::string& id,
                                    double& pos, ArrivalPosLatDefinition& apd, std::string& error);

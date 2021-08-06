@@ -846,11 +846,14 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             if (attrs.hasAttribute(SUMO_ATTR_LATALIGNMENT)) {
                 bool ok = true;
                 const std::string alignS = attrs.get<std::string>(SUMO_ATTR_LATALIGNMENT, vtype->id.c_str(), ok);
-                if (ok && SUMOXMLDefinitions::LateralAlignments.hasString(alignS)) {
-                    vtype->latAlignment = SUMOXMLDefinitions::LateralAlignments.get(alignS);
+                double lao;
+                LatAlignmentDefinition lad;
+                if (ok && SUMOVTypeParameter::parseLatAlignment(alignS, lao, lad)) {
+                    vtype->latAlignmentOffset = lao;
+                    vtype->latAlignmentProcedure = lad;
                     vtype->parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
                 } else {
-                    handleError(hardFail, abortCreation, "Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "'");
+                    handleError(hardFail, abortCreation, "Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "';\n must be one of (\"right\", \"center\", \"arbitrary\", \"nice\", \"compact\", \"left\" or a float)");
                 }
             }
             if (attrs.hasAttribute(SUMO_ATTR_MANEUVER_ANGLE_TIMES)) {

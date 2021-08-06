@@ -385,7 +385,11 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_LATALIGNMENT:
             if (wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
-                return toString(latAlignment);
+                if (latAlignmentProcedure != LatAlignmentDefinition::GIVEN) {
+                    return toString(latAlignmentProcedure);
+                } else {
+                    return toString(latAlignmentOffset);
+                }
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_LATALIGNMENT);
             }
@@ -786,7 +790,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LOADING_DURATION:
             return canParse<double>(value);
         case SUMO_ATTR_LATALIGNMENT:
-            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
+            return SUMOVTypeParameter::isValidLatAlignment(value);
         case SUMO_ATTR_MINGAP_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_MAXSPEED_LAT:
@@ -1145,7 +1149,11 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
         vType->setAttribute(SUMO_ATTR_LOADING_DURATION, toString(newVTypeParameter->loadingDuration), undoList);
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
-        vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter->latAlignment), undoList);
+        if (newVTypeParameter->latAlignmentProcedure != LatAlignmentDefinition::GIVEN) {
+            vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter->latAlignmentProcedure), undoList);
+        } else {
+            vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter->latAlignmentOffset), undoList);
+        }
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
         vType->setAttribute(SUMO_ATTR_MINGAP_LAT, toString(newVTypeParameter->minGapLat), undoList);
@@ -1545,12 +1553,12 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LATALIGNMENT:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                latAlignment = SUMOXMLDefinitions::LateralAlignments.get(value);
+                parseLatAlignment(value, latAlignmentOffset, latAlignmentProcedure);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
             } else {
                 // set default value
-                latAlignment = SUMOXMLDefinitions::LateralAlignments.get(myTagProperty.getDefaultValue(key));
+                parseLatAlignment(myTagProperty.getDefaultValue(key), latAlignmentOffset, latAlignmentProcedure);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_LATALIGNMENT_SET;
             }

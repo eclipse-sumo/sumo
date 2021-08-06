@@ -238,19 +238,38 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
 SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues() :
     speedFactor("normc", 1.0, 0.0, 0.2, 2.0) {}
 
-
-SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) :
-    id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
-    actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
-    speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
-    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
-    vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
-    loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
-    cfModel(SUMO_TAG_CF_KRAUSS),
-    lcModel(LCM_DEFAULT),
-    maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
-    carriageLength(-1), locomotiveLength(-1), carriageGap(1),
-    parametersSet(0), saved(false), onlyReferenced(false) {
+SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
+    : id(vtid),
+      length(5. /*4.3*/),
+      minGap(2.5),
+      maxSpeed(200. / 3.6),
+      actionStepLength(0),
+      defaultProbability(DEFAULT_VEH_PROB),
+      speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
+      emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)),
+      color(RGBColor::DEFAULT_COLOR),
+      vehicleClass(vclass),
+      impatience(0.0),
+      personCapacity(4),
+      containerCapacity(0),
+      boardingDuration(500),
+      loadingDuration(90000),
+      width(1.8),
+      height(1.5),
+      shape(SVS_UNKNOWN),
+      osgFile("car-normal-citrus.obj"),
+      cfModel(SUMO_TAG_CF_KRAUSS),
+      lcModel(LCM_DEFAULT),
+      maxSpeedLat(1.0),
+      latAlignmentOffset(0.0),
+      latAlignmentProcedure(LatAlignmentDefinition::CENTER),
+      minGapLat(0.6),
+      carriageLength(-1),
+      locomotiveLength(-1),
+      carriageGap(1),
+      parametersSet(0),
+      saved(false),
+      onlyReferenced(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.exists("carfollow.model")) {
         // check for valid value has been performed in MSFrame
@@ -409,7 +428,32 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_MAXSPEED_LAT, maxSpeedLat);
     }
     if (wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
-        dev.writeAttr(SUMO_ATTR_LATALIGNMENT, latAlignment);
+        switch (latAlignmentProcedure) {
+            case LatAlignmentDefinition::GIVEN:
+                dev.writeAttr(SUMO_ATTR_LATALIGNMENT, latAlignmentOffset);
+                break;
+            case LatAlignmentDefinition::RIGHT:
+                dev.writeAttr(SUMO_ATTR_LATALIGNMENT, "right");
+                break;
+            case LatAlignmentDefinition::CENTER:
+                dev.writeAttr(SUMO_ATTR_LATALIGNMENT, "center");
+                break;
+            case LatAlignmentDefinition::ARBITRARY:
+                dev.writeAttr(SUMO_ATTR_LATALIGNMENT, "arbitrary");
+                break;
+            case LatAlignmentDefinition::NICE:
+                dev.writeAttr(SUMO_ATTR_LATALIGNMENT, "nice");
+                break;
+            case LatAlignmentDefinition::COMPACT:
+                dev.writeAttr(SUMO_ATTR_LATALIGNMENT, "compact");
+                break;
+            case LatAlignmentDefinition::LEFT:
+                dev.writeAttr(SUMO_ATTR_LATALIGNMENT, "left");
+                break;
+            case LatAlignmentDefinition::DEFAULT:
+            default:
+                break;
+        }
     }
     if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
         dev.writeAttr(SUMO_ATTR_MINGAP_LAT, minGapLat);
@@ -738,5 +782,31 @@ SUMOVTypeParameter::getDefault() {
     return defaultParams;
 }
 
+bool
+SUMOVTypeParameter::parseLatAlignment(const std::string& val, double& lao, LatAlignmentDefinition& lad) {
+    bool ok = true;
+    lao = 0.0;
+    lad = LatAlignmentDefinition::GIVEN;
+    if (val == "right") {
+        lad = LatAlignmentDefinition::RIGHT;
+    } else if (val == "center") {
+        lad = LatAlignmentDefinition::CENTER;
+    } else if (val == "arbitrary") {
+        lad = LatAlignmentDefinition::ARBITRARY;
+    } else if (val == "nice") {
+        lad = LatAlignmentDefinition::NICE;
+    } else if (val == "compact") {
+        lad = LatAlignmentDefinition::COMPACT;
+    } else if (val == "left") {
+        lad = LatAlignmentDefinition::LEFT;
+    } else {
+        try {
+            lao = StringUtils::toDouble(val);
+        } catch (...) {
+            ok = false;
+        }
+    }
+    return ok;
+}
 
 /****************************************************************************/

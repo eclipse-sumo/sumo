@@ -302,9 +302,17 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_REROUTE:
             return canParse<bool>(value);
         case SUMO_ATTR_DEPARTPOS_LAT:
-            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
+            if ((value == "random") || (value == "free") || (value == "random_free") || (value == "left") || (value == "right") || (value == "center")) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case SUMO_ATTR_ARRIVALPOS_LAT:
-            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
+            if ((value == "left") || (value == "right") || (value == "center")) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:

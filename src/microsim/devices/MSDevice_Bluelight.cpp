@@ -108,7 +108,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     }
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
-    vt->setPreferredLateralAlignment(LATALIGN_ARBITRARY);
+    vt->setPreferredLateralAlignment(LatAlignmentDefinition::ARBITRARY);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     //std::string currentEdgeID = veh.getEdge()->getID();
     //use edges on the way of the emergency vehicle
@@ -166,10 +166,10 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 MSVehicleType& t = veh2->getSingularType();
                 //Setting the lateral alignment to build a rescue lane
                 if (veh2->getLane()->getIndex() == numLanes - 1) {
-                    t.setPreferredLateralAlignment(LATALIGN_LEFT);
+                    t.setPreferredLateralAlignment(LatAlignmentDefinition::LEFT);
                     // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 } else {
-                    t.setPreferredLateralAlignment(LATALIGN_RIGHT);
+                    t.setPreferredLateralAlignment(LatAlignmentDefinition::RIGHT);
                     // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 }
             }
@@ -207,10 +207,10 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     MSVehicleType& t = veh2->getSingularType();
                     //Setting the lateral alignment to build a rescue lane
                     if (veh2->getLane()->getIndex() == numLanes - 1) {
-                        t.setPreferredLateralAlignment(LATALIGN_LEFT);
+                        t.setPreferredLateralAlignment(LatAlignmentDefinition::LEFT);
                         // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                     } else {
-                        t.setPreferredLateralAlignment(LATALIGN_RIGHT);
+                        t.setPreferredLateralAlignment(LatAlignmentDefinition::RIGHT);
                         // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                     }
                     // disable strategic lane-changing

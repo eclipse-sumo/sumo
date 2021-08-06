@@ -1053,15 +1053,6 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one
 };
 
-StringBijection<LateralAlignment>::Entry SUMOXMLDefinitions::lateralAlignmentValues[] = {
-    { "right",         LATALIGN_RIGHT },
-    { "center",        LATALIGN_CENTER },
-    { "arbitrary",     LATALIGN_ARBITRARY },
-    { "nice",          LATALIGN_NICE },
-    { "compact",       LATALIGN_COMPACT },
-    { "left",          LATALIGN_LEFT } //< must be the last one
-};
-
 StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionValues[] = {
     { "stay",        LCA_STAY },
     { "left",        LCA_LEFT },
@@ -1138,9 +1129,6 @@ StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
 
 StringBijection<SumoXMLTag> SUMOXMLDefinitions::CarFollowModels(
     SUMOXMLDefinitions::carFollowModelValues, SUMO_TAG_CF_WIEDEMANN);
-
-StringBijection<LateralAlignment> SUMOXMLDefinitions::LateralAlignments(
-    SUMOXMLDefinitions::lateralAlignmentValues, LATALIGN_LEFT);
 
 StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
     SUMOXMLDefinitions::laneChangeActionValues, LCA_UNKNOWN);

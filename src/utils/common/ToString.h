@@ -31,6 +31,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
 #include <utils/distribution/Distribution_Parameterized.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include "StdDefs.h"
 
 
@@ -160,9 +161,26 @@ inline std::string toString<LaneChangeModel>(const LaneChangeModel& model, std::
 }
 
 template <>
-inline std::string toString<LateralAlignment>(const LateralAlignment& latA, std::streamsize accuracy) {
+inline std::string toString<LatAlignmentDefinition>(const LatAlignmentDefinition& lad, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
-    return SUMOXMLDefinitions::LateralAlignments.getString(latA);
+    switch (lad) {
+        case LatAlignmentDefinition::RIGHT:
+            return "right";
+        case LatAlignmentDefinition::CENTER:
+            return "center";
+        case LatAlignmentDefinition::ARBITRARY:
+            return "arbitrary";
+        case LatAlignmentDefinition::NICE:
+            return "nice";
+        case LatAlignmentDefinition::COMPACT:
+            return "compact";
+        case LatAlignmentDefinition::LEFT:
+            return "left";
+        case LatAlignmentDefinition::GIVEN:
+        case LatAlignmentDefinition::DEFAULT:
+        default:
+            return "";
+    }
 }
 
 template <>

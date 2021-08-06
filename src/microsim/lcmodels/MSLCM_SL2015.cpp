@@ -1787,7 +1787,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     } else {
 
-        LateralAlignment align = myVehicle.getVehicleType().getPreferredLateralAlignment();
+        LatAlignmentDefinition align = myVehicle.getVehicleType().getPreferredLateralAlignment();
         // Check whether the vehicle should adapt its alignment to an upcoming turn
         if (myTurnAlignmentDist > 0) {
             const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
@@ -1797,12 +1797,12 @@ MSLCM_SL2015::_wantsChangeSublane(
                     case LinkDirection::TURN:
                     case LinkDirection::LEFT:
                     case LinkDirection::PARTLEFT:
-                        align = MSGlobals::gLefthand ? LATALIGN_RIGHT : LATALIGN_LEFT;
+                        align = MSGlobals::gLefthand ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
                         break;
                     case LinkDirection::TURN_LEFTHAND:
                     case LinkDirection::RIGHT:
                     case LinkDirection::PARTRIGHT:
-                        align = MSGlobals::gLefthand ? LATALIGN_LEFT : LATALIGN_RIGHT;
+                        align = MSGlobals::gLefthand ? LatAlignmentDefinition::LEFT : LatAlignmentDefinition::RIGHT;
                         break;
                     case LinkDirection::STRAIGHT:
                     case LinkDirection::NODIR:
@@ -1812,24 +1812,31 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
         }
         switch (align) {
-            case LATALIGN_RIGHT:
+            case LatAlignmentDefinition::RIGHT:
                 latDistSublane = -halfLaneWidth + halfVehWidth - getPosLat();
                 break;
-            case LATALIGN_LEFT:
+            case LatAlignmentDefinition::LEFT:
                 latDistSublane = halfLaneWidth - halfVehWidth - getPosLat();
                 break;
-            case LATALIGN_CENTER:
+            case LatAlignmentDefinition::CENTER:
                 latDistSublane = -getPosLat();
                 break;
-            case LATALIGN_NICE:
+            case LatAlignmentDefinition::NICE:
                 latDistSublane = latDistNice;
                 break;
-            case LATALIGN_COMPACT:
+            case LatAlignmentDefinition::COMPACT:
                 latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
                 break;
-            case LATALIGN_ARBITRARY:
+            case LatAlignmentDefinition::ARBITRARY:
                 latDistSublane = myVehicle.getLateralPositionOnLane() - getPosLat();
                 break;
+            // TODO:
+            // case LatAlignmentDefinition::GIVEN:
+            //     double offset = myVehicle.getVehicleType().getPreferredLateralAlignmentOffset();
+            //     break;
+            // case LatAlignmentDefinition::DEFAULT:
+            // default:
+            //     break;
         }
     }
     // only factor in preferred lateral alignment if there is no speedGain motivation or it runs in the same direction

@@ -176,7 +176,11 @@ VehicleType::getMaxSpeedLat(const std::string& typeID) {
 
 std::string
 VehicleType::getLateralAlignment(const std::string& typeID) {
-    return toString(getVType(typeID)->getPreferredLateralAlignment());
+    if (getVType(typeID)->getPreferredLateralAlignment() != LatAlignmentDefinition::GIVEN) {
+        return toString(getVType(typeID)->getPreferredLateralAlignment());
+    } else {
+        return toString(getVType(typeID)->getPreferredLateralAlignmentOffset());
+    }
 }
 
 
@@ -327,7 +331,13 @@ VehicleType::setMaxSpeedLat(const std::string& typeID, double speed)  {
 
 void
 VehicleType::setLateralAlignment(const std::string& typeID, const std::string& latAlignment)  {
-    getVType(typeID)->setPreferredLateralAlignment(SUMOXMLDefinitions::LateralAlignments.get(latAlignment));
+    double lao;
+    LatAlignmentDefinition lad;
+    if (SUMOVTypeParameter::parseLatAlignment(latAlignment, lao, lad)) {
+        getVType(typeID)->setPreferredLateralAlignment(lad, lao);
+    } else {
+        throw TraCIException("Unknown value '" + latAlignment + "' when setting latAlignment for vType '" + typeID + "';\n must be one of (\"right\", \"center\", \"arbitrary\", \"nice\", \"compact\", \"left\" or a float)");
+    }
 }
 
 

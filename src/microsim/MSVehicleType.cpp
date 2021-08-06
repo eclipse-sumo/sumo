@@ -161,9 +161,11 @@ MSVehicleType::setVClass(SUMOVehicleClass vclass) {
     myParameter.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
 }
 
+
 void
-MSVehicleType::setPreferredLateralAlignment(LateralAlignment latAlignment) {
-    myParameter.latAlignment = latAlignment;
+MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAlignment, double latAlignmentOffset) {
+    myParameter.latAlignmentProcedure = latAlignment;
+    myParameter.latAlignmentOffset = latAlignmentOffset;
     myParameter.parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
 }
 

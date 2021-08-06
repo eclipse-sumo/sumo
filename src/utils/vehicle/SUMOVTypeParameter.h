@@ -74,6 +74,34 @@ const int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
 
+
+// ===========================================================================
+// enum definitions
+// ===========================================================================
+/**
+ * @enum LatAlignmentDefinition
+ * @brief Possible ways to choose the lateral alignment, i.e., how vehicles align themselves within their lane
+ */
+enum class LatAlignmentDefinition {
+    /// @brief No information given; use default
+    DEFAULT,
+    /// @brief The alignment as offset is given
+    GIVEN,
+    /// @brief drive on the right side
+    RIGHT,
+    /// @brief drive in the middle
+    CENTER,
+    /// @brief maintain the current alignment
+    ARBITRARY,
+    /// @brief align with the closest sublane border
+    NICE,
+    /// @brief align with the rightmost sublane that allows keeping the current speed
+    COMPACT,
+    /// @brief drive on the left side
+    LEFT
+};
+
+
 // ===========================================================================
 // struct definitions
 // ===========================================================================
@@ -294,8 +322,11 @@ public:
     /// @brief The vehicle type's maximum lateral speed [m/s]
     double maxSpeedLat;
 
-    /// @brief The vehicles desired lateral alignment
-    LateralAlignment latAlignment;
+    /// @brief (optional) The vehicle's desired lateral alignment as offset in m from center line
+    double latAlignmentOffset;
+
+    /// @brief Information on how the vehicle shall choose the lateral alignment
+    LatAlignmentDefinition latAlignmentProcedure;
 
     /// @brief The vehicle type's minimum lateral gap [m]
     double minGapLat;
@@ -353,6 +384,33 @@ public:
 
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
     static const SUMOVTypeParameter& getDefault();
+
+    /** @brief Parses and validates a given latAlignment value
+     * @param[in] val The latAlignment value to parse
+     * @param[out] lao The parsed lateral alignment offset, if given
+     * @param[out] lad The parsed latAlignment definition
+     * @return Whether the given value is a valid latAlignment definition
+     */
+    static bool parseLatAlignment(const std::string& val, double& lao, LatAlignmentDefinition& lad);
+
+    static inline bool isValidLatAlignment(const std::string& val) {
+        double lao;
+        LatAlignmentDefinition lad;
+        return SUMOVTypeParameter::parseLatAlignment(val, lao, lad);
+    }
+
+    /// @brief return all valid strings for latAlignment
+    // XXX: does not include valid float strings
+    static inline std::vector<std::string> getLatAlignmentStrings() {
+        std::vector<std::string> result;
+        result.push_back("right");
+        result.push_back("center");
+        result.push_back("arbitrary");
+        result.push_back("nice");
+        result.push_back("compact");
+        result.push_back("left");
+        return result;
+    }
 
     /// @brief Map of manoeuver angles versus the times (entry, exit) to execute the manoeuver
     std::map<int, std::pair<SUMOTime, SUMOTime>>  myManoeuverAngleTimes;

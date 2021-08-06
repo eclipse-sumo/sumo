@@ -311,11 +311,18 @@ public:
         return myParameter.maxSpeedLat;
     }
 
-    /** @brief Get vehicle's preferred lateral alignment
-     * @return The vehicle's preferred lateral alignment
+    /** @brief Get vehicle's preferred lateral alignment procedure
+     * @return The vehicle's preferred lateral alignment procedure
      */
-    LateralAlignment getPreferredLateralAlignment() const {
-        return myParameter.latAlignment;
+    const LatAlignmentDefinition& getPreferredLateralAlignment() const {
+        return myParameter.latAlignmentProcedure;
+    }
+
+    /** @brief Get vehicle's preferred lateral alignment offset (in m from center line)
+     * @return The vehicle's preferred lateral alignment offset
+     */
+    double getPreferredLateralAlignmentOffset() const {
+        return myParameter.latAlignmentOffset;
     }
     /// @}
 
@@ -496,7 +503,7 @@ public:
 
     /** @brief Set vehicle's preferred lateral alignment
      */
-    void setPreferredLateralAlignment(LateralAlignment latAlignment);
+    void setPreferredLateralAlignment(const LatAlignmentDefinition& latAlignment, double latAlignmentOffset = 0.0);
     /// @}
 
 

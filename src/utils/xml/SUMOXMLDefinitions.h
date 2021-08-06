@@ -1580,26 +1580,6 @@ enum TrainType {
     TRAINTYPE_UNKNOWN
 };
 
-/**
- * @enum LateralAlignment
- * @brief Numbers representing special SUMO-XML-attribute values
- * Information how vehicles align themselves within their lane by default
- */
-enum LateralAlignment {
-    /// @brief drive on the right side
-    LATALIGN_RIGHT,
-    /// @brief drive in the middle
-    LATALIGN_CENTER,
-    /// @brief maintain the current alignment
-    LATALIGN_ARBITRARY,
-    /// @brief align with the closest sublane border
-    LATALIGN_NICE,
-    /// @brief align with the rightmost sublane that allows keeping the current speed
-    LATALIGN_COMPACT,
-    /// @brief drive on the left side
-    LATALIGN_LEFT
-};
-
 // @}
 
 /**
@@ -1659,9 +1639,6 @@ public:
 
     /// @brief car following models
     static StringBijection<SumoXMLTag> CarFollowModels;
-
-    /// @brief lateral alignments
-    static StringBijection<LateralAlignment> LateralAlignments;
 
     /// @brief lane change actions
     static StringBijection<LaneChangeAction> LaneChangeActions;
@@ -1757,9 +1734,6 @@ private:
 
     /// @brief car follwing model values
     static StringBijection<SumoXMLTag>::Entry carFollowModelValues[];
-
-    /// @brief lanteral alignment values
-    static StringBijection<LateralAlignment>::Entry lateralAlignmentValues[];
 
     /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];

@@ -236,10 +236,10 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Setting preferred lateral alignment requires a string.",
                                                   outputStorage);
             }
-            if (SUMOXMLDefinitions::LateralAlignments.hasString(latAlign)) {
+            try {
                 libsumo::VehicleType::setLateralAlignment(id, latAlign);
-            } else {
-                return server.writeErrorStatusCmd(cmd, "Unknown lateral alignment " + latAlign + "'.", outputStorage);
+            } catch (const libsumo::TraCIException& e) {
+                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
             }
         }
         break;
