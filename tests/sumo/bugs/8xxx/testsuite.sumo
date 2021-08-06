@@ -13,5 +13,8 @@ ticket8749
 # invalid deceleration
 ticket8798
 
+# invalid best lanes
+ticket8900
+
 # invalid times written beyond 25 days
 ticket8912
