@@ -126,10 +126,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
-    /** @brief Returns the next free waiting place for pedestrians / containers
-     * @return The next free waiting place for pedestrians / containers
-     */
-    Position getWaitPosition(MSTransportable* person) const;
     //@}
 
 
@@ -154,9 +150,6 @@ private:
 
     /// @brief The coordinates of access points
     PositionVector myAccessCoords;
-
-    /// @brief The current person exaggeration
-    mutable double myTransportableExaggeration;
 
 
 };

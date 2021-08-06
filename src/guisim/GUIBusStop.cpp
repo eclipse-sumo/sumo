@@ -57,8 +57,7 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
                        double frompos, double topos, const std::string name, int personCapacity,
                        double parkingLength, const RGBColor& color) :
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
-    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id),
-    myTransportableExaggeration(1) {
+    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
@@ -215,13 +214,6 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (s.addFullName.show && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
-    if (exaggeration > 1) {
-        if (myElement == SUMO_TAG_CONTAINER_STOP) {
-            myTransportableExaggeration = s.containerSize.getExaggeration(s, nullptr);
-        } else {
-            myTransportableExaggeration = s.personSize.getExaggeration(s, nullptr);
-        }
-    }
     GLHelper::popMatrix();
     GLHelper::popName();
     drawName(myFGSignPos, s.scale, s.addName, s.angle);
@@ -242,17 +234,5 @@ const std::string
 GUIBusStop::getOptionalName() const {
     return myName;
 }
-
-Position
-GUIBusStop::getWaitPosition(MSTransportable* t) const {
-    Position result = MSStoppingPlace::getWaitPosition(t);
-    if (myTransportableExaggeration > 1) {
-        Position ref = myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2),
-                       myLane.getWidth() / 2);
-        result = ref + (result - ref) * myTransportableExaggeration;
-    }
-    return result;
-}
-
 
 /****************************************************************************/

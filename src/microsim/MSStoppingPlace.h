@@ -142,7 +142,7 @@ public:
      *
      * @return The next free waiting place for pedestrians / containers
      */
-    virtual Position getWaitPosition(MSTransportable* person) const;
+    Position getWaitPosition(MSTransportable* person) const;
 
     /** @brief Returns the lane position corresponding to getWaitPosition()
      *
