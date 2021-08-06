@@ -215,15 +215,22 @@
         <xsd:attribute name="collisionAvoidanceGainGapDot" type="xsd:float"/>
         <xsd:attribute name="tPersDrive" type="positiveFloatType"/>
         <xsd:attribute name="tpreview" type="positiveFloatType"/>
-        <xsd:attribute name="treaction" type="positiveFloatType"/>
+        <xsd:attribute name="treaction" type="nonNegativeFloatType"/>
         <xsd:attribute name="tPersEstimate" type="positiveFloatType"/>
-        <xsd:attribute name="ccoolness" type="positiveFloatType"/>
-        <xsd:attribute name="sigmaleader" type="positiveFloatType"/>
-        <xsd:attribute name="sigmagap" type="positiveFloatType"/>
-        <xsd:attribute name="sigmaerror" type="positiveFloatType"/>
+        <xsd:attribute name="ccoolness">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:float">
+                    <xsd:maxInclusive value="1"/>
+                    <xsd:minInclusive value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="sigmaleader" type="nonNegativeFloatType"/>
+        <xsd:attribute name="sigmagap" type="nonNegativeFloatType"/>
+        <xsd:attribute name="sigmaerror" type="nonNegativeFloatType"/>
         <xsd:attribute name="jerkmax" type="positiveFloatType"/>
-        <xsd:attribute name="epsilonacc" type="positiveFloatType"/>
-        <xsd:attribute name="taccmax" type="positiveFloatType"/>
+        <xsd:attribute name="epsilonacc" type="nonNegativeFloatType"/>
+        <xsd:attribute name="taccmax" type="nonNegativeFloatType"/>
         <xsd:attribute name="Mflatness" type="positiveFloatType"/>
         <xsd:attribute name="Mbegin" type="positiveFloatType"/>
         <xsd:attribute name="vehdynamics" type="boolType"/>
@@ -243,7 +250,7 @@
         </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="delta" type="xsd:float"/>
-        <xsd:attribute name="stepping" type="positiveIntType"/>
+        <xsd:attribute name="stepping" type="positiveFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMMType">
@@ -260,13 +267,20 @@
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="adaptTime" type="xsd:float"/>
         <xsd:attribute name="adaptFactor" type="xsd:float"/>
-        <xsd:attribute name="stepping" type="positiveIntType"/>
+        <xsd:attribute name="stepping" type="positiveFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfEIDMType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
+        <xsd:attribute name="stepping" type="positiveFloatType"/>
+        <xsd:attribute name="delta" type="xsd:float"/>
+        <xsd:attribute name="tau" type="positiveFloatType"/>
+        <xsd:attribute name="tPersDrive" type="positiveFloatType"/>
+        <xsd:attribute name="tpreview" type="positiveFloatType"/>
+        <xsd:attribute name="treaction" type="nonNegativeFloatType"/>
+        <xsd:attribute name="tPersEstimate" type="positiveFloatType"/>
+        <xsd:attribute name="ccoolness">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
                     <xsd:maxInclusive value="1"/>
@@ -274,19 +288,12 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="delta" type="xsd:float"/>
-        <xsd:attribute name="tau" type="positiveFloatType"/>
-        <xsd:attribute name="tPersDrive" type="positiveFloatType"/>
-        <xsd:attribute name="tpreview" type="positiveFloatType"/>
-        <xsd:attribute name="treaction" type="positiveFloatType"/>
-        <xsd:attribute name="tPersEstimate" type="positiveFloatType"/>
-        <xsd:attribute name="ccoolness" type="positiveFloatType"/>
-        <xsd:attribute name="sigmaleader" type="positiveFloatType"/>
-        <xsd:attribute name="sigmagap" type="positiveFloatType"/>
-        <xsd:attribute name="sigmaerror" type="positiveFloatType"/>
+        <xsd:attribute name="sigmaleader" type="nonNegativeFloatType"/>
+        <xsd:attribute name="sigmagap" type="nonNegativeFloatType"/>
+        <xsd:attribute name="sigmaerror" type="nonNegativeFloatType"/>
         <xsd:attribute name="jerkmax" type="positiveFloatType"/>
-        <xsd:attribute name="epsilonacc" type="positiveFloatType"/>
-        <xsd:attribute name="taccmax" type="positiveFloatType"/>
+        <xsd:attribute name="epsilonacc" type="nonNegativeFloatType"/>
+        <xsd:attribute name="taccmax" type="nonNegativeFloatType"/>
         <xsd:attribute name="Mflatness" type="positiveFloatType"/>
         <xsd:attribute name="Mbegin" type="positiveFloatType"/>
         <xsd:attribute name="vehdynamics" type="boolType"/>

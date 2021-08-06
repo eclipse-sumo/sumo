@@ -978,21 +978,21 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                 }
             } else if (it == SUMO_ATTR_CF_IDM_STEPPING) {
                 // declare a int in wich save CFM int attribute
-                int CFMIntAttribute = -1;
+                double CFMDoubleAttribute = -1;
                 try {
                     // obtain CFM attribute in int format
-                    CFMIntAttribute = StringUtils::toInt(parsedCFMAttribute);
+                    CFMDoubleAttribute = StringUtils::toDouble(parsedCFMAttribute);
                 } catch (...) {
                     ok = false;
                     if (hardFail) {
-                        throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to int");
+                        throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
                     } else {
-                        WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to int");
+                        WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
                     }
                 }
                 // now continue checking other properties
                 if (ok) {
-                    if (CFMIntAttribute <= 0) {
+                    if (CFMDoubleAttribute <= 0) {
                         ok = false;
                         if (hardFail) {
                             throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
@@ -1164,6 +1164,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         eidmParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
         eidmParams.insert(SUMO_ATTR_TAU);
         eidmParams.insert(SUMO_ATTR_CF_IDM_DELTA);
+        eidmParams.insert(SUMO_ATTR_CF_IDM_STEPPING);
         eidmParams.insert(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD);
         eidmParams.insert(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE);
         eidmParams.insert(SUMO_ATTR_CF_EIDM_T_REACTION);
