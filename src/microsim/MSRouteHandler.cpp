@@ -696,6 +696,11 @@ MSRouteHandler::closeTransportable() {
         }
         // type existence has been checked on opening
         MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+        if (myActiveType == ObjectTypeEnum::PERSON
+                && type->getVehicleClass() != SVC_PEDESTRIAN
+                && !type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
+            WRITE_WARNINGF("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'.", myVehicleParameter->id, type->getID(), toString(type->getVehicleClass()));
+        }
         addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
         registerLastDepart();
         resetActivePlanAndVehicleParameter();
