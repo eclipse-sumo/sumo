@@ -145,7 +145,7 @@ multiplier. At -1 the multiplier is 0.5 and at 1 the multiplier is
 Impatience grows whenever a lane-change manoeuvre is blocked.
 - **lcAccelLat**: maximum lateral acceleration per second. Together
 with *maxSpeedLat* this constrains lateral movement speed.
-- **latAlignment**: prefered lateral alignment within a lane.
+- **latAlignment**: preferred lateral alignment within a lane.
   - right: stay on the right side of the lane
   - center: stay in the center of the lane
   - left: stay on the left side of the lane
@@ -155,6 +155,7 @@ with *maxSpeedLat* this constrains lateral movement speed.
   - compact: stay close to the neighboring vehicle on the right
   - nice: align with the nearest sublane boundary to the right. (to
     avoid using more sublanes than necessary)
+  - {{DT_FLOAT}}: preferred lateral offset in m from the center of the lane
 - **lcMaxSpeedLatStanding**, **lcMaxSpeedLatFactor**: Compute a boundary on lateral speed using lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * speed. If factor > 0 this is an upper bound on lateral speed and if factor < it acts as a lower bound.
 
 ### Misc
