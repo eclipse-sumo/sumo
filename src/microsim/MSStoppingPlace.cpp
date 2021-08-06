@@ -81,6 +81,12 @@ MSStoppingPlace::getEndLanePosition() const {
     return myEndPos;
 }
 
+Position
+MSStoppingPlace::getCenterPos() const {
+    return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2),
+            myLane.getWidth() / 2);
+}
+
 
 void
 MSStoppingPlace::enter(SUMOVehicle* veh, bool parking) {

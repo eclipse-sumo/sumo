@@ -102,6 +102,8 @@ public:
      */
     double getEndLanePosition() const;
 
+    /// @brief the position in the middle of the stop shape
+    Position getCenterPos() const;
 
     /** @brief Called if a vehicle enters this stop
      *

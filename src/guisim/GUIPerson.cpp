@@ -273,7 +273,7 @@ void
 GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
-    Position p1 = getGUIPosition();
+    Position p1 = getGUIPosition(&s);
     double angle = getGUIAngle();
     glTranslated(p1.x(), p1.y(), getType());
     // set person color
@@ -471,16 +471,27 @@ GUIPerson::getPosition() const {
 
 
 Position
-GUIPerson::getGUIPosition() const {
+GUIPerson::getGUIPosition(const GUIVisualizationSettings* s) const {
     FXMutexLock locker(myLock);
     if (hasArrived()) {
         return Position::INVALID;
     }
-    if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
-        return myPositionInVehicle.pos;
-    } else {
-        return MSPerson::getPosition();
+    if (getCurrentStageType() == MSStageType::DRIVING) {
+        if (!isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
+            return myPositionInVehicle.pos;
+        } else if (isWaiting4Vehicle()
+                && s != nullptr
+                && s->gaming
+                && getCurrentStage()->getOriginStop() != nullptr
+                && s->addSize.getExaggeration(s, nullptr) > 1) {
+            // shift position away from stop center
+            Position pos = MSPerson::getPosition();
+            Position ref = getCurrentStage()->getOriginStop()->getCenterPos();
+            Position shifted = ref + (pos - ref) * s->personSize.getExaggeration(*s, this);
+            return shifted;
+        }
     }
+    return MSPerson::getPosition();
 }
 
 

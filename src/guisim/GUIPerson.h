@@ -124,7 +124,7 @@ public:
     Position getPosition() const;
 
     /// @brief return the Network coordinate of the person (only for drawing centering and tracking)
-    Position getGUIPosition() const;
+    Position getGUIPosition(const GUIVisualizationSettings* s = nullptr) const;
 
     /// @brief return the angle of the person (only for drawing centering and tracking)
     double getGUIAngle() const;
