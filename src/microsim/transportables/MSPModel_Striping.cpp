@@ -163,7 +163,7 @@ MSPModel_Striping::add(MSTransportable* transportable, MSStageMoving* stage, SUM
         myAmActive = true;
     }
     assert(person->getCurrentStageType() == MSStageType::WALKING);
-    const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
+    const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge(), person->getVClass());
     if (lane == nullptr) {
         std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
                             + time2string(net->getCurrentTimeStep()) + ".";
@@ -478,7 +478,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
     const MSEdge* currentEdge = &currentLane->getEdge();
     const MSJunction* junction = ped.myDir == FORWARD ? currentEdge->getToJunction() : currentEdge->getFromJunction();
     const MSEdge* nextRouteEdge = ped.myStage->getNextRouteEdge();
-    const MSLane* nextRouteLane = getSidewalk<MSEdge, MSLane>(nextRouteEdge);
+    const MSLane* nextRouteLane = getSidewalk<MSEdge, MSLane>(nextRouteEdge, ped.myPerson->getVClass());
     // result values
     const MSLane* nextLane = nextRouteLane;
     const MSLink* link = nullptr;
@@ -543,7 +543,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             }
             if (crossingRoute.size() > 1) {
                 const MSEdge* nextEdge = crossingRoute[1];
-                nextLane = getSidewalk<MSEdge, MSLane>(crossingRoute[1]);
+                nextLane = getSidewalk<MSEdge, MSLane>(crossingRoute[1], ped.myPerson->getVClass());
                 assert((nextEdge->getFromJunction() == junction || nextEdge->getToJunction() == junction));
                 assert(nextLane != prevLane);
                 nextDir = connectedDirection(currentLane, nextLane);
@@ -2134,7 +2134,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         }
         // update next lane info (after guessing direction)
         if (oldLane == nullptr || &oldLane->getEdge() != &myLane->getEdge()) {
-            const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&myLane->getEdge());
+            const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&myLane->getEdge(), p->getVClass());
             // assume that we will eventually move back onto the sidewalk if
             // there is one
             myNLI = getNextLane(*this, sidewalk == nullptr ? myLane : sidewalk, nullptr);

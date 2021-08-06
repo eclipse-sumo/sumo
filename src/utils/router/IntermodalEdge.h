@@ -32,19 +32,19 @@
 // function definitions
 // ===========================================================================
 template <class E, class L>
-inline const L* getSidewalk(const E* edge) {
+inline const L* getSidewalk(const E* edge, SUMOVehicleClass svc = SVC_PEDESTRIAN) {
     if (edge == nullptr) {
         return nullptr;
     }
     // prefer lanes that are exclusive to pedestrians
     const std::vector<L*>& lanes = edge->getLanes();
     for (const L* const lane : lanes) {
-        if (lane->getPermissions() == SVC_PEDESTRIAN) {
+        if (lane->getPermissions() == svc) {
             return lane;
         }
     }
     for (const L* const lane : lanes) {
-        if (lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
+        if (lane->allowsVehicleClass(svc)) {
             return lane;
         }
     }
