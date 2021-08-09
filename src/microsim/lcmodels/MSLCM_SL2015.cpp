@@ -1831,8 +1831,12 @@ MSLCM_SL2015::_wantsChangeSublane(
             case LatAlignmentDefinition::ARBITRARY:
                 latDistSublane = myVehicle.getLateralPositionOnLane() - getPosLat();
                 break;
-            case LatAlignmentDefinition::GIVEN:
-                latDistSublane = -getPosLat() + myVehicle.getVehicleType().getPreferredLateralAlignmentOffset();
+            case LatAlignmentDefinition::GIVEN: {
+                // sublane alignment should not cause the vehicle to leave the lane
+                const double hw = myVehicle.getLane()->getWidth() / 2 - NUMERICAL_EPS;
+                const double offset = MAX2(-hw, MIN2(hw, myVehicle.getVehicleType().getPreferredLateralAlignmentOffset()));
+                latDistSublane = -getPosLat() + offset;
+                }
                 break;
             default:
                 break;
