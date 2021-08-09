@@ -1819,6 +1819,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 latDistSublane = halfLaneWidth - halfVehWidth - getPosLat();
                 break;
             case LatAlignmentDefinition::CENTER:
+            case LatAlignmentDefinition::DEFAULT:
                 latDistSublane = -getPosLat();
                 break;
             case LatAlignmentDefinition::NICE:
@@ -1830,13 +1831,11 @@ MSLCM_SL2015::_wantsChangeSublane(
             case LatAlignmentDefinition::ARBITRARY:
                 latDistSublane = myVehicle.getLateralPositionOnLane() - getPosLat();
                 break;
-            // TODO:
-            // case LatAlignmentDefinition::GIVEN:
-            //     double offset = myVehicle.getVehicleType().getPreferredLateralAlignmentOffset();
-            //     break;
-            // case LatAlignmentDefinition::DEFAULT:
-            // default:
-            //     break;
+            case LatAlignmentDefinition::GIVEN:
+                latDistSublane = -getPosLat() + myVehicle.getVehicleType().getPreferredLateralAlignmentOffset();
+                break;
+            default:
+                break;
         }
     }
     // only factor in preferred lateral alignment if there is no speedGain motivation or it runs in the same direction
