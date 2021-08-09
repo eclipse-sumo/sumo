@@ -203,7 +203,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                 newDepart = None
                 remaining = set()
                 newPlan = []
-                numParts = 0
+                isDiscoBefore = True
+                isDiscoAfter = False
                 for planItem in moving.getChildList():
                     if planItem.name == "walk":
                         disco = "keep" if options.disconnected_action == "keep.walk" else options.disconnected_action
@@ -218,14 +219,14 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             if walkEdges[-1] != planItem.edges.split()[-1]:
                                 planItem.busStop = None
                                 planItem.trainStop = None
-                                numParts += 1
-                            if walkEdges[0] != planItem.edges.split()[0] and len(newPlan) > 0:
-                                numParts += 1
+                                isDiscoAfter = True
+                            if walkEdges[0] != planItem.edges.split()[0]:
+                                isDiscoBefore = True
                             remaining.update(walkEdges)
                             planItem.edges = " ".join(walkEdges)
-                            if planItem.busStop and planItem.busStop not in busStopEdges:
+                            if planItem.busStop and busStopEdges.get(planItem.busStop) not in areaEdges:
                                 planItem.busStop = None
-                            if planItem.trainStop and planItem.trainStop not in busStopEdges:
+                            if planItem.trainStop and busStopEdges.get(planItem.trainStop) not in areaEdges:
                                 planItem.trainStop = None
                         else:
                             planItem = None
@@ -244,7 +245,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                         planItem.busStop = None
                                         planItem.trainStop = None
                                         planItem.setAttribute("to", ptRoute[-1])
-                                        numParts += 1
+                                        isDiscoAfter = True
                                 else:
                                     planItem = None
                             if planItem is not None:
@@ -257,8 +258,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                             planItem = None
                                         else:
                                             planItem.setAttribute("from", ptRoute[0])
-                                            if len(newPlan) > 0:
-                                                numParts += 1
+                                            isDiscoBefore = True
                                     else:
                                         planItem = None
                                 elif planItem.attr_from is None and len(newPlan) == 0:
@@ -273,13 +273,14 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             newDepart = float(planItem.depart)
                             planItem.lines = planItem.intended
                     if planItem is None:
-                        if len(newPlan) > 0:
-                            numParts += 1
+                        isDiscoAfter = True
                     else:
-                        if numParts > 1 and options.disconnected_action == "discard":
-                            newPlan = []
-                            break
                         newPlan.append(planItem)
+                    if len(newPlan) > 1 and isDiscoBefore and options.disconnected_action == "discard":
+                        newPlan = []
+                        break
+                    isDiscoBefore = isDiscoAfter
+                    isDiscoAfter = False
                 moving.setChildList(newPlan)
                 cut_stops(moving, busStopEdges, remaining)
                 if not moving.getChildList():
