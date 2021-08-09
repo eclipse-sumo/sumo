@@ -13,6 +13,9 @@ roundabout
 # testing opposite-direction driving
 opposite_direction_driving
 
+# test latAlignment configuration
+latAlignment
+
 # vehicle behavior on a single edge with 2 lanes (default alignment)
 1edge_2lanes
 depart_random_last
