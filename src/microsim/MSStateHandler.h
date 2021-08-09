@@ -43,7 +43,7 @@ class MSRailSignal;
 class MSStateHandler : public MSRouteHandler {
 public:
     /// @brief standard constructor
-    MSStateHandler(const std::string& file, const SUMOTime offset, bool onlyReadTime = false);
+    MSStateHandler(const std::string& file, const SUMOTime offset);
 
     /// @brief standard destructor
     virtual ~MSStateHandler();
@@ -126,9 +126,6 @@ private:
 
     /// @brief the last object that potentially carries parameters
     Parameterised* myLastParameterised;
-
-    /// @brief whether the handler should abort parsing (via Exception) after parsing the time
-    bool myOnlyReadTime;
 
     /// @brief vehicles that shall be removed when loading state
     std::set<std::string> myVehiclesToRemove;

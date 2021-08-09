@@ -94,7 +94,7 @@ MSStateHandler::MSStateTimeHandler::myStartElement(int element, const SUMOSAXAtt
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset, bool onlyReadTime) :
+MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     MSRouteHandler(file, true),
     myOffset(offset),
     mySegment(nullptr),
@@ -103,7 +103,6 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset, b
     myAttrs(nullptr),
     myVCAttrs(nullptr),
     myLastParameterised(nullptr),
-    myOnlyReadTime(onlyReadTime),
     myRemoved(0),
     myConstrainedSignal(nullptr) {
     myAmLoadingState = true;
@@ -174,9 +173,6 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_SNAPSHOT: {
             myTime = string2time(attrs.getString(SUMO_ATTR_TIME));
-            if (myOnlyReadTime) {
-                throw AbortParsing("Abort state parsing after reading time");
-            }
             const std::string& version = attrs.getString(SUMO_ATTR_VERSION);
             if (version != VERSION_STRING) {
                 WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
