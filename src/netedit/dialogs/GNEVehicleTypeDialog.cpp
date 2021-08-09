@@ -1460,6 +1460,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
                 myDecelRow->show();
                 myEmergencyDecelRow->show();
                 myDeltaRow->show();
+                mySteppingRow->show();
                 myMinGapFactorRow->show();
                 myTpreviewRow->show();
                 myTreactionRow->show();

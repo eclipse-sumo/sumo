@@ -266,7 +266,7 @@ private:
 private:
     // @brief contains the main CF-model calculations
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
-              const double predSpeed, const double desSpeed, const bool respectMinGap, int update) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap, const int update) const;
 
     // @brief calculates the internal desired speed for the vehicle depending on myTpreview and upcoming turns, intersections and speed limit changes
     void internalspeedlimit(MSVehicle* const veh, const double oldV) const;
@@ -280,7 +280,10 @@ private:
 
     // @brief A computational shortcut
     const double myTwoSqrtAccelDecel;
-    
+
+    // @brief The number of iterations in speed calculations
+    const int myIterations;
+
     // @brief Correlation time of the Wiener Process for the driving error
     const double myTPersDrive;
 
