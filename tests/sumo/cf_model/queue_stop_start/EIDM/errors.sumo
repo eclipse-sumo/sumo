@@ -1,7 +1,0 @@
-Warning: Vehicle 'flow.3' performs emergency braking with decel=-12.39 wished=4.50 severity=1.75, time=26.00.
-Warning: Vehicle 'flow.4' performs emergency braking with decel=-12.24 wished=4.50 severity=1.72, time=27.00.
-Warning: Vehicle 'flow.7' performs emergency braking with decel=-9.47 wished=4.50 severity=1.10, time=35.00.
-Warning: Vehicle 'flow.8' performs emergency braking with decel=-12.44 wished=4.50 severity=1.76, time=36.00.
-Warning: Teleporting vehicle 'first'; waited too long (jam), lane='0_0', time=328.00.
-Warning: Vehicle 'first' teleports beyond arrival edge '0', time 328.00.
-Warning: Vehicle 'first' skips stop on lane '0_0' time=328.00.
