@@ -53,8 +53,8 @@
 // ===========================================================================
 MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
     MSCFModel(vtype), myDelta(vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_DELTA, 4.)),
-    myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
     myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))),
+    myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
     myTPersDrive(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, 3)), myTreaction(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_REACTION, 0.5)),
     myTpreview(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, 4)), myTPersEstimate(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, 10)),
     myCcoolness(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_C_COOLNESS, 0.99)), mySigmaleader(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_LEADER, 0.02)),
@@ -700,10 +700,6 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
 
     for (int i = 0; i < myIterations; i++) {
 
-        if (veh->getID().compare("1.0") == 0) {
-            double bluba = 5;
-        }
-        
         // Using Action-Point reaction time: update the variables, when myap_update is zero and update is 1
         current_estSpeed = newSpeed;
         current_estleaderSpeed = MAX2(predSpeed - newGap * mySigmaleader*vars->myw_speed, 0.0); // estimated variable with Wiener Prozess

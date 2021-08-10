@@ -343,13 +343,12 @@ private:
     /// @brief old console code page to restore after ending
     static int myPrevConsoleCP;
 
+protected:
+    const std::string myFilename;
 
 private:
     /// @brief The formatter for XML
     OutputFormatter* const myFormatter;
-
-protected:
-    const std::string myFilename;
 
 private:
     /// @brief Invalidated copy constructor.
