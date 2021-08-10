@@ -63,3 +63,9 @@ exit_times
 
 # state loading / saving with a defined departEdge
 save_depart_edge
+
+# test for crash when loading additional file with vehicles before the state file
+default_begin
+
+# test for crash when loading additional file with vehicles before the state
+earlier_begin
