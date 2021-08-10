@@ -473,7 +473,7 @@ private:
         return tau + (SUMOTime)(lengthWithGap * myTau_length);
     }
 
-    SUMOTime getTauJJ(int nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
+    SUMOTime getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
 
 private:
     /// @brief The microsim edge this segment belongs to

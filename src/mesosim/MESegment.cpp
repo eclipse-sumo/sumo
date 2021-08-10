@@ -476,7 +476,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
         const bool nextFree = next->myQueues[nextQIdx].getOccupancy() <= next->myJamThreshold;
         const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
                               ? (nextFree ? myTau_ff : myTau_fj)
-                              : (nextFree ? myTau_jf : getTauJJ(next->myQueues[nextQIdx].size(), next->myQueueCapacity, next->myJamThreshold)));
+                              : (nextFree ? myTau_jf : getTauJJ((double)next->myQueues[nextQIdx].size(), next->myQueueCapacity, next->myJamThreshold)));
         assert(tau >= 0);
         myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap());
         if (myTLSPenalty) {
@@ -498,7 +498,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
 }
 
 SUMOTime
-MESegment::getTauJJ(int nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const {
+MESegment::getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const {
     // compute coefficients for the jam-jam headway function
     // this function models the effect that "empty space" needs to move
     // backwards through the downstream segment before the upstream segment may
@@ -512,17 +512,17 @@ MESegment::getTauJJ(int nextQueueSize, double nextQueueCapacity, double nextJamT
 
     const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGTH_WITH_GAP);
     // number of vehicles that fit into the NEXT queue (could be larger than expected with DEFAULT_VEH_LENGTH_WITH_GAP!)
-    const double headwayCapacity = MAX2(nextQueueSize * 1.0, nextQueueCapacity / DEFAULT_VEH_LENGTH_WITH_GAP);
+    const double headwayCapacity = MAX2(nextQueueSize, nextQueueCapacity / DEFAULT_VEH_LENGTH_WITH_GAP);
     // number of vehicles above which the NEXT queue is jammed
     const double n_jam_threshold = headwayCapacity * nextJamThreshold / nextQueueCapacity;
 
-    /// @brief slope and axis offset for the jam-jam headway function
-    double a, b;
+    // slope a and axis offset b for the jam-jam headway function
     // solving f(x) = a * x + b
-    a = (STEPS2TIME(myTau_jj) * headwayCapacity - STEPS2TIME(tau_jf_withLength)) / (headwayCapacity - n_jam_threshold);
-    b = headwayCapacity * (STEPS2TIME(myTau_jj) - a);
+    const double a = (STEPS2TIME(myTau_jj) * headwayCapacity - STEPS2TIME(tau_jf_withLength)) / (headwayCapacity - n_jam_threshold);
+    const double b = headwayCapacity * (STEPS2TIME(myTau_jj) - a);
 
-    return TIME2STEPS(a * nextQueueSize + b);
+    // it is only well defined for nextQueueSize >= n_jam_threshold (which may not be the case for longer vehicles), so we take the MAX
+    return TIME2STEPS(a * MAX2(nextQueueSize, n_jam_threshold) + b);
 }
 
 
