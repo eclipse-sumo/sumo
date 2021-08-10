@@ -38,3 +38,6 @@ save_parking_busStop
 save_rng
 save_routeDistribution
 save_stopped
+
+# state loading / saving with a defined departEdge
+save_depart_edge

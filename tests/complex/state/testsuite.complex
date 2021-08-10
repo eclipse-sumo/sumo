@@ -60,3 +60,6 @@ rail_furtherLane
 
 # test vehroute-output.exit-times after loading state
 exit_times
+
+# state loading / saving with a defined departEdge
+save_depart_edge
