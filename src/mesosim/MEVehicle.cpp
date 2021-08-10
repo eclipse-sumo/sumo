@@ -504,7 +504,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         myDeparture -= offset;
         myEventTime -= offset;
         myLastEntryTime -= offset;
-        myCurrEdge += routeOffset;
+        myCurrEdge = myRoute->begin() + routeOffset;
         if (segIndex >= 0) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(**myCurrEdge);
             while (seg->getIndex() != (int)segIndex) {

@@ -6538,7 +6538,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> stopped;
     bis >> pastStops;
     if (hasDeparted()) {
-        myCurrEdge += routeOffset;
+        myCurrEdge = myRoute->begin() + routeOffset;
         myDeparture -= offset;
         // fix stops
         while (pastStops > 0) {
