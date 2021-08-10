@@ -133,6 +133,23 @@ NLBuilder::build() {
     // - additional-files before route-files and state-files due to referencing
     // - additional-files before weight-files since the latter might contain intermodal edge data and the intermodal net depends on the stops and public transport from the additionals
 
+    bool stateBeginMismatch = false;
+    if (myOptions.isSet("load-state")) {
+        // first, load only the time
+        const SUMOTime stateTime = MSStateHandler::MSStateTimeHandler::getTime(myOptions.getString("load-state"));
+        if (myOptions.isDefault("begin")) {
+            myOptions.set("begin", time2string(stateTime));
+            if (TraCIServer::getInstance() != nullptr) {
+                TraCIServer::getInstance()->stateLoaded(stateTime);
+            }
+        } else {
+            if (stateTime != string2time(myOptions.getString("begin"))) {
+                WRITE_WARNING("State was written at a different time " + time2string(stateTime) + " than the begin time " + myOptions.getString("begin") + "!");
+                stateBeginMismatch = true;
+            }
+        }
+    }
+
     // load additional net elements (sources, detectors, ...)
     if (myOptions.isSet("additional-files")) {
         if (!load("additional-files")) {
@@ -153,6 +170,10 @@ NLBuilder::build() {
             }
         }
     }
+    if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
+        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
+    }
+
     if (myOptions.getBool("junction-taz")) {
         // create a TAZ for every junction
         const MSJunctionControl& junctions = myNet.getJunctionControl();
@@ -223,17 +244,8 @@ NLBuilder::build() {
         long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + f + "'");
         MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
         XMLSubSys::runParser(h, f);
-        if (myOptions.isDefault("begin")) {
-            myOptions.set("begin", time2string(h.getTime()));
-            if (TraCIServer::getInstance() != nullptr) {
-                TraCIServer::getInstance()->stateLoaded(h.getTime());
-            }
-        }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
-        }
-        if (h.getTime() != string2time(myOptions.getString("begin"))) {
-            WRITE_WARNING("State was written at a different time " + time2string(h.getTime()) + " than the begin time " + myOptions.getString("begin") + "!");
         }
         PROGRESS_TIME_MESSAGE(before);
     }
