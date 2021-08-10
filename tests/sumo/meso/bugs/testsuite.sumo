@@ -32,3 +32,6 @@ ticket8156
 
 # negative tau
 ticket8166
+
+# tau_jj calculation for long vehicles
+ticket8931
