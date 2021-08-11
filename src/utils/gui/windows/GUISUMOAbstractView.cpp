@@ -1077,9 +1077,15 @@ GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
         myPopup->setY(popY);
         myPopup->create();
         myPopup->show();
-        // try to stay on screen
-        popX = MAX2(0, MIN2(popX, getApp()->getRootWindow()->getWidth() - myPopup->getWidth() - 10));
-        popY = MAX2(0, MIN2(popY, getApp()->getRootWindow()->getHeight() - myPopup->getHeight() - 50));
+        // try to stay on screen unless click appears to come from a multi-screen setup
+        const int rootWidth = getApp()->getRootWindow()->getWidth();
+        const int rootHeight = getApp()->getRootWindow()->getHeight();
+        if (popX <= rootWidth) {
+            popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
+        }
+        if (popY <= rootHeight) {
+            popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
+        }
         myPopup->move(popX, popY);
         myPopupPosition = getPositionInformation();
         myChanger->onRightBtnRelease(nullptr);
