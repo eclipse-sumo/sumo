@@ -23,3 +23,6 @@ until_from_duration
 
 # two trains are inserted at the same stop
 both_insertion
+
+# foe does not move past the signal, hence no constraint
+reversal_at_stop
