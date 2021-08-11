@@ -140,8 +140,8 @@ MELoop::checkCar(MEVehicle* veh) {
         // all usable queues on the next segment are full
         SUMOTime newEventTime = MAX3(toSegment->getEventTime() + 1, leaveTime + 1, leaveTime + myFullRecheckInterval);
         if (MSGlobals::gTimeToGridlock > 0) {
-            // if teleporting is enabled, make sure we look at the vehicle when the the gridlock-time is up
-            newEventTime = MIN2(newEventTime, veh->getBlockTime() + MSGlobals::gTimeToGridlock + 1);
+            // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
+            newEventTime = MAX2(MIN2(newEventTime, veh->getBlockTime() + MSGlobals::gTimeToGridlock + 1), leaveTime + DELTA_T);
         }
         veh->setEventTime(newEventTime);
     } else {
