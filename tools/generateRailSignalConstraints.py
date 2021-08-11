@@ -500,8 +500,6 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
         shift = 0
         stopEdge = stopEdges[busStop]
         node = net.getEdge(stopEdge).getToNode()
-        signal = node.getID()
-
         parkingEnded = []
 
         for edgesBefore, stop in stops:
@@ -551,17 +549,14 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
                         if parseBool(stop.getAttributeSecure("parking", "false")):
                             # we need an insertion constraint for insertion after parking
 
-                            pSignal = signal
-                            nSignal = signal
-                            if node.getType() != "rail_signal":
-                                # find signal in nextEdges
-                                pSignal = findSignal(net, pNextEdges)
-                                nSignal = findSignal(net, nNextEdges)
-                                if pSignal is None or nSignal is None:
-                                    print(("Ignoring parking insertion conflict between %s and %s at stop '%s' " +
-                                        "because no rail signal was found after the stop") % (
-                                            stop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
-                                    continue
+                            # find signal in nextEdges
+                            pSignal = findSignal(net, (stopEdge,) + pNextEdges)
+                            nSignal = findSignal(net, (stopEdge,) + nNextEdges)
+                            if pSignal is None or nSignal is None:
+                                print(("Ignoring parking insertion conflict between %s and %s at stop '%s' " +
+                                    "because no rail signal was found after the stop") % (
+                                        stop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
+                                continue
 
                             # vehicles have already stopped so the new tripId applies
                             nTripID = stop.getAttributeSecure("tripId", stop.vehID)
