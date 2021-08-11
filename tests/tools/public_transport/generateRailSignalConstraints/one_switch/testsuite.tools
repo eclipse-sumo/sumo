@@ -30,3 +30,6 @@ limit
 
 # two trains approach the same stop from different tracks, do not generate constraints involving parking vehicles
 skipParking
+
+# a single train with a looped route that approaches the same switch twice from different edges
+loop
