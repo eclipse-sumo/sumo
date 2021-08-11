@@ -632,7 +632,8 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                 nSignal, nTimeSiSt = mergeSignals[(switch, nEdges)]
                 if switch == options.debugSwitch:
                     print(pSignal, nSignal, pStop, nStop)
-                if pSignal != nSignal and pSignal is not None and nSignal is not None:
+                if (pSignal != nSignal and pSignal is not None and nSignal is not None
+                        and pStop.vehID != nStop.vehID):
                     if options.skipParking and parseBool(nStop.getAttributeSecure("parking", "false")):
                         print("ignoring stop at %s for parking vehicle %s (%s, %s)" % (
                             busStop, nStop.vehID, humanReadableTime(nArrival),
