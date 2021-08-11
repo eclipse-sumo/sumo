@@ -245,8 +245,12 @@ def getStopRoutes(options, stopEdges):
         for stop in vehicle.stop:
             numStops += 1
             if stop.busStop is None:
-                stop.setAttribute("busStop", stop.lane)
-                stopEdges[stop.lane] = sumolib._laneID2edgeID(stop.lane)
+                if stop.edge is None:
+                    stop.setAttribute("busStop", stop.lane)
+                    stopEdges[stop.lane] = sumolib._laneID2edgeID(stop.lane)
+                else:
+                    stop.setAttribute("busStop", stop.edge)
+                    stopEdges[stop.edge] = stop.edge
             stopEdge = stopEdges[stop.busStop]
             while edges[routeIndex] != stopEdge:
                 routeIndex += 1
