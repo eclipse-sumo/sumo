@@ -127,6 +127,12 @@ used to modify the speed limit of an edge for a defined time interval.
 flow on an edge for a defined time interval but may also be used to
 modify the speed limit of an edge.
 
+# Devices
+[Vehicle devices](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) are a way to customize vehicle behavior or create additional output. The following devices can impact vehicle speed:
+
+- [glosa](../Simulation/GLOSA.md) : slow down and speed up to smooth speed near traffic lights
+- [driverstate](Driver_State.md) : random changes to speed based on modelled perception errors with regard to car-following gap and speed difference
+
 # TraCI
 
 Vehicles can forced to adapt their speed using [TraCI commands](../TraCI/Change_Vehicle_State.md). When using the command
