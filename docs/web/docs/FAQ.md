@@ -1056,6 +1056,10 @@ There is a know problem in Windows 10 with scaling and flickering in certain app
 If scaling is greater than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
 The only known solution is leaving Scaling at 100%
 
+### Missing Characters in Parameter Dialogs (i.e. Chinese Street names) on Linux
+
+Install the [Noto Fonts](https://en.wikipedia.org/wiki/Noto_fonts) package for your distribution.
+
 ## Upgrading
 
 ### How do I upgrade SUMO?
