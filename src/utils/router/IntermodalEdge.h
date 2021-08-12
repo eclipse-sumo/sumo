@@ -50,7 +50,6 @@ inline const L* getSidewalk(const E* edge, SUMOVehicleClass svc = SVC_PEDESTRIAN
     }
     if (svc != SVC_PEDESTRIAN) {
         // persons should always be able to use the sidewalk
-        const std::vector<L*>& lanes = edge->getLanes();
         for (const L* const lane : lanes) {
             if (lane->getPermissions() == SVC_PEDESTRIAN) {
                 return lane;
