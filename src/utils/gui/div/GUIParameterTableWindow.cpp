@@ -264,6 +264,23 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
     show();
 }
 
+void
+GUIParameterTableWindow::checkFont(const std::string& text) {
+    bool missingChar = false;
+    FXString fxs(text.c_str());
+    for (FXint i=0; i<fxs.length(); i=fxs.inc(i)){
+        FXwchar wc = fxs.wc(i);
+        if (myTable->getFont()->hasChar(wc) != TRUE) {
+            missingChar = true;
+            break;
+        }
+        //std::cout << i << ": " << wc << " char:" << (char)(wc) << " has: " << (myTable->getFont()->hasChar(wc) == TRUE) << "\n";
+    }
+    if (missingChar) {
+        myTable->setFont(myApplication->getFallbackFont());
+    }
+}
+
 
 int
 GUIParameterTableWindow::numParams(const GUIGlObject* obj) {

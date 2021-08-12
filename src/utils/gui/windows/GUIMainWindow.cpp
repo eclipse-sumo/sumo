@@ -64,6 +64,8 @@ GUIMainWindow::GUIMainWindow(FXApp* a) :
     getApp()->getNormalFont()->getFontDesc(fdesc);
     fdesc.weight = FXFont::Bold;
     myBoldFont = new FXFont(getApp(), fdesc);
+    // https://en.wikipedia.org/wiki/Noto_fonts should be widely available
+    myFallbackFont = new FXFont(getApp(), "Noto Sans CJK JP");
 
     myTopDock = new FXDockSite(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X);
     myBottomDock = new FXDockSite(this, LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
@@ -79,6 +81,7 @@ GUIMainWindow::GUIMainWindow(FXApp* a) :
 
 GUIMainWindow::~GUIMainWindow() {
     delete myBoldFont;
+    delete myFallbackFont;
     delete myTopDock;
     delete myBottomDock;
     delete myLeftDock;
@@ -151,6 +154,10 @@ GUIMainWindow::getBoldFont() {
     return myBoldFont;
 }
 
+FXFont*
+GUIMainWindow::getFallbackFont() {
+    return myFallbackFont;
+}
 
 const std::vector<GUIGlChildWindow*>&
 GUIMainWindow::getViews() const {

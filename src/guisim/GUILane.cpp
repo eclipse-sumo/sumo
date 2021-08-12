@@ -975,6 +975,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     for (const auto& kv : myEdge->getParametersMap()) {
         ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);
     }
+    ret->checkFont(myEdge->getStreetName());
     ret->closeBuilding();
     return ret;
 }

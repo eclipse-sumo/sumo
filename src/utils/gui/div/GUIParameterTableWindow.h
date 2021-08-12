@@ -83,6 +83,8 @@ public:
     void closeBuilding(const Parameterised* p = 0);
 
 
+    /// @brief ensure that the font covers the given text
+    void checkFont(const std::string& text);
 
     /** @brief Lets this window know the object shown is being deleted
      * @param[in] o The deleted (shown) object

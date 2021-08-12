@@ -80,6 +80,9 @@ public:
     /// @brief get bold front
     FXFont* getBoldFont();
 
+    /// @brief get fallback front
+    FXFont* getFallbackFont();
+
     /// @brief get GL Visual
     FXGLVisual* getGLVisual() const;
 
@@ -169,6 +172,9 @@ protected:
 
     /// Font used for popup-menu titles
     FXFont* myBoldFont;
+
+    /// Fallback font for extended characters support
+    FXFont* myFallbackFont;
 
     /// The multi view panel
     FXMDIClient* myMDIClient;
