@@ -462,6 +462,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     } else if (e->myNoLanes == 0) {
         WRITE_WARNINGF("Skipping edge '%' because it has zero lanes.", id);
         ok = false;
+    } else {
+        // the total number of lanes is not known but at least one direction
+        if (e->myNoLanesForward > 0) {
+            numLanesForward = e->myNoLanesForward;
+        } 
+        if (e->myNoLanesForward < 0) {
+            numLanesBackward = -e->myNoLanesForward;
+        }
     }
     // if we had been able to extract the maximum speed, override the type's default
     if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
@@ -1107,7 +1115,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                     int minLanes = std::numeric_limits<int>::max();
                     try {
                         for (auto& i : list) {
-                            int numLanes = StringUtils::toInt(StringUtils::prune(i));
+                            const int numLanes = StringUtils::toInt(StringUtils::prune(i));
                             minLanes = MIN2(minLanes, numLanes);
                         }
                         myCurrentEdge->myNoLanes = minLanes;
@@ -1121,14 +1129,24 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         } else if (key == "lanes:forward") {
             try {
-                myCurrentEdge->myNoLanesForward = StringUtils::toInt(value);
+                const int numLanes = StringUtils::toInt(value);
+                if (myCurrentEdge->myNoLanesForward < 0 && myCurrentEdge->myNoLanes < 0) {
+                    // fix lane count in case only lanes:forward and lanes:backward are set
+                    myCurrentEdge->myNoLanes = numLanes - myCurrentEdge->myNoLanesForward;
+                }
+                myCurrentEdge->myNoLanesForward = numLanes;
             } catch (...) {
                 WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (key == "lanes:backward") {
             try {
+                const int numLanes = StringUtils::toInt(value);
+                if (myCurrentEdge->myNoLanesForward > 0 && myCurrentEdge->myNoLanes < 0) {
+                    // fix lane count in case only lanes:forward and lanes:backward are set
+                    myCurrentEdge->myNoLanes = numLanes + myCurrentEdge->myNoLanesForward;
+                }
                 // denote backwards count with a negative sign
-                myCurrentEdge->myNoLanesForward = -StringUtils::toInt(value);
+                myCurrentEdge->myNoLanesForward = -numLanes;
             } catch (...) {
                 WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
