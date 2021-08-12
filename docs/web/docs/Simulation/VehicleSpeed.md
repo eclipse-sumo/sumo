@@ -64,7 +64,7 @@ may be set independently).
 
 ## Dawdling
 
-Most car-following models support the `sigma`-attribute which models driver
+Some car-following models support the `sigma`-attribute which models driver
 imperfection. For values above **0**, drivers with the default
 car-following model will drive *slower* than would be safe by a random
 amount (between \[0, `accel`\]).
@@ -85,12 +85,13 @@ drivers which drive across the intersection. The [right-of-way rules](../Network
 at an intersection are [defined by the node type-attribute](../Networks/PlainXML.md#node_descriptions)
 and by [traffic lights](../Simulation/Traffic_Lights.md).
 
-The visibility of intersections can be controlled by the visibility
-attribute for the corresponding connections, see [Connection Descriptions](../Networks/PlainXML.md#connection_descriptions).
 Per default, a vehicle approaching from a minor road slows down until it
 is 4.5m away from the intersection (even if no prioritized vehicle is
 nearby). After that it may start to accelerate again if there is a safe
-gap in traffic.
+gap in traffic. This distance models the visibility and may be configured for each [individual connection with the 'visibility' attribute](../Networks/PlainXML.md#connection_descriptions).
+
+Vehicles approaching a junction of type 'zipper' automatically determine a vehicle ordering pased on their position and speeds.
+The may have to slow down in order to follow their determined leader smoothly. By default, zipper merging behavior starts 100m ahead of the junction and this distance may also be configured using the 'visibility' attribute.
 
 # Lane Changing
 
