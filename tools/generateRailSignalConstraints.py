@@ -622,8 +622,9 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
             # found common stop
             #print("switch=%s veh=%s veh2=%s commonStop=%s" % (switch,
             #    stop.vehID, stop2.vehID, s.busStop))
-            stopRoutes2[s.busStop].append((edgesBefore2, s2))
-            if s.busStop != stop.busStop:
+            if (edgesBefore2, s2) not in stopRoutes2[s.busStop]:
+                stopRoutes2[s.busStop].append((edgesBefore2, s2))
+            if s.busStop != stop.busStop and ((edgesBefore, s) not in stopRoutes2[s.busStop]):
                 stopRoutes2[s.busStop].append((edgesBefore, s))
             return
         # advance along routes
