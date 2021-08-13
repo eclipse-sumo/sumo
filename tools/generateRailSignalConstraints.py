@@ -156,6 +156,8 @@ def get_options(args=None):
                         help="print debug information for the given signal id")
     parser.add_argument("--debug-stop", dest="debugStop",
                         help="print debug information for the given busStop id")
+    parser.add_argument("--debug-vehicle", dest="debugVehicle",
+                        help="print debug information for the given vehicle id")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None and options.tripFile is None) or options.netFile is None:
@@ -288,10 +290,13 @@ def findMergingSwitches(options, uniqueRoutes, net):
     numReversals = 0
     for edge, preds in predEdges.items():
         if len(preds) > 1:
+            reversalInfo = ""
             if edge in predReversal:
                 numReversals += 1
+                reversalInfo = " (has reversal)"
             if options.verbose:
-                print("mergingEdge=%s pred=%s" % (edge, ','.join(sorted(preds))))
+                print("mergingEdge=%s pred=%s%s" % (
+                    edge, ','.join(sorted(preds)), reversalInfo))
             mergeSwitches.add(edge)
 
     if numReversals == 0:
@@ -587,8 +592,66 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
 
     return conflicts
 
+def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehicleStopRoutes, stopRoutes2):
+    """ add more items to stopRoutes2 for the common
+    busStop but keep the edgeBefore of the original stops
+    """
+    assert(stop.busStop != stop2.busStop)
+    if stop.vehID == stop2.vehID:
+        return
+    route = vehicleStopRoutes[stop.vehID]
+    route2 = vehicleStopRoutes[stop2.vehID]
+    stopIndex = route.index((edgesBefore, stop))
+    stopIndex2 = route2.index((edgesBefore2, stop2))
+    routeIndex = edgesBefore.index(switch)
+    routeIndex2 = edgesBefore2.index(switch)
+    # advance both routes until the routes diverge, one route ends or a common stop is found
+    while stopIndex < len(route) and stopIndex2 < len(route2):
+        eb, s = route[stopIndex]
+        eb2, s2 = route2[stopIndex2]
+        e = eb[routeIndex]
+        e2 = eb2[routeIndex2]
+        #print(stopIndex, routeIndex, stopIndex2, routeIndex2, len(eb), len(eb2))
+        if e != e2:
+            # routes diverge
+            #print("e=%s e2=%s" % (e, e2))
+            return
+        if (routeIndex + 1 == len(eb) and
+                routeIndex2 + 1 == len(eb2) and
+                s.busStop == s2.busStop):
+            # found common stop
+            #print("switch=%s veh=%s veh2=%s commonStop=%s" % (switch,
+            #    stop.vehID, stop2.vehID, s.busStop))
+            stopRoutes2[s.busStop].append((edgesBefore2, s2))
+            if s.busStop != stop.busStop:
+                stopRoutes2[s.busStop].append((edgesBefore, s))
+            return
+        # advance along routes
+        if routeIndex + 1 == len(eb):
+            routeIndex = 0
+            stopIndex += 1
+        else:
+            routeIndex += 1
 
-def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
+        if routeIndex2 + 1 == len(eb2):
+            routeIndex2 = 0
+            stopIndex2 += 1
+        else:
+            routeIndex2 += 1
+
+    if stop.vehID == options.debugVehicle:
+        print(("No common stop found after switch %s for vehicle %s with stop %s (%s, %s)"
+                + " and intermediate stop of vehicle %s at %s (%s, %s)") % (
+            switch, stop.vehID, stop.busStop,
+            humanReadableTime(parseTime(stop.arrival)),
+            humanReadableTime(parseTime(stop.until)),
+            stop2.vehID, stop2.busStop,
+            humanReadableTime(parseTime(stop2.arrival)),
+            humanReadableTime(parseTime(stop2.until)),
+            ))
+
+
+def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes):
     """find stops that target the same busStop from different branches of the
     prior merge switch and establish their ordering"""
 
@@ -606,7 +669,44 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
         numIgnoredSwitchStops = 0
         if switch == options.debugSwitch:
             print("Switch %s lies ahead of busStops %s" % (switch, stopRoutes2.keys()))
+
+
+        # detect approaches that skip stops (#8943) and add extra items
+        stopRoutes3 = defaultdict(list)
+        stopsAfterSwitch = defaultdict(set) # edge -> stops
         for busStop, stops in stopRoutes2.items():
+            stopsAfterSwitch[stopEdges[busStop]].add(busStop)
+        for busStop, stops in stopRoutes2.items():
+            for edgesBefore, stop in stops:
+                intermediateStops = set()
+                for edge in edgesBefore:
+                    for s in stopsAfterSwitch[edge]:
+                        if s != busStop:
+                            intermediateStops.add(s)
+                if len(intermediateStops) != 0:
+                    # try to establish an order between vehicles from different arms
+                    # of the switch even if their immediate stops differs
+                    # this is possible (and necessary) if they have a common stop
+                    # and their routes are identical between the merging switch and
+                    # the first common stop.
+                    # note: the first common stop may differ from all stops in stopRoutes2
+                    for busStop2, stops2 in stopRoutes2.items():
+                        if busStop2 in intermediateStops:
+                            for edgesBefore2, stop2 in stops2:
+                                addCommonStop(options, switch, edgesBefore, stop,
+                                    edgesBefore2, stop2, vehicleStopRoutes, stopRoutes3)
+                    #print("Stop after switch %s at %s by %s (%s, %s) passes intermediate stops %s" % (
+                    #    switch, busStop, stop.vehID,
+                    #    humanReadableTime(parseTime(stop.arrival)),
+                    #    humanReadableTime(parseTime(stop.until)),
+                    #    ",".join(intermediateStops)
+                    #    ))
+
+        # delay dict merge until all extra stops have been found
+        for busStop, stops in stopRoutes2.items():
+            stopRoutes3[busStop] += stops
+
+        for busStop, stops in stopRoutes3.items():
             arrivals = []
             for edges, stop in stops:
                 if stop.hasAttribute("arrival"):
@@ -965,7 +1065,7 @@ def main(options):
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
-    conflicts = findConflicts(options, switchRoutes, mergeSignals, signalTimes)
+    conflicts = findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
     insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
 
