@@ -17,6 +17,7 @@
 
 """
 Generate railSignalConstrains definitions that enforce a loaded rail schedule
+(Zuglenkung)
 
 Two types of constraints are generated in different cases:
 1. <predecessor>
@@ -303,7 +304,7 @@ def findMergingSwitches(options, uniqueRoutes, net):
 
 
 def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
-    """find stops at the same busStop that come directly after a the same merge switch (no prior step before
+    """find stops at the same busStop that come directly after a the same merge switch (no prior stop before
     the switch). Returns filtered stopRoutes"""
     switchRoutes = defaultdict(lambda: defaultdict(list))  # mergeSwitch -> busStop -> [(edges, stopObj), ....]
     mergeSignals = {}  # (switch, edges) -> signal
