@@ -462,5 +462,9 @@ StringUtils::trim(const std::string s, const std::string& t) {
     return trim_right(trim_left(s, t), t);
 }
 
+void
+StringUtils::resetTranscoder() {
+    myLCPTranscoder = nullptr;
+}
 
 /****************************************************************************/

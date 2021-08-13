@@ -125,6 +125,7 @@ XMLSubSys::close() {
     delete myGrammarPool;
     myGrammarPool = nullptr;
     XMLPlatformUtils::Terminate();
+    StringUtils::resetTranscoder();
 }
 
 
