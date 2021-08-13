@@ -21,3 +21,6 @@ subscription
 
 # do not break when restoring online program
 tlProgramOnline
+
+# load persons but do not include them in the state
+persons
