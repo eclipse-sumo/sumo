@@ -64,6 +64,9 @@ public:
         return nullptr;
     }
 
+    /// @brief Resets pedestrians when quick-loading state
+    virtual void clearState() = 0;
+
     /// @brief remove the specified person from the pedestrian simulation
     virtual void remove(MSTransportableStateAdapter* state) = 0;
 

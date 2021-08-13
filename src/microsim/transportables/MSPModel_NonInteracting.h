@@ -58,6 +58,9 @@ public:
     /// @brief load the state of the given transportable
     MSTransportableStateAdapter* loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in);
 
+    /// @brief Resets pedestrians when quick-loading state
+    void clearState();
+
     /// @brief remove the specified person from the pedestrian simulation
     void remove(MSTransportableStateAdapter* state);
 

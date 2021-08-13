@@ -57,6 +57,9 @@ public:
 
     ~MSPModel_Striping();
 
+    /// @brief Resets pedestrians when quick-loading state
+    void clearState();
+
     /// @brief register the given person as a pedestrian
     MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now);
 

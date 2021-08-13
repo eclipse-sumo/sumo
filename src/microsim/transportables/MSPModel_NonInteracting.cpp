@@ -81,6 +81,10 @@ MSPModel_NonInteracting::loadState(MSTransportable* transportable, MSStageMoving
     return state;
 }
 
+void
+MSPModel_NonInteracting::clearState() {
+    myNumActivePedestrians = 0;
+}
 
 void
 MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {

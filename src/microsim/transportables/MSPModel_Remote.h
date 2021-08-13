@@ -59,6 +59,9 @@ public:
         return (int)remoteIdPStateMapping.size();
     }
 
+    /// @brief Resets pedestrians when quick-loading state
+    void clearState();
+
 private:
     /**
     * @class PState

@@ -71,11 +71,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
 
 
 MSTransportableControl::~MSTransportableControl() {
-    for (std::map<std::string, MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-        delete (*i).second;
-    }
-    myTransportables.clear();
-    myWaiting4Vehicle.clear();
+    clearState();
     if (myMovementModel != myNonInteractingModel) {
         delete myMovementModel;
     }
@@ -410,5 +406,29 @@ MSTransportableControl::loadState(const std::string& state) {
     iss >> myJammedNumber >> myWaitingForVehicleNumber >> myWaitingUntilNumber >> myHaveNewWaiting;
 }
 
+void
+MSTransportableControl::clearState() {
+    for (std::map<std::string, MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
+        delete (*i).second;
+    }
+    myTransportables.clear();
+    myWaiting4Vehicle.clear();
+    myWaiting4Departure.clear();
+    myWaitingUntil.clear();
+    myLoadedNumber = 0;
+    myDiscardedNumber = 0;
+    myRunningNumber = 0;
+    myJammedNumber = 0;
+    myWaitingForDepartureNumber = 0;
+    myWaitingForVehicleNumber = 0;
+    myWaitingUntilNumber = 0;
+    myEndedNumber = 0;
+    myArrivedNumber = 0;
+    myHaveNewWaiting = false;
+    if (myMovementModel != myNonInteractingModel) {
+        myMovementModel->clearState();
+    }
+    myNonInteractingModel->clearState();
+}
 
 /****************************************************************************/

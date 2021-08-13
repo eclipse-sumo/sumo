@@ -142,13 +142,17 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
 
 
 MSPModel_Striping::~MSPModel_Striping() {
+    clearState();
+}
+
+void
+MSPModel_Striping::clearState() {
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
     myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
     myWalkingAreaFoes.clear();
     myMinNextLengths.clear();
 }
-
 
 MSTransportableStateAdapter*
 MSPModel_Striping::add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime) {

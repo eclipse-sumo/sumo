@@ -291,3 +291,7 @@ MSPModel_Remote::usingInternalLanes() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
 }
 
+void
+MSPModel_Remote::clearState() {
+    throw ProcessError("Pedestrian model 'remote' does not support simulation.loadState state\n");
+}

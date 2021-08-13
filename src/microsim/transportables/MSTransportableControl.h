@@ -271,6 +271,9 @@ public:
      */
     void loadState(const std::string& state);
 
+    /// @brief Resets transportables when quick-loading state
+    void clearState();
+
 protected:
     /// all currently created transportables by id
     std::map<std::string, MSTransportable*> myTransportables;
