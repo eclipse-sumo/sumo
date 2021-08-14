@@ -85,7 +85,7 @@ drivers which drive across the intersection. The [right-of-way rules](../Network
 at an intersection are [defined by the node type-attribute](../Networks/PlainXML.md#node_descriptions)
 and by [traffic lights](../Simulation/Traffic_Lights.md).
 
-If a vehicle hasn't yet entered the intersection, it will in most cases slow down in response to any other vehicles that have already entered the intersection unless there is an unobstructed waiting place [within the intersection (an internal junction)](Simulation/Intersections.md#waiting_within_the_intersection) to which it can move. If two vehicles in conflict are within the intersection at the same time, a priority order is established based on their time of entering, their speed, the right of way rules and the state of any traffic lights. This priority order determines which of the vehicles has to slow down and which one may drive unimpeded.
+If a vehicle hasn't yet entered the intersection, it will in most cases slow down in response to any other vehicles that have already entered the intersection unless there is an unobstructed waiting place [within the intersection (an internal junction)](Intersections.md#waiting_within_the_intersection) to which it can move. If two vehicles in conflict are within the intersection at the same time, a priority order is established based on their time of entering, their speed, the right of way rules and the state of any traffic lights. This priority order determines which of the vehicles has to slow down and which one may drive unimpeded.
 
 Per default, a vehicle approaching from a minor road slows down until it
 is 4.5m away from the intersection (even if no prioritized vehicle is
@@ -95,7 +95,7 @@ gap in traffic. This distance models the visibility and may be configured for ea
 Vehicles approaching a junction of type 'zipper' automatically determine a vehicle ordering pased on their position and speeds.
 The may have to slow down in order to follow their determined leader smoothly. By default, zipper merging behavior starts 100m ahead of the junction and this distance may also be configured using the 'visibility' attribute.
 
-Vehicles that pass an intersection may also be subject to [reduced speed limits depending on the turning angle](Simulation/Intersections.md#speed_while_passing_the_intersection).
+Vehicles that pass an intersection may also be subject to [reduced speed limits depending on the turning angle](Intersections.md#speed_while_passing_the_intersection).
 
 # Lane Changing
 
@@ -136,7 +136,7 @@ modify the speed limit of an edge.
 [Vehicle devices](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) are a way to customize vehicle behavior or create additional output. The following devices can impact vehicle speed:
 
 - [glosa](../Simulation/GLOSA.md) : slow down and speed up to smooth speed near traffic lights
-- [driverstate](Driver_State.md) : random changes to speed based on modelled perception errors with regard to car-following gap and speed difference
+- [driverstate](../Driver_State.md) : random changes to speed based on modelled perception errors with regard to car-following gap and speed difference
 
 # TraCI
 
