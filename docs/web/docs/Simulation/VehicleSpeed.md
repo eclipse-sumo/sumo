@@ -92,7 +92,7 @@ is 4.5m away from the intersection (even if no prioritized vehicle is
 nearby). After that it may start to accelerate again if there is a safe
 gap in traffic. This distance models the visibility and may be configured for each [individual connection with the 'visibility' attribute](../Networks/PlainXML.md#connection_descriptions).
 
-Vehicles approaching a junction of type 'zipper' automatically determine a vehicle ordering pased on their position and speeds.
+Vehicles approaching a junction of type 'zipper' automatically determine a vehicle ordering based on their position and speeds.
 The may have to slow down in order to follow their determined leader smoothly. By default, zipper merging behavior starts 100m ahead of the junction and this distance may also be configured using the 'visibility' attribute.
 
 Vehicles that pass an intersection may also be subject to [reduced speed limits depending on the turning angle](Intersections.md#speed_while_passing_the_intersection).
