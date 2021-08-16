@@ -1,27 +1,29 @@
-***Starting server on port 59739 ***
-Loading net-file from 'input_net.net.xml' ... done (5ms).
+***Starting server on port 42942 ***
+Loading net-file from 'input_net.net.xml' ... done (7ms).
 Loading done.
-Simulation version v1_6_0+0984-65c9dce6a2 started with time: 0.00
+Simulation version v1_9_2+1069-f9b761f started with time: 0.00
 Simulation ended at time: 161.00
 Reason: TraCI issued load command.
 Performance: 
- Duration: 134ms
- Real time factor: 1201.49
- UPS: 31925.373134
+ Duration: 0.07s
+ TraCI-Duration: 0.02s
+ Real time factor: 2476.92
+ UPS: 65969.230769
 Vehicles: 
  Inserted: 100
  Running: 0
  Waiting: 0
 Statistics (avg):
  RouteLength: 189.19
- Speed: 5.45
- Duration: 42.78
- WaitingTime: 17.44
- TimeLoss: 28.61
+ Speed: 5.44
+ Duration: 42.88
+ WaitingTime: 17.52
+ TimeLoss: 28.69
  DepartDelay: 1.04
 
 DijkstraRouter answered 100 queries and explored 3.52 edges on average.
-DijkstraRouter spent 1ms answering queries (0.01ms on average).
+DijkstraRouter spent 0.00s answering queries (0.01ms on average).
+ Retrying in 1 seconds
 tripinfos at last step: 100
 logfile at last step: None
 tripinfos after load: 100
@@ -29,5 +31,5 @@ logfile after load: None
 tripinfos2 at last step: 100
 logfile2 at last step: None
 tripinfos2 after close: 100
-logfile2 after close: DijkstraRouter spent 1ms answering queries (0.01ms on average).
+logfile2 after close: DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 

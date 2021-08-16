@@ -44,8 +44,8 @@ step 12
   veh=ego minTTC=2.67 maxDRAC=2.55 minPET=
   veh=leader minTTC=2.67 maxDRAC=2.55 minPET=
 step 13
-  veh=ego minTTC=2.67 maxDRAC=2.55 minPET=0.18
-  veh=leader minTTC=2.67 maxDRAC=2.55 minPET=0.18
+  veh=ego minTTC=2.67 maxDRAC=2.55 minPET=
+  veh=leader minTTC=2.67 maxDRAC=2.55 minPET=
 step 14
-  veh=ego minTTC=2.67 maxDRAC=2.55 minPET=0.18
-  veh=leader minTTC=2.67 maxDRAC=2.55 minPET=0.18
+  veh=ego minTTC=2.67 maxDRAC=2.55 minPET=1.21
+  veh=leader minTTC=2.67 maxDRAC=2.55 minPET=1.21

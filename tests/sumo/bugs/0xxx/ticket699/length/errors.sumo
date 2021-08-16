@@ -4,5 +4,13 @@ Warning: Teleporting vehicle 'veh2'; waited too long (jam), lane='E111_0', time=
 Warning: Vehicle 'veh2' ends teleporting on edge 'E212x', time 331.00.
 Warning: Teleporting vehicle 'veh12'; waited too long (yield), lane='E232_0', time=341.00.
 Warning: Teleporting vehicle 'veh8'; waited too long (yield), lane='E121_0', time=342.00.
-Warning: Vehicle 'veh8' ends teleporting on edge 'E12', time 342.00.
 Warning: Vehicle 'veh12' ends teleporting on edge 'E111x', time 343.00.
+Warning: Vehicle 'veh8' ends teleporting on edge 'E212x', time 344.00.
+Warning: Teleporting vehicle 'veh13'; waited too long (yield), lane='E232_0', time=645.00.
+Warning: Vehicle 'veh13' ends teleporting on edge 'E131', time 647.00.
+Warning: Teleporting vehicle 'veh9'; waited too long (yield), lane='E121_0', time=649.00.
+Warning: Vehicle 'veh9' ends teleporting on edge 'E222', time 651.00.
+Warning: Teleporting vehicle 'veh434578'; waited too long (yield), lane=':1_6_0', time=653.00.
+Warning: Vehicle 'veh434578' ends teleporting on edge 'E131', time 653.00.
+Warning: Teleporting vehicle 'veh75342'; waited too long (jam), lane='E111_0', time=657.00.
+Warning: Vehicle 'veh75342' ends teleporting on edge 'E12', time 658.00.
