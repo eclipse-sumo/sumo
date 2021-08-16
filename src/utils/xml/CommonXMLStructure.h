@@ -85,6 +85,9 @@ public:
         /// @brief get vehicle parameters
         const SUMOVehicleParameter &getVehicleParameter() const;
 
+        /// @brief get stop parameters
+        const SUMOVehicleParameter::Stop &getStopParameter() const;
+
         /// @brief get parameters
         const std::map<std::string, std::string>& getParameters() const;
 
@@ -199,6 +202,9 @@ public:
 
         /// @brief vehicle parameter
         SUMOVehicleParameter myVehicleParameter;
+
+        /// @brief stop parameter
+        SUMOVehicleParameter::Stop myStopParameter;
 
         /// @brief add SumoBaseObject child
         void addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);

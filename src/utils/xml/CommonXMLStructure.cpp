@@ -168,6 +168,12 @@ CommonXMLStructure::SumoBaseObject::getVehicleParameter() const {
 }
 
 
+const SUMOVehicleParameter::Stop&
+CommonXMLStructure::SumoBaseObject::getStopParameter() const {
+    return myStopParameter;
+}
+
+
 const std::map<std::string, std::string>&
 CommonXMLStructure::SumoBaseObject::getParameters() const {
     return myParameters;
