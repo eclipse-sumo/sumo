@@ -49,6 +49,8 @@ def check():
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
+check()
+print("after the first simulation steps")
 while traci.simulation.getTime() < 4:
     traci.simulationStep()
     check()
