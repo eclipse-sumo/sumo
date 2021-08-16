@@ -73,7 +73,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myJamDistanceThreshold(jamDistThreshold),
     myNumberOfEnteredVehicles(0),
     myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0) {
+    myNumberOfLeftVehicles(0),
+    myCurrentJamLengthInMeters(0),
+    myCurrentJamLengthInVehicles(0),
+    myCurrentHaltingsNumber(0)
+{
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
