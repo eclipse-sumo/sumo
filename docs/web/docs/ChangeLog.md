@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Master
+## Version 1.10.0 (17.08.2021)
 
 ### Bugfixes
 

@@ -57,8 +57,8 @@ markdown_extensions:
   - codehilite
 
 extra:
-    Version: 1.9.2
-    ReleaseDate: 18.05.2021
+    Version: 1.10.0
+    ReleaseDate: 17.08.2021
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'
