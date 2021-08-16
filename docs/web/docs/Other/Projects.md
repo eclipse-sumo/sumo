@@ -36,8 +36,8 @@ title: Projects
 - [MODUM](https://web.archive.org/web/20180831121624/http://modum-project.eu/)
 - [iTetris](http://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
-- Delphi: country-wide traffic analysis and prognosis for Germany
-- [ORINOKO](https://www.dlr.de/vf/en/desktopdefault.aspx/tabid-958/4508_read-2854/4508_page-17/): improvements on mobility in the
+- [Delphi](https://www.dlr.de/sc/desktopdefault.aspx/tabid-1262/1765_read-9581): country-wide traffic analysis and prognosis for Germany
+- [ORINOKO](https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
   city of Nürnberg
 - TrafficOnline: traffic flow estimation using cellular phones
 - [Soccer2006](https://web.archive.org/web/20150705081516/http://www.dlr.de/desktopdefault.aspx/tabid-1296):
