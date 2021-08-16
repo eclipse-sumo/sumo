@@ -156,6 +156,12 @@ public:
         /// @brief add PositionVector attribute into current SumoBaseObject node
         void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
+        /// @brief set vehicle parameters
+        void setVehicleParameter(const SUMOVehicleParameter* vehicleParameter);
+
+        /// @brief add stop parameters
+        void setStopParameter(const SUMOVehicleParameter::Stop* stopParameter);
+
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string& key, const std::string& value);
         /// @}

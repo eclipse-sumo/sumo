@@ -291,7 +291,18 @@ CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr att
 void
 CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value) {
     myPositionVectorAttributes[attr] = value;
+}
 
+
+void
+CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParameter* vehicleParameter) {
+    myVehicleParameter = *vehicleParameter;
+}
+
+
+void
+CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop* stopParameter) {
+    myStopParameter = *stopParameter;
 }
 
 

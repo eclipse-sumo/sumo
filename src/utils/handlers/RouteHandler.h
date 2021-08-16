@@ -135,6 +135,9 @@ public:
     /// @}
 
 private:
+    /// @brif enable or disable hardFail (stop parsing if parameter aren't correct)
+    const bool myHardFail;
+
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
 
@@ -164,8 +167,11 @@ private:
     /// @{
     /// @brief parse route
     void parseRoute(const SUMOSAXAttributes& attrs);
+    
+    /// @brief parse trip
+    void parseTrip(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse vehicle (including trips, vehicles over routes and vehicles with embedded routes)
+    /// @brief parse vehicle (including vehicles over routes and vehicles with embedded routes)
     void parseVehicle(const SUMOSAXAttributes& attrs);
 
     /// @brief parse flow (including flows, flows over routes and flows with embedded routes)
