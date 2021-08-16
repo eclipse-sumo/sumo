@@ -301,6 +301,9 @@ routing may happen before the simulation starts (using
 when loading only origin and destination into the simulation. Routes may
 later be influenced via [TraCI](../TraCI/Change_Person_State.md).
 
+Since persons may use each edge in both directions some extra configuration may be needed in shared space scenarios.
+The option **--persontrip.walk-opposite-factor** may be use with [duarouter](../duarouter.md) and [sumo](../sumo.md) to set a factor when walking against traffic flow on shared space. A factor below 1 discourages walking against the flow.
+
 When using the *striping*-model, pedestrians will also be routed within
 intersections to selected a sequence of *walkingareas* and *crossings*
 for moving onto the other side of the intersection. This type of routing
