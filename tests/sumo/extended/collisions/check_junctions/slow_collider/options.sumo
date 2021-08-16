@@ -3,4 +3,5 @@ input_additional.add.xml --route-files input_routes.rou.xml
 --collision.check-junctions
 --collision.stoptime 5
 --vehroute-output vehroutes.xml
+--step-length 0.5
 

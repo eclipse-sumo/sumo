@@ -5,37 +5,33 @@ Warning: Teleporting vehicle 'vertical.1'; junction collision with vehicle 'hori
 Warning: Vehicle 'vertical.1' teleports beyond arrival edge '4o', time 7.00.
 Warning: Teleporting vehicle 'horizontal.2'; junction collision with vehicle 'vertical.2', lane=':0_13_0', gap=-1.00, time=11.00 stage=move.
 Warning: Vehicle 'horizontal.2' ends teleporting on edge '2o', time 11.00.
-Warning: Teleporting vehicle 'horizontal.3'; junction collision with vehicle 'vertical.4', lane=':0_13_0', gap=-1.00, time=17.00 stage=move.
-Warning: Vehicle 'horizontal.3' ends teleporting on edge '2o', time 17.00.
+Warning: Teleporting vehicle 'vertical.4'; junction collision with vehicle 'horizontal.3', lane=':0_9_0', gap=-1.00, time=17.00 stage=move.
+Warning: Vehicle 'vertical.4' teleports beyond arrival edge '4o', time 17.00.
 Warning: Teleporting vehicle 'horizontal.4'; junction collision with vehicle 'vertical.5', lane=':0_13_0', gap=-1.00, time=21.00 stage=move.
 Warning: Vehicle 'horizontal.4' ends teleporting on edge '2o', time 21.00.
-Warning: Teleporting vehicle 'vertical.6'; junction collision with vehicle 'horizontal.5', lane=':0_9_0', gap=-1.00, time=27.00 stage=move.
-Warning: Vehicle 'vertical.6' teleports beyond arrival edge '4o', time 27.00.
-Warning: Teleporting vehicle 'horizontal.6'; junction collision with vehicle 'vertical.7', lane=':0_13_0', gap=-1.00, time=31.00 stage=move.
-Warning: Vehicle 'horizontal.6' ends teleporting on edge '2o', time 31.00.
-Warning: Teleporting vehicle 'horizontal.7'; junction collision with vehicle 'vertical.9', lane=':0_13_0', gap=-1.00, time=37.00 stage=move.
-Warning: Vehicle 'horizontal.7' ends teleporting on edge '2o', time 37.00.
-Warning: Teleporting vehicle 'horizontal.8'; junction collision with vehicle 'vertical.10', lane=':0_13_0', gap=-1.00, time=41.00 stage=move.
-Warning: Vehicle 'horizontal.8' ends teleporting on edge '2o', time 41.00.
-Warning: Teleporting vehicle 'vertical.11'; junction collision with vehicle 'horizontal.9', lane=':0_9_0', gap=-1.00, time=47.00 stage=move.
-Warning: Vehicle 'vertical.11' teleports beyond arrival edge '4o', time 47.00.
-Warning: Teleporting vehicle 'horizontal.10'; junction collision with vehicle 'vertical.12', lane=':0_13_0', gap=-1.00, time=51.00 stage=move.
-Warning: Vehicle 'horizontal.10' ends teleporting on edge '2o', time 51.00.
-Warning: Teleporting vehicle 'horizontal.11'; junction collision with vehicle 'vertical.14', lane=':0_13_0', gap=-1.00, time=57.00 stage=move.
-Warning: Vehicle 'horizontal.11' ends teleporting on edge '2o', time 57.00.
-Warning: Teleporting vehicle 'horizontal.12'; junction collision with vehicle 'vertical.15', lane=':0_13_0', gap=-1.00, time=61.00 stage=move.
-Warning: Vehicle 'horizontal.12' ends teleporting on edge '2o', time 61.00.
-Warning: Teleporting vehicle 'vertical.16'; junction collision with vehicle 'horizontal.13', lane=':0_9_0', gap=-1.00, time=67.00 stage=move.
-Warning: Vehicle 'vertical.16' teleports beyond arrival edge '4o', time 67.00.
-Warning: Teleporting vehicle 'horizontal.14'; junction collision with vehicle 'vertical.17', lane=':0_13_0', gap=-1.00, time=71.00 stage=move.
+Warning: Teleporting vehicle 'horizontal.5'; junction collision with vehicle 'vertical.7', lane=':0_13_0', gap=-1.00, time=27.00 stage=move.
+Warning: Vehicle 'horizontal.5' ends teleporting on edge '2o', time 27.00.
+Warning: Teleporting vehicle 'horizontal.7'; junction collision with vehicle 'vertical.9', lane=':0_13_0', gap=-1.00, time=36.00 stage=move.
+Warning: Vehicle 'horizontal.7' ends teleporting on edge '2o', time 36.00.
+Warning: Teleporting vehicle 'vertical.11'; junction collision with vehicle 'horizontal.8', lane=':0_9_0', gap=-1.00, time=42.00 stage=move.
+Warning: Vehicle 'vertical.11' teleports beyond arrival edge '4o', time 42.00.
+Warning: Teleporting vehicle 'horizontal.9'; junction collision with vehicle 'vertical.12', lane=':0_13_0', gap=-1.00, time=46.00 stage=move.
+Warning: Vehicle 'horizontal.9' ends teleporting on edge '2o', time 46.00.
+Warning: Teleporting vehicle 'vertical.14'; junction collision with vehicle 'horizontal.10', lane=':0_9_0', gap=-1.00, time=52.00 stage=move.
+Warning: Vehicle 'vertical.14' teleports beyond arrival edge '4o', time 52.00.
+Warning: Teleporting vehicle 'horizontal.11'; junction collision with vehicle 'vertical.15', lane=':0_13_0', gap=-1.00, time=56.00 stage=move.
+Warning: Vehicle 'horizontal.11' ends teleporting on edge '2o', time 56.00.
+Warning: Teleporting vehicle 'horizontal.12'; junction collision with vehicle 'vertical.17', lane=':0_13_0', gap=-1.00, time=62.00 stage=move.
+Warning: Vehicle 'horizontal.12' ends teleporting on edge '2o', time 62.00.
+Warning: Teleporting vehicle 'horizontal.14'; junction collision with vehicle 'vertical.19', lane=':0_13_0', gap=-1.00, time=71.00 stage=move.
 Warning: Vehicle 'horizontal.14' ends teleporting on edge '2o', time 71.00.
-Warning: Teleporting vehicle 'horizontal.15'; junction collision with vehicle 'vertical.19', lane=':0_13_0', gap=-1.00, time=77.00 stage=move.
-Warning: Vehicle 'horizontal.15' ends teleporting on edge '2o', time 77.00.
-Warning: Teleporting vehicle 'horizontal.16'; junction collision with vehicle 'vertical.20', lane=':0_13_0', gap=-1.00, time=81.00 stage=move.
+Warning: Teleporting vehicle 'vertical.21'; junction collision with vehicle 'horizontal.15', lane=':0_9_0', gap=-1.00, time=77.00 stage=move.
+Warning: Vehicle 'vertical.21' teleports beyond arrival edge '4o', time 77.00.
+Warning: Teleporting vehicle 'horizontal.16'; junction collision with vehicle 'vertical.22', lane=':0_13_0', gap=-1.00, time=81.00 stage=move.
 Warning: Vehicle 'horizontal.16' ends teleporting on edge '2o', time 81.00.
-Warning: Teleporting vehicle 'vertical.21'; junction collision with vehicle 'horizontal.17', lane=':0_9_0', gap=-1.00, time=87.00 stage=move.
-Warning: Vehicle 'vertical.21' teleports beyond arrival edge '4o', time 87.00.
-Warning: Teleporting vehicle 'horizontal.18'; junction collision with vehicle 'vertical.22', lane=':0_13_0', gap=-1.00, time=91.00 stage=move.
+Warning: Teleporting vehicle 'vertical.24'; junction collision with vehicle 'horizontal.17', lane=':0_9_0', gap=-1.00, time=87.00 stage=move.
+Warning: Vehicle 'vertical.24' teleports beyond arrival edge '4o', time 87.00.
+Warning: Teleporting vehicle 'horizontal.18'; junction collision with vehicle 'vertical.25', lane=':0_13_0', gap=-1.00, time=91.00 stage=move.
 Warning: Vehicle 'horizontal.18' ends teleporting on edge '2o', time 91.00.
-Warning: Teleporting vehicle 'horizontal.19'; junction collision with vehicle 'vertical.24', lane=':0_13_0', gap=-1.00, time=97.00 stage=move.
+Warning: Teleporting vehicle 'horizontal.19'; junction collision with vehicle 'vertical.27', lane=':0_13_0', gap=-1.00, time=97.00 stage=move.
 Warning: Vehicle 'horizontal.19' ends teleporting on edge '2o', time 97.00.

@@ -3,5 +3,6 @@
 --collision.check-junctions
 --collision.action warn
 --collision.stoptime 10
+--step-length 0.5
 -e 1000
 

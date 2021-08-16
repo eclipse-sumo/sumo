@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 16 21:43:14 2020 by Eclipse SUMO sumo Version v1_8_0+0292-a01f8cf399
+<!-- generated on 2021-08-16 15:32:06 by Eclipse SUMO sumo Version v1_9_2+1069-f9b761f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <time>
         <end value="400"/>
+        <step-length value="0.5"/>
     </time>
 
     <processing>
@@ -35,23 +36,17 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
-    <collision time="2.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.0" victim="vertical.0" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="12.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.2" victim="vertical.2" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="18.00" type="junction" lane=":0_13_0" pos="20.97" collider="horizontal.3" victim="vertical.4" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="22.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.4" victim="vertical.5" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="32.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.6" victim="vertical.7" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="38.00" type="junction" lane=":0_13_0" pos="20.97" collider="horizontal.7" victim="vertical.9" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="42.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.8" victim="vertical.10" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="52.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.10" victim="vertical.12" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="58.00" type="junction" lane=":0_13_0" pos="20.97" collider="horizontal.11" victim="vertical.14" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="62.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.12" victim="vertical.15" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="72.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.14" victim="vertical.17" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="78.00" type="junction" lane=":0_13_0" pos="20.97" collider="horizontal.15" victim="vertical.19" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="82.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.16" victim="vertical.20" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="92.00" type="junction" lane=":0_13_0" pos="15.00" collider="horizontal.18" victim="vertical.22" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
-    <collision time="98.00" type="junction" lane=":0_13_0" pos="20.97" collider="horizontal.19" victim="vertical.24" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="12.50" victimSpeed="12.50"/>
+    <collision time="2.50" type="junction" lane=":0_13_0" pos="19.65" collider="horizontal.0" victim="vertical.0" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.36" victimSpeed="11.36"/>
+    <collision time="12.50" type="junction" lane=":0_13_0" pos="19.24" collider="horizontal.2" victim="vertical.2" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.24" victimSpeed="11.36"/>
+    <collision time="22.50" type="junction" lane=":0_13_0" pos="19.24" collider="horizontal.4" victim="vertical.5" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.24" victimSpeed="11.36"/>
+    <collision time="32.50" type="junction" lane=":0_13_0" pos="19.24" collider="horizontal.6" victim="vertical.8" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.24" victimSpeed="11.36"/>
+    <collision time="42.50" type="junction" lane=":0_9_0" pos="11.85" collider="vertical.11" victim="horizontal.8" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="10.55" victimSpeed="11.36"/>
 </collisions>

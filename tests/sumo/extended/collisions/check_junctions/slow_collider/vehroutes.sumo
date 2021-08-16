@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 18 14:46:48 2021 by Eclipse SUMO sumo Version v1_8_0+0595-dc0a5ce
+<!-- generated on 2021-08-16 15:36:13 by Eclipse SUMO sumo Version v1_9_2+1069-f9b761f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
     <processing>
         <collision.stoptime value="5"/>
         <collision.check-junctions value="true"/>
@@ -33,18 +37,20 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="horizontal" type="fast" depart="0.00" departLane="1" departPos="122.40" departSpeed="27.78" arrival="33.00">
+    <vehicle id="horizontal" type="fast" depart="0.00" departLane="1" departPos="122.40" departSpeed="27.78" arrival="29.50">
         <route edges="2si 1o"/>
-        <stop lane=":0_5_0" startPos="12.07" endPos="12.07" duration="5.00"/>
     </vehicle>
 
-    <vehicle id="vertical" type="slow" depart="1.00" departLane="1" departPos="231.40" departSpeed="4.00" arrival="133.00">
+    <vehicle id="vertical" type="slow" depart="1.00" departLane="1" departPos="231.40" departSpeed="4.00" arrival="130.00">
         <route edges="3si 4o"/>
-        <stop lane=":0_9_0" startPos="19.00" endPos="19.00" duration="5.00"/>
     </vehicle>
 
 </routes>
