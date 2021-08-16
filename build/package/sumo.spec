@@ -74,6 +74,15 @@ Group:          Development/Libraries/C and C++
 libsumocpp provides the C++-API for adding traffic simulation
 functionality to your own application.
 
+%package -n libsumocpp-devel
+Summary:        Development files for libsumocpp
+Group:          Development/Libraries/C and C++
+Requires:       libsumocpp = %{version}
+
+%description -n libsumocpp-devel
+This package provides development libraries and headers needed to build
+software using libsumocpp.
+
 %package -n python3-libsumo
 Summary:        libsumo Python3 module
 Requires:       %{name} = %{version}-%{release}
@@ -161,6 +170,14 @@ cd cmake-build
 %endif
 %{_libdir}/libsumocpp.so
 %{_libdir}/libtracicpp.so
+
+%files -n libsumocpp-devel
+%if 0%{?suse_version} < 1500
+%doc LICENSE
+%else
+%license LICENSE
+%endif
+%{_includedir}/libsumo
 
 %files -n python3-libsumo
 %if 0%{?suse_version} < 1500
