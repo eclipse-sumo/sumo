@@ -1,0 +1,28 @@
+Warning: Teleporting vehicle 'EW.5'; junction collision with vehicle 'WN.0', lane=':gneJ1_4_0', gap=-1.00, time=73.50 stage=move.
+Warning: Vehicle 'EW.5' ends teleporting on edge 'oW', time 73.50.
+Warning: Teleporting vehicle 'EW.7'; junction collision with vehicle 'WN.1', lane=':gneJ1_4_0', gap=-1.00, time=85.50 stage=move.
+Warning: Vehicle 'EW.7' ends teleporting on edge 'oW', time 85.50.
+Warning: Teleporting vehicle 'EW.12'; junction collision with vehicle 'WN.3', lane=':gneJ1_4_0', gap=-1.00, time=130.50 stage=move.
+Warning: Vehicle 'EW.12' ends teleporting on edge 'oW', time 130.50.
+Warning: Teleporting vehicle 'EW.37'; junction collision with vehicle 'WN.15', lane=':gneJ1_4_0', gap=-1.00, time=364.10 stage=move.
+Warning: Vehicle 'EW.37' ends teleporting on edge 'oW', time 364.10.
+Warning: Vehicle 'WN.41' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=831.80.
+Warning: Teleporting vehicle 'EW.81'; junction collision with vehicle 'WN.41', lane=':gneJ1_4_0', gap=-1.00, time=832.10 stage=move.
+Warning: Vehicle 'EW.81' ends teleporting on edge 'oW', time 832.10.
+Warning: Teleporting vehicle 'EW.86'; junction collision with vehicle 'WN.45', lane=':gneJ1_4_0', gap=-1.00, time=887.80 stage=move.
+Warning: Vehicle 'EW.86' ends teleporting on edge 'oW', time 887.80.
+Warning: Teleporting vehicle 'EW.87'; junction collision with vehicle 'WN.47', lane=':gneJ1_4_0', gap=-1.00, time=914.80 stage=move.
+Warning: Vehicle 'EW.87' ends teleporting on edge 'oW', time 914.80.
+Warning: Teleporting vehicle 'EW.104'; junction collision with vehicle 'WN.56', lane=':gneJ1_4_0', gap=-1.00, time=1112.80 stage=move.
+Warning: Vehicle 'EW.104' ends teleporting on edge 'oW', time 1112.80.
+Warning: Teleporting vehicle 'EW.130'; junction collision with vehicle 'WN.70', lane=':gneJ1_4_0', gap=-1.00, time=1397.70 stage=move.
+Warning: Vehicle 'EW.130' ends teleporting on edge 'oW', time 1397.70.
+Warning: Teleporting vehicle 'EW.146'; junction collision with vehicle 'WN.77', lane=':gneJ1_4_0', gap=-1.00, time=1543.10 stage=move.
+Warning: Vehicle 'EW.146' ends teleporting on edge 'oW', time 1543.10.
+Warning: Teleporting vehicle 'EW.158'; junction collision with vehicle 'WN.85', lane=':gneJ1_4_0', gap=-1.00, time=1633.80 stage=move.
+Warning: Vehicle 'EW.158' ends teleporting on edge 'oW', time 1633.80.
+Warning: Vehicle 'WN.87' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1700.70.
+Warning: Teleporting vehicle 'EW.162'; junction collision with vehicle 'WN.87', lane=':gneJ1_4_0', gap=-1.00, time=1701.00 stage=move.
+Warning: Vehicle 'EW.162' ends teleporting on edge 'oW', time 1701.00.
+Warning: Teleporting vehicle 'EW.174'; junction collision with vehicle 'WN.97', lane=':gneJ1_4_0', gap=-1.00, time=1819.80 stage=move.
+Warning: Vehicle 'EW.174' ends teleporting on edge 'oW', time 1819.80.

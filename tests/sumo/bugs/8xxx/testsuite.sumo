@@ -13,6 +13,9 @@ ticket8749
 # invalid deceleration
 ticket8798
 
+# collision on junction due to premature acceleration
+ticket8817
+
 # invalid best lanes
 ticket8900
 
