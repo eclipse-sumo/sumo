@@ -472,8 +472,129 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 }
 
 
+void 
+RouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) {
+    //
+}
+
+
+void 
+RouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) {
+    //
+}
+
+
+void
+RouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+                                        const std::vector<std::string>& edges) {
+    //
+}
+
+
+void 
+RouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+                                     const std::vector<std::string>& edges) {
+    //
+}
+
+
+void
+RouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
+                        const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via) {
+    //
+}
+
+
+void 
+RouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
+                        const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via) {
+    //
+}
+
+
+void
+RouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
+    //
+}
+
+
+void 
+RouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters) {
+    //
+}
+
+
+void
+RouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters) {
+    //
+}
+
+
+void
+RouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+                            const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+    //
+}
+
+
+void
+RouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+                        const std::string &toBusStop, const std::vector<std::string>& edges, const std::string &route, double arrivalPos) {
+    //
+}
+
+
+void
+RouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge, 
+                        const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& lines) {
+    //
+}
+
+
+void
+RouteHandler::buildStopPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edge, const std::string &busStop, 
+                            const SUMOVehicleParameter::Stop& stopParameters) {
+    //
+}
+
+
+void
+RouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters) {
+    //
+}
+
+
+void
+RouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters) {
+    //
+}
+
+
+void 
+RouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+                            const std::string &toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
+    //
+}
+
+
+void
+RouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+                            const std::string &toBusStop, const std::vector<std::string>& edges, const double speed, const double departPosition, 
+                            const double arrivalPosition) {
+    //
+}
+
+
+void 
+RouteHandler::buildStopContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edge, const std::string &containerStop, 
+                                const SUMOVehicleParameter::Stop& stopParameters) {
+    //
+}
+
+
 void
 RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+/*
     // obtain tag
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // open SUMOBaseOBject 
@@ -598,6 +719,7 @@ RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
+*/
 }
 
 
@@ -651,122 +773,111 @@ RouteHandler::myEndElement(int element) {
     }
 }
 
-void 
-RouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) {
-    //
-}
-
 
 void 
-RouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) {
+RouteHandler::parseVehicleOverRoute(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                        const std::vector<std::string>& edges) {
-    //
-}
-
-
-void 
-RouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                     const std::vector<std::string>& edges) {
+RouteHandler::parseFlowOverRoute(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                        const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via) {
-    //
-}
-
-
-void 
-RouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                        const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via) {
+RouteHandler::parseVehicleEmbeddedRoute(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
-    //
-}
-
-
-void 
-RouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters) {
+RouteHandler::parseFlowEmbeddedRoute(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters) {
+RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                            const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                        const std::string &toBusStop, const std::vector<std::string>& edges, const std::string &route, double arrivalPos) {
+RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge, 
-                        const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& lines) {
+RouteHandler::parsePerson(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildStopPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edge, const std::string &busStop, 
-                            const SUMOVehicleParameter::Stop& stopParameters) {
+RouteHandler::parsePersonFlow(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters) {
+RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters) {
-    //
-}
-
-
-void 
-RouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                            const std::string &toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
+RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
 void
-RouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                            const std::string &toBusStop, const std::vector<std::string>& edges, const double speed, const double departPosition, 
-                            const double arrivalPosition) {
+RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
     //
 }
 
 
-void 
-RouteHandler::buildStopContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edge, const std::string &containerStop, 
-                                const SUMOVehicleParameter::Stop& stopParameters) {
+void
+RouteHandler:: parseStopPerson(const SUMOSAXAttributes& attrs) {
+    //
+}
+
+
+void
+RouteHandler::parseContainer(const SUMOSAXAttributes& attrs) {
+    //
+}
+
+
+void
+RouteHandler::parseContainerFlow(const SUMOSAXAttributes& attrs) {
+    //
+}
+
+
+void
+RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
+    //
+}
+
+
+void
+RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
+    //
+}
+
+
+void
+RouteHandler::parseStopContainer(const SUMOSAXAttributes& attrs) {
     //
 }
 

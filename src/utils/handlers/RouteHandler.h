@@ -86,7 +86,6 @@ public:
     /// @brief build person flow
     static void buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters);
 
-
     /// @brief build person trip
     static void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
                                 const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
@@ -151,99 +150,59 @@ private:
 
     /// @name parse route element attributes
     /// @{
+    /// @brief parse vehicle over an existent route
+    void parseVehicleOverRoute(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse busStop attributes
-    void parseBusStopAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse a flow over an existent route
+    void parseFlowOverRoute(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse trainStop attributes
-    void parseTrainStopAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse vehicle with a embedded route
+    void parseVehicleEmbeddedRoute(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse access attributes
-    void parseAccessAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse flow with a embedded route
+    void parseFlowEmbeddedRoute(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse containerStop attributes
-    void parseContainerStopAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse trip
+    void parseTrip(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse chargingStation attributes
-    void parseChargingStationAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse flow
+    void parseFlow(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse parking area attributes
-    void parseParkingAreaAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse stop
+    void parseStop(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse parking space attributes
-    void parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse person
+    void parsePerson(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse E1 attributes
-    void parseE1Attributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse person flow
+    void parsePersonFlow(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse E2 attributes
-    void parseE2Attributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse person trip
+    void parsePersonTrip(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse E3 attributes
-    void parseE3Attributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse walk
+    void parseWalk(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse entry attributes
-    void parseEntryAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse ride
+    void parseRide(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse exist attributes
-    void parseExitAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse person stop
+    void parseStopPerson(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse E1 instant attributes
-    void parseE1InstantAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse container
+    void parseContainer(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse TAZ attributes
-    void parseTAZAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse container flow
+    void parseContainerFlow(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse TAZ source attributes
-    void parseTAZSourceAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse transport
+    void parseTransport(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse TAZ sink attributes
-    void parseTAZSinkAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse tranship
+    void parseTranship(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse variable speed sign attributes
-    void parseVariableSpeedSignAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse variable speed sign step attributes
-    void parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse calibrator attributes
-    void parseCalibratorAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse calibrator flow attributes
-    void parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse rerouter attributes
-    void parseRerouterAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse rerouter interval attributes
-    void parseRerouterIntervalAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse closing lane reroute attributes
-    void parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse closing reroute attributes
-    void parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse dest prob reroute attributes
-    void parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse parking area reroute attributes
-    void parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse route prob reroute attributes
-    void parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse route probe attributes
-    void parseRouteProbeAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse vaporizer attributes
-    void parseVaporizerAttributes(const SUMOSAXAttributes& attrs);
-
-    // @brief parse poly attributes
-    void parsePolyAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse POI attributes
-    void parsePOIAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse container stop
+    void parseStopContainer(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
