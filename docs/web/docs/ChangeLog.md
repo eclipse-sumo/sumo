@@ -14,6 +14,8 @@ title: ChangeLog
   - Fixed crash when using routing algorithm 'CH' with device.rerouting.threads > 1. Issue #8767
   - Fixed train colliding with itself after early reversal. Issue #8768
   - Fixed collision with indirect left turn at priority junction (requires network with new 'indirect' attribute). Issue #8775
+  - Fixed unnecessary deceleration of vehicle with low deceleration (i.e. freight train). Issue #8798
+  - Fixed emergency braking with continuous lane changing and opposite direction driving. Issue #8760
 
 - sumo-gui
   - Fixed briefly invisible vehicle while passing short internal edge. Issue #8749 (regression in 1.9.0)
@@ -32,6 +34,7 @@ title: ChangeLog
   - Fixed invalid junction shape at geometry-like junction with crossing (was causing invalid simulation behavior). Issue #8779
   - Fixed duplicate busStops when importing public transport lines from OSM. Issue #8791
   - Fixed missing turnaround when specifying edge-level connectivity in .con.xml. Issue #8796
+  - Fixed missing pedestrian permissions when importing OSM. Issue #8782
 
 - duarouter
   - Access cost is no longer ignored when using persontrip.transfer.car-walk=ptStops. Issue #8515
@@ -59,11 +62,17 @@ title: ChangeLog
 - simulation
   - ParkingAreas now support attribute 'departPos' to set a custom position for vehicles when exiting the parkingArea. Issue #8634
   - Added option **--save-state.period.keep INT** which allows saving state with constant space requirements (combined with option **--save-state.period**).
+  - Added option **--persontrip.walk-opposite-factor FLOAT** which can be used to discourage walking against traffic flow (for FLOAT < 1). Issue #7730
+  - Persons that walk against the flow of traffic now walk on the left side of the road rathe rather than in the middle (left side of the lane instead of right side). Issue road #7744
+  - Vehicle stops now support attribute 'posLat' to stop with a lateral offset. Issue #8752.
+  - Rail signals can now be switched into "moving block" mode where they only guard against flanking and oncoming trains. (option **--railsignal-moving-block** or `<param key="moving-block" value="true"/>`. Issue #8518
+  - Vehroute-outupt now includdes attribute "priorEdgesLength" if option **--vehroute-output.stop-edges** is set. Issue #8815
   
 - netedit
   - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
   - Add demand mode toggle button to show the shortest route for all trips. Issue #8638
   - Vehicle arrival position can now be modified in move mode. Issue #8543
+  - When adding green verges via lane context menu, the target side can now be selected. Issue #8781
 
 - sumo-gui
   - Active insertionPredecessor constraints are now indicated via lane parameters. Issue #8737
@@ -77,11 +86,13 @@ title: ChangeLog
 - duarouter
   - Attributes fromLonLat and toLonLat are now supported for personTrip. Issue #8665
   - Attributes 'x', 'y' and 'lon', 'lat' can now be used in place of stop attribute 'edge' and 'endPos'. Issue #8666
+  - Added option **--persontrip.walk-opposite-factor FLOAT** which can be used to discourage walking against traffic flow (for FLOAT < 1). Issue #7730
 
 - traci
   - Added function 'traci.vehicle.getTimeLoss' to retrieve the timeLoss since departure. Issue #8679
   - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190  
   - Added new speed mode bit to control right-of-way compliance w.r.t. foe vehicles within an intersection. Issue #8675
+  - 'traci.vehicle.moveToXY' and 'traci.person.moveToXY' now support optional parameter *matchThreshold* to configure the maximum distance between position and matched road (default 100m). #8668
 
 - tools
   - [cutRoutes.py](Tools/Routes.md#cutroutespy) now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644  
@@ -91,6 +102,7 @@ title: ChangeLog
   - Added netdiff.py option **--remove-plain** to automatically clean up temporary files. Issue #8712
   - [gtfs2pt.py](Tools/Import/GTFS.md) vTypes are now written as a separated output file. The name of the file can be defined with **--vtype-output**. Issue #8646
   - Added option **--dpi** to plot_summary.py and other plotting tools. Issue #8761
+  - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) now supports plotting by kilometrage (fcd-output.distance). Issue #8799
   
 
 ### Miscelaneous
