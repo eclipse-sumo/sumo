@@ -436,7 +436,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.signals.discard** {{DT_BOOL}} | Discard all railway signal information loaded from other formats than plain-xml; *default:* **false** |
 | **--railway.topology.repair** {{DT_BOOL}} | Repair topology of the railway network; *default:* **false** |
 | **--railway.topology.repair.minimal** {{DT_BOOL}} | Repair topology of the railway network just enough to let loaded public transport lines to work; *default:* **false** |
-| **--railway.topology.repair.connect-straight** {{DT_BOOL}} | Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle; *default:* **false** |
+| **--railway.topology.repair.connect-straight** {{DT_BOOL}} | Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle; *default:* **false** |
 | **--railway.topology.repair.stop-turn** {{DT_BOOL}} | Add turn-around connections at all loaded stops.; *default:* **false** |
 | **--railway.topology.all-bidi** {{DT_BOOL}} | Make all rails usable in both direction; *default:* **false** |
 | **--railway.topology.all-bidi.input-file** {{DT_FILE}} | Make all rails edge ids from FILE usable in both direction |
@@ -457,6 +457,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
 | **--osm.oneway-spread-right** {{DT_BOOL}} | Whether one-way roads should be spread to the side instead of centered; *default:* **false** |
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
+| **--osm.bike-access** {{DT_BOOL}} | Check additional attributes to fix directions and permissions on bike paths; *default:* **false** |
 | **--osm.stop-output.length** {{DT_FLOAT}} | The default length of a public transport stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.bus** {{DT_FLOAT}} | The default length of a bus stop in FLOAT m; *default:* **15** |
 | **--osm.stop-output.length.tram** {{DT_FLOAT}} | The default length of a tram stop in FLOAT m; *default:* **25** |

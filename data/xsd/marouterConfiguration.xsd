@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO marouter Version v1_8_0+1985-b3699bc617
+<!-- generated on 2021-08-16 22:19:49 by Eclipse SUMO marouter Version v1_9_2+1043-00786e9d9f4
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -57,6 +57,7 @@
         <xsd:all>
             <xsd:element name="aggregation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="capacities.default" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>

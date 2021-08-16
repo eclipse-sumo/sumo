@@ -120,6 +120,7 @@ configuration:
 |--------|-------------|
 | **--aggregation-interval** {{DT_TIME}} | Defines the time interval when aggregating single vehicle input; Defaults to one hour; *default:* **3600** |
 | **--max-alternatives** {{DT_INT}} | Prune the number of alternatives to INT; *default:* **5** |
+| **--capacities.default** {{DT_BOOL}} | Ignore edge priorities when calculating capacities and restraints; *default:* **false** |
 | **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
 | **--weights.expand** {{DT_BOOL}} | Expand weights behind the simulation's end; *default:* **false** |
 | **--weights.priority-factor** {{DT_FLOAT}} | Consider edge priorities in addition to travel times, weighted by factor; *default:* **0** |

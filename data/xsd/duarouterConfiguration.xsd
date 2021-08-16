@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-17 19:55:16 by Eclipse SUMO duarouter Version v1_9_1+0332-3c09636b84
+<!-- generated on 2021-08-16 22:19:48 by Eclipse SUMO duarouter Version v1_9_2+1043-00786e9d9f4
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -92,6 +92,7 @@
             <xsd:element name="logit.gamma" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.car-walk" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.taxi-walk" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>

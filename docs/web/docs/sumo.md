@@ -81,6 +81,7 @@ configuration:
 | **--netstate-dump.precision** {{DT_INT}} | Write positions and speeds with the given precision (default 2); *default:* **2** |
 | **--emission-output** {{DT_FILE}} | Save the emission values of each vehicle |
 | **--emission-output.precision** {{DT_INT}} | Write emission values with the given precision (default 2); *default:* **2** |
+| **--emission-output.step-scaled** {{DT_BOOL}} | Write emission values scaled to the step length rather than as per-second values; *default:* **false** |
 | **--battery-output** {{DT_FILE}} | Save the battery values of each vehicle |
 | **--battery-output.precision** {{DT_INT}} | Write battery values with the given precision (default 2); *default:* **2** |
 | **--elechybrid-output** {{DT_FILE}} | Save the elecHybrid values of each vehicle |
@@ -133,6 +134,7 @@ configuration:
 | **--statistic-output** {{DT_FILE}} | Write overall statistics into FILE |
 | **--save-state.times** {{DT_STR[]}} | Use TIME[] as times at which a network state written |
 | **--save-state.period** {{DT_TIME}} | save state repeatedly after TIME period; *default:* **-1** |
+| **--save-state.period.keep** {{DT_INT}} | Keep only the last INT periodic state files; *default:* **0** |
 | **--save-state.prefix** {{DT_FILE}} | Prefix for network states; *default:* **state** |
 | **--save-state.suffix** {{DT_STR}} | Suffix for network states (.xml.gz or .xml); *default:* **.xml.gz** |
 | **--save-state.files** {{DT_FILE}} | Files for network states |
@@ -184,6 +186,7 @@ configuration:
 | **--tls.actuated.show-detectors** {{DT_BOOL}} | Sets default visibility for actuation detectors; *default:* **false** |
 | **--tls.delay_based.detector-range** {{DT_FLOAT}} | Sets default range for detecting delayed vehicles; *default:* **100** |
 | **--tls.yellow.min-decel** {{DT_FLOAT}} | Minimum deceleration when braking at yellow; *default:* **3** |
+| **--railsignal-moving-block** {{DT_BOOL}} | Let railsignals operate in moving-block mode by default; *default:* **false** |
 | **--time-to-impatience** {{DT_TIME}} | Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth; *default:* **300** |
 | **--default.action-step-length** {{DT_FLOAT}} | Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.; *default:* **0** |
 | **--default.carfollowmodel** {{DT_STR}} | Select default car following model (Krauss, IDM, ...); *default:* **Krauss** |
@@ -203,6 +206,7 @@ configuration:
 | **--pedestrian.striping.reserve-oncoming.junctions** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas; *default:* **0.34** |
 | **--pedestrian.remote.address** {{DT_STR}} | The address (host:port) of the external simulation; *default:* **localhost:9000** |
 | **--ride.stop-tolerance** {{DT_FLOAT}} | Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops; *default:* **10** |
+| **--persontrip.walk-opposite-factor** {{DT_FLOAT}} | Use FLOAT as a factor on walking speed against vehicle traffic direction; *default:* **1** |
 
 ### Routing
 
@@ -483,6 +487,7 @@ configuration:
 | **--window-size** {{DT_STR[]}} | Create initial window with the given x,y size |
 | **--window-pos** {{DT_STR[]}} | Create initial window at the given x,y position |
 | **--tracker-interval** {{DT_FLOAT}} | The aggregation period for value tracker windows; *default:* **1** |
+| **--osg-view** {{DT_BOOL}} | Start with an OpenSceneGraph view instead of the regular 2D view; *default:* **false** |
 | **--gui-testing** {{DT_BOOL}} | Enable overlay for screen recognition; *default:* **false** |
 | **--gui-testing-debug** {{DT_BOOL}} | Enable output messages during GUI-Testing; *default:* **false** |
 | **--gui-testing.setting-output** {{DT_FILE}} | Save gui settings in the given settings output file |

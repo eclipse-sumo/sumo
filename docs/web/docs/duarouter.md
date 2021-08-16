@@ -145,6 +145,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--logit.gamma** {{DT_FLOAT}} | Use FLOAT as logit's gamma; *default:* **1** |
 | **--logit.theta** {{DT_FLOAT}} | Use FLOAT as logit's theta (negative values mean auto-estimation); *default:* **-1** |
 | **--persontrip.walkfactor** {{DT_FLOAT}} | Use FLOAT as a factor on pedestrian maximum speed during intermodal routing; *default:* **0.75** |
+| **--persontrip.walk-opposite-factor** {{DT_FLOAT}} | Use FLOAT as a factor on walking speed against vehicle traffic direction; *default:* **1** |
 | **--persontrip.transfer.car-walk** {{DT_STR[]}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations); *default:* **parkingAreas** |
 | **--persontrip.transfer.taxi-walk** {{DT_STR[]}} | Where taxis can drop off customers ('allJunctions, 'ptStops') |
 | **--persontrip.transfer.walk-taxi** {{DT_STR[]}} | Where taxis can pick up customers ('allJunctions, 'ptStops') |

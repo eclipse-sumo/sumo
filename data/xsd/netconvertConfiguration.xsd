@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-03 14:38:58 by Eclipse SUMO netconvert Version v1_9_0+0293-06752a0afd
+<!-- generated on 2021-08-16 22:19:49 by Eclipse SUMO netconvert Version v1_9_2+1043-00786e9d9f4
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -332,6 +332,7 @@
             <xsd:element name="osm.layer-elevation.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.oneway-spread-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.lane-access" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.bike-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.bus" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.tram" type="floatOptionType" minOccurs="0"/>

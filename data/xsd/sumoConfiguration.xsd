@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-17 19:55:17 by Eclipse SUMO sumo Version v1_9_1+0332-3c09636b84
+<!-- generated on 2021-08-16 22:19:49 by Eclipse SUMO sumo Version v1_9_2+1043-00786e9d9f4
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -63,6 +63,7 @@
             <xsd:element name="netstate-dump.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="emission-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="emission-output.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="emission-output.step-scaled" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="battery-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="battery-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="elechybrid-output" type="fileOptionType" minOccurs="0"/>
@@ -115,6 +116,7 @@
             <xsd:element name="statistic-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="save-state.period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.period.keep" type="intOptionType" minOccurs="0"/>
             <xsd:element name="save-state.prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.suffix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="save-state.files" type="fileOptionType" minOccurs="0"/>
@@ -166,6 +168,7 @@
             <xsd:element name="tls.actuated.show-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.delay_based.detector-range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="railsignal-moving-block" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="default.action-step-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>
@@ -185,6 +188,7 @@
             <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -470,8 +474,8 @@
             <xsd:element name="registry-viewport" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="tracker-interval" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
+	    <xsd:element name="tracker-interval" type="floatOptionType" minOccurs="0"/>
+	    <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
