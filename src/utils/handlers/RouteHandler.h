@@ -138,6 +138,12 @@ private:
     /// @brif enable or disable hardFail (stop parsing if parameter aren't correct)
     const bool myHardFail;
 
+    /// @brief The default value for flow begins
+    SUMOTime myBeginDefault;
+
+    /// @brief The default value for flow ends
+    SUMOTime myEndDefault;
+
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
 

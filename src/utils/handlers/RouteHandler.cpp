@@ -20,11 +20,12 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/shapes/Shape.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "RouteHandler.h"
 
@@ -35,7 +36,9 @@
 
 RouteHandler::RouteHandler(const std::string& file) :
     SUMOSAXHandler(file),
-    myHardFail(true) {
+    myHardFail(true),
+    myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
+    myEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
 }
 
 
@@ -476,12 +479,29 @@ void
 RouteHandler::parseVehicle(const SUMOSAXAttributes& attrs) {
     // first parse vehicle
     SUMOVehicleParameter* vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_VEHICLE, attrs, myHardFail);
+    if (vehicleParameter) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VEHICLE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(vehicleParameter);
+        // delete vehicle parameter (because in XMLStructure we have a copy)
+        delete vehicleParameter;
+    }
 }
 
 
 void
 RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
-    //
+    // first parse flow
+    SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+    if (flowParameter) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
+        // delete flow parameter (because in XMLStructure we have a copy)
+        delete flowParameter;
+    }
 }
 
 
@@ -493,13 +513,31 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
 
 void
 RouteHandler::parsePerson(const SUMOSAXAttributes& attrs) {
-    //
+    // first parse vehicle
+    SUMOVehicleParameter* personParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_PERSON, attrs, myHardFail);
+    if (personParameter) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VEHICLE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(personParameter);
+        // delete person parameter (because in XMLStructure we have a copy)
+        delete personParameter;
+    }
 }
 
 
 void
 RouteHandler::parsePersonFlow(const SUMOSAXAttributes& attrs) {
-    //
+    // first parse flow
+    SUMOVehicleParameter* personFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+    if (personFlowParameter) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(personFlowParameter);
+        // delete person flow parameter (because in XMLStructure we have a copy)
+        delete personFlowParameter;
+    }
 }
 
 
