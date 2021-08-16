@@ -319,7 +319,6 @@ RouteHandler::buildStopContainer(const CommonXMLStructure::SumoBaseObject* sumoB
 
 void
 RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-/*
     // obtain tag
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // open SUMOBaseOBject 
@@ -327,112 +326,52 @@ RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // check tag
     try {
         switch (tag) {
-            // Stopping Places
-            case SUMO_TAG_BUS_STOP:
-                parseBusStopAttributes(attrs);
+            case SUMO_TAG_ROUTE:
+                parseRoute(attrs);
                 break;
-            case SUMO_TAG_TRAIN_STOP:
-                parseTrainStopAttributes(attrs);
+            // vehicles
+            case SUMO_TAG_TRIP:
+            case SUMO_TAG_VEHICLE:
+                parseVehicle(attrs);
                 break;
-            case SUMO_TAG_ACCESS:
-                parseAccessAttributes(attrs);
-                break;
-            case SUMO_TAG_CONTAINER_STOP:
-                parseContainerStopAttributes(attrs);
-                break;
-            case SUMO_TAG_CHARGING_STATION:
-                parseChargingStationAttributes(attrs);
-                break;
-            case SUMO_TAG_PARKING_AREA:
-                parseParkingAreaAttributes(attrs);
-                break;
-            case SUMO_TAG_PARKING_SPACE:
-                parseParkingSpaceAttributes(attrs);
-                break;
-            // Detectors
-            case SUMO_TAG_E1DETECTOR:
-            case SUMO_TAG_INDUCTION_LOOP:
-                parseE1Attributes(attrs);
-                break;
-            case SUMO_TAG_E2DETECTOR:
-            case SUMO_TAG_LANE_AREA_DETECTOR:
-                parseE2Attributes(attrs);
-                break;
-            case SUMO_TAG_E3DETECTOR:
-            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-                parseE3Attributes(attrs);
-                break;
-            case SUMO_TAG_DET_ENTRY:
-                parseEntryAttributes(attrs);
-                break;
-            case SUMO_TAG_DET_EXIT:
-                parseExitAttributes(attrs);
-                break;
-            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-                parseE1InstantAttributes(attrs);
-                break;
-            // TAZs
-            case SUMO_TAG_TAZ:
-                parseTAZAttributes(attrs);
-                break;
-            case SUMO_TAG_TAZSOURCE:
-                parseTAZSourceAttributes(attrs);
-                break;
-            case SUMO_TAG_TAZSINK:
-                parseTAZSinkAttributes(attrs);
-                break;
-            // Variable Speed Sign
-            case SUMO_TAG_VSS:
-                parseVariableSpeedSignAttributes(attrs);
-                break;
-            case SUMO_TAG_STEP:
-                parseVariableSpeedSignStepAttributes(attrs);
-                break;
-            // Calibrator
-            case SUMO_TAG_CALIBRATOR:
-            case SUMO_TAG_LANECALIBRATOR:
-                parseCalibratorAttributes(attrs);
-                break;
-            // flow (calibrator)
+            // flows
             case SUMO_TAG_FLOW:
-                parseCalibratorFlowAttributes(attrs);
+                parseFlow(attrs);
                 break;
-            // Rerouter
-            case SUMO_TAG_REROUTER:
-                parseRerouterAttributes(attrs);
+            // stop
+            case SUMO_TAG_STOP:
+                parseStop(attrs);
                 break;
-            case SUMO_TAG_INTERVAL:
-                parseRerouterIntervalAttributes(attrs);
+            // persons
+            case SUMO_TAG_PERSON:
+                parsePerson(attrs);
                 break;
-            case SUMO_TAG_CLOSING_LANE_REROUTE:
-                parseClosingLaneRerouteAttributes(attrs);
+            case SUMO_TAG_PERSONFLOW:
+                parsePersonFlow(attrs);
                 break;
-            case SUMO_TAG_CLOSING_REROUTE:
-                parseClosingRerouteAttributes(attrs);
+            // person plans
+            case SUMO_TAG_PERSONTRIP:
+                parsePersonTrip(attrs);
                 break;
-            case SUMO_TAG_DEST_PROB_REROUTE:
-                parseDestProbRerouteAttributes(attrs);
+            case SUMO_TAG_RIDE:
+                parseRide(attrs);
                 break;
-            case SUMO_TAG_PARKING_ZONE_REROUTE:
-                parseParkingAreaRerouteAttributes(attrs);
+            case SUMO_TAG_WALK:
+                parseWalk(attrs);
                 break;
-            case SUMO_TAG_ROUTE_PROB_REROUTE:
-                parseRouteProbRerouteAttributes(attrs);
+            // container
+            case SUMO_TAG_CONTAINER:
+                parseContainer(attrs);
                 break;
-            // Route probe
-            case SUMO_TAG_ROUTEPROBE:
-                parseRouteProbeAttributes(attrs);
+            case SUMO_TAG_CONTAINERFLOW:
+                parseContainerFlow(attrs);
                 break;
-            // Vaporizer (deprecated)
-            case SUMO_TAG_VAPORIZER:
-                parseVaporizerAttributes(attrs);
+            // container plans
+            case SUMO_TAG_TRANSPORT:
+                parseTransport(attrs);
                 break;
-            // Poly
-            case SUMO_TAG_POLY:
-                parsePolyAttributes(attrs);
-                break;
-            case SUMO_TAG_POI:
-                parsePOIAttributes(attrs);
+            case SUMO_TAG_TRANSHIP:
+                parseTranship(attrs);
                 break;
             // parameters
             case SUMO_TAG_PARAM:
@@ -444,7 +383,6 @@ RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
-*/
 }
 
 
@@ -505,32 +443,8 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
-RouteHandler::parseVehicleOverRoute(const SUMOSAXAttributes& attrs) {
-    //
-}
-
-
 void
-RouteHandler::parseFlowOverRoute(const SUMOSAXAttributes& attrs) {
-    //
-}
-
-
-void
-RouteHandler::parseVehicleEmbeddedRoute(const SUMOSAXAttributes& attrs) {
-    //
-}
-
-
-void
-RouteHandler::parseFlowEmbeddedRoute(const SUMOSAXAttributes& attrs) {
-    //
-}
-
-
-void
-RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
+RouteHandler::parseVehicle(const SUMOSAXAttributes& attrs) {
     //
 }
 

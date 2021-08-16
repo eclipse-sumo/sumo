@@ -165,22 +165,10 @@ private:
     /// @brief parse route
     void parseRoute(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse vehicle over an existent route
-    void parseVehicleOverRoute(const SUMOSAXAttributes& attrs);
+    /// @brief parse vehicle (including trips, vehicles over routes and vehicles with embedded routes)
+    void parseVehicle(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse a flow over an existent route
-    void parseFlowOverRoute(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse vehicle with a embedded route
-    void parseVehicleEmbeddedRoute(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse flow with a embedded route
-    void parseFlowEmbeddedRoute(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse trip
-    void parseTrip(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse flow
+    /// @brief parse flow (including flows, flows over routes and flows with embedded routes)
     void parseFlow(const SUMOSAXAttributes& attrs);
 
     /// @brief parse stop
