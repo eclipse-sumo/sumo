@@ -41,7 +41,7 @@ binary
 DriverStateDevice
 
 # comparing meso an micro bevavior
-meso
+#meso
 
 # parallelization tests
 parallel
