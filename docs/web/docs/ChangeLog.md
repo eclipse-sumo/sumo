@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - simulation
-  - fixed invalid state file when using option **--vehroute-output.exit-times** and saved vehicles are still on their first edge. Issue #8536 (regression in 1.9.1)
+  - Fixed invalid state file when using option **--vehroute-output.exit-times** and saved vehicles are still on their first edge. Issue #8536 (regression in 1.9.1)
   - Saved simulation state now restores traffic light phase and phase duration. Issue #7020
   - Fixed deadlock after loading rail signal constraints from state. Issue #8732
   - Fixed emergency braking with continuous lane changing. Issue #8466
@@ -16,10 +16,17 @@ title: ChangeLog
   - Fixed collision with indirect left turn at priority junction (requires network with new 'indirect' attribute). Issue #8775
   - Fixed unnecessary deceleration of vehicle with low deceleration (i.e. freight train). Issue #8798
   - Fixed emergency braking with continuous lane changing and opposite direction driving. Issue #8760
+  - Fixed invalid speed when train approaches reversal position. Issue #8867
+  - Fixed crash on opposite direction driving with sublane model. Issue #8889, #8890
+  - Lane closing (via rerouter) now triggers strategic changing for all vehicles. Issue #8895
+  - Fixed invalid strategic lane choice in multimodal network. Issue #8900
+  - Fixed emergency braking in sublane simulation. Issue #8908
 
 - sumo-gui
   - Fixed briefly invisible vehicle while passing short internal edge. Issue #8749 (regression in 1.9.0)
   - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
+  - Fixed invalid window size after using "restore" button. Issue #8826
+  - Fixed flickering whiile vehicles drive on the opposite side. Issue #8887
 
 - netedit
   - Fixed unwanted modification of lane/edge permissions after leaving the dialog with 'Cancel'. Issue #8657
@@ -28,6 +35,8 @@ title: ChangeLog
   - Fixed invalid rendering of detEntry and detExit direction. Issue #8693
   - Default edge permission in create edge mode are now working. Issue #8562
   - Fixed crash in tls mode after deleting lanes. Issue #8743
+  - Fixed superfluous save-dialog after loading additional file. Issue #8572
+  - Fixed crash when setting invalid edge in rerouter dialog. Issue #8859
 
 - netconvert
   - Fixed missing bus permissions in OSM import. Issue #8587
@@ -40,6 +49,10 @@ title: ChangeLog
   - Access cost is no longer ignored when using persontrip.transfer.car-walk=ptStops. Issue #8515
   - Fixed invalid error when using routing algorithm 'CH' in multimodal network. Issue #8756
   - Fixed invalid acceptance of broken input when using routing algorithm CHWrapper. Issue #8766
+  - Fixed crash when loading stops on internal edge. Issue #8885
+
+- netgenerate
+  - Fixed bug when using option --remove-edges.explicit. Issue #8841
 
 - traci
   - Call tracing is now reset properly on restart in the python client for libsumo. Issue #8671
@@ -50,6 +63,8 @@ title: ChangeLog
   - Fixed deadlock after calling trafficlight.swapConstraints. Issue #8455
   - Libsumo now works with python3.8 on windows. Issue #5700
   - Libtraci now supports multiple traci client. Issue #8773
+  - Function 'vehicle.replaceStop' now raises an error when trying to replace a stop that has already started. Issue #8878
+  - Function 'vehicle.replaceStop' no longer ignores teleport flag if replacement stop is at the same location. Issue #8879
 
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
@@ -67,12 +82,14 @@ title: ChangeLog
   - Vehicle stops now support attribute 'posLat' to stop with a lateral offset. Issue #8752.
   - Rail signals can now be switched into "moving block" mode where they only guard against flanking and oncoming trains. (option **--railsignal-moving-block** or `<param key="moving-block" value="true"/>`. Issue #8518
   - Vehroute-outupt now includdes attribute "priorEdgesLength" if option **--vehroute-output.stop-edges** is set. Issue #8815
+  - Added option **--emission-output.step-scaled** to write emission output scaled by step length rather than per second. Issue #8866
   
 - netedit
   - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
   - Add demand mode toggle button to show the shortest route for all trips. Issue #8638
   - Vehicle arrival position can now be modified in move mode. Issue #8543
   - When adding green verges via lane context menu, the target side can now be selected. Issue #8781
+  - Pois along lanes now support attribute 'friendlyPos'. Issue #4161
 
 - sumo-gui
   - Active insertionPredecessor constraints are now indicated via lane parameters. Issue #8737
@@ -103,6 +120,7 @@ title: ChangeLog
   - [gtfs2pt.py](Tools/Import/GTFS.md) vTypes are now written as a separated output file. The name of the file can be defined with **--vtype-output**. Issue #8646
   - Added option **--dpi** to plot_summary.py and other plotting tools. Issue #8761
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) now supports plotting by kilometrage (fcd-output.distance). Issue #8799
+  - [drtOnline.py](Tools/Drt.md) now supports option **--max-processing** increase processing efficiency. Issue #8793
   
 
 ### Miscelaneous
