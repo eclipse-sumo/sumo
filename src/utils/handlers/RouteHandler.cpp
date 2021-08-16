@@ -49,416 +49,130 @@ RouteHandler::parse() {
 
 void 
 RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
-/*
     // switch tag
     switch (obj->getTag()) {
-        // Stopping Places
-        case SUMO_TAG_BUS_STOP:
-            buildBusStop(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_LINES),
-                obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
-                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+        // route
+        case SUMO_TAG_ROUTE:
+            buildRoute(obj,
+                obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                obj->getColorAttribute(SUMO_ATTR_COLOR),
+                obj->getIntAttribute(SUMO_ATTR_REPEAT),
+                obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
                 obj->getParameters());
             break;
-        case SUMO_TAG_TRAIN_STOP:
-            buildTrainStop(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_LINES),
-                obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
-                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+        // vehicles
+        case SUMO_TAG_TRIP:
+            buildTrip(obj, 
+                obj->getVehicleParameter(),
+                obj->getStringAttribute(SUMO_ATTR_FROM),
+                obj->getStringAttribute(SUMO_ATTR_TO),
+                obj->getStringListAttribute(SUMO_ATTR_VIA),
                 obj->getParameters());
             break;
-        case SUMO_TAG_ACCESS:
-            buildAccess(obj,
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_CONTAINER_STOP:
-            buildContainerStop(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_LINES),
-                obj->getIntAttribute(SUMO_ATTR_CONTAINER_CAPACITY),
-                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_CHARGING_STATION:
-            buildChargingStation(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
-                obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
-                obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
-                obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_PARKING_AREA:
-            buildParkingArea(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY),
-                obj->getBoolAttribute(SUMO_ATTR_ONROAD),
-                obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_PARKING_SPACE:
-            buildParkingSpace(obj,
-                obj->getDoubleAttribute(SUMO_ATTR_X),
-                obj->getDoubleAttribute(SUMO_ATTR_Y),
-                obj->getDoubleAttribute(SUMO_ATTR_Z),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_WIDTH),
-                obj->getStringAttribute(SUMO_ATTR_LENGTH),
-                obj->getStringAttribute(SUMO_ATTR_ANGLE),
-                obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
-                obj->getParameters());
-            break;
-        // Detectors
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-            // build E1
-            buildE1Detector(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-            if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
-                buildSingleLaneDetectorE2(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_LANE),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                    obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                    obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                    obj->getStringAttribute(SUMO_ATTR_TLID),
-                    obj->getStringAttribute(SUMO_ATTR_FILE),
-                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+        case SUMO_TAG_VEHICLE:
+            if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                buildVehicleOverRoute(obj,
+                    obj->getVehicleParameter(),
                     obj->getParameters());
             } else {
-                buildMultiLaneDetectorE2(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringListAttribute(SUMO_ATTR_LANES),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                    obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                    obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                    obj->getStringAttribute(SUMO_ATTR_TLID),
-                    obj->getStringAttribute(SUMO_ATTR_FILE),
-                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                buildVehicleEmbeddedRoute(obj,
+                    obj->getVehicleParameter(),
+                    obj->getStringListAttribute(SUMO_ATTR_EDGES),
                     obj->getParameters());
             }
             break;
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-            buildDetectorE3(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_DET_ENTRY:
-            buildDetectorEntry(obj,
-            obj->getStringAttribute(SUMO_ATTR_LANE),
-            obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-            obj->getParameters());
-            break;
-        case SUMO_TAG_DET_EXIT:
-            buildDetectorExit(obj,
-            obj->getStringAttribute(SUMO_ATTR_LANE),
-            obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-            obj->getParameters());
-            break;
-        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-            buildDetectorE1Instant(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
-            break;
-        // TAZs
-        case SUMO_TAG_TAZ:
-            buildTAZ(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_TAZSOURCE:
-            buildTAZSource(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
-            break;
-        case SUMO_TAG_TAZSINK:
-            buildTAZSink(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
-            break;
-        // Variable Speed Sign
-        case SUMO_TAG_VSS:
-            buildVariableSpeedSign(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getStringListAttribute(SUMO_ATTR_LANES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_STEP:
-            buildVariableSpeedSignStep(obj,
-                obj->getTimeAttribute(SUMO_ATTR_TIME),
-                obj->getStringAttribute(SUMO_ATTR_SPEED));
-            break;
-        // Calibrator
-        case SUMO_TAG_CALIBRATOR:
-            buildEdgeCalibrator(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_OUTPUT),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
-                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getParameters());
-            break;
-        case SUMO_TAG_LANECALIBRATOR:
-            buildLaneCalibrator(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_OUTPUT),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
-                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getParameters());
-            break;
+        // flows
         case SUMO_TAG_FLOW:
-            buildCalibratorFlow(obj,
-                obj->getStringAttribute(SUMO_ATTR_TYPE),
-                obj->getStringAttribute(SUMO_ATTR_ROUTE),
-                obj->getStringAttribute(SUMO_ATTR_VEHSPERHOUR),
-                obj->getStringAttribute(SUMO_ATTR_SPEED),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTLANE),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTSPEED),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALLANE),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALSPEED),
-                obj->getStringAttribute(SUMO_ATTR_LINE),
-                obj->getIntAttribute(SUMO_ATTR_NUMBER),
-                obj->getIntAttribute(SUMO_ATTR_CONTAINER_NUMBER),
-                obj->getBoolAttribute(SUMO_ATTR_REROUTE),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS_LAT),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT),
-                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                obj->getTimeAttribute(SUMO_ATTR_END),
+            if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                buildFlowOverRoute(obj,
+                    obj->getVehicleParameter(),
+                    obj->getParameters());
+            } else if (obj->hasStringAttribute(SUMO_ATTR_EDGES)) {
+                buildFlowEmbeddedRoute(obj,
+                    obj->getVehicleParameter(),
+                    obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                    obj->getParameters());
+            } else {
+                buildFlow(obj,
+                    obj->getVehicleParameter(),
+                    obj->getStringAttribute(SUMO_ATTR_FROM),
+                    obj->getStringAttribute(SUMO_ATTR_TO),
+                    obj->getStringListAttribute(SUMO_ATTR_VIA),
+                    obj->getParameters());
+            }
+            break;
+        // stop
+        case SUMO_TAG_STOP:
+            buildStop(obj,
+                obj->getStopParameter());
+            break;
+        // persons
+        case SUMO_TAG_PERSON:
+            buildPerson(obj,
+                obj->getVehicleParameter(),
                 obj->getParameters());
             break;
-        // Rerouter
-        case SUMO_TAG_REROUTER:
-            buildRerouter(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getBoolAttribute(SUMO_ATTR_OFF),
-                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+        case SUMO_TAG_PERSONFLOW:
+            buildPersonFlow(obj,
+                obj->getVehicleParameter(),
+                obj->getParameters());
+            break;
+        // person plans
+        case SUMO_TAG_PERSONTRIP:
+            buildPersonTrip(obj,
+                obj->getStringAttribute(SUMO_ATTR_FROM),
+                obj->getStringAttribute(SUMO_ATTR_TO),
+                obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                 obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                obj->getStringListAttribute(SUMO_ATTR_MODES));
+            break;
+        case SUMO_TAG_RIDE:
+            buildRide(obj,
+                obj->getStringAttribute(SUMO_ATTR_FROM),
+                obj->getStringAttribute(SUMO_ATTR_TO),
+                obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                obj->getStringListAttribute(SUMO_ATTR_LINES));
+            break;
+        case SUMO_TAG_WALK:
+            buildWalk(obj,
+                obj->getStringAttribute(SUMO_ATTR_FROM),
+                obj->getStringAttribute(SUMO_ATTR_TO),
+                obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                obj->getStringAttribute(SUMO_ATTR_ROUTE),
+                obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
+            break;
+        // container
+        case SUMO_TAG_CONTAINER:
+            buildContainer(obj,
+                obj->getVehicleParameter(),
                 obj->getParameters());
             break;
-        case SUMO_TAG_CLOSING_LANE_REROUTE:
-            buildClosingLaneReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
-            break;
-        case SUMO_TAG_CLOSING_REROUTE:
-            buildClosingReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
-            break;
-        case SUMO_TAG_DEST_PROB_REROUTE:
-            buildDestProbReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB));
-            break;
-        case SUMO_TAG_PARKING_ZONE_REROUTE:
-            buildParkingAreaReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                obj->getBoolAttribute(SUMO_ATTR_VISIBLE));
-            break;
-        case SUMO_TAG_ROUTE_PROB_REROUTE:
-            buildRouteProbReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB));
-            break;
-        case SUMO_TAG_INTERVAL:
-            // check if is VSS or a REROUTER interval
-            if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_REROUTER) {
-                buildRerouterInterval(obj,
-                    obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                    obj->getTimeAttribute(SUMO_ATTR_END));
-            } else {
-                buildVariableSpeedSignStep(obj,
-                    obj->getTimeAttribute(SUMO_ATTR_TIME),
-                    obj->getStringAttribute(SUMO_ATTR_SPEED));
-            }
-            break;
-        // Route probe
-        case SUMO_TAG_ROUTEPROBE:
-            buildRouteProbe(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-            obj->getParameters());
-            break;
-        // Vaporizer (deprecated)
-        case SUMO_TAG_VAPORIZER:
-            buildVaporizer(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                obj->getTimeAttribute(SUMO_ATTR_END),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
+        case SUMO_TAG_CONTAINERFLOW:
+            buildContainerFlow(obj,
+                obj->getVehicleParameter(),
                 obj->getParameters());
             break;
-        // Polygon
-        case SUMO_TAG_POLY:
-            buildPolygon(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_TYPE),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                obj->getBoolAttribute(SUMO_ATTR_GEO),
-                obj->getBoolAttribute(SUMO_ATTR_FILL),
-                obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getParameters());
+        // container plans
+        case SUMO_TAG_TRANSPORT:
+            buildTransport(obj, 
+                obj->getStringAttribute(SUMO_ATTR_FROM),
+                obj->getStringAttribute(SUMO_ATTR_TO),
+                obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                obj->getStringListAttribute(SUMO_ATTR_LINES),
+                obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
             break;
-        // POI
-        case SUMO_TAG_POI:
-            // check if we want to create a POI, POILane or POIGEO
-            if (obj->hasDoubleAttribute(SUMO_ATTR_X)) {
-                // build PO
-                buildPOI(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    obj->getColorAttribute(SUMO_ATTR_COLOR),
-                    obj->getDoubleAttribute(SUMO_ATTR_X),
-                    obj->getDoubleAttribute(SUMO_ATTR_Y),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getParameters());
-            } else if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
-                // build POI over Lane
-                buildPOILane(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    obj->getColorAttribute(SUMO_ATTR_COLOR),
-                    obj->getStringAttribute(SUMO_ATTR_LANE),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getParameters());
-            } else {
-                // build POIGEO
-                buildPOIGeo(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    obj->getColorAttribute(SUMO_ATTR_COLOR),
-                    obj->getDoubleAttribute(SUMO_ATTR_LON),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAT),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getParameters());
-            }
+        case SUMO_TAG_TRANSHIP:
+            buildTranship(obj,
+                obj->getStringAttribute(SUMO_ATTR_FROM),
+                obj->getStringAttribute(SUMO_ATTR_TO),
+                obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
+                obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                obj->getDoubleAttribute(SUMO_ATTR_SPEED),
+                obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
+                obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
             break;
         default:
             break;
@@ -468,46 +182,54 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // call this function recursively
         parseSumoBaseObject(child);
     }
-*/
 }
 
 
 void 
-RouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) {
+RouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edges, 
+    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void 
-RouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) {
+RouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void 
+RouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void
 RouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                        const std::vector<std::string>& edges) {
+    const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void 
 RouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                     const std::vector<std::string>& edges) {
+    const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void
 RouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                        const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via) {
+    const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via, const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void 
 RouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                        const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via) {
+    const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via, const std::map<std::string, std::string> &parameters) {
     //
 }
 
@@ -519,75 +241,78 @@ RouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject
 
 
 void 
-RouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters) {
+RouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters,
+    const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void
-RouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters) {
+RouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters,
+    const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void
 RouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                            const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+    const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     //
 }
 
 
 void
 RouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                        const std::string &toBusStop, const std::vector<std::string>& edges, const std::string &route, double arrivalPos) {
+    const std::string &toBusStop, const std::vector<std::string>& edges, const std::string &route, double arrivalPos) {
     //
 }
 
 
 void
 RouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge, 
-                        const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& lines) {
+    const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& lines) {
     //
 }
 
 
 void
 RouteHandler::buildStopPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edge, const std::string &busStop, 
-                            const SUMOVehicleParameter::Stop& stopParameters) {
+    const SUMOVehicleParameter::Stop& stopParameters) {
     //
 }
 
 
 void
-RouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters) {
+RouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters,
+    const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void
-RouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters) {
+RouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters,
+    const std::map<std::string, std::string> &parameters) {
     //
 }
 
 
 void 
 RouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                            const std::string &toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
+    const std::string &toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
     //
 }
 
 
 void
 RouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                            const std::string &toBusStop, const std::vector<std::string>& edges, const double speed, const double departPosition, 
-                            const double arrivalPosition) {
+    const std::string &toBusStop, const std::vector<std::string>& edges, const double speed, const double departPosition, const double arrivalPosition) {
     //
 }
 
 
 void 
 RouteHandler::buildStopContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edge, const std::string &containerStop, 
-                                const SUMOVehicleParameter::Stop& stopParameters) {
+    const SUMOVehicleParameter::Stop& stopParameters) {
     //
 }
 
@@ -771,6 +496,12 @@ RouteHandler::myEndElement(int element) {
         default:
             break;
     }
+}
+
+
+void 
+RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
+    //
 }
 
 

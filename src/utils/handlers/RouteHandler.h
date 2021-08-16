@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/CommonXMLStructure.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
@@ -55,36 +54,47 @@ public:
 
     /// @name build functions
     /// @{
+
+    /// @brief build route
+    static void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edges, const RGBColor &color, 
+        const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters);
+
     /// @brief build a vehicle over an existent route
-    static void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
+    static void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                      const std::map<std::string, std::string> &parameters);
 
     /// @brief build a flow over an existent route
-    static void buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
+    static void buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                   const std::map<std::string, std::string> &parameters);
 
     /// @brief build vehicle with a embedded route
     static void buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                          const std::vector<std::string>& edges);
+                                          const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters);
 
     /// @brief build flow with a embedded route
     static void buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                       const std::vector<std::string>& edges);
+                                       const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters);
 
     /// @brief build trip
     static void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                          const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via);
+                          const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via,
+                          const std::map<std::string, std::string> &parameters);
 
     /// @brief build flow
     static void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                          const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via);
+                          const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via,
+                          const std::map<std::string, std::string> &parameters);
 
     /// @brief build stop
     static void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief build person
-    static void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters);
+    static void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters,
+                            const std::map<std::string, std::string> &parameters);
 
     /// @brief build person flow
-    static void buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters);
+    static void buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters,
+                                const std::map<std::string, std::string> &parameters);
 
     /// @brief build person trip
     static void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
@@ -103,10 +113,12 @@ public:
                                 const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief build container
-    static void buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters);
+    static void buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters,
+                               const std::map<std::string, std::string> &parameters);
 
     /// @brief build container flow
-    static void buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters);
+    static void buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters,
+                                   const std::map<std::string, std::string> &parameters);
 
     /// @brief build transport
     static void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
@@ -150,6 +162,9 @@ private:
 
     /// @name parse route element attributes
     /// @{
+    /// @brief parse route
+    void parseRoute(const SUMOSAXAttributes& attrs);
+
     /// @brief parse vehicle over an existent route
     void parseVehicleOverRoute(const SUMOSAXAttributes& attrs);
 
