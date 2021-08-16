@@ -211,6 +211,10 @@ The [od2trips](../od2trips.md) application generates pedestrian
 demand when setting the option **--pedestrians**. Alternative it generates intermodal
 demand by setting option **--persontrips**.
 
+## From local counting data
+
+The tools [routeSampler](../Tools/Turns.md#routesamplerpy) and [flowrouter](../Tools/Detector.md#flowrouterpy) both suppor option **--pedestrians** to generate pedestrians instead of vehicular traffic based on countint data. See also [Chosing the right tool](../Demand/Routes_from_Observation_Points.html#chosing_the_right_tool).
+
 # Pedestrian Models
 
 The pedestrian model to use can be selected by using the simulation
