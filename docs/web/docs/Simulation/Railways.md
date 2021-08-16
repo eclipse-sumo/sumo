@@ -271,12 +271,26 @@ After being joined to the front part, the rear part will no longer be part of th
 The front half of the train will stop until the rear part is joined to it. Afterwards it will continue with increased length. 
 
 # Rail Signal Behavior
+
 Rail signals perform the following safety functions automatically
 
-- guard the track up to the next rail signal (signal block) so that only one train can enter this section at a time. This prevents rear-end collisions.
-- guard the track so that vehicles from different branches (flanks) cannot enter the same section. This prevents flanking collisions.
-- guard the track so that vehicles cannot enter bidirectional sections at the same time. This prevents head-on collisions.
-- prevent deadlocks on bidirectional sections
+- a) guard the track up to the next rail signal (signal block) so that only one train can enter this section at a time. This prevents rear-end collisions.
+- b) guard the track so that vehicles from different branches (flanks) cannot enter the same section. This prevents flanking collisions.
+- c) guard the track so that vehicles cannot enter bidirectional sections at the same time. This prevents head-on collisions.
+- d) prevent deadlocks on bidirectional sections
+
+Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with paramter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This correspnds to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system.
+
+To switch a single signal into LZB-mode, the following additional file may be loaded:
+```
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="gneJ8" programID="0">
+        <param key="moving-block" value="true"/>
+    </tlLogic>
+</additional>
+```
+
+Parameter *moving-block* may also be updated at runtime with `traci.trafficlight.setParameter`.
 
 ## Schedule Constraints
 Additionally, rail signals can enforce train ordering to ensure that a scheduled order at stations can be kept.
