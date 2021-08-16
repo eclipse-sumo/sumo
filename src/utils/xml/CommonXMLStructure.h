@@ -23,6 +23,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -80,6 +81,9 @@ public:
 
         /// @brief get PositionVector attribute
         const PositionVector& getPositionVectorAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get vehicle parameters
+        const SUMOVehicleParameter &getVehicleParameter() const;
 
         /// @brief get parameters
         const std::map<std::string, std::string>& getParameters() const;
@@ -192,6 +196,9 @@ public:
 
         /// @brief SumoBaseObject children
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
+
+        /// @brief vehicle parameter
+        SUMOVehicleParameter myVehicleParameter;
 
         /// @brief add SumoBaseObject child
         void addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);

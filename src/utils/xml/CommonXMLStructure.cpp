@@ -162,6 +162,12 @@ CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr
 }
 
 
+const SUMOVehicleParameter&
+CommonXMLStructure::SumoBaseObject::getVehicleParameter() const {
+    return myVehicleParameter;
+}
+
+
 const std::map<std::string, std::string>&
 CommonXMLStructure::SumoBaseObject::getParameters() const {
     return myParameters;
