@@ -25,6 +25,7 @@ title: ChangeLog
   - Fixed crash when loading simulation state with vehicle attribute 'departEdge', Issue #8929
   - Fixed crash when loading simulation state together with vehicles from an additional file. Issue #8927
   - Simulation with persons now terminates when participants have arrived after calling traci.simulation.loadState. Issue #8947
+  - Fixed collision on junction due to premature acceleration. Issue #8817
 
 - sumo-gui
   - Fixed briefly invisible vehicle while passing short internal edge. Issue #8749 (regression in 1.9.0)
@@ -76,6 +77,7 @@ title: ChangeLog
   - Function 'vehicle.replaceStop' no longer ignores teleport flag if replacement stop is at the same location. Issue #8879
   - libsumo python wheel for python v3.7 is now compiled against the correct python version. Issue #8877
   - Fixed crash when calling libsumo.start again after after libsumo.close. Issue #8945
+  - Fixed invalid return values from 'traci.lanearea' before the first simulation step. Issue #8949
 
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
