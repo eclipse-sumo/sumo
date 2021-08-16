@@ -21,12 +21,20 @@ title: ChangeLog
   - Lane closing (via rerouter) now triggers strategic changing for all vehicles. Issue #8895
   - Fixed invalid strategic lane choice in multimodal network. Issue #8900
   - Fixed emergency braking in sublane simulation. Issue #8908
+  - Fixed schema validation when loading simulation state with time values larger than 24 days. Issue #8926
+  - Fixed crash when loading simulation state with vehicle attribute 'departEdge', Issue #8929
+  - Fixed crash when loading simulation state together with vehicles from an additional file. Issue #8927
+  - Simulation with persons now terminates when participants have arrived after calling traci.simulation.loadState. Issue #8947
 
 - sumo-gui
   - Fixed briefly invisible vehicle while passing short internal edge. Issue #8749 (regression in 1.9.0)
   - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
   - Fixed invalid window size after using "restore" button. Issue #8826
   - Fixed flickering whiile vehicles drive on the opposite side. Issue #8887
+  - Invisible vehicles (alpha=0) no longer register clicks. Issue #8913
+  - Fixed invalid position of size-exaggerated persons at a size-exaggerated busStop. Issue #8883
+  - Fixed hidden context menu near the screen border. Issue #8860
+  - Asian street names are now shown correctly in lane parameter dialog on Linux if the font 'Noto CJK' is installed. Issue #8907
 
 - netedit
   - Fixed unwanted modification of lane/edge permissions after leaving the dialog with 'Cancel'. Issue #8657
@@ -37,6 +45,7 @@ title: ChangeLog
   - Fixed crash in tls mode after deleting lanes. Issue #8743
   - Fixed superfluous save-dialog after loading additional file. Issue #8572
   - Fixed crash when setting invalid edge in rerouter dialog. Issue #8859
+  - Fixed hidden context menu near the screen border. Issue #8860
 
 - netconvert
   - Fixed missing bus permissions in OSM import. Issue #8587
@@ -65,16 +74,23 @@ title: ChangeLog
   - Libtraci now supports multiple traci client. Issue #8773
   - Function 'vehicle.replaceStop' now raises an error when trying to replace a stop that has already started. Issue #8878
   - Function 'vehicle.replaceStop' no longer ignores teleport flag if replacement stop is at the same location. Issue #8879
+  - libsumo python wheel for python v3.7 is now compiled against the correct python version. Issue #8877
+  - Fixed crash when calling libsumo.start again after after libsumo.close. Issue #8945
 
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
   - routeSampler.py: Fixed crashing when using **--geh-ok** or when setting more threads than intervals. Issue #8755
+  - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy)
+     - Fixed crash when loading stops define by edge instead of lane. Issue #8937
+     - No longer generates constraint where a train waits for itself. Issue #8935
+     - Fixed invalid constraint signal id if a train reverses direclty after stopping. Issue #8936
+     - Fixed missing constraints when a train skips a stop. #8943
 
-  
-
+   
 ### Enhancements
 
 - simulation
+  - CarFollowModel 'EIDM' (extended IDM) is now supported. Issue #8909 (Thanks to Dominik Salles)
   - ParkingAreas now support attribute 'departPos' to set a custom position for vehicles when exiting the parkingArea. Issue #8634
   - Added option **--save-state.period.keep INT** which allows saving state with constant space requirements (combined with option **--save-state.period**).
   - Added option **--persontrip.walk-opposite-factor FLOAT** which can be used to discourage walking against traffic flow (for FLOAT < 1). Issue #7730
@@ -83,6 +99,11 @@ title: ChangeLog
   - Rail signals can now be switched into "moving block" mode where they only guard against flanking and oncoming trains. (option **--railsignal-moving-block** or `<param key="moving-block" value="true"/>`. Issue #8518
   - Vehroute-outupt now includdes attribute "priorEdgesLength" if option **--vehroute-output.stop-edges** is set. Issue #8815
   - Added option **--emission-output.step-scaled** to write emission output scaled by step length rather than per second. Issue #8866
+  - Each distinct collision now creates exactly one warning message (even if the situation persists due to **--collision.action warn**). Issue #8918
+  - Persons with different vClasses are now supported (i.e. 'ignoring' to walk on a forbidden road). Issue #8875
+  - Element `<walk>` now supports attriubte 'departLane' (i.e. to place a person on the road lane instead of the sidewalk). Issue #8874
+  - A warning is now issued if a person is configured to use a vType with the default vehicular vClass 'passenger'. Issue #8922
+  - Attribute 'latAlignment' now supports numerical values to configure a fixed offset from the center line. Issue #8873
   
 - netedit
   - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
@@ -90,6 +111,7 @@ title: ChangeLog
   - Vehicle arrival position can now be modified in move mode. Issue #8543
   - When adding green verges via lane context menu, the target side can now be selected. Issue #8781
   - Pois along lanes now support attribute 'friendlyPos'. Issue #4161
+  - Selection frame now has a 'delete objects' button. Issue #8911
 
 - sumo-gui
   - Active insertionPredecessor constraints are now indicated via lane parameters. Issue #8737
@@ -99,6 +121,7 @@ title: ChangeLog
   - Option **--default.spreadtype roadCenter** can now be used to improve the geometry of edges with different lane numbers per direction when importing OSM. Issue #8713
   - Option **--osm.bike-access** now enables the import of additional bike path tags such as bicycle=yes/no and oneway:bicycle=yes/no. Issue #8788
   - Tag foot=yes/no is now imported from OSM to adapt permissions for pedestrians. Issue #8788
+  - Improved interpretation of OSM Input with missing 'lanes' attribute. Issue #8942
 
 - duarouter
   - Attributes fromLonLat and toLonLat are now supported for personTrip. Issue #8665
@@ -121,6 +144,7 @@ title: ChangeLog
   - Added option **--dpi** to plot_summary.py and other plotting tools. Issue #8761
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) now supports plotting by kilometrage (fcd-output.distance). Issue #8799
   - [drtOnline.py](Tools/Drt.md) now supports option **--max-processing** increase processing efficiency. Issue #8793
+  - [flowrouter.py](Tools/Detector.md#flowrouterpy) now support output of pedestrian flows via option **--pedestrians**. Issue #8864
   
 
 ### Miscelaneous
