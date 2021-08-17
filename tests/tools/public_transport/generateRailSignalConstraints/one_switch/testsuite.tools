@@ -40,6 +40,10 @@ loop
 # one train has an intermediate stop between the merging switch and the common stop
 intermediate_stop
 
+# one train has an intermediate stop between the merging switch and the common stop
+# That train also changes it's trip id
+intermediate_stop_changeTripId
+
 # both trains train have a (different) intermediate stop between the merging switch and the common stop
 intermediate_stop2
 
