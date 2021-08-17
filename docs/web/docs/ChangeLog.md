@@ -90,7 +90,7 @@ title: ChangeLog
      - Fixed crash when loading stops define by edge instead of lane. Issue #8937
      - No longer generates constraint where a train waits for itself. Issue #8935
      - Fixed invalid constraint signal id if a train reverses directly after stopping. Issue #8936
-     - Fixed missing constraints when a train skips a stop. #8943
+     - Fixed missing constraints when a train skips a stop. Issue #8943
 
    
 ### Enhancements
@@ -100,7 +100,7 @@ title: ChangeLog
   - ParkingAreas now support attribute 'departPos' to set a custom position for vehicles when exiting the parkingArea. Issue #8634
   - Added option **--save-state.period.keep INT** which allows saving state with constant space requirements (combined with option **--save-state.period**).
   - Added option **--persontrip.walk-opposite-factor FLOAT** which can be used to discourage walking against traffic flow (for FLOAT < 1). Issue #7730
-  - Persons that walk against the flow of traffic now walk on the left side of the road rathe rather than in the middle (left side of the lane instead of right side). Issue road #7744
+  - Persons that walk against the flow of traffic now walk on the left side of the road rather than in the middle (left side of the lane instead of right side). Issue #7744
   - Vehicle stops now support attribute 'posLat' to stop with a lateral offset. Issue #8752.
   - Rail signals can now be switched into "moving block" mode where they only guard against flanking and oncoming trains. (option **--railsignal-moving-block** or `<param key="moving-block" value="true"/>`. Issue #8518
   - Vehroute-outupt now includdes attribute "priorEdgesLength" if option **--vehroute-output.stop-edges** is set. Issue #8815
