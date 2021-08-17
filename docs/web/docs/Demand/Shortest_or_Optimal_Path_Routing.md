@@ -60,7 +60,7 @@ Since version 1.2 duarouter supports mapping positions to roads using attributes
 !!! caution
     SUMO does not yet support these mapping attributes.
     
-By setting the option **--mapmatch.junctions**, positions are mapped to junctions instead of edges. The routes are then [computed between junctions](#Routing_between_junctions).
+By setting the option **--mapmatch.junctions**, positions are mapped to junctions instead of edges. The routes are then [computed between junctions](#routing_between_junctions).
     
 ## Vehicle Types
 
