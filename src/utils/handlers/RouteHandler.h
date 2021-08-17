@@ -201,9 +201,6 @@ private:
     /// @brief parse ride
     void parseRide(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse person stop
-    void parseStopPerson(const SUMOSAXAttributes& attrs);
-
     /// @brief parse container
     void parseContainer(const SUMOSAXAttributes& attrs);
 
@@ -216,13 +213,13 @@ private:
     /// @brief parse tranship
     void parseTranship(const SUMOSAXAttributes& attrs);
 
-    /// @brief parse container stop
-    void parseStopContainer(const SUMOSAXAttributes& attrs);
-
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
 
     /// @}
+
+    /// @brief parse stop parameters
+    bool parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSAXAttributes& attrs) const;
 
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;

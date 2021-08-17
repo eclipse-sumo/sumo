@@ -438,7 +438,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         // special case for ID
         const std::string id = attrs.getOpt(SUMO_ATTR_ID, "", parsedOk, "");
         // needed attributes
-        const std::vector<std::string> edges = attrs.getOptStringVector(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
+        const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
         // optional attributes
         const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::YELLOW);
         const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
@@ -516,7 +516,15 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
 
 void
 RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
-    //
+    // declare stop
+    SUMOVehicleParameter::Stop stop;
+    // parse stop
+    if (parseStopParameters(stop, attrs)) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STOP);
+        // add stop attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setStopParameter(stop);
+    }
 }
 
 
@@ -552,37 +560,116 @@ RouteHandler::parsePersonFlow(const SUMOSAXAttributes& attrs) {
 
 void
 RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
-    //
+    // declare Ok Flag
+    bool parsedOk = true;
+    // optional attributes
+    const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
+    const std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
+    const std::vector<std::string> via = attrs.getOptStringVector(SUMO_ATTR_VIA, "", parsedOk);
+    const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
+    const std::vector<std::string> vTypes = attrs.getOptStringVector(SUMO_ATTR_VTYPES, "", parsedOk);
+    const std::vector<std::string> modes = attrs.getOptStringVector(SUMO_ATTR_MODES, "", parsedOk);
+    const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, 0);
+    const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, 0);
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_WALK);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VIA, via);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, busStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_MODES, modes);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
+    }
 }
 
 
 void
 RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
-    //
+    // declare Ok Flag
+    bool parsedOk = true;
+    // optional attributes
+    const std::string route = attrs.getOpt<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, "");
+    const std::vector<std::string> edges = attrs.getOptStringVector(SUMO_ATTR_EDGES, "", parsedOk);
+    const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
+    const std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
+    const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
+    const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, "", parsedOk, 0);
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 0);
+    const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, 0);
+    const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, 0);
+    const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, "", parsedOk, 0);
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_WALK);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, route);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, busStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DURATION, duration);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS_LAT, departPosLat);
+    }
 }
 
 
 void
 RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
-    //
-}
-
-
-void
-RouteHandler:: parseStopPerson(const SUMOSAXAttributes& attrs) {
-    //
+    // declare Ok Flag
+    bool parsedOk = true;
+    // optional attributes
+    const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
+    const std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
+    const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
+    const std::vector<std::string> lines = attrs.getOptStringVector(SUMO_ATTR_LINES, "", parsedOk);
+    const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, 0);
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_WALK);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, busStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
+    }
 }
 
 
 void
 RouteHandler::parseContainer(const SUMOSAXAttributes& attrs) {
-    //
+    // first parse container
+    SUMOVehicleParameter* containerParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_CONTAINER, attrs, myHardFail);
+    if (containerParameter) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONTAINER);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(containerParameter);
+        // delete container parameter (because in XMLStructure we have a copy)
+        delete containerParameter;
+    }
 }
 
 
 void
 RouteHandler::parseContainerFlow(const SUMOSAXAttributes& attrs) {
-    //
+    // first parse flow
+    SUMOVehicleParameter* containerFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+    if (containerFlowParameter) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(containerFlowParameter);
+        // delete container flow parameter (because in XMLStructure we have a copy)
+        delete containerFlowParameter;
+    }
 }
 
 
@@ -594,12 +681,6 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
 
 void
 RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
-    //
-}
-
-
-void
-RouteHandler::parseStopContainer(const SUMOSAXAttributes& attrs) {
     //
 }
 
@@ -637,6 +718,170 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
             SumoBaseObjectParent->addParameter(key, value);
         }
     }
+}
+
+
+bool
+RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSAXAttributes& attrs) const {
+    // check stop parameters
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVAL)) {
+        stop.parametersSet |= STOP_ARRIVAL_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_DURATION)) {
+        stop.parametersSet |= STOP_DURATION_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
+        stop.parametersSet |= STOP_UNTIL_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_STARTED)) {
+        stop.parametersSet |= STOP_STARTED_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_ENDED)) {
+        stop.parametersSet |= STOP_ENDED_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_EXTENSION)) {
+        stop.parametersSet |= STOP_EXTENSION_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
+        stop.parametersSet |= STOP_END_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_STARTPOS)) {
+        stop.parametersSet |= STOP_START_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_POSITION_LAT)) {
+        stop.parametersSet |= STOP_POSLAT_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
+        stop.parametersSet |= STOP_TRIGGER_SET;
+    }
+    // legacy attribute
+    if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
+        stop.parametersSet |= STOP_TRIGGER_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
+        stop.parametersSet |= STOP_PARKING_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_EXPECTED)) {
+        stop.parametersSet |= STOP_EXPECTED_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PERMITTED)) {
+        stop.parametersSet |= STOP_PERMITTED_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
+        stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TRIP_ID)) {
+        stop.parametersSet |= STOP_TRIP_ID_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_SPLIT)) {
+        stop.parametersSet |= STOP_SPLIT_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_JOIN)) {
+        stop.parametersSet |= STOP_JOIN_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
+        stop.parametersSet |= STOP_LINE_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        stop.parametersSet |= STOP_SPEED_SET;
+    }
+    // get parameters
+    bool ok = true;
+    stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
+    stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop);
+    stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
+    stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
+    stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
+    stop.parkingarea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, nullptr, ok, "");
+    // declare error suffix
+    std::string errorSuffix;
+    if (stop.busstop != "") {
+        errorSuffix = " at '" + stop.busstop + "'" + errorSuffix;
+    } else if (stop.chargingStation != "") {
+        errorSuffix = " at '" + stop.chargingStation + "'" + errorSuffix;
+    } else if (stop.overheadWireSegment != "") {
+        errorSuffix = " at '" + stop.overheadWireSegment + "'" + errorSuffix;
+    } else if (stop.containerstop != "") {
+        errorSuffix = " at '" + stop.containerstop + "'" + errorSuffix;
+    } else if (stop.parkingarea != "") {
+        errorSuffix = " at '" + stop.parkingarea + "'" + errorSuffix;
+    } else {
+        errorSuffix = " on lane '" + stop.lane + "'" + errorSuffix;
+    }
+    // speed for counting as stopped
+    stop.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, 0);
+    if (stop.speed < 0) {
+        WRITE_ERROR("Speed cannot be negative for stop" + errorSuffix);
+        return false;
+    }
+    // get the standing duration
+    bool expectTrigger = !attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL) && !attrs.hasAttribute(SUMO_ATTR_SPEED);
+    std::vector<std::string> triggers = attrs.getOptStringVector(SUMO_ATTR_TRIGGERED, nullptr, ok);
+    // legacy
+    if (attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false)) {
+        triggers.push_back(toString(SUMO_TAG_CONTAINER));
+    };
+    SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);
+    stop.arrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ARRIVAL, nullptr, ok, -1);
+    stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
+    stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
+    if (!expectTrigger && (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0))) {
+        WRITE_ERROR("Invalid duration or end time is given for a stop" + errorSuffix);
+        return false;
+    }
+    stop.extension = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EXTENSION, nullptr, ok, -1);
+    stop.parking = attrs.getOpt<bool>(SUMO_ATTR_PARKING, nullptr, ok, stop.triggered || stop.containerTriggered || stop.parkingarea != "");
+    if (stop.parkingarea != "" && !stop.parking) {
+        WRITE_WARNING("Stop at parkingarea overrides attribute 'parking' for stop" + errorSuffix);
+        stop.parking = true;
+    }
+    if (!ok) {
+        WRITE_ERROR("Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop" + errorSuffix);
+        return false;
+    }
+    // expected persons
+    const std::vector<std::string>& expected = attrs.getOptStringVector(SUMO_ATTR_EXPECTED, nullptr, ok);
+    stop.awaitedPersons.insert(expected.begin(), expected.end());
+    if (stop.awaitedPersons.size() > 0 && (stop.parametersSet & STOP_TRIGGER_SET) == 0) {
+        stop.triggered = true;
+        if ((stop.parametersSet & STOP_PARKING_SET) == 0) {
+            stop.parking = true;
+        }
+    }
+    // permitted transportables
+    const std::vector<std::string>& permitted = attrs.getOptStringVector(SUMO_ATTR_PERMITTED, nullptr, ok);
+    stop.permitted.insert(permitted.begin(), permitted.end());
+    // expected containers
+    const std::vector<std::string>& expectedContainers = attrs.getOptStringVector(SUMO_ATTR_EXPECTED_CONTAINERS, nullptr, ok);
+    stop.awaitedContainers.insert(expectedContainers.begin(), expectedContainers.end());
+    if (stop.awaitedContainers.size() > 0 && (stop.parametersSet & STOP_CONTAINER_TRIGGER_SET) == 0) {
+        stop.containerTriggered = true;
+        if ((stop.parametersSet & STOP_PARKING_SET) == 0) {
+            stop.parking = true;
+        }
+    }
+    // public transport trip id
+    stop.tripId = attrs.getOpt<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok, "");
+    stop.split = attrs.getOpt<std::string>(SUMO_ATTR_SPLIT, nullptr, ok, "");
+    stop.join = attrs.getOpt<std::string>(SUMO_ATTR_JOIN, nullptr, ok, "");
+    stop.line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, nullptr, ok, "");
+    // index
+    const std::string idx = attrs.getOpt<std::string>(SUMO_ATTR_INDEX, nullptr, ok, "end");
+    if (idx == "end") {
+        stop.index = STOP_INDEX_END;
+    } else if (idx == "fit") {
+        stop.index = STOP_INDEX_FIT;
+    } else {
+        stop.index = attrs.get<int>(SUMO_ATTR_INDEX, nullptr, ok);
+        if (!ok || stop.index < 0) {
+            WRITE_ERROR("Invalid 'index' for stop" + errorSuffix);
+            return false;
+        }
+    }
+    stop.started = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1);
+    stop.ended = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1);
+    stop.posLat = attrs.getOpt<double>(SUMO_ATTR_POSITION_LAT, nullptr, ok, INVALID_DOUBLE);
+    return true;
 }
 
 

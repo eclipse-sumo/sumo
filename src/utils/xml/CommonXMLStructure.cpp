@@ -301,8 +301,8 @@ CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParamet
 
 
 void
-CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop* stopParameter) {
-    myStopParameter = *stopParameter;
+CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop &stopParameter) {
+    myStopParameter = stopParameter;
 }
 
 

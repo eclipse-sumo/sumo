@@ -160,7 +160,7 @@ public:
         void setVehicleParameter(const SUMOVehicleParameter* vehicleParameter);
 
         /// @brief add stop parameters
-        void setStopParameter(const SUMOVehicleParameter::Stop* stopParameter);
+        void setStopParameter(const SUMOVehicleParameter::Stop &stopParameter);
 
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string& key, const std::string& value);
