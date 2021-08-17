@@ -631,12 +631,17 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
         if routeIndex + 1 == len(eb):
             routeIndex = 0
             stopIndex += 1
+            # skip duplicate stops since they do not add edges
+            while stopIndex < len(route) and len(route[stopIndex][0]) == 0:
+                stopIndex += 1
         else:
             routeIndex += 1
 
         if routeIndex2 + 1 == len(eb2):
             routeIndex2 = 0
             stopIndex2 += 1
+            while stopIndex2 < len(route2) and len(route2[stopIndex2][0]) == 0:
+                stopIndex2 += 1
         else:
             routeIndex2 += 1
 
