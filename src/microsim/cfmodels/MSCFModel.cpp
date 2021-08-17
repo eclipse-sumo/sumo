@@ -371,14 +371,20 @@ MSCFModel::distAfterTime(double t, double speed, const double accel) const {
 
 SUMOTime
 MSCFModel::getMinimalArrivalTime(double dist, double currentSpeed, double arrivalSpeed) const {
+    // will either drive as fast as possible and decelerate as late as possible
+    // or accelerate as fast as possible and then hold that speed
     const double accel = (arrivalSpeed >= currentSpeed) ? getMaxAccel() : -getMaxDecel();
     const double accelTime = (arrivalSpeed - currentSpeed) / accel;
     const double accelWay = accelTime * (arrivalSpeed + currentSpeed) * 0.5;
-    const double nonAccelWay = MAX2(0., dist - accelWay);
-    // will either drive as fast as possible and decelerate as late as possible
-    // or accelerate as fast as possible and then hold that speed
-    const double nonAccelSpeed = MAX3(currentSpeed, arrivalSpeed, SUMO_const_haltingSpeed);
-    return TIME2STEPS(accelTime + nonAccelWay / nonAccelSpeed);
+    if (dist >= accelWay) {
+        const double nonAccelWay = dist - accelWay;
+        const double nonAccelSpeed = MAX3(currentSpeed, arrivalSpeed, SUMO_const_haltingSpeed);
+        return TIME2STEPS(accelTime + nonAccelWay / nonAccelSpeed);
+    } else {
+        // find time x so that
+        // x * (currentSpeed + currentSpeed + x * accel) * 0.5 = dist
+        return TIME2STEPS((currentSpeed + -1 * sqrt(currentSpeed * currentSpeed + 2 * accel * dist)) * (-1 / accel));
+    }
 }
 
 
