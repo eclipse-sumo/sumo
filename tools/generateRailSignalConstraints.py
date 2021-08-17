@@ -105,6 +105,7 @@ import sys
 import subprocess
 from collections import defaultdict
 from operator import itemgetter
+import copy
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -627,9 +628,13 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
             #print("switch=%s veh=%s veh2=%s commonStop=%s" % (switch,
             #    stop.vehID, stop2.vehID, s.busStop))
             if (edgesBefore2, s2) not in stopRoutes2[s.busStop]:
-                stopRoutes2[s.busStop].append((edgesBefore2, s2))
+                s2copy = copy.copy(s2)
+                s2copy.prevTripId = stop2.prevTripId
+                stopRoutes2[s.busStop].append((edgesBefore2, s2copy))
             if s.busStop != stop.busStop and ((edgesBefore, s) not in stopRoutes2[s.busStop]):
-                stopRoutes2[s.busStop].append((edgesBefore, s))
+                scopy = copy.copy(s)
+                scopy.prevTripId = stop.prevTripId
+                stopRoutes2[s.busStop].append((edgesBefore, scopy))
             return
         # advance along routes
         if routeIndex + 1 == len(eb):
