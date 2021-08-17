@@ -1,103 +1,15 @@
 sumo/cf_model/IDM/insert_with_speedLimit_speedFactor0.8/tripinfos.sumo:35:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'timeLoss': '-0.06' is not a valid value of the union type 'timeType'.
-sumo/extended/state/load_shifted/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/extended/state/load_shifted/tripinfos.sumo.meso:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/devices/glosa/speedUp/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'timeLoss': '-0.15' is not a valid value of the union type 'timeType'.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:50:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:59:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:62:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:65:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:68:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:71:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:74:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:79:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:80:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:82:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:83:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:85:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:86:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:88:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:89:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:91:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:92:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:94:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:95:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:97:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:98:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:100:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:101:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:103:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:104:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:106:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:107:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:109:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:110:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:112:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:113:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:117:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:118:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:120:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:121:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:123:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:124:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:126:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:127:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:129:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:130:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:132:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:133:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:135:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:136:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:138:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:139:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:141:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:142:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:144:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:145:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:147:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:148:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:150:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:151:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:155:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:156:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:158:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:159:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:161:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:162:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:164:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:165:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:167:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:168:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:170:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:171:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:173:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:174:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:176:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:177:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:179:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:180:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:182:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:183:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:185:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:186:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:188:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
-sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:189:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-13.01' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-12.64' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-12.64' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-13.01' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket4314/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-0.77' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-16.40' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-15.94' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-14.98' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-14.34' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/errors/disconnected_trip_ignore/tripinfos.sumo:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-19.36' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/errors/disconnected_route_ignore/tripinfos.sumo:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-19.36' is not a valid value of the union type 'timeTypeWithErrorValue'.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:46:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
@@ -194,14 +106,102 @@ sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:1
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:191:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:193:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:194:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-16.40' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-15.94' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-14.98' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-14.34' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket4314/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-0.77' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/errors/disconnected_route_ignore/tripinfos.sumo:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-19.36' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/errors/disconnected_trip_ignore/tripinfos.sumo:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-19.36' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-13.01' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-12.64' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-12.64' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/no_sidewalks/tripinfos.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'walk', attribute 'timeLoss': '-13.01' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:46:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:52:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:55:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:58:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:61:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:64:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:67:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:70:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:73:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:76:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:80:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:81:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:83:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:84:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:86:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:87:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:89:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:90:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:92:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:93:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:95:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:96:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:98:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:99:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:101:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:102:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:104:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:105:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:107:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:108:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:110:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:111:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:113:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:114:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:118:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:119:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:121:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:122:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:124:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:125:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:127:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:128:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:130:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:131:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:133:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:134:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:136:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:137:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:139:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:140:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:142:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:143:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:145:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:146:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:148:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:149:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:151:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:152:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:156:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:157:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:159:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:160:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:162:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:163:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:165:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:166:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:168:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:169:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:171:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:172:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:174:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:175:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:177:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:178:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:180:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:181:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:183:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:184:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:186:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:187:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:189:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
+sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:190:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
+sumo/devices/glosa/speedUp/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'timeLoss': '-0.15' is not a valid value of the union type 'timeType'.
+sumo/extended/state/load_shifted/tripinfos.sumo.meso:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/extended/state/load_shifted/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
