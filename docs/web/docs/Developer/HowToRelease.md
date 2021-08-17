@@ -90,9 +90,9 @@ and committing the changes after careful inspection
     to update the [download links](../Downloads.md)
 - update the eclipse.org/sumo website
   - modify the version number (Version) [in config.toml](https://github.com/eclipse/sumo.website/blob/master/config.toml) in the **Default Parameters** section at the beginning
-- If it is the first release of the year, create a new Eclipse release at https://projects.eclipse.org/projects/technology.sumo (after login there should be a "Create Release" button)
+- If it is the first release of the year, create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)
   - add an IP Log to the release
-  - send an email to the PMC at technology-pmc@eclipse.org asking for review (include links to the release and the IP log)
+  - send an email to the PMC at automotive-pmc@eclipse.org asking for review (include links to the release and the IP log)
 - add a new version tag
 ```
 > git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
