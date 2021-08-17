@@ -21,3 +21,6 @@ ticket8900
 
 # invalid times written beyond 25 days
 ticket8912
+
+# collision on junction
+ticket8952
