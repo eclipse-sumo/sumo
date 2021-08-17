@@ -73,7 +73,7 @@ GNEVariableSpeedSignSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 Position
 GNEVariableSpeedSignSymbol::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getCentroid();
 }
 
 

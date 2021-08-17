@@ -70,7 +70,7 @@ GNEParkingSpace::updateGeometry() {
 
 Position
 GNEParkingSpace::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myPosition;
 }
 
 

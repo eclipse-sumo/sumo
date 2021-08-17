@@ -636,7 +636,7 @@ GNEGeometry::HierarchicalConnections::update() {
     // calculate position for every child additional
     for (const auto& additional : myHierarchicalElement->getChildAdditionals()) {
         // check that additional position is different of parent position
-        if (additional->getPositionInView() != myHierarchicalElement->getPositionInView()) {
+        if (additional->getTagProperty().isDrawable() && (additional->getPositionInView() != myHierarchicalElement->getPositionInView())) {
             // create connection shape
             std::vector<Position> connectionShape;
             const double A = std::abs(additional->getPositionInView().x() - myHierarchicalElement->getPositionInView().x());

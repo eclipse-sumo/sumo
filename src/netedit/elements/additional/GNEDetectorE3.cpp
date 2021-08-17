@@ -71,7 +71,7 @@ GNEDetectorE3::updateGeometry() {
 
 Position
 GNEDetectorE3::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myPosition;
 }
 
 

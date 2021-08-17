@@ -74,7 +74,7 @@ GNERerouterSymbol::updateGeometry() {
 
 Position
 GNERerouterSymbol::getPositionInView() const {
-    return myBoundary.getCenter();
+    return mySymbolGeometries.front().getShape().getCentroid();
 }
 
 
