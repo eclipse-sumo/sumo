@@ -244,6 +244,10 @@ def getStopRoutes(options, stopEdges):
         lastIndex = -1
         routeIndex = 0
         tripId = vehicle.id
+        if vehicle.param is not None:
+            for param in vehicle.param:
+                if param.key == "tripId":
+                    tripId = param.value
         line = vehicle.getAttributeSecure("line", "")
         for stop in vehicle.stop:
             numStops += 1
