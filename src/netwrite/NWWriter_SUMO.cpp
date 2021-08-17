@@ -773,7 +773,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
                 }
             }
         }
-        if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
+        if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE && (!c.haveVia || style == PLAIN)) {
             into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
         }
     }
@@ -802,7 +802,7 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
                     linkIndex2 = c.tlLinkIndex2;
                     tlID = c.tlID;
                 }
-                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir, tlID, linkIndex2);
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir, tlID, linkIndex2, c.visibility);
                 writeInternalConnection(into, c.viaID, c.toEdge->getID(), 0, c.toLane, "", dir);
             } else {
                 // no internal split
@@ -819,7 +819,8 @@ void
 NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
                                        const std::string& from, const std::string& to,
                                        int fromLane, int toLane, const std::string& via,
-                                       LinkDirection dir, const std::string& tlID, int linkIndex) {
+                                       LinkDirection dir, const std::string& tlID, int linkIndex,
+                                       double visibility) {
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from);
     into.writeAttr(SUMO_ATTR_TO, to);
@@ -835,6 +836,9 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
     }
     into.writeAttr(SUMO_ATTR_DIR, dir);
     into.writeAttr(SUMO_ATTR_STATE, (via != "" ? "m" : "M"));
+    if (visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
+        into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, visibility);
+    }
     into.closeTag();
 }
 

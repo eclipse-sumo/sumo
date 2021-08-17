@@ -182,7 +182,8 @@ private:
                                         int fromLane, int toLane, const std::string& via,
                                         LinkDirection dir = LinkDirection::STRAIGHT,
                                         const std::string& tlID = "",
-                                        int linkIndex = NBConnection::InvalidTlIndex);
+                                        int linkIndex = NBConnection::InvalidTlIndex,
+                                        double visibility = NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
     static std::string writeSUMOTime(SUMOTime time);
