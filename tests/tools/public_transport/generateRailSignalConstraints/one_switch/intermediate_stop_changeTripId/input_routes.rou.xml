@@ -28,7 +28,7 @@
         <param key="tripId" value="tripId_initial"/>
         <route edges="a b c d"/>
         <stop busStop="stop_c" arrival="70.00" duration="20.00" until="90.00" tripId="tripId_at_c"/>
-        <stop busStop="stop_d" arrival="100.00" duration="30.00" until="130.00" tripId="tirpId_at_d"/>
+        <stop busStop="stop_d" arrival="100.00" duration="30.00" until="130.00" tripId="tripId_at_d"/>
     </vehicle>
     <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
         <route edges="a2 b2 c d"/>
