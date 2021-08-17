@@ -56,8 +56,8 @@ public:
     /// @{
 
     /// @brief build route
-    static void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edges, const RGBColor &color, 
-        const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters);
+    static void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::vector<std::string> &edges, 
+                           const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters);
 
     /// @brief build a vehicle over an existent route
     static void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,

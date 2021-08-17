@@ -59,6 +59,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // route
         case SUMO_TAG_ROUTE:
             buildRoute(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringListAttribute(SUMO_ATTR_EDGES),
                 obj->getColorAttribute(SUMO_ATTR_COLOR),
                 obj->getIntAttribute(SUMO_ATTR_REPEAT),
@@ -191,7 +192,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 
 
 void 
-RouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edges, 
+RouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::vector<std::string> &edges, 
     const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) {
     //
 }
@@ -401,36 +402,20 @@ RouteHandler::myEndElement(int element) {
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (tag) {
-        // Stopping Places
-        case SUMO_TAG_BUS_STOP:
-        case SUMO_TAG_TRAIN_STOP:
-        case SUMO_TAG_CONTAINER_STOP:
-        case SUMO_TAG_CHARGING_STATION:
-        case SUMO_TAG_PARKING_AREA:
-        // detectors
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-        // TAZs
-        case SUMO_TAG_TAZ:
-        // Variable Speed Sign
-        case SUMO_TAG_VSS:
-        // Calibrator
-        case SUMO_TAG_CALIBRATOR:
-        case SUMO_TAG_LANECALIBRATOR:
-        // Rerouter
-        case SUMO_TAG_REROUTER:
-        // Route probe
-        case SUMO_TAG_ROUTEPROBE:
-        // Vaporizer (deprecated)
-        case SUMO_TAG_VAPORIZER:
-        // Shapes
-        case SUMO_TAG_POLY:
-        case SUMO_TAG_POI:
+        case SUMO_TAG_ROUTE:
+        case SUMO_TAG_TRIP:
+        case SUMO_TAG_VEHICLE:
+        case SUMO_TAG_FLOW:
+        case SUMO_TAG_STOP:
+        case SUMO_TAG_PERSON:
+        case SUMO_TAG_PERSONFLOW:
+        case SUMO_TAG_PERSONTRIP:
+        case SUMO_TAG_RIDE:
+        case SUMO_TAG_WALK:
+        case SUMO_TAG_CONTAINER:
+        case SUMO_TAG_CONTAINERFLOW:
+        case SUMO_TAG_TRANSPORT:
+        case SUMO_TAG_TRANSHIP:
             // parse object and all their childrens
             parseSumoBaseObject(obj);
             // delete object (and all of their childrens)
@@ -444,7 +429,31 @@ RouteHandler::myEndElement(int element) {
 
 void 
 RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
-    //
+    // first check if this is an embedded route
+    if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && attrs.hasAttribute(SUMO_ATTR_ID)) {
+        WRITE_ERROR("either define a route within a vehicle or define it with ID");
+    } else {
+        // declare Ok Flag
+        bool parsedOk = true;
+        // special case for ID
+        const std::string id = attrs.getOpt(SUMO_ATTR_ID, "", parsedOk, "");
+        // needed attributes
+        const std::vector<std::string> edges = attrs.getOptStringVector(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
+        // optional attributes
+        const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::YELLOW);
+        const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
+        const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
+        if (parsedOk) {
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
+        }
+    }
 }
 
 
