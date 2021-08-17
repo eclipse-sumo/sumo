@@ -414,6 +414,8 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::DemandMenuCom
     personTypeMode(nullptr),
     personMode(nullptr),
     personPlanMode(nullptr),
+    containerMode(nullptr),
+    containerPlanMode(nullptr),
     myModesMenuCommandsParent(modesMenuCommandsParent) {
 }
 
@@ -428,6 +430,8 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::showDemandMen
     personTypeMode->show();
     personMode->show();
     personPlanMode->show();
+    containerMode->show();
+    containerPlanMode->show();
 }
 
 
@@ -441,6 +445,8 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::hideDemandMen
     personTypeMode->hide();
     personMode->hide();
     personPlanMode->hide();
+    containerMode->hide();
+    containerPlanMode->hide();
 }
 
 
@@ -471,6 +477,12 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
     personPlanMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                      "Person plan mode", "C", "Create person plans.",
                      GUIIconSubSys::getIcon(GUIIcon::MODEPERSONPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN);
+    containerMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                    "Container mode", "G", "Create containers.",
+                    GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_G_MODE_CONTAINER);
+    containerPlanMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                        "Container plan mode", "H", "Create container plans.",
+                        GUIIconSubSys::getIcon(GUIIcon::MODECONTAINERPLAN), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_H_MODE_CONTAINERDATA);
 }
 
 // ---------------------------------------------------------------------------
