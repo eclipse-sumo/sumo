@@ -1387,12 +1387,12 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check polygons
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) &&
-                (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0)) {
+            (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size() > 0)) {
             return true;
         }
         // check POIs
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && 
-             (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) &&
+            (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0)) {
             return true;
         }
     } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
