@@ -70,8 +70,9 @@ jobs:
       if: matrix.build-type == 'plain'
       run: |
         cd sumo
-        cmake --build build_msvc --config Release --target install_dll libsumo
+        cmake --build build_msvc --config Release --target install_dll libsumo libtraci
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
+        python tools\build\setup-libtraci.py bdist_wheel --plat-name win_amd64
 
     - name: Building SUMO plain
       if: matrix.build-type == 'plain' && matrix.python == '3.8'
@@ -104,14 +105,6 @@ jobs:
         cd sumo/build_msvc
         cmake --build . --config Release --target traas
 
-    - name: Examples and tests
-      if: matrix.build-type != 'wheel' && matrix.python == '3.8'
-      run: |
-        python -m pip install pyproj Rtree ezdxf
-        cd sumo/build_msvc
-        cmake --build . --config Release --target examples
-        ctest --verbose
-
     - name: Uploading artifacts (SUMO binaries)
       if: matrix.build-type != 'wheel' && matrix.python == '3.8'
       uses: actions/upload-artifact@v1
@@ -132,6 +125,14 @@ jobs:
       with:
         name: Py3-sumo-wheels
         path: sumo/dist
+
+    - name: Examples and tests
+      if: matrix.build-type != 'wheel' && matrix.python == '3.8'
+      run: |
+        python -m pip install pyproj Rtree ezdxf
+        cd sumo/build_msvc
+        cmake --build . --config Release --target examples
+        ctest --verbose
 
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
