@@ -134,9 +134,8 @@ They are child elements of plan definitions.
 | from       | string     | valid edge ids     | \-      | id of the start edge  (optional, if it is a subsequent movement)                |
 | to         | string     | valid edge ids     | \-      | id of the destination edge                                                      |
 | busStop    | string     | valid bus stop ids | \-      | id of the destination stop                                                      |
-| _duration_ | float(s)   | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
-| _speed_    | float(m/s) | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
-| _departPos_| float(m)   |                    | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
+| duration   | float(s)   | \>0                | \-      | override walk duration (otherwise determined by the person type and the pedestrian dynamics)         |
+| speed      | float(m/s) | \>0                | \-      | override walking speed (otherwise determined by the person type and individual speed factor)         |
 | arrivalPos | float(m)   |                    | middle of edge  | arrival position on the destination edge                                        |
 | departPosLat | float(m)   |                    | right side in walking direction  | custom lateral position on lane at departure |
 
