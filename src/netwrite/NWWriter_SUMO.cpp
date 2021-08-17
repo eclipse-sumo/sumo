@@ -773,7 +773,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
                 }
             }
         }
-        if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE && (!c.haveVia || style == PLAIN)) {
+        if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
             into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
         }
     }
