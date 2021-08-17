@@ -24,6 +24,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -81,6 +82,9 @@ public:
 
         /// @brief get PositionVector attribute
         const PositionVector& getPositionVectorAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief get current vType
+        const SUMOVTypeParameter &getVehicleTypeParameter() const;
 
         /// @brief get vehicle parameters
         const SUMOVehicleParameter &getVehicleParameter() const;
@@ -156,6 +160,9 @@ public:
         /// @brief add PositionVector attribute into current SumoBaseObject node
         void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
+        /// @brief set vehicle type parameters
+        void setVehicleTypeParameter(const SUMOVTypeParameter* vehicleTypeParameter);
+
         /// @brief set vehicle parameters
         void setVehicleParameter(const SUMOVehicleParameter* vehicleParameter);
 
@@ -205,6 +212,9 @@ public:
 
         /// @brief SumoBaseObject children
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
+
+        /// @brief vehicle type parameter
+        SUMOVTypeParameter myVehicleTypeParameter;
 
         /// @brief vehicle parameter
         SUMOVehicleParameter myVehicleParameter;
