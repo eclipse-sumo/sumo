@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-08-13 16:05:26.549136 by $Id$ v1_9_2+1052-0e7abd4
+<!-- generated on 2021-08-17 17:48:22.421582 by $Id$ v1_10_0+0029-25ad9df
   options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml <doubleminus>comment.line <doubleminus>comment.id
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <predecessor tripId="t0" tl="A2" foes="t1"/>   <!-- line=S4  -->
+        <predecessor tripId="t0" tl="A2" foes="trip1"/>   <!-- line=S4 foeID=t1  -->
     </railSignalConstraints>
     <railSignalConstraints id="A2">
-        <predecessor tripId="t2" tl="A" foes="t0"/>   <!-- foeLine=S4  -->
+        <predecessor tripId="trip2" tl="A" foes="t0"/>   <!-- foeLine=S4 vehID=t2  -->
     </railSignalConstraints>
 </additional>
