@@ -237,12 +237,6 @@ GNEAdditional::getCenteringBoundary() const {
 }
 
 
-Position
-GNEAdditional::getPositionInView() const {
-    return myBoundary.getCenter();
-}
-
-
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlockMovement;

@@ -100,6 +100,12 @@ GNECalibrator::updateGeometry() {
 }
 
 
+Position
+GNECalibrator::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNECalibrator::updateCenteringBoundary(const bool /*updateGrid*/) {
     // first reset boundary

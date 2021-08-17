@@ -90,6 +90,12 @@ GNECalibratorFlow::updateGeometry() {
 }
 
 
+Position
+GNECalibratorFlow::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNECalibratorFlow::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element

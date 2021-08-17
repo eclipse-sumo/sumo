@@ -73,6 +73,9 @@ public:
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 

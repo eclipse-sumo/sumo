@@ -62,6 +62,12 @@ GNEVaporizer::updateGeometry() {
 }
 
 
+Position
+GNEVaporizer::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEVaporizer::updateCenteringBoundary(const bool /*updateGrid*/) {
     // update geometry

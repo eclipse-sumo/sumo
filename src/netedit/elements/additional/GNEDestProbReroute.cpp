@@ -56,6 +56,12 @@ GNEDestProbReroute::updateGeometry() {
 }
 
 
+Position
+GNEDestProbReroute::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEDestProbReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element

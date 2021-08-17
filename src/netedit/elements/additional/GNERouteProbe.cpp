@@ -58,6 +58,12 @@ GNERouteProbe::updateGeometry() {
 }
 
 
+Position
+GNERouteProbe::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNERouteProbe::updateCenteringBoundary(const bool /*pdateGrid*/) {
     // update geometry

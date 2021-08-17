@@ -58,6 +58,12 @@ GNEClosingReroute::updateGeometry() {
 }
 
 
+Position
+GNEClosingReroute::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEClosingReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element

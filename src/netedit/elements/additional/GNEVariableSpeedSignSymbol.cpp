@@ -71,6 +71,12 @@ GNEVariableSpeedSignSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
 }
 
 
+Position
+GNEVariableSpeedSignSymbol::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEVariableSpeedSignSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
         const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {

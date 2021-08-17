@@ -56,6 +56,12 @@ GNEParkingAreaReroute::updateGeometry() {
 }
 
 
+Position
+GNEParkingAreaReroute::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEParkingAreaReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element

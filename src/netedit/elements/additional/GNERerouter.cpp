@@ -74,6 +74,12 @@ GNERerouter::updateGeometry() {
 }
 
 
+Position
+GNERerouter::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNERerouter::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid

@@ -71,6 +71,12 @@ GNEVariableSpeedSign::updateGeometry() {
 }
 
 
+Position
+GNEVariableSpeedSign::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid

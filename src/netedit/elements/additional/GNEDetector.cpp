@@ -93,6 +93,12 @@ GNEDetector::getLane() const {
 }
 
 
+Position
+GNEDetector::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEDetector::updateCenteringBoundary(const bool /*updateGrid*/) {
     // add shape boundary

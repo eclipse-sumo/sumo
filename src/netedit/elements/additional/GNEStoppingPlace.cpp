@@ -132,6 +132,11 @@ GNEStoppingPlace::fixAdditionalProblem() {
 }
 
 
+Position
+GNEStoppingPlace::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
 
 void
 GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {

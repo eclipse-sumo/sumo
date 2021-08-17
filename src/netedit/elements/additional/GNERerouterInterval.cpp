@@ -69,6 +69,12 @@ GNERerouterInterval::updateGeometry() {
 }
 
 
+Position
+GNERerouterInterval::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNERerouterInterval::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element

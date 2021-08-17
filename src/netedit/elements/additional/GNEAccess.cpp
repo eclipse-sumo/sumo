@@ -86,6 +86,12 @@ GNEAccess::updateGeometry() {
 }
 
 
+Position
+GNEAccess::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void
 GNEAccess::updateCenteringBoundary(const bool /*updateGrid*/) {
     // now update geometry
