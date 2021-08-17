@@ -61,6 +61,7 @@ public:
     static void setLineWidth(std::string polygonID, double lineWidth);
 
 #ifndef LIBTRACI
+#ifndef SWIG
     // currently only used as a Helper function by POI and Vehicle, not part of the public API (and the clients)
     static void addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth);
 
@@ -94,6 +95,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
     static NamedRTree* myTree;
+#endif
 #endif
 
     /// @brief invalidated standard constructor

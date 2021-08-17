@@ -93,14 +93,6 @@
     $1 = PySequence_Check($input) ? 1 : 0;
 }
 
-%typemap(in) const std::vector<double>& (std::vector<double> values) {
-    const Py_ssize_t size = PySequence_Size($input);
-    for (Py_ssize_t i = 0; i < size; i++) {
-        values.push_back(PyFloat_AsDouble(PySequence_GetItem($input, i)));
-    }
-    $1 = &values;
-}
-
 // this is just a workaround to ignore the Simulation::start _stdout argument
 %typemap(in) void* {
     $1 = nullptr;
@@ -314,18 +306,6 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
-%typemap(out) std::pair<int, int> {
-    $result = Py_BuildValue("(ii)", $1.first, $1.second);
-};
-
-%typemap(out) std::pair<std::string, double> {
-    $result = Py_BuildValue("(sd)", $1.first.c_str(), $1.second);
-};
-
-%typemap(out) std::pair<int, std::string> {
-    $result = Py_BuildValue("(is)", $1.first, $1.second.c_str());
-};
-
 %exceptionclass libsumo::TraCIException;
 %exceptionclass libsumo::FatalTraCIError;
 
@@ -365,11 +345,15 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %include "std_map.i"
 %template(StringVector) std::vector<std::string>;
 %template(IntVector) std::vector<int>;
+%template(DoubleVector) std::vector<double>;
 %template() std::map<std::string, std::string>;
 
 // replacing pair instances of standard types, see https://stackoverflow.com/questions/54733078
 %include "std_pair.i"
-%template() std::pair<std::string, std::string>;
+%template(StringStringPair) std::pair<std::string, std::string>;
+%template(IntStringPair) std::pair<int, std::string>;
+%template(IntIntPair) std::pair<int, int>;
+%template(StringDoublePair) std::pair<std::string, double>;
 
 // exception handling
 %include "exception.i"

@@ -78,6 +78,7 @@ public:
     static void setMaxSpeed(const std::string& edgeID, double speed);
 
 #ifndef LIBTRACI
+#ifndef SWIG
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the edge to retrieve
     *  @param shape The container to fill
@@ -96,6 +97,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 #endif
 private:
     /// @brief invalidated standard constructor

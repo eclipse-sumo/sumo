@@ -152,9 +152,11 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
 #ifndef LIBTRACI
+#ifndef SWIG
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
+#endif
 #endif
 
 private:

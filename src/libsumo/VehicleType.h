@@ -99,6 +99,7 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
 #ifndef LIBTRACI
+#ifndef SWIG
     static MSVehicleType* getVType(std::string id);
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
@@ -111,6 +112,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
 
+#endif
 #endif
 
 private:

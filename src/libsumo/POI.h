@@ -69,6 +69,7 @@ public:
 
 
 #ifndef LIBTRACI
+#ifndef SWIG
     /** @brief Returns a tree filled with PoI instances
      *  @return The rtree of PoIs
      */
@@ -93,6 +94,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
     static NamedRTree* myTree;
+#endif
 #endif
 
     /// @brief invalidated standard constructor

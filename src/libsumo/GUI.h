@@ -62,12 +62,14 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
 #ifndef LIBTRACI
+#ifndef SWIG
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
     static GUISUMOAbstractView* getView(const std::string& id);
+#endif
 #endif
 
     /// @brief invalidated standard constructor

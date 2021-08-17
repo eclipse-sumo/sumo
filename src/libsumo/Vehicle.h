@@ -221,6 +221,7 @@ public:
     static void addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 
 #ifndef LIBTRACI
+#ifndef SWIG
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
     *  @param shape The container to fill
@@ -240,6 +241,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 #endif
 
     /// @brief invalidated standard constructor

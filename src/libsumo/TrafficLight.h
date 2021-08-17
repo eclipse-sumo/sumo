@@ -82,6 +82,7 @@ public:
         setProgramLogic(tlsID, logic);
     }
 #ifndef LIBTRACI
+#ifndef SWIG
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
@@ -95,6 +96,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 #endif
     /// @brief invalidated standard constructor
     TrafficLight() = delete;

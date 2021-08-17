@@ -273,10 +273,10 @@ struct TraCIStringList : TraCIResult {
 
 
 /// @brief {variable->value}
-typedef std::map<int, std::shared_ptr<TraCIResult> > TraCIResults;
+typedef std::map<int, std::shared_ptr<libsumo::TraCIResult> > TraCIResults;
 /// @brief {object->{variable->value}}
-typedef std::map<std::string, TraCIResults> SubscriptionResults;
-typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
+typedef std::map<std::string, libsumo::TraCIResults> SubscriptionResults;
+typedef std::map<std::string, libsumo::SubscriptionResults> ContextSubscriptionResults;
 
 
 class TraCIPhase {
@@ -300,10 +300,6 @@ public:
 
 #ifdef SWIG
 %template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase*>; // *NOPAD*
-#ifdef SWIGJAVA
-// this is just a workaround for a shorter file name, see https://github.com/swig/swig/issues/1089
-%template(ContextSubscriptionResults) std::map<std::string, std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > >; // *NOPAD*
-#endif
 #endif
 
 
@@ -326,6 +322,7 @@ public:
 
 class TraCILink {
 public:
+    TraCILink() {}
     TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
         : fromLane(_from), viaLane(_via), toLane(_to) {}
     ~TraCILink() {}

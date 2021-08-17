@@ -88,6 +88,7 @@ public:
 #ifdef LIBTRACI
     static void writeStage(const libsumo::TraCIStage& stage, tcpip::Storage& content);
 #else
+#ifndef SWIG
     /** @brief Saves the shape of the requested object in the given container
      *  @param id The id of the poi to retrieve
      *  @param shape The container to fill
@@ -116,6 +117,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 #endif
 
 private:

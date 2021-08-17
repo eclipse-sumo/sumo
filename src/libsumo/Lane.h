@@ -84,6 +84,7 @@ public:
     static void setLength(std::string laneID, double length);
 
 #ifndef LIBTRACI
+#ifndef SWIG
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the lane to retrieve
     *  @param shape The container to fill
@@ -100,6 +101,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 #endif
 private:
     /// @brief invalidated standard constructor

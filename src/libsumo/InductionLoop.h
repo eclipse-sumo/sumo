@@ -57,6 +57,7 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
 #ifndef LIBTRACI
+#ifndef SWIG
     /** @brief Returns a tree filled with inductive loop instances
      * @return The rtree of inductive loops
      */
@@ -80,6 +81,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
     static NamedRTree* myTree;
+#endif
 #endif
 
 private:
