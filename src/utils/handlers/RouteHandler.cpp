@@ -56,6 +56,16 @@ void
 RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     // switch tag
     switch (obj->getTag()) {
+        // vTypes
+         case SUMO_TAG_VTYPE:
+            buildVType(obj,
+                obj->getVehicleTypeParameter(),
+                obj->getParameters());
+            break;
+        case SUMO_TAG_VTYPE_DISTRIBUTION:
+            buildVTypeDistribution(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID));
+            break;
         // route
         case SUMO_TAG_ROUTE:
             buildRoute(obj,
@@ -65,6 +75,10 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 obj->getIntAttribute(SUMO_ATTR_REPEAT),
                 obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
                 obj->getParameters());
+            break;
+        case SUMO_TAG_ROUTE_DISTRIBUTION:
+            buildRouteDistribution(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID));
             break;
         // vehicles
         case SUMO_TAG_TRIP:
@@ -318,8 +332,19 @@ RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // check tag
     try {
         switch (tag) {
+            // vTypes
+            case SUMO_TAG_VTYPE:
+                parseVType(attrs);
+                break;
+            case SUMO_TAG_VTYPE_DISTRIBUTION:
+                parseVTypeDistribution(attrs);
+                break;
+            // routes
             case SUMO_TAG_ROUTE:
                 parseRoute(attrs);
+                break;
+            case SUMO_TAG_ROUTE_DISTRIBUTION:
+                parseRouteDistribution(attrs);
                 break;
             // vehicles
             case SUMO_TAG_TRIP:
@@ -414,6 +439,18 @@ RouteHandler::myEndElement(int element) {
 
 
 void 
+RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
+    //
+}
+
+
+void 
+RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
+    //
+}
+
+
+void 
 RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     // first check if this is an embedded route
     if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && attrs.hasAttribute(SUMO_ATTR_ID)) {
@@ -440,6 +477,12 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
         }
     }
+}
+
+
+void 
+RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
+    //
 }
 
 
