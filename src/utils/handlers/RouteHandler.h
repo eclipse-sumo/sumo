@@ -141,10 +141,10 @@ private:
     const bool myHardFail;
 
     /// @brief The default value for flow begins
-    SUMOTime myBeginDefault;
+    SUMOTime myFlowBeginDefault;
 
     /// @brief The default value for flow ends
-    SUMOTime myEndDefault;
+    SUMOTime myFlowEndDefault;
 
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
@@ -223,6 +223,9 @@ private:
 
     /// @brief parse tranship
     void parseTranship(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse interval
+    void parseInterval(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);

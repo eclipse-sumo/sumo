@@ -37,8 +37,8 @@
 RouteHandler::RouteHandler(const std::string& file) :
     SUMOSAXHandler(file),
     myHardFail(true),
-    myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
-    myEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
+    myFlowBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
+    myFlowEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
 }
 
 
@@ -394,6 +394,11 @@ RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             case SUMO_TAG_PARAM:
                 parseParameters(attrs);
                 break;
+            // other
+            case SUMO_TAG_INTERVAL: {
+                parseInterval(attrs);
+                break;
+            }
             default:
                 break;
         }
@@ -531,7 +536,7 @@ RouteHandler::parseVehicle(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
     // first parse flow
-    SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+    SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, myFlowBeginDefault, myFlowEndDefault);
     if (flowParameter) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
@@ -575,7 +580,7 @@ RouteHandler::parsePerson(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parsePersonFlow(const SUMOSAXAttributes& attrs) {
     // first parse flow
-    SUMOVehicleParameter* personFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+    SUMOVehicleParameter* personFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, myFlowBeginDefault, myFlowEndDefault);
     if (personFlowParameter) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PERSONFLOW);
@@ -690,7 +695,7 @@ RouteHandler::parseContainer(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseContainerFlow(const SUMOSAXAttributes& attrs) {
     // first parse flow
-    SUMOVehicleParameter* containerFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+    SUMOVehicleParameter* containerFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, attrs, myHardFail, myFlowBeginDefault, myFlowEndDefault);
     if (containerFlowParameter) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONTAINERFLOW);
@@ -749,6 +754,16 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
     }
+}
+
+
+void
+RouteHandler::parseInterval(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // just parse begin and end default
+    myFlowBeginDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, parsedOk);
+    myFlowEndDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, parsedOk);
 }
 
 
