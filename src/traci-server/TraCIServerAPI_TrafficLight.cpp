@@ -99,9 +99,9 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     const std::vector<std::vector<libsumo::TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     tcpip::Storage tempContent;
-                    int cnt = 0;
                     tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
                     tempContent.writeInt((int)links.size());
+                    int cnt = 1;
                     for (const std::vector<libsumo::TraCILink>& sublinks : links) {
                         tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
                         tempContent.writeInt((int)sublinks.size());
