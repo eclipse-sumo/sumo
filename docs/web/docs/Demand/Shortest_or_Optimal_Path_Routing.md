@@ -41,15 +41,15 @@ the router using an XML-file. The syntax of a single trip definition is:
 | arrivalLane    | int/string (≥0,"current")                               | The lane at which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)          |
 | arrivalPos     | float(m)/string (≥0<sup>(1)</sup>,"random","max")       | The position at which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)       |
 | arrivalSpeed   | float(m/s)/string (≥0,"current")                        | The speed with which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)         |
-| fromJunction | junction id  | The junction from which to depart [note](#Routing_between_junctions)    |
-| toJunction   | junction id  | The junction at which to arrive [note](#Routing_between_junctions)    |
-| viaJunctions | junction ids | The junctions to pass along the way [note](#Routing_between_junctions)   |
-| fromXY   | float, float    | The network position from which to depart [note](#Mapmatching)    |
-| toXY   | float, float    | The network position from which to depart [note](#Mapmatching)    |
-| viaXY   | float, float [float,float]    | The network positions to pass along the way [note](#Mapmatching)   |
-| fromLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#Mapmatching)    |
-| toLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#Mapmatching)    |
-| viaLonLat   | float, float [float,float]    | The network positions to pass along the way in geo-coordinates  [note](#Mapmatching)   |
+| fromJunction | junction id  | The junction from which to depart [note](#routing_between_junctions)    |
+| toJunction   | junction id  | The junction at which to arrive [note](#routing_between_junctions)    |
+| viaJunctions | junction ids | The junctions to pass along the way [note](#routing_between_junctions)   |
+| fromXY   | float, float    | The network position from which to depart [note](#mapmatching)    |
+| toXY   | float, float    | The network position from which to depart [note](#mapmatching)    |
+| viaXY   | float, float [float,float]    | The network positions to pass along the way [note](#mapmatching)   |
+| fromLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#mapmatching)    |
+| toLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#mapmatching)    |
+| viaLonLat   | float, float [float,float]    | The network positions to pass along the way in geo-coordinates  [note](#mapmatching)   |
 
 ## Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the duarouter option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
