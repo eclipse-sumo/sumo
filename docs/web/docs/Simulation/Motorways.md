@@ -69,11 +69,8 @@ motorways). This should be modelled as described here:
 
 ## Lane-changing prohibitions
 
-Symmetrical lane-changing prohibitions between two lanes can be modelled
-by adding a thin lane with attribute `disallow="all"` between them.
-
-!!! note
-    One-sided prohibitions currently cannot be modelled.
+Lane-changing prohibtions can be modelled using the lane attributes 'changeLeft' and 'changeRight' with a list of vehicle classes that may change.
+To disable changing right for normal passenger traffic, set 'changeRight="authority"`.
 
 # Defining Motorway Traffic
 
