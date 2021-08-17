@@ -2,6 +2,10 @@
 title: ChangeLog
 ---
 
+## Git Master
+
+### Bugfixes
+
 ## Version 1.10.0 (17.08.2021)
 
 ### Bugfixes
@@ -85,7 +89,7 @@ title: ChangeLog
   - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy)
      - Fixed crash when loading stops define by edge instead of lane. Issue #8937
      - No longer generates constraint where a train waits for itself. Issue #8935
-     - Fixed invalid constraint signal id if a train reverses direclty after stopping. Issue #8936
+     - Fixed invalid constraint signal id if a train reverses directly after stopping. Issue #8936
      - Fixed missing constraints when a train skips a stop. #8943
 
    

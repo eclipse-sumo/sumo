@@ -186,7 +186,7 @@
 #cmakedefine HAVE_PYTHON
 
 /* Define if auto-generated version.h should be used. */
-//#define HAVE_VERSION_H
+#define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
     #define VERSION_STRING "1.10.0"
