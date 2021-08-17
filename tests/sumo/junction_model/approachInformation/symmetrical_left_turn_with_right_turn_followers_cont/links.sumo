@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 10 01:50:26 2020 by Eclipse SUMO Version v1_6_0+0626-59842b4b1e
+<!-- generated on 2021-08-17 16:50:12 by Eclipse SUMO sumo Version v1_10_0+0021-078be59
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -217,7 +218,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NW" impatience="0.0000" arrivalTime="8.189" arrivalTimeBraking="38.189" leaveTime="9.244" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
         </link>
         <link from=":C_3_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="7.736" arrivalTimeBraking="8.353" leaveTime="9.496" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.215" arrivalTimeBraking="8.353" leaveTime="8.975" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
         </link>
         <link from=":C_15_0" via="" to="CW_0">
             <approaching id="NW" impatience="0.0000" arrivalTime="8.398" arrivalTimeBraking="38.398" leaveTime="8.771" arrivalSpeed="13.3931" arrivalSpeedBraking="0.0000" leaveSpeed="13.3931" willPass="1"/>
@@ -229,7 +230,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SE" impatience="0.0000" arrivalTime="8.189" arrivalTimeBraking="38.189" leaveTime="9.244" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="7.736" arrivalTimeBraking="8.353" leaveTime="9.496" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.215" arrivalTimeBraking="8.353" leaveTime="8.975" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
         </link>
         <link from=":C_17_0" via="" to="CE_0">
             <approaching id="SE" impatience="0.0000" arrivalTime="8.398" arrivalTimeBraking="38.398" leaveTime="8.771" arrivalSpeed="13.3931" arrivalSpeedBraking="0.0000" leaveSpeed="13.3931" willPass="1"/>
@@ -255,7 +256,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NW" impatience="0.0000" arrivalTime="8.485" arrivalTimeBraking="38.485" leaveTime="9.541" arrivalSpeed="10.5976" arrivalSpeedBraking="0.0000" leaveSpeed="12.1391" willPass="1"/>
         </link>
         <link from=":C_3_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="7.736" arrivalTimeBraking="8.600" leaveTime="9.496" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.563" arrivalTimeBraking="8.600" leaveTime="9.323" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
         </link>
         <link from=":C_15_0" via="" to="CW_0">
             <approaching id="NW" impatience="0.0000" arrivalTime="9.006" arrivalTimeBraking="39.006" leaveTime="9.452" arrivalSpeed="11.2053" arrivalSpeedBraking="0.0000" leaveSpeed="11.2053" willPass="1"/>
@@ -267,7 +268,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SE" impatience="0.0000" arrivalTime="8.485" arrivalTimeBraking="38.485" leaveTime="9.541" arrivalSpeed="10.5976" arrivalSpeedBraking="0.0000" leaveSpeed="12.1391" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="7.736" arrivalTimeBraking="8.600" leaveTime="9.496" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.563" arrivalTimeBraking="8.600" leaveTime="9.323" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
         </link>
         <link from=":C_17_0" via="" to="CE_0">
             <approaching id="SE" impatience="0.0000" arrivalTime="9.006" arrivalTimeBraking="39.006" leaveTime="9.452" arrivalSpeed="11.2053" arrivalSpeedBraking="0.0000" leaveSpeed="11.2053" willPass="1"/>
