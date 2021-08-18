@@ -653,11 +653,13 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
                 s2copy = copy.copy(s2)
                 s2copy.prevTripId = stop2.prevTripId
                 s2copy.setAttribute("intermediateStop", stop2.busStop)
+                s2copy.setAttribute("otherVeh", stop.vehID)
                 stopRoutes2[s.busStop].append((edgesBefore2, s2copy))
             if s.busStop != stop.busStop and ((edgesBefore, s) not in stopRoutes2[s.busStop]):
                 scopy = copy.copy(s)
                 scopy.prevTripId = stop.prevTripId
                 scopy.setAttribute("intermediateStop", stop.busStop)
+                scopy.setAttribute("otherVeh", stop2.vehID)
                 stopRoutes2[s.busStop].append((edgesBefore, scopy))
             return
         # advance along routes
@@ -785,6 +787,9 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                         numIgnoredConflicts += 1
                         numIgnoredSwitchConflicts += 1
                         continue
+                    if nStop.intermediateStop and pStop.intermediateStop == nStop.intermediateStop:
+                        # intermediate conflict was added via other foes and this particular conflict is a normal one
+                        continue
                     numConflicts += 1
                     numSwitchConflicts += 1
                     # check for trains that pass the switch in between the
@@ -811,6 +816,9 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                         for p2Arrival, p2Stop in reversed(arrivalsBySignal[pSignal]):
                             if pArrival - p2Arrival > options.redundant:
                                 break
+                            if nStop.intermediateStop and p2Stop.intermediateStop == nStop.intermediateStop:
+                                # intermediate conflict was added via other foes and this particular conflict is a normal one
+                                continue
                             numRedundant += 1
                             numRedundantSwitchConflicts += 1
                             p2TimeAtSignal = p2Arrival - pTimeSiSt
@@ -857,6 +865,10 @@ def getIntermediateInfo(pStop, nStop):
         info.append("intermediateStop=%s" % pStop.intermediateStop)
     if nStop.intermediateStop:
         info.append("foeIntermediateStop=%s" % nStop.intermediateStop)
+    #if pStop.otherVeh:
+    #    info.append("otherVeh=%s" % pStop.otherVeh)
+    #if nStop.otherVeh:
+    #    info.append("foeOtherVeh=%s" % nStop.otherVeh)
     return ' '.join(info)
 
 
