@@ -198,30 +198,6 @@ public:
     /// @brief check if there is already a container (Container or ContainerFlow) with the given ID
     static bool isContainerIdDuplicated(GNENet* net, const std::string& id);
 
-    /// @name build vehicles
-    /// @{
-
-    /// @brief build trip
-    static void buildTrip(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
-
-    /// @brief build flow
-    static void buildFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
-
-    /// @brief build stop
-    static void buildStop(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent);
-
-    /// @}
-
-    /// @name build person
-    /// @{
-    /// @brief build person
-    static void buildPerson(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& personParameters);
-
-    /// @brief build person flow
-    static void buildPersonFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& personFlowParameters);
-
-    /// @}
-
     /// @name build personPlan
     /// @{
     /// @brief build person plan functions (used in Person / PersonPlan frames)
@@ -316,24 +292,6 @@ public:
     static void setFlowParameters(const SumoXMLAttr attribute, int& parameters);
 
 protected:
-    /// @brief opens a type distribution for reading
-    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
-
-    /// @brief closes (ends) the building of a distribution
-    void closeVehicleTypeDistribution();
-
-    /// @brief opens a route for reading
-    void openRoute(const SUMOSAXAttributes& attrs);
-
-    /// @brief opens a routeFlow for reading
-    void openFlow(const SUMOSAXAttributes& attrs);
-
-    /// @brief opens a routeFlow for reading
-    void openRouteFlow(const SUMOSAXAttributes& attrs);
-
-    /// @brief opens a trip for reading
-    void openTrip(const SUMOSAXAttributes& attrs);
-
     /**closes (ends) the building of a route.
      * Afterwards no edges may be added to it;
      * this method may throw exceptions when
@@ -342,17 +300,8 @@ protected:
      */
     void closeRoute(const bool mayBeDisconnected = false);
 
-    /// @brief opens a route distribution for reading
-    void openRouteDistribution(const SUMOSAXAttributes& attrs);
-
-    /// @brief closes (ends) the building of a distribution
-    void closeRouteDistribution();
-
     /// @brief Ends the processing of a vehicle
     void closeVehicle();
-
-    /// @brief Ends the processing of a vehicle Type
-    void closeVType();
 
     /// @brief Ends the processing of a person
     void closePerson();
@@ -381,20 +330,11 @@ protected:
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
 
-    /// @brief Processing of a person
-    void addPerson(const SUMOSAXAttributes& attrs);
+    /// @brief parse single edge
+    GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& edgeID) const;
 
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a tranship
-    void addTranship(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a transport
-    void addTransport(const SUMOSAXAttributes& attrs);
 
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
