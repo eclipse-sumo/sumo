@@ -130,7 +130,7 @@ public:
 
     /// @brief build vehicle with a embedded route
     void buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                           const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters);
+                                    const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters);
 
     /// @brief build flow with a embedded route
     void buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
@@ -198,28 +198,8 @@ public:
     /// @brief check if there is already a container (Container or ContainerFlow) with the given ID
     static bool isContainerIdDuplicated(GNENet* net, const std::string& id);
 
-    /// @name build routes
-    /// @{
-
-    /// @brief build route
-    static void buildRoute(GNENet* net, bool undoDemandElements, const RouteParameter& routeParameters, const std::vector<SUMOVehicleParameter::Stop>& activeStops);
-
-    /// @}
-
     /// @name build vehicles
     /// @{
-
-    /// @brief build a vehicle over an existent route
-    static void buildVehicleOverRoute(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters);
-
-    /// @brief build a flow over an existent route
-    static void buildFlowOverRoute(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters);
-
-    /// @brief build vehicle with a embedded route
-    static void buildVehicleEmbeddedRoute(GNENet* net, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, const std::vector<GNEEdge*>& edges);
-
-    /// @brief build flow with a embedded route
-    static void buildFlowEmbeddedRoute(GNENet* net, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, const std::vector<GNEEdge*>& edges);
 
     /// @brief build trip
     static void buildTrip(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
@@ -592,9 +572,6 @@ private:
 
     /// @brief Pointer to loaded vehicle with embebbed route (needed for GNEStops)
     GNEDemandElement* myLoadedVehicleWithEmbebbedRoute;
-
-    /// @brief flag used for parsing values
-    bool myAbort;
 };
 
 
