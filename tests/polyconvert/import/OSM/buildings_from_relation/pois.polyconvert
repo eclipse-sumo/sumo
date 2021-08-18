@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/02/16 22:34:21 by SUMO polyconvert Version dev-SVN-r20320
+<!-- generated on 2021-08-18 16:19:54 by Eclipse SUMO polyconvert Version v1_10_0+0066-c7c9156
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,16 +11,17 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <osm-files value="osm.xml"/>
         <osm.keep-full-type value="true"/>
-        <type-file value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo/data/typemap/osmPolyconvert.typ.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.scale value="0"/>
+        <proj.scale value="1"/>
         <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
     </projection>
 
     <processing>
@@ -37,31 +38,29 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="399466.14,5809386.88,401148.73,5810735.08" origBoundary="13.521259,52.425725,13.546188,52.437711" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
-
-    <poly id="114033003" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="400062.20,5809717.58 400056.61,5809712.91 400051.88,5809708.98 400074.05,5809682.51 400078.88,5809686.53 400084.37,5809691.10 400062.20,5809717.58">
+    <poly id="114033003" type="amenity.parking" color="184,184,179" fill="1" layer="-1.000000" geo="1" shape="13.530136,52.428523 13.530055,52.428480 13.529987,52.428443 13.530321,52.428210 13.530391,52.428247 13.530470,52.428289 13.530136,52.428523">
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
         <param key="wheelchair" value="no"/>
     </poly>
-    <poly id="114033007" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="400066.07,5809721.04 400071.51,5809725.63 400077.25,5809730.46 400099.74,5809703.89 400093.95,5809699.01 400088.57,5809694.47 400066.07,5809721.04">
+    <poly id="114033007" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.530192,52.428554 13.530271,52.428597 13.530354,52.428641 13.530692,52.428406 13.530609,52.428361 13.530531,52.428320 13.530192,52.428554">
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
         <param key="wheelchair" value="no"/>
     </poly>
-    <poly id="114207232" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400056.92,5809598.75 400064.35,5809589.84">
+    <poly id="114207232" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.530094,52.427454 13.530206,52.427375">
         <param key="highway" value="service"/>
         <param key="landuse" value="grass"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="114697179" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="400017.74,5809767.77 400019.10,5809769.37 400023.23,5809774.27 400032.02,5809764.05 400056.95,5809735.36 400054.77,5809733.60 400049.86,5809729.05 400017.74,5809767.77">
+    <poly id="114697179" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.529468,52.428965 13.529487,52.428980 13.529546,52.429025 13.529679,52.428935 13.530054,52.428681 13.530022,52.428665 13.529951,52.428623 13.529468,52.428965">
         <param key="access" value="private"/>
         <param key="amenity" value="parking"/>
         <param key="bicycle" value="yes"/>
         <param key="foot" value="yes"/>
         <param key="parking" value="surface"/>
     </poly>
-    <poly id="114952399" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400066.36,5809587.42 400072.41,5809580.16 400078.19,5809573.22 400084.07,5809566.17 400091.08,5809557.75">
+    <poly id="114952399" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.530236,52.427354 13.530327,52.427289 13.530414,52.427228 13.530503,52.427166 13.530609,52.427091">
         <param key="bicycle" value="yes"/>
         <param key="foot" value="yes"/>
         <param key="highway" value="service"/>
@@ -70,21 +69,21 @@ SPDX-License-Identifier: EPL-2.0
         <param key="type" value="multipolygon"/>
         <param key="vehicle" value="private"/>
     </poly>
-    <poly id="122666824" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="399997.04,5809691.32 399999.96,5809693.86 400004.58,5809697.85 400015.71,5809707.47 400013.17,5809710.22 399992.19,5809733.40 399980.57,5809723.10 399973.91,5809717.01 399991.63,5809697.35 399997.04,5809691.32">
+    <poly id="122666824" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.529186,52.428275 13.529228,52.428298 13.529295,52.428335 13.529456,52.428423 13.529417,52.428447 13.529102,52.428652 13.528934,52.428557 13.528838,52.428501 13.529105,52.428328 13.529186,52.428275">
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
     </poly>
-    <poly id="122868959" type="landuse.meadow" color="194,194,130" fill="1" layer="-3.00" shape="399884.51,5809718.52 399913.69,5809725.25 399927.58,5809706.80 399907.36,5809690.28 399882.69,5809694.96 399880.95,5809697.98 399884.51,5809718.52">
+    <poly id="122868959" type="landuse.meadow" color="194,194,130" fill="1" layer="-3.00" geo="1" shape="13.527523,52.428498 13.527950,52.428564 13.528160,52.428401 13.527868,52.428249 13.527504,52.428286 13.527477,52.428313 13.527523,52.428498">
         <param key="landuse" value="meadow"/>
     </poly>
-    <poly id="128643757" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399941.67,5809748.81 399934.81,5809740.62">
+    <poly id="128643757" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528355,52.428781 13.528256,52.428706">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="142598675" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399988.94,5809673.34 399992.57,5809669.07 399984.73,5809662.45 399982.62,5809664.93 399977.95,5809661.00">
+    <poly id="142598675" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529072,52.428112 13.529127,52.428074 13.529014,52.428013 13.528982,52.428035 13.528914,52.427999">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -97,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="142598699" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399937.18,5809737.86 399945.99,5809727.62 399932.86,5809716.62 399920.73,5809729.44 399923.61,5809731.27 399913.34,5809743.51 399900.69,5809740.12 399901.34,5809737.65 399898.35,5809735.86 399894.75,5809734.90 399889.53,5809734.87 399889.21,5809736.75 399876.22,5809733.75 399869.96,5809701.14 399872.54,5809700.69 399869.36,5809683.43 399851.50,5809687.18 399864.51,5809748.01 399917.07,5809761.22 399934.81,5809740.62">
+    <poly id="142598699" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528292,52.428682 13.528425,52.428592 13.528235,52.428490 13.528053,52.428603 13.528094,52.428620 13.527940,52.428728 13.527755,52.428696 13.527765,52.428673 13.527722,52.428657 13.527669,52.428648 13.527592,52.428646 13.527587,52.428663 13.527397,52.428634 13.527315,52.428340 13.527353,52.428336 13.527311,52.428180 13.527047,52.428211 13.527221,52.428760 13.527989,52.428888 13.528256,52.428706">
         <param key="building" value="yes"/>
         <param key="building:colour" value="#aa6957"/>
         <param key="building:levels" value="5"/>
@@ -105,7 +104,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="name" value="OWZ - Internationales Gründerzentrum"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="147859763" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400227.69,5809744.43 400216.72,5809735.07 400203.75,5809723.99 400157.04,5809684.15 400143.38,5809672.50 400130.69,5809661.68 400108.84,5809643.04 400101.63,5809636.89 400080.62,5809618.97 400064.75,5809605.43 400056.92,5809598.75">
+    <poly id="147859763" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.532561,52.428794 13.532403,52.428708 13.532215,52.428606 13.531541,52.428239 13.531343,52.428132 13.531160,52.428033 13.530844,52.427861 13.530740,52.427805 13.530436,52.427640 13.530207,52.427515 13.530094,52.427454">
         <param key="highway" value="unclassified"/>
         <param key="landuse" value="grass"/>
         <param key="lit" value="yes"/>
@@ -119,7 +118,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="type" value="multipolygon"/>
         <param key="width" value="6.5"/>
     </poly>
-    <poly id="148974739" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400006.81,5809754.61 400003.61,5809758.82 400001.61,5809761.46">
+    <poly id="148974739" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529311,52.428845 13.529262,52.428882 13.529232,52.428906">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -130,28 +129,28 @@ SPDX-License-Identifier: EPL-2.0
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974742" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399934.81,5809740.62 399937.18,5809737.86">
+    <poly id="148974742" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528256,52.428706 13.528292,52.428682">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974743" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399937.18,5809737.86 399943.87,5809746.19">
+    <poly id="148974743" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528292,52.428682 13.528388,52.428758">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974745" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399941.67,5809748.81 399943.87,5809746.19">
+    <poly id="148974745" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528355,52.428781 13.528388,52.428758">
         <param key="building" value="yes"/>
         <param key="building:levels" value="2"/>
         <param key="building:min_level" value="1"/>
         <param key="building:part" value="base"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974746" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399971.15,5809749.46 399974.70,5809752.52 399978.74,5809756.00 399984.07,5809760.57">
+    <poly id="148974746" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528788,52.428792 13.528839,52.428821 13.528898,52.428853 13.528975,52.428895">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -162,7 +161,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974748" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399984.07,5809760.57 399991.05,5809752.48 400001.61,5809761.46">
+    <poly id="148974748" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528975,52.428895 13.529080,52.428823 13.529232,52.428906">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -173,7 +172,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="148974749" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399943.87,5809746.19 399954.59,5809733.42 399971.82,5809748.22 399971.15,5809749.46">
+    <poly id="148974749" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528388,52.428758 13.528549,52.428645 13.528798,52.428781 13.528788,52.428792">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -184,7 +183,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641833" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399991.67,5809659.34 399990.08,5809657.43 399989.28,5809655.70 399988.74,5809653.49 399988.98,5809651.53 399990.09,5809648.59 399992.14,5809646.65 399993.97,5809645.53 399996.79,5809644.95 399999.03,5809645.00 400000.99,5809645.82 400002.42,5809646.62">
+    <poly id="149641833" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529117,52.427986 13.529094,52.427969 13.529083,52.427953 13.529075,52.427933 13.529079,52.427916 13.529097,52.427889 13.529127,52.427872 13.529155,52.427863 13.529196,52.427858 13.529229,52.427859 13.529258,52.427866 13.529279,52.427874">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -197,7 +196,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641834" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399977.95,5809661.00 399977.12,5809661.98 399969.74,5809655.75 399954.95,5809673.20 399938.50,5809659.31 399937.13,5809660.93 399934.03,5809658.32 399935.38,5809656.74 399932.27,5809654.11 399952.10,5809630.72 399974.57,5809649.67 399974.03,5809650.30 399981.58,5809656.68">
+    <poly id="149641834" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528914,52.427999 13.528902,52.428007 13.528795,52.427950 13.528573,52.428104 13.528335,52.427976 13.528314,52.427991 13.528270,52.427967 13.528290,52.427953 13.528245,52.427928 13.528543,52.427722 13.528868,52.427896 13.528860,52.427902 13.528969,52.427960">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -210,7 +209,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641835" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400007.78,5809640.83 399974.25,5809612.31">
+    <poly id="149641835" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529359,52.427823 13.528875,52.427560">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -223,7 +222,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641836" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400021.32,5809652.50 400014.90,5809659.88">
+    <poly id="149641836" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529555,52.427930 13.529458,52.427995">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -236,7 +235,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641842" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400002.42,5809646.62 400007.78,5809640.83">
+    <poly id="149641842" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529279,52.427874 13.529359,52.427823">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -249,7 +248,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641844" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400006.36,5809670.03 400001.11,5809676.27 399997.82,5809680.19">
+    <poly id="149641844" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529329,52.428085 13.529250,52.428140 13.529201,52.428175">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -262,7 +261,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641845" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399981.58,5809656.68 399988.98,5809662.86 399991.67,5809659.34">
+    <poly id="149641845" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528969,52.427960 13.529076,52.428017 13.529117,52.427986">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -275,7 +274,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641846" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399997.82,5809680.19 399999.66,5809681.76 399984.08,5809700.13 399985.94,5809701.70 399974.13,5809715.62 399972.52,5809714.26 399963.27,5809725.18 399947.70,5809712.04 399951.18,5809707.92 399945.57,5809703.20 399942.55,5809706.76 399909.79,5809679.14 399925.96,5809660.06 399935.66,5809668.24 399926.78,5809678.72 399926.50,5809678.48 399924.13,5809681.28 399934.05,5809689.65 399936.36,5809686.91 399935.39,5809686.08 399944.23,5809675.65 399953.99,5809683.89 399945.13,5809694.34 399944.84,5809694.10 399942.61,5809696.74 399947.47,5809700.83 399946.95,5809701.44 399952.83,5809706.40 399984.23,5809669.36 399988.94,5809673.34">
+    <poly id="149641846" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529201,52.428175 13.529227,52.428189 13.528993,52.428351 13.529020,52.428366 13.528842,52.428489 13.528819,52.428476 13.528679,52.428573 13.528454,52.428452 13.528507,52.428415 13.528426,52.428372 13.528380,52.428403 13.527907,52.428149 13.528150,52.427981 13.528291,52.428056 13.528157,52.428149 13.528153,52.428146 13.528117,52.428171 13.528260,52.428248 13.528295,52.428224 13.528281,52.428216 13.528414,52.428124 13.528555,52.428200 13.528422,52.428292 13.528418,52.428290 13.528384,52.428313 13.528454,52.428351 13.528447,52.428356 13.528531,52.428402 13.529004,52.428075 13.529072,52.428112">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -288,7 +287,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149641848" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400014.90,5809659.88 400049.37,5809689.01 400040.85,5809699.08 400006.36,5809670.03">
+    <poly id="149641848" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529458,52.427995 13.529956,52.428263 13.529828,52.428352 13.529329,52.428085">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -301,31 +300,31 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149663226" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="399925.99,5809593.25 399926.19,5809590.66 399928.46,5809589.22 399930.05,5809589.51 399931.13,5809590.42 399931.67,5809591.81 399931.14,5809593.87 399929.39,5809595.03 399927.43,5809594.80 399925.99,5809593.25">
+    <poly id="149663226" type="building.yes" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.528171,52.427380 13.528174,52.427357 13.528208,52.427344 13.528232,52.427347 13.528247,52.427356 13.528255,52.427368 13.528246,52.427387 13.528220,52.427397 13.528192,52.427394 13.528171,52.427380">
         <param key="building" value="yes"/>
         <param key="colour" value="white"/>
         <param key="height" value="20"/>
         <param key="man_made" value="tower"/>
         <param key="roof:colour" value="black"/>
     </poly>
-    <poly id="149663226#1" type="man_made.tower" color="255,230,230" fill="1" layer="-1.00" shape="399925.99,5809593.25 399926.19,5809590.66 399928.46,5809589.22 399930.05,5809589.51 399931.13,5809590.42 399931.67,5809591.81 399931.14,5809593.87 399929.39,5809595.03 399927.43,5809594.80 399925.99,5809593.25">
+    <poly id="149663226#1" type="man_made.tower" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.528171,52.427380 13.528174,52.427357 13.528208,52.427344 13.528232,52.427347 13.528247,52.427356 13.528255,52.427368 13.528246,52.427387 13.528220,52.427397 13.528192,52.427394 13.528171,52.427380">
         <param key="building" value="yes"/>
         <param key="colour" value="white"/>
         <param key="height" value="20"/>
         <param key="man_made" value="tower"/>
         <param key="roof:colour" value="black"/>
     </poly>
-    <poly id="149663244" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399893.28,5809523.32 399900.82,5809590.70 399910.81,5809589.60">
+    <poly id="149663244" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.527711,52.426746 13.527802,52.427353 13.527949,52.427345">
         <param key="building" value="yes"/>
         <param key="building:parts" value="vertical"/>
         <param key="height" value="10"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149670391" type="landuse.commercial" color="209,209,204" fill="0" layer="-3.00" shape="399719.56,5809975.93 399680.71,5810035.26 399846.56,5810117.47 399847.54,5810119.46 399846.83,5810121.54 399687.96,5810297.61 399466.14,5810094.31 399516.97,5810037.91 399538.53,5809733.24 399638.99,5809740.48 399654.67,5809742.10 399699.52,5809746.75 399747.80,5809755.01 399847.43,5809780.10 399854.70,5809746.97 399842.52,5809608.02 399838.53,5809562.52 399833.63,5809517.62 399880.51,5809513.43 399927.46,5809507.78 399971.30,5809503.87 399993.73,5809501.81 400094.81,5809492.52 400191.19,5809481.56 400283.79,5809472.34 400393.33,5809457.96 400452.20,5809452.83 400494.21,5809445.93 400843.82,5809408.62 400866.06,5809406.38 401001.62,5809392.75 401024.09,5809386.88 401053.89,5809395.34 401077.34,5809406.31 401090.86,5809413.30 401095.83,5809415.87 401121.07,5809432.68 401148.73,5809456.96 401148.52,5809462.40 401081.92,5809543.25 400985.83,5809659.90 401128.53,5809773.42 401103.91,5809813.31 401089.87,5809938.48 401041.71,5809993.15 401039.97,5810007.17 401008.19,5810042.09 400892.58,5810165.99 400880.80,5810182.60 400842.83,5810220.58 400806.60,5810184.07 400662.23,5810339.13 400632.60,5810374.16 400589.02,5810421.36 400575.55,5810436.45 400516.93,5810501.46 400421.54,5810605.90 400407.33,5810622.25 400334.09,5810706.59 400310.19,5810734.10 400302.75,5810735.08 400078.26,5810530.10 400092.43,5810506.75 400188.21,5810394.32 400107.31,5810320.72 400203.67,5810216.67 400190.60,5810204.43 400250.11,5810139.88 400294.83,5810180.77 400301.31,5810173.75 400367.24,5810105.13 400307.82,5810051.22 400290.86,5810032.73 400266.54,5810009.69 400234.89,5809987.18 400146.17,5809932.62 400131.40,5809923.09 400092.76,5809894.25 400158.19,5809818.11 400063.92,5809740.37 400008.05,5809803.87 400003.39,5809820.36 399939.64,5809941.51 399919.32,5809982.39 399918.40,5809983.97">
+    <poly id="149670391" type="landuse.commercial" color="209,209,204" fill="0" layer="-3.00" geo="1" shape="13.525021,52.430782 13.524432,52.431308 13.526846,52.432077 13.526860,52.432095 13.526849,52.432114 13.524460,52.433667 13.521259,52.431799 13.522024,52.431302 13.522432,52.428567 13.523907,52.428651 13.524137,52.428668 13.524795,52.428718 13.525503,52.428801 13.526960,52.429045 13.527077,52.428749 13.526939,52.427498 13.526894,52.427088 13.526836,52.426684 13.527526,52.426655 13.528218,52.426612 13.528864,52.426585 13.529194,52.426571 13.530683,52.426506 13.532103,52.426425 13.533467,52.426359 13.535082,52.426250 13.535949,52.426214 13.536569,52.426160 13.541720,52.425888 13.542047,52.425872 13.544044,52.425774 13.544376,52.425725 13.544812,52.425807 13.545154,52.425910 13.545350,52.425975 13.545422,52.425999 13.545789,52.426155 13.546188,52.426378 13.546183,52.426427 13.545180,52.427141 13.543733,52.428172 13.545797,52.429218 13.545424,52.429572 13.545180,52.430695 13.544456,52.431177 13.544426,52.431303 13.543949,52.431611 13.542212,52.432704 13.542034,52.432851 13.541464,52.433185 13.540942,52.432851 13.538773,52.434218 13.538327,52.434527 13.537672,52.434944 13.537470,52.435077 13.536589,52.435650 13.535155,52.436572 13.534941,52.436716 13.533839,52.437461 13.533479,52.437704 13.533369,52.437711 13.530129,52.435828 13.530345,52.435621 13.531787,52.434628 13.530619,52.433951 13.532067,52.433034 13.531879,52.432921 13.532773,52.432352 13.533418,52.432728 13.533516,52.432666 13.534506,52.432061 13.533648,52.431566 13.533404,52.431397 13.533053,52.431185 13.532595,52.430977 13.531307,52.430471 13.531092,52.430382 13.530533,52.430116 13.531517,52.429444 13.530155,52.428728 13.529314,52.429288 13.529241,52.429436 13.528267,52.430513 13.527956,52.430876 13.527942,52.430890">
         <param key="landuse" value="commercial"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="150511198" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399985.04,5809599.69 399990.86,5809604.65 399992.96,5809602.19 399998.81,5809607.17 399996.81,5809609.50 400018.68,5809628.11 400020.64,5809625.82 400026.54,5809630.84 400024.42,5809633.32 400030.17,5809638.21">
+    <poly id="150511198" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529037,52.427449 13.529121,52.427495 13.529153,52.427473 13.529237,52.427519 13.529207,52.427539 13.529523,52.427710 13.529553,52.427690 13.529638,52.427736 13.529606,52.427758 13.529689,52.427803">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -338,7 +337,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="150511203" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399974.25,5809612.31 399968.39,5809607.32 399979.18,5809594.71 399985.04,5809599.69">
+    <poly id="150511203" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528875,52.427560 13.528790,52.427514 13.528952,52.427403 13.529037,52.427449">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -351,7 +350,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="150511205" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400030.17,5809638.21 400036.25,5809643.38 400025.45,5809656.01 400021.32,5809652.50">
+    <poly id="150511205" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529689,52.427803 13.529777,52.427851 13.529614,52.427962 13.529555,52.427930">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="2"/>
@@ -364,7 +363,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="164560675" type="building.university" color="255,230,230" fill="1" layer="-1.00" shape="400030.46,5809806.57 400015.82,5809799.57 400039.74,5809771.43 400042.39,5809768.11 400065.52,5809748.01 400074.94,5809756.15 400054.70,5809779.78 400030.46,5809806.57">
+    <poly id="164560675" type="building.university" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.529643,52.429317 13.529430,52.429251 13.529790,52.429002 13.529830,52.428973 13.530176,52.428797 13.530312,52.428872 13.530007,52.429080 13.529643,52.429317">
         <param key="addr:housename" value="Haus I"/>
         <param key="building" value="university"/>
         <param key="building:colour" value="darkred"/>
@@ -372,24 +371,24 @@ SPDX-License-Identifier: EPL-2.0
         <param key="roof:shape" value="flat"/>
         <param key="wheelchair" value="yes"/>
     </poly>
-    <poly id="172014857" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" shape="400064.35,5809589.84 400066.36,5809587.42">
+    <poly id="172014857" type="landuse.grass" color="194,194,130" fill="0" layer="-3.00" geo="1" shape="13.530206,52.427375 13.530236,52.427354">
         <param key="highway" value="service"/>
         <param key="landuse" value="grass"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="172014860" type="landuse.commercial" color="209,209,204" fill="0" layer="-3.00" shape="400064.35,5809589.84 400035.94,5809565.53 400001.72,5809536.27 399999.12,5809534.23 399998.05,5809532.82 399997.39,5809530.92 399993.73,5809501.81 400094.81,5809492.52 400191.19,5809481.56 400283.79,5809472.34 400393.33,5809457.96 400452.20,5809452.83 400454.51,5809471.65 400378.61,5809560.88">
+    <poly id="172014860" type="landuse.commercial" color="209,209,204" fill="0" layer="-3.00" geo="1" shape="13.530206,52.427375 13.529796,52.427151 13.529301,52.426882 13.529264,52.426863 13.529248,52.426850 13.529239,52.426833 13.529194,52.426571 13.530683,52.426506 13.532103,52.426425 13.533467,52.426359 13.535082,52.426250 13.535949,52.426214 13.535977,52.426384 13.534835,52.427172">
         <param key="landuse" value="commercial"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="172667643" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="400049.37,5809689.01 400095.43,5809635.43 399991.53,5809546.58 399934.56,5809612.20 399902.91,5809616.46 399909.79,5809679.14 399942.55,5809706.76 399947.70,5809712.04 399963.27,5809725.18 399982.35,5809743.76 399997.09,5809735.26 400026.22,5809711.19 400032.52,5809707.36 400036.81,5809704.74 400037.41,5809703.49 400040.85,5809699.08 400049.37,5809689.01">
+    <poly id="172667643" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" geo="1" shape="13.529956,52.428263 13.530649,52.427790 13.529148,52.426973 13.528291,52.427552 13.527824,52.427585 13.527907,52.428149 13.528380,52.428403 13.528454,52.428452 13.528679,52.428573 13.528954,52.428743 13.529174,52.428670 13.529609,52.428459 13.529703,52.428425 13.529767,52.428403 13.529776,52.428391 13.529828,52.428352 13.529956,52.428263">
         <param key="landuse" value="grass"/>
     </poly>
-    <poly id="30978403" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="399904.98,5809660.05 399900.44,5809618.79 399846.78,5809624.35 399851.56,5809665.41 399904.98,5809660.05">
+    <poly id="30978403" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.527842,52.427977 13.527787,52.427605 13.526997,52.427645 13.527055,52.428015 13.527842,52.427977">
         <param key="access" value="permissive"/>
         <param key="amenity" value="parking"/>
         <param key="parking" value="surface"/>
     </poly>
-    <poly id="32523727" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="399962.02,5809759.75 399955.12,5809768.23 399937.62,5809753.63 399941.67,5809748.81">
+    <poly id="32523727" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.528651,52.428883 13.528547,52.428958 13.528294,52.428824 13.528355,52.428781">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -400,7 +399,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="32523890" type="building.yes" color="255,230,230" fill="0" layer="-1.00" shape="400012.93,5809759.94 400017.74,5809763.92 400046.11,5809730.15 400034.23,5809720.23 400005.93,5809754.08 400006.81,5809754.61">
+    <poly id="32523890" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.529399,52.428894 13.529469,52.428931 13.529896,52.428633 13.529724,52.428541 13.529298,52.428840 13.529311,52.428845">
         <param key="addr:city" value="Berlin"/>
         <param key="addr:country" value="DE"/>
         <param key="addr:housenumber" value="29"/>
@@ -411,7 +410,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="building:levels" value="7"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="40106791" type="amenity.university" color="237,199,199" fill="1" layer="-1.00" shape="400008.05,5809803.87 400012.96,5809847.41 399977.11,5809919.59 399879.80,5810114.22 400094.56,5810308.54 400119.37,5810281.09 400159.52,5810318.06 400217.55,5810255.57 400173.77,5810217.11 400160.51,5810204.95 400242.66,5810120.54 400301.13,5810173.73 400367.24,5810105.13 400307.82,5810051.22 400290.86,5810032.73 400266.54,5810009.69 400234.89,5809987.18 400146.17,5809932.62 400131.40,5809923.09 400092.76,5809894.25 400158.19,5809818.11 400063.92,5809740.37 400008.05,5809803.87">
+    <poly id="40106791" type="amenity.university" color="237,199,199" fill="1" layer="-1.00" geo="1" shape="13.529314,52.429288 13.529373,52.429680 13.528825,52.430323 13.527336,52.432054 13.530435,52.433840 13.530808,52.433597 13.531388,52.433937 13.532260,52.433386 13.531627,52.433032 13.531436,52.432921 13.532669,52.432177 13.533513,52.432666 13.534506,52.432061 13.533648,52.431566 13.533404,52.431397 13.533053,52.431185 13.532595,52.430977 13.531307,52.430471 13.531092,52.430382 13.530533,52.430116 13.531517,52.429444 13.530155,52.428728 13.529314,52.429288">
         <param key="amenity" value="university"/>
         <param key="name" value="Humboldt-Universität Campus Adlershof"/>
         <param key="name:de" value="Humboldt-Universität Campus Adlershof"/>
@@ -419,19 +418,19 @@ SPDX-License-Identifier: EPL-2.0
         <param key="website" value="http://www.adlershof.hu-berlin.de"/>
         <param key="wheelchair" value="yes"/>
     </poly>
-    <poi id="1302791742" type="amenity.recycling" color="237,199,199" layer="4.00" x="400033.49" y="5809626.94">
+    <poi id="1302791742" type="amenity.recycling" color="237,199,199" layer="4.00" lon="13.529741" lat="52.427703">
         <param key="amenity" value="recycling"/>
     </poi>
-    <poi id="1302791743" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" x="400013.05" y="5809608.79">
+    <poi id="1302791743" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" lon="13.529446" lat="52.427536">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="1371616241" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" x="400012.91" y="5809705.89">
+    <poi id="1371616241" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" lon="13.529415" lat="52.428408">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="1371616242" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" x="399984.68" y="5809636.40">
+    <poi id="1371616242" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" lon="13.529021" lat="52.427779">
         <param key="amenity" value="bicycle_parking"/>
     </poi>
-    <poi id="317551933" type="amenity.restaurant" color="237,199,199" layer="4.00" x="399952.58" y="5809755.59">
+    <poi id="317551933" type="amenity.restaurant" color="237,199,199" layer="4.00" lon="13.528513" lat="52.428844">
         <param key="amenity" value="restaurant"/>
         <param key="contact:phone" value="+49-30-63926055"/>
         <param key="name" value="Caféteria Hummel"/>
