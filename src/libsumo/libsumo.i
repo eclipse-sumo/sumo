@@ -46,8 +46,8 @@
 %template(TraCIVehicleDataVector) std::vector<libsumo::TraCIVehicleData>;
 
 %template(TraCIResults) std::map<int, std::shared_ptr<libsumo::TraCIResult> >;
-//%template(SubscriptionResults) std::map<std::string, libsumo::TraCIResults>;
-//%template(ContextSubscriptionResults) std::map<std::string, libsumo::SubscriptionResults>;
+%template(SubscriptionResults) std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > >;
+%template(ContextSubscriptionResults) std::map<std::string, std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > >;
 #endif
 %include "Edge.h"
 %include "InductionLoop.h"
