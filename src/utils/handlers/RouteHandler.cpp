@@ -364,7 +364,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         // declare Ok Flag
         bool parsedOk = true;
         // special case for ID
-        const std::string id = attrs.getOpt(SUMO_ATTR_ID, "", parsedOk, "");
+        const std::string id = attrs.getOpt<std::string>(SUMO_ATTR_ID, "", parsedOk, "");
         // needed attributes
         const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
         // optional attributes
