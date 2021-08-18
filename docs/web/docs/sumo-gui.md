@@ -361,7 +361,7 @@ have the following meanings:
 - <span style="color:#FF0000; background:#FF0000">FOO</span> closed lane (`allow="authority"`)
 - <span style="color:#FF8000; background:#FF8000">FOO</span> forbidden edge (`disallow="all"` on all lanes)
 - <span style="color:#C8FFC8; background:#C8FFC8">FOO</span> green verge in netedit (`disallow="all"`)
-- <span style="color:#FFFFFF; background:#FFFFFF">FOO</span> green verge invisble in sumo-gui (`disallow="all"`)
+- <span style="color:#FFFFFF; background:#FFFFFF">FOO</span> green verge invisible in sumo-gui (`disallow="all"`)
 - <span style="color:#400040; background:#400040">FOO</span> rails on road
 - <span style="color:#5C5C5C; background:#5C5C5C">FOO</span> anything
   else that does not allow passenger
