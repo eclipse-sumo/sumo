@@ -137,26 +137,74 @@ GNERouteHandler::~GNERouteHandler() {}
 void 
 GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter,
     const std::map<std::string, std::string> &parameters) {
-    //
+    // first check if we're creating a vType or a pType
+    SumoXMLTag vTypeTag = (vTypeParameter.vehicleClass == SVC_PEDESTRIAN) ? SUMO_TAG_PTYPE : SUMO_TAG_VTYPE;
+    // check if loaded vType/pType is a default vtype
+    if ((vTypeParameter.id == DEFAULT_VTYPE_ID) || (vTypeParameter.id == DEFAULT_PEDTYPE_ID) || (vTypeParameter.id == DEFAULT_BIKETYPE_ID)) {
+        // overwrite default vehicle type
+        GNEVehicleType::overwriteVType(myNet->retrieveDemandElement(vTypeTag, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
+    } else if (myNet->retrieveDemandElement(vTypeTag, vTypeParameter.id, false) != nullptr) {
+        WRITE_ERROR("There is another " + toString(vTypeTag) + " with the same ID='" + vTypeParameter.id + "'.");
+    } else {
+        // create vType/pType using myCurrentVType
+        GNEDemandElement* vType = new GNEVehicleType(myNet, vTypeParameter, vTypeTag);
+        if (myUndoDemandElements) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + vType->getTagStr());
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(vType);
+            vType->incRef("buildVType");
+        }
+    }
 }
 
 
 void 
-GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id) {
-    //
-}
-
-
-void 
-GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::vector<std::string> &edges, 
-    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) {
-    //
-}
-
-
-void 
-GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id) {
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string &/*id*/) {
     // unsuported
+    WRITE_ERROR("NETEDIT doesn't support vType distributions");
+}
+
+
+void 
+GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, SUMOVehicleClass vClass, 
+    const std::vector<std::string> &edgeIDs, const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
+    const std::map<std::string, std::string> &parameters) {
+    // parse edges
+    const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
+    // create GNERoute
+    GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, parameters);
+    if (myUndoDemandElements) {
+        myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+/*
+        // iterate over stops of myActiveRouteStops and create stops associated with it
+        for (const auto& i : activeStops) {
+            buildStop(net, true, i, route);
+        }
+*/
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        myNet->getAttributeCarriers()->insertDemandElement(route);
+        for (const auto& edge : edges) {
+            edge->addChildElement(route);
+        }
+        route->incRef("buildRoute");
+/*
+        // iterate over stops of myActiveRouteStops and create stops associated with it
+        for (const auto& i : activeStops) {
+            buildStop(net, false, i, route);
+        }
+*/
+    }
+}
+
+
+void 
+GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string &/*id*/) {
+    // unsuported
+    WRITE_ERROR("NETEDIT doesn't support route distributions");
 }
 
 
@@ -311,27 +359,6 @@ GNERouteHandler::isContainerIdDuplicated(GNENet* net, const std::string& id) {
 
 void
 GNERouteHandler::buildRoute(GNENet* net, bool undoDemandElements, const RouteParameter& routeParameters, const std::vector<SUMOVehicleParameter::Stop>& activeStops) {
-    // create GNERoute
-    GNEDemandElement* route = new GNERoute(net, routeParameters);
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
-        // iterate over stops of myActiveRouteStops and create stops associated with it
-        for (const auto& i : activeStops) {
-            buildStop(net, true, i, route);
-        }
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        net->getAttributeCarriers()->insertDemandElement(route);
-        for (const auto& i : routeParameters.edges) {
-            i->addChildElement(route);
-        }
-        route->incRef("buildRoute");
-        // iterate over stops of myActiveRouteStops and create stops associated with it
-        for (const auto& i : activeStops) {
-            buildStop(net, false, i, route);
-        }
-    }
 }
 
 
@@ -440,20 +467,12 @@ GNERouteHandler::buildVehicleEmbeddedRoute(GNENet* net, bool undoDemandElements,
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
-            // declare route parameters and fill it
-            GNERouteHandler::RouteParameter embeddedRouteParameters;
-            // use the same vehicle ID
-            embeddedRouteParameters.routeID = vehicleParameters.id;
-            // set edges
-            embeddedRouteParameters.edges = edges;
-            // set color
-            embeddedRouteParameters.color = RGBColor::CYAN;
             // due vehicle was loaded without a route, change tag
             vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEDemandElement* vehicle = new GNEVehicle(net, vType, vehicleParameters);
             // creaste embedded route
-            GNEDemandElement* embeddedRoute = new GNERoute(net, vehicle, embeddedRouteParameters);
+            GNEDemandElement* embeddedRoute = new GNERoute(net, vehicle, edges, RGBColor::CYAN, 0, 0, std::map<std::string, std::string>());
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -498,20 +517,12 @@ GNERouteHandler::buildFlowEmbeddedRoute(GNENet* net, bool undoDemandElements, SU
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
-            // declare route parameters and fill it
-            GNERouteHandler::RouteParameter embeddedRouteParameters;
-            // use the same vehicle ID
-            embeddedRouteParameters.routeID = vehicleParameters.id;
-            // set edges
-            embeddedRouteParameters.edges = edges;
-            // set color
-            embeddedRouteParameters.color = RGBColor::CYAN;
             // due vehicle was loaded without a route, change tag
             vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEDemandElement* flow = new GNEVehicle(net, vType, vehicleParameters);
             // creaste embedded route
-            GNEDemandElement* embeddedRoute = new GNERoute(net, flow, embeddedRouteParameters);
+            GNEDemandElement* embeddedRoute = new GNERoute(net, flow, edges, RGBColor::CYAN, 0, 0, std::map<std::string, std::string>());
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -2015,31 +2026,6 @@ GNERouteHandler::closeVehicle() {
 
 void
 GNERouteHandler::closeVType() {
-/*
-    // first check that VType was sucesfully created
-    if (myCurrentVType) {
-        // first check if we're creating a vType or a pType
-        SumoXMLTag vTypeTag = (myCurrentVType->vehicleClass == SVC_PEDESTRIAN) ? SUMO_TAG_PTYPE : SUMO_TAG_VTYPE;
-        // check if loaded vType/pType is a default vtype
-        if ((myCurrentVType->id == DEFAULT_VTYPE_ID) || (myCurrentVType->id == DEFAULT_PEDTYPE_ID) || (myCurrentVType->id == DEFAULT_BIKETYPE_ID)) {
-            // overwrite default vehicle type
-            GNEVehicleType::overwriteVType(myNet->retrieveDemandElement(vTypeTag, myCurrentVType->id, false), myCurrentVType, myNet->getViewNet()->getUndoList());
-        } else if (myNet->retrieveDemandElement(vTypeTag, myCurrentVType->id, false) != nullptr) {
-            WRITE_ERROR("There is another " + toString(vTypeTag) + " with the same ID='" + myCurrentVType->id + "'.");
-        } else {
-            // create vType/pType using myCurrentVType
-            GNEDemandElement* vType = new GNEVehicleType(myNet, *myCurrentVType, vTypeTag);
-            if (myUndoDemandElements) {
-                myNet->getViewNet()->getUndoList()->p_begin("add " + vType->getTagStr());
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(vType);
-                vType->incRef("buildVType");
-            }
-        }
-    }
-*/
 }
 
 
@@ -2526,8 +2512,27 @@ GNERouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
-void GNERouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
+void 
+GNERouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
+}
+
+
+std::vector<GNEEdge*>
+GNERouteHandler::parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const {
+    std::vector<GNEEdge*> edges;
+    for (const auto &edgeID : edgeIDs) {
+        GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+        // empty edges aren't allowed. If edge is empty, write error, clear edges and stop
+        if (edge == nullptr) {
+            WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(SUMO_TAG_EDGE) + " doesn't exist.");
+            edges.clear();
+            return edges;
+        } else {
+            edges.push_back(edge);
+        }
+    }
+    return edges;
 }
 
 // ===========================================================================
