@@ -149,6 +149,14 @@ def get_options(args=None):
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
                         help="add ids of involved trains in comment (when different from tripId)")
+    parser.add_argument("--comment.switch", action="store_true", dest="commentSwitch", default=False,
+                        help="add id of the merging switch that prompted the constraint")
+    parser.add_argument("--comment.stop", action="store_true", dest="commentStop", default=False,
+                        help="add busStop id that was used to determine the train ordering for the constraint")
+    parser.add_argument("--comment.time", action="store_true", dest="commentTime", default=False,
+                        help="add timing information for the constraint")
+    parser.add_argument("--comment.all", action="store_true", dest="commentAll", default=False,
+                        help="add all comments")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
     parser.add_argument("--debug-switch", dest="debugSwitch",
@@ -178,6 +186,13 @@ def get_options(args=None):
         subprocess.call(args)
         sys.stdout.flush()
 
+    if options.commentAll:
+        options.commentLine = True
+        options.commentId = True
+        options.commentSwitch = True
+        options.commentStop = True
+        options.commentTime = True
+
     options.delay = parseTime(options.delay)
     options.redundant = parseTime(options.redundant)
 
@@ -194,7 +209,7 @@ def formatStopTimes(arrival, until, started, ended):
 
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
-                 vehID, otherVehID, conflictTime, foeInsertion=False):
+                 vehID, otherVehID, conflictTime, switch, busStop, info):
         self.tripID = tripID
         self.otherSignal = otherSignal
         self.otherTripID = otherTripID
@@ -204,7 +219,9 @@ class Conflict:
         self.vehID = vehID
         self.otherVehID = otherVehID
         self.conflictTime = conflictTime
-        self.foeInsertion = foeInsertion
+        self.switch = switch
+        self.busStop = busStop
+        self.info = info
 
 
 def getTravelTime(net, edges):
@@ -576,7 +593,12 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
                                                                # attributes for adding comments
                                                                stop.line,
                                                                pStop.line,
-                                                               stop.vehID, pStop.vehID, ended))
+                                                               stop.vehID,
+                                                               pStop.vehID,
+                                                               ended,
+                                                               None,  # switch
+                                                               stop.busStop,
+                                                               "parking"))
                             numConflicts += 1
 
                         else:
@@ -630,10 +652,12 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
             if (edgesBefore2, s2) not in stopRoutes2[s.busStop]:
                 s2copy = copy.copy(s2)
                 s2copy.prevTripId = stop2.prevTripId
+                s2copy.setAttribute("intermediateStop", stop2.busStop)
                 stopRoutes2[s.busStop].append((edgesBefore2, s2copy))
             if s.busStop != stop.busStop and ((edgesBefore, s) not in stopRoutes2[s.busStop]):
                 scopy = copy.copy(s)
                 scopy.prevTripId = stop.prevTripId
+                scopy.setAttribute("intermediateStop", stop.busStop)
                 stopRoutes2[s.busStop].append((edgesBefore, scopy))
             return
         # advance along routes
@@ -774,11 +798,15 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                             humanReadableTime(pTimeAtSignal),
                             humanReadableTime(end), options.delay, pSignal,
                             pStop, nStop))
+                    info = getIntermediateInfo(pStop, nStop)
                     limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, end, signalTimes)
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                                                        # attributes for adding comments
                                                        nStop.prevLine, pStop.prevLine,
-                                                       nStop.vehID, pStop.vehID, nArrival))
+                                                       nStop.vehID, pStop.vehID,
+                                                       nArrival, switch,
+                                                       nStop.busStop,
+                                                       info))
                     if options.redundant >= 0:
                         prevBegin = pTimeAtSignal
                         for p2Arrival, p2Stop in reversed(arrivalsBySignal[pSignal]):
@@ -790,10 +818,15 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                             limit += 1
                             limit += countPassingTrainsToOtherStops(options, pSignal,
                                                                     busStop, p2TimeAtSignal, prevBegin, signalTimes)
+                            info = getIntermediateInfo(p2Stop, nStop)
                             conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, p2Stop.prevTripId, limit,
                                                                # attributes for adding comments
                                                                nStop.prevLine, p2Stop.prevLine,
-                                                               nStop.vehID, p2Stop.vehID, nArrival))
+                                                               nStop.vehID,
+                                                               p2Stop.vehID,
+                                                               nArrival, switch,
+                                                               nStop.busStop,
+                                                               info))
                             prevBegin = p2TimeAtSignal
 
                 if pSignal is not None and not (
@@ -817,6 +850,14 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
     if numIgnoredConflicts > 0 or numIgnoredStops > 0:
         print("Ignored %s conflicts and %s stops" % (numIgnoredConflicts, numIgnoredStops))
     return conflicts
+
+def getIntermediateInfo(pStop, nStop):
+    info = []
+    if pStop.intermediateStop:
+        info.append("intermediateStop=%s" % pStop.intermediateStop)
+    if nStop.intermediateStop:
+        info.append("foeIntermediateStop=%s" % nStop.intermediateStop)
+    return ' '.join(info)
 
 
 def findSignal(net, nextEdges, reverse=False):
@@ -906,7 +947,13 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                         conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                            # attributes for adding comments
                                                            nStop.prevLine,
-                                                           pStop.prevLine, nStop.vehID, pStop.vehID, nStop.arrival))
+                                                           pStop.prevLine,
+                                                           nStop.vehID,
+                                                           pStop.vehID,
+                                                           nUntil,
+                                                           switch=None,
+                                                           busStop=nStop.busStop,
+                                                           info=""))
                         numConflicts += 1
                         if busStop == options.debugStop:
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
@@ -1028,8 +1075,10 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                                                        nStop.prevLine,
                                                        pStop.prevLine,
                                                        nStop.vehID, pStop.vehID,
-                                                       nStop.arrival,
-                                                       foeInsertion=True))
+                                                       nArrival,
+                                                       switch=None,
+                                                       busStop=pStop.busStop,
+                                                       info="foeInsertion"))
                     numConflicts += 1
                     if busStop == options.debugStop:
                         print("   found foe insertion conflict pSignal=%s nSignal=%s pVehId=%s pTripId=%s" % (
@@ -1058,8 +1107,14 @@ def writeConstraint(options, outf, tag, c):
             comment += "vehID=%s " % c.vehID
         if c.otherVehID != c.otherTripID:
             comment += "foeID=%s " % c.otherVehID
-    if c.foeInsertion:
-        comment += "(foeInsertion) "
+    if options.commentSwitch and c.switch is not None:
+            comment += "switch=%s " % c.switch
+    if options.commentStop:
+            comment += "busStop=%s " % c.busStop
+    if options.commentTime:
+            comment += "time=%s " % humanReadableTime(c.conflictTime)
+    if c.info is not "":
+        comment += "(%s) " % c.info
     if comment != "":
         comment = "   <!-- %s -->" % comment
     if limit == 1:
