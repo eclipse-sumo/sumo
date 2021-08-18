@@ -47,7 +47,7 @@ in the distribution is a fully specified list of network edges.
 ## Microscopic Outputs
 
 One of the main usages of marouter is to compute a
-[Demand/Dynamic_User_Assignment](Demand/Dynamic_User_Assignment.md).
+[User Assignment](Demand/Dynamic_User_Assignment.md).
 To this end it generates `<flow>` definitions with fully specified routes that
 can be loaded into [sumo](sumo.md) and
 [sumo-gui](sumo-gui.md).
