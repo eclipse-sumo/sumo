@@ -20,7 +20,7 @@ lane_stops
 edge_stops
 
 # include line and vehID information if relevant
-coments
+comments
 
 # like 'basic' but repeat the same trains again after 1000s
 repeat
