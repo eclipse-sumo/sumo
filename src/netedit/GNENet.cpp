@@ -1655,9 +1655,9 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
         // Create demandElement handler
-        GNERouteHandler demandElementHandler(demandPath, this, false);
+        GNERouteHandler routeHandler(demandPath, this, false);
         // Run parser
-        if (!XMLSubSys::runParser(demandElementHandler, demandPath, false)) {
+        if (!routeHandler.parse()) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");
         }
         // clear myEdgesAndNumberOfLanes after reload demandElements

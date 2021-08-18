@@ -1011,7 +1011,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             GNERouteHandler routeHandler(demandElementsFile, myNet);
             // disable validation for demand elements
             XMLSubSys::setValidation("never", "auto", "auto");
-            if (!XMLSubSys::runParser(routeHandler, demandElementsFile, false)) {
+            if (!routeHandler.parse()) {
                 WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
             }
             // disable validation for demand elements
@@ -3088,11 +3088,11 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNERouteHandler demandHandler(file, myNet);
+        GNERouteHandler routeHandler(file, myNet);
         // begin undoList operation
         myUndoList->p_begin("Loading demand elements from '" + file + "'");
         // Run parser for additionals
-        if (!XMLSubSys::runParser(demandHandler, file, false)) {
+        if (!routeHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
@@ -3115,13 +3115,13 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNERouteHandler demandHandler(file, myNet);
+    GNERouteHandler routeHandler(file, myNet);
     // begin undoList operation
     myUndoList->p_begin("Reloading demand elements from '" + file + "'");
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // Run parser for additionals
-    if (!XMLSubSys::runParser(demandHandler, file, false)) {
+    if (!routeHandler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // end undoList operation and update view

@@ -123,7 +123,7 @@ GNERouteHandler::RouteParameter::clearEdges() {
 // ---------------------------------------------------------------------------
 
 GNERouteHandler::GNERouteHandler(const std::string& file, GNENet* net, bool undoDemandElements) :
-    SUMORouteHandler(file, "", false),
+    RouteHandler(file),
     myNet(net),
     myUndoDemandElements(undoDemandElements),
     myLoadedVehicleWithEmbebbedRoute(nullptr),
@@ -1870,6 +1870,7 @@ GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 void
 GNERouteHandler::openFlow(const SUMOSAXAttributes& attrs) {
+/*
     // change abort flag
     myAbort = false;
     // parse flow attributes
@@ -1877,6 +1878,7 @@ GNERouteHandler::openFlow(const SUMOSAXAttributes& attrs) {
                               GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_FROM, myAbort),
                               GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_TO, myAbort),
                               GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_VIA, myAbort));
+*/
 }
 
 
@@ -1889,6 +1891,7 @@ GNERouteHandler::openRouteFlow(const SUMOSAXAttributes& /*attrs*/) {
 
 void
 GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
+/*
     // change abort flag
     myAbort = false;
     // parse trips attributes
@@ -1896,11 +1899,13 @@ GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
                               GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
                               GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
                               GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
+*/
 }
 
 
 void
 GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
+/*
     // first copy parameters from SUMORouteHanlder to myRouteParameter
     myRouteParameter.parameters = myLoadedParameterised;
     // clear loaded parameters after set
@@ -1971,6 +1976,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         // build route
         buildRoute(myNet, myUndoDemandElements, myRouteParameter, myActiveRouteStops);
     }
+*/
 }
 
 
@@ -1988,6 +1994,7 @@ GNERouteHandler::closeRouteDistribution() {
 
 void
 GNERouteHandler::closeVehicle() {
+/*
     // first check if we're closing a vehicle with embebbed routes and stops
     if (myLoadedVehicleWithEmbebbedRoute) {
         myLoadedVehicleWithEmbebbedRoute = nullptr;
@@ -2002,11 +2009,13 @@ GNERouteHandler::closeVehicle() {
             buildVehicleOverRoute(myNet, myUndoDemandElements, *myVehicleParameter);
         }
     }
+*/
 }
 
 
 void
 GNERouteHandler::closeVType() {
+/*
     // first check that VType was sucesfully created
     if (myCurrentVType) {
         // first check if we're creating a vType or a pType
@@ -2030,11 +2039,13 @@ GNERouteHandler::closeVType() {
             }
         }
     }
+*/
 }
 
 
 void
 GNERouteHandler::closePerson() {
+/*
     // first check if myVehicleParameter was sucesfully created
     if (myVehicleParameter) {
         // first check if ID is duplicated
@@ -2120,11 +2131,13 @@ GNERouteHandler::closePerson() {
     }
     // clear person plan values
     myPersonValues.myPersonPlanValues.clear();
+*/
 }
 
 
 void
 GNERouteHandler::closePersonFlow() {
+/*
     // first check if myVehicleParameter was sucesfully created
     if (myVehicleParameter) {
         // first check if ID is duplicated
@@ -2203,11 +2216,13 @@ GNERouteHandler::closePersonFlow() {
     }
     // clear person plan values
     myPersonValues.myPersonPlanValues.clear();
+*/
 }
 
 
 void
 GNERouteHandler::closeContainer() {
+/*
     // first check if myVehicleParameter was sucesfully created
     if (myVehicleParameter) {
         // first check if ID is duplicated
@@ -2272,11 +2287,13 @@ GNERouteHandler::closeContainer() {
     }
     // clear container plan values
     myContainerValues.myContainerPlanValues.clear();
+*/
 }
 
 
 void
 GNERouteHandler::closeContainerFlow() {
+/*
     // first check if myVehicleParameter was sucesfully created
     if (myVehicleParameter) {
         // first check if ID is duplicated
@@ -2334,11 +2351,13 @@ GNERouteHandler::closeContainerFlow() {
     }
     // clear container plan values
     myContainerValues.myContainerPlanValues.clear();
+*/
 }
 
 
 void
 GNERouteHandler::closeFlow() {
+/*
     // first check if we're closing a flow with embebbed routes and stops
     if (myLoadedVehicleWithEmbebbedRoute) {
         myLoadedVehicleWithEmbebbedRoute = nullptr;
@@ -2363,11 +2382,13 @@ GNERouteHandler::closeFlow() {
             buildFlow(myNet, true, *myVehicleParameter, myRouteParameter.edges.front(), myRouteParameter.edges.back(), viaEdges);
         }
     }
+*/
 }
 
 
 void
 GNERouteHandler::closeTrip() {
+/*
     // first check if myVehicleParameter was sucesfully created
     if (myVehicleParameter && (myRouteParameter.edges.size() > 1)) {
         // force reroute
@@ -2380,11 +2401,13 @@ GNERouteHandler::closeTrip() {
         // build trip
         buildTrip(myNet, true, *myVehicleParameter, myRouteParameter.edges.front(), myRouteParameter.edges.back(), viaEdges);
     }
+*/
 }
 
 
 void
 GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
+/*
     // declare a stopPerson
     PersonPlansValues stop;
     std::string errorSuffix;
@@ -2463,6 +2486,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else {
         myActiveRouteStops.push_back(stop.stopParameters);
     }
+*/
 }
 
 

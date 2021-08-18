@@ -27,6 +27,7 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/handlers/RouteHandler.h>
 
 
 // ===========================================================================
@@ -48,7 +49,7 @@ class GNEUndoList;
 
 /// @class GNERouteHandler
 /// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
-class GNERouteHandler : public SUMORouteHandler {
+class GNERouteHandler : public RouteHandler {
 public:
     /// @brief struct for saving route parameters
     struct RouteParameter {
