@@ -4558,7 +4558,10 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 }
 #endif
                 if (dpi.myDistance >= brakeGap || (dpi.myDistance > 0 && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
-                    dpi.mySetRequest = false;
+                    // always leave junctions after requesting to enter
+                    if (dpi.myLink != nullptr && (!dpi.myLink->isExitLink() || !lfLinks[removalBegin - 1].mySetRequest)) {
+                        dpi.mySetRequest = false;
+                    }
                 }
                 ++removalBegin;
             }
