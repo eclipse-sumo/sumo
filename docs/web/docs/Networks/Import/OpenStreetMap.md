@@ -377,6 +377,11 @@ To discard edges which have no predecessor and no successor edge.
 However, this often causes the removal of railways or waterways which is
 not desirable for multi-modal scenarios.
 
+## Shared Space for Trams and Road Vehicles
+
+In the OSM database, shared space for tram and road vehicles is often modelled with distinct elements that occupy the same space. When imported directly, this would allow those modes of traffic to ignore each other due to running on different edges.
+To fix this, the option **--edges.join-tram-dist FLOAT** may be used. When this option is set (values between 1 and 2 are recommended), overlapping OSM elements will be converted to road lanes with shared permissions (indicated by a dark purple in [sumo-gui](../sumo-gui.md#default_coloring)).
+
 ### Editing OSM networks
 
 ## JOSM
