@@ -927,19 +927,19 @@ void
 AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // check that frecuency and trafficLight aren't defined together
+    // check that frequency and trafficLight aren't defined together
     if (!attrs.hasAttribute(SUMO_ATTR_FREQUENCY) && !attrs.hasAttribute(SUMO_ATTR_TLID)) {
-        WRITE_ERROR("define either frequency or traffic light ID in E2 detector");
+        WRITE_ERROR("Define either '" + toString(SUMO_ATTR_FREQUENCY) + "' or '" + toString(SUMO_ATTR_TLID) + "' in a lane area detector.");
         parsedOk = false;
     }
     // check that lane and length are defined together
     if (attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        WRITE_ERROR("lane and length must be defined together in E2 detector");
+        WRITE_ERROR("'lane' and 'length' must be defined together in a lane area detector.");
         parsedOk = false;
     }
     // check that lanes and endPos are defined together
     if (attrs.hasAttribute(SUMO_ATTR_LANES) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
-        WRITE_ERROR("lanes and endPos must be defined together in E2 detector");
+        WRITE_ERROR("'lanes' and 'endPos' must be defined together in a lane area detector.");
         parsedOk = false;
     }
     // needed attributes
@@ -1646,11 +1646,11 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     // check parent
     if (SumoBaseObjectParent == nullptr) {
-        WRITE_ERROR("Parameters must be defined within an object");
+        WRITE_ERROR("Parameters must be defined within an object.");
     }
     // check tag
     if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
-        WRITE_ERROR("Parameters cannot be defined in either the additional file's root nor another parameter");
+        WRITE_ERROR("Parameters cannot be defined in neither the additional file's root nor another parameter.");
     }
     // continue if key was sucesfully loaded
     if (parsedOk) {
@@ -1660,9 +1660,9 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
         const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
         // show warnings if values are invalid
         if (key.empty()) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key cannot be empty");
+            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key cannot be empty.");
         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key contains invalid characters");
+            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key contains invalid characters.");
         } else {
             WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
             // insert parameter in SumoBaseObjectParent
@@ -1675,9 +1675,10 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 void
 AdditionalHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const {
     // check that parent SUMOBaseObject's tag is the parentTag
-    if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && 
-        (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
-        WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
+    CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+    if (parent != nullptr && parent->getTag() != parentTag) {
+        const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
+        WRITE_ERROR("'" + toString(currentTag) + "' must be defined within the definition of a '" + toString(parentTag) + "' (found '" + toString(parent->getTag()) + "'" + id + ").");
         ok = false;
     }
 }
