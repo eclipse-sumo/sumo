@@ -83,6 +83,9 @@ public:
         /// @brief get PositionVector attribute
         const PositionVector& getPositionVectorAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief vehicle class
+        SUMOVehicleClass getVClass() const;
+
         /// @brief get current vType
         const SUMOVTypeParameter &getVehicleTypeParameter() const;
 
@@ -160,6 +163,9 @@ public:
         /// @brief add PositionVector attribute into current SumoBaseObject node
         void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
+        /// @brief set vehicle class
+        void setVClass(SUMOVehicleClass vClass);
+
         /// @brief set vehicle type parameters
         void setVehicleTypeParameter(const SUMOVTypeParameter* vehicleTypeParameter);
 
@@ -212,6 +218,9 @@ public:
 
         /// @brief SumoBaseObject children
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
+
+        /// @brief vehicle class
+        SUMOVehicleClass myVClass;
 
         /// @brief vehicle type parameter
         SUMOVTypeParameter myVehicleTypeParameter;

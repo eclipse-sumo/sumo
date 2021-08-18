@@ -34,6 +34,7 @@
 
 CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent) :
     mySumoBaseObjectParent(parent),
+    myVClass(SVC_IGNORING),
     myVehicleTypeParameter(""),
     myTag(SUMO_TAG_NOTHING) {
     // add this SumoBaseObject into parent children
@@ -160,6 +161,12 @@ CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr
     } else {
         throw ProcessError("Attr doesn't exist");
     }
+}
+
+
+SUMOVehicleClass 
+CommonXMLStructure::SumoBaseObject::getVClass() const {
+    return myVClass;
 }
 
 
@@ -298,6 +305,12 @@ CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr att
 void
 CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value) {
     myPositionVectorAttributes[attr] = value;
+}
+
+
+void
+CommonXMLStructure::SumoBaseObject::setVClass(SUMOVehicleClass vClass) {
+    myVClass = vClass;
 }
 
 
