@@ -255,7 +255,12 @@ main(int argc, char** argv) {
 #ifdef PROJ_API_FILE
             const int numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
             if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files") || oc.isSet("shapefile-prefixes")) && numProjections == 0) {
+                // input is lon,lat and projecting it to UTM ensures accurate handling of geometry
                 oc.set("proj.utm", "true");
+                if (oc.isDefault("proj.plain-geo")) {
+                    // without reference to a network, raw UTM isn't helpful so we better write the data out as lon,lat
+                    oc.set("proj.plain-geo", "true");
+                }
             }
             if (oc.isDefault("proj.scale")) {
                 oc.set("proj.scale", toString(scale, 5));
