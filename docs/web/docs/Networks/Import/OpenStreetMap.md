@@ -364,12 +364,6 @@ OSM networks often lack additional lanes for highway on- and off-ramps.
 They can be guessed via [netconvert](../../netconvert.md) using the **--guess-ramps**
 option.
 
-## Roundabouts
-
-To ensure correct right-of-way at roundabouts, the option **--roundabouts.guess** should be
-added. This option is set automatically when using the *osmBuild.py*
-script.
-
 ## Isolated Edges
 
 When dealing with strictly vehicular scenarios it usually helps to add
