@@ -359,8 +359,8 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
 void 
 RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     // first check if this is an embedded route
-    if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && attrs.hasAttribute(SUMO_ATTR_ID)) {
-        WRITE_ERROR("either define a route within a vehicle or with an ID");
+    if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && !attrs.hasAttribute(SUMO_ATTR_ID)) {
+        WRITE_ERROR("a route must be defined either within a vehicle or with an ID attribute");
     } else {
         // declare Ok Flag
         bool parsedOk = true;
