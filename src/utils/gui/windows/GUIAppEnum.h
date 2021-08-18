@@ -1086,8 +1086,10 @@ enum {
 
     /// @brief duplicate a lane
     MID_GNE_LANE_DUPLICATE,
-    /// @brief remove greenVerge
+    /// @brief reset custom shape
     MID_GNE_LANE_RESET_CUSTOMSHAPE,
+    /// @brief reset opposite lane
+    MID_GNE_LANE_RESET_OPPOSITELANE,
     /// @brief transform lane to sidewalk
     MID_GNE_LANE_TRANSFORM_SIDEWALK,
     /// @brief transform lane to bikelane

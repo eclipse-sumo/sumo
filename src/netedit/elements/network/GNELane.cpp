@@ -1634,8 +1634,13 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     ret->insertMenuPaneChild(laneOperations);
     new FXMenuCascade(ret, "lane operations", nullptr, laneOperations);
     GUIDesigns::buildFXMenuCommand(laneOperations, "Duplicate lane", nullptr, &parent, MID_GNE_LANE_DUPLICATE);
-    if (differentLaneShapes) {
-        GUIDesigns::buildFXMenuCommand(laneOperations, "reset custom shape", nullptr, &parent, MID_GNE_LANE_RESET_CUSTOMSHAPE);
+    FXMenuCommand* resetCustomShape = GUIDesigns::buildFXMenuCommand(laneOperations, "reset custom shape", nullptr, &parent, MID_GNE_LANE_RESET_CUSTOMSHAPE);
+    if (!differentLaneShapes) {
+        resetCustomShape->disable();
+    }
+    FXMenuCommand* resetOppositeLane = GUIDesigns::buildFXMenuCommand(laneOperations, "reset opposite lane", nullptr, &parent, MID_GNE_LANE_RESET_OPPOSITELANE);
+    if (getAttribute(GNE_ATTR_OPPOSITE).empty()) {
+        resetOppositeLane->disable();
     }
     // Create panel for lane operations and insert it in ret
     FXMenuPane* addSpecialLanes = new FXMenuPane(laneOperations);

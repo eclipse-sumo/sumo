@@ -221,6 +221,9 @@ public:
     /// @brief reset custom shapes of selected lanes
     long onCmdResetLaneCustomShape(FXObject*, FXSelector, void*);
 
+    /// @brief reset oppositeLane of current lane
+    long onCmdResetOppositeLane(FXObject*, FXSelector, void*);
+
     /// @brief add/remove/restrict lane
     long onCmdLaneOperation(FXObject*, FXSelector sel, void*);
 

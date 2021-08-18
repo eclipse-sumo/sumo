@@ -157,6 +157,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Lanes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                          GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,                  GNEViewNet::onCmdResetLaneCustomShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_OPPOSITELANE,                 GNEViewNet::onCmdResetOppositeLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,                 GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,                     GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,                      GNEViewNet::onCmdLaneOperation),
@@ -2139,14 +2140,37 @@ GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
         if (lane->isAttributeCarrierSelected()) {
             myUndoList->p_begin("reset custom lane shapes");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
-            for (auto it : lanes) {
-                it->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
+            for (const auto &lane : lanes) {
+                lane->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
             }
             myUndoList->p_end();
         } else {
             myUndoList->p_begin("reset custom lane shape");
             lane->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
             myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdResetOppositeLane(FXObject*, FXSelector, void*) {
+    GNELane* lane = getLaneAtPopupPosition();
+    if (lane != nullptr) {
+        // when duplicating an unselected lane, keep all connections as they
+        // are, otherwise recompute them
+        if (lane->isAttributeCarrierSelected()) {
+        myUndoList->p_begin("reset opposite lanes");
+            std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
+            for (const auto &lane : lanes) {
+                lane->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+        myUndoList->p_begin("reset opposite lane");
+        lane->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
+        myUndoList->p_end();
         }
     }
     return 1;
