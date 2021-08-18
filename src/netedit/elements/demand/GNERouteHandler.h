@@ -100,6 +100,8 @@ public:
     /// @brief Destructor
     ~GNERouteHandler();
 
+/**************************************/
+
     /// @name build functions
     /// @{
 
@@ -111,8 +113,9 @@ public:
     void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id);
 
     /// @brief build route
-    void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::vector<std::string> &edges, 
-                    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters);
+    void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, SUMOVehicleClass vClass, 
+                    const std::vector<std::string> &edges, const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
+                    const std::map<std::string, std::string> &parameters);
 
     /// @brief build route distribution
     void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id);
@@ -412,6 +415,9 @@ protected:
 
     /// @brief Processing of a transport
     void addTransport(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse edges
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
 
 private:
     /// @brief struct used for load person plans (Rides, Walks, etc.)

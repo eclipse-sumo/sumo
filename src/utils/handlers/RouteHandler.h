@@ -63,8 +63,9 @@ public:
     virtual void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id) = 0;
 
     /// @brief build route
-    virtual void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::vector<std::string> &edges, 
-                            const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) = 0;
+    virtual void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, SUMOVehicleClass vClass, 
+                            const std::vector<std::string> &edges, const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
+                            const std::map<std::string, std::string> &parameters) = 0;
 
     /// @brief build route distribution
     virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id) = 0;

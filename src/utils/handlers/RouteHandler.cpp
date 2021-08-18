@@ -70,6 +70,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_ROUTE:
             buildRoute(obj,
                 obj->getStringAttribute(SUMO_ATTR_ID),
+                obj->getVClass(),
                 obj->getStringListAttribute(SUMO_ATTR_EDGES),
                 obj->getColorAttribute(SUMO_ATTR_COLOR),
                 obj->getIntAttribute(SUMO_ATTR_REPEAT),
@@ -368,6 +369,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
         // needed attributes
         const std::vector<std::string> edges = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk);
         // optional attributes
+        SUMOVehicleClass vClass = SUMOVehicleParserHelper::parseVehicleClass(attrs, id);
         const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::YELLOW);
         const int repeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, id.c_str(), parsedOk, 0);
         const SUMOTime cycleTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, id.c_str(), parsedOk, 0);
@@ -376,6 +378,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
             // add all attributes
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
