@@ -239,9 +239,6 @@ public:
         /// @brief VTypeAttributeRow for SpeedFactor
         VTypeAttributeRow* mySpeedFactor;
 
-        /// @brief VTypeAttributeRow for SpeedDev
-        VTypeAttributeRow* mySpeedDev;
-
         /// @brief VTypeAttributeRow for EmissionClass
         VTypeAttributeRow* myEmissionClass;
 

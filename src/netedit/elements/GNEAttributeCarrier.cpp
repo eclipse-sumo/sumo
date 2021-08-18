@@ -3167,11 +3167,6 @@ GNEAttributeCarrier::fillDemandElements() {
                                               "The vehicles expected multiplicator for lane speed limits (or a distribution specifier)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEEDDEV,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUEMUTABLE | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::EXTENDED,
-                                              "The deviation of the speedFactor");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EMISSIONCLASS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUEMUTABLE | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::EXTENDED,
                                               "An abstract emission class");
