@@ -50,50 +50,8 @@ class GNEUndoList;
 /// @class GNERouteHandler
 /// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNERouteHandler : public RouteHandler {
+
 public:
-    /// @brief struct for saving route parameters
-    struct RouteParameter {
-
-        /// @brief constructor
-        RouteParameter();
-
-        /// @brief parameter constructor (use values of originalDemandElement)
-        RouteParameter(GNEDemandElement* originalDemandElement);
-
-        /// @brief set edges (list of consecutive edges)
-        void setEdges(GNENet* net, const std::string& edgeIDs);
-
-        /// @brief set edges (from, to and via edges)
-        void setEdges(GNENet* net, const std::string& vehicleID, const std::string& fromID, const std::string& toID, const std::string& viaIDs);
-
-        /// @brief clear edges
-        void clearEdges();
-
-        /// @brief string for saving parsed Route ID
-        std::string routeID;
-
-        /// @brief flag to check if route was loaded
-        bool loadedID;
-
-        /// @brief edges
-        std::vector<GNEEdge*> edges;
-
-        /// @brief vClass used by this route
-        SUMOVehicleClass vClass;
-
-        /// @brief string for saving parsed route colors
-        RGBColor color;
-
-        /// @brief repeat
-        int repeat;
-
-        /// @brief cycleTime
-        SUMOTime cycleTime;
-
-        /// @brief parameters
-        Parameterised parameters;
-    };
-
     /// @brief Constructor
     GNERouteHandler(const std::string& file, GNENet* net, bool undoDemandElements = true);
 
@@ -503,9 +461,6 @@ private:
 
     /// @brief NETEDIT container values
     ContainerValue myContainerValues;
-
-    /// @brief NETEDIT Route Parameters
-    RouteParameter myRouteParameter;
 
     /// @brief flag to check if created demand elements must be undo and redo
     bool myUndoDemandElements;

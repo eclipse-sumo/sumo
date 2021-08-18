@@ -43,85 +43,6 @@
 // member method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNERouteHandler::RouteParameter - methods
-// ---------------------------------------------------------------------------
-
-GNERouteHandler::RouteParameter::RouteParameter() :
-    loadedID(false),
-    vClass(SVC_PASSENGER),
-    color(RGBColor::BLACK),
-    repeat(0),
-    cycleTime(0) {
-}
-
-
-GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemandElement) :
-    routeID(originalDemandElement->getTagProperty().isRoute() ?
-            originalDemandElement->getID() :
-            originalDemandElement->getNet()->generateDemandElementID(SUMO_TAG_ROUTE)),
-    loadedID(false),
-    edges(originalDemandElement->getParentEdges()),
-    vClass(originalDemandElement->getVClass()),
-    color(originalDemandElement->getColor()),
-    repeat(0),
-    cycleTime(0) {
-}
-
-
-void
-GNERouteHandler::RouteParameter::setEdges(GNENet* net, const std::string& edgeIDs) {
-    // clear edges
-    edges.clear();
-    // obtain edges (And show warnings if isn't valid)
-    if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(net, edgeIDs, true)) {
-        edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(net, edgeIDs);
-    }
-}
-
-
-void
-GNERouteHandler::RouteParameter::setEdges(GNENet* net, const std::string& vehicleID, const std::string& fromID, const std::string& toID, const std::string& viaIDs) {
-    // clear edges
-    edges.clear();
-    // only continue if at least one of the edges is defined
-    if (fromID.size() + toID.size() > 0) {
-        // obtain from and to edges
-        GNEEdge* from = net->retrieveEdge(fromID, false);
-        GNEEdge* to = net->retrieveEdge(toID, false);
-        // check if edges are valid
-        if (from == nullptr) {
-            WRITE_ERROR("Invalid from-edge '" + fromID + "' used in trip '" + vehicleID + "'.");
-        } else if (to == nullptr) {
-            WRITE_ERROR("Invalid to-edge '" + toID + "' used in trip '" + vehicleID + "'.");
-        } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(net, viaIDs, false)) {
-            WRITE_ERROR("Invalid 'via' edges used in trip '" + vehicleID + "'.");
-        } else {
-            // obtain via
-            std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(net, viaIDs);
-            // build edges (from - via - to)
-            edges.push_back(from);
-            for (const auto& i : viaEdges) {
-                edges.push_back(i);
-            }
-            // check that from and to edge are different
-            if (from != to) {
-                edges.push_back(to);
-            }
-        }
-    }
-}
-
-
-void
-GNERouteHandler::RouteParameter::clearEdges() {
-    edges.clear();
-}
-
-// ---------------------------------------------------------------------------
-// GNERouteHandler - methods
-// ---------------------------------------------------------------------------
-
 GNERouteHandler::GNERouteHandler(const std::string& file, GNENet* net, bool undoDemandElements) :
     RouteHandler(file),
     myNet(net),
@@ -1467,25 +1388,25 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     GNENet* net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
-    // declare route parameters
-    RouteParameter routeParameters;
     // set "yellow" as original route color
-    routeParameters.color = RGBColor::YELLOW;
+    RGBColor routeColor = RGBColor::YELLOW;
+    // declare edges
+    std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_VEHICLE)) {
         // get route edges
-        routeParameters.edges = originalVehicle->getParentDemandElements().back()->getParentEdges();
+        routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
-        routeParameters.color = originalVehicle->getParentDemandElements().back()->getColor();
+        routeColor = originalVehicle->getParentDemandElements().back()->getColor();
     } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
         // get embedded route edges
-        routeParameters.edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
+        routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
-        routeParameters.edges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+        routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // only continue if edges are valid
-    if (routeParameters.edges.empty()) {
+    if (routeEdges.empty()) {
         // declare header
         const std::string header = "Problem transforming to vehicle";
         // declare message
@@ -1513,13 +1434,13 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // change tag in vehicle parameters
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
             // generate a new route id
-            routeParameters.routeID = net->generateDemandElementID(SUMO_TAG_ROUTE);
+            const std::string routeID = net->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
 /*
             buildRoute(net, true, routeParameters, {});
 */
             // set route ID in vehicle parameters
-            vehicleParameters.routeid = routeParameters.routeID;
+            vehicleParameters.routeid = routeID;
             // create vehicle
 /*
             buildVehicleOverRoute(net, true, vehicleParameters);
@@ -1539,25 +1460,25 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     GNENet* net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
-    // declare route parameters
-    RouteParameter routeParameters;
     // set "yellow" as original route color
-    routeParameters.color = RGBColor::YELLOW;
+    RGBColor routeColor = RGBColor::YELLOW;
+    // declare edges
+    std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_VEHICLE)) {
         // get route edges
-        routeParameters.edges = originalVehicle->getParentDemandElements().back()->getParentEdges();
+        routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
-        routeParameters.color = originalVehicle->getParentDemandElements().back()->getColor();
+        routeColor = originalVehicle->getParentDemandElements().back()->getColor();
     } else if ((tag == GNE_TAG_VEHICLE_WITHROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
         // get embedded route edges
-        routeParameters.edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
+        routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
-        routeParameters.edges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+        routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // only continue if edges are valid
-    if (routeParameters.edges.empty()) {
+    if (routeEdges.empty()) {
         // declare header
         const std::string header = "Problem transforming to vehicle";
         // declare message
@@ -1598,13 +1519,13 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_ROUTE;
             // generate a new route id
-            routeParameters.routeID = net->generateDemandElementID(SUMO_TAG_ROUTE);
+            const std::string routeID = net->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
 /*
             buildRoute(net, true, routeParameters, {});
 */
             // set route ID in vehicle parameters
-            vehicleParameters.routeid = routeParameters.routeID;
+            vehicleParameters.routeid = routeID;
             // create flow
 /*
             buildFlowOverRoute(net, true, vehicleParameters);
