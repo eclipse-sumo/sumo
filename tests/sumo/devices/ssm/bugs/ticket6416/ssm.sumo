@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 10 01:50:57 2020 by Eclipse SUMO Version v1_6_0+0626-59842b4b1e
+<!-- generated on 2021-08-18 17:14:56 by Eclipse SUMO sumo Version v1_10_0+0071-2daa77b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -43,18 +44,18 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="3.00" end="12.00" ego="trip_0" foe="trip_2">
         <minTTC time="5.00" position="3935.00,4412.48" type="10" value="2.28"/>
         <maxDRAC time="4.00" position="3935.00,4412.48" type="10" value="2.15"/>
-        <PET time="9.38" position="3933.02,4411.35" type="17" value="1.60"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
     </conflict>
     <conflict begin="4.00" end="15.00" ego="trip_0" foe="trip_3">
-        <minTTC time="10.00" position="3933.90,4412.28" type="111" value="0.00"/>
+        <minTTC time="5.00" position="3935.00,4412.48" type="10" value="3.69"/>
         <maxDRAC time="5.00" position="3935.00,4412.48" type="10" value="1.14"/>
-        <PET time="9.38" position="3933.90,4412.28" type="111" value="0.00"/>
+        <PET time="11.45" position="3933.02,4411.35" type="17" value="1.44"/>
     </conflict>
     <globalMeasures ego="trip_0">
-        <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00 15.00 16.00 17.00 18.00 19.00 20.00 21.00 22.00"/>
-        <BRSpan values="0.00 0.00 0.00 0.00 1.80 2.31 2.52 0.03 0.10 0.00 0.00 0.00 0.00 0.00 0.00 0.46 0.00 0.00 0.77 0.00 0.00 0.00 0.50"/>
+        <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00 15.00 16.00 17.00 18.00 19.00 20.00 21.00 22.00 23.00 24.00"/>
+        <BRSpan values="0.00 0.00 0.00 0.00 1.80 2.31 2.52 0.03 0.10 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.46 0.00 0.00 0.77 0.00 0.00 0.00 0.50"/>
         <maxBR time="6.00" position="3932.20,4410.94" value="2.52"/>
-        <SGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
-        <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+        <SGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+        <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
     </globalMeasures>
 </SSMLog>
