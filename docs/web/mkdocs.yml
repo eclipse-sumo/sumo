@@ -1,7 +1,7 @@
 site_name: SUMO Documentation
 site_url: https://sumo.dlr.de/docs/
 repo_url: https://github.com/eclipse/sumo/
-edit_uri: edit/master/docs/web/docs/
+edit_uri: edit/main/docs/web/docs/
 site_description: SUMO Documentation
 use_directory_urls: false
 dev_addr: 127.0.0.1:8000
@@ -17,7 +17,7 @@ nav:
   - Publications: Publications.md
   - Developer: Developer/index.md
   - ChangeLog: ChangeLog.md
-  - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs/web
+  - Recent Changes: https://github.com/eclipse/sumo/commits/main/docs/web
   - Contact: https://eclipse.org/sumo/contact/
 
 theme:
@@ -77,6 +77,6 @@ extra:
     DT_STR: '[*&lt;STRING&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_TIME: '[*&lt;TIME&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     Outdated: '<div style="background: #801010; padding: .5em; border: 1px dashed #ffcc44; margin-right:10px; margin-left:10px; color: #ffffff">This information is outdated.</div>'
-    Source: 'https://github.com/eclipse/sumo/blob/master/'
+    Source: 'https://github.com/eclipse/sumo/blob/main/'
     SUMO: '***&lt;SUMO_HOME&gt;***'
     SUMOUSERConference: '[SUMO User Conference](https://eclipse.org/sumo/conference)'
