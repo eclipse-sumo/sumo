@@ -673,6 +673,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         if (prevLane != nullptr && lane->getBidiLane() == prevLane) {
             // indicate train reversal
             std::string label = "reverse:" + toString(reversalIndex++);
+            if (s.showRouteIndex) {
+                label += "@r" + toString((int)(i - myCurrEdge));
+            }
             Position pos = lane->geometryPositionAtOffset(lane->getLength() / 2) - Position(0, textSize * repeatLane[lane]);
             GLHelper::drawTextSettings(s.vehicleValue, label, pos, s.scale, s.angle, 1.0);
         }
