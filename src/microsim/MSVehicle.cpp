@@ -4549,15 +4549,16 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
         // abort requests
         if (removalBegin != -1 && !(removalBegin == 0 && myLane->getEdge().isInternal())) {
             while (removalBegin < (int)(lfLinks.size())) {
+                DriveProcessItem& dpi = lfLinks[removalBegin];
                 const double brakeGap = getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.);
-                lfLinks[removalBegin].myVLinkPass = lfLinks[removalBegin].myVLinkWait;
+                dpi.myVLinkPass = dpi.myVLinkWait;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
-                    std::cout << " removalBegin=" << removalBegin << " brakeGap=" << brakeGap << " dist=" << lfLinks[removalBegin].myDistance << " speed=" << myState.mySpeed << " a2s=" << ACCEL2SPEED(getCarFollowModel().getMaxDecel()) << "\n";
+                    std::cout << " removalBegin=" << removalBegin << " brakeGap=" << brakeGap << " dist=" << dpi.myDistance << " speed=" << myState.mySpeed << " a2s=" << ACCEL2SPEED(getCarFollowModel().getMaxDecel()) << "\n";
                 }
 #endif
-                if (lfLinks[removalBegin].myDistance >= brakeGap || (lfLinks[removalBegin].myDistance > 0 && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
-                    lfLinks[removalBegin].mySetRequest = false;
+                if (dpi.myDistance >= brakeGap || (dpi.myDistance > 0 && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
+                    dpi.mySetRequest = false;
                 }
                 ++removalBegin;
             }
