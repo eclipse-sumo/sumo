@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-08-18 08:44:27.277964 by $Id$ v1_10_0+0040-e99cbdd
+<!-- generated on 2021-08-18 09:20:24.868283 by $Id$ v1_10_0+0042-ecde8a6
   options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml <doubleminus>comment.all
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <predecessor tripId="t0" tl="D" foes="trip1"/>   <!-- line=S4 foeID=t1 switch=c busStop=stop_c time=00:01:40  -->
+        <predecessor tripId="t0" tl="D" foes="trip1"/>   <!-- line=S4 foeID=t1 switch=c busStop=stop_c arrival=00:01:40 foeArrival=00:00:50  -->
     </railSignalConstraints>
 </additional>
