@@ -4548,9 +4548,12 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
         }
         // abort requests
         if (removalBegin != -1 && !(removalBegin == 0 && myLane->getEdge().isInternal())) {
+            const double brakeGap = getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.);
             while (removalBegin < (int)(lfLinks.size())) {
                 DriveProcessItem& dpi = lfLinks[removalBegin];
-                const double brakeGap = getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.);
+                if (dpi.myLink == nullptr) {
+                    break;
+                }
                 dpi.myVLinkPass = dpi.myVLinkWait;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
@@ -4559,7 +4562,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 #endif
                 if (dpi.myDistance >= brakeGap || (dpi.myDistance > 0 && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
                     // always leave junctions after requesting to enter
-                    if (dpi.myLink != nullptr && (!dpi.myLink->isExitLink() || !lfLinks[removalBegin - 1].mySetRequest)) {
+                    if (!dpi.myLink->isExitLink() || !lfLinks[removalBegin - 1].mySetRequest) {
                         dpi.mySetRequest = false;
                     }
                 }
