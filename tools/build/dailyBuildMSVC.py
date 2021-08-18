@@ -101,7 +101,6 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
 def generateCMake(generator, platform, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + platform)
     cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER",
-                "-DDEFAULT_LIBSUMO_PYTHON=False",
                 "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
@@ -183,12 +182,6 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         buildDir = generateCMake(generator, platform, log, options.suffix == "extra", options.python)
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        if os.path.exists(os.path.join(buildDir, "src", "libsumo", "libsumo.vcxproj")):
-            subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "libsumo"],
-                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        if os.path.exists(os.path.join(buildDir, "src", "libtraci", "libtraci.vcxproj")):
-            subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "libtraci"],
-                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         subprocess.call(["cmake", "--build", ".", "--target", "lisum"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         plat = platform.lower().replace("x", "win")
