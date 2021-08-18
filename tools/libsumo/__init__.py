@@ -72,6 +72,7 @@ def wrapAsClassMethod(func, module):
 
 TraCIStage.__attr_repr__ = _simulation.Stage.__attr_repr__
 TraCIStage.__repr__ = _simulation.Stage.__repr__
+TraCIStage.toXML = _simulation.Stage.toXML
 TraCICollision.__attr_repr__ = _simulation.Collision.__attr_repr__
 TraCICollision.__repr__ = _simulation.Collision.__repr__
 
