@@ -377,9 +377,9 @@ To discard edges which have no predecessor and no successor edge.
 However, this often causes the removal of railways or waterways which is
 not desirable for multi-modal scenarios.
 
-## Editing OSM networks
+### Editing OSM networks
 
-### JOSM
+## JOSM
 
 *From George Dita, on 01.07.2009* [JOSM](http://josm.openstreetmap.de/)
 can be used to edit OSM-data (i.e. for trimming a rectangular map and
@@ -396,7 +396,7 @@ xmlstarlet ed -d "/osm/*[@action='delete']" < input.osm > output.osm
 !!! caution
     Up to version 4279 of JOSM, nodes and ways created or modified by JOSM are assigned a negative ID. With each run of JOSM, these IDs are recalculated. Please do not rely on them in your SUMO files. If you decide not to upload your changes to OpenStreetMap, you can remove the minuses in the IDs, assure that IDs are unique and then safely refer to them in SUMO files.
 
-### OSMOSIS
+## OSMOSIS
 
 *From Christian Klotz, on 01.07.2009, tip by Christoph Sommmer*
 
@@ -410,6 +410,12 @@ java -jar osmosis.jar --read-xml file="orginal.osm.xml" --way-key-value \
     keyValueList="highway.motorway,highway.motorway_link" \
     --used-node --write-xml file="filtered.osm.xml"
 ```
+## osmfilter
+
+[osmfilter](https://wiki.openstreetmap.org/wiki/Osmfilter) is a command line tool used to filter OpenStreetMap data files.
+It can be used to preprocess the data and can save a lot of work for netconvert.
+With this tool it is possible to import the top-level roads for a whole country within minutes of processing time.
+It is recommended to use the associated tool [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert) to convert the data into the '.o5m' format and back to speed up the work on large datasets.
 
 # netconvert Details
 
