@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-21 22:00:49.126368 by generateRailSignalConstraints.py v1_7_0+0165-cab5e40fad
-  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v
+<!-- generated on 2021-08-18 08:59:07.140603 by $Id$ v1_10_0+0040-e99cbdd
+  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v <doubleminus>comment.time
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <insertionPredecessor tripId="t0" tl="A" foes="t1"/>
+        <insertionPredecessor tripId="t0" tl="A" foes="t1"/>   <!-- time=00:02:10  -->
     </railSignalConstraints>
 </additional>

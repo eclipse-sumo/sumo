@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-08-17 17:48:22.351335 by $Id$ v1_10_0+0029-25ad9df
-  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml <doubleminus>comment.line <doubleminus>comment.id
+<!-- generated on 2021-08-18 08:47:40.458240 by $Id$ v1_10_0+0040-e99cbdd
+  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml <doubleminus>comment.line <doubleminus>comment.id <doubleminus>comment.stop
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <predecessor tripId="t0" tl="A2" foes="trip1"/>   <!-- line=S4 foeID=t1  -->
+        <predecessor tripId="t0" tl="A2" foes="trip1"/>   <!-- line=S4 foeID=t1 busStop=stop_e (intermediateStop=stop_d foeIntermediateStop=c_0)  -->
     </railSignalConstraints>
 </additional>

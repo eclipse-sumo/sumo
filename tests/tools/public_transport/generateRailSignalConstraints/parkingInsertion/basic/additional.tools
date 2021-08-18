@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-06-08 15:47:19.787793 by $Id$ v1_9_2+0392-aeb53d5
+<!-- generated on 2021-08-18 08:45:55.872621 by $Id$ v1_10_0+0040-e99cbdd
   options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="B">
-        <insertionPredecessor tripId="t1" tl="B" foes="t0"/>
+        <insertionPredecessor tripId="t1" tl="B" foes="t0"/>   <!-- (parking)  -->
     </railSignalConstraints>
 </additional>
