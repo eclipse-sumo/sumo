@@ -39,7 +39,8 @@ GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet*
     GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
     myLines(lines),
     myContainerCapacity(containerCapacity),
-    myParkingLength(parkingLength) {
+    myParkingLength(parkingLength),
+    myColor(net->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.containerStopColor) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -85,7 +86,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
             } else {
-                baseColor = s.stoppingPlaceSettings.containerStopColor;
+                baseColor = myColor;
                 signColor = s.stoppingPlaceSettings.containerStopColorSign;
             }
             // Start drawing adding an gl identificator
@@ -162,6 +163,12 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             return toString(myContainerCapacity);
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
+        case SUMO_ATTR_COLOR:
+            if (myColor == myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.containerStopColor) {
+                return "";
+            } else {
+                return toString(myColor);
+            }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
@@ -189,6 +196,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_LINES:
         case SUMO_ATTR_CONTAINER_CAPACITY:
         case SUMO_ATTR_PARKING_LENGTH:
+        case SUMO_ATTR_COLOR:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -237,6 +245,12 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
         case SUMO_ATTR_PARKING_LENGTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_COLOR:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<RGBColor>(value);
+            }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
@@ -289,6 +303,13 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PARKING_LENGTH:
             myParkingLength = GNEAttributeCarrier::parse<double>(value);
+            break;
+        case SUMO_ATTR_COLOR:
+            if (value.empty()) {
+                myColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor;
+            } else {
+                myColor = GNEAttributeCarrier::parse<RGBColor>(value);
+            }
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
