@@ -445,13 +445,31 @@ RouteHandler::myEndElement(int element) {
 
 void 
 RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
-    //
+    // parse vehicleType
+    SUMOVTypeParameter* vehicleTypeParameter = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName());
+    if (vehicleTypeParameter) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleTypeParameter(vehicleTypeParameter);
+        // delete vehicleType parameter (because in XMLStructure we have a copy)
+        delete vehicleTypeParameter;
+    }
 }
 
 
 void 
 RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
-    //
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string ID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, ID);
+    }
 }
 
 
@@ -459,7 +477,7 @@ void
 RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     // first check if this is an embedded route
     if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && attrs.hasAttribute(SUMO_ATTR_ID)) {
-        WRITE_ERROR("either define a route within a vehicle or define it with ID");
+        WRITE_ERROR("either define a route within a vehicle or with an ID");
     } else {
         // declare Ok Flag
         bool parsedOk = true;
@@ -487,7 +505,16 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
 
 void 
 RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
-    //
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string ID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, ID);
+    }
 }
 
 
