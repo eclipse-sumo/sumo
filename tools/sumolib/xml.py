@@ -382,7 +382,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                 record = None
 
 
-def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs=""):
+def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
     """
     Writes an XML header with schema information and a comment on how the file has been generated
     (script name, arguments and datetime). Please use this as first call whenever you open a
@@ -395,12 +395,16 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs=""):
     """
     if script is None:
         script = os.path.basename(sys.argv[0])
+    if options is None:
+        optionString = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
+    else:
+        optionString = options._parser.write_config_file(options, toString=True)
+
     outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s %s
-  options: %s
+%s
 -->
-""" % (datetime.datetime.now(), script, version.gitDescribe(),
-       (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
+""" % (datetime.datetime.now(), script, version.gitDescribe(), optionString))
     if root is not None:
         if rootAttrs is None:
             outf.write((u'<%s>\n') % root)

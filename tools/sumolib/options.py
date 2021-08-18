@@ -25,6 +25,7 @@ from collections import namedtuple
 import re
 from xml.sax import parse, handler, saxutils
 import argparse
+import io
 
 _OPTIONS = [None]
 
@@ -94,42 +95,55 @@ class ArgumentParser(argparse.ArgumentParser):
                 if s.startswith("--"):
                     self._fix_path_args.add(s[2:])
 
-    def write_config_file(self, namespace, exit=True):
+    def write_config_file(self, namespace, exit=True, toString=False):
         if namespace.save_configuration:
             out_file = namespace.save_configuration
             print_template = False
         elif namespace.save_template:
             out_file = namespace.save_template
             print_template = True
+        elif toString:
+            out = io.StringIO()
+            try:
+                self.write_config_to_file(out, namespace, False)
+            except:
+                # python2.7
+                out = io.BytesIO()
+                self.write_config_to_file(out, namespace, False)
+            return out.getvalue()
         else:
             return
         with open(out_file, "w") as out:
-            out.write('<configuration>\n')
-            for k in sorted(vars(namespace).keys()):
-                v = vars(namespace)[k]
-                if k not in ("save_configuration", "save_template", "configuration_file"):
-                    key = k
-                    default = ''
-                    help = ''
-                    for a in self._actions:
-                        if a.dest == k:
-                            for s in a.option_strings:
-                                if s.startswith("--"):
-                                    key = s[2:]
-                                    break
-                            if print_template:
-                                if a.default is not None:
-                                    v = a.default
-                                if a.help is not None:
-                                    help = ' help="%s"' % a.help
-                            break
-                    if print_template or v != a.default:
-                        if isinstance(v, list):
-                            v = " ".join(map(str, v))
-                        out.write('    <%s value="%s"%s%s/>\n' % (key, xmlescape(v), default, help))
-            out.write('</configuration>\n')
+            self.write_config_to_file(out, namespace, print_template)
         if exit:
             sys.exit()
+
+    def write_config_to_file(self, out, namespace, print_template):
+        out.write('<configuration>\n')
+        for k in sorted(vars(namespace).keys()):
+            v = vars(namespace)[k]
+            if k not in ("save_configuration", "save_template", "configuration_file", "_parser"):
+                key = k
+                default = ''
+                help = ''
+                for a in self._actions:
+                    if a.dest == k:
+                        for s in a.option_strings:
+                            if s.startswith("--"):
+                                key = s[2:]
+                                break
+                        if print_template:
+                            if a.default is not None:
+                                v = a.default
+                            if a.help is not None:
+                                help = ' help="%s"' % a.help
+                        break
+                if print_template or v != a.default:
+                    if isinstance(v, list):
+                        v = " ".join(map(str, v))
+                    out.write('    <%s value="%s"%s%s/>\n' % (key, xmlescape(v), default, help))
+        out.write('</configuration>\n')
+
 
     def parse_args(self, args=None, namespace=None):
         if args is not None:
@@ -187,4 +201,5 @@ class ArgumentParser(argparse.ArgumentParser):
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
         self.write_config_file(namespace)
+        namespace._parser = self
         return namespace, unknown_args

@@ -1159,7 +1159,7 @@ def main(options):
                          + list(parkingConflicts.keys())))
 
     with open(options.out, "w") as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "additional")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
         for signal in signals:
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
             for conflict in conflicts[signal] + foeInsertionConflicts[signal]:
