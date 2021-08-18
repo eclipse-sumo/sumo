@@ -134,6 +134,143 @@ GNERouteHandler::GNERouteHandler(const std::string& file, GNENet* net, bool undo
 GNERouteHandler::~GNERouteHandler() {}
 
 
+void 
+GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, const std::vector<std::string> &edges, 
+    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id) {
+    // unsuported
+}
+
+
+void 
+GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void
+GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+    const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+    const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void
+GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
+    const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via, const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
+    const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via, const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void
+GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void
+GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void
+GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+    const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+    //
+}
+
+
+void
+GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+    const std::string &toBusStop, const std::vector<std::string>& edges, const std::string &route, double arrivalPos) {
+    //
+}
+
+
+void
+GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge, 
+    const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& lines) {
+    //
+}
+
+
+void
+GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void
+GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters,
+    const std::map<std::string, std::string> &parameters) {
+    //
+}
+
+
+void 
+GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+    const std::string &toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
+    //
+}
+
+
+void
+GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
+    const std::string &toBusStop, const std::vector<std::string>& edges, const double speed, const double departPosition, const double arrivalPosition) {
+    //
+}
+
+
 bool
 GNERouteHandler::isVehicleIdDuplicated(GNENet* net, const std::string& id) {
     // declare vehicle tags vector
