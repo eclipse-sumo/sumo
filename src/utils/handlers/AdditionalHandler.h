@@ -64,12 +64,14 @@ public:
      * @param[in] lines Names of the bus lines that halt on this bus stop
      * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
      * @param[in] parkingLength parking length
+     * @param[in[ color busStop color
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     virtual void buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID,
                               const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
-                              const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) = 0;
+                              const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition, 
+                              const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a train stop
      * @param[in] sumoBaseObject sumo base object used for build
@@ -81,12 +83,14 @@ public:
      * @param[in] lines Names of the train lines that halt on this train stop
      * @param[in] personCapacity larger numbers of persons trying to enter will create an upstream jam on the sidewalk.
      * @param[in] parkingLength parking length
+     * @param[in[ color trainStop color
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     virtual void buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID,
                                 const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
-                                const int personCapacity, const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) = 0;
+                                const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition, 
+                                const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds an Access
      * @param[in] sumoBaseObject sumo base object used for build
@@ -110,12 +114,13 @@ public:
      * @param[in] lines Names of the bus lines that halt on this container stop
      * @param[in] containerCapacity larger numbers of containers
      * @param[in] parkingLength parking length
+     * @param[in[ color containerStop color
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     virtual void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
                                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, 
-                                    const int containerCapacity, const double parkingLength, const bool friendlyPosition, 
+                                    const int containerCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition, 
                                     const std::map<std::string, std::string> &parameters) = 0;
 
     /**@brief Builds a charging Station

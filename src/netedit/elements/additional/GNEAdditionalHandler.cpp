@@ -81,8 +81,8 @@ GNEAdditionalHandler::~GNEAdditionalHandler() {
 void 
 GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
     const std::string &laneID, const double startPos, const double endPos, const std::string& name, 
-    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, const bool friendlyPosition, 
-    const std::map<std::string, std::string> &parameters) {
+    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, 
+    const RGBColor& color, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_BUS_STOP, id);
@@ -105,7 +105,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
         } else {
             // build busStop
             GNEAdditional* busStop = new GNEBusStop(SUMO_TAG_BUS_STOP, id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
-                                                    parkingLength, friendlyPosition, parameters, neteditParameters.blockMovement);
+                                                    parkingLength, color, friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
@@ -126,8 +126,8 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
 void 
 GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
     const std::string &laneID, const double startPos, const double endPos, const std::string& name, 
-    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, const bool friendlyPosition, 
-    const std::map<std::string, std::string> &parameters) {
+    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength, 
+    const RGBColor& color, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TRAIN_STOP, id);
@@ -150,7 +150,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
         } else {
             // build trainStop
             GNEAdditional* trainStop = new GNEBusStop(SUMO_TAG_TRAIN_STOP, id, lane, myNet, startPos, endPos, name, lines, personCapacity, 
-                                                    parkingLength, friendlyPosition, parameters, neteditParameters.blockMovement);
+                                                      parkingLength, color, friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TRAIN_STOP));
@@ -214,7 +214,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
 void 
 GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string &laneID, 
     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, const int containerCapacity, 
-    const double parkingLength, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
+    const double parkingLength, const RGBColor& color, const bool friendlyPosition, const std::map<std::string, std::string> &parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CONTAINER_STOP, id);
@@ -237,7 +237,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
         } else {
             // build containerStop
             GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, startPos, endPos, name, lines, containerCapacity, parkingLength,
-                                                                friendlyPosition, parameters, neteditParameters.blockMovement);
+                                                                color, friendlyPosition, parameters, neteditParameters.blockMovement);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
