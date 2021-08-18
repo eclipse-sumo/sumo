@@ -878,298 +878,298 @@ GNEVehicleType::getACParametersMap() const {
 
 
 void
-GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList) {
+GNEVehicleType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
     // open undo list and overwritte all values of default VType
     undoList->p_begin("update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
     // CFM values
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_DECEL, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_DECEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_DECEL, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_DECEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_DECEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_DECEL, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_APPARENTDECEL, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_APPARENTDECEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_APPARENTDECEL, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_APPARENTDECEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_APPARENTDECEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_APPARENTDECEL, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_EMERGENCYDECEL, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_EMERGENCYDECEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_EMERGENCYDECEL, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_EMERGENCYDECEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_EMERGENCYDECEL, toString(newVTypeParameter.getCFParam(SUMO_ATTR_EMERGENCYDECEL, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_SIGMA, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_SIGMA, toString(newVTypeParameter->getCFParam(SUMO_ATTR_SIGMA, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_SIGMA, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_SIGMA, toString(newVTypeParameter.getCFParam(SUMO_ATTR_SIGMA, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TAU, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_TAU, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TAU, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_TAU, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TAU, toString(newVTypeParameter.getCFParam(SUMO_ATTR_TAU, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_COLLISION_MINGAP_FACTOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_COLLISION_MINGAP_FACTOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_COLLISION_MINGAP_FACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_COLLISION_MINGAP_FACTOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP1, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_TMP1, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP1, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_TMP1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP1, toString(newVTypeParameter.getCFParam(SUMO_ATTR_TMP1, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP2, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_TMP2, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP2, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_TMP2, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP2, toString(newVTypeParameter.getCFParam(SUMO_ATTR_TMP2, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP3, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_TMP3, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP3, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_TMP3, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP3, toString(newVTypeParameter.getCFParam(SUMO_ATTR_TMP3, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP4, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_TMP4, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP4, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_TMP4, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP4, toString(newVTypeParameter.getCFParam(SUMO_ATTR_TMP4, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP5, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_TMP5, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP5, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_TMP5, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP5, toString(newVTypeParameter.getCFParam(SUMO_ATTR_TMP5, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_REACTION, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_REACTION, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_REACTION, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_T_REACTION, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_REACTION, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_T_REACTION, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_C_COOLNESS, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_C_COOLNESS, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_C_COOLNESS, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_C_COOLNESS, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_C_COOLNESS, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_C_COOLNESS, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_SIG_LEADER, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_LEADER, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_SIG_LEADER, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_SIG_LEADER, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_LEADER, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_SIG_LEADER, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_SIG_GAP, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_GAP, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_SIG_GAP, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_SIG_GAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_GAP, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_SIG_GAP, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_SIG_ERROR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_ERROR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_SIG_ERROR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_SIG_ERROR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_JERK_MAX, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_JERK_MAX, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_JERK_MAX, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_JERK_MAX, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_JERK_MAX, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_JERK_MAX, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_EPSILON_ACC, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_EPSILON_ACC, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_EPSILON_ACC, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_EPSILON_ACC, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_EPSILON_ACC, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_EPSILON_ACC, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_T_ACC_MAX, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_ACC_MAX, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_T_ACC_MAX, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_T_ACC_MAX, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_T_ACC_MAX, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_T_ACC_MAX, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_M_FLATNESS, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_M_FLATNESS, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_M_FLATNESS, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_M_FLATNESS, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_M_FLATNESS, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_M_FLATNESS, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_EIDM_M_BEGIN, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_EIDM_M_BEGIN, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_M_BEGIN, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_EIDM_M_BEGIN, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_PWAGNER2009_TAULAST, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_TAULAST, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_PWAGNER2009_TAULAST, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_TAULAST, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_PWAGNER2009_APPROB, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_APPROB, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_PWAGNER2009_APPROB, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_APPROB, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDMM_ADAPT_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_IDMM_ADAPT_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_TIME, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_IDMM_ADAPT_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDMM_ADAPT_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_TIME, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_WIEDEMANN_SECURITY, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_WIEDEMANN_SECURITY, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_WIEDEMANN_SECURITY, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_WIEDEMANN_SECURITY, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TRAIN_TYPE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_TRAIN_TYPE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TRAIN_TYPE, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_TRAIN_TYPE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TRAIN_TYPE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_TRAIN_TYPE, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_K, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_K, toString(newVTypeParameter->getCFParam(SUMO_ATTR_K, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_K, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_K, toString(newVTypeParameter.getCFParam(SUMO_ATTR_K, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_KERNER_PHI, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_KERNER_PHI, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_KERNER_PHI, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_KERNER_PHI, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_KERNER_PHI, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_KERNER_PHI, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDM_DELTA, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_IDM_DELTA, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDM_DELTA, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_IDM_DELTA, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDM_DELTA, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_IDM_DELTA, 0)), undoList);
     }
-    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDM_STEPPING, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_CF_IDM_STEPPING, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDM_STEPPING, 0)), undoList);
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_IDM_STEPPING, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDM_STEPPING, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_IDM_STEPPING, 0)), undoList);
     }
     // JM values
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_CROSSING_GAP, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_CROSSING_GAP, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_CROSSING_GAP, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_CROSSING_GAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_CROSSING_GAP, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_CROSSING_GAP, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_DRIVE_RED_SPEED, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_RED_SPEED, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_RED_SPEED, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_RED_SPEED, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_PROB, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_PROB, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_PROB, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_PROB, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_SPEED, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_SPEED, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_SPEED, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_SPEED, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_SIGMA_MINOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_SIGMA_MINOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_SIGMA_MINOR, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_SIGMA_MINOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_SIGMA_MINOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_SIGMA_MINOR, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_TIMEGAP_MINOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_TIMEGAP_MINOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_TIMEGAP_MINOR, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_TIMEGAP_MINOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_TIMEGAP_MINOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_TIMEGAP_MINOR, 0)), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_IMPATIENCE_SET)) {
-        vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter->impatience), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_IMPATIENCE_SET)) {
+        vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter.impatience), undoList);
     }
     // LCM values
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_STRATEGIC_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_STRATEGIC_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_COOPERATIVE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_COOPERATIVE_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_COOPERATIVE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_COOPERATIVE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_SUBLANE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SUBLANE_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SUBLANE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SUBLANE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_OPPOSITE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_OPPOSITE_PARAM, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_OPPOSITE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OPPOSITE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_PUSHY, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_PUSHY, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_PUSHY, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_PUSHY, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHY, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_PUSHY, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_PUSHYGAP, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_PUSHYGAP, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_PUSHYGAP, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_PUSHYGAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHYGAP, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_PUSHYGAP, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_ASSERTIVE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_ASSERTIVE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_ASSERTIVE, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_ASSERTIVE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ASSERTIVE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_ASSERTIVE, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_IMPATIENCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_IMPATIENCE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_IMPATIENCE, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_IMPATIENCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_IMPATIENCE, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_ACCEL_LAT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_ACCEL_LAT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_ACCEL_LAT, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_ACCEL_LAT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ACCEL_LAT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_ACCEL_LAT, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_LOOKAHEADLEFT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_LOOKAHEADLEFT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_LOOKAHEADLEFT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_LOOKAHEADLEFT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_SPEEDGAINRIGHT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAINRIGHT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SPEEDGAINRIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAINRIGHT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_OVERTAKE_RIGHT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_RIGHT, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_OVERTAKE_RIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_RIGHT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)), undoList);
     }
-    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter->getCFParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
+    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
     }
     //
-    if (newVTypeParameter->wasSet(VTYPEPARS_LENGTH_SET)) {
-        vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter->length), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_LENGTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter.length), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_MINGAP_SET)) {
-        vType->setAttribute(SUMO_ATTR_MINGAP, toString(newVTypeParameter->minGap), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_MINGAP_SET)) {
+        vType->setAttribute(SUMO_ATTR_MINGAP, toString(newVTypeParameter.minGap), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_MAXSPEED_SET)) {
-        vType->setAttribute(SUMO_ATTR_MAXSPEED, toString(newVTypeParameter->maxSpeed), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_MAXSPEED_SET)) {
+        vType->setAttribute(SUMO_ATTR_MAXSPEED, toString(newVTypeParameter.maxSpeed), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
-        vType->setAttribute(SUMO_ATTR_SPEEDFACTOR, toString(newVTypeParameter->speedFactor), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
+        vType->setAttribute(SUMO_ATTR_SPEEDFACTOR, toString(newVTypeParameter.speedFactor), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_COLOR_SET)) {
-        vType->setAttribute(SUMO_ATTR_COLOR, toString(newVTypeParameter->color), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_COLOR_SET)) {
+        vType->setAttribute(SUMO_ATTR_COLOR, toString(newVTypeParameter.color), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
-        vType->setAttribute(SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getName(newVTypeParameter->emissionClass), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
+        vType->setAttribute(SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getName(newVTypeParameter.emissionClass), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_SHAPE_SET)) {
-        vType->setAttribute(SUMO_ATTR_GUISHAPE, getVehicleShapeName(newVTypeParameter->shape), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_SHAPE_SET)) {
+        vType->setAttribute(SUMO_ATTR_GUISHAPE, getVehicleShapeName(newVTypeParameter.shape), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_WIDTH_SET)) {
-        vType->setAttribute(SUMO_ATTR_WIDTH, toString(newVTypeParameter->width), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_WIDTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_WIDTH, toString(newVTypeParameter.width), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_HEIGHT_SET)) {
-        vType->setAttribute(SUMO_ATTR_HEIGHT, toString(newVTypeParameter->height), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_HEIGHT_SET)) {
+        vType->setAttribute(SUMO_ATTR_HEIGHT, toString(newVTypeParameter.height), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_IMGFILE_SET)) {
-        vType->setAttribute(SUMO_ATTR_IMGFILE, toString(newVTypeParameter->imgFile), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_IMGFILE_SET)) {
+        vType->setAttribute(SUMO_ATTR_IMGFILE, toString(newVTypeParameter.imgFile), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
-        vType->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, SUMOXMLDefinitions::LaneChangeModels.getString(newVTypeParameter->lcModel), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
+        vType->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, SUMOXMLDefinitions::LaneChangeModels.getString(newVTypeParameter.lcModel), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
-        vType->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(newVTypeParameter->cfModel), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
+        vType->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(newVTypeParameter.cfModel), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_PERSON_CAPACITY)) {
-        vType->setAttribute(SUMO_ATTR_PERSON_CAPACITY, toString(newVTypeParameter->personCapacity), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_PERSON_CAPACITY)) {
+        vType->setAttribute(SUMO_ATTR_PERSON_CAPACITY, toString(newVTypeParameter.personCapacity), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_CONTAINER_CAPACITY)) {
-        vType->setAttribute(SUMO_ATTR_CONTAINER_CAPACITY, toString(newVTypeParameter->containerCapacity), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_CONTAINER_CAPACITY)) {
+        vType->setAttribute(SUMO_ATTR_CONTAINER_CAPACITY, toString(newVTypeParameter.containerCapacity), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_BOARDING_DURATION)) {
-        vType->setAttribute(SUMO_ATTR_BOARDING_DURATION, toString(newVTypeParameter->boardingDuration), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_BOARDING_DURATION)) {
+        vType->setAttribute(SUMO_ATTR_BOARDING_DURATION, toString(newVTypeParameter.boardingDuration), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_LOADING_DURATION)) {
-        vType->setAttribute(SUMO_ATTR_LOADING_DURATION, toString(newVTypeParameter->loadingDuration), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_LOADING_DURATION)) {
+        vType->setAttribute(SUMO_ATTR_LOADING_DURATION, toString(newVTypeParameter.loadingDuration), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
-        if (newVTypeParameter->latAlignmentProcedure != LatAlignmentDefinition::GIVEN) {
-            vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter->latAlignmentProcedure), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
+        if (newVTypeParameter.latAlignmentProcedure != LatAlignmentDefinition::GIVEN) {
+            vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter.latAlignmentProcedure), undoList);
         } else {
-            vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter->latAlignmentOffset), undoList);
+            vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter.latAlignmentOffset), undoList);
         }
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
-        vType->setAttribute(SUMO_ATTR_MINGAP_LAT, toString(newVTypeParameter->minGapLat), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
+        vType->setAttribute(SUMO_ATTR_MINGAP_LAT, toString(newVTypeParameter.minGapLat), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
-        vType->setAttribute(SUMO_ATTR_MAXSPEED_LAT, toString(newVTypeParameter->maxSpeedLat), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
+        vType->setAttribute(SUMO_ATTR_MAXSPEED_LAT, toString(newVTypeParameter.maxSpeedLat), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-        vType->setAttribute(SUMO_ATTR_ACTIONSTEPLENGTH, toString(newVTypeParameter->actionStepLength), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_ACTIONSTEPLENGTH, toString(newVTypeParameter.actionStepLength), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_PROBABILITY_SET)) {
-        vType->setAttribute(SUMO_ATTR_PROB, toString(newVTypeParameter->defaultProbability), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_PROBABILITY_SET)) {
+        vType->setAttribute(SUMO_ATTR_PROB, toString(newVTypeParameter.defaultProbability), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_OSGFILE_SET)) {
-        vType->setAttribute(SUMO_ATTR_OSGFILE, toString(newVTypeParameter->osgFile), undoList);
+    if (newVTypeParameter.wasSet(VTYPEPARS_OSGFILE_SET)) {
+        vType->setAttribute(SUMO_ATTR_OSGFILE, toString(newVTypeParameter.osgFile), undoList);
     }
-    if (newVTypeParameter->knowsParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH))) {
-        vType->setAttribute(SUMO_ATTR_CARRIAGE_LENGTH, newVTypeParameter->getParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH), ""), undoList);
+    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH))) {
+        vType->setAttribute(SUMO_ATTR_CARRIAGE_LENGTH, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter->knowsParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH))) {
-        vType->setAttribute(SUMO_ATTR_LOCOMOTIVE_LENGTH, newVTypeParameter->getParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH), ""), undoList);
+    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH))) {
+        vType->setAttribute(SUMO_ATTR_LOCOMOTIVE_LENGTH, newVTypeParameter.getParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter->knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
-        vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter->getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
+    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
+        vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
     // parse parameters
     std::string parametersStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (auto i : newVTypeParameter->getParametersMap()) {
-        parametersStr += i.first + "=" + i.second + "|";
+    for (const auto &parameter : newVTypeParameter.getParametersMap()) {
+        parametersStr += parameter.first + "=" + parameter.second + "|";
     }
     // remove the last "|"
     if (!parametersStr.empty()) {
