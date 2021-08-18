@@ -43,13 +43,14 @@ public:
      * @param[in] lines lines of the busStop
      * @param[in] containerCapacity larger numbers of containers trying to enter will create an upstream jam on the sidewalk.
      * @param[in] parkingLength parking length
+     * @param[in] color containerStop color
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
     GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                      const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, 
-                     bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
+                     const RGBColor& color, bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEContainerStop();
