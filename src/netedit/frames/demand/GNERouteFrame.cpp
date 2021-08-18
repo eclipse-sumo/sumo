@@ -252,31 +252,34 @@ GNERouteFrame::createPath() {
     } else if (myPathCreator->getSelectedEdges().size() > 0) {
         // obtain attributes
         std::map<SumoXMLAttr, std::string> valuesMap = myRouteAttributes->getAttributesAndValuesTemporal(true);
+        // Check if ID has to be generated
+        std::string routeID;
+        if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+            routeID = myViewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE);
+        } else {
+            routeID = valuesMap[SUMO_ATTR_ID];
+        }
         // declare a route parameter
-        GNERouteHandler::RouteParameter routeParameters;
+        std::vector<GNEEdge*> edges;
         for (const auto& path : myPathCreator->getPath()) {
             for (const auto& edgeID : path.getSubPath()) {
                 // get edge
                 GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID->getID());
                 // avoid double edges
-                if (routeParameters.edges.empty() || (routeParameters.edges.back() != edge)) {
-                    routeParameters.edges.push_back(edge);
+                if (edges.empty() || (edges.back() != edge)) {
+                    edges.push_back(edge);
                 }
             }
         }
-        // Check if ID has to be generated
-        if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-            routeParameters.routeID = myViewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE);
-        } else {
-            routeParameters.routeID = valuesMap[SUMO_ATTR_ID];
-        }
-        // fill rest of elements
-        routeParameters.color = GNEAttributeCarrier::parse<RGBColor>(valuesMap.at(SUMO_ATTR_COLOR));
-        routeParameters.repeat = GNEAttributeCarrier::parse<int>(valuesMap.at(SUMO_ATTR_REPEAT));
-        routeParameters.cycleTime = GNEAttributeCarrier::parse<SUMOTime>(valuesMap.at(SUMO_ATTR_CYCLETIME));
-        routeParameters.vClass = myPathCreator->getVClass();
         // create route
-        GNERoute* route = new GNERoute(myViewNet->getNet(), routeParameters);
+        GNERoute* route = new GNERoute(myViewNet->getNet(), 
+            routeID,
+            myPathCreator->getVClass(),
+            edges,
+            GNEAttributeCarrier::parse<RGBColor>(valuesMap.at(SUMO_ATTR_COLOR)), 
+            GNEAttributeCarrier::parse<int>(valuesMap.at(SUMO_ATTR_REPEAT)),
+            GNEAttributeCarrier::parse<SUMOTime>(valuesMap.at(SUMO_ATTR_CYCLETIME)),
+            std::map<std::string, std::string>());
         // add it into GNENet using GNEChange_DemandElement (to allow undo-redo)
         myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
         myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
