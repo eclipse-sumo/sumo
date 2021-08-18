@@ -595,7 +595,7 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
                                                                pStop.line,
                                                                stop.vehID,
                                                                pStop.vehID,
-                                                               ended,
+                                                               "foeEnded=%s " % humanReadableTime(ended),
                                                                None,  # switch
                                                                stop.busStop,
                                                                "parking"))
@@ -799,14 +799,13 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                             humanReadableTime(end), options.delay, pSignal,
                             pStop, nStop))
                     info = getIntermediateInfo(pStop, nStop)
+                    times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(pArrival))
                     limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, end, signalTimes)
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                                                        # attributes for adding comments
                                                        nStop.prevLine, pStop.prevLine,
                                                        nStop.vehID, pStop.vehID,
-                                                       nArrival, switch,
-                                                       nStop.busStop,
-                                                       info))
+                                                       times, switch, nStop.busStop, info))
                     if options.redundant >= 0:
                         prevBegin = pTimeAtSignal
                         for p2Arrival, p2Stop in reversed(arrivalsBySignal[pSignal]):
@@ -819,12 +818,13 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                             limit += countPassingTrainsToOtherStops(options, pSignal,
                                                                     busStop, p2TimeAtSignal, prevBegin, signalTimes)
                             info = getIntermediateInfo(p2Stop, nStop)
+                            times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(p2Arrival))
                             conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, p2Stop.prevTripId, limit,
                                                                # attributes for adding comments
                                                                nStop.prevLine, p2Stop.prevLine,
                                                                nStop.vehID,
                                                                p2Stop.vehID,
-                                                               nArrival, switch,
+                                                               times, switch,
                                                                nStop.busStop,
                                                                info))
                             prevBegin = p2TimeAtSignal
@@ -944,13 +944,14 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             continue
                         # predecessor tripId after stop is needed
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
+                        times = "until=%s foeUntil=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
                         conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                            # attributes for adding comments
                                                            nStop.prevLine,
                                                            pStop.prevLine,
                                                            nStop.vehID,
                                                            pStop.vehID,
-                                                           nUntil,
+                                                           times,
                                                            switch=None,
                                                            busStop=nStop.busStop,
                                                            info=""))
@@ -1070,12 +1071,13 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
 
                     # predecessor tripId after stop is needed
                     pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
+                    times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(pArrival))
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                        # attributes for adding comments
                                                        nStop.prevLine,
                                                        pStop.prevLine,
                                                        nStop.vehID, pStop.vehID,
-                                                       nArrival,
+                                                       times,
                                                        switch=None,
                                                        busStop=pStop.busStop,
                                                        info="foeInsertion"))
@@ -1112,7 +1114,7 @@ def writeConstraint(options, outf, tag, c):
     if options.commentStop:
             comment += "busStop=%s " % c.busStop
     if options.commentTime:
-            comment += "time=%s " % humanReadableTime(c.conflictTime)
+            comment += c.conflictTime
     if c.info is not "":
         comment += "(%s) " % c.info
     if comment != "":
