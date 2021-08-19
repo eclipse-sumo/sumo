@@ -1251,7 +1251,7 @@ struct GNEViewNetHelper {
         GNENetworkElement* getEditedNetworkElement() const;
 
     private:
-        /// @brief pointer to net
+        /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
         /// @brief pointer to edited network element
@@ -1281,6 +1281,39 @@ struct GNEViewNetHelper {
 
         /// @brief Invalidated assignment operator
         LockIcon& operator=(const LockIcon& other) = delete;
+    };
+
+    /// @brief lock manager
+    class LockManager {
+
+    public:
+        /// @brief constructor
+        LockManager(GNEViewNet* viewNet);
+
+        /// @brief destructor
+        ~LockManager();
+
+    private:
+        /// @brief operation locked
+        struct OperationLocked {
+            /// @brief constructor
+            OperationLocked();
+
+            /// @brief destructor
+            ~OperationLocked();
+
+            /// @brief inspect mode
+            bool inspection;
+
+            /// @brief delete mode
+            bool deletion;
+
+            /// @brief erase mode
+            bool erasion;
+        };
+
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
     };
 
     /// @brief get scaled rainbow colors

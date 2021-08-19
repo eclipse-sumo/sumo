@@ -3465,6 +3465,26 @@ GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier* AC) {
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNetHelper::LockManager - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
+    myViewNet(viewNet) {
+}
+
+
+GNEViewNetHelper::LockManager::~LockManager() {}
+
+
+GNEViewNetHelper::LockManager::OperationLocked::OperationLocked() :
+    inspection(false),
+    deletion(false),
+    erasion(false) {
+}
+
+
+GNEViewNetHelper::LockManager::OperationLocked::~OperationLocked() {}
+// ---------------------------------------------------------------------------
 // GNEViewNetHelper - methods
 // ---------------------------------------------------------------------------
 
