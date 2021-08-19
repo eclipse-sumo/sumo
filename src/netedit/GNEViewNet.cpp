@@ -2075,11 +2075,11 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdResetEndPoints(FXObject*, FXSelector, void*) {
     // get lane at popup position
-    GNELane* lane = getLaneAtPopupPosition();
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
     // check element
-    if (lane != nullptr) {
+    if (laneAtPopupPosition != nullptr) {
         // get parent edge
-        GNEEdge* edge = lane->getParentEdge();
+        GNEEdge* edge = laneAtPopupPosition->getParentEdge();
         // check if edge is selected
         if (edge->isAttributeCarrierSelected()) {
             // get selected edges
@@ -2110,20 +2110,20 @@ GNEViewNet::onCmdResetEndPoints(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
-    GNELane* lane = getLaneAtPopupPosition();
-    if (lane != nullptr) {
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
+    if (laneAtPopupPosition != nullptr) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
-        if (lane->isAttributeCarrierSelected()) {
+        if (laneAtPopupPosition->isAttributeCarrierSelected()) {
             myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
-            for (auto it : lanes) {
-                myNet->duplicateLane(it, myUndoList, true);
+            for (const auto &lane : lanes) {
+                myNet->duplicateLane(lane, myUndoList, true);
             }
             myUndoList->p_end();
         } else {
             myUndoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
-            myNet->duplicateLane(lane, myUndoList, false);
+            myNet->duplicateLane(laneAtPopupPosition, myUndoList, false);
             myUndoList->p_end();
         }
     }
@@ -2133,11 +2133,11 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
-    GNELane* lane = getLaneAtPopupPosition();
-    if (lane != nullptr) {
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
+    if (laneAtPopupPosition != nullptr) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
-        if (lane->isAttributeCarrierSelected()) {
+        if (laneAtPopupPosition->isAttributeCarrierSelected()) {
             myUndoList->p_begin("reset custom lane shapes");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
             for (const auto &lane : lanes) {
@@ -2146,7 +2146,7 @@ GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
             myUndoList->p_end();
         } else {
             myUndoList->p_begin("reset custom lane shape");
-            lane->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
+            laneAtPopupPosition->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
             myUndoList->p_end();
         }
     }
@@ -2156,11 +2156,11 @@ GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdResetOppositeLane(FXObject*, FXSelector, void*) {
-    GNELane* lane = getLaneAtPopupPosition();
-    if (lane != nullptr) {
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
+    if (laneAtPopupPosition != nullptr) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
-        if (lane->isAttributeCarrierSelected()) {
+        if (laneAtPopupPosition->isAttributeCarrierSelected()) {
         myUndoList->p_begin("reset opposite lanes");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
             for (const auto &lane : lanes) {
@@ -2169,7 +2169,7 @@ GNEViewNet::onCmdResetOppositeLane(FXObject*, FXSelector, void*) {
             myUndoList->p_end();
         } else {
         myUndoList->p_begin("reset opposite lane");
-        lane->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
+        laneAtPopupPosition->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
         myUndoList->p_end();
         }
     }
@@ -2215,12 +2215,12 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
-    GNELane* clickedLane = getLaneAtPopupPosition();
-    if (clickedLane != nullptr) {
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
+    if (laneAtPopupPosition != nullptr) {
         // obtain vClass
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
-        myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, clickedLane->getParentEdge());
+        myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, laneAtPopupPosition->getParentEdge());
         // select all lanes with reachablility greather than 0
         myUndoList->p_begin("select lane reachability");
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
@@ -2252,15 +2252,15 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
 
 bool
 GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
-    GNELane* lane = getLaneAtPopupPosition();
-    if (lane != nullptr) {
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
+    if (laneAtPopupPosition != nullptr) {
         // Get selected lanes
         std::vector<GNELane*> lanes = myNet->retrieveLanes(true); ;
         // Declare map of edges and lanes
         std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
         // Iterate over selected lanes
-        for (auto i : lanes) {
-            mapOfEdgesAndLanes[myNet->retrieveEdge(i->getParentEdge()->getID())] = i;
+        for (const auto &lane : lanes) {
+            mapOfEdgesAndLanes[myNet->retrieveEdge(lane->getParentEdge()->getID())] = lane;
         }
         // Throw warning dialog if there hare multiple lanes selected in the same edge
         if (mapOfEdgesAndLanes.size() != lanes.size()) {
@@ -2316,7 +2316,7 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
             // If only have a single lane, start undo/redo operation
             myUndoList->p_begin("restrict lane to " + toString(vclass));
             // Transform lane to Sidewalk
-            myNet->restrictLane(vclass, lane, myUndoList);
+            myNet->restrictLane(vclass, laneAtPopupPosition, myUndoList);
             // end undo operation
             myUndoList->p_end();
         }
@@ -2327,8 +2327,8 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
 
 bool
 GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront) {
-    GNELane* clickedLane = getLaneAtPopupPosition();
-    if (clickedLane != nullptr) {
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
+    if (laneAtPopupPosition != nullptr) {
         // Get selected edges
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         // get selected lanes
@@ -2395,18 +2395,18 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
             // Add restricted lane
             if (vclass == SVC_PEDESTRIAN) {
                 // always add pedestrian lanes on the right
-                myNet->addRestrictedLane(vclass, clickedLane->getParentEdge(), 0, myUndoList);
+                myNet->addRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), 0, myUndoList);
             } else if (vclass == SVC_IGNORING) {
                 if (insertAtFront) {
-                    myNet->addGreenVergeLane(clickedLane->getParentEdge(), clickedLane->getIndex() + 1, myUndoList);
+                    myNet->addGreenVergeLane(laneAtPopupPosition->getParentEdge(), laneAtPopupPosition->getIndex() + 1, myUndoList);
                 } else {
-                    myNet->addGreenVergeLane(clickedLane->getParentEdge(), clickedLane->getIndex(), myUndoList);
+                    myNet->addGreenVergeLane(laneAtPopupPosition->getParentEdge(), laneAtPopupPosition->getIndex(), myUndoList);
                 }
-            } else if (clickedLane->getParentEdge()->getLanes().size() == 1) {
+            } else if (laneAtPopupPosition->getParentEdge()->getLanes().size() == 1) {
                 // guess insertion position if there is only 1 lane
-                myNet->addRestrictedLane(vclass, clickedLane->getParentEdge(), -1, myUndoList);
+                myNet->addRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), -1, myUndoList);
             } else {
-                myNet->addRestrictedLane(vclass, clickedLane->getParentEdge(), clickedLane->getIndex(), myUndoList);
+                myNet->addRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), laneAtPopupPosition->getIndex(), myUndoList);
             }
             // end undo/redo operation
             myUndoList->p_end();
@@ -2418,8 +2418,8 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
 
 bool
 GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
-    GNELane* lane = getLaneAtPopupPosition();
-    if (lane != nullptr) {
+    GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
+    if (laneAtPopupPosition != nullptr) {
         // Get selected edges
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         // get selected lanes
@@ -2427,22 +2427,22 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for (auto i : edges) {
-            setOfEdges.insert(i);
+        for (const auto &edge : edges) {
+            setOfEdges.insert(edge);
         }
         // iterate over selected lanes
-        for (auto it : lanes) {
+        for (const auto &lane : lanes) {
             // Insert pointer to edge into set of edges (To avoid duplicates)
-            setOfEdges.insert(myNet->retrieveEdge(it->getParentEdge()->getID()));
+            setOfEdges.insert(myNet->retrieveEdge(lane->getParentEdge()->getID()));
         }
         // If we handeln a set of edges
         if (setOfEdges.size() > 0) {
             // declare counter for number of restrictions
             int counter = 0;
             // iterate over set of edges
-            for (std::set<GNEEdge*>::iterator it = setOfEdges.begin(); it != setOfEdges.end(); it++) {
+            for (const auto & edge : setOfEdges) {
                 // update counter if edge has already a restricted lane of type "vclass"
-                if ((*it)->hasRestrictedLane(vclass)) {
+                if (edge->hasRestrictedLane(vclass)) {
                     counter++;
                 }
             }
@@ -2484,7 +2484,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             // If only have a single lane, start undo/redo operation
             myUndoList->p_begin("Remove vclass for " + toString(vclass));
             // Remove Sidewalk
-            myNet->removeRestrictedLane(vclass, lane->getParentEdge(), myUndoList);
+            myNet->removeRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), myUndoList);
             // end undo/redo operation
             myUndoList->p_end();
         }
