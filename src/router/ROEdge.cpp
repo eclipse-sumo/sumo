@@ -92,9 +92,11 @@ ROEdge::~ROEdge() {
 
 void
 ROEdge::addLane(ROLane* lane) {
-    assert(myLanes.empty() || lane->getLength() == myLength);
-    myLength = lane->getLength();
     const double speed = lane->getSpeed();
+    if (speed > mySpeed) {
+        mySpeed = speed;
+        myLength = lane->getLength();
+    }
     mySpeed = speed > mySpeed ? speed : mySpeed;
     myLanes.push_back(lane);
 
