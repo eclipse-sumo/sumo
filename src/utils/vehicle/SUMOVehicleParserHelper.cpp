@@ -209,6 +209,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             if (!hasNumber) {
                 return handleError(hardFail, abortCreation, toString(tag) + " '" + id + "' with triggered begin must define 'number'.");
             }
+            ret->repetitionEnd = ret->depart;
         } else if ((endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)
                    // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
                    && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
