@@ -189,7 +189,9 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
                              myViewNet, myStopAttributes, myNeteditAttributes,
                              objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront())) {
             // create it in RouteFrame
+/*
             GNERouteHandler::buildStop(myViewNet->getNet(), true, stopParameter, myStopParentSelector->getCurrentDemandElement());
+*/
             // stop sucesfully created, then return true
             return true;
         } else {

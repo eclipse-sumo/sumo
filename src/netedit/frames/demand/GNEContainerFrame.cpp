@@ -256,6 +256,7 @@ GNEContainerFrame::createPath() {
         // create container
         GNEDemandElement* container = buildContainer();
         // check if container and container plan can be created
+/*
         if (GNERouteHandler::buildContainerPlan(
                     myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
                     container, myContainerPlanAttributes, myPathCreator)) {
@@ -268,10 +269,12 @@ GNEContainerFrame::createPath() {
             myContainerPlanAttributes->refreshRows();
             // compute container
             container->computePathElement();
+
         } else {
             // abort container creation
             myViewNet->getUndoList()->p_abort();
         }
+*/
     }
 }
 
@@ -302,7 +305,9 @@ GNEContainerFrame::buildContainer() {
         // obtain container parameters
         SUMOVehicleParameter* containerParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_CONTAINER, SUMOSAXAttrs, false, false, false);
         // build container in GNERouteHandler
+/*
         GNERouteHandler::buildContainer(myViewNet->getNet(), true, *containerParameters);
+*/
         // delete containerParameters
         delete containerParameters;
     } else {
@@ -318,7 +323,9 @@ GNEContainerFrame::buildContainer() {
         // obtain containerFlow parameters
         SUMOVehicleParameter* containerFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
         // build containerFlow in GNERouteHandler
+/*
         GNERouteHandler::buildContainerFlow(myViewNet->getNet(), true, *containerFlowParameters);
+*/
         // delete containerFlowParameters
         delete containerFlowParameters;
     }

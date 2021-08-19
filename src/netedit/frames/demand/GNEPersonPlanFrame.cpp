@@ -204,6 +204,7 @@ GNEPersonPlanFrame::createPath() {
     if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
+/*
         // check if person plan can be created
         if (GNERouteHandler::buildPersonPlan(
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
@@ -219,6 +220,7 @@ GNEPersonPlanFrame::createPath() {
             // refresh personPlan attributes
             myPersonPlanAttributes->refreshRows();
         }
+*/
     }
 }
 

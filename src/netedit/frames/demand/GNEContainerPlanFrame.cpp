@@ -203,6 +203,7 @@ GNEContainerPlanFrame::createPath() {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
         // check if container plan can be created
+/*
         if (GNERouteHandler::buildContainerPlan(
                     myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
                     myContainerSelector->getCurrentDemandElement(),
@@ -217,6 +218,7 @@ GNEContainerPlanFrame::createPath() {
             // refresh containerPlan attributes
             myContainerPlanAttributes->refreshRows();
         }
+*/
     }
 }
 
