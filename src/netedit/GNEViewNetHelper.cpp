@@ -3470,20 +3470,93 @@ GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier* AC) {
 
 GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myViewNet(viewNet) {
+    // fill myLockedNetwork objects
+    myLockedNetwork[GLO_JUNCTION] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_EDGE] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_LANE] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_CONNECTION] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_CROSSING] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_ADDITIONALELEMENT] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_TAZ] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_POLYGON] = OperationLocked(Supermode::NETWORK);
+    myLockedNetwork[GLO_POI] = OperationLocked(Supermode::NETWORK);
+    // fill myLockedDemand objects
+    myLockedDemand[GLO_ROUTE] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_VEHICLE] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_ROUTEFLOW] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_TRIP] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_FLOW] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_STOP] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_PERSON] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_PERSONFLOW] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_PERSONTRIP] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_RIDE] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_WALK] = OperationLocked(Supermode::DEMAND);
+    myLockedDemand[GLO_STOP_PERSON] = OperationLocked(Supermode::DEMAND);
+    // fill myLockedData objects
+    myLockedData[GLO_EDGEDATA] = OperationLocked(Supermode::DATA);
+    myLockedData[GLO_EDGERELDATA] = OperationLocked(Supermode::DATA);
+    myLockedData[GLO_TAZRELDATA] = OperationLocked(Supermode::DATA);
 }
 
 
 GNEViewNetHelper::LockManager::~LockManager() {}
 
 
-GNEViewNetHelper::LockManager::OperationLocked::OperationLocked() :
+bool 
+GNEViewNetHelper::LockManager::isInspectLocked(GUIGlObjectType objectType) const {
+    if ((objectType >= 100) && (objectType < 199)) {
+        return myLockedData.at(GLO_ADDITIONALELEMENT).inspection;
+    } else {
+        return myLockedData.at(objectType).inspection;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::LockManager::isDeleteLocked(GUIGlObjectType objectType) const {
+    if ((objectType >= 100) && (objectType < 199)) {
+        return myLockedData.at(GLO_ADDITIONALELEMENT).deletion;
+    } else {
+        return myLockedData.at(objectType).deletion;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::LockManager::isSelectLocked(GUIGlObjectType objectType) const {
+    if ((objectType >= 100) && (objectType < 199)) {
+        return myLockedData.at(GLO_ADDITIONALELEMENT).selection;
+    } else {
+        return myLockedData.at(objectType).selection;
+    }
+}
+
+
+GNEViewNetHelper::LockManager::OperationLocked::OperationLocked():
+    mySupermode(Supermode::NETWORK),
     inspection(false),
     deletion(false),
-    erasion(false) {
+    selection(false) {
+}
+
+
+GNEViewNetHelper::LockManager::OperationLocked::OperationLocked(Supermode supermode) :
+    mySupermode(supermode),
+    inspection(false),
+    deletion(false),
+    selection(false) {
 }
 
 
 GNEViewNetHelper::LockManager::OperationLocked::~OperationLocked() {}
+
+
+Supermode 
+GNEViewNetHelper::LockManager::OperationLocked::getSupermode() const {
+    return mySupermode;
+}
+
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper - methods
 // ---------------------------------------------------------------------------

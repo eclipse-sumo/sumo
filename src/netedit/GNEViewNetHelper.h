@@ -1293,14 +1293,31 @@ struct GNEViewNetHelper {
         /// @brief destructor
         ~LockManager();
 
+        /// @brief check if given GLObject is locked for inspecting
+        bool isInspectLocked(GUIGlObjectType objectType) const;
+
+        /// @brief check if given GLObject is locked for deleting
+        bool isDeleteLocked(GUIGlObjectType objectType) const;
+
+        /// @brief check if given GLObject is locked for selecting
+        bool isSelectLocked(GUIGlObjectType objectType) const;
+
     private:
         /// @brief operation locked
-        struct OperationLocked {
+        class OperationLocked {
+            
+        public:
             /// @brief constructor
             OperationLocked();
 
+            /// @brief parameter constructor
+            OperationLocked(Supermode supermode);
+
             /// @brief destructor
             ~OperationLocked();
+
+            /// @brief get supermode
+            Supermode getSupermode() const;
 
             /// @brief inspect mode
             bool inspection;
@@ -1308,12 +1325,25 @@ struct GNEViewNetHelper {
             /// @brief delete mode
             bool deletion;
 
-            /// @brief erase mode
-            bool erasion;
+            /// @brief select mode
+            bool selection;
+
+        private:
+            /// @brief supermode associated with this operation locked
+            Supermode mySupermode;
         };
 
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @brief map with locked objects for supermode network
+        std::map<GUIGlObjectType, OperationLocked> myLockedNetwork;
+
+        /// @brief map with locked objects for supermode network
+        std::map<GUIGlObjectType, OperationLocked> myLockedDemand;
+
+        /// @brief map with locked objects for supermode network
+        std::map<GUIGlObjectType, OperationLocked> myLockedData;
     };
 
     /// @brief get scaled rainbow colors
