@@ -97,12 +97,6 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     if (myUndoDemandElements) {
         myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
         myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
-/*
-        // iterate over stops of myActiveRouteStops and create stops associated with it
-        for (const auto& i : activeStops) {
-            buildStop(net, true, i, route);
-        }
-*/
         myNet->getViewNet()->getUndoList()->p_end();
     } else {
         myNet->getAttributeCarriers()->insertDemandElement(route);
@@ -110,12 +104,6 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
             edge->addChildElement(route);
         }
         route->incRef("buildRoute");
-/*
-        // iterate over stops of myActiveRouteStops and create stops associated with it
-        for (const auto& i : activeStops) {
-            buildStop(net, false, i, route);
-        }
-*/
     }
 }
 
@@ -149,12 +137,6 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + vehicle->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
-                // iterate over stops of vehicleParameters and create stops associated with it
-/*
-                for (const auto& i : vehicleParameters.stops) {
-                    buildStop(myNet, true, i, vehicle);
-                }
-*/
                 myNet->getViewNet()->getUndoList()->p_end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vehicle);
@@ -162,12 +144,6 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
                 vType->addChildElement(vehicle);
                 route->addChildElement(vehicle);
                 vehicle->incRef("buildVehicleOverRoute");
-/*
-                // iterate over stops of vehicleParameters and create stops associated with it
-                for (const auto& stop : vehicleParameters.stops) {
-                    buildStop(myNet, false, stop, vehicle);
-                }
-*/
             }
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(vehicle->getPositionInView())) {
@@ -200,12 +176,6 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* su
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
-                // iterate over stops of vehicleParameters and create stops associated with it
-/*
-                for (const auto& i : vehicleParameters.stops) {
-                    buildStop(myNet, true, i, flow);
-                }
-*/
                 myNet->getViewNet()->getUndoList()->p_end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(flow);
@@ -213,12 +183,6 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* su
                 vType->addChildElement(flow);
                 route->addChildElement(flow);
                 flow->incRef("buildFlowOverRoute");
-                // iterate over stops of vehicleParameters and create stops associated with it
-/*
-                for (const auto& i : vehicleParameters.stops) {
-                    buildStop(myNet, false, i, flow);
-                }
-*/
             }
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
@@ -362,12 +326,6 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + trip->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
-                // iterate over stops of vehicleParameters and create stops associated with it
-/*
-                for (const auto& stop : vehicleParameters.stops) {
-                    buildStop(myNet, true, stop, trip);
-                }
-*/
                 myNet->getViewNet()->getUndoList()->p_end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(trip);
@@ -380,12 +338,6 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 for (const auto& viaEdge : via) {
                     viaEdge->addChildElement(trip);
                 }
-/*
-                // iterate over stops of vehicleParameters and create stops associated with it
-                for (const auto& stop : vehicleParameters.stops) {
-                    buildStop(myNet, false, stop, trip);
-                }
-*/
             }
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(trip->getPositionInView())) {
@@ -423,12 +375,6 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
-                // iterate over stops of vehicleParameters and create stops associated with it
-/*
-                for (const auto& stop : vehicleParameters.stops) {
-                    buildStop(myNet, true, stop, flow);
-                }
-*/
                 myNet->getViewNet()->getUndoList()->p_end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(flow);
@@ -441,12 +387,6 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 for (const auto& viaEdge : via) {
                     viaEdge->addChildElement(flow);
                 }
-/*
-                // iterate over stops of vehicleParameters and create stops associated with it
-                for (const auto& stop : vehicleParameters.stops) {
-                    buildStop(myNet, false, stop, flow);
-                }
-*/
             }
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
@@ -770,28 +710,161 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 void
 GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters,
     const std::map<std::string, std::string> &parameters) {
-    //
+    // first check if ID is duplicated
+    if (!isContainerIdDuplicated(myNet, containerParameters.id)) {
+        // obtain routes and vtypes
+        GNEDemandElement* pType = myNet->retrieveDemandElement(SUMO_TAG_PTYPE, containerParameters.vtypeid, false);
+        if (pType == nullptr) {
+            WRITE_ERROR("Invalid container type '" + containerParameters.vtypeid + "' used in " + toString(containerParameters.tag) + " '" + containerParameters.id + "'.");
+        } else {
+            // create container using containerParameters
+            GNEDemandElement* container = new GNEContainer(SUMO_TAG_CONTAINER, myNet, pType, containerParameters);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + container->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(container, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(container);
+                // set container as child of pType and Route
+                pType->addChildElement(container);
+                container->incRef("buildContainer");
+            }
+        }
+    }
 }
 
 
 void
 GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters,
     const std::map<std::string, std::string> &parameters) {
-    //
+    // first check if ID is duplicated
+    if (!isContainerIdDuplicated(myNet, containerFlowParameters.id)) {
+        // obtain routes and vtypes
+        GNEDemandElement* pType = myNet->retrieveDemandElement(SUMO_TAG_PTYPE, containerFlowParameters.vtypeid, false);
+        if (pType == nullptr) {
+            WRITE_ERROR("Invalid containerFlow type '" + containerFlowParameters.vtypeid + "' used in " + toString(containerFlowParameters.tag) + " '" + containerFlowParameters.id + "'.");
+        } else {
+            // create containerFlow using containerFlowParameters
+            GNEDemandElement* containerFlow = new GNEContainer(SUMO_TAG_CONTAINERFLOW, myNet, pType, containerFlowParameters);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + containerFlow->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerFlow, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(containerFlow);
+                // set containerFlow as child of pType and Route
+                pType->addChildElement(containerFlow);
+                containerFlow->incRef("buildContainerFlow");
+            }
+        }
+    }
 }
 
 
 void 
-GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-    const std::string &toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
-    //
+GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
+    const std::string &toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos) {
+    // first parse parents
+    GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
+    GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
+    GNEAdditional* toContainerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
+    // check conditions
+    if (containerParent && fromEdge) {
+        if (toEdge) {
+            // create transport from->to
+            GNEDemandElement *transport = new GNETransport(myNet, containerParent, fromEdge, toEdge, lines, arrivalPos);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + transport->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(transport);
+                // set child references
+                containerParent->addChildElement(transport);
+                fromEdge->addChildElement(transport);
+                toEdge->addChildElement(transport);
+                transport->incRef("buildTransportFromTo");
+            }
+        } else if (toContainerStop) {
+            // create transport from->containerStop
+            GNEDemandElement *transport = new GNETransport(myNet, containerParent, fromEdge, toContainerStop, lines, arrivalPos);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + transport->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(transport);
+                // set child references
+                containerParent->addChildElement(transport);
+                fromEdge->addChildElement(transport);
+                toContainerStop->addChildElement(transport);
+                transport->incRef("buildTransportFromContainerStop");
+            }
+        }
+    }
 }
 
 
 void
-GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-    const std::string &toBusStop, const std::vector<std::string>& edges, const double speed, const double departPosition, const double arrivalPosition) {
-    //
+GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
+    const std::string &toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, const double arrivalPosition) {
+    // first parse parents
+    GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
+    GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
+    GNEAdditional* toContainerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
+    std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
+    // check conditions
+    if (containerParent && fromEdge) {
+        if (edges.size() > 0) {
+            // create tranship edges
+            GNEDemandElement *tranship = new GNETranship(myNet, containerParent, edges, speed, departPosition, arrivalPosition);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + tranship->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(tranship);
+                // set child references
+                containerParent->addChildElement(tranship);
+                for (const auto &edge : edges) {
+                    edge->addChildElement(tranship);
+                }
+                tranship->incRef("buildTranshipEdges");
+            }
+        } else if (toEdge) {
+            // create tranship from->to
+            GNEDemandElement *tranship = new GNETranship(myNet, containerParent, fromEdge, toEdge, speed, departPosition, arrivalPosition);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + tranship->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(tranship);
+                // set child references
+                containerParent->addChildElement(tranship);
+                fromEdge->addChildElement(tranship);
+                toEdge->addChildElement(tranship);
+                tranship->incRef("buildTranshipFromTo");
+            }
+        } else if (toContainerStop) {
+            // create tranship from->containerStop
+            GNEDemandElement *tranship = new GNETranship(myNet, containerParent, fromEdge, toContainerStop, speed, departPosition, arrivalPosition);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + tranship->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(tranship);
+                // set child references
+                containerParent->addChildElement(tranship);
+                fromEdge->addChildElement(tranship);
+                toContainerStop->addChildElement(tranship);
+                tranship->incRef("buildTranshipFromContainerStop");
+            }
+        }
+    }
 }
 
 
@@ -1233,6 +1306,7 @@ GNERouteHandler::parseEdges(const SumoXMLTag tag, const std::vector<std::string>
     return edges;
 }
 
+
 GNEDemandElement*
 GNERouteHandler::getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
     // check that sumoBaseObject has parent
@@ -1250,6 +1324,27 @@ GNERouteHandler::getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoB
         return myNet->retrieveDemandElement(SUMO_TAG_PERSONFLOW, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     } else {
         return personParent;
+    }
+}
+
+
+GNEDemandElement*
+GNERouteHandler::getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    // check that sumoBaseObject has parent
+    if (sumoBaseObject->getParentSumoBaseObject() == nullptr) {
+        return nullptr;
+    }
+    if ((sumoBaseObject->getParentSumoBaseObject()->getTag() != SUMO_TAG_CONTAINER) && 
+        (sumoBaseObject->getParentSumoBaseObject()->getTag() != SUMO_TAG_CONTAINERFLOW)) {
+        return nullptr;
+    }
+    // try it with container
+    GNEDemandElement* containerParent = myNet->retrieveDemandElement(SUMO_TAG_CONTAINER, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    // if empty, try it with containerFlow
+    if (containerParent == nullptr) {
+        return myNet->retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    } else {
+        return containerParent;
     }
 }
 

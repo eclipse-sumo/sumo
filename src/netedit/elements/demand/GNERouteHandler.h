@@ -208,6 +208,9 @@ protected:
     /// @brief get person parent
     GNEDemandElement *getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
+    /// @brief get container parent
+    GNEDemandElement *getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
 private:
     /// @brief pointer to GNENet
     GNENet* myNet;
