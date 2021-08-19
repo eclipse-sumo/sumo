@@ -3168,7 +3168,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
     int directionWish = latDist >= 0 ? 1 : -1;
     double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
     double accelLat = myAccelLat;
-    if (myLeftSpace > POSITION_EPS || myMaxSpeedLatFactor < 0) {
+    if (myLeftSpace > POSITION_EPS || myMaxSpeedLatStanding > 0 || myMaxSpeedLatStandingUrgent > 0) {
         const double speedStanding = urgent ? myMaxSpeedLatStandingUrgent : myMaxSpeedLatStanding;
         const double factor = urgent ? myMaxSpeedLatFactorUrgent : myMaxSpeedLatFactor;
         double speedBound = speedStanding + factor * myVehicle.getSpeed();
