@@ -692,7 +692,7 @@ private:
     /// @}
 
     /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;
+    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag> &parentTags, bool& ok) const;
 
     /// @brief invalidate copy constructor
     AdditionalHandler(const AdditionalHandler& s) = delete;
