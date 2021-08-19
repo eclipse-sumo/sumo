@@ -88,20 +88,20 @@ public:
 
     /// @brief build vehicle with a embedded route
     void buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                    const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters);
+                                    const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters);
 
     /// @brief build flow with a embedded route
     void buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
-                                const std::vector<std::string>& edges, const std::map<std::string, std::string> &parameters);
+                                const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters);
 
     /// @brief build trip
     void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                   const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via,
+                   const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs,
                    const std::map<std::string, std::string> &parameters);
 
     /// @brief build flow
     void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
-                   const std::string &fromEdge, const std::string &toEdge, const std::vector<std::string>& via,
+                   const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs,
                    const std::map<std::string, std::string> &parameters);
 
     /// @brief build stop
@@ -116,16 +116,16 @@ public:
                          const std::map<std::string, std::string> &parameters);
 
     /// @brief build person trip
-    void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                         const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+    void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
+                         const std::string &toBusStopID, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build walk
-    void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                   const std::string &toBusStop, const std::vector<std::string>& edges, const std::string &route, double arrivalPos);
+    void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
+                   const std::string &toBusStopID, const std::vector<std::string>& edgeIDs, const std::string &routeID, double arrivalPos);
 
     /// @brief build ride
-    void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge, 
-                   const std::string &toBusStop, double arrivalPos, const std::vector<std::string>& lines);
+    void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID, 
+                   const std::string &toBusStopID, double arrivalPos, const std::vector<std::string>& lines);
 
     /// @brief build container
     void buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters,
@@ -136,12 +136,12 @@ public:
                             const std::map<std::string, std::string> &parameters);
 
     /// @brief build transport
-    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                                const std::string &toBusStop, const std::vector<std::string>& lines, const double arrivalPos);
+    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
+                                const std::string &toBusStopID, const std::vector<std::string>& lines, const double arrivalPos);
 
     /// @brief build tranship
-    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdge, const std::string &toEdge,
-                       const std::string &toBusStop, const std::vector<std::string>& edges, const double speed, const double departPosition, 
+    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
+                       const std::string &toBusStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, 
                        const double arrivalPosition);
     /// @}
 
