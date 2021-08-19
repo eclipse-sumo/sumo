@@ -1127,7 +1127,7 @@ def writeConstraint(options, outf, tag, c):
             comment += "busStop=%s " % c.busStop
     if options.commentTime:
             comment += c.conflictTime
-    if c.info is not "":
+    if c.info != "":
         comment += "(%s) " % c.info
     if comment != "":
         comment = "   <!-- %s -->" % comment
