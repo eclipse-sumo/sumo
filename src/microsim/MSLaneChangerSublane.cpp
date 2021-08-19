@@ -294,7 +294,8 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
     if (remLatDist == 0) {
         return false;
     }
-    const double nextLatDist = SPEED2DIST(vehicle->getLaneChangeModel().computeSpeedLat(remLatDist, remLatDist));
+    const bool urgent = (vehicle->getLaneChangeModel().getOwnState() & LCA_URGENT) != 0;
+    const double nextLatDist = SPEED2DIST(vehicle->getLaneChangeModel().computeSpeedLat(remLatDist, remLatDist, urgent));
 #ifdef DEBUG_MANEUVER
     if (DEBUG_COND) {
         std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' continueChangeSublane()"

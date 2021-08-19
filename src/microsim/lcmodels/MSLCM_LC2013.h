@@ -112,7 +112,7 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /// @brief decides the next lateral speed (for continuous lane changing)
-    double computeSpeedLat(double latDist, double& maneuverDist) const;
+    double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771

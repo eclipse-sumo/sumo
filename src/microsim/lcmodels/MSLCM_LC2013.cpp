@@ -1960,8 +1960,8 @@ void MSLCM_LC2013::addLCSpeedAdvice(const double vSafe) {
 
 
 double
-MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist) const {
-    double result = MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist);
+MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const {
+    double result = MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist, urgent);
     if (DEBUG_COND) {
         std::cout << " myLeftSpace=" << myLeftSpace << " latDist=" << latDist << " maneuverDist=" << maneuverDist << "result1=" << result << "\n";
     }

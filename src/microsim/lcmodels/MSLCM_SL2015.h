@@ -131,7 +131,7 @@ public:
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    double computeSpeedLat(double latDist, double& maneuverDist) const;
+    double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
 protected:
 

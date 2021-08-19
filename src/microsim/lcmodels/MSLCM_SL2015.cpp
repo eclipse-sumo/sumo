@@ -222,7 +222,7 @@ MSLCM_SL2015::wantsChangeSublane(
 #if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     double latDistTmp = latDist;
 #endif
-    latDist = SPEED2DIST(computeSpeedLat(latDist, maneuverDist));
+    latDist = SPEED2DIST(computeSpeedLat(latDist, maneuverDist, (result & LCA_URGENT) != 0));
 #if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     if (gDebugFlag2 && latDist != latDistTmp) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " maneuverDist=" << maneuverDist << " latDist=" << latDistTmp << " mySpeedPrev=" << mySpeedLat << " speedLat=" << DIST2SPEED(latDist) << " latDist2=" << latDist << "\n";
@@ -3163,14 +3163,16 @@ MSLCM_SL2015::getWidth() const {
 
 
 double
-MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
+MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
     double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
     double accelLat = myAccelLat;
     if (myLeftSpace > POSITION_EPS || myMaxSpeedLatFactor < 0) {
-        double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
-        if (myMaxSpeedLatFactor > 0) {
+        const double speedStanding = urgent ? myMaxSpeedLatStandingUrgent : myMaxSpeedLatStanding;
+        const double factor = urgent ? myMaxSpeedLatFactorUrgent : myMaxSpeedLatFactor;
+        double speedBound = speedStanding + factor * myVehicle.getSpeed();
+        if (factor > 0) {
             // speedbound increases with speed and needs an upper bound
             maxSpeedLat = MIN2(maxSpeedLat, speedBound);
         } else {

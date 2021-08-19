@@ -893,7 +893,7 @@ MSLaneChanger::checkChange(
         // Extrapolate the LC duration if operating with speed dependent lateral speed.
         const MSAbstractLaneChangeModel& lcm = vehicle->getLaneChangeModel();
         const double assumedDecel = lcm.getAssumedDecelForLaneChangeDuration();
-        const double estimatedLCDuration = lcm.estimateLCDuration(vehicle->getSpeed(), distToNeighLane, assumedDecel);
+        const double estimatedLCDuration = lcm.estimateLCDuration(vehicle->getSpeed(), distToNeighLane, assumedDecel, (state & LCA_URGENT) != 0);
         if (estimatedLCDuration == -1) {
             // Can't guarantee that LC will succeed if vehicle is braking -> assert(lcm.myMaxSpeedLatStanding==0)
 #ifdef DEBUG_CHECK_CHANGE

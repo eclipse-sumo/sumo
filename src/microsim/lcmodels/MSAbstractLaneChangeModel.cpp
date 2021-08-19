@@ -124,6 +124,11 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myDontResetLCGaps(false),
     myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
+    // default to the user-supplied value for non-urgent changes (for backward compatibility) but potentially use another default
+    myMaxSpeedLatStandingUrgent(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING_URGENT,
+                v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat()))),
+    myMaxSpeedLatFactorUrgent(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR_URGENT,
+                v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1))),
     mySigma(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SIGMA, 0.0)),
     myLastLaneChangeOffset(0),
     myAmOpposite(false),
@@ -376,7 +381,7 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
 
 
 double
-MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist) const {
+MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist, bool /*urgent*/) const {
     if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
         int stepsToChange = (int)ceil(fabs(maneuverDist) / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
         return DIST2SPEED(maneuverDist / stepsToChange);
@@ -402,7 +407,7 @@ MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
     // maneuverDist is not updated in the context of continuous lane changing but represents the full LC distance
     double maneuverDist = getManeuverDist();
-    setSpeedLat(computeSpeedLat(0, maneuverDist));
+    setSpeedLat(computeSpeedLat(0, maneuverDist, (myOwnState & LCA_URGENT) != 0 ));
     myLaneChangeCompletion += (SPEED2DIST(mySpeedLat) / myManeuverDist);
     return !pastBefore && pastMidpoint();
 }
@@ -701,7 +706,7 @@ MSAbstractLaneChangeModel::getAngleOffset() const {
 
 
 double
-MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const {
+MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel, bool urgent) const {
 
     const SUMOVTypeParameter::SubParams& lcParams = myVehicle.getVehicleType().getParameter().getLCParams();
     if (lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING) == lcParams.end() && lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR) == lcParams.end()) {
@@ -792,7 +797,7 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
     if (wmin == 0) {
         // LC won't be completed if vehicle stands
         double maneuverDist = remainingManeuverDist;
-        const double vModel = computeSpeedLat(maneuverDist, maneuverDist);
+        const double vModel = computeSpeedLat(maneuverDist, maneuverDist, urgent);
         if (vModel > 0) {
             // unless the model tells us something different
             return D / vModel;
@@ -817,7 +822,10 @@ MSAbstractLaneChangeModel::remainingTime() const {
         }
     }
     // Using maxSpeedLat(Factor/Standing)
-    return TIME2STEPS(estimateLCDuration(myVehicle.getSpeed(), fabs(myManeuverDist * (1 - myLaneChangeCompletion)), myVehicle.getCarFollowModel().getMaxDecel()));
+    const bool urgent = (myOwnState & LCA_URGENT) != 0;
+    return TIME2STEPS(estimateLCDuration(myVehicle.getSpeed(),
+                fabs(myManeuverDist * (1 - myLaneChangeCompletion)),
+                myVehicle.getCarFollowModel().getMaxDecel(), urgent));
 }
 
 

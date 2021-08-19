@@ -428,7 +428,7 @@ public:
     ///       If lcMaxSpeedStanding==0 the completion may be impossible, and -1 is returned.
     ///       2) In case that no maxSpeedLat is used to control lane changing, this is only called prior to a lane change,
     ///          and the duration is MSGlobals::gLaneChangeDuration.
-    virtual double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const;
+    virtual double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel, bool urgent) const;
 
     /// @brief return true if the vehicle currently performs a lane change maneuver
     inline bool isChangingLanes() const {
@@ -548,7 +548,7 @@ public:
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    virtual double computeSpeedLat(double latDist, double& maneuverDist) const;
+    virtual double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const;
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
@@ -692,10 +692,14 @@ protected:
     ///        in the case of continuous LC.
     bool myDontResetLCGaps;
 
-    // @brief the maximum lateral speed when standing
+    // @brief the maximum lateral speed for non-strategic changes when standing
     double myMaxSpeedLatStanding;
-    // @brief the factor of maximum lateral speed to longitudinal speed
+    // @brief the factor of maximum lateral speed to longitudinal speed for non-strategic changes
     double myMaxSpeedLatFactor;
+    // @brief the maximum lateral speed for strategic changes when standing
+    double myMaxSpeedLatStandingUrgent;
+    // @brief the factor of maximum lateral speed to longitudinal speed for strategic changes
+    double myMaxSpeedLatFactorUrgent;
     // @brief factor for lane keeping imperfection
     double mySigma;
 

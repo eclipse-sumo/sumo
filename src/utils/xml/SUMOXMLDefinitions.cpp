@@ -538,6 +538,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcCooperativeSpeed",         SUMO_ATTR_LCA_COOPERATIVE_SPEED },
     { "lcMaxSpeedLatStanding",      SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },
     { "lcMaxSpeedLatFactor",        SUMO_ATTR_LCA_MAXSPEEDLATFACTOR },
+    { "lcMaxSpeedLatStandingUrgent", SUMO_ATTR_LCA_MAXSPEEDLATSTANDING_URGENT },
+    { "lcMaxSpeedLatFactorUrgent",   SUMO_ATTR_LCA_MAXSPEEDLATFACTOR_URGENT },
     { "lcLaneDiscipline",           SUMO_ATTR_LCA_LANE_DISCIPLINE },
     { "lcSigma",                    SUMO_ATTR_LCA_SIGMA },
     { "lcKeepRightAcceptanceTime",  SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME },
