@@ -323,6 +323,14 @@ CommonXMLStructure::SumoBaseObject::setVehicleTypeParameter(const SUMOVTypeParam
 void
 CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParameter* vehicleParameter) {
     myVehicleParameter = *vehicleParameter;
+    // set attribute id
+    if (!vehicleParameter->id.empty()) {
+        addStringAttribute(SUMO_ATTR_ID, vehicleParameter->id);
+    }
+    // set attribute route
+    if (!vehicleParameter->routeid.empty()) {
+        addStringAttribute(SUMO_ATTR_ROUTE, vehicleParameter->routeid);
+    }
 }
 
 
