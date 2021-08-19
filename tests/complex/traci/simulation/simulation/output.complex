@@ -1,9 +1,10 @@
 Loading configuration ... done.
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_9_1+0262-3f18272')
-version (20, 'SUMO v1_9_1+0262-3f18272')
+version at start (20, 'SUMO v1_10_0+0078-a46dff9')
+version (20, 'SUMO v1_10_0+0078-a46dff9')
 loaded? True
+endTime 42.0
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
 pendingVehicles ()

@@ -64,10 +64,12 @@ def ppStages(comment, stages):
 print("loaded?", traci.isLoaded())
 version = traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
                        "--ignore-route-errors",
+                       "--end", "42",
                        "--log", "log.txt"])
 print("version at start", version)
 print("version", traci.getVersion())
 print("loaded?", traci.isLoaded())
+print("endTime", traci.simulation.getEndTime())
 
 traci.simulation.subscribe(
     [traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS])
