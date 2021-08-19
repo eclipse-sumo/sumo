@@ -226,9 +226,10 @@ RORouteHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_CONTAINER:
+        case SUMO_TAG_CONTAINERFLOW:
             myActiveContainerPlan = new OutputDevice_String(1);
             myActiveContainerPlanSize = 0;
-            myActiveContainerPlan->openTag(SUMO_TAG_CONTAINER);
+            myActiveContainerPlan->openTag((SumoXMLTag)element);
             (*myActiveContainerPlan) << attrs;
             break;
         case SUMO_TAG_TRANSPORT: 
@@ -667,7 +668,18 @@ RORouteHandler::closeContainer() {
 }
 
 void RORouteHandler::closeContainerFlow() {
-    // @todo: currently not used
+    myActiveContainerPlan->closeTag();
+    if (myActiveContainerPlanSize > 0) {
+        myNet.addContainer(myVehicleParameter->depart, myActiveContainerPlan->getString());
+        registerLastDepart();
+    } else {
+        WRITE_WARNING("Discarding containerFlow '" + myVehicleParameter->id + "' because it's plan is empty");
+    }
+    delete myVehicleParameter;
+    myVehicleParameter = nullptr;
+    delete myActiveContainerPlan;
+    myActiveContainerPlan = nullptr;
+    myActiveContainerPlanSize = 0;
 }
 
 
