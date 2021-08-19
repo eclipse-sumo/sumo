@@ -68,7 +68,7 @@ algorithms are available
   travel time) is assigned. If the reservation date is too far in the future,
   the customer is postponed.
 
-- greedyShared: like 'greedy' but tries to pick up another passenger while delivering the first passenger to it's destination. The algorithm supports parameters **absLossThreshold** and **relLossThreshold** to configure acceptable detours.
+- greedyShared: like 'greedy' but tries to pick up another passenger while delivering the first passenger to it's destination. Parameters **absLossThreshold** and **relLossThreshold** to configure acceptable detours can be supplied using **--device.taxi.dispatch-algorithm.params KEY1:VALUE1[,KEY2:VALUE]**.
 
 - routeExtension: like greedy but can pick up any passenger along the route and also extend the original route (within personCapacity limit).
 
