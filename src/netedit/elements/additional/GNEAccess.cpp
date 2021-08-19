@@ -158,8 +158,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // set color depending of selection
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
+        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
             GLHelper::setColor(parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR)));
+        } else {
+            GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
         // translate to geometry position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
