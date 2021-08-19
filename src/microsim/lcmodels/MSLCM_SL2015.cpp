@@ -3172,7 +3172,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
         const double speedStanding = urgent ? myMaxSpeedLatStandingUrgent : myMaxSpeedLatStanding;
         const double factor = urgent ? myMaxSpeedLatFactorUrgent : myMaxSpeedLatFactor;
         double speedBound = speedStanding + factor * myVehicle.getSpeed();
-        if (factor > 0) {
+        if (factor >= 0) {
             // speedbound increases with speed and needs an upper bound
             maxSpeedLat = MIN2(maxSpeedLat, speedBound);
         } else {
