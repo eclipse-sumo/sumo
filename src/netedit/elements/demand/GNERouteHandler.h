@@ -156,57 +156,6 @@ public:
     /// @brief check if there is already a container (Container or ContainerFlow) with the given ID
     static bool isContainerIdDuplicated(GNENet* net, const std::string& id);
 
-    /// @name build personPlan
-    /// @{
-    /// @brief build person plan functions (used in Person / PersonPlan frames)
-    static bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator);
-
-    /// @brief build person trip
-    static void buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* toBusStop,
-                                double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
-
-    /// @brief build walk
-    static void buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                          GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos);
-
-    /// @brief build ride
-    static void buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* toBusStop,
-                          double arrivalPos, const std::vector<std::string>& lines);
-
-    /// @brief build person stop
-    static void buildStopPerson(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
-
-    /// @}
-
-    /// @name build container
-    /// @{
-    /// @brief build container
-    static void buildContainer(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& containerParameters);
-
-    /// @brief build container flow
-    static void buildContainerFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& containerFlowParameters);
-
-    /// @}
-
-    /// @name build containerPlan
-    /// @{
-    /// @brief build container plan functions (used in Container / ContainerPlan frames)
-    static bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributesModuls::AttributesCreator* containerPlanAttributes, GNEFrameModuls::PathCreator* pathCreator);
-
-    /// @brief build transport
-    static void buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                               GNEAdditional* toBusStop, const std::vector<std::string>& lines, const double arrivalPos);
-
-    /// @brief build tranship
-    static void buildTranship(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                              GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, const double speed, const double departPosition, const double arrivalPosition);
-
-    /// @brief build container stop
-    static void buildStopContainer(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* edge, GNEAdditional* containerStop, const SUMOVehicleParameter::Stop& stopParameters);
-
-    /// @}
-
-
     /// @brief transform vehicle functions
     /// @{
 
