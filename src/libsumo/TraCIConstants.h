@@ -744,7 +744,7 @@ TRACI_CONST int VAR_TIMELOSS = 0x8c;
 //  begin time(get: calibrator)
 TRACI_CONST int VAR_BEGIN = 0x1c;
 
-//  end time(get: calibrator)
+//  end time(get: calibrator, simulation)
 TRACI_CONST int VAR_END = 0x1d;
 
 // vtype list (get: calibrator)

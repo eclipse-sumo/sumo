@@ -71,6 +71,9 @@ public:
     static int getCurrentTime();
     static double getTime();
 
+    /// @brief return configured end time
+    static double getEndTime();
+
     static int getLoadedNumber();
     static std::vector<std::string> getLoadedIDList();
     static int getDepartedNumber();

@@ -159,6 +159,11 @@ Simulation::getTime() {
     return SIMTIME;
 }
 
+double
+Simulation::getEndTime() {
+    return STEPS2TIME(string2time(OptionsCont::getOptions().getString("end")));
+}
+
 
 int
 Simulation::getLoadedNumber() {
@@ -822,6 +827,8 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapDouble(objID, variable, getTime());
         case VAR_TIME_STEP:
             return wrapper->wrapInt(objID, variable, (int)getCurrentTime());
+        case VAR_END:
+            return wrapper->wrapDouble(objID, variable, getEndTime());
         case VAR_LOADED_VEHICLES_NUMBER:
             return wrapper->wrapInt(objID, variable, getLoadedNumber());
         case VAR_LOADED_VEHICLES_IDS:

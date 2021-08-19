@@ -156,6 +156,12 @@ Simulation::getTime() {
 }
 
 
+double
+Simulation::getEndTime() {
+    return Dom::getDouble(libsumo::VAR_END, "");
+}
+
+
 int
 Simulation::getLoadedNumber() {
     return Dom::getInt(libsumo::VAR_LOADED_VEHICLES_NUMBER, "");

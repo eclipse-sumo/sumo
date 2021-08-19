@@ -256,6 +256,13 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TIME)
 
+    def getEndTime(self):
+        """getEndTime() -> double
+
+        Returns the configured end time of the simulation in s or -1
+        """
+        return self._getUniversal(tc.VAR_END)
+
     def step(self, time=0.):
         """step(double) -> None
         Make a simulation step and simulate up to the given sim time (in seconds).
