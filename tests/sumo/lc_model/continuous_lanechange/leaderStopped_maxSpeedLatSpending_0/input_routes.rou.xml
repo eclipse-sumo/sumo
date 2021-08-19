@@ -1,0 +1,11 @@
+<routes>
+    <vType id="t0" sigma="0" lcMaxSpeedLatStanding="0" lcMaxSpeedLatStandingUrgent="0" accel="0.2"/>
+
+    <route id="r0" edges="beg end"/>
+
+    <vehicle id="leader"  type="t0"  route="r0" departSpeed="max" departPos="stop"  departLane="0" departPosLat="center" depart="0">
+        <stop lane="beg_0" endPos="-40" duration="20"/>
+    </vehicle>
+    <vehicle id="ego"   type="t0"   route="r0" departSpeed="0" departPos="-50"  departLane="0" departPosLat="center" depart="1"/>
+
+</routes>

@@ -12,5 +12,8 @@ ramp_end_maxSpeedLatSpending_0.5
 # a vehicle urgently needs to change lanes but is configured to with lcMaxSpeedLatStanding=0
 ramp_end_maxSpeedLatSpending_0
 
+# a vehicle urgently needs to change lanes but is configured with lcMaxSpeedLatStanding=0
+leaderStopped_maxSpeedLatSpending_0
+
 # avoid strong lateral acceleration due to random lateral movement
 lcSigma
