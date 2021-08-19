@@ -3189,8 +3189,14 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " computeSpeedLat()"
+                  << " latDist=" << latDist
+                  << " maneuverDist=" << maneuverDist
+                  << " urgent=" << urgent
+                  << " speedLat=" << mySpeedLat
                   << " currentDirection=" << currentDirection
                   << " directionWish=" << directionWish
+                  << " myLeftSpace=" << myLeftSpace
+                  << " maxSpeedLat=" << maxSpeedLat
                   << std::endl;
     }
 #endif
@@ -3216,12 +3222,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
 
 #ifdef DEBUG_MANEUVER
     if (debugVehicle()) {
-        std::cout << SIMTIME
-                  << " veh=" << myVehicle.getID()
-                  << " speedLat=" << mySpeedLat
-                  << " latDist=" << latDist
-                  << " maneuverDist=" << maneuverDist
-                  << " mySafeLatDistRight=" << mySafeLatDistRight
+                  << "     mySafeLatDistRight=" << mySafeLatDistRight
                   << " mySafeLatDistLeft=" << mySafeLatDistLeft
                   << " fullLatDist=" << fullLatDist
                   << " speedAccel=" << speedAccel
