@@ -37,9 +37,9 @@ person
 # routing of pedestrians
 personFlow
 
-# Testing previously buggy behaviour
-bugs
-
 # test handling of container and containerFlow.
 # no routing should take place and the input is simply copied to the output.
 container
+
+# Testing previously buggy behaviour
+bugs
