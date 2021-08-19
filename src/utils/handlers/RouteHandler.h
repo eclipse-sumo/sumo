@@ -72,18 +72,18 @@ public:
 
     /// @brief build a vehicle over an existent route
     virtual void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                                        const std::map<std::string, std::string> &parameters) = 0;
+                                       const std::map<std::string, std::string> &parameters) = 0;
 
     /// @brief build a flow over an existent route
     virtual void buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                     const std::map<std::string, std::string> &parameters) = 0;
 
     /// @brief build vehicle with a embedded route
-    virtual void buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+    virtual void buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
                                            const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) = 0;
 
     /// @brief build flow with a embedded route
-    virtual void buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+    virtual void buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
                                         const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) = 0;
 
     /// @brief build trip

@@ -420,8 +420,9 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
         if (parsedOk) {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRIP);
-            // add all attributes
+            // set vehicle parameters
             myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(tripParameter);
+            // add other attributes
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VIA, via);
@@ -441,10 +442,6 @@ RouteHandler::parseVehicle(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VEHICLE);
         // set vehicle parameters
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(vehicleParameter);
-        // special case for route attribute
-        if (vehicleParameter->routeid.size() > 0) {
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, vehicleParameter->routeid);
-        }
         // delete vehicle parameter (because in XMLStructure we have a copy)
         delete vehicleParameter;
     }
@@ -467,10 +464,8 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
             // set vehicle parameters
             myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
-            // special case for route attribute
-            if (flowParameter->routeid.size() > 0) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, flowParameter->routeid);
-            } else if (!from.empty() && !to.empty()) {
+            // add other attributes
+            if (flowParameter->routeid.empty() && !from.empty() && !to.empty()) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VIA, via);

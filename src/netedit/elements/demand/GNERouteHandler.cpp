@@ -133,7 +133,7 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
             // create vehicle using vehicleParameters
-            GNEDemandElement* vehicle = new GNEVehicle(myNet, vType, route, vehicleParameters);
+            GNEDemandElement* vehicle = new GNEVehicle(SUMO_TAG_VEHICLE, myNet, vType, route, vehicleParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + vehicle->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
@@ -172,7 +172,7 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* su
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
             // create flow or trips using vehicleParameters
-            GNEDemandElement* flow = new GNEVehicle(myNet, vType, route, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_ROUTE, myNet, vType, route, vehicleParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
@@ -194,7 +194,7 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* su
 
 
 void
-GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
     const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
@@ -209,10 +209,8 @@ GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObj
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
-            // due vehicle was loaded without a route, change tag
-            vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
-            GNEDemandElement* vehicle = new GNEVehicle(myNet, vType, vehicleParameters);
+            GNEDemandElement* vehicle = new GNEVehicle(GNE_TAG_VEHICLE_WITHROUTE, myNet, vType, vehicleParameters);
             // creaste embedded route
             GNEDemandElement* embeddedRoute = new GNERoute(myNet, vehicle, edges, RGBColor::CYAN, 0, 0, std::map<std::string, std::string>());
             // add both to net depending of myUndoDemandElements
@@ -247,7 +245,7 @@ GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObj
 
 
 void 
-GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SUMOVehicleParameter vehicleParameters, 
+GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
     const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
@@ -262,10 +260,8 @@ GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
-            // due vehicle was loaded without a route, change tag
-            vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
-            GNEDemandElement* flow = new GNEVehicle(myNet, vType, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_WITHROUTE, myNet, vType, vehicleParameters);
             // creaste embedded route
             GNEDemandElement* embeddedRoute = new GNERoute(myNet, flow, edges, RGBColor::CYAN, 0, 0, std::map<std::string, std::string>());
             // add both to net depending of myUndoDemandElements
@@ -322,7 +318,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 vehicleParameters.via.push_back(viaEdge->getID());
             }
             // create trip or flow using tripParameters
-            GNEDemandElement* trip = new GNEVehicle(myNet, vType, fromEdge, toEdge, via, vehicleParameters);
+            GNEDemandElement* trip = new GNEVehicle(SUMO_TAG_TRIP, myNet, vType, fromEdge, toEdge, via, vehicleParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + trip->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
@@ -371,7 +367,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 vehicleParameters.via.push_back(viaEdge->getID());
             }
             // create trip or flow using tripParameters
-            GNEDemandElement* flow = new GNEVehicle(myNet, vType, fromEdge, toEdge, via, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(SUMO_TAG_FLOW, myNet, vType, fromEdge, toEdge, via, vehicleParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
@@ -399,6 +395,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 void
 GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
+/*
     // get stop parent
     GNEDemandElement *stopParent = myNet->retrieveDemandElement(sumoBaseObject->getParentSumoBaseObject()->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // declare pointers to parent elements
@@ -483,6 +480,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         }
     }
+*/
 }
 
 
