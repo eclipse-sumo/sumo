@@ -231,26 +231,14 @@ RORouteHandler::myStartElement(int element,
             myActiveContainerPlan->openTag(SUMO_TAG_CONTAINER);
             (*myActiveContainerPlan) << attrs;
             break;
-        case SUMO_TAG_TRANSPORT: {
-            myActiveContainerPlan->openTag(SUMO_TAG_TRANSPORT);
+        case SUMO_TAG_TRANSPORT: 
+        case SUMO_TAG_TRANSHIP: 
+            // copy container elements
+            myActiveContainerPlan->openTag((SumoXMLTag)element);
             (*myActiveContainerPlan) << attrs;
             myActiveContainerPlan->closeTag();
             myActiveContainerPlanSize++;
             break;
-        }
-        case SUMO_TAG_TRANSHIP: {
-            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-                // copy walk as it is
-                // XXX allow --repair?
-                myActiveContainerPlan->openTag(SUMO_TAG_TRANSHIP);
-                (*myActiveContainerPlan) << attrs;
-                myActiveContainerPlan->closeTag();
-                myActiveContainerPlanSize++;
-            } else {
-                //routePerson(attrs, *myActiveContainerPlan);
-            }
-            break;
-        }
         case SUMO_TAG_FLOW:
             myActiveRouteProbability = DEFAULT_VEH_PROB;
             parseFromViaTo((SumoXMLTag)element, attrs, ok);
