@@ -696,10 +696,8 @@ protected:
     double myMaxSpeedLatStanding;
     // @brief the factor of maximum lateral speed to longitudinal speed for non-strategic changes
     double myMaxSpeedLatFactor;
-    // @brief the maximum lateral speed for strategic changes when standing
-    double myMaxSpeedLatStandingUrgent;
-    // @brief the factor of maximum lateral speed to longitudinal speed for strategic changes
-    double myMaxSpeedLatFactorUrgent;
+    // @brief the maximum lateral maneuver distance when standing
+    double myMaxDistLatStanding;
     // @brief factor for lane keeping imperfection
     double mySigma;
 

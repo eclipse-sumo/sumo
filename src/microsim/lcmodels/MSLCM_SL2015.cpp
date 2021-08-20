@@ -3168,18 +3168,16 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
     int directionWish = latDist >= 0 ? 1 : -1;
     double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
     double accelLat = myAccelLat;
-    if (myLeftSpace > POSITION_EPS || myMaxSpeedLatStanding > 0 || myMaxSpeedLatStandingUrgent > 0) {
-        const double speedStanding = urgent ? myMaxSpeedLatStandingUrgent : myMaxSpeedLatStanding;
-        const double factor = urgent ? myMaxSpeedLatFactorUrgent : myMaxSpeedLatFactor;
-        double speedBound = speedStanding + factor * myVehicle.getSpeed();
-        if (factor >= 0) {
+    if (!urgent && (myLeftSpace > POSITION_EPS || myMaxSpeedLatFactor < 0)) {
+        const double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
+        if (myMaxSpeedLatFactor >= 0) {
             // speedbound increases with speed and needs an upper bound
             maxSpeedLat = MIN2(maxSpeedLat, speedBound);
         } else {
             // speedbound decreases with speed and needs a lower bound
             // (only useful if myMaxSpeedLatStanding > maxSpeedLat)
             maxSpeedLat = MAX2(maxSpeedLat, speedBound);
-            // scale lateral acceleration in proportion
+            // increase (never decrease) lateral acceleration in proportion
             accelLat *= MAX2(1.0, speedBound / myVehicle.getVehicleType().getMaxSpeedLat());
         }
     }
