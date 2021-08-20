@@ -13,7 +13,7 @@ maxSpeedLat2
 maxSpeedLatStanding
 
 # a vehicle urgently needs to change lanes but is configured to with lcMaxSpeedLatStanding=0
-ramp_end_maxSpeedLatSpending_0
+ramp_end_maxSpeedLatStanding_0
 
 # verify that both lanes are blocked during a lane change maneuver
 block_both_lanes
