@@ -92,26 +92,66 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     const std::map<std::string, std::string> &parameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
-    // create GNERoute
-    GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, parameters);
-    if (myUndoDemandElements) {
-        myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
-        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
-        myNet->getViewNet()->getUndoList()->p_end();
-    } else {
-        myNet->getAttributeCarriers()->insertDemandElement(route);
-        for (const auto& edge : edges) {
-            edge->addChildElement(route);
+    // check edges
+    if (edges.size() > 0) {
+        // create GNERoute
+        GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, parameters);
+        if (myUndoDemandElements) {
+            myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(route);
+            for (const auto& edge : edges) {
+                edge->addChildElement(route);
+            }
+            route->incRef("buildRoute");
         }
-        route->incRef("buildRoute");
     }
 }
 
 
 void 
-GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edges, 
+GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edgeIDs, 
     const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) {
-    ///
+    // first create vehicle/flow
+    const SUMOVehicleParameter& vehicleParameters = sumoBaseObject->getParentSumoBaseObject()->getVehicleParameter();
+    const SumoXMLTag vehicleTag = sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VEHICLE? GNE_TAG_VEHICLE_WITHROUTE : GNE_TAG_FLOW_WITHROUTE;
+    // parse route edges
+    const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
+    // check if ID is duplicated
+    if ((edges.size() > 0) && !isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+        // obtain routes and vtypes
+        GNEDemandElement* vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
+        if (vType == nullptr) {
+            WRITE_ERROR("Invalid vehicle type '" + vehicleParameters.vtypeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTLANE_SET) && (vehicleParameters.departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)edges.front()->getLanes().size() < vehicleParameters.departLane)) {
+            WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTLANE) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departLane) + " is greater than number of lanes");
+        } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
+            WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
+        } else {
+            // create vehicle using vehicleParameters
+            GNEDemandElement* vehicle = new GNEVehicle(vehicleTag, myNet, vType, vehicleParameters);
+            // create embedded route
+            GNEDemandElement* route = new GNERoute(myNet, vehicle, edges, color, repeat, cycleTime, parameters);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+                myNet->getViewNet()->getUndoList()->p_end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(vehicle);
+                myNet->getAttributeCarriers()->insertDemandElement(route);
+                vType->addChildElement(vehicle);
+                vehicle->addChildElement(route);
+                for (const auto& edge : edges) {
+                    edge->addChildElement(route);
+                }
+                route->incRef("buildRoute");
+            }
+
+        }
+    }
 }
 
 
