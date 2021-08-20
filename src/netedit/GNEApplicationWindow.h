@@ -414,6 +414,9 @@ public:
     /// @brief getEdit Menu Commands (needed for show/hide menu commands)
     GNEApplicationWindowHelper::EditMenuCommands& getEditMenuCommands();
 
+    /// @brief get lock Menu Commands
+    GNEApplicationWindowHelper::LockMenuCommands& getLockMenuCommands();
+
     /// @brief clear undo list
     void clearUndoList();
 

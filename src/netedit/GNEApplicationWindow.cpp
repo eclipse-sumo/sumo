@@ -3603,6 +3603,12 @@ GNEApplicationWindow::getEditMenuCommands() {
     return myEditMenuCommands;
 }
 
+   
+GNEApplicationWindowHelper::LockMenuCommands&
+GNEApplicationWindow::getLockMenuCommands() {
+    return myLockMenuCommands;
+}
+
 
 void
 GNEApplicationWindow::clearUndoList() {

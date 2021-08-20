@@ -538,6 +538,9 @@ private:
     /// @brief struct for grouping all variables related with edit shapes
     GNEViewNetHelper::EditNetworkElementShapes myEditNetworkElementShapes;
 
+    /// @brief lock manager
+    GNEViewNetHelper::LockManager myLockManager;
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
