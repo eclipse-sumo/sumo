@@ -680,25 +680,25 @@ struct GNEApplicationWindowHelper {
         FXMenuCheckIcon* menuCheckLockPersons;
 
         /// @brief menu check to lock personTrips
-        FXMenuCheckIcon* menuCheckPersonTrip;
+        FXMenuCheckIcon* menuCheckLockPersonTrip;
 
         /// @brief menu check to lock walks
-        FXMenuCheckIcon* menuCheckWalk;
+        FXMenuCheckIcon* menuCheckLockWalk;
 
         /// @brief menu check to lock rides
-        FXMenuCheckIcon* menuCheckRides;
+        FXMenuCheckIcon* menuCheckLockRides;
 
         /// @brief menu check to lock containers
-        FXMenuCheckIcon* menuCheckContainers;
+        FXMenuCheckIcon* menuCheckLockContainers;
 
         /// @brief menu check to lock transports
-        FXMenuCheckIcon* menuCheckTransports;
+        FXMenuCheckIcon* menuCheckLockTransports;
 
         /// @brief menu check to lock tranships
-        FXMenuCheckIcon* menuCheckTranships;
+        FXMenuCheckIcon* menuCheckLockTranships;
 
         /// @brief menu check to lock stops
-        FXMenuCheckIcon* menuCheckStops;
+        FXMenuCheckIcon* menuCheckLockStops;
 
         /// @}
 
@@ -714,6 +714,72 @@ struct GNEApplicationWindowHelper {
         FXMenuCheckIcon* menuCheckLockEdgeTAZRels;
 
         /// @}
+
+        /// @brief update menu check to lock junction
+        void updateLockJunction(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock edges
+        void updateLockEdges(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock lanes
+        void updateLockLanes(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock connections
+        void updateLockConnections(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock crossings
+        void updateLockCrossings(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock additionals
+        void updateLockAdditionals(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock TAZs
+        void updateLockTAZs(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock polygons
+        void updateLockPolygons(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock POIs
+        void updateLockPOIs(const bool value, const std::string &operation);
+        
+        /// @brief update menu check to lock routes
+        void updateLockRoutes(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock vehicles
+        void updateLockVehicles(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock persons
+        void updateLockPersons(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock personTrips
+        void updatePersonTrip(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock walks
+        void updateWalk(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock rides
+        void updateRides(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock containers
+        void updateContainers(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock transports
+        void updateTransports(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock tranships
+        void updateTranships(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock stops
+        void updateStops(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock edge datas
+        void updateLockEdgeDatas(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock edgeRelDatas
+        void updateLockEdgeRelDatas(const bool value, const std::string &operation);
+
+        /// @brief update menu check to lock edgeTAZRels
+        void updateLockEdgeTAZRels(const bool value, const std::string &operation);
 
     private:
         /// @brief pointer to current GNEApplicationWindows

@@ -886,13 +886,13 @@ GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWin
     menuCheckLockRoutes(nullptr),
     menuCheckLockVehicles(nullptr),
     menuCheckLockPersons(nullptr),
-    menuCheckPersonTrip(nullptr),
-    menuCheckWalk(nullptr),
-    menuCheckRides(nullptr),
-    menuCheckContainers(nullptr),
-    menuCheckTransports(nullptr),
-    menuCheckTranships(nullptr),
-    menuCheckStops(nullptr),
+    menuCheckLockPersonTrip(nullptr),
+    menuCheckLockWalk(nullptr),
+    menuCheckLockRides(nullptr),
+    menuCheckLockContainers(nullptr),
+    menuCheckLockTransports(nullptr),
+    menuCheckLockTranships(nullptr),
+    menuCheckLockStops(nullptr),
     menuCheckLockEdgeDatas(nullptr),
     menuCheckLockEdgeRelDatas(nullptr),
     menuCheckLockEdgeTAZRels(nullptr),
@@ -962,37 +962,37 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
         GUIIconSubSys::getIcon(GUIIcon::PERSON),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
-    menuCheckPersonTrip = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+    menuCheckLockPersonTrip = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock personTrips", "", "",
         GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
-    menuCheckWalk = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+    menuCheckLockWalk = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock walks", "", "",
         GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
-    menuCheckRides = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+    menuCheckLockRides = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock rides", "", "",
         GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
-    menuCheckContainers = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+    menuCheckLockContainers = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock containers", "", "",
         GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
-    menuCheckTransports = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+    menuCheckLockTransports = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock transports", "", "",
         GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_FROMTO),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
-    menuCheckTranships = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+    menuCheckLockTranships = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock tranships", "", "",
         GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
-    menuCheckStops = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+    menuCheckLockStops = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock stops", "", "",
         GUIIconSubSys::getIcon(GUIIcon::STOPELEMENT),
         myGNEApp, MID_GNE_LOCKELEMENT);
@@ -1070,24 +1070,24 @@ GNEApplicationWindowHelper::LockMenuCommands::showDemandLockMenuCommands() {
     menuCheckLockRoutes->enable();
     menuCheckLockVehicles->enable();
     menuCheckLockPersons->enable();
-    menuCheckPersonTrip->enable();
-    menuCheckWalk->enable();
-    menuCheckRides->enable();
-    menuCheckContainers->enable();
-    menuCheckTransports->enable();
-    menuCheckTranships->enable();
-    menuCheckStops->enable();
+    menuCheckLockPersonTrip->enable();
+    menuCheckLockWalk->enable();
+    menuCheckLockRides->enable();
+    menuCheckLockContainers->enable();
+    menuCheckLockTransports->enable();
+    menuCheckLockTranships->enable();
+    menuCheckLockStops->enable();
     // now show it
     menuCheckLockRoutes->show();
     menuCheckLockVehicles->show();
     menuCheckLockPersons->show();
-    menuCheckPersonTrip->show();
-    menuCheckWalk->show();
-    menuCheckRides->show();
-    menuCheckContainers->show();
-    menuCheckTransports->show();
-    menuCheckTranships->show();
-    menuCheckStops->show();
+    menuCheckLockPersonTrip->show();
+    menuCheckLockWalk->show();
+    menuCheckLockRides->show();
+    menuCheckLockContainers->show();
+    menuCheckLockTransports->show();
+    menuCheckLockTranships->show();
+    menuCheckLockStops->show();
 }
 
 
@@ -1097,24 +1097,24 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDemandLockMenuCommands() {
     menuCheckLockRoutes->disable();
     menuCheckLockVehicles->disable();
     menuCheckLockPersons->disable();
-    menuCheckPersonTrip->disable();
-    menuCheckWalk->disable();
-    menuCheckRides->disable();
-    menuCheckContainers->disable();
-    menuCheckTransports->disable();
-    menuCheckTranships->disable();
-    menuCheckStops->disable();
+    menuCheckLockPersonTrip->disable();
+    menuCheckLockWalk->disable();
+    menuCheckLockRides->disable();
+    menuCheckLockContainers->disable();
+    menuCheckLockTransports->disable();
+    menuCheckLockTranships->disable();
+    menuCheckLockStops->disable();
     // now hide it
     menuCheckLockRoutes->hide();
     menuCheckLockVehicles->hide();
     menuCheckLockPersons->hide();
-    menuCheckPersonTrip->hide();
-    menuCheckWalk->hide();
-    menuCheckRides->hide();
-    menuCheckContainers->hide();
-    menuCheckTransports->hide();
-    menuCheckTranships->hide();
-    menuCheckStops->hide();
+    menuCheckLockPersonTrip->hide();
+    menuCheckLockWalk->hide();
+    menuCheckLockRides->hide();
+    menuCheckLockContainers->hide();
+    menuCheckLockTransports->hide();
+    menuCheckLockTranships->hide();
+    menuCheckLockStops->hide();
 }
 
 
@@ -1141,6 +1141,160 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDataLockMenuCommands() {
     menuCheckLockEdgeDatas->hide();
     menuCheckLockEdgeRelDatas->hide();
     menuCheckLockEdgeTAZRels->hide();
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockJunction(const bool value, const std::string &operation) {
+    menuCheckLockJunction->setText(("Lock junction " + operation).c_str());
+    menuCheckLockJunction->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockEdges(const bool value, const std::string &operation) {
+    menuCheckLockEdges->setText(("Lock edge " + operation).c_str());
+    menuCheckLockEdges->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockLanes(const bool value, const std::string &operation) {
+    menuCheckLockLanes->setText(("Lock lanes " + operation).c_str());
+    menuCheckLockLanes->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockConnections(const bool value, const std::string &operation) {
+    menuCheckLockConnections->setText(("Lock connections " + operation).c_str());
+    menuCheckLockConnections->setCheck(value);
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::updateLockCrossings(const bool value, const std::string &operation) {
+    menuCheckLockCrossings->setText(("Lock crossings " + operation).c_str());
+    menuCheckLockCrossings->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockAdditionals(const bool value, const std::string &operation) {
+    menuCheckLockAdditionals->setText(("Lock additional " + operation).c_str());
+    menuCheckLockAdditionals->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockTAZs(const bool value, const std::string &operation) {
+    menuCheckLockTAZs->setText(("Lock TAZ " + operation).c_str());
+    menuCheckLockTAZs->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockPolygons(const bool value, const std::string &operation) {
+    menuCheckLockPolygons->setText(("Lock polygon " + operation).c_str());
+    menuCheckLockPolygons->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockPOIs(const bool value, const std::string &operation) {
+    menuCheckLockPOIs->setText(("Lock routes " + operation).c_str());
+    menuCheckLockPOIs->setCheck(value);
+}
+        
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockRoutes(const bool value, const std::string &operation) {
+    menuCheckLockRoutes->setText(("Lock  " + operation).c_str());
+    menuCheckLockRoutes->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockVehicles(const bool value, const std::string &operation) {
+    menuCheckLockVehicles->setText(("Lock vehicle " + operation).c_str());
+    menuCheckLockVehicles->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockPersons(const bool value, const std::string &operation) {
+    menuCheckLockPersons->setText(("Lock person " + operation).c_str());
+    menuCheckLockPersons->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updatePersonTrip(const bool value, const std::string &operation) {
+    menuCheckLockPersonTrip->setText(("Lock personTrip " + operation).c_str());
+    menuCheckLockPersonTrip->setCheck(value);
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::updateWalk(const bool value, const std::string &operation) {
+    menuCheckLockWalk->setText(("Lock walk " + operation).c_str());
+    menuCheckLockWalk->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateRides(const bool value, const std::string &operation) {
+    menuCheckLockRides->setText(("Lock ride " + operation).c_str());
+    menuCheckLockRides->setCheck(value);
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::updateContainers(const bool value, const std::string &operation) {
+    menuCheckLockContainers->setText(("Lock container " + operation).c_str());
+    menuCheckLockContainers->setCheck(value);
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::updateTransports(const bool value, const std::string &operation) {
+    menuCheckLockTransports->setText(("Lock transport " + operation).c_str());
+    menuCheckLockTransports->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateTranships(const bool value, const std::string &operation) {
+    menuCheckLockTranships->setText(("Lock tranship " + operation).c_str());
+    menuCheckLockTranships->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateStops(const bool value, const std::string &operation) {
+    menuCheckLockStops->setText(("Lock stop " + operation).c_str());
+    menuCheckLockStops->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockEdgeDatas(const bool value, const std::string &operation) {
+    menuCheckLockEdgeDatas->setText(("Lock edgeData " + operation).c_str());
+    menuCheckLockEdgeDatas->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockEdgeRelDatas(const bool value, const std::string &operation) {
+    menuCheckLockEdgeRelDatas->setText(("Lock edgeRelData " + operation).c_str());
+    menuCheckLockEdgeRelDatas->setCheck(value);
+}
+
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::updateLockEdgeTAZRels(const bool value, const std::string &operation) {
+    menuCheckLockEdgeTAZRels->setText(("Lock edgeTAZRel " + operation).c_str());
+    menuCheckLockEdgeTAZRels->setCheck(value);
 }
 
 // ---------------------------------------------------------------------------
