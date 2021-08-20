@@ -870,6 +870,71 @@ GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPa
 }
 
 // ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::LockMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWindow* GNEApp) :
+    optionMenus(nullptr),
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* fileMenu) {
+    optionMenus = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+                  "Options", "F10", "Configure Lock Options.",
+                  GUIIconSubSys::getIcon(GUIIcon::OPTIONS), myGNEApp, MID_HOTKEY_F10_OPTIONSMENU);
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
+    // first enable menu commands
+
+    // now show it
+
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
+    // first disable menu commands
+
+    // now hide it
+
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::showDemandLockMenuCommands() {
+    // first enable menu commands
+
+    // now show it
+
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::hideDemandLockMenuCommands() {
+    // first disable menu commands
+
+    // now hide it
+
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::showDataLockMenuCommands() {
+
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::hideDataLockMenuCommands() {
+
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::ProcessingMenuCommands - methods
 // ---------------------------------------------------------------------------
 

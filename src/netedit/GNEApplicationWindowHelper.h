@@ -611,6 +611,47 @@ struct GNEApplicationWindowHelper {
     };
 
     /// @brief struct for processing menu commands
+    struct LockMenuCommands {
+
+        /// @brief constructor
+        LockMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildLockMenuCommands(FXMenuPane* editMenu);
+
+        /// @brief show network processing menu commands
+        void showNetworkLockMenuCommands();
+
+        /// @brief show network processing menu commands
+        void hideNetworkLockMenuCommands();
+
+        /// @brief show demand processing menu commands
+        void showDemandLockMenuCommands();
+
+        /// @brief show demand processing menu commands
+        void hideDemandLockMenuCommands();
+
+        /// @brief show data processing menu commands
+        void showDataLockMenuCommands();
+
+        /// @brief show data processing menu commands
+        void hideDataLockMenuCommands();
+
+        /// @brief FXMenuCommand for open option menus
+        FXMenuCommand* optionMenus;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+
+        /// @brief Invalidated copy constructor.
+        LockMenuCommands(const LockMenuCommands&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        LockMenuCommands& operator=(const LockMenuCommands&) = delete;
+    };
+
+    /// @brief struct for processing menu commands
     struct ProcessingMenuCommands {
 
         /// @brief constructor

@@ -360,6 +360,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myFileMenuDataElements(nullptr),
     myModesMenu(nullptr),
     myEditMenu(nullptr),
+    myLockMenu(nullptr),
     myProcessingMenu(nullptr),
     myLocatorMenu(nullptr),
     myWindowsMenu(nullptr),
@@ -376,6 +377,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myFileMenuCommands(this),
     myModesMenuCommands(this),
     myEditMenuCommands(this),
+    myLockMenuCommands(this),
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myWindowsMenuCommands(this),
@@ -489,8 +491,9 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myFileMenu;
     delete myModesMenu;
     delete myEditMenu;
-    delete myLocatorMenu;
+    delete myLockMenu;
     delete myProcessingMenu;
+    delete myLocatorMenu;
     delete myWindowsMenu;
     delete myHelpMenu;
     // Delete load thread
@@ -1134,6 +1137,10 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     // build open in sumo menu commands
     myEditMenuCommands.buildOpenSUMOMenuCommands(myEditMenu);
+    // build lock menu
+    myLockMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Lock", nullptr, myLockMenu);
+    myLockMenuCommands.buildLockMenuCommands(myLockMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu);
@@ -3606,6 +3613,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myFileMenuDataElements(nullptr),
     myModesMenu(nullptr),
     myEditMenu(nullptr),
+    myLockMenu(nullptr),
     myProcessingMenu(nullptr),
     myLocatorMenu(nullptr),
     myWindowsMenu(nullptr),
@@ -3621,6 +3629,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myFileMenuCommands(this),
     myModesMenuCommands(this),
     myEditMenuCommands(this),
+    myLockMenuCommands(nullptr),
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myWindowsMenuCommands(this),
