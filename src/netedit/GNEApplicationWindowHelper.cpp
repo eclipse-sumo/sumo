@@ -994,7 +994,7 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 
     menuCheckStops = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
         "Lock stops", "", "",
-        GUIIconSubSys::getIcon(GUIIcon::STOP),
+        GUIIconSubSys::getIcon(GUIIcon::STOPELEMENT),
         myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockEdgeDatas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
@@ -1017,48 +1017,130 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 void
 GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     // first enable menu commands
-
+    menuCheckLockJunction->enable();
+    menuCheckLockEdges->enable();
+    menuCheckLockLanes->enable();
+    menuCheckLockConnections->enable();
+    menuCheckLockCrossings->enable();
+    menuCheckLockAdditionals->enable();
+    menuCheckLockTAZs->enable();
+    menuCheckLockPolygons->enable();
+    menuCheckLockPOIs->enable();
     // now show it
-
+    menuCheckLockJunction->show();
+    menuCheckLockEdges->show();
+    menuCheckLockLanes->show();
+    menuCheckLockConnections->show();
+    menuCheckLockCrossings->show();
+    menuCheckLockAdditionals->show();
+    menuCheckLockTAZs->show();
+    menuCheckLockPolygons->show();
+    menuCheckLockPOIs->show();
 }
 
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     // first disable menu commands
-
+    menuCheckLockJunction->disable();
+    menuCheckLockEdges->disable();
+    menuCheckLockLanes->disable();
+    menuCheckLockConnections->disable();
+    menuCheckLockCrossings->disable();
+    menuCheckLockAdditionals->disable();
+    menuCheckLockTAZs->disable();
+    menuCheckLockPolygons->disable();
+    menuCheckLockPOIs->disable();
     // now hide it
-
+    menuCheckLockJunction->hide();
+    menuCheckLockEdges->hide();
+    menuCheckLockLanes->hide();
+    menuCheckLockConnections->hide();
+    menuCheckLockCrossings->hide();
+    menuCheckLockAdditionals->hide();
+    menuCheckLockTAZs->hide();
+    menuCheckLockPolygons->hide();
+    menuCheckLockPOIs->hide();
 }
 
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::showDemandLockMenuCommands() {
     // first enable menu commands
-
+    menuCheckLockRoutes->enable();
+    menuCheckLockVehicles->enable();
+    menuCheckLockPersons->enable();
+    menuCheckPersonTrip->enable();
+    menuCheckWalk->enable();
+    menuCheckRides->enable();
+    menuCheckContainers->enable();
+    menuCheckTransports->enable();
+    menuCheckTranships->enable();
+    menuCheckStops->enable();
     // now show it
-
+    menuCheckLockRoutes->show();
+    menuCheckLockVehicles->show();
+    menuCheckLockPersons->show();
+    menuCheckPersonTrip->show();
+    menuCheckWalk->show();
+    menuCheckRides->show();
+    menuCheckContainers->show();
+    menuCheckTransports->show();
+    menuCheckTranships->show();
+    menuCheckStops->show();
 }
 
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::hideDemandLockMenuCommands() {
     // first disable menu commands
-
+    menuCheckLockRoutes->disable();
+    menuCheckLockVehicles->disable();
+    menuCheckLockPersons->disable();
+    menuCheckPersonTrip->disable();
+    menuCheckWalk->disable();
+    menuCheckRides->disable();
+    menuCheckContainers->disable();
+    menuCheckTransports->disable();
+    menuCheckTranships->disable();
+    menuCheckStops->disable();
     // now hide it
-
+    menuCheckLockRoutes->hide();
+    menuCheckLockVehicles->hide();
+    menuCheckLockPersons->hide();
+    menuCheckPersonTrip->hide();
+    menuCheckWalk->hide();
+    menuCheckRides->hide();
+    menuCheckContainers->hide();
+    menuCheckTransports->hide();
+    menuCheckTranships->hide();
+    menuCheckStops->hide();
 }
 
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::showDataLockMenuCommands() {
-
+    // first enable menu commands
+    menuCheckLockEdgeDatas->enable();
+    menuCheckLockEdgeRelDatas->enable();
+    menuCheckLockEdgeTAZRels->enable();
+    // now show it
+    menuCheckLockEdgeDatas->show();
+    menuCheckLockEdgeRelDatas->show();
+    menuCheckLockEdgeTAZRels->show();
 }
 
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::hideDataLockMenuCommands() {
-
+    // first disable menu commands
+    menuCheckLockEdgeDatas->disable();
+    menuCheckLockEdgeRelDatas->disable();
+    menuCheckLockEdgeTAZRels->disable();
+    // now hide it
+    menuCheckLockEdgeDatas->hide();
+    menuCheckLockEdgeRelDatas->hide();
+    menuCheckLockEdgeTAZRels->hide();
 }
 
 // ---------------------------------------------------------------------------

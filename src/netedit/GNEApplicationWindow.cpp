@@ -3529,6 +3529,10 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        // lock
+        myLockMenuCommands.showNetworkLockMenuCommands();
+        myLockMenuCommands.hideDemandLockMenuCommands();
+        myLockMenuCommands.hideDataLockMenuCommands();
         // processing
         myProcessingMenuCommands.showNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
@@ -3538,6 +3542,10 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.showDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        // lock
+        myLockMenuCommands.hideNetworkLockMenuCommands();
+        myLockMenuCommands.showDemandLockMenuCommands();
+        myLockMenuCommands.hideDataLockMenuCommands();
         // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.showDemandProcessingMenuCommands();
@@ -3547,6 +3555,10 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.showDataMenuCommands();
+        // lock
+        myLockMenuCommands.hideNetworkLockMenuCommands();
+        myLockMenuCommands.hideDemandLockMenuCommands();
+        myLockMenuCommands.showDataLockMenuCommands();
         // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
@@ -3556,6 +3568,10 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
+        // lock
+        myLockMenuCommands.hideNetworkLockMenuCommands();
+        myLockMenuCommands.hideDemandLockMenuCommands();
+        myLockMenuCommands.hideDataLockMenuCommands();
         // processing
         myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
