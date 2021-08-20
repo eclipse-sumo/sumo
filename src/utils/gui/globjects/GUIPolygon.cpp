@@ -35,6 +35,10 @@
 
 #include "GUIPolygon.h"
 
+#ifndef CALLBACK
+#define CALLBACK
+#endif
+
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
@@ -196,11 +200,18 @@ GUIPolygon::performTesselation(const bool fill, const PositionVector& shape, con
         // draw the tesselated shape
         double* points = new double[shape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
+#if defined(__GNUC__) && __GNUC__ >= 8
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#endif
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(CALLBACK*)()) &glVertex3dv);
         gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(CALLBACK*)()) &beginCallback);
         gluTessCallback(tobj, GLU_TESS_END, (GLvoid(CALLBACK*)()) &endCallback);
         //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
         gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combineCallback);
+#if defined(__GNUC__) && __GNUC__ >= 8
+#pragma GCC diagnostic pop
+#endif
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);
