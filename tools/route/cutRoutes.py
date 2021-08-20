@@ -93,7 +93,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                               "a disconnected route generates several routes in the subnetwork corresponding to " +
                               "its parts.")
     optParser.add_option("-e", "--heterogeneous", action="store_true", default=False,
-                         help="enable, if you use mixed style (external and internal routes) in the same file")
+                         help="this option has no effect and only exists for backward compatibility")
     optParser.add_option("--missing-edges", type='int', metavar="N",
                          default=0, help="print N most missing edges")
     optParser.add_option("--discard-exit-times", action="store_true",
@@ -108,6 +108,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
     if options.trips_output is not None and options.routes_output is not None:
         sys.exit("Only one of the options --trips-output or --routes-output can be given")
+    if options.heterogeneous:
+        print("Warning, the heterogeneous option is now enabled by default. Please do not use it any longer.")
     else:
         if options.trips_output:
             options.output = options.trips_output
@@ -184,16 +186,15 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
     standaloneRoutesDepart = {}  # routeID -> time or 'discard' or None
     vehicleTypes = {}
     if options.additional_input:
-        parse_standalone_routes(options.additional_input, standaloneRoutes, vehicleTypes, options.heterogeneous)
+        parse_standalone_routes(options.additional_input, standaloneRoutes, vehicleTypes)
     for routeFile in options.routeFiles:
-        parse_standalone_routes(routeFile, standaloneRoutes, vehicleTypes, options.heterogeneous)
+        parse_standalone_routes(routeFile, standaloneRoutes, vehicleTypes)
     for _, t in sorted(vehicleTypes.items()):
         yield -1, t
 
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
-        for moving in parse(routeFile, (u'vehicle', u'person', u'flow'), {u"walk": (u"edges", u"busStop")},
-                            heterogeneous=options.heterogeneous):
+        for moving in parse(routeFile, (u'vehicle', u'person', u'flow'), {u"walk": (u"edges", u"busStop")}):
             if options.verbose and stats.total() > 0 and stats.total() % 100000 == 0:
                 print("%s items read" % stats.total())
             old_route = None
@@ -226,13 +227,17 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             planItem.edges = " ".join(walkEdges)
                             if planItem.busStop and busStopEdges.get(planItem.busStop) not in areaEdges:
                                 planItem.busStop = None
+                                isDiscoAfter = True
                             if planItem.trainStop and busStopEdges.get(planItem.trainStop) not in areaEdges:
                                 planItem.trainStop = None
+                                isDiscoAfter = True
                         else:
                             planItem = None
                     elif planItem.name == "ride":
-                        # "busStop" overrides "to"
+                        # "busStop" / "trainStop" overrides "to"
                         toEdge = busStopEdges.get(planItem.busStop) if planItem.busStop else planItem.to
+                        if planItem.trainStop:
+                            toEdge = busStopEdges.get(planItem.trainStop)
                         try:
                             if toEdge not in areaEdges:
                                 if planItem.lines in ptRoutes:
@@ -465,8 +470,8 @@ def write_route(file, vehicle):
     file.write(vehicle.toXML(u'    '))
 
 
-def parse_standalone_routes(file, into, typesMap, heterogeneous):
-    for element in parse(file, ('vType', 'route'), heterogeneous=heterogeneous):
+def parse_standalone_routes(file, into, typesMap):
+    for element in parse(file, ('vType', 'route')):
         if element.id is not None:
             if element.name == 'vType':
                 typesMap[element.id] = element
