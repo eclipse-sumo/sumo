@@ -41,7 +41,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="DEFAULT_VEHTYPE" lcMaxSpeedLatStanding="0"/>
+    <vType id="DEFAULT_VEHTYPE" lcMaxSpeedLatStanding="1"/>
     <flow id="WE" begin="0.00" end="1000" period="6" departLane="1" departSpeed="max" color="cyan">
         <route edges="WC CE"/>
     </flow>
