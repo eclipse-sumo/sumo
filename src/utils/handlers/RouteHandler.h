@@ -92,9 +92,6 @@ public:
                            const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs,
                            const std::map<std::string, std::string> &parameters) = 0;
 
-    /// @brief build stop
-    virtual void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) = 0;
-
     /// @brief build person
     virtual void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters,
                              const std::map<std::string, std::string> &parameters) = 0;
@@ -236,7 +233,7 @@ private:
     bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
 
     /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;
+    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag> &parentTags, bool& ok) const;
 
     /// @brief invalidate copy constructor
     RouteHandler(const RouteHandler& s) = delete;

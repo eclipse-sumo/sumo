@@ -122,11 +122,6 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                     obj->getParameters());
             }
             break;
-        // stop
-        case SUMO_TAG_STOP:
-            buildStop(obj,
-                obj->getStopParameter());
-            break;
         // persons
         case SUMO_TAG_PERSON:
             buildPerson(obj,
@@ -303,11 +298,11 @@ RouteHandler::myEndElement(int element) {
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (tag) {
+        case SUMO_TAG_VTYPE:
         case SUMO_TAG_ROUTE:
         case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_FLOW:
-        case SUMO_TAG_STOP:
         case SUMO_TAG_PERSON:
         case SUMO_TAG_PERSONFLOW:
         case SUMO_TAG_PERSONTRIP:
@@ -467,9 +462,11 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
             // set vehicle parameters
             myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
             // add other attributes
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VIA, via);
+            if (!from.empty() && !to.empty()) {
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VIA, via);
+            }
         }
         // delete flow parameter (because in XMLStructure we have a copy)
         delete flowParameter;
@@ -479,10 +476,14 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
 
 void
 RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
     // declare stop
     SUMOVehicleParameter::Stop stop;
+    //  check parents
+    checkParent(SUMO_TAG_STOP, {SUMO_TAG_VEHICLE, SUMO_TAG_FLOW, SUMO_TAG_ROUTE, SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW, SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, parsedOk);
     // parse stop
-    if (parseStopParameters(stop, attrs)) {
+    if (parsedOk && parseStopParameters(stop, attrs)) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STOP);
         // add stop attributes
@@ -916,11 +917,23 @@ RouteHandler::isEmbeddedRoute(const SUMOSAXAttributes& attrs) const {
 
 
 void
-RouteHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const {
+RouteHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag> &parentTags, bool& ok) const {
     // check that parent SUMOBaseObject's tag is the parentTag
-    if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && 
-        (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
-        WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
+    const CommonXMLStructure::SumoBaseObject* parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+    // set parent string
+    std::string parentStrings;
+    for (const auto &tag : parentTags) {
+        if (tag != parentTags.back()) {
+        parentStrings.append(toString(parentTags.front()));
+        } else {
+            parentStrings.append(toString(parentTags.front()) + ", ");
+        }
+    }
+    if ((parent != nullptr) && 
+        (parentTags.size() > 0) &&
+        (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
+        const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
+        WRITE_ERROR("'" + toString(currentTag) + "' must be defined within the definition of a '" + parentStrings + "' (found '" + toString(parent->getTag()) + "'" + id + ").");
         ok = false;
     }
 }

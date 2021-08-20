@@ -101,9 +101,6 @@ public:
                    const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs,
                    const std::map<std::string, std::string> &parameters);
 
-    /// @brief build stop
-    void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
-
     /// @brief build person
     void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters,
                      const std::map<std::string, std::string> &parameters);

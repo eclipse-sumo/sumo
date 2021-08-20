@@ -439,10 +439,9 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     }
 }
 
-
+/*
 void
 GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
-/*
     // get stop parent
     GNEDemandElement *stopParent = myNet->retrieveDemandElement(sumoBaseObject->getParentSumoBaseObject()->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID));
     // declare pointers to parent elements
@@ -527,9 +526,8 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
         }
     }
-*/
 }
-
+*/
 
 void 
 GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters,
