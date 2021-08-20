@@ -3222,7 +3222,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
 
 #ifdef DEBUG_MANEUVER
     if (debugVehicle()) {
-                  << "     mySafeLatDistRight=" << mySafeLatDistRight
+        std::cout << "     mySafeLatDistRight=" << mySafeLatDistRight
                   << " mySafeLatDistLeft=" << mySafeLatDistLeft
                   << " fullLatDist=" << fullLatDist
                   << " speedAccel=" << speedAccel
