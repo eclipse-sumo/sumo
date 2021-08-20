@@ -874,16 +874,143 @@ GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPa
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWindow* GNEApp) :
-    optionMenus(nullptr),
+    menuCheckLockJunction(nullptr),
+    menuCheckLockEdges(nullptr),
+    menuCheckLockLanes(nullptr),
+    menuCheckLockConnections(nullptr),
+    menuCheckLockCrossings(nullptr),
+    menuCheckLockAdditionals(nullptr),
+    menuCheckLockTAZs(nullptr),
+    menuCheckLockPolygons(nullptr),
+    menuCheckLockPOIs(nullptr),
+    menuCheckLockRoutes(nullptr),
+    menuCheckLockVehicles(nullptr),
+    menuCheckLockPersons(nullptr),
+    menuCheckPersonTrip(nullptr),
+    menuCheckWalk(nullptr),
+    menuCheckRides(nullptr),
+    menuCheckContainers(nullptr),
+    menuCheckTransports(nullptr),
+    menuCheckTranships(nullptr),
+    menuCheckStops(nullptr),
+    menuCheckLockEdgeDatas(nullptr),
+    menuCheckLockEdgeRelDatas(nullptr),
+    menuCheckLockEdgeTAZRels(nullptr),
     myGNEApp(GNEApp) {
 }
 
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* fileMenu) {
-    optionMenus = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                  "Options", "F10", "Configure Lock Options.",
-                  GUIIconSubSys::getIcon(GUIIcon::OPTIONS), myGNEApp, MID_HOTKEY_F10_OPTIONSMENU);
+    menuCheckLockJunction = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock junctions", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::JUNCTION),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockEdges = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock edges", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::EDGE),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockLanes = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock lanes", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::LANE),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockConnections = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock connections", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::CONNECTION),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockCrossings = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock crossings", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::CROSSING),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockAdditionals = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock additionals", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::BUSSTOP),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockTAZs = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock TAZs", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::TAZ),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockPolygons = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock polygons", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::POLY),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockPOIs = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock POIs", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::POI),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockRoutes = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock routes", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::ROUTE),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockVehicles = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock vehicles", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockPersons = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock persons", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::PERSON),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckPersonTrip = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock personTrips", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckWalk = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock walks", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckRides = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock rides", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckContainers = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock containers", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckTransports = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock transports", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_FROMTO),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckTranships = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock tranships", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckStops = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock stops", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::STOP),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockEdgeDatas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock edgeDatas", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::EDGEDATA),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockEdgeRelDatas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock edgeRelDatas", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA),
+        myGNEApp, MID_GNE_LOCKELEMENT);
+
+    menuCheckLockEdgeTAZRels = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+        "Lock edgeTAZRel", "", "",
+        GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA),
+        myGNEApp, MID_GNE_LOCKELEMENT);
 }
 
 

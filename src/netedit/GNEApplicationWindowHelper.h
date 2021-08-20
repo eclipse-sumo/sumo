@@ -637,8 +637,83 @@ struct GNEApplicationWindowHelper {
         /// @brief show data processing menu commands
         void hideDataLockMenuCommands();
 
-        /// @brief FXMenuCommand for open option menus
-        FXMenuCommand* optionMenus;
+        /// @name Processing FXMenuCommands for Network mode
+        /// @{
+        /// @brief menu check to lock junction
+        FXMenuCheckIcon* menuCheckLockJunction;
+
+        /// @brief menu check to lock edges
+        FXMenuCheckIcon* menuCheckLockEdges;
+
+        /// @brief menu check to lock lanes
+        FXMenuCheckIcon* menuCheckLockLanes;
+
+        /// @brief menu check to lock connections
+        FXMenuCheckIcon* menuCheckLockConnections;
+
+        /// @brief menu check to lock crossings
+        FXMenuCheckIcon* menuCheckLockCrossings;
+
+        /// @brief menu check to lock additionals
+        FXMenuCheckIcon* menuCheckLockAdditionals;
+
+        /// @brief menu check to lock TAZs
+        FXMenuCheckIcon* menuCheckLockTAZs;
+
+        /// @brief menu check to lock polygons
+        FXMenuCheckIcon* menuCheckLockPolygons;
+
+        /// @brief menu check to lock POIs
+        FXMenuCheckIcon* menuCheckLockPOIs;
+        
+        /// @}
+
+        /// @name Processing FXMenuCommands for Demand mode
+        /// @{
+        /// @brief menu check to lock routes
+        FXMenuCheckIcon* menuCheckLockRoutes;
+
+        /// @brief menu check to lock vehicles
+        FXMenuCheckIcon* menuCheckLockVehicles;
+
+        /// @brief menu check to lock persons
+        FXMenuCheckIcon* menuCheckLockPersons;
+
+        /// @brief menu check to lock personTrips
+        FXMenuCheckIcon* menuCheckPersonTrip;
+
+        /// @brief menu check to lock walks
+        FXMenuCheckIcon* menuCheckWalk;
+
+        /// @brief menu check to lock rides
+        FXMenuCheckIcon* menuCheckRides;
+
+        /// @brief menu check to lock containers
+        FXMenuCheckIcon* menuCheckContainers;
+
+        /// @brief menu check to lock transports
+        FXMenuCheckIcon* menuCheckTransports;
+
+        /// @brief menu check to lock tranships
+        FXMenuCheckIcon* menuCheckTranships;
+
+        /// @brief menu check to lock stops
+        FXMenuCheckIcon* menuCheckStops;
+
+        /// @}
+
+        /// @name Processing FXMenuCommands for Data mode
+        /// @{
+        /// @brief menu check to lock edge datas
+        FXMenuCheckIcon* menuCheckLockEdgeDatas;
+
+        /// @brief menu check to lock edgeRelDatas
+        FXMenuCheckIcon* menuCheckLockEdgeRelDatas;
+
+        /// @brief menu check to lock edgeTAZRels
+        FXMenuCheckIcon* menuCheckLockEdgeTAZRels;
+
+        /// @}
 
     private:
         /// @brief pointer to current GNEApplicationWindows
