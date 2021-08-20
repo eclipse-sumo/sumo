@@ -351,6 +351,8 @@ enum class GUIIcon {
     DESTPROBREROUTE,
     PARKINGZONEREROUTE,
     ROUTEPROBREROUTE,
+    POLY,
+    POI,
     TAZ,
     TAZEDGE,
     /// @}

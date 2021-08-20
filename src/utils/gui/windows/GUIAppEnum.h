@@ -682,6 +682,8 @@ enum {
     MID_GNE_ADDSELECT_EDGE,
     /// @brief Remove edge from selected items - Menu Etry
     MID_GNE_REMOVESELECT_EDGE,
+    /// @brief lock element
+    MID_GNE_LOCKELEMENT,
 
     /// @}
 
