@@ -61,8 +61,9 @@ MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
     mySigmagap(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_GAP, 0.1)), mySigmaerror(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0.1)),
     myJerkmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_JERK_MAX, 3.)), myEpsilonacc(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_EPSILON_ACC, 1.)),
     myTaccmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_ACC_MAX, 1.2)), myMflatness(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_M_FLATNESS, 2.)),
-    myMbegin(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0.7)), myUseVehDynamics(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, 0)),
-    myMaxVehPreview(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, 0)) {
+    myMbegin(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0.7)), myUseVehDynamics(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, 0))
+    //, myMaxVehPreview(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, 0))
+     {
     // IDM does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.5);
 }
@@ -666,8 +667,8 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         v0 = veh->getLane()->getVehicleMaxSpeed(veh);
     }
 
-    double wantedacc, a_free;
-    double wouldacc, woulds, woulda_free;
+    double wantedacc = 0., a_free;
+    double wouldacc = 0., woulds, woulda_free;
 
     double estSpeed, estleaderSpeed, estGap;
     double current_estSpeed, current_estGap, current_estleaderSpeed;

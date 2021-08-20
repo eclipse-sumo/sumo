@@ -62,7 +62,7 @@ FONScontext* GLHelper::myFont = nullptr;
 double GLHelper::myFontSize = 50.0;
 bool GLHelper::myGL2PSActive = false;
 
-void APIENTRY combCallback(GLdouble coords[3],
+void CALLBACK combCallback(GLdouble coords[3],
                            GLdouble* vertex_data[4],
                            GLfloat weight[4], GLdouble** dataOut) {
     UNUSED_PARAMETER(weight);
@@ -162,10 +162,10 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
         return;
     }
     GLUtesselator* tobj = gluNewTess();
-    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
-    gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &glBegin);
-    gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &glEnd);
-    gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combCallback);
+    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(CALLBACK*)()) &glVertex3dv);
+    gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(CALLBACK*)()) &glBegin);
+    gluTessCallback(tobj, GLU_TESS_END, (GLvoid(CALLBACK*)()) &glEnd);
+    gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combCallback);
     gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
     gluTessBeginPolygon(tobj, nullptr);
     gluTessBeginContour(tobj);

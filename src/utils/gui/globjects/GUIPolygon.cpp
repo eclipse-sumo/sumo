@@ -41,12 +41,12 @@
 // callbacks definitions
 // ===========================================================================
 
-void APIENTRY beginCallback(GLenum which) {
+void CALLBACK beginCallback(GLenum which) {
     glBegin(which);
 }
 
 
-void APIENTRY errorCallback(GLenum errorCode) {
+void CALLBACK errorCallback(GLenum errorCode) {
     const GLubyte* estring;
 
     estring = gluErrorString(errorCode);
@@ -55,17 +55,17 @@ void APIENTRY errorCallback(GLenum errorCode) {
 }
 
 
-void APIENTRY endCallback(void) {
+void CALLBACK endCallback(void) {
     glEnd();
 }
 
 
-void APIENTRY vertexCallback(GLvoid* vertex) {
+void CALLBACK vertexCallback(GLvoid* vertex) {
     glVertex3dv((GLdouble*) vertex);
 }
 
 
-void APIENTRY combineCallback(GLdouble coords[3],
+void CALLBACK combineCallback(GLdouble coords[3],
                               GLdouble* vertex_data[4],
                               GLfloat weight[4], GLdouble** dataOut) {
     UNUSED_PARAMETER(weight);
@@ -196,11 +196,11 @@ GUIPolygon::performTesselation(const bool fill, const PositionVector& shape, con
         // draw the tesselated shape
         double* points = new double[shape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
-        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
-        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
-        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &endCallback);
-        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (APIENTRY*) ()) &errorCallback);
-        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combineCallback);
+        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(CALLBACK*)()) &glVertex3dv);
+        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(CALLBACK*)()) &beginCallback);
+        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(CALLBACK*)()) &endCallback);
+        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
+        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combineCallback);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);

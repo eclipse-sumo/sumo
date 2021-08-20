@@ -327,7 +327,7 @@ private:
     const bool myUseVehDynamics;
 
     // @brief number of vehicles in front, that are used to update the acceleration
-    const int myMaxVehPreview;
+    //const int myMaxVehPreview;
 
 private:
     /// @brief Invalidated assignment operator
