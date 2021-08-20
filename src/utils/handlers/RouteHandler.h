@@ -66,6 +66,11 @@ public:
     virtual void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id, SUMOVehicleClass vClass, 
                             const std::vector<std::string> &edges, const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
                             const std::map<std::string, std::string> &parameters) = 0;
+    
+    /// @brief build embedded route
+    virtual void buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edges, 
+                                    const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
+                                    const std::map<std::string, std::string> &parameters) = 0;
 
     /// @brief build route distribution
     virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id) = 0;
@@ -77,15 +82,6 @@ public:
     /// @brief build a flow over an existent route
     virtual void buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                     const std::map<std::string, std::string> &parameters) = 0;
-
-    /// @brief build vehicle with a embedded route
-    virtual void buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
-                                           const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) = 0;
-
-    /// @brief build flow with a embedded route
-    virtual void buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
-                                        const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters) = 0;
-
     /// @brief build trip
     virtual void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
                            const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs,
@@ -235,6 +231,9 @@ private:
 
     /// @brief parse stop parameters
     bool parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSAXAttributes& attrs) const;
+
+    /// @brief check embedded route
+    bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
 
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;

@@ -75,6 +75,11 @@ public:
                     const std::vector<std::string> &edges, const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
                     const std::map<std::string, std::string> &parameters);
 
+    /// @brief build embedded route
+    void buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edges, 
+                            const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
+                            const std::map<std::string, std::string> &parameters);
+
     /// @brief build route distribution
     void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &id);
 
@@ -85,14 +90,6 @@ public:
     /// @brief build a flow over an existent route
     void buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                             const std::map<std::string, std::string> &parameters);
-
-    /// @brief build vehicle with a embedded route
-    void buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
-                                   const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters);
-
-    /// @brief build flow with a embedded route
-    void buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameters, 
-                                const std::vector<std::string>& edgeIDs, const std::map<std::string, std::string> &parameters);
 
     /// @brief build trip
     void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters, 
