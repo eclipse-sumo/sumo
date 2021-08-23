@@ -90,15 +90,15 @@ NGNet::alphabeticalCode(int i, int iMax) {
 }
 
 void
-NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength) {
+NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double xAttachLength, double yAttachLength) {
 
     for (int ix = 0; ix < numX; ix++) {
         const std::string nodeIDStart = (myAlphaIDs ? alphabeticalCode(ix, numX) : toString<int>(ix) + "/");
         for (int iy = 0; iy < numY; iy++) {
             // create Node
             NGNode* node = new NGNode(nodeIDStart + toString(iy), ix, iy);
-            node->setX(ix * spaceX + attachLength);
-            node->setY(iy * spaceY + attachLength);
+            node->setX(ix * spaceX + xAttachLength);
+            node->setY(iy * spaceY + yAttachLength);
             myNodeList.push_back(node);
             // create Links
             if (ix > 0) {
@@ -109,14 +109,14 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
             }
         }
     }
-    if (attachLength > 0.0) {
+    if (yAttachLength > 0.0) {
         for (int ix = 0; ix < numX; ix++) {
             // create nodes
             NGNode* topNode = new NGNode("top" + toString<int>(ix), ix, numY);
             NGNode* bottomNode = new NGNode("bottom" + toString<int>(ix), ix, numY + 1);
-            topNode->setX(ix * spaceX + attachLength);
-            bottomNode->setX(ix * spaceX + attachLength);
-            topNode->setY((numY - 1) * spaceY + 2 * attachLength);
+            topNode->setX(ix * spaceX + xAttachLength);
+            bottomNode->setX(ix * spaceX + xAttachLength);
+            topNode->setY((numY - 1) * spaceY + 2 * yAttachLength);
             bottomNode->setY(0);
             topNode->setFringe();
             bottomNode->setFringe();
@@ -126,14 +126,16 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
             connect(topNode, findNode(ix, numY - 1));
             connect(bottomNode, findNode(ix, 0));
         }
+    }
+    if (xAttachLength > 0.0) {
         for (int iy = 0; iy < numY; iy++) {
             // create nodes
             NGNode* leftNode = new NGNode("left" + toString<int>(iy), numX, iy);
             NGNode* rightNode = new NGNode("right" + toString<int>(iy), numX + 1, iy);
             leftNode->setX(0);
-            rightNode->setX((numX - 1) * spaceX + 2 * attachLength);
-            leftNode->setY(iy * spaceY + attachLength);
-            rightNode->setY(iy * spaceY + attachLength);
+            rightNode->setX((numX - 1) * spaceX + 2 * xAttachLength);
+            leftNode->setY(iy * spaceY + yAttachLength);
+            rightNode->setY(iy * spaceY + yAttachLength);
             leftNode->setFringe();
             rightNode->setFringe();
             myNodeList.push_back(leftNode);

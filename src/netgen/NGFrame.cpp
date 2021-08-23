@@ -96,6 +96,11 @@ NGFrame::fillOptions() {
     oc.addSynonyme("grid.attach-length", "attach-length", true);
     oc.addDescription("grid.attach-length", "Grid Network", "The length of streets attached at the boundary; 0 means no streets are attached");
 
+    oc.doRegister("grid.x-attach-length", new Option_Float(0));
+    oc.addDescription("grid.x-attach-length", "Grid Network", "The length of streets attached at the boundary in x direction; 0 means no streets are attached");
+    oc.doRegister("grid.y-attach-length", new Option_Float(0));
+    oc.addDescription("grid.y-attach-length", "Grid Network", "The length of streets attached at the boundary in y direction; 0 means no streets are attached");
+
     //  register spider-net options
     oc.doRegister("spider", 's', new Option_Bool(false));
     oc.addSynonyme("spider", "spider-net", true);

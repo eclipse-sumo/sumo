@@ -154,7 +154,8 @@ buildNetwork(NBNetBuilder& nb) {
         int yNo = oc.getInt("grid.y-number");
         double xLength = oc.getFloat("grid.x-length");
         double yLength = oc.getFloat("grid.y-length");
-        double attachLength = oc.getFloat("grid.attach-length");
+        double xAttachLength = oc.getFloat("grid.x-attach-length");
+        double yAttachLength = oc.getFloat("grid.y-attach-length");
         if (oc.isDefault("grid.x-number") && !oc.isDefault("grid.number")) {
             xNo = oc.getInt("grid.number");
         }
@@ -167,9 +168,15 @@ buildNetwork(NBNetBuilder& nb) {
         if (oc.isDefault("grid.y-length") && !oc.isDefault("grid.length")) {
             yLength = oc.getFloat("grid.length");
         }
+        if (oc.isDefault("grid.x-attach-length") && !oc.isDefault("grid.attach-length")) {
+            xAttachLength = oc.getFloat("grid.attach-length");
+        }
+        if (oc.isDefault("grid.y-attach-length") && !oc.isDefault("grid.attach-length")) {
+            yAttachLength = oc.getFloat("grid.attach-length");
+        }
         // check values
         bool hadError = false;
-        if (xNo < 1 || yNo < 1 || (attachLength == 0 && (xNo < 2 && yNo < 2))) {
+        if (xNo < 1 || yNo < 1 || (xAttachLength == 0 && yAttachLength == 0 && (xNo < 2 && yNo < 2))) {
             WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction if there are no attachments.");
             hadError = true;
         }
@@ -180,10 +187,15 @@ buildNetwork(NBNetBuilder& nb) {
         } else if (xLength < minLength || yLength < minLength) {
             WRITE_WARNING("The distance between nodes should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
         }
-        if (attachLength != 0.0 && attachLength < POSITION_EPS) {
+        if (xAttachLength != 0.0 && xAttachLength < POSITION_EPS) {
             WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
             hadError = true;
-        } else if (attachLength != 0.0 && attachLength < minAttachLength) {
+        } else if (xAttachLength != 0.0 && xAttachLength < minAttachLength) {
+            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
+        } else if (yAttachLength != 0.0 && yAttachLength < POSITION_EPS) {
+            WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
+            hadError = true;
+        } else if (yAttachLength != 0.0 && yAttachLength < minAttachLength) {
             WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
         }
         if (hadError) {
@@ -191,7 +203,7 @@ buildNetwork(NBNetBuilder& nb) {
         }
         // build if everything's ok
         NGNet* net = new NGNet(nb);
-        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
+        net->createChequerBoard(xNo, yNo, xLength, yLength, xAttachLength, yAttachLength);
         return net;
     }
     // random net
