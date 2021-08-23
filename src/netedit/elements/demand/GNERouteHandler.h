@@ -205,8 +205,8 @@ protected:
     /// @brief get container parent
     GNEDemandElement *getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
-    /// @brief get previos person plan edge
-    GNEEdge* getPreviousPersonPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const;
+    /// @brief get previos person/container plan edge
+    GNEEdge* getPreviousPlanEdge(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
 
 private:
     /// @brief pointer to GNENet

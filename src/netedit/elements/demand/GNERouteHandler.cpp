@@ -486,7 +486,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     const std::string &toBusStopID, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPersonPlanEdge(sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPlanEdge(true, sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     // check conditions
@@ -531,7 +531,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     const std::string &toBusStopID, const std::vector<std::string>& edgeIDs, const std::string &routeID, double arrivalPos) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPersonPlanEdge(sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPlanEdge(true, sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
@@ -608,7 +608,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     const std::string &toBusStopID, double arrivalPos, const std::vector<std::string>& lines) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPersonPlanEdge(sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPlanEdge(true, sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     // check conditions
@@ -707,7 +707,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
     const std::string &toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos) {
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPlanEdge(false, sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toContainerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
     // check conditions
@@ -752,7 +752,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     const std::string &toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, const double arrivalPosition) {
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPlanEdge(false, sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toContainerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
@@ -1291,15 +1291,19 @@ GNERouteHandler::getContainerParent(const CommonXMLStructure::SumoBaseObject* su
 
 
 GNEEdge*
-GNERouteHandler::getPreviousPersonPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const {
+GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const {
     if (obj->getParentSumoBaseObject() == nullptr) {
         // no parent defined
         return nullptr;
     }
     // get parent object
     const CommonXMLStructure::SumoBaseObject* parentObject = obj->getParentSumoBaseObject();
-    // check conditions
-    if ((parentObject->getTag() != SUMO_TAG_PERSON) && (parentObject->getTag() != SUMO_TAG_PERSONFLOW)) {
+    // check person/container conditions
+    if (person && (parentObject->getTag() != SUMO_TAG_PERSON) && (parentObject->getTag() != SUMO_TAG_PERSONFLOW)) {
+        // invalid parent
+        return nullptr;
+    }
+    if (!person && (parentObject->getTag() != SUMO_TAG_CONTAINER) && (parentObject->getTag() != SUMO_TAG_CONTAINERFLOW)) {
         // invalid parent
         return nullptr;
     }
