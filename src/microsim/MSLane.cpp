@@ -716,7 +716,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             std::stringstream msg;
             msg << "scheduled stop on lane '" << myID << "' too close";
             const double distToStop = nextStop.pars.endPos - pos;
-            if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
+            if (checkFailure(aVehicle, speed, dist, MAX2(0.0, cfModel.stopSpeed(aVehicle, speed, distToStop)),
                              patchSpeed, msg.str())) {
                 // we may not drive with the given velocity - we cannot stop at the stop
                 return false;
