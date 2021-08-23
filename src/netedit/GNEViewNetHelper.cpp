@@ -3505,31 +3505,11 @@ GNEViewNetHelper::LockManager::~LockManager() {}
 
 
 bool 
-GNEViewNetHelper::LockManager::isInspectLocked(GUIGlObjectType objectType) const {
+GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType) const {
     if ((objectType >= 100) && (objectType < 199)) {
-        return myLockedData.at(GLO_ADDITIONALELEMENT).inspection;
+        return myLockedData.at(GLO_ADDITIONALELEMENT).lock;
     } else {
-        return myLockedData.at(objectType).inspection;
-    }
-}
-
-
-bool 
-GNEViewNetHelper::LockManager::isDeleteLocked(GUIGlObjectType objectType) const {
-    if ((objectType >= 100) && (objectType < 199)) {
-        return myLockedData.at(GLO_ADDITIONALELEMENT).deletion;
-    } else {
-        return myLockedData.at(objectType).deletion;
-    }
-}
-
-
-bool 
-GNEViewNetHelper::LockManager::isSelectLocked(GUIGlObjectType objectType) const {
-    if ((objectType >= 100) && (objectType < 199)) {
-        return myLockedData.at(GLO_ADDITIONALELEMENT).selection;
-    } else {
-        return myLockedData.at(objectType).selection;
+        return myLockedData.at(objectType).lock;
     }
 }
 
@@ -3539,46 +3519,42 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     // get lock menu commands
     GNEApplicationWindowHelper::LockMenuCommands &lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
     // network
-    lockMenuCommands.menuCheckLockJunction->setCheck(myLockedNetwork[GLO_JUNCTION].inspection);
-    lockMenuCommands.menuCheckLockEdges->setCheck(myLockedNetwork[GLO_EDGE].inspection);
-    lockMenuCommands.menuCheckLockLanes->setCheck(myLockedNetwork[GLO_LANE].inspection);
-    lockMenuCommands.menuCheckLockConnections->setCheck(myLockedNetwork[GLO_CONNECTION].inspection);
-    lockMenuCommands.menuCheckLockCrossings->setCheck(myLockedNetwork[GLO_CROSSING].inspection);
-    lockMenuCommands.menuCheckLockAdditionals->setCheck(myLockedNetwork[GLO_ADDITIONALELEMENT].inspection);
-    lockMenuCommands.menuCheckLockTAZs->setCheck(myLockedNetwork[GLO_TAZ].inspection);
-    lockMenuCommands.menuCheckLockPolygons->setCheck(myLockedNetwork[GLO_POLYGON].inspection);
-    lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedNetwork[GLO_POI].inspection);
+    lockMenuCommands.menuCheckLockJunction->setCheck(myLockedNetwork[GLO_JUNCTION].lock);
+    lockMenuCommands.menuCheckLockEdges->setCheck(myLockedNetwork[GLO_EDGE].lock);
+    lockMenuCommands.menuCheckLockLanes->setCheck(myLockedNetwork[GLO_LANE].lock);
+    lockMenuCommands.menuCheckLockConnections->setCheck(myLockedNetwork[GLO_CONNECTION].lock);
+    lockMenuCommands.menuCheckLockCrossings->setCheck(myLockedNetwork[GLO_CROSSING].lock);
+    lockMenuCommands.menuCheckLockAdditionals->setCheck(myLockedNetwork[GLO_ADDITIONALELEMENT].lock);
+    lockMenuCommands.menuCheckLockTAZs->setCheck(myLockedNetwork[GLO_TAZ].lock);
+    lockMenuCommands.menuCheckLockPolygons->setCheck(myLockedNetwork[GLO_POLYGON].lock);
+    lockMenuCommands.menuCheckLockPOIs->setCheck(myLockedNetwork[GLO_POI].lock);
     // demand
-    lockMenuCommands.menuCheckLockRoutes->setCheck(myLockedDemand[GLO_ROUTE].inspection);
-    lockMenuCommands.menuCheckLockVehicles->setCheck(myLockedDemand[GLO_VEHICLE].inspection);
-    lockMenuCommands.menuCheckLockPersons->setCheck(myLockedDemand[GLO_PERSON].inspection);
-    lockMenuCommands.menuCheckLockPersonTrip->setCheck(myLockedDemand[GLO_PERSONTRIP].inspection);
-    lockMenuCommands.menuCheckLockWalk->setCheck(myLockedDemand[GLO_WALK].inspection);
-    lockMenuCommands.menuCheckLockRides->setCheck(myLockedDemand[GLO_RIDE].inspection);
-    lockMenuCommands.menuCheckLockContainers->setCheck(myLockedDemand[GLO_CONTAINER].inspection);
-    lockMenuCommands.menuCheckLockTransports->setCheck(myLockedDemand[GLO_TRANSPORT].inspection);
-    lockMenuCommands.menuCheckLockTranships->setCheck(myLockedDemand[GLO_TRANSHIP].inspection);
-    lockMenuCommands.menuCheckLockStops->setCheck(myLockedDemand[GLO_STOP].inspection);
+    lockMenuCommands.menuCheckLockRoutes->setCheck(myLockedDemand[GLO_ROUTE].lock);
+    lockMenuCommands.menuCheckLockVehicles->setCheck(myLockedDemand[GLO_VEHICLE].lock);
+    lockMenuCommands.menuCheckLockPersons->setCheck(myLockedDemand[GLO_PERSON].lock);
+    lockMenuCommands.menuCheckLockPersonTrip->setCheck(myLockedDemand[GLO_PERSONTRIP].lock);
+    lockMenuCommands.menuCheckLockWalk->setCheck(myLockedDemand[GLO_WALK].lock);
+    lockMenuCommands.menuCheckLockRides->setCheck(myLockedDemand[GLO_RIDE].lock);
+    lockMenuCommands.menuCheckLockContainers->setCheck(myLockedDemand[GLO_CONTAINER].lock);
+    lockMenuCommands.menuCheckLockTransports->setCheck(myLockedDemand[GLO_TRANSPORT].lock);
+    lockMenuCommands.menuCheckLockTranships->setCheck(myLockedDemand[GLO_TRANSHIP].lock);
+    lockMenuCommands.menuCheckLockStops->setCheck(myLockedDemand[GLO_STOP].lock);
     // data
-    lockMenuCommands.menuCheckLockEdgeDatas->setCheck(myLockedData[GLO_EDGEDATA].inspection);
-    lockMenuCommands.menuCheckLockEdgeRelDatas->setCheck(myLockedData[GLO_EDGERELDATA].inspection);
-    lockMenuCommands.menuCheckLockEdgeTAZRels->setCheck(myLockedData[GLO_TAZRELDATA].inspection);
+    lockMenuCommands.menuCheckLockEdgeDatas->setCheck(myLockedData[GLO_EDGEDATA].lock);
+    lockMenuCommands.menuCheckLockEdgeRelDatas->setCheck(myLockedData[GLO_EDGERELDATA].lock);
+    lockMenuCommands.menuCheckLockEdgeTAZRels->setCheck(myLockedData[GLO_TAZRELDATA].lock);
 }
 
 
 GNEViewNetHelper::LockManager::OperationLocked::OperationLocked():
     mySupermode(Supermode::NETWORK),
-    inspection(false),
-    deletion(false),
-    selection(false) {
+    lock(false) {
 }
 
 
 GNEViewNetHelper::LockManager::OperationLocked::OperationLocked(Supermode supermode) :
     mySupermode(supermode),
-    inspection(false),
-    deletion(false),
-    selection(false) {
+    lock(false) {
 }
 
 

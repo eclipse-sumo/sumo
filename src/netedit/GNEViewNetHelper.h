@@ -1293,14 +1293,8 @@ struct GNEViewNetHelper {
         /// @brief destructor
         ~LockManager();
 
-        /// @brief check if given GLObject is locked for inspecting
-        bool isInspectLocked(GUIGlObjectType objectType) const;
-
-        /// @brief check if given GLObject is locked for deleting
-        bool isDeleteLocked(GUIGlObjectType objectType) const;
-
-        /// @brief check if given GLObject is locked for selecting
-        bool isSelectLocked(GUIGlObjectType objectType) const;
+        /// @brief check if given GLObject is locked for inspect, select, delete and move
+        bool isObjectLocked(GUIGlObjectType objectType) const;
 
         /// @brief update lock inspect menuBar
         void updateLockMenuBar();
@@ -1322,14 +1316,8 @@ struct GNEViewNetHelper {
             /// @brief get supermode
             Supermode getSupermode() const;
 
-            /// @brief inspect mode
-            bool inspection;
-
-            /// @brief delete mode
-            bool deletion;
-
-            /// @brief select mode
-            bool selection;
+            /// @brief flag for lock/unlock
+            bool lock;
 
         private:
             /// @brief supermode associated with this operation locked
