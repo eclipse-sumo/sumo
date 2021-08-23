@@ -452,5 +452,9 @@ GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     }
 }
 
+bool
+GUIContainer::isSelected() const {
+    return gSelected.isSelected(GLO_CONTAINER, getGlID());
+}
 
 /****************************************************************************/

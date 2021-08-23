@@ -352,9 +352,6 @@ public:
     /// @brief Returns a device of the given type if it exists or 0
     virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
 
-    /// @brief whether this vehicle is selected in the GUI
-    virtual bool isSelected() const = 0;
-
     /// @brief @return The index of the vehicle's associated RNG
     virtual int getRNGIndex() const = 0;
 

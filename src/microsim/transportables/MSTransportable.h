@@ -328,6 +328,11 @@ public:
         return false;
     }
 
+    /// @brief whether this transportable is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
+    }
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);

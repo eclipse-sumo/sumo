@@ -184,4 +184,8 @@ public:
     /// @brief whether the vehicle is individually influenced (via TraCI or special parameters)
     virtual bool hasInfluencer() const = 0;
 
+    /// @brief whether this object is selected in the GUI
+    virtual bool isSelected() const = 0;
+
+
 };
