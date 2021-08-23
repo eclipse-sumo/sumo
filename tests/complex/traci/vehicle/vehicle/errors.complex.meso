@@ -3,16 +3,14 @@ Error: changeSublane not applicable for meso
 Warning: New value of emergencyDecel (3.00) is lower than decel (4.50)
 Warning: Automatically setting emergencyDecel to 5.10 for vType 'DEFAULT_VEHTYPE@horiz' to match decel.
 Error: setActionStepLength not applicable for meso
-/scr1/sumo/tests/../tests/complex/traci/vehicle/vehicle/runner.py:193: UserWarning: Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.
+/home/erdm_ja/scr1/sumo/tests/../tests/complex/traci/vehicle/vehicle/runner.py:196: UserWarning: Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.
   traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
-/scr1/sumo/tests/../tests/complex/traci/vehicle/vehicle/runner.py:194: UserWarning: Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.
+/home/erdm_ja/scr1/sumo/tests/../tests/complex/traci/vehicle/vehicle/runner.py:197: UserWarning: Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.
   traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 Error: Answered with error to command 0xc4: Meso Vehicle 'horiz' does not support laneChangeModel parameters.
 Error: setSignals not applicable for meso
-Warning: setStop not yet implemented for meso
 Error: Answered with error to command 0xa4: Meso Vehicle 'horiz' does not support laneChangeModel parameters.
 Error: Answered with error to command 0xa4: Vehicle 'bla' is not known.
-Warning: setStop not yet implemented for meso
 Error: Answered with error to command 0xa4: Meso Vehicle '1' does not support laneChangeModel parameters.
 Error: Answered with error to command 0xa4: Meso Vehicle '2' does not support laneChangeModel parameters.
 Warning: getNextTLS not yet implemented for meso
@@ -104,7 +102,6 @@ Warning: getLeader not yet implemented for meso
 Warning: getStopState not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getStopState not yet implemented for meso
-Warning: setStop not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getStopState not yet implemented for meso
 Warning: getLeader not yet implemented for meso
@@ -133,7 +130,6 @@ Warning: getLeader not yet implemented for meso
 Warning: getStopState not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getStopState not yet implemented for meso
-Warning: setStop not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
@@ -154,7 +150,6 @@ Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
-Warning: setStop not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
@@ -176,7 +171,6 @@ Warning: moveTo not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
-Warning: setStop not yet implemented for meso
 Warning: moveTo not yet implemented for meso
 Warning: moveTo not yet implemented for meso
 Warning: getLeader not yet implemented for meso
@@ -201,7 +195,6 @@ Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getLeader not yet implemented for meso
-Warning: setStop not yet implemented for meso
 Warning: getLeader not yet implemented for meso
 Warning: getStopState not yet implemented for meso
 Warning: getLeader not yet implemented for meso
