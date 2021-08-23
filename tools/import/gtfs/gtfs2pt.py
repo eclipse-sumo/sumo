@@ -58,7 +58,7 @@ def get_options(args=None):
                     help="length for a train stop")
     ap.add_argument("--tram-stop-length", default=60, type=float,
                     help="length for a tram stop")
-    ap.add_argument("--sort",action="store_true", default=False,
+    ap.add_argument("--sort", action="store_true", default=False,
                     help="sorting the output-file")
 
     # ----------------------- fcd options -------------------------------------
@@ -340,13 +340,10 @@ def filter_trips(options, routes, stops, outfile, begin, end):
                                        (veh.id, d, veh.route, veh.type, depart, veh.line))
         outf.write('</routes>\n')
     if options.sort:
-        path = os.path.join(os.environ["SUMO_HOME"], "tools","route", "sort_routes.py")
-        call = "python {} {} -o temp.xml ".format(path, outfile)
-        subprocess.call(call)
-        path_temp = os.path.join(os.getcwd(), "temp.xml")
-        path_old = os.path.join(os.getcwd(), outfile)
-        os.remove(path_old)
-        os.rename(path_temp, path_old)
+        path = os.path.join(os.environ["SUMO_HOME"], "tools", "route", "sort_routes.py")
+        subprocess.call(["python", path, outfile, "-o", "temp.xml"])
+        os.remove(outfile)
+        os.rename("temp.xml", outfile)
 
 
 def main(options):
