@@ -1296,6 +1296,9 @@ struct GNEViewNetHelper {
         /// @brief check if given GLObject is locked for inspect, select, delete and move
         bool isObjectLocked(GUIGlObjectType objectType) const;
 
+        /// @brief update flags
+        void updateFlags();
+
         /// @brief update lock inspect menuBar
         void updateLockMenuBar();
 

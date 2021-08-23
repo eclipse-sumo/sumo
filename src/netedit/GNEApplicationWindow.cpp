@@ -247,6 +247,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_V_PASTE,                        GNEApplicationWindow::onCmdPaste),
     */
 
+    // toolbar lock
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCKELEMENT,                            GNEApplicationWindow::onCmdLockElements),
+
     // Toolbar processing
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,                   GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,                   GNEApplicationWindow::onUpdNeedsNetwork),
@@ -1569,6 +1572,15 @@ GNEApplicationWindow::onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr) 
     // check that currently there is a View
     if (myViewNet) {
         myViewNet->onCmdSetMode(sender, sel, ptr);
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdLockElements(FXObject*, FXSelector sel, void*) {
+    if (myViewNet) {
+        myViewNet->getLockManager().updateFlags();
     }
     return 1;
 }

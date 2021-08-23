@@ -3514,6 +3514,38 @@ GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType) const 
 }
 
 
+void 
+GNEViewNetHelper::LockManager::updateFlags() {
+    // get lock menu commands
+    GNEApplicationWindowHelper::LockMenuCommands &lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
+    // network
+    myLockedNetwork[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunction->getCheck();
+    myLockedNetwork[GLO_EDGE].lock = lockMenuCommands.menuCheckLockEdges->getCheck();
+    myLockedNetwork[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck();
+    myLockedNetwork[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck();
+    myLockedNetwork[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck();
+    myLockedNetwork[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck();
+    myLockedNetwork[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck();
+    myLockedNetwork[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck();
+    myLockedNetwork[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck();
+    // demand
+    myLockedDemand[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck();
+    myLockedDemand[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck();
+    myLockedDemand[GLO_PERSON].lock = lockMenuCommands.menuCheckLockPersons->getCheck();
+    myLockedDemand[GLO_PERSONTRIP].lock = lockMenuCommands.menuCheckLockPersonTrip->getCheck();
+    myLockedDemand[GLO_WALK].lock = lockMenuCommands.menuCheckLockWalk->getCheck();
+    myLockedDemand[GLO_RIDE].lock = lockMenuCommands.menuCheckLockRides->getCheck();
+    myLockedDemand[GLO_CONTAINER].lock = lockMenuCommands.menuCheckLockContainers->getCheck();
+    myLockedDemand[GLO_TRANSPORT].lock = lockMenuCommands.menuCheckLockTransports->getCheck();
+    myLockedDemand[GLO_TRANSHIP].lock = lockMenuCommands.menuCheckLockTranships->getCheck();
+    myLockedDemand[GLO_STOP].lock = lockMenuCommands.menuCheckLockStops->getCheck();
+    // data
+    myLockedData[GLO_EDGEDATA].lock = lockMenuCommands.menuCheckLockEdgeDatas->getCheck();
+    myLockedData[GLO_EDGERELDATA].lock = lockMenuCommands.menuCheckLockEdgeRelDatas->getCheck();
+    myLockedData[GLO_TAZRELDATA].lock = lockMenuCommands.menuCheckLockEdgeTAZRels->getCheck();
+}
+
+
 void
 GNEViewNetHelper::LockManager::updateLockMenuBar() {
     // get lock menu commands

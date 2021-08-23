@@ -405,6 +405,9 @@ public:
     /// @brief get inspected attribute carriers
     const std::vector<GNEAttributeCarrier*>& getInspectedAttributeCarriers() const;
 
+    /// @brief get lock manager
+    GNEViewNetHelper::LockManager& getLockManager();
+
     /// @brief set inspected attributeCarrier
     void setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 

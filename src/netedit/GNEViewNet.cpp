@@ -1230,6 +1230,12 @@ GNEViewNet::getInspectedAttributeCarriers() const {
 }
 
 
+GNEViewNetHelper::LockManager&
+GNEViewNet::getLockManager() {
+    return myLockManager;
+}
+
+
 void
 GNEViewNet::setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
     myInspectedAttributeCarriers = ACs;
