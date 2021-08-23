@@ -30,3 +30,6 @@ edge_1_flow
 
 # checks using departEdge=random with a flow using a fixed route
 edge_random_routeFlow
+
+# checks using invalid departEdge with a flow using a fixed route	
+edge_invalid_routeFlow
