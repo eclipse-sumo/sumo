@@ -48,9 +48,9 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, const std::string& filename, 
-                double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string> &vTypes, 
-                const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, const std::string& filename,
+                double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
+                const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNERerouter();

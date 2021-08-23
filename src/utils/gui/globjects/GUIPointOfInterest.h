@@ -59,8 +59,8 @@ public:
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      */
-    GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, 
-                       const Position& pos, bool geo, const std::string& lane, double posOverLane, 
+    GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color,
+                       const Position& pos, bool geo, const std::string& lane, double posOverLane,
                        bool friendlyPos, double posLat, double layer, double angle, const std::string& imgFile,
                        bool relativePath, double width, double height);
 

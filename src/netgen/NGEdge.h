@@ -96,7 +96,7 @@ public:
      * @param[in] nb The netbuilder to retrieve the referenced nodes from
      * @return The built edge
      */
-    NBEdge* buildNBEdge(NBNetBuilder& nb, const std::string& type, const bool reversed=false) const;
+    NBEdge* buildNBEdge(NBNetBuilder& nb, const std::string& type, const bool reversed = false) const;
 
 
 private:

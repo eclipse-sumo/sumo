@@ -1404,7 +1404,7 @@ public:
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
 
     /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
-    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error = "", bool secondIntersection=false);
+    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error = "", bool secondIntersection = false);
 
     /** returns a modified version of laneShape which starts at the outside of startNode. laneShape may be shorted or extended
      * @note see [wiki:Developer/Network_Building_Process]

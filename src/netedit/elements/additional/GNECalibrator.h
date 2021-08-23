@@ -54,8 +54,8 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, 
-                  const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, const std::map<std::string, std::string> &parameters, 
+    GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
+                  const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters,
                   bool blockMovement);
 
     /**@brief Constructor using lane
@@ -72,8 +72,8 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, 
-                  const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, const std::map<std::string, std::string> &parameters, 
+    GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output,
+                  const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters,
                   bool blockMovement);
 
     /// @brief Destructor
@@ -171,7 +171,7 @@ protected:
 
     /// @brief jamThreshold
     double myJamThreshold;
-    
+
     /// @brief vTypes
     std::vector<std::string> myVTypes;
 

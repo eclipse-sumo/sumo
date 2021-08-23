@@ -32,35 +32,35 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, 
-        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
+                             const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
+                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
-        {}, {edge}, {}, {}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes){
+{}, {edge}, {}, {}, {}, {}, {}, {},
+parameters, blockMovement),
+            myPositionOverLane(pos),
+            myFrequency(frequency),
+            myOutput(output),
+            myRouteProbe(routeprobe),
+            myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, 
-        const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string> &vTypes, 
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
+                             const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
+                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
-        {}, {}, {lane}, {}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes){
+{}, {}, {lane}, {}, {}, {}, {}, {},
+parameters, blockMovement),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -283,7 +283,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTEPROBE:
             return SUMOXMLDefinitions::isValidAdditionalID(value);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
-            return canParse<double>(value)? (parse<double>(value) >= 0) : false;
+            return canParse<double>(value) ? (parse<double>(value) >= 0) : false;
         case SUMO_ATTR_VTYPES:
             if (value.empty()) {
                 return true;

@@ -60,7 +60,7 @@ public:
      * @param[in] begin interval begin
      * @param[in] end interval end
      */
-    virtual void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID, 
+    virtual void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
                                    const double begin, const double end) = 0;
 
     /**@brief Builds edgeData
@@ -68,7 +68,7 @@ public:
      * @param[in] edgeID edge ID
      * @param[in] parameters parameters map
      */
-    virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
+    virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
                                const std::map<std::string, std::string>& parameters) = 0;
 
     /**@brief Builds edgeRelationData
@@ -77,8 +77,8 @@ public:
      * @param[in] toEdge edge to
      * @param[in] parameters parameters map
      */
-    virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, 
-                                       const std::string &toEdgeID, const std::map<std::string, std::string>& parameters) = 0;
+    virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
+                                       const std::string& toEdgeID, const std::map<std::string, std::string>& parameters) = 0;
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -86,8 +86,8 @@ public:
      * @param[in] toTAZ TAZ to
      * @param[in] parameters parameters map
      */
-    virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromTAZID, 
-                                      const std::string &toTAZID, const std::map<std::string, std::string>& parameters) = 0;
+    virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
+                                      const std::string& toTAZID, const std::map<std::string, std::string>& parameters) = 0;
     /// @}
 
 private:
@@ -135,7 +135,7 @@ private:
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;
 
     /// @brief parse string to double
-    static double parseStringToDouble(const std::string &string);
+    static double parseStringToDouble(const std::string& string);
 
     /// @brief invalidate copy constructor
     DataHandler(const DataHandler& s) = delete;

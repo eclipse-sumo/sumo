@@ -950,7 +950,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             tp->myRelY = usableWidth - p->myRelY;
                             tp->myDir = !path->dir;
                             tp->mySpeed = -p->mySpeed;
-						    tp->mySpeedLat = -p->mySpeedLat;
+                            tp->mySpeedLat = -p->mySpeedLat;
                             toDelete.push_back(tp);
                             transformedPeds.push_back(tp);
                             if (path == debugPath) std::cout << "  ped=" << p->myPerson->getID() << "  relX=" << p->myRelX << " relY=" << p->myRelY << " (semi-transformed), vecCoord="

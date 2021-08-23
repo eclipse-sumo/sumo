@@ -33,15 +33,15 @@
 // ===========================================================================
 
 GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        bool movementBlocked) :
+                   const std::vector<GNEJunction*>& junctionParents,
+                   const std::vector<GNEEdge*>& edgeParents,
+                   const std::vector<GNELane*>& laneParents,
+                   const std::vector<GNEAdditional*>& additionalParents,
+                   const std::vector<GNEShape*>& shapeParents,
+                   const std::vector<GNETAZElement*>& TAZElementParents,
+                   const std::vector<GNEDemandElement*>& demandElementParents,
+                   const std::vector<GNEGenericData*>& genericDataParents,
+                   bool movementBlocked) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     myBlockMovement(movementBlocked) {

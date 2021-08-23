@@ -45,7 +45,7 @@ public:
     GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
                       const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                       const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                      const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end, const std::map<std::string, std::string> &parameters);
+                      const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end, const std::map<std::string, std::string>& parameters);
 
     /// @brief destructor
     ~GNECalibratorFlow();

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    AdditionalHandler.h
+/// @file    CommonXMLStructure.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2021
 ///
@@ -55,7 +55,7 @@ public:
         SumoBaseObject* getParentSumoBaseObject() const;
 
         /// @brief get string attribute
-        const std::string &getStringAttribute(const SumoXMLAttr attr) const;
+        const std::string& getStringAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get int attribute
         int getIntAttribute(const SumoXMLAttr attr) const;
@@ -67,30 +67,30 @@ public:
         bool getBoolAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get Position attribute
-        const Position &getPositionAttribute(const SumoXMLAttr attr) const;
+        const Position& getPositionAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get time attribute
         SUMOTime getTimeAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get color attribute
-        const RGBColor &getColorAttribute(const SumoXMLAttr attr) const;
+        const RGBColor& getColorAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get string list attribute
-        const std::vector<std::string> &getStringListAttribute(const SumoXMLAttr attr) const;
+        const std::vector<std::string>& getStringListAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get PositionVector attribute
-        const PositionVector &getPositionVectorAttribute(const SumoXMLAttr attr) const;
+        const PositionVector& getPositionVectorAttribute(const SumoXMLAttr attr) const;
 
         /// @brief get parameters
-        const std::map<std::string, std::string> &getParameters() const;
+        const std::map<std::string, std::string>& getParameters() const;
 
         /// @brief get SumoBaseObject children
-        const std::vector<SumoBaseObject*> &getSumoBaseObjectChildren() const;
+        const std::vector<SumoBaseObject*>& getSumoBaseObjectChildren() const;
         /// @}
 
         /// @brief has function
         /// @{
-        
+
         /// @brief check if current SumoBaseObject has the given string attribute
         bool hasStringAttribute(const SumoXMLAttr attr) const;
 
@@ -123,7 +123,7 @@ public:
         /// @name add functions
         /// @{
         /// @brief add string attribute into current SumoBaseObject node
-        void addStringAttribute(const SumoXMLAttr attr, const std::string &value);
+        void addStringAttribute(const SumoXMLAttr attr, const std::string& value);
 
         /// @brief add int attribute into current SumoBaseObject node
         void addIntAttribute(const SumoXMLAttr attr, const int value);
@@ -135,22 +135,22 @@ public:
         void addBoolAttribute(const SumoXMLAttr attr, const bool value);
 
         /// @brief add Position attribute into current SumoBaseObject node
-        void addPositionAttribute(const SumoXMLAttr attr, const Position &value);
+        void addPositionAttribute(const SumoXMLAttr attr, const Position& value);
 
         /// @brief add time attribute into current SumoBaseObject node
         void addTimeAttribute(const SumoXMLAttr attr, const SUMOTime value);
 
         /// @brief add color attribute into current SumoBaseObject node
-        void addColorAttribute(const SumoXMLAttr attr, const RGBColor &value);
+        void addColorAttribute(const SumoXMLAttr attr, const RGBColor& value);
 
         /// @brief add string list attribute into current SumoBaseObject node
-        void addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value);
+        void addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string>& value);
 
         /// @brief add PositionVector attribute into current SumoBaseObject node
-        void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector &value);
+        void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
         /// @brief add parameter into current SumoBaseObject node
-        void addParameter(const std::string &key, const std::string &value);
+        void addParameter(const std::string& key, const std::string& value);
         /// @}
 
     protected:

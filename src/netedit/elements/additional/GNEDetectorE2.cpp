@@ -34,25 +34,27 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq, 
-        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
-        SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, 
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
-    myLength(length),
-    myEndPositionOverLane(0.),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold),
-    myTrafficLight(trafficLight) {
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq,
+                             const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
+                             SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos,
+                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {
+    lane
+}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
+myLength(length),
+myEndPositionOverLane(0.),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold),
+myJamThreshold(jamThreshold),
+myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq, 
-        const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, 
-        double speedThreshold, double jamThreshold, bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
+                             const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
+                             double speedThreshold, double jamThreshold, bool friendlyPos, const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement),
     myLength(0),
     myEndPositionOverLane(endPos),

@@ -45,39 +45,39 @@ DataHandler::parse() {
 }
 
 
-void 
+void
 DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     // switch tag
     switch (obj->getTag()) {
         // Stopping Places
         case SUMO_TAG_INTERVAL:
             buildDataInterval(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_BEGIN),
-                obj->getDoubleAttribute(SUMO_ATTR_END));
+                              obj->getStringAttribute(SUMO_ATTR_ID),
+                              obj->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                              obj->getDoubleAttribute(SUMO_ATTR_END));
             break;
         case SUMO_TAG_EDGE:
             buildEdgeData(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getParameters());
+                          obj->getStringAttribute(SUMO_ATTR_ID),
+                          obj->getParameters());
             break;
         case SUMO_TAG_EDGEREL:
             buildEdgeRelationData(obj,
-                obj->getStringAttribute(SUMO_ATTR_FROM),
-                obj->getStringAttribute(SUMO_ATTR_TO),
-                obj->getParameters());
+                                  obj->getStringAttribute(SUMO_ATTR_FROM),
+                                  obj->getStringAttribute(SUMO_ATTR_TO),
+                                  obj->getParameters());
             break;
         case SUMO_TAG_TAZREL:
             buildTAZRelationData(obj,
-                obj->getStringAttribute(SUMO_ATTR_FROM),
-                obj->getStringAttribute(SUMO_ATTR_TO),
-                obj->getParameters());
+                                 obj->getStringAttribute(SUMO_ATTR_FROM),
+                                 obj->getStringAttribute(SUMO_ATTR_TO),
+                                 obj->getParameters());
             break;
         default:
             break;
     }
     // now iterate over childrens
-    for (const auto &child : obj->getSumoBaseObjectChildren()) {
+    for (const auto& child : obj->getSumoBaseObjectChildren()) {
         // call this function recursively
         parseSumoBaseObject(child);
     }
@@ -88,7 +88,7 @@ void
 DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // open SUMOBaseOBject 
+    // open SUMOBaseOBject
     myCommonXMLStructure.openSUMOBaseOBject();
     // check tag
     try {
@@ -120,7 +120,7 @@ DataHandler::myEndElement(int element) {
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject 
+    // close SUMOBaseOBject
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (tag) {
@@ -244,15 +244,15 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
 void
 DataHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const {
     // check that parent SUMOBaseObject's tag is the parentTag
-    if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() && 
-        (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
+    if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
+            (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
         WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
         ok = false;
     }
 }
 
 
-double 
+double
 DataHandler::parseStringToDouble(const std::string& string) {
     try {
         return StringUtils::toDouble(string);

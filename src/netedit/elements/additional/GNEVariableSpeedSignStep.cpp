@@ -29,12 +29,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string &speed) :
+GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "",
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
-        std::map<std::string, std::string>(), false),
+{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
+std::map<std::string, std::string>(), false),
     myTime(time),
-    mySpeed(speed) {
+mySpeed(speed) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

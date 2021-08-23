@@ -165,7 +165,7 @@ public:
     }
 
     /// @brief Sets a new shape name
-    inline void setShapeName(const std::string &name) {
+    inline void setShapeName(const std::string& name) {
         myName = name;
     }
 

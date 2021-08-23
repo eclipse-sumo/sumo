@@ -466,7 +466,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         // the total number of lanes is not known but at least one direction
         if (e->myNoLanesForward > 0) {
             numLanesForward = e->myNoLanesForward;
-        } 
+        }
         if (e->myNoLanesForward < 0) {
             numLanesBackward = -e->myNoLanesForward;
         }
@@ -514,8 +514,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             // do not add an additional sidewalk
             sidewalkType = (WayType)(sidewalkType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
         } else if (addForward && (sidewalkType & WAY_BOTH) == 0
-                && numLanesForward == 1 && numLanesBackward <= 1
-                && (e->myExtraDisallowed & SVC_PEDESTRIAN) == 0) {
+                   && numLanesForward == 1 && numLanesBackward <= 1
+                   && (e->myExtraDisallowed & SVC_PEDESTRIAN) == 0) {
             // our typemap says pedestrians should walk here but the data says
             // there is no sidewalk at all. If the road is small, pedestrians can just walk
             // on the road
@@ -529,8 +529,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             // do not add an additional cycle lane
             sidewalkType = (WayType)(sidewalkType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
         } else if (addBackward && (sidewalkType & WAY_BOTH) == 0
-                && numLanesBackward == 1 && numLanesForward <= 1
-                && (e->myExtraDisallowed & SVC_PEDESTRIAN) == 0) {
+                   && numLanesBackward == 1 && numLanesForward <= 1
+                   && (e->myExtraDisallowed & SVC_PEDESTRIAN) == 0) {
             // our typemap says pedestrians should walk here but the data says
             // there is no sidewalk at all. If the road is small, pedestrians can just walk
             // on the road

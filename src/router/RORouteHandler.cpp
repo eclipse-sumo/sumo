@@ -232,8 +232,8 @@ RORouteHandler::myStartElement(int element,
             myActiveContainerPlan->openTag((SumoXMLTag)element);
             (*myActiveContainerPlan) << attrs;
             break;
-        case SUMO_TAG_TRANSPORT: 
-        case SUMO_TAG_TRANSHIP: 
+        case SUMO_TAG_TRANSPORT:
+        case SUMO_TAG_TRANSHIP:
             // copy container elements
             myActiveContainerPlan->openTag((SumoXMLTag)element);
             (*myActiveContainerPlan) << attrs;
@@ -838,7 +838,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 return;
             }
         } else if (ok && ((attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))
-                    || (attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT)))) {
+                          || (attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT)))) {
             Position pos;
             bool geo = false;
             if (attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y)) {

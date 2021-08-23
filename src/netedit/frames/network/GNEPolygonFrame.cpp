@@ -255,7 +255,7 @@ GNEPolygonFrame::show() {
 
 
 bool
-GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool &updateTemporalShape) {
+GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool& updateTemporalShape) {
     // reset updateTemporalShape
     updateTemporalShape = false;
     // check if current selected shape is valid
@@ -390,7 +390,7 @@ GNEPolygonFrame::getDrawingShapeModul() const {
 }
 
 
-void 
+void
 GNEPolygonFrame::createBaseShapeObject(const SumoXMLTag shapeTag) {
     // check if baseShape exist, and if yes, delete it
     if (myBaseShape) {
@@ -471,7 +471,7 @@ GNEPolygonFrame::tagSelected() {
 }
 
 
-void 
+void
 GNEPolygonFrame::addShape() {
     // declare additional handler
     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), "", true);

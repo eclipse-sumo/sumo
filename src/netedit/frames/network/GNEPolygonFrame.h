@@ -108,7 +108,7 @@ public:
      * @param[in] ObjectsUnderCursor objects under cursor after click over view
      * @return AddShapeStatus with the result of operation
      */
-    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool &updateTemporalShape);
+    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool& updateTemporalShape);
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);

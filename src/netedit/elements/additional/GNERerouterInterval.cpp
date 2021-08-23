@@ -31,10 +31,10 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
-        std::map<std::string, std::string>(), false),
+{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
+std::map<std::string, std::string>(), false),
     myBegin(0),
-    myEnd(0) {
+myEnd(0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // fill reroute interval with default values
@@ -44,10 +44,10 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-        {}, {}, {}, {rerouterParent}, {}, {}, {}, {},
-        std::map<std::string, std::string>(), false),
-    myBegin(begin),
-    myEnd(end) {
+{}, {}, {}, {rerouterParent}, {}, {}, {}, {},
+std::map<std::string, std::string>(), false),
+myBegin(begin),
+myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

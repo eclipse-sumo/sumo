@@ -1486,7 +1486,7 @@ GNETAZFrame::shapeDrawed() {
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
             std::vector<std::string> edgeIDs;
             auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
-            for (const auto &AC : ACsInBoundary) {
+            for (const auto& AC : ACsInBoundary) {
                 if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                     edgeIDs.push_back(AC.first);
                 }

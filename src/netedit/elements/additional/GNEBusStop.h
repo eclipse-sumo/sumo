@@ -51,7 +51,7 @@ public:
      */
     GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
-               const RGBColor& color, bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
+               const RGBColor& color, bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEBusStop();

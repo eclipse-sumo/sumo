@@ -196,7 +196,7 @@ SUMOSAXAttributesImpl_Cached::getColor() const {
 }
 
 
-Position 
+Position
 SUMOSAXAttributesImpl_Cached::getPosition(int attr) const {
     // declare string tokenizer
     StringTokenizer st(getString(attr));

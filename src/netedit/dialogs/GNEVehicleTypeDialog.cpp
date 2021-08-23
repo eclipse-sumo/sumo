@@ -851,7 +851,7 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
 
     // 13 create VTypeAttributeRow and Label for Probability
     myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
-    
+
     // 14 create VTypeAttributeRow and Label for LaneChangeModel
     myLaneChangeModel = new VTypeAttributeRow(this, column, SUMO_ATTR_LANE_CHANGE_MODEL, VTypeAttributeRow::RowAttrType::ROWTYPE_COMBOBOX, SUMOXMLDefinitions::LaneChangeModels.getStrings());
 }
@@ -1353,7 +1353,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     // X13 create FX and Label for Startup M begin
     myMbeginRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_M_BEGIN);
     myRows.push_back(myMbeginRow);
-    
+
     // X14 create FX and Label for using vehicle dynamics
     myUseVehDynamicsRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS);
     myRows.push_back(myUseVehDynamicsRow);

@@ -1734,7 +1734,7 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 
 
 bool
-GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXMLTag> &additionalTypeParents) {
+GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXMLTag>& additionalTypeParents) {
     // make sure that we're editing an additional tag
     const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
     for (const auto& tagIt : listOfTags) {
@@ -1762,7 +1762,7 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
     if (myParentTags.size() > 0) {
         // fill list with IDs of additionals
-        for (const auto &ptag : myParentTags) {
+        for (const auto& ptag : myParentTags) {
             for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(ptag)) {
                 myParentsList->appendItem(additional.first.c_str());
             }

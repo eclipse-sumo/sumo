@@ -47,8 +47,8 @@ public:
      * @param[in] vTypes list of vehicle types to be affected
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name, 
-                         const std::vector<std::string> &vTypes, const std::map<std::string, std::string> &parameters,
+    GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
+                         const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters,
                          bool blockMovement);
 
     /// @brief Destructor

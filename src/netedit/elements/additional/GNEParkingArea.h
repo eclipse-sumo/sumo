@@ -49,9 +49,9 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const std::string &departPos, 
-                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const double length, 
-                   double angle, const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const std::string& departPos,
+                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const double length,
+                   double angle, const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingArea();

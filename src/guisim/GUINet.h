@@ -343,7 +343,7 @@ public:
     bool isSelected(const MSTrafficLightLogic* tll) const override;
 
     /// @brief update view after simulation.loadState
-    void updateGUI() const override; 
+    void updateGUI() const override;
 
 private:
     /// @brief Initialises the tl-logic map and wrappers

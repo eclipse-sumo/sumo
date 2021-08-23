@@ -422,7 +422,7 @@ public:
         /// @brief the time at which this stop was ended
         SUMOTime ended = -1;
 
-        /// @brief the lateral offset when stopping 
+        /// @brief the lateral offset when stopping
         double posLat = INVALID_DOUBLE;
 
         /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)

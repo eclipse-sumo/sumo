@@ -32,18 +32,18 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, 
-    const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes, 
-    const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
+                         const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
+                         const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
-        {}, {}, {}, {}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPosition(pos),
-    myFilename(filename),
-    myProbability(probability),
-    myOff(off),
-    myTimeThreshold(timeThreshold),
-    myVTypes(vTypes) {
+{}, {}, {}, {}, {}, {}, {}, {},
+parameters, blockMovement),
+            myPosition(pos),
+            myFilename(filename),
+            myProbability(probability),
+            myOff(off),
+            myTimeThreshold(timeThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -91,7 +91,7 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
     // add shape boundary
     myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // add positions of all childrens
-    for (const auto &additionalChildren : getChildAdditionals()) {
+    for (const auto& additionalChildren : getChildAdditionals()) {
         if (additionalChildren->getTagProperty().isSymbol()) {
             myBoundary.add(additionalChildren->getPositionInView());
         }

@@ -34,8 +34,8 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-        const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color, 
-        bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+                                   const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color,
+                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
     myLines(lines),
     myContainerCapacity(containerCapacity),

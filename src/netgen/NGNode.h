@@ -170,7 +170,7 @@ public:
      * @param[in] node The link to check whether it is connected
      * @return Whether the given node is connected
      */
-    bool connected(const NGNode* const node, const bool withDir=false) const;
+    bool connected(const NGNode* const node, const bool withDir = false) const;
 
 
     /** @brief Returns whether the node has the given position

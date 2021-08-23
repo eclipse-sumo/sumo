@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    AdditionalHandler.h
+/// @file    CommonXMLStructure.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2021
 ///
@@ -48,25 +48,25 @@ CommonXMLStructure::SumoBaseObject::~SumoBaseObject() {
         mySumoBaseObjectParent->removeSumoBaseObjectChild(this);
     }
     // delete all SumoBaseObjectChildrens
-    while(mySumoBaseObjectChildren.size() > 0) {
+    while (mySumoBaseObjectChildren.size() > 0) {
         delete mySumoBaseObjectChildren.back();
     }
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::setTag(const SumoXMLTag tag) {
     myTag = tag;
 }
 
 
-SumoXMLTag 
+SumoXMLTag
 CommonXMLStructure::SumoBaseObject::getTag() const {
     return myTag;
 }
 
 
-CommonXMLStructure::SumoBaseObject* 
+CommonXMLStructure::SumoBaseObject*
 CommonXMLStructure::SumoBaseObject::getParentSumoBaseObject() const {
     return mySumoBaseObjectParent;
 }
@@ -132,7 +132,7 @@ CommonXMLStructure::SumoBaseObject::getTimeAttribute(const SumoXMLAttr attr) con
 }
 
 
-const RGBColor &
+const RGBColor&
 CommonXMLStructure::SumoBaseObject::getColorAttribute(const SumoXMLAttr attr) const {
     if (hasColorAttribute(attr)) {
         return myColorAttributes.at(attr);
@@ -186,7 +186,7 @@ CommonXMLStructure::SumoBaseObject::hasIntAttribute(const SumoXMLAttr attr) cons
 }
 
 
-bool 
+bool
 CommonXMLStructure::SumoBaseObject::hasDoubleAttribute(const SumoXMLAttr attr) const {
     return myDoubleAttributes.count(attr) > 0;
 }
@@ -216,80 +216,80 @@ CommonXMLStructure::SumoBaseObject::hasColorAttribute(const SumoXMLAttr attr) co
 }
 
 
-bool 
+bool
 CommonXMLStructure::SumoBaseObject::hasStringListAttribute(const SumoXMLAttr attr) const {
     return myStringListAttributes.count(attr) > 0;
 }
 
 
-bool 
+bool
 CommonXMLStructure::SumoBaseObject::hasPositionVectorAttribute(const SumoXMLAttr attr) const {
     return myPositionVectorAttributes.count(attr) > 0;
 }
 
 
-void 
-CommonXMLStructure::SumoBaseObject::addStringAttribute(const SumoXMLAttr attr, const std::string &value) {
+void
+CommonXMLStructure::SumoBaseObject::addStringAttribute(const SumoXMLAttr attr, const std::string& value) {
     myStringAttributes[attr] = value;
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::addIntAttribute(const SumoXMLAttr attr, const int value) {
     myIntAttributes[attr] = value;
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::addDoubleAttribute(const SumoXMLAttr attr, const double value) {
     myDoubleAttributes[attr] = value;
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::addBoolAttribute(const SumoXMLAttr attr, const bool value) {
     myBoolAttributes[attr] = value;
 }
 
 
-void 
-CommonXMLStructure::SumoBaseObject::addPositionAttribute(const SumoXMLAttr attr, const Position &value) {
+void
+CommonXMLStructure::SumoBaseObject::addPositionAttribute(const SumoXMLAttr attr, const Position& value) {
     myPositionAttributes[attr] = value;
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::addTimeAttribute(const SumoXMLAttr attr, const SUMOTime value) {
     myTimeAttributes[attr] = value;
 }
 
 
-void 
-CommonXMLStructure::SumoBaseObject::addColorAttribute(const SumoXMLAttr attr, const RGBColor &value) {
+void
+CommonXMLStructure::SumoBaseObject::addColorAttribute(const SumoXMLAttr attr, const RGBColor& value) {
     myColorAttributes[attr] = value;
 }
 
 
-void 
-CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string> &value) {
+void
+CommonXMLStructure::SumoBaseObject::addStringListAttribute(const SumoXMLAttr attr, const std::vector<std::string>& value) {
     myStringListAttributes[attr] = value;
 }
 
 
-void 
-CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector &value) {
+void
+CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value) {
     myPositionVectorAttributes[attr] = value;
 
 }
 
 
-void 
-CommonXMLStructure::SumoBaseObject::addParameter(const std::string &key, const std::string &value) {
+void
+CommonXMLStructure::SumoBaseObject::addParameter(const std::string& key, const std::string& value) {
     myParameters[key] = value;
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject) {
     // just add it into mySumoBaseObjectChildren
     mySumoBaseObjectChildren.push_back(sumoBaseObject);
@@ -337,12 +337,12 @@ CommonXMLStructure::openSUMOBaseOBject() {
         // create new node
         SumoBaseObject* newSumoBaseObject = new SumoBaseObject(myCurrentSumoBaseObject);
         // update last inserted node
-        myCurrentSumoBaseObject = newSumoBaseObject; 
+        myCurrentSumoBaseObject = newSumoBaseObject;
     }
 }
 
 
-void 
+void
 CommonXMLStructure::closeSUMOBaseOBject() {
     // check that myCurrentSumoBaseObject is valid
     if (myCurrentSumoBaseObject) {
@@ -359,13 +359,13 @@ CommonXMLStructure::closeSUMOBaseOBject() {
 }
 
 
-CommonXMLStructure::SumoBaseObject* 
+CommonXMLStructure::SumoBaseObject*
 CommonXMLStructure::getSumoBaseObjectRoot() const {
     return mySumoBaseObjectRoot;
 }
 
 
-CommonXMLStructure::SumoBaseObject* 
+CommonXMLStructure::SumoBaseObject*
 CommonXMLStructure::getCurrentSumoBaseObject() const {
     return myCurrentSumoBaseObject;
 }

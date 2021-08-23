@@ -33,9 +33,9 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, 
-        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color, 
-        bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+                       const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color,
+                       bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
     myLines(lines),
     myPersonCapacity(personCapacity),
@@ -77,7 +77,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // check exaggeration
         if (s.drawAdditionals(busStopExaggeration)) {
             // get width
-            const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
+            const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -106,9 +106,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw lines
                 drawLines(s, myLines, baseColor);
                 // draw sign
-                drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? "H" : "T");
+                drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP)? 0.5 : 0.25);
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             }
             // pop draw matrix
             GLHelper::popMatrix();

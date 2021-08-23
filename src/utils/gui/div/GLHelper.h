@@ -50,7 +50,7 @@ public:
     /// @brief push matrix
     static void pushMatrix();
 
-    /// @brief pop matrix 
+    /// @brief pop matrix
     static void popMatrix();
 
     /// @brief push Name

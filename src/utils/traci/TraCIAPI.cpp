@@ -1588,7 +1588,7 @@ TraCIAPI::SimulationScope::findRoute(const std::string& fromEdge, const std::str
     return getTraCIStage(libsumo::FIND_ROUTE, "", &content);
 }
 
-void 
+void
 TraCIAPI::SimulationScope::loadState(const std::string& path) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_STRING);

@@ -37,14 +37,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos, 
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
+                     const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-        {}, {}, {lane}, {busStop}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPositionOverLane(pos),
-    myLength(length),
-    myFriendlyPosition(friendlyPos) {
+{}, {}, {lane}, {busStop}, {}, {}, {}, {},
+parameters, blockMovement),
+            myPositionOverLane(pos),
+            myLength(length),
+myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

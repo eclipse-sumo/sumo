@@ -42,8 +42,8 @@ public:
      * @param[in] begin The time at which to start generating output
      * @param[in] parameters generic parameters
      */
-    GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name, 
-                  const std::string& filename, SUMOTime begin, const std::map<std::string, std::string> &parameters);
+    GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
+                  const std::string& filename, SUMOTime begin, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNERouteProbe();

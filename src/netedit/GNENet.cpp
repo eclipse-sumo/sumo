@@ -2463,12 +2463,12 @@ GNENet::retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime b
     const std::string beginStr = time2string(begin);
     const std::string endStr = time2string(end);
     // now iterate over all children and check begin and end
-    for (const auto &interval : rerouter->getChildAdditionals()) {
+    for (const auto& interval : rerouter->getChildAdditionals()) {
         // check tag
         if (interval->getTagProperty().getTag() == SUMO_TAG_INTERVAL) {
             // check begin and end
             if ((interval->getAttribute(SUMO_ATTR_BEGIN) == beginStr) &&
-                (interval->getAttribute(SUMO_ATTR_END) == endStr)) {
+                    (interval->getAttribute(SUMO_ATTR_END) == endStr)) {
                 return interval;
             }
         }

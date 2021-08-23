@@ -317,9 +317,9 @@ GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
     const GNELane* lastLane = getLastPathLane();
     // get depart and arrival positions (doubles)
     const double departPosDouble = getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-    const double arrivalPosDouble = (getAttributeDouble(SUMO_ATTR_ARRIVALPOS) < 0)? lastLane->getLaneShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+    const double arrivalPosDouble = (getAttributeDouble(SUMO_ATTR_ARRIVALPOS) < 0) ? lastLane->getLaneShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
     // obtain diameter
-    const double diameter = getAttributeDouble(SUMO_ATTR_WIDTH) > getAttributeDouble(SUMO_ATTR_LENGTH)? getAttributeDouble(SUMO_ATTR_WIDTH) : getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double diameter = getAttributeDouble(SUMO_ATTR_WIDTH) > getAttributeDouble(SUMO_ATTR_LENGTH) ? getAttributeDouble(SUMO_ATTR_WIDTH) : getAttributeDouble(SUMO_ATTR_LENGTH);
     // return move operation depending if we're editing departPos or arrivalPos
     if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_DEPARTPOS)) < (diameter * diameter)) {
         return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE,
@@ -750,10 +750,10 @@ void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // get flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
-    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
+    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && 
+    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     // check conditions
     if (!s.drawForRectangleSelection &&
@@ -866,10 +866,10 @@ void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // get flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
-    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
+    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && 
+    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     // check conditions
     if (!s.drawForRectangleSelection &&
@@ -1174,7 +1174,7 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS: {
             // get first path lane shape
-            const PositionVector &laneShape = getFirstPathLane()->getLaneShape();
+            const PositionVector& laneShape = getFirstPathLane()->getLaneShape();
             // check arrivalPosProcedure
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 if (departPos < 0) {
@@ -1190,7 +1190,7 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
         }
         case SUMO_ATTR_ARRIVALPOS: {
             // get last path lane shape
-            const PositionVector &laneShape = getLastPathLane()->getLaneShape();
+            const PositionVector& laneShape = getLastPathLane()->getLaneShape();
             // check arrivalPosProcedure
             if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
                 if (arrivalPos < 0) {

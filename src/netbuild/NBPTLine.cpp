@@ -276,7 +276,7 @@ NBPTLine::deleteDuplicateStops() {
 
 void
 NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
-    for (auto it = myRoute.begin(); it != myRoute.end(); ) {
+    for (auto it = myRoute.begin(); it != myRoute.end();) {
         NBEdge* e = *it;
         if (ec.retrieve(e->getID())) {
             it++;

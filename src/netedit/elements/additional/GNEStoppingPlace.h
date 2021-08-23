@@ -44,8 +44,8 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const double startPos, 
-                     const double endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string> &parameters,
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const double startPos,
+                     const double endPos, const std::string& name, bool friendlyPosition, const std::map<std::string, std::string>& parameters,
                      bool blockMovement);
 
     /// @brief Destructor

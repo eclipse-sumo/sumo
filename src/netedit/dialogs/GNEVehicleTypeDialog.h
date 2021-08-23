@@ -571,7 +571,7 @@ public:
 
         /// @brief Row for Startup M begin
         CarFollowingModelRow* myMbeginRow;
-        
+
         /// @brief Row for Using vehicle dynamics
         CarFollowingModelRow* myUseVehDynamicsRow;
 

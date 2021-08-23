@@ -421,7 +421,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     if (!changedToNewLane && targetLane != nullptr
             && vehicle->getActionStepLength() > DELTA_T
             && &targetLane->getEdge() == &source->getEdge()
-            ) {
+       ) {
         const int dir = (vehicle->getLaneChangeModel().getManeuverDist() > 0 ? 1 : -1);
         ChangerIt target = from + dir;
         const double actionStepDist = dir * vehicle->getVehicleType().getMaxSpeedLat() * vehicle->getActionStepLengthSecs();

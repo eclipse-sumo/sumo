@@ -665,7 +665,7 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu check to lock POIs
         FXMenuCheckIcon* menuCheckLockPOIs;
-        
+
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode

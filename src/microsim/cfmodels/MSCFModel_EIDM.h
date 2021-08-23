@@ -14,14 +14,12 @@
 /// @file    MSCFModel_EIDM.h
 /// @author  Dominik Salles
 /// @date    Fri, 06 Jul 2018
-/// @version $Id$
 
 /// Originalfile MSCFModel_IDM.cpp from
 /// @author  Tobias Mayer
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Thu, 03 Sep 2009
-/// @version $Id$
 ///
 // The Extended Intelligent Driver Model (EIDM) car-following model
 //
@@ -64,7 +62,7 @@ public:
 
     /// @name Implementations of the MSCFModel interface
     /// @{
-    
+
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * This method is used during the insertion stage. Whereas the method
      * followSpeed returns the desired speed which may be lower than the safe
@@ -139,8 +137,8 @@ public:
      * @todo generic Interface, models can call for the values they need
      */
     double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
-    
-    
+
+
     /** @brief Computes the vehicle's safe speed without a leader
      *
      * Returns the velocity of the vehicle in dependence to the length of the free street and the target
@@ -154,7 +152,7 @@ public:
      * @return EGO's safe speed
      */
     double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                             double maxSpeed, const bool onInsertion = false) const;
+                     double maxSpeed, const bool onInsertion = false) const;
 
     static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion);
 
@@ -167,7 +165,7 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    double interactionGap(const MSVehicle* const , double vL) const;
+    double interactionGap(const MSVehicle* const, double vL) const;
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
       * @param[in] speed EGO's speed

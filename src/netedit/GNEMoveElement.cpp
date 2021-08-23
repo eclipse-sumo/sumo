@@ -32,8 +32,8 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const Position _originalPosition) :
     moveElement(_moveElement),
     originalShape({_originalPosition}),
-    shapeToMove({_originalPosition}),
-    allowChangeLane(false) {
+              shapeToMove({_originalPosition}),
+allowChangeLane(false) {
 }
 
 
@@ -92,9 +92,9 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const bool _allowChangeLane) :
     moveElement(_moveElement),
     firstLane(_firstLane),
-    firstPosition((_firstStartPos != INVALID_DOUBLE)? _firstStartPos * _firstLane->getLengthGeometryFactor() : INVALID_DOUBLE),
+    firstPosition((_firstStartPos != INVALID_DOUBLE) ? _firstStartPos * _firstLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     secondLane(_secondLane),
-    secondPosition((_secondStartPos != INVALID_DOUBLE)? _secondStartPos * _secondLane->getLengthGeometryFactor() : INVALID_DOUBLE),
+    secondPosition((_secondStartPos != INVALID_DOUBLE) ? _secondStartPos * _secondLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     allowChangeLane(_allowChangeLane) {
 }
 
@@ -392,7 +392,7 @@ GNEMoveElement::calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, co
 }
 
 
-void 
+void
 GNEMoveElement::calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // calculate movements over both lanes separately
     if (moveOperation->firstPosition != INVALID_DOUBLE) {
@@ -413,7 +413,7 @@ GNEMoveElement::calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, c
 
 
 void
-GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane* &newLane, double &laneOffset) {
+GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset) {
     // get cursor position
     const Position cursorPosition = viewNet->getPositionInformation();
     // iterate over edge lanes

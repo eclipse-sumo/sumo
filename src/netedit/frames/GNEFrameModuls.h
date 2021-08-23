@@ -400,7 +400,7 @@ public:
         void setIDSelected(const std::string& id);
 
         /// @brief Show list of SelectorParent Modul
-        bool showSelectorParentModul(const std::vector<SumoXMLTag> &additionalTypeParents);
+        bool showSelectorParentModul(const std::vector<SumoXMLTag>& additionalTypeParents);
 
         /// @brief hide SelectorParent Modul
         void hideSelectorParentModul();

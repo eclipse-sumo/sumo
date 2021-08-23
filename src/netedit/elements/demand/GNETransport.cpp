@@ -36,17 +36,17 @@
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE,
-    {}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
-    myLines(lines),
-    myArrivalPosition(arrivalPosition) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
+myLines(lines),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_CONTAINERSTOP,
-    {}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
-    myLines(lines),
-    myArrivalPosition(arrivalPosition) {
+{}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
+myLines(lines),
+myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -222,7 +222,7 @@ GNETransport::getCenteringBoundary() const {
 
 void
 GNETransport::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
-    // Nothing to do 
+    // Nothing to do
 }
 
 

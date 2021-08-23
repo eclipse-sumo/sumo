@@ -1609,7 +1609,7 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     bool differentLaneShapes = false;
     if (isAttributeCarrierSelected()) {
         const auto selectedLanes = myNet->retrieveLanes(true);
-        for (const auto &selectedLane : selectedLanes) {
+        for (const auto& selectedLane : selectedLanes) {
             if (selectedLane->myParentEdge->hasRestrictedLane(SVC_PEDESTRIAN)) {
                 edgeHasSidewalk = true;
             }

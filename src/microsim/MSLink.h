@@ -154,16 +154,16 @@ public:
      * @param[in] length The length of this link
      */
     MSLink(MSLane* predLane,
-            MSLane* succLane,
-            MSLane* via,
-            LinkDirection dir,
-            LinkState state,
-            double length,
-            double foeVisibilityDistance,
-            bool keepClear,
-            MSTrafficLightLogic* logic,
-            int tlLinkIdx,
-            bool indirect);
+           MSLane* succLane,
+           MSLane* via,
+           LinkDirection dir,
+           LinkState state,
+           double length,
+           double foeVisibilityDistance,
+           bool keepClear,
+           MSTrafficLightLogic* logic,
+           int tlLinkIdx,
+           bool indirect);
 
 
     /// @brief Destructor

@@ -29,17 +29,17 @@
 // ===========================================================================
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
-        const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, 
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+                             const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
+                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
-        {}, {}, {}, {}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPosition(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold) {
+{}, {}, {}, {}, {}, {}, {}, {},
+parameters, blockMovement),
+            myPosition(pos),
+            myFreq(freq),
+            myFilename(filename),
+            myVehicleTypes(vehicleTypes),
+            myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -86,7 +86,7 @@ GNEDetectorE3::updateCenteringBoundary(const bool updateGrid) {
     // add shape boundary
     myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // add positions of all childrens
-    for (const auto &additionalChildren : getChildAdditionals()) {
+    for (const auto& additionalChildren : getChildAdditionals()) {
         myBoundary.add(additionalChildren->getPositionInView());
     }
     // grow

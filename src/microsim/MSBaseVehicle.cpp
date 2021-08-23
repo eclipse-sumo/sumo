@@ -1049,8 +1049,8 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         iter2--;
         if (stop.pars.until >= 0 && iter2->pars.until > stop.pars.until) {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
-                + "' set to end at " + time2string(stop.pars.until)
-                + " earlier than previous stop at " + time2string(iter2->pars.until) + ".";
+                       + "' set to end at " + time2string(stop.pars.until)
+                       + " earlier than previous stop at " + time2string(iter2->pars.until) + ".";
         }
     }
     myStops.insert(iter, stop);

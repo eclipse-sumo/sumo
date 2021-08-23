@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETexture_PersonStopSelected.cpp
+/// @file    GNETexture_StopPersonSelected.cpp
 /// @author  Pablo Alvarez
 /// @author  Angelo Banse
 /// @date    2021-04

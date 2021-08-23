@@ -63,7 +63,7 @@ public:
      */
     PointOfInterest(const std::string& id, const std::string& type,
                     const RGBColor& color, const Position& pos, bool geo,
-                    const std::string& lane, double posOverLane, 
+                    const std::string& lane, double posOverLane,
                     bool friendlyPos, double posLat,
                     double layer = DEFAULT_LAYER,
                     double angle = DEFAULT_ANGLE,

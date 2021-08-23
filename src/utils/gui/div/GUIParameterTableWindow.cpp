@@ -268,7 +268,7 @@ void
 GUIParameterTableWindow::checkFont(const std::string& text) {
     bool missingChar = false;
     FXString fxs(text.c_str());
-    for (FXint i=0; i<fxs.length(); i=fxs.inc(i)){
+    for (FXint i = 0; i < fxs.length(); i = fxs.inc(i)) {
         FXwchar wc = fxs.wc(i);
         if (myTable->getFont()->hasChar(wc) != TRUE) {
             missingChar = true;

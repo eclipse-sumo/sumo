@@ -84,7 +84,7 @@ void CALLBACK combCallback(GLdouble coords[3],
 // method definitions
 // ===========================================================================
 
-void 
+void
 GLHelper::pushMatrix() {
     glPushMatrix();
 #ifdef CHECK_PUSHPOP
@@ -93,7 +93,7 @@ GLHelper::pushMatrix() {
 }
 
 
-void 
+void
 GLHelper::popMatrix() {
     glPopMatrix();
 #ifdef CHECK_PUSHPOP
@@ -102,7 +102,7 @@ GLHelper::popMatrix() {
 }
 
 
-void 
+void
 GLHelper::pushName(unsigned int name) {
     glPushName(name);
 #ifdef CHECK_PUSHPOP
@@ -111,7 +111,7 @@ GLHelper::pushName(unsigned int name) {
 }
 
 
-void 
+void
 GLHelper::popName() {
     glPopName();
 #ifdef CHECK_PUSHPOP
@@ -120,7 +120,7 @@ GLHelper::popName() {
 }
 
 
-void 
+void
 GLHelper::checkCounterMatrix() {
 #ifdef CHECK_PUSHPOP
     if (myMatrixCounter != 0) {
@@ -130,7 +130,7 @@ GLHelper::checkCounterMatrix() {
 }
 
 
-void 
+void
 GLHelper::checkCounterName() {
 #ifdef CHECK_PUSHPOP
     if (myNameCounter != 0) {

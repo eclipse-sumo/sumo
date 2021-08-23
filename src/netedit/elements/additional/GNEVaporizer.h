@@ -41,8 +41,8 @@ public:
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name, 
-                 const std::map<std::string, std::string> &parameters);
+    GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
+                 const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEVaporizer();

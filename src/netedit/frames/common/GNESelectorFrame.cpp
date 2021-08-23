@@ -290,7 +290,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     // only continue if there is element for selecting
     if (mySelectorFrameParent->ACsToSelected()) {
         // obtan locks (only for improve code legibly)
-        const auto &locks = mySelectorFrameParent->getViewNet()->getLockManager();
+        const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
         // obtain undoList (only for improve code legibly)
         GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
@@ -1200,12 +1200,12 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check polygons
         if (!myViewNet->getLockManager().isObjectLocked(GLO_POLYGON) &&
-            (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size() > 0)) {
+                (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size() > 0)) {
             return true;
         }
         // check POIs
         if (!myViewNet->getLockManager().isObjectLocked(GLO_POI) &&
-            (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0)) {
+                (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0)) {
             return true;
         }
     } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {

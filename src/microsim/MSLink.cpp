@@ -76,9 +76,9 @@ const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
 // member method definitions
 // ===========================================================================
 MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state,
-        double length, double foeVisibilityDistance, bool keepClear,
-        MSTrafficLightLogic* logic, int tlIndex,
-        bool indirect) :
+               double length, double foeVisibilityDistance, bool keepClear,
+               MSTrafficLightLogic* logic, int tlIndex,
+               bool indirect) :
     myLane(succLane),
     myLaneBefore(predLane),
     myIndex(-1),

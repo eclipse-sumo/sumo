@@ -644,8 +644,8 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
 #ifdef DEBUG_RESPONSE
                     if (DEBUGCOND) {
                         std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
-                            << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)
-                            << "\n";
+                                  << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                                  << "\n";
                     }
 #endif
                     if (indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)) {

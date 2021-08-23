@@ -329,11 +329,11 @@ public:
      */
     virtual RGBColor getColor() const = 0;
 
-     /** @brief Tries to read given attribute assuming it is a Position
-      *
-      * @param[in] attr The id of the attribute to read
-      * @return The read value if given and not empty; empty position if an error occurred
-      */
+    /** @brief Tries to read given attribute assuming it is a Position
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty position if an error occurred
+     */
     virtual Position getPosition(int attr) const = 0;
 
     /** @brief Tries to read given attribute assuming it is a PositionVector

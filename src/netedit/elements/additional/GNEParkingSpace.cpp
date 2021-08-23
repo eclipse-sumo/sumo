@@ -31,17 +31,17 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position &pos, 
-    const std::string &width, const std::string &length, const std::string &angle, double slope, 
-    const std::string &name, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos,
+                                 const std::string& width, const std::string& length, const std::string& angle, double slope,
+                                 const std::string& name, const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPosition(pos),
-    myWidth(width),
-    myLength(length),
-    myAngle(angle),
-    mySlope(slope) {
+{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
+parameters, blockMovement),
+            myPosition(pos),
+            myWidth(width),
+            myLength(length),
+            myAngle(angle),
+mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -77,8 +77,8 @@ GNEParkingSpace::getPositionInView() const {
 void
 GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
     // obtain double values
-    const double width = myWidth.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
-    const double length = myLength.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
+    const double width = myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+    const double length = myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
     // first reset boundary
     myBoundary.reset();
     // add position
@@ -115,9 +115,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain double values
-        const double width = myWidth.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
-        const double length = myLength.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
-        const double angle = myAngle.empty()? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
+        const double width = myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+        const double length = myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
+        const double angle = myAngle.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
         // obtain values with exaggeration
         const double widthExaggeration = width * parkingAreaExaggeration;
         const double lengthExaggeration = length * parkingAreaExaggeration;

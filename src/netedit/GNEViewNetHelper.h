@@ -1305,7 +1305,7 @@ struct GNEViewNetHelper {
     private:
         /// @brief operation locked
         class OperationLocked {
-            
+
         public:
             /// @brief constructor
             OperationLocked();

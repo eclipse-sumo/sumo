@@ -251,7 +251,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
             if (existing != nullptr) {
                 existing->changeStepAndDuration(getTLLogicControlToUse(),
-                        myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
+                                                myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
                 // parameters that are used when initializing a logic will not take
                 // effect but parameters that are checked at runtime can be used
                 // here (i.e. device.glosa.range)

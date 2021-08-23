@@ -65,7 +65,7 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, 
+    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
                   const std::vector<GNEJunction*>& junctionParents,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
@@ -74,7 +74,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string> &parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /**@brief Constructor for additional with parents
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -101,7 +101,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string> &parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAdditional();

@@ -57,12 +57,12 @@ std::vector<std::string> PollutantsInterface::myAllClassesStr;
 // PollutantsInterface::Emissions - methods
 // ---------------------------------------------------------------------------
 
-PollutantsInterface::Emissions::Emissions(double co2, double co, double hc, double f, double nox, double pmx, double elec) : 
-    CO2(co2), 
-    CO(co), 
-    HC(hc), 
+PollutantsInterface::Emissions::Emissions(double co2, double co, double hc, double f, double nox, double pmx, double elec) :
+    CO2(co2),
+    CO(co),
+    HC(hc),
     fuel(f),
-    NOx(nox), 
+    NOx(nox),
     PMx(pmx),
     electricity(elec) {
 }
@@ -92,13 +92,13 @@ PollutantsInterface::Helper::Helper(std::string name, const int baseIndex, const
 }
 
 
-const 
+const
 std::string& PollutantsInterface::Helper::getName() const {
     return myName;
 }
 
 
-SUMOEmissionClass 
+SUMOEmissionClass
 PollutantsInterface::Helper::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     UNUSED_PARAMETER(vc);
     if (myEmissionClassStrings.hasString(eClass)) {
@@ -120,7 +120,7 @@ PollutantsInterface::Helper::isSilent(const SUMOEmissionClass c) {
 }
 
 
-SUMOEmissionClass 
+SUMOEmissionClass
 PollutantsInterface::Helper::getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const {
     UNUSED_PARAMETER(vClass);
     UNUSED_PARAMETER(fuel);
@@ -137,28 +137,28 @@ PollutantsInterface::Helper::getAmitranVehicleClass(const SUMOEmissionClass c) c
 }
 
 
-std::string 
+std::string
 PollutantsInterface::Helper::getFuel(const SUMOEmissionClass c) const {
     UNUSED_PARAMETER(c);
     return "Gasoline";
 }
 
 
-int 
+int
 PollutantsInterface::Helper::getEuroClass(const SUMOEmissionClass c) const {
     UNUSED_PARAMETER(c);
     return 0;
 }
 
 
-double 
+double
 PollutantsInterface::Helper::getWeight(const SUMOEmissionClass c) const {
     UNUSED_PARAMETER(c);
     return -1.;
 }
 
 
-double 
+double
 PollutantsInterface::Helper::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
     UNUSED_PARAMETER(c);
     UNUSED_PARAMETER(e);
@@ -170,7 +170,7 @@ PollutantsInterface::Helper::compute(const SUMOEmissionClass c, const EmissionTy
 }
 
 
-double 
+double
 PollutantsInterface::Helper::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
     UNUSED_PARAMETER(c);
     UNUSED_PARAMETER(v);
@@ -179,13 +179,13 @@ PollutantsInterface::Helper::getModifiedAccel(const SUMOEmissionClass c, const d
 }
 
 
-void 
+void
 PollutantsInterface::Helper::addAllClassesInto(std::vector<SUMOEmissionClass>& list) const {
     myEmissionClassStrings.addKeysInto(list);
 }
 
 
-bool 
+bool
 PollutantsInterface::Helper::includesClass(const SUMOEmissionClass c) const {
     return (c >> 16) == (myBaseIndex >> 16);
 }

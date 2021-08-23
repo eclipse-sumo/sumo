@@ -315,7 +315,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             vehicle->setChosenSpeedFactor(speedFactor);
         }
         router = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);
-    } else if (routingAlgorithm == "CH" && !hasPermissions ) {
+    } else if (routingAlgorithm == "CH" && !hasPermissions) {
         const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : SUMOTime_MAX;
         router = new CHRouter<MSEdge, SUMOVehicle>(
             MSEdge::getAllEdges(), true, myEffortFunc, vehicle == nullptr ? SVC_PASSENGER : vehicle->getVClass(), weightPeriod, true, false);

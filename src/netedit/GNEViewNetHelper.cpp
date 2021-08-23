@@ -3165,8 +3165,8 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     personPlanButton->create();
     // container mode
     containerButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                          "\tcreate container mode\tMode for creating containers. (P)",
-                                          GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myViewNet, MID_HOTKEY_G_MODE_CONTAINER, GUIDesignMFXCheckableButton);
+            "\tcreate container mode\tMode for creating containers. (P)",
+            GUIIconSubSys::getIcon(GUIIcon::MODECONTAINER), myViewNet, MID_HOTKEY_G_MODE_CONTAINER, GUIDesignMFXCheckableButton);
     containerButton->create();
     // container plan mode
     containerPlanButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3504,7 +3504,7 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
 GNEViewNetHelper::LockManager::~LockManager() {}
 
 
-bool 
+bool
 GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType) const {
     if ((objectType >= 100) && (objectType < 199)) {
         return myLockedElements.at(GLO_ADDITIONALELEMENT).lock;
@@ -3514,10 +3514,10 @@ GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType) const 
 }
 
 
-void 
+void
 GNEViewNetHelper::LockManager::updateFlags() {
     // get lock menu commands
-    GNEApplicationWindowHelper::LockMenuCommands &lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
+    GNEApplicationWindowHelper::LockMenuCommands& lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
     // network
     myLockedElements[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunction->getCheck();
     myLockedElements[GLO_EDGE].lock = lockMenuCommands.menuCheckLockEdges->getCheck();
@@ -3549,7 +3549,7 @@ GNEViewNetHelper::LockManager::updateFlags() {
 void
 GNEViewNetHelper::LockManager::updateLockMenuBar() {
     // get lock menu commands
-    GNEApplicationWindowHelper::LockMenuCommands &lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
+    GNEApplicationWindowHelper::LockMenuCommands& lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
     // network
     lockMenuCommands.menuCheckLockJunction->setCheck(myLockedElements[GLO_JUNCTION].lock);
     lockMenuCommands.menuCheckLockEdges->setCheck(myLockedElements[GLO_EDGE].lock);
@@ -3593,7 +3593,7 @@ GNEViewNetHelper::LockManager::OperationLocked::OperationLocked(Supermode superm
 GNEViewNetHelper::LockManager::OperationLocked::~OperationLocked() {}
 
 
-Supermode 
+Supermode
 GNEViewNetHelper::LockManager::OperationLocked::getSupermode() const {
     return mySupermode;
 }

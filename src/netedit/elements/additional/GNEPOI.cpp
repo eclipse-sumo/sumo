@@ -41,13 +41,13 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
-        const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile, 
-        const bool relativePath, const double width, const double height, const std::string &name, 
-        const std::map<std::string, std::string> &parameters, const bool blockMovement) :
+               const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
+               const bool relativePath, const double width, const double height, const std::string& name,
+               const std::map<std::string, std::string>& parameters, const bool blockMovement) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEShape(id, net, GLO_POI, geo? GNE_TAG_POIGEO : SUMO_TAG_POI,
-        {}, {}, {}, {}, {}, {}, {}, {},
-    blockMovement) {
+    GNEShape(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI,
+{}, {}, {}, {}, {}, {}, {}, {},
+blockMovement) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -60,12 +60,12 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
-        const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width, 
-        const double height, const std::string &name, const std::map<std::string, std::string> &parameters, const bool movementBlocked) :
+               const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
+               const double height, const std::string& name, const std::map<std::string, std::string>& parameters, const bool movementBlocked) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
-        {}, {}, {lane}, {}, {}, {}, {}, {},
-        movementBlocked) {
+{}, {}, {lane}, {}, {}, {}, {}, {},
+movementBlocked) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

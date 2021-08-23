@@ -44,8 +44,8 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string &name,
-           const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string& name,
+           const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();

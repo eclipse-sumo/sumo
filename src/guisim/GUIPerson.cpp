@@ -480,10 +480,10 @@ GUIPerson::getGUIPosition(const GUIVisualizationSettings* s) const {
         if (!isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
             return myPositionInVehicle.pos;
         } else if (isWaiting4Vehicle()
-                && s != nullptr
-                && s->gaming
-                && getCurrentStage()->getOriginStop() != nullptr
-                && s->addSize.getExaggeration(s, nullptr) > 1) {
+                   && s != nullptr
+                   && s->gaming
+                   && getCurrentStage()->getOriginStop() != nullptr
+                   && s->addSize.getExaggeration(s, nullptr) > 1) {
             // shift position away from stop center
             Position pos = MSPerson::getPosition();
             Position ref = getCurrentStage()->getOriginStop()->getCenterPos();

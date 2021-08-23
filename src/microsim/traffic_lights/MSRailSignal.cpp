@@ -506,8 +506,7 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::st
 // ===========================================================================
 
 MSRailSignal::LinkInfo::LinkInfo(MSLink* link):
-    myLink(link)
-{
+    myLink(link) {
     reset();
 }
 

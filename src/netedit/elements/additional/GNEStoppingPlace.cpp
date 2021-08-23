@@ -46,14 +46,14 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 // ===========================================================================
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        GNELane* lane, const double startPos, const double endPos, const std::string& name,
-        bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement) :
+                                   GNELane* lane, const double startPos, const double endPos, const std::string& name,
+                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name,
-        {}, {}, {lane}, {}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myFriendlyPosition(friendlyPosition) {
+{}, {}, {lane}, {}, {}, {}, {}, {},
+parameters, blockMovement),
+            myStartPosition(startPos),
+            myEndPosition(endPos),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -79,8 +79,8 @@ GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
 
 bool
 GNEStoppingPlace::isAdditionalValid() const {
-    return GNEAdditionalHandler::checkDoublePositionOverLane(getAttributeDouble(SUMO_ATTR_STARTPOS), getAttributeDouble(SUMO_ATTR_ENDPOS), 
-        getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), myFriendlyPosition);
+    return GNEAdditionalHandler::checkDoublePositionOverLane(getAttributeDouble(SUMO_ATTR_STARTPOS), getAttributeDouble(SUMO_ATTR_ENDPOS),
+            getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), myFriendlyPosition);
 }
 
 
@@ -172,8 +172,8 @@ void
 GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // first check tat both network elements are lanes and originalElement correspond to stoppingPlace lane
     if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
-        (newElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
-        (getParentLanes().front() == originalElement)) {
+            (newElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
+            (getParentLanes().front() == originalElement)) {
         // check if we have to change additional lane depending of split position
         if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
             // calculate middle position

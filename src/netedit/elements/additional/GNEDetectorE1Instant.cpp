@@ -32,9 +32,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string &filename, const std::vector<std::string>& vehicleTypes, 
-        const std::string& name, const bool friendlyPos, const std::map<std::string, std::string> &parameters, const bool blockMovement) :
-    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, {lane}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement) {
+GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::string& name, const bool friendlyPos, const std::map<std::string, std::string>& parameters, const bool blockMovement) :
+    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, {
+    lane
+}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

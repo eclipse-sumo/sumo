@@ -340,7 +340,7 @@ GNEAdditionalFrame::SelectorChildEdges::getEdgeIdsSelected() const {
         // get Selected edges
         std::vector<GNEEdge*> selectedEdges = myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(true);
         // Iterate over selectedEdges and getId
-        for (const auto &edge : selectedEdges) {
+        for (const auto& edge : selectedEdges) {
             vectorOfIds.push_back(edge->getID());
         }
     } else {
@@ -495,7 +495,7 @@ GNEAdditionalFrame::SelectorChildLanes::getLaneIdsSelected() const {
         // get Selected lanes
         std::vector<GNELane*> selectedLanes = myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(true);
         // Iterate over selectedLanes and getId
-        for (const auto &lane : selectedLanes) {
+        for (const auto& lane : selectedLanes) {
             vectorOfIds.push_back(lane->getID());
         }
     } else {
@@ -1162,7 +1162,7 @@ GNEAdditionalFrame::tagSelected() {
 }
 
 
-bool 
+bool
 GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProperty) {
     // check if baseAdditional exist, and if yes, delete it
     if (myBaseAdditional) {

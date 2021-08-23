@@ -281,7 +281,7 @@ long
 GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector, void*) {
     // first check that begin and end are valid
     if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) &&
-        GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
+            GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
         // obtain begin and end
         const double begin = GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
         const double end = GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());

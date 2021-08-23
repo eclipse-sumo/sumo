@@ -100,8 +100,8 @@ typedef std::mt19937 SumoRNG;
  * @brief Utility functions for using a global, resetable random number generator
  */
 class RandHelper {
-    public:
-        /// @brief Initialises the given options container with random number options
+public:
+    /// @brief Initialises the given options container with random number options
     static void insertRandOptions();
 
     /// @brief Initialises the random number generator with hardware randomness or seed

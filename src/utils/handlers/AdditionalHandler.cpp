@@ -47,365 +47,365 @@ AdditionalHandler::parse() {
 }
 
 
-void 
+void
 AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     // switch tag
     switch (obj->getTag()) {
         // Stopping Places
         case SUMO_TAG_BUS_STOP:
             buildBusStop(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_LINES),
-                obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
-                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+                         obj->getStringAttribute(SUMO_ATTR_ID),
+                         obj->getStringAttribute(SUMO_ATTR_LANE),
+                         obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                         obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                         obj->getStringAttribute(SUMO_ATTR_NAME),
+                         obj->getStringListAttribute(SUMO_ATTR_LINES),
+                         obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
+                         obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
+                         obj->getColorAttribute(SUMO_ATTR_COLOR),
+                         obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                         obj->getParameters());
             break;
         case SUMO_TAG_TRAIN_STOP:
             buildTrainStop(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_LINES),
-                obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
-                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+                           obj->getStringAttribute(SUMO_ATTR_ID),
+                           obj->getStringAttribute(SUMO_ATTR_LANE),
+                           obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                           obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                           obj->getStringAttribute(SUMO_ATTR_NAME),
+                           obj->getStringListAttribute(SUMO_ATTR_LINES),
+                           obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
+                           obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
+                           obj->getColorAttribute(SUMO_ATTR_COLOR),
+                           obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                           obj->getParameters());
             break;
         case SUMO_TAG_ACCESS:
             buildAccess(obj,
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+                        obj->getStringAttribute(SUMO_ATTR_LANE),
+                        obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                        obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                        obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                        obj->getParameters());
             break;
         case SUMO_TAG_CONTAINER_STOP:
             buildContainerStop(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_LINES),
-                obj->getIntAttribute(SUMO_ATTR_CONTAINER_CAPACITY),
-                obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+                               obj->getStringAttribute(SUMO_ATTR_ID),
+                               obj->getStringAttribute(SUMO_ATTR_LANE),
+                               obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                               obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                               obj->getStringAttribute(SUMO_ATTR_NAME),
+                               obj->getStringListAttribute(SUMO_ATTR_LINES),
+                               obj->getIntAttribute(SUMO_ATTR_CONTAINER_CAPACITY),
+                               obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
+                               obj->getColorAttribute(SUMO_ATTR_COLOR),
+                               obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                               obj->getParameters());
             break;
         case SUMO_TAG_CHARGING_STATION:
             buildChargingStation(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
-                obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
-                obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
-                obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+                                 obj->getStringAttribute(SUMO_ATTR_ID),
+                                 obj->getStringAttribute(SUMO_ATTR_LANE),
+                                 obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                                 obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                 obj->getStringAttribute(SUMO_ATTR_NAME),
+                                 obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
+                                 obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
+                                 obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
+                                 obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
+                                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                 obj->getParameters());
             break;
         case SUMO_TAG_PARKING_AREA:
             buildParkingArea(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY),
-                obj->getBoolAttribute(SUMO_ATTR_ONROAD),
-                obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                obj->getParameters());
+                             obj->getStringAttribute(SUMO_ATTR_ID),
+                             obj->getStringAttribute(SUMO_ATTR_LANE),
+                             obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                             obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                             obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
+                             obj->getStringAttribute(SUMO_ATTR_NAME),
+                             obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                             obj->getIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY),
+                             obj->getBoolAttribute(SUMO_ATTR_ONROAD),
+                             obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                             obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                             obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                             obj->getParameters());
             break;
         case SUMO_TAG_PARKING_SPACE:
             buildParkingSpace(obj,
-                obj->getDoubleAttribute(SUMO_ATTR_X),
-                obj->getDoubleAttribute(SUMO_ATTR_Y),
-                obj->getDoubleAttribute(SUMO_ATTR_Z),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_WIDTH),
-                obj->getStringAttribute(SUMO_ATTR_LENGTH),
-                obj->getStringAttribute(SUMO_ATTR_ANGLE),
-                obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
-                obj->getParameters());
+                              obj->getDoubleAttribute(SUMO_ATTR_X),
+                              obj->getDoubleAttribute(SUMO_ATTR_Y),
+                              obj->getDoubleAttribute(SUMO_ATTR_Z),
+                              obj->getStringAttribute(SUMO_ATTR_NAME),
+                              obj->getStringAttribute(SUMO_ATTR_WIDTH),
+                              obj->getStringAttribute(SUMO_ATTR_LENGTH),
+                              obj->getStringAttribute(SUMO_ATTR_ANGLE),
+                              obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
+                              obj->getParameters());
             break;
         // Detectors
         case SUMO_TAG_E1DETECTOR:
         case SUMO_TAG_INDUCTION_LOOP:
             // build E1
             buildE1Detector(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+                            obj->getStringAttribute(SUMO_ATTR_ID),
+                            obj->getStringAttribute(SUMO_ATTR_LANE),
+                            obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                            obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                            obj->getStringAttribute(SUMO_ATTR_FILE),
+                            obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                            obj->getStringAttribute(SUMO_ATTR_NAME),
+                            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                            obj->getParameters());
             break;
         case SUMO_TAG_E2DETECTOR:
         case SUMO_TAG_LANE_AREA_DETECTOR:
             if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
                 buildSingleLaneDetectorE2(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_LANE),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                    obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                    obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                    obj->getStringAttribute(SUMO_ATTR_TLID),
-                    obj->getStringAttribute(SUMO_ATTR_FILE),
-                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                    obj->getParameters());
+                                          obj->getStringAttribute(SUMO_ATTR_ID),
+                                          obj->getStringAttribute(SUMO_ATTR_LANE),
+                                          obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                          obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                                          obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                                          obj->getStringAttribute(SUMO_ATTR_TLID),
+                                          obj->getStringAttribute(SUMO_ATTR_FILE),
+                                          obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                          obj->getStringAttribute(SUMO_ATTR_NAME),
+                                          obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                                          obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                                          obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                          obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                          obj->getParameters());
             } else {
                 buildMultiLaneDetectorE2(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringListAttribute(SUMO_ATTR_LANES),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                    obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                    obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                    obj->getStringAttribute(SUMO_ATTR_TLID),
-                    obj->getStringAttribute(SUMO_ATTR_FILE),
-                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                    obj->getParameters());
+                                         obj->getStringAttribute(SUMO_ATTR_ID),
+                                         obj->getStringListAttribute(SUMO_ATTR_LANES),
+                                         obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                         obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                         obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                                         obj->getStringAttribute(SUMO_ATTR_TLID),
+                                         obj->getStringAttribute(SUMO_ATTR_FILE),
+                                         obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                         obj->getStringAttribute(SUMO_ATTR_NAME),
+                                         obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                                         obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                                         obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                         obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                         obj->getParameters());
             }
             break;
         case SUMO_TAG_E3DETECTOR:
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             buildDetectorE3(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                obj->getParameters());
+                            obj->getStringAttribute(SUMO_ATTR_ID),
+                            obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                            obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                            obj->getStringAttribute(SUMO_ATTR_FILE),
+                            obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                            obj->getStringAttribute(SUMO_ATTR_NAME),
+                            obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                            obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                            obj->getParameters());
             break;
         case SUMO_TAG_DET_ENTRY:
             buildDetectorEntry(obj,
-            obj->getStringAttribute(SUMO_ATTR_LANE),
-            obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-            obj->getParameters());
+                               obj->getStringAttribute(SUMO_ATTR_LANE),
+                               obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                               obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                               obj->getParameters());
             break;
         case SUMO_TAG_DET_EXIT:
             buildDetectorExit(obj,
-            obj->getStringAttribute(SUMO_ATTR_LANE),
-            obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-            obj->getParameters());
+                              obj->getStringAttribute(SUMO_ATTR_LANE),
+                              obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                              obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                              obj->getParameters());
             break;
         case SUMO_TAG_INSTANT_INDUCTION_LOOP:
             buildDetectorE1Instant(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                obj->getParameters());
+                                   obj->getStringAttribute(SUMO_ATTR_ID),
+                                   obj->getStringAttribute(SUMO_ATTR_LANE),
+                                   obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                   obj->getStringAttribute(SUMO_ATTR_FILE),
+                                   obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                   obj->getStringAttribute(SUMO_ATTR_NAME),
+                                   obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                   obj->getParameters());
             break;
         // TAZs
         case SUMO_TAG_TAZ:
             buildTAZ(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getParameters());
+                     obj->getStringAttribute(SUMO_ATTR_ID),
+                     obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                     obj->getColorAttribute(SUMO_ATTR_COLOR),
+                     obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                     obj->getStringAttribute(SUMO_ATTR_NAME),
+                     obj->getParameters());
             break;
         case SUMO_TAG_TAZSOURCE:
             buildTAZSource(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
+                           obj->getStringAttribute(SUMO_ATTR_ID),
+                           obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
             break;
         case SUMO_TAG_TAZSINK:
             buildTAZSink(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
+                         obj->getStringAttribute(SUMO_ATTR_ID),
+                         obj->getDoubleAttribute(SUMO_ATTR_WEIGHT));
             break;
         // Variable Speed Sign
         case SUMO_TAG_VSS:
             buildVariableSpeedSign(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getStringListAttribute(SUMO_ATTR_LANES),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getParameters());
+                                   obj->getStringAttribute(SUMO_ATTR_ID),
+                                   obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                                   obj->getStringListAttribute(SUMO_ATTR_LANES),
+                                   obj->getStringAttribute(SUMO_ATTR_NAME),
+                                   obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                   obj->getParameters());
             break;
         case SUMO_TAG_STEP:
             buildVariableSpeedSignStep(obj,
-                obj->getTimeAttribute(SUMO_ATTR_TIME),
-                obj->getStringAttribute(SUMO_ATTR_SPEED));
+                                       obj->getTimeAttribute(SUMO_ATTR_TIME),
+                                       obj->getStringAttribute(SUMO_ATTR_SPEED));
             break;
         // Calibrator
         case SUMO_TAG_CALIBRATOR:
             buildEdgeCalibrator(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_OUTPUT),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
-                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getParameters());
+                                obj->getStringAttribute(SUMO_ATTR_ID),
+                                obj->getStringAttribute(SUMO_ATTR_EDGE),
+                                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                obj->getStringAttribute(SUMO_ATTR_NAME),
+                                obj->getStringAttribute(SUMO_ATTR_OUTPUT),
+                                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                                obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
+                                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                obj->getParameters());
             break;
         case SUMO_TAG_LANECALIBRATOR:
             buildLaneCalibrator(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_LANE),
-                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_OUTPUT),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
-                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getParameters());
+                                obj->getStringAttribute(SUMO_ATTR_ID),
+                                obj->getStringAttribute(SUMO_ATTR_LANE),
+                                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                obj->getStringAttribute(SUMO_ATTR_NAME),
+                                obj->getStringAttribute(SUMO_ATTR_OUTPUT),
+                                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                                obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
+                                obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                obj->getParameters());
             break;
         case SUMO_TAG_FLOW:
             buildCalibratorFlow(obj,
-                obj->getStringAttribute(SUMO_ATTR_TYPE),
-                obj->getStringAttribute(SUMO_ATTR_ROUTE),
-                obj->getStringAttribute(SUMO_ATTR_VEHSPERHOUR),
-                obj->getStringAttribute(SUMO_ATTR_SPEED),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTLANE),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTSPEED),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALLANE),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALSPEED),
-                obj->getStringAttribute(SUMO_ATTR_LINE),
-                obj->getIntAttribute(SUMO_ATTR_NUMBER),
-                obj->getIntAttribute(SUMO_ATTR_CONTAINER_NUMBER),
-                obj->getBoolAttribute(SUMO_ATTR_REROUTE),
-                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS_LAT),
-                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT),
-                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                obj->getTimeAttribute(SUMO_ATTR_END),
-                obj->getParameters());
+                                obj->getStringAttribute(SUMO_ATTR_TYPE),
+                                obj->getStringAttribute(SUMO_ATTR_ROUTE),
+                                obj->getStringAttribute(SUMO_ATTR_VEHSPERHOUR),
+                                obj->getStringAttribute(SUMO_ATTR_SPEED),
+                                obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                obj->getStringAttribute(SUMO_ATTR_DEPARTLANE),
+                                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
+                                obj->getStringAttribute(SUMO_ATTR_DEPARTSPEED),
+                                obj->getStringAttribute(SUMO_ATTR_ARRIVALLANE),
+                                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS),
+                                obj->getStringAttribute(SUMO_ATTR_ARRIVALSPEED),
+                                obj->getStringAttribute(SUMO_ATTR_LINE),
+                                obj->getIntAttribute(SUMO_ATTR_NUMBER),
+                                obj->getIntAttribute(SUMO_ATTR_CONTAINER_NUMBER),
+                                obj->getBoolAttribute(SUMO_ATTR_REROUTE),
+                                obj->getStringAttribute(SUMO_ATTR_DEPARTPOS_LAT),
+                                obj->getStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT),
+                                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                                obj->getTimeAttribute(SUMO_ATTR_END),
+                                obj->getParameters());
             break;
         // Rerouter
         case SUMO_TAG_REROUTER:
             buildRerouter(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getBoolAttribute(SUMO_ATTR_OFF),
-                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                obj->getParameters());
+                          obj->getStringAttribute(SUMO_ATTR_ID),
+                          obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                          obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                          obj->getDoubleAttribute(SUMO_ATTR_PROB),
+                          obj->getStringAttribute(SUMO_ATTR_NAME),
+                          obj->getStringAttribute(SUMO_ATTR_FILE),
+                          obj->getBoolAttribute(SUMO_ATTR_OFF),
+                          obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                          obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                          obj->getParameters());
             break;
         case SUMO_TAG_CLOSING_LANE_REROUTE:
             buildClosingLaneReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
+                                    obj->getStringAttribute(SUMO_ATTR_ID),
+                                    parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
             break;
         case SUMO_TAG_CLOSING_REROUTE:
             buildClosingReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
+                                obj->getStringAttribute(SUMO_ATTR_ID),
+                                parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW), obj->getStringAttribute(SUMO_ATTR_DISALLOW)));
             break;
         case SUMO_TAG_DEST_PROB_REROUTE:
             buildDestProbReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB));
+                                 obj->getStringAttribute(SUMO_ATTR_ID),
+                                 obj->getDoubleAttribute(SUMO_ATTR_PROB));
             break;
         case SUMO_TAG_PARKING_ZONE_REROUTE:
             buildParkingAreaReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                obj->getBoolAttribute(SUMO_ATTR_VISIBLE));
+                                    obj->getStringAttribute(SUMO_ATTR_ID),
+                                    obj->getDoubleAttribute(SUMO_ATTR_PROB),
+                                    obj->getBoolAttribute(SUMO_ATTR_VISIBLE));
             break;
         case SUMO_TAG_ROUTE_PROB_REROUTE:
             buildRouteProbReroute(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getDoubleAttribute(SUMO_ATTR_PROB));
+                                  obj->getStringAttribute(SUMO_ATTR_ID),
+                                  obj->getDoubleAttribute(SUMO_ATTR_PROB));
             break;
         case SUMO_TAG_INTERVAL:
             // check if is VSS or a REROUTER interval
             if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_REROUTER) {
                 buildRerouterInterval(obj,
-                    obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                    obj->getTimeAttribute(SUMO_ATTR_END));
+                                      obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                                      obj->getTimeAttribute(SUMO_ATTR_END));
             } else {
                 buildVariableSpeedSignStep(obj,
-                    obj->getTimeAttribute(SUMO_ATTR_TIME),
-                    obj->getStringAttribute(SUMO_ATTR_SPEED));
+                                           obj->getTimeAttribute(SUMO_ATTR_TIME),
+                                           obj->getStringAttribute(SUMO_ATTR_SPEED));
             }
             break;
         // Route probe
         case SUMO_TAG_ROUTEPROBE:
             buildRouteProbe(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
-                obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getStringAttribute(SUMO_ATTR_FILE),
-                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-            obj->getParameters());
+                            obj->getStringAttribute(SUMO_ATTR_ID),
+                            obj->getStringAttribute(SUMO_ATTR_EDGE),
+                            obj->getTimeAttribute(SUMO_ATTR_FREQUENCY),
+                            obj->getStringAttribute(SUMO_ATTR_NAME),
+                            obj->getStringAttribute(SUMO_ATTR_FILE),
+                            obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                            obj->getParameters());
             break;
         // Vaporizer (deprecated)
         case SUMO_TAG_VAPORIZER:
             buildVaporizer(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                obj->getTimeAttribute(SUMO_ATTR_END),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getParameters());
+                           obj->getStringAttribute(SUMO_ATTR_ID),
+                           obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                           obj->getTimeAttribute(SUMO_ATTR_END),
+                           obj->getStringAttribute(SUMO_ATTR_NAME),
+                           obj->getParameters());
             break;
         // Polygon
         case SUMO_TAG_POLY:
             buildPolygon(obj,
-                obj->getStringAttribute(SUMO_ATTR_ID),
-                obj->getStringAttribute(SUMO_ATTR_TYPE),
-                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                obj->getBoolAttribute(SUMO_ATTR_GEO),
-                obj->getBoolAttribute(SUMO_ATTR_FILL),
-                obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
-                obj->getStringAttribute(SUMO_ATTR_NAME),
-                obj->getParameters());
+                         obj->getStringAttribute(SUMO_ATTR_ID),
+                         obj->getStringAttribute(SUMO_ATTR_TYPE),
+                         obj->getColorAttribute(SUMO_ATTR_COLOR),
+                         obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                         obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                         obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                         obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
+                         obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                         obj->getBoolAttribute(SUMO_ATTR_GEO),
+                         obj->getBoolAttribute(SUMO_ATTR_FILL),
+                         obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
+                         obj->getStringAttribute(SUMO_ATTR_NAME),
+                         obj->getParameters());
             break;
         // POI
         case SUMO_TAG_POI:
@@ -413,60 +413,60 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             if (obj->hasDoubleAttribute(SUMO_ATTR_X)) {
                 // build PO
                 buildPOI(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    obj->getColorAttribute(SUMO_ATTR_COLOR),
-                    obj->getDoubleAttribute(SUMO_ATTR_X),
-                    obj->getDoubleAttribute(SUMO_ATTR_Y),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getParameters());
+                         obj->getStringAttribute(SUMO_ATTR_ID),
+                         obj->getStringAttribute(SUMO_ATTR_TYPE),
+                         obj->getColorAttribute(SUMO_ATTR_COLOR),
+                         obj->getDoubleAttribute(SUMO_ATTR_X),
+                         obj->getDoubleAttribute(SUMO_ATTR_Y),
+                         obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                         obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                         obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                         obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
+                         obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                         obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                         obj->getStringAttribute(SUMO_ATTR_NAME),
+                         obj->getParameters());
             } else if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
                 // build POI over Lane
                 buildPOILane(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    obj->getColorAttribute(SUMO_ATTR_COLOR),
-                    obj->getStringAttribute(SUMO_ATTR_LANE),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                    obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getParameters());
+                             obj->getStringAttribute(SUMO_ATTR_ID),
+                             obj->getStringAttribute(SUMO_ATTR_TYPE),
+                             obj->getColorAttribute(SUMO_ATTR_COLOR),
+                             obj->getStringAttribute(SUMO_ATTR_LANE),
+                             obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                             obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                             obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
+                             obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                             obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                             obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                             obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
+                             obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                             obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                             obj->getStringAttribute(SUMO_ATTR_NAME),
+                             obj->getParameters());
             } else {
                 // build POIGEO
                 buildPOIGeo(obj,
-                    obj->getStringAttribute(SUMO_ATTR_ID),
-                    obj->getStringAttribute(SUMO_ATTR_TYPE),
-                    obj->getColorAttribute(SUMO_ATTR_COLOR),
-                    obj->getDoubleAttribute(SUMO_ATTR_LON),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAT),
-                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                    obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
-                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                    obj->getParameters());
+                            obj->getStringAttribute(SUMO_ATTR_ID),
+                            obj->getStringAttribute(SUMO_ATTR_TYPE),
+                            obj->getColorAttribute(SUMO_ATTR_COLOR),
+                            obj->getDoubleAttribute(SUMO_ATTR_LON),
+                            obj->getDoubleAttribute(SUMO_ATTR_LAT),
+                            obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                            obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                            obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                            obj->getBoolAttribute(SUMO_ATTR_RELATIVEPATH),
+                            obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                            obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                            obj->getStringAttribute(SUMO_ATTR_NAME),
+                            obj->getParameters());
             }
             break;
         default:
             break;
     }
     // now iterate over childrens
-    for (const auto &child : obj->getSumoBaseObjectChildren()) {
+    for (const auto& child : obj->getSumoBaseObjectChildren()) {
         // call this function recursively
         parseSumoBaseObject(child);
     }
@@ -477,7 +477,7 @@ void
 AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // open SUMOBaseOBject 
+    // open SUMOBaseOBject
     myCommonXMLStructure.openSUMOBaseOBject();
     // check tag
     try {
@@ -608,7 +608,7 @@ AdditionalHandler::myEndElement(int element) {
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject 
+    // close SUMOBaseOBject
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (tag) {
@@ -888,7 +888,7 @@ AdditionalHandler::parseParkingSpaceAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LENGTH, length);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SLOPE, slope);
-    } 
+    }
 }
 
 
@@ -1190,7 +1190,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     bool parsedOk = true;
     // needed attributes
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk);
-     // optional attributes
+    // optional attributes
     const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "");
     // check parent
     checkParent(SUMO_TAG_STEP, {SUMO_TAG_VSS}, parsedOk);
@@ -1211,7 +1211,7 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // check that frecuency and trafficLight aren't defined together
     if ((attrs.hasAttribute(SUMO_ATTR_EDGE) && attrs.hasAttribute(SUMO_ATTR_LANE)) ||
-        (!attrs.hasAttribute(SUMO_ATTR_EDGE) && !attrs.hasAttribute(SUMO_ATTR_LANE))) {
+            (!attrs.hasAttribute(SUMO_ATTR_EDGE) && !attrs.hasAttribute(SUMO_ATTR_LANE))) {
         WRITE_ERROR("Calibrators need either an edge or a lane");
         parsedOk = false;
     }
@@ -1522,7 +1522,7 @@ AdditionalHandler::parseVaporizerAttributes(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
+void
 AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
@@ -1561,25 +1561,25 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
+void
 AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // check that x and y are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_X) && !attrs.hasAttribute(SUMO_ATTR_Y)) ||
-        (!attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))) {
+            (!attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))) {
         WRITE_ERROR("X and Y must be be defined together in POIs");
         parsedOk = false;
     }
     // check that lane and pos are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_POSITION)) ||
-        (!attrs.hasAttribute(SUMO_ATTR_LANE) && attrs.hasAttribute(SUMO_ATTR_POSITION))) {
+            (!attrs.hasAttribute(SUMO_ATTR_LANE) && attrs.hasAttribute(SUMO_ATTR_POSITION))) {
         WRITE_ERROR("lane and position must be be defined together in POIs");
         parsedOk = false;
     }
     // check that lon and lat are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_LON) && !attrs.hasAttribute(SUMO_ATTR_LAT)) ||
-        (!attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT))) {
+            (!attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT))) {
         WRITE_ERROR("lon and lat must be be defined together in POIs");
         parsedOk = false;
     }
@@ -1636,7 +1636,7 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
+void
 AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
@@ -1673,12 +1673,12 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag> &parentTags, bool& ok) const {
+AdditionalHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) const {
     // check that parent SUMOBaseObject's tag is the parentTag
     CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
-    if ((parent != nullptr) && 
-        (parentTags.size() > 0) &&
-        (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
+    if ((parent != nullptr) &&
+            (parentTags.size() > 0) &&
+            (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
         const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
         WRITE_ERROR("'" + toString(currentTag) + "' must be defined within the definition of a '" + toString(parentTags.front()) + "' (found '" + toString(parent->getTag()) + "'" + id + ").");
         ok = false;

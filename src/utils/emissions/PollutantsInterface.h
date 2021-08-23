@@ -139,7 +139,7 @@ public:
          * @param[in] weight the vehicle weight in kg as described in the Amitran interface
          * @return the class described by the parameters
          */
-        virtual SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, 
+        virtual SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel,
                                            const std::string& eClass, const double weight) const;
 
         /** @brief Returns the vehicle class described by this emission class as described in the Amitran interface (Passenger, ...)

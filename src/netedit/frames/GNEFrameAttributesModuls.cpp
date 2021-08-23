@@ -685,7 +685,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
     // get standard parameters
     for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
         if (myAttributesCreatorRows.at(i) && myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
-            const auto &attrProperties = myAttributesCreatorRows.at(i)->getAttrProperties();
+            const auto& attrProperties = myAttributesCreatorRows.at(i)->getAttrProperties();
             // flag for row enabled
             bool rowEnabled = myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled();
             // flag for default attributes
@@ -726,7 +726,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
 }
 
 
-std::map<SumoXMLAttr, std::string> 
+std::map<SumoXMLAttr, std::string>
 GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValuesTemporal(bool includeAll) const {
     std::map<SumoXMLAttr, std::string> values;
     // get standard parameters
@@ -1383,7 +1383,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             // finish change multiple attributes
             if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
                 myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
-            }   
+            }
             // update frame parent after attribute sucesfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
         }

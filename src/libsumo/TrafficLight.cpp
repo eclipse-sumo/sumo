@@ -502,7 +502,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
 #ifdef DEBUG_CONSTRAINT_DEADLOCK
                         std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << "\n";
                         std::cout << "  egoLeaderDeadlock foe2Edge=" << foe2->getEdge()->getID() << " foe2=" << foe2->getParameter().getParameter("tripId", foe2->getID())
-                            << " " << c.getString() << "\n";
+                                  << " " << c.getString() << "\n";
 #endif
                         // foe is already waiting for tripId (ego) and should also wait for foeId2
                         TraCISignalConstraint nc; // constraint after swap

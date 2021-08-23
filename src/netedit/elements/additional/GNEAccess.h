@@ -47,8 +47,8 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, 
-              bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length,
+              bool friendlyPos, const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAccess();

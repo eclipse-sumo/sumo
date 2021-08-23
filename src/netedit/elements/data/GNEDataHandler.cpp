@@ -52,7 +52,7 @@ GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool 
 GNEDataHandler::~GNEDataHandler() {}
 
 
-void 
+void
 GNEDataHandler::buildDataSet(const std::string& dataSetID) {
     // first check if dataSet exist
     if (myNet->retrieveDataSet(dataSetID, false) == nullptr) {
@@ -71,8 +71,8 @@ GNEDataHandler::buildDataSet(const std::string& dataSetID) {
 
 
 void
-GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */, 
-    const std::string& dataSetID, const double begin, const double end) {
+GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */,
+                                  const std::string& dataSetID, const double begin, const double end) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(dataSetID, false);
     // first check if dataSet exist
@@ -103,18 +103,18 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
 
 
 void
-GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
-    const std::map<std::string, std::string>& parameters) {
+GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
+                              const std::map<std::string, std::string>& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
-            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
-            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get data
-            GNEEdge *edge = myNet->retrieveEdge(edgeID, false);
+            GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
             if (edge) {
                 GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
                 if (myAllowUndoRedo) {
@@ -139,19 +139,19 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
 
 
 void
-GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, 
-    const std::string &toEdgeID, const std::map<std::string, std::string>& parameters) {
+GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
+                                      const std::string& toEdgeID, const std::map<std::string, std::string>& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
-            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
-            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get data
-            GNEEdge *fromEdge = myNet->retrieveEdge(fromEdgeID, false);
-            GNEEdge *toEdge = myNet->retrieveEdge(toEdgeID, false);
+            GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+            GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
             if (fromEdge && toEdge) {
                 GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
                 if (myAllowUndoRedo) {
@@ -176,20 +176,20 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
 }
 
 
-void 
-GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromTAZID, 
-    const std::string &toTAZID, const std::map<std::string, std::string>& parameters) {
+void
+GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
+                                     const std::string& toTAZID, const std::map<std::string, std::string>& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
-            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
-            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get data
-            GNETAZElement *fromTAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZID, false);
-            GNETAZElement *toTAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, toTAZID, false);
+            GNETAZElement* fromTAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZID, false);
+            GNETAZElement* toTAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, toTAZID, false);
             if (fromTAZ && toTAZ) {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
                 if (myAllowUndoRedo) {
@@ -215,7 +215,7 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
 
 
 void
-GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const {
+GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) const {
     WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; declared twice.");
 }
 

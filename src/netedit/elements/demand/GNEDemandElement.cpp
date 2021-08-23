@@ -397,8 +397,8 @@ bool
 GNEDemandElement::drawPersonPlan() const {
     // check conditions
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-        myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+            myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+            myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans in network mode
         return true;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
@@ -433,8 +433,8 @@ bool
 GNEDemandElement::drawContainerPlan() const {
     // check conditions
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-        myNet->getViewNet()->getDemandViewOptions().showAllContainerPlans()) {
+            myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+            myNet->getViewNet()->getDemandViewOptions().showAllContainerPlans()) {
         // show all container plans in network mode
         return true;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&

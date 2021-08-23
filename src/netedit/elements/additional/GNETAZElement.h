@@ -70,7 +70,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string> &parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /**@brief Constructor used by TAZElements that have two TAZElements as parent
      * @param[in] TAZElementParent pointer to parent TAZElement pointer (used to generate an ID)
@@ -97,7 +97,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string> &parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief Destructor
     virtual ~GNETAZElement();

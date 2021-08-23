@@ -283,8 +283,8 @@ GNERoute::computePathElement() {
         // declare lane vector
         std::vector<GNELane*> lanes;
         // get first and last path lane
-        GNELane *firstLane = parentVehicle->getFirstPathLane();
-        GNELane *lastLane = parentVehicle->getLastPathLane();
+        GNELane* firstLane = parentVehicle->getFirstPathLane();
+        GNELane* lastLane = parentVehicle->getLastPathLane();
         // insert first vehicle lane
         if (firstLane) {
             lanes.push_back(firstLane);

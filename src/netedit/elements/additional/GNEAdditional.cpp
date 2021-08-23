@@ -34,16 +34,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, 
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
+                             const std::vector<GNEJunction*>& junctionParents,
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNETAZElement*>& TAZElementParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEGenericData*>& genericDataParents,
+                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
@@ -53,16 +53,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
 }
 
 
-GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, 
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
+GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
+                             const std::vector<GNEJunction*>& junctionParents,
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNETAZElement*>& TAZElementParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEGenericData*>& genericDataParents,
+                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),

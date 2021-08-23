@@ -195,7 +195,7 @@ MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
         for (int i = 0; i < (int)myPriorEdges.size(); i++) {
             if (i == 0) {
                 priorEdgesLength += myPriorEdges.at(i)->getLength();
-            } else if (myPriorEdges.at(i)->getID() != myPriorEdges.at(i-1)->getID()) {
+            } else if (myPriorEdges.at(i)->getID() != myPriorEdges.at(i - 1)->getID()) {
                 priorEdgesLength += myPriorEdges.at(i)->getLength();
             }
         }

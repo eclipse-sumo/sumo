@@ -55,7 +55,7 @@ public:
      * @param[in] begin interval begin
      * @param[in] end interval end
      */
-    void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID, 
+    void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
                            const double begin, const double end);
 
     /**@brief Builds edgeData
@@ -63,7 +63,7 @@ public:
      * @param[in] edgeID edge ID
      * @param[in] parameters parameters map
      */
-    void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &edgeID, 
+    void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
                        const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds edgeRelationData
@@ -72,8 +72,8 @@ public:
      * @param[in] toEdge edge to
      * @param[in] parameters parameters map
      */
-    void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, 
-                               const std::string &toEdgeID, const std::map<std::string, std::string>& parameters);
+    void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
+                               const std::string& toEdgeID, const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -81,8 +81,8 @@ public:
      * @param[in] toTAZ TAZ to
      * @param[in] parameters parameters map
      */
-    void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromTAZID, 
-                              const std::string &toTAZID, const std::map<std::string, std::string>& parameters);
+    void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
+                              const std::string& toTAZID, const std::map<std::string, std::string>& parameters);
     /// @}
 
 protected:
@@ -93,7 +93,7 @@ protected:
     const bool myAllowUndoRedo;
 
     /// @brief write error "duplicated additional"
-    void writeErrorDuplicated(const SumoXMLTag tag, const std::string &id) const;
+    void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) const;
 
     /// @brief write error "invalid parent element"
     void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;

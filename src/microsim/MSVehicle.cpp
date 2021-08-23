@@ -436,7 +436,7 @@ MSVehicle::Influencer::getSpeedMode() const {
             8 * myRespectJunctionPriority +
             16 * myEmergencyBrakeRedLight +
             32 * !myRespectJunctionLeaderPriority // inverted!
-            );
+           );
 }
 
 
@@ -2367,7 +2367,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 && lane->getBidiLane() != nullptr
                 && (*link)->getLane()->getBidiLane() == lane) {
             double vMustReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
-            if (seen < 1 ) {
+            if (seen < 1) {
                 mustSeeBeforeReversal = 2 * seen + getLength();
             }
             v = MIN2(v, vMustReverse);
@@ -2958,11 +2958,11 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
             if (DEBUG_COND) {
                 std::cout << "    driving up to the crossing point (distToCrossing=" << distToCrossing << ")"
-                    << " leaderPastCPTime=" << leaderPastCPTime
-                    << " vFinal=" << vFinal
-                    << " v2=" << v2
-                    << " vStop=" << vStop
-                    << " vsafeLeader=" << vsafeLeader << "\n";
+                          << " leaderPastCPTime=" << leaderPastCPTime
+                          << " vFinal=" << vFinal
+                          << " v2=" << v2
+                          << " vStop=" << vStop
+                          << " vsafeLeader=" << vsafeLeader << "\n";
             }
 #endif
         }
@@ -3566,8 +3566,8 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 
         // ensure that the vehicle is fully on bidi edges that allow reversal
         const int neededFutureRoute = 1 + (int)(MSGlobals::gUsingInternalLanes
-            ? myFurtherLanes.size()
-            : ceil(myFurtherLanes.size() / 2.0));
+                                                ? myFurtherLanes.size()
+                                                : ceil(myFurtherLanes.size() / 2.0));
         const int remainingRoute = int(myRoute->end() - myCurrEdge) - 1;
         if (remainingRoute < neededFutureRoute) {
 #ifdef DEBUG_REVERSE_BIDI

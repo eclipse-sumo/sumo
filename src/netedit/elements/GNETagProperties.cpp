@@ -94,7 +94,7 @@ GNETagProperties::checkTagIntegrity() const {
         throw FormatException("Tag doesn't support master elements");
     }
     // check integrity of all attributes
-    for (const auto &attributeProperty : myAttributeProperties) {
+    for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty.checkAttributeIntegrity();
         // check that if attribute is vehicle classes, own a combination of Allow/disallow attibute
         if (attributeProperty.isVClasses()) {
@@ -135,7 +135,7 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
         throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
         // Check that attribute wasn't already inserted
-        for (const auto &attrProperty : myAttributeProperties) {
+        for (const auto& attrProperty : myAttributeProperties) {
             if (attributeProperty.getAttr() == attrProperty.getAttr()) {
                 throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
             }
@@ -150,7 +150,7 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
 void
 GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
     // Check that attribute wasn't already inserted
-    for (const auto &attributeProperty : myAttributeProperties) {
+    for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty.getAttr() == attr) {
             throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
         }

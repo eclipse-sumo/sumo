@@ -1183,7 +1183,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
 
 void
 GNERouteHandler::buildTransport(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                           GNEAdditional* toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
+                                GNEAdditional* toBusStop, const std::vector<std::string>& lines, const double arrivalPos) {
     // declare transport
     GNEDemandElement* transport = nullptr;
     // create transport depending of parameters
@@ -1231,7 +1231,7 @@ GNERouteHandler::buildTransport(GNENet* net, bool undoDemandElements, GNEDemandE
 
 void
 GNERouteHandler::buildTranship(GNENet* net, bool undoDemandElements, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                           GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, const double speed, double departPosition, double arrivalPosition) {
+                               GNEAdditional* toBusStop, const std::vector<GNEEdge*>& edges, const double speed, double departPosition, double arrivalPosition) {
     // declare tranship
     GNEDemandElement* tranship = nullptr;
     // create tranship depending of parameters

@@ -63,7 +63,7 @@ GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC,
 }
 
 
-GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow, bool *acceptChanges) :
+GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow, bool* acceptChanges) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(nullptr),

@@ -1597,9 +1597,9 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // supermode network
             if ((myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_INSPECT) ||
-                (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
-                (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) ||
-                (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+                    (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
+                    (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) ||
+                    (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
                 myLockMenuTitle->enable();
             } else {
                 myLockMenuTitle->disable();
@@ -1607,18 +1607,18 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // supermode demand
             if ((myViewNet->getEditModes().demandEditMode == DemandEditMode::DEMAND_INSPECT) ||
-                (myViewNet->getEditModes().demandEditMode == DemandEditMode::DEMAND_SELECT) ||
-                (myViewNet->getEditModes().demandEditMode == DemandEditMode::DEMAND_DELETE) ||
-                (myViewNet->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE)) {
+                    (myViewNet->getEditModes().demandEditMode == DemandEditMode::DEMAND_SELECT) ||
+                    (myViewNet->getEditModes().demandEditMode == DemandEditMode::DEMAND_DELETE) ||
+                    (myViewNet->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE)) {
                 myLockMenuTitle->enable();
             } else {
                 myLockMenuTitle->disable();
-            } 
+            }
         } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
             // supermode data
             if ((myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||
-                (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT) ||
-                (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE)) {
+                    (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT) ||
+                    (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE)) {
                 myLockMenuTitle->enable();
             } else {
                 myLockMenuTitle->disable();
@@ -3661,7 +3661,7 @@ GNEApplicationWindow::getEditMenuCommands() {
     return myEditMenuCommands;
 }
 
-   
+
 GNEApplicationWindowHelper::LockMenuCommands&
 GNEApplicationWindow::getLockMenuCommands() {
     return myLockMenuCommands;

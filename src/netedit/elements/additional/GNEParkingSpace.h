@@ -49,9 +49,9 @@ public:
      * @param[in] parameters generic parameters
      * @param[in] blockMovement enable or disable additional movement
      */
-    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position &pos, const std::string &width, 
-                    const std::string &length, const std::string &angle, double slope, const std::string &name, 
-                    const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, const std::string& width,
+                    const std::string& length, const std::string& angle, double slope, const std::string& name,
+                    const std::map<std::string, std::string>& parameters, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();

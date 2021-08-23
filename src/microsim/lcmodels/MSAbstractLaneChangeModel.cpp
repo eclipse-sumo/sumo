@@ -403,7 +403,7 @@ MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
     // maneuverDist is not updated in the context of continuous lane changing but represents the full LC distance
     double maneuverDist = getManeuverDist();
-    setSpeedLat(computeSpeedLat(0, maneuverDist, (myOwnState & LCA_URGENT) != 0 ));
+    setSpeedLat(computeSpeedLat(0, maneuverDist, (myOwnState & LCA_URGENT) != 0));
     myLaneChangeCompletion += (SPEED2DIST(mySpeedLat) / myManeuverDist);
     return !pastBefore && pastMidpoint();
 }
@@ -820,8 +820,8 @@ MSAbstractLaneChangeModel::remainingTime() const {
     // Using maxSpeedLat(Factor/Standing)
     const bool urgent = (myOwnState & LCA_URGENT) != 0;
     return TIME2STEPS(estimateLCDuration(myVehicle.getSpeed(),
-                fabs(myManeuverDist * (1 - myLaneChangeCompletion)),
-                myVehicle.getCarFollowModel().getMaxDecel(), urgent));
+                                         fabs(myManeuverDist * (1 - myLaneChangeCompletion)),
+                                         myVehicle.getCarFollowModel().getMaxDecel(), urgent));
 }
 
 

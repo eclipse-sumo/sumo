@@ -39,18 +39,17 @@ public:
         myLane(lane),
         myForward(forward),
         myStartPos(pos >= 0 ? pos : (forward ? 0. : edge->getLength())),
-        myIsOpposite(false) 
-        { 
-            if (!forward && (
-                        edge->getFunction() == SumoXMLEdgeFunc::NORMAL
-                        || edge->getFunction() == SumoXMLEdgeFunc::INTERNAL)) {
-                const L* sidewalk = getSidewalk<E, L>(edge);
-                if (sidewalk != nullptr && sidewalk->getPermissions() != SVC_PEDESTRIAN) {
-                    // some non-pedestrian traffic is allowed
-                    myIsOpposite = true;
-                }
+        myIsOpposite(false) {
+        if (!forward && (
+                    edge->getFunction() == SumoXMLEdgeFunc::NORMAL
+                    || edge->getFunction() == SumoXMLEdgeFunc::INTERNAL)) {
+            const L* sidewalk = getSidewalk<E, L>(edge);
+            if (sidewalk != nullptr && sidewalk->getPermissions() != SVC_PEDESTRIAN) {
+                // some non-pedestrian traffic is allowed
+                myIsOpposite = true;
             }
         }
+    }
 
     bool includeInRoute(bool allEdges) const {
         return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea() && !this->getEdge()->isInternal());
