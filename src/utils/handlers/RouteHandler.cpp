@@ -790,6 +790,15 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSA
     }
     // get parameters
     bool ok = true;
+    // edge/lane
+    stop.edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, nullptr, ok, "");
+    stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, stop.busstop);
+    // check errors
+    if ((stop.edge.empty() && stop.lane.empty()) || (stop.edge.empty() && stop.lane.empty())) {
+        WRITE_ERROR("A stop must be defined either with an edge or with an lane");
+        return false;
+    }
+    // stopping places
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop);
     stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
@@ -808,6 +817,8 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSA
         errorSuffix = " at '" + stop.containerstop + "'" + errorSuffix;
     } else if (stop.parkingarea != "") {
         errorSuffix = " at '" + stop.parkingarea + "'" + errorSuffix;
+    } else if (stop.edge != "") {
+        errorSuffix = " at '" + stop.edge + "'" + errorSuffix;
     } else {
         errorSuffix = " on lane '" + stop.lane + "'" + errorSuffix;
     }
