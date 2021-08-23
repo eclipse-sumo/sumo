@@ -1303,13 +1303,7 @@ struct GNEViewNetHelper {
         bool isSelectLocked(GUIGlObjectType objectType) const;
 
         /// @brief update lock inspect menuBar
-        void updateLockInspectMenuBar();
-
-         /// @brief update lock select menuBar
-        void updateLockSelectMenuBar();
-
-         /// @brief update lock delete menuBar
-        void updateLockDeleteMenuBar();
+        void updateLockMenuBar();
 
     private:
         /// @brief operation locked

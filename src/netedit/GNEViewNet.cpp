@@ -3558,7 +3558,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
             // update lock menu bar
-            myLockManager.updateLockInspectMenuBar();
+            myLockManager.updateLockMenuBar();
             // show
             break;
         case NetworkEditMode::NETWORK_DELETE:
@@ -3573,8 +3573,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
-            // update lock menu bar
-            myLockManager.updateLockDeleteMenuBar();
             break;
         case NetworkEditMode::NETWORK_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3589,8 +3587,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
             menuChecks.menuCheckExtendSelection->show();
-            // update lock menu bar
-            myLockManager.updateLockSelectMenuBar();
             break;
         // specific modes
         case NetworkEditMode::NETWORK_CREATE_EDGE:
