@@ -32,3 +32,21 @@ pastStops_stateLoaded
 
 # set rerouting device parameter period
 setReroutingPeriod
+
+# test timing of slowDown command
+slowDown
+
+# test timing of slowDown command
+slowDown_subsecond
+
+# test ignoring specific foes ids and foe types
+junctionModel.ignore
+
+# test bit5 (ignore foes within junction)
+ignoreJunctionFoes
+
+# add a vehicle with triggered departure
+departTriggered
+
+# test removing and re-inserting the same vehicle id in a single simulation step (#5647)
+remove_reinsert

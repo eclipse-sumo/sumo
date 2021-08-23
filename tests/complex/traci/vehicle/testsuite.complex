@@ -110,3 +110,6 @@ ignoreJunctionFoes
 
 # add a vehicle with triggered departure
 departTriggered
+
+# test removing and re-inserting the same vehicle id in a single simulation step (#5647)
+remove_reinsert
