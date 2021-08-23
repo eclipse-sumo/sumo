@@ -1710,6 +1710,7 @@ Vehicle::remove(const std::string& vehID, char reason) {
             }
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         }
+        MSNet::getInstance()->getVehicleControl().removePending();
     } else {
         MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
         MSNet::getInstance()->getVehicleControl().deleteVehicle(veh, true);
