@@ -337,6 +337,30 @@ CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParamet
 void
 CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop &stopParameter) {
     myStopParameter = stopParameter;
+    // set attribute edge
+    if (!stopParameter.edge.empty()) {
+        addStringAttribute(SUMO_ATTR_ID, stopParameter.edge);
+    }
+    // set attribute lane
+    if (!stopParameter.lane.empty()) {
+        addStringAttribute(SUMO_ATTR_LANE, stopParameter.lane);
+    }
+    // set attribute busStop
+    if (!stopParameter.busstop.empty()) {
+        addStringAttribute(SUMO_ATTR_BUS_STOP, stopParameter.busstop);
+    }
+    // set attribute containerstop
+    if (!stopParameter.containerstop.empty()) {
+        addStringAttribute(SUMO_ATTR_CONTAINER_STOP, stopParameter.containerstop);
+    }
+    // set attribute parkingarea
+    if (!stopParameter.parkingarea.empty()) {
+        addStringAttribute(SUMO_ATTR_PARKING_AREA, stopParameter.parkingarea);
+    }
+    // set attribute chargingStation
+    if (!stopParameter.chargingStation.empty()) {
+        addStringAttribute(SUMO_ATTR_CHARGING_STATION, stopParameter.chargingStation);
+    }
 }
 
 
