@@ -254,7 +254,7 @@ def removeStepListener(listenerID):
 def getVersion():
     """getVersion() -> tuple
 
-    Returns a tuple containing the TraCI API version number (integer) 
+    Returns a tuple containing the TraCI API version number (integer)
     and a string identifying the SUMO version running on the TraCI server in human-readable form.
     """
     if "" not in _connections:

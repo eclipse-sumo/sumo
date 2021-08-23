@@ -10,15 +10,14 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# This file is a port of createVehTypeDistribution.py to sumolib
-
-# @file    __init__.py
+# @file    vehicletype.py
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig, Institut fuer Verkehr und Stadtbauwesen)
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @author  Maxwell Schrader
-# @date    2016-06-09 (createVehTypeDistribution)
-# @date    2021-07-19 (refractor to sumolib)
+# @date    2021-07-19
+
+# This file is a port of createVehTypeDistribution.py to sumolib
 
 import os
 import sys
