@@ -295,6 +295,9 @@ public:
     /// @brief called when user press a lock menu check
     long onCmdLockElements(FXObject*, FXSelector sel, void*);
 
+    /// @brief enable or disable lock menu title
+    long onUpdLockMenuTitle(FXObject*, FXSelector sel, void*);
+
     /// @brief called when user press a process button (or a shortcut)
     long onCmdProcessButton(FXObject*, FXSelector sel, void*);
 
@@ -450,6 +453,9 @@ protected:
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle;
+
+    /// @brief menu title for lock
+    FXMenuTitle* myLockMenuTitle;
 
     /// @brief A window to display messages, warnings and error in
     GUIMessageWindow* myMessageWindow;

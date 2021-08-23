@@ -1245,6 +1245,9 @@ enum {
     /// @brief selector for ModesMenuTitle
     MID_GNE_MODESMENUTITLE,
 
+    /// @brief selector for LOckMenuTitle
+    MID_GNE_LOCKMENUTITLE,
+
     /// @}
 
     /// @brief last element of enum (not used)
