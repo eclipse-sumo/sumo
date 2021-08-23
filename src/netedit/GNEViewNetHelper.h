@@ -1330,14 +1330,8 @@ struct GNEViewNetHelper {
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
-        /// @brief map with locked objects for supermode network
-        std::map<GUIGlObjectType, OperationLocked> myLockedNetwork;
-
-        /// @brief map with locked objects for supermode network
-        std::map<GUIGlObjectType, OperationLocked> myLockedDemand;
-
-        /// @brief map with locked objects for supermode network
-        std::map<GUIGlObjectType, OperationLocked> myLockedData;
+        /// @brief map with locked elements
+        std::map<GUIGlObjectType, OperationLocked> myLockedElements;
     };
 
     /// @brief get scaled rainbow colors

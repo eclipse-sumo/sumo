@@ -365,7 +365,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
                     retrievedAC = dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
                 }
                 // make sure that AttributeCarrier can be selected
-                if (retrievedAC->getTagProperty().isSelectable() && !myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(retrievedAC->getGUIGlObject()->getType())) {
+                if (retrievedAC->getTagProperty().isSelectable() && !myLockManager.isObjectLocked(retrievedAC->getGUIGlObject()->getType())) {
                     result.insert(std::make_pair(retrievedAC->getID(), retrievedAC));
                 }
             }
@@ -4391,7 +4391,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                         // Check if this GLobject type is locked
-                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                        if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toggle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
@@ -4695,7 +4695,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     // first check that under cursor there is an attribute carrier, is demand element and is selectable
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                         // Check if this GLobject type is locked
-                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                        if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toggle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
@@ -4860,7 +4860,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     // first check that under cursor there is an attribute carrier, is data element and is selectable
                     if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
                         // Check if this GLobject type is locked
-                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                        if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toggle networkElement selection
                             if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                                 myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();

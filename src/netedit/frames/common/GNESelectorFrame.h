@@ -42,106 +42,6 @@ class GNEMatchGenericDataAttribute;
 class GNESelectorFrame : public GNEFrame {
 
 public:
-
-    // ===========================================================================
-    // class LockGLObjectTypes
-    // ===========================================================================
-
-    class LockGLObjectTypes : protected FXGroupBox {
-
-    public:
-        /// @brief class for object types entries
-        class ObjectTypeEntry : protected FXObject {
-            /// @brief FOX-declaration
-            FXDECLARE(GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry)
-
-        public:
-            /// @brief constructor
-            ObjectTypeEntry(FXMatrix* matrixParent, const Supermode supermode, const std::string& label);
-
-            /// @brief get supermode associated to this ObjectTypeEntry
-            Supermode getSupermode() const;
-
-            /// @brief show ObjectTypeEntry
-            void showObjectTypeEntry();
-
-            /// @brief hide ObjectTypeEntry
-            void hideObjectTypeEntry();
-
-            /// @brief up count
-            void counterUp();
-
-            /// @brief down count
-            void counterDown();
-
-            /// @brief check if current GLType is blocked
-            bool isGLTypeLocked() const;
-
-            /// @name FOX-callbacks
-            /// @{
-
-            /// @brief called when user change the CheckBox
-            long onCmdSetCheckBox(FXObject*, FXSelector, void*);
-
-            /// @}
-
-        protected:
-            ObjectTypeEntry();
-
-        private:
-            /// @brief supermode associated to this ObjectTypeEntry
-            const Supermode mySupermode;
-
-            /// @brief label counter
-            FXLabel* myLabelCounter;
-
-            /// @brief label type nane
-            FXLabel* myLabelTypeName;
-
-            /// @brief check box to check if GLObject type is blocked
-            FXCheckButton* myCheckBoxLocked;
-
-            /// @brief counter
-            int myCounter;
-
-        private:
-            /// @brief Invalidated assignment operator.
-            ObjectTypeEntry& operator=(const ObjectTypeEntry&) = delete;
-
-        };
-
-        /// @brief constructor
-        LockGLObjectTypes(GNESelectorFrame* selectorFrameParent);
-
-        /// @brief destructor
-        ~LockGLObjectTypes();
-
-        /// @brief set object selected
-        void addedLockedObject(const GUIGlObjectType type);
-
-        /// @brief set object unselected
-        void removeLockedObject(const GUIGlObjectType type);
-
-        /// @brief check if an object is locked
-        bool IsObjectTypeLocked(const GUIGlObjectType type) const;
-
-        /// @brief show type Entries (depending if we're in Network or demand supermode)
-        void showTypeEntries();
-
-    private:
-        /// @brief pointer to Selector Frame Parent
-        GNESelectorFrame* mySelectorFrameParent;
-
-        /// @brief check boxes for type-based selection locking and selected object counts
-        std::map<GUIGlObjectType, ObjectTypeEntry*> myTypeEntries;
-
-        /// @brief Invalidated copy constructor.
-        LockGLObjectTypes(const LockGLObjectTypes&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        LockGLObjectTypes& operator=(const LockGLObjectTypes&) = delete;
-    };
-
     // ===========================================================================
     // class ModificationMode
     // ===========================================================================
@@ -345,16 +245,10 @@ public:
     /// @brief get vertical frame that holds all widgets of frame
     FXVerticalFrame* getContentFrame() const;
 
-    /// @brief get selected items Modul
-    LockGLObjectTypes* getLockGLObjectTypes() const;
-
     /// @brief get modification mode modul
     ModificationMode* getModificationModeModul() const;
 
 private:
-    /// @brief modul for lock selected items
-    LockGLObjectTypes* myLockGLObjectTypes;
-
     /// @brief modul for change modification mode
     ModificationMode* myModificationMode;
 

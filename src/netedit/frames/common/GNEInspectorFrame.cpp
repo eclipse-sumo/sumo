@@ -1067,7 +1067,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
         // if Control key is Pressed, select instead inspect element
         if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
-            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+            if (!myViewNet->getLockManager().isObjectLocked(objectsUnderCursor.getGlTypeFront())) {
                 // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
@@ -1103,7 +1103,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
         // if Control key is Pressed, select instead inspect element
         if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
-            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+            if (!myViewNet->getLockManager().isObjectLocked(objectsUnderCursor.getGlTypeFront())) {
                 // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
@@ -1139,7 +1139,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
         // if Control key is Pressed, select instead inspect element
         if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
-            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+            if (!myViewNet->getLockManager().isObjectLocked(objectsUnderCursor.getGlTypeFront())) {
                 // toggle networkElement selection
                 if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();

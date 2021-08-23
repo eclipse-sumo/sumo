@@ -68,8 +68,6 @@ void
 GNEAttributeCarrier::selectAttributeCarrier(const bool changeFlag) {
     if (getGUIGlObject() && myTagProperty.isSelectable()) {
         gSelected.select(getGUIGlObject()->getGlID());
-        // add object into list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getGUIGlObject()->getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -81,8 +79,6 @@ void
 GNEAttributeCarrier::unselectAttributeCarrier(const bool changeFlag) {
     if (getGUIGlObject() && myTagProperty.isSelectable()) {
         gSelected.deselect(getGUIGlObject()->getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getGUIGlObject()->getType());
         if (changeFlag) {
             mySelected = false;
         }
