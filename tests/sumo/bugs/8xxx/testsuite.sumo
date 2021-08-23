@@ -24,3 +24,6 @@ ticket8912
 
 # collision on junction
 ticket8952
+
+# warning after emergency braking with ballistic update
+ticket8978
