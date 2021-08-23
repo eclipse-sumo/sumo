@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-04-24 11:44:03 by Eclipse SUMO netgenerate Version v1_9_0+0211-902d84e2bd
+<!-- generated on 2021-08-23 19:43:10 by Eclipse SUMO netgenerate Version v1_10_0+0148-5f48329
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -47,6 +47,12 @@
 
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT"/>
+
+        <!-- The length of streets attached at the boundary in x direction; 0 means no streets are attached -->
+        <grid.x-attach-length value="0" type="FLOAT"/>
+
+        <!-- The length of streets attached at the boundary in y direction; 0 means no streets are attached -->
+        <grid.y-attach-length value="0" type="FLOAT"/>
 
     </grid_network>
 

@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_9_0+0211-902d84e2bd
+Eclipse SUMO netgenerate Version v1_10_0+0148-5f48329
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -31,6 +31,12 @@ Grid Network Options:
                                         Overrides --grid-length
   --grid.attach-length FLOAT           The length of streets attached at the
                                         boundary;
+                                        0 means no streets are attached
+  --grid.x-attach-length FLOAT         The length of streets attached at the
+                                        boundary in x direction;
+                                        0 means no streets are attached
+  --grid.y-attach-length FLOAT         The length of streets attached at the
+                                        boundary in y direction;
                                         0 means no streets are attached
 
 Spider Network Options:
