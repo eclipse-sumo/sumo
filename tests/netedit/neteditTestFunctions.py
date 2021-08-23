@@ -189,7 +189,7 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
         pyautogui.hotkey('ctrl', 'v')
     else:
         pyautogui.typewrite(translateKeys(value, layout))
-    
+
 
 def leftClick(referencePosition, positionx, positiony):
     """
