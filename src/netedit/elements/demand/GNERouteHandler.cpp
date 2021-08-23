@@ -486,7 +486,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     const std::string &toBusStopID, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPersonPlanEdge(sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     // check conditions
@@ -531,7 +531,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     const std::string &toBusStopID, const std::vector<std::string>& edgeIDs, const std::string &routeID, double arrivalPos) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPersonPlanEdge(sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
@@ -608,7 +608,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     const std::string &toBusStopID, double arrivalPos, const std::vector<std::string>& lines) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = fromEdgeID.empty()? getPreviousPersonPlanEdge(sumoBaseObject) : myNet->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     // check conditions
@@ -1287,6 +1287,79 @@ GNERouteHandler::getContainerParent(const CommonXMLStructure::SumoBaseObject* su
     } else {
         return containerParent;
     }
+}
+
+
+GNEEdge*
+GNERouteHandler::getPreviousPersonPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const {
+    if (obj->getParentSumoBaseObject() == nullptr) {
+        // no parent defined
+        return nullptr;
+    }
+    // get parent object
+    const CommonXMLStructure::SumoBaseObject* parentObject = obj->getParentSumoBaseObject();
+    // check conditions
+    if ((parentObject->getTag() != SUMO_TAG_PERSON) && (parentObject->getTag() != SUMO_TAG_PERSONFLOW)) {
+        // invalid parent
+        return nullptr;
+    }
+    // search previous child
+    const auto it = std::find(parentObject->getSumoBaseObjectChildren().begin(), parentObject->getSumoBaseObjectChildren().end(), obj);
+    if (it == parentObject->getSumoBaseObjectChildren().begin()) {
+        return nullptr;
+    }
+    // get last children
+    const CommonXMLStructure::SumoBaseObject* previousPersonPlan = *(it - 1);
+    // check conditions
+    if ((previousPersonPlan->getTag() != SUMO_TAG_WALK) && (previousPersonPlan->getTag() != SUMO_TAG_RIDE) && 
+        (previousPersonPlan->getTag() != SUMO_TAG_PERSONTRIP) && (previousPersonPlan->getTag() != SUMO_TAG_STOP)) {
+        // invalid last child
+        return nullptr;
+    }
+    // ends in an edge (only for stops)
+    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_EDGE)) {
+        return myNet->retrieveEdge(previousPersonPlan->getStringAttribute(SUMO_ATTR_EDGE), false);
+    }
+    // ends in a lane (only for stops)
+    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_LANE)) {
+        const auto lane = myNet->retrieveLane(previousPersonPlan->getStringAttribute(SUMO_ATTR_LANE), false);
+        if (lane) {
+            return lane->getParentEdge();
+        } else {
+            return nullptr;
+        }
+    }
+    // ends in a route (walk)
+    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_ROUTE) && 
+        !previousPersonPlan->getStringAttribute(SUMO_ATTR_ROUTE).empty()) {
+        const auto route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, previousPersonPlan->getStringAttribute(SUMO_ATTR_ROUTE), false);
+        if (route) {
+            return route->getParentEdges().back();
+        } else {
+            return nullptr;
+        }
+    }
+    // ends in a list of edges (walk)
+    if (previousPersonPlan->hasStringListAttribute(SUMO_ATTR_EDGES) && 
+        !previousPersonPlan->getStringListAttribute(SUMO_ATTR_EDGES).empty()) {
+        return myNet->retrieveEdge(previousPersonPlan->getStringListAttribute(SUMO_ATTR_EDGES).back(), false);
+    }
+    // ends in a "to" edge
+    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_TO) &&
+        !previousPersonPlan->getStringAttribute(SUMO_ATTR_TO).empty()) {
+        return myNet->retrieveEdge(previousPersonPlan->getStringAttribute(SUMO_ATTR_TO), false);
+    } 
+    // ends in a "busStop"
+    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_BUS_STOP) && 
+        !previousPersonPlan->getStringAttribute(SUMO_ATTR_BUS_STOP).empty()) {
+        const auto busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPersonPlan->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
+        if (busStop) {
+            return busStop->getParentLanes().front()->getParentEdge();
+        } else {
+            return nullptr;
+        }
+    } 
+    return nullptr;
 }
 
 /****************************************************************************/
