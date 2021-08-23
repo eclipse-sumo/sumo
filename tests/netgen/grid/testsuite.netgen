@@ -19,6 +19,12 @@ user_example1_2nodes
 # attaching streets at the border
 attach
 
+# attaching streets at the horizontal border
+attach_x
+
+# attaching streets at the vertical border
+attach_y
+
 # no internal lanes
 nointernal
 alphanumerical-ids
