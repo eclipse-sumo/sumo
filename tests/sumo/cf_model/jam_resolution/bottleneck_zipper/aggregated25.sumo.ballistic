@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 08:19:42 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
+<!-- generated on 2021-08-23 12:17:06 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,8 +36,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="244.00" id="ed">
-        <edge id="beg" sampledSeconds="2948.72" traveltime="44.19" overlapTraveltime="44.57" density="30.33" laneDensity="15.16" occupancy="7.55" waitingTime="0.00" speed="9.05" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="1" laneChangedTo="1"/>
-        <edge id="end" sampledSeconds="5604.75" traveltime="83.35" overlapTraveltime="83.73" density="20.91" laneDensity="20.91" occupancy="10.41" waitingTime="0.00" speed="13.18" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    <interval begin="0.00" end="248.00" id="ed">
+        <edge id="beg" sampledSeconds="3089.34" traveltime="46.32" overlapTraveltime="46.70" density="31.26" laneDensity="15.63" occupancy="7.78" waitingTime="0.00" timeLoss="1167.61" speed="8.64" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="1" laneChangedTo="1"/>
+        <edge id="end" sampledSeconds="5615.34" traveltime="83.50" overlapTraveltime="83.88" density="20.61" laneDensity="20.61" occupancy="10.26" waitingTime="0.00" timeLoss="296.76" speed="13.16" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>

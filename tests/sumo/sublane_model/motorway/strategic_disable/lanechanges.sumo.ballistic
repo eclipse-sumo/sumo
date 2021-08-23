@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 08:19:47 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
+<!-- generated on 2021-08-23 12:17:08 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -37,10 +38,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <changeStarted id="A" type="t0" time="1.00" from="beg_0" to="beg_0" dir="0" speed="13.89" pos="13.99" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="1.90" maneuverDistance="1.90"/>
-    <changeEnded id="A" type="t0" time="2.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="27.88" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.90"/>
-    <change id="A" type="t0" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="41.77" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.80"/>
-    <changeEnded id="A" type="t0" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="41.77" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.80"/>
-    <changeStarted id="A" type="t0" time="12.00" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="166.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.40" maneuverDistance="0.20"/>
-    <changeEnded id="A" type="t0" time="12.00" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="166.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.40"/>
+    <changeStarted id="A" type="t0" time="14.00" from="beg_0" to="beg_0" dir="0" speed="7.59" pos="189.60" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="1.90" maneuverDistance="0.90"/>
+    <changeEnded id="A" type="t0" time="14.00" from="beg_0" to="beg_0" dir="0" speed="7.59" pos="189.60" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="1.90"/>
+    <change id="A" type="t0" time="16.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="speedGain" leaderGap="21.24" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <changeEnded id="A" type="t0" time="18.00" from=":gneJ1_0_0" to=":gneJ1_0_0" dir="0" speed="5.20" pos="5.20" reason="speedGain|sublane" leaderGap="43.82" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="43.82" origLeaderSecureGap="0.00" origLeaderSpeed="13.89" latGap="None"/>
 </lanechanges>

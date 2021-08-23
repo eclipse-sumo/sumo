@@ -1,42 +1,17 @@
 Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
 Warning: Vehicle 'always_right.0'; collision with vehicle 'horizontal.0', lane='2o_0', gap=-5.00, time=27.00 stage=move.
-Warning: Vehicle 'always_right.0'; collision with vehicle 'horizontal.0', lane='2o_0', gap=-2.75, time=28.00 stage=move.
 Warning: Vehicle 'always_right.1'; collision with vehicle 'horizontal.1', lane='2o_0', gap=-5.00, time=31.00 stage=move.
-Warning: Vehicle 'always_right.1'; collision with vehicle 'horizontal.1', lane='2o_0', gap=-4.04, time=32.00 stage=move.
-Warning: Vehicle 'always_right.1'; collision with vehicle 'horizontal.1', lane='2o_0', gap=-0.58, time=33.00 stage=move.
 Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-5.00, time=35.00 stage=move.
-Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-4.84, time=36.00 stage=move.
-Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-3.54, time=37.00 stage=move.
-Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-1.38, time=38.00 stage=move.
 Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-5.00, time=39.00 stage=move.
-Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-5.00, time=40.00 stage=move.
-Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-4.53, time=41.00 stage=move.
-Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-4.13, time=42.00 stage=move.
-Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-2.93, time=43.00 stage=move.
-Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-0.93, time=44.00 stage=move.
 Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-5.00, time=44.00 stage=move.
-Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-5.00, time=45.00 stage=move.
-Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-5.00, time=46.00 stage=move.
-Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-4.60, time=47.00 stage=move.
-Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-3.40, time=48.00 stage=move.
-Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-1.40, time=49.00 stage=move.
 Warning: Vehicle 'always_right.5'; collision with vehicle 'horizontal.5', lane='2o_0', gap=-5.00, time=54.00 stage=move.
-Warning: Vehicle 'always_right.5'; collision with vehicle 'horizontal.5', lane='2o_0', gap=-2.84, time=55.00 stage=move.
 Warning: Vehicle 'always_right.6'; collision with vehicle 'horizontal.6', lane='2o_0', gap=-5.00, time=60.00 stage=move.
-Warning: Vehicle 'always_right.6'; collision with vehicle 'horizontal.6', lane='2o_0', gap=-2.84, time=61.00 stage=move.
 Warning: Vehicle 'always_right.7'; collision with vehicle 'horizontal.7', lane='2o_0', gap=-5.00, time=67.00 stage=move.
-Warning: Vehicle 'always_right.7'; collision with vehicle 'horizontal.7', lane='2o_0', gap=-2.54, time=68.00 stage=move.
 Warning: Vehicle 'always_right.8'; collision with vehicle 'horizontal.8', lane='2o_0', gap=-5.00, time=73.00 stage=move.
-Warning: Vehicle 'always_right.8'; collision with vehicle 'horizontal.8', lane='2o_0', gap=-2.84, time=74.00 stage=move.
 Warning: Vehicle 'horizontal.9'; collision with vehicle 'always_right.9', lane='2o_0', gap=-5.00, time=79.00 stage=move.
-Warning: Vehicle 'horizontal.9'; collision with vehicle 'always_right.9', lane='2o_0', gap=-2.84, time=80.00 stage=move.
 Warning: Vehicle 'always_right.10'; collision with vehicle 'horizontal.10', lane='2o_0', gap=-5.00, time=85.00 stage=move.
-Warning: Vehicle 'always_right.10'; collision with vehicle 'horizontal.10', lane='2o_0', gap=-2.84, time=86.00 stage=move.
 Warning: Vehicle 'horizontal.11'; collision with vehicle 'always_right.11', lane='2o_0', gap=-5.00, time=92.00 stage=move.
-Warning: Vehicle 'horizontal.11'; collision with vehicle 'always_right.11', lane='2o_0', gap=-2.54, time=93.00 stage=move.
 Warning: Vehicle 'horizontal.12'; collision with vehicle 'always_right.12', lane='2o_0', gap=-5.00, time=97.00 stage=move.
-Warning: Vehicle 'horizontal.12'; collision with vehicle 'always_right.12', lane='2o_0', gap=-3.28, time=98.00 stage=move.
-Warning: Vehicle 'horizontal.12'; collision with vehicle 'always_right.12', lane='2o_0', gap=-0.48, time=99.00 stage=move.
 Warning: Teleporting vehicle 'always_right.13'; waited too long (yield), lane='3si_0', time=403.00.
 Warning: Vehicle 'always_right.13' ends teleporting on edge '2o', time 403.00.
 Warning: Teleporting vehicle 'horizontal.13'; waited too long (yield), lane='1si_1', time=405.00.
