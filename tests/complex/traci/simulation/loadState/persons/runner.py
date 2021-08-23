@@ -43,5 +43,5 @@ while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     if traci.simulation.getTime() > 1000:
         print("simulation should have aborted by now")
-        break;
+        break
 traci.close()

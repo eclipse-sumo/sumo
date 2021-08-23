@@ -49,7 +49,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     if traci.simulation.getTime() == 20:
         try:
             traci.vehicle.replaceStop(vehID, 0, "busStop_C1D1",
-                    flags=tc.STOP_BUS_STOP, duration=30, teleport=True)
+                                      flags=tc.STOP_BUS_STOP, duration=30, teleport=True)
         except traci.TraCIException:
             pass
 

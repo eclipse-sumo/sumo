@@ -144,7 +144,6 @@ class ArgumentParser(argparse.ArgumentParser):
                     out.write('    <%s value="%s"%s%s/>\n' % (key, xmlescape(v), default, help))
         out.write('</configuration>\n')
 
-
     def parse_args(self, args=None, namespace=None):
         if args is not None:
             # gracefully handle non-string args passed from another script

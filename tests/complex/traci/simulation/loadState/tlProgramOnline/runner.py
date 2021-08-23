@@ -36,11 +36,12 @@ def check():
         traci.vehicle.getAllSubscriptionResults(),
         traci.vehicle.getAllContextSubscriptionResults()))
 
+
 cmd = [sumolib.checkBinary('sumo'),
-             "-n", "input_net2.net.xml",
+       "-n", "input_net2.net.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
-             ]
+       ]
 
 traci.start(cmd)
 

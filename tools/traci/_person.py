@@ -345,7 +345,7 @@ class PersonDomain(Domain):
         """
         self._setCmd(tc.CMD_REROUTE_TRAVELTIME, personID, "t", 0)
 
-    def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold = 100):
+    def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
         '''Place person at the given x,y coordinates and force it's angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the

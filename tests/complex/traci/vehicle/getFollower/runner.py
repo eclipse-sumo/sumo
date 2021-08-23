@@ -32,7 +32,7 @@ traci.start([sumoBinary,
              "-n", "input_net.net.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
-             #"--step-length", "0.25",
+             # "--step-length", "0.25",
              ] + sys.argv[1:])
 
 vehID = "ego"

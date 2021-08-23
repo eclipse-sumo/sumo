@@ -311,10 +311,11 @@ class CreateMultiVehTypeDistributions(CreateVehTypeDistribution):
         self.distributions: List[CreateVehTypeDistribution] = []
 
     def register_veh_type_distribution(self, veh_type_dist: Union[dict, CreateVehTypeDistribution], veh_attributes: List[Union[dict, VehAttribute]]) -> None:
-        
-        veh_type_dist = veh_type_dist if isinstance(veh_type_dist, CreateVehTypeDistribution) else CreateVehTypeDistribution(**veh_type_dist)
-        
-        for attr in veh_attributes: 
+
+        veh_type_dist = veh_type_dist if isinstance(
+            veh_type_dist, CreateVehTypeDistribution) else CreateVehTypeDistribution(**veh_type_dist)
+
+        for attr in veh_attributes:
             veh_type_dist.add_attribute(attr if isinstance(attr, VehAttribute) else VehAttribute(**attr))
 
         self.distributions.append(veh_type_dist)
@@ -326,13 +327,13 @@ class CreateMultiVehTypeDistributions(CreateVehTypeDistribution):
         Args:
             file_path (str): Path to the file to write to
         """
-        
+
         xml_dom, _ = self._check_existing(file_path)
 
         veh_dist_nodes = [dist.create_veh_dist(xml_dom=xml_dom) for dist in self.distributions]
 
         write_additional_minidom(xml_dom, veh_dist_nodes, file_path=file_path)
-        
+
 
 # if __name__ == "__main__":
 
@@ -369,10 +370,8 @@ class CreateMultiVehTypeDistributions(CreateVehTypeDistribution):
 #         ])
 
 #     c = CreateMultiVehTypeDistributions()
-#     for dist, param_list in zip(dists, params): 
+#     for dist, param_list in zip(dists, params):
 #         c.register_veh_type_distribution(veh_type_dist=dist, veh_attributes=param_list)
-    
+
 #     c.write_xml("test2.xml")
 #     c.save_myself("test2.json")
-
-

@@ -38,8 +38,8 @@ traci.start([sumoBinary,
 
 
 # disbaled right of way approaching and within intersections (all other checks on)
-#traci.vehicle.setSpeedMode("ego2", 23) # arrival at t=63
-traci.vehicle.setSpeedMode("ego2", 55) # arrival at t=24
+# traci.vehicle.setSpeedMode("ego2", 23) # arrival at t=63
+traci.vehicle.setSpeedMode("ego2", 55)  # arrival at t=24
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 

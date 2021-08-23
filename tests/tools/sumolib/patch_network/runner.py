@@ -43,7 +43,7 @@ with open(patchfile, 'w') as outf:
     # parse always returns a generator but there is only one root element
     nodes = list(sumolib.xml.parse('plain.nod.xml', 'nodes', attrs))[0]
     for node in nodes.node:
-        node.addChild("param", { "key": "origPos", "value" : "%s %s" % (node.x, node.y) } )
+        node.addChild("param", {"key": "origPos", "value": "%s %s" % (node.x, node.y)})
         node.x = float(node.x) + random.randint(-20, 20)
         node.y = float(node.y) + random.randint(-20, 20)
     outf.write(nodes.toXML())

@@ -26,7 +26,7 @@ import sumolib  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 
 for vehicle, route in parse_fast_nested("input_data.xml",
-                                              "vehicle", ("id", "depart"),
-                                              "route", ("cost", "edges")):
+                                        "vehicle", ("id", "depart"),
+                                        "route", ("cost", "edges")):
     print(vehicle)
     print("   " + str(route))

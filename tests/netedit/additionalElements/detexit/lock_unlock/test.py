@@ -95,7 +95,7 @@ netedit.undo(referencePosition, 7)
 netedit.redo(referencePosition, 7)
 
 # apply zoom
-netedit.setZoom("25", "0", "74") 
+netedit.setZoom("25", "0", "74")
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

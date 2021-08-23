@@ -49,7 +49,7 @@ traci.person.moveToXY(p, "", x + 25, y, keepRoute=1)
 s = step()
 print("s=%s x=%s y=%s lane=%s" % (s, x, y, traci.person.getLaneID(p)))
 try:
-    traci.person.moveToXY(p, "", x + 25, y, keepRoute=1, matchThreshold = 20)
+    traci.person.moveToXY(p, "", x + 25, y, keepRoute=1, matchThreshold=20)
     s = step()
     print("s=%s x=%s y=%s lane=%s" % (s, x, y, traci.person.getLaneID(p)))
 except traci.TraCIException:

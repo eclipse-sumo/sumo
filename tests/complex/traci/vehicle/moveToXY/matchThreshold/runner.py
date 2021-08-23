@@ -48,7 +48,7 @@ x2, y2 = traci.vehicle.getPosition(vehID)
 print(x2, y2)
 
 try:
-    traci.vehicle.moveToXY(vehID, "", 0, 5, 25, angle=ANGLE_UNDEF, keepRoute=1, matchThreshold = 20)
+    traci.vehicle.moveToXY(vehID, "", 0, 5, 25, angle=ANGLE_UNDEF, keepRoute=1, matchThreshold=20)
     traci.simulationStep()
     x2, y2 = traci.vehicle.getPosition(vehID)
     print(x2, y2)

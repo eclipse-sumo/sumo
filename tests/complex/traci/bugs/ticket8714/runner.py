@@ -31,7 +31,7 @@ traci.start([sumolib.checkBinary("sumo"),
              '-n', 'input_net2.net.xml',
              '-r', 'input_routes2.rou.xml',
              '--no-step-log',
-             #'-C', 'debug.sumocfg',
+             # '-C', 'debug.sumocfg',
              '-S', '-Q'
              ])
 
@@ -40,7 +40,7 @@ locations = []
 traci.simulationStep()
 for i in range(10):
     locations.append((traci.vehicle.getLaneID(vehID),
-        traci.vehicle.getLanePosition(vehID)))
+                      traci.vehicle.getLanePosition(vehID)))
     traci.simulationStep()
 
 print(locations)
