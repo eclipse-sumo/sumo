@@ -666,8 +666,9 @@ MSCFModel::passingTime(const double lastPos, const double passedPos, const doubl
             // negative acceleration => two positive solutions (pick the smaller one.)
             const double va = lastSpeed / a;
             const double t = -va - sqrt(va * va + 2 * distanceOldToPassed / a);
-            assert(t < 1 && t >= 0);
-            return t;
+            // emergency braking at red light could give results out of the admissible result range
+            // because the dynamics are euler-like (full forward speed with instant deceleration)
+            return MIN2(TS, MAX2(0., t));
         }
     }
 }
