@@ -889,6 +889,24 @@ MSRouteHandler::closeFlow() {
             myVehicleParameter->routeid = route->getID();
         }
     }
+    if (myVehicleParameter->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
+        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
+            WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_DEPARTEDGE) + "' for flow '" + myVehicleParameter->id + "' because the route is computed dynamically.");
+        } else if (myVehicleParameter->departEdgeProcedure == RouteIndexDefinition::GIVEN &&
+                   myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
+            throw ProcessError("Flow '" + myVehicleParameter->id + "' has invalid departEdge index "
+                               + toString(myVehicleParameter->departEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
+        }
+    }
+    if (myVehicleParameter->arrivalEdgeProcedure != RouteIndexDefinition::DEFAULT) {
+        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
+            WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_ARRIVALEDGE) + "' for flow '" + myVehicleParameter->id + "' because the route is computed dynamically.");
+        } else if (myVehicleParameter->arrivalEdgeProcedure == RouteIndexDefinition::GIVEN &&
+                   myVehicleParameter->arrivalEdge >= (int)route->getEdges().size()) {
+            throw ProcessError("Flow '" + myVehicleParameter->id + "' has invalid arrivalEdge index "
+                               + toString(myVehicleParameter->arrivalEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
+        }
+    }
     myActiveRouteID = "";
 
     // check whether the vehicle shall be added directly to the network or
