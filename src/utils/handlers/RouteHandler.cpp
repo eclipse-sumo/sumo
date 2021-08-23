@@ -305,13 +305,8 @@ RouteHandler::myEndElement(int element) {
         case SUMO_TAG_FLOW:
         case SUMO_TAG_PERSON:
         case SUMO_TAG_PERSONFLOW:
-        case SUMO_TAG_PERSONTRIP:
-        case SUMO_TAG_RIDE:
-        case SUMO_TAG_WALK:
         case SUMO_TAG_CONTAINER:
         case SUMO_TAG_CONTAINERFLOW:
-        case SUMO_TAG_TRANSPORT:
-        case SUMO_TAG_TRANSHIP:
             // parse object and all their childrens
             parseSumoBaseObject(obj);
             // delete object (and all of their childrens)
@@ -481,7 +476,7 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
     // declare stop
     SUMOVehicleParameter::Stop stop;
     //  check parents
-    checkParent(SUMO_TAG_STOP, {SUMO_TAG_VEHICLE, SUMO_TAG_FLOW, SUMO_TAG_ROUTE, SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW, SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, parsedOk);
+    checkParent(SUMO_TAG_STOP, {SUMO_TAG_VEHICLE, SUMO_TAG_TRIP, SUMO_TAG_FLOW, SUMO_TAG_ROUTE, SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW, SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, parsedOk);
     // parse stop
     if (parsedOk && parseStopParameters(stop, attrs)) {
         // set tag
@@ -708,13 +703,9 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // check parent
     if (SumoBaseObjectParent == nullptr) {
         WRITE_ERROR("Parameters must be defined within an object");
-    }
-    // check tag
-    if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
         WRITE_ERROR("Parameters cannot be defined in either the route element file's root nor another parameter");
-    }
-    // continue if key was sucesfully loaded
-    if (parsedOk) {
+    } else if (parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
         // circumventing empty string value
@@ -923,10 +914,10 @@ RouteHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXML
     // set parent string
     std::string parentStrings;
     for (const auto &tag : parentTags) {
-        if (tag != parentTags.back()) {
-        parentStrings.append(toString(parentTags.front()));
+        if (tag == parentTags.back()) {
+            parentStrings.append(toString(tag));
         } else {
-            parentStrings.append(toString(parentTags.front()) + ", ");
+            parentStrings.append(toString(tag) + ", ");
         }
     }
     if ((parent != nullptr) && 
