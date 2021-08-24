@@ -6544,7 +6544,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         }
         // see MSBaseVehicle constructor
         if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
-            calculateArrivalParams();
+            calculateArrivalParams(true);
         }
     }
     std::istringstream pis(attrs.getString(SUMO_ATTR_POSITION));

@@ -128,30 +128,10 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     myRoute->addReference();
     if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0) {
-        if (pars->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
-            const int routeEdges = (int)myRoute->getEdges().size();
-            if (pars->departEdgeProcedure == RouteIndexDefinition::RANDOM) {
-                // write specific edge in vehroute output for reproducibility
-                pars->departEdge = RandHelper::rand(0, routeEdges);
-                pars->departEdgeProcedure = RouteIndexDefinition::GIVEN;
-            }
-            assert(pars->departEdge >= 0);
-            assert(pars->departEdge < routeEdges);
-            myCurrEdge += pars->departEdge;
-        }
-        if (pars->arrivalEdgeProcedure == RouteIndexDefinition::RANDOM) {
-            const int routeEdges = (int)myRoute->getEdges().size();
-            const int begin = (int)(myCurrEdge - myRoute->begin());
-            // write specific edge in vehroute output for reproducibility
-            pars->arrivalEdge = RandHelper::rand(begin, routeEdges);
-            pars->arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
-            assert(pars->arrivalEdge >= begin);
-            assert(pars->arrivalEdge < routeEdges);
-        }
+        setDepartAndArrivalEdge();
     }
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
-        const MSEdge* arrivalEdge = pars->arrivalEdge >= 0 ? myRoute->getEdges()[pars->arrivalEdge] : myRoute->getLastEdge();
-        calculateArrivalParams(arrivalEdge);
+        calculateArrivalParams(true);
     }
     initJunctionModelParams();
 }
@@ -340,7 +320,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 return;
             }
         }
-        calculateArrivalParams();
+        setDepartAndArrivalEdge();
+        calculateArrivalParams(onInit);
     }
 }
 
@@ -426,7 +407,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
     // assign new route
     myRoute = newRoute;
     // update arrival definition
-    calculateArrivalParams();
+    calculateArrivalParams(onInit);
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     myStopUntilOffset += myRoute->getPeriod();
@@ -705,11 +686,12 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
 
 
 void
-MSBaseVehicle::calculateArrivalParams(const MSEdge* arrivalEdge) {
+MSBaseVehicle::calculateArrivalParams(bool onInit) {
     if (myRoute->getLastEdge()->isTazConnector()) {
         return;
     }
-    if (arrivalEdge == nullptr) {
+    const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[myParameter->arrivalEdge] : myRoute->getLastEdge();
+    if (!onInit) {
         arrivalEdge = myRoute->getLastEdge();
         // ingnore arrivalEdge parameter after rerouting
         const_cast<SUMOVehicleParameter*>(myParameter)->arrivalEdge = -1;
@@ -776,6 +758,34 @@ MSBaseVehicle::calculateArrivalParams(const MSEdge* arrivalEdge) {
             }
         }
         WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive with the given speed!");
+    }
+}
+
+void
+MSBaseVehicle::setDepartAndArrivalEdge() {
+    SUMOVehicleParameter* pars = const_cast<SUMOVehicleParameter*>(myParameter);
+    if (pars->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
+        const int routeEdges = (int)myRoute->getEdges().size();
+        if (pars->departEdgeProcedure == RouteIndexDefinition::RANDOM) {
+            // write specific edge in vehroute output for reproducibility
+            pars->departEdge = RandHelper::rand(0, routeEdges);
+            pars->departEdgeProcedure = RouteIndexDefinition::GIVEN;
+        }
+        assert(pars->departEdge >= 0);
+        if (pars->departEdge >= routeEdges) {
+            WRITE_WARNING("Ignoring departEdge " + toString(pars->departEdge) + " for vehicle '" + getID() + " with " + toString(routeEdges) + " route edges");
+        } else {
+            myCurrEdge += pars->departEdge;
+        }
+    }
+    if (pars->arrivalEdgeProcedure == RouteIndexDefinition::RANDOM) {
+        const int routeEdges = (int)myRoute->getEdges().size();
+        const int begin = (int)(myCurrEdge - myRoute->begin());
+        // write specific edge in vehroute output for reproducibility
+        pars->arrivalEdge = RandHelper::rand(begin, routeEdges);
+        pars->arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
+        assert(pars->arrivalEdge >= begin);
+        assert(pars->arrivalEdge < routeEdges);
     }
 }
 

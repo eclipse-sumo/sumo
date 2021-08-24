@@ -520,7 +520,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         }
         // see MSBaseVehicle constructor
         if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
-            calculateArrivalParams();
+            calculateArrivalParams(true);
         }
     }
     if (myBlockTime != SUMOTime_MAX) {

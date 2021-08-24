@@ -814,7 +814,10 @@ public:
 
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
-    void calculateArrivalParams(const MSEdge* arrivalEdge = nullptr);
+    void calculateArrivalParams(bool onInit);
+
+    /// @brief apply departEdge and arrivalEdge attributes
+    void setDepartAndArrivalEdge();
 
 protected:
     /// @brief This vehicle's parameter.
