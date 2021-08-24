@@ -724,8 +724,15 @@ void
 GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
     // get obj parent
     const auto objParent = sumoBaseObject->getParentSumoBaseObject();
+    // set tag
+    SumoXMLTag tag = objParent->getTag();
+    if ((tag == SUMO_TAG_VEHICLE) && !objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+        tag = GNE_TAG_VEHICLE_WITHROUTE;
+    } else if ((tag == SUMO_TAG_FLOW) && !objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+        tag = GNE_TAG_FLOW_WITHROUTE;
+    }
     // get stop parent
-    GNEDemandElement *stopParent = myNet->retrieveDemandElement(objParent->getTag(), objParent->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEDemandElement *stopParent = myNet->retrieveDemandElement(tag, objParent->getStringAttribute(SUMO_ATTR_ID), false);
     // declare pointers to parent elements
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;

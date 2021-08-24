@@ -305,6 +305,14 @@ RouteHandler::myEndElement(int element) {
     switch (tag) {
         case SUMO_TAG_VTYPE:
         case SUMO_TAG_ROUTE:
+            // only parse non-embedded routes
+            if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
+                // parse object and all their childrens
+                parseSumoBaseObject(obj);
+                // delete object (and all of their childrens)
+                delete obj;
+            }
+            break;
         case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_FLOW:
