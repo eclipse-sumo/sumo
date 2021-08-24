@@ -875,8 +875,6 @@ RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 
 void
 RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
-
-
     bool ok = true;
     std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
     const std::string pid = myVehicleParameter->id;
@@ -926,7 +924,7 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         if (vehDepart == -1) {
             throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for " + agent + " '" + pid + "'.");
         }
-        myVehicleParameter->depart = vehDepart + 1; // write person after vehicle
+        myActivePerson->setDepart(vehDepart + 1); // write person after vehicle
     }
 
 
