@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 25 08:28:53 2020 by Eclipse SUMO sumo Version v1_7_0+0205-1a47d7d093
+<!-- generated on 2021-08-24 12:45:00 by Eclipse SUMO sumo Version v1_10_0+0173-9a8d231
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <write-license value="true"/>
-        <fcd-output value="fcd.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
@@ -31,15 +30,11 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
-    <fcd_device>
-        <device.fcd.period value="10"/>
-    </fcd_device>
-
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v0" depart="0.00" departEdge="1" arrival="278.00">
+    <vehicle id="v0" depart="0.00" departEdge="1" arrival="193.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 17 16:08:48 2021 by Eclipse SUMO sumo Version v1_8_0+1253-18a672a
+<!-- generated on 2021-08-24 12:45:01 by Eclipse SUMO sumo Version v1_10_0+0173-9a8d231
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,6 +34,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0.0" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="278.00" arrivalLane="end3_0" arrivalPos="200.00" arrivalSpeed="35.62" duration="278.00" routeLength="9495.21" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.34" rerouteNo="1" devices="vehroute_v0.0 tripinfo_v0.0 routing_v0.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v0.1" depart="3.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="281.00" arrivalLane="end3_0" arrivalPos="200.00" arrivalSpeed="35.20" duration="278.00" routeLength="9495.21" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.35" rerouteNo="1" devices="vehroute_v0.1 tripinfo_v0.1 routing_v0.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v0.0" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="178.00" arrivalLane="beg2_0" arrivalPos="2992.00" arrivalSpeed="34.85" duration="178.00" routeLength="5990.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="11.56" rerouteNo="1" devices="vehroute_v0.0 tripinfo_v0.0 routing_v0.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="v0.1" depart="3.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="182.00" arrivalLane="beg2_0" arrivalPos="2992.00" arrivalSpeed="34.78" duration="179.00" routeLength="5990.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="11.73" rerouteNo="1" devices="vehroute_v0.1 tripinfo_v0.1 routing_v0.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="end"/>
 </tripinfos>
