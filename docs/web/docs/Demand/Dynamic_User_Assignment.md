@@ -24,14 +24,14 @@ below.
 
 # Iterative Assignment (**D**ynamic **U**ser **E**quilibrium)
 
-The tool {{SUMO}}*/tools/assign/duaIterate.py* can be used to compute the
+The tool [duaIterate.py](../Tools/Assign.md#duaiteratepy) can be used to compute the
 (approximate) dynamic user equilibrium.
 
 !!! caution
     This script will require copious amounts of disk space
 
 ```
-python duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
+python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
 ```
 
 *duaIterate.py* supports many of the same options as
