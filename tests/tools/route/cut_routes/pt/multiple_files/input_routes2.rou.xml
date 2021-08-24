@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-12 11:36:24.077847 by ptlines2flows.py v1_5_0+0673-e4a6910
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="bus_104:0" type="bus" route="bus_104:0" begin="0.0" period="600" line="104:0" >
+        <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße &quot;(test some quotes&quot;"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+    <flow id="bus_104:1" type="bus" route="bus_104:1" begin="0.0" period="480" line="104:1" >
+        <param key="name" value="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz 'test other quotes' "/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+    <flow id="bus_140:0" type="bus" route="bus_140:0" begin="0.0" period="600" line="140:0" >
+        <param key="name" value="Buslinie 140: S+U Tempelhof =&gt; S Ostbahnhof &quot;test mixed quotes'"/>
+        <param key="completeness" value="0.06"/>
+    </flow>
+    <flow id="bus_140:1" type="bus" route="bus_140:1" begin="0.0" period="600" line="140:1" >
+        <param key="name" value="Buslinie 140: S Ostbahnhof =&gt; S + U Tempelhof"/>
+        <param key="completeness" value="0.13"/>
+    </flow>
+</routes>

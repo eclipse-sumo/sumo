@@ -1,0 +1,10 @@
+Valid area contains 96 edges
+Kept 10 of 13 busStops
+Parsing routes from input_routes.rou.xml
+Parsing routes from input_routes2.rou.xml
+Could not reconstruct new departure time for flow 'bus_104:0'. Using old departure time.
+Could not reconstruct new departure time for flow 'bus_104:1'. Using old departure time.
+Could not reconstruct new departure time for flow 'bus_140:0'. Using old departure time.
+Could not reconstruct new departure time for flow 'bus_140:1'. Using old departure time.
+Parsed 0 vehicles, 0 persons, 4 flows and kept 4 routes
+Number of disconnected routes: 0.
