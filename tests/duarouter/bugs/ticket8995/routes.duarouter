@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-24 09:54:54 by Eclipse SUMO duarouter Version v1_10_0+0157-6aa61fe
+<!-- generated on 2021-08-24 09:57:43 by Eclipse SUMO duarouter Version v1_10_0+0158-d41cc2c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,6 +48,12 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="t" depart="31000.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="3.0" depart="400000.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+    <vehicle id="3.1" depart="400050.00">
         <route edges="beg middle end"/>
     </vehicle>
 </routes>
