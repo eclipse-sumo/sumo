@@ -1,5 +1,8 @@
 plain
 
+# mix usage of trainStop and busStop
+trainstop
+
 # Copy of plain
 multiple_files
 orig_net
