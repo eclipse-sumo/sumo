@@ -303,7 +303,7 @@ RouteHandler::myEndElement(int element) {
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (tag) {
-        case SUMO_TAG_VTYPE:
+        // specia case for route (because can be embedded)
         case SUMO_TAG_ROUTE:
             // only parse non-embedded routes
             if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
@@ -313,6 +313,7 @@ RouteHandler::myEndElement(int element) {
                 delete obj;
             }
             break;
+        case SUMO_TAG_VTYPE:
         case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_FLOW:
