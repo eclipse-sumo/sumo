@@ -9,6 +9,11 @@ title: ChangeLog
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
 
+### Other
+
+- Miscellaneous
+  - Renamed the "master" branch in git to "main". Issue #8591
+
 
 ## Version 1.10.0 (17.08.2021)
 
@@ -157,7 +162,7 @@ title: ChangeLog
   - [flowrouter.py](Tools/Detector.md#flowrouterpy) now support output of pedestrian flows via option **--pedestrians**. Issue #8864
   
 
-### Miscelaneous
+### Miscellaneous
 - tools
   - Function sumolib.xml.parse now sets the attribute `heterogeneous=True` by default. This enables parsing of all attributes even not all elements have the same set of attributes. The value `heterogeneous=False` is useful for conserving memory when all elements are known to have the same set of attributes. Issue #8651
   - Now the tool [drtOnline.py](Tools/Drt.md) contains only the information for DRT scheduling (read fleet and requests, call a DARP solver and dispatch). To find the best routes, different methods can be used to solve the DialARideProblem (DARP), which are defined in the script "darpSolvers.py". Issue #8700
