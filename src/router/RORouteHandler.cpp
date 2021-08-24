@@ -176,6 +176,9 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
 void
 RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
+    if (myActivePerson != nullptr && myActivePerson->getPlan().empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_RIDE) {
+        throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
+    }
     SUMORouteHandler::myStartElement(element, attrs);
     bool ok = true;
     switch (element) {
