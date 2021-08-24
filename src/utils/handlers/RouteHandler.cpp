@@ -190,6 +190,11 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
                 obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
             break;
+        // stopss
+        case SUMO_TAG_STOP:
+            buildStop(obj,
+                obj->getStopParameter());
+            break;
         default:
             break;
     }

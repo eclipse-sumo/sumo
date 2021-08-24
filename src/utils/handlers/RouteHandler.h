@@ -128,6 +128,10 @@ public:
     virtual void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
                                const std::string &toBusStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, 
                                const double arrivalPosition) = 0;
+
+    /// @brief build stop
+    virtual void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) = 0;
+
     /// @}
 
 private:
