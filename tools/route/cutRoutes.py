@@ -186,7 +186,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
     standaloneRoutesDepart = {}  # routeID -> time or 'discard' or None
     vehicleTypes = {}
     if options.additional_input:
-        parse_standalone_routes(options.additional_input, standaloneRoutes, vehicleTypes)
+        for addFile in options.additional_input.split(","):
+            parse_standalone_routes(addFile, standaloneRoutes, vehicleTypes)
     for routeFile in options.routeFiles:
         parse_standalone_routes(routeFile, standaloneRoutes, vehicleTypes)
     for _, t in sorted(vehicleTypes.items()):
@@ -319,7 +320,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             newDepart += oldDepart
                             moving.depart = "%.2f" % newDepart
                         else:
-                            moving.end = "%.2f" % (newDepart + parseTime(moving.end))
+                            if moving.end:
+                                moving.end = "%.2f" % (newDepart + parseTime(moving.end))
                             newDepart += oldDepart
                             moving.begin = "%.2f" % newDepart
                         if collectPT and moving.line:
@@ -357,7 +359,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         moving.depart = "%.2f" % newDepart
                     else:
                         moving.begin = "%.2f" % newDepart
-                        moving.end = "%.2f" % (newDepart - oldDepart + parseTime(moving.end))
+                        if moving.end:
+                            moving.end = "%.2f" % (newDepart - oldDepart + parseTime(moving.end))
                     moving.departEdge = None  # the cut already removed the unused edges
                     moving.arrivalEdge = None  # the cut already removed the unused edges
                     if len(routeParts) > 1:
@@ -502,23 +505,24 @@ def main(options):
         kept_busstops = 0
         num_taz = 0
         kept_taz = 0
-        for busStop in parse(options.additional_input, ('busStop', 'trainStop')):
-            num_busstops += 1
-            edge = busStop.lane[:-2]
-            busStopEdges[busStop.id] = edge
-            if options.stops_output and edge in edges:
-                kept_busstops += 1
-                if busStop.access:
-                    busStop.access = [acc for acc in busStop.access if acc.lane[:-2] in edges]
-                busStops.write(busStop.toXML(u'    '))
-        for taz in parse(options.additional_input, 'taz'):
-            num_taz += 1
-            taz_edges = [e for e in taz.edges.split() if e in edges]
-            if taz_edges:
-                taz.edges = " ".join(taz_edges)
-                if options.stops_output:
-                    kept_taz += 1
-                    busStops.write(taz.toXML(u'    '))
+        for addFile in options.additional_input.split(","):
+            for busStop in parse(addFile, ('busStop', 'trainStop')):
+                num_busstops += 1
+                edge = busStop.lane[:-2]
+                busStopEdges[busStop.id] = edge
+                if options.stops_output and edge in edges:
+                    kept_busstops += 1
+                    if busStop.access:
+                        busStop.access = [acc for acc in busStop.access if acc.lane[:-2] in edges]
+                    busStops.write(busStop.toXML(u'    '))
+            for taz in parse(addFile, 'taz'):
+                num_taz += 1
+                taz_edges = [e for e in taz.edges.split() if e in edges]
+                if taz_edges:
+                    taz.edges = " ".join(taz_edges)
+                    if options.stops_output:
+                        kept_taz += 1
+                        busStops.write(taz.toXML(u'    '))
         if num_busstops > 0 and num_taz > 0:
             print("Kept %s of %s busStops and %s of %s tazs" % (
                 kept_busstops, num_busstops, kept_taz, num_taz))
