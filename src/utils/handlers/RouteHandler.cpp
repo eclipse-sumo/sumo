@@ -794,8 +794,8 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSA
     stop.edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, nullptr, ok, "");
     stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, stop.busstop);
     // check errors
-    if ((stop.edge.empty() && stop.lane.empty()) || (stop.edge.empty() && stop.lane.empty())) {
-        WRITE_ERROR("A stop must be defined either with an edge or with an lane");
+    if (!stop.edge.empty() && !stop.lane.empty()) {
+        WRITE_ERROR("A stop must be defined either with an edge or with an lane, not both");
         return false;
     }
     // stopping places
@@ -805,6 +805,16 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSA
     stop.overheadWireSegment = attrs.getOpt<std::string>(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, nullptr, ok, "");
     stop.containerstop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
     stop.parkingarea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, nullptr, ok, "");
+    //check stopping places
+    const int numStoppingPlaces = !stop.busstop.empty() + !stop.chargingStation.empty() + !stop.overheadWireSegment.empty() + 
+        !stop.containerstop.empty() + !stop.parkingarea.empty();
+    if (numStoppingPlaces > 1) {
+        WRITE_ERROR("A stop must be defined only in a StoppingPlace");
+        return false;
+    } else if ((numStoppingPlaces == 0) && stop.edge.empty() && stop.lane.empty()) {
+        WRITE_ERROR("A stop must be defined in an edge, a lane, or in a StoppingPlace");
+        return false;
+    }
     // declare error suffix
     std::string errorSuffix;
     if (stop.busstop != "") {
