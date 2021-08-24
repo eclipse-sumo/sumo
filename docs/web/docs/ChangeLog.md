@@ -8,6 +8,12 @@ title: ChangeLog
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
+  - cutRoutes.py: Handles flows without end time
+
+### Enhancements
+
+- tools
+  - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
 
 ### Other
 
