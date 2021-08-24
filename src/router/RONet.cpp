@@ -445,7 +445,11 @@ RONet::addFlow(SUMOVehicleParameter* flow, const bool randomize) {
         std::sort(myDepartures[flow->id].begin(), myDepartures[flow->id].end());
         std::reverse(myDepartures[flow->id].begin(), myDepartures[flow->id].end());
     }
-    return myFlows.add(flow->id, flow);
+    const bool added = myFlows.add(flow->id, flow);
+    if (added) {
+        myHaveActiveFlows = true;
+    }
+    return added;
 }
 
 
