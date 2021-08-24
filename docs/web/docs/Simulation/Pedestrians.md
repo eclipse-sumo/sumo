@@ -213,7 +213,7 @@ demand by setting option **--persontrips**.
 
 ## From local counting data
 
-The tools [routeSampler](../Tools/Turns.md#routesamplerpy) and [flowrouter](../Tools/Detector.md#flowrouterpy) both suppor option **--pedestrians** to generate pedestrians instead of vehicular traffic based on countint data. See also [Chosing the right tool](../Demand/Routes_from_Observation_Points.html#chosing_the_right_tool).
+The tools [routeSampler](../Tools/Turns.md#routesamplerpy) and [flowrouter](../Tools/Detector.md#flowrouterpy) both suppor option **--pedestrians** to generate pedestrians instead of vehicular traffic based on countint data. See also [Chosing the right tool](../Demand/Routes_from_Observation_Points.md#chosing_the_right_tool).
 
 # Pedestrian Models
 
