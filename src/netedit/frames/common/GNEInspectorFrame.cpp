@@ -1384,7 +1384,9 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 
 void
 GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
-    if (objectsUnderCursor.getAttributeCarrierFront()) {
+    const auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    // check if selection is blocked
+    if (AC && !myViewNet->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType())) {
         // inspect front element
         inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
         // show Overlapped Inspection modul

@@ -4335,6 +4335,8 @@ GNEViewNet::drawTemporalJunction() const {
 
 void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
+    // get front AC
+    const auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
@@ -4354,16 +4356,14 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
             // check that we have clicked over network element element
-            if (myObjectsUnderCursor.getAttributeCarrierFront() &&
-                    (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement() ||
-                     myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isAdditionalElement() ||
-                     myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isShape() ||
-                     myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isTAZElement())) {
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) &&
+                (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement() ||
+                 AC->getTagProperty().isShape() || AC->getTagProperty().isTAZElement())) {
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point
                     myViewParent->getDeleteFrame()->removeGeometryPoint(myObjectsUnderCursor);
-                } else if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                } else if (AC->isAttributeCarrierSelected()) {
                     // remove all selected attribute carriers
                     myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                 } else {
@@ -4389,14 +4389,14 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
-                    if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && !AC->getTagProperty().isDemandElement()) {
                         // Check if this GLobject type is locked
                         if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toggle networkElement selection
-                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                            if (AC->isAttributeCarrierSelected()) {
+                                AC->unselectAttributeCarrier();
                             } else {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                                AC->selectAttributeCarrier();
                             }
                         }
                     }
@@ -4463,9 +4463,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // allways swap lane to edges in movement mode
                 myObjectsUnderCursor.swapLane2Edge();
                 // check that AC under cursor isn't a demand element
-                if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && !AC->getTagProperty().isDemandElement()) {
                     // check if we're moving a set of selected items
-                    if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs
                         myMoveMultipleElementValues.beginMoveSelection();
                         // update view
@@ -4660,6 +4660,8 @@ GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
 
 void
 GNEViewNet::processLeftButtonPressDemand(void* eventData) {
+    // get front AC
+    const auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
     // decide what to do based on mode
     switch (myEditModes.demandEditMode) {
         case DemandEditMode::DEMAND_INSPECT: {
@@ -4670,10 +4672,10 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_DELETE: {
-            // check that we have clicked over an demand element
-            if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+            // check conditions
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && AC->getTagProperty().isDemandElement()) {
                 // check if we are deleting a selection or an single attribute carrier
-                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                if (AC->isAttributeCarrierSelected()) {
                     myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
@@ -4693,14 +4695,14 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier, is demand element and is selectable
-                    if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                    if (AC && AC->getTagProperty().isDemandElement()) {
                         // Check if this GLobject type is locked
                         if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toggle networkElement selection
-                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                            if (AC->isAttributeCarrierSelected()) {
+                                AC->unselectAttributeCarrier();
                             } else {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                                AC->selectAttributeCarrier();
                             }
                         }
                     }
@@ -4714,10 +4716,10 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         case DemandEditMode::DEMAND_MOVE: {
             // check that AC under cursor is a demand element
-            if (myObjectsUnderCursor.getAttributeCarrierFront() &&
-                    myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) &&
+                AC->getTagProperty().isDemandElement()) {
                 // check if we're moving a set of selected items
-                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                if (AC->isAttributeCarrierSelected()) {
                     // move selected ACs
                     myMoveMultipleElementValues.beginMoveSelection();
                     // update view
@@ -4825,6 +4827,8 @@ GNEViewNet::processMoveMouseDemand(const bool mouseLeftButtonPressed) {
 
 void
 GNEViewNet::processLeftButtonPressData(void* eventData) {
+    // get AC
+    const auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
     // decide what to do based on mode
     switch (myEditModes.dataEditMode) {
         case DataEditMode::DATA_INSPECT: {
@@ -4835,10 +4839,10 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         }
         case DataEditMode::DATA_DELETE: {
-            // check that we have clicked over an data element
-            if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
+            // check conditions
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && AC->getTagProperty().isDataElement()) {
                 // check if we are deleting a selection or an single attribute carrier
-                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                if (AC->isAttributeCarrierSelected()) {
                     myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
@@ -4858,14 +4862,14 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier, is data element and is selectable
-                    if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDataElement()) {
+                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && AC->getTagProperty().isDataElement()) {
                         // Check if this GLobject type is locked
                         if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toggle networkElement selection
-                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                            if (AC->isAttributeCarrierSelected()) {
+                                AC->unselectAttributeCarrier();
                             } else {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                                AC->selectAttributeCarrier();
                             }
                         }
                     }
