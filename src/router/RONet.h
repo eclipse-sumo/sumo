@@ -323,7 +323,10 @@ public:
     virtual bool addVehicle(const std::string& id, ROVehicle* veh);
 
     /// @brief returns whether a vehicle with the given id was already loaded
-    bool knowsVehicle(const std::string& id);
+    bool knowsVehicle(const std::string& id) const;
+
+    /// @brief returns departure time for the given vehicle id
+    SUMOTime getDeparture(const std::string& vehID) const;
 
     /* @brief Adds a flow of vehicles to the network
      *
@@ -469,8 +472,8 @@ private:
     /// @brief Unique instance of RONet
     static RONet* myInstance;
 
-    /// @brief Known vehicle ids
-    std::set<std::string> myVehIDs;
+    /// @brief Known vehicle ids and their departure
+    std::map<std::string, SUMOTime> myVehIDs;
 
     /// @brief Known person ids
     std::set<std::string> myPersonIDs;

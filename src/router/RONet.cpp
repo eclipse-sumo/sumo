@@ -412,7 +412,8 @@ RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypePa
 bool
 RONet::addVehicle(const std::string& id, ROVehicle* veh) {
     if (myVehIDs.find(id) == myVehIDs.end()) {
-        myVehIDs.insert(id);
+        myVehIDs[id] = veh->getParameter().departProcedure == DEPART_TRIGGERED ? -1 : veh->getDepartureTime();
+
         if (veh->isPublicTransport()) {
             if (!veh->isPartOfFlow()) {
                 myPTVehicles.push_back(veh);
@@ -430,8 +431,18 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
 
 
 bool
-RONet::knowsVehicle(const std::string& id) {
+RONet::knowsVehicle(const std::string& id) const {
     return myVehIDs.find(id) != myVehIDs.end();
+}
+
+SUMOTime
+RONet::getDeparture(const std::string& vehID) const {
+    auto it = myVehIDs.find(vehID);
+    if (it != myVehIDs.end()) {
+        return it->second;
+    } else {
+        throw ProcessError("Requesting departure time for unknown vehicle '" + vehID + "'");
+    }
 }
 
 
