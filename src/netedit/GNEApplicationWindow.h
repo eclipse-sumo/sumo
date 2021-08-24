@@ -295,6 +295,12 @@ public:
     /// @brief called when user press a lock menu check
     long onCmdLockElements(FXObject*, FXSelector sel, void*);
 
+    /// @brief called when user press lock all elements button
+    long onCmdLockAllElements(FXObject*, FXSelector sel, void*);
+
+    /// @brief called when user press unlock all elements button
+    long onCmdUnlockAllElements(FXObject*, FXSelector sel, void*);
+
     /// @brief enable or disable lock menu title
     long onUpdLockMenuTitle(FXObject*, FXSelector sel, void*);
 

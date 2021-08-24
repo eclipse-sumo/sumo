@@ -637,6 +637,12 @@ struct GNEApplicationWindowHelper {
         /// @brief show data processing menu commands
         void hideDataLockMenuCommands();
 
+        /// @brief lock all
+        void lockAll();
+
+        /// @brief unlock all
+        void unlockAll();
+
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief menu check to lock junction

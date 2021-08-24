@@ -684,6 +684,10 @@ enum {
     MID_GNE_REMOVESELECT_EDGE,
     /// @brief lock element
     MID_GNE_LOCKELEMENT,
+    /// @brief lock all element
+    MID_GNE_LOCKALLELEMENTS,
+    /// @brief unlock all element
+    MID_GNE_UNLOCKALLELEMENTS,
 
     /// @}
 

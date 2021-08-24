@@ -1143,6 +1143,60 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDataLockMenuCommands() {
     menuCheckLockEdgeTAZRels->hide();
 }
 
+
+void 
+GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
+    menuCheckLockJunction->setCheck(TRUE);
+    menuCheckLockEdges->setCheck(TRUE);
+    menuCheckLockLanes->setCheck(TRUE);
+    menuCheckLockConnections->setCheck(TRUE);
+    menuCheckLockCrossings->setCheck(TRUE);
+    menuCheckLockAdditionals->setCheck(TRUE);
+    menuCheckLockTAZs->setCheck(TRUE);
+    menuCheckLockPolygons->setCheck(TRUE);
+    menuCheckLockPOIs->setCheck(TRUE);
+    menuCheckLockRoutes->setCheck(TRUE);
+    menuCheckLockVehicles->setCheck(TRUE);
+    menuCheckLockPersons->setCheck(TRUE);
+    menuCheckLockPersonTrip->setCheck(TRUE);
+    menuCheckLockWalk->setCheck(TRUE);
+    menuCheckLockRides->setCheck(TRUE);
+    menuCheckLockContainers->setCheck(TRUE);
+    menuCheckLockTransports->setCheck(TRUE);
+    menuCheckLockTranships->setCheck(TRUE);
+    menuCheckLockStops->setCheck(TRUE);
+    menuCheckLockEdgeDatas->setCheck(TRUE);
+    menuCheckLockEdgeRelDatas->setCheck(TRUE);
+    menuCheckLockEdgeTAZRels->setCheck(TRUE);
+}
+
+
+void
+GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
+    menuCheckLockJunction->setCheck(FALSE);
+    menuCheckLockEdges->setCheck(FALSE);
+    menuCheckLockLanes->setCheck(FALSE);
+    menuCheckLockConnections->setCheck(FALSE);
+    menuCheckLockCrossings->setCheck(FALSE);
+    menuCheckLockAdditionals->setCheck(FALSE);
+    menuCheckLockTAZs->setCheck(FALSE);
+    menuCheckLockPolygons->setCheck(FALSE);
+    menuCheckLockPOIs->setCheck(FALSE);
+    menuCheckLockRoutes->setCheck(FALSE);
+    menuCheckLockVehicles->setCheck(FALSE);
+    menuCheckLockPersons->setCheck(FALSE);
+    menuCheckLockPersonTrip->setCheck(FALSE);
+    menuCheckLockWalk->setCheck(FALSE);
+    menuCheckLockRides->setCheck(FALSE);
+    menuCheckLockContainers->setCheck(FALSE);
+    menuCheckLockTransports->setCheck(FALSE);
+    menuCheckLockTranships->setCheck(FALSE);
+    menuCheckLockStops->setCheck(FALSE);
+    menuCheckLockEdgeDatas->setCheck(FALSE);
+    menuCheckLockEdgeRelDatas->setCheck(FALSE);
+    menuCheckLockEdgeTAZRels->setCheck(FALSE);
+}
+
 // ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::ProcessingMenuCommands - methods
 // ---------------------------------------------------------------------------

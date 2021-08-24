@@ -249,6 +249,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
 
     // toolbar lock
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCKELEMENT,                            GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCKALLELEMENTS,                        GNEApplicationWindow::onCmdLockAllElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNLOCKALLELEMENTS,                      GNEApplicationWindow::onCmdUnlockAllElements),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_LOCKMENUTITLE,                          GNEApplicationWindow::onUpdLockMenuTitle),
 
     // Toolbar processing
@@ -1587,6 +1589,22 @@ GNEApplicationWindow::onCmdLockElements(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         myViewNet->getLockManager().updateFlags();
     }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdLockAllElements(FXObject*, FXSelector, void*) {
+    // lock all
+    myLockMenuCommands.lockAll();
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdUnlockAllElements(FXObject*, FXSelector, void*) {
+    // unlock all
+    myLockMenuCommands.unlockAll();
     return 1;
 }
 
