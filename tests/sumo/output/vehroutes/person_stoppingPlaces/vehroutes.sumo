@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 17:01:48 by Eclipse SUMO sumo Version v1_9_1+0262-3f18272
+<!-- generated on 2021-08-24 11:28:22 by Eclipse SUMO sumo Version v1_10_0+0165-ee91fbe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,19 +40,19 @@ SPDX-License-Identifier: EPL-2.0
     </person>
 
     <person id="p32" depart="0.00" arrival="10.00">
-        <stop busStop="ts" duration="10.00" started="0.00" ended="10.00"/>
+        <stop trainStop="ts" duration="10.00" started="0.00" ended="10.00"/>
     </person>
 
     <person id="p33" depart="0.00" arrival="10.00">
-        <stop busStop="cs" duration="10.00" started="0.00" ended="10.00"/>
+        <stop containerStop="cs" duration="10.00" started="0.00" ended="10.00"/>
     </person>
 
     <person id="p34" depart="0.00" arrival="10.00">
-        <stop busStop="pa" duration="10.00" started="0.00" ended="10.00"/>
+        <stop parkingArea="pa" duration="10.00" started="0.00" ended="10.00"/>
     </person>
 
     <person id="p35" depart="0.00" arrival="10.00">
-        <stop busStop="cc" duration="10.00" started="0.00" ended="10.00"/>
+        <stop chargingStation="cc" duration="10.00" started="0.00" ended="10.00"/>
     </person>
 
     <person id="p21" depart="0.00" arrival="1212.00">
