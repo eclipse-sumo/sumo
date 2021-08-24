@@ -107,10 +107,13 @@ def generateCMake(generator, platform, log, checkOptionalLibs, python):
     if checkOptionalLibs:
         cmakeOpt += ["-DSUMO_UTILS=True"]
     # Create directory or clear it if already exists
-    if os.path.exists(buildDir):
-        status.printLog("Cleaning directory of %s." % generator, log)
-        shutil.rmtree(buildDir)
-    os.makedirs(buildDir)
+    try:
+        if os.path.exists(buildDir):
+            status.printLog("Cleaning directory of %s." % generator, log)
+            shutil.rmtree(buildDir)
+        os.makedirs(buildDir)
+    except Exception as e:
+        status.printLog("Error occured on build dir cleanup: %s." % e, log)
     status.printLog("Creating solution for %s." % generator, log)
     subprocess.call(["cmake", "../..", "-G", generator, "-A", platform] + cmakeOpt,
                     cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
