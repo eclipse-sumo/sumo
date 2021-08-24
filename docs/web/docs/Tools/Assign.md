@@ -37,6 +37,17 @@ start it with the "--help" option.
 python tools/assign/duaIterate.py -n <PATH_TO_SUMO_NET> -t <PATH_TO_TRIPS>
 ```
 
+### Loading vehicle types from an additional file
+
+If the file `vtypes.add.xml` defines vehicle types that are needed by the traffic demand input for duaIterate.py, the following options must be set
+
+**--additional vtypes.add.xml duarouter--vtype-output dummy.xml duarouter--additional-files vtypes.add.xml**
+
+The first option passes it's arguments only to the [sumo](../sumo.md) process. The other options are passed tu [duarouter](../duarouter.md) and ensure that the types are read but are not written to the route output file (since they would than be loaded twice by sumo resulting in an error).
+
+!!! caution
+    Options, prefixed with **duarouter--** must be the last in the list of all options
+
 ## duaIterate_analysis.py
 
 To check the evolution of different simulation parameters during the dua
