@@ -173,7 +173,7 @@ analysis](https://sumo.dlr.de/daily/lcov/html/) are generated every
 night.
 
 !!! caution
-    The available windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/master) due to being compiled only once per day (around midnight, Berlin time).
+    The available windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
 
 ### Direct repository access
 
