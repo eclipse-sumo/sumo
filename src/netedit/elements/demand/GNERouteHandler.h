@@ -58,8 +58,6 @@ public:
     /// @brief Destructor
     ~GNERouteHandler();
 
-/**************************************/
-
     /// @name build functions
     /// @{
 
@@ -136,10 +134,11 @@ public:
     /// @brief build tranship
     void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &fromEdgeID, const std::string &toEdgeID,
                        const std::string &toBusStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, 
-                       const double arrivalPosition);
+                       const double arrivalPosition);    
     /// @}
 
-/**************************************/
+    /// @brief build stop
+    void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNENet* net, const std::string& id);
