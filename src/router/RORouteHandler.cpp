@@ -878,7 +878,6 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
     const std::string pid = myVehicleParameter->id;
-    const std::string agent = "person";
 
     ROEdge* from = nullptr;
     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
@@ -914,26 +913,42 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     if (plan.empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
         StringTokenizer st(desc);
         if (st.size() != 1) {
-            throw ProcessError("Triggered departure for " + agent + " '" + pid + "' requires a unique lines value.");
+            throw ProcessError("Triggered departure for person '" + pid + "' requires a unique lines value.");
         }
         const std::string vehID = st.front();
         if (!myNet.knowsVehicle(vehID)) {
-            throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for " + agent + " '" + pid + "'.");
+            throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
         }
         SUMOTime vehDepart = myNet.getDeparture(vehID);
         if (vehDepart == -1) {
-            throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for " + agent + " '" + pid + "'.");
+            throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
         }
         myActivePerson->setDepart(vehDepart + 1); // write person after vehicle
     }
-
-
     myActivePerson->addRide(from, to, desc, arrivalPos, stoppingPlaceID, group);
 }
 
 
 void
-RORouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
+RORouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
+    if (myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+        bool ok = true;
+        const std::string pid = myVehicleParameter->id;
+        const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
+        StringTokenizer st(desc);
+        if (st.size() != 1) {
+            throw ProcessError("Triggered departure for container '" + pid + "' requires a unique lines value.");
+        }
+        const std::string vehID = st.front();
+        if (!myNet.knowsVehicle(vehID)) {
+            throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for container '" + pid + "'.");
+        }
+        SUMOTime vehDepart = myNet.getDeparture(vehID);
+        if (vehDepart == -1) {
+            throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for container '" + pid + "'.");
+        }
+        myVehicleParameter->depart = vehDepart + 1; // write container after vehicle
+    }
 }
 
 
