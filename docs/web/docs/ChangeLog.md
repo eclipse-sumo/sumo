@@ -2,9 +2,13 @@
 title: ChangeLog
 ---
 
-## Git Master
+## Git Main
 
 ### Bugfixes
+
+- tools
+  - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
+
 
 ## Version 1.10.0 (17.08.2021)
 
