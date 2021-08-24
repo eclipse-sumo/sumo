@@ -2,6 +2,9 @@ personTrip
 
 # test routing on shared roads
 opposite-factor
+
+# person with depart=triggered
+triggered
 basic
 
 # use edges instead of from and to
