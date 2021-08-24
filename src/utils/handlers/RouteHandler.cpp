@@ -860,6 +860,9 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop &stop, const SUMOSA
         triggers.push_back(toString(SUMO_TAG_CONTAINER));
     };
     SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);
+    stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, 0);
+    stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, 0);
+    stop.friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
     stop.arrival = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ARRIVAL, nullptr, ok, -1);
     stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
     stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
