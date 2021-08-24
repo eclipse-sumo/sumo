@@ -4336,7 +4336,7 @@ GNEViewNet::drawTemporalJunction() const {
 void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // get front AC
-    const auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
+    auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
@@ -4354,6 +4354,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
+                // update AC under cursor
+                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // check that we have clicked over network element element
             if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) &&
@@ -4380,6 +4382,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
+                // update AC under cursor
+                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
@@ -4444,8 +4448,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_MOVE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
+            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false) ) {
                 myObjectsUnderCursor.swapLane2Edge();
+                // update AC under cursor
+                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
