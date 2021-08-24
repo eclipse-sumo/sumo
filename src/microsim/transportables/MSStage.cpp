@@ -488,7 +488,7 @@ MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
         os.openTag("stop");
         std::string comment = "";
         if (myDestinationStop != nullptr) {
-            os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
+            os.writeAttr(toString(myDestinationStop->getElement()), myDestinationStop->getID());
             if (myDestinationStop->getMyName() != "") {
                 comment =  " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
             }
