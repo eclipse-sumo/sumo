@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  6 12:48:12 2021 by Eclipse SUMO sumo Version v1_8_0+1903-d101b5e
+<!-- generated on 2021-08-24 11:19:12 by Eclipse SUMO sumo Version v1_10_0+0164-01159c2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <processing>
@@ -38,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
         <stop duration="1.00" arrival="1.00" arrivalPos="50.00" actType="waiting"/>
         <transport waitingTime="108.00" vehicle="car0" depart="109.00" arrival="128.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
     </containerinfo>
-    <tripinfo id="car0" depart="10.00" departLane="1/3to0/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="142.00" arrivalLane="0/4to1/4_0" arrivalPos="92.00" arrivalSpeed="13.00" duration="132.00" routeLength="276.98" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="11.57" rerouteNo="1" devices="tripinfo_car0 routing_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car0" depart="10.00" departLane="1/3to0/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="142.00" arrivalLane="0/4to1/4_0" arrivalPos="92.00" arrivalSpeed="13.00" duration="132.00" routeLength="276.98" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="11.57" rerouteNo="1" devices="vehroute_car0 tripinfo_car0 routing_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE">
         <stop duration="1.00" arrival="1.00" arrivalPos="50.00" actType="waiting"/>
         <transport waitingTime="142.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="60.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
