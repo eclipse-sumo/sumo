@@ -205,6 +205,9 @@ RORouteHandler::myStartElement(int element,
             break;
         case SUMO_TAG_TRANSPORT:
         case SUMO_TAG_TRANSHIP:
+            if (myActiveContainerPlan == nullptr) {
+                throw ProcessError("Found " + toString((SumoXMLTag)element) + " outside container element");
+            }
             // copy container elements
             myActiveContainerPlan->openTag((SumoXMLTag)element);
             (*myActiveContainerPlan) << attrs;
@@ -931,7 +934,7 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
 
 void
 RORouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
-    if (myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+    if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
         bool ok = true;
         const std::string pid = myVehicleParameter->id;
         const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
