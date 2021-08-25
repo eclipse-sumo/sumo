@@ -107,6 +107,7 @@ private:
     class PState : public MSTransportableStateAdapter {
     public:
         PState(MoveToNextEdge* cmd, std::istringstream* in = nullptr);
+        virtual ~PState();
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{

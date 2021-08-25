@@ -97,7 +97,9 @@ MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {
 // MSPModel_NonInteracting::MoveToNextEdge method definitions
 // ---------------------------------------------------------------------------
 MSPModel_NonInteracting::MoveToNextEdge::~MoveToNextEdge() {
-    myModel->registerArrived();
+    if (myTransportable != nullptr) {
+        myModel->registerArrived();
+    }
 }
 
 
@@ -122,6 +124,11 @@ MSPModel_NonInteracting::PState::PState(MoveToNextEdge* cmd, std::istringstream*
     if (in != nullptr) {
         (*in) >> myLastEntryTime >> myCurrentDuration;
     }
+}
+
+
+MSPModel_NonInteracting::PState::~PState() {
+    myCommand->abortWalk();
 }
 
 
