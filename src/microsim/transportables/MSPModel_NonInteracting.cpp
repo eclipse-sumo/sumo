@@ -128,7 +128,7 @@ MSPModel_NonInteracting::PState::PState(MoveToNextEdge* cmd, std::istringstream*
 
 
 MSPModel_NonInteracting::PState::~PState() {
-    myCommand->abortWalk();
+    //myCommand->abortWalk();
 }
 
 
