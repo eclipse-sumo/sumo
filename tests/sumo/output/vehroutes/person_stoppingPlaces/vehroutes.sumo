@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-24 11:28:22 by Eclipse SUMO sumo Version v1_10_0+0165-ee91fbe
+<!-- generated on 2021-08-25 09:11:47 by Eclipse SUMO sumo Version v1_10_0+0201-258390e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,19 +68,19 @@ SPDX-License-Identifier: EPL-2.0
     </person>
 
     <person id="p12" depart="0.00" arrival="1266.00">
-        <walk edges="beg middle end" busStop="ts" exitTimes="400.00 1201.00 1266.00"/>
+        <walk edges="beg middle end" trainStop="ts" exitTimes="400.00 1201.00 1266.00"/>
     </person>
 
     <person id="p22" depart="0.00" arrival="1270.00">
-        <walk edges="beg middle end" busStop="ts" exitTimes="404.00 1207.00 1270.00"/>
+        <walk edges="beg middle end" trainStop="ts" exitTimes="404.00 1207.00 1270.00"/>
     </person>
 
     <person id="p42" depart="0.00" arrival="1276.00">
-        <walk edges="beg middle end" busStop="ts" exitTimes="409.00 1212.00 1276.00"/>
+        <walk edges="beg middle end" trainStop="ts" exitTimes="409.00 1212.00 1276.00"/>
     </person>
 
     <person id="p23" depart="0.00" arrival="1324.00">
-        <walk edges="beg middle end" busStop="cs" exitTimes="406.00 1208.00 1324.00"/>
+        <walk edges="beg middle end" containerStop="cs" exitTimes="406.00 1208.00 1324.00"/>
     </person>
 
     <person id="p13" depart="0.00" arrival="1397.00">
@@ -108,11 +108,11 @@ SPDX-License-Identifier: EPL-2.0
     </person>
 
     <person id="p24" depart="0.00" arrival="1783.00">
-        <walk edges="beg middle end" busStop="pa" exitTimes="406.00 1208.00 1783.00"/>
+        <walk edges="beg middle end" parkingArea="pa" exitTimes="406.00 1208.00 1783.00"/>
     </person>
 
     <person id="p25" depart="0.00" arrival="2557.00">
-        <walk edges="beg middle end" busStop="cc" exitTimes="406.00 1208.00 2557.00"/>
+        <walk edges="beg middle end" chargingStation="cc" exitTimes="406.00 1208.00 2557.00"/>
     </person>
 
     <person id="p1" depart="0.00">
