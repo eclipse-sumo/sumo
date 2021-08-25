@@ -849,7 +849,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shapeStart",                         GNE_ATTR_SHAPE_START },
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
     { "bidiRail",                           GNE_ATTR_BIDIR },
-    { "blockMovement",                      GNE_ATTR_BLOCK_MOVEMENT },
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },

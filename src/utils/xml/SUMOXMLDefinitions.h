@@ -1205,8 +1205,6 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_END,
     /// @brief whether an edge is part of a bidirectional railway
     GNE_ATTR_BIDIR,
-    /// @brief block movement of a graphic element
-    GNE_ATTR_BLOCK_MOVEMENT,
     /// @brief Close shape of a polygon (Used by GNEPolys)
     GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
