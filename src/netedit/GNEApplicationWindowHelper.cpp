@@ -1021,7 +1021,7 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 
     unlockAllElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                         "Unlock all elements", "", "Unlock all elemens",
-                         nullptr, myGNEApp, MID_GNE_UNLOCKALLELEMENTS);
+                         GUIIconSubSys::getIcon(GUIIcon::UNLOCK), myGNEApp, MID_GNE_UNLOCKALLELEMENTS);
 }
 
 
