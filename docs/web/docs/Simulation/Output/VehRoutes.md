@@ -37,8 +37,8 @@ The generated file look like this:
     </vehicle>
 
     <person id="<PERSON_ID>" depart="<INSERTION_TIME>" arrival="<ARRIVAL_TIME>">
-        <ride from="..." to="..." lines="..." [ended="<END_TIME>"]/>
-        <walk edges="..." speed="..." [exitTimes="<EXIT_TIMES>"]/>
+        <ride from="..." to="..." lines="..." [started="<START_TIME>" ended="<END_TIME>"]/>
+        <walk edges="..." speed="..." [exitTimes="<EXIT_TIMES>" started="<START_TIME>" ended="<END_TIME>"]/>
     </person>
 
     ... information about further vehicles and persons ...
@@ -58,7 +58,8 @@ The generated file look like this:
 | <PREVIOUS_ROUTE\> | \[(edge) id\]+  | The replaced route                                                                          |
 | <LAST_ROUTE\>     | \[(edge) id\]+  | The final vehicle route                                                                     |
 | <EXIT_TIMES\>     | \[time in s\]+  | The leave time for every edge in the route or walk, if enabled with the option **--vehroute-output.exit-times**  |
-| <END_TIME\>       | s               | The leave time for the edge in the ride (or transport for containers), if enabled with the option **--vehroute-output.exit-times**  |
+| <END_TIME\>       | s               | The arrival time for the walk or ride (or tranship/transport for containers), if enabled with the option **--vehroute-output.exit-times**  |
+| <START_TIME\>     | s               | The departure time for the walk or the time when the ride vehicle has been entered and starts to drive again (also for tranship/transport with containers), if enabled with the option **--vehroute-output.exit-times**  |
 
 !!! note
     Additional attributes of the vehicle are also included if they were set.
