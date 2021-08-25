@@ -327,7 +327,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), polyExaggeration);
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), polyExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name

@@ -106,7 +106,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), containerStopExaggeration);
+                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), containerStopExaggeration);
             }
             // pop draw matrix
             GLHelper::popMatrix();

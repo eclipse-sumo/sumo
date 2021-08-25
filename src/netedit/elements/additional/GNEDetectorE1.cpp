@@ -134,7 +134,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
                 // draw E1 Logo
                 drawDetectorLogo(s, E1Exaggeration, "E1", textColor);
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), E1Exaggeration);
+                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), E1Exaggeration);
             }
             // pop layer matrix
             GLHelper::popMatrix();

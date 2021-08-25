@@ -230,7 +230,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             glTranslated(x(), y(), getType() + 1);
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), POIExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), POIExaggeration);
             GLHelper::popMatrix();
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
