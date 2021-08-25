@@ -1265,9 +1265,9 @@ struct GNEViewNetHelper {
     /// @brief struct for pack all variables and functions related with Block Icon
     struct LockIcon {
         /// @brief draw lock icon
-        static void drawLockIcon(const GNEAttributeCarrier* AC, const GNEGeometry::Geometry& geometry,
-                                 const double exaggeration, const double offsetx, const double offsety,
-                                 const bool overlane, const double size = 0.5);
+        static void drawLockIcon(const GNEAttributeCarrier* AC, const Position viewPosition,
+                                 const double exaggeration, const double size = 0.5, 
+                                 const double offsetx = 0, const double offsety = 0);
 
     private:
         /// @brief constructor

@@ -3370,40 +3370,22 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const GNEGeometry::Geometry& geometry,
-        const double exaggeration, const double offsetx, const double offsety, const bool overlane, const double size) {
+GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const Position viewPosition,
+        const double exaggeration, const double size, const double offsetx, const double offsety) {
     // first check if icon can be drawn
-    if (checkDrawing(AC, exaggeration) && (geometry.getShape().size() > 0)) {
-        // calculate middle point
-        const double middlePoint = (geometry.getShape().length2D() * 0.5);
-        // calculate position
-        const Position pos = (geometry.getShape().size() == 1) ? geometry.getShape().front() : geometry.getShape().positionAtOffset2D(middlePoint);
-        // calculate rotation
-        double rot = 0;
-        if ((geometry.getShape().size() == 1) && (geometry.getShapeRotations().size() > 0)) {
-            rot = geometry.getShapeRotations().front();
-        } else if (geometry.getShape().size() > 1) {
-            rot = geometry.getShape().rotationDegreeAtOffset(middlePoint);
-        }
-        // get texture
-        const GUIGlID lockTexture = GUITextureSubSys::getTexture(GUITexture::LOCK);
+    if (checkDrawing(AC, exaggeration)) {
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
-        glTranslated(pos.x(), pos.y(), 0.1);
-        // rotate depending of overlane
-        if (overlane) {
-            GNEGeometry::rotateOverLane(rot);
-        } else {
-            // avoid draw invert
-            glRotated(180, 0, 0, 1);
-        }
+        glTranslated(viewPosition.x(), viewPosition.y(), 0.1);
+        // rotate toavoid draw invert
+        glRotated(180, 0, 0, 1);
         // Set draw color
         glColor3d(1, 1, 1);
         // Traslate depending of the offset
         glTranslated(offsetx, offsety, 0);
         // Draw lock icon
-        GUITexturesHelper::drawTexturedBox(lockTexture, size);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LOCK), size);
         // Pop matrix
         GLHelper::popMatrix();
     }

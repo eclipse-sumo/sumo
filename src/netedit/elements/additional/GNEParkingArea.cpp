@@ -121,7 +121,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, parkingAreaExaggeration, baseColor, signColor, "P");
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, true);
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), parkingAreaExaggeration);
                 // Traslate to front
                 glTranslated(0, 0, 0.1);
                 // draw lotSpaceDefinitions

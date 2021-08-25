@@ -166,7 +166,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
         }
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, accessExaggeration, 0, 0, true, 0.3);
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), accessExaggeration, 0.3);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop gl identficador
