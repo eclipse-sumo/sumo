@@ -1,0 +1,5 @@
+--grid --grid.x-number=3 --grid.y-number=3
+--no-internal-links
+--grid.attach-length 40
+--grid.y-length=40 --grid.x-length=40 --output=net.net.xml
+--bidi-probability 0

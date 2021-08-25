@@ -62,5 +62,8 @@ cross
 # removing an edge from the grid
 remove_edge
 
+# bidi-probability=0
+oneway
+
 # Tests processing of errors in input
 errors
