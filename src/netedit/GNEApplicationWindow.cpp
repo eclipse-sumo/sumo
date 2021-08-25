@@ -1597,6 +1597,7 @@ long
 GNEApplicationWindow::onCmdLockAllElements(FXObject*, FXSelector, void*) {
     // lock all
     myLockMenuCommands.lockAll();
+    myViewNet->getLockManager().updateFlags();
     return 1;
 }
 
@@ -1605,6 +1606,7 @@ long
 GNEApplicationWindow::onCmdUnlockAllElements(FXObject*, FXSelector, void*) {
     // unlock all
     myLockMenuCommands.unlockAll();
+    myViewNet->getLockManager().updateFlags();
     return 1;
 }
 

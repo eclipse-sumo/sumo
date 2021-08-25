@@ -672,6 +672,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                         GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
                     }
                 }
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(GLO_VEHICLE, this, vehiclePosition, exaggeration);
                 // pop draw matrix
                 GLHelper::popMatrix();
                 // draw stack label
@@ -894,8 +896,6 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         }
         // draw lane2lane
         GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), s.vehicleSize.getExaggeration(s, fromLane));
         // Pop last matrix
         GLHelper::popMatrix();
         // check if shape dotted contour has to be drawn

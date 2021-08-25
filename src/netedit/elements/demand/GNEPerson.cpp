@@ -388,7 +388,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(GLO_PERSON, this, personPosition, exaggeration);
             // pop matrix
             GLHelper::popMatrix();
             // pop name
