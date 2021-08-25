@@ -668,9 +668,6 @@ protected:
         /// @brief destructor
         ~NeteditParameters();
 
-        /// @brief block movement
-        const bool blockMovement;
-
         /// @brief select
         const bool select;
 

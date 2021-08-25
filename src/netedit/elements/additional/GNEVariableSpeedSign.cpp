@@ -35,10 +35,10 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-        const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters, bool blockMovement) :
+        const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
 {}, {}, {}, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPosition(pos),
 myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
@@ -52,13 +52,8 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 
 GNEMoveOperation*
 GNEVariableSpeedSign::getMoveOperation(const double /*shapeOffset*/) {
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed in view
-        return new GNEMoveOperation(this, myPosition);
-    }
+    // return move operation for additional placed in view
+    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -150,8 +145,6 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             return myAdditionalName;
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -183,7 +176,6 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_VTYPES:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -211,8 +203,6 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -262,9 +252,6 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_VTYPES:
             myVehicleTypes = parse<std::vector<std::string> >(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

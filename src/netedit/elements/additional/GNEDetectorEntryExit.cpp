@@ -33,10 +33,10 @@
 // ===========================================================================
 
 GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
-        const bool friendlyPos, const std::map<std::string, std::string>& parameters,  bool blockMovement) :
+        const bool friendlyPos, const std::map<std::string, std::string>& parameters) :
     GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {
     lane
-}, "", "", friendlyPos, parameters, blockMovement) {
+}, "", "", friendlyPos, parameters) {
     // check that this is a Entry/Exit
     if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");
@@ -238,8 +238,6 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
             return toString(myPositionOverLane);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
@@ -272,7 +270,6 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FRIENDLY_POS:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -292,8 +289,6 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, value, false) != nullptr);
@@ -324,9 +319,6 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
             replaceAdditionalParent(SUMO_TAG_E3DETECTOR, value, 0);

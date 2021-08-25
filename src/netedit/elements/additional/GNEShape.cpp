@@ -40,11 +40,9 @@ GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, Sum
                    const std::vector<GNEShape*>& shapeParents,
                    const std::vector<GNETAZElement*>& TAZElementParents,
                    const std::vector<GNEDemandElement*>& demandElementParents,
-                   const std::vector<GNEGenericData*>& genericDataParents,
-                   bool movementBlocked) :
+                   const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    myBlockMovement(movementBlocked) {
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents) {
 }
 
 
@@ -60,47 +58,6 @@ GNEShape::getID() const {
 GUIGlObject*
 GNEShape::getGUIGlObject() {
     return this;
-}
-
-
-bool
-GNEShape::isMovementBlocked() const {
-    return myBlockMovement;
-}
-
-
-void
-GNEShape::draw(const Position& pos, double layer, double size) const {
-    if (myNet->getViewNet()->showLockIcon()) {
-        // Start pushing matrix
-        GLHelper::pushMatrix();
-        // Traslate to middle of shape
-        glTranslated(pos.x(), pos.y(), layer + 0.1);
-        // Rotate 180 degrees
-        glRotated(180, 0, 0, 1);
-        // Set draw color
-        glColor3d(1, 1, 1);
-        // Draw icon depending of the selection status
-        if (mySelected) {
-            if (myBlockMovement) {
-                // Draw lock texture if shape is movable, is blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LOCK_SELECTED), size);
-            } else {
-                // Draw empty texture if shape is movable, isn't blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::EMPTY_SELECTED), size);
-            }
-        } else {
-            if (myBlockMovement) {
-                // Draw lock texture if shape is movable and is blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LOCK), size);
-            } else {
-                // Draw empty texture if shape is movable and isn't blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::EMPTY), size);
-            }
-        }
-        // Pop matrix
-        GLHelper::popMatrix();
-    }
 }
 
 

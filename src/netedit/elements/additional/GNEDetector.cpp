@@ -39,10 +39,10 @@
 
 GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const SUMOTime freq,
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
-                         const bool friendlyPos, const std::map<std::string, std::string>& parameters, const bool blockMovement) :
+                         const bool friendlyPos, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, type, tag, name,
 {}, {}, parentLanes, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPositionOverLane(pos),
             myFreq(freq),
             myFilename(filename),
@@ -53,10 +53,10 @@ myFriendlyPosition(friendlyPos) {
 
 GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
-                         const std::map<std::string, std::string>& parameters, const bool blockMovement) :
+                         const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, type, tag, name,
 {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
 myPositionOverLane(pos),
 myFreq(freq),
 myFilename(filename),
@@ -69,15 +69,9 @@ GNEDetector::~GNEDetector() {}
 
 GNEMoveOperation*
 GNEDetector::getMoveOperation(const double /*shapeOffset*/) {
-    // check conditions
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
-    }
+    // return move operation for additional placed over shape
+    return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
 }
 
 

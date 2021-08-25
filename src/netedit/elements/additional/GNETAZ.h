@@ -42,10 +42,9 @@ public:
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string& name,
-           const std::map<std::string, std::string>& parameters, bool blockMovement);
+           const std::map<std::string, std::string>& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();

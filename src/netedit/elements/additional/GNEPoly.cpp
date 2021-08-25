@@ -40,12 +40,11 @@
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
-                 const std::map<std::string, std::string>& parameters, bool movementBlocked) :
+                 const std::map<std::string, std::string>& parameters) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY,
-{}, {}, {}, {}, {}, {}, {}, {},
-movementBlocked),
-mySimplifiedShape(false) {
+    {}, {}, {}, {}, {}, {}, {}, {}),
+    mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // check if imgFile is valid
@@ -68,10 +67,7 @@ GNEPoly::~GNEPoly() {}
 GNEMoveOperation*
 GNEPoly::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is blocked
-    if (myBlockMovement) {
-        // nothing to move
-        return nullptr;
-    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -307,7 +303,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 // draw geometry points
                 GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myPolygonGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 // draw moving hint points
-                if (myBlockMovement == false) {
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON)) {
                     GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myPolygonGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
             }
@@ -555,8 +551,6 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return toString(myGEO);
         case SUMO_ATTR_NAME:
             return getShapeName();
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myShape.isClosed());
         case GNE_ATTR_SELECTED:
@@ -588,7 +582,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_NAME:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_CLOSE_SHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -642,8 +635,6 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_CLOSE_SHAPE:
             if (canParse<bool>(value)) {
                 bool closePolygon = parse<bool>(value);
@@ -767,9 +758,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NAME:
             setShapeName(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_CLOSE_SHAPE:
             if (parse<bool>(value)) {

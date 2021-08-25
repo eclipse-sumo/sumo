@@ -51,7 +51,6 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable shape movement
      */
     GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
              const std::vector<GNEJunction*>& junctionParents,
@@ -61,8 +60,7 @@ public:
              const std::vector<GNEShape*>& shapeParents,
              const std::vector<GNETAZElement*>& TAZElementParents,
              const std::vector<GNEDemandElement*>& demandElementParents,
-             const std::vector<GNEGenericData*>& genericDataParents,
-             bool movementBlocked);
+             const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     ~GNEShape();
@@ -97,12 +95,6 @@ public:
 
     /// @brief Returns the numerical id of the object
     virtual GUIGlID getGlID() const = 0;
-
-    /// @brief return true if movement is blocked
-    bool isMovementBlocked() const;
-
-    /// @brief draw lock icon
-    void draw(const Position& pos, double layer, double size = 0.5) const;
 
     /// @name functions for edit geometry
     /// @{
@@ -205,9 +197,6 @@ public:
 protected:
     /// @brief object boundary
     Boundary myBoundary;
-
-    /// @brief flag to block movement
-    bool myBlockMovement;
 
     /// @brief replace shape parent lanes
     void replaceShapeParentLanes(const std::string& value);

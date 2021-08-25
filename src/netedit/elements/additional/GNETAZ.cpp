@@ -46,10 +46,10 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string& name,
-               const std::map<std::string, std::string>& parameters, bool blockMovement) :
+               const std::map<std::string, std::string>& parameters) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
 {}, {}, {}, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             SUMOPolygon(id, name, color, shape, false, false, 1),
             myMaxWeightSource(0),
             myMinWeightSource(0),
@@ -68,10 +68,7 @@ GNETAZ::~GNETAZ() {}
 GNEMoveOperation*
 GNETAZ::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is blocked
-    if (myBlockMovement) {
-        // nothing to move
-        return nullptr;
-    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -306,7 +303,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // draw geometry points
                 GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myTAZGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 // draw moving hint points
-                if (myBlockMovement == false) {
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ)) {
                     GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myTAZGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 }
             }
@@ -388,8 +385,6 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             }
             return toString(edgeIDs);
         }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -445,7 +440,6 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILL:
         case SUMO_ATTR_EDGES:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -475,8 +469,6 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -583,9 +575,6 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFill = parse<bool>(value);
             break;
         case SUMO_ATTR_EDGES:
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

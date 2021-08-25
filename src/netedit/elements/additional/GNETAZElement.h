@@ -70,7 +70,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string>& parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters);
 
     /**@brief Constructor used by TAZElements that have two TAZElements as parent
      * @param[in] TAZElementParent pointer to parent TAZElement pointer (used to generate an ID)
@@ -97,7 +97,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string>& parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     virtual ~GNETAZElement();
@@ -131,9 +131,6 @@ public:
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
     /// @}
-
-    /// @brief Check if TAZElement item is currently blocked (i.e. cannot be moved with mouse)
-    bool isTAZElementBlocked() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -221,9 +218,6 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
-    /// @brief boolean to check if TAZElement element is blocked (i.e. cannot be moved with mouse)
-    bool myBlockMovement;
-
     /// @brief check if a new TAZElement ID is valid
     bool isValidTAZElementID(const std::string& newID) const;
 

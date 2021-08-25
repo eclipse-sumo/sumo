@@ -34,10 +34,10 @@
 
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
                          const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                         const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                         const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
 {}, {}, {}, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPosition(pos),
             myFilename(filename),
             myProbability(probability),
@@ -55,13 +55,8 @@ GNERerouter::~GNERerouter() {
 
 GNEMoveOperation*
 GNERerouter::getMoveOperation(const double /*shapeOffset*/) {
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed in view
-        return new GNEMoveOperation(this, myPosition);
-    }
+    // return move operation for additional placed in view
+    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -161,8 +156,6 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(myVTypes);
         case SUMO_ATTR_OFF:
             return toString(myOff);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -203,7 +196,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_OFF:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -238,8 +230,6 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_OFF:
-            return canParse<bool>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -302,9 +292,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

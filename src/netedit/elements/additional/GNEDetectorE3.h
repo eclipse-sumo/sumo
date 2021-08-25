@@ -43,10 +43,9 @@ public:
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                  const std::string& name, SUMOTime timeThreshold, double speedThreshold, const std::map<std::string, std::string>& parameters, bool blockMovement);
+                  const std::string& name, SUMOTime timeThreshold, double speedThreshold, const std::map<std::string, std::string>& parameters);
 
     /// @brief GNEDetectorE3 Destructor
     ~GNEDetectorE3();

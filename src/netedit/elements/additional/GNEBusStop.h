@@ -47,11 +47,10 @@ public:
      * @param[in] color busStop color
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
-               const RGBColor& color, bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement);
+               const RGBColor& color, bool friendlyPosition, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEBusStop();

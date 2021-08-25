@@ -40,11 +40,10 @@ GNETAZElement::GNETAZElement(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    Parameterised(parameters),
-    myBlockMovement(blockMovement) {
+    Parameterised(parameters) {
 }
 
 
@@ -57,11 +56,10 @@ GNETAZElement::GNETAZElement(GNETAZElement* TAZElementParent, GNENet* net, GUIGl
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GUIGlObject(type, TAZElementParent->generateChildID(tag)),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    Parameterised(parameters),
-    myBlockMovement(blockMovement) {
+    Parameterised(parameters) {
 }
 
 
@@ -87,12 +85,6 @@ GNETAZElement::generateChildID(SumoXMLTag childTag) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));
-}
-
-
-bool
-GNETAZElement::isTAZElementBlocked() const {
-    return myBlockMovement;
 }
 
 

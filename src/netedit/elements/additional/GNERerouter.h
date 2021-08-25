@@ -46,11 +46,10 @@ public:
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, const std::string& filename,
                 double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                const std::map<std::string, std::string>& parameters, bool blockMovement);
+                const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNERerouter();

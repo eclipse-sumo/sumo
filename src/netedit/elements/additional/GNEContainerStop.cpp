@@ -35,8 +35,8 @@
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                    const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color,
-                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
+    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myContainerCapacity(containerCapacity),
     myParkingLength(parkingLength),
@@ -169,8 +169,6 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myColor);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -197,7 +195,6 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_CONTAINER_CAPACITY:
         case SUMO_ATTR_PARKING_LENGTH:
         case SUMO_ATTR_COLOR:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -251,8 +248,6 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<RGBColor>(value);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -310,9 +305,6 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
             }
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

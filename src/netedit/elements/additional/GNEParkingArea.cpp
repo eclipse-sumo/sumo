@@ -35,8 +35,8 @@
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width,
-                               const double length, double angle, const std::map<std::string, std::string>& parameters, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+                               const double length, double angle, const std::map<std::string, std::string>& parameters) :
+    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
@@ -194,8 +194,6 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(myLength);
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -256,7 +254,6 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -326,8 +323,6 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -425,9 +420,6 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = parse<double>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

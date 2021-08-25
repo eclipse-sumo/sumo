@@ -43,11 +43,11 @@
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
                const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
                const bool relativePath, const double width, const double height, const std::string& name,
-               const std::map<std::string, std::string>& parameters, const bool blockMovement) :
+               const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEShape(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI,
-{}, {}, {}, {}, {}, {}, {}, {},
-blockMovement) {
+    {}, {}, {}, {}, {}, {}, {}, {}
+    ) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -61,11 +61,11 @@ blockMovement) {
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
                const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-               const double height, const std::string& name, const std::map<std::string, std::string>& parameters, const bool movementBlocked) :
+               const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
-{}, {}, {lane}, {}, {}, {}, {}, {},
-movementBlocked) {
+    {}, {}, {lane}, {}, {}, {}, {}, {}
+    ) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -76,9 +76,7 @@ GNEPOI::~GNEPOI() {}
 
 GNEMoveOperation*
 GNEPOI::getMoveOperation(const double /* shapeOffset */) {
-    if (myBlockMovement) {
-        return nullptr;
-    } else if (getTagProperty().getTag() == GNE_TAG_POILANE) {
+    if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
@@ -304,8 +302,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return toString(getShapeNaviDegree());
         case SUMO_ATTR_NAME:
             return getShapeName();
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -338,7 +334,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_HEIGHT:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_NAME:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -398,8 +393,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -527,9 +520,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NAME:
             setShapeName(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

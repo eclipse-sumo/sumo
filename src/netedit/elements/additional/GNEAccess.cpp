@@ -38,10 +38,10 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
-                     const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                     const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
 {}, {}, {lane}, {busStop}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPositionOverLane(pos),
             myLength(length),
 myFriendlyPosition(friendlyPos) {
@@ -56,15 +56,9 @@ GNEAccess::~GNEAccess() {
 
 GNEMoveOperation*
 GNEAccess::getMoveOperation(const double /*shapeOffset*/) {
-    // check conditions
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
-    }
+    // return move operation for additional placed over shape
+    return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
 }
 
 
@@ -201,8 +195,6 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return toString(myLength);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
@@ -231,7 +223,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_FRIENDLY_POS:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -271,8 +262,6 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -319,9 +308,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

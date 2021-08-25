@@ -35,8 +35,8 @@
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition,
-                                       const std::map<std::string, std::string>& parameters, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+                                       const std::map<std::string, std::string>& parameters) :
+    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, parameters),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
@@ -165,8 +165,6 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return toString(myChargeInTransit);
         case SUMO_ATTR_CHARGEDELAY:
             return time2string(myChargeDelay);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -193,7 +191,6 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_EFFICIENCY:
         case SUMO_ATTR_CHARGEINTRANSIT:
         case SUMO_ATTR_CHARGEDELAY:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -243,8 +240,6 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGEDELAY:
             return canParse<SUMOTime>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -298,9 +293,6 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CHARGEDELAY:
             myChargeDelay = parse<SUMOTime>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

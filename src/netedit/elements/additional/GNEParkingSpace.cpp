@@ -33,10 +33,10 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos,
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
-                                 const std::string& name, const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                                 const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
 {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPosition(pos),
             myWidth(width),
             myLength(length),
@@ -52,13 +52,8 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 GNEMoveOperation*
 GNEParkingSpace::getMoveOperation(const double /*shapeOffset*/) {
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed in view
-        return new GNEMoveOperation(this, myPosition);
-    }
+    // return move operation for additional placed in view
+    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -195,8 +190,6 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             return myAngle;
         case SUMO_ATTR_SLOPE:
             return toString(mySlope);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
@@ -227,7 +220,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_SLOPE:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -254,8 +246,6 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_SLOPE:
             return canParse<double>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
@@ -317,9 +307,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SLOPE:
             mySlope = parse<double>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 0);

@@ -30,10 +30,10 @@
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
 {}, {}, {}, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPosition(pos),
             myFreq(freq),
             myFilename(filename),
@@ -50,13 +50,8 @@ GNEDetectorE3::~GNEDetectorE3() {}
 
 GNEMoveOperation*
 GNEDetectorE3::getMoveOperation(const double /*shapeOffset*/) {
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed in view
-        return new GNEMoveOperation(this, myPosition);
-    }
+    // return move operation for additional placed in view
+    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -136,8 +131,6 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -168,7 +161,6 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -202,8 +194,6 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOTime>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -291,9 +281,6 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<double>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

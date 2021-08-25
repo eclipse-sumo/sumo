@@ -43,13 +43,12 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
-    myAdditionalName(additionalName),
-    myBlockMovement(blockMovement) {
+    myAdditionalName(additionalName) {
 }
 
 
@@ -62,13 +61,12 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
-    myAdditionalName(additionalName),
-    myBlockMovement(blockMovement) {
+    myAdditionalName(additionalName) {
 }
 
 
@@ -234,12 +232,6 @@ GNEAdditional::openAdditionalDialog() {
 Boundary
 GNEAdditional::getCenteringBoundary() const {
     return myBoundary;
-}
-
-
-bool
-GNEAdditional::isAdditionalBlocked() const {
-    return myBlockMovement;
 }
 
 
