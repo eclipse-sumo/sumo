@@ -38,8 +38,5 @@ geo_use
 # edit poly parameters
 parameters
 
-# edit poly block move
-blockmove
-
 # edit poly close shape
 closeshape

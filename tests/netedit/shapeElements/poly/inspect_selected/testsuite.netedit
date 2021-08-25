@@ -29,8 +29,5 @@ geo_use
 # edit parameters
 parameters
 
-# edit block move
-blockmove
-
 # edit close shape
 closeshape
