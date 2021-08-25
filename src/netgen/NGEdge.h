@@ -59,7 +59,7 @@ public:
      * @param[in] StarNGNode The begin node
      * @param[in] EndNode The end node
      */
-    NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode);
+    NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode, const std::string& reverseID = "");
 
 
     /** @brief Destructor
@@ -106,6 +106,8 @@ private:
     /// @brief The node the edge ends at
     NGNode* myEndNode;
 
+    /// @brief The id when building the reverse edge
+    const std::string myReverseID;
 };
 
 

@@ -46,8 +46,9 @@
 // ---------------------------------------------------------------------------
 // NGEdge-definitions
 // ---------------------------------------------------------------------------
-NGEdge::NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode)
-    : Named(id), myStartNode(startNode), myEndNode(endNode) {
+NGEdge::NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode, const std::string& reverseID) :
+    Named(id), myStartNode(startNode), myEndNode(endNode), myReverseID(reverseID == "" ? "-" + id : reverseID)
+{
     myStartNode->addLink(this);
     myEndNode->addLink(this);
 }
@@ -76,7 +77,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type, const bool revers
         lsf = LaneSpreadFunction::CENTER;
     }
     NBEdge* result = new NBEdge(
-        (reversed ? "-" : "") + myID,
+        reversed ? myReverseID : myID,
         nb.getNodeCont().retrieve(reversed ? myEndNode->getID() : myStartNode->getID()), // from
         nb.getNodeCont().retrieve(reversed ? myStartNode->getID() : myEndNode->getID()), // to
         type, nb.getTypeCont().getEdgeTypeSpeed(type), lanenumber,
