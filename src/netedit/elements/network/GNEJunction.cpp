@@ -484,7 +484,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
             }
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 1);
+            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
             // pop layer Matrix
             GLHelper::popMatrix();
             // pop junction name

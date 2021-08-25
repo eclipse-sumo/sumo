@@ -155,9 +155,9 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         // draw interne box lines
         GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 1);
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 1);
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name

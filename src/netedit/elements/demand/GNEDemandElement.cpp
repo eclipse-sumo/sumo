@@ -628,7 +628,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * pathWidth));
         }
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 0.5);
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 0.5);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name

@@ -430,7 +430,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // draw lane2lane
         GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, routeWidth);
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), s.vehicleSize.getExaggeration(s, this));
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), s.vehicleSize.getExaggeration(s, this));
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name

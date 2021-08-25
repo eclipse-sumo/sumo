@@ -412,7 +412,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
             }
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 0.1);
+            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 0.1);
             // Pop layer matrix
             GLHelper::popMatrix();
             // check if edge value has to be shown

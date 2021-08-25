@@ -534,7 +534,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             myParentEdge->drawEdgeGeometryPoints(s, this);
         }
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 1);
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // Pop layer matrix
         GLHelper::popMatrix();
         // Pop lane Name
