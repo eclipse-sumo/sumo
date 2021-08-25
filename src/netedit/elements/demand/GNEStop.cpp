@@ -37,15 +37,15 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag,
-{}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
-{}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -442,6 +442,12 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(endPos);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(friendlyPos);
+        case SUMO_ATTR_POSITION_LAT:
+            if (posLat == INVALID_DOUBLE) {
+                return "";
+            } else {
+                return toString(posLat);
+            }
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -498,6 +504,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
+        case SUMO_ATTR_POSITION_LAT:
         //
         case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -574,6 +581,12 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
+        case SUMO_ATTR_POSITION_LAT:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         //
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -839,6 +852,15 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             friendlyPos = parse<bool>(value);
+            break;
+        case SUMO_ATTR_POSITION_LAT:
+            if (value.empty()) {
+                posLat = INVALID_DOUBLE;
+                parametersSet &= ~ STOP_POSLAT_SET;
+            } else {
+                posLat = parse<double>(value);
+                parametersSet |= STOP_POSLAT_SET;
+            }
             break;
         //
         case GNE_ATTR_SELECTED:

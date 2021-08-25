@@ -3660,6 +3660,12 @@ GNEAttributeCarrier::fillStopElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_POSITION_LAT,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The lateral offset on the named lane at which the vehicle must stop",
+                                              "");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         // fill common stop attributes
         fillCommonStopAttributes(currentTag, true);
     }
