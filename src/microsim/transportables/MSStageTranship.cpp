@@ -25,6 +25,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -111,11 +112,22 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
 void
 MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */) const {
     os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
+    std::string comment = "";
+    if (myDestinationStop != nullptr) {
+        os.writeAttr(toString(myDestinationStop->getElement()), myDestinationStop->getID());
+        if (myDestinationStop->getMyName() != "") {
+            comment =  " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
+        }
+    }
     os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     if (withRouteLength) {
         os.writeAttr("routeLength", mySpeed * (myArrived - myDeparted));
     }
-    os.closeTag();
+    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+        os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
+        os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
+    }
+    os.closeTag(comment);
 }
 
 
