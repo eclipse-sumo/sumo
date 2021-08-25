@@ -1276,9 +1276,6 @@ struct GNEViewNetHelper {
         /// @brief check drawing
         static bool checkDrawing(const GNEAttributeCarrier* AC, const double exaggeration);
 
-        /// @brief get lock icon
-        static GUIGlID getLockIcon(const GNEAttributeCarrier* AC);
-
         /// @brief Invalidated assignment operator
         LockIcon& operator=(const LockIcon& other) = delete;
     };

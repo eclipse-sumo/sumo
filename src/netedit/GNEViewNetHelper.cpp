@@ -3386,7 +3386,7 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const GN
             rot = geometry.getShape().rotationDegreeAtOffset(middlePoint);
         }
         // get texture
-        const GUIGlID lockTexture = getLockIcon(AC);
+        const GUIGlID lockTexture = GUITextureSubSys::getTexture(GUITexture::LOCK);
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
@@ -3434,35 +3434,6 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, const do
         return false;
     }
     return true;
-}
-
-
-GUIGlID
-GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier* AC) {
-    // Draw icon depending of the state of additional
-    if (AC->drawUsingSelectColor()) {
-        if (!AC->getTagProperty().canBlockMovement()) {
-            // Draw not movable texture if additional isn't movable and is selected
-            return GUITextureSubSys::getTexture(GUITexture::NOTMOVING_SELECTED);
-        } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
-            // Draw lock texture if additional is movable, is blocked and is selected
-            return GUITextureSubSys::getTexture(GUITexture::LOCK_SELECTED);
-        } else {
-            // Draw empty texture if additional is movable, isn't blocked and is selected
-            return GUITextureSubSys::getTexture(GUITexture::EMPTY_SELECTED);
-        }
-    } else {
-        if (!AC->getTagProperty().canBlockMovement()) {
-            // Draw not movable texture if additional isn't movable
-            return GUITextureSubSys::getTexture(GUITexture::NOTMOVING);
-        } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
-            // Draw lock texture if additional is movable and is blocked
-            return GUITextureSubSys::getTexture(GUITexture::LOCK);
-        } else {
-            // Draw empty texture if additional is movable and isn't blocked
-            return GUITextureSubSys::getTexture(GUITexture::EMPTY);
-        }
-    }
 }
 
 // ---------------------------------------------------------------------------
