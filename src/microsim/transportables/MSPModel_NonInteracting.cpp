@@ -228,7 +228,7 @@ MSPModel_NonInteracting::CState::CState(MoveToNextEdge* cmd, std::istringstream*
 Position
 MSPModel_NonInteracting::CState::getPosition(const MSStageMoving& stage, SUMOTime now) const {
     const double dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
-    double pos = MIN2(STEPS2TIME(now - myLastEntryTime) * stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
+    double pos = MIN2(STEPS2TIME(now - myLastEntryTime) * stage.getMaxSpeed(), dist);    //the container shall not go beyond its end position
     return PositionVector::positionAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
 }
 
