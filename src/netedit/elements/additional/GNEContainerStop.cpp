@@ -50,6 +50,13 @@ GNEContainerStop::~GNEContainerStop() {}
 
 
 void
+GNEContainerStop::writeAdditional(OutputDevice& device) const {
+    // use write additional of gneAdditional
+    GNEAdditional::writeAdditional(device);
+}
+
+
+void
 GNEContainerStop::updateGeometry() {
     // Get value of option "lefthand"
     const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;

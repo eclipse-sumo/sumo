@@ -51,6 +51,13 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
 GNEParkingArea::~GNEParkingArea() {}
 
 
+void 
+GNEParkingArea::writeAdditional(OutputDevice& device) const {
+    // use write additional of gneAdditional
+    GNEAdditional::writeAdditional(device);
+}
+
+
 void
 GNEParkingArea::updateGeometry() {
     // Get value of option "lefthand"

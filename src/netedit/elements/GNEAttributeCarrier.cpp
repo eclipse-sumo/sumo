@@ -1462,7 +1462,7 @@ GNEAttributeCarrier::fillAdditionals() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "The RGBA color with which the busStop shall be displayed",
-                                              "");
+                                              "76, 170, 50");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
     }

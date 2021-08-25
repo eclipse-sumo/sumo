@@ -50,6 +50,39 @@ GNEBusStop::~GNEBusStop() {}
 
 
 void
+GNEBusStop::writeAdditional(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    if (myStartPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
+    }
+    if (myEndPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    }
+    if (myLines.size() > 0) {
+        device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
+    }
+    if (myParkingLength > 0) {
+        device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
+    }
+    // write all access
+    for (const auto &access : getChildAdditionals()) {
+        access->writeAdditional(device);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
+void
 GNEBusStop::updateGeometry() {
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;

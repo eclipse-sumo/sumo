@@ -50,6 +50,13 @@ GNEChargingStation::~GNEChargingStation() {}
 
 
 void
+GNEChargingStation::writeAdditional(OutputDevice& device) const {
+    // use write additional of gneAdditional
+    GNEAdditional::writeAdditional(device);
+}
+
+
+void
 GNEChargingStation::updateGeometry() {
     // Get value of option "lefthand"
     const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
