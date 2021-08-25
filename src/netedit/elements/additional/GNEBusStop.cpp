@@ -72,6 +72,9 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myParkingLength > 0) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
+    if (myColor != myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    }
     // write all access
     for (const auto &access : getChildAdditionals()) {
         access->writeAdditional(device);
