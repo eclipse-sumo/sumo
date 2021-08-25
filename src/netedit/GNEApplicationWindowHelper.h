@@ -719,6 +719,12 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check to lock edgeTAZRels
         FXMenuCheckIcon* menuCheckLockEdgeTAZRels;
 
+        /// @brief FXMenuCommand for lock all elements
+        FXMenuCommand* lockAllElements;
+
+        /// @brief FXMenuCommand for unlock all elements
+        FXMenuCommand* unlockAllElements;
+
         /// @}
 
     private:

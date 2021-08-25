@@ -1011,6 +1011,17 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                                "Lock edgeTAZRel", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA),
                                myGNEApp, MID_GNE_LOCKELEMENT);
+
+    // separator
+    new FXMenuSeparator(fileMenu);
+
+    lockAllElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+                      "Lock all elements", "", "Lock all elemens",
+                      GUIIconSubSys::getIcon(GUIIcon::LOCK), myGNEApp, MID_GNE_LOCKALLELEMENTS);
+
+    unlockAllElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+                        "Unlock all elements", "", "Unlock all elemens",
+                         nullptr, myGNEApp, MID_GNE_UNLOCKALLELEMENTS);
 }
 
 
