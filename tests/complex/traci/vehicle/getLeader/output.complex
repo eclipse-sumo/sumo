@@ -32,7 +32,7 @@
 7.5: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
 7.75: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
 8.0: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
-8.25: egoLane=A1B1_0 leaderAuto=('lead2', -2.9391882967342244) leaderHigh=('lead2', -2.9391882967342244) leaderLane=:B1_8_0
+8.25: egoLane=A1B1_0 leaderAuto=('lead2', 0.0) leaderHigh=('lead2', 0.0) leaderLane=:B1_8_0
 8.5: egoLane=A1B1_0 leaderAuto=('lead2', 0.5694009494552073) leaderHigh=('lead2', 0.5694009494552073) leaderLane=:B1_8_0
 8.75: egoLane=:B1_13_0 leaderAuto=('lead2', 3.9154901956446446) leaderHigh=('lead2', 3.9154901956446446) leaderLane=B1C1_0
 9.0: egoLane=:B1_13_0 leaderAuto=('lead2', 7.102033147994435) leaderHigh=('lead2', 7.102033147994435) leaderLane=B1C1_0
