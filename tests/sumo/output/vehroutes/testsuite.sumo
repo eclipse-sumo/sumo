@@ -87,6 +87,7 @@ person_ride_parkingArea
 
 # test loading stages will all kinds of stopping places
 person_stoppingPlaces
+container_exit_times
 
 # sorting without public transport
 no_pt_lines_sorted
