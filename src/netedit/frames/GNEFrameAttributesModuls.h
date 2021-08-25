@@ -773,12 +773,6 @@ public:
         /// @brief textField for length
         FXTextField* myLengthTextField;
 
-        /// @brief horizontal frame for block movement
-        FXHorizontalFrame* myBlockMovementFrame;
-
-        /// @brief checkBox for block movement
-        FXCheckButton* myBlockMovementCheckButton;
-
         /// @brief horizontal frame for close polygon
         FXHorizontalFrame* myCloseShapeFrame;
 
