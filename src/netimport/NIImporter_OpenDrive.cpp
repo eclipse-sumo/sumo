@@ -623,7 +623,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
             if (innerEdges.find((*i).toEdge) != innerEdges.end()) {
                 std::set<Connection> seen;
-                buildConnectionsToOuter(*i, innerEdges, connections2, seen);
+                buildConnectionsToOuter(*i, innerEdges, edges, tc, connections2, seen);
             } else {
                 connections2.push_back(*i);
             }
@@ -912,7 +912,11 @@ NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& su
 }
 
 void
-NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into, std::set<Connection>& seen) {
+NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
+        const std::map<std::string, OpenDriveEdge*>& innerEdges,
+        const std::map<std::string, OpenDriveEdge*>& edges,
+        const NBTypeCont& tc,
+        std::vector<Connection>& into, std::set<Connection>& seen) {
 
     OpenDriveEdge* dest = innerEdges.find(c.toEdge)->second;
 #ifdef DEBUG_CONNECTIONS
@@ -940,7 +944,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
         if (innerEdgesIt != innerEdges.end()) {
             std::vector<Connection> t;
             if (seen.count(destCon) == 0) {
-                buildConnectionsToOuter(destCon, innerEdges, t, seen);
+                buildConnectionsToOuter(destCon, innerEdges, edges, tc, t, seen);
                 for (std::vector<Connection>::const_iterator j = t.begin(); j != t.end(); ++j) {
                     // @todo this section is unverified
                     Connection cn = (*j);
@@ -1030,8 +1034,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                             destPred += "  lane=" + toString(destLane.id)
                                         + " pred=" + toString(destLane.predecessor)
                                         + " succ=" + toString(destLane.successor)
-                                        + " wStart=" + toString(destLane.widthData.front().computeAt(0))
-                                        + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D()))
+                                        + " wStart=" + (destLane.widthData.empty() ? "?" : toString(destLane.widthData.front().computeAt(0)))
+                                        + " wEnd=" + (destLane.widthData.empty() ? "?" : toString(destLane.widthData.front().computeAt(cn.shape.length2D())))
                                         + " width=" + toString(destLane.width) + "\n";
 #endif
                             if (abs(destLane.id) <= abs(referenceLane)) {
@@ -1051,7 +1055,27 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                                             && sectionS >= destLane.widthData[widthDataIndex + 1].s) {
                                         widthDataIndex++;
                                     }
-                                    offsets[i] += destLane.widthData[widthDataIndex].computeAt(sectionS) * multiplier;
+                                    double width = tc.getEdgeTypeWidth(destLane.type);
+                                    if (destLane.widthData.size() > 0) {
+                                        width = destLane.widthData[widthDataIndex].computeAt(sectionS);
+                                    } else {
+#ifdef DEBUG_INTERNALSHAPES
+                                        std::cout << " missing width data at inner edge " << dest->id << " to=" << cn.toEdge << "_" << cn.toLane << " cp=" << cn.toCP << "\n";
+#endif
+                                        // use first width of the target lane
+                                        OpenDriveEdge* outerToEdge = edges.find(cn.toEdge)->second;
+                                        OpenDriveLaneSection& laneSection = cn.toCP == OPENDRIVE_CP_END ? outerToEdge->laneSections.front() : outerToEdge->laneSections.back();
+                                        const OpenDriveXMLTag laneDir = cn.toLane < 0 ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT;
+                                        for (const OpenDriveLane& outerToLane : laneSection.lanesByDir[laneDir]) {
+                                            if (outerToLane.id == cn.toLane && outerToLane.width > 0) {
+#ifdef DEBUG_INTERNALSHAPES
+                                                std::cout << "   using toLane width " << width << "\n";
+#endif
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    offsets[i] += width * multiplier;
                                     //if (cn.fromEdge == "1014000" && dest->id == "3001022") {
                                     //    std::cout << " i=" << i << " s=" << s << " lane=" << destLane.id << " rlane=" << referenceLane /*<< " nextS=" << nextS << */ << " lsIndex=" << laneSectionIndex << " wI=" << widthDataIndex << " wSize=" << destLane.widthData.size() << " m=" << multiplier << " o=" << offsets[i] << "\n";
                                     //}
