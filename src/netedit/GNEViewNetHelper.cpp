@@ -3370,10 +3370,11 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const Position viewPosition,
-        const double exaggeration, const double size, const double offsetx, const double offsety) {
+GNEViewNetHelper::LockIcon::drawLockIcon(GUIGlObjectType type, const GNEAttributeCarrier* AC, 
+        const Position viewPosition, const double exaggeration, const double size, 
+        const double offsetx, const double offsety) {
     // first check if icon can be drawn
-    if (checkDrawing(AC, exaggeration)) {
+    if (checkDrawing(type, AC, exaggeration)) {
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
@@ -3396,11 +3397,31 @@ GNEViewNetHelper::LockIcon::LockIcon() {}
 
 
 bool
-GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, const double exaggeration) {
+GNEViewNetHelper::LockIcon::checkDrawing(GUIGlObjectType type, const GNEAttributeCarrier* AC, const double exaggeration) {
     // get visualization settings
     const auto s = AC->getNet()->getViewNet()->getVisualisationSettings();
+    // get view net
+    const auto viewNet = AC->getNet()->getViewNet();
     // check exaggeration
     if (exaggeration == 0) {
+        return false;
+    }
+    // check supermodes
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && 
+        !(AC->getTagProperty().isNetworkElement() ||
+          AC->getTagProperty().isAdditionalElement() ||
+          AC->getTagProperty().isShape() ||
+          AC->getTagProperty().isTAZElement())) {
+        return false;
+    }
+    if (viewNet->getEditModes().isCurrentSupermodeDemand() && (!AC->getTagProperty().isDemandElement())) {
+        return false;
+    }
+    if (viewNet->getEditModes().isCurrentSupermodeData () && (!AC->getTagProperty().isDataElement())) {
+        return false;
+    }
+    // check if is locked
+    if (!viewNet->getLockManager().isObjectLocked(type)) {
         return false;
     }
     // check visualizationSettings
@@ -3412,7 +3433,7 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, const do
         return false;
     }
     // check modes
-    if (!AC->getNet()->getViewNet()->showLockIcon()) {
+    if (!viewNet->showLockIcon()) {
         return false;
     }
     return true;
