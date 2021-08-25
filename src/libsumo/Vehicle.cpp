@@ -287,9 +287,19 @@ Vehicle::getLeader(const std::string& vehID, double dist) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     if (veh->isOnRoad()) {
         std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(dist);
-        return std::make_pair(
-                   leaderInfo.first != nullptr ? leaderInfo.first->getID() : "",
-                   leaderInfo.second);
+        const std::string leaderID = leaderInfo.first != nullptr ? leaderInfo.first->getID() : "";
+        double gap = leaderInfo.second;
+        if (leaderInfo.first != nullptr
+                && leaderInfo.first->getLane() != nullptr
+                && leaderInfo.first->getLane()->isInternal()
+                && veh->getLane() != nullptr
+                && (!veh->getLane()->isInternal()
+                    || (veh->getLane()->getLinkCont().front()->getIndex() != leaderInfo.first->getLane()->getLinkCont().front()->getIndex()))) {
+            // leader is a linkLeader (see MSLink::getLeaderInfo)
+            // avoid internal gap values which may be negative (or -inf) 
+            gap = MAX2(0.0, gap);
+        }
+        return std::make_pair(leaderID, gap);
     } else {
         return std::make_pair("", -1);
     }
