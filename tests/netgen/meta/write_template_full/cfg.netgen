@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-23 19:43:10 by Eclipse SUMO netgenerate Version v1_10_0+0148-5f48329
+<!-- generated on 2021-08-25 10:32:01 by Eclipse SUMO netgenerate Version v1_10_0+0213-4059ee3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -37,7 +37,7 @@
     <random_network>
         <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
         <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
-        <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help="The maximum distance for each edge"/>
         <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help="The minimum distance for each edge"/>
         <rand.min-angle value="45" synonymes="min-angle rand-min-anglee" type="FLOAT" help="The minimum angle for each pair of (bidirectional) roads in DEGREES"/>
