@@ -3377,7 +3377,7 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const Po
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
-        glTranslated(viewPosition.x(), viewPosition.y(), 0.1);
+        glTranslated(viewPosition.x(), viewPosition.y(), 2);
         // rotate toavoid draw invert
         glRotated(180, 0, 0, 1);
         // Set draw color

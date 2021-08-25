@@ -326,6 +326,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
             }
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), polyExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name

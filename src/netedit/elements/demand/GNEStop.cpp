@@ -300,6 +300,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw subtitle depending of tag
                 GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), exaggeration);
             // pop draw matrix
             GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
@@ -317,6 +319,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, exaggeration * 0.8);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), exaggeration);
             // pop draw matrix
             GLHelper::popMatrix();
         }

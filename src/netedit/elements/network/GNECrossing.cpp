@@ -236,6 +236,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     // pop draw matrix
                     GLHelper::popMatrix();
                 }
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 1);
                 // pop rail matrix
                 GLHelper::popMatrix();
             }

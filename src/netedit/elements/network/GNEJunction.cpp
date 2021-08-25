@@ -483,6 +483,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
                 GLHelper::popMatrix();
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 1);
             // pop layer Matrix
             GLHelper::popMatrix();
             // pop junction name

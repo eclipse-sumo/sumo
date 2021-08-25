@@ -894,6 +894,8 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         }
         // draw lane2lane
         GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), s.vehicleSize.getExaggeration(s, fromLane));
         // Pop last matrix
         GLHelper::popMatrix();
         // check if shape dotted contour has to be drawn

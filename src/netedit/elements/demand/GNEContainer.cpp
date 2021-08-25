@@ -387,6 +387,8 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), exaggeration);
             // pop matrix
             GLHelper::popMatrix();
             // pop name

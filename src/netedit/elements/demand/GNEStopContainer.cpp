@@ -243,6 +243,8 @@ GNEStopContainer::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             drawStopContainerOverLane(s, exaggeration, stopColor);
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), exaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // Pop name

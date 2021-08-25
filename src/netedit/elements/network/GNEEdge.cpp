@@ -1306,6 +1306,8 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                     }
                 }
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getPositionInView(), 1);
             // pop edge layer matrix
             GLHelper::popMatrix();
         }
