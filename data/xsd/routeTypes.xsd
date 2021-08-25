@@ -916,6 +916,7 @@
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
                     <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>
             </xsd:element>
@@ -944,6 +945,8 @@
                     <xsd:attribute name="cost" type="xsd:float"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="exitTimes" type="xsd:string"/>
+                    <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
+                    <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="stop" type="stopType"/>
@@ -999,6 +1002,7 @@
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
                     <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>
             </xsd:element>
@@ -1011,6 +1015,8 @@
                     <xsd:attribute name="duration" type="positiveFloatType"/>
                     <xsd:attribute name="departPos" type="xsd:float"/>
                     <xsd:attribute name="arrivalPos" type="xsd:float"/>
+                    <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
+                    <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="stop" type="stopType"/>
