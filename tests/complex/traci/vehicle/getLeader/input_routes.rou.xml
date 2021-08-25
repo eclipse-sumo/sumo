@@ -1,7 +1,9 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="car" sigma="0"/>
-    <route id="r1" edges="a b"/>
-    <vehicle id="lead2" type="car" depart="0" route="r1" departSpeed="max" departLane="1" speedFactor="0.8"/>
-    <vehicle id="lead1" type="car" depart="3" route="r1" departSpeed="max" departLane="1" speedFactor="1"/>
-    <vehicle id="ego" type="car" depart="6" route="r1" departSpeed="max" departLane="1" speedFactor="1.2"/>
+    <route id="r1" edges="A1B1 B1C1"/>
+    <route id="r2" edges="B0B1 B1B2"/>
+    <route id="r3" edges="B0B1 B1C1"/>
+    <vehicle id="ego"   type="car" depart="0" route="r1" departSpeed="max"/>
+    <vehicle id="lead"  type="car" depart="0" route="r2" departSpeed="max"/>
+    <vehicle id="lead2" type="car" depart="0" route="r3" departSpeed="max"/>
 </routes>

@@ -29,7 +29,7 @@ import traci.constants as tc  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
-             "-n", "input_net.net.xml",
+             "-n", "input_net4.net.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
              "--step-length", "0.25",
@@ -39,11 +39,10 @@ vehID = "ego"
 
 while traci.simulation.getMinExpectedNumber() > 0:
     t = traci.simulation.getTime()
-    if t > 7:
-        leaderAutoDist = traci.vehicle.getLeader(vehID)
-        leaderHighDist = traci.vehicle.getLeader(vehID, 150)
-        leaderLane = traci.vehicle.getLaneID(leaderHighDist[0]) if leaderHighDist is not None else None
-        print("%s: egoLane=%s leaderAuto=%s leaderHigh=%s leaderLane=%s" % (
+    leaderAutoDist = traci.vehicle.getLeader(vehID)
+    leaderHighDist = traci.vehicle.getLeader(vehID, 150)
+    leaderLane = traci.vehicle.getLaneID(leaderHighDist[0]) if leaderHighDist is not None else None
+    print("%s: egoLane=%s leaderAuto=%s leaderHigh=%s leaderLane=%s" % (
             t, traci.vehicle.getLaneID(vehID), leaderAutoDist, leaderHighDist, leaderLane))
     traci.simulationStep()
 
