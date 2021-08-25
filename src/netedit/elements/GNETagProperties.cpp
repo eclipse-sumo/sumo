@@ -399,12 +399,6 @@ GNETagProperties::isSelectable() const {
 
 
 bool
-GNETagProperties::canBlockMovement() const {
-    return (myTagProperty & BLOCKMOVEMENT) != 0;
-}
-
-
-bool
 GNETagProperties::canCloseShape() const {
     return (myTagProperty & CLOSESHAPE) != 0;
 }

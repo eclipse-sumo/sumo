@@ -1408,7 +1408,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::STOPPINGPLACE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKSTARTENDPOS,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::BUSSTOP, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -1471,7 +1471,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::STOPPINGPLACE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKSTARTENDPOS,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::TRAINSTOP, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -1534,7 +1534,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE,
                                       GUIIcon::ACCESS, currentTag, {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP});
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
@@ -1566,7 +1566,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::STOPPINGPLACE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKSTARTENDPOS,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::CONTAINERSTOP, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -1628,7 +1628,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::STOPPINGPLACE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKSTARTENDPOS,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::CHARGINGSTATION, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -1692,7 +1692,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::STOPPINGPLACE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKSTARTENDPOS,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::PARKINGAREA, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -1767,7 +1767,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::MASKXYZPOSITION | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE | GNETagProperties::REPARENT | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::MASKXYZPOSITION | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE | GNETagProperties::REPARENT,
                                       GUIIcon::PARKINGSPACE, currentTag, {SUMO_TAG_PARKING_AREA});
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_POSITION,
@@ -1807,7 +1807,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE,
                                       GUIIcon::E1, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -1857,7 +1857,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE,
                                       GUIIcon::E2, currentTag);
         // set "file" as deprecated attribute
         myTagProperties[currentTag].addDeprecatedAttribute(SUMO_ATTR_CONT);
@@ -1938,7 +1938,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE,
                                       GUIIcon::E2, SUMO_TAG_E2DETECTOR, {});
         // set "file" as deprecated attribute
         myTagProperties[currentTag].addDeprecatedAttribute(SUMO_ATTR_CONT);
@@ -2019,7 +2019,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MINIMUMCHILDREN,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::MINIMUMCHILDREN,
                                       GUIIcon::E3, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2071,7 +2071,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE | GNETagProperties::REPARENT | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE | GNETagProperties::REPARENT,
                                       GUIIcon::E3ENTRY, currentTag, {SUMO_TAG_E3DETECTOR});
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
@@ -2096,7 +2096,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE | GNETagProperties::REPARENT | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SLAVE | GNETagProperties::REPARENT,
                                       GUIIcon::E3EXIT, currentTag, {SUMO_TAG_E3DETECTOR});
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
@@ -2121,7 +2121,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE,
                                       GUIIcon::E1INSTANT, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2166,7 +2166,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::DIALOG,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::DIALOG,
                                       GUIIcon::VARIABLESPEEDSIGN, currentTag);
         // set "file" as deprecated attribute
         myTagProperties[currentTag].addDeprecatedAttribute(SUMO_ATTR_FILE);
@@ -2385,7 +2385,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::DIALOG | GNETagProperties::WRITECHILDRENSEPARATE,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::DIALOG | GNETagProperties::WRITECHILDRENSEPARATE,
                                       GUIIcon::REROUTER, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2662,7 +2662,7 @@ GNEAttributeCarrier::fillShapes() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::CLOSESHAPE | GNETagProperties::GEOSHAPE,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::CLOSESHAPE | GNETagProperties::GEOSHAPE,
                                       GUIIcon::POLY, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2733,7 +2733,7 @@ GNEAttributeCarrier::fillShapes() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MASKXYZPOSITION,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::MASKXYZPOSITION,
                                       GUIIcon::POI, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2804,7 +2804,7 @@ GNEAttributeCarrier::fillShapes() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE,
                                       GUIIcon::POI, SUMO_TAG_POI);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2892,7 +2892,7 @@ GNEAttributeCarrier::fillShapes() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE,
                                       GUIIcon::POI, SUMO_TAG_POI);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2977,7 +2977,7 @@ GNEAttributeCarrier::fillTAZElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TAZELEMENT,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE,
                                       GUIIcon::TAZ, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
