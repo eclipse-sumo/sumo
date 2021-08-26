@@ -634,6 +634,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                 end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end-86400*numDays)))  # noqa
                 trip_list = trip_list[trip_list["arrival_fixed"] <= end_time]
 
+            seqs = {}
             for row in trip_list.sort_values("arrival_fixed").itertuples():
 
                 if day == 0 and row.arrival_fixed < start_time:
@@ -656,9 +657,12 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                 if len(set(stop_index)) < options.min_stops:
                     # Not enough stops mapped
                     continue
+                stopSeq = tuple([stop.stop_item_id for stop in stop_list.itertuples()])
+                if stopSeq not in seqs:
+                    seqs[stopSeq] = row.trip_id
                 veh_attr = (row.route_short_name, row.trip_id, day,
-                            row.route_id, row.direction_id, day,
-                            str(row.arrival_fixed).split(' ')[2],
+                            row.route_id, seqs[stopSeq],
+                            day, str(row.arrival_fixed).split(' ')[2],
                             min(stop_index), max(stop_index), pt_type,
                             row.trip_headsign)
                 output_file.write('    <vehicle id="%s_%s.%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n' % veh_attr)  # noqa
