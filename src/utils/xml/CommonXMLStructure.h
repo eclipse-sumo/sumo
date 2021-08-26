@@ -45,6 +45,9 @@ public:
         /// @brief destructor
         ~SumoBaseObject();
 
+        /// @brief clear SumoBaseObject
+        void clear();
+
         /// @brief set SumoBaseObject tag
         void setTag(const SumoXMLTag tag);
 

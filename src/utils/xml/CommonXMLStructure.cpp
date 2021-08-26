@@ -60,6 +60,35 @@ CommonXMLStructure::SumoBaseObject::~SumoBaseObject() {
 
 
 void
+CommonXMLStructure::SumoBaseObject::clear() {
+    // reset tag
+    myTag = SUMO_TAG_NOTHING;
+    // reset vClass
+    myVClass = SVC_IGNORING;
+    // clear containers
+    myStringAttributes.clear();
+    myIntAttributes.clear();
+    myDoubleAttributes.clear();
+    myBoolAttributes.clear();
+    myPositionAttributes.clear();
+    myTimeAttributes.clear();
+    myColorAttributes.clear();
+    myStringListAttributes.clear();
+    myPositionVectorAttributes.clear();
+    myParameters.clear();
+    mySumoBaseObjectChildren.clear();
+    // reset flags
+    myDefinedVehicleTypeParameter = false;
+    myDefinedVehicleParameter = false;
+    myDefinedStopParameter = false;
+    // delete all SumoBaseObjectChildrens
+    while (mySumoBaseObjectChildren.size() > 0) {
+        delete mySumoBaseObjectChildren.back();
+    }
+}
+
+
+void
 CommonXMLStructure::SumoBaseObject::setTag(const SumoXMLTag tag) {
     myTag = tag;
 }
