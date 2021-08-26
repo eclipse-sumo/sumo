@@ -6,20 +6,87 @@ title: ChangeLog
 
 ### Bugfixes
 
+- simulation
+  - Fixed invalid approach information with step-method.ballistic that could cause collision. Issue #8955
+  - Fixed rare collision on junction when the outbound lane is jammed. Issue #6415
+  - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
+  - Fixed bug where ehicle never starts with startPos="stop" departSpeed="max" and ballistic update. Issue #8988
+  - Fixed crash when using flow with invalid departEdge. Issue #8993
+  - Fixed invalid use of busStop instead of containerStop in vehroute-output. Issue #8989
+  - Fixed invalid behavior after using stop posLat in non-sublane simulation. Issue #9013
+  
+- netedit
+  - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
+  - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
+  - Multi-parameter speedFactor value can now be set. Issue #8263
+  - trainStops with access can now be loaded. Issue #8969
+
+- sumo-gui
+  - Fixed invalid person angle in output. Issue #9014
+  
+- netconvert
+  - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
+  - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
+
+- duarouter
+  - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
+  - tranship with attributes from,to is no longer ignored. Issue #8976
+  - Fixed crash when loading containerFlow. Issue #8975
+  - Fixed endless loop related to triggered personFlow. Issue #8977
+  - Persons and containers with depart=triggered are now written in the correct order: directly after their intended vehicle. Issue #9000
+  - Fixed crash when loading transport outside a container #9008
+
+- polyconvert
+  - Shapefiles will now be interpreted correctly when no projection is defined #8948
+  
+- traci
+  - trafficLights.getControlledLinks passes the correct response size (this has no effect for the end user and is only relevent for client developers). Issue #8891
+  - The debug-build of libsumo is now working. Issue #8946
+  - Removing and reinserting a vehicle in the same step is now working. Issue #5647
+  - traci.vehicle.getLeader can no longer return -inf when the leader is on an intersection. Issue #9001
+
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
   - cutRoutes.py: Handles flows without end time
+  - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy)
+    - Initial tripId set via vehicle param is now used. Issue #8959
+    - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
+    - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
+    - 
 
 ### Enhancements
 
+- simualation
+  - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
+
+- sumo-gui
+  - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
+  - All stopping places (busStop, parkingArea, ...) now support custom color. Issue #8280
+  
+- netedit
+  - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
+  - Added now 'Lock' menu to protect differnt types of objects from inspect,move,select and delete operations. Issue #8342
+  - Vehicle stop attribute posLat is now supported. Issue #8808
+  - Saved busStop attributes now have the same order as netconvert. Issue #7624
+
+- netgenerate
+  - Added options **--grid.x-attach-length --grid.y-attach-length** to configure attachments separately by direction. Issue #8991
+  - The option **--bidi-probability** can now be used to control the generation of reverse edges for grid and spider networks. When set to 0, pure oneway networks are generated. Issue #9006
+
+- traci
+  - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764  
+
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
+  - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) now supports options **--comment.stop --comment.time --comment.all** for extended annotation of generated constraints. Issue #8963
 
 ### Other
 
 - Miscellaneous
   - Renamed the "master" branch in git to "main". Issue #8591
 
+- polyconvert
+  - When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
 
 ## Version 1.10.0 (17.08.2021)
 
