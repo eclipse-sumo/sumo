@@ -2417,6 +2417,9 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
             return std::pair<MSVehicle* const, double>(pred, gap);
         }
     }
+#ifdef DEBUG_CONTEXT
+        if (DEBUG_COND2(&veh)) gDebugFlag1 = true;
+#endif
     const MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
     do {
@@ -2434,16 +2437,8 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
             break;
         }
         // check for link leaders
-#ifdef DEBUG_CONTEXT
-        if (DEBUG_COND2(&veh)) {
-            gDebugFlag1 = true;
-        }
-#endif
         const bool laneChanging = veh.getLane() != this;
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(&veh, seen);
-#ifdef DEBUG_CONTEXT
-        gDebugFlag1 = false;
-#endif
         nextLane->releaseVehicles();
         if (linkLeaders.size() > 0) {
             std::pair<MSVehicle*, double> result;
@@ -2477,6 +2472,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(&veh)) {
                     std::cout << "    found linkLeader after nextLane=" << nextLane->getID() << "\n";
+                    gDebugFlag1 = false;
                 }
 #endif
                 return result;
@@ -2512,6 +2508,9 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
             view++;
         }
     } while (seen <= dist || nextLane->isInternal());
+#ifdef DEBUG_CONTEXT
+    gDebugFlag1 = false;
+#endif
     return std::make_pair(static_cast<MSVehicle*>(nullptr), -1);
 }
 
@@ -3429,6 +3428,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
             break;
         }
     }
+#ifdef DEBUG_CONTEXT
+    if (DEBUG_COND2(ego)) gDebugFlag1 = true;
+#endif
     const MSLane* nextLane = this;
     int view = 1;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
@@ -3455,6 +3457,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
 #endif
                     result.addLeader(veh, ll.vehAndGap.second, 0);
                 }
+#ifdef DEBUG_CONTEXT
+                gDebugFlag1 = false;
+#endif
                 return; ;
             } // XXX else, deal with pedestrians
         }
@@ -3499,6 +3504,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
             view++;
         }
     }
+#ifdef DEBUG_CONTEXT
+    gDebugFlag1 = false;
+#endif
 }
 
 
@@ -3506,13 +3514,18 @@ void
 MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result) {
     // if there are vehicles on the target lane with the same position as ego,
     // they may not have been added to 'ahead' yet
+#ifdef DEBUG_SURROUNDING
+    if (DEBUG_COND || DEBUG_COND2(vehicle)) {
+        std::cout << " addLeaders lane=" << getID() << " veh=" << vehicle->getID() << " vehPos=" << vehPos << "\n";
+    }
+#endif
     const MSLeaderInfo& aheadSamePos = getLastVehicleInformation(nullptr, 0, vehPos, false);
     for (int i = 0; i < aheadSamePos.numSublanes(); ++i) {
         const MSVehicle* veh = aheadSamePos[i];
         if (veh != nullptr && veh != vehicle) {
             const double gap = veh->getBackPositionOnLane(this) - vehPos - vehicle->getVehicleType().getMinGap();
 #ifdef DEBUG_SURROUNDING
-            if (DEBUG_COND) {
+            if (DEBUG_COND || DEBUG_COND2(vehicle)) {
                 std::cout << " further lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane(this) << " gap=" << gap << "\n";
             }
 #endif
@@ -3527,7 +3540,7 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
         double dist = MAX2(vehicle->getCarFollowModel().brakeGap(speed), 10.0) + vehicle->getVehicleType().getMinGap();
         if (seen > dist) {
 #ifdef DEBUG_SURROUNDING
-            if (DEBUG_COND) {
+            if (DEBUG_COND || DEBUG_COND2(vehicle)) {
                 std::cout << " aborting forward search. dist=" << dist << " seen=" << seen << "\n";
             }
 #endif
@@ -3535,13 +3548,13 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
         }
         const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(this);
 #ifdef DEBUG_SURROUNDING
-        if (DEBUG_COND) {
+        if (DEBUG_COND || DEBUG_COND2(vehicle)) {
             std::cout << " add consecutive before=" << result.toString() << " dist=" << dist;
         }
 #endif
         getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
 #ifdef DEBUG_SURROUNDING
-        if (DEBUG_COND) {
+        if (DEBUG_COND || DEBUG_COND2(vehicle)) {
             std::cout << " after=" << result.toString() << "\n";
         }
 #endif
