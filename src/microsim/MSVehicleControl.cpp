@@ -50,6 +50,7 @@ MSVehicleControl::MSVehicleControl() :
     myEndedVehNo(0),
     myDiscarded(0),
     myCollisions(0),
+    myTeleportsCollision(0),
     myTeleportsJam(0),
     myTeleportsYield(0),
     myTeleportsWrongLane(0),
@@ -530,7 +531,7 @@ MSVehicleControl::getQuota(double frac, int loaded) const {
 
 int
 MSVehicleControl::getTeleportCount() const {
-    return (MSLane::teleportOnCollision() ? myCollisions : 0) + myTeleportsJam + myTeleportsYield + myTeleportsWrongLane;
+    return myTeleportsCollision + myTeleportsJam + myTeleportsYield + myTeleportsWrongLane;
 }
 
 

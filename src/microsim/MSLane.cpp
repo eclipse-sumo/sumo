@@ -1523,7 +1523,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 if (newCollision) {
                     WRITE_WARNINGF("Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%.",
                                    v->getID(), leader.first->getID(), getID(), leader.second - length, time2string(timestep), stage);
-                    MSNet::getInstance()->getVehicleControl().registerCollision();
+                    MSNet::getInstance()->getVehicleControl().registerCollision(false);
                 }
             }
         }
@@ -1576,7 +1576,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                 if (newCollision) {
                     WRITE_WARNINGF("Vehicle '%' collision with person '%', lane='%', time=%, stage=%.",
                                    collider->getID(), (*it_p)->getID(), getID(), time2string(timestep), stage);
-                    MSNet::getInstance()->getVehicleControl().registerCollision();
+                    MSNet::getInstance()->getVehicleControl().registerCollision(false);
                 }
             }
         }
@@ -1781,7 +1781,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                       + " stage=" + stage + ".");
         MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
-        MSNet::getInstance()->getVehicleControl().registerCollision();
+        MSNet::getInstance()->getVehicleControl().registerCollision(myCollisionAction == COLLISION_ACTION_TELEPORT);
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND2(collider)) {
@@ -1841,7 +1841,7 @@ MSLane::executeMovements(const SUMOTime t) {
             assert(false);
             WRITE_WARNINGF("Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%.",
                            veh->getID(), getID(), time2string(t));
-            MSNet::getInstance()->getVehicleControl().registerCollision();
+            MSNet::getInstance()->getVehicleControl().registerCollision(true);
             MSVehicleTransfer::getInstance()->add(t, veh);
         } else if (veh->collisionStopTime() == 0) {
             veh->resumeFromStopping();

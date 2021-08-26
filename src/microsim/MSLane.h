@@ -1245,10 +1245,6 @@ public:
 
     static void initCollisionOptions(const OptionsCont& oc);
 
-    static bool teleportOnCollision() {
-        return myCollisionAction == COLLISION_ACTION_TELEPORT;
-    }
-
     static CollisionAction getCollisionAction() {
         return myCollisionAction;
     }
