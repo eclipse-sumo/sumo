@@ -64,7 +64,7 @@ public:
                 auto result = myQueues[(index + n) % myQueues.size()].tryPush(task, success);
 
                 if (success) {
-                    return std::move(result);
+                    return result;
                 }
             }
         }
