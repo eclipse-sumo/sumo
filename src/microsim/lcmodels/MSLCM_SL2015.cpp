@@ -3499,6 +3499,17 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         return toString(myCooperativeSpeed);
+    // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
+    } else if (key == "speedGainProbabilityRight") {
+        return toString(mySpeedGainProbabilityRight);
+    } else if (key == "speedGainProbabilityLeft") {
+        return toString(mySpeedGainProbabilityLeft);
+    } else if (key == "keepRightProbability") {
+        return toString(myKeepRightProbability);
+    } else if (key == "lookAheadSpeed") {
+        return toString(myLookAheadSpeed);
+    } else if (key == "sigmaState") {
+        return toString(mySigmaState);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
