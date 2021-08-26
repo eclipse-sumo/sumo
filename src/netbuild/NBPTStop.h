@@ -50,31 +50,45 @@ public:
     * @param[in] position The position of the pt stop
     * @param[in] edgeId The edge id of the pt stop
     * @param[in] length The length of the pt stop
+    * @param[in] color ptStop color
     */
     NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name,
-             SVCPermissions svcPermissions, double parkingLength = 0);
+             SVCPermissions svcPermissions, double parkingLength = 0, const RGBColor color = RGBColor(false));
+
     std::string getID() const;
 
     const std::string getEdgeId() const;
+
     const std::string getOrigEdgeId() const;
+
     const std::string getName() const;
+
     const Position& getPosition() const;
+
     SVCPermissions getPermissions() const;
+
     long long int getAreaID() const {
         return myAreaID;
     }
 
     void write(OutputDevice& device);
+
     void reshiftPosition(const double offsetX, const double offsetY);
 
     const std::vector<NBPTPlatform>& getPlatformCands();
 
     bool getIsMultipleStopPositions() const;
+
     void setIsMultipleStopPositions(bool multipleStopPositions, long long int areaID);
+
     double getLength() const;
+
     bool setEdgeId(std::string edgeId, const NBEdgeCont& ec);
+
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
+
     void addPlatformCand(NBPTPlatform platform);
+
     bool findLaneAndComputeBusStopExtent(const NBEdgeCont& ec);
 
     bool findLaneAndComputeBusStopExtent(const NBEdge* edge);
@@ -146,6 +160,7 @@ private:
     double myPTStopLength;
     const std::string myName;
     const double myParkingLength;
+    const RGBColor myColor;
     std::string myLaneId;
     const SVCPermissions myPermissions;
 

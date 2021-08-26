@@ -30,7 +30,7 @@
 // method definitions
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
-                   std::string name, SVCPermissions svcPermissions, double parkingLength) :
+                   std::string name, SVCPermissions svcPermissions, double parkingLength, const RGBColor color) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
@@ -38,6 +38,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myPTStopLength(length),
     myName(name),
     myParkingLength(parkingLength),
+    myColor(color),
     myPermissions(svcPermissions),
     myStartPos(0),
     myEndPos(0),
@@ -48,10 +49,12 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myAreaID(-1) {
 }
 
+
 std::string
 NBPTStop::getID() const {
     return myPTStopId;
 }
+
 
 const std::string
 NBPTStop::getOrigEdgeId() const {
@@ -76,10 +79,12 @@ NBPTStop::getPosition() const {
     return myPosition;
 }
 
+
 void
 NBPTStop::mirrorX() {
     myPosition.mul(1, -1);
 }
+
 
 void
 NBPTStop::computeExtent(double center, double edgeLength) {
@@ -113,6 +118,9 @@ NBPTStop::write(OutputDevice& device) {
     }
     if (myParkingLength > 0) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
+    }
+    if (myColor.isValid()) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     if (!myAccesses.empty()) {
         std::sort(myAccesses.begin(), myAccesses.end());
