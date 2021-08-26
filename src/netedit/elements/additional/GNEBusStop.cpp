@@ -72,7 +72,7 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myParkingLength > 0) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
-    if (myColor != myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor) {
+    if (myColor.isValid()) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     // write all access
@@ -123,8 +123,11 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (drawUsingSelectColor()) {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
-            } else {
+            } else if (myColor.isValid()){
                 baseColor = myColor;
+                signColor = s.stoppingPlaceSettings.busStopColorSign;
+            } else {
+                baseColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor;
                 signColor = s.stoppingPlaceSettings.busStopColorSign;
             }
             // Start drawing adding an gl identificator
@@ -204,7 +207,7 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
         case SUMO_ATTR_COLOR:
-            if (myColor == myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor) {
+            if (!myColor.isValid()) {
                 return "";
             } else {
                 return toString(myColor);
@@ -345,7 +348,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
-                myColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor;
+                myColor.setValid(false);
             } else {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
             }
