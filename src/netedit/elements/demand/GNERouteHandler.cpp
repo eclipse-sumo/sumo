@@ -115,7 +115,9 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
     const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &routeParameters) {
     // first create vehicle/flow
     const SUMOVehicleParameter& vehicleParameters = sumoBaseObject->getParentSumoBaseObject()->getVehicleParameter();
-    const SumoXMLTag vehicleTag = sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VEHICLE? GNE_TAG_VEHICLE_WITHROUTE : GNE_TAG_FLOW_WITHROUTE;
+    const SumoXMLTag vehicleTag = (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VEHICLE)? GNE_TAG_VEHICLE_WITHROUTE : 
+                                  (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_FLOW)? GNE_TAG_FLOW_WITHROUTE :
+                                  sumoBaseObject->getParentSumoBaseObject()->getTag();
     // parse route edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check if ID is duplicated
