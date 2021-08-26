@@ -37,7 +37,9 @@
 // ---------------------------------------------------------------------------
 
 GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Persons") {
+    GNEFrame(horizontalFrameParent, viewNet, "Persons"),
+    myRouteHandler("", viewNet->getNet(), true),
+    myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for persons
     myPersonTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::PERSON);
@@ -68,7 +70,9 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 }
 
 
-GNEPersonFrame::~GNEPersonFrame() {}
+GNEPersonFrame::~GNEPersonFrame() {
+    delete myPersonBaseObject;
+}
 
 
 void
@@ -256,7 +260,6 @@ GNEPersonFrame::createPath() {
         // create person
         GNEDemandElement* person = buildPerson();
         // check if person and person plan can be created
-/*
         if (GNERouteHandler::buildPersonPlan(
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                     person, myPersonPlanAttributes, myPathCreator)) {
@@ -269,12 +272,10 @@ GNEPersonFrame::createPath() {
             myPersonPlanAttributes->refreshRows();
             // compute person
             person->computePathElement();
-
         } else {
             // abort person creation
             myViewNet->getUndoList()->p_abort();
         }
-*/
     }
 }
 
@@ -284,8 +285,12 @@ GNEPersonFrame::createPath() {
 
 GNEDemandElement*
 GNEPersonFrame::buildPerson() {
+    // first person base object
+    myPersonBaseObject->clear();
     // obtain person tag (only for improve code legibility)
     SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
+    // set tag
+    myPersonBaseObject->setTag(personTag);
     // Declare map to keep attributes from myPersonAttributes
     std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValuesTemporal(false);
     // Check if ID has to be generated
@@ -294,6 +299,7 @@ GNEPersonFrame::buildPerson() {
     }
     // add pType parameter
     valuesMap[SUMO_ATTR_TYPE] = myPTypeSelector->getCurrentDemandElement()->getID();
+
     // check if we're creating a person or personFlow
     if (personTag == SUMO_TAG_PERSON) {
         // Add parameter departure
@@ -304,12 +310,14 @@ GNEPersonFrame::buildPerson() {
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(personTag));
         // obtain person parameters
         SUMOVehicleParameter* personParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_PERSON, SUMOSAXAttrs, false, false, false);
-        // build person in GNERouteHandler
-/*
-        GNERouteHandler::buildPerson(myViewNet->getNet(), true, *personParameters);
-*/
-        // delete personParameters
-        delete personParameters;
+        // check personParameters
+        if (personParameters) {
+            myPersonBaseObject->setVehicleParameter(personParameters);
+            // parse vehicle
+            myRouteHandler.parseSumoBaseObject(myPersonBaseObject);
+            // delete personParameters
+            delete personParameters;
+        }
     } else {
         // set begin and end attributes
         if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
@@ -322,12 +330,14 @@ GNEPersonFrame::buildPerson() {
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(personTag));
         // obtain personFlow parameters
         SUMOVehicleParameter* personFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
-        // build personFlow in GNERouteHandler
-/*
-        GNERouteHandler::buildPersonFlow(myViewNet->getNet(), true, *personFlowParameters);
-*/
-        // delete personFlowParameters
-        delete personFlowParameters;
+        // check personParameters
+        if (personFlowParameters) {
+            myPersonBaseObject->setVehicleParameter(personFlowParameters);
+            // parse vehicle
+            myRouteHandler.parseSumoBaseObject(myPersonBaseObject);
+            // delete personParameters
+            delete personFlowParameters;
+        }
     }
     // refresh person and personPlan attributes
     myPersonAttributes->refreshRows();
