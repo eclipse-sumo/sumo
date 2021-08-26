@@ -1020,7 +1020,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
                     double s = 0;
                     int iShape = 0;
                     for (int laneSectionIndex = 0; laneSectionIndex < (int)dest->laneSections.size(); laneSectionIndex++) {
-                        auto& laneSection = dest->laneSections[laneSectionIndex];
+                        OpenDriveLaneSection& laneSection = dest->laneSections[laneSectionIndex];
                         const double nextS = laneSectionIndex + 1 < (int)dest->laneSections.size() ? dest->laneSections[laneSectionIndex + 1].s : std::numeric_limits<double>::max();
                         double sStart = s; // distance offset a the start of the current lane section
                         double finalS = s; // final distance value after processing this segment
@@ -1063,10 +1063,10 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
                                         std::cout << " missing width data at inner edge " << dest->id << " to=" << cn.toEdge << "_" << cn.toLane << " cp=" << cn.toCP << "\n";
 #endif
                                         // use first width of the target lane
-                                        OpenDriveEdge* outerToEdge = edges.find(cn.toEdge)->second;
-                                        OpenDriveLaneSection& laneSection = cn.toCP == OPENDRIVE_CP_END ? outerToEdge->laneSections.front() : outerToEdge->laneSections.back();
+                                        OpenDriveEdge* const outerToEdge = edges.find(cn.toEdge)->second;
+                                        OpenDriveLaneSection& toLaneSection = cn.toCP == OPENDRIVE_CP_END ? outerToEdge->laneSections.front() : outerToEdge->laneSections.back();
                                         const OpenDriveXMLTag laneDir = cn.toLane < 0 ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT;
-                                        for (const OpenDriveLane& outerToLane : laneSection.lanesByDir[laneDir]) {
+                                        for (const OpenDriveLane& outerToLane : toLaneSection.lanesByDir[laneDir]) {
                                             if (outerToLane.id == cn.toLane && outerToLane.width > 0) {
 #ifdef DEBUG_INTERNALSHAPES
                                                 std::cout << "   using toLane width " << width << "\n";

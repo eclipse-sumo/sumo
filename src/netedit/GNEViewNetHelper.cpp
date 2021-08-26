@@ -3553,14 +3553,12 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
 
 
 GNEViewNetHelper::LockManager::OperationLocked::OperationLocked():
-    mySupermode(Supermode::NETWORK),
-    lock(false) {
+    mySupermode(Supermode::NETWORK) {
 }
 
 
 GNEViewNetHelper::LockManager::OperationLocked::OperationLocked(Supermode supermode) :
-    mySupermode(supermode),
-    lock(false) {
+    mySupermode(supermode) {
 }
 
 

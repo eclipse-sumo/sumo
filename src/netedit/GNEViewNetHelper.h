@@ -1317,7 +1317,7 @@ struct GNEViewNetHelper {
             Supermode getSupermode() const;
 
             /// @brief flag for lock/unlock
-            bool lock;
+            bool lock = false;
 
         private:
             /// @brief supermode associated with this operation locked
