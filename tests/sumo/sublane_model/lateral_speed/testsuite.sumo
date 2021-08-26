@@ -24,6 +24,9 @@ red_light_maxSpeedLatStanding_0
 # a vehicles waits at the red light. 
 red_light_maxDistLatStanding_default
 
+# a bicycle waits at the red light. 
+red_light_maxDistLatStanding_default_bike
+
 # a vehicles waits at the red light. 
 red_light_maxDistLatStanding_3.2
 
