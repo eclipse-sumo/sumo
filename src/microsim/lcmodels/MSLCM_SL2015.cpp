@@ -100,6 +100,7 @@
 //#define DEBUG_STRATEGIC_CHANGE
 //#define DEBUG_KEEP_LATGAP
 //#define DEBUG_EXPECTED_SLSPEED
+//#define DEBUG_SLIDING
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -1645,8 +1646,12 @@ MSLCM_SL2015::_wantsChangeSublane(
                                                      vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
-            const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
-            myKeepRightProbability += myVehicle.getActionStepLengthSecs() * deltaProb;
+            const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME) * myVehicle.getActionStepLengthSecs();
+            const bool isSlide = preventSliding(latLaneDist);
+            // stay below threshold
+            if (!isSlide || !wantsKeepRight(myKeepRightProbability + deltaProb)) {
+                myKeepRightProbability += deltaProb;
+            }
 
 #ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) {
@@ -1662,12 +1667,13 @@ MSLCM_SL2015::_wantsChangeSublane(
                           << " fullSpeedGap=" << fullSpeedGap
                           << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
                           << " dProb=" << deltaProb
+                          << " isSlide=" << isSlide
                           << " keepRight=" << myKeepRightProbability
                           << " speedGainL=" << mySpeedGainProbabilityLeft
                           << "\n";
             }
 #endif
-            if (myKeepRightProbability * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
+            if (wantsKeepRight(myKeepRightProbability)
                     /*&& latLaneDist <= -NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()*/) {
                 ret |= LCA_KEEPRIGHT;
                 assert(myVehicle.getLane()->getIndex() > neighLane.getIndex() || isOpposite());
@@ -3672,6 +3678,33 @@ MSLCM_SL2015::getNeighRight(const MSLane& neighLane) const {
         // the normal case
         return neighLane.getRightSideOnEdge();
     }
+}
+
+
+bool
+MSLCM_SL2015::preventSliding(double maneuverDist) const {
+    // prevent wide maneuvers with unsufficient forward space
+    if (fabs(maneuverDist) > myMaxDistLatStanding) {
+        // emergency vehicles should not be restricted (TODO solve this with LCA_URGENT)
+        if (myVehicle.getVehicleType().getVehicleClass() == SVC_EMERGENCY) {
+            return false;
+        }
+        const double brakeGap = myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed());
+        const bool isSlide = fabs(maneuverDist) > myMaxDistLatStanding + brakeGap * fabs(myMaxSpeedLatFactor);
+#ifdef DEBUG_SLIDING
+        if (gDebugFlag2) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " bgap=" << brakeGap << " maneuverDist=" << maneuverDist
+                << " mds=" << myMaxDistLatStanding << " isSlide=" << isSlide << "\n";
+        }
+#endif
+        return isSlide;
+    }
+    return false;
+}
+
+bool
+MSLCM_SL2015::wantsKeepRight(double keepRightProb) const {
+    return keepRightProb * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft);
 }
 
 /****************************************************************************/

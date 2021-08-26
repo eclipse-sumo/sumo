@@ -356,6 +356,13 @@ protected:
     /// @brief return the right offset of the neighboring lane relative to the current edge
     double getNeighRight(const MSLane& neighLane) const;
 
+    /* @brief check whether vehicle speed is appropriate for the intended maneuver distance
+     * (rather than doing an orthgonal slide) */
+    bool preventSliding(double maneuverDist) const;
+
+    /// @brief check against thresholds
+    inline bool wantsKeepRight(double keepRightProb) const;
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
