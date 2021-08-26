@@ -62,7 +62,7 @@ SumoRNG RGBColor::myRNG;
 // method definitions
 // ===========================================================================
 
-RGBColor::RGBColor(bool valid=true)
+RGBColor::RGBColor(bool valid)
     : myRed(0), myGreen(0), myBlue(0), myAlpha(0), myValid(valid) {}
 
 
