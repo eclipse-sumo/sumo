@@ -2421,13 +2421,11 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         if (DEBUG_COND2(&veh)) gDebugFlag1 = true;
 #endif
     const MSLane* nextLane = this;
-    SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
     do {
         nextLane->getVehiclesSecure(); // lock against running sim when called from GUI for time gap coloring
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(),
-                veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0, veh.getLateralPositionOnLane(), nullptr, false, &veh) || (*link)->haveRed()) {
+        if (nextLane->isLinkEnd(link)) {
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(&veh)) {
                 std::cout << "    cannot continue after nextLane=" << nextLane->getID() << "\n";
@@ -2500,10 +2498,6 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
             dist = veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh));
         }
         seen += nextLane->getLength();
-        if (seen <= dist) {
-            // delaying the update of arrivalTime and making it conditional to avoid possible integer overflows
-            arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
-        }
         if (!nextInternal) {
             view++;
         }
@@ -3433,13 +3427,11 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
 #endif
     const MSLane* nextLane = this;
     int view = 1;
-    SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
     // loop over following lanes
     while (seen < dist && result.numFreeSublanes() > 0) {
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(*ego, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, ego->getVehicleType().getLength(),
-                ego->getImpatience(), ego->getCarFollowModel().getMaxDecel(), 0, ego->getLateralPositionOnLane(), nullptr, false, ego) || (*link)->haveRed()) {
+        if (nextLane->isLinkEnd(link)) {
             break;
         }
         // check for link leaders
@@ -3460,7 +3452,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
 #ifdef DEBUG_CONTEXT
                 gDebugFlag1 = false;
 #endif
-                return; ;
+                return;
             } // XXX else, deal with pedestrians
         }
         bool nextInternal = (*link)->getViaLane() != nullptr;
@@ -3496,10 +3488,6 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
             dist = ego->getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(ego));
         }
         seen += nextLane->getLength();
-        if (seen <= dist) {
-            // delaying the update of arrivalTime and making it conditional to avoid possible integer overflows
-            arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
-        }
         if (!nextInternal) {
             view++;
         }
