@@ -126,7 +126,7 @@ OptionsIO::loadConfiguration() {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(path.c_str());
+        parser.parse(StringUtils::transcodeToLocal(path).c_str());
         if (handler.errorOccurred()) {
             throw ProcessError("Could not load configuration '" + path + "'.");
         }
