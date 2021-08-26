@@ -6202,6 +6202,10 @@ MSVehicle::resumeFromStopping() {
         if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
+        if (pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {
+            // reset lateral position to default
+            myState.myPosLat = 0;
+        }
         myPastStops.push_back(pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
