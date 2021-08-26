@@ -1011,6 +1011,11 @@
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="busStop" type="xsd:string"/>
+                    <xsd:attribute name="trainStop" type="xsd:string"/>
+                    <xsd:attribute name="parkingArea" type="xsd:string"/>
+                    <xsd:attribute name="containerStop" type="xsd:string"/>
+                    <xsd:attribute name="chargingStation" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
                     <xsd:attribute name="departPos" type="xsd:float"/>
