@@ -124,7 +124,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myDontResetLCGaps(false),
     myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
-    myMaxDistLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXDISTLATSTANDING, 1.6)),
+    myMaxDistLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXDISTLATSTANDING,
+                // prevent lateral sliding for cars but permit for two-wheelers due to better maneuverability
+                (v.getVClass() & (SVC_BICYCLE | SVC_MOTORCYCLE | SVC_MOPED)) != 0 ? std::numeric_limits<double>::max() : 1.6)),
     mySigma(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SIGMA, 0.0)),
     myLastLaneChangeOffset(0),
     myAmOpposite(false),
