@@ -45,7 +45,6 @@ class MSStoppingPlace;
 class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
-class MSTransportableStateAdapter;
 class MSMoveReminder;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
