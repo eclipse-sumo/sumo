@@ -131,3 +131,6 @@ long_stop
 
 # custom departPos at parkingArea
 parkingArea_departPos
+
+# stop with lateral offset
+posLat
