@@ -59,8 +59,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // vTypes
          case SUMO_TAG_VTYPE:
             buildVType(obj,
-                obj->getVehicleTypeParameter(),
-                obj->getParameters());
+                obj->getVehicleTypeParameter());
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             buildVTypeDistribution(obj,
@@ -96,42 +95,36 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 obj->getVehicleParameter(),
                 obj->getStringAttribute(SUMO_ATTR_FROM),
                 obj->getStringAttribute(SUMO_ATTR_TO),
-                obj->getStringListAttribute(SUMO_ATTR_VIA),
-                obj->getParameters());
+                obj->getStringListAttribute(SUMO_ATTR_VIA));
             break;
         case SUMO_TAG_VEHICLE:
             if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
                 buildVehicleOverRoute(obj,
-                    obj->getVehicleParameter(),
-                    obj->getParameters());
+                    obj->getVehicleParameter());
             }
             break;
         // flows
         case SUMO_TAG_FLOW:
             if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
                 buildFlowOverRoute(obj,
-                    obj->getVehicleParameter(),
-                    obj->getParameters());
+                    obj->getVehicleParameter());
             } else if (obj->hasStringAttribute(SUMO_ATTR_FROM) &&
                        obj->hasStringAttribute(SUMO_ATTR_TO)) {
                 buildFlow(obj,
                     obj->getVehicleParameter(),
                     obj->getStringAttribute(SUMO_ATTR_FROM),
                     obj->getStringAttribute(SUMO_ATTR_TO),
-                    obj->getStringListAttribute(SUMO_ATTR_VIA),
-                    obj->getParameters());
+                    obj->getStringListAttribute(SUMO_ATTR_VIA));
             }
             break;
         // persons
         case SUMO_TAG_PERSON:
             buildPerson(obj,
-                obj->getVehicleParameter(),
-                obj->getParameters());
+                obj->getVehicleParameter());
             break;
         case SUMO_TAG_PERSONFLOW:
             buildPersonFlow(obj,
-                obj->getVehicleParameter(),
-                obj->getParameters());
+                obj->getVehicleParameter());
             break;
         // person plans
         case SUMO_TAG_PERSONTRIP:
@@ -163,13 +156,11 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // container
         case SUMO_TAG_CONTAINER:
             buildContainer(obj,
-                obj->getVehicleParameter(),
-                obj->getParameters());
+                obj->getVehicleParameter());
             break;
         case SUMO_TAG_CONTAINERFLOW:
             buildContainerFlow(obj,
-                obj->getVehicleParameter(),
-                obj->getParameters());
+                obj->getVehicleParameter());
             break;
         // container plans
         case SUMO_TAG_TRANSPORT:

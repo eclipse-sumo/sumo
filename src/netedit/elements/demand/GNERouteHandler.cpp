@@ -54,8 +54,7 @@ GNERouteHandler::~GNERouteHandler() {}
 
 
 void 
-GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVTypeParameter& vTypeParameter,
-    const std::map<std::string, std::string> &parameters) {
+GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVTypeParameter& vTypeParameter) {
     // first check if we're creating a vType or a pType
     SumoXMLTag vTypeTag = (vTypeParameter.vehicleClass == SVC_PEDESTRIAN) ? SUMO_TAG_PTYPE : SUMO_TAG_VTYPE;
     // check if loaded vType/pType is a default vtype
@@ -89,13 +88,13 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
 void 
 GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string &id, SUMOVehicleClass vClass, 
     const std::vector<std::string> &edgeIDs, const RGBColor &color, const int repeat, const SUMOTime cycleTime, 
-    const std::map<std::string, std::string> &parameters) {
+    const std::map<std::string, std::string> &routeParameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check edges
     if (edges.size() > 0) {
         // create GNERoute
-        GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, parameters);
+        GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, routeParameters);
         if (myUndoDemandElements) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
@@ -113,7 +112,7 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
 
 void 
 GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string> &edgeIDs, 
-    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) {
+    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &routeParameters) {
     // first create vehicle/flow
     const SUMOVehicleParameter& vehicleParameters = sumoBaseObject->getParentSumoBaseObject()->getVehicleParameter();
     const SumoXMLTag vehicleTag = sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VEHICLE? GNE_TAG_VEHICLE_WITHROUTE : GNE_TAG_FLOW_WITHROUTE;
@@ -133,7 +132,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
             // create vehicle using vehicleParameters
             GNEDemandElement* vehicle = new GNEVehicle(vehicleTag, myNet, vType, vehicleParameters);
             // create embedded route
-            GNEDemandElement* route = new GNERoute(myNet, vehicle, edges, color, repeat, cycleTime, parameters);
+            GNEDemandElement* route = new GNERoute(myNet, vehicle, edges, color, repeat, cycleTime, routeParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
@@ -163,8 +162,7 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
 
 
 void 
-GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
-    const std::map<std::string, std::string> &parameters) {
+GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // first check if ID is duplicated
     if (!isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
         // obtain routes and vtypes
@@ -202,8 +200,7 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
 
 
 void 
-GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
-    const std::map<std::string, std::string> &parameters) {
+GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // first check if ID is duplicated
     if (!isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
         // obtain routes and vtypes
@@ -242,7 +239,7 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
 
 void
 GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters, 
-    const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs, const std::map<std::string, std::string> &parameters) {
+    const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs) {
     // parse edges
     const auto fromEdge = parseEdge(SUMO_TAG_TRIP, fromEdgeID);
     const auto toEdge = parseEdge(SUMO_TAG_TRIP, toEdgeID);
@@ -291,7 +288,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
 
 void 
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters, 
-    const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs, const std::map<std::string, std::string> &parameters) {
+    const std::string &fromEdgeID, const std::string &toEdgeID, const std::vector<std::string>& viaIDs) {
     // parse edges
     const auto fromEdge = parseEdge(SUMO_TAG_TRIP, fromEdgeID);
     const auto toEdge = parseEdge(SUMO_TAG_TRIP, toEdgeID);
@@ -339,8 +336,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
 
 
 void 
-GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters,
-    const std::map<std::string, std::string> &parameters) {
+GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(myNet, personParameters.id)) {
         // obtain routes and vtypes
@@ -366,8 +362,7 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
 
 
 void
-GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters,
-    const std::map<std::string, std::string> &parameters) {
+GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(myNet, personFlowParameters.id)) {
         // obtain routes and vtypes
@@ -560,8 +555,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 
 void
-GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters,
-    const std::map<std::string, std::string> &parameters) {
+GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters) {
     // first check if ID is duplicated
     if (!isContainerIdDuplicated(myNet, containerParameters.id)) {
         // obtain routes and vtypes
@@ -587,8 +581,7 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
 
 
 void
-GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters,
-    const std::map<std::string, std::string> &parameters) {
+GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters) {
     // first check if ID is duplicated
     if (!isContainerIdDuplicated(myNet, containerFlowParameters.id)) {
         // obtain routes and vtypes
