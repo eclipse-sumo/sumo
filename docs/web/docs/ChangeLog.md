@@ -174,6 +174,8 @@ title: ChangeLog
      - Fixed invalid constraint signal id if a train reverses directly after stopping. Issue #8936
      - Fixed missing constraints when a train skips a stop. Issue #8943
 
+- Miscellaneous
+  - Fixed problems with unicode paths on windows. Issue #3973
    
 ### Enhancements
 
