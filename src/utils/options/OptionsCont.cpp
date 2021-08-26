@@ -619,7 +619,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, true, false, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(getString("save-configuration").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-configuration")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save configuration to '" + getString("save-configuration") + "'");
         } else {
@@ -636,7 +636,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, false, true, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(getString("save-template").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-template")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save template to '" + getString("save-template") + "'");
         } else {
@@ -652,7 +652,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeSchema(std::cout);
             return true;
         }
-        std::ofstream out(getString("save-schema").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-schema")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
         } else {
