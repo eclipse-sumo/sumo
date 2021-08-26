@@ -1,6 +1,6 @@
 Warning: Teleporting vehicle 'SN.6'; junction collision with vehicle 'WE.3', lane=':C_8_0', gap=-1.00, time=41.00 stage=move.
 Warning: Vehicle 'SN.6' ends teleporting on edge 'CN', time 41.00.
 Warning: Vehicle 'SN.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=50.50.
-Warning: Teleporting vehicle 'SN.11'; junction collision with vehicle 'WE.6', lane=':C_8_0', gap=-1.00, time=68.00 stage=move.
-Warning: Vehicle 'SN.11' ends teleporting on edge 'CN', time 68.00.
+Warning: Vehicle 'WE.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=76.50.
+Warning: Vehicle 'SN.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=85.00.
 Warning: Vehicle 'SN.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=95.50.
