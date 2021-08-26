@@ -1715,6 +1715,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                           << " offset=" << offset << "\n";
             }
         }
+        myAngle = std::numeric_limits<double>::max(); // see #9014
         return true;
     } else {
         return false;
@@ -1723,7 +1724,6 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
 
 void
 MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
-    myAngle = std::numeric_limits<double>::max(); // set on first access or via remote control
     const int stripes = (int)obs.size();
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
@@ -1962,6 +1962,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     } else {
         myWaitingTime += DELTA_T;
     }
+    myAngle = std::numeric_limits<double>::max(); // set on first access or via remote control
 }
 
 
