@@ -238,6 +238,15 @@ public:
         void removeSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);
 
     private:
+        /// @brief flag for defined vehicle type parameter
+        bool myDefinedVehicleTypeParameter;
+
+        /// @brief @brief flag for defined vehicle parameter
+        bool myDefinedVehicleParameter;
+
+        /// @brief @brief flag for defined stop parameter
+        bool myDefinedStopParameter;
+
         /// @brief invalidate copy constructor
         SumoBaseObject(const SumoBaseObject& s) = delete;
 

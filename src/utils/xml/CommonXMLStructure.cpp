@@ -36,7 +36,10 @@ CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent) :
     mySumoBaseObjectParent(parent),
     myVClass(SVC_IGNORING),
     myVehicleTypeParameter(""),
-    myTag(SUMO_TAG_NOTHING) {
+    myTag(SUMO_TAG_NOTHING),
+    myDefinedVehicleTypeParameter(false),
+    myDefinedVehicleParameter(false),
+    myDefinedStopParameter(false) {
     // add this SumoBaseObject into parent children
     if (mySumoBaseObjectParent) {
         mySumoBaseObjectParent->addSumoBaseObjectChild(this);
@@ -172,19 +175,32 @@ CommonXMLStructure::SumoBaseObject::getVClass() const {
 
 const SUMOVTypeParameter&
 CommonXMLStructure::SumoBaseObject::getVehicleTypeParameter() const {
-    return myVehicleTypeParameter;
+    if (myDefinedVehicleTypeParameter) {
+        return myVehicleTypeParameter;
+    } else {
+        throw ProcessError("Undefined vehicleType parameter");
+    }
 }
 
 
 const SUMOVehicleParameter&
 CommonXMLStructure::SumoBaseObject::getVehicleParameter() const {
-    return myVehicleParameter;
+    if (myDefinedVehicleParameter) {
+        return myVehicleParameter;
+    } else {
+        throw ProcessError("Undefined vehicle parameter");
+    }
 }
 
 
 const SUMOVehicleParameter::Stop&
 CommonXMLStructure::SumoBaseObject::getStopParameter() const {
-    return myStopParameter;
+    if (myDefinedStopParameter) {
+        return myStopParameter;
+    } else {
+        throw ProcessError("Undefined stop parameter");
+    }
+
 }
 
 
@@ -317,12 +333,14 @@ CommonXMLStructure::SumoBaseObject::setVClass(SUMOVehicleClass vClass) {
 void 
 CommonXMLStructure::SumoBaseObject::setVehicleTypeParameter(const SUMOVTypeParameter* vehicleTypeParameter) {
     myVehicleTypeParameter = *vehicleTypeParameter;
+    myDefinedVehicleTypeParameter = true;
 }
 
 
 void
 CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParameter* vehicleParameter) {
     myVehicleParameter = *vehicleParameter;
+    myDefinedVehicleParameter = true;
     // set attribute id
     if (!vehicleParameter->id.empty()) {
         addStringAttribute(SUMO_ATTR_ID, vehicleParameter->id);
@@ -337,6 +355,7 @@ CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParamet
 void
 CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop &stopParameter) {
     myStopParameter = stopParameter;
+    myDefinedStopParameter = true;
     // set attribute edge
     if (!stopParameter.edge.empty()) {
         addStringAttribute(SUMO_ATTR_ID, stopParameter.edge);
@@ -366,7 +385,16 @@ CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter:
 
 void
 CommonXMLStructure::SumoBaseObject::addParameter(const std::string& key, const std::string& value) {
-    myParameters[key] = value;
+    // check if we have to insert in vType, vehicle or stop parameters
+    if (myDefinedVehicleTypeParameter) {
+        myVehicleTypeParameter.setParameter(key, value);
+    } else if (myDefinedVehicleParameter) {
+        myVehicleParameter.setParameter(key, value);
+    } else if (myDefinedStopParameter) {
+        myStopParameter.setParameter(key, value);
+    } else {
+        myParameters[key] = value;
+    }
 }
 
 
