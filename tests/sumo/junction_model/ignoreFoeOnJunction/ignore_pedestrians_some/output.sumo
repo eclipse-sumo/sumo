@@ -1,6 +1,6 @@
 Loading net-file from 'net3.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_9_2+0982-676e85a started with time: 0.00
+Simulation version v1_10_0+0253-3244b09 started with time: 0.00
 Simulation ended at time: 128.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -12,7 +12,7 @@ Vehicles:
  Inserted: 12
  Running: 0
  Waiting: 0
-Teleports: 3 (Collisions: 3)
+Teleports: 0 (Collisions: 3)
 Persons: 
  Inserted: 19
  Running: 0

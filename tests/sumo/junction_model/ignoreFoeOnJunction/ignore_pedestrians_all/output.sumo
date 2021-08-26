@@ -1,18 +1,18 @@
-Loading net-file from 'net3.net.xml' ... done (1ms).
+Loading net-file from 'net3.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_8_0+1004-5eef8ab started with time: 0.00
+Simulation version v1_10_0+0253-3244b09 started with time: 0.00
 Simulation ended at time: 127.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.00s
- Real time factor: 42333.3
- UPS: 72000.000000
- UPS-Persons: 171666.666667
+ Duration: 0.01s
+ Real time factor: 21166.7
+ UPS: 36000.000000
+ UPS-Persons: 85833.333333
 Vehicles: 
  Inserted: 12
  Running: 0
  Waiting: 0
-Teleports: 3 (Collisions: 3)
+Teleports: 0 (Collisions: 3)
 Persons: 
  Inserted: 19
  Running: 0
