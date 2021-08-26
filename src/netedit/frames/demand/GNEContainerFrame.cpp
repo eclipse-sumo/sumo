@@ -37,7 +37,9 @@
 // ---------------------------------------------------------------------------
 
 GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Containers") {
+    GNEFrame(horizontalFrameParent, viewNet, "Containers"),
+    myRouteHandler("", viewNet->getNet(), true),
+    myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for containers
     myContainerTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINER);
@@ -68,7 +70,9 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
 }
 
 
-GNEContainerFrame::~GNEContainerFrame() {}
+GNEContainerFrame::~GNEContainerFrame() {
+    delete myContainerBaseObject;
+}
 
 
 void
@@ -251,12 +255,12 @@ GNEContainerFrame::createPath() {
     } else if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
+/*
         // begin undo-redo operation
         myViewNet->getUndoList()->p_begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
         // create container
         GNEDemandElement* container = buildContainer();
         // check if container and container plan can be created
-/*
         if (GNERouteHandler::buildContainerPlan(
                     myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
                     container, myContainerPlanAttributes, myPathCreator)) {
@@ -269,7 +273,6 @@ GNEContainerFrame::createPath() {
             myContainerPlanAttributes->refreshRows();
             // compute container
             container->computePathElement();
-
         } else {
             // abort container creation
             myViewNet->getUndoList()->p_abort();
@@ -304,12 +307,14 @@ GNEContainerFrame::buildContainer() {
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(containerTag));
         // obtain container parameters
         SUMOVehicleParameter* containerParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_CONTAINER, SUMOSAXAttrs, false, false, false);
-        // build container in GNERouteHandler
-/*
-        GNERouteHandler::buildContainer(myViewNet->getNet(), true, *containerParameters);
-*/
-        // delete containerParameters
-        delete containerParameters;
+        // check personParameters
+        if (containerParameters) {
+            myContainerBaseObject->setVehicleParameter(containerParameters);
+            // parse vehicle
+            myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
+            // delete personParameters
+            delete containerParameters;
+        }
     } else {
         // set begin and end attributes
         if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
@@ -322,12 +327,14 @@ GNEContainerFrame::buildContainer() {
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(containerTag));
         // obtain containerFlow parameters
         SUMOVehicleParameter* containerFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
-        // build containerFlow in GNERouteHandler
-/*
-        GNERouteHandler::buildContainerFlow(myViewNet->getNet(), true, *containerFlowParameters);
-*/
-        // delete containerFlowParameters
-        delete containerFlowParameters;
+        // check personParameters
+        if (containerFlowParameters) {
+            myContainerBaseObject->setVehicleParameter(containerFlowParameters);
+            // parse vehicle
+            myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
+            // delete personParameters
+            delete containerFlowParameters;
+        }
     }
     // refresh container and containerPlan attributes
     myContainerAttributes->refreshRows();

@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 
 
 // ===========================================================================
@@ -67,6 +68,12 @@ protected:
     void createPath();
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
+    /// @brief container base object
+    CommonXMLStructure::SumoBaseObject* myContainerBaseObject;
+
     /// @brief container tag selector (used to select diffent kind of containers)
     GNEFrameModuls::TagSelector* myContainerTagSelector;
 
