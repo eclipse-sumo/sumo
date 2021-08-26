@@ -62,8 +62,8 @@ SumoRNG RGBColor::myRNG;
 // method definitions
 // ===========================================================================
 
-RGBColor::RGBColor()
-    : myRed(0), myGreen(0), myBlue(0), myAlpha(0), myValid(true) {}
+RGBColor::RGBColor(bool valid=true)
+    : myRed(0), myGreen(0), myBlue(0), myAlpha(0), myValid(valid) {}
 
 
 RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
@@ -166,13 +166,13 @@ operator<<(std::ostream& os, const RGBColor& col) {
 
 bool
 RGBColor::operator==(const RGBColor& c) const {
-    return myRed == c.myRed && myGreen == c.myGreen && myBlue == c.myBlue && myAlpha == c.myAlpha;
+    return (myRed == c.myRed) && (myGreen == c.myGreen) && (myBlue == c.myBlue) && (myAlpha == c.myAlpha) && (myValid == c.myValid);
 }
 
 
 bool
 RGBColor::operator!=(const RGBColor& c) const {
-    return myRed != c.myRed || myGreen != c.myGreen || myBlue != c.myBlue || myAlpha != c.myAlpha;
+    return (myRed != c.myRed) || (myGreen != c.myGreen) || (myBlue != c.myBlue) || (myAlpha != c.myAlpha) || (myValid != c.myValid);
 }
 
 

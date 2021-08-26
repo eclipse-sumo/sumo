@@ -39,7 +39,7 @@ class RGBColor {
 public:
     /** @brief Constructor
      */
-    RGBColor();
+    RGBColor(bool valid=true);
 
     /** @brief Constructor
      * @param[in] red The red component's value
