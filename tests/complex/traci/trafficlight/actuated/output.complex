@@ -45,10 +45,10 @@ max-gap:
 40.0 phase=0
 41.0 phase=0
 42.0 phase=0
-43.0 phase=1
+43.0 phase=0
 44.0 phase=1
 45.0 phase=1
-46.0 phase=2
+46.0 phase=1
 47.0 phase=2
 48.0 phase=2
 49.0 phase=2
