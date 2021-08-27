@@ -1,0 +1,32 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle depart="0.00" fromTaz="3_0" id="0" toTaz="0_1">
+        <route edges="D0E0 E0E1 E1D1 D1C1 C1B1 B1A1 A1A0" />
+    </vehicle>
+    <vehicle depart="1.00" fromTaz="1_2" id="1" toTaz="1_1">
+        <route edges="B2B3 B3B2 B2B1 B1B0" />
+    </vehicle>
+    <vehicle depart="2.00" fromTaz="3_2" id="2" toTaz="3_1">
+        <route edges="D2D3 D3D2 D2D1 D1D2" />
+    </vehicle>
+    <vehicle depart="3.00" fromTaz="4_1" id="3" toTaz="0_2">
+        <route edges="E1E2 E2D2 D2C2 C2B2 B2A2 A2A3" />
+    </vehicle>
+    <vehicle depart="4.00" fromTaz="2_0" id="4" toTaz="0_1">
+        <route edges="C0D0 D0C0 C0B0 B0A0 A0A1 A1A0" />
+    </vehicle>
+    <vehicle depart="5.00" fromTaz="1_1" id="5" toTaz="2_2">
+        <route edges="B1B0 B0B1 B1B2 B2C2 C2C3" />
+    </vehicle>
+    <vehicle depart="6.00" fromTaz="0_1" id="6" toTaz="1_0">
+        <route edges="A1A0 A0B0 B0C0" />
+    </vehicle>
+    <vehicle depart="7.00" fromTaz="3_0" id="7" toTaz="2_3">
+        <route edges="D0E0 E0E1 E1E2 E2E3 E3D3 D3C3 C3C2" />
+    </vehicle>
+    <vehicle depart="8.00" fromTaz="1_1" id="8" toTaz="2_4">
+        <route edges="B1B0 B0B1 B1B2 B2B3 B3B4 B4C4 C4C3" />
+    </vehicle>
+    <vehicle depart="9.00" fromTaz="3_4" id="9" toTaz="0_0">
+        <route edges="D4C4 C4B4 B4B3 B3B2 B2B1 B1B0 B0A0 A0A1" />
+    </vehicle>
+</routes>

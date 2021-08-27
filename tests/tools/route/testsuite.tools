@@ -70,3 +70,6 @@ splitRandom
 
 # test for split route files trips
 splitRouteFiles
+
+# add taz information to route file
+addTAZ
