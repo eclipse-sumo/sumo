@@ -151,7 +151,7 @@ def _cutEdgeList(areaEdges, oldDepart, exitTimes, edges, orig_net, options, stat
     if len(route_parts) > 1:
         stats.multiAffectedRoutes += 1
         if disconnected_action == 'discard':
-            return []
+            return None
     # loop over different route parts
     result = []
     for fromIndex, toIndex in route_parts:
@@ -212,6 +212,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         disco = "keep" if options.disconnected_action == "keep.walk" else options.disconnected_action
                         routeParts = _cutEdgeList(areaEdges, oldDepart, None,
                                                   planItem.edges.split(), orig_net, options, stats, disco)
+                        if routeParts is None:
+                            # the walk itself is disconnected and the disconnected_action says not to keep the person
+                            newPlan = []
+                            break
                         walkEdges = []
                         for depart, edges in routeParts:
                             if newDepart is None:
@@ -340,13 +344,13 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                 routeParts = _cutEdgeList(areaEdges, oldDepart, old_route.exitTimes,
                                           old_route.edges.split(), orig_net, options,
                                           stats, options.disconnected_action, moving.departEdge, moving.arrivalEdge)
-                if routeParts and old_route.exitTimes is None and orig_net is None:
+                if options.verbose and routeParts and old_route.exitTimes is None and orig_net is None:
                     print("Could not reconstruct new departure time for %s '%s'. Using old departure time." %
                           (moving.name, moving.id))
                 old_route.exitTimes = None
                 if routeRef and not routeParts:
                     standaloneRoutesDepart[moving.route] = 'discard'
-                for ix_part, (newDepart, remaining) in enumerate(routeParts):
+                for ix_part, (newDepart, remaining) in enumerate(routeParts or []):
                     departShift = cut_stops(moving, busStopEdges, remaining)
                     if routeRef:
                         departShift = cut_stops(routeRef, busStopEdges, remaining,
