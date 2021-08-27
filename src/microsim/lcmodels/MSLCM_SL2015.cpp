@@ -2086,20 +2086,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                         std::cout << "   updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " leader=" << leader->getID() << " gap=" << gap << " vSafe=" << vSafe << "\n";
                     }
 #endif
-                    const double deltaV = vMax - leader->getSpeed();
-                    if (deltaV > 0 && gap / deltaV < mySpeedGainLookahead && mySpeedGainLookahead > 0) {
-                        // anticipate future braking by computing the average
-                        // speed over the next few seconds
-                        const double foreCastTime = mySpeedGainLookahead * 2;
-                        const double gapClosingTime = MAX2(0.0, gap / deltaV);
-                        const double vSafe2 = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * leader->getSpeed()) / foreCastTime;
-#ifdef DEBUG_EXPECTED_SLSPEED
-                        if (DEBUG_COND && vSafe2 != vSafe) {
-                            std::cout << "     foreCastTime=" << foreCastTime << " gapClosingTime=" << gapClosingTime << " extrapolated vSafe=" << vSafe2 << "\n";
-                        }
-#endif
-                        vSafe = vSafe2;
-                    }
+                    vSafe = forecastAverageSpeed(vSafe, vMax, gap, leader->getSpeed());
                 }
             }
             // take pedestrians into account
@@ -2124,6 +2111,26 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
         }
     }
     // XXX deal with leaders on subsequent lanes based on preb
+}
+
+
+double
+MSLCM_SL2015::forecastAverageSpeed(double vSafe, double vMax, double gap, double vLeader) const {
+    const double deltaV = vMax - vLeader;
+    if (deltaV > 0 && gap / deltaV < mySpeedGainLookahead && mySpeedGainLookahead > 0) {
+        // anticipate future braking by computing the average
+        // speed over the next few seconds
+        const double foreCastTime = mySpeedGainLookahead * 2;
+        const double gapClosingTime = MAX2(0.0, gap / deltaV);
+        const double vSafe2 = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * vLeader) / foreCastTime;
+#ifdef DEBUG_EXPECTED_SLSPEED
+        if (DEBUG_COND && vSafe2 != vSafe) {
+            std::cout << "     foreCastTime=" << foreCastTime << " gapClosingTime=" << gapClosingTime << " extrapolated vSafe=" << vSafe2 << "\n";
+        }
+#endif
+        vSafe = vSafe2;
+    }
+    return vSafe;
 }
 
 

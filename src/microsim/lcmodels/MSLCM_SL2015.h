@@ -338,6 +338,9 @@ protected:
     /// @brief compute speed when committing to an urgent change that is safe in regard to leading vehicles
     double commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const;
 
+    /// @brief estimate average speed over mySpeedGainLookahead time
+    double forecastAverageSpeed(double vSafe, double vMax, double gap, double vLeader) const;
+
     /// @brief compute speedGain when moving by the given amount
     double computeSpeedGain(double latDistSublane, double defaultNextSpeed) const;
 
