@@ -276,7 +276,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             print("Error handling ride in '%s'" % moving.id, e)
                             planItem = None
                         if planItem is not None and newDepart is None and planItem.depart is not None:
-                            newDepart = float(planItem.depart)
+                            newDepart = parseTime(planItem.depart)
                             planItem.lines = planItem.intended
                     if planItem is None:
                         isDiscoAfter = True
@@ -293,7 +293,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                     continue
                 if newDepart is None:
                     newDepart = parseTime(moving.depart)
-                moving.depart = "%.2f" % newDepart
+                if newPlan[0].name == "ride" and newPlan[0].lines == newPlan[0].intended:
+                    moving.depart = "triggered"
+                else:
+                    moving.depart = "%.2f" % newDepart
                 yield newDepart, moving
             else:
                 if moving.name == 'vehicle':

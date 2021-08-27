@@ -28,6 +28,7 @@ from optparse import OptionParser
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
+from sumolib.miscutils import parseTime  # noqa
 
 DEPART_ATTRS = {'vehicle': 'depart', 'trip': 'depart', 'flow': 'begin', 'person': 'depart'}
 
@@ -61,12 +62,10 @@ def sort_departs(routefilename, outfile):
             departAttr = DEPART_ATTRS.get(parsenode.localName)
             if departAttr is not None:
                 startString = parsenode.getAttribute(departAttr)
-                if ':' in startString:
-                    start = sumolib.miscutils.parseTime(startString)
-                elif startString == "triggered":
+                if startString == "triggered":
                     start = -1  # before everything else
                 else:
-                    start = float(startString)
+                    start = parseTime(startString)
                 vehicles.append(
                     (start, parsenode.toprettyxml(indent="", newl="")))
             else:
@@ -95,14 +94,23 @@ class RouteHandler(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name in DEPART_ATTRS.keys():
-            self._depart = float(attrs[DEPART_ATTRS[name]])
+            startString = attrs[DEPART_ATTRS[name]]
+            if startString == "triggered":
+                self._depart = -1
+            else:
+                self._depart = parseTime(startString)
             self._start_line = self.locator.getLineNumber()
+        if name == "ride" and self._depart == -1 and "depart" in attrs:
+            # this is at least the attempt to put triggered persons behind their vehicle
+            # it probably works only for vehroute output
+            self._depart = parseTime(attrs["depart"])
 
     def endElement(self, name):
         if name in DEPART_ATTRS.keys():
             end_line = self.locator.getLineNumber()
             self.elements_with_depart.append(
                 (self._depart, self._start_line, end_line))
+            self._depart = None
 
 
 def create_line_index(file):
