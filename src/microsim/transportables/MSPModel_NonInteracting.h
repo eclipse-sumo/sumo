@@ -83,7 +83,6 @@ private:
     public:
         MoveToNextEdge(MSTransportable* transportable, MSStageMoving& walk, MSPModel_NonInteracting* model) :
             myParent(walk), myTransportable(transportable), myModel(model) {}
-        virtual ~MoveToNextEdge();
         SUMOTime execute(SUMOTime currentTime);
         void abortWalk() {
             myTransportable = nullptr;
@@ -107,7 +106,6 @@ private:
     class PState : public MSTransportableStateAdapter {
     public:
         PState(MoveToNextEdge* cmd, std::istringstream* in = nullptr);
-        virtual ~PState();
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{

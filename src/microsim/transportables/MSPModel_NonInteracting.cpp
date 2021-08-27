@@ -96,13 +96,6 @@ MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {
 // ---------------------------------------------------------------------------
 // MSPModel_NonInteracting::MoveToNextEdge method definitions
 // ---------------------------------------------------------------------------
-MSPModel_NonInteracting::MoveToNextEdge::~MoveToNextEdge() {
-    if (myTransportable != nullptr) {
-        myModel->registerArrived();
-    }
-}
-
-
 SUMOTime
 MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     if (myTransportable == nullptr) {
@@ -111,6 +104,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     const MSEdge* old = myParent.getEdge();
     const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime);
     if (arrived) {
+        myModel->registerArrived();
         return 0;
     }
     return static_cast<PState*>(myParent.getState())->computeDuration(old, myParent, currentTime);
@@ -124,11 +118,6 @@ MSPModel_NonInteracting::PState::PState(MoveToNextEdge* cmd, std::istringstream*
     if (in != nullptr) {
         (*in) >> myLastEntryTime >> myCurrentDuration;
     }
-}
-
-
-MSPModel_NonInteracting::PState::~PState() {
-    //myCommand->abortWalk();
 }
 
 
