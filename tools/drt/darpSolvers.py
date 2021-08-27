@@ -10,7 +10,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    darpSolver.py
+# @file    darpSolvers.py
 # @author  Giuliana Armellini
 # @date    2021-05-27
 
