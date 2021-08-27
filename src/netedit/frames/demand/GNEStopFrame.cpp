@@ -105,7 +105,9 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 // ---------------------------------------------------------------------------
 
 GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Stops") {
+    GNEFrame(horizontalFrameParent, viewNet, "Stops"),
+    myRouteHandler("", viewNet->getNet(), true),
+    myStopBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
     myStopParentSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
@@ -127,7 +129,9 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
 }
 
 
-GNEStopFrame::~GNEStopFrame() {}
+GNEStopFrame::~GNEStopFrame() {
+    delete myStopBaseObject;
+}
 
 
 void
@@ -182,16 +186,11 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             WRITE_WARNING("Current selected Stop parent isn't valid.");
             return false;
         }
-        // declare a Stop
-        SUMOVehicleParameter::Stop stopParameter;
-        // check if stop parameters was sucesfully obtained
-        if (getStopParameter(stopParameter, myStopTagSelector->getCurrentTagProperties().getTag(),
-                             myViewNet, myStopAttributes, myNeteditAttributes,
-                             objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront())) {
-            // create it in RouteFrame
-/*
-            GNERouteHandler::buildStop(myViewNet->getNet(), true, stopParameter, myStopParentSelector->getCurrentDemandElement());
-*/
+        // create stop base object
+        getStopParameter(myStopTagSelector->getCurrentTagProperties().getTag(),
+            objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
+        if (myStopBaseObject->getTag() != SUMO_TAG_NOTHING) {
+            myRouteHandler.buildStop(myStopBaseObject, myStopBaseObject->getStopParameter());
             // stop sucesfully created, then return true
             return true;
         } else {
@@ -201,10 +200,11 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 }
 
 bool
-GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* /* viewNet */,
-                               GNEFrameAttributesModuls::AttributesCreator* stopAttributes,
-                               const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
-                               const GNELane* lane, const GNEAdditional* stoppingPlace) {
+GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, const GNEAdditional* stoppingPlace) {
+    // first clear stop base object
+    myStopBaseObject->clear();
+    // declare stop parameters
+    SUMOVehicleParameter::Stop stop;
     // first check that current selected Stop is valid
     if (stopTag == SUMO_TAG_NOTHING) {
         WRITE_WARNING("Current selected Stop type isn't valid.");
@@ -276,12 +276,12 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
         return false;
     }
     // check if stop attributes are valid
-    if (!stopAttributes->areValuesValid()) {
-        stopAttributes->showWarningMessage();
+    if (!myStopAttributes->areValuesValid()) {
+        myStopAttributes->showWarningMessage();
         return false;
     }
     // declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = stopAttributes->getAttributesAndValuesTemporal(false);
+    std::map<SumoXMLAttr, std::string> valuesMap = myStopAttributes->getAttributesAndValuesTemporal(false);
     // add netedit values
     if (!stop.lane.empty()) {
         myNeteditAttributes->getNeteditAttributesAndValuesTemporal(valuesMap, lane);
@@ -359,8 +359,10 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
         stop.index = STOP_INDEX_END;
     }
     // refresh stop attributes
-    stopAttributes->refreshRows();
-    // all ok, then return true
+    myStopAttributes->refreshRows();
+    // set tag
+    myStopBaseObject->setTag(stopTag);
+    myStopBaseObject->setStopParameter(stop);
     return true;
 }
 
