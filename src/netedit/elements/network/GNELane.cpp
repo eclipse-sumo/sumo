@@ -335,7 +335,7 @@ GNELane::drawLinkRules(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNELane::drawArrows(const GUIVisualizationSettings& s) const {
+GNELane::drawArrows(const GUIVisualizationSettings& s, const bool spreadSuperposed) const {
     if (s.showLinkDecals && myParentEdge->getParentJunctions().back()->isLogicValid() && s.scale > 3) {
         // calculate begin, end and rotation
         const Position& begin = myLaneGeometry.getShape()[-2];
@@ -344,9 +344,13 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
         // push arrow matrix
         GLHelper::pushMatrix();
         // move front (note: must draw on top of junction shape?
-        glTranslated(0, 0, 0.1);
-        // change color to white
-        GLHelper::setColor(RGBColor::WHITE);
+        glTranslated(0, 0, 0.5);
+        // change color depending of spreadSuperposed
+        if (spreadSuperposed) {
+            GLHelper::setColor(RGBColor::CYAN);
+        } else {
+            GLHelper::setColor(RGBColor::WHITE);
+        }
         // move to end
         glTranslated(end.x(), end.y(), 0);
         // rotate
@@ -522,7 +526,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 // draw markings
                 drawMarkings(s, laneDrawingConstants.exaggeration, drawRailway);
                 // draw arrows
-                drawArrows(s);
+                drawArrows(s, spreadSuperposed);
                 // Draw direction indicators
                 drawDirectionIndicators(s, laneDrawingConstants.exaggeration, drawRailway, spreadSuperposed);
             }

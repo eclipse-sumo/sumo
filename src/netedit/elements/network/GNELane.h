@@ -295,7 +295,7 @@ private:
     void drawLinkRules(const GUIVisualizationSettings& s) const;
 
     /// @brief draw arrows
-    void drawArrows(const GUIVisualizationSettings& s) const;
+    void drawArrows(const GUIVisualizationSettings& s, const bool spreadSuperposed) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;
