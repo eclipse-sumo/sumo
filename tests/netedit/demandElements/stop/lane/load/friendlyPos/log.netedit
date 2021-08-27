@@ -1,9 +1,9 @@
 Error: Attribute 'friendlyPos' in definition of a stop is not of type bool.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
 Error: Attribute 'friendlyPos' in definition of a stop is empty.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
 Error: Attribute 'friendlyPos' in definition of a stop is not of type bool.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
 Error: Attribute 'friendlyPos' in definition of a stop is not of type bool.
-Error: Invalid start or end position for stop on lane 'gneE1_0' in route ''.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.lane.02Jul080812.2562/netedit.daily.demand.stop.lane/demandElements/stop/lane/load/friendlyPos/input_routes.rou.xml failed.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135052.3908\netedit.gui\demandElements\stop\lane\load\friendlyPos\input_routes.rou.xml failed.

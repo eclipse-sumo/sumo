@@ -18,22 +18,21 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
-Debug: Adding trip 'trip_1' in GNEChange_DemandElement
-Error: Invalid 'via' edges used in trip 'trip_2'.
-Debug: Adding trip 'trip_3' in GNEChange_DemandElement
+Error: Attribute 'via' in definition of trip 'trip_1' is empty.
+Error: Could not build trip in netedit; edge doesn't exist.
+Debug: Adding trip 'trip_2' in GNEChange_DemandElement
+Error: Attribute 'via' in definition of trip 'trip_3' is empty.
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\trip\load\via\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135052.3908\netedit.gui\demandElements\trip\load\via\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'trip_4' in GNEChange_DemandElement
-Debug: Removing trip 'trip_3' in GNEChange_DemandElement
-Debug: Removing trip 'trip_1' in GNEChange_DemandElement
+Debug: Removing trip 'trip_2' in GNEChange_DemandElement
 Debug: Removing trip 'trip_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
-Debug: Adding trip 'trip_1' in GNEChange_DemandElement
-Debug: Adding trip 'trip_3' in GNEChange_DemandElement
+Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -84,8 +83,7 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced trip 'trip_4'
-Debug: Deleting unreferenced trip 'trip_3'
-Debug: Deleting unreferenced trip 'trip_1'
+Debug: Deleting unreferenced trip 'trip_2'
 Debug: Deleting unreferenced trip 'trip_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
