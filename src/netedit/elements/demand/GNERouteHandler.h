@@ -208,6 +208,9 @@ private:
     /// @brief pointer to GNENet
     GNENet* myNet;
 
+    /// @brief pointer for person and container plans
+    CommonXMLStructure::SumoBaseObject* myPlanObject;
+
     /// @brief flag to check if created demand elements must be undo and redo
     bool myUndoDemandElements;
 };
