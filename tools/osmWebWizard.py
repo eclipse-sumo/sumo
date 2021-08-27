@@ -186,8 +186,12 @@ class Builder(object):
             shutil.copy(data['osm'], self.files["osm"])
         else:
             self.report("Downloading map data")
-            osmGet.get(
-                ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp])
+            if 'osmMirror' not in self.data:
+                osmGet.get(
+                    ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp])
+            else:
+                osmGet.get(
+                    ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-u", self.data["osmMirror"]])            
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         self.additionalFiles = []
