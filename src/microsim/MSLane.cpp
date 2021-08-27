@@ -3071,7 +3071,6 @@ MSLane::incoming_lane_priority_sorter::operator()(const IncomingLaneInfo& laneIn
 
 
 MSLane::outgoing_lane_priority_sorter::outgoing_lane_priority_sorter(const MSLane* const sourceLane) :
-    myLane(sourceLane),
     myLaneDir(sourceLane->getShape().angleAt2D(0)) {}
 
 int
