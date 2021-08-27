@@ -97,8 +97,16 @@ GNEConnection::updateGeometry() {
         if (nbCon.customShape.size() != 0) {
             myConnectionGeometry.updateGeometry(nbCon.customShape);
         } else if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) {
-            if (nbCon.shape.size() != 0) {
-                PositionVector connectionShape = nbCon.shape;
+            if (nbCon.shape.size() > 1) {
+                PositionVector connectionShape;
+                if (nbCon.shape.front() == nbCon.shape.back()) {
+                    laneShapeFrom.move2side(0.7);
+                    laneShapeTo.move2side(0.7);
+                    connectionShape.push_back(laneShapeFrom.back());
+                    connectionShape.push_back(laneShapeTo.front());
+                } else {
+                    connectionShape = nbCon.shape;
+                }
                 // only append via shape if it exists
                 if (nbCon.haveVia) {
                     connectionShape.append(nbCon.viaShape);
