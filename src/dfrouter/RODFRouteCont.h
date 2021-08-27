@@ -166,7 +166,7 @@ protected:
 
     private:
         /// @brief invalidated assignment operator
-        route_finder& operator=(const route_finder&);
+        route_finder& operator=(const route_finder&) = delete;
     };
 
 protected:

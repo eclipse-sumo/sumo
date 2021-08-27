@@ -69,8 +69,8 @@ GNEPersonTrip::getMoveOperation(const double /*shapeOffset*/) {
     // calculate circle width squared
     const double circleWidthSquared = myPersonPlanArrivalPositionDiameter * myPersonPlanArrivalPositionDiameter;
     // check if we clicked over a geometry end pos
-    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
-        return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), {myArrivalPosition}, false);
+    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= circleWidthSquared + 2) {
+        return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
     } else {
         return nullptr;
     }

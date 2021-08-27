@@ -159,7 +159,8 @@ struct GNENetHelper {
         */
         bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
                         double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
-                        bool geo, bool fill, double lineWidth, bool ignorePruning = false);
+                        bool geo, bool fill, double lineWidth, bool ignorePruning = false,
+                        const std::string& name = Shape::DEFAULT_NAME);
 
         /**@brief Builds a POI using the given values and adds it to the container
         * @param[in] id The name of the POI

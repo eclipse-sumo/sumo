@@ -139,7 +139,7 @@ public:
     //@}
 
     /// @brief whether this container is selected in the GUI
-    bool isSelected() const override;
+    bool isSelected() const;
 
     /**
      * @class GUIContainerPopupMenu

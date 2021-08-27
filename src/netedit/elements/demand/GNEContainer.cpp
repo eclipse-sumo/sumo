@@ -186,7 +186,7 @@ GNEContainer::getMoveOperation(const double /*shapeOffset*/) {
             posOverLane = parse<double>(getDepartPos());
         }
         // return move operation
-        return new GNEMoveOperation(this, lane, {posOverLane}, false);
+        return new GNEMoveOperation(this, lane, posOverLane, false);
     }
 }
 

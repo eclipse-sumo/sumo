@@ -246,7 +246,8 @@ void GNENetHelper::AttributeCarriers::clearEdges() {
 
 bool
 GNENetHelper::AttributeCarriers::addPolygon(const std::string& /*id*/, const std::string& /*type*/, const RGBColor& /*color*/, double /*layer*/, double /*angle*/,
-        const std::string& /*imgFile*/, bool /*relativePath*/, const PositionVector& /*shape*/, bool /*geo*/, bool /*fill*/, double /*lineWidth*/, bool /*ignorePruning*/) {
+                                            const std::string& /*imgFile*/, bool /*relativePath*/, const PositionVector& /*shape*/, bool /*geo*/, bool /*fill*/,
+                                            double /*lineWidth*/, bool /*ignorePruning*/, const std::string& /*name*/) {
     return false;
 }
 

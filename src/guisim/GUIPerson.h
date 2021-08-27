@@ -156,7 +156,7 @@ public:
     //@}
 
     /// @brief whether this person is selected in the GUI
-    bool isSelected() const override;
+    bool isSelected() const;
 
     /**
      * @class GUIPersonPopupMenu
