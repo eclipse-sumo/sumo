@@ -857,8 +857,149 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 bool 
 GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator) {
-    //
-    return false;
+    // declare person object
+    CommonXMLStructure::SumoBaseObject* personObject = new CommonXMLStructure::SumoBaseObject(nullptr);
+    personObject->setTag(personParent->getTagProperty().getTag());
+    personObject->addStringAttribute(SUMO_ATTR_ID, personParent->getID());
+    // declare personPlan object
+    CommonXMLStructure::SumoBaseObject* personPlanObject = new CommonXMLStructure::SumoBaseObject(personObject);
+    personPlanObject->setTag(tag);
+    // Declare map to keep attributes from myPersonPlanAttributes
+    std::map<SumoXMLAttr, std::string> valuesMap = personPlanAttributes->getAttributesAndValuesTemporal(true);
+    // get attributes
+    const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+    const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+    const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+    const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
+    // get stop parameters
+    SUMOVehicleParameter::Stop stopParameters;
+    // get edges
+    GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().front() : nullptr;
+    GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().back() : nullptr;
+    // get busStop
+    GNEAdditional* toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    // get path edges
+    std::vector<std::string> edges;
+    for (const auto& path : pathCreator->getPath()) {
+        for (const auto& edge : path.getSubPath()) {
+            edges.push_back(edge->getID());
+        }
+    }
+    // get route
+    GNEDemandElement* route = pathCreator->getRoute();
+    // check what PersonPlan we're creating
+    switch (tag) {
+        // Person Trips
+        case GNE_TAG_PERSONTRIP_EDGE: {
+            // check if person trip busStop->edge can be created
+            if (fromEdge && toEdge) {
+                buildPersonTrip(personPlanObject, fromEdge->getID(), toEdge->getID(), "", arrivalPos, types, modes);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A person trip from edge to edge needs two edges edge");
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_BUSSTOP: {
+            // check if person trip busStop->busStop can be created
+            if (fromEdge && toBusStop) {
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), arrivalPos, types, modes);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A person trip from edge to busStop needs one edge and one busStop");
+            }
+            break;
+        }
+        // Walks
+        case GNE_TAG_WALK_EDGE: {
+            // check if transport busStop->edge can be created
+            if (fromEdge && toEdge) {
+                buildWalk(personPlanObject, fromEdge->getID(), toEdge->getID(), "", {}, "", arrivalPos);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_BUSSTOP: {
+            // check if transport busStop->busStop can be created
+            if (fromEdge && toBusStop) {
+                buildWalk(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), {}, "", arrivalPos);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A transport from busStop to busStop needs two busStops");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_EDGES: {
+            // check if transport edges can be created
+            if (edges.size() > 0) {
+                buildWalk(personPlanObject, "", "", "", edges, "", arrivalPos);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A transport with edges attribute needs a list of edges");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_ROUTE: {
+            // check if transport edges can be created
+            if (route) {
+                buildWalk(personPlanObject, "", "", "", {}, route->getID(), arrivalPos);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A route transport needs a route");
+            }
+            break;
+        }
+        // Rides
+        case GNE_TAG_RIDE_EDGE: {
+            // check if ride busStop->edge can be created
+            if (fromEdge && toEdge) {
+                buildRide(personPlanObject, fromEdge->getID(), toEdge->getID(), "", arrivalPos, lines);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A ride from edge to edge needs two edges edge");
+            }
+            break;
+        }
+        case GNE_TAG_RIDE_BUSSTOP: {
+            // check if ride busStop->busStop can be created
+            if (fromEdge && toBusStop) {
+                buildRide(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), arrivalPos, lines);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A ride from edge to busStop needs one edge and one busStop");
+            }
+            break;
+        }
+        // stops
+        case GNE_TAG_STOPPERSON_EDGE: {
+            // check if ride busStop->busStop can be created
+            if (fromEdge) {
+                stopParameters.edge = fromEdge->getID();
+                buildStop(personPlanObject, stopParameters);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A stop has to be placed over an edge");
+            }
+            break;
+        }
+        case GNE_TAG_STOPPERSON_BUSSTOP: {
+            // check if ride busStop->busStop can be created
+            if (toBusStop) {
+                stopParameters.busstop = toBusStop->getID();
+                buildStop(personPlanObject, stopParameters);
+                return true;
+            } else {
+                myNet->getViewNet()->setStatusBarText("A stop has to be placed over a busStop");
+            }
+            break;
+        }
+        default:
+            throw InvalidArgument("Invalid person plan tag");
+    }
+    // delete personPlanObject
+    delete personObject;
 }
 
 
