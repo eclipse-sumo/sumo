@@ -223,7 +223,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myWaitingTime(0),
     myTimeLoss(0),
     myEmergencyVehicleCount(0),
-    myTotalDistance(0) {
+    myTotalDistance(0),
+    myLastStepEventMillis(0)
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
@@ -1599,6 +1601,12 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
 
 void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
+    long t = SysUtils::getCurrentMillis();
+    if (t - myLastStepEventMillis < 20) {
+        // do not try to redraw with more than 50FPS
+        return;
+    }
+    myLastStepEventMillis = t;
     updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     const int running = myRunThread->getNet().getVehicleControl().getRunningVehicleNo();
     const int backlog = myRunThread->getNet().getInsertionControl().getWaitingVehicleNo();
