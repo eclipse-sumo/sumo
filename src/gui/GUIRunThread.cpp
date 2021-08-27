@@ -50,10 +50,12 @@
 // ===========================================================================
 GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
                            double& simDelay, FXSynchQue<GUIEvent*>& eq,
-                           FXEX::FXThreadEvent& ev)
-    : FXSingleEventThread(app, parent),
-      myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
-      mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
+                           FXEX::FXThreadEvent& ev) :
+    FXSingleEventThread(app, parent),
+    myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
+    mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev),
+    myLastBreakMillis(0)
+{
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
@@ -142,7 +144,12 @@ GUIRunThread::run() {
             getNet().setSimDuration((int)(end - beg));
             wait -= (end - beg);
             if (wait > 0) {
+                myLastBreakMillis = end;
                 sleep(wait);
+            } else if (end - myLastBreakMillis > 1000) {
+                // ensure redraw event is successfull at least once per second (#9028)
+                sleep(100);
+                myLastBreakMillis = end;
             }
         } else {
             // sleep if the simulation is not running

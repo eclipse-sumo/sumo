@@ -161,4 +161,7 @@ protected:
     /// @brief Lock for modifying the list of breakpoints
     FXMutex myBreakpointLock;
 
+    /// last time the simulation took a microsecond break for the fox event loop to catch up (#9028)
+    long myLastBreakMillis;
+
 };
