@@ -18,11 +18,17 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
+Debug: Inserting generic parameter 'key1|value1' into vehicle
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting generic parameter 'key1|value5' into vehicle
+Debug: Inserting generic parameter 'key2|' into vehicle
+Debug: Inserting generic parameter 'key2|' into vehicle
+Debug: Inserting generic parameter 'key3|$$value with spaces%%' into vehicle
+Debug: Inserting generic parameter 'keyFinal|valueFinal' into vehicle
 Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun122115.5868\netedit.gui\demandElements\vehicle\load\parameters\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135509.8720\netedit.gui\demandElements\vehicle\load\parameters\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vehicle 'vehicle_0' in GNEChange_DemandElement

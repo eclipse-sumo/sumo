@@ -17,14 +17,9 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Error: A route needs at least one edge.
-Error: A route needs at least one edge.
-Error: A route needs at least one edge.
-Debug: Adding route 'route_3' in GNEChange_DemandElement
-Debug: Adding route 'route_4' in GNEChange_DemandElement
-Debug: Adding route 'route_5' in GNEChange_DemandElement
-Debug: Adding route 'route_6' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_21Jun131711.2888\netedit.gui\demandElements\route\load\edges\input_routes.rou.xml failed.
+Error: Attribute 'edges' is missing in definition of route 'route_0'.
+Error: Attr doesn't exist
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135509.8720\netedit.gui\demandElements\route\load\edges\input_routes.rou.xml failed.
 Debug: Enabled toggle show grid throught alt + 1
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -110,10 +105,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced route 'route_6'
-Debug: Deleting unreferenced route 'route_5'
-Debug: Deleting unreferenced route 'route_4'
-Debug: Deleting unreferenced route 'route_3'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
