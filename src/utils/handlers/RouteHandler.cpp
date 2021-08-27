@@ -34,9 +34,9 @@
 // method definitions
 // ===========================================================================
 
-RouteHandler::RouteHandler(const std::string& file) :
+RouteHandler::RouteHandler(const std::string& file, const bool hardFail) :
     SUMOSAXHandler(file),
-    myHardFail(true),
+    myHardFail(hardFail),
     myFlowBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myFlowEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
 }

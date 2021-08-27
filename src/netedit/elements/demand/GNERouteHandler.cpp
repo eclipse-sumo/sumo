@@ -44,7 +44,7 @@
 // ===========================================================================
 
 GNERouteHandler::GNERouteHandler(const std::string& file, GNENet* net, bool undoDemandElements) :
-    RouteHandler(file),
+    RouteHandler(file, false),
     myNet(net),
     myUndoDemandElements(undoDemandElements),
     myPlanObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {

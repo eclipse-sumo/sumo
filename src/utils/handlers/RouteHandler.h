@@ -40,8 +40,9 @@ class RouteHandler : private SUMOSAXHandler {
 public:
     /** @brief Constructor
      * @param[in] file Name of the parsed file
+     * @param[in] hardFail enable or disable hardFails (continue handling demand elements if there is an error)
      */
-    RouteHandler(const std::string& file);
+    RouteHandler(const std::string& file, const bool hardFail);
 
     /// @brief Destructor
     ~RouteHandler();
