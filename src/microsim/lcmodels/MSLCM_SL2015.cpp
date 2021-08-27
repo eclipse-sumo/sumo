@@ -3516,6 +3516,13 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myLookAheadSpeed);
     } else if (key == "sigmaState") {
         return toString(mySigmaState);
+    // motivaiton relative to threshold
+    } else if (key == "speedGainRP") {
+        return toString(mySpeedGainProbabilityRight / myChangeProbThresholdRight);
+    } else if (key == "speedGainLP") {
+        return toString(mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
+    } else if (key == "keepRightP") {
+        return toString(myKeepRightProbability * myKeepRightParam / myChangeProbThresholdRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
