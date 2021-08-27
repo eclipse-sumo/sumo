@@ -393,7 +393,7 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", opt
     If rootAttrs is given as a string, it can be used to add further attributes to the root element.
     If rootAttrs is set to None, the schema related attributes are not printed.
     """
-    if script is None:
+    if script is None or script == "$Id$":
         script = os.path.basename(sys.argv[0])
     if options is None:
         optionString = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
