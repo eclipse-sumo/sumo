@@ -146,10 +146,12 @@ GUIRunThread::run() {
             if (wait > 0) {
                 myLastBreakMillis = end;
                 sleep(wait);
+#ifndef WIN32
             } else if (end - myLastBreakMillis > 1000) {
                 // ensure redraw event is successfull at least once per second (#9028)
                 sleep(100);
                 myLastBreakMillis = end;
+#endif
             }
         } else {
             // sleep if the simulation is not running

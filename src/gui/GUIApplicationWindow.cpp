@@ -1601,12 +1601,14 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
 
 void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
+#ifdef WIN32
     long t = SysUtils::getCurrentMillis();
     if (t - myLastStepEventMillis < 20) {
-        // do not try to redraw with more than 50FPS
+        // do not try to redraw with more than 50FPS (#6371)
         return;
     }
     myLastStepEventMillis = t;
+#endif
     updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     const int running = myRunThread->getNet().getVehicleControl().getRunningVehicleNo();
     const int backlog = myRunThread->getNet().getInsertionControl().getWaitingVehicleNo();
