@@ -35,7 +35,8 @@
 // ---------------------------------------------------------------------------
 
 GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "ContainerPlans") {
+    GNEFrame(horizontalFrameParent, viewNet, "ContainerPlans"),
+    myRouteHandler("", viewNet->getNet(), true) {
 
     // create container types selector modul
     myContainerSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
@@ -203,7 +204,7 @@ GNEContainerPlanFrame::createPath() {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
         // check if container plan can be created
-        if (GNERouteHandler::buildContainerPlan(
+        if (myRouteHandler.buildContainerPlan(
                     myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
                     myContainerSelector->getCurrentDemandElement(),
                     myContainerPlanAttributes,

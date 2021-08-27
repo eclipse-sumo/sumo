@@ -260,7 +260,7 @@ GNEPersonFrame::createPath() {
         // create person
         GNEDemandElement* person = buildPerson();
         // check if person and person plan can be created
-        if (GNERouteHandler::buildPersonPlan(
+        if (myRouteHandler.buildPersonPlan(
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                     person, myPersonPlanAttributes, myPathCreator)) {
             // end undo-redo operation

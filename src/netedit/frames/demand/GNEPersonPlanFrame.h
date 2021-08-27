@@ -69,6 +69,9 @@ protected:
     void createPath();
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
     /// @brief Person selectors
     GNEFrameModuls::DemandElementSelector* myPersonSelector;
 
