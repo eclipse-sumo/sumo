@@ -50,9 +50,6 @@ public:
         bool getAllowChangeLane() const;
 
     private:
-        /// @brief pointer to move frame parent
-        GNEMoveFrame* myMoveFrameParent;
-
         /// @brief checkbox for enable/disable change lanes
         FXCheckButton* myAllowChangeLanes;
     };

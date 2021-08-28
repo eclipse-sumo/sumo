@@ -229,9 +229,6 @@ public:
 
         /// @brief textField for Parameters
         FXTextField* myParameters = nullptr;
-
-        /// @brief lane parameters
-        LaneTypeParameters* myLaneTypeParameters = nullptr;
     };
 
     // ===========================================================================

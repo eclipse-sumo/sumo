@@ -67,7 +67,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -76,7 +76,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own type parameter window
      *
@@ -84,31 +84,31 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws additionally triggered visualisations
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
+    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const override;
     //* @}
 
     /* @brief proceeds to the next step of the route,
      * @return Whether the transportables plan continues  */
-    bool proceed(MSNet* net, SUMOTime time, const bool vehicleArrived = false);
+    bool proceed(MSNet* net, SUMOTime time, const bool vehicleArrived = false) override;
 
     /* @brief set the position of a person while riding in a vehicle
      * @note This must be called by the vehicle before the call to drawGl */
@@ -117,11 +117,11 @@ public:
     /// @name inherited from MSPerson with added locking
     /// @{
     /// @brief return the offset from the start of the current edge
-    double getEdgePos() const;
+    double getEdgePos() const override;
 
     /// @brief return the Network coordinate of the person
     // @note overrides the base method and returns myPositionInVehicle while in driving stage
-    Position getPosition() const;
+    Position getPosition() const override;
 
     /// @brief return the Network coordinate of the person (only for drawing centering and tracking)
     Position getGUIPosition(const GUIVisualizationSettings* s = nullptr) const;
@@ -133,10 +133,10 @@ public:
     double getNaviDegree() const;
 
     /// @brief the time this person spent waiting in seconds
-    double getWaitingSeconds() const;
+    double getWaitingSeconds() const override;
 
     /// @brief the current speed of the person
-    double getSpeed() const;
+    double getSpeed() const override;
 
     /// @brief get stage index description
     std::string getStageIndexDescription() const;
@@ -156,7 +156,7 @@ public:
     //@}
 
     /// @brief whether this person is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 
     /**
      * @class GUIPersonPopupMenu
@@ -238,7 +238,7 @@ public:
      * @param[in] which The visualisation feature to enable
      * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
      */
-    void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
+    void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) override;
 
     /// @}
 
@@ -247,7 +247,7 @@ private:
     void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;

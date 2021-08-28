@@ -59,7 +59,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersValues(FXHorizontalFrame* frame);
 
         /// @brief destructor
         ~ParametersValues();
@@ -147,9 +147,6 @@ public:
 
         /// @brief vector with the ParameterRows
         std::vector<ParameterRow*> myParameterRows;
-
-        /// @brief pointer to ParameterDialog parent
-        GNEMultipleParametersDialog* myParameterDialogParent;
     };
 
     // ===========================================================================
@@ -243,7 +240,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersOptions(FXVerticalFrame* frame);
 
         /// @brief destructor
         ~ParametersOptions();
@@ -252,9 +249,6 @@ public:
         bool onlyForExistentKeys() const;
 
     private:
-        /// @brief pointer to Shape Frame Parent
-        GNEMultipleParametersDialog* myParameterDialogParent;
-
         /// @brief apply changes only for existent keys
         FXCheckButton* myOnlyForExistentKeys;
     };

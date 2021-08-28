@@ -70,9 +70,8 @@ FXIMPLEMENT(GNESingleParametersDialog::ParametersOperations,    FXGroupBox,     
 // GNESingleParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent) :
-    FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill),
-    myParameterDialogParent(ParameterDialogParent) {
+GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame) :
+    FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThick100);
@@ -648,7 +647,7 @@ GNESingleParametersDialog::constructor() {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameExtras, this);
+    myParametersValues = new ParametersValues(horizontalFrameExtras);
     // create parameters operations
     myParametersOperations = new ParametersOperations(horizontalFrameExtras, this);
     // add separator

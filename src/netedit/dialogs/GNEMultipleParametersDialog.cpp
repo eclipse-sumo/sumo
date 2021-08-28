@@ -69,9 +69,8 @@ FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations, FXGroupBox,    Pa
 // GNEMultipleParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
-    FXGroupBox(frame, "Parameters", GUIDesignGroupBoxFrameFill),
-    myParameterDialogParent(parameterDialogParent) {
+GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame) :
+    FXGroupBox(frame, "Parameters", GUIDesignGroupBoxFrameFill) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThick100);
@@ -475,9 +474,8 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
 // GNEMultipleParametersDialog::ParametersOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
-    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
-    myParameterDialogParent(parameterDialogParent) {
+GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXVerticalFrame* frame) :
+    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100) {
     myOnlyForExistentKeys = new FXCheckButton(this, "Only for\nexistent keys", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonExtraHeight);
 }
 
@@ -634,13 +632,13 @@ GNEMultipleParametersDialog::constructor() {
     // create frame for Parameters, operations and options
     FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameExtras, this);
+    myParametersValues = new ParametersValues(horizontalFrameExtras);
     // create vertical frame frame
     FXVerticalFrame* verticalFrameExtras = new FXVerticalFrame(horizontalFrameExtras, GUIDesignAuxiliarVerticalFrame);
     // create parameters operations
     myParametersOperations = new ParametersOperations(verticalFrameExtras, this);
     // create parameters options
-    myParametersOptions = new ParametersOptions(verticalFrameExtras, this);
+    myParametersOptions = new ParametersOptions(verticalFrameExtras);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered
