@@ -106,10 +106,10 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
         options.routeFiles = args[1:]
     except Exception:
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
-    if options.trips_output is not None and options.routes_output is not None:
-        sys.exit("Only one of the options --trips-output or --routes-output can be given")
     if options.heterogeneous:
         print("Warning, the heterogeneous option is now enabled by default. Please do not use it any longer.")
+    if options.trips_output is not None and options.routes_output is not None:
+        sys.exit("Only one of the options --trips-output or --routes-output can be given")
     else:
         if options.trips_output:
             options.output = options.trips_output
