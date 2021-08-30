@@ -105,6 +105,8 @@ T_d_i+1(s) = beta * T_g_i(s) + (1 - beta) * T_d_i-1(s) ---(2)
 
 , where s is one of the routes in Driver d's route set. 
 
+The aforementioned update rules also apply when other travel cost units are used.
+
 ### Logit
 
 The Logit mechanism applies a fixed formula to each route to calculate
