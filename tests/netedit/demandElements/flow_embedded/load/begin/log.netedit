@@ -1,13 +1,14 @@
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_0'.
-Error: route needs a valid ID.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Attribute 'begin' in definition of flow 'flow_1' is empty.
-Error: flow cannot be created
-Error: route needs a valid ID.
-Error: Attribute 'begin' in definition of flow 'flow_2' is not a time value.
-Error: flow cannot be created
-Error: route needs a valid ID.
+Error: Invalid begin time for flow 'flow_1';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Invalid begin time for flow 'flow_2';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Negative begin time in the definition of flow 'flow_3'.
-Error: route needs a valid ID.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Flow 'flow_4' ends before its begin time.
-Error: route needs a valid ID.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Feb155102.13048\netedit.gui\demandElements\flow_embedded\load\begin\input_routes.rou.xml failed.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug101635.2344\netedit.gui\demandElements\flow_embedded\load\begin\input_routes.rou.xml failed.

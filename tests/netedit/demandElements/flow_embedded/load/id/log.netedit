@@ -1,10 +1,9 @@
 Error: Attribute 'id' is missing in definition of flow
-Error: route needs a valid ID.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Attribute 'id' in definition of a flow is empty.
 Error: Invalid flow id ''.
-Error: route needs a valid ID.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
-Error: route needs a valid ID.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: There is another flowWithRoute with the same ID='flow_valid'.
-Error: There is another flowWithRoute with the same ID='flow_valid'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep144340.17112\netedit.gui\demandElements\flow_embedded\load\id\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Aug135052.1092\netedit.gui\demandElements\flow_embedded\load\id\input_routes.rou.xml failed.
