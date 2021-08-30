@@ -91,7 +91,7 @@ def main(options):
         numVehicles += 1
         vehID = vehicle.attrib['id']
         edges = None
-        for child in vehicle.getchildren():
+        for child in vehicle:
             if child.tag == "route":
                 edges = child.attrib['edges']
                 break
