@@ -72,7 +72,9 @@ for root in sorted(roots):
     for i, l in enumerate(lanes):
         vals = fdi.readline().strip().split()
         length = int(vals[0])
-        if ((int(l[1]) + 500) / 500) * 500 == length:
+        rounded = int((int(l[1]) + 500) / 500) * 500
+        #print("lane %s rounded %s expected %s" % (i, rounded, length))
+        if rounded == length:
             print("lane %s ok" % i)
         else:
             print("lane %s mismatches" % i)
