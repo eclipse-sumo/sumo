@@ -2009,6 +2009,9 @@ template void MSLane::fill<LANE_RTREE_QUAL>(LANE_RTREE_QUAL& into);
 // ------   ------
 bool
 MSLane::appropriate(const MSVehicle* veh) const {
+    if (veh->getLaneChangeModel().isOpposite()) {
+        return false;
+    }
     if (myEdge->isInternal()) {
         return true;
     }
