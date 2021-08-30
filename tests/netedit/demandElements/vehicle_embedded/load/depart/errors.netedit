@@ -16,26 +16,41 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Error: Invalid departure time for vehicle 'trip_0';
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Error: Invalid departure time for vehicle 'vehicle_0';
  must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
-Error: Negative departure time in the definition of 'trip_1'.
-Debug: Adding trip 'trip_2' in GNEChange_DemandElement
-Debug: Adding trip 'trip_3' in GNEChange_DemandElement
-Debug: Adding trip 'trip_4' in GNEChange_DemandElement
-Debug: Adding trip 'trip_5' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\depart\input_routes.rou.xml failed.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Negative departure time in the definition of vehicle 'vehicle_1'.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_5' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_5' in GNEChange_DemandElement
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_27Aug135052.2900\netedit.gui\demandElements\vehicle_embedded\load\depart\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing trip 'trip_5' in GNEChange_DemandElement
-Debug: Removing trip 'trip_4' in GNEChange_DemandElement
-Debug: Removing trip 'trip_3' in GNEChange_DemandElement
-Debug: Removing trip 'trip_2' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'vehicle_5' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_5' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'vehicle_4' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'vehicle_3' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'vehicle_2' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding trip 'trip_2' in GNEChange_DemandElement
-Debug: Adding trip 'trip_3' in GNEChange_DemandElement
-Debug: Adding trip 'trip_4' in GNEChange_DemandElement
-Debug: Adding trip 'trip_5' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_5' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_5' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
@@ -63,8 +78,8 @@ GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -2.00,45.30,23.50
 GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -2.00,26.80,23.50,54.70
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 30.00,26.80,50.00,53.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.00,30.00,20.00,70.00
-GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.00,70.00
+GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.60,30.00,20.00,70.00
+GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.60,70.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary 0.00,8.40,80.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 55.20,10.00,80.00,70.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 60.00,10.00,84.80,70.00
@@ -84,10 +99,14 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced trip 'trip_5'
-Debug: Deleting unreferenced trip 'trip_4'
-Debug: Deleting unreferenced trip 'trip_3'
-Debug: Deleting unreferenced trip 'trip_2'
+Debug: Deleting unreferenced routeEmbedded 'vehicle_5'
+Debug: Deleting unreferenced vehicleWithRoute 'vehicle_5'
+Debug: Deleting unreferenced routeEmbedded 'vehicle_4'
+Debug: Deleting unreferenced vehicleWithRoute 'vehicle_4'
+Debug: Deleting unreferenced routeEmbedded 'vehicle_3'
+Debug: Deleting unreferenced vehicleWithRoute 'vehicle_3'
+Debug: Deleting unreferenced routeEmbedded 'vehicle_2'
+Debug: Deleting unreferenced vehicleWithRoute 'vehicle_2'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
