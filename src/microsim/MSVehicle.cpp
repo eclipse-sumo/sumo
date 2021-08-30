@@ -5719,8 +5719,7 @@ MSVehicle::setEmergencyBlueLight(SUMOTime currentTime) {
 
 int
 MSVehicle::getLaneIndex() const {
-    std::vector<MSLane*>::const_iterator laneP = std::find(myLane->getEdge().getLanes().begin(), myLane->getEdge().getLanes().end(), myLane);
-    return (int) std::distance(myLane->getEdge().getLanes().begin(), laneP);
+    return myLane == nullptr ? -1 : myLane->getIndex();
 }
 
 
