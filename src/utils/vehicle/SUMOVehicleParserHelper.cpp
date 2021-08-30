@@ -190,7 +190,14 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             std::string errorMsg;
             if (!SUMOVehicleParameter::parseDepart(attrs.get<std::string>(SUMO_ATTR_BEGIN, id.c_str(), ok),
                                                    toString(tag), id, ret->depart, ret->departProcedure, errorMsg, "begin")) {
-                throw ProcessError(errorMsg);
+                if (hardFail) {
+                    abortCreation = true;
+                    throw ProcessError(errorMsg);
+                } else {
+                    delete ret;
+                    WRITE_ERROR(errorMsg);
+                    return nullptr;
+                }
             }
         }
         if (ok && ret->depart < 0) {
