@@ -27,14 +27,15 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
+
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Add fromTaz and toTaz to a route file")
     optParser.add_argument("-r", "--route-file", dest="routefile",
-            help="define the input route file (mandatory)")
+                           help="define the input route file (mandatory)")
     optParser.add_argument("-a", "-taz-files", dest="tazfiles",
-            help="define the files to load TAZ (districts) from (mandatory)")
+                           help="define the files to load TAZ (districts) from (mandatory)")
     optParser.add_argument("-o", "--output-file", dest="outfile",
-            help="define the output filename (mandatory)")
+                           help="define the output filename (mandatory)")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
 
     options = optParser.parse_args(args=args)
@@ -78,10 +79,10 @@ def main(options):
 
     if len(ambiguousSource) > 0:
         print("edges %s (total %s) are sources for more than one TAZ" %
-                (ambiguousSource[:5], len(ambiguousSource))) 
+              (ambiguousSource[:5], len(ambiguousSource)))
     if len(ambiguousSink) > 0:
         print("edges %s (total %s) are sinks for more than one TAZ" %
-                (ambiguousSinks[:5], len(ambiguousSinks))) 
+              (ambiguousSink[:5], len(ambiguousSink)))
 
     inputRoutes = ET.parse(options.routefile)
     numFromNotFound = 0
@@ -128,7 +129,7 @@ def main(options):
         print("No fromTaz found for %s edges and no toTaz found for %s edges" % (
             numFromNotFound, numToNotFound))
     inputRoutes.write(options.outfile)
-    
+
 
 if __name__ == "__main__":
     if not main(get_options()):
