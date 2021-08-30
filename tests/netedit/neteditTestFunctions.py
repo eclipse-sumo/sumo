@@ -1862,61 +1862,6 @@ def selectionInvert():
     time.sleep(DELAY_SELECT)
 
 
-def selectionClearDemand():
-    """
-    @brief clear selection
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(27):
-        typeTab()
-    # type space to select clear option
-    typeSpace()
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def selectionInvertDemand():
-    """
-    @brief invert selection (demand mode)
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(28):
-        typeTab()
-    # type space to select invert operation
-    typeSpace()
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def selectionClearData():
-    """
-    @brief clear selection
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(21):
-        typeTab()
-    # type space to select clear option
-    typeSpace()
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def selectionInvertData():
-    """
-    @brief invert selection (demand mode)
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(22):
-        typeTab()
-    # type space to select invert operation
-    typeSpace()
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
 #################################################
 # traffic light
 #################################################
