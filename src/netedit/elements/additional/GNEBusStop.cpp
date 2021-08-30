@@ -69,6 +69,9 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
+    if (myPersonCapacity != 6) {
+        device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
+    }
     if (myParkingLength > 0) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
