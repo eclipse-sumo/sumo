@@ -1683,7 +1683,7 @@ def saveSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(26):
+    for _ in range(16):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1699,7 +1699,7 @@ def loadSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(27):
+    for _ in range(19):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1718,7 +1718,7 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for _ in range(14):
+    for _ in range(5):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
@@ -1759,7 +1759,7 @@ def modificationModeAdd():
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
-    for _ in range(10):
+    for _ in range(1):
         typeTab()
     # select it
     typeSpace()
@@ -1772,7 +1772,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
-    for _ in range(11):
+    for _ in range(2):
         typeTab()
     # select it
     typeSpace()
@@ -1785,7 +1785,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
-    for _ in range(12):
+    for _ in range(3):
         typeTab()
     # select it
     typeSpace()
@@ -1798,7 +1798,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
-    for _ in range(13):
+    for _ in range(4):
         typeTab()
     # select it
     typeSpace()
@@ -1826,7 +1826,7 @@ def selectionApply():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(21):
+    for _ in range(12):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1840,7 +1840,7 @@ def selectionClear():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(24):
+    for _ in range(15):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1854,7 +1854,7 @@ def selectionInvert():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(25):
+    for _ in range(18):
         typeTab()
     # type space to select invert operation
     typeSpace()
