@@ -94,8 +94,10 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
     const std::map<std::string, std::string> &routeParameters) {
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
-    // check edges
-    if (edges.size() > 0) {
+    // check conditions
+    if (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, id, false) != nullptr) {
+        WRITE_ERROR("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + id + "'.");
+    } else {
         // create GNERoute
         GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, routeParameters);
         if (myUndoDemandElements) {

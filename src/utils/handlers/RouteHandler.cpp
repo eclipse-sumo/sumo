@@ -285,15 +285,13 @@ RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 
 void
-RouteHandler::myEndElement(int element) {
-    // obtain tag
-    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+RouteHandler::myEndElement(int /*element*/) {
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
     // close SUMOBaseOBject 
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
-    switch (tag) {
+    switch (obj->getTag()) {
         // specia case for route (because can be embedded)
         case SUMO_TAG_ROUTE:
             // only parse non-embedded routes
