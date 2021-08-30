@@ -91,6 +91,19 @@ to compute these probabilities:
 - the sum of edge travel times for a set of alternative routes
 - the previous probability of choosing a route
 
+### Number of Routes in each traveller's route set
+
+The maximum number of routes can be defined by users, where 5 is the default value. In each iteration, the route usage probability is calcuated for each route. When the number of routes is larger than the defined amount, routes with less probabilities are removed.
+
+#### Updates of Travel Time
+
+The update rule is expalined with the following example. Driver d chooses Route r in Iteration i. The travel time T_d_i(r) is calculated according to the aggreated and averaged link travel times per defined interval (default: 900 s) in Iteratio i. The travel time for Driver d's Route r in the next iteration i+1 equals to T_d_i(r) as indicated in Formula (1). The travel times of the other routes in Driver d's route set are then updated with Formula (2) respectively, where T_g_i(s) is the travel time needed to travel with Route s in Iteration i and calcuated with the same way used for calculating T_d_i(r) an T_d_i-1(s).
+
+T_d_i+1(r) = T_d_i(r)                                                      (1)
+T_d_i+1(s) = beta * T_g_i(s) + (1 - beta) * T_d_i-1(s)                     (2)
+
+, where s is a route in Driver d's route set. 
+
 ### Logit
 
 The Logit mechanism applies a fixed formula to each route to calculate
