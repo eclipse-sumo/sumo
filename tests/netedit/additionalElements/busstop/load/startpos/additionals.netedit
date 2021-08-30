@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-03 09:20:23 by Eclipse SUMO netedit Version v1_9_2+0304-09105bc1d7
+<!-- generated on 2021-08-30 13:42:25 by Eclipse SUMO netedit Version v1_10_0+0379-37f06a2396
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,35 +30,35 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_03Jun084654.1196\netedit.gui\additionalElements\busstop\load\startpos\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\startpos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_01" lane="gneE0_0" endPos="30.00" name="busStop" lines="line1 line2"/>
-    <busStop id="busStop_05" lane="gneE0_0" startPos="10.00" endPos="25.00" name="busStop" lines="line1 line2"/>
-    <busStop id="busStop_06" lane="gneE0_0" startPos="-40.00" endPos="25.00" name="busStop" lines="line1 line2"/>
+    <busStop id="busStop_01" name="busStop" lane="gneE0_0" endPos="30.00" lines="line1 line2"/>
+    <busStop id="busStop_05" name="busStop" lane="gneE0_0" startPos="10.00" endPos="25.00" lines="line1 line2"/>
+    <busStop id="busStop_06" name="busStop" lane="gneE0_0" startPos="-40.00" endPos="25.00" lines="line1 line2"/>
 </additional>
