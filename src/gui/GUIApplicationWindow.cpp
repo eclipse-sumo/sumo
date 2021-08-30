@@ -1603,7 +1603,8 @@ void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
 #ifdef WIN32
     long t = SysUtils::getCurrentMillis();
-    if (t - myLastStepEventMillis < 20) {
+    // only skip if the simulation is running
+    if (t - myLastStepEventMillis < 20 && myRunThread->simulationIsStopable()) {
         // do not try to redraw with more than 50FPS (#6371)
         return;
     }
