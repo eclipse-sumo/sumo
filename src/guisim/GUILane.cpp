@@ -64,6 +64,7 @@
 // static member declaration
 // ===========================================================================
 const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
+const GUIVisualizationSettings* GUILane::myCachedGUISettings(nullptr);
 
 
 // ===========================================================================
@@ -949,7 +950,8 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 GUIParameterTableWindow*
-GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
+    myCachedGUISettings = &view.getVisualisationSettings();
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
@@ -969,6 +971,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);
+    ret->mkItem("color value", true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
     if (myEdge->getBidiEdge() != nullptr) {
         ret->mkItem("bidi-edge", false, myEdge->getBidiEdge()->getID());
     }
@@ -1139,6 +1142,17 @@ GUILane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, R
             return true;
         default:
             return false;
+    }
+}
+
+double
+GUILane::getColorValueForTracker() const {
+    if (myCachedGUISettings != nullptr) {
+        const GUIVisualizationSettings& s = *myCachedGUISettings;
+        const GUIColorer& c = s.laneColorer;
+        return getColorValue(s, c.getActive());
+    } else {
+        return 0;
     }
 }
 
