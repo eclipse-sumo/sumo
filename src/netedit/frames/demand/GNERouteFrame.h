@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 
 // ===========================================================================
 // class definitions
@@ -129,6 +130,12 @@ protected:
     void createPath();
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
+    /// @brief route base object
+    CommonXMLStructure::SumoBaseObject* myRouteBaseObject;
+
     /// @brief route mode selector
     RouteModeSelector* myRouteModeSelector;
 
