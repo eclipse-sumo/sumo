@@ -133,6 +133,7 @@ NBPTStop::write(OutputDevice& device) {
             device.closeTag();
         }
     }
+    writeParams(device);
     device.closeTag();
 }
 

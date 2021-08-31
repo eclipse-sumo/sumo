@@ -92,16 +92,20 @@ NIXMLPTHandler::myStartElement(int element,
         case SUMO_TAG_TRIP:
             addPTLineFromFlow(attrs);
             break;
-        case SUMO_TAG_PARAM:
+        case SUMO_TAG_PARAM: {
+            bool ok = true;
+            const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
             if (myCurrentLine != nullptr) {
-                bool ok = true;
-                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
                 if (key == "completeness") {
                     myCurrentCompletion = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
                 } else if (key == "name") {
                     myCurrentLine->setName(attrs.get<std::string>(SUMO_ATTR_VALUE, nullptr, ok));
                 }
+            } else if (myCurrentStop != nullptr) {
+                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                myCurrentStop->setParameter(key, val);
             }
+        }
             break;
         default:
             break;

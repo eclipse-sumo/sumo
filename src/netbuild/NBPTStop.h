@@ -23,6 +23,7 @@
 #include <string>
 #include <utils/geom/Position.h>
 #include "utils/common/SUMOVehicleClass.h"
+#include <utils/common/Parameterised.h>
 #include "NBCont.h"
 #include "NBPTPlatform.h"
 
@@ -42,7 +43,7 @@ class NBEdge;
 * @class NBPTStop
 * @brief The representation of a single pt stop
 */
-class NBPTStop {
+class NBPTStop : public Parameterised {
 
 public:
     /**@brief Constructor
@@ -54,6 +55,9 @@ public:
     */
     NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name,
              SVCPermissions svcPermissions, double parkingLength = 0, const RGBColor color = RGBColor(false));
+
+    /// @brief Destructor
+    virtual ~NBPTStop() {};
 
     std::string getID() const;
 
