@@ -381,9 +381,12 @@ GNEVehicleFrame::createPath() {
                 delete vehicleParameters;
             }
         } else if (vehicleTag == SUMO_TAG_FLOW) {
-            // Add parameter begin
+            // set begin and end attributes
             if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
+            }
+            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
             }
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject, getPredefinedTagsMML(), toString(vehicleTag));
@@ -401,9 +404,12 @@ GNEVehicleFrame::createPath() {
                 delete flowParameters;
             }
         } else if (vehicleTag == GNE_TAG_FLOW_WITHROUTE) {
-            // Add parameter begin
+            // set begin and end attributes
             if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
+            }
+            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+                myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
             }
             // get route edges
             std::vector<std::string> routeEdges;
