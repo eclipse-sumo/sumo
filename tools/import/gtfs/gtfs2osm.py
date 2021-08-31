@@ -98,7 +98,7 @@ def import_gtfs(options, gtfsZip):
     stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
     stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'), dtype=str)
     trips = pd.read_csv(gtfsZip.open('trips.txt'), dtype=str)
-    shapes = pd.read_csv(gtfsZip.open('shapes.txt'), dtype=str)
+    shapes = pd.read_csv(gtfsZip.open('shapes.txt'), dtype=str) if 'shapes.txt' in gtfsZip.namelist() else None
     calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
     calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
 
