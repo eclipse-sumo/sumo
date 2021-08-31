@@ -26,6 +26,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/CommonXMLStructure.h>
 #include "SUMOSAXAttributes.h"
 
 
@@ -52,11 +53,11 @@ public:
 
     /** @brief Constructor
      *
-     * @param[in] attrs The encapsulated xerces-attributes (SumoXMLAttr-string)
+     * @param[in] obj The encapsulated SumoBaseObject-attributes
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      * @param[in] objectType object type in string format
      */
-    SUMOSAXAttributesImpl_Cached(const std::map<SumoXMLAttr, std::string>& attrs,
+    SUMOSAXAttributesImpl_Cached(const CommonXMLStructure::SumoBaseObject *obj,
                                  const std::vector<std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 

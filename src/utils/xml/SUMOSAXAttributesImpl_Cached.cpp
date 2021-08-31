@@ -48,16 +48,12 @@ SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
 
 
 SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
-    const std::map<SumoXMLAttr, std::string>& attrs,
+    const CommonXMLStructure::SumoBaseObject *obj,
     const std::vector<std::string>& predefinedTagsMML,
     const std::string& objectType) :
     SUMOSAXAttributes(objectType),
-    myPredefinedTagsMML(predefinedTagsMML) {
-    // parse <SumoXMLAttr, string> to <string, string>
-    for (const auto& i : attrs) {
-        myAttrs[toString(i.first)] = i.second;
-    }
-}
+    myAttrs(obj->getAllAttributes()),
+    myPredefinedTagsMML(predefinedTagsMML) { }
 
 
 SUMOSAXAttributesImpl_Cached::~SUMOSAXAttributesImpl_Cached() { }
