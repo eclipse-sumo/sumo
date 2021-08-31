@@ -55,11 +55,18 @@ can be loaded into [sumo](sumo.md) and
 ## Macroscopic Outputs
 
 marouter can create macroscopic traffic data for all network edges by
-using the option **--netload-output**. This data contains *travelTime, speed*, *entered*
-(the number of vehicles that entered the edge) and *flowCapacityRatio*
-(the proportion of total capacity used). These values can either be
+using the option **--netload-output**.  hese values can either be
 written aggregated for the whole day (default) or split into intervals
-according to the time-granularity of the input data (**--aggregation-interval**).
+according to the time-granularity of the input data and the value of option **--aggregation-interval**).
+
+For each interval and each edge the following values are written:
+- *travelTime*: average travel time on that edge
+- *speed*: average speed on that edge
+- *entered*: the number of vehicles that entered the edge in the interval
+- *density*: the number of vehicles per km
+- *laneDensity*: the number of vehicles per km per lane
+- *flowCapacityRatio*: the proportion of total capacity used in %
+
 
 This output can [visualized in
 sumo-gui](sumo-gui.md#visualizing_edge-related_data) to
