@@ -280,80 +280,88 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         myStopAttributes->showWarningMessage();
         return false;
     }
-    // declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = myStopAttributes->getAttributesAndValuesTemporal(false);
+    // get stop attributes
+    myStopAttributes->getAttributesAndValues(myStopBaseObject, false);
     // add netedit values
     if (!stop.lane.empty()) {
-        myNeteditAttributes->getNeteditAttributesAndValuesTemporal(valuesMap, lane);
+        myNeteditAttributes->getNeteditAttributesAndValues(myStopBaseObject, lane);
         // check if start position can be parsed
-        if (GNEAttributeCarrier::canParse<double>(valuesMap[SUMO_ATTR_STARTPOS])) {
-            stop.startPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_STARTPOS]);
+        if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::canParse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_STARTPOS))) {
+            stop.startPos = GNEAttributeCarrier::parse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_ENDPOS));
             stop.parametersSet |= STOP_START_SET;
         }
         // check if end position can be parsed
-        if (GNEAttributeCarrier::canParse<double>(valuesMap[SUMO_ATTR_ENDPOS])) {
-            stop.endPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ENDPOS]);
+        if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_ENDPOS) && GNEAttributeCarrier::canParse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_ENDPOS))) {
+            stop.endPos = GNEAttributeCarrier::parse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_ENDPOS));
             stop.parametersSet |= STOP_END_SET;
         }
     }
     // obtain friendly position
-    if (valuesMap.count(SUMO_ATTR_FRIENDLY_POS) > 0) {
-        stop.friendlyPos = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_FRIENDLY_POS));
+    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS)) {
+        stop.friendlyPos = myStopBaseObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS);
     }
     // obtain actType
-    if (valuesMap.count(SUMO_ATTR_ACTTYPE) > 0) {
-        stop.actType = valuesMap.at(SUMO_ATTR_ACTTYPE);
+    if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_ACTTYPE)) {
+        stop.actType = myStopBaseObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
     }
     // fill rest of parameters depending if it was edited
-    if (valuesMap.count(SUMO_ATTR_DURATION) > 0) {
-        stop.duration = string2time(valuesMap.at(SUMO_ATTR_DURATION));
+    if (myStopBaseObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
+        stop.duration = myStopBaseObject->getTimeAttribute(SUMO_ATTR_DURATION);
         stop.parametersSet |= STOP_DURATION_SET;
     } else {
         stop.duration = -1;
         stop.parametersSet &= ~STOP_DURATION_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_UNTIL) > 0) {
-        stop.until = string2time(valuesMap[SUMO_ATTR_UNTIL]);
+    if (myStopBaseObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
+        stop.until = myStopBaseObject->getTimeAttribute(SUMO_ATTR_UNTIL);
         stop.parametersSet |= STOP_UNTIL_SET;
     } else {
         stop.until = -1;
         stop.parametersSet &= ~STOP_UNTIL_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_EXTENSION) > 0) {
-        stop.extension = string2time(valuesMap.at(SUMO_ATTR_EXTENSION));
+    if (myStopBaseObject->hasTimeAttribute(SUMO_ATTR_EXTENSION)) {
+        stop.extension = myStopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_TRIGGERED) > 0) {
-        stop.triggered = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_TRIGGERED));
+    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_TRIGGERED)) {
+        stop.triggered = myStopBaseObject->getBoolAttribute(SUMO_ATTR_TRIGGERED);
         stop.parametersSet |= STOP_TRIGGER_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_CONTAINER_TRIGGERED) > 0) {
-        stop.containerTriggered = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_CONTAINER_TRIGGERED));
+    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
+        stop.containerTriggered = myStopBaseObject->getBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED);
         stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_PARKING) > 0) {
-        stop.parking = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_PARKING));
+    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
+        stop.parking = myStopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING);
         stop.parametersSet |= STOP_PARKING_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_EXPECTED) > 0) {
-        stop.awaitedPersons = GNEAttributeCarrier::parse<std::set<std::string> >(valuesMap.at(SUMO_ATTR_EXPECTED));
+    if (myStopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
+        const auto expected = myStopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
+        for (const auto &id : expected) {
+            stop.awaitedPersons.insert(id);
+        }
         stop.parametersSet |= STOP_EXPECTED_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_EXPECTED_CONTAINERS) > 0) {
-        stop.awaitedContainers = GNEAttributeCarrier::parse<std::set<std::string> >(valuesMap.at(SUMO_ATTR_EXPECTED_CONTAINERS));
+    if (myStopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
+        const auto expected = myStopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS);
+        for (const auto &id : expected) {
+            stop.awaitedPersons.insert(id);
+        }
         stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_TRIP_ID) > 0) {
-        stop.tripId = valuesMap.at(SUMO_ATTR_TRIP_ID);
+    if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
+        stop.tripId = myStopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
         stop.parametersSet |= STOP_TRIP_ID_SET;
     }
-    if (valuesMap.count(SUMO_ATTR_INDEX) > 0) {
-        if (valuesMap[SUMO_ATTR_INDEX] == "fit") {
+    if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_INDEX)) {
+        if (myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "fit") {
             stop.index = STOP_INDEX_FIT;
-        } else if (valuesMap[SUMO_ATTR_INDEX] == "end") {
+        } else if (myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "end") {
             stop.index = STOP_INDEX_END;
+        } else if (GNEAttributeCarrier::canParse<int>(myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX))) {
+            stop.index = GNEAttributeCarrier::parse<int>(myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX));
         } else {
-            stop.index = GNEAttributeCarrier::parse<int>(valuesMap[SUMO_ATTR_INDEX]);
+            stop.index = STOP_INDEX_END;
         }
     } else {
         stop.index = STOP_INDEX_END;
