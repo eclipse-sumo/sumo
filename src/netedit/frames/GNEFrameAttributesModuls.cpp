@@ -895,7 +895,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(CommonXMLStru
         baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myValueEndTextField->getText().text()));
     }
     if (myFlowParameters & VEHPARS_NUMBER_SET) {
-        baseObject->addDoubleAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<double>(myValueNumberTextField->getText().text()));
+        baseObject->addIntAttribute(SUMO_ATTR_NUMBER, GNEAttributeCarrier::parse<int>(myValueNumberTextField->getText().text()));
     }
     if (myFlowParameters & VEHPARS_VPH_SET) {
         if (myAttributeVehsPerHourRadioButton->getText().text() == toString(SUMO_ATTR_VEHSPERHOUR)) {
@@ -954,8 +954,8 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::areValuesValid() const {
         }
     }
     if (myFlowParameters & VEHPARS_NUMBER_SET) {
-        if (GNEAttributeCarrier::canParse<double>(myValueNumberTextField->getText().text())) {
-            if (GNEAttributeCarrier::parse<double>(myValueNumberTextField->getText().text()) < 0) {
+        if (GNEAttributeCarrier::canParse<int>(myValueNumberTextField->getText().text())) {
+            if (GNEAttributeCarrier::parse<int>(myValueNumberTextField->getText().text()) < 0) {
                 return false;
             }
         } else {

@@ -199,12 +199,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                     return false;
                 }
             }
-            // set route parent in myVehicleBaseObject
-            myVehicleBaseObject->setTag(vehicleTag);
             // check if we're creating a vehicle or a flow
             if (vehicleTag == SUMO_TAG_VEHICLE) {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_VEHICLE);
                 // Add parameter departure
-                if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
                 }
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
@@ -221,11 +221,13 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                     delete vehicleParameters;
                 }
             } else {
+                // set tag
+                myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
                 // set begin and end attributes
-                if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
                 }
-                if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+                if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
                     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
                 }
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
@@ -325,12 +327,12 @@ GNEVehicleFrame::createPath() {
         for (int i = 1; i < ((int)myPathCreator->getSelectedEdges().size() - 1); i++) {
             viaEdges.push_back(myPathCreator->getSelectedEdges().at(i)->getID());
         }
-        // set tag
-        myVehicleBaseObject->setTag(vehicleTag);
         // continue depending of tag
         if (vehicleTag == SUMO_TAG_TRIP) {
+            // set tag
+            myVehicleBaseObject->setTag(SUMO_TAG_TRIP);
             // Add parameter departure
-            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
             }
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
@@ -349,8 +351,10 @@ GNEVehicleFrame::createPath() {
                 delete tripParameters;
             }
         } else if (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) {
+            // set tag
+            myVehicleBaseObject->setTag(SUMO_TAG_VEHICLE);
             // Add parameter departure
-            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
             }
             // get route edges
@@ -381,11 +385,13 @@ GNEVehicleFrame::createPath() {
                 delete vehicleParameters;
             }
         } else if (vehicleTag == SUMO_TAG_FLOW) {
+            // set tag
+            myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
             // set begin and end attributes
-            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
             }
-            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
             }
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
@@ -404,11 +410,13 @@ GNEVehicleFrame::createPath() {
                 delete flowParameters;
             }
         } else if (vehicleTag == GNE_TAG_FLOW_WITHROUTE) {
+            // set tag
+            myVehicleBaseObject->setTag(SUMO_TAG_FLOW);
             // set begin and end attributes
-            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
             }
-            if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) && myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+            if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_END) || myVehicleBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
                 myVehicleBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
             }
             // get route edges
