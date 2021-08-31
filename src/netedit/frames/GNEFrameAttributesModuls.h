@@ -175,9 +175,6 @@ public:
         /// @brief get attributes and their values
         void getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const;
 
-        /// @brief get attributes and their values (temporal)
-        std::map<SumoXMLAttr, std::string> getAttributesAndValuesTemporal(bool includeAll) const;
-
         /// @brief get current edited Tag Properties
         GNETagProperties getCurrentTagProperties() const;
 
@@ -242,9 +239,6 @@ public:
 
         /// @brief set parameters
         void setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject);
-
-        /// @brief set parameters (temporal)
-        void setFlowParametersTemporal(std::map<SumoXMLAttr, std::string>& valuesMap) const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -730,9 +724,6 @@ public:
 
         /// @brief fill valuesMap with netedit attributes
         bool getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const;
-
-        /// @brief fill valuesMap with netedit attributes (temporal)
-        bool getNeteditAttributesAndValuesTemporal(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const;
 
         /// @name FOX-callbacks
         /// @{
