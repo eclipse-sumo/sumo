@@ -343,14 +343,31 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    for line in _open(xmlfile, encoding):
+    _tempfile_xml(xmlfile)
+    for line in _open("temp.xml", encoding):
         m = reprog.search(line)
         if m:
             if optional:
                 yield Record(**m.groupdict())
             else:
                 yield Record(*m.groups())
+    os.remove("temp.xml")
 
+def _tempfile_xml(xmlfile):
+    """
+    Creates new xml file 'temp.xml' with the input data stripped of all the comments
+    It returns a warning if there are multible comments present in the original file
+    Method only used by parse_fast_nested and parse_fast
+    """
+    with open(xmlfile, 'r') as file:
+        data = file.read()
+        count = str(data).count("<!--")
+        if count > 1:
+            warnings.warn("Multible comments found in file.", SyntaxWarning, stacklevel=2)
+        data = re.sub("(<!--.*?-->)", "", data, flags=re.DOTALL)
+        f = open("temp.xml", "w")
+        f.write(data)
+        f.close()
 
 def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2,
                       warn=False, optional=False, encoding="utf8"):
@@ -364,7 +381,8 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
-    for line in _open(xmlfile, encoding):
+    _tempfile_xml(xmlfile)
+    for line in _open("temp.xml", encoding):
         m2 = reprog2.search(line)
         if record and m2:
             if optional:
@@ -380,6 +398,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                     record = Record(*m.groups())
             elif element_name in line:
                 record = None
+    os.remove("temp.xml")
 
 
 def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
