@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
 #include "CommonXMLStructure.h"
@@ -145,7 +146,8 @@ CommonXMLStructure::SumoBaseObject::getStringAttribute(const SumoXMLAttr attr) c
     if (hasStringAttribute(attr)) {
         return myStringAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "string");
+        throw ProcessError();
     }
 }
 
@@ -155,7 +157,8 @@ CommonXMLStructure::SumoBaseObject::getIntAttribute(const SumoXMLAttr attr) cons
     if (hasIntAttribute(attr)) {
         return myIntAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "int");
+        throw ProcessError();
     }
 }
 
@@ -165,7 +168,8 @@ CommonXMLStructure::SumoBaseObject::getDoubleAttribute(const SumoXMLAttr attr) c
     if (hasDoubleAttribute(attr)) {
         return myDoubleAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "double");
+        throw ProcessError();
     }
 }
 
@@ -175,7 +179,8 @@ CommonXMLStructure::SumoBaseObject::getBoolAttribute(const SumoXMLAttr attr) con
     if (hasBoolAttribute(attr)) {
         return myBoolAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "bool");
+        throw ProcessError();
     }
 }
 
@@ -185,7 +190,8 @@ CommonXMLStructure::SumoBaseObject::getPositionAttribute(const SumoXMLAttr attr)
     if (hasPositionAttribute(attr)) {
         return myPositionAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "position");
+        throw ProcessError();
     }
 }
 
@@ -195,7 +201,8 @@ CommonXMLStructure::SumoBaseObject::getTimeAttribute(const SumoXMLAttr attr) con
     if (hasTimeAttribute(attr)) {
         return myTimeAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "time");
+        throw ProcessError();
     }
 }
 
@@ -205,7 +212,8 @@ CommonXMLStructure::SumoBaseObject::getColorAttribute(const SumoXMLAttr attr) co
     if (hasColorAttribute(attr)) {
         return myColorAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "color");
+        throw ProcessError();
     }
 }
 
@@ -215,7 +223,8 @@ CommonXMLStructure::SumoBaseObject::getStringListAttribute(const SumoXMLAttr att
     if (hasStringListAttribute(attr)) {
         return myStringListAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "string list");
+        throw ProcessError();
     }
 }
 
@@ -225,7 +234,8 @@ CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr
     if (hasPositionVectorAttribute(attr)) {
         return myPositionVectorAttributes.at(attr);
     } else {
-        throw ProcessError("Attr doesn't exist");
+        handleAttributeError(attr, "position vector");
+        throw ProcessError();;
     }
 }
 
@@ -476,6 +486,12 @@ CommonXMLStructure::SumoBaseObject::removeSumoBaseObjectChild(SumoBaseObject* su
     if (it != mySumoBaseObjectChildren.end()) {
         mySumoBaseObjectChildren.erase(it);
     }
+}
+
+
+void
+CommonXMLStructure::SumoBaseObject::handleAttributeError(const SumoXMLAttr attr, const std::string &type) const {
+    WRITE_ERROR("Trying to get undefined " + type + " attribute '" + toString(attr) + "' in SUMOBaseObject '" + toString(myTag) + "'");
 }
 
 // ---------------------------------------------------------------------------

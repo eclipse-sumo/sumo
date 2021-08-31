@@ -253,6 +253,9 @@ public:
         /// @brief @brief flag for defined stop parameter
         bool myDefinedStopParameter;
 
+        /// @brief handle attribute error
+        void handleAttributeError(const SumoXMLAttr attr, const std::string &type) const;
+
         /// @brief invalidate copy constructor
         SumoBaseObject(const SumoBaseObject& s) = delete;
 
