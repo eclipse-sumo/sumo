@@ -51,16 +51,6 @@ public:
                                  const std::vector<std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 
-    /** @brief Constructor
-     *
-     * @param[in] obj The encapsulated SumoBaseObject-attributes
-     * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
-     * @param[in] objectType object type in string format
-     */
-    SUMOSAXAttributesImpl_Cached(const CommonXMLStructure::SumoBaseObject *obj,
-                                 const std::vector<std::string>& predefinedTagsMML,
-                                 const std::string& objectType);
-
     /// @brief Destructor
     ~SUMOSAXAttributesImpl_Cached();
 

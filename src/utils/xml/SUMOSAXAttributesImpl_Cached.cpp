@@ -47,15 +47,6 @@ SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
     myPredefinedTagsMML(predefinedTagsMML) { }
 
 
-SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
-    const CommonXMLStructure::SumoBaseObject *obj,
-    const std::vector<std::string>& predefinedTagsMML,
-    const std::string& objectType) :
-    SUMOSAXAttributes(objectType),
-    myAttrs(obj->getAllAttributes()),
-    myPredefinedTagsMML(predefinedTagsMML) { }
-
-
 SUMOSAXAttributesImpl_Cached::~SUMOSAXAttributesImpl_Cached() { }
 
 
