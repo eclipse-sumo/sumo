@@ -302,7 +302,7 @@ GNEPersonFrame::buildPerson() {
     // check if we're creating a person or personFlow
     if (personTag == SUMO_TAG_PERSON) {
         // Add parameter departure
-        if (myPersonBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) && myPersonBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+        if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) || myPersonBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
             myPersonBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
@@ -319,10 +319,10 @@ GNEPersonFrame::buildPerson() {
         }
     } else {
         // set begin and end attributes
-        if (myPersonBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myPersonBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+        if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myPersonBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
             myPersonBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
         }
-        if (myPersonBaseObject->hasStringAttribute(SUMO_ATTR_END) && myPersonBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+        if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_END) || myPersonBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
             myPersonBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
