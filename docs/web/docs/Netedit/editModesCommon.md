@@ -81,7 +81,8 @@ Only Geometry points can be deleted
 
 # Select
 
-Select network objects according to various criteria. Selected objects can be moved or deleted together. It is also possible to set attributes for all selected junctions (or all edges) at the same time using **inspect mode**.
+This mode selects objects according to various criteria. Selected objects can be moved or deleted together. It is also possible to set attributes for all selected objects (i.e. junctions or edges) at the same time by clicking one of the selected objects afters switching to **inspect mode**.
+This mode also allows to save and load selections to a file and to compute [joins and differences](#modification_mode) of saved selections.
 
 ![](../images/ModeSelect1.png)   
 The left frame shows information about the current selected elements
@@ -105,7 +106,7 @@ Selected elements are painted with a different color
 
 The *Modification Mode* changes how a new group selection is applied to the existing selection. A new group selection can be:
 
-- a loaded selection
+- a selection loaded from a file
 - a rectangle selection
 - a [match-attribute](#match_attribute)-selection
 
