@@ -869,13 +869,13 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     // declare personPlan object
     CommonXMLStructure::SumoBaseObject* personPlanObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
     personPlanObject->setTag(tag);
-    // Declare map to keep attributes from myPersonPlanAttributes
-    std::map<SumoXMLAttr, std::string> valuesMap = personPlanAttributes->getAttributesAndValuesTemporal(true);
+    // get person plan attributes
+    personPlanAttributes->getAttributesAndValues(personPlanObject, true);
     // get attributes
-    const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
-    const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
-    const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-    const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
+    const std::vector<std::string> types = personPlanObject->hasStringListAttribute(SUMO_ATTR_VTYPES)? personPlanObject->getStringListAttribute(SUMO_ATTR_VTYPES) : std::vector<std::string>();
+    const std::vector<std::string> modes = personPlanObject->hasStringListAttribute(SUMO_ATTR_MODES)? personPlanObject->getStringListAttribute(SUMO_ATTR_MODES) : std::vector<std::string>();
+    const std::vector<std::string> lines = personPlanObject->hasStringListAttribute(SUMO_ATTR_LINES)? personPlanObject->getStringListAttribute(SUMO_ATTR_LINES) : std::vector<std::string>();
+    const double arrivalPos = personPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : 0;
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
     // get edges
@@ -1016,13 +1016,13 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
     // declare containerPlan object
     CommonXMLStructure::SumoBaseObject* containerPlanObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
     containerPlanObject->setTag(tag);
-    // Declare map to keep attributes from myContainerPlanAttributes
-    std::map<SumoXMLAttr, std::string> valuesMap = containerPlanAttributes->getAttributesAndValuesTemporal(true);
+    // get attributes and values
+    containerPlanAttributes->getAttributesAndValues(containerPlanObject, true);
     // get attributes
-    const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-    const double speed = (valuesMap.count(SUMO_ATTR_SPEED) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_SPEED]) : 1.39;
-    const double departPos = (valuesMap.count(SUMO_ATTR_DEPARTPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_DEPARTPOS]) : 0;
-    const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
+    const std::vector<std::string> lines = containerPlanObject->hasStringListAttribute(SUMO_ATTR_LINES)? containerPlanObject->getStringListAttribute(SUMO_ATTR_LINES) : std::vector<std::string>();
+    const double speed = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_SPEED) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_SPEED) : 1.39;
+    const double departPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_DEPARTPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_DEPARTPOS) : 0;
+    const double arrivalPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : 0;
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
     // get edges
