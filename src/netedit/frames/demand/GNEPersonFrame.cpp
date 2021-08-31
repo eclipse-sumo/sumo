@@ -291,23 +291,22 @@ GNEPersonFrame::buildPerson() {
     SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
     // set tag
     myPersonBaseObject->setTag(personTag);
-    // Declare map to keep attributes from myPersonAttributes
-    std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValuesTemporal(false);
+    // get attribute ad values
+    myPersonAttributes->getAttributesAndValues(myPersonBaseObject, false);
     // Check if ID has to be generated
-    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-        valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(personTag);
+    if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
+        myPersonBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(personTag));
     }
     // add pType parameter
-    valuesMap[SUMO_ATTR_TYPE] = myPTypeSelector->getCurrentDemandElement()->getID();
-
+    myPersonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myPTypeSelector->getCurrentDemandElement()->getID());
     // check if we're creating a person or personFlow
     if (personTag == SUMO_TAG_PERSON) {
         // Add parameter departure
-        if (valuesMap[SUMO_ATTR_DEPART].empty()) {
-            valuesMap[SUMO_ATTR_DEPART] = "0";
+        if (myPersonBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) && myPersonBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+            myPersonBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(personTag));
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myPersonBaseObject, getPredefinedTagsMML(), toString(personTag));
         // obtain person parameters
         SUMOVehicleParameter* personParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_PERSON, SUMOSAXAttrs, false, false, false);
         // check personParameters
@@ -320,14 +319,14 @@ GNEPersonFrame::buildPerson() {
         }
     } else {
         // set begin and end attributes
-        if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
-            valuesMap[SUMO_ATTR_BEGIN] = "0";
+        if (myPersonBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myPersonBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+            myPersonBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
         }
-        if (valuesMap[SUMO_ATTR_END].empty()) {
-            valuesMap[SUMO_ATTR_END] = "3600";
+        if (myPersonBaseObject->hasStringAttribute(SUMO_ATTR_END) && myPersonBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+            myPersonBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(personTag));
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myPersonBaseObject, getPredefinedTagsMML(), toString(personTag));
         // obtain personFlow parameters
         SUMOVehicleParameter* personFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
         // check personParameters
@@ -343,7 +342,7 @@ GNEPersonFrame::buildPerson() {
     myPersonAttributes->refreshRows();
     myPersonPlanAttributes->refreshRows();
     // return created person
-    return myViewNet->getNet()->retrieveDemandElement(personTag, valuesMap[SUMO_ATTR_ID]);
+    return myViewNet->getNet()->retrieveDemandElement(personTag, myPersonBaseObject->getStringAttribute(SUMO_ATTR_ID));
 }
 
 
