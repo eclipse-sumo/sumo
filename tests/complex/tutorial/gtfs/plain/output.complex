@@ -1,8 +1,6 @@
 Success.
 Success.
 Success.
-Success.
-Success.
 Warning! No mapping library found, falling back to tracemapper.
 Warning! Skipping disconnected route '109241', no path found.
 Warning! Skipping disconnected route '109242', no path found.
@@ -33,18 +31,9 @@ Warning! Fixed connection 236759 52
 Warning! No stop for (11411.928135587543, 12289.437533507124) on vehicle(id='246782', x='13.6806670', y='52.4239710', until='3960', attr_name='Odernheimer Str. (Berlin)', fareZone='', fareSymbol='', startFare='')
 Warning! No stop for (11411.928135587543, 12289.437533507124) on vehicle(id='247080', x='13.6806670', y='52.4239710', until='1260', attr_name='Odernheimer Str. (Berlin)', fareZone='', fareSymbol='', startFare='')
 Warning! No stop for (11411.928135587543, 12289.437533507124) on vehicle(id='247100', x='13.6806670', y='52.4239710', until='1980', attr_name='Odernheimer Str. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! Skipping disconnected route '92632', no path found.
-Warning! Skipping disconnected route '92683', no path found.
-Warning! Skipping disconnected route '92669', no path found.
-Warning! Skipping disconnected route '92689', no path found.
-Warning! Skipping disconnected route '96885', no path found.
-Warning! Skipping disconnected route '96959', no path found.
-Warning! Skipping disconnected route '96874', no path found.
-Warning! Skipping disconnected route '96943', no path found.
-Warning! Skipping disconnected route '96947', no path found.
-Warning! Skipping disconnected route '96962', no path found.
-Warning! No net resources\GTFS_VBB_Juni-Dezember-2016\ship.net.xml
-Warning! No net resources\GTFS_VBB_Juni-Dezember-2016\subway.net.xml
+Warning! No net resources\gtfs\ferry.net.xml
+Warning! No net resources\gtfs\subway.net.xml
+Warning! No net resources\gtfs\train.net.xml
 Warning! No stop for (4783.734801625833, 13579.170072900131) on vehicle(id='257596', x='13.5828510', y='52.4344350', until='1980', attr_name='Segewaldweg (Berlin)', fareZone='', fareSymbol='', startFare='')
 Warning! No stop for (4848.258988778631, 13134.29141659569) on vehicle(id='257596', x='13.5839280', y='52.4304480', until='2040', attr_name='Pritstabelstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
 Warning! No stop for (4931.650861333881, 12804.760433958843) on vehicle(id='257596', x='13.5852490', y='52.4275010', until='2100', attr_name='Dregerhoffstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
