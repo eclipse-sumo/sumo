@@ -97,7 +97,7 @@ The maximum number of routes can be defined by users, where 5 is the default val
 
 #### Updates of Travel Time
 
-The update rule is expalined with the following example. Driver d chooses Route r in Iteration i. The travel time T_d_i(r) is calculated according to the aggreated and averaged link travel times per defined interval (default: 900 s) in Iteration i. The travel time for Driver d's Route r in the next iteration i+1 equals to T_d_i(r) as indicated in Formula (1). The travel times of the other routes in Driver d's route set are then updated with Formula (2) respectively, where T_g_i(s) is the travel time needed to travel on Route s in Iteration i and calcuated with the same way used for calculating T_d_i(r) an T_d_i-1(s). The parameter beta is to prevent travellers from strongly "remembering" the latest trave time of each route in their route sets. The current default value for beta is 0.05.
+The update rule is explained with the following example. Driver d chooses Route r in Iteration i. The travel time T_d_i(r) is calculated according to the aggreated and averaged link travel times per defined interval (default: 900 s) in Iteration i. The travel time for Driver d's Route r in the next iteration i+1 equals to T_d_i(r) as indicated in Formula (1). The travel times of the other routes in Driver d's route set are then updated with Formula (2) respectively, where T_g_i(s) is the travel time needed to travel on Route s in Iteration i and calcuated with the same way used for calculating T_d_i(r) an T_d_i-1(s). The parameter beta is to prevent travellers from strongly "remembering" the latest trave time of each route in their route sets. The current default value for beta is 0.05.
  
 T_d_i+1(r) = T_d_i(r) ------------------------------------(1)
   
