@@ -381,6 +381,21 @@ vehicle types).
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0.1</td>
   </tr>
+  </tr>
+    <tr>
+    <td class="tg-0lax">e-scooter</td>
+    <td class="tg-0lax"><img src="images/escooter.jpg" title="escooter" width="200" alt="" /></td>
+    <td class="tg-0lax">e-scooter</td>
+    <td class="tg-0lax">1.1m<sup>(*)</sup><br>0.4m<sup>(*)</sup><br>1.2m<sup>(*)</sup></td>
+    <td class="tg-0lax">1.5m<sup>(39)</sup></td>
+    <td class="tg-0lax">2m/s<sup>2(39)</sup></td>
+    <td class="tg-0lax">4m/s<sup>2(39)</sup></td>
+    <td class="tg-0lax">7m/s<sup>(*)</sup></td>
+    <td class="tg-0lax">20 km/h<sup>(39)</sup></td>
+    <td class="tg-0lax">1<sup>(*)</sup></td>
+    <td class="tg-0lax">zero</td>
+    <td class="tg-0lax">0.1</td>
+  </tr>
   <tr>
     <td class="tg-c882" colspan="12">ship</td>
   </tr>
@@ -437,5 +452,8 @@ vehicle types).
 - (35): <https://de.answers.yahoo.com/question/index?qid=20061122162708AAtzoPP>
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
 - (37): <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
+- (38): <https://www.berlin.de/binaries/asset/image_assets/5859948/source/1565347986/624x468/>
+- (39): <https://electric-scooter.guide/comparisons/electric-scooter-performance-tests/>
+- (40): <https://www.chip.de/artikel/E-Scooter-Test-Die-besten-Elektro-Scooter-mit-Strassenzulassung_165587317.html>
 - (\*): estimated
 - (\*\*): need to be revisited to fit to model behavior
