@@ -460,3 +460,10 @@ This tool splits a route file in two different route files
 ```
 python tools/route/splitRandom.py -r <route-file> -a <first output file> -b <second output file> -n <number of trips in second file>
 ```
+
+# addTAZ.py
+
+This tool adds 'fromTaz' and 'toTaz' information to vehicles in a route file.
+```
+python tools/route/addTAZ.py -r <route-file> -a <taz-file> -o <output-file>
+```
