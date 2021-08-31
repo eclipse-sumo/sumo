@@ -14,19 +14,27 @@ title: ChangeLog
   - Fixed crash when using flow with invalid departEdge. Issue #8993
   - Fixed invalid use of busStop instead of containerStop in vehroute-output. Issue #8989
   - Fixed invalid behavior after using stop posLat in non-sublane simulation. Issue #9013
+  - Fixed miscounted teleports in vehicle-person collisions. Issue #9018
+  - Fixed collision after unsafe lane changing ahead of junction. Issue #8950
   
 - netedit
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
   - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
   - Multi-parameter speedFactor value can now be set. Issue #8263
   - trainStops with access can now be loaded. Issue #8969
+  - Flows with embedded route can now be loaded. Issue #8966
+  - Fixed lost elements when loading personFlow. Issue #7732
+  - Vehicles with embedded routes can now load parameters. Issue #7509
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
+  - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
+  - Fixed unresponsive UI on linux when the simulation has little to do. Issue #9028
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
   - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
+  - Attribute 'color' of loaded stops is now kept. Issue #9011
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -44,6 +52,7 @@ title: ChangeLog
   - The debug-build of libsumo is now working. Issue #8946
   - Removing and reinserting a vehicle in the same step is now working. Issue #5647
   - traci.vehicle.getLeader can no longer return -inf when the leader is on an intersection. Issue #9001
+  - Fixed problems related to complex types returned from libsumo in java. Issue #7204
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -56,7 +65,7 @@ title: ChangeLog
 
 ### Enhancements
 
-- simualation
+- simulation
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
 
 - sumo-gui
@@ -73,12 +82,16 @@ title: ChangeLog
   - Added options **--grid.x-attach-length --grid.y-attach-length** to configure attachments separately by direction. Issue #8991
   - The option **--bidi-probability** can now be used to control the generation of reverse edges for grid and spider networks. When set to 0, pure oneway networks are generated. Issue #9006
 
+- marouter
+  - **--netload-output** now includes 'density' and 'laneDensity'.
+
 - traci
   - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764  
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
   - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) now supports options **--comment.stop --comment.time --comment.all** for extended annotation of generated constraints. Issue #8963
+  - Added tool [addTAZ.py](Tools/Routes.md#addtazpy) for adding taz information to route files. Issue #8884
 
 ### Other
 
