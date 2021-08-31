@@ -398,7 +398,7 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", opt
     if options is None:
         optionString = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
     else:
-        optionString = options._parser.write_config_file(options, toString=True)
+        optionString = options.config_as_string
 
     outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s %s

@@ -200,5 +200,5 @@ class ArgumentParser(argparse.ArgumentParser):
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
         self.write_config_file(namespace)
-        namespace._parser = self
+        namespace.config_as_string = self.write_config_file(namespace, toString=True)
         return namespace, unknown_args
