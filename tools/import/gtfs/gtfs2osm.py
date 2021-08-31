@@ -30,6 +30,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
+from sumolib.miscutils import benchmark  # noqa
 
 # ----------------------- gtfs, osm and sumo modes ----------------------------
 OSM2SUMO_MODES = {
@@ -87,6 +88,7 @@ for i in range(900, 907):
     GTFS2OSM_MODES[str(i)] = 'tram'
 
 
+@benchmark
 def import_gtfs(options, gtfsZip):
     """
     Imports the gtfs-data and filters it by the specified date and modes.
@@ -106,16 +108,14 @@ def import_gtfs(options, gtfsZip):
 
     # filter trips within given begin and end time
     # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
-    stop_times['arrival_timedelta'] = pd.to_timedelta(stop_times['arrival_time'])
-    stop_times = stop_times.assign(arrival_fixed=[x - pd.to_timedelta("24:00:00")
-                                   if x >= pd.to_timedelta("24:00:00")
-                                   else x
-                                   for x in stop_times['arrival_timedelta']])
-    stop_times['departure_timedelta'] = pd.to_timedelta(stop_times['departure_time'])
-    stop_times = stop_times.assign(departure_fixed=[x - pd.to_timedelta("24:00:00")
-                                   if x >= pd.to_timedelta("24:00:00")
-                                   else x
-                                   for x in stop_times['departure_timedelta']])
+    full_day = pd.to_timedelta("24:00:00")
+    def fix_day(time_string):
+        timedelta = pd.to_timedelta(time_string)
+        if timedelta >= full_day:
+            return timedelta - full_day
+        return timedelta
+    stop_times['arrival_fixed'] = stop_times.arrival_time.apply(fix_day)
+    stop_times['departure_fixed'] = stop_times.departure_time.apply(fix_day)
 
     time_interval = options.end - options.begin
     # if time_interval >= 86400 (24 hs), no filter needed
@@ -154,6 +154,7 @@ def import_gtfs(options, gtfsZip):
     return routes, trips_on_day, shapes, stops, stop_times
 
 
+@benchmark
 def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     """
     Filters the gtfs-data by the given bounding box and searches the main
@@ -259,81 +260,50 @@ def repair_routes(options, net):
     with open("dua_input.xml", 'w+', encoding="utf8") as dua_file:
         dua_file.write("<routes>\n")
         for key, value in OSM2SUMO_MODES.items():
-            dua_file.write('\t<vType id="%s" vClass="%s"/>\n' % (key, value))
-
-        sumo_edges = [sumo_edge.getID() for sumo_edge in net.getEdges()]
+            dua_file.write('    <vType id="%s" vClass="%s"/>\n' % (key, value))
+        num_read = discard_type = discard_net = 0
+        sumo_edges = set([sumo_edge.getID() for sumo_edge in net.getEdges()])
         for ptline, ptline_route in parse_fast_nested(options.osm_routes,
-                                                      "ptLine", ("id", "name", "line", "type"),  # noqa
+                                                      "ptLine", ("id", "name", "line", "type"),
                                                       "route", "edges"):
+            num_read += 1
             if ptline.type not in options.modes:
+                discard_type += 1
                 continue
 
-            route_edges = ptline_route.edges.split(" ")
-            # search ptLine origin
-            index = 0
-            line_orig = route_edges[index]
-            while line_orig not in sumo_edges and index+1 < len(route_edges):
-                # search for first route edge included in the sumo network
-                index += 1
-                line_orig = route_edges[index]
-            if line_orig not in sumo_edges:
-                # if no edge found, discard ptLine
-                continue
-            # adapt osm route to sumo network
-            route_edges = route_edges[index:]
-
-            # search ptLine destination
-            index = -1
-            line_dest = route_edges[index]
-            while line_dest not in sumo_edges and index-1 < -len(route_edges):
-                # search for last route edge included in the sumo network
-                index += -1
-                line_orig = route_edges[index]
-            if line_dest not in sumo_edges:
-                # if no edges found, discard ptLine
-                continue
-            # adapt osm route to sumo network
-            route_edges = route_edges[: index-1]
-
-            # consider only edges in sumo network
-            route_edges = [edge for edge in route_edges if edge in sumo_edges]
+            route_edges = [edge for edge in ptline_route.edges.split() if edge in sumo_edges]
             if not route_edges:
-                # if no edges found, discard ptLine
+                discard_net += 1
                 continue
 
             # transform ptLine origin and destination to geo coordinates
-            x, y = net.getEdge(line_orig).getFromNode().getCoord()
+            x, y = net.getEdge(route_edges[0]).getFromNode().getCoord()
             line_orig = net.convertXY2LonLat(x, y)
-            x, y = net.getEdge(line_dest).getFromNode().getCoord()
+            x, y = net.getEdge(route_edges[-1]).getFromNode().getCoord()
             line_dest = net.convertXY2LonLat(x, y)
 
             # find ptLine direction
             line_dir = get_line_dir(line_orig, line_dest)
 
-            osm_routes[ptline.id] = (ptline.attr_name, ptline.line,
-                                     ptline.type, line_dir)
-            dua_file.write("""\t<trip id="%s" type="%s" depart="0" via="%s"/>\n""" %  # noqa
+            osm_routes[ptline.id] = (ptline.attr_name, ptline.line, ptline.type, line_dir)
+            dua_file.write('    <trip id="%s" type="%s" depart="0" via="%s"/>\n' %
                            (ptline.id, ptline.type, (" ").join(route_edges)))
         dua_file.write("</routes>\n")
 
+    if options.verbose:
+        print("%s routes read, discarded for wrong mode: %s, outside of net %s, keeping %s" %
+              (num_read, discard_type, discard_net, len(osm_routes)))
     # run duarouter
-    run_dua = subprocess.call([sumolib.checkBinary('duarouter'),
-                               '-n', options.network,
-                               '--route-files', 'dua_input.xml', '--repair',
-                               '-o', 'dua_output.xml', '--ignore-errors',
-                               '--error-log', options.dua_repair_output])
-    if run_dua == 1:
-        # exit the program
-        sys.exit("Traying to repair OSM routes failed. Duarouter quits with error, see %s" % options.dua_repair_output)  # noqa
+    subprocess.check_call([sumolib.checkBinary('duarouter'),
+                           '-n', options.network,
+                           '--route-files', 'dua_input.xml', '--repair',
+                           '-o', 'dua_output.xml', '--ignore-errors',
+                           '--error-log', options.dua_repair_output])
 
     # parse repaired routes
     n_routes = len(osm_routes)
-
-    for ptline, ptline_route in parse_fast_nested("dua_output.xml",
-                                                  "vehicle", "id",
-                                                  "route", "edges"):
-        if len(ptline_route.edges) > 2:
-            osm_routes[ptline.id] += (ptline_route.edges, )
+    for ptline, ptline_route in parse_fast_nested("dua_output.xml", "vehicle", "id", "route", "edges"):
+        osm_routes[ptline.id] += (ptline_route.edges, )
 
     # remove dua files
     os.remove("dua_input.xml")
@@ -341,15 +311,16 @@ def repair_routes(options, net):
     os.remove("dua_output.alt.xml")
 
     # remove invalid routes from dict
-    [osm_routes.pop(line) for line in list(osm_routes)
-     if len(osm_routes[line]) < 5]
+    [osm_routes.pop(line) for line in list(osm_routes) if len(osm_routes[line]) < 5]
 
     if n_routes != len(osm_routes):
-        print("Not all given routes have been imported, see 'invalid_osm_routes.txt' for more information")  # noqa
+        print("%s of %s routes have been imported, see '%s' for more information." %
+              (len(osm_routes), n_routes, options.dua_repair_output))
 
     return osm_routes
 
 
+@benchmark
 def import_osm(options, net):
     """
     Imports the routes of the public transport lines from osm.
@@ -385,7 +356,8 @@ def import_osm(options, net):
     return osm_routes
 
 
-def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filtered_stops):  # noqa
+@benchmark
+def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filtered_stops):
     """
     Maps the routes from gtfs with the sumo routes imported from osm and maps
     the gtfs stops with the lane and position in sumo.

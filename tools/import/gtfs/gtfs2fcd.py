@@ -46,7 +46,7 @@ def add_options():
                            help="comma separated list of modes to import (bus, tram, train, subway and/or ferry)")
     argParser.add_argument("--vtype-output", default="vType.xml",
                            help="file to write the generated vehicle types to")
-    argParser.add_argument("--verbose", action="store_true", default=False, help="tell me what you are doing")
+    argParser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     argParser.add_argument("-b", "--begin", default=0,
                            type=int, help="Defines the begin time to export")
     argParser.add_argument("-e", "--end", default=86400,
