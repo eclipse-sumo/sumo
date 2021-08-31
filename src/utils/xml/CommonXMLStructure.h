@@ -59,6 +59,9 @@ public:
         /// @brief get pointer to mySumoBaseObjectParent SumoBaseObject (if is null, then is the root)
         SumoBaseObject* getParentSumoBaseObject() const;
 
+        /// @brief get all attributes in string format
+        std::map<std::string, std::string> getAllAttributes() const;
+
         /// @brief get string attribute
         const std::string& getStringAttribute(const SumoXMLAttr attr) const;
 

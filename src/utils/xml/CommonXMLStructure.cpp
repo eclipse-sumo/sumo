@@ -106,6 +106,40 @@ CommonXMLStructure::SumoBaseObject::getParentSumoBaseObject() const {
 }
 
 
+std::map<std::string, std::string>
+CommonXMLStructure::SumoBaseObject::getAllAttributes() const {
+    std::map<std::string, std::string> result;
+    for (const auto &attr : myStringAttributes) {
+        result[toString(attr.first)] = attr.second;
+    }
+    for (const auto &attr : myIntAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    for (const auto &attr : myDoubleAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    for (const auto &attr : myBoolAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    for (const auto &attr : myPositionAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    for (const auto &attr : myTimeAttributes) {
+        result[toString(attr.first)] = time2string(attr.second);
+    }
+    for (const auto &attr : myColorAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    for (const auto &attr : myStringListAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    for (const auto &attr : myPositionVectorAttributes) {
+        result[toString(attr.first)] = toString(attr.second);
+    }
+    return result;
+}
+
+
 const std::string&
 CommonXMLStructure::SumoBaseObject::getStringAttribute(const SumoXMLAttr attr) const {
     if (hasStringAttribute(attr)) {
