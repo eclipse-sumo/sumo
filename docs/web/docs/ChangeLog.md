@@ -63,8 +63,7 @@ title: ChangeLog
     - Initial tripId set via vehicle param is now used. Issue #8959
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
-    - 
-
+   
 ### Enhancements
 
 - simulation
