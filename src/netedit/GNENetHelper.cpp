@@ -466,7 +466,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedRoutes() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedRoutes() const {
     int counter = 0;
     // iterate over routes
     for (const auto &route : myDemandElements.at(SUMO_TAG_ROUTE)) {
@@ -490,7 +490,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedRoutes() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedVehicles() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedVehicles() const {
     int counter = 0;
     // iterate over all vehicles and flows
     for (const auto &vehicle : myDemandElements.at(SUMO_TAG_VEHICLE)) {
@@ -528,7 +528,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedVehicles() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedPersons() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPersons() const {
     int counter = 0;
     // iterate over all persons
     for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
@@ -546,7 +546,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPersons() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedPersonTrips() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPersonTrips() const {
     int counter = 0;
     // iterate over all person plans
     for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
@@ -568,7 +568,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPersonTrips() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedWalks() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWalks() const {
     int counter = 0;
     // iterate over all person plans
     for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
@@ -590,7 +590,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedWalks() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedRides() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedRides() const {
     int counter = 0;
     // iterate over all person plans
     for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
@@ -612,7 +612,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedRides() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedContainers() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedContainers() const {
     int counter = 0;
     // iterate over all containers
     for (const auto &container : myDemandElements.at(SUMO_TAG_CONTAINER)) {
@@ -630,7 +630,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedContainers() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedTransport() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedTransport() const {
     int counter = 0;
     // iterate over all container plans
     for (const auto &container : myDemandElements.at(SUMO_TAG_CONTAINER)) {
@@ -652,7 +652,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedTransport() {
 
 
 int 
-GNENetHelper::AttributeCarriers::getNumberOfSelectedTranships() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedTranships() const {
     int counter = 0;
     // iterate over all container plans
     for (const auto &container : myDemandElements.at(SUMO_TAG_CONTAINER)) {
@@ -674,7 +674,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedTranships() {
 
 
 int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() const {
     int counter = 0;
     // iterate over routes
     for (const auto &route : myDemandElements.at(SUMO_TAG_ROUTE)) {
@@ -785,6 +785,60 @@ GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDa
         }
     }
     return genericDatas;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeDatas() const {
+    int counter = 0;
+    // iterate over generic datas
+    for (const auto& dataSet : myDataSets) {
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& genericData : interval.second->getGenericDataChildren()) {
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && 
+                    genericData->isAttributeCarrierSelected()) {
+                    counter++;
+                }
+            }
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeRelDatas() const {
+    int counter = 0;
+    // iterate over generic datas
+    for (const auto& dataSet : myDataSets) {
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& genericData : interval.second->getGenericDataChildren()) {
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && 
+                    genericData->isAttributeCarrierSelected()) {
+                    counter++;
+                }
+            }
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeTAZRel() const {
+    int counter = 0;
+    // iterate over generic datas
+    for (const auto& dataSet : myDataSets) {
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& genericData : interval.second->getGenericDataChildren()) {
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) && 
+                    genericData->isAttributeCarrierSelected()) {
+                    counter++;
+                }
+            }
+        }
+    }
+    return counter;
 }
 
 

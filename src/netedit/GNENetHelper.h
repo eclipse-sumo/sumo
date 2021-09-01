@@ -209,34 +209,34 @@ struct GNENetHelper {
         void addDefaultVTypes();
 
         /// @brief get number of selected routes
-        int getNumberOfSelectedRoutes();
+        int getNumberOfSelectedRoutes() const;
 
         /// @brief get number of selected vehicles
-        int getNumberOfSelectedVehicles();
+        int getNumberOfSelectedVehicles() const;
 
         /// @brief get number of selected persons
-        int getNumberOfSelectedPersons();
+        int getNumberOfSelectedPersons() const;
 
         /// @brief get number of selected person trips
-        int getNumberOfSelectedPersonTrips();
+        int getNumberOfSelectedPersonTrips() const;
 
         /// @brief get number of selected walks
-        int getNumberOfSelectedWalks();
+        int getNumberOfSelectedWalks() const;
 
         /// @brief get number of selected rides
-        int getNumberOfSelectedRides();
+        int getNumberOfSelectedRides() const;
 
         /// @brief get number of selected containers
-        int getNumberOfSelectedContainers();
+        int getNumberOfSelectedContainers() const;
 
         /// @brief get number of selected transports
-        int getNumberOfSelectedTransport();
+        int getNumberOfSelectedTransport() const;
 
         /// @brief get number of selected tranships
-        int getNumberOfSelectedTranships();
+        int getNumberOfSelectedTranships() const;
 
-        /// @brief get number of selected 
-        int getNumberOfSelectedStops();
+        /// @brief get number of selected stops
+        int getNumberOfSelectedStops() const;
 
         /// @}
 
@@ -254,6 +254,15 @@ struct GNENetHelper {
         /// @{
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
+
+        /// @brief get number of selected edge datas
+        int getNumberOfSelectedEdgeDatas() const;
+
+        /// @brief get number of selected edge rel datas
+        int getNumberOfSelectedEdgeRelDatas() const;
+
+        /// @brief get number of selected edge TAZ Rels
+        int getNumberOfSelectedEdgeTAZRel() const;
 
         /// @}
 
