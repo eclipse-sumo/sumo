@@ -10,12 +10,13 @@ title: ChangeLog
   - Fixed invalid approach information with step-method.ballistic that could cause collision. Issue #8955
   - Fixed rare collision on junction when the outbound lane is jammed. Issue #6415
   - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
-  - Fixed bug where ehicle never starts with startPos="stop" departSpeed="max" and ballistic update. Issue #8988
+  - Fixed bug where a vehicle never starts with startPos="stop" departSpeed="max" and ballistic update. Issue #8988
   - Fixed crash when using flow with invalid departEdge. Issue #8993
   - Fixed invalid use of busStop instead of containerStop in vehroute-output. Issue #8989
   - Fixed invalid behavior after using stop posLat in non-sublane simulation. Issue #9013
   - Fixed miscounted teleports in vehicle-person collisions. Issue #9018
   - Fixed collision after unsafe lane changing ahead of junction. Issue #8950
+  - Fixed emergency braking in sublane simulation. Issue #9051
   
 - netedit
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
@@ -34,7 +35,7 @@ title: ChangeLog
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
   - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
-  - Attribute 'color' of loaded stops is now kept. Issue #9011
+  - Attribute 'color' and generic params of loaded stops are now kept. Issue #9011, #9048
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -53,6 +54,7 @@ title: ChangeLog
   - Removing and reinserting a vehicle in the same step is now working. Issue #5647
   - traci.vehicle.getLeader can no longer return -inf when the leader is on an intersection. Issue #9001
   - Fixed problems related to complex types returned from libsumo in java. Issue #7204
+  - Fixed invalid result of vehicle.getDistance after moveToXY. Issue #9050
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -71,6 +73,7 @@ title: ChangeLog
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
   - All stopping places (busStop, parkingArea, ...) now support custom color. Issue #8280
+  - The numerical value behind the current edge color can now be plotted in a tracker window. Issue #9049
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
