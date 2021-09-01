@@ -231,6 +231,15 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
+        /// @brief invert network elements
+        void invertNetworkElements();
+
+        /// @brief invert demand elements
+        void invertDemandElements();
+
+        /// @brief invert data elements
+        void invertDataElements();
+
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;

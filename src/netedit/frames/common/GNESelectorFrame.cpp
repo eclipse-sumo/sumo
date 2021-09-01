@@ -357,417 +357,442 @@ long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // only continue if there is element for selecting
     if (mySelectorFrameParent->ACsToSelected()) {
-        // obtan locks (only for improve code legibly)
-        const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
-        // obtain undoList (only for improve code legibly)
-        GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
-        undoList->p_begin("invert selection");
+        mySelectorFrameParent->myViewNet->getUndoList()->p_begin("invert selection");
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-            // iterate over junctions
-            for (const auto& junction : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                // check if junction selection is locked
-                if (!locks.isObjectLocked(GLO_JUNCTION)) {
-                    if (junction.second->isAttributeCarrierSelected()) {
-                        junction.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        junction.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                // due we iterate over all junctions, only it's neccesary iterate over incoming edges
-                for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
-                    // only select edges if "select edges" flag is enabled. In other case, select only lanes
-                    if (mySelectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
-                        // check if edge selection is locked
-                        if (!locks.isObjectLocked(GLO_EDGE)) {
-                            if (incomingEdge->isAttributeCarrierSelected()) {
-                                incomingEdge->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                incomingEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    } else {
-                        // check if lane selection is locked
-                        if (!locks.isObjectLocked(GLO_LANE)) {
-                            for (const auto& lane : incomingEdge->getLanes()) {
-                                if (lane->isAttributeCarrierSelected()) {
-                                    lane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                                } else {
-                                    lane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                                }
-                            }
-                        }
-                    }
-                    // check if connection selection is locked
-                    if (!locks.isObjectLocked(GLO_CONNECTION)) {
-                        for (const auto& connection : incomingEdge->getGNEConnections()) {
-                            if (connection->isAttributeCarrierSelected()) {
-                                connection->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                connection->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-                // check if crossing selection is locked
-                if (!locks.isObjectLocked(GLO_CROSSING)) {
-                    for (const auto& crossing : junction.second->getGNECrossings()) {
-                        if (crossing->isAttributeCarrierSelected()) {
-                            crossing->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                        } else {
-                            crossing->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                        }
-                    }
-                }
-            }
-            // check if additionals selection is locked
-            if (!locks.isObjectLocked(GLO_ADDITIONALELEMENT)) {
-                for (const auto& additionals : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-                    // first check if additional is selectable
-                    if (GNEAttributeCarrier::getTagProperties(additionals.first).isSelectable()) {
-                        for (const auto& additional : additionals.second) {
-                            if (additional.second->isAttributeCarrierSelected()) {
-                                additional.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                additional.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                            // now iterate over additional children
-                            for (const auto& additionalChild : additional.second->getChildAdditionals()) {
-                                // first check if additional child is selectable
-                                if (additionalChild->getTagProperty().isSelectable()) {
-                                    if (additionalChild->isAttributeCarrierSelected()) {
-                                        additionalChild->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                                    } else {
-                                        additionalChild->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            // invert polygons
-            if (!locks.isObjectLocked(GLO_POLYGON)) {
-                for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
-                    if (polygon.second->isAttributeCarrierSelected()) {
-                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-            // invert TAZs
-            if (!locks.isObjectLocked(GLO_TAZ)) {
-                for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getTAZElements().at(SUMO_TAG_TAZ)) {
-                    if (polygon.second->isAttributeCarrierSelected()) {
-                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-            // invert POIs and POILanes
-            if (!locks.isObjectLocked(GLO_POI)) {
-                for (const auto& POI : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI)) {
-                    if (POI.second->isAttributeCarrierSelected()) {
-                        POI.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        POI.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
+            // invert network elements
+            invertNetworkElements();
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-            // get demand elements
-            const auto &demandElements = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
-            // invert routes
-            if (!locks.isObjectLocked(GLO_ROUTE)) {
-                for (const auto& route : demandElements.at(SUMO_TAG_ROUTE)) {
-                    if (route.second->isAttributeCarrierSelected()) {
-                        route.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        route.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                // iterate over all embedded routes
-                for (const auto& vehicle : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
-                    if (vehicle.second->getChildDemandElements().front()->isAttributeCarrierSelected()) {
-                        vehicle.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        vehicle.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
-                    if (routeFlow.second->getChildDemandElements().front()->isAttributeCarrierSelected()) {
-                        routeFlow.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        routeFlow.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-            // invert vehicles
-            if (!locks.isObjectLocked(GLO_VEHICLE)) {
-                for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
-                    if (vehicle.second->isAttributeCarrierSelected()) {
-                        vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        vehicle.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& vehicle : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
-                    if (vehicle.second->isAttributeCarrierSelected()) {
-                        vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        vehicle.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
-                    if (trip.second->isAttributeCarrierSelected()) {
-                        trip.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        trip.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
-                    if (flow.second->isAttributeCarrierSelected()) {
-                        flow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        flow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
-                    if (routeFlow.second->isAttributeCarrierSelected()) {
-                        routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
-                    if (routeFlow.second->isAttributeCarrierSelected()) {
-                        routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-            // invert persons
-            if (!locks.isObjectLocked(GLO_PERSON)) {
-                for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-                    if (person.second->isAttributeCarrierSelected()) {
-                        person.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        person.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-                    if (personFlow.second->isAttributeCarrierSelected()) {
-                        personFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        personFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-            // invert person trip
-            if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
-                for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-                    for (const auto &personPlan : person.second->getChildDemandElements()) {
-                        if (personPlan->getTagProperty().isPersonTrip()) {
-                            if (personPlan->isAttributeCarrierSelected()) {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-                for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-                    for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
-                        if (personPlan->getTagProperty().isPersonTrip()) {
-                            if (personPlan->isAttributeCarrierSelected()) {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-            }
-            // invert ride
-            if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
-                for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-                    for (const auto &personPlan : person.second->getChildDemandElements()) {
-                        if (personPlan->getTagProperty().isRide()) {
-                            if (personPlan->isAttributeCarrierSelected()) {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-                for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-                    for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
-                        if (personPlan->getTagProperty().isRide()) {
-                            if (personPlan->isAttributeCarrierSelected()) {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-            }
-            // invert walks
-            if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
-                for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-                    for (const auto &personPlan : person.second->getChildDemandElements()) {
-                        if (personPlan->getTagProperty().isWalk()) {
-                            if (personPlan->isAttributeCarrierSelected()) {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-                for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-                    for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
-                        if (personPlan->getTagProperty().isWalk()) {
-                            if (personPlan->isAttributeCarrierSelected()) {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-            }
-
-
-
-
-            // invert containers
-            if (!locks.isObjectLocked(GLO_CONTAINER)) {
-                for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
-                    if (container.second->isAttributeCarrierSelected()) {
-                        container.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        container.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-                for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
-                    if (containerFlow.second->isAttributeCarrierSelected()) {
-                        containerFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        containerFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-            // invert container
-            if (!locks.isObjectLocked(GLO_TRANSPORT)) {
-                for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
-                    for (const auto &containerPlan : container.second->getChildDemandElements()) {
-                        if (containerPlan->getTagProperty().isTransportPlan()) {
-                            if (containerPlan->isAttributeCarrierSelected()) {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-                for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
-                    for (const auto &containerPlan : containerFlow.second->getChildDemandElements()) {
-                        if (containerPlan->getTagProperty().isTransportPlan()) {
-                            if (containerPlan->isAttributeCarrierSelected()) {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-            }
-            // invert ride
-            if (!locks.isObjectLocked(GLO_TRANSHIP)) {
-                for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
-                    for (const auto &containerPlan : container.second->getChildDemandElements()) {
-                        if (containerPlan->getTagProperty().isTranshipPlan()) {
-                            if (containerPlan->isAttributeCarrierSelected()) {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-                for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
-                    for (const auto &containerPlan : containerFlow.second->getChildDemandElements()) {
-                        if (containerPlan->getTagProperty().isTranshipPlan()) {
-                            if (containerPlan->isAttributeCarrierSelected()) {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
-                }
-            }
-            // invert stops
-            if (!locks.isObjectLocked(GLO_STOP)) {
-                for (const auto& demandElementTag : demandElements) {
-                    for (const auto& demandElement : demandElementTag.second) {
-                        // avoid vTypes
-                        if (!demandElement.second->getTagProperty().isVehicleType()) {
-                            // iterate over every child
-                            for (const auto& stop : demandElement.second->getChildDemandElements()) {
-                                if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson() || stop->getTagProperty().isStopContainer()) {
-                                    if (stop->isAttributeCarrierSelected()) {
-                                        stop->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                                    } else {
-                                        stop->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                                    }
-                                } else {
-                                    // special case for embedded routes
-                                    for (const auto& stopEmbeddedRoute : stop->getChildDemandElements()) {
-                                        if (stopEmbeddedRoute->getTagProperty().isStop() || 
-                                            stopEmbeddedRoute->getTagProperty().isStopPerson() || 
-                                            stopEmbeddedRoute->getTagProperty().isStopContainer()) {
-                                            if (stopEmbeddedRoute->isAttributeCarrierSelected()) {
-                                                stopEmbeddedRoute->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                                            } else {
-                                                stopEmbeddedRoute->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            // invert demand elements
+            invertDemandElements();
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-            // invert dataSets
-            for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
-                for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-                    for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                        if ((!locks.isObjectLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                            (!locks.isObjectLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA)) ||
-                            (!locks.isObjectLocked(GLO_TAZRELDATA) && (genericData->getType() == GLO_TAZRELDATA))) {
-                            if (genericData->isAttributeCarrierSelected()) {
-                                genericData->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            // invert data elements
+            invertDataElements();
+        }
+        // finish selection operation
+        mySelectorFrameParent->myViewNet->getUndoList()->p_end();
+    }
+    return 1;
+}
+
+
+void 
+GNESelectorFrame::SelectionOperation::invertNetworkElements() {
+    // obtan locks (only for improve code legibly)
+    const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
+    // get attribute carriers (only for improve code legibly)
+    const auto & ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    // obtain undoList (only for improve code legibly)
+    GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
+    // iterate over junctions
+    for (const auto& junction : ACs->getJunctions()) {
+        // check if junction selection is locked
+        if (!locks.isObjectLocked(GLO_JUNCTION)) {
+            if (junction.second->isAttributeCarrierSelected()) {
+                junction.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                junction.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+        for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
+            // only select edges if "select edges" flag is enabled. In other case, select only lanes
+            if (mySelectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
+                // check if edge selection is locked
+                if (!locks.isObjectLocked(GLO_EDGE)) {
+                    if (incomingEdge->isAttributeCarrierSelected()) {
+                        incomingEdge->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        incomingEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            } else {
+                // check if lane selection is locked
+                if (!locks.isObjectLocked(GLO_LANE)) {
+                    for (const auto& lane : incomingEdge->getLanes()) {
+                        if (lane->isAttributeCarrierSelected()) {
+                            lane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                        } else {
+                            lane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        }
+                    }
+                }
+            }
+            // check if connection selection is locked
+            if (!locks.isObjectLocked(GLO_CONNECTION)) {
+                for (const auto& connection : incomingEdge->getGNEConnections()) {
+                    if (connection->isAttributeCarrierSelected()) {
+                        connection->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        connection->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+        // check if crossing selection is locked
+        if (!locks.isObjectLocked(GLO_CROSSING)) {
+            for (const auto& crossing : junction.second->getGNECrossings()) {
+                if (crossing->isAttributeCarrierSelected()) {
+                    crossing->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                } else {
+                    crossing->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                }
+            }
+        }
+    }
+    // check if additionals selection is locked
+    if (!locks.isObjectLocked(GLO_ADDITIONALELEMENT)) {
+        for (const auto& additionals : ACs->getAdditionals()) {
+            // first check if additional is selectable
+            if (GNEAttributeCarrier::getTagProperties(additionals.first).isSelectable()) {
+                for (const auto& additional : additionals.second) {
+                    if (additional.second->isAttributeCarrierSelected()) {
+                        additional.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        additional.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                    // now iterate over additional children
+                    for (const auto& additionalChild : additional.second->getChildAdditionals()) {
+                        // first check if additional child is selectable
+                        if (additionalChild->getTagProperty().isSelectable()) {
+                            if (additionalChild->isAttributeCarrierSelected()) {
+                                additionalChild->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                             } else {
-                                genericData->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                                additionalChild->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                             }
                         }
                     }
                 }
             }
         }
-        // finish selection operation
-        undoList->p_end();
     }
-    return 1;
+    // invert polygons
+    if (!locks.isObjectLocked(GLO_POLYGON)) {
+        for (const auto& polygon : ACs->getShapes().at(SUMO_TAG_POLY)) {
+            if (polygon.second->isAttributeCarrierSelected()) {
+                polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    }
+    // invert TAZs
+    if (!locks.isObjectLocked(GLO_TAZ)) {
+        for (const auto& polygon : ACs->getTAZElements().at(SUMO_TAG_TAZ)) {
+            if (polygon.second->isAttributeCarrierSelected()) {
+                polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    }
+    // invert POIs and POILanes
+    if (!locks.isObjectLocked(GLO_POI)) {
+        for (const auto& POI : ACs->getShapes().at(SUMO_TAG_POI)) {
+            if (POI.second->isAttributeCarrierSelected()) {
+                POI.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                POI.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    }
+}
+
+
+void 
+GNESelectorFrame::SelectionOperation::invertDemandElements() {
+    // obtan locks (only for improve code legibly)
+    const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
+    // obtain undoList (only for improve code legibly)
+    GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
+    // get demand elements
+    const auto &demandElements = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
+    // invert routes
+    if (!locks.isObjectLocked(GLO_ROUTE)) {
+        for (const auto& route : demandElements.at(SUMO_TAG_ROUTE)) {
+            if (route.second->isAttributeCarrierSelected()) {
+                route.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                route.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        // iterate over all embedded routes
+        for (const auto& vehicle : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+            if (vehicle.second->getChildDemandElements().front()->isAttributeCarrierSelected()) {
+                vehicle.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                vehicle.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+            if (routeFlow.second->getChildDemandElements().front()->isAttributeCarrierSelected()) {
+                routeFlow.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                routeFlow.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    }
+    // invert vehicles
+    if (!locks.isObjectLocked(GLO_VEHICLE)) {
+        for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
+            if (vehicle.second->isAttributeCarrierSelected()) {
+                vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                vehicle.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& vehicle : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+            if (vehicle.second->isAttributeCarrierSelected()) {
+                vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                vehicle.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
+            if (trip.second->isAttributeCarrierSelected()) {
+                trip.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                trip.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
+            if (flow.second->isAttributeCarrierSelected()) {
+                flow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                flow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
+            if (routeFlow.second->isAttributeCarrierSelected()) {
+                routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& routeFlow : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+            if (routeFlow.second->isAttributeCarrierSelected()) {
+                routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    }
+    // invert persons
+    if (!locks.isObjectLocked(GLO_PERSON)) {
+        for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
+            if (person.second->isAttributeCarrierSelected()) {
+                person.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                person.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
+            if (personFlow.second->isAttributeCarrierSelected()) {
+                personFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                personFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    }
+    // invert person trip
+    if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
+        for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
+            for (const auto &personPlan : person.second->getChildDemandElements()) {
+                if (personPlan->getTagProperty().isPersonTrip()) {
+                    if (personPlan->isAttributeCarrierSelected()) {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+        for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
+            for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
+                if (personPlan->getTagProperty().isPersonTrip()) {
+                    if (personPlan->isAttributeCarrierSelected()) {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+    }
+    // invert ride
+    if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
+        for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
+            for (const auto &personPlan : person.second->getChildDemandElements()) {
+                if (personPlan->getTagProperty().isRide()) {
+                    if (personPlan->isAttributeCarrierSelected()) {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+        for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
+            for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
+                if (personPlan->getTagProperty().isRide()) {
+                    if (personPlan->isAttributeCarrierSelected()) {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+    }
+    // invert walks
+    if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
+        for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
+            for (const auto &personPlan : person.second->getChildDemandElements()) {
+                if (personPlan->getTagProperty().isWalk()) {
+                    if (personPlan->isAttributeCarrierSelected()) {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+        for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
+            for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
+                if (personPlan->getTagProperty().isWalk()) {
+                    if (personPlan->isAttributeCarrierSelected()) {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+    }
+    // invert containers
+    if (!locks.isObjectLocked(GLO_CONTAINER)) {
+        for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
+            if (container.second->isAttributeCarrierSelected()) {
+                container.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                container.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+        for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
+            if (containerFlow.second->isAttributeCarrierSelected()) {
+                containerFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                containerFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    }
+    // invert container
+    if (!locks.isObjectLocked(GLO_TRANSPORT)) {
+        for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
+            for (const auto &containerPlan : container.second->getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isTransportPlan()) {
+                    if (containerPlan->isAttributeCarrierSelected()) {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+        for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
+            for (const auto &containerPlan : containerFlow.second->getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isTransportPlan()) {
+                    if (containerPlan->isAttributeCarrierSelected()) {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+    }
+    // invert ride
+    if (!locks.isObjectLocked(GLO_TRANSHIP)) {
+        for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
+            for (const auto &containerPlan : container.second->getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isTranshipPlan()) {
+                    if (containerPlan->isAttributeCarrierSelected()) {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+        for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
+            for (const auto &containerPlan : containerFlow.second->getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isTranshipPlan()) {
+                    if (containerPlan->isAttributeCarrierSelected()) {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+        }
+    }
+    // invert stops
+    if (!locks.isObjectLocked(GLO_STOP)) {
+        for (const auto& demandElementTag : demandElements) {
+            for (const auto& demandElement : demandElementTag.second) {
+                // avoid vTypes
+                if (!demandElement.second->getTagProperty().isVehicleType()) {
+                    // iterate over every child
+                    for (const auto& stop : demandElement.second->getChildDemandElements()) {
+                        if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson() || stop->getTagProperty().isStopContainer()) {
+                            if (stop->isAttributeCarrierSelected()) {
+                                stop->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                            } else {
+                                stop->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                            }
+                        } else {
+                            // special case for embedded routes
+                            for (const auto& stopEmbeddedRoute : stop->getChildDemandElements()) {
+                                if (stopEmbeddedRoute->getTagProperty().isStop() || 
+                                    stopEmbeddedRoute->getTagProperty().isStopPerson() || 
+                                    stopEmbeddedRoute->getTagProperty().isStopContainer()) {
+                                    if (stopEmbeddedRoute->isAttributeCarrierSelected()) {
+                                        stopEmbeddedRoute->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                                    } else {
+                                        stopEmbeddedRoute->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+void 
+GNESelectorFrame::SelectionOperation::invertDataElements() {
+    // obtan locks (only for improve code legibly)
+    const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
+    // invert dataSets
+    for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
+        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                if ((!locks.isObjectLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
+                    (!locks.isObjectLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA)) ||
+                    (!locks.isObjectLocked(GLO_TAZRELDATA) && (genericData->getType() == GLO_TAZRELDATA))) {
+                    if (genericData->isAttributeCarrierSelected()) {
+                        genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                    } else {
+                        genericData->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    }
+                }
+            }
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1301,6 +1326,12 @@ GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericD
 }
 
 
+FXVerticalFrame*
+GNESelectorFrame::getContentFrame() const {
+    return myContentFrame;
+}
+
+
 GNESelectorFrame::ModificationMode*
 GNESelectorFrame::getModificationModeModul() const {
     return myModificationMode;
@@ -1310,12 +1341,6 @@ GNESelectorFrame::getModificationModeModul() const {
 GNESelectorFrame::SelectionInformation* 
 GNESelectorFrame::getSelectionInformation() const {
     return mySelectionInformation;
-}
-
-
-FXVerticalFrame*
-GNESelectorFrame::getContentFrame() const {
-    return myContentFrame;
 }
 
 
