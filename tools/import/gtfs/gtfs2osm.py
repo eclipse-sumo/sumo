@@ -589,8 +589,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                         # if stop not mapped
                         continue
                     stop_index = edges_list.index(stop.edge_id)
-                    if stop_index > check_seq:
+                    if stop_index >= check_seq:
                         check_seq = stop_index
+                        # TODO check stop position if we are on the same edge as before
                         stop_attr = (stop.stop_item_id, day,
                                      str(stop.arrival_fixed).split(' ')[2],
                                      options.duration, day,
