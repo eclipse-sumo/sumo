@@ -96,14 +96,25 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("Polygon", ACs->getNumberOfSelectedPolygons());
         updateInformationLabel("POIs", ACs->getNumberOfSelectedPOIs());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-
+        updateInformationLabel("Routes", ACs->getNumberOfSelectedRoutes());
+        updateInformationLabel("Vehicles", ACs->getNumberOfSelectedVehicles());
+        updateInformationLabel("Persons", ACs->getNumberOfSelectedPersons());
+        updateInformationLabel("Person trips", ACs->getNumberOfSelectedPersonTrips());
+        updateInformationLabel("Walks", ACs->getNumberOfSelectedWalks());
+        updateInformationLabel("Rides", ACs->getNumberOfSelectedRides());
+        updateInformationLabel("Containers", ACs->getNumberOfSelectedContainers());
+        updateInformationLabel("Transport", ACs->getNumberOfSelectedTransport());
+        updateInformationLabel("Tranships", ACs->getNumberOfSelectedTranships());
+        updateInformationLabel("Stops", ACs->getNumberOfSelectedStops());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-
+        updateInformationLabel("EdgeDatas", ACs->getNumberOfSelectedEdgeDatas());
+        updateInformationLabel("EdgeRelDatas", ACs->getNumberOfSelectedEdgeRelDatas());
+        updateInformationLabel("EdgeTAZRel", ACs->getNumberOfSelectedEdgeTAZRel());
     }
     // adjust format
     const auto numberLines = std::count(myInformation.begin(), myInformation.end(), ':');
     if (numberLines == 0) {
-        myInformation.append("\n\n");
+        myInformation.append(" \n \n");
     } else if (numberLines > 1) {
         myInformation.pop_back();
     }
