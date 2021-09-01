@@ -103,7 +103,7 @@ T_d_i+1(r) = T_d_i(r) ------------------------------------(1)
   
 T_d_i+1(s) = beta * T_g_i(s) + (1 - beta) * T_d_i-1(s) ---(2)
 
-, where s is one of the routes in Driver d's route set. 
+, where s is one of the routes, which are not selected to use in Iteration i, in Driver d's route set.
 
 The aforementioned update rules also apply when other travel cost units are used. The way to use simulated link costs for calcuating route costs may result in cost underestimation especially when significant congestion only on one of traffic movenents (e.g. left-turn or right-turn) exists. The existing Ticket 2566 deals with this issue.
 
