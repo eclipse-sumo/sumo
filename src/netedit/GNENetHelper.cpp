@@ -813,7 +813,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeRelDatas() const {
     for (const auto& dataSet : myDataSets) {
         for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
             for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && 
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && 
                     genericData->isAttributeCarrierSelected()) {
                     counter++;
                 }
