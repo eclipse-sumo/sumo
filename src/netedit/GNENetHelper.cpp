@@ -26,6 +26,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -282,6 +284,34 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
 }
 
 
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
+    int counter = 0;
+    for (const auto &edge : myEdges) {
+        for (const auto &connection : edge.second->getGNEConnections()) {
+            if (connection->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
+    int counter = 0;
+    for (const auto junction : myJunctions) {
+        for (const auto &crossing : junction.second->getGNECrossings()) {
+            if (crossing->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
 const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> >&
 GNENetHelper::AttributeCarriers::getAdditionals() const {
     return myAdditionals;
@@ -386,7 +416,7 @@ GNENetHelper::AttributeCarriers::clearTAZElements() {
 int 
 GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZs() const {
     int counter = 0;
-    for (const auto &poly : myShapes.at(SUMO_TAG_TAZ)) {
+    for (const auto &poly : myTAZElements.at(SUMO_TAG_TAZ)) {
         if (poly.second->isAttributeCarrierSelected()) {
             counter++;
         }

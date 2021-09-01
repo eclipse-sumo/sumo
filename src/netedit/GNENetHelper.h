@@ -149,6 +149,12 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @brief get number of selected connections
+        int getNumberOfSelectedConnections() const;
+
+        /// @brief get number of selected crossings
+        int getNumberOfSelectedCrossings() const;
+
         /// @name function for additionals
         /// @{
         /// @brief get additionals
