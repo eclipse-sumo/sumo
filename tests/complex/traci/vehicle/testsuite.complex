@@ -6,6 +6,7 @@ lateralCollision
 
 # tests for vehicle mapping
 moveToXY
+moveTo
 
 # Tests the openGap() method.
 openGap
