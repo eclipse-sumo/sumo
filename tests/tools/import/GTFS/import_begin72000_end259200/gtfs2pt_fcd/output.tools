@@ -1,0 +1,10 @@
+function import_gtfs called at Tue, 31 Aug 2021 21:56:55 +0000
+function import_gtfs finished after 6.060575 seconds
+Success.
+Success.
+Warning! No mapping library found, falling back to tracemapper.
+Warning! Skipping disconnected route '132190645', no path found.
+Warning! Skipping disconnected route '132190653', no path found.
+Warning! Skipping disconnected route '132190871', no path found.
+Warning! Skipping disconnected route '132191102', no path found.
+Warning! Skipping disconnected route '132184491', no path found.
