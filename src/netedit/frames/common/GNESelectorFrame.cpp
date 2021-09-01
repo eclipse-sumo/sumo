@@ -70,10 +70,39 @@ FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox, 
 GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Selection information", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent) {
+    // information label
+    myInformationLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
 GNESelectorFrame::SelectionInformation::~SelectionInformation() {}
+
+
+void 
+GNESelectorFrame::SelectionInformation::updateInformationLabel() {
+    // declare string for keep information
+    std::string information;
+    // get attribute carriers
+    const auto ACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    // continue depending of supermode
+    if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        information.append("junctions: " + toString(ACs->getNumberOfSelectedJunctions()) + "\n");
+        information.append("edges: " + toString(ACs->getNumberOfSelectedEdges()) + "\n");
+        information.append("lanes: " + toString(ACs->getNumberOfSelectedLanes()) + "\n");
+        information.append("connections: " + toString(ACs->getNumberOfSelectedConnections()) + "\n");
+        information.append("crossings: " + toString(ACs->getNumberOfSelectedCrossings()) + "\n");
+        information.append("additionals: " + toString(ACs->getNumberOfSelectedAdditionals()) + "\n");
+        information.append("TAZs: " + toString(ACs->getNumberOfSelectedTAZs()) + "\n");
+        information.append("Polygon: " + toString(ACs->getNumberOfSelectedPolygons()) + "\n");
+        information.append("POIs: " + toString(ACs->getNumberOfSelectedPOIs()));
+
+    } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+
+    } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+
+    }
+    myInformationLabel->setText(information.c_str());
+}
 
 // ---------------------------------------------------------------------------
 // ModificationMode::ModificationMode - methods
@@ -682,6 +711,8 @@ GNESelectorFrame::show() {
         myDemandElementSet->hideElementSet();
         myDataElementSet->showElementSet();
     }
+    // update information label
+    mySelectionInformation->updateInformationLabel();
     // Show frame
     GNEFrame::show();
 }
@@ -1166,6 +1197,12 @@ GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericD
 GNESelectorFrame::ModificationMode*
 GNESelectorFrame::getModificationModeModul() const {
     return myModificationMode;
+}
+
+
+GNESelectorFrame::SelectionInformation* 
+GNESelectorFrame::getSelectionInformation() const {
+    return mySelectionInformation;
 }
 
 

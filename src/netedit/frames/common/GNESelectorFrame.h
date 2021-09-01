@@ -55,6 +55,13 @@ public:
         /// @brief destructor
         ~SelectionInformation();
 
+        /// @brief update information label
+        void updateInformationLabel();
+
+    protected:
+        /// @brief information label
+        FXLabel *myInformationLabel;
+
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
@@ -271,6 +278,9 @@ public:
 
     /// @brief get modification mode modul
     ModificationMode* getModificationModeModul() const;
+
+    /// @brief getmodul for selection information
+    SelectionInformation* getSelectionInformation() const;
 
 private:
     /// @brief modul for selection information
