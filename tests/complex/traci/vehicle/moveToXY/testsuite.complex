@@ -36,3 +36,6 @@ speedWithoutTraCI
 
 # tests for mapping vehicle with bad position data
 matchThreshold
+
+# test vehicle.getDistance
+odometer
