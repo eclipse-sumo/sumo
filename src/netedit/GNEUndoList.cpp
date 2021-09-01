@@ -25,6 +25,8 @@
 /****************************************************************************/
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"
@@ -80,6 +82,13 @@ GNEUndoList::p_end() {
     // check if net has to be updated
     if (myCommandGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
         myGNEApplicationWindowParent->getViewNet()->updateViewNet();
+        // check if we have to update selector frame
+        const auto &editModes = myGNEApplicationWindowParent->getViewNet()->getEditModes();
+        if ((editModes.isCurrentSupermodeNetwork() && editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
+            (editModes.isCurrentSupermodeDemand() && editModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
+            (editModes.isCurrentSupermodeData() && editModes.dataEditMode == DataEditMode::DATA_SELECT)) {
+            myGNEApplicationWindowParent->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+        }
     }
     end();
 }

@@ -4410,6 +4410,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                             }
                         }
                     }
+                    // update information label
+                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
                     // process click
                     processClick(eventData);
                 }
@@ -4718,6 +4720,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                             }
                         }
                     }
+                    // update information label
+                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
                     // process click
                     processClick(eventData);
                 }
@@ -4885,6 +4889,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                             }
                         }
                     }
+                    // update information label
+                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
                     // process click
                     processClick(eventData);
                 }
