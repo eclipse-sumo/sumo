@@ -362,6 +362,11 @@ public:
      */
     double getOdometer() const;
 
+    /// @brief Manipulate the odometer
+    void addToOdometer(double value) {
+        myOdometer += value;
+    }
+
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
