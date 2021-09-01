@@ -146,4 +146,7 @@ public:
 
     /// @brief Whether lefthand-drive is being simulated
     static bool gLefthand;
+
+    /// @brief Whether turning specific weights are estimated (and how much)
+    static double gWeightsSeparateTurns;
 };

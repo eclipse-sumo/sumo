@@ -269,6 +269,10 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     myHasPedestrianNetwork = checkWalkingarea();
     myHasBidiEdges = checkBidiEdges();
     myVersion = version;
+    if ((!MSGlobals::gUsingInternalLanes || !myHasInternalLinks)
+            && MSGlobals::gWeightsSeparateTurns > 0) {
+        throw ProcessError("Option weights.separate-turns is only supported when simulating with internal lanes");
+    }
 }
 
 

@@ -132,6 +132,9 @@ public:
         return myWithTaz;
     }
 
+    /// @brief record actual travel time for an edge
+    static void addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime);
+
 #ifdef HAVE_FOX
     static void waitForAll();
 #endif
@@ -177,6 +180,8 @@ private:
      * @see StaticCommand
      */
     static SUMOTime adaptEdgeEfforts(SUMOTime currentTime);
+
+    static double patchSpeedForTurns(const MSEdge* edge, double currSpeed);
     /// @}
 
     /// @brief initialized edge speed storage into the given containers
@@ -201,9 +206,14 @@ private:
     /// @brief The current index in the pastEdgeSpeed ring-buffer
     static int myAdaptationStepsIndex;
 
+    typedef std::pair<SUMOTime, int> TimeAndCount;
+
     /// @brief The container of edge speeds
     static std::vector<double> myEdgeSpeeds;
     static std::vector<double> myEdgeBikeSpeeds;
+
+    /// @brief Sum of travel times experienced by equipped vehicles for each edge
+    static std::vector<TimeAndCount> myEdgeTravelTimes;
 
     /// @brief The container of past edge speeds (when using a simple moving average)
     static std::vector<std::vector<double> > myPastEdgeSpeeds;

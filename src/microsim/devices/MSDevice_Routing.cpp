@@ -156,7 +156,9 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
     myLastRouting(-1),
     mySkipRouting(-1),
     myRerouteCommand(nullptr),
-    myRerouteRailSignal(getBoolParam(holder, OptionsCont::getOptions(), "rerouting.railsignal", true, true)) {
+    myRerouteRailSignal(getBoolParam(holder, OptionsCont::getOptions(), "rerouting.railsignal", true, true)),
+    myLastLaneEntryTime(-1)
+{
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
@@ -199,7 +201,19 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRerouteCommand, myPeriod + start);
         }
     }
-    return false;
+    if (MSGlobals::gWeightsSeparateTurns > 0) {
+        if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
+            const SUMOTime t = SIMSTEP;
+            if (myLastLaneEntryTime >= 0 && enteredLane->isInternal()) {
+                // record travel time on the previous edge but store on the internal ledge
+                MSRoutingEngine::addEdgeTravelTime(enteredLane->getEdge(), t - myLastLaneEntryTime);
+            }
+            myLastLaneEntryTime = t;
+        }
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
