@@ -266,6 +266,9 @@ public:
     /// @brief hide Frame
     void hide();
 
+    /// @brief function called after undo/redo in the current frame
+    void updateFrameAfterUndoRedo();
+
     /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
 

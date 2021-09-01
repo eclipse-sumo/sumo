@@ -945,6 +945,13 @@ GNESelectorFrame::hide() {
 }
 
 
+ void
+GNESelectorFrame::updateFrameAfterUndoRedo() {
+    // update information label
+    mySelectionInformation->updateInformationLabel();
+}
+
+
 void
 GNESelectorFrame::clearCurrentSelection() const {
     mySelectionOperation->onCmdClear(nullptr, 0, nullptr);
