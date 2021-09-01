@@ -43,6 +43,30 @@ class GNESelectorFrame : public GNEFrame {
 
 public:
     // ===========================================================================
+    // class SelectionInformation
+    // ===========================================================================
+
+    class SelectionInformation : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        SelectionInformation(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~SelectionInformation();
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief Invalidated copy constructor.
+        SelectionInformation(const SelectionInformation&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SelectionInformation& operator=(const SelectionInformation&) = delete;
+    };
+
+    // ===========================================================================
     // class ModificationMode
     // ===========================================================================
 
@@ -249,6 +273,9 @@ public:
     ModificationMode* getModificationModeModul() const;
 
 private:
+    /// @brief modul for selection information
+    SelectionInformation* mySelectionInformation;
+
     /// @brief modul for change modification mode
     ModificationMode* myModificationMode;
 

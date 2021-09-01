@@ -64,6 +64,18 @@ FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox, 
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// ModificationMode::SelectionInformation - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* selectorFrameParent) :
+    FXGroupBox(selectorFrameParent->myContentFrame, "Selection information", GUIDesignGroupBoxFrame),
+    mySelectorFrameParent(selectorFrameParent) {
+}
+
+
+GNESelectorFrame::SelectionInformation::~SelectionInformation() {}
+
+// ---------------------------------------------------------------------------
 // ModificationMode::ModificationMode - methods
 // ---------------------------------------------------------------------------
 
@@ -628,6 +640,8 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
 
 GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Selection") {
+    // create selection information
+    mySelectionInformation = new SelectionInformation(this);
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
