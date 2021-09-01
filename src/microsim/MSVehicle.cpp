@@ -815,8 +815,12 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool withinLane = myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth());
     const bool keepLane = wasOnRoad && v->getLane() == myRemoteLane;
     if (v->isOnRoad() && !(keepLane && withinLane)) {
+        if (myRemoteLane != nullptr && &v->getLane()->getEdge() == &myRemoteLane->getEdge()) {
+            // correct odometer which gets incremented via onRemovalFromNet->leaveLane
+            v->myOdometer -= v->getLane()->getLength();
+        }
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-        v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
+        v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT, false);
     }
     if (myRemoteRoute.size() != 0) {
         v->replaceRouteEdges(myRemoteRoute, -1, 0, "traci:moveToXY", true);
