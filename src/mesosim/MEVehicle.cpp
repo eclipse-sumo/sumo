@@ -217,7 +217,9 @@ MEVehicle::checkStop(SUMOTime time) {
             return time;
         }
         const SUMOTime cur = time;
-        time += stop.duration;
+        if (stop.duration > 0) { // it might be a triggered stop with duration -1
+            time += stop.duration;
+        }
         if (stop.pars.until > time) {
             // @note: this assumes the stop is reached at time. With the way this is called in MESegment (time == entryTime),
             // travel time is overestimated of the stop is not at the start of the segment
@@ -249,6 +251,9 @@ MEVehicle::checkStop(SUMOTime time) {
             }
             if (wait) {
                 net->getVehicleControl().registerOneWaiting();
+            } else {
+                stop.triggered = false;
+                stop.containerTriggered = false;
             }
         }
         hadStop = true;
@@ -271,10 +276,10 @@ MEVehicle::resumeFromStopping() {
         SUMOVehicleParameter::Stop pars = stop.pars;
 //        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.emplace_back(pars);
-        myStops.pop_front();
         if (stop.triggered || stop.containerTriggered) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
         }
+        myStops.pop_front();
         return true;
     }
     return false;
