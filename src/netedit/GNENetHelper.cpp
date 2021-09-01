@@ -195,6 +195,18 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 }
 
 
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
+    int counter = 0;
+    for (const auto &junction : myJunctions) {
+        if (junction.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
 GNEEdgeType*
 GNENetHelper::AttributeCarriers::registerEdgeType(GNEEdgeType* edgeType) {
     // increase reference
@@ -244,19 +256,29 @@ void GNENetHelper::AttributeCarriers::clearEdges() {
 }
 
 
-bool
-GNENetHelper::AttributeCarriers::addPolygon(const std::string& /*id*/, const std::string& /*type*/, const RGBColor& /*color*/, double /*layer*/, double /*angle*/,
-                                            const std::string& /*imgFile*/, bool /*relativePath*/, const PositionVector& /*shape*/, bool /*geo*/, bool /*fill*/,
-                                            double /*lineWidth*/, bool /*ignorePruning*/, const std::string& /*name*/) {
-    return false;
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
+    int counter = 0;
+    for (const auto &edge : myEdges) {
+        if (edge.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
 }
 
 
-bool
-GNENetHelper::AttributeCarriers::addPOI(const std::string& /*id*/, const std::string& /*type*/, const RGBColor& /*color*/, const Position& /*pos*/, bool /*geo*/,
-                                        const std::string& /*lane*/, double /*posOverLane*/, bool /*friendlyPos*/, double /*posLat*/, double /*layer*/, double /*angle*/, const std::string& /*imgFile*/, bool /*relativePath*/,
-                                        double /*width*/, double /*height*/, bool /*ignorePruning*/) {
-    return false;
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
+    int counter = 0;
+    for (const auto &edge : myEdges) {
+        for (const auto &lane : edge.second->getLanes()) {
+            if (lane->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
 }
 
 
@@ -281,6 +303,20 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 }
 
 
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
+    int counter = 0;
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional.second->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
 const std::map<SumoXMLTag, std::map<std::string, GNEShape*> >&
 GNENetHelper::AttributeCarriers::getShapes() const {
     return myShapes;
@@ -302,6 +338,30 @@ GNENetHelper::AttributeCarriers::clearShapes() {
 }
 
 
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
+    int counter = 0;
+    for (const auto &poly : myShapes.at(SUMO_TAG_POLY)) {
+        if (poly.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
+    int counter = 0;
+    for (const auto &POI : myShapes.at(SUMO_TAG_POI)) {
+        if (POI.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
 const std::map<SumoXMLTag, std::map<std::string, GNETAZElement*> >&
 GNENetHelper::AttributeCarriers::getTAZElements() const {
     return myTAZElements;
@@ -320,6 +380,18 @@ GNENetHelper::AttributeCarriers::clearTAZElements() {
     for (auto& TAZElements : myTAZElements) {
         TAZElements.second.clear();
     }
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZs() const {
+    int counter = 0;
+    for (const auto &poly : myShapes.at(SUMO_TAG_TAZ)) {
+        if (poly.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
 }
 
 

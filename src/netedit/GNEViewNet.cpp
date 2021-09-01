@@ -1966,7 +1966,10 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 myUndoList->p_begin("attach POI into " + toString(SUMO_TAG_LANE));
                 myNet->deleteShape(POI, myUndoList);
                 // add POILane
+                /*
+                FIX in #9054
                 myNet->getAttributeCarriers()->addPOI(id, type, color, pos, false, nearestLane->getID(), minorPosOverLane, friendlyPos, 0, layer, angle, imgFile, relativePath, POIWidth, POIHeight);
+                */
                 myUndoList->p_end();
             }
         } else {
@@ -1986,7 +1989,10 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             myUndoList->p_begin("release POI from " + toString(SUMO_TAG_LANE));
             myNet->deleteShape(POI, myUndoList);
             // add POI
+            /*
+            FIX in #9054
             myNet->getAttributeCarriers()->addPOI(id, type, color, pos, false, "", 0, friendlyPos, 0, layer, angle, imgFile, relativePath, POIWidth, POIWeight);
+            */
             myUndoList->p_end();
         }
         // update view after transform

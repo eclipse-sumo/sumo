@@ -35,7 +35,6 @@
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/router/SUMOAbstractRouter.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -71,7 +70,7 @@ class GNEViewNet;
 struct GNENetHelper {
 
     /// @brief struct used for saving all attribute carriers of net, in different formats
-    class AttributeCarriers : ShapeContainer {
+    class AttributeCarriers {
 
         /// @brief declare friend class
         //friend class GNEAdditionalHandler;
@@ -113,6 +112,9 @@ struct GNENetHelper {
         /// @brief clear junctions
         void clearJunctions();
 
+        /// @brief get number of selected junctions
+        int getNumberOfSelectedJunctions() const;
+
         /// @}
 
         /// @name function for edgeTypes
@@ -139,50 +141,11 @@ struct GNENetHelper {
         /// @brief clear edges
         void clearEdges();
 
-        /// @}
+        /// @brief get number of selected edges
+        int getNumberOfSelectedEdges() const;
 
-        /// @name inherited from ShapeHandler
-        /// @{
-        /**@brief Builds a polygon using the given values and adds it to the container
-        * @param[in] id The name of the polygon
-        * @param[in] type The (abstract) type of the polygon
-        * @param[in] color The color of the polygon
-        * @param[in] layer The layer of the polygon
-        * @param[in] angle The rotation of the polygon
-        * @param[in] imgFile The raster image of the polygon
-        * @param[in] relativePath set image file as relative path
-        * @param[in] shape The shape of the polygon
-        * @param[in] geo specify if shape was loaded as GEO coordinate
-        * @param[in] fill Whether the polygon shall be filled
-        * @param[in] lineWidth The widht for drawing unfiled polygon
-        * @return whether the polygon could be added
-        */
-        bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                        double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
-                        bool geo, bool fill, double lineWidth, bool ignorePruning = false,
-                        const std::string& name = Shape::DEFAULT_NAME);
-
-        /**@brief Builds a POI using the given values and adds it to the container
-        * @param[in] id The name of the POI
-        * @param[in] type The (abstract) type of the POI
-        * @param[in] color The color of the POI
-        * @param[in] pos The position of the POI
-        * @param[in[ geo use GEO coordinates (lon/lat)
-        * @param[in] lane The Lane in which this POI is placed
-        * @param[in] posOverLane The position over Lane
-        * @param[in] friendlyPos enable or disable friendlyPos over lane
-        * @param[in] posLat The position lateral over Lane
-        * @param[in] layer The layer of the POI
-        * @param[in] angle The rotation of the POI
-        * @param[in] imgFile The raster image of the POI
-        * @param[in] relativePath set image file as relative path
-        * @param[in] width The width of the POI image
-        * @param[in] height The height of the POI image
-        * @return whether the poi could be added
-        */
-        bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                    const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                    const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
+        /// @brief get number of selected lanes
+        int getNumberOfSelectedLanes() const;
 
         /// @}
 
@@ -194,6 +157,9 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
+        /// @brief get number of selected additionals
+        int getNumberOfSelectedAdditionals() const;
+
         /// @}
 
         /// @name function for shapes
@@ -204,6 +170,12 @@ struct GNENetHelper {
         /// @brief clear shapes
         void clearShapes();
 
+        /// @brief get number of selected polygons
+        int getNumberOfSelectedPolygons() const;
+
+        /// @brief get number of selected POIs
+        int getNumberOfSelectedPOIs() const;
+
         /// @}
 
         /// @name function for TAZElements
@@ -213,6 +185,9 @@ struct GNENetHelper {
 
         /// @brief clear TAZElements
         void clearTAZElements();
+
+        /// @brief get number of selected TAZs
+        int getNumberOfSelectedTAZs() const;
 
         /// @}
 
@@ -226,6 +201,8 @@ struct GNENetHelper {
 
         /// @brief add default VTypes
         void addDefaultVTypes();
+
+        /**/
 
         /// @}
 
@@ -405,7 +382,7 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
 
-/// @brief map with the ID and pointer to shape elements of net
+        /// @brief map with the ID and pointer to shape elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEShape*> > myShapes;
 
         /// @brief map with the ID and pointer to TAZElement elements of net
