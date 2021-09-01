@@ -59,10 +59,16 @@ public:
         void updateInformationLabel();
 
     protected:
+        /// @brief update information label
+        void updateInformationLabel(const std::string &element, int number);
+
+    private:
+        /// @brief  string for keep information
+        std::string myInformation;
+
         /// @brief information label
         FXLabel *myInformationLabel;
 
-    private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
 

@@ -80,28 +80,44 @@ GNESelectorFrame::SelectionInformation::~SelectionInformation() {}
 
 void 
 GNESelectorFrame::SelectionInformation::updateInformationLabel() {
-    // declare string for keep information
-    std::string information;
+    // first clear information
+    myInformation.clear();
     // get attribute carriers
     const auto ACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of supermode
     if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        information.append("junctions: " + toString(ACs->getNumberOfSelectedJunctions()) + "\n");
-        information.append("edges: " + toString(ACs->getNumberOfSelectedEdges()) + "\n");
-        information.append("lanes: " + toString(ACs->getNumberOfSelectedLanes()) + "\n");
-        information.append("connections: " + toString(ACs->getNumberOfSelectedConnections()) + "\n");
-        information.append("crossings: " + toString(ACs->getNumberOfSelectedCrossings()) + "\n");
-        information.append("additionals: " + toString(ACs->getNumberOfSelectedAdditionals()) + "\n");
-        information.append("TAZs: " + toString(ACs->getNumberOfSelectedTAZs()) + "\n");
-        information.append("Polygon: " + toString(ACs->getNumberOfSelectedPolygons()) + "\n");
-        information.append("POIs: " + toString(ACs->getNumberOfSelectedPOIs()));
-
+        updateInformationLabel("Junctions", ACs->getNumberOfSelectedJunctions());
+        updateInformationLabel("Edges", ACs->getNumberOfSelectedEdges());
+        updateInformationLabel("Lanes", ACs->getNumberOfSelectedLanes());
+        updateInformationLabel("Connections", ACs->getNumberOfSelectedConnections());
+        updateInformationLabel("Crossings", ACs->getNumberOfSelectedCrossings());
+        updateInformationLabel("Additionals", ACs->getNumberOfSelectedAdditionals());
+        updateInformationLabel("TAZs", ACs->getNumberOfSelectedTAZs());
+        updateInformationLabel("Polygon", ACs->getNumberOfSelectedPolygons());
+        updateInformationLabel("POIs", ACs->getNumberOfSelectedPOIs());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
 
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
 
     }
-    myInformationLabel->setText(information.c_str());
+    // adjust format
+    const auto numberLines = std::count(myInformation.begin(), myInformation.end(), ':');
+    if (numberLines == 0) {
+        myInformation.append("\n\n");
+    } else if (numberLines > 1) {
+        myInformation.pop_back();
+    }
+    // set label
+    myInformationLabel->setText(myInformation.c_str());
+}
+
+
+void 
+GNESelectorFrame::SelectionInformation::updateInformationLabel(const std::string &element, int number) {
+    // check number
+    if (number > 0) {
+        myInformation.append(element + ": " + toString(number) + "\n");
+    }
 }
 
 // ---------------------------------------------------------------------------
