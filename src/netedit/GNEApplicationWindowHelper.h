@@ -619,6 +619,9 @@ struct GNEApplicationWindowHelper {
         /// @brief build menu commands
         void buildLockMenuCommands(FXMenuPane* editMenu);
 
+        /// @brief remove hotkeys
+        void removeHotkeys();
+
         /// @brief show network processing menu commands
         void showNetworkLockMenuCommands();
 
@@ -726,6 +729,10 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* unlockAllElements;
 
         /// @}
+
+    protected:
+        /// @brief Parse hot key from string
+        FXHotKey parseHotKey(const FXwchar character);
 
     private:
         /// @brief pointer to current GNEApplicationWindows

@@ -902,113 +902,114 @@ GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWin
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* fileMenu) {
+    // newtork
     menuCheckLockJunction = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            "Lock junctions", "", "",
+                            "Lock &junctions", "", "",
                             GUIIconSubSys::getIcon(GUIIcon::JUNCTION),
                             myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockEdges = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                         "Lock edges", "", "",
+                         "Lock &edges", "", "",
                          GUIIconSubSys::getIcon(GUIIcon::EDGE),
                          myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockLanes = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                         "Lock lanes", "", "",
+                         "Lock &lanes", "", "",
                          GUIIconSubSys::getIcon(GUIIcon::LANE),
                          myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockConnections = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                               "Lock connections", "", "",
+                               "Lock &connections", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::CONNECTION),
                                myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockCrossings = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                             "Lock crossings", "", "",
+                             "Lock c&rossings", "", "",
                              GUIIconSubSys::getIcon(GUIIcon::CROSSING),
                              myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockAdditionals = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                               "Lock additionals", "", "",
+                               "Lock &additionals", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::BUSSTOP),
                                myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockTAZs = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                        "Lock TAZs", "", "",
+                        "Lock &TAZs", "", "",
                         GUIIconSubSys::getIcon(GUIIcon::TAZ),
                         myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockPolygons = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            "Lock polygons", "", "",
+                            "Lock &polygons", "", "",
                             GUIIconSubSys::getIcon(GUIIcon::POLY),
                             myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockPOIs = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                        "Lock POIs", "", "",
+                        "Lock P&OIs", "", "",
                         GUIIconSubSys::getIcon(GUIIcon::POI),
                         myGNEApp, MID_GNE_LOCKELEMENT);
-
+    // demand
     menuCheckLockRoutes = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                          "Lock routes", "", "",
+                          "Lock &routes", "", "",
                           GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                           myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockVehicles = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            "Lock vehicles", "", "",
+                            "Lock &vehicles", "", "",
                             GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
                             myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockPersons = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                           "Lock persons", "", "",
+                           "Lock &persons", "", "",
                            GUIIconSubSys::getIcon(GUIIcon::PERSON),
                            myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockPersonTrip = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                              "Lock personTrips", "", "",
+                              "Lock person&Trips", "", "",
                               GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                               myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockWalk = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                        "Lock walks", "", "",
+                        "Lock &walks", "", "",
                         GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                         myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockRides = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                         "Lock rides", "", "",
+                         "Lock ri&des", "", "",
                          GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
                          myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockContainers = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                              "Lock containers", "", "",
+                              "Lock &containers", "", "",
                               GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                               myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockTransports = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                              "Lock transports", "", "",
+                              "Lock tra&nsports", "", "",
                               GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_FROMTO),
                               myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockTranships = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                             "Lock tranships", "", "",
+                             "Lock trans&hips", "", "",
                              GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
                              myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockStops = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                         "Lock stops", "", "",
+                         "Lock stop&s", "", "",
                          GUIIconSubSys::getIcon(GUIIcon::STOPELEMENT),
                          myGNEApp, MID_GNE_LOCKELEMENT);
-
+    // data
     menuCheckLockEdgeDatas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                             "Lock edgeDatas", "", "",
+                             "Lock &edgeDatas", "", "",
                              GUIIconSubSys::getIcon(GUIIcon::EDGEDATA),
                              myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockEdgeRelDatas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                                "Lock edgeRelDatas", "", "",
+                                "Lock e&dgeRelDatas", "", "",
                                 GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA),
                                 myGNEApp, MID_GNE_LOCKELEMENT);
 
     menuCheckLockEdgeTAZRels = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                               "Lock edgeTAZRel", "", "",
+                               "Lock edge&TAZRel", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA),
                                myGNEApp, MID_GNE_LOCKELEMENT);
 
@@ -1025,6 +1026,35 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 }
 
 
+void 
+GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
+    // network
+    menuCheckLockJunction->remHotKey(parseHotKey('j'));
+    menuCheckLockEdges->remHotKey(parseHotKey('e'));
+    menuCheckLockLanes->remHotKey(parseHotKey('l'));
+    menuCheckLockConnections->remHotKey(parseHotKey('c'));
+    menuCheckLockCrossings->remHotKey(parseHotKey('r'));
+    menuCheckLockAdditionals->remHotKey(parseHotKey('a'));
+    menuCheckLockTAZs->remHotKey(parseHotKey('t'));
+    menuCheckLockPolygons->remHotKey(parseHotKey('p'));
+    menuCheckLockPOIs->remHotKey(parseHotKey('o'));
+    // demand
+    menuCheckLockRoutes->remHotKey(parseHotKey('r'));
+    menuCheckLockVehicles->remHotKey(parseHotKey('v'));
+    menuCheckLockPersons->remHotKey(parseHotKey('p'));
+    menuCheckLockPersonTrip->remHotKey(parseHotKey('t'));
+    menuCheckLockWalk->remHotKey(parseHotKey('w'));
+    menuCheckLockRides->remHotKey(parseHotKey('d'));
+    menuCheckLockContainers->remHotKey(parseHotKey('c'));
+    menuCheckLockTransports->remHotKey(parseHotKey('n'));
+    menuCheckLockTranships->remHotKey(parseHotKey('h'));
+    menuCheckLockStops->remHotKey(parseHotKey('s'));
+    // data
+    menuCheckLockEdgeDatas->remHotKey(parseHotKey('e'));
+    menuCheckLockEdgeRelDatas->remHotKey(parseHotKey('d'));
+    menuCheckLockEdgeTAZRels->remHotKey(parseHotKey('t'));
+}
+
 void
 GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     // first enable menu commands
@@ -1037,6 +1067,16 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockTAZs->enable();
     menuCheckLockPolygons->enable();
     menuCheckLockPOIs->enable();
+    // set accels
+    menuCheckLockJunction->addHotKey(parseHotKey('j'));
+    menuCheckLockEdges->addHotKey(parseHotKey('e'));
+    menuCheckLockLanes->addHotKey(parseHotKey('l'));
+    menuCheckLockConnections->addHotKey(parseHotKey('c'));
+    menuCheckLockCrossings->addHotKey(parseHotKey('r'));
+    menuCheckLockAdditionals->addHotKey(parseHotKey('a'));
+    menuCheckLockTAZs->addHotKey(parseHotKey('t'));
+    menuCheckLockPolygons->addHotKey(parseHotKey('p'));
+    menuCheckLockPOIs->addHotKey(parseHotKey('o'));
     // now show it
     menuCheckLockJunction->show();
     menuCheckLockEdges->show();
@@ -1088,6 +1128,17 @@ GNEApplicationWindowHelper::LockMenuCommands::showDemandLockMenuCommands() {
     menuCheckLockTransports->enable();
     menuCheckLockTranships->enable();
     menuCheckLockStops->enable();
+    // set accels
+    menuCheckLockRoutes->addHotKey(parseHotKey('r'));
+    menuCheckLockVehicles->addHotKey(parseHotKey('v'));
+    menuCheckLockPersons->addHotKey(parseHotKey('p'));
+    menuCheckLockPersonTrip->addHotKey(parseHotKey('t'));
+    menuCheckLockWalk->addHotKey(parseHotKey('w'));
+    menuCheckLockRides->addHotKey(parseHotKey('d'));
+    menuCheckLockContainers->addHotKey(parseHotKey('c'));
+    menuCheckLockTransports->addHotKey(parseHotKey('n'));
+    menuCheckLockTranships->addHotKey(parseHotKey('h'));
+    menuCheckLockStops->addHotKey(parseHotKey('s'));
     // now show it
     menuCheckLockRoutes->show();
     menuCheckLockVehicles->show();
@@ -1135,6 +1186,10 @@ GNEApplicationWindowHelper::LockMenuCommands::showDataLockMenuCommands() {
     menuCheckLockEdgeDatas->enable();
     menuCheckLockEdgeRelDatas->enable();
     menuCheckLockEdgeTAZRels->enable();
+    // set accels
+    menuCheckLockEdgeDatas->addHotKey(parseHotKey('e'));
+    menuCheckLockEdgeRelDatas->addHotKey(parseHotKey('d'));
+    menuCheckLockEdgeTAZRels->addHotKey(parseHotKey('t'));
     // now show it
     menuCheckLockEdgeDatas->show();
     menuCheckLockEdgeRelDatas->show();
@@ -1206,6 +1261,17 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockEdgeDatas->setCheck(FALSE);
     menuCheckLockEdgeRelDatas->setCheck(FALSE);
     menuCheckLockEdgeTAZRels->setCheck(FALSE);
+}
+
+
+FXHotKey 
+GNEApplicationWindowHelper::LockMenuCommands::parseHotKey(const FXwchar character) {
+    register FXuint code = 0, mods = 0;
+    if (Unicode::isAlphaNumeric(character)) {
+        mods = ALTMASK;
+        code = fxucs2keysym(Unicode::toLower(character));
+    }
+    return MKUINT(code, mods);
 }
 
 // ---------------------------------------------------------------------------

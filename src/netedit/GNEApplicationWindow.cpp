@@ -1146,7 +1146,7 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.buildOpenSUMOMenuCommands(myEditMenu);
     // build lock menu
     myLockMenu = new FXMenuPane(this);
-    myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Lock", nullptr, myLockMenu);
+    myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "L&ock", nullptr, myLockMenu);
     myLockMenuTitle->setTarget(this);
     myLockMenuTitle->setSelector(MID_GNE_LOCKMENUTITLE);
     // build lock menu commmands
@@ -3602,6 +3602,9 @@ GNEApplicationWindow::updateControls() {
 
 void
 GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
+    // remove lock hotkeys
+    myLockMenuCommands.removeHotkeys();
+    // check supermode
     if (supermode == Supermode::NETWORK) {
         // menu commands
         myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
