@@ -231,14 +231,14 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
-        /// @brief invert network elements
-        void invertNetworkElements();
+        /// @brief process network element selection
+        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect);
 
-        /// @brief invert demand elements
-        void invertDemandElements();
+        /// @brief process demand element selection
+        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect);
 
-        /// @brief invert data elements
-        void invertDataElements();
+        /// @brief process data element selection
+        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect);
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -318,9 +318,6 @@ private:
 
     /// @brief modul for selection operations
     SelectionOperation* mySelectionOperation;
-
-    /// @brief check if there is ACs to select/unselect
-    bool ACsToSelected() const;
 
     /// @brief Invalidated copy constructor.
     GNESelectorFrame(const GNESelectorFrame&) = delete;
