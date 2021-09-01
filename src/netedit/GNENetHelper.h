@@ -208,11 +208,39 @@ struct GNENetHelper {
         /// @brief add default VTypes
         void addDefaultVTypes();
 
-        /**/
+        /// @brief get number of selected routes
+        int getNumberOfSelectedRoutes();
+
+        /// @brief get number of selected vehicles
+        int getNumberOfSelectedVehicles();
+
+        /// @brief get number of selected persons
+        int getNumberOfSelectedPersons();
+
+        /// @brief get number of selected person trips
+        int getNumberOfSelectedPersonTrips();
+
+        /// @brief get number of selected walks
+        int getNumberOfSelectedWalks();
+
+        /// @brief get number of selected rides
+        int getNumberOfSelectedRides();
+
+        /// @brief get number of selected containers
+        int getNumberOfSelectedContainers();
+
+        /// @brief get number of selected transports
+        int getNumberOfSelectedTransport();
+
+        /// @brief get number of selected tranships
+        int getNumberOfSelectedTranships();
+
+        /// @brief get number of selected 
+        int getNumberOfSelectedStops();
 
         /// @}
 
-        /// @name function for demand elements
+        /// @name function for data sets
         /// @{
         /// @brief get demand elements
         const std::map<std::string, GNEDataSet*>& getDataSets() const;
@@ -222,7 +250,7 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name function for data Sets
+        /// @name function for generic datas
         /// @{
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);

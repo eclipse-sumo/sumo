@@ -465,6 +465,286 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
 }
 
 
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedRoutes() {
+    int counter = 0;
+    // iterate over routes
+    for (const auto &route : myDemandElements.at(SUMO_TAG_ROUTE)) {
+        if (route.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    // iterate over vehicles with embedded routes
+    for (const auto &vehicle : myDemandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+        if (vehicle.second->getChildDemandElements().front()->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &flow : myDemandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+        if (flow.second->getChildDemandElements().front()->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedVehicles() {
+    int counter = 0;
+    // iterate over all vehicles and flows
+    for (const auto &vehicle : myDemandElements.at(SUMO_TAG_VEHICLE)) {
+        if (vehicle.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &trip : myDemandElements.at(SUMO_TAG_TRIP)) {
+        if (trip.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &vehicle : myDemandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+        if (vehicle.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &flow : myDemandElements.at(SUMO_TAG_FLOW)) {
+        if (flow.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &flow : myDemandElements.at(GNE_TAG_FLOW_ROUTE)) {
+        if (flow.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &flow : myDemandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+        if (flow.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPersons() {
+    int counter = 0;
+    // iterate over all persons
+    for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
+        if (person.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &personFlow : myDemandElements.at(SUMO_TAG_PERSONFLOW)) {
+        if (personFlow.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedPersonTrips() {
+    int counter = 0;
+    // iterate over all person plans
+    for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
+        for (const auto &personPlan : person.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isPersonTrip() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &personFlow : myDemandElements.at(SUMO_TAG_PERSONFLOW)) {
+        for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isPersonTrip() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedWalks() {
+    int counter = 0;
+    // iterate over all person plans
+    for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
+        for (const auto &personPlan : person.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isWalk() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &personFlow : myDemandElements.at(SUMO_TAG_PERSONFLOW)) {
+        for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isWalk() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedRides() {
+    int counter = 0;
+    // iterate over all person plans
+    for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
+        for (const auto &personPlan : person.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isRide() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &personFlow : myDemandElements.at(SUMO_TAG_PERSONFLOW)) {
+        for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isRide() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedContainers() {
+    int counter = 0;
+    // iterate over all containers
+    for (const auto &container : myDemandElements.at(SUMO_TAG_CONTAINER)) {
+        if (container.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &containerFlow : myDemandElements.at(SUMO_TAG_CONTAINERFLOW)) {
+        if (containerFlow.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedTransport() {
+    int counter = 0;
+    // iterate over all container plans
+    for (const auto &container : myDemandElements.at(SUMO_TAG_CONTAINER)) {
+        for (const auto &containerPlan : container.second->getChildDemandElements()) {
+            if (containerPlan->getTagProperty().isTransportPlan() && containerPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &containerFlow : myDemandElements.at(SUMO_TAG_CONTAINERFLOW)) {
+        for (const auto &containerPlan : containerFlow.second->getChildDemandElements()) {
+            if (containerPlan->getTagProperty().isTransportPlan() && containerPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedTranships() {
+    int counter = 0;
+    // iterate over all container plans
+    for (const auto &container : myDemandElements.at(SUMO_TAG_CONTAINER)) {
+        for (const auto &containerPlan : container.second->getChildDemandElements()) {
+            if (containerPlan->getTagProperty().isTranshipPlan() && containerPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &containerFlow : myDemandElements.at(SUMO_TAG_CONTAINERFLOW)) {
+        for (const auto &containerPlan : containerFlow.second->getChildDemandElements()) {
+            if (containerPlan->getTagProperty().isTranshipPlan() && containerPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() {
+    int counter = 0;
+    // iterate over routes
+    for (const auto &route : myDemandElements.at(SUMO_TAG_ROUTE)) {
+        if (route.second->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    // vehicles
+    for (const auto &trip : myDemandElements.at(SUMO_TAG_TRIP)) {
+        for (const auto &stop : trip.second->getChildDemandElements()) {
+            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &vehicle : myDemandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+        for (const auto &stop : vehicle.second->getChildDemandElements().front()->getChildDemandElements()) {
+            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &flow : myDemandElements.at(SUMO_TAG_FLOW)) {
+        for (const auto &stop : flow.second->getChildDemandElements()) {
+            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &flow : myDemandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+        for (const auto &stop : flow.second->getChildDemandElements().front()->getChildDemandElements()) {
+            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    // persons
+    for (const auto &person : myDemandElements.at(SUMO_TAG_PERSON)) {
+        for (const auto &personPlan : person.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isStopPerson() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &personFlow : myDemandElements.at(SUMO_TAG_PERSONFLOW)) {
+        for (const auto &personPlan : personFlow.second->getChildDemandElements()) {
+            if (personPlan->getTagProperty().isStopPerson() && personPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    // containers
+    for (const auto &container : myDemandElements.at(SUMO_TAG_CONTAINER)) {
+        for (const auto &containerPlan : container.second->getChildDemandElements()) {
+            if (containerPlan->getTagProperty().isStopContainer() && containerPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    for (const auto &containerFlow : myDemandElements.at(SUMO_TAG_CONTAINERFLOW)) {
+        for (const auto &containerPlan : containerFlow.second->getChildDemandElements()) {
+            if (containerPlan->getTagProperty().isStopContainer() && containerPlan->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
 const std::map<std::string, GNEDataSet*>&
 GNENetHelper::AttributeCarriers::getDataSets() const {
     return myDataSets;
