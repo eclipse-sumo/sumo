@@ -3458,16 +3458,14 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     // fill myLockedElements objects
     myLockedElements[GLO_ROUTE] = OperationLocked(Supermode::DEMAND);
     myLockedElements[GLO_VEHICLE] = OperationLocked(Supermode::DEMAND);
-    myLockedElements[GLO_ROUTEFLOW] = OperationLocked(Supermode::DEMAND);
-    myLockedElements[GLO_TRIP] = OperationLocked(Supermode::DEMAND);
-    myLockedElements[GLO_FLOW] = OperationLocked(Supermode::DEMAND);
-    myLockedElements[GLO_STOP] = OperationLocked(Supermode::DEMAND);
     myLockedElements[GLO_PERSON] = OperationLocked(Supermode::DEMAND);
-    myLockedElements[GLO_PERSONFLOW] = OperationLocked(Supermode::DEMAND);
     myLockedElements[GLO_PERSONTRIP] = OperationLocked(Supermode::DEMAND);
     myLockedElements[GLO_RIDE] = OperationLocked(Supermode::DEMAND);
     myLockedElements[GLO_WALK] = OperationLocked(Supermode::DEMAND);
-    myLockedElements[GLO_STOP_PERSON] = OperationLocked(Supermode::DEMAND);
+    myLockedElements[GLO_CONTAINER] = OperationLocked(Supermode::DEMAND);
+    myLockedElements[GLO_TRANSPORT] = OperationLocked(Supermode::DEMAND);
+    myLockedElements[GLO_TRANSHIP] = OperationLocked(Supermode::DEMAND);
+    myLockedElements[GLO_STOP] = OperationLocked(Supermode::DEMAND);
     // fill myLockedElements objects
     myLockedElements[GLO_EDGEDATA] = OperationLocked(Supermode::DATA);
     myLockedElements[GLO_EDGERELDATA] = OperationLocked(Supermode::DATA);
@@ -3480,7 +3478,20 @@ GNEViewNetHelper::LockManager::~LockManager() {}
 
 bool
 GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType) const {
-    if ((objectType >= 100) && (objectType < 199)) {
+    if ((objectType >= GLO_ADDITIONALELEMENT) && (objectType <= GLO_ACCESS)) {
+        // additionals
+        return myLockedElements.at(GLO_ADDITIONALELEMENT).lock;
+    } else if ((objectType >= GLO_VEHICLE) && (objectType <= GLO_ROUTEFLOW)) {
+        // vehicles
+        return myLockedElements.at(GLO_VEHICLE).lock;
+    } else if ((objectType == GLO_PERSON) || (objectType == GLO_PERSONFLOW)) {
+        // persons
+        return myLockedElements.at(GLO_PERSON).lock;
+    } else if ((objectType == GLO_CONTAINER) || (objectType == GLO_CONTAINERFLOW)) {
+        // containers
+        return myLockedElements.at(GLO_PERSON).lock;
+    } else if ((objectType >= GLO_STOP) && (objectType <= GLO_STOP_CONTAINER)) {
+        // stops
         return myLockedElements.at(GLO_ADDITIONALELEMENT).lock;
     } else {
         return myLockedElements.at(objectType).lock;
