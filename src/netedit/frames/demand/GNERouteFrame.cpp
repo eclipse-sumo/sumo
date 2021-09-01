@@ -256,23 +256,27 @@ GNERouteFrame::createPath() {
     } else if (myPathCreator->getSelectedEdges().size() > 0) {
         // clear base object
         myRouteBaseObject->clear();
+        // set tag
+        myRouteBaseObject->setTag(SUMO_TAG_ROUTE);
         // obtain attributes
         myRouteAttributes->getAttributesAndValues(myRouteBaseObject, true);
         if (!myRouteBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
             myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE));
         }
-        // declare a route parameter
-        std::vector<GNEEdge*> edges;
+        // declare edge vector
+        std::vector<std::string> edges;
         for (const auto& path : myPathCreator->getPath()) {
             for (const auto& edgeID : path.getSubPath()) {
                 // get edge
                 GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID->getID());
                 // avoid double edges
-                if (edges.empty() || (edges.back() != edge)) {
-                    edges.push_back(edge);
+                if (edges.empty() || (edges.back() != edge->getID())) {
+                    edges.push_back(edge->getID());
                 }
             }
         }
+        // set edges in route base object
+        myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         // creare route
         myRouteHandler.parseSumoBaseObject(myRouteBaseObject);
         // abort path creation
