@@ -22,3 +22,7 @@ Solution
 git rm --cached -r .
 git reset --hard
 ```
+
+## Plot number of issues over time
+
+https://sumo.dlr.de/ghis/
