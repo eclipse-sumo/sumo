@@ -120,6 +120,9 @@ public:
         /// @brief get current definition
         NBTrafficLightDefinition* getCurrentTLSDefinition() const;
 
+        /// @brief get current program ID
+        const std::string getCurrentTLSProgramID() const;
+
         /// @brief get current offset in SUMOTIme
         SUMOTime getOffset() const;
 
