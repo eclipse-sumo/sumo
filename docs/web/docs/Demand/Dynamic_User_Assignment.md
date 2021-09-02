@@ -93,19 +93,19 @@ to compute these probabilities:
 
 #### Number of Routes in each traveller's route set
 
-The maximum number of routes can be defined by users, where 5 is the default value. In each iteration, the route usage probability is calcuated for each route. When the number of routes is larger than the defined amount, routes with less probabilities are removed.
+The maximum number of routes can be defined by users, where 5 is the default value. In each iteration, the route usage probability is calculated for each route. When the number of routes is larger than the defined amount, routes with smallest probabilities are removed.
 
 #### Updates of Travel Time
 
-The update rule is explained with the following example. Driver d chooses Route r in Iteration i. The travel time T_d_i(r) is calculated according to the aggreated and averaged link travel times per defined interval (default: 900 s) in Iteration i. The travel time for Driver d's Route r in the next iteration i+1 equals to T_d_i(r) as indicated in Formula (1). The travel times of the other routes in Driver d's route set are then updated with Formula (2) respectively, where T_g_i(s) is the travel time needed to travel on Route s in Iteration i and calcuated with the same way used for calculating T_d_i(r) an T_d_i-1(s). The parameter beta is to prevent travellers from strongly "remembering" the latest trave time of each route in their route sets. The current default value for beta is 0.05.
+The update rule is explained with the following example. Driver d chooses Route r in Iteration i. The travel time Tau_d(r, i+1) is calculated according to the aggregated and averaged link travel times per defined interval (default: 900 s) in Iteration i. The travel time for Driver d's Route r in Iteration i+1 equals to Tau_d(r, i) as indicated in Formula (1). The travel times of the other routes in Driver d's route set are then updated with Formula (2) respectively, where Tau_d(s, i) is the travel time needed to travel on Route s in Iteration i and calculated with the same way used for calculating Tau_d(r, i) an T_d(s, i-1). The parameter beta is to prevent travellers from strongly "remembering" the latest trave time of each route in their route sets. The current default value for beta is 0.3.
  
-T_d_i+1(r) = T_d_i(r) ------------------------------------(1)
+T_d(r, i+1) = Tau_d(r, i) ------------------------------------(1)
   
-T_d_i+1(s) = beta * T_g_i(s) + (1 - beta) * T_d_i-1(s) ---(2)
+T_d(s, i+1) = beta * Tau_d(s, i) + (1 - beta) * T_d(s, i-1) ---(2)
 
 , where s is one of the routes, which are not selected to use in Iteration i, in Driver d's route set.
 
-The aforementioned update rules also apply when other travel cost units are used. The way to use simulated link costs for calcuating route costs may result in cost underestimation especially when significant congestion only on one of traffic movenents (e.g. left-turn or right-turn) exists. The existing Ticket 2566 deals with this issue.
+The aforementioned update rules also apply when other travel cost units are used. The way to use simulated link costs for calcuating route costs may result in cost underestimation especially when significant congestion only on one of traffic movenents (e.g. left-turn or right-turn) exists. The existing ticket #2566 deals with this issue. In Formula (1), it is also possible to use Driver d's actual travel cost in Iteration i as Tau_d(r, i).
 
 ### Logit
 
