@@ -186,10 +186,10 @@ private:
     static bool handleBooleanError(const bool hardFail, const std::string& message);
 
     /// @brief handle error loading SUMOVehicleParameter
-    static SUMOVehicleParameter* handleVehicleError(const bool hardFail, const std::string& message);
+    static SUMOVehicleParameter* handleVehicleError(const bool hardFail, SUMOVehicleParameter* vehicleParameter, const std::string& message);
 
     /// @brief handle error loading SUMOVTypeParameter
-    static SUMOVTypeParameter* handleVehicleTypeError(const bool hardFail, const std::string& message);
+    static SUMOVTypeParameter* handleVehicleTypeError(const bool hardFail, SUMOVTypeParameter* vehicleTypeParameter, const std::string& message);
 
     /// @brief Car-Following attributes map
     typedef std::map<SumoXMLTag, std::set<SumoXMLAttr> > CFAttrMap;
