@@ -138,7 +138,7 @@ MEVehicle::getConservativeSpeed(SUMOTime& earliestArrival) const {
 bool
 MEVehicle::moveRoutePointer() {
     // vehicle has just entered a new edge. Position is 0
-    if (myCurrEdge == myRoute->end() - 1) { // may happen during teleport
+    if (myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge)) { // may happen during teleport
         return true;
     }
     ++myCurrEdge;
@@ -156,7 +156,7 @@ MEVehicle::moveRoutePointer() {
 bool
 MEVehicle::hasArrived() const {
     // mySegment may be 0 due to teleporting or arrival
-    return myCurrEdge == myRoute->end() - 1 && (
+    return (myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge)) && (
                (mySegment == nullptr)
                || myEventTime == SUMOTime_MIN
                || getPositionOnLane() > myArrivalPos - POSITION_EPS);

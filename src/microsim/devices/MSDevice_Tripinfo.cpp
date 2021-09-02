@@ -294,9 +294,10 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     }
     os.writeAttr("departSpeed", myDepartSpeed);
     SUMOTime departDelay = myHolder.getDepartDelay();
+    const SUMOVehicleParameter& param = myHolder.getParameter();
     if (!myHolder.hasDeparted()) {
-        assert(myHolder.getParameter().depart <= SIMSTEP || myHolder.getParameter().departProcedure != DEPART_GIVEN);
-        departDelay = SIMSTEP - myHolder.getParameter().depart;
+        assert(param.depart <= SIMSTEP || param.departProcedure != DEPART_GIVEN);
+        departDelay = SIMSTEP - param.depart;
     }
     os.writeAttr("departDelay", time2string(departDelay));
     os.writeAttr("arrival", time2string(myArrivalTime));
@@ -337,8 +338,13 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
             vaporized = "teleport";
             break;
         default:
-            vaporized = (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "end");
-
+            if (myHolder.getEdge() == myHolder.getRoute().getLastEdge() ||
+                (param.arrivalEdge >= 0 && myHolder.getRoutePosition() >= param.arrivalEdge)) {
+                vaporized = "";
+            } else {
+                vaporized = "end";
+            }
+            break;
     }
     os.writeAttr("vaporized", vaporized);
     // cannot close tag because emission device output might follow

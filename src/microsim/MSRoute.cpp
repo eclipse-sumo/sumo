@@ -86,7 +86,7 @@ MSRoute::size() const {
 const MSEdge*
 MSRoute::getLastEdge() const {
     assert(myEdges.size() > 0);
-    return myEdges[myEdges.size() - 1];
+    return myEdges.back();
 }
 
 
