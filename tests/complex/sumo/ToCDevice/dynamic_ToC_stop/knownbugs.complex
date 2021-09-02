@@ -1,0 +1,7 @@
+
+[Reported by schwamborn at 02Sep18:04:35]
+search_string:DYNTOR
+search_file:tocs
+trigger_on_success:1
+full_description:dynamic ToC triggered despite stop present on vehicle's lane continuation
+brief_description:see #8973
