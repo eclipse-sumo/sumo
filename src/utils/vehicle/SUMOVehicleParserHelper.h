@@ -182,8 +182,14 @@ private:
      */
     static void parseCommonAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, SUMOVehicleParameter* ret, std::string element);
 
+    /// @brief handle conditional errors
+    static bool handleBooleanError(const bool hardFail, const std::string& message);
+
     /// @brief handle error loading SUMOVehicleParameter
-    static SUMOVehicleParameter* handleError(const bool hardFail, const std::string& message);
+    static SUMOVehicleParameter* handleVehicleError(const bool hardFail, const std::string& message);
+
+    /// @brief handle error loading SUMOVTypeParameter
+    static SUMOVTypeParameter* handleVehicleTypeError(const bool hardFail, const std::string& message);
 
     /// @brief Car-Following attributes map
     typedef std::map<SumoXMLTag, std::set<SumoXMLAttr> > CFAttrMap;
