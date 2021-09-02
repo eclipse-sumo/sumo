@@ -27,6 +27,15 @@
     <polygonType id="aerialway"               name="aerialway"   color=".20,.20,.20" layer="-2"/>
     <polygonType id="highway.services"        name="services"    color=".93,.78,1.0" layer="-2"/>
 
+    <!-- some amenities describe areas rather than buildings and require a lower layer -->
+    <polygonType id="amenity.kindergarten"       name="kindergarten"       color=".93,.78,.78" layer="-2"/>
+    <polygonType id="amenity.school"             name="school"             color=".93,.78,.78" layer="-2"/>
+    <polygonType id="amenity.college"            name="college"            color=".93,.78,.78" layer="-2"/>
+    <polygonType id="amenity.university"         name="university"         color=".93,.78,.78" layer="-2"/>
+    <polygonType id="amenity.clinic"             name="clinic"             color=".93,.78,.78" layer="-2"/>
+    <polygonType id="amenity.research_institute" name="research_institute" color=".93,.78,.78" layer="-2"/>
+    <polygonType id="amenity.graveyard"          name="graveyard"          color=".93,.78,.78" layer="-2"/>
+
     <polygonType id="shop"                    name="shop"        color=".93,.78,1.0" layer="-1"/>
     <polygonType id="historic"                name="historic"    color=".50,1.0,.50" layer="-1"/>
     <polygonType id="man_made"                name="man_made"    color="1.0,.90,.90" layer="-1"/>
