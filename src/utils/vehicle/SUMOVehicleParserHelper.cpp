@@ -398,178 +398,275 @@ SUMOVehicleParserHelper::parseID(const SUMOSAXAttributes& attrs, const SumoXMLTa
 void
 SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, SUMOVehicleParameter* ret, std::string element) {
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
-    bool ok = true;
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-        ret->parametersSet |= VEHPARS_ROUTE_SET; // !!! needed?
+        bool ok = true;
         ret->routeid = attrs.get<std::string>(SUMO_ATTR_ROUTE, ret->id.c_str(), ok);
+        if (ok) {
+            ret->parametersSet |= VEHPARS_ROUTE_SET; // !!! needed?
+        } else {
+            handleVehicleError(hardFail, "");
+        }
     }
     // parse type information
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        ret->parametersSet |= VEHPARS_VTYPE_SET; // !!! needed?
+        bool ok = true;
         ret->vtypeid = attrs.get<std::string>(SUMO_ATTR_TYPE, ret->id.c_str(), ok);
+        if (ok) {
+            ret->parametersSet |= VEHPARS_VTYPE_SET; // !!! needed?
+        } else {
+            handleVehicleError(hardFail, "");
+        }
     }
     // parse line information
     if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
-        ret->parametersSet |= VEHPARS_LINE_SET; // !!! needed?
+        bool ok = true;
         ret->line = attrs.get<std::string>(SUMO_ATTR_LINE, ret->id.c_str(), ok);
+        if (ok) {
+            ret->parametersSet |= VEHPARS_LINE_SET; // !!! needed?
+        } else {
+            handleVehicleError(hardFail, "");
+        }
     }
     // parse zone information
     if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
-        ret->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        bool ok = true;
         ret->fromTaz = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, ret->id.c_str(), ok);
+        if (ok) {
+            ret->parametersSet |= VEHPARS_FROM_TAZ_SET;
+        } else {
+            handleVehicleError(hardFail, "");
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
-        ret->parametersSet |= VEHPARS_TO_TAZ_SET;
+        bool ok = true;
         ret->toTaz = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, ret->id.c_str(), ok);
+        if (ok) {
+            ret->parametersSet |= VEHPARS_TO_TAZ_SET;
+        } else {
+            handleVehicleError(hardFail, "");
+        }
     }
     // parse reroute information
-    if (attrs.getOpt<bool>(SUMO_ATTR_REROUTE, nullptr, ok, false)) {
-        ret->parametersSet |= VEHPARS_FORCE_REROUTE;
+    if (attrs.hasAttribute(SUMO_ATTR_REROUTE)) {
+        bool ok = true;
+        if (attrs.get<bool>(SUMO_ATTR_REROUTE, nullptr, ok)) {
+            if (ok) {
+                handleVehicleError(hardFail, "");
+            } else {
+                ret->parametersSet |= VEHPARS_FORCE_REROUTE;
+            }
+        }
     }
-
-    std::string error;
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
-        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
-        int lane;
-        DepartLaneDefinition dld;
-        if (SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, lane, dld, error)) {
-            ret->parametersSet |= VEHPARS_DEPARTLANE_SET;
-            ret->departLane = lane;
-            ret->departLaneProcedure = dld;
+        bool ok = true;
+        const std::string departLaneStr = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            int lane;
+            DepartLaneDefinition dld;
+            std::string error;
+            if (SUMOVehicleParameter::parseDepartLane(departLaneStr, element, ret->id, lane, dld, error)) {
+                ret->parametersSet |= VEHPARS_DEPARTLANE_SET;
+                ret->departLane = lane;
+                ret->departLaneProcedure = dld;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, ret->id.c_str(), ok);
-        double pos;
-        DepartPosDefinition dpd;
-        if (SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, pos, dpd, error)) {
-            ret->parametersSet |= VEHPARS_DEPARTPOS_SET;
-            ret->departPos = pos;
-            ret->departPosProcedure = dpd;
+        bool ok = true;
+        const std::string departPosStr = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            double pos;
+            DepartPosDefinition dpd;
+            std::string error;
+            if (SUMOVehicleParameter::parseDepartPos(departPosStr, element, ret->id, pos, dpd, error)) {
+                ret->parametersSet |= VEHPARS_DEPARTPOS_SET;
+                ret->departPos = pos;
+                ret->departPosProcedure = dpd;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse lateral depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS_LAT)) {
-        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS_LAT, ret->id.c_str(), ok);
-        double pos;
-        DepartPosLatDefinition dpd;
-        if (SUMOVehicleParameter::parseDepartPosLat(helper, element, ret->id, pos, dpd, error)) {
-            ret->parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
-            ret->departPosLat = pos;
-            ret->departPosLatProcedure = dpd;
+        bool ok = true;
+        const std::string departPosLatStr = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS_LAT, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            double pos;
+            DepartPosLatDefinition dpd;
+            std::string error;
+            if (SUMOVehicleParameter::parseDepartPosLat(departPosLatStr, element, ret->id, pos, dpd, error)) {
+                ret->parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
+                ret->departPosLat = pos;
+                ret->departPosLatProcedure = dpd;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse depart speed information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTSPEED, ret->id.c_str(), ok);
-        double speed;
-        DepartSpeedDefinition dsd;
-        if (SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, speed, dsd, error)) {
-            ret->parametersSet |= VEHPARS_DEPARTSPEED_SET;
-            ret->departSpeed = speed;
-            ret->departSpeedProcedure = dsd;
+        bool ok = true;
+        const std::string departSpeed = attrs.get<std::string>(SUMO_ATTR_DEPARTSPEED, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            double speed;
+            DepartSpeedDefinition dsd;
+            std::string error;
+            if (SUMOVehicleParameter::parseDepartSpeed(departSpeed, element, ret->id, speed, dsd, error)) {
+                ret->parametersSet |= VEHPARS_DEPARTSPEED_SET;
+                ret->departSpeed = speed;
+                ret->departSpeedProcedure = dsd;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse depart edge information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTEDGE)) {
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTEDGE, ret->id.c_str(), ok);
-        int edgeIndex;
-        RouteIndexDefinition rid;
-        if (SUMOVehicleParameter::parseRouteIndex(helper, element, ret->id, SUMO_ATTR_DEPARTEDGE, edgeIndex, rid, error)) {
-            ret->parametersSet |= VEHPARS_DEPARTEDGE_SET;
-            ret->departEdge = edgeIndex;
-            ret->departEdgeProcedure = rid;
+        bool ok = true;
+        const std::string departEdgeStr = attrs.get<std::string>(SUMO_ATTR_DEPARTEDGE, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            int edgeIndex;
+            RouteIndexDefinition rid;
+            std::string error;
+            if (SUMOVehicleParameter::parseRouteIndex(departEdgeStr, element, ret->id, SUMO_ATTR_DEPARTEDGE, edgeIndex, rid, error)) {
+                ret->parametersSet |= VEHPARS_DEPARTEDGE_SET;
+                ret->departEdge = edgeIndex;
+                ret->departEdgeProcedure = rid;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse arrival lane information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, ret->id.c_str(), ok);
-        int lane;
-        ArrivalLaneDefinition ald;
-        if (SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, lane, ald, error)) {
-            ret->parametersSet |= VEHPARS_ARRIVALLANE_SET;
-            ret->arrivalLane = lane;
-            ret->arrivalLaneProcedure = ald;
+        bool ok = true;
+        const std::string arrivalLaneStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            int lane;
+            ArrivalLaneDefinition ald;
+            std::string error;
+            if (SUMOVehicleParameter::parseArrivalLane(arrivalLaneStr, element, ret->id, lane, ald, error)) {
+                ret->parametersSet |= VEHPARS_ARRIVALLANE_SET;
+                ret->arrivalLane = lane;
+                ret->arrivalLaneProcedure = ald;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, ret->id.c_str(), ok);
-        double pos;
-        ArrivalPosDefinition apd;
-        if (SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, pos, apd, error)) {
-            ret->parametersSet |= VEHPARS_ARRIVALPOS_SET;
-            ret->arrivalPos = pos;
-            ret->arrivalPosProcedure = apd;
+        bool ok = true;
+        const std::string arrivalPosStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            double pos;
+            ArrivalPosDefinition apd;
+            std::string error;
+            if (SUMOVehicleParameter::parseArrivalPos(arrivalPosStr, element, ret->id, pos, apd, error)) {
+                ret->parametersSet |= VEHPARS_ARRIVALPOS_SET;
+                ret->arrivalPos = pos;
+                ret->arrivalPosProcedure = apd;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse lateral arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_LAT)) {
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, ret->id.c_str(), ok);
-        double pos;
-        ArrivalPosLatDefinition apd;
-        if (SUMOVehicleParameter::parseArrivalPosLat(helper, element, ret->id, pos, apd, error)) {
-            ret->parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
-            ret->arrivalPosLat = pos;
-            ret->arrivalPosLatProcedure = apd;
+        bool ok = true;
+        const std::string arrivalPosLatStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            double pos;
+            ArrivalPosLatDefinition apd;
+            std::string error;
+            if (SUMOVehicleParameter::parseArrivalPosLat(arrivalPosLatStr, element, ret->id, pos, apd, error)) {
+                ret->parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
+                ret->arrivalPosLat = pos;
+                ret->arrivalPosLatProcedure = apd;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse arrival speed information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALSPEED, ret->id.c_str(), ok);
-        double speed;
-        ArrivalSpeedDefinition asd;
-        if (SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, speed, asd, error)) {
-            ret->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
-            ret->arrivalSpeed = speed;
-            ret->arrivalSpeedProcedure = asd;
+        bool ok = true;
+        std::string arrivalSpeedStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALSPEED, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            double speed;
+            ArrivalSpeedDefinition asd;
+            std::string error;
+            if (SUMOVehicleParameter::parseArrivalSpeed(arrivalSpeedStr, element, ret->id, speed, asd, error)) {
+                ret->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
+                ret->arrivalSpeed = speed;
+                ret->arrivalSpeedProcedure = asd;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse arrival edge information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALEDGE)) {
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALEDGE, ret->id.c_str(), ok);
-        int edgeIndex;
-        RouteIndexDefinition rid;
-        if (SUMOVehicleParameter::parseRouteIndex(helper, element, ret->id, SUMO_ATTR_ARRIVALEDGE, edgeIndex, rid, error)) {
-            ret->parametersSet |= VEHPARS_ARRIVALEDGE_SET;
-            ret->arrivalEdge = edgeIndex;
-            ret->arrivalEdgeProcedure = rid;
+        bool ok = true;
+        std::string arrivalEdgeStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALEDGE, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(hardFail, "");
         } else {
-            handleVehicleError(hardFail, error);
+            int edgeIndex;
+            RouteIndexDefinition rid;
+            std::string error;
+            if (SUMOVehicleParameter::parseRouteIndex(arrivalEdgeStr, element, ret->id, SUMO_ATTR_ARRIVALEDGE, edgeIndex, rid, error)) {
+                ret->parametersSet |= VEHPARS_ARRIVALEDGE_SET;
+                ret->arrivalEdge = edgeIndex;
+                ret->arrivalEdgeProcedure = rid;
+            } else {
+                handleVehicleError(hardFail, error);
+            }
         }
     }
     // parse color
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        ret->parametersSet |= VEHPARS_COLOR_SET;
+        bool ok = true;
         ret->color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, ret->id.c_str(), ok);
+        if (ok) {
+            ret->parametersSet |= VEHPARS_COLOR_SET;
+        } else {
+            handleVehicleError(hardFail, "");
+        }
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
     // parse person number
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
+        bool ok = true;
         int personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, ret->id.c_str(), ok);
-        if (personNumber >= 0) {
+        if (!ok) {
+            handleVehicleError(hardFail, "");
+        } else if (personNumber >= 0) {
             ret->parametersSet |= VEHPARS_PERSON_NUMBER_SET;
             ret->personNumber = personNumber;
         } else {
@@ -578,8 +675,11 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
     }
     // parse container number
     if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_NUMBER)) {
+        bool ok = true;
         int containerNumber = attrs.get<int>(SUMO_ATTR_CONTAINER_NUMBER, ret->id.c_str(), ok);
-        if (containerNumber >= 0) {
+        if (!ok) {
+            handleVehicleError(hardFail, "");
+        } else if (containerNumber >= 0) {
             ret->parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
             ret->containerNumber = containerNumber;
         } else {
@@ -588,8 +688,11 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
     }
     // parse individual speedFactor
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
+        bool ok = true;
         double speedFactor = attrs.get<double>(SUMO_ATTR_SPEEDFACTOR, ret->id.c_str(), ok);
-        if (speedFactor > 0) {
+        if (!ok) {
+            handleVehicleError(hardFail, "");
+        } else if (speedFactor > 0) {
             ret->parametersSet |= VEHPARS_SPEEDFACTOR_SET;
             ret->speedFactor = speedFactor;
         } else {
