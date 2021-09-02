@@ -136,11 +136,15 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
 
 
 bool
-MSDevice_Transportable::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Transportable::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
         }
+    }
+    if (MSGlobals::gUseMesoSim) {
+        // to trigger vehicle leaving
+        notifyMove(veh, -1., -1., -1.);
     }
     return true;
 }

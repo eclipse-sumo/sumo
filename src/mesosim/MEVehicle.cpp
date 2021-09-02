@@ -239,7 +239,7 @@ MEVehicle::checkStop(SUMOTime time) {
                                getID(), mySegment->getID(), time2string(time));
             }
         }
-        if (stop.triggered || stop.containerTriggered) {
+        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             MSNet* const net = MSNet::getInstance();
             bool wait = true;
             SUMOTime dummy = -1; // boarding- and loading-time are not considered
@@ -276,7 +276,7 @@ MEVehicle::resumeFromStopping() {
         SUMOVehicleParameter::Stop pars = stop.pars;
 //        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.emplace_back(pars);
-        if (stop.triggered || stop.containerTriggered) {
+        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
         }
         myStops.pop_front();
@@ -341,17 +341,27 @@ MEVehicle::mayProceed() {
     }
     MSNet* const net = MSNet::getInstance();
     SUMOTime dummy = -1; // boarding- and loading-time are not considered
-    for (const MSStop& stop : myStops) {
+    for (MSStop& stop : myStops) {
         if (!stop.reached) {
             break;
         }
         if (stop.triggered) {
-            if (!net->hasPersons() || !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+            if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
+                // we could not check this on entering the segment because there may be persons who still want to leave
+                WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                stop.triggered = false;
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+            } else if (!net->hasPersons() || !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
                 return false;
             }
         }
         if (stop.containerTriggered) {
-            if (!net->hasContainers() || !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+            if (getVehicleType().getContainerCapacity() == getContainerNumber()) {
+                // we could not check this on entering the segment because there may be containers who still want to leave
+                WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                stop.containerTriggered = false;
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+            } else if (!net->hasContainers() || !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
                 return false;
             }
         }
