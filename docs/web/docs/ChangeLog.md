@@ -26,6 +26,7 @@ title: ChangeLog
   - Flows with embedded route can now be loaded. Issue #8966
   - Fixed lost elements when loading personFlow. Issue #7732
   - Vehicles with embedded routes can now load parameters. Issue #7509
+  - Copying one of several traffic light programs now copies the correct one. Issue #7963
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -54,7 +55,7 @@ title: ChangeLog
   - Removing and reinserting a vehicle in the same step is now working. Issue #5647
   - traci.vehicle.getLeader can no longer return -inf when the leader is on an intersection. Issue #9001
   - Fixed problems related to complex types returned from libsumo in java. Issue #7204
-  - Fixed invalid result of vehicle.getDistance after moveToXY. Issue #9050
+  - Fixed invalid result of vehicle.getDistance after vehicle.moveToXY, and vehicle.moveTo. Issue #9050, #8778
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -68,6 +69,7 @@ title: ChangeLog
 
 - simulation
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
+  - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
