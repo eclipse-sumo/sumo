@@ -314,44 +314,58 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
 
 SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart) {
-    bool ok = true;
-    std::string id, errorMsg;
+    // declare vehicle ID
+    std::string id;
     // for certain vehicles, ID can be optional
     if (optionalID) {
+        bool ok = true;
         id = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
+        if (!ok) {
+            return handleVehicleError(hardFail, "");
+        }
     } else {
         // parse ID
         id = parseID(attrs, (SumoXMLTag)element);
     }
     // only continue if id is valid, or if is optional
     if (optionalID || !id.empty()) {
-        SUMOVehicleParameter* ret = new SUMOVehicleParameter();
-        ret->id = id;
+        // declare vehicle parameter
+        SUMOVehicleParameter* vehicleParameter = new SUMOVehicleParameter();
+        vehicleParameter->id = id;
         if (element == SUMO_TAG_PERSON) {
-            ret->vtypeid = DEFAULT_PEDTYPE_ID;
+            vehicleParameter->vtypeid = DEFAULT_PEDTYPE_ID;
         } else if (element == SUMO_TAG_CONTAINER) {
-            ret->vtypeid = DEFAULT_CONTAINERTYPE_ID;
+            vehicleParameter->vtypeid = DEFAULT_CONTAINERTYPE_ID;
         }
         // parse common attributes
         try {
-            parseCommonAttributes(attrs, hardFail, ret, "vehicle");
-            // special check for depart
-            if (!skipDepart) {
-                const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPART, ret->id.c_str(), ok);
-                if (!ok || !SUMOVehicleParameter::parseDepart(helper, "vehicle", ret->id, ret->depart, ret->departProcedure, errorMsg)) {
-                    // delete vehicle and handle error
-                    delete ret;
-                    return handleVehicleError(hardFail, errorMsg);
-                }
-            }
+            parseCommonAttributes(attrs, hardFail, vehicleParameter, "vehicle");
         } catch (ProcessError&) {
             // delete vehicle and handle error
-            delete ret;
-            return handleVehicleError(hardFail, errorMsg);
+            delete vehicleParameter;
+            return handleVehicleError(hardFail, "");
+        }
+        // check depart
+        if (!skipDepart) {
+            bool ok = true;
+            const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPART, vehicleParameter->id.c_str(), ok);
+            if (!ok) {
+                // delete vehicle and handle error
+                delete vehicleParameter;
+                return handleVehicleError(hardFail, "");
+            }
+            // now parse depart
+            std::string departErrorMsg;
+            if (!SUMOVehicleParameter::parseDepart(helper, "vehicle", vehicleParameter->id, vehicleParameter->depart, vehicleParameter->departProcedure, departErrorMsg)) {
+                // delete vehicle and handle error
+                delete vehicleParameter;
+                return handleVehicleError(hardFail, departErrorMsg);
+            }
         }
         // set tag
-        ret->tag = (SumoXMLTag)element;
-        return ret;
+        vehicleParameter->tag = (SumoXMLTag)element;
+        // all ok, then return vehicleParameter
+        return vehicleParameter;
     } else {
         return handleVehicleError(hardFail, toString((SumoXMLTag)element) + " cannot be created");
     }
