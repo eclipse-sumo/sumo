@@ -141,6 +141,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                                    + toString(tag) + " '" + id + "'.");
             }
         }
+        // declare flow
         SUMOVehicleParameter* ret = new SUMOVehicleParameter();
         // set tag
         ret->tag = tag;
@@ -152,111 +153,144 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         if (tag == SUMO_TAG_CONTAINERFLOW) {
             ret->vtypeid = DEFAULT_CONTAINERTYPE_ID;
         }
+        // parse common vehicle attributes
         try {
             parseCommonAttributes(attrs, hardFail, ret, "flow");
         } catch (ProcessError&) {
+            // delete flow and return nullptr
             delete ret;
-            throw;
+            return nullptr;
         }
-        // parse repetition information
+        // parse period
         if (hasPeriod) {
             ret->parametersSet |= VEHPARS_PERIOD_SET;
-            ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            try {
+                ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
+            } catch (ProcessError&) {
+                // delete flow and return nullptr
+                delete ret;
+                return nullptr;
+            }
         }
+        // parse vehicle/person/container/etc per hour
         if (hasXPH) {
             ret->parametersSet |= VEHPARS_VPH_SET;
-            const double vph = attrs.get<double>(PERHOUR, id.c_str(), ok);
-            if (ok && vph <= 0) {
+            double vph = 0;
+            try {
+                vph = attrs.get<double>(PERHOUR, id.c_str(), ok);
+            } catch (ProcessError&) {
+                // delete flow and return nullptr
+                delete ret;
+                return nullptr;
+            }
+            if (vph <= 0) {
                 delete ret;
                 return handleError(hardFail, abortCreation,
-                                   "Invalid repetition rate in the definition of "
-                                   + toString(tag) + " '" + id + "'.");
+                                   "Invalid repetition rate in the definition of " + toString(tag) + " '" + id + "'.");
             }
-            if (ok && vph != 0) {
+            if (vph != 0) {
                 ret->repetitionOffset = TIME2STEPS(3600. / vph);
             }
         }
+        // parse probability
         if (hasProb) {
             ret->parametersSet |= VEHPARS_PROB_SET;
-            ret->repetitionProbability = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
-            if (ok && (ret->repetitionProbability <= 0 || ret->repetitionProbability > 1)) {
+            try {
+                ret->repetitionProbability = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
+            } catch (ProcessError&) {
+                // delete flow and return nullptr
                 delete ret;
-                return handleError(hardFail, abortCreation, "Invalid repetition probability in the definition of "
-                                   + toString(tag) + " '" + id + "'.");
+                return nullptr;
+            }
+            if (ret->repetitionProbability <= 0 || ret->repetitionProbability > 1) {
+                delete ret;
+                return handleError(hardFail, abortCreation, "Invalid repetition probability in the definition of " + toString(tag) + " '" + id + "'.");
             }
         }
+        // set default begin
         ret->depart = beginDefault;
+        // parse begin
         if (hasBegin) {
             std::string errorMsg;
             if (!SUMOVehicleParameter::parseDepart(attrs.get<std::string>(SUMO_ATTR_BEGIN, id.c_str(), ok),
                                                    toString(tag), id, ret->depart, ret->departProcedure, errorMsg, "begin")) {
-                if (hardFail) {
-                    abortCreation = true;
-                    throw ProcessError(errorMsg);
-                } else {
-                    delete ret;
-                    WRITE_ERROR(errorMsg);
-                    return nullptr;
-                }
+                // delete flow and handle error
+                delete ret;
+                return handleError(hardFail, abortCreation, errorMsg);
             }
         }
-        if (ok && ret->depart < 0) {
+        if (ret->depart < 0) {
+            // delete flow and return nullptr
             delete ret;
-            return handleError(hardFail, abortCreation, "Negative begin time in the definition of "
-                               + toString(tag) + " '" + id + "'.");
+            return handleError(hardFail, abortCreation, "Negative begin time in the definition of " + toString(tag) + " '" + id + "'.");
         }
+        // set default end
         ret->repetitionEnd = endDefault;
         if (ret->repetitionEnd < 0) {
             ret->repetitionEnd = SUMOTime_MAX;
         }
+        // parse end
         if (hasEnd) {
-            ret->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
+            try {
+                ret->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
+            } catch (ProcessError&) {
+                // delete flow and return nullptr
+                delete ret;
+                return nullptr;
+            }
             ret->parametersSet |= VEHPARS_END_SET;
         } else if (ret->departProcedure == DEPART_TRIGGERED) {
             if (!hasNumber) {
+                // delete flow and handle error
+                delete ret;
                 return handleError(hardFail, abortCreation, toString(tag) + " '" + id + "' with triggered begin must define 'number'.");
             }
             ret->repetitionEnd = ret->depart;
-        } else if ((endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)
-                   // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
-                   && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
-            WRITE_WARNING("Undefined end for "
-                          + toString(tag) + " '" + id + "', defaulting to 24hour duration.");
+        } else if ((endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0) && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) { // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
+            WRITE_WARNING("Undefined end for " + toString(tag) + " '" + id + "', defaulting to 24hour duration.");
             ret->repetitionEnd = ret->depart + TIME2STEPS(24 * 3600);
         }
-        if (ok && ret->repetitionEnd < ret->depart) {
+        if (ret->repetitionEnd < ret->depart) {
+            // delete flow and handle error
             delete ret;
             std::string flow = toString(tag);
             flow[0] = (char)::toupper((char)flow[0]);
             return handleError(hardFail, abortCreation, flow + " '" + id + "' ends before its begin time.");
         }
+        // parse number
         if (hasNumber) {
-            ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
+            try {
+                ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
+            } catch (ProcessError&) {
+                // delete flow and return nullptr
+                delete ret;
+                return nullptr;
+            }
             ret->parametersSet |= VEHPARS_NUMBER_SET;
             if (ret->repetitionNumber == 0) {
                 std::string flow = toString(tag);
                 flow[0] = (char)::toupper((char)flow[0]);
                 WRITE_WARNING(flow + " '" + id + "' has no instances; will skip it.");
             } else {
-                if (ok && ret->repetitionNumber < 0) {
+                if (ret->repetitionNumber < 0) {
+                    // delete flow and handle error
                     delete ret;
-                    return handleError(hardFail, abortCreation, "Negative repetition number in the definition of "
-                                       + toString(tag) + " '" + id + "'.");
+                    return handleError(hardFail, abortCreation, "Negative repetition number in the definition of " + toString(tag) + " '" + id + "'.");
                 }
-                if (ok && ret->repetitionOffset < 0) {
+                if (ret->repetitionOffset < 0) {
                     ret->repetitionOffset = (ret->repetitionEnd - ret->depart) / ret->repetitionNumber;
                 }
             }
             ret->repetitionEnd = ret->depart + ret->repetitionNumber * ret->repetitionOffset;
         } else {
             // interpret repetitionNumber
-            if (ok && ret->repetitionProbability > 0) {
+            if (ret->repetitionProbability > 0) {
                 ret->repetitionNumber = std::numeric_limits<int>::max();
             } else {
-                if (ok && ret->repetitionOffset <= 0) {
+                if (ret->repetitionOffset <= 0) {
+                    // delete flow and handle error
                     delete ret;
-                    return handleError(hardFail, abortCreation, "Invalid repetition rate in the definition of "
-                                       + toString(tag) + " '" + id + "'.");
+                    return handleError(hardFail, abortCreation, "Invalid repetition rate in the definition of " + toString(tag) + " '" + id + "'.");
                 }
                 if (ret->repetitionEnd == SUMOTime_MAX) {
                     ret->repetitionNumber = std::numeric_limits<int>::max();
@@ -265,10 +299,6 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                     ret->repetitionNumber = (int)ceil(repLength / ret->repetitionOffset);
                 }
             }
-        }
-        if (!ok) {
-            delete ret;
-            return handleError(hardFail, abortCreation, toString(tag) + " cannot be created");
         }
         return ret;
     } else {
