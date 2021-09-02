@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 140, 210)
 
 # Change parameter LatPosition with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyLatPosition", True)
+netedit.modifyAttribute(4, "dummyLatPosition", True)
 
 # Change parameter LatPosition with a valid value (negative)
-netedit.modifyAttribute(3, "-20", True)
+netedit.modifyAttribute(4, "-20", True)
 
 # Change parameter LatPosition with a valid value
-netedit.modifyAttribute(3, "15", True)
+netedit.modifyAttribute(4, "15", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

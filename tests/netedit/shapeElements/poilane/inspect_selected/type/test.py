@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 140, 210)
 
 # Change parameter type with a valid value
-netedit.modifyAttribute(3, "<<myOwnType>>", True)
+netedit.modifyAttribute(4, "<<myOwnType>>", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
