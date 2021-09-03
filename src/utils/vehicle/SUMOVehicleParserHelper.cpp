@@ -1051,9 +1051,9 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
         } else {
             try {
                 const int angle = StringUtils::toInt(pos.next());
-                const double t1 = StringUtils::toDouble(pos.next());
+                const SUMOTime t1 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
                 const SUMOTime steps1 = TIME2STEPS(t1);
-                const double t2 = StringUtils::toDouble(pos.next());
+                const SUMOTime t2 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
                 const SUMOTime steps2 = TIME2STEPS(t2);
                 angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(steps1, steps2))));
             } catch (...) {
