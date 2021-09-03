@@ -112,7 +112,7 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      */
-    static bool parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType = false);
+    static bool parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool fromVType = false);
 
     /// @brief Parses lane change model attributes
     static bool parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail);

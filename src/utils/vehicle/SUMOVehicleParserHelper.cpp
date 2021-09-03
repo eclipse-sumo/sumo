@@ -1019,7 +1019,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             }
         }
         // try to parse embedded vType
-        if (!parseVTypeEmbedded(vType, vType->cfModel, attrs, hardFail, true)) {
+        if (!parseVTypeEmbedded(vType, vType->cfModel, attrs, true)) {
             return handleVehicleTypeError(hardFail, vType, "Invalid parsing embedded VType");
         }
         // try to parse Lane Change Model params
@@ -1077,15 +1077,15 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
 
 
 bool
-SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType) {
+SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool fromVType) {
     const CFAttrMap& allowedCFM = getAllowedCFModelAttrs();
     CFAttrMap::const_iterator cf_it = allowedCFM.find(element);
     // check if given CFM is allowed
     if (cf_it == allowedCFM.end()) {
         if (SUMOXMLDefinitions::Tags.has((int)element)) {
-            return handleBooleanError(hardFail, "Unknown car following model " + toString(element) + " when parsing vType '" + into->id + "'");
+            WRITE_ERROR("Unknown car following model " + toString(element) + " when parsing vType '" + into->id + "'");
         } else {
-            return handleBooleanError(hardFail, "Unknown car following model when parsing vType '" + into->id + "'");
+            WRITE_ERROR("Unknown car following model when parsing vType '" + into->id + "'");
         }
         return false;
     }
@@ -1095,22 +1095,23 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const Sumo
         into->parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
     }
     // set CFM values
-    bool ok = true;
     for (const auto& it : cf_it->second) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
+            bool ok = true;
             std::string parsedCFMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
-            // check if attribute is of type "train"
-            if (it == SUMO_ATTR_TRAIN_TYPE) {
+            // check CFM Attribute
+            if (!ok) {
+                WRITE_ERROR("Invalid Car-Following-Attribute " + toString(it));
+                return false;
+            } else if (it == SUMO_ATTR_TRAIN_TYPE) {
                 // check if train value is valid
-                if (SUMOXMLDefinitions::TrainTypes.hasString(parsedCFMAttribute)) {
-                    // add parsedCFMAttribute to cfParameter
-                    into->cfParameter[it] = parsedCFMAttribute;
-                } else if (hardFail) {
-                    throw ProcessError("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
-                } else {
-                    WRITE_ERROR("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
+                if (!SUMOXMLDefinitions::TrainTypes.hasString(parsedCFMAttribute)) {
+                WRITE_ERROR("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
+                    return false;
                 }
+                // add parsedCFMAttribute to cfParameter
+                into->cfParameter[it] = parsedCFMAttribute;
             } else if (it == SUMO_ATTR_CF_IDM_STEPPING) {
                 // declare a int in wich save CFM int attribute
                 double CFMDoubleAttribute = -1;
@@ -1118,28 +1119,15 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const Sumo
                     // obtain CFM attribute in int format
                     CFMDoubleAttribute = StringUtils::toDouble(parsedCFMAttribute);
                 } catch (...) {
-                    ok = false;
-                    if (hardFail) {
-                        throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                    } else {
-                        WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                    }
+                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                    return false;
                 }
-                // now continue checking other properties
-                if (ok) {
-                    if (CFMDoubleAttribute <= 0) {
-                        ok = false;
-                        if (hardFail) {
-                            throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
-                        } else {
-                            WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
-                        }
-                    }
-                    if (ok) {
-                        // add parsedCFMAttribute to cfParameter
-                        into->cfParameter[it] = parsedCFMAttribute;
-                    }
+                if (CFMDoubleAttribute <= 0) {
+                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
+                    return false;
                 }
+                // add parsedCFMAttribute to cfParameter
+                into->cfParameter[it] = parsedCFMAttribute;
             } else {
                 // declare a double in wich save CFM float attribute
                 double CFMDoubleAttribute = -1;
@@ -1147,70 +1135,50 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const Sumo
                     // obtain CFM attribute in double format
                     CFMDoubleAttribute = StringUtils::toDouble(parsedCFMAttribute);
                 } catch (...) {
-                    ok = false;
-                    if (hardFail) {
-                        throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                    } else {
-                        WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                    }
-                    if (ok) {
-                        // add parsedCFMAttribute to cfParameter
-                        into->cfParameter[it] = parsedCFMAttribute;
-                    }
+                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                    return false;
                 }
-                // now continue checking other properties
-                if (ok) {
-                    // check attributes of type "positiveFloatType" (> 0)
-                    switch (it) {
-                        case SUMO_ATTR_ACCEL:
-                        case SUMO_ATTR_DECEL:
-                        case SUMO_ATTR_APPARENTDECEL:
-                        case SUMO_ATTR_EMERGENCYDECEL:
-                        case SUMO_ATTR_TAU:
-                            if (CFMDoubleAttribute <= 0) {
-                                ok = false;
-                                if (hardFail) {
-                                    throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
-                                } else {
-                                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    // check attributes restricted to [0-1]
-                    switch (it) {
-                        case SUMO_ATTR_SIGMA:
-                            if ((CFMDoubleAttribute < 0) || (CFMDoubleAttribute > 1)) {
-                                ok = false;
-                                if (hardFail) {
-                                    throw ProcessError("Invalid Car-Following-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
-                                } else {
-                                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    // special check for TAU attribute
-                    if (it == SUMO_ATTR_TAU) {
-                        // check tau in time format
-                        if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
-                            WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" +
-                                          toString(into->cfModel) + "' lower than simulation step size may cause collisions");
+                // check attributes of type "positiveFloatType" (> 0)
+                switch (it) {
+                    case SUMO_ATTR_ACCEL:
+                    case SUMO_ATTR_DECEL:
+                    case SUMO_ATTR_APPARENTDECEL:
+                    case SUMO_ATTR_EMERGENCYDECEL:
+                    case SUMO_ATTR_TAU:
+                        if (CFMDoubleAttribute <= 0) {
+                            WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
+                            return false;
                         }
-                    }
-                    if (ok) {
-                        // add parsedCFMAttribute to cfParameter
-                        into->cfParameter[it] = parsedCFMAttribute;
+                        break;
+                    default:
+                        break;
+                }
+                // check attributes restricted to [0-1]
+                switch (it) {
+                    case SUMO_ATTR_SIGMA:
+                        if ((CFMDoubleAttribute < 0) || (CFMDoubleAttribute > 1)) {
+                            WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
+                            return false;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                // special check for TAU attribute
+                if (it == SUMO_ATTR_TAU) {
+                    // check tau in time format
+                    if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
+                        WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" +
+                                        toString(into->cfModel) + "' lower than simulation step size may cause collisions");
                     }
                 }
+                // add parsedCFMAttribute to cfParameter
+                into->cfParameter[it] = parsedCFMAttribute;
             }
         }
     }
-    return ok;
+    // all CFM sucesfully parsed, then return true
+    return true;
 }
 
 
