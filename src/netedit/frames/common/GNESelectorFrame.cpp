@@ -412,29 +412,25 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         }
         // due we iterate over all junctions, only it's neccesary iterate over incoming edges
         for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
-            // only select edges if "select edges" flag is enabled. In other case, select only lanes
-            if (mySelectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
-                // check if edge selection is locked
-                if (!locks.isObjectLocked(GLO_EDGE)) {
+            // check if edge selection is locked
+            if (!locks.isObjectLocked(GLO_EDGE)) {
+                if (onlyCount) {
+                    return true;
+                } else if (onlyUnselect || incomingEdge->isAttributeCarrierSelected()) {
+                    incomingEdge->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                } else {
+                    incomingEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                }
+            }
+            // check if lane selection is locked
+            if (!locks.isObjectLocked(GLO_LANE)) {
+                for (const auto& lane : incomingEdge->getLanes()) {
                     if (onlyCount) {
                         return true;
-                    } else if (onlyUnselect || incomingEdge->isAttributeCarrierSelected()) {
-                        incomingEdge->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else if (onlyUnselect || lane->isAttributeCarrierSelected()) {
+                        lane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
-                        incomingEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            } else {
-                // check if lane selection is locked
-                if (!locks.isObjectLocked(GLO_LANE)) {
-                    for (const auto& lane : incomingEdge->getLanes()) {
-                        if (onlyCount) {
-                            return true;
-                        } else if (onlyUnselect || lane->isAttributeCarrierSelected()) {
-                            lane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                        } else {
-                            lane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                        }
+                        lane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
             }
