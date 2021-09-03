@@ -281,16 +281,18 @@ that are visible and have at least 1 free space according to the minimum
 weighted sum over a number of attributes. For invisible parkingAreas
 (attribute `visible="false"`, the occupancy value is a taken as a random number from
 \[0,capacity\[ which means they are always among the set of alternatives
-even when full. By default only the distance from the current vehicle
+even when full. Each attribute (i.e. occupancy, time, distance) is normalized to [0-1] with the maximum value of all candidate parkingAreas with positive remaining capacity) and inverted as necessary.
+
+By default only the distance from the current vehicle
 position to the new parking area is considered. The following table
 describes the weighting factors that can be customized using [generic
 parameters of the vehicle or its
 vType](../Simulation/GenericParameters.md):
+ 
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
 | --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
 | parking.probability.weight  | 0             | the influence of the *probability* attribute of the `parkingAreaReroute` | yes                        |
-| parking.capacity.weight     | 0             | The total capacity of the parking area                                   | yes                        |
 | parking.capacity.weight     | 0             | The total capacity of the parking area                                   | yes                        |
 | parking.absfreespace.weight | 0             | The absolute number of free spaces                                       | yes                        |
 | parking.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
