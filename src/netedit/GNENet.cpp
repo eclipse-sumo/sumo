@@ -687,9 +687,14 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
     }
     // restrict the lane
     if (addRestriction) {
-        const double width = (vclass == SVC_PEDESTRIAN || vclass == SVC_BICYCLE
-                              ? OptionsCont::getOptions().getFloat("default.sidewalk-width")
-                              : OptionsCont::getOptions().getFloat("default.lanewidth"));
+        double width;
+        if (vclass == SVC_PEDESTRIAN) {
+            width = OptionsCont::getOptions().getFloat("default.sidewalk-width");
+        } else if (vclass == SVC_BICYCLE) {
+            width = OptionsCont::getOptions().getFloat("default.bikelane-width");
+        } else {
+            width = OptionsCont::getOptions().getFloat("default.lanewidth");
+        }
         lane->setAttribute(SUMO_ATTR_ALLOW, toString(vclass), undoList);
         lane->setAttribute(SUMO_ATTR_WIDTH, toString(width), undoList);
         return true;
