@@ -1023,7 +1023,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             return handleVehicleTypeError(hardFail, vType, "Invalid parsing embedded VType");
         }
         // try to parse Lane Change Model params
-        if (!parseLCParams(vType, vType->lcModel, attrs, hardFail)) {
+        if (!parseLCParams(vType, vType->lcModel, attrs)) {
             return handleVehicleTypeError(hardFail, vType, "Invalid Lane Change Model Parameters");
         }
         // try to Junction Model params
@@ -1186,6 +1186,7 @@ const SUMOVehicleParserHelper::CFAttrMap&
 SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
     // init on first use
     if (allowedCFModelAttrs.size() == 0) {
+        // Krauss
         std::set<SumoXMLAttr> kraussParams;
         kraussParams.insert(SUMO_ATTR_ACCEL);
         kraussParams.insert(SUMO_ATTR_DECEL);
@@ -1197,7 +1198,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = kraussParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_PLUS_SLOPE] = kraussParams;
         std::set<SumoXMLAttr> allParams(kraussParams);
-
+        // KraussX
         std::set<SumoXMLAttr> kraussXParams(kraussParams);
         kraussXParams.insert(SUMO_ATTR_TMP1);
         kraussXParams.insert(SUMO_ATTR_TMP2);
@@ -1206,7 +1207,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         kraussXParams.insert(SUMO_ATTR_TMP5);
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSSX] = kraussXParams;
         allParams.insert(kraussXParams.begin(), kraussXParams.end());
-
+        // SmartSK
         std::set<SumoXMLAttr> smartSKParams;
         smartSKParams.insert(SUMO_ATTR_ACCEL);
         smartSKParams.insert(SUMO_ATTR_DECEL);
@@ -1221,7 +1222,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         smartSKParams.insert(SUMO_ATTR_TMP5);
         allowedCFModelAttrs[SUMO_TAG_CF_SMART_SK] = smartSKParams;
         allParams.insert(smartSKParams.begin(), smartSKParams.end());
-
+        // Daniel
         std::set<SumoXMLAttr> daniel1Params;
         daniel1Params.insert(SUMO_ATTR_ACCEL);
         daniel1Params.insert(SUMO_ATTR_DECEL);
@@ -1236,7 +1237,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         daniel1Params.insert(SUMO_ATTR_TMP5);
         allowedCFModelAttrs[SUMO_TAG_CF_DANIEL1] = daniel1Params;
         allParams.insert(daniel1Params.begin(), daniel1Params.end());
-
+        // Peter Wagner
         std::set<SumoXMLAttr> pwagParams;
         pwagParams.insert(SUMO_ATTR_ACCEL);
         pwagParams.insert(SUMO_ATTR_DECEL);
@@ -1248,7 +1249,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         pwagParams.insert(SUMO_ATTR_CF_PWAGNER2009_APPROB);
         allowedCFModelAttrs[SUMO_TAG_CF_PWAGNER2009] = pwagParams;
         allParams.insert(pwagParams.begin(), pwagParams.end());
-
+        // IDM params
         std::set<SumoXMLAttr> idmParams;
         idmParams.insert(SUMO_ATTR_ACCEL);
         idmParams.insert(SUMO_ATTR_DECEL);
@@ -1259,7 +1260,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         idmParams.insert(SUMO_ATTR_CF_IDM_STEPPING);
         allowedCFModelAttrs[SUMO_TAG_CF_IDM] = idmParams;
         allParams.insert(idmParams.begin(), idmParams.end());
-
+        // EIDM
         std::set<SumoXMLAttr> eidmParams;
         eidmParams.insert(SUMO_ATTR_ACCEL);
         eidmParams.insert(SUMO_ATTR_DECEL);
@@ -1285,7 +1286,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         eidmParams.insert(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW);
         allowedCFModelAttrs[SUMO_TAG_CF_EIDM] = eidmParams;
         allParams.insert(eidmParams.begin(), eidmParams.end());
-
+        // IDMM 
         std::set<SumoXMLAttr> idmmParams;
         idmmParams.insert(SUMO_ATTR_ACCEL);
         idmmParams.insert(SUMO_ATTR_DECEL);
@@ -1297,7 +1298,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         idmmParams.insert(SUMO_ATTR_CF_IDM_STEPPING);
         allowedCFModelAttrs[SUMO_TAG_CF_IDMM] = idmmParams;
         allParams.insert(idmmParams.begin(), idmmParams.end());
-
+        // Bieker
         std::set<SumoXMLAttr> bkernerParams;
         bkernerParams.insert(SUMO_ATTR_ACCEL);
         bkernerParams.insert(SUMO_ATTR_DECEL);
@@ -1308,7 +1309,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         bkernerParams.insert(SUMO_ATTR_CF_KERNER_PHI);
         allowedCFModelAttrs[SUMO_TAG_CF_BKERNER] = bkernerParams;
         allParams.insert(bkernerParams.begin(), bkernerParams.end());
-
+        // Wiedemann
         std::set<SumoXMLAttr> wiedemannParams;
         wiedemannParams.insert(SUMO_ATTR_ACCEL);
         wiedemannParams.insert(SUMO_ATTR_DECEL);
@@ -1318,7 +1319,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
         allowedCFModelAttrs[SUMO_TAG_CF_WIEDEMANN] = wiedemannParams;
         allParams.insert(wiedemannParams.begin(), wiedemannParams.end());
-
+        // W99
         std::set<SumoXMLAttr> w99Params;
         w99Params.insert(SUMO_ATTR_DECEL); // used when patching speed during lane-changing
         w99Params.insert(SUMO_ATTR_EMERGENCYDECEL);
@@ -1333,7 +1334,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         w99Params.insert(SUMO_ATTR_CF_W99_CC9);
         allowedCFModelAttrs[SUMO_TAG_CF_W99] = w99Params;
         allParams.insert(w99Params.begin(), w99Params.end());
-
+        // Rail
         std::set<SumoXMLAttr> railParams;
         railParams.insert(SUMO_ATTR_TRAIN_TYPE);
         railParams.insert(SUMO_ATTR_ACCEL);
@@ -1343,7 +1344,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         railParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
-
+        // ACC
         std::set<SumoXMLAttr> ACCParams;
         ACCParams.insert(SUMO_ATTR_ACCEL);
         ACCParams.insert(SUMO_ATTR_DECEL);
@@ -1360,7 +1361,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
-
+        // CACC
         std::set<SumoXMLAttr> CACCParams;
         CACCParams.insert(SUMO_ATTR_ACCEL);
         CACCParams.insert(SUMO_ATTR_DECEL);
@@ -1384,7 +1385,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         CACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;
         allParams.insert(CACCParams.begin(), CACCParams.end());
-
+        // CC
         std::set<SumoXMLAttr> ccParams;
         ccParams.insert(SUMO_ATTR_ACCEL);
         ccParams.insert(SUMO_ATTR_DECEL);
@@ -1409,7 +1410,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_H);
         allowedCFModelAttrs[SUMO_TAG_CF_CC] = ccParams;
         allParams.insert(ccParams.begin(), ccParams.end());
-
+        // last element
         allowedCFModelAttrs[SUMO_TAG_NOTHING] = allParams;
     }
     return allowedCFModelAttrs;
@@ -1417,9 +1418,9 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
 
 bool
-SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail) {
+SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs) {
     if (allowedLCModelAttrs.size() == 0) {
-        // init static map
+        // lc2013
         std::set<SumoXMLAttr> lc2013Params;
         lc2013Params.insert(SUMO_ATTR_LCA_STRATEGIC_PARAM);
         lc2013Params.insert(SUMO_ATTR_LCA_COOPERATIVE_PARAM);
@@ -1440,7 +1441,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME);
         lc2013Params.insert(SUMO_ATTR_LCA_EXPERIMENTAL1);
         allowedLCModelAttrs[LCM_LC2013] = lc2013Params;
-
+        // sl2015 (extension of lc2013)
         std::set<SumoXMLAttr> sl2015Params = lc2013Params;
         sl2015Params.insert(SUMO_ATTR_LCA_PUSHY);
         sl2015Params.insert(SUMO_ATTR_LCA_PUSHYGAP);
@@ -1451,83 +1452,71 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
         sl2015Params.insert(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE);
         sl2015Params.insert(SUMO_ATTR_LCA_LANE_DISCIPLINE);
         allowedLCModelAttrs[LCM_SL2015] = sl2015Params;
-
+        // DK2008
         std::set<SumoXMLAttr> noParams;
         allowedLCModelAttrs[LCM_DK2008] = noParams;
-
         // default model may be either LC2013 or SL2015
         // we allow both sets (sl2015 is a superset of lc2013Params)
         allowedLCModelAttrs[LCM_DEFAULT] = sl2015Params;
     }
-    bool ok = true;
     std::set<SumoXMLAttr> allowed = allowedLCModelAttrs[model];
+    // iterate over LCM attributes
     for (const auto& it : allowed) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
+            bool ok = true;
             std::string parsedLCMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
+            if (!ok) {
+                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Is empty");
+                return false;
+            }
             // declare a double in wich save CFM attribute
             double LCMAttribute = -1;
             try {
                 // obtain CFM attribute in double format
                 LCMAttribute = StringUtils::toDouble(parsedLCMAttribute);
             } catch (...) {
-                ok = false;
-                if (hardFail) {
-                    throw ProcessError("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                } else {
-                    WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                }
+                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                return false;
             }
-            // now continue checking other properties
-            if (ok) {
-                // check attributes of type "nonNegativeFloatType" (>= 0)
-                switch (it) {
-                    case SUMO_ATTR_LCA_PUSHYGAP:
-                    case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
-                    case SUMO_ATTR_LCA_IMPATIENCE:
-                    case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
-                    case SUMO_ATTR_LCA_ASSERTIVE:
-                    case SUMO_ATTR_LCA_LOOKAHEADLEFT:
-                    case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
-                    case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
-                    case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
-                    case SUMO_ATTR_LCA_LANE_DISCIPLINE:
-                    case SUMO_ATTR_LCA_SIGMA:
-                        if (LCMAttribute < 0) {
-                            ok = false;
-                            if (hardFail) {
-                                throw ProcessError("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
-                            } else {
-                                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                // check attributes of type "positiveFloatType" (> 0)
-                switch (it) {
-                    case SUMO_ATTR_LCA_ACCEL_LAT:
-                        if (LCMAttribute <= 0) {
-                            ok = false;
-                            if (hardFail) {
-                                throw ProcessError("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
-                            } else {
-                                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                if (ok) {
-                    // add parsedLCMAttribute to cfParameter
-                    into->lcParameter[it] = parsedLCMAttribute;
-                }
+            // check attributes of type "nonNegativeFloatType" (>= 0)
+            switch (it) {
+                case SUMO_ATTR_LCA_PUSHYGAP:
+                case SUMO_ATTR_LCA_MAXSPEEDLATSTANDING:
+                case SUMO_ATTR_LCA_IMPATIENCE:
+                case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+                case SUMO_ATTR_LCA_ASSERTIVE:
+                case SUMO_ATTR_LCA_LOOKAHEADLEFT:
+                case SUMO_ATTR_LCA_SPEEDGAINRIGHT:
+                case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
+                case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
+                case SUMO_ATTR_LCA_LANE_DISCIPLINE:
+                case SUMO_ATTR_LCA_SIGMA:
+                    if (LCMAttribute < 0) {
+                        WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
             }
+            // check attributes of type "positiveFloatType" (> 0)
+            switch (it) {
+                case SUMO_ATTR_LCA_ACCEL_LAT:
+                    if (LCMAttribute <= 0) {
+                        WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            // add parsedLCMAttribute to cfParameter
+            into->lcParameter[it] = parsedLCMAttribute;
         }
     }
-    return ok;
+    // all LCM parsed ok, then return true
+    return true;
 }
 
 

@@ -115,7 +115,7 @@ public:
     static bool parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool fromVType = false);
 
     /// @brief Parses lane change model attributes
-    static bool parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail);
+    static bool parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs);
 
     /// @brief Parses junction model attributes
     static bool parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs, const bool hardFail);
