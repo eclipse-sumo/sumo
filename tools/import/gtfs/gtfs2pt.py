@@ -319,7 +319,7 @@ def map_stops(options, net, routes, rout):
                     break
             if not found:
                 if candidates or options.warn_unmapped:
-                    print("Warning! No stop for", p, "on", veh)
+                    print("Warning! No stop for coordinates %.2f, %.2f" % p, "on", veh)
     return stops
 
 
