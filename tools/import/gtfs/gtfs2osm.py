@@ -24,6 +24,7 @@ import subprocess
 import datetime
 import time
 import math
+import io
 from collections import defaultdict
 # from pprint import pprint
 
@@ -112,6 +113,7 @@ def import_gtfs(options, gtfsZip):
     # filter trips within given begin and end time
     # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
     full_day = pd.to_timedelta("24:00:00")
+
     def fix_day(time_string):
         timedelta = pd.to_timedelta(time_string)
         if timedelta >= full_day:
@@ -133,7 +135,7 @@ def import_gtfs(options, gtfsZip):
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end - 86400)))
         stop_times = stop_times[~((stop_times['departure_fixed'] > end_time) &
-                                (stop_times['departure_fixed'] < start_time))]
+                                  (stop_times['departure_fixed'] < start_time))]
 
     # filter trips for a representative date
     weekday = 'monday tuesday wednesday thursday friday saturday sunday'.split(
@@ -260,7 +262,7 @@ def repair_routes(options, net):
     """
     osm_routes = {}
     # write dua input file
-    with open("dua_input.xml", 'w+', encoding="utf8") as dua_file:
+    with io.open("dua_input.xml", 'w+', encoding="utf8") as dua_file:
         dua_file.write("<routes>\n")
         for key, value in OSM2SUMO_MODES.items():
             dua_file.write('    <vType id="%s" vClass="%s"/>\n' % (key, value))
@@ -362,11 +364,11 @@ def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
     shape_list = [sec_shape for sec_shape, main_shape in shapes_dict.items()  # noqa
                     if main_shape == row.shape_id]
     gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) &
-                    (gtfs_data["shape_id"].isin(shape_list)),
-                    "stop_item_id"] = stop
+                  (gtfs_data["shape_id"].isin(shape_list)),
+                  "stop_item_id"] = stop
     gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) &
-                    (gtfs_data["shape_id"].isin(shape_list)),
-                    "edge_id"] = edge
+                  (gtfs_data["shape_id"].isin(shape_list)),
+                  "edge_id"] = edge
 
 
 def _getBestLane(net, row, radius, stop_length, edge_set, pt_class):

@@ -47,11 +47,11 @@ traci.start(cmd)
 vehID = "ego"
 
 traci.simulationStep()
-x, y  = traci.vehicle.getPosition(vehID)
+x, y = traci.vehicle.getPosition(vehID)
 
 for i in range(20):
     print(traci.simulation.getTime(), "distance",
-            traci.vehicle.getDistance(vehID))
+          traci.vehicle.getDistance(vehID))
     x += 10
     traci.vehicle.moveToXY(vehID, "", -1, x, y)
     traci.simulationStep()

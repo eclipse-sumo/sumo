@@ -198,6 +198,7 @@ def get_options(args=None):
 
     return options
 
+
 def formatStopTimes(arrival, until, started, ended):
     times = [arrival, until]
     if started is not None:
@@ -206,6 +207,7 @@ def formatStopTimes(arrival, until, started, ended):
         assert(started is not None)
         times.append(ended)
     return "(%s)" % ', '.join(map(humanReadableTime, times))
+
 
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
@@ -468,8 +470,8 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                             (started2 is not None
                                 # vehicle had not arrived but it's schedule follower had
                                 and (started is None
-                                    # vehicle arrived after schedule follower
-                                    or started2 < started)))):
+                                     # vehicle arrived after schedule follower
+                                     or started2 < started)))):
                         overtaken = True
                         ignored = started is None
                         ignoredInfo = " and ignored afterwards" if started is None else ""
@@ -493,7 +495,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                                 'parking ' if parking else ' ',
                                 stop.vehID, formatStopTimes(arrival, until, started, ended),
                                 'parking ' if parking2 else ' ',
-                                stop2.vehID,formatStopTimes(arrival2, until2, started2, ended2),
+                                stop2.vehID, formatStopTimes(arrival2, until2, started2, ended2),
                             ),
                                 file=sys.stderr)
                         break
@@ -507,9 +509,10 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                     stop.setAttribute("invalid", True)
                     if not ignored:
                         print("Vehicle %s was overtaken and starts to ignore schedule at stop %s (index %s)" %
-                            (stop.vehID, stop.busStop, i),
-                            file=sys.stderr)
+                              (stop.vehID, stop.busStop, i),
+                              file=sys.stderr)
                         ignored = True
+
 
 def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
     """
@@ -527,7 +530,6 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
         latestKnownTime = 0
         shift = 0
         stopEdge = stopEdges[busStop]
-        node = net.getEdge(stopEdge).getToNode()
         parkingEnded = []
 
         for edgesBefore, stop in stops:
@@ -582,8 +584,8 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
                             nSignal = findSignal(net, (stopEdge,) + nNextEdges)
                             if pSignal is None or nSignal is None:
                                 print(("Ignoring parking insertion conflict between %s and %s at stop '%s' " +
-                                    "because no rail signal was found after the stop") % (
-                                        stop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
+                                       "because no rail signal was found after the stop") % (
+                                    stop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
                                 continue
 
                             # vehicles have already stopped so the new tripId applies
@@ -604,12 +606,11 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
                         else:
                             # this is a foeInsertionConflicts and we need a normal constraint
                             print(("Warning: constraint for non-parking vehicle '%s'" % stop.vehID)
-                                + (" after ended parking vehicle '%s' not implemented yet." % pStop.vehID)
-                                + (" Possible deadlock at '%s' " % busStop), file=sys.stderr)
+                                  + (" after ended parking vehicle '%s' not implemented yet." % pStop.vehID)
+                                  + (" Possible deadlock at '%s' " % busStop), file=sys.stderr)
 
         if busStop == options.debugStop and shift > 0:
             print("Shifted stop times at %s by %s" % (busStop, shift))
-
 
     if options.verbose and maxShift > 0:
         print("Shifted stop times by up to %s" % maxShift)
@@ -618,6 +619,7 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
         print("Found %s parking insertion conflicts" % numConflicts)
 
     return conflicts
+
 
 def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehicleStopRoutes, stopRoutes2):
     """ add more items to stopRoutes2 for the common
@@ -638,16 +640,16 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
         eb2, s2 = route2[stopIndex2]
         e = eb[routeIndex]
         e2 = eb2[routeIndex2]
-        #print(stopIndex, routeIndex, stopIndex2, routeIndex2, len(eb), len(eb2))
+        # print(stopIndex, routeIndex, stopIndex2, routeIndex2, len(eb), len(eb2))
         if e != e2:
             # routes diverge
-            #print("e=%s e2=%s" % (e, e2))
+            # print("e=%s e2=%s" % (e, e2))
             return
         if (routeIndex + 1 == len(eb) and
                 routeIndex2 + 1 == len(eb2) and
                 s.busStop == s2.busStop):
             # found common stop
-            #print("switch=%s veh=%s veh2=%s commonStop=%s" % (switch,
+            # print("switch=%s veh=%s veh2=%s commonStop=%s" % (switch,
             #    stop.vehID, stop2.vehID, s.busStop))
             if (edgesBefore2, s2) not in stopRoutes2[s.busStop]:
                 s2copy = copy.copy(s2)
@@ -682,14 +684,14 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
 
     if stop.vehID == options.debugVehicle:
         print(("No common stop found after switch %s for vehicle %s with stop %s (%s, %s)"
-                + " and intermediate stop of vehicle %s at %s (%s, %s)") % (
+               + " and intermediate stop of vehicle %s at %s (%s, %s)") % (
             switch, stop.vehID, stop.busStop,
             humanReadableTime(parseTime(stop.arrival)),
             humanReadableTime(parseTime(stop.until)),
             stop2.vehID, stop2.busStop,
             humanReadableTime(parseTime(stop2.arrival)),
             humanReadableTime(parseTime(stop2.until)),
-            ))
+        ))
 
 
 def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes):
@@ -711,10 +713,9 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
         if switch == options.debugSwitch:
             print("Switch %s lies ahead of busStops %s" % (switch, stopRoutes2.keys()))
 
-
         # detect approaches that skip stops (#8943) and add extra items
         stopRoutes3 = defaultdict(list)
-        stopsAfterSwitch = defaultdict(set) # edge -> stops
+        stopsAfterSwitch = defaultdict(set)  # edge -> stops
         for busStop, stops in stopRoutes2.items():
             stopsAfterSwitch[stopEdges[busStop]].add(busStop)
         for busStop, stops in stopRoutes2.items():
@@ -735,8 +736,8 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                         if busStop2 in intermediateStops:
                             for edgesBefore2, stop2 in stops2:
                                 addCommonStop(options, switch, edgesBefore, stop,
-                                    edgesBefore2, stop2, vehicleStopRoutes, stopRoutes3)
-                    #print("Stop after switch %s at %s by %s (%s, %s) passes intermediate stops %s" % (
+                                              edgesBefore2, stop2, vehicleStopRoutes, stopRoutes3)
+                    # print("Stop after switch %s at %s by %s (%s, %s) passes intermediate stops %s" % (
                     #    switch, busStop, stop.vehID,
                     #    humanReadableTime(parseTime(stop.arrival)),
                     #    humanReadableTime(parseTime(stop.until)),
@@ -817,7 +818,8 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                             if pArrival - p2Arrival > options.redundant:
                                 break
                             if nStop.intermediateStop and p2Stop.intermediateStop == nStop.intermediateStop:
-                                # intermediate conflict was added via other foes and this particular conflict is a normal one
+                                # intermediate conflict was added via other foes
+                                # and this particular conflict is a normal one
                                 continue
                             numRedundant += 1
                             numRedundantSwitchConflicts += 1
@@ -826,7 +828,8 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                             limit += countPassingTrainsToOtherStops(options, pSignal,
                                                                     busStop, p2TimeAtSignal, prevBegin, signalTimes)
                             info = getIntermediateInfo(p2Stop, nStop)
-                            times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(p2Arrival))
+                            times = "arrival=%s foeArrival=%s " % (
+                                humanReadableTime(nArrival), humanReadableTime(p2Arrival))
                             conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, p2Stop.prevTripId, limit,
                                                                # attributes for adding comments
                                                                nStop.prevLine, p2Stop.prevLine,
@@ -859,15 +862,16 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
         print("Ignored %s conflicts and %s stops" % (numIgnoredConflicts, numIgnoredStops))
     return conflicts
 
+
 def getIntermediateInfo(pStop, nStop):
     info = []
     if pStop.intermediateStop:
         info.append("intermediateStop=%s" % pStop.intermediateStop)
     if nStop.intermediateStop:
         info.append("foeIntermediateStop=%s" % nStop.intermediateStop)
-    #if pStop.otherVeh:
+    # if pStop.otherVeh:
     #    info.append("otherVeh=%s" % pStop.otherVeh)
-    #if nStop.otherVeh:
+    # if nStop.otherVeh:
     #    info.append("foeOtherVeh=%s" % nStop.otherVeh)
     return ' '.join(info)
 
@@ -903,7 +907,6 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
         if busStop == options.debugStop:
             print("findInsertionConflicts at stop %s" % busStop)
         stopEdge = stopEdges[busStop]
-        node = net.getEdge(stopEdge).getToNode()
         untils = []
         for edgesBefore, stop in stops:
             if stop.hasAttribute("until") and not options.untilFromDuration:
@@ -994,7 +997,6 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
         if busStop == options.debugStop:
             print("findFoeInsertionConflicts at stop %s" % busStop)
         stopEdge = stopEdges[busStop]
-        node = net.getEdge(stopEdge).getToNode()
         arrivals = []
         for edgesBefore, stop in stops:
             if stop.hasAttribute("arrival") and not options.untilFromDuration:
@@ -1122,11 +1124,11 @@ def writeConstraint(options, outf, tag, c):
         if c.otherVehID != c.otherTripID:
             comment += "foeID=%s " % c.otherVehID
     if options.commentSwitch and c.switch is not None:
-            comment += "switch=%s " % c.switch
+        comment += "switch=%s " % c.switch
     if options.commentStop:
-            comment += "busStop=%s " % c.busStop
+        comment += "busStop=%s " % c.busStop
     if options.commentTime:
-            comment += c.conflictTime
+        comment += c.conflictTime
     if c.info != "":
         comment += "(%s) " % c.info
     if comment != "":

@@ -47,13 +47,13 @@ traci.start(cmd)
 vehID = "ego"
 
 traci.simulationStep()
-x, y  = traci.vehicle.getPosition(vehID)
+x, y = traci.vehicle.getPosition(vehID)
 
 for i in range(20):
     print(traci.simulation.getTime(), "distance",
-            traci.vehicle.getDistance(vehID))
+          traci.vehicle.getDistance(vehID))
     x += 10
-    edgeID, pos, laneIndex = traci.simulation.convertRoad(x ,y)
+    edgeID, pos, laneIndex = traci.simulation.convertRoad(x, y)
     laneID = "%s_%s" % (edgeID, laneIndex)
     traci.vehicle.moveTo(vehID, laneID, pos)
     traci.simulationStep()

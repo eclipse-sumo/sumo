@@ -294,12 +294,12 @@ def map_stops(options, net, routes, rout):
                             for l in edge.getLanes():
                                 if l.allows(railType):
                                     break
-                            rout.write('    <busStop id="%s" lane="%s_%s" startPos="%s" endPos="%s"%s>\n%s' %
+                            rout.write('    <busStop id="%s" lane="%s_%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
                                        (stop, origEdgeID, l.getIndex(),
                                         startPos, pos + stopLength, addAttrs, params))
                             rout.write('    </busStop>\n')
                         else:
-                            rout.write('    <trainStop id="%s" lane="%s_0" startPos="%s" endPos="%s"%s>\n%s' %
+                            rout.write('    <trainStop id="%s" lane="%s_0" startPos="%.2f" endPos="%.2f"%s>\n%s' %
                                        (stop, origEdgeID,
                                         startPos, pos + stopLength, addAttrs, params))
                             ap = net.convertLonLat2XY(float(veh.x), float(veh.y))
@@ -308,7 +308,7 @@ def map_stops(options, net, routes, rout):
                                 if accessEdge.getID() != edge.getID() and accessEdge.allows("pedestrian"):
                                     _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
                                     rout.write(('        <access friendlyPos="true" ' +
-                                                'lane="%s_0" pos="%s" length="%s"/>\n') %
+                                                'lane="%s_0" pos="%.2f" length="%.2f"/>\n') %
                                                (accessEdge.getID(), accessPos, 1.5 * accessDist))
                                     numAccess += 1
                                     if numAccess == 10:
