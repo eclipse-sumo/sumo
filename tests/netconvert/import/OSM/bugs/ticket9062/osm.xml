@@ -1,0 +1,1541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.5 (2179817 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="52.4340600" minlon="13.5379400" maxlat="52.4348800" maxlon="13.5394600"/>
+ <node id="30618469" visible="true" version="12" changeset="71183517" timestamp="2019-06-12T14:43:47Z" user="momabebra" uid="9508237" lat="52.4345206" lon="13.5383248"/>
+ <node id="36268386" visible="true" version="6" changeset="10250160" timestamp="2011-12-30T21:58:15Z" user="Balgofil" uid="95702" lat="52.4281722" lon="13.5437331"/>
+ <node id="36268429" visible="true" version="12" changeset="96341166" timestamp="2020-12-23T17:51:21Z" user="StefanHRT" uid="10961311" lat="52.4328980" lon="13.5364291"/>
+ <node id="54520920" visible="true" version="10" changeset="10826547" timestamp="2012-02-29T10:32:19Z" user="Balgofil" uid="95702" lat="52.4356207" lon="13.5303448"/>
+ <node id="101343850" visible="true" version="19" changeset="103454574" timestamp="2021-04-23T06:11:56Z" user="geozeisig" uid="66391" lat="52.4314780" lon="13.5339415">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="101344627" visible="true" version="12" changeset="10192264" timestamp="2011-12-24T08:49:13Z" user="Balgofil" uid="95702" lat="52.4313967" lon="13.5334041"/>
+ <node id="261601116" visible="true" version="4" changeset="102059789" timestamp="2021-03-31T13:45:16Z" user="geozeisig" uid="66391" lat="52.4385229" lon="13.5356484"/>
+ <node id="261605814" visible="true" version="3" changeset="38994186" timestamp="2016-04-30T06:42:52Z" user="anbr" uid="43566" lat="52.4362073" lon="13.5389477"/>
+ <node id="270930931" visible="true" version="4" changeset="10192264" timestamp="2011-12-24T08:49:43Z" user="Balgofil" uid="95702" lat="52.4332719" lon="13.5366055"/>
+ <node id="270932099" visible="true" version="6" changeset="56035124" timestamp="2018-02-03T17:40:24Z" user="sandrow75" uid="4445038" lat="52.4329233" lon="13.5318701"/>
+ <node id="270932100" visible="true" version="8" changeset="56035358" timestamp="2018-02-03T17:49:04Z" user="sandrow75" uid="4445038" lat="52.4323554" lon="13.5327784"/>
+ <node id="301331747" visible="true" version="6" changeset="8194046" timestamp="2011-05-19T22:10:24Z" user="Dinamik" uid="39040" lat="52.4311852" lon="13.5330534"/>
+ <node id="385200406" visible="true" version="3" changeset="10826547" timestamp="2012-02-29T10:32:18Z" user="Balgofil" uid="95702" lat="52.4313031" lon="13.5444262"/>
+ <node id="493585805" visible="true" version="9" changeset="93371189" timestamp="2020-11-01T15:55:18Z" user="OneJumpyCartographer" uid="8631613" lat="52.4329664" lon="13.5365390">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing_ref" v="pelican"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:arrow" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="552384758" visible="true" version="3" changeset="12154095" timestamp="2012-07-08T19:26:31Z" user="Balgofil" uid="95702" lat="52.4303822" lon="13.5310922"/>
+ <node id="567601335" visible="true" version="7" changeset="10826547" timestamp="2012-02-29T10:32:19Z" user="Balgofil" uid="95702" lat="52.4358279" lon="13.5301294"/>
+ <node id="583899005" visible="true" version="6" changeset="93371189" timestamp="2020-11-01T16:02:19Z" user="OneJumpyCartographer" uid="8631613" lat="52.4344200" lon="13.5384187">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="595593792" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:28:42Z" user="bahnpirat" uid="13203" lat="52.4352436" lon="13.5465161"/>
+ <node id="595593793" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:28:42Z" user="bahnpirat" uid="13203" lat="52.4347347" lon="13.5460977"/>
+ <node id="595593794" visible="true" version="1" changeset="3399798" timestamp="2009-12-18T11:28:08Z" user="bahnpirat" uid="13203" lat="52.4363612" lon="13.5437241"/>
+ <node id="595593796" visible="true" version="1" changeset="3399798" timestamp="2009-12-18T11:28:08Z" user="bahnpirat" uid="13203" lat="52.4345166" lon="13.5383812"/>
+ <node id="595593797" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4310849" lon="13.5330184"/>
+ <node id="595593798" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4293510" lon="13.5289758"/>
+ <node id="595593799" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4406619" lon="13.4995230"/>
+ <node id="595593800" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4413215" lon="13.5002537"/>
+ <node id="595593801" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4415700" lon="13.4992875"/>
+ <node id="595593802" visible="true" version="2" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4476619" lon="13.5002665"/>
+ <node id="595593803" visible="true" version="1" changeset="3399798" timestamp="2009-12-18T11:28:09Z" user="bahnpirat" uid="13203" lat="52.4504804" lon="13.4906808"/>
+ <node id="595593804" visible="true" version="1" changeset="3399798" timestamp="2009-12-18T11:28:09Z" user="bahnpirat" uid="13203" lat="52.4518796" lon="13.4865716"/>
+ <node id="595593805" visible="true" version="1" changeset="3399798" timestamp="2009-12-18T11:28:09Z" user="bahnpirat" uid="13203" lat="52.4520431" lon="13.4825483"/>
+ <node id="664166092" visible="true" version="5" changeset="29598206" timestamp="2015-03-19T19:10:41Z" user="anbr" uid="43566" lat="52.4313016" lon="13.5220237"/>
+ <node id="664166094" visible="true" version="4" changeset="26706644" timestamp="2014-11-11T09:57:28Z" user="Balgofil" uid="95702" lat="52.4317991" lon="13.5212593"/>
+ <node id="664166215" visible="true" version="4" changeset="10192264" timestamp="2011-12-24T08:50:13Z" user="Balgofil" uid="95702" lat="52.4346277" lon="13.5317868"/>
+ <node id="671564319" visible="true" version="2" changeset="8194046" timestamp="2011-05-19T22:10:23Z" user="Dinamik" uid="39040" lat="52.4292882" lon="13.5293142"/>
+ <node id="671564340" visible="true" version="4" changeset="10192264" timestamp="2011-12-24T08:50:15Z" user="Balgofil" uid="95702" lat="52.4287277" lon="13.5301547"/>
+ <node id="671564344" visible="true" version="3" changeset="10192264" timestamp="2011-12-24T08:50:16Z" user="Balgofil" uid="95702" lat="52.4294436" lon="13.5315175"/>
+ <node id="671564347" visible="true" version="4" changeset="10192264" timestamp="2011-12-24T08:50:16Z" user="Balgofil" uid="95702" lat="52.4301160" lon="13.5305327"/>
+ <node id="671564355" visible="true" version="3" changeset="8194046" timestamp="2011-05-19T22:10:24Z" user="Dinamik" uid="39040" lat="52.4304706" lon="13.5313066"/>
+ <node id="671564359" visible="true" version="4" changeset="12154095" timestamp="2012-07-08T19:26:32Z" user="Balgofil" uid="95702" lat="52.4309771" lon="13.5325948"/>
+ <node id="671564367" visible="true" version="3" changeset="8194046" timestamp="2011-05-19T22:10:24Z" user="Dinamik" uid="39040" lat="52.4315660" lon="13.5336479"/>
+ <node id="671564370" visible="true" version="4" changeset="10193749" timestamp="2011-12-24T13:09:57Z" user="Balgofil" uid="95702" lat="52.4320613" lon="13.5345056"/>
+ <node id="671564447" visible="true" version="10" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4356445" lon="13.5365787"/>
+ <node id="671564452" visible="true" version="3" changeset="10826547" timestamp="2012-02-29T10:32:21Z" user="Balgofil" uid="95702" lat="52.4328507" lon="13.5409424"/>
+ <node id="837697455" visible="true" version="3" changeset="15140726" timestamp="2013-02-23T20:19:13Z" user="anbr" uid="43566" lat="52.4351099" lon="13.5376237"/>
+ <node id="945141621" visible="true" version="9" changeset="103454574" timestamp="2021-04-23T06:11:56Z" user="geozeisig" uid="66391" lat="52.4300256" lon="13.5307507">
+  <tag k="crossing" v="unmarked"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="1298517342" visible="true" version="4" changeset="37192577" timestamp="2016-02-13T18:52:34Z" user="Balgofil" uid="95702" lat="52.4264298" lon="13.5320575"/>
+ <node id="1306938906" visible="true" version="3" changeset="10250160" timestamp="2011-12-30T21:58:09Z" user="Balgofil" uid="95702" lat="52.4292183" lon="13.5457975"/>
+ <node id="1371616212" visible="true" version="17" changeset="107633942" timestamp="2021-07-08T12:03:00Z" user="masix" uid="6617985" lat="52.4344461" lon="13.5392520">
+  <tag k="access" v="yes"/>
+  <tag k="amenity" v="toilets"/>
+  <tag k="changing_table" v="no"/>
+  <tag k="charge" v="0.5"/>
+  <tag k="fee" v="yes"/>
+  <tag k="operator" v="Wall GmbH"/>
+  <tag k="payment:coins" v="yes"/>
+  <tag k="payment:visa" v="yes"/>
+  <tag k="toilets:disposal" v="flush"/>
+  <tag k="toilets:wheelchair" v="yes"/>
+  <tag k="unisex" v="yes"/>
+  <tag k="website" v="http://www.wall.de"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="1371616239" visible="true" version="2" changeset="10192264" timestamp="2011-12-24T08:49:35Z" user="Balgofil" uid="95702" lat="52.4332787" lon="13.5370295"/>
+ <node id="1421187814" visible="true" version="2" changeset="10192264" timestamp="2011-12-24T08:49:36Z" user="Balgofil" uid="95702" lat="52.4286683" lon="13.5241372"/>
+ <node id="1421187818" visible="true" version="3" changeset="110073044" timestamp="2021-08-22T17:57:44Z" user="Berlin53" uid="9450913" lat="52.4287940" lon="13.5255039"/>
+ <node id="1421187828" visible="true" version="3" changeset="110073044" timestamp="2021-08-22T17:57:44Z" user="Berlin53" uid="9450913" lat="52.4290362" lon="13.5269599"/>
+ <node id="1421187920" visible="true" version="4" changeset="56035641" timestamp="2018-02-03T17:59:32Z" user="sandrow75" uid="4445038" lat="52.4305116" lon="13.5282606"/>
+ <node id="1421187931" visible="true" version="3" changeset="56035641" timestamp="2018-02-03T17:59:32Z" user="sandrow75" uid="4445038" lat="52.4308744" lon="13.5279521"/>
+ <node id="1421187939" visible="true" version="2" changeset="10826547" timestamp="2012-02-29T10:32:13Z" user="Balgofil" uid="95702" lat="52.4316112" lon="13.5439486"/>
+ <node id="1421187949" visible="true" version="2" changeset="10826547" timestamp="2012-02-29T10:32:14Z" user="Balgofil" uid="95702" lat="52.4327038" lon="13.5422120"/>
+ <node id="1421187952" visible="true" version="2" changeset="10826547" timestamp="2012-02-29T10:32:14Z" user="Balgofil" uid="95702" lat="52.4328509" lon="13.5420339"/>
+ <node id="1421187955" visible="true" version="2" changeset="10192264" timestamp="2011-12-24T08:49:39Z" user="Balgofil" uid="95702" lat="52.4330080" lon="13.5365288"/>
+ <node id="1421187956" visible="true" version="2" changeset="10192264" timestamp="2011-12-24T08:49:39Z" user="Balgofil" uid="95702" lat="52.4330915" lon="13.5363842"/>
+ <node id="1421187962" visible="true" version="2" changeset="10192264" timestamp="2011-12-24T08:49:39Z" user="Balgofil" uid="95702" lat="52.4342994" lon="13.5385774"/>
+ <node id="1421187963" visible="true" version="2" changeset="10826547" timestamp="2012-02-29T10:32:14Z" user="Balgofil" uid="95702" lat="52.4343486" lon="13.5390101"/>
+ <node id="1421187965" visible="true" version="2" changeset="10192264" timestamp="2011-12-24T08:49:39Z" user="Balgofil" uid="95702" lat="52.4343778" lon="13.5384254"/>
+ <node id="1421187973" visible="true" version="2" changeset="15140726" timestamp="2013-02-23T20:19:08Z" user="anbr" uid="43566" lat="52.4347843" lon="13.5401392"/>
+ <node id="1422931213" visible="true" version="5" changeset="56034468" timestamp="2018-02-03T17:16:39Z" user="sandrow75" uid="4445038" lat="52.4346468" lon="13.5385552"/>
+ <node id="1422931215" visible="true" version="4" changeset="53745817" timestamp="2017-11-13T16:51:53Z" user="soemisch" uid="2290263" lat="52.4353006" lon="13.5403280"/>
+ <node id="1525212345" visible="true" version="6" changeset="93371189" timestamp="2020-11-01T16:03:49Z" user="OneJumpyCartographer" uid="8631613" lat="52.4351539" lon="13.5403103">
+  <tag k="button_operated" v="no"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="1560223263" visible="true" version="3" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4257670" lon="13.5441038"/>
+ <node id="1560223308" visible="true" version="2" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4260462" lon="13.5453886"/>
+ <node id="1560223314" visible="true" version="2" changeset="10193749" timestamp="2011-12-24T13:09:39Z" user="Balgofil" uid="95702" lat="52.4261600" lon="13.5365688"/>
+ <node id="1560223346" visible="true" version="2" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4261294" lon="13.5456286"/>
+ <node id="1560223355" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:44:58Z" user="Balgofil" uid="95702" lat="52.4262143" lon="13.5359491"/>
+ <node id="1560223368" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:44:59Z" user="Balgofil" uid="95702" lat="52.4262497" lon="13.5350821"/>
+ <node id="1560223380" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:44:59Z" user="Balgofil" uid="95702" lat="52.4263590" lon="13.5334673"/>
+ <node id="1560223385" visible="true" version="2" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4264075" lon="13.5461754"/>
+ <node id="1560223402" visible="true" version="2" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4264235" lon="13.5461793"/>
+ <node id="1560223443" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:01Z" user="Balgofil" uid="95702" lat="52.4265059" lon="13.5306830"/>
+ <node id="1560223504" visible="true" version="3" changeset="38797251" timestamp="2016-04-22T19:22:01Z" user="anbr" uid="43566" lat="52.4266935" lon="13.5268366"/>
+ <node id="1560223762" visible="true" version="2" changeset="13849462" timestamp="2012-11-12T17:16:32Z" user="shony" uid="117007" lat="52.4285674" lon="13.5224322"/>
+ <node id="1560223787" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:11Z" user="Balgofil" uid="95702" lat="52.4286509" lon="13.5239071"/>
+ <node id="1560223805" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:12Z" user="Balgofil" uid="95702" lat="52.4287183" lon="13.5247952"/>
+ <node id="1560223811" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:12Z" user="Balgofil" uid="95702" lat="52.4287488" lon="13.5270767"/>
+ <node id="1560223970" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:16Z" user="Balgofil" uid="95702" lat="52.4294356" lon="13.5292408"/>
+ <node id="1560224843" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:32Z" user="Balgofil" uid="95702" lat="52.4326660" lon="13.5335157"/>
+ <node id="1560224854" visible="true" version="2" changeset="22346988" timestamp="2014-05-15T07:15:49Z" user="MarsmanRom" uid="44514" lat="52.4327279" lon="13.5334183"/>
+ <node id="1560225024" visible="true" version="2" changeset="56035124" timestamp="2018-02-03T17:40:24Z" user="sandrow75" uid="4445038" lat="52.4330352" lon="13.5320646"/>
+ <node id="1560225199" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:38Z" user="Balgofil" uid="95702" lat="52.4336369" lon="13.5371854"/>
+ <node id="1560225289" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:40Z" user="Balgofil" uid="95702" lat="52.4339515" lon="13.5306191"/>
+ <node id="1560225317" visible="true" version="1" changeset="10192264" timestamp="2011-12-24T08:45:40Z" user="Balgofil" uid="95702" lat="52.4340260" lon="13.5378038"/>
+ <node id="1560592847" visible="true" version="3" changeset="56035581" timestamp="2018-02-03T17:57:25Z" user="sandrow75" uid="4445038" lat="52.4307686" lon="13.5321865"/>
+ <node id="1560592855" visible="true" version="3" changeset="56035581" timestamp="2018-02-03T17:57:25Z" user="sandrow75" uid="4445038" lat="52.4308793" lon="13.5323696"/>
+ <node id="1570019926" visible="true" version="1" changeset="10250160" timestamp="2011-12-30T21:57:54Z" user="Balgofil" uid="95702" lat="52.4295724" lon="13.5454238"/>
+ <node id="1570019950" visible="true" version="1" changeset="10250160" timestamp="2011-12-30T21:57:54Z" user="Balgofil" uid="95702" lat="52.4306948" lon="13.5451803"/>
+ <node id="1570019972" visible="true" version="1" changeset="10250160" timestamp="2011-12-30T21:57:55Z" user="Balgofil" uid="95702" lat="52.4311774" lon="13.5444560"/>
+ <node id="1626058722" visible="true" version="2" changeset="76162019" timestamp="2019-10-24T15:09:06Z" user="kartonage" uid="1497225" lat="52.4265871" lon="13.5288198"/>
+ <node id="1652675075" visible="true" version="3" changeset="66963335" timestamp="2019-02-06T13:09:22Z" user="H1nzP" uid="6859586" lat="52.4329783" lon="13.5409628">
+  <tag k="ele" v="35.0"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="1652675077" visible="true" version="1" changeset="10826547" timestamp="2012-02-29T10:31:15Z" user="Balgofil" uid="95702" lat="52.4331854" lon="13.5414642"/>
+ <node id="1652675093" visible="true" version="4" changeset="38994186" timestamp="2016-04-30T06:42:50Z" user="anbr" uid="43566" lat="52.4340909" lon="13.5391992"/>
+ <node id="1652675095" visible="true" version="2" changeset="37192577" timestamp="2016-02-13T18:52:35Z" user="Balgofil" uid="95702" lat="52.4342359" lon="13.5387980"/>
+ <node id="1652675097" visible="true" version="5" changeset="38994186" timestamp="2016-04-30T06:42:51Z" user="anbr" uid="43566" lat="52.4343785" lon="13.5387743"/>
+ <node id="1652675099" visible="true" version="4" changeset="38994186" timestamp="2016-04-30T06:42:51Z" user="anbr" uid="43566" lat="52.4345004" lon="13.5385819"/>
+ <node id="1652675104" visible="true" version="3" changeset="20860033" timestamp="2014-03-02T08:35:04Z" user="Balgofil" uid="95702" lat="52.4350641" lon="13.5376930">
+  <tag k="ele" v="35.0"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="1652675117" visible="true" version="3" changeset="50599827" timestamp="2017-07-26T20:03:06Z" user="MarsmanRom" uid="44514" lat="52.4365602" lon="13.5351509"/>
+ <node id="1652675127" visible="true" version="2" changeset="69493016" timestamp="2019-04-23T15:07:24Z" user="momabebra" uid="9508237" lat="52.4377099" lon="13.5334615"/>
+ <node id="1652675128" visible="true" version="2" changeset="69493016" timestamp="2019-04-23T15:07:24Z" user="momabebra" uid="9508237" lat="52.4377119" lon="13.5333588"/>
+ <node id="1652675140" visible="true" version="4" changeset="110128828" timestamp="2021-08-23T17:07:40Z" user="Berlin53" uid="9450913" lat="52.4398064" lon="13.5306703"/>
+ <node id="1683752316" visible="true" version="2" changeset="12623416" timestamp="2012-08-05T17:10:50Z" user="Balgofil" uid="95702" lat="52.4308904" lon="13.5279422"/>
+ <node id="1704693389" visible="true" version="7" changeset="90680689" timestamp="2020-09-10T06:35:36Z" user="kartonage" uid="1497225" lat="52.4299442" lon="13.5306716">
+  <tag k="name" v="Magnusstraße"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="operator:short" v="BVG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="railway" v="tram_stop"/>
+  <tag k="ref:BVG" v="308872"/>
+  <tag k="tram" v="yes"/>
+  <tag k="website" v="https://qr.bvg.de/h308872"/>
+ </node>
+ <node id="1704693451" visible="true" version="10" changeset="90680689" timestamp="2020-09-10T06:35:36Z" user="kartonage" uid="1497225" lat="52.4319115" lon="13.5346199">
+  <tag k="name" v="Walther-Nernst-Straße"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="operator:short" v="BVG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="railway" v="tram_stop"/>
+  <tag k="ref:BVG" v="308868"/>
+  <tag k="tram" v="yes"/>
+  <tag k="website" v="https://qr.bvg.de/h308868"/>
+ </node>
+ <node id="1704693457" visible="true" version="10" changeset="90680689" timestamp="2020-09-10T06:35:36Z" user="kartonage" uid="1497225" lat="52.4321448" lon="13.5350522">
+  <tag k="name" v="Walther-Nernst-Straße"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="operator:short" v="BVG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="railway" v="tram_stop"/>
+  <tag k="ref:BVG" v="308873"/>
+  <tag k="tram" v="yes"/>
+  <tag k="website" v="https://qr.bvg.de/h308873"/>
+ </node>
+ <node id="1704693564" visible="true" version="2" changeset="28129800" timestamp="2015-01-14T08:49:54Z" user="bahnpirat" uid="13203" lat="52.4297879" lon="13.5303493">
+  <tag k="railway:electricity:jumpering" v="jumpered"/>
+  <tag k="ref" v="703VS1"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1704693568" visible="true" version="2" changeset="28129800" timestamp="2015-01-14T08:49:54Z" user="bahnpirat" uid="13203" lat="52.4298135" lon="13.5303174">
+  <tag k="railway:electricity:jumpering" v="jumpered"/>
+  <tag k="ref" v="703VS1"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1704693587" visible="true" version="1" changeset="11203620" timestamp="2012-04-06T16:11:02Z" user="Dinamik" uid="39040" lat="52.4299083" lon="13.5306043"/>
+ <node id="1704693591" visible="true" version="1" changeset="11203620" timestamp="2012-04-06T16:11:02Z" user="Dinamik" uid="39040" lat="52.4299443" lon="13.5305862"/>
+ <node id="1704693594" visible="true" version="1" changeset="11203620" timestamp="2012-04-06T16:11:02Z" user="Dinamik" uid="39040" lat="52.4300298" lon="13.5308317"/>
+ <node id="1704693597" visible="true" version="1" changeset="11203620" timestamp="2012-04-06T16:11:03Z" user="Dinamik" uid="39040" lat="52.4300442" lon="13.5307866"/>
+ <node id="1704693600" visible="true" version="3" changeset="28129800" timestamp="2015-01-14T08:49:54Z" user="bahnpirat" uid="13203" lat="52.4301771" lon="13.5311453">
+  <tag k="railway" v="power_supply"/>
+  <tag k="ref" v="703.01-1"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1704693602" visible="true" version="2" changeset="15992858" timestamp="2013-05-06T05:16:01Z" user="bahnpirat" uid="13203" lat="52.4303481" lon="13.5315432"/>
+ <node id="1704693611" visible="true" version="3" changeset="28129800" timestamp="2015-01-14T08:49:53Z" user="bahnpirat" uid="13203" lat="52.4302009" lon="13.5311177">
+  <tag k="railway" v="power_supply"/>
+  <tag k="ref" v="703.01-1"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1704693617" visible="true" version="2" changeset="15992858" timestamp="2013-05-06T05:16:01Z" user="bahnpirat" uid="13203" lat="52.4303629" lon="13.5315189"/>
+ <node id="1704693643" visible="true" version="2" changeset="15992858" timestamp="2013-05-06T05:16:01Z" user="bahnpirat" uid="13203" lat="52.4306204" lon="13.5322013"/>
+ <node id="1704693646" visible="true" version="2" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4307095" lon="13.5325114"/>
+ <node id="1704693650" visible="true" version="4" changeset="29028646" timestamp="2015-02-22T19:04:50Z" user="anbr" uid="43566" lat="52.4307821" lon="13.5327197"/>
+ <node id="1704693653" visible="true" version="3" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4309407" lon="13.5331015"/>
+ <node id="1704693655" visible="true" version="2" changeset="12731054" timestamp="2012-08-14T20:45:13Z" user="nurinfo" uid="209498" lat="52.4312025" lon="13.5335759"/>
+ <node id="1704693658" visible="true" version="3" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4310297" lon="13.5332131"/>
+ <node id="1704693660" visible="true" version="2" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4313390" lon="13.5337242"/>
+ <node id="1704693673" visible="true" version="8" changeset="103454574" timestamp="2021-04-23T06:11:56Z" user="geozeisig" uid="66391" lat="52.4321943" lon="13.5351252">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:island" v="yes"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="1704693699" visible="true" version="7" changeset="103454574" timestamp="2021-04-23T06:11:56Z" user="geozeisig" uid="66391" lat="52.4323627" lon="13.5353160">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:island" v="yes"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="1704693756" visible="true" version="5" changeset="28129800" timestamp="2015-01-14T08:49:54Z" user="bahnpirat" uid="13203" lat="52.4343153" lon="13.5384980">
+  <tag k="railway" v="power_supply"/>
+  <tag k="ref" v="702.04-1"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1704693760" visible="true" version="4" changeset="28129800" timestamp="2015-01-14T08:49:53Z" user="bahnpirat" uid="13203" lat="52.4343379" lon="13.5384701">
+  <tag k="railway" v="power_supply"/>
+  <tag k="ref" v="702.04-1"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1704693765" visible="true" version="3" changeset="15140726" timestamp="2013-02-23T20:19:10Z" user="anbr" uid="43566" lat="52.4344632" lon="13.5387412"/>
+ <node id="1704693785" visible="true" version="6" changeset="29028646" timestamp="2015-02-22T19:04:50Z" user="anbr" uid="43566" lat="52.4345014" lon="13.5389162">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+ </node>
+ <node id="1704693804" visible="true" version="5" changeset="29028646" timestamp="2015-02-22T19:04:50Z" user="anbr" uid="43566" lat="52.4347985" lon="13.5396764">
+  <tag k="railway:electricity:jumpering" v="jumpered"/>
+  <tag k="ref" v="702VS4"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1704693810" visible="true" version="6" changeset="29028646" timestamp="2015-02-22T19:04:50Z" user="anbr" uid="43566" lat="52.4348233" lon="13.5396435">
+  <tag k="railway:electricity:jumpering" v="jumpered"/>
+  <tag k="ref" v="702VS4"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="1866350919" visible="true" version="4" changeset="29028646" timestamp="2015-02-22T19:04:51Z" user="anbr" uid="43566" lat="52.4308092" lon="13.5326787">
+  <tag k="ele" v="35.2"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="1866350920" visible="true" version="2" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4308716" lon="13.5329328"/>
+ <node id="1866350921" visible="true" version="2" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4309267" lon="13.5329961"/>
+ <node id="1866350922" visible="true" version="2" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4309999" lon="13.5332272"/>
+ <node id="1866350923" visible="true" version="1" changeset="12731054" timestamp="2012-08-14T20:45:09Z" user="nurinfo" uid="209498" lat="52.4311034" lon="13.5334150"/>
+ <node id="1866350924" visible="true" version="2" changeset="17672273" timestamp="2013-09-04T13:58:06Z" user="stbln" uid="1732886" lat="52.4311867" lon="13.5334844"/>
+ <node id="1906399893" visible="true" version="4" changeset="29028646" timestamp="2015-02-22T19:04:51Z" user="anbr" uid="43566" lat="52.4343647" lon="13.5385295">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+ </node>
+ <node id="1906399902" visible="true" version="4" changeset="29028646" timestamp="2015-02-22T19:04:51Z" user="anbr" uid="43566" lat="52.4343447" lon="13.5385552">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+ </node>
+ <node id="2169462564" visible="true" version="3" changeset="29028646" timestamp="2015-02-22T19:04:51Z" user="anbr" uid="43566" lat="52.4345210" lon="13.5388783">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+ </node>
+ <node id="2169462565" visible="true" version="1" changeset="15140726" timestamp="2013-02-23T20:18:40Z" user="anbr" uid="43566" lat="52.4345504" lon="13.5405436"/>
+ <node id="2169462566" visible="true" version="1" changeset="15140726" timestamp="2013-02-23T20:18:40Z" user="anbr" uid="43566" lat="52.4346515" lon="13.5402990"/>
+ <node id="2185963099" visible="true" version="3" changeset="106675433" timestamp="2021-06-20T17:42:39Z" user="e1440s" uid="11385745" lat="52.4523094" lon="13.4824913">
+  <tag k="description" v="transition for 6 cables"/>
+  <tag k="line_management" v="termination"/>
+  <tag k="location:transition" v="yes"/>
+  <tag k="material" v="steel"/>
+  <tag k="operator" v="Stromnetz Berlin"/>
+  <tag k="power" v="tower"/>
+  <tag k="source" v="Bing"/>
+  <tag k="tower:construction" v="lattice"/>
+ </node>
+ <node id="2293276823" visible="true" version="3" changeset="103454574" timestamp="2021-04-23T06:11:56Z" user="geozeisig" uid="66391" lat="52.4330206" lon="13.5364451">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+ </node>
+ <node id="2293276824" visible="true" version="3" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4329008" lon="13.5361774">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+ </node>
+ <node id="2293276825" visible="true" version="3" changeset="29028646" timestamp="2015-02-22T19:04:52Z" user="anbr" uid="43566" lat="52.4329754" lon="13.5362964">
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+  <tag k="ele" v="35.2"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="2293276826" visible="true" version="3" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4328786" lon="13.5362193">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+ </node>
+ <node id="2293276827" visible="true" version="3" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4330436" lon="13.5364052">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+ </node>
+ <node id="2295317528" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:28:41Z" user="bahnpirat" uid="13203" lat="52.4349972" lon="13.5467919"/>
+ <node id="2295319911" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4282660" lon="13.5187394"/>
+ <node id="2295319912" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4442919" lon="13.5013019"/>
+ <node id="2295319913" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4297115" lon="13.5115077"/>
+ <node id="2295319914" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4285339" lon="13.5245534"/>
+ <node id="2295319915" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4465807" lon="13.5003368"/>
+ <node id="2295319916" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4368639" lon="13.5041654"/>
+ <node id="2295319917" visible="true" version="1" changeset="16020980" timestamp="2013-05-07T23:42:59Z" user="bahnpirat" uid="13203" lat="52.4393156" lon="13.5014215"/>
+ <node id="2391105464" visible="true" version="2" changeset="38994186" timestamp="2016-04-30T06:42:52Z" user="anbr" uid="43566" lat="52.4337838" lon="13.5396857"/>
+ <node id="2391105467" visible="true" version="3" changeset="63700086" timestamp="2018-10-20T10:18:50Z" user="Balgofil" uid="95702" lat="52.4339391" lon="13.5394397">
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="S Adlershof/Franz-Ehrlich-Straße"/>
+  <tag k="note" v="Endhaltestelle"/>
+  <tag k="public_transport" v="stop_position"/>
+ </node>
+ <node id="2531797933" visible="true" version="1" changeset="18888892" timestamp="2013-11-14T07:19:33Z" user="Larifari77" uid="423330" lat="52.4258721" lon="13.5420474"/>
+ <node id="2531797934" visible="true" version="4" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4260192" lon="13.5452870"/>
+ <node id="2531797946" visible="true" version="1" changeset="18888892" timestamp="2013-11-14T07:19:34Z" user="Larifari77" uid="423330" lat="52.4265853" lon="13.5288637"/>
+ <node id="2531797957" visible="true" version="1" changeset="18888892" timestamp="2013-11-14T07:19:34Z" user="Larifari77" uid="423330" lat="52.4270881" lon="13.5268942"/>
+ <node id="2627346854" visible="true" version="1" changeset="20070202" timestamp="2014-01-18T17:36:18Z" user="anbr" uid="43566" lat="52.4265709" lon="13.5291941"/>
+ <node id="2627346856" visible="true" version="2" changeset="76162019" timestamp="2019-10-24T15:09:06Z" user="kartonage" uid="1497225" lat="52.4266201" lon="13.5282056"/>
+ <node id="2697454309" visible="true" version="3" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4300033" lon="13.5307828">
+  <tag k="crossing" v="unmarked"/>
+  <tag k="ele" v="35.1"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="2697454313" visible="true" version="3" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4314489" lon="13.5339612">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="2697454314" visible="true" version="2" changeset="29028646" timestamp="2015-02-22T19:04:52Z" user="anbr" uid="43566" lat="52.4322707" lon="13.5352520"/>
+ <node id="2697454315" visible="true" version="2" changeset="29028646" timestamp="2015-02-22T19:04:52Z" user="anbr" uid="43566" lat="52.4322946" lon="13.5352136"/>
+ <node id="2697454316" visible="true" version="2" changeset="29028646" timestamp="2015-02-22T19:04:52Z" user="anbr" uid="43566" lat="52.4329522" lon="13.5363364">
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+ </node>
+ <node id="2697454318" visible="true" version="2" changeset="38994186" timestamp="2016-04-30T06:42:52Z" user="anbr" uid="43566" lat="52.4344192" lon="13.5387100">
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+  <tag k="ele" v="35.0"/>
+  <tag k="railway" v="level_crossing"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="2697454319" visible="true" version="2" changeset="38994186" timestamp="2016-04-30T06:42:52Z" user="anbr" uid="43566" lat="52.4344396" lon="13.5386779">
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="crossing:light" v="yes"/>
+  <tag k="railway" v="level_crossing"/>
+ </node>
+ <node id="2932661409" visible="true" version="2" changeset="69493016" timestamp="2019-04-23T15:07:24Z" user="momabebra" uid="9508237" lat="52.4367011" lon="13.5349487"/>
+ <node id="3084965436" visible="true" version="4" changeset="86044987" timestamp="2020-06-01T11:45:05Z" user="geozeisig" uid="66391" lat="52.4379956" lon="13.5351791"/>
+ <node id="3084965437" visible="true" version="2" changeset="56030478" timestamp="2018-02-03T14:23:04Z" user="sandrow75" uid="4445038" lat="52.4381508" lon="13.5332178"/>
+ <node id="3084965438" visible="true" version="6" changeset="86044987" timestamp="2020-06-01T11:45:05Z" user="geozeisig" uid="66391" lat="52.4385579" lon="13.5340110"/>
+ <node id="3246050920" visible="true" version="7" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4322176" lon="13.5350876">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:island" v="yes"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3246050921" visible="true" version="6" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4323385" lon="13.5353599">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:island" v="yes"/>
+  <tag k="railway" v="tram_crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3246050928" visible="true" version="6" changeset="93371189" timestamp="2020-11-01T16:02:19Z" user="OneJumpyCartographer" uid="8631613" lat="52.4342927" lon="13.5386301">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3246050929" visible="true" version="7" changeset="93371189" timestamp="2020-11-01T16:02:19Z" user="OneJumpyCartographer" uid="8631613" lat="52.4343097" lon="13.5388760">
+  <tag k="button_operated" v="no"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:island" v="no"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3246050930" visible="true" version="6" changeset="93371189" timestamp="2020-11-01T16:02:19Z" user="OneJumpyCartographer" uid="8631613" lat="52.4344557" lon="13.5389739">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3246050931" visible="true" version="7" changeset="93371189" timestamp="2020-11-01T16:02:20Z" user="OneJumpyCartographer" uid="8631613" lat="52.4345774" lon="13.5384612">
+  <tag k="button_operated" v="no"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="crossing:island" v="no"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3246050932" visible="true" version="6" changeset="93371189" timestamp="2020-11-01T16:02:20Z" user="OneJumpyCartographer" uid="8631613" lat="52.4345839" lon="13.5387979">
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3246050933" visible="true" version="2" changeset="38994186" timestamp="2016-04-30T06:42:53Z" user="anbr" uid="43566" lat="52.4347096" lon="13.5391232"/>
+ <node id="3246050934" visible="true" version="1" changeset="27609067" timestamp="2014-12-21T13:39:52Z" user="Balgofil" uid="95702" lat="52.4348130" lon="13.5393928"/>
+ <node id="3246050935" visible="true" version="1" changeset="27609067" timestamp="2014-12-21T13:39:52Z" user="Balgofil" uid="95702" lat="52.4348658" lon="13.5380087"/>
+ <node id="3273748281" visible="true" version="1" changeset="27965702" timestamp="2015-01-06T20:59:44Z" user="OSM-Bot" uid="111462" lat="52.4341453" lon="13.5381888"/>
+ <node id="3273748282" visible="true" version="1" changeset="27965702" timestamp="2015-01-06T20:59:44Z" user="OSM-Bot" uid="111462" lat="52.4341655" lon="13.5381592"/>
+ <node id="3273748283" visible="true" version="1" changeset="27965702" timestamp="2015-01-06T20:59:44Z" user="OSM-Bot" uid="111462" lat="52.4342451" lon="13.5383577"/>
+ <node id="3273748284" visible="true" version="1" changeset="27965702" timestamp="2015-01-06T20:59:44Z" user="OSM-Bot" uid="111462" lat="52.4342726" lon="13.5383409"/>
+ <node id="3337392827" visible="true" version="2" changeset="76162019" timestamp="2019-10-24T15:09:06Z" user="kartonage" uid="1497225" lat="52.4274977" lon="13.5269392"/>
+ <node id="3366620135" visible="true" version="7" changeset="94064819" timestamp="2020-11-13T13:33:01Z" user="OneJumpyCartographer" uid="8631613" lat="52.4342668" lon="13.5385852">
+  <tag k="bicycle" v="yes"/>
+  <tag k="button_operated" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="tactile_paving" v="yes"/>
+  <tag k="traffic_signals:direction" v="forward"/>
+  <tag k="traffic_signals:sound" v="yes"/>
+  <tag k="traffic_signals:vibration" v="yes"/>
+ </node>
+ <node id="3366620136" visible="true" version="3" changeset="38994186" timestamp="2016-04-30T06:42:53Z" user="anbr" uid="43566" lat="52.4342818" lon="13.5389172">
+  <tag k="bicycle" v="yes"/>
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="traffic_signals:direction" v="backward"/>
+ </node>
+ <node id="3366620142" visible="true" version="3" changeset="44584049" timestamp="2016-12-22T07:25:46Z" user="anbr" uid="43566" lat="52.4346022" lon="13.5384222">
+  <tag k="bicycle" v="yes"/>
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="traffic_signals:direction" v="backward"/>
+ </node>
+ <node id="3366620144" visible="true" version="4" changeset="38994186" timestamp="2016-04-30T06:42:53Z" user="anbr" uid="43566" lat="52.4346029" lon="13.5388472">
+  <tag k="bicycle" v="yes"/>
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="traffic_signals:direction" v="forward"/>
+ </node>
+ <node id="3412579235" visible="true" version="1" changeset="29655795" timestamp="2015-03-22T12:40:35Z" user="Balgofil" uid="95702" lat="52.4271413" lon="13.5451804"/>
+ <node id="3656559931" visible="true" version="2" changeset="76162019" timestamp="2019-10-24T15:09:06Z" user="kartonage" uid="1497225" lat="52.4275744" lon="13.5269466"/>
+ <node id="3750581823" visible="true" version="2" changeset="102059789" timestamp="2021-03-31T13:45:16Z" user="geozeisig" uid="66391" lat="52.4327614" lon="13.5197846"/>
+ <node id="3885870411" visible="true" version="3" changeset="102059789" timestamp="2021-03-31T13:45:16Z" user="geozeisig" uid="66391" lat="52.4378326" lon="13.5365367"/>
+ <node id="3885870412" visible="true" version="1" changeset="35862938" timestamp="2015-12-10T10:46:25Z" user="MarsmanRom" uid="44514" lat="52.4368998" lon="13.5376296"/>
+ <node id="3885870415" visible="true" version="2" changeset="102059789" timestamp="2021-03-31T13:45:16Z" user="geozeisig" uid="66391" lat="52.4373572" lon="13.5371146"/>
+ <node id="3885870416" visible="true" version="1" changeset="35862938" timestamp="2015-12-10T10:46:25Z" user="MarsmanRom" uid="44514" lat="52.4365681" lon="13.5382465"/>
+ <node id="3885870418" visible="true" version="3" changeset="102059789" timestamp="2021-03-31T13:45:16Z" user="geozeisig" uid="66391" lat="52.4407517" lon="13.5324399"/>
+ <node id="4004564272" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4333771" lon="13.5377813"/>
+ <node id="4004564307" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4334893" lon="13.5375927"/>
+ <node id="4004564377" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4339892" lon="13.5384264"/>
+ <node id="4004564379" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4340027" lon="13.5384034"/>
+ <node id="4004564386" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4340831" lon="13.5385728"/>
+ <node id="4004564388" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4340956" lon="13.5385522"/>
+ <node id="4004564489" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4341017" lon="13.5389275"/>
+ <node id="4004564497" visible="true" version="3" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4342134" lon="13.5387373"/>
+ <node id="4156912993" visible="true" version="1" changeset="38994186" timestamp="2016-04-30T06:42:15Z" user="anbr" uid="43566" lat="52.4344644" lon="13.5388237"/>
+ <node id="4156912994" visible="true" version="2" changeset="54872723" timestamp="2017-12-23T20:54:17Z" user="sgoerg" uid="7336693" lat="52.4353186" lon="13.5403023"/>
+ <node id="4156913004" visible="true" version="2" changeset="41874902" timestamp="2016-09-02T18:46:30Z" user="anbr" uid="43566" lat="52.4359833" lon="13.5393523"/>
+ <node id="4335662645" visible="true" version="1" changeset="41241400" timestamp="2016-08-04T16:09:53Z" user="Balgofil" uid="95702" lat="52.4336436" lon="13.5397150"/>
+ <node id="4407052119" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4336083" lon="13.5381476"/>
+ <node id="4407052120" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4336062" lon="13.5377786"/>
+ <node id="4407052121" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4339035" lon="13.5385729"/>
+ <node id="4407052123" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4336869" lon="13.5379057"/>
+ <node id="4407052124" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4339837" lon="13.5387402"/>
+ <node id="4407052125" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4339965" lon="13.5387187"/>
+ <node id="4471476398" visible="true" version="1" changeset="43285346" timestamp="2016-10-30T15:11:01Z" user="FabiB" uid="311833" lat="52.4349014" lon="13.5381534"/>
+ <node id="4471479235" visible="true" version="1" changeset="43285363" timestamp="2016-10-30T15:11:53Z" user="FabiB" uid="311833" lat="52.4348318" lon="13.5385280">
+  <tag k="leaf_cycle" v="deciduous"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="4818948357" visible="true" version="6" changeset="92654086" timestamp="2020-10-18T11:35:19Z" user="kartonage" uid="1497225" lat="52.4341534" lon="13.5387366">
+  <tag k="addr:housenumber" v="5a"/>
+  <tag k="addr:street" v="Rudower Chaussee"/>
+  <tag k="amenity" v="restaurant"/>
+  <tag k="cuisine" v="greek"/>
+  <tag k="diet:vegetarian" v="yes"/>
+  <tag k="email" v="info@olympia-berlinadlershof.de"/>
+  <tag k="name" v="Olympia"/>
+  <tag k="opening_hours" v="10:30+"/>
+  <tag k="operator" v="Nico Kitsos"/>
+  <tag k="phone" v="+4930 96609242"/>
+  <tag k="takeaway" v="yes"/>
+  <tag k="website" v="https://olympia-berlinadlershof.de"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="4854982234" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4341204" lon="13.5383555"/>
+ <node id="4854982235" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:44Z" user="Supaplex030" uid="418040" lat="52.4340361" lon="13.5384996"/>
+ <node id="4854982236" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:45Z" user="Supaplex030" uid="418040" lat="52.4339500" lon="13.5386458"/>
+ <node id="4854982237" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:45Z" user="Supaplex030" uid="418040" lat="52.4338489" lon="13.5388175"/>
+ <node id="4854982238" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:45Z" user="Supaplex030" uid="418040" lat="52.4335881" lon="13.5377506">
+  <tag k="addr:city" v="Berlin"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="5C"/>
+  <tag k="addr:postcode" v="12489"/>
+  <tag k="addr:street" v="Rudower Chaussee"/>
+  <tag k="addr:suburb" v="Adlershof"/>
+  <tag k="entrance" v="yes"/>
+ </node>
+ <node id="4854982239" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:45Z" user="Supaplex030" uid="418040" lat="52.4338445" lon="13.5381559">
+  <tag k="addr:city" v="Berlin"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="5B"/>
+  <tag k="addr:postcode" v="12489"/>
+  <tag k="addr:street" v="Rudower Chaussee"/>
+  <tag k="addr:suburb" v="Adlershof"/>
+  <tag k="entrance" v="yes"/>
+ </node>
+ <node id="4854982240" visible="true" version="2" changeset="57986550" timestamp="2018-04-10T22:08:45Z" user="Supaplex030" uid="418040" lat="52.4340377" lon="13.5386493">
+  <tag k="addr:city" v="Berlin"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="5A"/>
+  <tag k="addr:postcode" v="12489"/>
+  <tag k="addr:street" v="Rudower Chaussee"/>
+  <tag k="addr:suburb" v="Adlershof"/>
+  <tag k="entrance" v="yes"/>
+ </node>
+ <node id="4995494740" visible="true" version="3" changeset="54872723" timestamp="2017-12-23T20:54:17Z" user="sgoerg" uid="7336693" lat="52.4352524" lon="13.5402159"/>
+ <node id="4995494742" visible="true" version="2" changeset="110073044" timestamp="2021-08-22T17:57:44Z" user="Berlin53" uid="9450913" lat="52.4357873" lon="13.5368155"/>
+ <node id="5008744949" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4344887" lon="13.5375070"/>
+ <node id="5008744950" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345721" lon="13.5370503"/>
+ <node id="5008744952" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4347415" lon="13.5378736"/>
+ <node id="5008744953" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346092" lon="13.5380781"/>
+ <node id="5008745176" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346354" lon="13.5371557"/>
+ <node id="5008745177" visible="true" version="4" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4343664" lon="13.5373110"/>
+ <node id="5383660693" visible="true" version="1" changeset="56035581" timestamp="2018-02-03T17:57:25Z" user="sandrow75" uid="4445038" lat="52.4307943" lon="13.5321459"/>
+ <node id="5383660694" visible="true" version="1" changeset="56035581" timestamp="2018-02-03T17:57:25Z" user="sandrow75" uid="4445038" lat="52.4307221" lon="13.5319544"/>
+ <node id="5539781699" visible="true" version="1" changeset="57935236" timestamp="2018-04-09T09:31:33Z" user="Cyfreak" uid="185770" lat="52.4344352" lon="13.5394260">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5539782337" visible="true" version="1" changeset="57935236" timestamp="2018-04-09T09:31:34Z" user="Cyfreak" uid="185770" lat="52.4340967" lon="13.5393099">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5539782338" visible="true" version="1" changeset="57935236" timestamp="2018-04-09T09:31:34Z" user="Cyfreak" uid="185770" lat="52.4342077" lon="13.5391518">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5539782339" visible="true" version="1" changeset="57935236" timestamp="2018-04-09T09:31:34Z" user="Cyfreak" uid="185770" lat="52.4343498" lon="13.5391518">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5539782340" visible="true" version="1" changeset="57935236" timestamp="2018-04-09T09:31:34Z" user="Cyfreak" uid="185770" lat="52.4342651" lon="13.5394010">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978197" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:12Z" user="Cyfreak" uid="185770" lat="52.4344139" lon="13.5382339">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978198" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:12Z" user="Cyfreak" uid="185770" lat="52.4346831" lon="13.5384325">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978199" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:12Z" user="Cyfreak" uid="185770" lat="52.4348708" lon="13.5381555">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978202" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:12Z" user="Cyfreak" uid="185770" lat="52.4347648" lon="13.5382935">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978203" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:12Z" user="Cyfreak" uid="185770" lat="52.4346820" lon="13.5381492">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978204" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:12Z" user="Cyfreak" uid="185770" lat="52.4345934" lon="13.5382819">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978205" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:12Z" user="Cyfreak" uid="185770" lat="52.4347706" lon="13.5380049">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5542978464" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:18Z" user="Cyfreak" uid="185770" lat="52.4347198" lon="13.5383642">
+  <tag k="highway" v="street_lamp"/>
+ </node>
+ <node id="5542978465" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:18Z" user="Cyfreak" uid="185770" lat="52.4347247" lon="13.5380771">
+  <tag k="highway" v="street_lamp"/>
+ </node>
+ <node id="5542978466" visible="true" version="1" changeset="57973739" timestamp="2018-04-10T13:57:18Z" user="Cyfreak" uid="185770" lat="52.4348797" lon="13.5381200">
+  <tag k="highway" v="street_lamp"/>
+ </node>
+ <node id="5543923970" visible="true" version="1" changeset="57986550" timestamp="2018-04-10T22:08:34Z" user="Supaplex030" uid="418040" lat="52.4341997" lon="13.5393878">
+  <tag k="amenity" v="waste_basket"/>
+ </node>
+ <node id="5543923975" visible="true" version="1" changeset="57986550" timestamp="2018-04-10T22:08:34Z" user="Supaplex030" uid="418040" lat="52.4341536" lon="13.5394160">
+  <tag k="amenity" v="bench"/>
+  <tag k="backrest" v="no"/>
+  <tag k="destination" v="50"/>
+ </node>
+ <node id="5543923995" visible="true" version="1" changeset="57986550" timestamp="2018-04-10T22:08:34Z" user="Supaplex030" uid="418040" lat="52.4337520" lon="13.5397360"/>
+ <node id="5543924045" visible="true" version="1" changeset="57986550" timestamp="2018-04-10T22:08:36Z" user="Supaplex030" uid="418040" lat="52.4338909" lon="13.5385942"/>
+ <node id="5546255546" visible="true" version="1" changeset="58016034" timestamp="2018-04-11T19:45:48Z" user="Cyfreak" uid="185770" lat="52.4340786" lon="13.5379457">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5546255548" visible="true" version="1" changeset="58016034" timestamp="2018-04-11T19:45:48Z" user="Cyfreak" uid="185770" lat="52.4341865" lon="13.5383712">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5546255549" visible="true" version="1" changeset="58016034" timestamp="2018-04-11T19:45:48Z" user="Cyfreak" uid="185770" lat="52.4341849" lon="13.5381200">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5546255550" visible="true" version="1" changeset="58016034" timestamp="2018-04-11T19:45:48Z" user="Cyfreak" uid="185770" lat="52.4342663" lon="13.5382483">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5546255555" visible="true" version="1" changeset="58016034" timestamp="2018-04-11T19:45:48Z" user="Cyfreak" uid="185770" lat="52.4345429" lon="13.5393594">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5546255556" visible="true" version="1" changeset="58016034" timestamp="2018-04-11T19:45:48Z" user="Cyfreak" uid="185770" lat="52.4344853" lon="13.5392265">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5546255557" visible="true" version="1" changeset="58016034" timestamp="2018-04-11T19:45:48Z" user="Cyfreak" uid="185770" lat="52.4344370" lon="13.5390924">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="5564696431" visible="true" version="1" changeset="58238505" timestamp="2018-04-19T16:40:17Z" user="Cyfreak" uid="185770" lat="52.4340256" lon="13.5390963"/>
+ <node id="5725010151" visible="true" version="1" changeset="60239421" timestamp="2018-06-28T07:54:07Z" user="Spanholz" uid="2209894" lat="52.4259380" lon="13.5407373"/>
+ <node id="5725010153" visible="true" version="1" changeset="60239421" timestamp="2018-06-28T07:54:07Z" user="Spanholz" uid="2209894" lat="52.4258882" lon="13.5417197"/>
+ <node id="5750123850" visible="true" version="1" changeset="60551563" timestamp="2018-07-09T20:12:06Z" user="elgolfo" uid="7295" lat="52.4334832" lon="13.5382366"/>
+ <node id="5836660312" visible="true" version="1" changeset="61720769" timestamp="2018-08-16T16:05:00Z" user="sandrow75" uid="4445038" lat="52.4339020" lon="13.5398538"/>
+ <node id="5836660313" visible="true" version="1" changeset="61720769" timestamp="2018-08-16T16:05:00Z" user="sandrow75" uid="4445038" lat="52.4342933" lon="13.5392948"/>
+ <node id="5836660314" visible="true" version="1" changeset="61720769" timestamp="2018-08-16T16:05:00Z" user="sandrow75" uid="4445038" lat="52.4342674" lon="13.5389385"/>
+ <node id="5836660315" visible="true" version="1" changeset="61720769" timestamp="2018-08-16T16:05:00Z" user="sandrow75" uid="4445038" lat="52.4343301" lon="13.5398007"/>
+ <node id="5836660317" visible="true" version="1" changeset="61720769" timestamp="2018-08-16T16:05:00Z" user="sandrow75" uid="4445038" lat="52.4337204" lon="13.5397861"/>
+ <node id="5839424419" visible="true" version="2" changeset="110073044" timestamp="2021-08-22T17:57:44Z" user="Berlin53" uid="9450913" lat="52.4334879" lon="13.5399528"/>
+ <node id="5903169150" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4341373" lon="13.5377231"/>
+ <node id="5903169151" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4342805" lon="13.5374546"/>
+ <node id="5903169155" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4343931" lon="13.5376547"/>
+ <node id="5903169156" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345127" lon="13.5378876"/>
+ <node id="5903169157" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4344589" lon="13.5382520"/>
+ <node id="5903169158" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4343745" lon="13.5381123"/>
+ <node id="5903169159" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4342235" lon="13.5378645"/>
+ <node id="5903169160" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4348751" lon="13.5375711"/>
+ <node id="5903169161" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4348060" lon="13.5374572"/>
+ <node id="5903169162" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346160" lon="13.5377148"/>
+ <node id="6275106347" visible="true" version="1" changeset="67143980" timestamp="2019-02-12T21:02:16Z" user="Balgofil" uid="95702" lat="52.4332008" lon="13.5364899"/>
+ <node id="6275106348" visible="true" version="1" changeset="67143980" timestamp="2019-02-12T21:02:16Z" user="Balgofil" uid="95702" lat="52.4342702" lon="13.5381850"/>
+ <node id="6275106349" visible="true" version="2" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702" lat="52.4332559" lon="13.5378734"/>
+ <node id="6292598094" visible="true" version="1" changeset="67418589" timestamp="2019-02-21T06:48:17Z" user="geozeisig" uid="66391" lat="52.4291887" lon="13.5223394"/>
+ <node id="6305758744" visible="true" version="3" changeset="76180844" timestamp="2019-10-25T04:08:44Z" user="kartonage" uid="1497225" lat="52.4342956" lon="13.5409149"/>
+ <node id="6305758745" visible="true" version="3" changeset="76180844" timestamp="2019-10-25T04:08:44Z" user="kartonage" uid="1497225" lat="52.4337600" lon="13.5399523"/>
+ <node id="6318808571" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346106" lon="13.5371144"/>
+ <node id="6318808574" visible="true" version="3" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345967" lon="13.5370912"/>
+ <node id="6355294401" visible="true" version="3" changeset="102505819" timestamp="2021-04-07T20:38:34Z" user="kartograph" uid="17304" lat="52.4372374" lon="13.5341584">
+  <tag k="barrier" v="gate"/>
+ </node>
+ <node id="6355294409" visible="true" version="2" changeset="69493016" timestamp="2019-04-23T15:07:25Z" user="momabebra" uid="9508237" lat="52.4371499" lon="13.5323885"/>
+ <node id="6355294416" visible="true" version="1" changeset="68426412" timestamp="2019-03-22T20:17:59Z" user="Balgofil" uid="95702" lat="52.4351709" lon="13.5309979"/>
+ <node id="6355294417" visible="true" version="1" changeset="68426412" timestamp="2019-03-22T20:17:59Z" user="Balgofil" uid="95702" lat="52.4361371" lon="13.5306613"/>
+ <node id="6355294418" visible="true" version="1" changeset="68426412" timestamp="2019-03-22T20:17:59Z" user="Balgofil" uid="95702" lat="52.4362252" lon="13.5308129"/>
+ <node id="6355294421" visible="true" version="1" changeset="68426412" timestamp="2019-03-22T20:17:59Z" user="Balgofil" uid="95702" lat="52.4369176" lon="13.5320042"/>
+ <node id="6366040057" visible="true" version="2" changeset="69493016" timestamp="2019-04-23T15:07:25Z" user="momabebra" uid="9508237" lat="52.4375628" lon="13.5336830">
+  <tag k="barrier" v="gate"/>
+ </node>
+ <node id="6366092610" visible="true" version="1" changeset="68603497" timestamp="2019-03-27T20:49:44Z" user="Balgofil" uid="95702" lat="52.4332222" lon="13.5365246"/>
+ <node id="6405281695" visible="true" version="1" changeset="69216568" timestamp="2019-04-14T23:59:04Z" user="Berlin53" uid="9450913" lat="52.4315252" lon="13.5335892"/>
+ <node id="6406624410" visible="true" version="5" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4347643" lon="13.5350459"/>
+ <node id="6406624411" visible="true" version="4" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4341990" lon="13.5359399"/>
+ <node id="6423633729" visible="true" version="1" changeset="69493016" timestamp="2019-04-23T15:07:24Z" user="momabebra" uid="9508237" lat="52.4372857" lon="13.5340877">
+  <tag k="barrier" v="gate"/>
+ </node>
+ <node id="6423699685" visible="true" version="1" changeset="69494064" timestamp="2019-04-23T15:39:36Z" user="momabebra" uid="9508237" lat="52.4361617" lon="13.5357840"/>
+ <node id="6423699688" visible="true" version="1" changeset="69494064" timestamp="2019-04-23T15:39:36Z" user="momabebra" uid="9508237" lat="52.4363674" lon="13.5354643"/>
+ <node id="6432892790" visible="true" version="1" changeset="69645997" timestamp="2019-04-27T17:44:40Z" user="Berlin53" uid="9450913" lat="52.4337333" lon="13.5373386"/>
+ <node id="6432892794" visible="true" version="1" changeset="69645997" timestamp="2019-04-27T17:44:40Z" user="Berlin53" uid="9450913" lat="52.4339840" lon="13.5377371"/>
+ <node id="6470789295" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4344139" lon="13.5376691"/>
+ <node id="6470789296" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345099" lon="13.5378452"/>
+ <node id="6470789353" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345833" lon="13.5378214"/>
+ <node id="6470789354" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345507" lon="13.5378786"/>
+ <node id="6470789355" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345009" lon="13.5379751"/>
+ <node id="6470789356" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4344954" lon="13.5379945"/>
+ <node id="6470789357" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4344990" lon="13.5380197"/>
+ <node id="6470789358" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345461" lon="13.5380999"/>
+ <node id="6470789359" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4345647" lon="13.5380999"/>
+ <node id="6470789360" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346145" lon="13.5380427"/>
+ <node id="6470789361" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346657" lon="13.5379751"/>
+ <node id="6470789362" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4347209" lon="13.5378741"/>
+ <node id="6470789363" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4347286" lon="13.5378533"/>
+ <node id="6470789364" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4347286" lon="13.5378318"/>
+ <node id="6470789365" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346720" lon="13.5377337"/>
+ <node id="6470789366" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4346503" lon="13.5377337"/>
+ <node id="6470789510" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4350131" lon="13.5354825">
+  <tag k="barrier" v="gate"/>
+ </node>
+ <node id="6470789513" visible="true" version="2" changeset="90047033" timestamp="2020-08-27T21:45:41Z" user="Президент Ирака" uid="339183" lat="52.4349021" lon="13.5352864">
+  <tag k="barrier" v="gate"/>
+ </node>
+ <node id="6542641309" visible="true" version="1" changeset="71183517" timestamp="2019-06-12T14:43:47Z" user="momabebra" uid="9508237" lat="52.4334008" lon="13.5365461"/>
+ <node id="6542641310" visible="true" version="1" changeset="71183517" timestamp="2019-06-12T14:43:47Z" user="momabebra" uid="9508237" lat="52.4339074" lon="13.5358335"/>
+ <node id="6780568076" visible="true" version="2" changeset="110073044" timestamp="2021-08-22T17:57:44Z" user="Berlin53" uid="9450913" lat="52.4364373" lon="13.5379403"/>
+ <node id="6780568077" visible="true" version="2" changeset="91999086" timestamp="2020-10-05T17:03:15Z" user="Balgofil" uid="95702" lat="52.4372941" lon="13.5360763"/>
+ <node id="6906320633" visible="true" version="1" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4263087" lon="13.5459875"/>
+ <node id="6906320637" visible="true" version="1" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4262124" lon="13.5458031"/>
+ <node id="6906320638" visible="true" version="1" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4259034" lon="13.5448352"/>
+ <node id="6906320649" visible="true" version="1" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4258130" lon="13.5443950"/>
+ <node id="6906320650" visible="true" version="1" changeset="76058504" timestamp="2019-10-22T16:01:15Z" user="momabebra" uid="9508237" lat="52.4258381" lon="13.5445543"/>
+ <node id="6912966718" visible="true" version="1" changeset="76162019" timestamp="2019-10-24T15:09:06Z" user="kartonage" uid="1497225" lat="52.4266778" lon="13.5271290"/>
+ <node id="6912966734" visible="true" version="1" changeset="76162019" timestamp="2019-10-24T15:09:06Z" user="kartonage" uid="1497225" lat="52.4271049" lon="13.5268960"/>
+ <node id="6986619289" visible="true" version="1" changeset="77214511" timestamp="2019-11-18T08:39:46Z" user="robson06" uid="120249" lat="52.4347431" lon="13.5379548">
+  <tag k="amenity" v="bicycle_parking"/>
+  <tag k="bicycle_parking" v="stands"/>
+  <tag k="bicycle_parking:position" v="sidewalk"/>
+  <tag k="capacity" v="6"/>
+  <tag k="covered" v="no"/>
+ </node>
+ <node id="7170324896" visible="true" version="1" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702" lat="52.4333176" lon="13.5379720"/>
+ <node id="7170324897" visible="true" version="1" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702" lat="52.4333925" lon="13.5378397"/>
+ <node id="7170324898" visible="true" version="1" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702" lat="52.4333554" lon="13.5377812"/>
+ <node id="7170324899" visible="true" version="1" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702" lat="52.4341710" lon="13.5390809"/>
+ <node id="7170324900" visible="true" version="1" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702" lat="52.4339276" lon="13.5386839"/>
+ <node id="7170324902" visible="true" version="1" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702" lat="52.4334957" lon="13.5373713"/>
+ <node id="7227447791" visible="true" version="1" changeset="81221384" timestamp="2020-02-19T12:51:21Z" user="puppalg" uid="10252562" lat="52.4334749" lon="13.5401753"/>
+ <node id="7577668459" visible="true" version="1" changeset="86044987" timestamp="2020-06-01T11:45:05Z" user="geozeisig" uid="66391" lat="52.4359713" lon="13.5360791"/>
+ <node id="7843590391" visible="true" version="3" changeset="101869309" timestamp="2021-03-28T11:30:49Z" user="OneJumpyCartographer" uid="8631613" lat="52.4350197" lon="13.5377637">
+  <tag k="crossing" v="unmarked"/>
+  <tag k="crossing:island" v="no"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="no"/>
+ </node>
+ <node id="7885145142" visible="true" version="2" changeset="91299210" timestamp="2020-09-22T13:30:53Z" user="Berlin53" uid="9450913" lat="52.4362398" lon="13.5356625">
+  <tag k="covered" v="yes"/>
+  <tag k="entrance" v="yes"/>
+ </node>
+ <node id="7885145177" visible="true" version="1" changeset="90549772" timestamp="2020-09-07T22:02:32Z" user="Президент Ирака" uid="339183" lat="52.4365633" lon="13.5351464"/>
+ <node id="7932055479" visible="true" version="2" changeset="110073044" timestamp="2021-08-22T17:57:44Z" user="Berlin53" uid="9450913" lat="52.4288647" lon="13.5259376"/>
+ <node id="7978090562" visible="true" version="1" changeset="91999086" timestamp="2020-10-05T17:03:15Z" user="Balgofil" uid="95702" lat="52.4378146" lon="13.5350238"/>
+ <node id="8255411896" visible="true" version="2" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4318604" lon="13.5345399">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="8255411900" visible="true" version="2" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4308611" lon="13.5328189">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="8255411901" visible="true" version="2" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4308391" lon="13.5328554">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="8255411905" visible="true" version="2" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4307440" lon="13.5325137">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="8255411906" visible="true" version="2" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391" lat="52.4307184" lon="13.5325368">
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="8444972664" visible="true" version="1" changeset="99727946" timestamp="2021-02-22T08:43:28Z" user="Raihas" uid="10252538" lat="52.4305071" lon="13.5107004"/>
+ <node id="8485894900" visible="true" version="1" changeset="100422758" timestamp="2021-03-04T12:28:15Z" user="tnayini" uid="10455633" lat="52.4312633" lon="13.5099231"/>
+ <node id="8579200909" visible="true" version="2" changeset="110128828" timestamp="2021-08-23T17:07:40Z" user="Berlin53" uid="9450913" lat="52.4370031" lon="13.5368902"/>
+ <node id="8603693155" visible="true" version="1" changeset="102506024" timestamp="2021-04-07T20:45:26Z" user="kartograph" uid="17304" lat="52.4347274" lon="13.5388928">
+  <tag k="highway" v="street_lamp"/>
+ </node>
+ <node id="8603693156" visible="true" version="1" changeset="102506024" timestamp="2021-04-07T20:45:26Z" user="kartograph" uid="17304" lat="52.4348320" lon="13.5391641">
+  <tag k="highway" v="street_lamp"/>
+ </node>
+ <node id="8603693161" visible="true" version="1" changeset="102506024" timestamp="2021-04-07T20:45:26Z" user="kartograph" uid="17304" lat="52.4345783" lon="13.5394288">
+  <tag k="highway" v="street_lamp"/>
+ </node>
+ <node id="8657920225" visible="true" version="1" changeset="103454574" timestamp="2021-04-23T06:11:56Z" user="geozeisig" uid="66391" lat="52.4318408" lon="13.5345756">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="railway" v="tram_crossing"/>
+ </node>
+ <node id="8904492277" visible="true" version="1" changeset="107640147" timestamp="2021-07-08T13:32:14Z" user="masix" uid="6617985" lat="52.4345659" lon="13.5370581">
+  <tag k="camera:direction" v="170"/>
+  <tag k="camera:mount" v="wall"/>
+  <tag k="camera:type" v="fixed"/>
+  <tag k="man_made" v="surveillance"/>
+  <tag k="surveillance" v="outdoor"/>
+  <tag k="surveillance:type" v="camera"/>
+  <tag k="surveillance:zone" v="entrance"/>
+ </node>
+ <node id="9026791252" visible="true" version="1" changeset="110073044" timestamp="2021-08-22T17:57:44Z" user="Berlin53" uid="9450913" lat="52.4303336" lon="13.5309894"/>
+ <node id="9029300269" visible="true" version="1" changeset="110128828" timestamp="2021-08-23T17:07:40Z" user="Berlin53" uid="9450913" lat="52.4365010" lon="13.5378318"/>
+ <node id="9035154606" visible="true" version="1" changeset="110236123" timestamp="2021-08-25T14:16:38Z" user="Berlin53" uid="9450913" lat="52.4346579" lon="13.5394969"/>
+ <node id="9035338618" visible="true" version="1" changeset="110236123" timestamp="2021-08-25T14:16:38Z" user="Berlin53" uid="9450913" lat="52.4363662" lon="13.5378437"/>
+ <way id="24931872" visible="true" version="21" changeset="71183517" timestamp="2019-06-12T14:43:47Z" user="momabebra" uid="9508237">
+  <nd ref="6406624410"/>
+  <nd ref="6470789513"/>
+  <nd ref="6470789510"/>
+  <nd ref="671564447"/>
+  <nd ref="30618469"/>
+  <nd ref="6542641309"/>
+  <nd ref="6542641310"/>
+  <nd ref="6406624411"/>
+  <nd ref="6406624410"/>
+  <tag k="landuse" v="commercial"/>
+  <tag k="name" v="Allianz Campus Berlin"/>
+ </way>
+ <way id="46604309" visible="true" version="18" changeset="100422758" timestamp="2021-03-04T12:28:15Z" user="tnayini" uid="10455633">
+  <nd ref="595593792"/>
+  <nd ref="2295317528"/>
+  <nd ref="595593793"/>
+  <nd ref="595593794"/>
+  <nd ref="595593796"/>
+  <nd ref="595593797"/>
+  <nd ref="595593798"/>
+  <nd ref="2295319914"/>
+  <nd ref="2295319911"/>
+  <nd ref="2295319913"/>
+  <nd ref="8444972664"/>
+  <nd ref="8485894900"/>
+  <nd ref="2295319916"/>
+  <nd ref="2295319917"/>
+  <nd ref="595593799"/>
+  <nd ref="595593800"/>
+  <nd ref="595593801"/>
+  <nd ref="2295319912"/>
+  <nd ref="2295319915"/>
+  <nd ref="595593802"/>
+  <nd ref="595593803"/>
+  <nd ref="595593804"/>
+  <nd ref="595593805"/>
+  <nd ref="2185963099"/>
+  <tag k="layer" v="-1"/>
+  <tag k="location" v="underground"/>
+  <tag k="name" v="614 WUL-MOI, 728 WUL-MOI, 729 WUL-MOI"/>
+  <tag k="operator" v="Stromnetz Berlin"/>
+  <tag k="power" v="cable"/>
+  <tag k="ref" v="614;728;729"/>
+  <tag k="voltage" v="110000"/>
+ </way>
+ <way id="52080655" visible="true" version="19" changeset="89426200" timestamp="2020-08-14T18:54:46Z" user="Supaplex030" uid="418040">
+  <nd ref="1652675099"/>
+  <nd ref="3246050931"/>
+  <nd ref="3366620142"/>
+  <nd ref="3246050935"/>
+  <tag k="change:lanes:backward" v="not_left|yes"/>
+  <tag k="change:lanes:forward" v="not_left"/>
+  <tag k="cycleway" v="lane"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="3"/>
+  <tag k="lanes:backward" v="2"/>
+  <tag k="lanes:forward" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Wagner-Régeny-Straße"/>
+  <tag k="name:etymology:wikidata" v="Q540323"/>
+  <tag k="parking:lane:both" v="no"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="turn:lanes:backward" v="left|through;right"/>
+  <tag k="width" v="6.5"/>
+ </way>
+ <way id="81639675" visible="true" version="19" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="6275106348"/>
+  <nd ref="1560225317"/>
+  <nd ref="6432892794"/>
+  <nd ref="6432892790"/>
+  <nd ref="1560225199"/>
+  <nd ref="270930931"/>
+  <nd ref="6366092610"/>
+  <nd ref="6275106347"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="intermediate"/>
+  <tag k="cycleway:right:surface" v="paving_stones"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rudower Chaussee"/>
+  <tag k="name:etymology:wikidata" v="Q614664"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="parking:lane:right" v="parallel"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="6"/>
+ </way>
+ <way id="118132050" visible="true" version="17" changeset="110236123" timestamp="2021-08-25T14:16:38Z" user="Berlin53" uid="9450913">
+  <nd ref="3084965437"/>
+  <nd ref="1652675140"/>
+  <nd ref="3885870418"/>
+  <nd ref="261601116"/>
+  <nd ref="3885870411"/>
+  <nd ref="3885870415"/>
+  <nd ref="3885870412"/>
+  <nd ref="3885870416"/>
+  <nd ref="261605814"/>
+  <nd ref="4156913004"/>
+  <nd ref="4156912994"/>
+  <nd ref="1422931215"/>
+  <nd ref="4995494740"/>
+  <nd ref="1422931213"/>
+  <nd ref="4471476398"/>
+  <nd ref="4995494742"/>
+  <nd ref="9035338618"/>
+  <nd ref="6780568076"/>
+  <nd ref="9029300269"/>
+  <nd ref="8579200909"/>
+  <nd ref="6780568077"/>
+  <nd ref="7978090562"/>
+  <nd ref="3084965436"/>
+  <nd ref="3084965438"/>
+  <nd ref="3084965437"/>
+  <tag k="landuse" v="construction"/>
+  <tag k="name" v="OfficeLab-Campus Adlershof"/>
+ </way>
+ <way id="128648602" visible="true" version="2" changeset="44584049" timestamp="2016-12-22T07:25:56Z" user="anbr" uid="43566">
+  <nd ref="1421187956"/>
+  <nd ref="1421187965"/>
+  <nd ref="1421187962"/>
+  <nd ref="1421187955"/>
+  <nd ref="1421187956"/>
+  <tag k="landuse" v="railway"/>
+  <tag k="natural" v="grassland"/>
+ </way>
+ <way id="137483074" visible="true" version="12" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="1652675097"/>
+  <nd ref="2697454318"/>
+  <nd ref="2697454319"/>
+  <nd ref="1652675099"/>
+  <tag k="cycleway" v="lane"/>
+  <tag k="foot" v="use_sidepath"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Wagner-Régeny-Straße"/>
+  <tag k="name:etymology:wikidata" v="Q540323"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk:both" v="separate"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="140295392" visible="true" version="11" changeset="100103137" timestamp="2021-02-27T15:38:21Z" user="geozeisig" uid="66391">
+  <nd ref="1652675097"/>
+  <nd ref="4156912993"/>
+  <nd ref="1704693785"/>
+  <tag k="access" v="public_transport"/>
+  <tag k="foot" v="no"/>
+  <tag k="highway" v="service"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="psv" v="designated"/>
+  <tag k="service" v="driveway"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="vehicle" v="no"/>
+ </way>
+ <way id="142575672" visible="true" version="14" changeset="109015939" timestamp="2021-08-02T09:29:11Z" user="momabebra" uid="9508237">
+  <nd ref="1652675097"/>
+  <nd ref="3246050929"/>
+  <nd ref="3366620136"/>
+  <nd ref="5836660314"/>
+  <nd ref="7170324899"/>
+  <nd ref="1652675093"/>
+  <tag k="change:lanes:backward" v="not_left|yes"/>
+  <tag k="change:lanes:forward" v="not_left"/>
+  <tag k="cycleway:both" v="no"/>
+  <tag k="highway" v="unclassified"/>
+  <tag k="lanes" v="3"/>
+  <tag k="lanes:backward" v="2"/>
+  <tag k="lanes:forward" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Franz-Ehrlich-Straße"/>
+  <tag k="name:etymology:wikidata" v="Q877688"/>
+  <tag k="parking:lane:both" v="no"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="turn:lanes:backward" v="left|through;right"/>
+ </way>
+ <way id="142575695" visible="true" version="11" changeset="109015949" timestamp="2021-08-02T09:29:11Z" user="momabebra" uid="9508237">
+  <nd ref="1652675093"/>
+  <nd ref="5564696431"/>
+  <nd ref="4854982237"/>
+  <nd ref="5750123850"/>
+  <nd ref="7170324896"/>
+  <nd ref="6275106349"/>
+  <tag k="highway" v="unclassified"/>
+  <tag k="lane_markings" v="no"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Moriz-Seeler-Straße"/>
+  <tag k="name:etymology:wikidata" v="Q404744"/>
+  <tag k="parking:lane:both" v="parallel"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="143308549" visible="true" version="14" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="36268429"/>
+  <nd ref="493585805"/>
+  <nd ref="1371616239"/>
+  <nd ref="7170324902"/>
+  <nd ref="4854982234"/>
+  <nd ref="3366620135"/>
+  <nd ref="3246050928"/>
+  <nd ref="1652675097"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="intermediate"/>
+  <tag k="cycleway:right:surface" v="paving_stones"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rudower Chaussee"/>
+  <tag k="name:etymology:wikidata" v="Q614664"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="149670391" visible="true" version="44" changeset="110349414" timestamp="2021-08-27T16:00:25Z" user="Berlin53" uid="9450913">
+  <nd ref="3750581823"/>
+  <nd ref="664166094"/>
+  <nd ref="664166092"/>
+  <nd ref="6292598094"/>
+  <nd ref="1560223762"/>
+  <nd ref="1560223787"/>
+  <nd ref="1421187814"/>
+  <nd ref="1560223805"/>
+  <nd ref="1421187818"/>
+  <nd ref="7932055479"/>
+  <nd ref="1421187828"/>
+  <nd ref="1560223811"/>
+  <nd ref="3656559931"/>
+  <nd ref="3337392827"/>
+  <nd ref="6912966734"/>
+  <nd ref="2531797957"/>
+  <nd ref="1560223504"/>
+  <nd ref="6912966718"/>
+  <nd ref="2627346856"/>
+  <nd ref="1626058722"/>
+  <nd ref="2531797946"/>
+  <nd ref="2627346854"/>
+  <nd ref="1560223443"/>
+  <nd ref="1298517342"/>
+  <nd ref="1560223380"/>
+  <nd ref="1560223368"/>
+  <nd ref="1560223355"/>
+  <nd ref="1560223314"/>
+  <nd ref="5725010151"/>
+  <nd ref="5725010153"/>
+  <nd ref="2531797933"/>
+  <nd ref="1560223263"/>
+  <nd ref="6906320649"/>
+  <nd ref="6906320650"/>
+  <nd ref="6906320638"/>
+  <nd ref="2531797934"/>
+  <nd ref="1560223308"/>
+  <nd ref="1560223346"/>
+  <nd ref="6906320637"/>
+  <nd ref="6906320633"/>
+  <nd ref="1560223385"/>
+  <nd ref="1560223402"/>
+  <nd ref="3412579235"/>
+  <nd ref="36268386"/>
+  <nd ref="1306938906"/>
+  <nd ref="1570019926"/>
+  <nd ref="1570019950"/>
+  <nd ref="1570019972"/>
+  <nd ref="385200406"/>
+  <nd ref="1421187939"/>
+  <nd ref="1421187949"/>
+  <nd ref="1421187952"/>
+  <nd ref="1652675077"/>
+  <nd ref="671564452"/>
+  <nd ref="5839424419"/>
+  <nd ref="4335662645"/>
+  <nd ref="1652675095"/>
+  <nd ref="30618469"/>
+  <nd ref="671564447"/>
+  <nd ref="7577668459"/>
+  <nd ref="6423699685"/>
+  <nd ref="7885145142"/>
+  <nd ref="6423699688"/>
+  <nd ref="1652675117"/>
+  <nd ref="7885145177"/>
+  <nd ref="2932661409"/>
+  <nd ref="6355294401"/>
+  <nd ref="6423633729"/>
+  <nd ref="6366040057"/>
+  <nd ref="1652675127"/>
+  <nd ref="1652675128"/>
+  <nd ref="6355294409"/>
+  <nd ref="6355294421"/>
+  <nd ref="6355294418"/>
+  <nd ref="6355294417"/>
+  <nd ref="567601335"/>
+  <nd ref="54520920"/>
+  <nd ref="6355294416"/>
+  <nd ref="664166215"/>
+  <nd ref="1560225289"/>
+  <nd ref="1560225024"/>
+  <nd ref="270932099"/>
+  <nd ref="270932100"/>
+  <nd ref="1560224854"/>
+  <nd ref="1560224843"/>
+  <nd ref="671564370"/>
+  <nd ref="671564367"/>
+  <nd ref="6405281695"/>
+  <nd ref="101344627"/>
+  <nd ref="301331747"/>
+  <nd ref="671564359"/>
+  <nd ref="1560592855"/>
+  <nd ref="1560592847"/>
+  <nd ref="5383660693"/>
+  <nd ref="5383660694"/>
+  <nd ref="671564355"/>
+  <nd ref="552384758"/>
+  <nd ref="9026791252"/>
+  <nd ref="671564347"/>
+  <nd ref="671564344"/>
+  <nd ref="671564340"/>
+  <nd ref="671564319"/>
+  <nd ref="1560223970"/>
+  <nd ref="1421187920"/>
+  <nd ref="1421187931"/>
+  <nd ref="1683752316"/>
+ </way>
+ <way id="158236381" visible="true" version="14" changeset="101485972" timestamp="2021-03-22T08:46:18Z" user="robsteinde" uid="10027026">
+  <nd ref="1704693785"/>
+  <nd ref="1704693804"/>
+  <tag k="access" v="public_transport"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="foot" v="no"/>
+  <tag k="frequency" v="0"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="highway" v="service"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="psv" v="designated"/>
+  <tag k="railway" v="tram"/>
+  <tag k="service" v="driveway"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="speisebezirk" v="702.04"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="tram:designated" v="forward"/>
+  <tag k="vehicle" v="no"/>
+  <tag k="voltage" v="600"/>
+ </way>
+ <way id="206889079" visible="true" version="12" changeset="101485972" timestamp="2021-03-22T08:46:18Z" user="robsteinde" uid="10027026">
+  <nd ref="1704693810"/>
+  <nd ref="2169462564"/>
+  <nd ref="1704693765"/>
+  <nd ref="2697454319"/>
+  <nd ref="1906399893"/>
+  <nd ref="1704693760"/>
+  <nd ref="3273748284"/>
+  <nd ref="3273748282"/>
+  <nd ref="2293276827"/>
+  <nd ref="2293276825"/>
+  <nd ref="2293276824"/>
+  <nd ref="1704693699"/>
+  <nd ref="2697454315"/>
+  <nd ref="3246050920"/>
+  <nd ref="1704693451"/>
+  <nd ref="8255411896"/>
+  <nd ref="101343850"/>
+  <nd ref="1704693660"/>
+  <nd ref="1866350924"/>
+  <nd ref="1704693658"/>
+  <nd ref="1866350921"/>
+  <nd ref="8255411900"/>
+  <nd ref="1866350919"/>
+  <nd ref="8255411905"/>
+  <nd ref="1704693643"/>
+  <nd ref="1704693617"/>
+  <nd ref="1704693611"/>
+  <nd ref="1704693597"/>
+  <nd ref="945141621"/>
+  <nd ref="1704693591"/>
+  <nd ref="1704693568"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="frequency" v="0"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="railway" v="tram"/>
+  <tag k="speisebezirk" v="702.04"/>
+  <tag k="tram:designated" v="forward"/>
+  <tag k="voltage" v="600"/>
+ </way>
+ <way id="220198808" visible="true" version="11" changeset="103454574" timestamp="2021-04-23T06:11:57Z" user="geozeisig" uid="66391">
+  <nd ref="1704693564"/>
+  <nd ref="1704693587"/>
+  <nd ref="1704693389"/>
+  <nd ref="2697454309"/>
+  <nd ref="1704693594"/>
+  <nd ref="1704693600"/>
+  <nd ref="1704693602"/>
+  <nd ref="1704693646"/>
+  <nd ref="8255411906"/>
+  <nd ref="1704693650"/>
+  <nd ref="8255411901"/>
+  <nd ref="1866350920"/>
+  <nd ref="1704693653"/>
+  <nd ref="1866350922"/>
+  <nd ref="1866350923"/>
+  <nd ref="1704693655"/>
+  <nd ref="2697454313"/>
+  <nd ref="8657920225"/>
+  <nd ref="1704693457"/>
+  <nd ref="1704693673"/>
+  <nd ref="2697454314"/>
+  <nd ref="3246050921"/>
+  <nd ref="2293276826"/>
+  <nd ref="2697454316"/>
+  <nd ref="2293276823"/>
+  <nd ref="3273748281"/>
+  <nd ref="3273748283"/>
+  <nd ref="1704693756"/>
+  <nd ref="1906399902"/>
+  <nd ref="2697454318"/>
+  <nd ref="1704693785"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="frequency" v="0"/>
+  <tag k="gauge" v="1435"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="railway" v="tram"/>
+  <tag k="speisebezirk" v="702.04"/>
+  <tag k="tram:designated" v="forward"/>
+  <tag k="voltage" v="600"/>
+ </way>
+ <way id="318210373" visible="true" version="7" changeset="88409919" timestamp="2020-07-23T14:34:36Z" user="moenk" uid="7344">
+  <nd ref="1652675093"/>
+  <nd ref="2391105467"/>
+  <nd ref="2391105464"/>
+  <nd ref="5543923995"/>
+  <nd ref="5836660317"/>
+  <nd ref="7227447791"/>
+  <nd ref="1652675075"/>
+  <tag k="cycleway:both" v="no"/>
+  <tag k="highway" v="unclassified"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Franz-Ehrlich-Straße"/>
+  <tag k="name:etymology:wikidata" v="Q877688"/>
+  <tag k="parking:lane:both" v="parallel"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="318210389" visible="true" version="6" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="3246050934"/>
+  <nd ref="3246050933"/>
+  <nd ref="3366620144"/>
+  <nd ref="3246050932"/>
+  <nd ref="1652675099"/>
+  <tag k="change:lanes" v="not_right|not_left|yes"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="intermediate"/>
+  <tag k="cycleway:right:surface" v="paving_stones"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="3"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rudower Chaussee"/>
+  <tag k="name:etymology:wikidata" v="Q614664"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="turn:lanes" v="left|through|none"/>
+ </way>
+ <way id="318210394" visible="true" version="6" changeset="89919830" timestamp="2020-08-25T14:08:31Z" user="Президент Ирака" uid="339183">
+  <nd ref="3246050935"/>
+  <nd ref="7843590391"/>
+  <nd ref="1652675104"/>
+  <nd ref="837697455"/>
+  <tag k="cycleway" v="track"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Wagner-Régeny-Straße"/>
+  <tag k="name:etymology:wikidata" v="Q540323"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="6.5"/>
+ </way>
+ <way id="329733348" visible="true" version="4" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="583899005"/>
+  <nd ref="3246050928"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="footway" v="crossing"/>
+  <tag k="highway" v="footway"/>
+  <tag k="lit" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="tactile_paving" v="yes"/>
+ </way>
+ <way id="397678477" visible="true" version="6" changeset="57986605" timestamp="2018-04-10T22:11:52Z" user="Supaplex030" uid="418040">
+  <nd ref="4004564272"/>
+  <nd ref="4004564307"/>
+  <nd ref="4854982238"/>
+  <nd ref="4407052120"/>
+  <nd ref="4407052123"/>
+  <nd ref="4854982239"/>
+  <nd ref="4004564379"/>
+  <nd ref="4004564377"/>
+  <nd ref="4854982235"/>
+  <nd ref="4004564386"/>
+  <nd ref="4004564388"/>
+  <nd ref="4004564497"/>
+  <nd ref="4004564489"/>
+  <nd ref="4407052124"/>
+  <nd ref="4407052125"/>
+  <nd ref="4854982236"/>
+  <nd ref="4407052121"/>
+  <nd ref="5543924045"/>
+  <nd ref="4407052119"/>
+  <nd ref="4004564272"/>
+  <tag k="apartments" v="students"/>
+  <tag k="building" v="apartments"/>
+  <tag k="building:levels" v="5"/>
+  <tag k="building:material" v="brick"/>
+  <tag k="name" v="Medienfenster Adlershof"/>
+  <tag k="roof:shape" v="flat"/>
+ </way>
+ <way id="435668931" visible="true" version="5" changeset="67616862" timestamp="2019-02-27T12:55:51Z" user="Spanholz" uid="2209894">
+  <nd ref="6305758745"/>
+  <nd ref="6305758744"/>
+  <nd ref="2169462565"/>
+  <nd ref="2169462566"/>
+  <nd ref="1421187973"/>
+  <nd ref="1421187963"/>
+  <nd ref="6305758745"/>
+  <tag k="leisure" v="park"/>
+  <tag k="name" v="Grünanlage Eichenhain"/>
+ </way>
+ <way id="450225735" visible="true" version="3" changeset="56034468" timestamp="2018-02-03T17:16:40Z" user="sandrow75" uid="4445038">
+  <nd ref="4471476398"/>
+  <nd ref="1422931213"/>
+  <nd ref="4156912994"/>
+  <tag k="barrier" v="fence"/>
+  <tag k="fence_type" v="chain_link"/>
+ </way>
+ <way id="451445162" visible="true" version="4" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="3246050932"/>
+  <nd ref="1704693785"/>
+  <nd ref="3246050930"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="footway" v="crossing"/>
+  <tag k="highway" v="footway"/>
+  <tag k="lit" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="tactile_paving" v="yes"/>
+ </way>
+ <way id="493598966" visible="true" version="3" changeset="68694413" timestamp="2019-03-30T11:39:52Z" user="OneJumpyCartographer" uid="8631613">
+  <nd ref="4854982234"/>
+  <nd ref="4854982235"/>
+  <tag k="highway" v="footway"/>
+  <tag k="lit" v="yes"/>
+  <tag k="surface" v="paving_stones"/>
+ </way>
+ <way id="541676219" visible="true" version="3" changeset="92309674" timestamp="2020-10-11T18:01:24Z" user="Berlin53" uid="9450913">
+  <nd ref="1525212345"/>
+  <nd ref="3246050934"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="intermediate"/>
+  <tag k="cycleway:right:surface" v="paving_stones"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxheight" v="default"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rudower Chaussee"/>
+  <tag k="name:etymology:wikidata" v="Q614664"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="578659360" visible="true" version="2" changeset="57986605" timestamp="2018-04-10T22:11:52Z" user="Supaplex030" uid="418040">
+  <nd ref="4004564386"/>
+  <nd ref="4854982235"/>
+  <nd ref="4004564377"/>
+  <nd ref="4407052121"/>
+  <nd ref="4854982236"/>
+  <nd ref="4407052125"/>
+  <nd ref="4854982240"/>
+  <nd ref="4004564386"/>
+  <tag k="building:levels" v="5"/>
+  <tag k="building:min_level" v="2"/>
+  <tag k="building:part" v="yes"/>
+ </way>
+ <way id="578659361" visible="true" version="1" changeset="57986550" timestamp="2018-04-10T22:08:40Z" user="Supaplex030" uid="418040">
+  <nd ref="4004564386"/>
+  <nd ref="4854982240"/>
+  <nd ref="4407052125"/>
+  <nd ref="4407052124"/>
+  <nd ref="4004564489"/>
+  <nd ref="4004564497"/>
+  <nd ref="4004564388"/>
+  <nd ref="4004564386"/>
+  <tag k="building:levels" v="8"/>
+  <tag k="building:part" v="yes"/>
+ </way>
+ <way id="617443817" visible="true" version="3" changeset="68694413" timestamp="2019-03-30T11:38:05Z" user="OneJumpyCartographer" uid="8631613">
+  <nd ref="5836660313"/>
+  <nd ref="5836660312"/>
+  <tag k="highway" v="footway"/>
+  <tag k="lit" v="no"/>
+  <tag k="surface" v="paving_stones"/>
+ </way>
+ <way id="617443819" visible="true" version="3" changeset="68694413" timestamp="2019-03-30T11:38:02Z" user="OneJumpyCartographer" uid="8631613">
+  <nd ref="5836660315"/>
+  <nd ref="5836660313"/>
+  <nd ref="5836660314"/>
+  <tag k="highway" v="footway"/>
+  <tag k="lit" v="no"/>
+  <tag k="surface" v="paving_stones"/>
+ </way>
+ <way id="670062912" visible="true" version="4" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="1652675099"/>
+  <nd ref="583899005"/>
+  <nd ref="6275106348"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="intermediate"/>
+  <tag k="cycleway:right:surface" v="paving_stones"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rudower Chaussee"/>
+  <tag k="name:etymology:wikidata" v="Q614664"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="6"/>
+ </way>
+ <way id="679894165" visible="true" version="4" changeset="107640147" timestamp="2021-07-08T13:32:14Z" user="masix" uid="6617985">
+  <nd ref="5008745177"/>
+  <nd ref="5903169151"/>
+  <nd ref="5903169150"/>
+  <nd ref="5903169159"/>
+  <nd ref="5903169155"/>
+  <nd ref="6470789295"/>
+  <nd ref="6470789296"/>
+  <nd ref="5903169156"/>
+  <nd ref="5903169158"/>
+  <nd ref="5903169157"/>
+  <nd ref="5008744953"/>
+  <nd ref="5008744952"/>
+  <nd ref="5903169160"/>
+  <nd ref="5903169161"/>
+  <nd ref="5903169162"/>
+  <nd ref="5008744949"/>
+  <nd ref="5008745176"/>
+  <nd ref="6318808571"/>
+  <nd ref="6318808574"/>
+  <nd ref="5008744950"/>
+  <nd ref="8904492277"/>
+  <nd ref="5008745177"/>
+  <tag k="building" v="office"/>
+  <tag k="building:levels" v="5"/>
+ </way>
+ <way id="689735897" visible="true" version="1" changeset="70205207" timestamp="2019-05-13T18:42:19Z" user="Balgofil" uid="95702">
+  <nd ref="6470789366"/>
+  <nd ref="6470789365"/>
+  <nd ref="6470789364"/>
+  <nd ref="6470789363"/>
+  <nd ref="6470789362"/>
+  <nd ref="6470789361"/>
+  <nd ref="6470789360"/>
+  <nd ref="6470789359"/>
+  <nd ref="6470789358"/>
+  <nd ref="6470789357"/>
+  <nd ref="6470789356"/>
+  <nd ref="6470789355"/>
+  <nd ref="6470789354"/>
+  <nd ref="6470789353"/>
+  <nd ref="6470789366"/>
+  <tag k="building:levels" v="6"/>
+  <tag k="building:part" v="yes"/>
+ </way>
+ <way id="767962950" visible="true" version="1" changeset="80277809" timestamp="2020-01-29T20:27:40Z" user="Balgofil" uid="95702">
+  <nd ref="7170324899"/>
+  <nd ref="7170324900"/>
+  <nd ref="7170324897"/>
+  <nd ref="7170324898"/>
+  <tag k="highway" v="footway"/>
+ </way>
+ <way id="976351540" visible="true" version="2" changeset="110244959" timestamp="2021-08-25T17:24:24Z" user="StefanHRT" uid="10961311">
+  <nd ref="1652675097"/>
+  <nd ref="3246050930"/>
+  <nd ref="9035154606"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="intermediate"/>
+  <tag k="cycleway:right:surface" v="paving_stones"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxheight" v="default"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rudower Chaussee"/>
+  <tag k="name:etymology:wikidata" v="Q614664"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="postal_code" v="12489"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="turn:lanes" v="none|through;right"/>
+ </way>
+</osm>

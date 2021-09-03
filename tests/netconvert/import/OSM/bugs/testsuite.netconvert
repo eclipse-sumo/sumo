@@ -69,3 +69,6 @@ ticket8782
 
 # superfluous stops
 ticket8791
+
+# complex junction in adlershof that must be joined
+ticket9062
