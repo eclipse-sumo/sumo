@@ -114,6 +114,9 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
   you may simply skip one entry. Then, the default values are used.
 - dump-files cover usually more than one interval. To generate an extra output file for each interval, use the string '%s' as part of the output filename (this part will be replaced with the corresponding begin time).
 
+!!! caution:
+    If two input files are given they must cover the same time intervals or no data will be plotted.
+
 **Options**
 
 | Option                                               | Description                                         |
