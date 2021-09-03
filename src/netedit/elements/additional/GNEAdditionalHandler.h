@@ -642,9 +642,6 @@ protected:
     /// @brief write error "invalid negative element"
     void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) const;
 
-    /// @brief write error "invalid attribute" (used by name and types)
-    void writeErrorInvalidName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) const;
-
     /// @brief write error "invalid list of vehicle types"
     void writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string& id) const;
 

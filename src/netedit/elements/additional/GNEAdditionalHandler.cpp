@@ -100,8 +100,6 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
             writeErrorInvalidNegativeValue(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
         } else if (parkingLength < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_PARKING_LENGTH);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_BUS_STOP, id, SUMO_ATTR_NAME);
         } else {
             // build busStop
             GNEAdditional* busStop = new GNEBusStop(SUMO_TAG_BUS_STOP, id, lane, myNet, startPos, endPos, name, lines, personCapacity,
@@ -145,8 +143,6 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
             writeErrorInvalidNegativeValue(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
         } else if (parkingLength < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_PARKING_LENGTH);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_TRAIN_STOP, id, SUMO_ATTR_NAME);
         } else {
             // build trainStop
             GNEAdditional* trainStop = new GNEBusStop(SUMO_TAG_TRAIN_STOP, id, lane, myNet, startPos, endPos, name, lines, personCapacity,
@@ -232,8 +228,6 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
             writeErrorInvalidNegativeValue(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_PERSON_CAPACITY);
         } else if (parkingLength < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_PARKING_LENGTH);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_CONTAINER_STOP, id, SUMO_ATTR_NAME);
         } else {
             // build containerStop
             GNEAdditional* containerStop = new GNEContainerStop(id, lane, myNet, startPos, endPos, name, lines, containerCapacity, parkingLength,
@@ -273,8 +267,6 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
             writeErrorInvalidParent(SUMO_TAG_CHARGING_STATION, SUMO_TAG_LANE);
         } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_CHARGING_STATION, id);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_NAME);
         } else if (chargingPower < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGINGPOWER);
         } else if (chargeDelay < 0) {
@@ -320,8 +312,6 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
             writeErrorInvalidParent(SUMO_TAG_PARKING_AREA, SUMO_TAG_LANE);
         } else if (!checkDoublePositionOverLane(startPos, endPos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPosition)) {
             writeErrorInvalidPosition(SUMO_TAG_PARKING_AREA, id);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_NAME);
         } else if (roadSideCapacity < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_AREA, id, SUMO_ATTR_ROADSIDE_CAPACITY);
         } else if (width < 0) {
@@ -376,8 +366,6 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
         // check lane
         if (parkingArea == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_PARKING_SPACE, SUMO_TAG_PARKING_AREA);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_NAME);
         } else if (widthDouble < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH);
         } else if (lengthDouble < 0) {
@@ -419,8 +407,6 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             writeErrorInvalidParent(SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE);
         } else if (!checkSinglePositionOverLane(position, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             writeErrorInvalidPosition(SUMO_TAG_E1DETECTOR, id);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_E1DETECTOR, id, SUMO_ATTR_NAME);
         } else if (frequency < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E1DETECTOR, id, SUMO_ATTR_FREQUENCY);
         } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
@@ -476,8 +462,6 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
         } else if (jamThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_NAME);
         } else if (freq < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
         } else if (timeThreshold < 0) {
@@ -533,8 +517,6 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                         pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
                         endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);
-            } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-                writeErrorInvalidName(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_NAME);
             } else if (freq < 0) {
                 writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
             } else if (timeThreshold < 0) {
@@ -580,8 +562,6 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_E3DETECTOR, id);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_E3DETECTOR, id, SUMO_ATTR_NAME);
     } else if (freq < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_E3DETECTOR, id, SUMO_ATTR_FREQUENCY);
     } else if (timeThreshold < 0) {
@@ -694,8 +674,6 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, SUMO_ATTR_NAME);
         } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
             writeErrorInvalidFilename(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
         } else if (!checkSinglePositionOverLane(pos, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
@@ -738,8 +716,6 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
             writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_LANE);
         } else if (!checkSinglePositionOverLane(pos, lane->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_NAME);
         } else if (freq < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_FREQUENCY);
         } else if (jamThreshold < 0) {
@@ -786,8 +762,6 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
             writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_EDGE);
         } else if (!checkSinglePositionOverLane(pos, edge->getLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_NAME);
         } else if (freq < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_FREQUENCY);
         } else if (jamThreshold < 0) {
@@ -875,8 +849,6 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_REROUTER, id);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_REROUTER, id, SUMO_ATTR_NAME);
     } else if (prob < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_REROUTER, id, SUMO_ATTR_PROB);
     } else if (timeThreshold < 0) {
@@ -1129,8 +1101,6 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
         // check lane
         if (edge == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_ROUTEPROBE, SUMO_TAG_EDGE);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_NAME);
         } else if (freq < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_FREQUENCY);
         } else if (begin < 0) {
@@ -1177,8 +1147,6 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
             // check vTypes
             if (!vTypes.empty() && !checkListOfVehicleTypes(vTypes)) {
                 writeErrorInvalidVTypes(SUMO_TAG_VSS, id);
-            } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-                writeErrorInvalidName(SUMO_TAG_VSS, id, SUMO_ATTR_NAME);
             } else {
                 // create VSS
                 GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, myNet, pos, name, vTypes, parameters);
@@ -1255,8 +1223,6 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
         // check lane
         if (edge == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_VAPORIZER, SUMO_TAG_EDGE);
-        } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-            writeErrorInvalidName(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_NAME);
         } else if (beginTime < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_BEGIN);
         } else if (endTime < 0) {
@@ -1293,8 +1259,6 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check TAZ
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TAZ, id);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_TAZ, id, SUMO_ATTR_NAME);
     } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
@@ -1489,10 +1453,6 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_POLY, id, SUMO_ATTR_NAME);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(type)) {
-        writeErrorInvalidName(SUMO_TAG_POLY, id, SUMO_ATTR_TYPE);
     } else if (lineWidth < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
@@ -1525,10 +1485,6 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_POI, id, SUMO_ATTR_NAME);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(type)) {
-        writeErrorInvalidName(SUMO_TAG_POLY, id, SUMO_ATTR_TYPE);
     } else if (width < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
     } else if (height < 0) {
@@ -1563,10 +1519,6 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_POI, id, SUMO_ATTR_NAME);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(type)) {
-        writeErrorInvalidName(SUMO_TAG_POI, id, SUMO_ATTR_TYPE);
     } else if (width < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
     } else if (height < 0) {
@@ -1611,10 +1563,6 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(name)) {
-        writeErrorInvalidName(SUMO_TAG_POI, id, SUMO_ATTR_NAME);
-    } else if (!SUMOXMLDefinitions::isValidAttribute(type)) {
-        writeErrorInvalidName(SUMO_TAG_POLY, id, SUMO_ATTR_TYPE);
     } else if (width < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_WIDTH);
     } else if (height < 0) {
@@ -1868,12 +1816,6 @@ GNEAdditionalHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXM
 void
 GNEAdditionalHandler::writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) const {
     WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; attribute " +  toString(attribute) + " cannot be negative.");
-}
-
-
-void
-GNEAdditionalHandler::writeErrorInvalidName(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) const {
-    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; " + toString(attribute) + " contains invalid characters.");
 }
 
 

@@ -5261,10 +5261,6 @@ GNEAttributeCarrier::checkParsedAttribute(const GNETagProperties& GNETagProperti
             errorFormat = "Filename cannot be empty; ";
         }
     }
-    // set extra check for name values
-    if ((attribute == SUMO_ATTR_NAME) && !SUMOXMLDefinitions::isValidAttribute(parsedAttribute)) {
-        errorFormat = "name contains invalid characters; ";
-    }
     // set extra check for SVCPermissions values
     if (attrProperties.isVClass()) {
         if (!canParseVehicleClasses(parsedAttribute)) {
