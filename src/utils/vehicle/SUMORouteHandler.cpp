@@ -209,7 +209,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // parse embedded car following model information
             if (myCurrentVType != nullptr) {
                 WRITE_WARNING("Defining car following parameters in a nested element is deprecated in vType '" + myCurrentVType->id + "', use attributes instead!");
-                if (!SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, (SumoXMLTag)element, attrs, myHardFail)) {
+                if (!SUMOVehicleParserHelper::parseVTypeEmbedded(myCurrentVType, (SumoXMLTag)element, attrs, myHardFail)) {
                     if (myHardFail) {
                         throw ProcessError("Invalid parsing embedded VType");
                     } else {

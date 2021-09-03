@@ -100,7 +100,7 @@ public:
      *
      * @note  if the map parameter set is an empty string then the vtype map will not be changed
      */
-    static bool parseAngleTimesMap(SUMOVTypeParameter& vtype, const std::string, const bool hardFail);
+    static bool parseAngleTimesMap(SUMOVTypeParameter* vtype, const std::string);
 
     /** @brief Parses an element embedded in vtype definition
      *
@@ -112,13 +112,13 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      */
-    static bool parseVTypeEmbedded(SUMOVTypeParameter& into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType = false);
+    static bool parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType = false);
 
     /// @brief Parses lane change model attributes
-    static bool parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail);
+    static bool parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail);
 
     /// @brief Parses junction model attributes
-    static bool parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs, const bool hardFail);
+    static bool parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs, const bool hardFail);
 
     /** @brief Parses the vehicle class
      *

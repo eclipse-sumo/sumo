@@ -1012,22 +1012,22 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             const std::string angleTimesS = attrs.get<std::string>(SUMO_ATTR_MANEUVER_ANGLE_TIMES, vType->id.c_str(), ok);
             if (!ok) {
                 return handleVehicleTypeError(hardFail, vType, "");
-            } else if (parseAngleTimesMap(*vType, angleTimesS, hardFail)) {
+            } else if (parseAngleTimesMap(vType, angleTimesS)) {
                 vType->parametersSet |= VTYPEPARS_MANEUVER_ANGLE_TIMES_SET;
             } else {
                 return handleVehicleTypeError(hardFail, vType, "Invalid manoeuver angle times map for vType '" + vType->id + "'");
             }
         }
         // try to parse embedded vType
-        if (!parseVTypeEmbedded(*vType, vType->cfModel, attrs, hardFail, true)) {
+        if (!parseVTypeEmbedded(vType, vType->cfModel, attrs, hardFail, true)) {
             return handleVehicleTypeError(hardFail, vType, "Invalid parsing embedded VType");
         }
         // try to parse Lane Change Model params
-        if (!parseLCParams(*vType, vType->lcModel, attrs, hardFail)) {
+        if (!parseLCParams(vType, vType->lcModel, attrs, hardFail)) {
             return handleVehicleTypeError(hardFail, vType, "Invalid Lane Change Model Parameters");
         }
         // try to Junction Model params
-        if (!parseJMParams(*vType, attrs, hardFail)) {
+        if (!parseJMParams(vType, attrs, hardFail)) {
             return handleVehicleTypeError(hardFail, vType, "Invalid Junction Model Parameters");
         }
         // all ok, then return vType
@@ -1039,39 +1039,34 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
 
 
 bool
-SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter& vtype, const std::string atm, const bool hardFail) {
+SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std::string atm) {
     StringTokenizer st(atm, ",");
     std::map<int, std::pair<SUMOTime, SUMOTime>> angleTimesMap;
     int tripletCount = 0;
-
     while (st.hasNext()) {
         StringTokenizer pos(st.next());
         if (pos.size() != 3) {
-            if (hardFail) {
-                throw ProcessError("manoeuverAngleTimes format for vType '" + vtype.id + "' " + atm + " contains an invalid triplet.");
-            } else {
-                WRITE_ERROR("manoeuverAngleTimes format for vType '" + vtype.id + "' " + atm + " contains an invalid triplet.");
-            }
+            WRITE_ERROR("manoeuverAngleTimes format for vType '" + vtype->id + "' " + atm + " contains an invalid triplet.");
+            return false;
         } else {
             try {
-                int angle = StringUtils::toInt(pos.next());
-                SUMOTime t1 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
-                t1 = TIME2STEPS(t1);
-                SUMOTime t2 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
-                t2 = TIME2STEPS(t2);
-
-                angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(t1, t2))));
+                const int angle = StringUtils::toInt(pos.next());
+                const double t1 = StringUtils::toDouble(pos.next());
+                const SUMOTime steps1 = TIME2STEPS(t1);
+                const double t2 = StringUtils::toDouble(pos.next());
+                const SUMOTime steps2 = TIME2STEPS(t2);
+                angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(steps1, steps2))));
             } catch (...) {
-                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype.id + "' manoeuverAngleTimes cannot be parsed as 'int double double'");
+                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype->id + "' manoeuverAngleTimes cannot be parsed as 'int double double'");
+                return false;
             }
             tripletCount++;
         }
     }
-
     if (angleTimesMap.size() > 0) {
-        vtype.myManoeuverAngleTimes.clear();
-        for (std::pair<int, std::pair<SUMOTime, SUMOTime>> angleTime : angleTimesMap) {
-            vtype.myManoeuverAngleTimes.insert(std::pair<int, std::pair<SUMOTime, SUMOTime>>(angleTime));
+        vtype->myManoeuverAngleTimes.clear();
+        for (const auto &angleTime : angleTimesMap) {
+            vtype->myManoeuverAngleTimes.insert(angleTime);
         }
         angleTimesMap.clear();
         return true;
@@ -1082,35 +1077,35 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter& vtype, const std
 
 
 bool
-SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType) {
+SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool fromVType) {
     const CFAttrMap& allowedCFM = getAllowedCFModelAttrs();
     CFAttrMap::const_iterator cf_it = allowedCFM.find(element);
     // check if given CFM is allowed
     if (cf_it == allowedCFM.end()) {
         if (SUMOXMLDefinitions::Tags.has((int)element)) {
-            return handleBooleanError(hardFail, "Unknown car following model " + toString(element) + " when parsing vType '" + into.id + "'");
+            return handleBooleanError(hardFail, "Unknown car following model " + toString(element) + " when parsing vType '" + into->id + "'");
         } else {
-            return handleBooleanError(hardFail, "Unknown car following model when parsing vType '" + into.id + "'");
+            return handleBooleanError(hardFail, "Unknown car following model when parsing vType '" + into->id + "'");
         }
         return false;
     }
     // set car following model
     if (!fromVType) {
-        into.cfModel = cf_it->first;
-        into.parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
+        into->cfModel = cf_it->first;
+        into->parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
     }
     // set CFM values
     bool ok = true;
     for (const auto& it : cf_it->second) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
-            std::string parsedCFMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
+            std::string parsedCFMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             // check if attribute is of type "train"
             if (it == SUMO_ATTR_TRAIN_TYPE) {
                 // check if train value is valid
                 if (SUMOXMLDefinitions::TrainTypes.hasString(parsedCFMAttribute)) {
                     // add parsedCFMAttribute to cfParameter
-                    into.cfParameter[it] = parsedCFMAttribute;
+                    into->cfParameter[it] = parsedCFMAttribute;
                 } else if (hardFail) {
                     throw ProcessError("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
                 } else {
@@ -1142,7 +1137,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                     }
                     if (ok) {
                         // add parsedCFMAttribute to cfParameter
-                        into.cfParameter[it] = parsedCFMAttribute;
+                        into->cfParameter[it] = parsedCFMAttribute;
                     }
                 }
             } else {
@@ -1160,7 +1155,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                     }
                     if (ok) {
                         // add parsedCFMAttribute to cfParameter
-                        into.cfParameter[it] = parsedCFMAttribute;
+                        into->cfParameter[it] = parsedCFMAttribute;
                     }
                 }
                 // now continue checking other properties
@@ -1204,12 +1199,12 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into, const Sumo
                         // check tau in time format
                         if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
                             WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" +
-                                          toString(into.cfModel) + "' lower than simulation step size may cause collisions");
+                                          toString(into->cfModel) + "' lower than simulation step size may cause collisions");
                         }
                     }
                     if (ok) {
                         // add parsedCFMAttribute to cfParameter
-                        into.cfParameter[it] = parsedCFMAttribute;
+                        into->cfParameter[it] = parsedCFMAttribute;
                     }
                 }
             }
@@ -1454,7 +1449,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
 
 bool
-SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail) {
+SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs, const bool hardFail) {
     if (allowedLCModelAttrs.size() == 0) {
         // init static map
         std::set<SumoXMLAttr> lc2013Params;
@@ -1501,7 +1496,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
     for (const auto& it : allowed) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
-            std::string parsedLCMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
+            std::string parsedLCMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             // declare a double in wich save CFM attribute
             double LCMAttribute = -1;
             try {
@@ -1559,7 +1554,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
                 }
                 if (ok) {
                     // add parsedLCMAttribute to cfParameter
-                    into.lcParameter[it] = parsedLCMAttribute;
+                    into->lcParameter[it] = parsedLCMAttribute;
                 }
             }
         }
@@ -1569,7 +1564,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
 
 
 bool
-SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs, const bool hardFail) {
+SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs, const bool hardFail) {
     if (allowedJMAttrs.size() == 0) {
         // init static set (there is only one model)
         allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
@@ -1588,7 +1583,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
     for (const auto& it : allowedJMAttrs) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
-            std::string parsedJMAttribute = attrs.get<std::string>(it, into.id.c_str(), ok);
+            std::string parsedJMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             // declare a double in wich save CFM attribute
             double JMAttribute = -1;
             try {
@@ -1628,7 +1623,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
                 }
                 if (ok) {
                     // add parsedJMAttribute to cfParameter
-                    into.jmParameter[it] = parsedJMAttribute;
+                    into->jmParameter[it] = parsedJMAttribute;
                 }
             }
         }
