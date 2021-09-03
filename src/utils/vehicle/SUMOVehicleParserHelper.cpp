@@ -153,9 +153,14 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         }
         // parse common vehicle attributes
         try {
-            parseCommonAttributes(attrs, hardFail, flowParameter, "flow");
-        } catch (ProcessError&) {
-            return handleVehicleError(hardFail, flowParameter, "");
+            parseCommonAttributes(attrs, flowParameter, "flow");
+        } catch (ProcessError& attributeError) {
+            // check if continue handling another vehicles or stop handling
+            if (hardFail) {
+                throw ProcessError(attributeError.what());
+            } else {
+                return nullptr;
+            }
         }
         // parse period
         if (hasPeriod) {
@@ -316,9 +321,14 @@ SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttrib
         }
         // parse common attributes
         try {
-            parseCommonAttributes(attrs, hardFail, vehicleParameter, "vehicle");
-        } catch (ProcessError&) {
-            return handleVehicleError(hardFail, vehicleParameter, "");
+            parseCommonAttributes(attrs, vehicleParameter, "vehicle");
+        } catch (ProcessError& attributeError) {
+            // check if continue handling another vehicles or stop handling
+            if (hardFail) {
+                throw ProcessError(attributeError.what());
+            } else {
+                return nullptr;
+            }
         }
         // check depart
         if (!skipDepart) {
@@ -367,7 +377,7 @@ SUMOVehicleParserHelper::parseID(const SUMOSAXAttributes& attrs, const SumoXMLTa
 
 
 void
-SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, SUMOVehicleParameter* ret, std::string element) {
+SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, std::string element) {
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
@@ -376,7 +386,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         if (ok) {
             ret->parametersSet |= VEHPARS_ROUTE_SET; // !!! needed?
         } else {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         }
     }
     // parse type information
@@ -386,7 +396,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         if (ok) {
             ret->parametersSet |= VEHPARS_VTYPE_SET; // !!! needed?
         } else {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         }
     }
     // parse line information
@@ -396,7 +406,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         if (ok) {
             ret->parametersSet |= VEHPARS_LINE_SET; // !!! needed?
         } else {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         }
     }
     // parse zone information
@@ -406,7 +416,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         if (ok) {
             ret->parametersSet |= VEHPARS_FROM_TAZ_SET;
         } else {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
@@ -415,15 +425,15 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         if (ok) {
             ret->parametersSet |= VEHPARS_TO_TAZ_SET;
         } else {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         }
     }
     // parse reroute information
     if (attrs.hasAttribute(SUMO_ATTR_REROUTE)) {
         bool ok = true;
-        if (attrs.get<bool>(SUMO_ATTR_REROUTE, nullptr, ok)) {
+        if (attrs.get<bool>(SUMO_ATTR_REROUTE, ret->id.c_str(), ok)) {
             if (ok) {
-                handleVehicleError(hardFail, nullptr, "");
+                handleVehicleError(true, ret, "");
             } else {
                 ret->parametersSet |= VEHPARS_FORCE_REROUTE;
             }
@@ -434,7 +444,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string departLaneStr = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             int lane;
             DepartLaneDefinition dld;
@@ -444,7 +454,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->departLane = lane;
                 ret->departLaneProcedure = dld;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -453,7 +463,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string departPosStr = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             double pos;
             DepartPosDefinition dpd;
@@ -463,7 +473,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->departPos = pos;
                 ret->departPosProcedure = dpd;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -472,7 +482,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string departPosLatStr = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS_LAT, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             double pos;
             DepartPosLatDefinition dpd;
@@ -482,7 +492,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->departPosLat = pos;
                 ret->departPosLatProcedure = dpd;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -491,7 +501,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string departSpeed = attrs.get<std::string>(SUMO_ATTR_DEPARTSPEED, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             double speed;
             DepartSpeedDefinition dsd;
@@ -501,7 +511,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->departSpeed = speed;
                 ret->departSpeedProcedure = dsd;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -510,7 +520,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string departEdgeStr = attrs.get<std::string>(SUMO_ATTR_DEPARTEDGE, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             int edgeIndex;
             RouteIndexDefinition rid;
@@ -520,7 +530,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->departEdge = edgeIndex;
                 ret->departEdgeProcedure = rid;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -529,7 +539,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string arrivalLaneStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             int lane;
             ArrivalLaneDefinition ald;
@@ -539,7 +549,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->arrivalLane = lane;
                 ret->arrivalLaneProcedure = ald;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -548,7 +558,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string arrivalPosStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             double pos;
             ArrivalPosDefinition apd;
@@ -558,7 +568,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->arrivalPos = pos;
                 ret->arrivalPosProcedure = apd;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -567,7 +577,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         const std::string arrivalPosLatStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             double pos;
             ArrivalPosLatDefinition apd;
@@ -577,7 +587,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->arrivalPosLat = pos;
                 ret->arrivalPosLatProcedure = apd;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -586,7 +596,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         std::string arrivalSpeedStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALSPEED, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             double speed;
             ArrivalSpeedDefinition asd;
@@ -596,7 +606,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->arrivalSpeed = speed;
                 ret->arrivalSpeedProcedure = asd;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -605,7 +615,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         std::string arrivalEdgeStr = attrs.get<std::string>(SUMO_ATTR_ARRIVALEDGE, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else {
             int edgeIndex;
             RouteIndexDefinition rid;
@@ -615,7 +625,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
                 ret->arrivalEdge = edgeIndex;
                 ret->arrivalEdgeProcedure = rid;
             } else {
-                handleVehicleError(hardFail, nullptr, error);
+                handleVehicleError(true, ret, error);
             }
         }
     }
@@ -626,7 +636,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         if (ok) {
             ret->parametersSet |= VEHPARS_COLOR_SET;
         } else {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         }
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
@@ -636,12 +646,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         int personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else if (personNumber >= 0) {
             ret->parametersSet |= VEHPARS_PERSON_NUMBER_SET;
             ret->personNumber = personNumber;
         } else {
-            handleVehicleError(hardFail, nullptr, toString(SUMO_ATTR_PERSON_NUMBER) + " cannot be negative");
+            handleVehicleError(true, ret, toString(SUMO_ATTR_PERSON_NUMBER) + " cannot be negative");
         }
     }
     // parse container number
@@ -649,12 +659,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         int containerNumber = attrs.get<int>(SUMO_ATTR_CONTAINER_NUMBER, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else if (containerNumber >= 0) {
             ret->parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
             ret->containerNumber = containerNumber;
         } else {
-            handleVehicleError(hardFail, nullptr, toString(SUMO_ATTR_CONTAINER_NUMBER) + " cannot be negative");
+            handleVehicleError(true, ret, toString(SUMO_ATTR_CONTAINER_NUMBER) + " cannot be negative");
         }
     }
     // parse individual speedFactor
@@ -662,12 +672,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
         bool ok = true;
         double speedFactor = attrs.get<double>(SUMO_ATTR_SPEEDFACTOR, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(hardFail, nullptr, "");
+            handleVehicleError(true, ret, "");
         } else if (speedFactor > 0) {
             ret->parametersSet |= VEHPARS_SPEEDFACTOR_SET;
             ret->speedFactor = speedFactor;
         } else {
-            handleVehicleError(hardFail, nullptr, toString(SUMO_ATTR_SPEEDFACTOR) + " must be positive");
+            handleVehicleError(true, ret, toString(SUMO_ATTR_SPEEDFACTOR) + " must be positive");
         }
     }
     /*/ parse via
@@ -1721,10 +1731,10 @@ bool
 SUMOVehicleParserHelper::handleBooleanError(const bool hardFail, const std::string& message) {
     if (hardFail) {
         throw ProcessError(message);
-    } else {
+    } else if (message.size() > 0) {
         WRITE_ERROR(message);
-        return false;
     }
+    return nullptr;
 }
 
 
@@ -1735,10 +1745,10 @@ SUMOVehicleParserHelper::handleVehicleError(const bool hardFail, SUMOVehiclePara
     }
     if (hardFail) {
         throw ProcessError(message);
-    } else {
+    } else if (message.size() > 0) {
         WRITE_ERROR(message);
-        return nullptr;
     }
+    return nullptr;
 }
 
 
@@ -1749,10 +1759,10 @@ SUMOVehicleParserHelper::handleVehicleTypeError(const bool hardFail, SUMOVTypePa
     }
     if (hardFail) {
         throw ProcessError(message);
-    } else {
+    } else if (message.size() > 0) {
         WRITE_ERROR(message);
-        return nullptr;
     }
+    return nullptr;
 }
 
 

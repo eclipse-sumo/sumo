@@ -175,12 +175,11 @@ private:
      *
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
-     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[out] ret The parameter to parse into
      * @param[in] element The name of the element (vehicle or flow)
      * @exception ProcessError If an attribute's value is invalid
      */
-    static void parseCommonAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, SUMOVehicleParameter* ret, std::string element);
+    static void parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, std::string element);
 
     /// @brief handle conditional errors
     static bool handleBooleanError(const bool hardFail, const std::string& message);
