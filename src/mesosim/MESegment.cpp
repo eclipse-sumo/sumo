@@ -567,37 +567,42 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     Queue& q = myQueues[qIdx];
     std::vector<MEVehicle*>& cars = q.getModifiableVehicles();
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
-    SUMOTime tleave = MAX2(veh->checkStop(time) + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), q.getBlockTime());
+    const SUMOTime stopTime = veh->checkStop(time);
+    SUMOTime tleave = MAX2(stopTime + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), q.getBlockTime());
     if (veh->isStopped()) {
         myEdge.addWaiting(veh);
     }
-    myEdge.lock();
-    if (cars.empty()) {
-        cars.push_back(veh);
-        newLeader = veh;
+    if (veh->isParking()) {
+        tleave = stopTime;
     } else {
-        SUMOTime leaderOut = cars[0]->getEventTime();
-        if (!isDepart && leaderOut > tleave && overtake()) {
-            if (cars.size() == 1) {
-                MSGlobals::gMesoNet->removeLeaderCar(cars[0]);
-                newLeader = veh;
-            }
-            cars.insert(cars.begin() + 1, veh);
+        myEdge.lock();
+        if (cars.empty()) {
+            cars.push_back(veh);
+            newLeader = veh;
         } else {
-            tleave = MAX2(leaderOut + tauWithVehLength(myTau_ff, cars[0]->getVehicleType().getLengthWithGap()), tleave);
-            cars.insert(cars.begin(), veh);
+            SUMOTime leaderOut = cars[0]->getEventTime();
+            if (!isDepart && leaderOut > tleave && overtake()) {
+                if (cars.size() == 1) {
+                    MSGlobals::gMesoNet->removeLeaderCar(cars[0]);
+                    newLeader = veh;
+                }
+                cars.insert(cars.begin() + 1, veh);
+            } else {
+                tleave = MAX2(leaderOut + tauWithVehLength(myTau_ff, cars[0]->getVehicleType().getLengthWithGap()), tleave);
+                cars.insert(cars.begin(), veh);
+            }
         }
-    }
-    myEdge.unlock();
-    myNumVehicles++;
-    if (!isDepart && !isTeleport) {
-        // departs and teleports could take place anywhere on the edge so they should not block regular flow
-        // the -1 facilitates interleaving of multiple streams
-        q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap()) - 1);
+        myEdge.unlock();
+        myNumVehicles++;
+        if (!isDepart && !isTeleport) {
+            // departs and teleports could take place anywhere on the edge so they should not block regular flow
+            // the -1 facilitates interleaving of multiple streams
+            q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap()) - 1);
+        }
+        q.setOccupancy(MIN2(myQueueCapacity, q.getOccupancy() + veh->getVehicleType().getLengthWithGap()));
     }
     veh->setEventTime(tleave);
     veh->setSegment(this, qIdx);
-    q.setOccupancy(MIN2(myQueueCapacity, q.getOccupancy() + veh->getVehicleType().getLengthWithGap()));
     addReminders(veh);
     if (isDepart) {
         veh->onDepart();
@@ -607,8 +612,12 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     } else {
         veh->activateReminders(MSMoveReminder::NOTIFICATION_SEGMENT);
     }
-    if (newLeader != nullptr) {
-        MSGlobals::gMesoNet->addLeaderCar(newLeader, getLink(newLeader));
+    if (veh->isParking()) {
+        MSGlobals::gMesoNet->addLeaderCar(veh, nullptr);
+    } else {
+        if (newLeader != nullptr) {
+            MSGlobals::gMesoNet->addLeaderCar(newLeader, getLink(newLeader));
+        }
     }
 }
 
