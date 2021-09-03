@@ -1027,7 +1027,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             return handleVehicleTypeError(hardFail, vType, "Invalid Lane Change Model Parameters");
         }
         // try to Junction Model params
-        if (!parseJMParams(vType, attrs, hardFail)) {
+        if (!parseJMParams(vType, attrs)) {
             return handleVehicleTypeError(hardFail, vType, "Invalid Junction Model Parameters");
         }
         // all ok, then return vType
@@ -1102,7 +1102,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const Sumo
             std::string parsedCFMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             // check CFM Attribute
             if (!ok) {
-                WRITE_ERROR("Invalid Car-Following-Attribute " + toString(it));
+                WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be empty");
                 return false;
             } else if (it == SUMO_ATTR_TRAIN_TYPE) {
                 // check if train value is valid
@@ -1467,7 +1467,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
             bool ok = true;
             std::string parsedLCMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             if (!ok) {
-                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Is empty");
+                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be empty");
                 return false;
             }
             // declare a double in wich save CFM attribute
@@ -1521,7 +1521,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
 
 
 bool
-SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs, const bool hardFail) {
+SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs) {
     if (allowedJMAttrs.size() == 0) {
         // init static set (there is only one model)
         allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
@@ -1536,56 +1536,47 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
         allowedJMAttrs.insert(SUMO_ATTR_JM_STOPLINE_GAP);
         allowedJMAttrs.insert(SUMO_ATTR_JM_TIMEGAP_MINOR);
     }
-    bool ok = true;
     for (const auto& it : allowedJMAttrs) {
         if (attrs.hasAttribute(it)) {
             // first obtain  CFM attribute in string format
+            bool ok = true;
             std::string parsedJMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
+            if (!ok) {
+                WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be empty");
+                return false;
+            }
             // declare a double in wich save CFM attribute
             double JMAttribute = -1;
             try {
                 // obtain CFM attribute in double format
                 JMAttribute = StringUtils::toDouble(parsedJMAttribute);
             } catch (...) {
-                ok = false;
-                if (hardFail) {
-                    throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                } else {
-                    WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be parsed to float");
-                }
+                WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                return false;
             }
             // now continue checking other properties (-1 is the default value)
-            if (ok && (JMAttribute != -1)) {
+            if (JMAttribute != -1) {
                 // special case for sigma minor
                 if (it == SUMO_ATTR_JM_SIGMA_MINOR) {
                     // check attributes sigma minor
                     if ((JMAttribute < 0) || (JMAttribute > 1)) {
-                        ok = false;
-                        if (hardFail) {
-                            throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
-                        } else {
-                            WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
-                        }
+                        WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
+                        return false;
                     }
                 } else {
                     // check attributes of type "nonNegativeFloatType" (>= 0)
                     if (JMAttribute < 0) {
-                        ok = false;
-                        if (hardFail) {
-                            throw ProcessError("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
-                        } else {
-                            WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
-                        }
+                        WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                        return false;
                     }
                 }
-                if (ok) {
-                    // add parsedJMAttribute to cfParameter
-                    into->jmParameter[it] = parsedJMAttribute;
-                }
+                // add parsedJMAttribute to cfParameter
+                into->jmParameter[it] = parsedJMAttribute;
             }
         }
     }
-    return ok;
+    // all JM parameters sucesfully parsed, then return true
+    return true;
 }
 
 
@@ -1676,17 +1667,6 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
         }
     }
     return result;
-}
-
-
-bool
-SUMOVehicleParserHelper::handleBooleanError(const bool hardFail, const std::string& message) {
-    if (hardFail) {
-        throw ProcessError(message);
-    } else if (message.size() > 0) {
-        WRITE_ERROR(message);
-    }
-    return nullptr;
 }
 
 

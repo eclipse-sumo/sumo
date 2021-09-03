@@ -118,7 +118,7 @@ public:
     static bool parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs);
 
     /// @brief Parses junction model attributes
-    static bool parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs, const bool hardFail);
+    static bool parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAttributes& attrs);
 
     /** @brief Parses the vehicle class
      *
@@ -180,9 +180,6 @@ private:
      * @exception ProcessError If an attribute's value is invalid
      */
     static void parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, std::string element);
-
-    /// @brief handle conditional errors
-    static bool handleBooleanError(const bool hardFail, const std::string& message);
 
     /// @brief handle error loading SUMOVehicleParameter
     static SUMOVehicleParameter* handleVehicleError(const bool hardFail, SUMOVehicleParameter* vehicleParameter, const std::string& message);
