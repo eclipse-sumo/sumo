@@ -24,10 +24,10 @@ if hasattr(os, "add_dll_directory"):
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation, _gui  # noqa
 from traci.connection import StepListener  # noqa
-from .libtraci import vehicle, simulation, person, trafficlight, gui
+from .libtraci import vehicle, simulation, person, trafficlight, gui  # noqa
 from .libtraci import *  # noqa
-from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
-from .libtraci import TraCICollision, TraCISignalConstraint
+from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
+from .libtraci import TraCICollision, TraCISignalConstraint  # noqa
 
 _DOMAINS = [
     busstop,  # noqa

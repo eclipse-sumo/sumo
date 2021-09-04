@@ -41,7 +41,7 @@ STATS = {
     # selector -> description, function
     'd': ('depart delay', lambda r, s: s.add(r['sim_ended'] - r['until'], key(r))),
     'a': ('arrival delay', lambda r, s: s.add(r['sim_started'] - r['arrival'], key(r))),
-    's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['sim_ended'] - r['sim_started']), key(r))),  # noqua
+    's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['sim_ended'] - r['sim_started']), key(r))),
 }
 
 GROUPSTATS = {

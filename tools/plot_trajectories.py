@@ -221,7 +221,6 @@ def main(options):
     minX = uMax
     maxX = uMin
 
-
     for vehID, d in data.items():
         if options.filterRoute is not None:
             skip = False

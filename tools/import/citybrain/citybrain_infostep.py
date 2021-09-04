@@ -55,7 +55,7 @@ def main(options):
         pos = None
         edges = []
         speed = None
-        startTime = None
+#        startTime = None
         ttFF = None
         lane = None
         seenVehs = 0
