@@ -23,10 +23,14 @@ from __future__ import absolute_import
 import os
 import sys
 import re
-from typing import Any, List, Tuple, Union
 import xml.dom.minidom
 import random
 from sumolib.files.additional import write_additional_minidom
+try:
+    from typing import Any, List, Tuple, Union
+except ImportError:
+    # there are python2 versions on MacOS coming without typing
+    pass
 
 """
 Creates a vehicle type distribution with a number of representative car-following parameter sets.
