@@ -106,7 +106,7 @@ class ArgumentParser(argparse.ArgumentParser):
             out = io.StringIO()
             try:
                 self.write_config_to_file(out, namespace, False)
-            except:
+            except Exception:
                 # python2.7
                 out = io.BytesIO()
                 self.write_config_to_file(out, namespace, False)
