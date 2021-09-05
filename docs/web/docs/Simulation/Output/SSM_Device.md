@@ -122,9 +122,9 @@ For the selection in the device's output, the abbreviations have to be used.
 
 Basically, we distinguish between three types of encounters for two vehicles:
 
-- Lead/follow situation
-- Crossing situation
-- Merging Situation
+- Lead/follow situation: vehicles are passing the same sequence of lanes before and after the conflict point
+- Crossing situation: vehicles are passing different sequences of lanes before and after the conflict point
+- Merging Situation: vehicles are passing different lanes before the conflict point but the same lane after the conflict point
 
 Please note that some SSMs only apply to a specific encounter or are computed differently for different encounters.
 For crossing and merging situations, we consider "expected" entry and exit times with respect to the conflict zone. 
