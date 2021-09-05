@@ -35,9 +35,9 @@
 
 CommonXMLStructure::SumoBaseObject::SumoBaseObject(SumoBaseObject* parent) :
     mySumoBaseObjectParent(parent),
+    myTag(SUMO_TAG_NOTHING),
     myVClass(SVC_IGNORING),
     myVehicleTypeParameter(""),
-    myTag(SUMO_TAG_NOTHING),
     myDefinedVehicleTypeParameter(false),
     myDefinedVehicleParameter(false),
     myDefinedStopParameter(false) {

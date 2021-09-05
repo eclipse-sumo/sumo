@@ -204,7 +204,7 @@ public:
 
     private:
         /// @brief Invalidated assignment operator
-        edge_opposite_direction_sorter& operator=(const edge_opposite_direction_sorter& s);
+        edge_opposite_direction_sorter& operator=(const edge_opposite_direction_sorter& s) = delete;
 
     };
 
