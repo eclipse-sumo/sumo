@@ -21,14 +21,15 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
@@ -52,6 +53,7 @@
 #include <utils/foxtools/FXMenuCheckIcon.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -61,7 +63,6 @@
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNENet.h"
 #include "GNEUndoList.h"
@@ -1920,6 +1921,8 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
+    // declare additional handler
+    GNEAdditionalHandler additionalHanlder(myNet, "", true);
     // obtain POI at popup position
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {
@@ -1950,49 +1953,31 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                         nearestLane = lane;
                     }
                 }
-                // obtain values of POI
-                std::string id = POI->getID();
-                std::string type = POI->getShapeType();
-                RGBColor color = POI->getShapeColor();
-                Position pos = (*POI);
-                double layer = POI->getShapeLayer();
-                double angle = POI->getShapeNaviDegree();
-                std::string imgFile = POI->getShapeImgFile();
-                bool relativePath = POI->getShapeRelativePath();
-                double POIWidth = POI->getWidth();      // double width -> C4458
-                double POIHeight = POI->getHeight();    // double height -> C4458
-                bool friendlyPos = POI->getFriendlyPos();
+                // get sumo base object of POI (And all common attributes)
+                CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+                // add specific attributes
+                POIBaseObject->addStringAttribute(SUMO_ATTR_LANE, nearestLane->getID());
+                POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION, minorPosOverLane);
+                POIBaseObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, POI->getFriendlyPos());
+                POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, 0);
                 // remove POI
                 myUndoList->p_begin("attach POI into " + toString(SUMO_TAG_LANE));
                 myNet->deleteShape(POI, myUndoList);
-                // add POILane
-                /*
-                FIX in #9054
-                myNet->getAttributeCarriers()->addPOI(id, type, color, pos, false, nearestLane->getID(), minorPosOverLane, friendlyPos, 0, layer, angle, imgFile, relativePath, POIWidth, POIHeight);
-                */
+                // add new POI use route handler
+                additionalHanlder.parseSumoBaseObject(POIBaseObject);
                 myUndoList->p_end();
             }
         } else {
-            // obtain values of POILane
-            std::string id = POI->getID();
-            std::string type = POI->getShapeType();
-            RGBColor color = POI->getShapeColor();
-            Position pos = (*POI);
-            double layer = POI->getShapeLayer();
-            double angle = POI->getShapeNaviDegree();
-            std::string imgFile = POI->getShapeImgFile();
-            bool relativePath = POI->getShapeRelativePath();
-            double POIWidth = POI->getWidth();      // double width -> C4458
-            double POIWeight = POI->getHeight();    // double height -> C4458
-            bool friendlyPos = POI->getFriendlyPos();
+            // get sumo base object of POI (And all common attributes)
+            CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+            // add specific attributes
+            POIBaseObject->addDoubleAttribute(SUMO_ATTR_X, POI->x());
+            POIBaseObject->addDoubleAttribute(SUMO_ATTR_Y, POI->y());
             // remove POI
             myUndoList->p_begin("release POI from " + toString(SUMO_TAG_LANE));
             myNet->deleteShape(POI, myUndoList);
-            // add POI
-            /*
-            FIX in #9054
-            myNet->getAttributeCarriers()->addPOI(id, type, color, pos, false, "", 0, friendlyPos, 0, layer, angle, imgFile, relativePath, POIWidth, POIWeight);
-            */
+            // add new POI use route handler
+            additionalHanlder.parseSumoBaseObject(POIBaseObject);
             myUndoList->p_end();
         }
         // update view after transform

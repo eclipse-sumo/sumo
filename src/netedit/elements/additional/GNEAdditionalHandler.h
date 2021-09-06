@@ -689,6 +689,9 @@ protected:
     const bool myAllowUndoRedo;
 
 private:
+    /// @brief invalidate default constructo
+    GNEAdditionalHandler();
+    
     /// @brief invalidate copy constructor
     GNEAdditionalHandler(const GNEAdditionalHandler& s) = delete;
 

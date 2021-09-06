@@ -1877,6 +1877,13 @@ GNEAdditionalHandler::parseLanes(const SumoXMLTag tag, const std::vector<std::st
     return lanes;
 }
 
+
+GNEAdditionalHandler::GNEAdditionalHandler() :
+    AdditionalHandler(""),
+    myNet(nullptr),
+    myAllowUndoRedo(false) {
+}
+
 // ===========================================================================
 // GNEAdditionalHandler::NeteditParameters method definitions
 // ===========================================================================

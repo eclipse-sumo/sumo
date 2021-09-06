@@ -21,6 +21,7 @@
 #pragma once
 #include <config.h>
 #include <utils/shapes/PointOfInterest.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEShape.h"
 
@@ -107,6 +108,9 @@ public:
      * @param[in] value The parameter's value
      */
     void setParameter(const std::string& key, const std::string& value);
+
+    /// @brief get SUMOBaseObject with all POIattributes
+    CommonXMLStructure::SumoBaseObject* getSumoBaseObject() const;
 
     /// @name inherited from GNEShape
     /// @{

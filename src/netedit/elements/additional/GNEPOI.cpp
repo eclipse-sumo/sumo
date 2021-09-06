@@ -105,6 +105,25 @@ GNEPOI::setParameter(const std::string& key, const std::string& value) {
 }
 
 
+CommonXMLStructure::SumoBaseObject* 
+GNEPOI::getSumoBaseObject() const {
+    CommonXMLStructure::SumoBaseObject* POIBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
+    POIBaseObject->setTag(SUMO_TAG_POI);
+    // fill attributes
+    POIBaseObject->addStringAttribute(SUMO_ATTR_ID, myID);
+    POIBaseObject->addColorAttribute(SUMO_ATTR_COLOR, getShapeColor());
+    POIBaseObject->addStringAttribute(SUMO_ATTR_TYPE, getShapeType());
+    POIBaseObject->addDoubleAttribute(SUMO_ATTR_LAYER, getShapeLayer());
+    POIBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
+    POIBaseObject->addDoubleAttribute(SUMO_ATTR_WIDTH, getWidth());
+    POIBaseObject->addDoubleAttribute(SUMO_ATTR_HEIGHT, getHeight());
+    POIBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
+    POIBaseObject->addStringAttribute(SUMO_ATTR_NAME, getShapeName());
+    POIBaseObject->addBoolAttribute(SUMO_ATTR_RELATIVEPATH, getShapeRelativePath());
+    return POIBaseObject;
+}
+
+
 void
 GNEPOI::writeShape(OutputDevice& device) {
     if (getParentLanes().size() > 0) {
