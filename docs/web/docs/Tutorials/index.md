@@ -37,12 +37,12 @@ These tutorials use the [Python-TraCI Library](../TraCI/Interfacing_TraCI_from_P
 
 ## SUMO User Conference
 ### Files
-* [SUMO 2015](http://sumo.dlr.de/daily/sumo2015_tutorial.zip)
-* [SUMO 2016](http://sumo.dlr.de/daily/sumo2016_tutorial.zip), [New Features 2016 (Slides)](http://sumo.dlr.de/daily/SUMO2016_new_features.pdf)
-* [SUMO 2017](http://sumo.dlr.de/daily/sumo2017_tutorial.zip)
-* [SUMO 2018](http://sumo.dlr.de/daily/sumo2018_tutorial.zip)
-* [SUMO 2019](http://sumo.dlr.de/daily/sumo2019_tutorial.zip)
-* [SUMO 2020](http://sumo.dlr.de/daily/sumo2020_tutorial.zip)
+* [SUMO 2015](http://sumo.dlr.de/daily/sumo2015_tutorial.zip): network editing with xml patch, persons, 
+* [SUMO 2016](http://sumo.dlr.de/daily/sumo2016_tutorial.zip): network editing, meso, containers, [New Features 2016 (Slides)](http://sumo.dlr.de/daily/SUMO2016_new_features.pdf)
+* [SUMO 2017](http://sumo.dlr.de/daily/sumo2017_tutorial.zip): network editing, randomTrips, calibrators (xml only), public transport (obsolete)
+* [SUMO 2018](http://sumo.dlr.de/daily/sumo2018_tutorial.zip): fixing intermodal junctions, calibrators in netedit, junction model paramters, editing shapes
+* [SUMO 2019](http://sumo.dlr.de/daily/sumo2019_tutorial.zip): network editing, visualizing traffic data, public transport from OSM, parking, netgenerate
+* [SUMO 2020](http://sumo.dlr.de/daily/sumo2020_tutorial.zip): turn lanes, routeSampler.py, defining counting data in netedit, taxi/DRT
 
 ###Videos
 
