@@ -1200,7 +1200,11 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             if (myParentEdge->getNBEdge()->isMacroscopicConnector()) {
                 return 9;
             } else if (isRailway(myPermissions)) {
-                return 5;
+                if ((myPermissions & SVC_BUS) != 0) {
+                    return 6;
+                } else {
+                    return 5;
+                }
             } else if ((myPermissions & SVC_PASSENGER) != 0) {
                 if ((myPermissions & (SVC_RAIL_CLASSES & ~SVC_RAIL_FAST)) != 0 && (myPermissions & SVC_SHIP) == 0) {
                     return 6;
@@ -1273,7 +1277,9 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
+    return isRailway(myParentEdge->getNBEdge()->getPermissions(myIndex))
+        && (myParentEdge->getNBEdge()->getPermissions(myIndex) & SVC_BUS) == 0
+        && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
 }
 
 
