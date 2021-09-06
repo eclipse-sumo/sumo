@@ -63,10 +63,6 @@ GNETAZRelData::getColor() const {
 
 bool
 GNETAZRelData::isGenericDataVisible() const {
-    // first check if we're in supermode data
-    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        return false;
-    }
     // obtain pointer to TAZ data frame (only for code legibly)
     const GNETAZRelDataFrame* TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
     // get current data edit mode
@@ -96,8 +92,17 @@ GNETAZRelData::isGenericDataVisible() const {
 
 void
 GNETAZRelData::updateGeometry() {
-    myTAZRelGeometry.updateGeometry({getParentTAZElements().front()->getPositionInView(), 
-                                     getParentTAZElements().back()->getPositionInView()});
+    // get both TAZs
+    const GNETAZElement* TAZA = getParentTAZElements().front();
+    const GNETAZElement* TAZB = getParentTAZElements().back();
+    // calculate middle point 
+    const PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};
+    const Position middlePoint = line.getLineCenter();
+    // get closest points to middlePoint
+    const Position posA = TAZA->getTAZElementShape().positionAtOffset2D(TAZA->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+    const Position posB = TAZB->getTAZElementShape().positionAtOffset2D(TAZB->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+    // update geometry
+    myTAZRelGeometry.updateGeometry({posA, posB});
 }
 
 
@@ -144,22 +149,39 @@ GNETAZRelData::fixGenericDataProblem() {
 
 
 void
-GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
+GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
     // draw TAZRels
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        // get flag for only draw contour
+        const bool onlyDrawContour = !isGenericDataVisible();
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        GLHelper::pushName(getGlID());
+        if (!onlyDrawContour) {
+            GLHelper::pushName(getGlID());
+        }
         // push matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
+        // set color
         GLHelper::setColor(getColor());
-        // draw line between two TAZs
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
+        // draw geometry
+        if (!onlyDrawContour) {
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
+        }
         // pop matrix
         GLHelper::popMatrix();
         // pop name
-        GLHelper::popName();
+        if (!onlyDrawContour) {
+            GLHelper::popName();
+        }
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1);
+        }
+
     }
 }
 
