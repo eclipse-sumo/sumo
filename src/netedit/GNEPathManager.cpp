@@ -345,7 +345,7 @@ GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vCl
         traveltime += edge->getNBEdge()->getLength() / MIN2(edge->getNBEdge()->getSpeed(), defaultMaxSpeed);
         std::vector<GNEEdge*> sucessors;
         // get sucessor edges
-        for (const auto& sucessorEdge : edge->getParentJunctions().back()->getGNEOutgoingEdges()) {
+        for (const auto& sucessorEdge : edge->getToJunction()->getGNEOutgoingEdges()) {
             // check if edge is connected with sucessor edge
             if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
                 sucessors.push_back(sucessorEdge);

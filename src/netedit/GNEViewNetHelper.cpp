@@ -1556,19 +1556,19 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
             // iterate over extracted edges
             for (auto i : edgesToSelect) {
                 // select junction source and all their connections and crossings
-                ACToSelect.push_back(i->getParentJunctions().front());
-                for (auto j : i->getParentJunctions().front()->getGNEConnections()) {
+                ACToSelect.push_back(i->getFromJunction());
+                for (auto j : i->getFromJunction()->getGNEConnections()) {
                     ACToSelect.push_back(j);
                 }
-                for (auto j : i->getParentJunctions().front()->getGNECrossings()) {
+                for (auto j : i->getFromJunction()->getGNECrossings()) {
                     ACToSelect.push_back(j);
                 }
                 // select junction destiny and all their connections crossings
-                ACToSelect.push_back(i->getParentJunctions().back());
-                for (auto j : i->getParentJunctions().back()->getGNEConnections()) {
+                ACToSelect.push_back(i->getToJunction());
+                for (auto j : i->getToJunction()->getGNEConnections()) {
                     ACToSelect.push_back(j);
                 }
-                for (auto j : i->getParentJunctions().back()->getGNECrossings()) {
+                for (auto j : i->getToJunction()->getGNECrossings()) {
                     ACToSelect.push_back(j);
                 }
             }

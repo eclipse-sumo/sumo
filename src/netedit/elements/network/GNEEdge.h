@@ -70,6 +70,12 @@ public:
     /// @brief Destructor.
     ~GNEEdge();
 
+    /// @brief get from Junction (only used to increase readability)
+    inline GNEJunction *getFromJunction() const;
+
+    /// @brief get from Junction (only used to increase readability)
+    inline GNEJunction *getToJunction() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

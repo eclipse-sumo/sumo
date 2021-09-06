@@ -998,19 +998,19 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
         // iterate over extracted edges
         for (const auto& edgeToSelect : edgesToSelect) {
             // select junction source and all connections and crossings
-            ACsToSelect.insert(std::make_pair(edgeToSelect->getParentJunctions().front()->getID(), edgeToSelect->getParentJunctions().front()));
-            for (const auto& connectionToSelect : edgeToSelect->getParentJunctions().front()->getGNEConnections()) {
+            ACsToSelect.insert(std::make_pair(edgeToSelect->getFromJunction()->getID(), edgeToSelect->getFromJunction()));
+            for (const auto& connectionToSelect : edgeToSelect->getFromJunction()->getGNEConnections()) {
                 ACsToSelect.insert(std::make_pair(connectionToSelect->getID(), connectionToSelect));
             }
-            for (const auto& crossingToSelect : edgeToSelect->getParentJunctions().front()->getGNECrossings()) {
+            for (const auto& crossingToSelect : edgeToSelect->getFromJunction()->getGNECrossings()) {
                 ACsToSelect.insert(std::make_pair(crossingToSelect->getID(), crossingToSelect));
             }
             // select junction destiny and all connections and crossings
-            ACsToSelect.insert(std::make_pair(edgeToSelect->getParentJunctions().back()->getID(), edgeToSelect->getParentJunctions().back()));
-            for (const auto& connectionToSelect : edgeToSelect->getParentJunctions().back()->getGNEConnections()) {
+            ACsToSelect.insert(std::make_pair(edgeToSelect->getToJunction()->getID(), edgeToSelect->getToJunction()));
+            for (const auto& connectionToSelect : edgeToSelect->getToJunction()->getGNEConnections()) {
                 ACsToSelect.insert(std::make_pair(connectionToSelect->getID(), connectionToSelect));
             }
-            for (const auto& crossingToSelect : edgeToSelect->getParentJunctions().back()->getGNECrossings()) {
+            for (const auto& crossingToSelect : edgeToSelect->getToJunction()->getGNECrossings()) {
                 ACsToSelect.insert(std::make_pair(crossingToSelect->getID(), crossingToSelect));
             }
         }

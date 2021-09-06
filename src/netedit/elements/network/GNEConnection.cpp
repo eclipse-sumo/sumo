@@ -324,7 +324,7 @@ GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
     // calculate boundary
     if (myConnectionGeometry.getShape().size() == 0) {
         // we need to use the center of junction parent as boundary if shape is empty
-        const Position junctionParentPosition = myFromLane->getParentEdge()->getParentJunctions().back()->getPositionInView();
+        const Position junctionParentPosition = myFromLane->getParentEdge()->getToJunction()->getPositionInView();
         myBoundary = Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
                               junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
     } else {
@@ -540,7 +540,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARAMETERS:
             return nbCon.getParametersStr();
         case GNE_ATTR_PARENT:
-            return getEdgeFrom()->getParentJunctions().back()->getID();
+            return getEdgeFrom()->getToJunction()->getID();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

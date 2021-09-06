@@ -270,7 +270,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             if (getChildEdges().size() < 2 ||
                     (myGNEIncomingEdges.size() == 1
                      && myGNEOutgoingEdges.size() == 1
-                     && myGNEIncomingEdges[0]->getParentJunctions().front() == myGNEOutgoingEdges[0]->getParentJunctions().back())) {
+                     && myGNEIncomingEdges[0]->getFromJunction() == myGNEOutgoingEdges[0]->getToJunction())) {
                 mcRoundabout->disable();
             }
         }
@@ -534,10 +534,10 @@ GNEJunction::getJunctionNeighbours() const {
     // use set to avoid duplicates junctions
     std::set<GNEJunction*> junctions;
     for (const auto& i : myGNEIncomingEdges) {
-        junctions.insert(i->getParentJunctions().front());
+        junctions.insert(i->getFromJunction());
     }
     for (const auto& i : myGNEOutgoingEdges) {
-        junctions.insert(i->getParentJunctions().back());
+        junctions.insert(i->getToJunction());
     }
     return std::vector<GNEJunction*>(junctions.begin(), junctions.end());
 }
@@ -930,7 +930,7 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
             j->markConnectionGeometryDeprecated();
         }
         if (includingNeighbours) {
-            i->getParentJunctions().front()->markConnectionsDeprecated(false);
+            i->getFromJunction()->markConnectionsDeprecated(false);
         }
     }
 }
@@ -1501,14 +1501,14 @@ GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoun
     // Iterate over GNEEdges
     for (const auto& edge : getChildEdges()) {
         // Add source and destiny junctions
-        affectedJunctions.insert(edge->getParentJunctions().front());
-        affectedJunctions.insert(edge->getParentJunctions().back());
+        affectedJunctions.insert(edge->getFromJunction());
+        affectedJunctions.insert(edge->getToJunction());
         // Obtain neighbors of Junction source
-        for (const auto& junctionSourceEdge : edge->getParentJunctions().front()->getChildEdges()) {
+        for (const auto& junctionSourceEdge : edge->getFromJunction()->getChildEdges()) {
             affectedEdges.insert(junctionSourceEdge);
         }
         // Obtain neighbors of Junction destiny
-        for (const auto& junctionDestinyEdge : edge->getParentJunctions().back()->getChildEdges()) {
+        for (const auto& junctionDestinyEdge : edge->getToJunction()->getChildEdges()) {
             affectedEdges.insert(junctionDestinyEdge);
         }
     }

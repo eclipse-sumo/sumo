@@ -520,7 +520,7 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
     // clear connectionsMap
     myConnectionsMap.clear();
     // iterate over outgoingEdge's lanes
-    for (const auto& outgoingEdge : myFromLane->getParentEdge()->getParentJunctions().back()->getGNEOutgoingEdges()) {
+    for (const auto& outgoingEdge : myFromLane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
         for (const auto& outgoingLane : outgoingEdge->getLanes()) {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();

@@ -241,8 +241,8 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     // add edge into grid
     myNet->addGLObjectIntoGrid(edge);
     // Add references into GNEJunctions
-    edge->getParentJunctions().front()->addOutgoingGNEEdge(edge);
-    edge->getParentJunctions().back()->addIncomingGNEEdge(edge);
+    edge->getFromJunction()->addOutgoingGNEEdge(edge);
+    edge->getToJunction()->addIncomingGNEEdge(edge);
     return edge;
 }
 
@@ -971,8 +971,8 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     edge->decRef("GNENet::deleteSingleEdge");
     edge->setResponsible(true);
     // Remove refrences from GNEJunctions
-    edge->getParentJunctions().front()->removeOutgoingGNEEdge(edge);
-    edge->getParentJunctions().back()->removeIncomingGNEEdge(edge);
+    edge->getFromJunction()->removeOutgoingGNEEdge(edge);
+    edge->getToJunction()->removeIncomingGNEEdge(edge);
 }
 
 

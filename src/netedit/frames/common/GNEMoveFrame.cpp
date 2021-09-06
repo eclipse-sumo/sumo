@@ -369,11 +369,11 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
         }
         // set new start and end positions
         if ((edge->getAttribute(GNE_ATTR_SHAPE_START).size() > 0) &&
-                (shapeStart.distanceSquaredTo2D(edge->getParentJunctions().front()->getNBNode()->getPosition()) < 2)) {
+                (shapeStart.distanceSquaredTo2D(edge->getFromJunction()->getNBNode()->getPosition()) < 2)) {
             edge->setAttribute(GNE_ATTR_SHAPE_START, toString(shapeStart), undoList);
         }
         if ((edge->getAttribute(GNE_ATTR_SHAPE_END).size() > 0) &&
-                (shapeEnd.distanceSquaredTo2D(edge->getParentJunctions().back()->getNBNode()->getPosition()) < 2)) {
+                (shapeEnd.distanceSquaredTo2D(edge->getToJunction()->getNBNode()->getPosition()) < 2)) {
             edge->setAttribute(GNE_ATTR_SHAPE_END, toString(shapeEnd), undoList);
         }
     }
