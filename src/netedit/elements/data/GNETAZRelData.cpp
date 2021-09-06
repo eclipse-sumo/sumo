@@ -30,6 +30,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNETAZRelData.h"
 #include "GNEDataInterval.h"
@@ -94,7 +96,8 @@ GNETAZRelData::isGenericDataVisible() const {
 
 void
 GNETAZRelData::updateGeometry() {
-    // nothing to update
+    myTAZRelGeometry.updateGeometry({getParentTAZElements().front()->getPositionInView(), 
+                                     getParentTAZElements().back()->getPositionInView()});
 }
 
 
@@ -142,7 +145,22 @@ GNETAZRelData::fixGenericDataProblem() {
 
 void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Nothing to draw
+    // draw TAZRels
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        // push name (needed for getGUIGlObjectsUnderCursor(...)
+        GLHelper::pushName(getGlID());
+        // push matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
+        GLHelper::setColor(getColor());
+        // draw line between two TAZs
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
+        // pop matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
+    }
 }
 
 
@@ -179,6 +197,12 @@ GNETAZRelData::getLastPathLane() const {
 Boundary
 GNETAZRelData::getCenteringBoundary() const {
     return getParentTAZElements().front()->getCenteringBoundary();
+}
+
+
+void 
+GNETAZRelData::updateCenteringBoundary() {
+    
 }
 
 

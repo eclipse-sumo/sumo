@@ -90,6 +90,10 @@ public:
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
+
+    /// @brief update centering boundary
+    void updateCenteringBoundary();
+
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement
@@ -175,6 +179,10 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
+
+protected:
+    /// @brief Geometry for TAZRel
+    GNEGeometry::Geometry myTAZRelGeometry;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

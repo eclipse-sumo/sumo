@@ -182,6 +182,10 @@ void
 GNETAZ::updateGeometry() {
     // just update geometry
     myTAZGeometry.updateGeometry(myShape);
+    // update geometry of TAZRelDatas
+    for (const auto &TAZRelData : getChildGenericDatas()) {
+        TAZRelData->updateGeometry();
+    }
 }
 
 
@@ -324,38 +328,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
             }
         }
-    // draw lock icon
-    GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), TAZExaggeration);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), TAZExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
-        // draw TAZRels
-        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-            // draw TAZRel datas
-            for (const auto& TAZRel : getChildGenericDatas()) {
-                // only draw for the first TAZ
-                if ((TAZRel->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (TAZRel->getParentTAZElements().front() == this)) {
-                    // push name (needed for getGUIGlObjectsUnderCursor(...)
-                    GLHelper::pushName(TAZRel->getGlID());
-                    // push matrix
-                    GLHelper::pushMatrix();
-                    // translate to front
-                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
-                    // set custom line width
-                    glLineWidth(3);
-                    GLHelper::setColor(TAZRel->getColor());
-                    // draw line between two TAZs
-                    GLHelper::drawLine(TAZRel->getParentTAZElements().front()->getPositionInView(), TAZRel->getParentTAZElements().back()->getPositionInView());
-                    //restore line width
-                    glLineWidth(1);
-                    // pop matrix
-                    GLHelper::popMatrix();
-                    // pop name
-                    GLHelper::popName();
-                }
-            }
-        }
         // get name position
         const Position& namePos = myTAZGeometry.getShape().getPolygonCenter();
         // draw name
@@ -568,6 +546,10 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myShape.push_back(myShape.front());
             }
             myNet->addGLObjectIntoGrid(this);
+            // update boundary of TAZRelDatas
+            for (const auto &TAZRelData : getChildGenericDatas()) {
+                TAZRelData->updateCenteringBoundary();
+            }
             break;
         case SUMO_ATTR_COLOR:
             setShapeColor(parse<RGBColor>(value));
