@@ -106,18 +106,6 @@ GNEEdge::~GNEEdge() {
 }
 
 
-GNEJunction*
-GNEEdge::getFromJunction() const {
-    return getParentJunctions().front();
-}
-
-
-GNEJunction*
-GNEEdge::getToJunction() const {
-    return getParentJunctions().back();
-}
-
-
 void
 GNEEdge::updateGeometry() {
     // first check if myUpdateGeometry flag is enabled
