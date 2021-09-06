@@ -1023,7 +1023,7 @@ GUIVehicle::getManeuverDist() const {
 
 std::string
 GUIVehicle::getSpeedMode() const {
-    return std::bitset<5>(getInfluencer()->getSpeedMode()).to_string();
+    return std::bitset<6>(getInfluencer()->getSpeedMode()).to_string();
 }
 
 std::string
