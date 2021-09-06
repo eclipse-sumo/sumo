@@ -839,7 +839,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                         const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
                         undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
                         undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
-                        const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
+                        const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX2);
                         undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
                         undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
                     }
@@ -849,6 +849,13 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                                     addedConnection.getFromLane(), addedConnection.getToLane(), addedConnection.getTLIndex(), addedConnection.getTLIndex2());
                 replacementDef = repl;
             } else {
+                // recompute crossing indices along with everything else
+                for (GNECrossing* c : myGNECrossings) {
+                    const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
+                    undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                    const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX2);
+                    undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                }
                 replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());
                 replacementDef->setProgramID(tlDef->getProgramID());
             }
