@@ -660,7 +660,7 @@ GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnec
     const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
     if (recomputeConnections) {
         edge->getParentJunctions().front()->setLogicValid(false, undoList);
-        edge->getParentJunctions().front()->setLogicValid(false, undoList);
+        edge->getParentJunctions().back()->setLogicValid(false, undoList);
     }
     GNELane* newLane = new GNELane(edge, lane->getIndex());
     undoList->add(new GNEChange_Lane(edge, newLane, laneAttrs, true, recomputeConnections), true);
