@@ -93,7 +93,7 @@ public:
         /// @brief Destructor
         ~ApproachingDivider();
 
-        /// @ get number of avaliable lanes
+        /// @ get number of available lanes
         int numAvailableLanes() const {
             return (int)myAvailableLanes.size();
         }
