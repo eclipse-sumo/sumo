@@ -152,6 +152,9 @@ public:
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
 
+    /// @brief update centering boundary
+    virtual void updateCenteringBoundary() = 0;
+
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement

@@ -162,9 +162,13 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         myGenericDataChildren.push_back(genericData);
         // update generic data IDs
         updateGenericDataIDs();
+        // check if add to boundary
+        if (genericData->getTagProperty().isPlacedInRTree()) {
+            myNet->getGrid().addAdditionalGLObject(genericData->getGUIGlObject());
+        }
         // update geometry after insertion if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
-            // update generic data geometry
+            // update generic data RTREE
             genericData->updateGeometry();
         }
         // update colors
@@ -189,6 +193,10 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
         // delete path element
         myNet->getPathManager()->removePath(genericData);
+        // check if remove from RTREE
+        if (genericData->getTagProperty().isPlacedInRTree()) {
+            myNet->getGrid().removeAdditionalGLObject(genericData->getGUIGlObject());
+        }
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }
