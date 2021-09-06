@@ -240,9 +240,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // first check if poly can be drawn
-    if ((myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_TAZRELDATA)) || 
-        (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() && 
-        GUIPolygon::checkDraw(s, this, this))) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
         // Obtain constants
         const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -332,26 +330,30 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
-        /* temporal */
-        // draw TAZRel datas
-        for (const auto& TAZRel : getChildGenericDatas()) {
-            // only draw for the first TAZ
-            if ((TAZRel->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (TAZRel->getParentTAZElements().front() == this)) {
-                // push name (needed for getGUIGlObjectsUnderCursor(...)
-                GLHelper::pushName(TAZRel->getGlID());
-                // push matrix
-                GLHelper::pushMatrix();
-                // set custom line width
-                glLineWidth(3);
-                GLHelper::setColor(TAZRel->getColor());
-                // draw line between two TAZs
-                GLHelper::drawLine(TAZRel->getParentTAZElements().front()->getPositionInView(), TAZRel->getParentTAZElements().back()->getPositionInView());
-                //restore line width
-                glLineWidth(1);
-                // pop matrix
-                GLHelper::popMatrix();
-                // pop name
-                GLHelper::popName();
+        // draw TAZRels
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+            // draw TAZRel datas
+            for (const auto& TAZRel : getChildGenericDatas()) {
+                // only draw for the first TAZ
+                if ((TAZRel->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (TAZRel->getParentTAZElements().front() == this)) {
+                    // push name (needed for getGUIGlObjectsUnderCursor(...)
+                    GLHelper::pushName(TAZRel->getGlID());
+                    // push matrix
+                    GLHelper::pushMatrix();
+                    // translate to front
+                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
+                    // set custom line width
+                    glLineWidth(3);
+                    GLHelper::setColor(TAZRel->getColor());
+                    // draw line between two TAZs
+                    GLHelper::drawLine(TAZRel->getParentTAZElements().front()->getPositionInView(), TAZRel->getParentTAZElements().back()->getPositionInView());
+                    //restore line width
+                    glLineWidth(1);
+                    // pop matrix
+                    GLHelper::popMatrix();
+                    // pop name
+                    GLHelper::popName();
+                }
             }
         }
         // get name position
