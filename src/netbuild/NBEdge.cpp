@@ -3999,14 +3999,16 @@ NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
     // disallow pedestrians on all lanes to ensure that sidewalks are used and
     // crossings can be guessed
     disallowVehicleClass(-1, vclass);
+    // don't create a restricted vehicle lane to the right of a sidewalk
+    const int newIndex = (vclass != SVC_PEDESTRIAN && myLanes[0].permissions == SVC_PEDESTRIAN) ? 1 : 0;
     // add new lane
-    myLanes.insert(myLanes.begin(), Lane(this, myLanes[0].getParameter(SUMO_PARAM_ORIGID)));
-    myLanes[0].permissions = vclass;
-    myLanes[0].width = fabs(width);
+    myLanes.insert(myLanes.begin() + newIndex, Lane(this, myLanes[0].getParameter(SUMO_PARAM_ORIGID)));
+    myLanes[newIndex].permissions = vclass;
+    myLanes[newIndex].width = fabs(width);
     // shift outgoing connections to the left
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {
         Connection& c = *it;
-        if (c.fromLane >= 0) {
+        if (c.fromLane >= newIndex) {
             c.fromLane += 1;
         }
     }
