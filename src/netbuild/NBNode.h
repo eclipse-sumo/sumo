@@ -410,10 +410,10 @@ public:
     NBEdge* getOppositeIncoming(NBEdge* e) const;
 
     /// @brief invalidate incoming connections
-    void invalidateIncomingConnections();
+    void invalidateIncomingConnections(bool reallowSetting = false);
 
     /// @brief invalidate outgoing connections
-    void invalidateOutgoingConnections();
+    void invalidateOutgoingConnections(bool reallowSetting = false);
 
     /// @brief remove duble edges
     void removeDoubleEdges();

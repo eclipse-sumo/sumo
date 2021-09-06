@@ -1519,7 +1519,8 @@ NBEdgeCont::generateStreetSigns() {
 
 
 int
-NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt) {
+NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt,
+        NBTrafficLightLogicCont& tlc) {
     int lanesCreated = 0;
     std::vector<std::string> edges;
     if (excludeOpt != "") {
@@ -1540,6 +1541,12 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
             )) {
             edge->addRestrictedLane(width, svc);
             lanesCreated += 1;
+            if (svc != SVC_PEDESTRIAN) {
+                edge->invalidateConnections(true);
+                edge->getFromNode()->invalidateOutgoingConnections(true);
+                edge->getFromNode()->invalidateTLS(tlc, true, true);
+                edge->getToNode()->invalidateTLS(tlc, true, true);
+            }
         }
     }
     return lanesCreated;

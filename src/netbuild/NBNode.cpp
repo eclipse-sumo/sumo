@@ -1872,17 +1872,17 @@ NBNode::getEmptyDir() const {
 
 
 void
-NBNode::invalidateIncomingConnections() {
+NBNode::invalidateIncomingConnections(bool reallowSetting) {
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        (*i)->invalidateConnections();
+        (*i)->invalidateConnections(reallowSetting);
     }
 }
 
 
 void
-NBNode::invalidateOutgoingConnections() {
+NBNode::invalidateOutgoingConnections(bool reallowSetting) {
     for (EdgeVector::const_iterator i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {
-        (*i)->invalidateConnections();
+        (*i)->invalidateConnections(reallowSetting);
     }
 }
 
