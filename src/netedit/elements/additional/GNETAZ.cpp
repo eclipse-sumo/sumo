@@ -240,9 +240,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
-            myNet->getViewNet()->getDataViewOptions().showShapes() &&
-            GUIPolygon::checkDraw(s, this, this)) {
+    if ((myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_TAZRELDATA)) || 
+        (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() && 
+        GUIPolygon::checkDraw(s, this, this))) {
         // Obtain constants
         const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
