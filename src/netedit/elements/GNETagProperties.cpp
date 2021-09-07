@@ -430,12 +430,6 @@ GNETagProperties::hasParameters() const {
 
 
 bool
-GNETagProperties::hasDoubleParameters() const {
-    return (myTagProperty & PARAMETERSDOUBLE) != 0;
-}
-
-
-bool
 GNETagProperties::isPlacedInRTree() const {
     return (myTagProperty & RTREE) != 0;
 }

@@ -87,10 +87,9 @@ public:
         MASKXYZPOSITION =           1 << 9,     // Element mask attributes X, Y and Z as "Position"
         WRITECHILDRENSEPARATE =     1 << 10,    // Element writes their children in a separated filename
         NOPARAMETERS =              1 << 11,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        PARAMETERSDOUBLE =          1 << 12,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
-        RTREE =                     1 << 13,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 14,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 15,    // Element has an embedded route
+        RTREE =                     1 << 12,    // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 13,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 14,    // Element has an embedded route
     };
 
     /// @brief default constructor
@@ -248,9 +247,6 @@ public:
 
     /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
     bool hasParameters() const;
-
-    /// @brief return true if Tag correspond to an element that supports double parameters "key1=double1|key2=double2|...|keyN=doubleN"
-    bool hasDoubleParameters() const;
 
     /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
     bool isPlacedInRTree() const;
