@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-03 08:15:32 by Eclipse SUMO netconvert Version v1_10_0+0481-29bfba3
+<!-- generated on 2021-09-07 12:27:59 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,9 +14,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <write-license value="true"/>
-        <ptstop-output value="additional.xml"/>
-        <ptline-output value="ptlines.xml"/>
-        <ptline-clean-up value="true"/>
     </output>
 
     <projection>
@@ -189,7 +186,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="206889079#3_0" index="0" allow="tram" speed="13.89" length="757.41" shape="568.54,497.76 564.44,494.86 555.51,487.78 542.92,476.12 421.16,353.75 413.61,346.31 405.35,338.18 345.58,279.52 338.46,272.09 329.72,263.70 297.24,230.29 291.68,224.72 250.14,183.02 235.06,167.86 218.41,151.25 199.61,134.16 184.63,123.00 172.43,115.95 162.78,110.37 151.42,103.35 129.90,90.03 82.93,62.34 55.28,44.87 32.42,27.90 29.94,25.88 18.57,17.07 0.00,2.89"/>
     </edge>
     <edge id="220198808#0" from="1704693564" to="1906399902" priority="17" type="railway.tram" spreadType="center" shape="2.11,0.00 19.72,13.04 24.38,16.94 32.07,23.36 35.45,26.24 57.11,42.19 84.54,60.66 151.18,99.52 152.93,100.47 165.51,107.30 174.86,113.45 180.20,116.96 191.82,124.42 200.50,130.83 213.50,142.08 224.67,152.88 251.41,179.75 294.07,222.49 327.15,255.65 332.23,261.05 341.02,269.37 348.51,276.77 408.15,335.65 416.27,343.68 423.82,351.14 544.89,473.83 556.59,484.70 566.29,492.31 570.24,495.50">
-        <lane id="220198808#0_0" index="0" allow="tram" speed="13.89" length="757.54" shape="2.11,-0.00 19.72,13.04 24.38,16.94 32.07,23.36 35.45,26.24 57.11,42.19 84.54,60.66 151.18,99.52 152.93,100.47 165.51,107.30 174.86,113.45 180.20,116.96 191.82,124.42 200.50,130.83 213.50,142.08 224.67,152.88 251.41,179.75 294.07,222.49 327.15,255.65 332.23,261.05 341.02,269.37 348.51,276.77 408.15,335.65 416.27,343.68 423.82,351.14 544.89,473.83 556.59,484.70 566.29,492.31 570.15,495.42"/>
+        <lane id="220198808#0_0" index="0" allow="tram" speed="13.89" length="757.54" shape="2.11,0.00 19.72,13.04 24.38,16.94 32.07,23.36 35.45,26.24 57.11,42.19 84.54,60.66 151.18,99.52 152.93,100.47 165.51,107.30 174.86,113.45 180.20,116.96 191.82,124.42 200.50,130.83 213.50,142.08 224.67,152.88 251.41,179.75 294.07,222.49 327.15,255.65 332.23,261.05 341.02,269.37 348.51,276.77 408.15,335.65 416.27,343.68 423.82,351.14 544.89,473.83 556.59,484.70 566.29,492.31 570.15,495.42"/>
     </edge>
     <edge id="220198808#7" from="1906399902" to="2697454318" priority="17" type="railway.tram" spreadType="center">
         <lane id="220198808#7_0" index="0" allow="tram" speed="13.89" length="13.40" shape="570.34,495.58 577.04,500.64"/>
@@ -344,9 +341,9 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rr"/>
     </tlLogic>
     <tlLogic id="cluster_3366620136_5836660314" type="static" programID="0" offset="0">
-        <phase duration="82" state="GGgGg"/>
-        <phase duration="3"  state="yyyyy"/>
-        <phase duration="5"  state="rrrrr"/>
+        <phase duration="82" state="GGG"/>
+        <phase duration="3"  state="yyy"/>
+        <phase duration="5"  state="rrr"/>
     </tlLogic>
 
     <junction id="1525212345" type="dead_end" x="691.37" y="583.09" incLanes="" intLanes="" shape="692.98,580.32 689.76,585.86"/>
@@ -489,22 +486,18 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="7170324898" type="dead_end" x="515.40" y="386.54" incLanes="767962950_0" intLanes="" shape="514.69,387.24 516.11,385.83"/>
     <junction id="7170324899" type="priority" x="605.59" y="475.46" incLanes="-142575672#4_0 -142575672#4_1 142575672#3_0" intLanes="" shape="612.17,477.63 604.92,471.35 604.25,471.86 603.91,471.94 603.56,471.89 603.21,471.73 602.86,471.44 601.47,472.88 602.00,473.63 602.09,474.00 602.06,474.37 601.91,474.75 601.64,475.13 608.90,481.42">
-        <request index="0" response="00000" foes="10000"/>
-        <request index="1" response="00000" foes="10000"/>
-        <request index="2" response="01000" foes="01000"/>
-        <request index="3" response="00000" foes="00100"/>
-        <request index="4" response="00011" foes="00011"/>
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="837697455" type="priority" x="508.64" y="581.89" incLanes="318210394_0" intLanes="" shape="508.64,581.89 511.03,584.02 508.64,581.89">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="9035154606" type="dead_end" x="634.96" y="529.04" incLanes="976351540#1_0 976351540#1_1" intLanes="" shape="636.62,526.30 633.31,531.78"/>
     <junction id="cluster_3366620136_5836660314" type="traffic_light" x="595.42" y="487.19" incLanes="617443819#1_0 -142575672#3_0 -142575672#3_1 142575672#1_0" intLanes="" shape="606.03,488.36 606.22,486.37 605.50,486.16 605.35,485.97 605.33,485.73 605.45,485.44 605.71,485.09 598.46,478.80 592.29,485.91 599.55,492.20 601.86,489.94 602.95,489.18 604.02,488.66 605.04,488.39">
-        <request index="0" response="00000" foes="10000"/>
-        <request index="1" response="00000" foes="10000"/>
-        <request index="2" response="01000" foes="01000"/>
-        <request index="3" response="00000" foes="00100"/>
-        <request index="4" response="00011" foes="00011"/>
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
     </junction>
 
     <connection from="-137483074#0" to="142575672#0" fromLane="0" toLane="0" dir="s" state="m"/>
@@ -521,10 +514,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-142575672#1" to="-142575672#0" fromLane="1" toLane="1" tl="3246050929" linkIndex="1" dir="s" state="O"/>
     <connection from="-142575672#3" to="-142575672#1" fromLane="0" toLane="0" tl="cluster_3366620136_5836660314" linkIndex="0" dir="s" state="O"/>
     <connection from="-142575672#3" to="-142575672#1" fromLane="1" toLane="1" tl="cluster_3366620136_5836660314" linkIndex="1" dir="s" state="O"/>
-    <connection from="-142575672#3" to="142575672#3" fromLane="1" toLane="0" tl="cluster_3366620136_5836660314" linkIndex="2" dir="t" state="o"/>
     <connection from="-142575672#4" to="-142575672#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-142575672#4" to="-142575672#3" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="-142575672#4" to="142575672#4" fromLane="1" toLane="0" dir="t" state="m"/>
     <connection from="-142575695" to="318210373" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-142575695" to="-142575672#4" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="-142575695" to="142575695" fromLane="0" toLane="0" dir="t" state="m"/>
@@ -548,10 +539,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="137483074#2" to="-137483074#2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="140295392" to="158236381" fromLane="0" toLane="1" tl="1704693785" linkIndex="0" dir="s" state="o"/>
     <connection from="142575672#0" to="142575672#1" fromLane="0" toLane="0" tl="3246050929" linkIndex="2" dir="s" state="O"/>
-    <connection from="142575672#1" to="142575672#3" fromLane="0" toLane="0" tl="cluster_3366620136_5836660314" linkIndex="3" dir="s" state="O"/>
-    <connection from="142575672#1" to="-142575672#1" fromLane="0" toLane="1" tl="cluster_3366620136_5836660314" linkIndex="4" dir="t" state="o"/>
+    <connection from="142575672#1" to="142575672#3" fromLane="0" toLane="0" tl="cluster_3366620136_5836660314" linkIndex="2" dir="s" state="O"/>
     <connection from="142575672#3" to="142575672#4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="142575672#3" to="-142575672#3" fromLane="0" toLane="1" dir="t" state="m"/>
     <connection from="142575672#4" to="142575695" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="142575672#4" to="318210373" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="142575672#4" to="-142575672#4" fromLane="0" toLane="1" dir="t" state="m"/>
