@@ -343,10 +343,11 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     bool drawConnection = true;
     // declare flag to check if push glID
     bool pushGLID = true;
-    if ((myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
-            s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+        myNet->getViewNet()->getNetworkViewOptions().showConnections() &&
+        s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
         drawConnection = !myShapeDeprecated;
-    } else if ((myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) &&
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
         drawConnection = !myShapeDeprecated;
     } else {

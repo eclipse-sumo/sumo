@@ -2174,12 +2174,14 @@ GNEViewNetHelper::NetworkViewOptions::selectEdges() const {
 
 bool
 GNEViewNetHelper::NetworkViewOptions::showConnections() const {
-    if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
+    if (myViewNet->myEditModes.isCurrentSupermodeData()) {
+        return false;
+    } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
         // check if menu check hide connections ins shown
         return (menuCheckHideConnections->amChecked() == FALSE);
     } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
         return true;
-    } else if (menuCheckShowConnections->shown() == false) {
+    } else if (myViewNet->myEditModes.isCurrentSupermodeNetwork() && menuCheckShowConnections->shown() == false) {
         return false;
     } else {
         return (myViewNet->getVisualisationSettings().showLane2Lane);
