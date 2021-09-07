@@ -85,6 +85,12 @@ GNEDataSet::AttributeColors::updateAllValues(const AttributeColors& attributeCol
 }
 
 
+bool
+GNEDataSet::AttributeColors::exist(const std::string& attribute) const {
+    return (myMinMaxValue.count(attribute) > 0);
+}
+
+
 double
 GNEDataSet::AttributeColors::getMinValue(const std::string& attribute) const {
     return myMinMaxValue.at(attribute).first;
