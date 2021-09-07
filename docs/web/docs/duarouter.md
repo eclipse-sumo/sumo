@@ -39,6 +39,9 @@ to an equilibrium state (DUE).
 
 # Usage Description
 
+Duarouter has two main purposes: [Computing fastest/optiomal routes](Demand/Shortest_or_Optimal_Path_Routing.md) directly as well as iteratively in the context of 
+[Dynamic_User_Assignment](Demand/Dynamic_User_Assignment.md).
+
 ## Outputs
 
 The primary output of duarouter is a *.rou.xml* file which has its name
@@ -211,5 +214,4 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 # Further Documentation
 
 - [Supported Routing Algorithms](Simulation/Routing.md#routing_algorithms)
-- [Demand/Shortest_or_Optimal_Path_Routing](Demand/Shortest_or_Optimal_Path_Routing.md)
-- [Demand/Dynamic_User_Assignment](Demand/Dynamic_User_Assignment.md)
+
