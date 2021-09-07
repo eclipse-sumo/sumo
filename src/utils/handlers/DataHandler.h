@@ -134,9 +134,6 @@ private:
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;
 
-    /// @brief parse string to double
-    static double parseStringToDouble(const std::string& string);
-
     /// @brief invalidate copy constructor
     DataHandler(const DataHandler& s) = delete;
 

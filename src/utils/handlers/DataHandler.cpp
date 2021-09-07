@@ -167,10 +167,7 @@ DataHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
         if (attribute != toString(SUMO_ATTR_ID)) {
-            const std::string value = attrs.getStringSecure(attribute, "");
-            if (parseStringToDouble(value) != INVALID_DOUBLE) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
-            }
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
         }
     }
     // continue if flag is ok
@@ -195,10 +192,7 @@ DataHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
         if ((attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
-            const std::string value = attrs.getStringSecure(attribute, "");
-            if (parseStringToDouble(value) != INVALID_DOUBLE) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
-            }
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
         }
     }
     // continue if flag is ok
@@ -224,10 +218,7 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
     // iterate over attributes and fill parameters map
     for (const auto& attribute : attributes) {
         if ((attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
-            const std::string value = attrs.getStringSecure(attribute, "");
-            if (parseStringToDouble(value) != INVALID_DOUBLE) {
-                myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, value);
-            }
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
         }
     }
     // continue if flag is ok
@@ -248,17 +239,6 @@ DataHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag
             (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
         WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
         ok = false;
-    }
-}
-
-
-double
-DataHandler::parseStringToDouble(const std::string& string) {
-    try {
-        return StringUtils::toDouble(string);
-    } catch (FormatException&) {
-        WRITE_ERROR(string + "cannot be reinterpeted as float");
-        return INVALID_DOUBLE;
     }
 }
 
