@@ -822,16 +822,8 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
     GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
-        // declare attribute type
-        Parameterised::ParameterisedAttrType attrType;
-        // update flag
-        if (frontAC->getTagProperty().hasDoubleParameters()) {
-            attrType = Parameterised::ParameterisedAttrType::DOUBLE;
-        } else {
-            attrType = Parameterised::ParameterisedAttrType::STRING;
-        }
         // check if current given string is valid
-        if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, attrType)) {
+        if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true)) {
             // parsed parameters ok, then set text field black and continue
             myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
             myTextFieldParameters->killFocus();
