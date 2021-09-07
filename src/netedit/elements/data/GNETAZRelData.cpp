@@ -170,8 +170,10 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         if (!onlyDrawContour) {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.5);
+                GLHelper::drawTriangleAtEnd(myTAZRelGeometryCenter.getShape().front(), myTAZRelGeometryCenter.getShape().back(), 1.5, 1.5, 0.5);
             } else {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
+                GLHelper::drawTriangleAtEnd(myTAZRelGeometry.getShape().front(), myTAZRelGeometry.getShape().back(), 1.5, 1.5, 0.5);
             }
         }
         // pop matrix
@@ -187,7 +189,6 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1);
         }
-
     }
 }
 

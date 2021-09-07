@@ -492,8 +492,8 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
 
 
 void
-GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
-                            double tLength, double tWidth) {
+GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength, 
+                            double tWidth, const double extraOffset) {
     const double length = p1.distanceTo(p2);
     if (length < tLength) {
         tWidth *= length / tLength;
@@ -503,6 +503,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
     GLHelper::pushMatrix();
     glTranslated(rl.x(), rl.y(), 0);
     glRotated(-GeomHelper::naviDegree(p1.angleTo2D(p2)), 0, 0, 1);
+    glTranslated(0, extraOffset, 0);
     glBegin(GL_TRIANGLES);
     glVertex2d(0, tLength);
     glVertex2d(-tWidth, 0);

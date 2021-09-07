@@ -286,9 +286,10 @@ public:
      * @param[in] p2 The end of the line at which end the triangle shall be drawn
      * @param[in] tLength The length of the triangle
      * @param[in] tWidth The width of the triangle
+     * @param[in] extraOffset extra offset at end
      */
-    static void drawTriangleAtEnd(const Position& p1, const Position& p2,
-                                  double tLength, double tWidth);
+    static void drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength, 
+                                  double tWidth, const double extraOffset = 0);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
