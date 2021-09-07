@@ -231,6 +231,7 @@ enum class GUIIcon {
     /// @{
     DATAMODE_CHECKBOX_SHOWADDITIONALS,
     DATAMODE_CHECKBOX_SHOWSHAPES,
+    DATAMODE_CHECKBOX_TAZRELDRAWING,
     /// @}
 
     /// @name arrows
