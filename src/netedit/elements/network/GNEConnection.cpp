@@ -557,7 +557,6 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FROM_LANE:
         case SUMO_ATTR_TO_LANE:
         case SUMO_ATTR_PASS:
-        case SUMO_ATTR_INDIRECT:
         case SUMO_ATTR_KEEP_CLEAR:
         case SUMO_ATTR_CONTPOS:
         case SUMO_ATTR_UNCONTROLLED:
@@ -583,6 +582,31 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
                 changeTLIndex(key, c.tlLinkIndex, parse<int>(value), undoList);
             }
+            break;
+        case SUMO_ATTR_INDIRECT:
+            undoList->p_begin("change attribute indirect for connection");
+            if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                int linkIndex2 = -1;
+                if (parse<bool>(value)) {
+                    // find straight connection with the same toEdge
+                    std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
+                    NBEdge* from = getEdgeFrom()->getNBEdge();
+                    for (NBTrafficLightDefinition* tlDef : defs) {
+                        for (const NBConnection& c2 : tlDef->getControlledLinks()) {
+                            if (c2.getTo() == c.toEdge && c2.getFrom() != from) {
+                                LinkDirection dir = from->getToNode()->getDirection(c2.getFrom(), c2.getTo());
+                                if (dir == LinkDirection::STRAIGHT) {
+                                    linkIndex2 = c2.getTLIndex();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                changeTLIndex(key, c.tlLinkIndex, linkIndex2, undoList);
+            }
+            undoList->p_end();
             break;
         case SUMO_ATTR_DIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
