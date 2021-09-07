@@ -67,7 +67,15 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
     priority = edgeType->priority;
     permissions = edgeType->permissions;
     spreadType = edgeType->spreadType;
+    oneWay = edgeType->oneWay;
+    discard = edgeType->discard;
     width = edgeType->width;
+    widthResolution = edgeType->widthResolution;
+    maxWidth = edgeType->maxWidth;
+    minWidth = edgeType->minWidth;
+    sidewalkWidth = edgeType->sidewalkWidth;
+    bikeLaneWidth = edgeType->bikeLaneWidth;
+    restrictions = edgeType->restrictions;
     attrs = edgeType->attrs;
     laneTypeDefinitions = edgeType->laneTypeDefinitions;
 }

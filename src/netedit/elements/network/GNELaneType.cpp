@@ -34,17 +34,18 @@
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-myEdgeTypeParent(edgeTypeParent) {
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-myEdgeTypeParent(edgeTypeParent) {
+    myEdgeTypeParent(edgeTypeParent) {
     // copy parameters
     speed = laneType.speed;
     permissions = laneType.permissions;
     width = laneType.width;
+    restrictions = laneType.restrictions;
     attrs = laneType.attrs;
 }
 
