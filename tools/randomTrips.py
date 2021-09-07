@@ -68,6 +68,8 @@ def get_options(args=None):
                            "(possible values: 'ptStops', 'allJunctions' and combinations)")
     optParser.add_argument("--persontrip.walkfactor", dest="walkfactor",
                            help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
+    optParser.add_argument("--persontrip.walk-opposite-factor", dest="walkoppositefactor",
+                           help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction")
     optParser.add_argument("--prefix", dest="tripprefix",
                            default="", help="prefix for the trip ids")
     optParser.add_argument("-t", "--trip-attributes", dest="tripattrs",
@@ -581,6 +583,8 @@ def main(options):
         args += ['--persontrip.transfer.car-walk', options.carWalkMode]
     if options.walkfactor is not None:
         args += ['--persontrip.walkfactor', options.walkfactor]
+    if options.walkoppositefactor is not None:
+        args += ['--persontrip.walk-opposite-factor', options.walkoppositefactor]
     if options.remove_loops:
         args += ['--remove-loops']
     if options.vtypeout is not None:

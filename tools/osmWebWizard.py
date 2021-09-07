@@ -307,6 +307,7 @@ class Builder(object):
 
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
                     options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
+                    options += ["--persontrip.walk-opposite-factor", "0.8"]
 
                 randomTrips.main(randomTrips.get_options(options))
                 randomTripsCalls.append(options)
