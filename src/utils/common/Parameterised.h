@@ -38,34 +38,15 @@ class OutputDevice;
  * @brief An upper class for objects with additional parameters
  */
 class Parameterised {
+
 public:
-
-    /// @brie enum for Parameterised type
-    enum class ParameterisedAttrType {
-        /// @brief Parameterised accept strings
-        STRING,
-        /// @brief Parameterised only accept doubles
-        DOUBLE
-    };
-
     /// @brief Default constructor (for Strings)
     Parameterised();
-
-    /**@brief Constructor
-     * @param[in] attrType parameterised attribute type
-     */
-    Parameterised(ParameterisedAttrType attrType);
 
     /**@brief Constructor with parameters (for Strings)
      * @param[in] mapArg Pre-given parameter
      */
     Parameterised(const std::map<std::string, std::string>& mapArg);
-
-    /**@brief Constructor with parameters
-     * @param[in] attrType parameterised attribute type
-     * @param[in] mapArg Pre-given parameter
-     */
-    Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg);
 
     /// @brief Destructor
     ~Parameterised();
@@ -132,16 +113,11 @@ public:
     void writeParams(OutputDevice& device) const;
 
     /// @brief check if given string can be parsed to a parameters map "key1=value1|key2=value2|...|keyN=valueN"
-    static bool areParametersValid(const std::string& value, bool report = false, ParameterisedAttrType attrType = ParameterisedAttrType::STRING,
-                                   const std::string kvsep = "=", const std::string sep = "|");
+    static bool areParametersValid(const std::string& value, bool report = false, const std::string kvsep = "=", const std::string sep = "|");
 
 private:
     /// @brief check if given string can be parsed to a parameter of type "key=value"
-    static bool isParameterValid(const std::string& value, ParameterisedAttrType attrType,
-                                 const std::string& kvsep, const std::string& sep);
-
-    /// @brief parameterised type
-    ParameterisedAttrType myAttrType;
+    static bool isParameterValid(const std::string& value, const std::string& kvsep, const std::string& sep);
 
     /// @brief The key->value map
     std::map<std::string, std::string> myMap;
