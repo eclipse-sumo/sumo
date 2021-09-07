@@ -1786,10 +1786,13 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             setDemandEditMode(demandEditMode, true);
             // demand modes require ALWAYS a recomputing
             myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
-            // update DijkstraRouter of RouteCalculatorInstance
-            myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
-            // compute all demand elements
-            myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
+            // check if update path calculator
+            if (!myViewNet->myNet->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+                // update DijkstraRouter of RouteCalculatorInstance
+                myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+                // compute all demand elements
+                myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
+            }
         } else if (supermode == Supermode::DATA) {
             // change buttons
             networkButton->setChecked(false);
@@ -1803,10 +1806,13 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             myViewNet->myDataCheckableButtons.showDataCheckableButtons();
             // force update data mode
             setDataEditMode(dataEditMode, true);
-            // update DijkstraRouter of RouteCalculatorInstance
-            myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
-            // compute all demand elements
-            myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
+            // check if update path calculator
+            if (!myViewNet->myNet->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
+                // update DijkstraRouter of RouteCalculatorInstance
+                myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+                // compute all demand elements
+                myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
+            }
         }
         // update buttons
         networkButton->update();

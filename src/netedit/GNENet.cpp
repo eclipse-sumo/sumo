@@ -1678,7 +1678,8 @@ void
 GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing demand elements ...");
     // if we aren't in Demand mode, update path calculator
-    if (!myViewNet->getEditModes().isCurrentSupermodeDemand())  {
+    if (!myViewNet->getEditModes().isCurrentSupermodeDemand() && 
+        !myPathManager->getPathCalculator()->isPathCalculatorUpdated())  {
         myPathManager->getPathCalculator()->updatePathCalculator();
     }
     // clear demand paths

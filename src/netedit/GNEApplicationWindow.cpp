@@ -2112,7 +2112,7 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdComputePathManager(FXObject*, FXSelector, void*) {
     // first check viewNet
-    if (myViewNet) {
+    if (myViewNet && !myViewNet->getNet()->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
         // update path calculator
         myViewNet->getNet()->getPathManager()->getPathCalculator()->updatePathCalculator();
     }
