@@ -149,5 +149,5 @@ Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
-Warning: Vehicle 'veh122' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=695.00.
-Warning: Person 'ped104' is jammed on edge ':2915545317_c0', time=1431.00.
+Warning: Person 'ped104' is jammed on edge ':2915545317_c0', time=1433.00.
+Warning: Person 'ped49' aborted waiting for M5:0 at busStop '1633759766'.
