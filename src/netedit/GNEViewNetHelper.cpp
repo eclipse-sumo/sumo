@@ -2562,11 +2562,7 @@ GNEViewNetHelper::DataViewOptions::showDemandElements() const {
 
 bool 
 GNEViewNetHelper::DataViewOptions::TAZRelDrawing() const {
-    if (menuCheckToogleTAZRelDrawing->shown()) {
-        return (menuCheckToogleTAZRelDrawing->amChecked() == TRUE);
-    } else {
-        return true;
-    }
+    return (menuCheckToogleTAZRelDrawing->amChecked() == TRUE);
 }
 
 // ---------------------------------------------------------------------------

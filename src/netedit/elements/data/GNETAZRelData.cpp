@@ -167,7 +167,13 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         // set color
         GLHelper::setColor(getColor());
         // draw geometry
-        if (!onlyDrawContour) {
+        if (onlyDrawContour) {
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.1);
+            } else {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.1);
+            }
+        } else {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.5);
                 GLHelper::drawTriangleAtEnd(myTAZRelGeometryCenter.getShape().front(), myTAZRelGeometryCenter.getShape().back(), 1.5, 1.5, 0.5);
