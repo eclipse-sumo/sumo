@@ -66,14 +66,14 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     myWindowsParent(windowsParent),
     myMessageId(messageId),
     myLocateByName(false),
-    myHaveFilteredSubstring(false) {
+    myHaveFilteredSubstring(false)
+{
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
     myTextEntry = new FXTextField(layoutLeft, 0, this, MID_CHOOSER_TEXT, GUIDesignChooserTextField);
     FXVerticalFrame* layoutList = new FXVerticalFrame(layoutLeft, GUIDesignChooserLayoutList);
     myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserListSingle);
-    refreshList(ids);
     // build the buttons
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     myCenterButton = new FXButton(layoutRight, "Center\t\t", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
@@ -91,6 +91,8 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     new FXButton(layoutRight, "&Update\t\tReload all ids", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM|LAYOUT_FILL_X|JUSTIFY_LEFT);
+    refreshList(ids);
     // add child in windowsParent
     myWindowsParent->getParent()->addChild(this);
     // create and show dialog
@@ -272,6 +274,7 @@ GUIDialog_ChooserAbstract::refreshList(const std::vector<GUIGlID>& ids) {
         GUIGlObjectStorage::gIDStorage.unblockObject(i);
     }
     myList->update();
+    myCountLabel->setText((toString(ids.size()) + " objects").c_str());
 }
 
 
