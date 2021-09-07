@@ -338,6 +338,9 @@ public:
     /// @brief toggle show demand elements (data)
     long onCmdToggleShowDemandElementsData(FXObject*, FXSelector, void*);
 
+    /// @brief toggle TAZRel drawing
+    long onCmdToggleTAZRelDrawing(FXObject*, FXSelector, void*);
+
     /// @}
 
     //// @name interval bar functions

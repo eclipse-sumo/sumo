@@ -724,6 +724,8 @@ enum {
     MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,
     /// @brief show demand elements
     MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
+    /// @brief toogle TAZRel drawing
+    MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,
 
     /// @}
 

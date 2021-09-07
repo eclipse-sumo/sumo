@@ -763,6 +763,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::DataViewOptions(G
     menuCheckShowAdditionals(nullptr),
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
+    menuCheckToogleTAZRelDrawing(nullptr),
     separator(nullptr),
     myGNEApp(GNEApp) {
 }
@@ -786,6 +787,11 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
                                   GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS);
 
+    menuCheckToogleTAZRelDrawing = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                  "Toggle TAZRel drawing mode", "Alt+4", "",
+                                  GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
+                                  myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING);
+
     // build separator
     separator = new FXMenuSeparator(editMenu);
 }
@@ -796,6 +802,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
     menuCheckShowAdditionals->hide();
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
+    menuCheckToogleTAZRelDrawing->hide();
     separator->hide();
 }
 
@@ -1824,6 +1831,17 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
         }
         // Call manually onCmdToggleShowDemandElementsData
         viewNet->onCmdToggleShowDemandElementsData(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZRelDrawing) {
+        // Toggle menuCheckToogleTAZRelDrawing
+        if (viewNet->getDataViewOptions().menuCheckToogleTAZRelDrawing->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled toogle TAXRel drawing throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled toogle TAXRel drawing throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleTAZRelDrawing
+        viewNet->onCmdToggleTAZRelDrawing(obj, sel, nullptr);
     } else {
         return false;
     }

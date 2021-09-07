@@ -716,6 +716,9 @@ struct GNEViewNetHelper {
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
 
+        /// @brief check if toogle TAZRel drawing checkbox is enabled
+        bool TAZRelDrawing() const;
+
         /// @brief menu check to show Additionals
         MFXCheckableButton* menuCheckShowAdditionals;
 
@@ -724,6 +727,9 @@ struct GNEViewNetHelper {
 
         /// @brief menu check to show Demand Elements
         MFXCheckableButton* menuCheckShowDemandElements;
+
+        /// @brief menu check to toogle TAZ Rel drawing
+        MFXCheckableButton* menuCheckToogleTAZRelDrawing;
 
     private:
         /// @brief pointer to net

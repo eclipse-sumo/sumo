@@ -2459,6 +2459,7 @@ GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
     menuCheckShowAdditionals(nullptr),
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
+    menuCheckToogleTAZRelDrawing(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -2487,6 +2488,14 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     menuCheckShowDemandElements->setChecked(false);
     menuCheckShowDemandElements->create();
 
+    menuCheckToogleTAZRelDrawing = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle draw TAZREL drawing mode."),
+            GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING, GUIDesignMFXCheckableButton);
+    menuCheckToogleTAZRelDrawing->setChecked(false);
+    menuCheckToogleTAZRelDrawing->create();
+
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2497,6 +2506,7 @@ GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
     menuCheckShowAdditionals->hide();
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
+    menuCheckToogleTAZRelDrawing->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
 }
@@ -2513,6 +2523,9 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<MFXChe
     }
     if (menuCheckShowDemandElements->shown()) {
         commands.push_back(menuCheckShowDemandElements);
+    }
+    if (menuCheckToogleTAZRelDrawing->shown()) {
+        commands.push_back(menuCheckToogleTAZRelDrawing);
     }
 }
 
@@ -2541,6 +2554,16 @@ bool
 GNEViewNetHelper::DataViewOptions::showDemandElements() const {
     if (menuCheckShowDemandElements->shown()) {
         return (menuCheckShowDemandElements->amChecked() == TRUE);
+    } else {
+        return true;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::DataViewOptions::TAZRelDrawing() const {
+    if (menuCheckToogleTAZRelDrawing->shown()) {
+        return (menuCheckToogleTAZRelDrawing->amChecked() == TRUE);
     } else {
         return true;
     }

@@ -124,6 +124,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToggleShowAdditionals),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToggleShowShapes),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToggleShowDemandElementsData),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,           GNEViewNet::onCmdToggleTAZRelDrawing),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -3348,6 +3349,25 @@ GNEViewNet::onCmdToggleShowDemandElementsData(FXObject*, FXSelector sel, void*) 
 }
 
 
+long 
+GNEViewNet::onCmdToggleTAZRelDrawing(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowDemandElements
+    if (myDataViewOptions.menuCheckToogleTAZRelDrawing->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToogleTAZRelDrawing->setChecked(FALSE);
+    } else {
+        myDataViewOptions.menuCheckToogleTAZRelDrawing->setChecked(TRUE);
+    }
+    myDataViewOptions.menuCheckToogleTAZRelDrawing->update();
+    // update view to show demand elements
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING)) {
+        myDataViewOptions.menuCheckToogleTAZRelDrawing->setFocus();
+    }
+    return 1;
+}
+
+
 long
 GNEViewNet::onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*) {
     myIntervalBar.setGenericDataType();
@@ -3874,6 +3894,10 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getInspectorFrame();
             // set checkable button
             myCommonCheckableButtons.inspectButton->setChecked(true);
+            // show toogle TAZRel drawing view option
+            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
+            // show toogle TAZRel drawing menu check
+            menuChecks.menuCheckToogleTAZRelDrawing->show();
             // enable IntervalBar
             myIntervalBar.enableIntervalBar();
             break;
@@ -3883,6 +3907,10 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getDeleteFrame();
             // set checkable button
             myCommonCheckableButtons.deleteButton->setChecked(true);
+            // show toogle TAZRel drawing view option
+            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
+            // show toogle TAZRel drawing menu check
+            menuChecks.menuCheckToogleTAZRelDrawing->show();
             // enable IntervalBar
             myIntervalBar.enableIntervalBar();
             break;
@@ -3892,6 +3920,10 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getSelectorFrame();
             // set checkable button
             myCommonCheckableButtons.selectButton->setChecked(true);
+            // show toogle TAZRel drawing view option
+            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
+            // show toogle TAZRel drawing menu check
+            menuChecks.menuCheckToogleTAZRelDrawing->show();
             // enable IntervalBar
             myIntervalBar.enableIntervalBar();
             break;
@@ -3919,6 +3951,10 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getTAZRelDataFrame();
             // set checkable button
             myDataCheckableButtons.TAZRelDataButton->setChecked(true);
+            // show toogle TAZRel drawing view option
+            myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
+            // show toogle TAZRel drawing menu check
+            menuChecks.menuCheckToogleTAZRelDrawing->show();
             // disable IntervalBar
             myIntervalBar.disableIntervalBar();
             break;

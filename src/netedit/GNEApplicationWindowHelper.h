@@ -537,6 +537,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to show Demand Elements
             FXMenuCheckIcon* menuCheckShowDemandElements;
 
+            /// @brief menu check to toogle TAZRel drawing mode
+            FXMenuCheckIcon* menuCheckToogleTAZRelDrawing;
+
             /// @brief separator
             FXMenuSeparator* separator;
 
