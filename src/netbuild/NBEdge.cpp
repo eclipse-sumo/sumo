@@ -3104,12 +3104,19 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
             return;
         }
     };
-    if (noGeometryLike && myTo->geometryLike() && !isDeadEnd) {
-        // make sure the turnDestination has other incoming edges
-        EdgeVector turnIncoming = myTurnDestination->getIncomingEdges();
-        if (turnIncoming.size() > 1) {
-            // this edge is always part of incoming
-            return;
+    if (noGeometryLike && !isDeadEnd) {
+        // ignore paths and service entrances if this edge is for passenger traffic
+        if (myTo->geometryLike() || ((getPermissions() & SVC_PASSENGER) != 0
+                    && !onlyTurnlane
+                    && myTo->geometryLike(
+                        NBEdge::filterByPermissions(myTo->getIncomingEdges(), ~(SVC_BICYCLE|SVC_PEDESTRIAN|SVC_DELIVERY)),
+                        NBEdge::filterByPermissions(myTo->getOutgoingEdges(), ~(SVC_BICYCLE|SVC_PEDESTRIAN|SVC_DELIVERY))))) {
+            // make sure the turnDestination has other incoming edges
+            EdgeVector turnIncoming = myTurnDestination->getIncomingEdges();
+            if (turnIncoming.size() > 1) {
+                // this edge is always part of incoming
+                return;
+            }
         }
     }
     setConnection(fromLane, myTurnDestination, toLane, Lane2LaneInfoType::VALIDATED);
