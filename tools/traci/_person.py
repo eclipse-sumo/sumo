@@ -218,7 +218,8 @@ class PersonDomain(Domain):
 
     def getStage(self, personID, nextStageIndex=0):
         """getStage(string, int) -> int
-        Returns the type of the nth next stage
+        Returns the the nth stage object (type simulation.Stage)
+        Attribute type of this object has the following meaning:
           0 for not-yet-departed
           1 for waiting
           2 for walking
