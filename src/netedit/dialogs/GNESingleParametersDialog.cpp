@@ -558,16 +558,6 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
                 return 1;
-            } else if (myParametersEditorCreator &&
-                       (myParametersEditorCreator->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) &&
-                       !GNEAttributeCarrier::canParse<double>(parameterRow->valueField->getText().text())) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                // open warning Box
-                FXMessageBox::warning(getApp(), MBOX_OK, "Invalid double Parameter value", "%s", "There are values that cannot be parsed to floats");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                return 1;
             }
             // insert in parameters
             parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
