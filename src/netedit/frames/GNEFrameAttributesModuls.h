@@ -583,9 +583,6 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* getFrameParent() const;
 
-        /// @brief get current parameter type
-        Parameterised::ParameterisedAttrType getAttrType() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user clicks over add parameter
@@ -601,9 +598,6 @@ public:
     private:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent = nullptr;
-
-        /// @brief flag for parameters type
-        Parameterised::ParameterisedAttrType myAttrType;
 
         /// @brief pointer to current map of parameters
         std::map<std::string, std::string> myParameters;

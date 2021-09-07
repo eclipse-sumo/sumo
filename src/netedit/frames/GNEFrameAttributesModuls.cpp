@@ -2151,8 +2151,7 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 
 GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myAttrType(Parameterised::ParameterisedAttrType::STRING) {
+    myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
@@ -2240,12 +2239,6 @@ GNEFrameAttributesModuls::ParametersEditorCreator::getFrameParent() const {
 }
 
 
-Parameterised::ParameterisedAttrType
-GNEFrameAttributesModuls::ParametersEditorCreator::getAttrType() const {
-    return myAttrType;
-}
-
-
 long
 GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // write debug information
@@ -2268,7 +2261,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*,
     // clear current existent parameters
     myParameters.clear();
     // check if current given string is valid
-    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, myAttrType)) {
+    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true)) {
         // parsed parameters ok, then set text field black and continue
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         myTextFieldParameters->killFocus();
