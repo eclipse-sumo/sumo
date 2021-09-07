@@ -1784,6 +1784,12 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             myViewNet->myDataCheckableButtons.hideDataCheckableButtons();
             // force update demand mode
             setDemandEditMode(demandEditMode, true);
+            // demand modes require ALWAYS a recomputing
+            myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
+            // update DijkstraRouter of RouteCalculatorInstance
+            myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+            // compute all demand elements
+            myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
         } else if (supermode == Supermode::DATA) {
             // change buttons
             networkButton->setChecked(false);
@@ -1797,6 +1803,10 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             myViewNet->myDataCheckableButtons.showDataCheckableButtons();
             // force update data mode
             setDataEditMode(dataEditMode, true);
+            // update DijkstraRouter of RouteCalculatorInstance
+            myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
+            // compute all demand elements
+            myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
         }
         // update buttons
         networkButton->update();
@@ -1884,12 +1894,6 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, const bool f
         } else if (demandEditMode == DemandEditMode::DEMAND_MOVE) {
             networkEditMode = NetworkEditMode::NETWORK_MOVE;
         }
-        // demand modes require ALWAYS a recomputing
-        myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
-        // update DijkstraRouter of RouteCalculatorInstance
-        myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
-        // compute all demand elements
-        myViewNet->myNet->computeDemandElements(myViewNet->myViewParent->getGNEAppWindows());
         // update cursors
         myViewNet->updateCursor();
         // update network mode specific controls
@@ -1923,12 +1927,6 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
             networkEditMode = NetworkEditMode::NETWORK_SELECT;
             demandEditMode = DemandEditMode::DEMAND_SELECT;
         }
-        // data modes require ALWAYS a recomputing
-        myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
-        // update DijkstraRouter of RouteCalculatorInstance
-        myViewNet->myNet->getPathManager()->getPathCalculator()->updatePathCalculator();
-        // compute all data elements
-        myViewNet->myNet->computeDataElements(myViewNet->myViewParent->getGNEAppWindows());
         // update all datasets
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             dataSet.second->updateAttributeColors();
