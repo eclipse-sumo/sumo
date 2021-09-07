@@ -181,8 +181,11 @@ public:
     /// @}
 
 protected:
-    /// @brief Geometry for TAZRel
+    /// @brief Geometry for TAZRel data
     GNEGeometry::Geometry myTAZRelGeometry;
+
+    /// @brief Geometry for TAZRel (center)
+    GNEGeometry::Geometry myTAZRelGeometryCenter;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

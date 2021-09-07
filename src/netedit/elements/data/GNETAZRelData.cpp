@@ -103,6 +103,8 @@ GNETAZRelData::updateGeometry() {
     const Position posB = TAZB->getTAZElementShape().positionAtOffset2D(TAZB->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
     // update geometry
     myTAZRelGeometry.updateGeometry({posA, posB});
+    // update center geometry
+    myTAZRelGeometryCenter.updateGeometry(line);
 }
 
 
@@ -166,7 +168,11 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(getColor());
         // draw geometry
         if (!onlyDrawContour) {
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.5);
+            } else {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
+            }
         }
         // pop matrix
         GLHelper::popMatrix();
