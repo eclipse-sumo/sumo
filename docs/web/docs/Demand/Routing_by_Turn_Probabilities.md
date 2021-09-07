@@ -109,7 +109,11 @@ network as the route it uses is randomly computed, the route must be
 specified using attribute *from* and attribute *to* must be omitted:
 
 ```
-<flow id="0" from="A" begin="0" end="3600" probability="0.5"/>
+<routes>
+   <flow id="example0" from="A" begin="0" end="3600" probability="0.5"/>
+   <flow id="example1" ... />
+   ....
+</routes>
 ```
 
 ### Random Flows
