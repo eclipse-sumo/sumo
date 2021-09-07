@@ -216,6 +216,7 @@ class Builder(object):
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
+            netconvertOptions += ",--osm.bike-access"
         # special treatment for public transport
         if self.data["publicTransport"]:
             self.filename("stops", "_stops.add.xml")
