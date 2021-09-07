@@ -53,7 +53,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
                                const std::vector<GNEDemandElement*>& demandElementParents,
                                const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, dataIntervalParent->getID()),
-    Parameterised(ParameterisedAttrType::DOUBLE, parameters),
+    Parameterised(parameters),
     GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
