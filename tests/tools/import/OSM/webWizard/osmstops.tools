@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  4 13:07:02 2021 by Eclipse SUMO netconvert Version v1_8_0+1545-bfd1d5b457
+<!-- generated on 2021-09-07 09:15:01 by Eclipse SUMO netconvert Version v1_10_0+0527-bfd27066ee9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -49,6 +49,10 @@
         <railway.topology.repair value="true"/>
         <railway.topology.repair.stop-turn value="true"/>
     </railway>
+
+    <formats>
+        <osm.bike-access value="true"/>
+    </formats>
 
     <report>
         <verbose value="true"/>
@@ -567,7 +571,7 @@
         <access lane="-437325047#0_0" pos="25.34" length="4.61" friendlyPos="1"/>
         <access lane="437325047#0_0" pos="42.95" length="9.49" friendlyPos="1"/>
         <access lane="533594855_0" pos="29.84" length="15.67" friendlyPos="1"/>
-        <access lane="533594857_0" pos="75.40" length="18.00" friendlyPos="1"/>
+        <access lane="533594857_0" pos="75.51" length="18.00" friendlyPos="1"/>
         <access lane="533594858#1_0" pos="7.17" length="30.49" friendlyPos="1"/>
     </busStop>
     <busStop id="990017251" name="U Oranienburger Tor" lane="388702047#3_1" startPos="0.00" endPos="12.50" friendlyPos="true" lines="12 M1"/>

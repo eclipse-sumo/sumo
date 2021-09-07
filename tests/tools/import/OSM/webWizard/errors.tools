@@ -87,7 +87,10 @@ Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
 Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 4.03 at the start of edge '-553121566#2'.
 Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
+Warning: Found sharp turn with radius 7.23 at the end of edge '150634670#1'.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
+Warning: Edge '170077661' is not connected to outgoing edges at junction '1244624818'.
+Warning: Edge '51236793#1' is not connected to outgoing edges at junction '293226261'.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
 Warning: The rail crossing '4567083492' does not have any roads.
@@ -101,17 +104,18 @@ Warning: 10 total messages of type: Could not re-assign PT stop '%', probably br
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
 Warning: 69 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
-Warning: 7 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 9 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 17 total messages of type: Incomplete route for pt line '%'%.
 Warning: 6 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
-Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 26 total messages of type: The rail crossing '%' does not have any roads.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_1566942145_1566942204_3101344339_3101344340_667465427_667465428_967017840', actuated phase 9 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5727160045', actuated phase 3 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 5 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 6 has no controlling detector.
@@ -127,6 +131,7 @@ Warning: 11 total messages of type: At actuated tlLogic '%', linkIndex % has no 
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_1566942145_1566942204_3101344339_3101344340_667465427_667465428_967017840', actuated phase 9 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5727160045', actuated phase 3 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 5 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 6 has no controlling detector.
@@ -143,11 +148,6 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
-Warning: Teleporting vehicle 'pt_tram_M2:3.0'; frontal collision with vehicle 'pt_tram_M2:0.1', lane='-148458500#1_0', gap=-1.00, time=481.00 stage=move.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
-Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 485.00.
-Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
-Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
-Warning: Person 'ped104' is jammed on edge ':2915545317_c0', time=1433.00.
-Warning: Person 'ped49' aborted waiting for M5:0 at busStop '1633759766'.
+Warning: Person 'ped71' aborted waiting for 100:0 at busStop '3867910420'.
+Warning: Person 'ped19' aborted waiting for M5:0 at busStop '1661927028'.
