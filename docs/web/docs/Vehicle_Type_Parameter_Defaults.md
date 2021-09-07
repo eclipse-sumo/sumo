@@ -434,7 +434,7 @@ vehicle types).
 - (32): <https://de.wikipedia.org/wiki/Zul%C3%A4ssige_H%C3%B6chstgeschwindigkeit_im_Stra%C3%9Fenverkehr_(Deutschland)>
 - (33): `http://www.ice-fansite.com/index.php?option=com_content&view=article&id=195:ice1-techdat&catid=50:icet&Itemid=69` (dead link)
 - (34): <https://en.wikipedia.org/wiki/Orders_of_magnitude_(acceleration)>
-- (35): <https://de.answers.yahoo.com/question/index?qid=20061122162708AAtzoPP>
+- (35): https://www.researchgate.net/publication/311633504_Improving_Road_Safety_of_Tank_Truck_in_Indonesia_by_Speed_Limiter_Installation
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
 - (37): <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
 - (\*): estimated
