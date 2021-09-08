@@ -139,10 +139,10 @@ GNETAZFrame::CurrentTAZ::TAZEdgeColor::TAZEdgeColor() :
     edge(nullptr),
     source(nullptr),
     sink(nullptr),
-    sourceColor(INVALID_DOUBLE),
-    sinkColor(INVALID_DOUBLE),
-    sourcePlusSinkColor(INVALID_DOUBLE),
-    sourceMinusSinkColor(INVALID_DOUBLE),
+    sourceColor(0),
+    sinkColor(0),
+    sourcePlusSinkColor(0),
+    sourceMinusSinkColor(0),
     myCurrentTAZParent(nullptr) {
 }
 
