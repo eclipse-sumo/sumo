@@ -165,13 +165,13 @@ SAXWeightsHandler::tryParseEdgeRel(const SUMOSAXAttributes& attrs) {
 
 void
 SAXWeightsHandler::tryParseTazRel(const SUMOSAXAttributes& attrs) {
-    if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
         bool ok = true;
-        const std::string fromTaz = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, nullptr, ok);
-        const std::string toTaz = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, nullptr, ok);
+        const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+        const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
         for (ToRetrieveDefinition* ret : myDefinitions) {
             if (attrs.hasAttribute(ret->myAttributeName)) {
-                ret->myDestination.addTazRelWeight(myCurrentID, fromTaz, toTaz,
+                ret->myDestination.addTazRelWeight(myCurrentID, from, to,
                                                     attrs.getFloat(ret->myAttributeName),
                                                     myCurrentTimeBeg, myCurrentTimeEnd);
             }

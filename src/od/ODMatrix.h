@@ -259,7 +259,7 @@ public:
         return myEnd;
     }
 
-    void addTazRelWeight(const std::string intervalID, const std::string& fromTaz, const std::string& toTaz,
+    void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
             double val, double beg, double end);
 
 protected:
