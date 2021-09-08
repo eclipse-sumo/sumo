@@ -663,7 +663,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 #endif
 
         typedef std::map<std::string, double> ParkingParamMap_t;
-        typedef std::map<MSParkingArea*, ParkingParamMap_t> MSParkingAreaMap_t;
+        typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;
 
         ParkingParamMap_t weights;
         std::map<MSParkingArea*, ConstMSEdgeVector> newRoutes;
