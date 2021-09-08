@@ -1158,6 +1158,8 @@ GNEViewNet::hotkeyEnter() {
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
             myViewParent->getEdgeRelDataFrame()->getPathCreator()->createPath();
+        } else if (myEditModes.dataEditMode == DataEditMode::DATA_TAZRELDATA) {
+            myViewParent->getTAZRelDataFrame()->buildTAZRelationData();
         }
     }
 }
@@ -4945,7 +4947,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_TAZRELDATA:
             // avoid create TAZData if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getTAZRelDataFrame()->addTAZRelationData(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
+                if (myViewParent->getTAZRelDataFrame()->setTAZ(myObjectsUnderCursor)) {
                     // update view to show the new TAZ data
                     updateViewNet();
                 }
