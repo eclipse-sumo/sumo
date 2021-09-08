@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips Version v1_10_0+0563-d833864
+Eclipse SUMO od2trips Version v1_10_0+0595-3ff6633
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -19,7 +19,7 @@ Input Options:
   -d, --od-matrix-files FILE       Loads O/D-files from FILE(s)
   --od-amitran-files FILE          Loads O/D-matrix in Amitran format from
                                     FILE(s)
-  -r, --tazrelation-files FILE     Loads O/D-matrix in tazRelation format from
+  -z, --tazrelation-files FILE     Loads O/D-matrix in tazRelation format from
                                     FILE(s)
   --tazrelation-attribute STR      Define data attribute for loading counts
                                     (default 'count')

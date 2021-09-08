@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-08 12:14:31 by Eclipse SUMO od2trips Version v1_10_0+0563-d833864
+<!-- generated on 2021-09-08 22:42:46 by Eclipse SUMO od2trips Version v1_10_0+0595-3ff6633
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -17,7 +17,7 @@
         <taz-files value="" synonymes="n net net-file taz" type="FILE" help="Loads TAZ (districts; also from networks) from FILE(s)"/>
         <od-matrix-files value="" synonymes="d od od-files" type="FILE" help="Loads O/D-files from FILE(s)"/>
         <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE" help="Loads O/D-matrix in Amitran format from FILE(s)"/>
-        <tazrelation-files value="" synonymes="r" type="FILE" help="Loads O/D-matrix in tazRelation format from FILE(s)"/>
+        <tazrelation-files value="" synonymes="z" type="FILE" help="Loads O/D-matrix in tazRelation format from FILE(s)"/>
         <tazrelation-attribute value="count" synonymes="attribute" type="STR" help="Define data attribute for loading counts (default &apos;count&apos;)"/>
     </input>
 
