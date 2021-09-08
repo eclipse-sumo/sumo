@@ -362,8 +362,8 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myFill);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
-            for (auto i : getChildAdditionals()) {
-                edgeIDs.push_back(i->getAttribute(SUMO_ATTR_EDGE));
+            for (const auto &TAZChild : getChildAdditionals()) {
+                edgeIDs.push_back(TAZChild->getAttribute(SUMO_ATTR_EDGE));
             }
             return toString(edgeIDs);
         }
@@ -372,17 +372,41 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARAMETERS:
             return GNETAZElement::getParametersStr();
         case GNE_ATTR_MIN_SOURCE:
-            return toString(myMinWeightSource);
+            if (myMinWeightSource == INVALID_DOUBLE) {
+                return "undefined";
+            } else {
+                return toString(myMinWeightSource);
+            }
         case GNE_ATTR_MIN_SINK:
-            return toString(myMinWeightSink);
+            if (myMinWeightSink == INVALID_DOUBLE) {
+                return "undefined";
+            } else {
+                return toString(myMinWeightSink);
+            }
         case GNE_ATTR_MAX_SOURCE:
-            return toString(myMaxWeightSource);
+            if (myMaxWeightSource == INVALID_DOUBLE) {
+                return "undefined";
+            } else {
+                return toString(myMaxWeightSource);
+            }
         case GNE_ATTR_MAX_SINK:
-            return toString(myMaxWeightSink);
+            if (myMaxWeightSink == INVALID_DOUBLE) {
+                return "undefined";
+            } else {
+                return toString(myMaxWeightSink);
+            }
         case GNE_ATTR_AVERAGE_SOURCE:
-            return toString(myAverageWeightSource);
+            if (myAverageWeightSource == INVALID_DOUBLE) {
+                return "undefined";
+            } else {
+                return toString(myAverageWeightSource);
+            }
         case GNE_ATTR_AVERAGE_SINK:
-            return toString(myAverageWeightSink);
+            if (myAverageWeightSink == INVALID_DOUBLE) {
+                return "undefined";
+            } else {
+                return toString(myAverageWeightSink);
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -482,25 +506,25 @@ GNETAZ::getHierarchyName() const {
 void
 GNETAZ::updateParentAdditional() {
     // reset all stadistic variables
-    myMaxWeightSource = 0;
-    myMinWeightSource = -1;
-    myAverageWeightSource = 0;
-    myMaxWeightSink = 0;
-    myMinWeightSink = -1;
-    myAverageWeightSink = 0;
+    myMaxWeightSource = INVALID_DOUBLE;
+    myMinWeightSource = INVALID_DOUBLE;
+    myAverageWeightSource = INVALID_DOUBLE;
+    myMaxWeightSink = INVALID_DOUBLE;
+    myMinWeightSink = INVALID_DOUBLE;
+    myAverageWeightSink = INVALID_DOUBLE;
     // declare an extra variables for saving number of children
     int numberOfSources = 0;
     int numberOfSinks = 0;
     // iterate over child additional
     for (const auto& additional : getChildAdditionals()) {
         if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-            double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
+            const double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
-            if (myMaxWeightSource < weight) {
+            if ((myMaxWeightSource == INVALID_DOUBLE) || (myMaxWeightSource < weight)) {
                 myMaxWeightSource = weight;
             }
             // check min Weight
-            if ((myMinWeightSource == -1) || (weight < myMinWeightSource)) {
+            if ((myMinWeightSource == INVALID_DOUBLE) || (weight < myMinWeightSource)) {
                 myMinWeightSource = weight;
             }
             // update Average
@@ -508,13 +532,13 @@ GNETAZ::updateParentAdditional() {
             // update number of sources
             numberOfSources++;
         } else if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-            double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
+            const double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
-            if (myMaxWeightSink < weight) {
+            if ((myMaxWeightSink == INVALID_DOUBLE) || myMaxWeightSink < weight) {
                 myMaxWeightSink = weight;
             }
             // check min Weight
-            if ((myMinWeightSink == -1) || (weight < myMinWeightSink)) {
+            if ((myMinWeightSink == INVALID_DOUBLE) || (weight < myMinWeightSink)) {
                 myMinWeightSink = weight;
             }
             // update Average
@@ -524,8 +548,12 @@ GNETAZ::updateParentAdditional() {
         }
     }
     // calculate average
-    myAverageWeightSource /= numberOfSources;
-    myAverageWeightSink /= numberOfSinks;
+    if (numberOfSources > 0) {
+        myAverageWeightSource /= numberOfSources;
+    }
+    if (numberOfSinks > 0) {
+        myAverageWeightSink /= numberOfSinks;
+    }
 }
 
 // ===========================================================================
