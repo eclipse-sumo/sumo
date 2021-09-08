@@ -41,16 +41,16 @@ class GNETAZFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class TAZCurrent
+    // class CurrentTAZ
     // ===========================================================================
 
-    class TAZCurrent : protected FXGroupBox {
+    class CurrentTAZ : protected FXGroupBox {
 
     public:
         /// @brief struct for edges and the source/sink colors
         struct TAZEdge {
             /// @brief constructor
-            TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNETAZSourceSink* _TAZSource, GNETAZSourceSink* _TAZSink);
+            TAZEdge(CurrentTAZ* CurrentTAZParent, GNEEdge* _edge, GNETAZSourceSink* _TAZSource, GNETAZSourceSink* _TAZSink);
 
             /// @brief destructor (needed because RGBColors has to be deleted)
             ~TAZEdge();
@@ -80,15 +80,15 @@ public:
             int sourceMinusSinkColor;
 
         private:
-            /// @brief pointer to TAZCurrentParent
-            TAZCurrent* myTAZCurrentParent;
+            /// @brief pointer to CurrentTAZParent
+            CurrentTAZ* myCurrentTAZParent;
         };
 
         /// @brief constructor
-        TAZCurrent(GNETAZFrame* TAZFrameParent);
+        CurrentTAZ(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~TAZCurrent();
+        ~CurrentTAZ();
 
         /// @brief set current TAZ
         void setTAZ(GNETAZ* editedTAZ);
@@ -106,7 +106,7 @@ public:
         const std::vector<GNEEdge*>& getSelectedEdges() const;
 
         /// @brief get TAZEdges
-        const std::vector<TAZCurrent::TAZEdge>& getTAZEdges() const;
+        const std::vector<CurrentTAZ::TAZEdge>& getTAZEdges() const;
 
         /// @brief refresh TAZEdges
         void refreshTAZEdges();
@@ -132,7 +132,7 @@ public:
         std::vector<TAZEdge> myTAZEdges;
 
         /// @brief Label for current TAZ
-        FXLabel* myTAZCurrentLabel;
+        FXLabel* myCurrentTAZLabel;
 
         /// @brief maximum source plus sink value of current TAZ Edges
         double myMaxSourcePlusSinkWeight;
@@ -327,7 +327,7 @@ public:
         void hideTAZSelectionStatisticsModul();
 
         /// @brief add an edge and their TAZ Children in the list of selected items
-        bool selectEdge(const TAZCurrent::TAZEdge& edge);
+        bool selectEdge(const CurrentTAZ::TAZEdge& edge);
 
         /// @brief un select an edge (and their TAZ Children)
         bool unselectEdge(GNEEdge* edge);
@@ -339,7 +339,7 @@ public:
         void clearSelectedEdges();
 
         /// @brief get map with edge and TAZChildren
-        const std::vector<TAZCurrent::TAZEdge>& getEdgeAndTAZChildrenSelected() const;
+        const std::vector<CurrentTAZ::TAZEdge>& getEdgeAndTAZChildrenSelected() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -376,7 +376,7 @@ public:
         FXLabel* myStatisticsLabel;
 
         /// @brief vector with the current selected edges and their associated children
-        std::vector<TAZCurrent::TAZEdge> myEdgeAndTAZChildrenSelected;
+        std::vector<CurrentTAZ::TAZEdge> myEdgeAndTAZChildrenSelected;
     };
 
     // ===========================================================================
@@ -529,7 +529,7 @@ public:
     GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
 
     /// @brief get Current TAZ modul
-    TAZCurrent* getTAZCurrentModul() const;
+    CurrentTAZ* getCurrentTAZModul() const;
 
     /// @brief get TAZ Selection Statistics modul
     TAZSelectionStatistics* getTAZSelectionStatisticsModul() const;
@@ -555,7 +555,7 @@ protected:
 
 private:
     /// @brief current TAZ
-    TAZCurrent* myTAZCurrent;
+    CurrentTAZ* myCurrentTAZ;
 
     /// @brief TAZ Edges common parameters
     TAZCommonStatistics* myTAZCommonStatistics;

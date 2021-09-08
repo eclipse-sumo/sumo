@@ -1014,9 +1014,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
             if (myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
                 // abort current drawing
                 myViewParent->getTAZFrame()->getDrawingShapeModul()->abortDrawing();
-            } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr) {
+            } else if (myViewParent->getTAZFrame()->getCurrentTAZModul()->getTAZ() != nullptr) {
                 // finish current editing TAZ
-                myViewParent->getTAZFrame()->getTAZCurrentModul()->setTAZ(nullptr);
+                myViewParent->getTAZFrame()->getCurrentTAZModul()->setTAZ(nullptr);
             }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
             myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
@@ -1126,7 +1126,7 @@ GNEViewNet::hotkeyEnter() {
             if (myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
                 // stop current drawing
                 myViewParent->getTAZFrame()->getDrawingShapeModul()->stopDrawing();
-            } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() == nullptr) {
+            } else if (myViewParent->getTAZFrame()->getCurrentTAZModul()->getTAZ() == nullptr) {
                 // start drawing
                 myViewParent->getTAZFrame()->getDrawingShapeModul()->startDrawing();
             } else if (myViewParent->getTAZFrame()->getTAZSaveChangesModul()->isChangesPending()) {
@@ -4572,7 +4572,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // avoid create TAZs if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if we want to create a rect for selecting edges
-                if (myMouseButtonKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
+                if (myMouseButtonKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getCurrentTAZModul()->getTAZ() != nullptr)) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
