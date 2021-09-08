@@ -184,8 +184,8 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
-                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
-                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get from TAZs
             GNETAZElement* fromTAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZID, false);
@@ -194,8 +194,6 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                 writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
             } else if (toTAZ == nullptr) {
                 writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
-            } else if (fromTAZ == toTAZ) {
-                WRITE_ERROR("A " + toString(SUMO_TAG_TAZREL) + " must be defined between two different TAZs.");
             } else if (dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
                 WRITE_ERROR("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between TAZ'" + toTAZID + "' and '" + toTAZID + "'.");
             } else {
