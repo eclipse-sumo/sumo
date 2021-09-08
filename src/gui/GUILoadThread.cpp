@@ -85,7 +85,9 @@ GUILoadThread::run() {
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    if (!OptionsCont::getOptions().getBool("no-warnings")) {
+        MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    }
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
