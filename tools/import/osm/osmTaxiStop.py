@@ -27,6 +27,23 @@ import sumolib  # noqa
 import osmBuild  # noqa
 
 
+VEHICLE_LENGTH = 7.5
+
+
+def parseArgs(args=None):
+    argParser = sumolib.options.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    argParser.add_argument("-s", "--osm-file", help="read OSM file from FILE (mandatory)", metavar="FILE")
+    argParser.add_argument("-n", "--net-file", help="read SUMO net from FILE", metavar="FILE")
+    argParser.add_argument("-o", "--output-file", help="write stopping places to the output FILE", metavar="FILE",
+                           default="stopping_places.add.xml")
+    argParser.add_argument("-f", "--fleet-file", help="write taxi fleet to the output FILE", metavar="FILE")
+    argParser.add_argument("-t", "--type", help="stopping place type", default="chargingStation")
+    argParser.add_argument("-r", "--radius", type=float, help="radius for edge finding", default=20.)
+    argParser.add_argument("-l", "--length", type=float, help="(minimum) length of the stopping place", default=20.)
+    argParser.add_argument("--vclass", help="which vehicle class should be allowed", default="passenger")
+    return argParser.parse_args(args)
+
+
 def main(options):
     if options.net_file is None:
         osmBuild.build(["-f", options.osm_file])
@@ -34,6 +51,12 @@ def main(options):
     else:
         net = sumolib.net.readNet(options.net_file)
     count = 0
+    fleet_out = io.open(options.fleet_file, "w") if options.fleet_file else None
+    if fleet_out:
+        sumolib.xml.writeHeader(fleet_out, root="additional")
+        print("""     <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>""", file=fleet_out)
     with io.open(options.output_file, "w") as output:
         sumolib.xml.writeHeader(output, root="additional")
         for n in sumolib.xml.parse(options.osm_file, "node"):
@@ -45,7 +68,7 @@ def main(options):
                 for t in n.tag:
                     if t.k == "capacity":
                         try:
-                            length = max(int(t.v) * 7.5, length)
+                            length = max(int(t.v) * VEHICLE_LENGTH, length)
                         except ValueError:
                             pass
                     if t.k == "name":
@@ -60,24 +83,19 @@ def main(options):
                     pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, bestLane.getShape())
                     endPos = min(lane.getLength(), max(length, pos + length / 2))
                     nameAttr = 'name="%s" ' % name if name else ""
-                    print('    <%s id="%s_%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
-                          (options.type, options.type, count, nameAttr, bestLane.getID(), endPos - length, endPos),
+                    stopID = "%s_%s" % (options.type, count)
+                    print('    <%s id="%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
+                          (options.type, stopID, nameAttr, bestLane.getID(), endPos - length, endPos),
                           file=output)
+                    if fleet_out:
+                        for idx in range(int(length / VEHICLE_LENGTH)):
+                            print('    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %
+                                  (stopID, idx, stopID), file=fleet_out)
                     count += 1
         print(u"</additional>", file=output)
+    if fleet_out:
+        print(u"</additional>", file=fleet_out)
 
 
-argParser = sumolib.options.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-argParser.add_argument("-s", "--osm-file", help="read OSM file from FILE (mandatory)", metavar="FILE")
-argParser.add_argument("-n", "--net-file", help="read SUMO net from FILE", metavar="FILE")
-argParser.add_argument("-o", "--output-file", help="write stopping places to the output FILE", metavar="FILE",
-                       default="stopping_places.add.xml")
-argParser.add_argument("-t", "--type", help="stopping place type", default="chargingStation")
-argParser.add_argument("-r", "--radius", type=float, help="radius for edge finding", default=20.)
-argParser.add_argument("-l", "--length", type=float, help="(minimum) length of the stopping place", default=20.)
-argParser.add_argument("--vclass", help="which vehicle class should be allowed", default="passenger")
-options = argParser.parse_args()
-if not options.osm_file:
-    argParser.print_help()
-    sys.exit()
-main(options)
+if __name__ == "__main__":
+    main(parseArgs())
