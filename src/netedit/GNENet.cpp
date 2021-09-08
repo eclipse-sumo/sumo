@@ -3065,7 +3065,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 void
 GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("meandata", "meandata_file.xsd");
+    device.writeXMLHeader("data", "datamode_file.xsd");
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         dataSet.second->writeDataSet(device);
