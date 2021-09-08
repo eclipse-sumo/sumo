@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -310,24 +311,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw depending if is closed
-            if (getFill() || myTAZGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
-            } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
-            }
-        }
-        // check if front dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            // draw depending if is closed
-            if (getFill() || myTAZGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
-            } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
-            }
-        }
+        // draw dotted contours
+        drawDottedContours(s, TAZExaggeration);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), TAZExaggeration);
         // pop layer matrix
@@ -559,6 +544,49 @@ GNETAZ::updateTAZStadistic() {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void
+GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZExaggeration) const {
+    // dotted contour for inspect
+    if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        // draw depending if is closed
+        if (getFill() || myTAZGeometry.getShape().isClosed()) {
+            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
+        } else {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+        }
+    }
+    // dotted contour for front
+    if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        // draw depending if is closed
+        if (getFill() || myTAZGeometry.getShape().isClosed()) {
+            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
+        } else {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+        }
+    }
+
+    // dotted contour for first TAZ 
+    if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
+        // draw depending if is closed
+        if (getFill() || myTAZGeometry.getShape().isClosed()) {
+            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1);
+        } else {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+        }
+    }
+
+    // dotted contour for second TAZ
+    if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
+        // draw depending if is closed
+        if (getFill() || myTAZGeometry.getShape().isClosed()) {
+            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1);
+        } else {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+        }
+    }
+}
+
 
 void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
