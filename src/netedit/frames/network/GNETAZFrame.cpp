@@ -270,7 +270,7 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
     myMinSourceMinusSinkWeight = -1;
     // only refresh if we're editing an TAZ
     if (myEditedTAZ) {
-        // iterate over child additional and create TAZEdges
+        // iterate over child TAZElements and create TAZEdges
         for (const auto& TAZElement : myEditedTAZ->getChildTAZElements()) {
             addTAZChild(dynamic_cast<GNETAZSourceSink*>(TAZElement));
         }
@@ -286,7 +286,7 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
 
 void
 GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
-    // first make sure that additional is an TAZ Source or Sink
+    // first make sure that TAZElements is an TAZ Source or Sink
     if (sourceSink && ((sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSINK))) {
         GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
         // first check if TAZEdgeColor has to be created
@@ -302,7 +302,7 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
                 }
             }
         }
-        // check if additional has to be created
+        // check if TAZElements has to be created
         if (createTAZEdge) {
             if (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                 myTAZEdgeColors.push_back(TAZEdgeColor(this, edge, sourceSink, nullptr));
@@ -384,7 +384,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
-                << "- Number of Edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals().size() / 2) << "\n"
+                << "- Number of Edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildTAZElements().size() / 2) << "\n"
                 << "- Min source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
                 << "- Max source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
                 << "- Average source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
@@ -1008,7 +1008,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         double maxWeightSink = 0;
         double minWeightSink = -1;
         double averageWeightSink = 0;
-        // iterate over child additional
+        // iterate over child TAZElements
         for (const auto& selectedEdge : myEdgeAndTAZChildrenSelected) {
             //start with sources
             weight = selectedEdge.source->getDepartWeight();
@@ -1531,7 +1531,7 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
             if (TAZEdgeColor.edge == edge) {
                 // enable save changes button
                 myTAZSaveChanges->enableButtonsAndBeginUndoList();
-                // remove Source and Sinks using GNEChange_Additional
+                // remove Source and Sinks using GNEChange_TAZElement
                 myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.source, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.sink, false), true);
                 // always refresh TAZ Edges after removing TAZSources/Sinks
@@ -1543,10 +1543,10 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
         }
         // if wasn't found, then add it
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
-        // create TAZ Sink using GNEChange_Additional and value of TAZChild default parameters
+        // create TAZ Sink using GNEChange_TAZElement and value of TAZChild default parameters
         GNETAZSourceSink* source = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
         myViewNet->getUndoList()->add(new GNEChange_TAZElement(source, true), true);
-        // create TAZ Sink using GNEChange_Additional and value of TAZChild default parameters
+        // create TAZ Sink using GNEChange_TAZElement and value of TAZChild default parameters
         GNETAZSourceSink* sink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myCurrentTAZ->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
         myViewNet->getUndoList()->add(new GNEChange_TAZElement(sink, true), true);
         // always refresh TAZ Edges after adding TAZSources/Sinks
@@ -1566,7 +1566,7 @@ GNETAZFrame::dropTAZMembers() {
     for (const auto& TAZEdgeColor : myCurrentTAZ->getTAZEdges()) {
         // enable save changes button
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
-        // remove Source and Sinks using GNEChange_Additional
+        // remove Source and Sinks using GNEChange_TAZElement
         myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.source, false), true);
         myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZEdgeColor.sink, false), true);
     }
