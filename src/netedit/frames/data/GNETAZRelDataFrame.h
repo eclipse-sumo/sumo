@@ -54,7 +54,7 @@ public:
 
 protected:
     /// @brief first selected TAZ Element
-    GNETAZElement* myFirstTAZElement;
+    GNETAZElement* myFirstTAZ;
 
 private:
     /// @brief Invalidated copy constructor.

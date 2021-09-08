@@ -215,6 +215,20 @@ GNEDataInterval::getGenericDataChildren() const {
 }
 
 
+bool
+GNEDataInterval::TAZRelExists(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ) const {
+    // interate over all generic datas and check TAZ parents
+    for (const auto & genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+            (genericData->getParentTAZElements().front() == fromTAZ) &&
+            (genericData->getParentTAZElements().back() == toTAZ)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 std::string
 GNEDataInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
