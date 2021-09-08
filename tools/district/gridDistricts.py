@@ -52,6 +52,7 @@ def getOptions():
     optParser.add_option("-o", "--output", help="output taz file")
     optParser.add_option("-w", "--grid-width", dest="gridWidth", type="float", default=100.0,
                          help="width of gride cells in m")
+    optParser.add_option("--vclass", help="Include only edges allowing VCLASS")
     optParser.add_option("-u", "--hue", default="random",
                          help="hue for taz (float from [0,1] or 'random')")
     optParser.add_option("-s", "--saturation", default=1,
@@ -79,6 +80,8 @@ if __name__ == "__main__":
     w = options.gridWidth
     w2 = w * 0.5 - 1
     for edge in net.getEdges():
+        if options.vclass is not None and not edge.allows(options.vclass):
+            continue
         x, y = sumolib.geomhelper.positionAtShapeOffset(edge.getShape(True), edge.getLength() / 2)
         xIndex = int((x - xmin + w2) / w)
         yIndex = int((y - ymin + w2) / w)
