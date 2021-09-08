@@ -504,7 +504,7 @@ GNETAZ::getHierarchyName() const {
 
 
 void
-GNETAZ::updateParentAdditional() {
+GNETAZ::updateTAZStadistic() {
     // reset all stadistic variables
     myMaxWeightSource = INVALID_DOUBLE;
     myMinWeightSource = INVALID_DOUBLE;
@@ -516,9 +516,9 @@ GNETAZ::updateParentAdditional() {
     int numberOfSources = 0;
     int numberOfSinks = 0;
     // iterate over child additional
-    for (const auto& additional : getChildAdditionals()) {
-        if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-            const double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
+    for (const auto& TAZChild : getChildTAZElements()) {
+        if (TAZChild->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+            const double weight = TAZChild->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if ((myMaxWeightSource == INVALID_DOUBLE) || (myMaxWeightSource < weight)) {
                 myMaxWeightSource = weight;
@@ -531,8 +531,8 @@ GNETAZ::updateParentAdditional() {
             myAverageWeightSource += weight;
             // update number of sources
             numberOfSources++;
-        } else if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-            const double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
+        } else if (TAZChild->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
+            const double weight = TAZChild->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
             if ((myMaxWeightSink == INVALID_DOUBLE) || myMaxWeightSink < weight) {
                 myMaxWeightSink = weight;

@@ -559,10 +559,4 @@ GNEHierarchicalElement::checkChildDemandElementsOverlapping() const {
     return true;
 }
 
-
-void
-GNEHierarchicalElement::updateParentAdditional() {
-    // by default nothing to do
-}
-
 /****************************************************************************/

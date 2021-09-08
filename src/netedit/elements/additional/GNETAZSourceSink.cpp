@@ -249,8 +249,6 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
-            // update statictis of TAZ parent
-            getParentTAZElements().at(0)->updateParentAdditional();
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);

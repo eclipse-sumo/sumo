@@ -1298,9 +1298,8 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         }
         // enable updating geometry again and update geometry of TAZ
         myNet->enableUpdateGeometry();
-        // update TAZ Frame
+        // update TAZ parent
         TAZ->updateGeometry();
-        TAZ->updateParentAdditional();
     } else {
         writeErrorDuplicated(SUMO_TAG_TAG, id);
     }

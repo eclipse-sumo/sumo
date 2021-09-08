@@ -147,8 +147,8 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
-    /// @brief update TAZ after add or remove a Source/sink, or change their weight
-    void updateParentAdditional();
+    /// @brief update TAZ Stadistic
+    void updateTAZStadistic();
 
 protected:
     /// @brief boundary used during moving of elements

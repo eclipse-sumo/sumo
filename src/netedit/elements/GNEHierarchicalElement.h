@@ -176,9 +176,6 @@ public:
     /// @brief check if childs demand elements are overlapped
     bool checkChildDemandElementsOverlapping() const;
 
-    /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
-    virtual void updateParentAdditional();
-
 protected:
     /// @brief replace parent elements
     template<typename T, typename U>
