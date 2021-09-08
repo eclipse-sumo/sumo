@@ -1266,6 +1266,9 @@ MSEdge::getWaitingSeconds() const {
 
 double
 MSEdge::getOccupancy() const {
+    if (myLanes->size() == 0) {
+        return 0;
+    }
     if (MSGlobals::gUseMesoSim) {
         /// @note MESegment only tracks brutto occupancy so we compute this from sratch
         double sum = 0;
@@ -1285,6 +1288,9 @@ MSEdge::getOccupancy() const {
 
 double
 MSEdge::getFlow() const {
+    if (myLanes->size() == 0) {
+        return 0;
+    }
     double flow = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
         flow += (double) segment->getCarNumber() * segment->getMeanSpeed();
@@ -1295,6 +1301,9 @@ MSEdge::getFlow() const {
 
 double
 MSEdge::getBruttoOccupancy() const {
+    if (myLanes->size() == 0) {
+        return 0;
+    }
     double occ = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
         occ += segment->getBruttoOccupancy();
