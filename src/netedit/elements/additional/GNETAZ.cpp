@@ -508,10 +508,10 @@ GNETAZ::updateTAZStadistic() {
     // reset all stadistic variables
     myMaxWeightSource = INVALID_DOUBLE;
     myMinWeightSource = INVALID_DOUBLE;
-    myAverageWeightSource = INVALID_DOUBLE;
+    myAverageWeightSource = 0;
     myMaxWeightSink = INVALID_DOUBLE;
     myMinWeightSink = INVALID_DOUBLE;
-    myAverageWeightSink = INVALID_DOUBLE;
+    myAverageWeightSink = 0;
     // declare an extra variables for saving number of children
     int numberOfSources = 0;
     int numberOfSinks = 0;

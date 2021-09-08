@@ -259,6 +259,8 @@ GNETAZFrame::CurrentTAZ::getTAZEdges() const {
 
 void
 GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
+    // first update TAZ Stadistics
+    myEditedTAZ->updateTAZStadistic();
     // clear all curren TAZEdges
     myTAZEdgeColors.clear();
     // clear weight values
@@ -1382,6 +1384,8 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
         if (objectsUnderCursor.getTAZElementFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
             myCurrentTAZ->setTAZ(dynamic_cast<GNETAZ*>(objectsUnderCursor.getTAZElementFront()));
+            // update TAZStadistics
+            myCurrentTAZ->getTAZ()->updateTAZStadistic();
             return true;
         } else {
             return false;
