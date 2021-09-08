@@ -89,7 +89,7 @@ fillOptions() {
     oc.addSynonyme("od-amitran-files", "amitran");
     oc.addDescription("od-amitran-files", "Input", "Loads O/D-matrix in Amitran format from FILE(s)");
 
-    oc.doRegister("tazrelation-files", 'r', new Option_FileName());
+    oc.doRegister("tazrelation-files", 'z', new Option_FileName());
     oc.addDescription("tazrelation-files", "Input", "Loads O/D-matrix in tazRelation format from FILE(s)");
 
     oc.doRegister("tazrelation-attribute", new Option_String("count"));
