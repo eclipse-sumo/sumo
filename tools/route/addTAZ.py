@@ -125,7 +125,7 @@ def main(options):
             print("No edges found for vehicle '%s'" % vehID)
         else:
             edges = edges.split()
-            addAttrs(vehicle, edges[0], edges[1])
+            addAttrs(vehicle, edges[0], edges[-1])
 
     for trip in inputRoutes.getroot().iter('trip'):
         addAttrs(trip, trip.attrib['from'], trip.attrib['to'])
