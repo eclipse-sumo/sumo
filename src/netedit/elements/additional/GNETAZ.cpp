@@ -565,22 +565,20 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
             GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
         }
     }
-
     // dotted contour for first TAZ 
     if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
         // draw depending if is closed
         if (getFill() || myTAZGeometry.getShape().isClosed()) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1);
+            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
             GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
         }
     }
-
     // dotted contour for second TAZ
     if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
         // draw depending if is closed
         if (getFill() || myTAZGeometry.getShape().isClosed()) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1);
+            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
             GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
         }
