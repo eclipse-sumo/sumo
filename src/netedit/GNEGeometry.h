@@ -191,7 +191,7 @@ struct GNEGeometry {
         void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
 
         /// @brief draw inspected dottedShape
-        void drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GNEGeometry::DottedContourType type) const;
+        void drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GNEGeometry::DottedContourType type, const double customWidth = -1) const;
 
         /// @brief move shape to side
         void moveShapeToSide(const double value);
@@ -339,23 +339,29 @@ struct GNEGeometry {
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
     /// @brief draw dotted contour for the given dotted geometry (used by lanes, routes, etc.)
-    static void drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
+    static void drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, 
+                                          const double width, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth = -1);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
-    static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);
+    static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
+                                      const bool drawFrontExtreme, const bool drawBackExtreme);
 
     /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, const double exaggeration);
+    static void drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
+                                             const double exaggeration, const double lineWidth = -1);
 
     /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, const double width, const double exaggeration);
+    static void drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
+                                       const double width, const double exaggeration, const double lineWidth = -1);
 
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos, const double radius, const double exaggeration);
+    static void drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos, 
+                                        const double radius, const double exaggeration);
 
     /// @brief draw dotted squared contour (used by additionals and demand elements)
     static void drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
-                                       const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration);
+                                       const double width, const double height, const double offsetX, const double offsetY, 
+                                       const double rot, const double exaggeration);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);
