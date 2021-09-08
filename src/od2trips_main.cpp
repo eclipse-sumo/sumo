@@ -89,6 +89,12 @@ fillOptions() {
     oc.addSynonyme("od-amitran-files", "amitran");
     oc.addDescription("od-amitran-files", "Input", "Loads O/D-matrix in Amitran format from FILE(s)");
 
+    oc.doRegister("tazrelation-files", 'r', new Option_FileName());
+    oc.addDescription("tazrelation-files", "Input", "Loads O/D-matrix in tazRelation format from FILE(s)");
+
+    oc.doRegister("tazrelation-attribute", new Option_String("count"));
+    oc.addSynonyme("tazrelation-attribute", "attribute");
+    oc.addDescription("tazrelation-attribute", "Input", "Define data attribute for loading counts (default 'count')");
 
     // register the file output options
     oc.doRegister("output-file", 'o', new Option_FileName());
@@ -187,7 +193,7 @@ checkOptions() {
         WRITE_ERROR("No TAZ input file (-n) specified.");
         ok = false;
     }
-    if (!oc.isSet("od-matrix-files") && !oc.isSet("od-amitran-files")) {
+    if (!oc.isSet("od-matrix-files") && !oc.isSet("od-amitran-files") && !oc.isSet("tazrelation-files")) {
         WRITE_ERROR("No input specified.");
         ok = false;
     }

@@ -80,6 +80,7 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_INTERVAL: {
             bool ok = true;
+            myCurrentID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
             myCurrentTimeBeg = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok));
             myCurrentTimeEnd = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
         }
@@ -92,6 +93,9 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         break;
         case SUMO_TAG_EDGEREL: {
             tryParseEdgeRel(attrs);
+        }
+        case SUMO_TAG_TAZREL: {
+            tryParseTazRel(attrs);
         }
         break;
         case SUMO_TAG_LANE: {
@@ -152,6 +156,22 @@ SAXWeightsHandler::tryParseEdgeRel(const SUMOSAXAttributes& attrs) {
         for (ToRetrieveDefinition* ret : myDefinitions) {
             if (attrs.hasAttribute(ret->myAttributeName)) {
                 ret->myDestination.addEdgeRelWeight(from, to,
+                                                    attrs.getFloat(ret->myAttributeName),
+                                                    myCurrentTimeBeg, myCurrentTimeEnd);
+            }
+        }
+    }
+}
+
+void
+SAXWeightsHandler::tryParseTazRel(const SUMOSAXAttributes& attrs) {
+    if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+        bool ok = true;
+        const std::string fromTaz = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, nullptr, ok);
+        const std::string toTaz = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, nullptr, ok);
+        for (ToRetrieveDefinition* ret : myDefinitions) {
+            if (attrs.hasAttribute(ret->myAttributeName)) {
+                ret->myDestination.addTazRelWeight(myCurrentID, fromTaz, toTaz,
                                                     attrs.getFloat(ret->myAttributeName),
                                                     myCurrentTimeBeg, myCurrentTimeEnd);
             }
