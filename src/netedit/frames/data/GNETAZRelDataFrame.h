@@ -33,6 +33,30 @@
 class GNETAZRelDataFrame : public GNEGenericDataFrame {
 
 public:
+    // ===========================================================================
+    // class TAZRelLegend
+    // ===========================================================================
+
+    class TAZRelLegend : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TAZRelLegend(GNETAZRelDataFrame* TAZRelDataFrame);
+
+        /// @brief destructor
+        ~TAZRelLegend();
+
+        /// @brief set labels
+        void setLabels(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ);
+
+    private:
+        /// @brief from TAZ label
+        FXLabel* myFromTAZLabel;
+
+        /// @brief to TAZ Label
+        FXLabel* myToTAZLabel;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNETAZRelDataFrame
@@ -63,6 +87,9 @@ protected:
 
     /// @brief first selected TAZ Element
     GNETAZElement* mySecondTAZ;
+
+    /// @brief TAZRel legend
+    TAZRelLegend* myTAZRelLegend;
 
 private:
     /// @brief Invalidated copy constructor.
