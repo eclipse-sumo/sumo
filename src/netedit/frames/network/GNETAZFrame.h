@@ -48,12 +48,14 @@ public:
 
     public:
         /// @brief struct for edges and the source/sink colors
-        struct TAZEdge {
+        class TAZEdgeColor {
+
+        public:
             /// @brief constructor
-            TAZEdge(CurrentTAZ* CurrentTAZParent, GNEEdge* _edge, GNETAZSourceSink* _TAZSource, GNETAZSourceSink* _TAZSink);
+            TAZEdgeColor(CurrentTAZ* CurrentTAZParent, GNEEdge* _edge, GNETAZSourceSink* _source, GNETAZSourceSink* _sink);
 
             /// @brief destructor (needed because RGBColors has to be deleted)
-            ~TAZEdge();
+            ~TAZEdgeColor();
 
             /// @brief update colors
             void updateColors();
@@ -62,10 +64,10 @@ public:
             GNEEdge* edge;
 
             /// @brief source TAZ
-            GNETAZSourceSink* TAZSource;
+            GNETAZSourceSink* source;
 
             /// @brif sink TAZ
-            GNETAZSourceSink* TAZSink;
+            GNETAZSourceSink* sink;
 
             /// @brief color by source [0-9]
             int sourceColor;
@@ -82,6 +84,9 @@ public:
         private:
             /// @brief pointer to CurrentTAZParent
             CurrentTAZ* myCurrentTAZParent;
+
+            /// @brief default color
+            TAZEdgeColor();
         };
 
         /// @brief constructor
@@ -106,7 +111,7 @@ public:
         const std::vector<GNEEdge*>& getSelectedEdges() const;
 
         /// @brief get TAZEdges
-        const std::vector<CurrentTAZ::TAZEdge>& getTAZEdges() const;
+        const std::vector<CurrentTAZ::TAZEdgeColor>& getTAZEdges() const;
 
         /// @brief refresh TAZEdges
         void refreshTAZEdges();
@@ -129,7 +134,7 @@ public:
         std::vector<GNEEdge*> mySelectedEdges;
 
         /// @brief vector with TAZ's edges
-        std::vector<TAZEdge> myTAZEdges;
+        std::vector<TAZEdgeColor> myTAZEdgeColors;
 
         /// @brief Label for current TAZ
         FXLabel* myCurrentTAZLabel;
@@ -252,10 +257,10 @@ public:
         /// @brief update "select edges button"
         void updateSelectEdgesButton();
 
-        /// @brief get default TAZSource weight
+        /// @brief get default source weight
         double getDefaultTAZSourceWeight() const;
 
-        /// @brief default TAZSink weight
+        /// @brief default sink weight
         double getDefaultTAZSinkWeight() const;
 
         /// @brief check if toggle membership is enabled
@@ -298,10 +303,10 @@ public:
         /// @brief information label
         FXLabel* myInformationLabel;
 
-        /// @brief default TAZSource weight
+        /// @brief default source weight
         double myDefaultTAZSourceWeight;
 
-        /// @brief default TAZSink weight
+        /// @brief default sink weight
         double myDefaultTAZSinkWeight;
     };
 
@@ -327,7 +332,7 @@ public:
         void hideTAZSelectionStatisticsModul();
 
         /// @brief add an edge and their TAZ Children in the list of selected items
-        bool selectEdge(const CurrentTAZ::TAZEdge& edge);
+        bool selectEdge(const CurrentTAZ::TAZEdgeColor& edge);
 
         /// @brief un select an edge (and their TAZ Children)
         bool unselectEdge(GNEEdge* edge);
@@ -339,7 +344,7 @@ public:
         void clearSelectedEdges();
 
         /// @brief get map with edge and TAZChildren
-        const std::vector<CurrentTAZ::TAZEdge>& getEdgeAndTAZChildrenSelected() const;
+        const std::vector<CurrentTAZ::TAZEdgeColor>& getEdgeAndTAZChildrenSelected() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -376,7 +381,7 @@ public:
         FXLabel* myStatisticsLabel;
 
         /// @brief vector with the current selected edges and their associated children
-        std::vector<CurrentTAZ::TAZEdge> myEdgeAndTAZChildrenSelected;
+        std::vector<CurrentTAZ::TAZEdgeColor> myEdgeAndTAZChildrenSelected;
     };
 
     // ===========================================================================
@@ -547,7 +552,7 @@ protected:
      */
     bool shapeDrawed();
 
-    /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Children
+    /// @brief add or remove a source and a sink, or remove it if edge is in the list of TAZ Children
     bool addOrRemoveTAZMember(GNEEdge* edge);
 
     /// @brief drop all TAZSources and TAZ Sinks of current TAZ
