@@ -116,7 +116,9 @@ struct GNEGeometry {
     enum class DottedContourType {
         INSPECT,
         FRONT,
-        MOVE
+        MOVE,
+        GREEN,
+        MAGENTA
     };
 
     /// @brief class for pack all variables related with DottedGeometry color
@@ -127,10 +129,7 @@ struct GNEGeometry {
         DottedGeometryColor(const GUIVisualizationSettings& settings);
 
         /// @brief get inspected color (and change flag)
-        const RGBColor& getInspectedColor();
-
-        /// @brief get front color (and change flag)
-        const RGBColor& getFrontColor();
+        const RGBColor getColor(DottedContourType type);
 
         /// @brief change color
         void changeColor();
@@ -192,10 +191,7 @@ struct GNEGeometry {
         void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
 
         /// @brief draw inspected dottedShape
-        void drawInspectedDottedGeometry(DottedGeometryColor& dottedGeometryColor) const;
-
-        /// @brief draw front inspected dottedShape
-        void drawFrontDottedGeometry(DottedGeometryColor& dottedGeometryColor) const;
+        void drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GNEGeometry::DottedContourType type) const;
 
         /// @brief move shape to side
         void moveShapeToSide(const double value);
