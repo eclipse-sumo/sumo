@@ -88,6 +88,24 @@ def main(options):
     numFromNotFound = 0
     numToNotFound = 0
     numVehicles = 0
+
+    def addAttrs(vehicle, fromEdge, toEdge):
+        if fromEdge in edgeFromTaz:
+            fromTaz = random.choice(edgeFromTaz[fromEdge])
+            vehicle.set('fromTaz', fromTaz)
+        else:
+            numFromNotFound += 1
+            if numFromNotFound < 5:
+                print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
+        if toEdge in edgeToTaz:
+            toTaz = random.choice(edgeToTaz[toEdge])
+            vehicle.set('toTaz', toTaz)
+        else:
+            numToNotFound += 1
+            if numToNotFound < 5:
+                print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
+
+
     for vehicle in inputRoutes.getroot().iter('vehicle'):
         numVehicles += 1
         vehID = vehicle.attrib['id']
@@ -107,22 +125,10 @@ def main(options):
             print("No edges found for vehicle '%s'" % vehID)
         else:
             edges = edges.split()
-            fromEdge = edges[0]
-            toEdge = edges[-1]
-            if fromEdge in edgeFromTaz:
-                fromTaz = random.choice(edgeFromTaz[fromEdge])
-                vehicle.set('fromTaz', fromTaz)
-            else:
-                numFromNotFound += 1
-                if numFromNotFound < 5:
-                    print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
-            if toEdge in edgeToTaz:
-                toTaz = random.choice(edgeToTaz[toEdge])
-                vehicle.set('toTaz', toTaz)
-            else:
-                numToNotFound += 1
-                if numToNotFound < 5:
-                    print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
+            addAttrs(vehicle, edges[0], edges[1])
+
+    for trip in inputRoutes.getroot().iter('trip'):
+        addAttrs(trip, trip.attrib['from'], trip.attrib['to'])
 
     print("read %s vehicles" % numVehicles)
     if numFromNotFound > 0 or numToNotFound > 0:
