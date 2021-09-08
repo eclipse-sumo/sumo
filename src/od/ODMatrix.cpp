@@ -675,6 +675,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
             PROGRESS_DONE_MESSAGE();
         }
     }
+    myVType = oc.getString("vtype");
     for (std::string file : oc.getStringVector("tazrelation-files")) {
         if (!FileHelpers::isReadable(file)) {
             throw ProcessError("Could not access matrix file '" + file + "' to load.");
@@ -695,8 +696,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
 void
 ODMatrix::addTazRelWeight(const std::string intervalID, const std::string& fromTaz, const std::string& toTaz,
         double val, double beg, double end) {
-    //const_cast<ODMatrix*>(this)->
-    add(val, TIME2STEPS(beg), TIME2STEPS(end), fromTaz, toTaz, intervalID);
+    add(val, TIME2STEPS(beg), TIME2STEPS(end), fromTaz, toTaz, myVType == "" ? intervalID : myVType);
 }
 
 

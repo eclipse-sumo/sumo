@@ -379,6 +379,9 @@ private:
     /// @brief parsed time bounds
     SUMOTime myBegin, myEnd;
 
+    /// @brief user-defined vType
+    std::string myVType;
+
     /**
      * @class cell_by_begin_comparator
      * @brief Used for sorting the cells by the begin time they describe
