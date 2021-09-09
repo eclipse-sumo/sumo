@@ -2587,7 +2587,11 @@ GNEViewNetHelper::DataViewOptions::TAZRelDrawing() const {
 
 bool 
 GNEViewNetHelper::DataViewOptions::TAZDrawFill() const {
-    return (menuCheckToogleTAZDrawFill->amChecked() == TRUE);
+    if (menuCheckToogleTAZDrawFill->shown()) {
+        return (menuCheckToogleTAZDrawFill->amChecked() == TRUE);
+    } else {
+        return false;
+    }
 }
 
 // ---------------------------------------------------------------------------
