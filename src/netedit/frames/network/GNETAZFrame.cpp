@@ -259,8 +259,6 @@ GNETAZFrame::CurrentTAZ::getTAZEdges() const {
 
 void
 GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
-    // first update TAZ Stadistics
-    myEditedTAZ->updateTAZStadistic();
     // clear all curren TAZEdges
     myTAZEdgeColors.clear();
     // clear weight values
@@ -270,6 +268,8 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
     myMinSourceMinusSinkWeight = -1;
     // only refresh if we're editing an TAZ
     if (myEditedTAZ) {
+        // first update TAZ Stadistics
+        myEditedTAZ->updateTAZStadistic();
         // iterate over child TAZElements and create TAZEdges
         for (const auto& TAZElement : myEditedTAZ->getChildTAZElements()) {
             addTAZChild(dynamic_cast<GNETAZSourceSink*>(TAZElement));
@@ -440,7 +440,7 @@ GNETAZFrame::TAZSaveChanges::enableButtonsAndBeginUndoList() {
         mySaveChangesButton->enable();
         myCancelChangesButton->enable();
         // start undo list set
-        myTAZFrameParent->myViewNet->getUndoList()->p_begin("TAZ attributes");
+        myTAZFrameParent->myViewNet->getUndoList()->p_begin("TAZ changes");
     }
 }
 
@@ -1241,7 +1241,7 @@ void
 GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModul() {
     // iterate over all edges and restore color
     for (const auto& edge : myTAZFrameParent->myCurrentTAZ->getNetEdges()) {
-        for (const auto lane : edge->getLanes()) {
+        for (const auto &lane : edge->getLanes()) {
             lane->setSpecialColor(nullptr);
         }
     }
@@ -1254,32 +1254,38 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     const std::vector<RGBColor>& scaledColors = GNEViewNetHelper::getRainbowScaledColors();
     // start painting all edges in gray
     for (const auto& edge : myTAZFrameParent->myCurrentTAZ->getNetEdges()) {
-        // set candidate color (in this case, gray)
-        for (const auto lane : edge->getLanes()) {
-            lane->setSpecialColor(&myEdgeDefaultColor);
+        if (!edge->isAttributeCarrierSelected()) {
+            // set candidate color (in this case, gray)
+            for (const auto lane : edge->getLanes()) {
+                lane->setSpecialColor(&myEdgeDefaultColor);
+            }
         }
     }
     // now paint Source/sinks colors
     for (const auto& TAZEdgeColor : myTAZFrameParent->myCurrentTAZ->getTAZEdges()) {
-        // set candidate color (in this case,
-        for (const auto lane : TAZEdgeColor.edge->getLanes()) {
-            // check what will be painted (source, sink or both)
-            if (myColorBySourceWeight->getCheck() == TRUE) {
-                lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceColor), TAZEdgeColor.source->getDepartWeight());
-            } else if (myColorBySinkWeight->getCheck() == TRUE) {
-                lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sinkColor), TAZEdgeColor.sink->getDepartWeight());
-            } else if (myColorBySourcePlusSinkWeight->getCheck() == TRUE) {
-                lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourcePlusSinkColor), TAZEdgeColor.source->getDepartWeight() + TAZEdgeColor.sink->getDepartWeight());
-            } else {
-                lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceMinusSinkColor), TAZEdgeColor.source->getDepartWeight() - TAZEdgeColor.sink->getDepartWeight());
+        if (!TAZEdgeColor.edge->isAttributeCarrierSelected()) {
+            // set candidate color (in this case,
+            for (const auto &lane : TAZEdgeColor.edge->getLanes()) {
+                // check what will be painted (source, sink or both)
+                if (myColorBySourceWeight->getCheck() == TRUE) {
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceColor), TAZEdgeColor.source->getDepartWeight());
+                } else if (myColorBySinkWeight->getCheck() == TRUE) {
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sinkColor), TAZEdgeColor.sink->getDepartWeight());
+                } else if (myColorBySourcePlusSinkWeight->getCheck() == TRUE) {
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourcePlusSinkColor), TAZEdgeColor.source->getDepartWeight() + TAZEdgeColor.sink->getDepartWeight());
+                } else {
+                    lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceMinusSinkColor), TAZEdgeColor.source->getDepartWeight() - TAZEdgeColor.sink->getDepartWeight());
+                }
             }
         }
     }
     // as last step paint candidate colors
     for (const auto& selectedEdge : myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected()) {
-        // set candidate selected color
-        for (const auto& lane : selectedEdge.edge->getLanes()) {
-            lane->setSpecialColor(&myEdgeSelectedColor);
+        if (!selectedEdge.edge->isAttributeCarrierSelected()) {
+            // set candidate selected color
+            for (const auto& lane : selectedEdge.edge->getLanes()) {
+                lane->setSpecialColor(&myEdgeSelectedColor);
+            }
         }
     }
     // always update view after setting new colors
