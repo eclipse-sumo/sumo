@@ -105,6 +105,8 @@ GNETAZRelData::updateGeometry() {
         if (line.length() < 1) {
             line = {TAZA->getPositionInView() - 0.5, TAZB->getPositionInView() + 0.5};
         }
+        // add offset to line
+        line.move2side(1);
         // calculate middle point 
         const Position middlePoint = line.getLineCenter();
         // get closest points to middlePoint
