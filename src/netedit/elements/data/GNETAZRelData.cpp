@@ -110,8 +110,15 @@ GNETAZRelData::updateGeometry() {
         // calculate middle point 
         const Position middlePoint = line.getLineCenter();
         // get closest points to middlePoint
-        const Position posA = TAZA->getTAZElementShape().positionAtOffset2D(TAZA->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
-        const Position posB = TAZB->getTAZElementShape().positionAtOffset2D(TAZB->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+        Position posA = TAZA->getTAZElementShape().positionAtOffset2D(TAZA->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+        Position posB = TAZB->getTAZElementShape().positionAtOffset2D(TAZB->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+        // check positions
+        if (posA == Position::INVALID) {
+            posA = TAZA->getTAZElementShape().front();
+        }
+        if (posB == Position::INVALID) {
+            posB = TAZB->getTAZElementShape().front();
+        }
         // update geometry
         if (posA.distanceTo(posB) < 1) {
             myTAZRelGeometry.updateGeometry({posA - 0.5, posB + 0.5});
