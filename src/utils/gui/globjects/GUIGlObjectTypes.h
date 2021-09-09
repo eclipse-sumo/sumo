@@ -60,18 +60,6 @@ enum GUIGlObjectType {
 
     /// @}
 
-    /// @name data elements
-    /// @{
-
-    /// @brief edge data
-    GLO_EDGEDATA = 50,
-    /// @brief edge relation data
-    GLO_EDGERELDATA = 51,
-    /// @brief TAZ relation data
-    GLO_TAZRELDATA = 52,
-
-    /// @}
-
     /// @name additional elements
     /// @{
 
@@ -214,6 +202,18 @@ enum GUIGlObjectType {
 
     /// @brief Traffic Assignment Zones (TAZs)
     GLO_TAZ = 400,
+
+    /// @name data elements
+    /// @{
+
+    /// @brief edge data
+    GLO_EDGEDATA = 500,
+    /// @brief edge relation data
+    GLO_EDGERELDATA = 501,
+    /// @brief TAZ relation data
+    GLO_TAZRELDATA = 502,
+
+    /// @}
 
     /// @name other
     /// @{
