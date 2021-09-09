@@ -202,6 +202,16 @@ public:
         return Position(myX * scalar, myY * scalar, myZ * scalar);
     }
 
+    /// @brief keep the direction but modify the length of the (location) vector to length - scalar
+    Position operator-(double offset) const {
+        const double length = distanceTo(Position(0, 0, 0));
+        if (length == 0) {
+            return *this;
+        }
+        const double scalar = (length - offset) / length;
+        return Position(myX * scalar, myY * scalar, myZ * scalar);
+    }
+
     /// @brief comparation operator
     bool operator==(const Position& p2) const {
         return myX == p2.myX && myY == p2.myY && myZ == p2.myZ;
