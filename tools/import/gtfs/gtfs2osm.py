@@ -582,8 +582,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                             main_shape, row.route_id, seqs[stopSeq],
                             day, str(row.arrival_fixed).split(' ')[2],
                             min(stop_index), max(stop_index), pt_type,
+                            row.route_short_name,
                             row.trip_headsign)
-                output_file.write('    <vehicle id="%s_%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s-->\n' % veh_attr)  # noqa
+                output_file.write('    <vehicle id="%s_%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s %s-->\n' % veh_attr)  # noqa
 
                 check_seq = -1
                 for stop in stop_list.itertuples():
