@@ -98,6 +98,18 @@ GLHelper::getCircleCoords() {
 }
 
 
+int
+GLHelper::angleLookup(double angleDeg) {
+    const int numCoords = (int)getCircleCoords().size() - 1;
+    int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
+    if (index < 0) {
+        index += numCoords;
+    }
+    assert(index >= 0);
+    return (int)index;
+}
+
+
 void
 GLHelper::pushMatrix() {
     glPushMatrix();
@@ -412,18 +424,6 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
     glVertex2d(beg.x(), beg.y());
     glVertex2d(end.x(), end.y());
     glEnd();
-}
-
-
-int
-GLHelper::angleLookup(double angleDeg) {
-    const int numCoords = (int)getCircleCoords().size() - 1;
-    int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
-    if (index < 0) {
-        index += numCoords;
-    }
-    assert(index >= 0);
-    return (int)index;
 }
 
 

@@ -50,6 +50,9 @@ public:
     /// @brief Storage for precomputed sin/cos-values describing a circle
     static const std::vector<std::pair<double, double> > &getCircleCoords();
 
+    /// @brief normalize angle for lookup in myCircleCoords
+    static int angleLookup(double angleDeg);
+
     /// @brief push matrix
     static void pushMatrix();
 
@@ -359,9 +362,6 @@ public:
                                      const double width, const double length, const bool vehicle);
 
 private:
-    /// @brief normalize angle for lookup in myCircleCoords
-    static int angleLookup(double angleDeg);
-
     /// @brief whether the road makes a right turn (or goes straight)
     static bool rightTurn(double angle1, double angle2);
 
