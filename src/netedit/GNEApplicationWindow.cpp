@@ -228,6 +228,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,           GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,           GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,             GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,             GNEApplicationWindow::onUpdToggleViewOption),
     // view
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -2478,6 +2480,8 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 return myViewNet->onCmdToggleShowDemandElementsData(obj, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING:
                 return myViewNet->onCmdToggleTAZRelDrawing(obj, sel, ptr);
+            case MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL:
+                return myViewNet->onCmdToggleTAZRelDrawing(obj, sel, ptr);
             default:
                 return 0;
         }
@@ -2677,6 +2681,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 break;
             case MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING:
                 if (myViewNet->getDataViewOptions().menuCheckToogleTAZRelDrawing->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
+            case MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL:
+                if (myViewNet->getDataViewOptions().menuCheckToogleTAZDrawFill->amChecked()) {
                     menuCheck->setCheck(TRUE);
                 } else {
                     menuCheck->setCheck(FALSE);
