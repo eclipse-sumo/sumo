@@ -94,9 +94,11 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_EDGEREL: {
             tryParseEdgeRel(attrs);
         }
+        break;
         case SUMO_TAG_TAZREL: {
             tryParseTazRel(attrs);
         }
+        break;
         break;
         case SUMO_TAG_LANE: {
             tryParse(attrs, false);
