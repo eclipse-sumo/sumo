@@ -54,6 +54,15 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement*
 }
 
 
+GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
+                             const std::map<std::string, std::string>& parameters) :
+    GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
+        {}, {}, {}, {}, {}, {TAZ}, {}, {}) {
+    // update geometry
+    updateGeometry();
+}
+
+
 GNETAZRelData::~GNETAZRelData() {}
 
 
@@ -99,7 +108,18 @@ GNETAZRelData::updateGeometry() {
     const GNETAZElement* TAZB = getParentTAZElements().back();
     // check if this is the same TAZ
     if (TAZA == TAZB) {
-        //
+
+        PositionVector vector;
+        const double inc = 360 / 8.0;
+        std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
+
+        for (int i = 0; i <= 8; ++i) {
+            const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * inc));
+            vector.push_back(Position(p2.first, p2.second));
+            p1 = p2;
+        }
+        myTAZRelGeometry.updateGeometry(vector);
+
     } else {
         // calculate line betwen to TAZ centers
         PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};

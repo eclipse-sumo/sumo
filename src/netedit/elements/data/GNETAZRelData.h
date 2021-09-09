@@ -38,13 +38,21 @@
 class GNETAZRelData : public GNEGenericData {
 
 public:
-    /**@brief Constructor
+    /**@brief Constructor for two TAZs
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] fromTAZ pointer to from TAZ
      * @param[in] toTAZ pointer to to TAZ
      * @param[in] parameters parameters map
      */
     GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
+                  const std::map<std::string, std::string>& parameters);
+
+    /**@brief Constructor for one TAZ
+     * @param[in] dataIntervalParent pointer to data interval parent
+     * @param[in] TAZ pointer to TAZ
+     * @param[in] parameters parameters map
+     */
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ, 
                   const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
