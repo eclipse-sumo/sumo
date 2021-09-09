@@ -593,16 +593,21 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_SHAPE:
+            // remove TAZ and TAZRelDatas
             myNet->removeGLObjectFromGrid(this);
+            for (const auto &TAZRelData : getChildGenericDatas()) {
+                myNet->removeGLObjectFromGrid(TAZRelData);
+            }
             myShape = parse<PositionVector>(value);
             // always close shape
             if ((myShape.size() > 1) && (myShape.front() != myShape.back())) {
                 myShape.push_back(myShape.front());
             }
+            // add TAZ and TAZRelDatas
             myNet->addGLObjectIntoGrid(this);
-            // update boundary of TAZRelDatas
             for (const auto &TAZRelData : getChildGenericDatas()) {
-                TAZRelData->updateCenteringBoundary();
+                TAZRelData->updateGeometry();
+                myNet->addGLObjectIntoGrid(TAZRelData);
             }
             break;
         case SUMO_ATTR_COLOR:
