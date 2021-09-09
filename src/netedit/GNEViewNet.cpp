@@ -125,6 +125,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToggleShowShapes),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToggleShowDemandElementsData),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,           GNEViewNet::onCmdToggleTAZRelDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,             GNEViewNet::onCmdToggleTAZDrawFill),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -3373,6 +3374,25 @@ GNEViewNet::onCmdToggleTAZRelDrawing(FXObject*, FXSelector sel, void*) {
 }
 
 
+long 
+GNEViewNet::onCmdToggleTAZDrawFill(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowDemandElements
+    if (myDataViewOptions.menuCheckToogleTAZDrawFill->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToogleTAZDrawFill->setChecked(FALSE);
+    } else {
+        myDataViewOptions.menuCheckToogleTAZDrawFill->setChecked(TRUE);
+    }
+    myDataViewOptions.menuCheckToogleTAZDrawFill->update();
+    // update view to show demand elements
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL)) {
+        myDataViewOptions.menuCheckToogleTAZDrawFill->setFocus();
+    }
+    return 1;
+}
+
+
 long
 GNEViewNet::onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*) {
     myIntervalBar.setGenericDataType();
@@ -3956,10 +3976,12 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getTAZRelDataFrame();
             // set checkable button
             myDataCheckableButtons.TAZRelDataButton->setChecked(true);
-            // show toogle TAZRel drawing view option
+            // show view option
             myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
-            // show toogle TAZRel drawing menu check
+            myDataViewOptions.menuCheckToogleTAZDrawFill->show();
+            // show menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
+            menuChecks.menuCheckToogleTAZDrawFill->show();
             // disable IntervalBar
             myIntervalBar.disableIntervalBar();
             break;

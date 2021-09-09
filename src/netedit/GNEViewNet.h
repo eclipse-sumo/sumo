@@ -341,6 +341,9 @@ public:
     /// @brief toggle TAZRel drawing
     long onCmdToggleTAZRelDrawing(FXObject*, FXSelector, void*);
 
+    /// @brief toggle TAZdrawFill
+    long onCmdToggleTAZDrawFill(FXObject*, FXSelector, void*);
+
     /// @}
 
     //// @name interval bar functions
