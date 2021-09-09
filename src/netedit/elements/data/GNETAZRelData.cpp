@@ -95,16 +95,30 @@ GNETAZRelData::updateGeometry() {
     // get both TAZs
     const GNETAZElement* TAZA = getParentTAZElements().front();
     const GNETAZElement* TAZB = getParentTAZElements().back();
-    // calculate middle point 
-    const PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};
-    const Position middlePoint = line.getLineCenter();
-    // get closest points to middlePoint
-    const Position posA = TAZA->getTAZElementShape().positionAtOffset2D(TAZA->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
-    const Position posB = TAZB->getTAZElementShape().positionAtOffset2D(TAZB->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
-    // update geometry
-    myTAZRelGeometry.updateGeometry({posA, posB});
-    // update center geometry
-    myTAZRelGeometryCenter.updateGeometry(line);
+    // check if this is the same TAZ
+    if (TAZA == TAZB) {
+        //
+    } else {
+        // calculate line betwen to TAZ centers
+        PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};
+        // check line
+        if (line.length() < 1) {
+            line = {TAZA->getPositionInView() - 0.5, TAZB->getPositionInView() + 0.5};
+        }
+        // calculate middle point 
+        const Position middlePoint = line.getLineCenter();
+        // get closest points to middlePoint
+        const Position posA = TAZA->getTAZElementShape().positionAtOffset2D(TAZA->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+        const Position posB = TAZB->getTAZElementShape().positionAtOffset2D(TAZB->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+        // update geometry
+        if (posA.distanceTo(posB) < 1) {
+            myTAZRelGeometry.updateGeometry({posA - 0.5, posB + 0.5});
+        } else {
+            myTAZRelGeometry.updateGeometry({posA, posB});
+        }
+        // update center geometry
+        myTAZRelGeometryCenter.updateGeometry(line);
+    }
 }
 
 
@@ -190,10 +204,18 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1);
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1);
+            } else {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1);
+            }
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1);
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1);
+            } else {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1);
+            }
         }
     }
 }
