@@ -540,6 +540,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to toogle TAZRel drawing mode
             FXMenuCheckIcon* menuCheckToogleTAZRelDrawing;
 
+            /// @brief menu check to toogle TAZ draw fill
+            FXMenuCheckIcon* menuCheckToogleTAZDrawFill;
+
             /// @brief separator
             FXMenuSeparator* separator;
 

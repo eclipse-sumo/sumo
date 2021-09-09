@@ -764,6 +764,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::DataViewOptions(G
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckToogleTAZRelDrawing(nullptr),
+    menuCheckToogleTAZDrawFill(nullptr),
     separator(nullptr),
     myGNEApp(GNEApp) {
 }
@@ -792,6 +793,10 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
                                   GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING);
 
+    menuCheckToogleTAZDrawFill = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                  "Toggle TAZ draw fill", "Alt+5", "",
+                                  GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
+                                  myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL);
     // build separator
     separator = new FXMenuSeparator(editMenu);
 }
@@ -803,6 +808,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
     menuCheckToogleTAZRelDrawing->hide();
+    menuCheckToogleTAZDrawFill->hide();
     separator->hide();
 }
 
@@ -1842,6 +1848,17 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
         }
         // Call manually onCmdToggleTAZRelDrawing
         viewNet->onCmdToggleTAZRelDrawing(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZDrawFill) {
+        // Toggle menuCheckToogleTAZDrawFill
+        if (viewNet->getDataViewOptions().menuCheckToogleTAZDrawFill->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled toogle TAZ draw fill throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled toogle TAZ draw fill throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleTAZDrawFill
+        viewNet->onCmdToggleTAZDrawFill(obj, sel, nullptr);
     } else {
         return false;
     }

@@ -2468,6 +2468,7 @@ GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
     menuCheckShowShapes(nullptr),
     menuCheckShowDemandElements(nullptr),
     menuCheckToogleTAZRelDrawing(nullptr),
+    menuCheckToogleTAZDrawFill(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -2503,6 +2504,12 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     menuCheckToogleTAZRelDrawing->setChecked(false);
     menuCheckToogleTAZRelDrawing->create();
 
+    menuCheckToogleTAZDrawFill = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle draw TAZ fill"),
+            GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL, GUIDesignMFXCheckableButton);
+    menuCheckToogleTAZDrawFill->setChecked(false);
+    menuCheckToogleTAZDrawFill->create();
 
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -2515,6 +2522,7 @@ GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
     menuCheckToogleTAZRelDrawing->hide();
+    menuCheckToogleTAZDrawFill->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
 }
@@ -2534,6 +2542,9 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<MFXChe
     }
     if (menuCheckToogleTAZRelDrawing->shown()) {
         commands.push_back(menuCheckToogleTAZRelDrawing);
+    }
+    if (menuCheckToogleTAZDrawFill->shown()) {
+        commands.push_back(menuCheckToogleTAZDrawFill);
     }
 }
 
@@ -2571,6 +2582,12 @@ GNEViewNetHelper::DataViewOptions::showDemandElements() const {
 bool 
 GNEViewNetHelper::DataViewOptions::TAZRelDrawing() const {
     return (menuCheckToogleTAZRelDrawing->amChecked() == TRUE);
+}
+
+
+bool 
+GNEViewNetHelper::DataViewOptions::TAZDrawFill() const {
+    return (menuCheckToogleTAZDrawFill->amChecked() == TRUE);
 }
 
 // ---------------------------------------------------------------------------
