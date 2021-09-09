@@ -108,18 +108,30 @@ GNETAZRelData::updateGeometry() {
     const GNETAZElement* TAZB = getParentTAZElements().back();
     // check if this is the same TAZ
     if (TAZA == TAZB) {
-
-        PositionVector vector;
-        const double inc = 360 / 8.0;
+        // declare ring
+        PositionVector ring;
+        // declare first point
         std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
-
+        // add 8 segments
         for (int i = 0; i <= 8; ++i) {
-            const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * inc));
-            vector.push_back(Position(p2.first, p2.second));
+            const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * 45));
+            // make al line between 0,0 and p2
+            PositionVector line = {Position(), Position(p2.first, p2.second)};
+            // extrapolate
+            line.extrapolate(3, false, true);
+            // add line back to ring
+            ring.push_back(line.back());
+            // update p1
             p1 = p2;
         }
-        myTAZRelGeometry.updateGeometry(vector);
-
+        // make a copy of ring
+        PositionVector ringCenter = ring;
+        // move ring to first geometry point
+        ring.add(TAZA->getTAZElementShape().front());
+        myTAZRelGeometry.updateGeometry(ring);
+        // move ringCenter to center
+        ringCenter.add(TAZA->getPositionInView());
+        myTAZRelGeometryCenter.updateGeometry(ringCenter);
     } else {
         // calculate line betwen to TAZ centers
         PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};
@@ -213,18 +225,26 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(getColor());
         // draw geometry
         if (onlyDrawContour) {
+            // draw depending of TAZRelDrawing
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.1);
             } else {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.1);
             }
         } else {
+            // draw depending of TAZRelDrawing
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.5);
-                GLHelper::drawTriangleAtEnd(myTAZRelGeometryCenter.getShape().front(), myTAZRelGeometryCenter.getShape().back(), 1.5, 1.5, 0.5);
+                GLHelper::drawTriangleAtEnd(
+                    *(myTAZRelGeometryCenter.getShape().end() - 2), 
+                    *(myTAZRelGeometryCenter.getShape().end() - 1), 
+                    1.5, 1.5, 0.5);
             } else {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
-                GLHelper::drawTriangleAtEnd(myTAZRelGeometry.getShape().front(), myTAZRelGeometry.getShape().back(), 1.5, 1.5, 0.5);
+                GLHelper::drawTriangleAtEnd(
+                    *(myTAZRelGeometry.getShape().end() - 2), 
+                    *(myTAZRelGeometry.getShape().end() - 1), 
+                    1.5, 1.5, 0.5);
             }
         }
         // pop matrix
@@ -392,6 +412,7 @@ void
 GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
+            
             // change first TAZ
             replaceFirstParentTAZElement(SUMO_TAG_TAZ, value);
             break;
