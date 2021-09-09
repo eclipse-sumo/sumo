@@ -195,7 +195,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
 
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
-        for moving in parse(routeFile, (u'vehicle', u'person', u'flow'), {u"walk": (u"edges", u"busStop")}):
+        for moving in parse(routeFile, (u'vehicle', u'person', u'flow'), {u"walk": (u"edges", u"busStop", u"trainStop")}):
             if options.verbose and stats.total() > 0 and stats.total() % 100000 == 0:
                 print("%s items read" % stats.total())
             old_route = None
@@ -490,9 +490,13 @@ def parse_standalone_routes(file, into, typesMap):
 
 
 def main(options):
+    if options.verbose:
+        print("Reading reduced network from", options.network)
     net = readNet(options.network)
     edges = set([e.getID() for e in net.getEdges()])
     if options.orig_net is not None:
+        if options.verbose:
+            print("Reading original network from", options.orig_net)
         orig_net = readNet(options.orig_net)
     else:
         orig_net = None
