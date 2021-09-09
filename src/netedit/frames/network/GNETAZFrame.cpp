@@ -743,18 +743,14 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
             if (allSelected) {
                 // remove form selection all TAZEdges
                 for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModul()->getTAZEdges()) {
-                    // enable save button
-                    myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
-                    // change attribute selected
-                    TAZEdgeColor.edge->setAttribute(GNE_ATTR_SELECTED, "false", myTAZFrameParent->myViewNet->getUndoList());
+                    // change attribute selected (without undo-redo)
+                    TAZEdgeColor.edge->unselectAttributeCarrier();
                 }
             } else {
                 // add to selection all TAZEdges
                 for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModul()->getTAZEdges()) {
-                    // enable save button
-                    myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
-                    // change attribute selected
-                    TAZEdgeColor.edge->setAttribute(GNE_ATTR_SELECTED, "true", myTAZFrameParent->myViewNet->getUndoList());
+                    // change attribute selected (without undo-redo)
+                    TAZEdgeColor.edge->selectAttributeCarrier();
                 }
             }
         } else {
@@ -768,22 +764,18 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
             // select or unselect all depending of allSelected
             if (allSelected) {
                 // only remove from selection selected TAZEdges
-                for (const auto& i : myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected()) {
-                    if (i.edge->isAttributeCarrierSelected()) {
-                        // enable save button
-                        myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
-                        // change attribute selected
-                        i.edge->setAttribute(GNE_ATTR_SELECTED, "false", myTAZFrameParent->myViewNet->getUndoList());
+                for (const auto& selectedEdge : myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected()) {
+                    if (selectedEdge.edge->isAttributeCarrierSelected()) {
+                        // change attribute selected (without undo-redo)
+                        selectedEdge.edge->unselectAttributeCarrier();
                     }
                 }
             } else {
                 // only add to selection selected TAZEdges
                 for (const auto& selectedEdge : myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected()) {
                     if (!selectedEdge.edge->isAttributeCarrierSelected()) {
-                        // enable save button
-                        myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
-                        // change attribute selected
-                        selectedEdge.edge->setAttribute(GNE_ATTR_SELECTED, "true", myTAZFrameParent->myViewNet->getUndoList());
+                        // change attribute selected (without undo-redo)
+                        selectedEdge.edge->selectAttributeCarrier();
                     }
                 }
             }
