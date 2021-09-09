@@ -197,6 +197,17 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                 writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
             } else if (dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
                 WRITE_ERROR("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between '" + toTAZID + "' and '" + toTAZID + "'.");
+            } else if (fromTAZ == toTAZ) {
+                GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZREL));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                    myNet->getViewNet()->getUndoList()->p_end();
+                } else {
+                    dataInterval->addGenericDataChild(edgeData);
+                    fromTAZ->addChildElement(edgeData);
+                    edgeData->incRef("buildEdgeData");
+                }
             } else {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
                 if (myAllowUndoRedo) {
