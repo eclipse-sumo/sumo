@@ -21,11 +21,11 @@ import os
 import sys
 import random
 from collections import defaultdict
-import xml.etree.ElementTree as ET
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+from sumolib.miscutils import parseTime
 
 
 def get_options(args=None):
@@ -36,12 +36,19 @@ def get_options(args=None):
                            help="define the files to load TAZ (districts) from (mandatory)")
     optParser.add_argument("-o", "--output-file", dest="outfile",
                            help="define the output filename (mandatory)")
+    optParser.add_argument("-i", "--interval",
+                           help="define the output aggregation interval")
+    optParser.add_argument("--id", default="DEFAULT_VEHTYPE", dest="intervalID",
+                           help="define the output aggregation interval")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
 
     options = optParser.parse_args(args=args)
     if not options.routefile or not options.tazfiles or not options.outfile:
         optParser.print_help()
         sys.exit(1)
+
+    if options.interval is not None:
+        options.interval = parseTime(options.interval)
 
     options.tazfiles = options.tazfiles.split()
     return options
@@ -84,58 +91,102 @@ def main(options):
         print("edges %s (total %s) are sinks for more than one TAZ" %
               (ambiguousSink[:5], len(ambiguousSink)))
 
-    inputRoutes = ET.parse(options.routefile)
-    numFromNotFound = 0
-    numToNotFound = 0
-    numVehicles = 0
+    class nl: # nonlocal integral variables
+        numFromNotFound = 0
+        numToNotFound = 0
+        numVehicles = 0
+        end = 0
 
-    def addAttrs(vehicle, fromEdge, toEdge):
-        vehID = vehicle.attrib['id']
+    # begin -> od -> count
+    intervals = defaultdict(lambda : defaultdict(lambda : 0))
+
+    def addVehicle(vehID, fromEdge, toEdge, time, count = 1):
+        nl.numVehicles += count
+        fromTaz = None
+        toTaz = None
         if fromEdge in edgeFromTaz:
             fromTaz = random.choice(edgeFromTaz[fromEdge])
-            vehicle.set('fromTaz', fromTaz)
         else:
-            numFromNotFound += 1
+            nl.numFromNotFound += 1
             if numFromNotFound < 5:
                 print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
         if toEdge in edgeToTaz:
             toTaz = random.choice(edgeToTaz[toEdge])
-            vehicle.set('toTaz', toTaz)
         else:
-            numToNotFound += 1
+            nl.numToNotFound += 1
             if numToNotFound < 5:
                 print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
+        if fromTaz and toTaz:
+            if options.interval is None:
+                intervalBegin = 0
+            else:
+                intervalBegin = int(time / options.interval) * options.interval
+            intervals[intervalBegin][(fromTaz, toTaz)] += count
+        nl.end = max(nl.end, time)
 
 
-    for vehicle in inputRoutes.getroot().iter('vehicle'):
-        numVehicles += 1
-        vehID = vehicle.attrib['id']
-        edges = None
-        for child in vehicle:
-            if child.tag == "route":
-                edges = child.attrib['edges']
-                break
-            elif child.tag == "routeDistribution":
-                for child2 in child.getchildren():
-                    if child2.tag == "route":
-                        edges = child2.attrib['edges']
-                        break
-                break
-
-        if edges is None:
-            print("No edges found for vehicle '%s'" % vehID)
+    for vehicle in sumolib.xml.parse(options.routefile, ['vehicle']):
+        if vehicle.route and type(vehicle.route) == list:
+            edges = vehicle.route[0].edges.split()
+            addVehicle(vehicle.id, edges[0], edges[-1], parseTime(vehicle.depart))
         else:
-            edges = edges.split()
-            addAttrs(vehicle, edges[0], edges[-1])
+            print("No edges found for vehicle '%s'" % vehID)
 
-    for trip in inputRoutes.getroot().iter('trip'):
-        addAttrs(trip, trip.attrib['from'], trip.attrib['to'])
+    for trip in sumolib.xml.parse(options.routefile, ['trip']):
+        addVehicle(trip.id, trip.attr_from, trip.to, parseTime(trip.depart))
 
-    print("read %s vehicles" % numVehicles)
-    if numFromNotFound > 0 or numToNotFound > 0:
+    for flow in sumolib.xml.parse(options.routefile, ['flow']):
+        count = None
+        if flow.number:
+            count = int(flow.number)
+        else:
+            time = parseTime(flow.end) - parseTime(flow.begin)
+            if flow.probability:
+                count = time * float(flow.probability)
+            elif flow.vehsPerHour:
+                count = time * float(flow.vehsPerHour) / 3600
+            elif flow.period:
+                count = time / float(flow.period)
+        if count == None:
+            print("Could not determine count for flow '%s'" % (flow.id))
+            count = 1
+
+        if flow.attr_from and flow.to:
+            addVehicle(flow.id, flow.attr_from, flow.to, parseTime(flow.begin), count)
+        elif flow.route and type(flow.route) == list:
+            edges = flow.route[0].edges.split()
+            addVehicle(flow.id, edges[0], edges[-1], parseTime(flow.begin), count)
+        else:
+            print("No edges found for flow '%s'" % flow.id)
+
+    print("read %s vehicles" % nl.numVehicles)
+    if nl.numFromNotFound > 0 or nl.numToNotFound > 0:
         print("No fromTaz found for %s edges and no toTaz found for %s edges" % (
-            numFromNotFound, numToNotFound))
-    inputRoutes.write(options.outfile)
+            nl.numFromNotFound, nl.numToNotFound))
+
+    if nl.numVehicles > 0:
+        numOD = 0
+        distinctOD = set()
+
+        with open(options.outfile, 'w') as outf:
+            sumolib.writeXMLHeader(outf, "$Id$", "data", options=options)  # noqa
+            for begin, tazRelations in intervals.items():
+                if options.interval is not None:
+                    end = begin + options.interval
+                else:
+                    end = nl.end + 1
+                outf.write(4 * ' ' + '<interval id="%s" begin="%s" end="%s">\n' % (
+                    options.intervalID, begin, end))
+                for od in sorted(tazRelations.keys()):
+                    numOD += 1
+                    distinctOD.add(od)
+                    outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s">\n' % (
+                        od[0], od[1], tazRelations[od]))
+                outf.write(4 * ' ' + '</interval>\n')
+            outf.write('<data>\n')
+
+        print("Wrote %s OD-pairs (%s distinct) in %s intervals" % (
+            numOD, len(distinctOD), len(intervals)))
 
 
 if __name__ == "__main__":
