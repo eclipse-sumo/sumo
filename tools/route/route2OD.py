@@ -180,7 +180,7 @@ def main(options):
                 for od in sorted(tazRelations.keys()):
                     numOD += 1
                     distinctOD.add(od)
-                    outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s">\n' % (
+                    outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s"/>\n' % (
                         od[0], od[1], tazRelations[od]))
                 outf.write(4 * ' ' + '</interval>\n')
             outf.write('<data>\n')
