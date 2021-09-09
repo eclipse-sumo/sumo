@@ -365,9 +365,12 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
                 // in the case of a Lane, we need to change the retrieved lane to their the parent if myNetworkViewOptions.mySelectEdges is enabled
                 if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_LANE) && (myNetworkViewOptions.selectEdges() || forceSelectEdges)) {
                     retrievedAC = dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
+                } else if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) && !(myNetworkViewOptions.selectEdges() || forceSelectEdges)) {
+                    // just ignore this AC
+                    retrievedAC = nullptr;
                 }
                 // make sure that AttributeCarrier can be selected
-                if (retrievedAC->getTagProperty().isSelectable() && !myLockManager.isObjectLocked(retrievedAC->getGUIGlObject()->getType())) {
+                if (retrievedAC && retrievedAC->getTagProperty().isSelectable() && !myLockManager.isObjectLocked(retrievedAC->getGUIGlObject()->getType())) {
                     result.insert(std::make_pair(retrievedAC->getID(), retrievedAC));
                 }
             }
