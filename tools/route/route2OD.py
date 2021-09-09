@@ -183,7 +183,7 @@ def main(options):
                     outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s"/>\n' % (
                         od[0], od[1], tazRelations[od]))
                 outf.write(4 * ' ' + '</interval>\n')
-            outf.write('<data>\n')
+            outf.write('</data>\n')
 
         print("Wrote %s OD-pairs (%s distinct) in %s intervals" % (
             numOD, len(distinctOD), len(intervals)))
