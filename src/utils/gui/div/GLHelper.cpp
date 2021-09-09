@@ -84,6 +84,20 @@ void CALLBACK combCallback(GLdouble coords[3],
 // method definitions
 // ===========================================================================
 
+const std::vector<std::pair<double, double> >&
+GLHelper::getCircleCoords() {
+    // fill in first call
+    if (myCircleCoords.size() == 0) {
+        for (int i = 0; i <= (int)(360 * CIRCLE_RESOLUTION); ++i) {
+            const double x = (double) sin(DEG2RAD(i / CIRCLE_RESOLUTION));
+            const double y = (double) cos(DEG2RAD(i / CIRCLE_RESOLUTION));
+            myCircleCoords.push_back(std::pair<double, double>(x, y));
+        }
+    }
+    return myCircleCoords;
+}
+
+
 void
 GLHelper::pushMatrix() {
     glPushMatrix();
@@ -403,7 +417,7 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 
 int
 GLHelper::angleLookup(double angleDeg) {
-    const int numCoords = (int)myCircleCoords.size() - 1;
+    const int numCoords = (int)getCircleCoords().size() - 1;
     int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
     if (index < 0) {
         index += numCoords;
@@ -421,19 +435,12 @@ GLHelper::drawFilledCircle(double width, int steps) {
 
 void
 GLHelper::drawFilledCircle(double width, int steps, double beg, double end) {
-    if (myCircleCoords.size() == 0) {
-        for (int i = 0; i <= (int)(360 * CIRCLE_RESOLUTION); ++i) {
-            const double x = (double) sin(DEG2RAD(i / CIRCLE_RESOLUTION));
-            const double y = (double) cos(DEG2RAD(i / CIRCLE_RESOLUTION));
-            myCircleCoords.push_back(std::pair<double, double>(x, y));
-        }
-    }
     const double inc = (end - beg) / (double)steps;
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    std::pair<double, double> p1 = myCircleCoords[angleLookup(beg)];
+    std::pair<double, double> p1 = getCircleCoords().at(angleLookup(beg));
 
     for (int i = 0; i <= steps; ++i) {
-        const std::pair<double, double>& p2 = myCircleCoords[angleLookup(beg + i * inc)];
+        const std::pair<double, double>& p2 = getCircleCoords().at(angleLookup(beg + i * inc));
         glBegin(GL_TRIANGLES);
         glVertex2d(p1.first * width, p1.second * width);
         glVertex2d(p2.first * width, p2.second * width);
@@ -453,19 +460,12 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps) {
 void
 GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
                             double beg, double end) {
-    if (myCircleCoords.size() == 0) {
-        for (int i = 0; i < 360; i += 10) {
-            double x = (double) sin(DEG2RAD(i));
-            double y = (double) cos(DEG2RAD(i));
-            myCircleCoords.push_back(std::pair<double, double>(x, y));
-        }
-    }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     std::pair<double, double> p1 =
-        beg == 0 ? myCircleCoords[0] : myCircleCoords[((int) beg / 10) % 36];
+        beg == 0 ? getCircleCoords().at(0) : getCircleCoords().at(((int) beg / 10) % 36);
     for (int i = (int)(beg / 10); i < steps && (36.0 / (double) steps * (double) i) * 10 < end; i++) {
         const std::pair<double, double>& p2 =
-            myCircleCoords[(int)(36.0 / (double) steps * (double) i)];
+            getCircleCoords().at((int)(36.0 / (double) steps * (double) i));
         glBegin(GL_TRIANGLES);
         glVertex2d(p1.first * width, p1.second * width);
         glVertex2d(p2.first * width, p2.second * width);
@@ -478,7 +478,7 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
         p1 = p2;
     }
     const std::pair<double, double>& p2 =
-        end == 360 ? myCircleCoords[0] : myCircleCoords[((int) end / 10) % 36];
+        end == 360 ? getCircleCoords().at(0) : getCircleCoords().at(((int) end / 10) % 36);
     glBegin(GL_TRIANGLES);
     glVertex2d(p1.first * width, p1.second * width);
     glVertex2d(p2.first * width, p2.second * width);

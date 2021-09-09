@@ -47,6 +47,9 @@ struct GUIVisualizationTextSettings;
 class GLHelper {
 
 public:
+    /// @brief Storage for precomputed sin/cos-values describing a circle
+    static const std::vector<std::pair<double, double> > &getCircleCoords();
+
     /// @brief push matrix
     static void pushMatrix();
 
