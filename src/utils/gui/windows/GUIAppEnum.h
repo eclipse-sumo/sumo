@@ -726,6 +726,8 @@ enum {
     MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
     /// @brief toogle TAZRel drawing
     MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,
+    /// @brief toogle draz TAZ fill
+    MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,
 
     /// @}
 
