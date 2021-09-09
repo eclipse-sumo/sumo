@@ -48,7 +48,9 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-{}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}) {
+        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}) {
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -262,13 +264,12 @@ GNETAZRelData::getLastPathLane() const {
 
 Boundary
 GNETAZRelData::getCenteringBoundary() const {
-    return getParentTAZElements().front()->getCenteringBoundary();
-}
-
-
-void 
-GNETAZRelData::updateCenteringBoundary() {
-    
+    Boundary b;
+    // add two shapes
+    b.add(myTAZRelGeometry.getShape().getBoxBoundary());
+    b.add(myTAZRelGeometryCenter.getShape().getBoxBoundary());
+    b.grow(20);
+    return b;
 }
 
 

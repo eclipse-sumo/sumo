@@ -375,12 +375,6 @@ GNEEdgeRelData::getCenteringBoundary() const {
 }
 
 
-void 
-GNEEdgeRelData::updateCenteringBoundary() {
-    // nothing to update
-}
-
-
 std::string
 GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
     switch (key) {

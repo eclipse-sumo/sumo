@@ -89,9 +89,6 @@ public:
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
-    /// @brief update centering boundary
-    void updateCenteringBoundary();
-
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement
