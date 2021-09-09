@@ -73,3 +73,6 @@ splitRouteFiles
 
 # add taz information to route file
 addTAZ
+
+# extract OD matrix from vehicles
+route2OD
