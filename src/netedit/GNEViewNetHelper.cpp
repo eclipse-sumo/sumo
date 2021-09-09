@@ -1524,23 +1524,23 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
             // obtain selected ACs depending of current supermode
             std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
             // add id into ACs to unselect
-            for (auto i : selectedAC) {
-                ACToUnselect.push_back(i);
+            for (const auto &AC : selectedAC) {
+                ACToUnselect.push_back(AC);
             }
         }
         // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
-        for (auto i : ACsInBoundaryFiltered) {
+        for (const auto &AC : ACsInBoundaryFiltered) {
             switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
                 case GNESelectorFrame::ModificationMode::Operation::SUB:
-                    ACToUnselect.push_back(i.second);
+                    ACToUnselect.push_back(AC.second);
                     break;
                 case GNESelectorFrame::ModificationMode::Operation::RESTRICT:
-                    if (std::find(ACToUnselect.begin(), ACToUnselect.end(), i.second) != ACToUnselect.end()) {
-                        ACToSelect.push_back(i.second);
+                    if (std::find(ACToUnselect.begin(), ACToUnselect.end(), AC.second) != ACToUnselect.end()) {
+                        ACToSelect.push_back(AC.second);
                     }
                     break;
                 default:
-                    ACToSelect.push_back(i.second);
+                    ACToSelect.push_back(AC.second);
                     break;
             }
         }
@@ -1548,28 +1548,28 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         if (myViewNet->autoSelectNodes() && (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::ADD)) {
             std::vector<GNEEdge*> edgesToSelect;
             // iterate over ACToSelect and extract edges
-            for (auto i : ACToSelect) {
-                if (i->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                    edgesToSelect.push_back(dynamic_cast<GNEEdge*>(i));
+            for (const auto &AC : ACToSelect) {
+                if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    edgesToSelect.push_back(dynamic_cast<GNEEdge*>(AC));
                 }
             }
             // iterate over extracted edges
-            for (auto i : edgesToSelect) {
+            for (const auto &edge : edgesToSelect) {
                 // select junction source and all their connections and crossings
-                ACToSelect.push_back(i->getFromJunction());
-                for (auto j : i->getFromJunction()->getGNEConnections()) {
-                    ACToSelect.push_back(j);
+                ACToSelect.push_back(edge->getFromJunction());
+                for (const auto &connection : edge->getFromJunction()->getGNEConnections()) {
+                    ACToSelect.push_back(connection);
                 }
-                for (auto j : i->getFromJunction()->getGNECrossings()) {
-                    ACToSelect.push_back(j);
+                for (const auto &crossing : edge->getFromJunction()->getGNECrossings()) {
+                    ACToSelect.push_back(crossing);
                 }
                 // select junction destiny and all their connections crossings
-                ACToSelect.push_back(i->getToJunction());
-                for (auto j : i->getToJunction()->getGNEConnections()) {
-                    ACToSelect.push_back(j);
+                ACToSelect.push_back(edge->getToJunction());
+                for (const auto &connection : edge->getToJunction()->getGNEConnections()) {
+                    ACToSelect.push_back(connection);
                 }
-                for (auto j : i->getToJunction()->getGNECrossings()) {
-                    ACToSelect.push_back(j);
+                for (const auto &crossing : edge->getToJunction()->getGNECrossings()) {
+                    ACToSelect.push_back(crossing);
                 }
             }
         }
@@ -1577,12 +1577,12 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         if ((ACToSelect.size() + ACToUnselect.size()) > 0) {
             // first unselect AC of ACToUnselect and then selects AC of ACToSelect
             myViewNet->myUndoList->p_begin("selection using rectangle");
-            for (auto i : ACToUnselect) {
-                i->setAttribute(GNE_ATTR_SELECTED, "0", myViewNet->myUndoList);
+            for (const auto &AC : ACToUnselect) {
+                AC->setAttribute(GNE_ATTR_SELECTED, "0", myViewNet->myUndoList);
             }
-            for (auto i : ACToSelect) {
-                if (i->getTagProperty().isSelectable()) {
-                    i->setAttribute(GNE_ATTR_SELECTED, "1", myViewNet->myUndoList);
+            for (const auto &AC : ACToSelect) {
+                if (AC->getTagProperty().isSelectable()) {
+                    AC->setAttribute(GNE_ATTR_SELECTED, "1", myViewNet->myUndoList);
                 }
             }
             myViewNet->myUndoList->p_end();
