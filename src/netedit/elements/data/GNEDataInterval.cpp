@@ -228,7 +228,8 @@ GNEDataInterval::TAZRelExists(const GNETAZElement *fromTAZ, const GNETAZElement 
             } else {
                 if ((genericData->getParentTAZElements().front() == fromTAZ) && 
                     (genericData->getParentTAZElements().back() == toTAZ)) {
-                return true;
+                    return true;
+                }
             }
         }
     }
