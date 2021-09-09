@@ -171,7 +171,6 @@ public:
         /// @brief hide TAZ Common Statistics Modul
         void hideTAZCommonStatisticsModul();
 
-    protected:
         /// @brief update Statistics label
         void updateStatistics();
 

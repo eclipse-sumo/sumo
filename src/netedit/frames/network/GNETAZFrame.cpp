@@ -270,6 +270,7 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
     if (myEditedTAZ) {
         // first update TAZ Stadistics
         myEditedTAZ->updateTAZStadistic();
+        myTAZFrameParent->myTAZCommonStatistics->updateStatistics();
         // iterate over child TAZElements and create TAZEdges
         for (const auto& TAZElement : myEditedTAZ->getChildTAZElements()) {
             addTAZChild(dynamic_cast<GNETAZSourceSink*>(TAZElement));
@@ -384,7 +385,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
-                << "- Number of Edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildTAZElements().size() / 2) << "\n"
+                << "- Number of edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildTAZElements().size() / 2) << "\n"
                 << "- Min source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
                 << "- Max source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
                 << "- Average source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
@@ -461,6 +462,11 @@ GNETAZFrame::TAZSaveChanges::onCmdSaveChanges(FXObject*, FXSelector, void*) {
         myCancelChangesButton->disable();
         // finish undo list set
         myTAZFrameParent->myViewNet->getUndoList()->p_end();
+        // always refresh TAZ Edges after removing TAZSources/Sinks
+        myTAZFrameParent->myCurrentTAZ->refreshTAZEdges();
+        // update use edges button
+        myTAZFrameParent->myTAZChildDefaultParameters->updateSelectEdgesButton();
+
     }
     return 1;
 }
@@ -1392,6 +1398,7 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
             myCurrentTAZ->setTAZ(dynamic_cast<GNETAZ*>(objectsUnderCursor.getTAZElementFront()));
             // update TAZStadistics
             myCurrentTAZ->getTAZ()->updateTAZStadistic();
+            myTAZCommonStatistics->updateStatistics();
             return true;
         } else {
             return false;
