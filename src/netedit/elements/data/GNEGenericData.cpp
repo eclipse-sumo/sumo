@@ -275,9 +275,15 @@ GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& 
 
 
 void
-GNEGenericData::replaceLastParentTAZElement(SumoXMLTag tag, const std::string& value) {
+GNEGenericData::replaceSecondParentTAZElement(SumoXMLTag tag, const std::string& value) {
     std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
-    parentTAZElements[(int)parentTAZElements.size() - 1] = myNet->retrieveTAZElement(tag, value);
+    if (value.empty()) {
+        parentTAZElements.pop_back();
+    } else if (parentTAZElements.size() == 1) {
+        parentTAZElements.push_back(myNet->retrieveTAZElement(tag, value));
+    } else {
+        parentTAZElements.at(1) = myNet->retrieveTAZElement(tag, value);
+    }
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);
 }

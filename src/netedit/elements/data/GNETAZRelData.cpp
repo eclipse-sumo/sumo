@@ -412,14 +412,35 @@ void
 GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
-            
+            // remove from grid
+            myNet->removeGLObjectFromGrid(this);
+            // check number of parent TAZ elements
+            if ((getParentTAZElements().size() > 1) &&
+                (value == getParentTAZElements().at(1)->getID())) {
+                // reset second TAZ
+                replaceSecondParentTAZElement(SUMO_TAG_TAZ, "");
+            }
             // change first TAZ
             replaceFirstParentTAZElement(SUMO_TAG_TAZ, value);
+            // update geometry
+            updateGeometry();
+            // add into grid again
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case SUMO_ATTR_TO: {
-            // change last TAZ
-            replaceLastParentTAZElement(SUMO_TAG_TAZ, value);
+            // remove from grid
+            myNet->removeGLObjectFromGrid(this);
+            if (value == getParentTAZElements().front()->getID()) {
+                replaceSecondParentTAZElement(SUMO_TAG_TAZ, "");
+            } else {
+                // change second TAZ
+                replaceSecondParentTAZElement(SUMO_TAG_TAZ, value);
+            }
+            // update geometry
+            updateGeometry();
+            // add into grid again
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case GNE_ATTR_SELECTED:
