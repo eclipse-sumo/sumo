@@ -728,6 +728,10 @@ enum {
     MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,
     /// @brief toogle draz TAZ fill
     MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,
+    /// @brief toogle draz TAZRel only from
+    MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,
+    /// @brief toogle draz TAZRel only to
+    MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,
 
     /// @}
 
