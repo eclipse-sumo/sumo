@@ -1352,12 +1352,12 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                     // insert junction item
                     FXTreeItem* junctionItem = addListItem(HE, itemParent);
                     // insert edges
-                    for (auto i : junction->getChildEdges()) {
-                        showHierarchicalElementChildren(i, junctionItem);
+                    for (const auto &edge : junction->getChildEdges()) {
+                        showHierarchicalElementChildren(edge, junctionItem);
                     }
                     // insert crossings
-                    for (auto i : junction->getGNECrossings()) {
-                        showHierarchicalElementChildren(i, junctionItem);
+                    for (const auto &crossing : junction->getGNECrossings()) {
+                        showHierarchicalElementChildren(crossing, junctionItem);
                     }
                 }
                 break;
@@ -1369,43 +1369,43 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                     // insert edge item
                     FXTreeItem* edgeItem = addListItem(HE, itemParent);
                     // insert lanes
-                    for (const auto& i : edge->getLanes()) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& lane : edge->getLanes()) {
+                        showHierarchicalElementChildren(lane, edgeItem);
                     }
                     // insert child additional
-                    for (const auto& i : edge->getChildAdditionals()) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& additional : edge->getChildAdditionals()) {
+                        showHierarchicalElementChildren(additional, edgeItem);
                     }
                     // insert child shapes
-                    for (const auto& i : edge->getChildShapes()) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& shape : edge->getChildShapes()) {
+                        showHierarchicalElementChildren(shape, edgeItem);
                     }
                     // insert child TAZElements
-                    for (const auto& i : edge->getChildTAZElements()) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& TAZElement : edge->getChildTAZElements()) {
+                        // use addListItem because TAZElement doesn't have children
+                        addListItem(TAZElement, edgeItem);
                     }
                     // insert child demand elements
-                    for (const auto& i : edge->getChildDemandElements()) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& demandElement : edge->getChildDemandElements()) {
+                        showHierarchicalElementChildren(demandElement, edgeItem);
                     }
                     /*
-
                     CHECK THIS
 
                     // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
-                    for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& route : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
+                        showHierarchicalElementChildren(route, edgeItem);
                     }
-                    for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_TRIP)) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& trip : edge->getChildDemandElementsByType(SUMO_TAG_TRIP)) {
+                        showHierarchicalElementChildren(trip, edgeItem);
                     }
-                    for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& flow : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
+                        showHierarchicalElementChildren(flow, edgeItem);
                     }
                     */
                     // show data elements
-                    for (const auto& i : edge->getChildGenericDatas()) {
-                        showHierarchicalElementChildren(i, edgeItem);
+                    for (const auto& genericDatas : edge->getChildGenericDatas()) {
+                        showHierarchicalElementChildren(genericDatas, edgeItem);
                     }
                 }
                 break;
@@ -1417,20 +1417,21 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(HE, itemParent);
                     // insert child additional
-                    for (const auto& i : lane->getChildAdditionals()) {
-                        showHierarchicalElementChildren(i, laneItem);
+                    for (const auto& additional : lane->getChildAdditionals()) {
+                        showHierarchicalElementChildren(additional, laneItem);
                     }
                     // insert child shapes
-                    for (const auto& i : lane->getChildShapes()) {
-                        showHierarchicalElementChildren(i, laneItem);
+                    for (const auto& shape : lane->getChildShapes()) {
+                        showHierarchicalElementChildren(shape, laneItem);
                     }
                     // insert child TAZElements
-                    for (const auto& i : lane->getChildTAZElements()) {
-                        showHierarchicalElementChildren(i, laneItem);
+                    for (const auto& TAZElement : lane->getChildTAZElements()) {
+                        // use addListItem because TAZElement doesn't have children
+                        addListItem(TAZElement, laneItem);
                     }
                     // insert demand elements children
-                    for (const auto& i : lane->getChildDemandElements()) {
-                        showHierarchicalElementChildren(i, laneItem);
+                    for (const auto& demandElement : lane->getChildDemandElements()) {
+                        showHierarchicalElementChildren(demandElement, laneItem);
                     }
                     // insert incoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEIncomingConnections().size() > 0) {
@@ -1438,8 +1439,8 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                         // insert intermediate list item
                         FXTreeItem* incomingConnections = addListItem(laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), false);
                         // insert incoming connections
-                        for (auto i : incomingLaneConnections) {
-                            showHierarchicalElementChildren(i, incomingConnections);
+                        for (const auto &connection : incomingLaneConnections) {
+                            showHierarchicalElementChildren(connection, incomingConnections);
                         }
                     }
                     // insert outcoming connections of lanes (by default isn't expanded)
@@ -1448,8 +1449,8 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                         // insert intermediate list item
                         FXTreeItem* outgoingConnections = addListItem(laneItem, "Outgoing", outcomingLaneConnections.front()->getIcon(), false);
                         // insert outcoming connections
-                        for (auto i : outcomingLaneConnections) {
-                            showHierarchicalElementChildren(i, outgoingConnections);
+                        for (const auto &connection : outcomingLaneConnections) {
+                            showHierarchicalElementChildren(connection, outgoingConnections);
                         }
                     }
                 }
@@ -1468,28 +1469,29 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
         // insert additional item
         FXTreeItem* treeItem = addListItem(HE, itemParent);
         // insert child edges
-        for (const auto& i : HE->getChildEdges()) {
-            showHierarchicalElementChildren(i, treeItem);
+        for (const auto& edge : HE->getChildEdges()) {
+            showHierarchicalElementChildren(edge, treeItem);
         }
         // insert child lanes
-        for (const auto& i : HE->getChildLanes()) {
-            showHierarchicalElementChildren(i, treeItem);
+        for (const auto& lane : HE->getChildLanes()) {
+            showHierarchicalElementChildren(lane, treeItem);
         }
         // insert additional children
-        for (const auto& i : HE->getChildAdditionals()) {
-            showHierarchicalElementChildren(i, treeItem);
+        for (const auto& additional : HE->getChildAdditionals()) {
+            showHierarchicalElementChildren(additional, treeItem);
         }
         // insert child shapes
-        for (const auto& i : HE->getChildShapes()) {
-            showHierarchicalElementChildren(i, treeItem);
+        for (const auto& shape : HE->getChildShapes()) {
+            showHierarchicalElementChildren(shape, treeItem);
         }
         // insert TAZElements children
-        for (const auto& i : HE->getChildTAZElements()) {
-            showHierarchicalElementChildren(i, treeItem);
+        for (const auto& TAZElement : HE->getChildTAZElements()) {
+            // use addListItem because TAZElement doesn't have children
+            addListItem(TAZElement, treeItem);
         }
         // insert child demand elements
-        for (const auto& i : HE->getChildDemandElements()) {
-            showHierarchicalElementChildren(i, treeItem);
+        for (const auto& demandElement : HE->getChildDemandElements()) {
+            showHierarchicalElementChildren(demandElement, treeItem);
         }
     } else if (HE->getTagProperty().isDataElement()) {
         // insert data item
