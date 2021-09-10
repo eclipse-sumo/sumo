@@ -1100,8 +1100,8 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
     // optional attributes
+    const PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, PositionVector());
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, std::vector<std::string>());
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
