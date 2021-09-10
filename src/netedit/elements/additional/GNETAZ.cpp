@@ -57,7 +57,8 @@ parameters),
             myAverageWeightSource(0),
             myMaxWeightSink(0),
             myMinWeightSink(0),
-myAverageWeightSink(0) {
+            myAverageWeightSink(0)
+{
     // update geometry
     updateGeometry();
 }
@@ -237,6 +238,12 @@ GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return ret;
 }
 
+bool
+GNETAZ::getFill() const {
+    // getFill gets called when myViewNet isn't yet available
+    return SUMOPolygon::getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill();
+}
+
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
@@ -260,7 +267,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ);
         // check if we're drawing a polygon or a polyline
-        if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
+        if (getFill()) {
             if (s.drawForPositionSelection) {
                 // check if mouse is within geometry
                 if (myTAZGeometry.getShape().around(mousePosition)) {
@@ -277,7 +284,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 // draw inner polygon
-                GUIPolygon::drawInnerPolygon(s, this, this, myTAZGeometry.getShape(), 0, drawUsingSelectColor());
+                const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
+                GUIPolygon::drawInnerPolygon(s, this, this, myTAZGeometry.getShape(), 0, drawUsingSelectColor(), alphaOverride);
             }
         } else {
             // push matrix

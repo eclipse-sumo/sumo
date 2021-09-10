@@ -116,13 +116,14 @@ public:
     }
 
     /// @brief set color
-    static void setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor);
+    static void setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor, int alphaOverride);
 
     /// @brief check if Polygon can be drawn
     static bool checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o);
 
     /// @brief draw inner Polygon (before pushName() )
-    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, const PositionVector shape, double layer, bool disableSelectionColor);
+    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
+            const PositionVector shape, double layer, bool disableSelectionColor, int alphaOverride = -1);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
