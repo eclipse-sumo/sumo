@@ -112,7 +112,10 @@ public:
     /// @brief get generic data children
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
 
-    /// @brief check if there is already a TAZRel defined between given TAZs
+    /// @brief check if there is already a TAZRel defined in one TAZ
+    bool TAZRelExists(const GNETAZElement *TAZ) const;
+
+    /// @brief check if there is already a TAZRel defined between two TAZs
     bool TAZRelExists(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ) const;
 
     /// @}

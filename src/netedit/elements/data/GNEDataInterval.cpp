@@ -216,21 +216,28 @@ GNEDataInterval::getGenericDataChildren() const {
 
 
 bool
+GNEDataInterval::TAZRelExists(const GNETAZElement *TAZ) const {
+    // interate over all generic datas and check TAZ parents
+    for (const auto & genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+            (genericData->getParentTAZElements().size() == 1) &&
+            (genericData->getParentTAZElements().front() == TAZ)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEDataInterval::TAZRelExists(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ) const {
     // interate over all generic datas and check TAZ parents
     for (const auto & genericData : myGenericDataChildren) {
-        if (genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
-            // distinguish between TAZ elements with one or two TAZ parents
-            if (genericData->getParentTAZElements().size() == 1) {
-                if (genericData->getParentTAZElements().front() == fromTAZ) {
-                    return true;
-                }
-            } else {
-                if ((genericData->getParentTAZElements().front() == fromTAZ) && 
-                    (genericData->getParentTAZElements().back() == toTAZ)) {
-                    return true;
-                }
-            }
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+            (genericData->getParentTAZElements().size() == 2) &&
+            (genericData->getParentTAZElements().front() == fromTAZ) && 
+            (genericData->getParentTAZElements().back() == toTAZ)) {
+            return true;
         }
     }
     return false;
