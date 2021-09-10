@@ -455,7 +455,11 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidTAZElementID(value);
         case SUMO_ATTR_SHAPE:
-            return canParse<PositionVector>(value);
+            if (value.empty()) {
+                return false;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_NAME:
