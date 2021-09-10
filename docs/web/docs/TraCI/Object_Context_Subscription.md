@@ -117,7 +117,7 @@ Currently, the following context subscription filter types are implemented:
 | downstream distance | 0x03|    double           | only return vehicles within the given downstream distance | no |
 | upstream distance | 0x04  |    double           | only return vehicles within the given maximal upstream distance | no |
 | leader/follower   | 0x05  |    -                | only return leader and follower on the specified lanes (requires 'lanes' filter) | no |
-| turn        | 0x07        |    -                | only return foes on upcoming junction | no |
+| turn        | 0x07        |    -                | only return foes on upcoming junctions | no |
 | vClass      | 0x08        |    list(string)     | only return vehicles of the given vClass(es) | yes |
 | vType       | 0x09        |    list(string)     | only return vehicles of the given vType(s) | yes |
 | field of vision | 0x0A    |    double           | only return vehicles within field of vision (angle in degrees) | yes |

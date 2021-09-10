@@ -1,7 +1,7 @@
  Retrying in 1 seconds
 Subscribing to context of vehicle 'ego'
 Adding turn filter ... 
-(downstreamDist=50.0, upstreamDist=50.0)
+(downstreamDist=50.0, foeDistToJunction=50.0)
 Step 1:
 Context results for veh 'ego':
 v4

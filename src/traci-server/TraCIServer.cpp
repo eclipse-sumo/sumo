@@ -1343,9 +1343,12 @@ TraCIServer::addSubscriptionFilter() {
             addSubscriptionFilterLeadFollow();
         }
         break;
-        case libsumo::FILTER_TYPE_TURN:
-            addSubscriptionFilterTurn();
-            break;
+        case libsumo::FILTER_TYPE_TURN: {
+            myInputStorage.readByte(); // read type double
+            double dist = myInputStorage.readDouble();
+            addSubscriptionFilterTurn(dist);
+        }
+        break;
         case libsumo::FILTER_TYPE_VCLASS: {
             myInputStorage.readByte(); // read type stringlist
             SVCPermissions vClasses = parseVehicleClasses(myInputStorage.readStringList());
@@ -1438,11 +1441,12 @@ TraCIServer::addSubscriptionFilterLeadFollow() {
 }
 
 void
-TraCIServer::addSubscriptionFilterTurn() {
+TraCIServer::addSubscriptionFilterTurn(double dist) {
 #ifdef DEBUG_SUBSCRIPTION_FILTERS
     std::cout << "Adding turn-maneuver filter" << std::endl;
 #endif
     myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_TURN;
+    myLastContextSubscription->filterFoeDistToJunction = dist;
 }
 
 void

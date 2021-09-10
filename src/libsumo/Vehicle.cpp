@@ -2126,13 +2126,13 @@ Vehicle::addSubscriptionFilterLeadFollow(const std::vector<int>& lanes) {
 
 
 void
-Vehicle::addSubscriptionFilterTurn(double downstreamDist, double upstreamDist) {
-    Helper::addSubscriptionFilter(SUBS_FILTER_TURN);
+Vehicle::addSubscriptionFilterTurn(double downstreamDist, double foeDistToJunction) {
+    Subscription* s = Helper::addSubscriptionFilter(SUBS_FILTER_TURN);
     if (downstreamDist != INVALID_DOUBLE_VALUE) {
         addSubscriptionFilterDownstreamDistance(downstreamDist);
     }
-    if (upstreamDist != INVALID_DOUBLE_VALUE) {
-        addSubscriptionFilterUpstreamDistance(upstreamDist);
+    if (foeDistToJunction != INVALID_DOUBLE_VALUE) {
+        s->filterFoeDistToJunction = foeDistToJunction;
     }
 }
 

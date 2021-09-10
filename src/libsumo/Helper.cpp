@@ -932,35 +932,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
 
             if (s.activeFilters & SUBS_FILTER_TURN) {
-                // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
-                const MSLane* lane = v->getLane();
-                std::vector<const MSLink*> links = lane->getUpcomingLinks(v->getPositionOnLane(), downstreamDist, v->getBestLanesContinuation());
-#ifdef DEBUG_SURROUNDING
-                std::cout << "Applying turn filter for vehicle '" << v->getID() << "'\n Gathering foes ..." << std::endl;
-#endif
-                // Iterate through junctions and find approaching foes within upstreamDist.
-                for (auto& l : links) {
-#ifdef DEBUG_SURROUNDING
-                    std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
-#endif
-                    for (auto& foeLane : l->getFoeLanes()) {
-                        // Check vehicles approaching the entry link corresponding to this lane
-                        const MSLink* foeLink = foeLane->getEntryLink();
-                        for (auto& vi : foeLink->getApproaching()) {
-                            if (vi.second.dist <= upstreamDist) {
-#ifdef DEBUG_SURROUNDING
-                                std::cout << "    Approaching from foe-lane '" << vi.first->getID() << "'" << std::endl;
-#endif
-                                vehs.insert(vehs.end(), dynamic_cast<const MSVehicle*>(vi.first));
-                            }
-                        }
-                        // add vehicles currently on the junction
-                        for (const MSVehicle* foe : foeLane->getVehiclesSecure()) {
-                            vehs.insert(vehs.end(), foe);
-                        }
-                        foeLane->releaseVehicles();
-                    }
-                }
+                applySubscriptionFilterTurn(s, vehs);
             }
 #ifdef DEBUG_SURROUNDING
             std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
@@ -1148,6 +1120,40 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         if (s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) {
             // Only return vehicles within field of vision in context subscription result
             applySubscriptionFilterFieldOfVision(s, objIDs);
+        }
+    }
+}
+
+void
+Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs) {
+    // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
+    MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
+    const MSLane* lane = v->getLane();
+    std::vector<const MSLink*> links = lane->getUpcomingLinks(v->getPositionOnLane(), s.filterDownstreamDist, v->getBestLanesContinuation());
+#ifdef DEBUG_SURROUNDING
+    std::cout << "Applying turn filter for vehicle '" << v->getID() << "'\n Gathering foes ..." << std::endl;
+#endif
+    // Iterate through junctions and find approaching foes within foeDistToJunction.
+    for (auto& l : links) {
+#ifdef DEBUG_SURROUNDING
+        std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
+#endif
+        for (auto& foeLane : l->getFoeLanes()) {
+            // Check vehicles approaching the entry link corresponding to this lane
+            const MSLink* foeLink = foeLane->getEntryLink();
+            for (auto& vi : foeLink->getApproaching()) {
+                if (vi.second.dist <= s.filterFoeDistToJunction) {
+#ifdef DEBUG_SURROUNDING
+                    std::cout << "    Approaching from foe-lane '" << vi.first->getID() << "'" << std::endl;
+#endif
+                    vehs.insert(vehs.end(), dynamic_cast<const MSVehicle*>(vi.first));
+                }
+            }
+            // add vehicles currently on the junction
+            for (const MSVehicle* foe : foeLane->getVehiclesSecure()) {
+                vehs.insert(vehs.end(), foe);
+            }
+            foeLane->releaseVehicles();
         }
     }
 }

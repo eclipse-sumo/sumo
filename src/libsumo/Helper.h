@@ -157,6 +157,14 @@ public:
      */
     static void applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs);
 
+    /**
+     * @brief Apply the subscription filter "turn": Gather upcoming junctions and vialanes within downstream
+     *        distance and find approaching foes within foeDistToJunction.
+     * @param[in] s Subscription which holds the filter specification to be applied.
+     * @param[in/out] vehs Set of SUMO traffic objects into which the result is inserted.
+     */
+    static void applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs);
+
     static void applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs);
 
     static void applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s,

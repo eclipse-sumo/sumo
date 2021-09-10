@@ -46,7 +46,7 @@ enum SubscriptionFilterType {
     SUBS_FILTER_UPSTREAM_DIST = 1 << 3,
     // Only return leader and follower on specified lanes in context subscription result
     SUBS_FILTER_LEAD_FOLLOW = 1 << 4,
-    // Only return foes on upcoming junction in context subscription result
+    // Only return foes on upcoming junctions in context subscription result
     SUBS_FILTER_TURN = 1 << 6,
     // Only return vehicles of the given vClass in context subscription result
     SUBS_FILTER_VCLASS = 1 << 7,
@@ -95,6 +95,7 @@ public:
           filterLanes(),
           filterDownstreamDist(-1),
           filterUpstreamDist(-1),
+          filterFoeDistToJunction(-1),
           filterVTypes(),
           filterVClasses(0),
           filterFieldOfVisionOpeningAngle(-1),
@@ -133,6 +134,8 @@ public:
     double filterDownstreamDist;
     /// @brief Upstream distance specified by the upstream distance filter
     double filterUpstreamDist;
+    /// @brief Foe distance to junction specified by the turn filter
+    double filterFoeDistToJunction;
     /// @brief vTypes specified by the vTypes filter
     std::set<std::string> filterVTypes;
     /// @brief vClasses specified by the vClasses filter, @see SVCPermissions

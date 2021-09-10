@@ -1697,16 +1697,14 @@ class VehicleDomain(Domain):
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LEAD_FOLLOW)
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LANES, lanes)
 
-    def addSubscriptionFilterTurn(self, downstreamDist=None, upstreamDist=None):
+    def addSubscriptionFilterTurn(self, downstreamDist=None, foeDistToJunction=None):
         """addSubscriptionFilterTurn() -> None
 
-        Restricts vehicles returned by the last modified vehicle context subscription to foes on an upcoming junction
+        Restricts vehicles returned by the last modified vehicle context subscription to foes on upcoming junctions
         """
-        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_TURN)
+        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_TURN, foeDistToJunction)
         if downstreamDist is not None:
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
-        if upstreamDist is not None:
-            self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
     def addSubscriptionFilterVClass(self, vClasses):
         """addSubscriptionFilterVClass(list(String)) -> None
