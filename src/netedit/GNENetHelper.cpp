@@ -425,6 +425,18 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZs() const {
 }
 
 
+bool
+GNENetHelper::AttributeCarriers::TAZElementExist(const GNETAZElement* TAZElement) const {
+    // first check that TAZElement pointer is valid
+    if (TAZElement) {
+        return myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement->getID()) !=
+               myTAZElements.at(TAZElement->getTagProperty().getTag()).end();
+    } else {
+        throw ProcessError("Invalid TAZElement pointer");
+    }
+}
+
+
 const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >&
 GNENetHelper::AttributeCarriers::getDemandElements() const {
     return myDemandElements;
@@ -1156,18 +1168,6 @@ GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const st
         myShapes.at(AC->getTagProperty().getXMLTag()).insert(std::make_pair(shape->getID(), shape));
         // shapes has to be saved
         myNet->requireSaveAdditionals(true);
-    }
-}
-
-
-bool
-GNENetHelper::AttributeCarriers::TAZElementExist(const GNETAZElement* TAZElement) const {
-    // first check that TAZElement pointer is valid
-    if (TAZElement) {
-        return myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement->getID()) !=
-               myTAZElements.at(TAZElement->getTagProperty().getTag()).end();
-    } else {
-        throw ProcessError("Invalid TAZElement pointer");
     }
 }
 

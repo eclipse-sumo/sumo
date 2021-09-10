@@ -195,6 +195,9 @@ struct GNENetHelper {
         /// @brief get number of selected TAZs
         int getNumberOfSelectedTAZs() const;
 
+        /// @brief return true if given TAZElement exist
+        bool TAZElementExist(const GNETAZElement* TAZElement) const;
+
         /// @}
 
         /// @name function for demand elements
@@ -351,9 +354,6 @@ struct GNENetHelper {
 
         /// @name Insertion and erasing of GNETAZElements items
         /// @{
-
-        /// @brief return true if given TAZElement exist
-        bool TAZElementExist(const GNETAZElement* TAZElement) const;
 
         /**@brief Insert a TAZElement element int GNENet container.
          * @throw processError if route was already inserted
