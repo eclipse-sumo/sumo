@@ -210,7 +210,7 @@ GNETAZRelData::fixGenericDataProblem() {
 void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
     // draw TAZRels
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    if (drawTAZRel()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // push name (needed for getGUIGlObjectsUnderCursor(...)
@@ -405,6 +405,32 @@ GNETAZRelData::getPopUpID() const {
 std::string
 GNETAZRelData::getHierarchyName() const {
     return getTagStr() + ": " + getParentTAZElements().front()->getID() + "->" + getParentTAZElements().back()->getID();
+}
+
+
+bool 
+GNETAZRelData::drawTAZRel() const {
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        return false;
+    }
+    if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
+        (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
+        (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
+        // get TAZ
+        const auto TAZ = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        if (getParentTAZElements().size() == 2) {
+            if ((getParentTAZElements().front() == TAZ)  &&
+                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
+                return true;
+            } else if ((getParentTAZElements().back() == TAZ)  &&
+                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 

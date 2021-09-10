@@ -193,6 +193,9 @@ protected:
     GNEGeometry::Geometry myTAZRelGeometryCenter;
 
 private:
+    /// @brief check draw conditions
+    bool drawTAZRel() const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
