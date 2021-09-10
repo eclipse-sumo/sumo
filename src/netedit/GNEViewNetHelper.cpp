@@ -1806,8 +1806,6 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
             myViewNet->myDataCheckableButtons.showDataCheckableButtons();
             // force update data mode
             setDataEditMode(dataEditMode, true);
-            // demand modes require ALWAYS a recomputing
-            myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
             // check if update path calculator
             if (!myViewNet->myNet->getPathManager()->getPathCalculator()->isPathCalculatorUpdated()) {
                 // update DijkstraRouter of RouteCalculatorInstance
