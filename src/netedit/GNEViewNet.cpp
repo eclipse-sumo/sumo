@@ -4897,7 +4897,11 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
     switch (myEditModes.dataEditMode) {
         case DataEditMode::DATA_INSPECT: {
             // process left click in Inspector Frame
-            myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+                myViewParent->getInspectorFrame()->inspectSingleElement(AC);
+            } else {
+                myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            }
             // process click
             processClick(eventData);
             break;
