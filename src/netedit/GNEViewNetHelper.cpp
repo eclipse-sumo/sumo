@@ -2501,7 +2501,7 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\t\tToggle draw TAZREL drawing mode."),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING, GUIDesignMFXCheckableButton);
-    menuCheckToogleTAZRelDrawing->setChecked(false);
+    menuCheckToogleTAZRelDrawing->setChecked(true);
     menuCheckToogleTAZRelDrawing->create();
 
     menuCheckToogleTAZDrawFill = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
