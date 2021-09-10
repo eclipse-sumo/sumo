@@ -438,14 +438,27 @@ GNETAZRelData::getHierarchyName() const {
 
 bool
 GNETAZRelData::drawTAZRel() const {
+    // first check supermode
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return false;
     }
+    // check dataSet
+    const GNEDataSet* dataSet = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getDataSetSelector()->getDataSet();
+    if (dataSet && (myDataIntervalParent->getDataSetParent() != dataSet)) {
+        return false;
+    }
+    // check interval
+    const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getIntervalSelector()->getDataInterval();
+    if (dataInterval && (myDataIntervalParent != dataInterval)) {
+        return false;
+    }
+    // check if we're inspecting a TAZ
     if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
         (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
         (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
         // get TAZ
         const auto TAZ = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // ignore TAZRels with one TAZParent
         if (getParentTAZElements().size() == 2) {
             if ((getParentTAZElements().front() == TAZ)  &&
                 myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
