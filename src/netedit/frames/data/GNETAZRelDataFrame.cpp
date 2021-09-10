@@ -75,9 +75,10 @@ GNETAZRelDataFrame::TAZRelLegend::setLabels(const GNETAZElement *fromTAZ, const 
 
 GNETAZRelDataFrame::GNETAZRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_TAZREL, false),
-    myTAZRelLegend(nullptr),
     myFirstTAZ(nullptr),
-    mySecondTAZ(nullptr) {
+    mySecondTAZ(nullptr),
+    myTAZRelLegend(nullptr)
+{
     // create legend
     myTAZRelLegend = new TAZRelLegend(this);
 }
