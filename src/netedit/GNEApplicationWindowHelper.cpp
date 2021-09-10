@@ -765,6 +765,8 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::DataViewOptions(G
     menuCheckShowDemandElements(nullptr),
     menuCheckToogleTAZRelDrawing(nullptr),
     menuCheckToogleTAZDrawFill(nullptr),
+    menuCheckToogleTAZRelOnlyFrom(nullptr),
+    menuCheckToogleTAZRelOnlyTo(nullptr),
     separator(nullptr),
     myGNEApp(GNEApp) {
 }
@@ -789,14 +791,24 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS);
 
     menuCheckToogleTAZRelDrawing = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Toggle TAZRel drawing mode", "Alt+4", "",
-                                  GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
-                                  myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING);
+                                   "Toggle TAZRel drawing mode", "Alt+4", "",
+                                   GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
+                                   myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING);
 
     menuCheckToogleTAZDrawFill = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Toggle TAZ draw fill", "Alt+5", "",
-                                  GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
-                                  myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL);
+                                 "Toggle TAZ draw fill", "Alt+5", "",
+                                 GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
+                                 myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL);
+
+    menuCheckToogleTAZRelOnlyFrom = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                    "Toggle only draw TAZRel from", "Alt+5", "",
+                                    GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
+                                    myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM);
+
+    menuCheckToogleTAZRelOnlyTo = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                  "Toggle only draw TAZRel to", "Alt+6", "",
+                                  GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
+                                  myGNEApp, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO);
     // build separator
     separator = new FXMenuSeparator(editMenu);
 }
@@ -809,6 +821,8 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
     menuCheckShowDemandElements->hide();
     menuCheckToogleTAZRelDrawing->hide();
     menuCheckToogleTAZDrawFill->hide();
+    menuCheckToogleTAZRelOnlyFrom->hide();
+    menuCheckToogleTAZRelOnlyTo->hide();
     separator->hide();
 }
 
@@ -1859,6 +1873,28 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
         }
         // Call manually onCmdToggleTAZDrawFill
         viewNet->onCmdToggleTAZDrawFill(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyFrom) {
+        // Toggle menuCheckToogleTAZRelOnlyFrom
+        if (viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyFrom->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled toogle TAZRel only from throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled toogle TAZRel only from throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleTAZRelOnlyFrom
+        viewNet->onCmdToggleTAZRelOnlyFrom(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyTo) {
+        // Toggle menuCheckToogleTAZRelOnlyTo
+        if (viewNet->getDataViewOptions().menuCheckToogleTAZRelOnlyTo->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled toogle TAZRel only to throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled toogle TAZRel only to throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleTAZRelOnlyTo
+        viewNet->onCmdToggleTAZRelOnlyTo(obj, sel, nullptr);
     } else {
         return false;
     }
