@@ -2467,6 +2467,8 @@ GNEViewNetHelper::DataViewOptions::DataViewOptions(GNEViewNet* viewNet) :
     menuCheckShowDemandElements(nullptr),
     menuCheckToogleTAZRelDrawing(nullptr),
     menuCheckToogleTAZDrawFill(nullptr),
+    menuCheckToogleTAZRelOnlyFrom(nullptr),
+    menuCheckToogleTAZRelOnlyTo(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -2509,6 +2511,20 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     menuCheckToogleTAZDrawFill->setChecked(false);
     menuCheckToogleTAZDrawFill->create();
 
+    menuCheckToogleTAZRelOnlyFrom = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle draw TAZRel only from"),
+            GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM, GUIDesignMFXCheckableButton);
+    menuCheckToogleTAZRelOnlyFrom->setChecked(false);
+    menuCheckToogleTAZRelOnlyFrom->create();
+
+    menuCheckToogleTAZRelOnlyTo = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle draw TAZRel only to"),
+            GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO, GUIDesignMFXCheckableButton);
+    menuCheckToogleTAZRelOnlyTo->setChecked(false);
+    menuCheckToogleTAZRelOnlyTo->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2521,6 +2537,8 @@ GNEViewNetHelper::DataViewOptions::hideDataViewOptionsMenuChecks() {
     menuCheckShowDemandElements->hide();
     menuCheckToogleTAZRelDrawing->hide();
     menuCheckToogleTAZDrawFill->hide();
+    menuCheckToogleTAZRelOnlyFrom->hide();
+    menuCheckToogleTAZRelOnlyTo->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
 }
@@ -2543,6 +2561,12 @@ GNEViewNetHelper::DataViewOptions::getVisibleDataMenuCommands(std::vector<MFXChe
     }
     if (menuCheckToogleTAZDrawFill->shown()) {
         commands.push_back(menuCheckToogleTAZDrawFill);
+    }
+    if (menuCheckToogleTAZRelOnlyFrom->shown()) {
+        commands.push_back(menuCheckToogleTAZRelOnlyFrom);
+    }
+    if (menuCheckToogleTAZRelOnlyTo->shown()) {
+        commands.push_back(menuCheckToogleTAZRelOnlyTo);
     }
 }
 
@@ -2587,6 +2611,26 @@ bool
 GNEViewNetHelper::DataViewOptions::TAZDrawFill() const {
     if (menuCheckToogleTAZDrawFill->shown()) {
         return (menuCheckToogleTAZDrawFill->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::DataViewOptions::TAZRelOnlyFrom() const {
+    if (menuCheckToogleTAZRelOnlyFrom->shown()) {
+        return (menuCheckToogleTAZRelOnlyFrom->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::DataViewOptions::TAZRelOnlyTo() const {
+    if (menuCheckToogleTAZRelOnlyTo->shown()) {
+        return (menuCheckToogleTAZRelOnlyTo->amChecked() == TRUE);
     } else {
         return false;
     }
