@@ -825,6 +825,28 @@ public:
     GUIVisualizationTextSettings polyType;
     /// @}
 
+
+    /// @name data mode visualization settings
+    /// @{
+    /// @brief the edgeRelation / tazRelation colorer
+    GUIColorer dataColorer;
+    GUIVisualizationTextSettings dataValue;
+
+    /// @brief The tazRelation exaggeration (upscale thickness)
+    double tazRelWidthExaggeration;
+
+    /// @brief The edgeRelation exaggeration (upscale thickness)
+    double edgeRelWidthExaggeration;
+
+    /// @brief key for coloring by edgeRelation / tazRelation attribute
+    std::string relDataAttr;
+
+    /// @brief value below which relation data value should not be rendered
+    //bool relValueHideCheck;
+    //double relValueHideThreshold;
+    /// @}
+
+
     /// @brief Information whether the size legend shall be drawn
     bool showSizeLegend;
 
@@ -878,6 +900,7 @@ public:
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
+    static const std::string SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL;
     static const std::string SCHEME_NAME_SELECTION;
     static const std::string SCHEME_NAME_TYPE;
     static const std::string SCHEME_NAME_PERMISSION_CODE;

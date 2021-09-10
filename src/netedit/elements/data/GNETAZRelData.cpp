@@ -68,7 +68,31 @@ GNETAZRelData::~GNETAZRelData() {}
 
 const RGBColor&
 GNETAZRelData::getColor() const {
-    return RGBColor::ORANGE;
+    return myColor;
+}
+
+double
+GNETAZRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 0:
+            return 0;
+        case 1:
+            return isAttributeCarrierSelected();
+        case 2:
+            return 0; // setfunctional color const GNETAZElement* TAZA = getParentTAZElements().front();
+        case 3:
+            return 0; // setfunctional color const GNETAZElement* TAZA = getParentTAZElements().back();
+        case 4:
+            // by numerical attribute value
+            try {
+                return StringUtils::toDouble(getParameter(s.relDataAttr, "-1"));
+            } catch (NumberFormatException&) {
+                return -1;
+            }
+
+    }
+    return 0;
+
 }
 
 
@@ -141,7 +165,7 @@ GNETAZRelData::updateGeometry() {
         }
         // add offset to line
         line.move2side(1);
-        // calculate middle point 
+        // calculate middle point
         const Position middlePoint = line.getLineCenter();
         // get closest points to middlePoint
         Position posA = TAZA->getTAZElementShape().positionAtOffset2D(TAZA->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
@@ -222,7 +246,10 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
         // set color
-        GLHelper::setColor(getColor());
+        double val = getColorValue(s, s.dataColorer.getActive());
+        myColor = s.dataColorer.getScheme().getColor(val);
+        GLHelper::setColor(myColor);
+
         // draw geometry
         if (onlyDrawContour) {
             // draw depending of TAZRelDrawing
@@ -232,18 +259,19 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.1);
             }
         } else {
+            const double width = 0.5 * s.tazRelWidthExaggeration;
             // draw depending of TAZRelDrawing
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.5);
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, width);
                 GLHelper::drawTriangleAtEnd(
-                    *(myTAZRelGeometryCenter.getShape().end() - 2), 
-                    *(myTAZRelGeometryCenter.getShape().end() - 1), 
+                    *(myTAZRelGeometryCenter.getShape().end() - 2),
+                    *(myTAZRelGeometryCenter.getShape().end() - 1),
                     1.5, 1.5, 0.5);
             } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.5);
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, width);
                 GLHelper::drawTriangleAtEnd(
-                    *(myTAZRelGeometry.getShape().end() - 2), 
-                    *(myTAZRelGeometry.getShape().end() - 1), 
+                    *(myTAZRelGeometry.getShape().end() - 2),
+                    *(myTAZRelGeometry.getShape().end() - 1),
                     1.5, 1.5, 0.5);
             }
         }
@@ -408,7 +436,7 @@ GNETAZRelData::getHierarchyName() const {
 }
 
 
-bool 
+bool
 GNETAZRelData::drawTAZRel() const {
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return false;

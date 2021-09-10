@@ -383,6 +383,17 @@ protected:
     std::vector<FXButton*> myPolyButtons;
     FXCheckButton* myPolyColorInterpolation;
 
+    /// @brief Data
+    MFXIconComboBox* myDataColorMode;
+    FXVerticalFrame* myDataColorSettingFrame;
+    std::vector<FXColorWell*> myDataColors;
+    std::vector<FXRealSpinner*> myDataThresholds;
+    std::vector<FXButton*> myDataButtons;
+    FXCheckButton* myDataColorInterpolation;
+    FXComboBox* myDataParamKey;
+    FXRealSpinner* myEdgeRelationUpscaleDialer;
+    FXRealSpinner* myTazRelationUpscaleDialer;
+
     /// @brief buttons
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
@@ -406,7 +417,8 @@ protected:
                *myContainerNamePanel,
                *myAddNamePanel, *myAddFullNamePanel,
                *myPOINamePanel, *myPOITypePanel, *myPOITextPanel,
-               *myPolyNamePanel, *myPolyTypePanel;
+               *myPolyNamePanel, *myPolyTypePanel,
+               *myDataValuePanel;
 
     /// @brief size panels
     SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;

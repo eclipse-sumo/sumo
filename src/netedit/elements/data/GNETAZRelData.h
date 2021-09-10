@@ -52,7 +52,7 @@ public:
      * @param[in] TAZ pointer to TAZ
      * @param[in] parameters parameters map
      */
-    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ, 
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
                   const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
@@ -60,6 +60,7 @@ public:
 
     /// @brief get TAZ rel data color
     const RGBColor& getColor() const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current TAZ rel data is visible
     bool isGenericDataVisible() const;
@@ -207,6 +208,8 @@ private:
 
     /// @brief Invalidated assignment operator.
     GNETAZRelData& operator=(const GNETAZRelData&) = delete;
+
+    mutable RGBColor myColor;
 };
 
 /****************************************************************************/

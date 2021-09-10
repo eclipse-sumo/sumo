@@ -216,6 +216,7 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by
 const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL("by param (numerical)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL("by edgeData (numerical, streetwise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL("by attribute (numerical)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
 const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
 const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE("by permission code");
@@ -467,6 +468,10 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     poiTextParam("PARAM_TEXT"),
     polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
     polyType(false, 60, RGBColor(255, 0, 128, 255)),
+    dataValue(false, 100, RGBColor::CYAN),
+    tazRelWidthExaggeration(1),
+    edgeRelWidthExaggeration(1),
+    relDataAttr("count"),
     showSizeLegend(true),
     showColorLegend(false),
     showVehicleColorLegend(false),
@@ -1376,6 +1381,17 @@ GUIVisualizationSettings::initNeteditDefaults() {
         laneScaler.addScheme(edgeScheme);
     }
 
+    /// add data coloring schemes
+    dataColorer.addScheme(GUIColorScheme("uniform", RGBColor::ORANGE, "", true));
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
+    dataColorer.addScheme(scheme);
+    dataColorer.addScheme(GUIColorScheme("by origin taz", RGBColor::ORANGE, "", true));
+    dataColorer.addScheme(GUIColorScheme("by destination taz", RGBColor::ORANGE, "", true));
+    scheme = GUIColorScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme.setAllowsNegativeValues(true);
+    dataColorer.addScheme(scheme);
+
     // dummy schemes
     vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
     personColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
@@ -1861,6 +1877,21 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showVehicleColorLegend != v2.showVehicleColorLegend) {
+        return false;
+    }
+    if (!(dataColorer == v2.dataColorer)) {
+        return false;
+    }
+    if (!(dataValue == v2.dataValue)) {
+        return false;
+    }
+    if (!(tazRelWidthExaggeration == v2.tazRelWidthExaggeration)) {
+        return false;
+    }
+    if (!(edgeRelWidthExaggeration == v2.edgeRelWidthExaggeration)) {
+        return false;
+    }
+    if (!(relDataAttr == v2.relDataAttr)) {
         return false;
     }
 

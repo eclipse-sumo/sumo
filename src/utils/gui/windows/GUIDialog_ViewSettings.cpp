@@ -518,6 +518,49 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m102, "edgeData", nullptr, GUIDesignViewSettingsLabel1);
         mySelectedEdgeDataColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedEdgeDataColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     }
+    if (settings->netedit) {
+        // tab for data mode
+        new FXTabItem(tabbook, "Data", nullptr, GUIDesignViewSettingsTabItemBook1);
+        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
+        FXVerticalFrame* frame11 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
+        //  ... color settings
+        FXVerticalFrame* frame112 = new FXVerticalFrame(frame11, GUIDesignViewSettingsVerticalFrame6);
+        FXMatrix* m111 = new FXMatrix(frame112, 4, GUIDesignViewSettingsMatrix3);
+        new FXLabel(m111, "Color", nullptr, GUIDesignViewSettingsLabel1);
+        myDataColorMode = new MFXIconComboBox(m111, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+        myDataColorInterpolation = new FXCheckButton(m111, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+        myDataColorSettingFrame = new FXVerticalFrame(frame112, GUIDesignViewSettingsVerticalFrame4);
+        myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+        myDataParamKey->disable();
+        myDataParamKey->setEditable(true);
+
+        mySettings->dataColorer.fill(*myDataColorMode);
+        myDataColorMode->setNumVisible((int)mySettings->dataColorer.size());
+
+        // rainbow settings
+        //FXMatrix* m114 = new FXMatrix(frame112, 3, GUIDesignViewSettingsMatrix3);
+        //myLaneColorRainbow = new FXButton(m114, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+        //                                  (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+        //myLaneColorRainbowCheck = new FXCheckButton(m114, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+        //myLaneColorRainbowThreshold = new FXRealSpinner(m114, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+        //myLaneColorRainbowThreshold->setRange(-100000, 100000);
+
+        new FXHorizontalSeparator(frame11, GUIDesignHorizontalSeparator);
+        FXMatrix* m112 = new FXMatrix(frame11, 2, GUIDesignViewSettingsMatrix1);
+
+        new FXLabel(m112, "Exaggerate edgeRelation width by", nullptr, GUIDesignViewSettingsLabel1);
+        myEdgeRelationUpscaleDialer = new FXRealSpinner(m112, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+        myEdgeRelationUpscaleDialer->setRange(0, 1000000);
+        myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
+
+        new FXLabel(m112, "Exaggerate tazRelation width by", nullptr, GUIDesignViewSettingsLabel1);
+        myTazRelationUpscaleDialer = new FXRealSpinner(m112, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+        myTazRelationUpscaleDialer->setRange(0, 1000000);
+        myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
+
+        // text decoration
+        myDataValuePanel = new NamePanel(m112, this, "Show data color value", mySettings->dataValue);
+    }
     {
         // Legend
         new FXTabItem(tabbook, "Legend", nullptr, GUIDesignViewSettingsTabItemBook1);
@@ -595,6 +638,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myPolyNamePanel;
     delete myPolyTypePanel;
     delete myEdgeNamePanel;
+    delete myDataValuePanel;
     // delete size panels
     delete myVehicleSizePanel;
     delete myPersonSizePanel;
@@ -669,6 +713,11 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
         mySelectedPersonColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonColor));
         mySelectedPersonPlanColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonPlanColor));
         mySelectedEdgeDataColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeDataColor));
+
+        myDataValuePanel->update(mySettings->dataValue);
+        myDataColorMode->setCurrentItem((FXint) mySettings->dataColorer.getActive());
+        myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
+        myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -866,6 +915,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     int prevJunctionMode = mySettings->junctionColorer.getActive();
     int prevPOIMode = mySettings->poiColorer.getActive();
     int prevPolyMode = mySettings->polyColorer.getActive();
+    int prevDataMode = mySettings->dataColorer.getActive();
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
@@ -921,6 +971,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     } else if (sender == myVehicleParamKey) {
         if (tmpSettings.vehicleColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
             tmpSettings.vehicleParam = myVehicleParamKey->getText().text();
+        }
+    } else if (sender == myDataParamKey) {
+        if (tmpSettings.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+            tmpSettings.relDataAttr = myDataParamKey->getText().text();
         }
     } else if (sender == myVehicleTextPanel->myCheck) {
         updateVehicleParams();
@@ -987,6 +1041,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.polyName = myPolyNamePanel->getSettings();
     tmpSettings.polyType = myPolyTypePanel->getSettings();
     tmpSettings.polySize = myPolySizePanel->getSettings();
+
+    tmpSettings.dataValue = myDataValuePanel->getSettings();
+    tmpSettings.dataColorer.setActive(myDataColorMode->getCurrentItem());
+    tmpSettings.dataValue = myDataValuePanel->getSettings();
+    tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
+    tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
     tmpSettings.drawJunctionShape = (myDrawJunctionShape->getCheck() != FALSE);
@@ -1116,6 +1176,20 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         }
         if (sender == myPolyColorInterpolation) {
             tmpSettings.polyColorer.getScheme().setInterpolated(myPolyColorInterpolation->getCheck() != FALSE);
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
+    }
+    // data
+    if (tmpSettings.dataColorer.getActive() == prevDataMode) {
+        if (updateColorRanges(sender, myDataColors.begin(), myDataColors.end(),
+                              myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
+                              tmpSettings.dataColorer.getScheme())) {
+            doRebuildColorMatrices = true;
+        }
+        if (sender == myDataColorInterpolation) {
+            tmpSettings.dataColorer.getScheme().setInterpolated(myDataColorInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {
@@ -1699,6 +1773,22 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         m->create();
     }
     myPolyColorSettingFrame->getParent()->recalc();
+
+    // data
+    m = rebuildColorMatrix(myDataColorSettingFrame, myDataColors, myDataThresholds, myDataButtons, myDataColorInterpolation, mySettings->dataColorer.getScheme());
+    if (doCreate) {
+        m->create();
+    }
+    activeSchemeName = myDataColorMode->getText().text();
+    myDataParamKey->setEditable(true);
+    if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+        myDataParamKey->clearItems();
+        myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
+        myDataParamKey->enable();
+    } else {
+        myDataParamKey->disable();
+    }
+    myDataColorSettingFrame->getParent()->recalc();
 
     layout();
     update();
