@@ -89,7 +89,7 @@ def main(options):
                           file=output)
                     if fleet_out:
                         for idx in range(int(length / VEHICLE_LENGTH)):
-                            print('    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %
+                            print('    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %  # noqa
                                   (stopID, idx, stopID), file=fleet_out)
                     count += 1
         print(u"</additional>", file=output)

@@ -85,9 +85,10 @@ def main(options):
               (ambiguousSink[:5], len(ambiguousSink)))
 
     inputRoutes = ET.parse(options.routefile)
-    numFromNotFound = 0
-    numToNotFound = 0
-    numVehicles = 0
+    class nl:  # nonlocal integral variables
+        numFromNotFound = 0
+        numToNotFound = 0
+        numVehicles = 0
 
     def addAttrs(vehicle, fromEdge, toEdge):
         vehID = vehicle.attrib['id']
@@ -95,20 +96,19 @@ def main(options):
             fromTaz = random.choice(edgeFromTaz[fromEdge])
             vehicle.set('fromTaz', fromTaz)
         else:
-            numFromNotFound += 1
-            if numFromNotFound < 5:
+            nl.numFromNotFound += 1
+            if nl.numFromNotFound < 5:
                 print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
         if toEdge in edgeToTaz:
             toTaz = random.choice(edgeToTaz[toEdge])
             vehicle.set('toTaz', toTaz)
         else:
-            numToNotFound += 1
-            if numToNotFound < 5:
+            nl.numToNotFound += 1
+            if nl.numToNotFound < 5:
                 print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
 
-
     for vehicle in inputRoutes.getroot().iter('vehicle'):
-        numVehicles += 1
+        nl.numVehicles += 1
         vehID = vehicle.attrib['id']
         edges = None
         for child in vehicle:
@@ -131,10 +131,10 @@ def main(options):
     for trip in inputRoutes.getroot().iter('trip'):
         addAttrs(trip, trip.attrib['from'], trip.attrib['to'])
 
-    print("read %s vehicles" % numVehicles)
-    if numFromNotFound > 0 or numToNotFound > 0:
+    print("read %s vehicles" % nl.numVehicles)
+    if nl.numFromNotFound > 0 or nl.numToNotFound > 0:
         print("No fromTaz found for %s edges and no toTaz found for %s edges" % (
-            numFromNotFound, numToNotFound))
+            nl.numFromNotFound, nl.numToNotFound))
     inputRoutes.write(options.outfile)
 
 

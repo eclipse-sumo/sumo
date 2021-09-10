@@ -25,7 +25,7 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime
+from sumolib.miscutils import parseTime  # noqa
 
 
 def get_options(args=None):
@@ -91,16 +91,16 @@ def main(options):
         print("edges %s (total %s) are sinks for more than one TAZ" %
               (ambiguousSink[:5], len(ambiguousSink)))
 
-    class nl: # nonlocal integral variables
+    class nl:  # nonlocal integral variables
         numFromNotFound = 0
         numToNotFound = 0
         numVehicles = 0
         end = 0
 
     # begin -> od -> count
-    intervals = defaultdict(lambda : defaultdict(lambda : 0))
+    intervals = defaultdict(lambda: defaultdict(lambda: 0))
 
-    def addVehicle(vehID, fromEdge, toEdge, time, count = 1):
+    def addVehicle(vehID, fromEdge, toEdge, time, count=1):
         nl.numVehicles += count
         fromTaz = None
         toTaz = None
@@ -108,13 +108,13 @@ def main(options):
             fromTaz = random.choice(edgeFromTaz[fromEdge])
         else:
             nl.numFromNotFound += 1
-            if numFromNotFound < 5:
+            if nl.numFromNotFound < 5:
                 print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
         if toEdge in edgeToTaz:
             toTaz = random.choice(edgeToTaz[toEdge])
         else:
             nl.numToNotFound += 1
-            if numToNotFound < 5:
+            if nl.numToNotFound < 5:
                 print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
         if fromTaz and toTaz:
             if options.interval is None:
@@ -124,13 +124,12 @@ def main(options):
             intervals[intervalBegin][(fromTaz, toTaz)] += count
         nl.end = max(nl.end, time)
 
-
     for vehicle in sumolib.xml.parse(options.routefile, ['vehicle']):
         if vehicle.route and type(vehicle.route) == list:
             edges = vehicle.route[0].edges.split()
             addVehicle(vehicle.id, edges[0], edges[-1], parseTime(vehicle.depart))
         else:
-            print("No edges found for vehicle '%s'" % vehID)
+            print("No edges found for vehicle '%s'" % vehicle.id)
 
     for trip in sumolib.xml.parse(options.routefile, ['trip']):
         addVehicle(trip.id, trip.attr_from, trip.to, parseTime(trip.depart))
@@ -147,7 +146,7 @@ def main(options):
                 count = time * float(flow.vehsPerHour) / 3600
             elif flow.period:
                 count = time / float(flow.period)
-        if count == None:
+        if count is None:
             print("Could not determine count for flow '%s'" % (flow.id))
             count = 1
 
