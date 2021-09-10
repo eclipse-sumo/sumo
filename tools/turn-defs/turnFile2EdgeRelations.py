@@ -48,7 +48,7 @@ def get_options(args=None):
 
 def main(options):
     with open(options.out, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "edgeRelations", "edgerelations_file.xsd")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd")  # noqa
         for interval in sumolib.xml.parse(options.turnFile, 'interval'):
             outf.write('    <interval begin="%s" end="%s">\n' % (
                 interval.begin, interval.end))
