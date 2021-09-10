@@ -440,13 +440,15 @@ class SimulationDomain(Domain):
 
     def getMinExpectedNumber(self):
         """getMinExpectedNumber() -> integer
-
-        Returns the number of vehicles which are in the net plus the
-        ones still waiting to start. This number may be smaller than
+        Returns the number of all active vehicles and persons which are in the net plus the
+        ones still waiting to start. Vehicles and persons currently stopped with a
+        'trigger' are excluded from this number (if only triggered objects
+        remain, the trigger condition cannot be fulfilled and all objects remain
+        stopped without user intervention).
+        The returned number may also be smaller than
         the actual number of vehicles still to come because of delayed
         route file parsing. If the number is 0 however, it is
-        guaranteed that all route files have been parsed completely
-        and all vehicles have left the network.
+        guaranteed that all route files have been parsed completely.
         """
         return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
