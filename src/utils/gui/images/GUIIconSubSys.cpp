@@ -160,6 +160,8 @@
 #include "checkbox_spreadvehicle.xpm"
 #include "checkbox_tazreldrawing.xpm"
 #include "checkbox_tazdrawfill.xpm"
+#include "checkbox_tazrelonlyfrom.xpm"
+#include "checkbox_tazrelonlyto.xpm"
 #include "checkbox_twoway.xpm"
 
 #include "lanebike.xpm"
@@ -508,6 +510,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES] = new FXXPMIcon(a, checkbox_showshapes_xpm);
     myIcons[GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING] = new FXXPMIcon(a, checkbox_tazreldrawing_xpm);
     myIcons[GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL] = new FXXPMIcon(a, checkbox_tazdrawfill_xpm);
+    myIcons[GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM] = new FXXPMIcon(a, checkbox_tazrelonlyfrom_xpm);
+    myIcons[GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO] = new FXXPMIcon(a, checkbox_tazrelonlyto_xpm);
 
     myIcons[GUIIcon::ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
     myIcons[GUIIcon::ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);
