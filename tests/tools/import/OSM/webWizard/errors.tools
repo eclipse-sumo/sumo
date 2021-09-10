@@ -149,6 +149,4 @@ Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
-Warning: Person 'ped133' is jammed on edge ':1828018040_c0', time=1671.00.
-Warning: Person 'ped71' aborted waiting for 100:0 at busStop '3867910420'.
-Warning: Person 'ped139' aborted waiting for M4:2 at busStop '30731508'.
+Warning: Person 'ped19' aborted waiting for M5:0 at busStop '1661927028'.
