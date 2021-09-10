@@ -126,6 +126,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToggleShowDemandElementsData),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,           GNEViewNet::onCmdToggleTAZRelDrawing),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,             GNEViewNet::onCmdToggleTAZDrawFill),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,          GNEViewNet::onCmdToggleTAZRelOnlyFrom),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,             GNEViewNet::onCmdToggleTAZRelOnlyTo),
     // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
@@ -3393,6 +3395,44 @@ GNEViewNet::onCmdToggleTAZDrawFill(FXObject*, FXSelector sel, void*) {
 }
 
 
+long 
+GNEViewNet::onCmdToggleTAZRelOnlyFrom(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowDemandElements
+    if (myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->setChecked(FALSE);
+    } else {
+        myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->setChecked(TRUE);
+    }
+    myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->update();
+    // update view to show demand elements
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM)) {
+        myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->setFocus();
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdToggleTAZRelOnlyTo(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowDemandElements
+    if (myDataViewOptions.menuCheckToogleTAZRelOnlyTo->amChecked() == TRUE) {
+        myDataViewOptions.menuCheckToogleTAZRelOnlyTo->setChecked(FALSE);
+    } else {
+        myDataViewOptions.menuCheckToogleTAZRelOnlyTo->setChecked(TRUE);
+    }
+    myDataViewOptions.menuCheckToogleTAZRelOnlyTo->update();
+    // update view to show demand elements
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO)) {
+        myDataViewOptions.menuCheckToogleTAZRelOnlyTo->setFocus();
+    }
+    return 1;
+}
+
+
 long
 GNEViewNet::onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*) {
     myIntervalBar.setGenericDataType();
@@ -3919,10 +3959,14 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCurrentFrame = myViewParent->getInspectorFrame();
             // set checkable button
             myCommonCheckableButtons.inspectButton->setChecked(true);
-            // show toogle TAZRel drawing view option
+            // show view option
             myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
-            // show toogle TAZRel drawing menu check
+            myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->show();
+            myDataViewOptions.menuCheckToogleTAZRelOnlyTo->show();
+            // show menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
+            menuChecks.menuCheckToogleTAZRelOnlyFrom->show();
+            menuChecks.menuCheckToogleTAZRelOnlyTo->show();
             // enable IntervalBar
             myIntervalBar.enableIntervalBar();
             break;
