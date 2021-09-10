@@ -1256,16 +1256,38 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
 void
 GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string>& parameters) {
+    // parse edges
+    const std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_TAZ, edgeIDs);
+    // check TAZShape
+    PositionVector TAZShape = shape;
+    if (TAZShape.size() == 0) {
+        // declare boundary
+        Boundary TAZBoundary;
+        for (const auto &edge : edges) {
+            TAZBoundary.add(edge->getCenteringBoundary());
+        }
+        // iterate over children and add sourceSinkEdge boundaries
+        for (const auto &sourceSink : sumoBaseObject->getSumoBaseObjectChildren()) {
+            const GNEEdge* sourceSinkEdge = myNet->retrieveEdge(sourceSink->getStringAttribute(SUMO_ATTR_ID), false);
+            if (sourceSinkEdge) {
+                TAZBoundary.add(sourceSinkEdge->getCenteringBoundary());
+            }
+        }
+        // update TAZShape
+        TAZShape = TAZBoundary.getShape(true);
+    }
     // check TAZ
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TAZ, id);
-    } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) == nullptr) {
+    } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAG, id);
+    } else if (TAZShape.size() == 0) {
+        WRITE_ERROR("Could not build " + toString(SUMO_TAG_TAZ) + " with ID '" + id + "' in netedit; Invalid Shape.");
+    } else {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
-        // parse edges
-        std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_TAZ, edgeIDs);
-        // build TAZ
-        GNETAZElement* TAZ = new GNETAZ(id, myNet, shape, color, name, parameters);
+        // build TAZ with the given shape
+        GNETAZElement* TAZ = new GNETAZ(id, myNet, TAZShape, color, name, parameters);
         // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
         myNet->disableUpdateGeometry();
         // add it depending of allow undoRed
@@ -1300,8 +1322,6 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         myNet->enableUpdateGeometry();
         // update TAZ parent
         TAZ->updateGeometry();
-    } else {
-        writeErrorDuplicated(SUMO_TAG_TAG, id);
     }
 }
 
