@@ -113,7 +113,9 @@ void
 GNETAZRelDataFrame::buildTAZRelationData() {
     // check conditions
     if (myFirstTAZ && mySecondTAZ) {
-        if (myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {
+        if ((myFirstTAZ == mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ)) {
+            WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in TAZ'" + myFirstTAZ->getID() + "'.");
+        } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {
             WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between TAZ'" + myFirstTAZ->getID() + "' and '" + mySecondTAZ->getID() + "'.");
         } else {
             // declare data handler
