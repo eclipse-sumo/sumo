@@ -204,7 +204,7 @@ GNETAZ::getCenteringBoundary() const {
         return myMovingGeometryBoundary;
     } else if (myShape.size() > 0) {
         Boundary b = myShape.getBoxBoundary();
-        b.grow(20);
+        b.grow(40);
         return b;
     } else {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
