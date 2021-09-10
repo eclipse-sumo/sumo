@@ -114,25 +114,20 @@ def import_gtfs(options, gtfsZip):
     # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
     full_day = pd.to_timedelta("24:00:00")
 
-    def fix_day(time_string):
-        timedelta = pd.to_timedelta(time_string)
-        if timedelta >= full_day:
-            return timedelta - full_day
-        return timedelta
-    stop_times['arrival_fixed'] = stop_times.arrival_time.apply(fix_day)
-    stop_times['departure_fixed'] = stop_times.departure_time.apply(fix_day)
+    stop_times['arrival_fixed'] = pd.to_timedelta(stop_times.arrival_time) % full_day
+    stop_times['departure_fixed'] = pd.to_timedelta(stop_times.departure_time) % full_day
 
     time_interval = options.end - options.begin
+    start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
+
     # if time_interval >= 86400 (24 hs), no filter needed
     if time_interval < 86400 and options.end <= 86400:
         # if simulation time end on the same day
-        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end)))
         stop_times = stop_times[(start_time <= stop_times['departure_fixed']) &
                                 (stop_times['departure_fixed'] <= end_time)]
     elif time_interval < 86400 and options.end > 86400:
         # if simulation time includes next day trips
-        start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         end_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.end - 86400)))
         stop_times = stop_times[~((stop_times['departure_fixed'] > end_time) &
                                   (stop_times['departure_fixed'] < start_time))]
