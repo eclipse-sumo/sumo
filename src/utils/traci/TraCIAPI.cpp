@@ -3087,13 +3087,10 @@ TraCIAPI::VehicleScope::addSubscriptionFilterLeadFollow(const std::vector<int>& 
 }
 
 void
-TraCIAPI::VehicleScope::addSubscriptionFilterTurn(double downstreamDist, double upstreamDist) const {
-    addSubscriptionFilterEmpty(libsumo::FILTER_TYPE_TURN);
+TraCIAPI::VehicleScope::addSubscriptionFilterTurn(double downstreamDist, double foeDistToJunction) const {
+    addSubscriptionFilterFloat(libsumo::FILTER_TYPE_TURN, foeDistToJunction);
     if (downstreamDist >= 0) {
         addSubscriptionFilterDownstreamDistance(downstreamDist);
-    }
-    if (upstreamDist >= 0) {
-        addSubscriptionFilterUpstreamDistance(upstreamDist);
     }
 }
 
