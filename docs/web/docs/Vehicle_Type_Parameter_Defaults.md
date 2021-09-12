@@ -436,6 +436,6 @@ vehicle types).
 - (34): <https://en.wikipedia.org/wiki/Orders_of_magnitude_(acceleration)>
 - (35): https://www.researchgate.net/publication/311633504_Improving_Road_Safety_of_Tank_Truck_in_Indonesia_by_Speed_Limiter_Installation
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
-- (37): <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
+- (37): <https://www.rettungsdienst.brk.de/abteilung/beschaffung/rettungswagen-rtw/rtw-by-2010.html>
 - (\*): estimated
 - (\*\*): need to be revisited to fit to model behavior
