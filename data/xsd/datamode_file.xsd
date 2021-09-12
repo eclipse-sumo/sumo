@@ -32,6 +32,7 @@
         <xsd:attribute name="from" type="xsd:string" use="required"/>
         <xsd:attribute name="to" type="xsd:string" use="required"/>
         <xsd:attribute name="count" type="xsd:float" use="optional"/>
+        <xsd:attribute name="probability" type="xsd:float" use="optional"/>
         <xsd:anyAttribute/>
     </xsd:complexType>
 
