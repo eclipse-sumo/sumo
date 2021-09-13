@@ -978,8 +978,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 return handleVehicleTypeError(hardFail, vType, "Invalid manoeuver angle times map for vType '" + vType->id + "'");
             }
         }
-        // try to parse embedded vType
-        if (!parseVTypeEmbedded(vType, vType->cfModel, attrs, true)) {
+        // try to parse Car Following Model params
+        if (!parseCFMParams(vType, vType->cfModel, attrs, false)) {
             return handleVehicleTypeError(hardFail, vType, "Invalid parsing embedded VType");
         }
         // try to parse Lane Change Model params
@@ -1037,7 +1037,7 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
 
 
 bool
-SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool fromVType) {
+SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool nestedCFM) {
     const CFAttrMap& allowedCFM = getAllowedCFModelAttrs();
     CFAttrMap::const_iterator cf_it = allowedCFM.find(element);
     // check if given CFM is allowed
@@ -1049,8 +1049,8 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter* into, const Sumo
         }
         return false;
     }
-    // set car following model
-    if (!fromVType) {
+    // check if we're parsing a nested CFM
+    if (nestedCFM) {
         into->cfModel = cf_it->first;
         into->parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
     }

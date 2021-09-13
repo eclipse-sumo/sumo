@@ -743,7 +743,7 @@ RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attr
         // get vType to modify it
         auto vType = vTypeObject->getVehicleTypeParameter();
         // parse nested CFM attributes
-        if (SUMOVehicleParserHelper::parseVTypeEmbedded(&vType, tag, attrs, myHardFail)) {
+        if (SUMOVehicleParserHelper::parseCFMParams(&vType, tag, attrs,true)) {
             vTypeObject->setVehicleTypeParameter(&vType);
         } else if (myHardFail) {
             throw ProcessError("Invalid parsing embedded VType");

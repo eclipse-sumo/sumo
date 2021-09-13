@@ -102,17 +102,17 @@ public:
      */
     static bool parseAngleTimesMap(SUMOVTypeParameter* vtype, const std::string);
 
-    /** @brief Parses an element embedded in vtype definition
+    /** @brief Parses Car Following Mode params
      *
      * @param[in, filled] into The structure to fill with parsed values
      * @param[in] element The id of the currently parsed XML-element
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
-     * @param[in] fromVType Whether the attributes are a part of the vtype-definition
+     * @param[in] nestedCFM Whether the attributes are nested
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      */
-    static bool parseVTypeEmbedded(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool fromVType);
+    static bool parseCFMParams(SUMOVTypeParameter* into, const SumoXMLTag element, const SUMOSAXAttributes& attrs, const bool nestedCFM);
 
     /// @brief Parses lane change model attributes
     static bool parseLCParams(SUMOVTypeParameter* into, LaneChangeModel model, const SUMOSAXAttributes& attrs);
