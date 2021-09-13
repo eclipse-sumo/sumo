@@ -1775,20 +1775,22 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     myPolyColorSettingFrame->getParent()->recalc();
 
     // data
-    m = rebuildColorMatrix(myDataColorSettingFrame, myDataColors, myDataThresholds, myDataButtons, myDataColorInterpolation, mySettings->dataColorer.getScheme());
-    if (doCreate) {
-        m->create();
+    if (mySettings->netedit) {
+        m = rebuildColorMatrix(myDataColorSettingFrame, myDataColors, myDataThresholds, myDataButtons, myDataColorInterpolation, mySettings->dataColorer.getScheme());
+        if (doCreate) {
+            m->create();
+        }
+        activeSchemeName = myDataColorMode->getText().text();
+        myDataParamKey->setEditable(true);
+        if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+            myDataParamKey->clearItems();
+            myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
+            myDataParamKey->enable();
+        } else {
+            myDataParamKey->disable();
+        }
+        myDataColorSettingFrame->getParent()->recalc();
     }
-    activeSchemeName = myDataColorMode->getText().text();
-    myDataParamKey->setEditable(true);
-    if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
-        myDataParamKey->clearItems();
-        myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
-        myDataParamKey->enable();
-    } else {
-        myDataParamKey->disable();
-    }
-    myDataColorSettingFrame->getParent()->recalc();
 
     layout();
     update();
