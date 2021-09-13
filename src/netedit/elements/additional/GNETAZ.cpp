@@ -265,7 +265,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
         // check if we're drawing a polygon or a polyline
         if (getFill()) {
             if (s.drawForPositionSelection) {
