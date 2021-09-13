@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-01 20:26:29 by Eclipse SUMO sumo Version v1_10_0+0454-70d5b48
+<!-- generated on 2021-09-13 22:06:49 by Eclipse SUMO sumo Version v1_10_0+0684-90bf6aa
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -514,7 +514,7 @@
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>
 
         <!-- The number of parallel execution threads used for rerouting -->
-        <device.rerouting.threads value="0" type="INT"/>
+        <device.rerouting.threads value="0" synonymes="routing-threads" type="INT"/>
 
         <!-- Let rerouting happen at the same time for all vehicles -->
         <device.rerouting.synchronize value="false" type="BOOL"/>

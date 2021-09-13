@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-01 20:26:28 by Eclipse SUMO sumo Version v1_10_0+0454-70d5b48
+<!-- generated on 2021-09-13 22:06:49 by Eclipse SUMO sumo Version v1_10_0+0684-90bf6aa
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -185,7 +185,7 @@
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing start- and endpoints"/>
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
-        <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
+        <device.rerouting.threads value="0" synonymes="routing-threads" type="INT" help="The number of parallel execution threads used for rerouting"/>
         <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
         <device.rerouting.railsignal value="true" type="BOOL" help="Allow rerouting triggered by rail signals."/>
         <device.rerouting.bike-speeds value="false" type="BOOL" help="Compute separate average speeds for bicycles"/>

@@ -78,6 +78,7 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.rerouting.init-with-loaded-weights", "Routing", "Use weight files given with option --weight-files for initializing edge weights");
 
     oc.doRegister("device.rerouting.threads", new Option_Integer(0));
+    oc.addSynonyme("device.rerouting.threads", "routing-threads");
     oc.addDescription("device.rerouting.threads", "Routing", "The number of parallel execution threads used for rerouting");
 
     oc.doRegister("device.rerouting.synchronize", new Option_Bool(false));
