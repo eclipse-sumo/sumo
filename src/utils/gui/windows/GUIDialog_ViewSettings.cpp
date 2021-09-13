@@ -1042,11 +1042,13 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.polyType = myPolyTypePanel->getSettings();
     tmpSettings.polySize = myPolySizePanel->getSettings();
 
-    tmpSettings.dataValue = myDataValuePanel->getSettings();
-    tmpSettings.dataColorer.setActive(myDataColorMode->getCurrentItem());
-    tmpSettings.dataValue = myDataValuePanel->getSettings();
-    tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
-    tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
+    if (mySettings->netedit) {
+        tmpSettings.dataValue = myDataValuePanel->getSettings();
+        tmpSettings.dataColorer.setActive(myDataColorMode->getCurrentItem());
+        tmpSettings.dataValue = myDataValuePanel->getSettings();
+        tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
+        tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
+    }
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
     tmpSettings.drawJunctionShape = (myDrawJunctionShape->getCheck() != FALSE);
