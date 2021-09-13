@@ -407,6 +407,8 @@ void
 CommonXMLStructure::SumoBaseObject::setVehicleTypeParameter(const SUMOVTypeParameter* vehicleTypeParameter) {
     myVehicleTypeParameter = *vehicleTypeParameter;
     myDefinedVehicleTypeParameter = true;
+    // set attribute id
+    addStringAttribute(SUMO_ATTR_ID, myVehicleTypeParameter.id);
 }
 
 
@@ -415,12 +417,12 @@ CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParamet
     myVehicleParameter = *vehicleParameter;
     myDefinedVehicleParameter = true;
     // set attribute id
-    if (!vehicleParameter->id.empty()) {
-        addStringAttribute(SUMO_ATTR_ID, vehicleParameter->id);
+    if (!myVehicleParameter.id.empty()) {
+        addStringAttribute(SUMO_ATTR_ID, myVehicleParameter.id);
     }
     // set attribute route
     if (!vehicleParameter->routeid.empty()) {
-        addStringAttribute(SUMO_ATTR_ROUTE, vehicleParameter->routeid);
+        addStringAttribute(SUMO_ATTR_ROUTE, myVehicleParameter.routeid);
     }
 }
 
@@ -430,28 +432,28 @@ CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter:
     myStopParameter = stopParameter;
     myDefinedStopParameter = true;
     // set attribute edge
-    if (!stopParameter.edge.empty()) {
-        addStringAttribute(SUMO_ATTR_ID, stopParameter.edge);
+    if (!myStopParameter.edge.empty()) {
+        addStringAttribute(SUMO_ATTR_ID, myStopParameter.edge);
     }
     // set attribute lane
-    if (!stopParameter.lane.empty()) {
-        addStringAttribute(SUMO_ATTR_LANE, stopParameter.lane);
+    if (!myStopParameter.lane.empty()) {
+        addStringAttribute(SUMO_ATTR_LANE, myStopParameter.lane);
     }
     // set attribute busStop
-    if (!stopParameter.busstop.empty()) {
-        addStringAttribute(SUMO_ATTR_BUS_STOP, stopParameter.busstop);
+    if (!myStopParameter.busstop.empty()) {
+        addStringAttribute(SUMO_ATTR_BUS_STOP, myStopParameter.busstop);
     }
     // set attribute containerstop
-    if (!stopParameter.containerstop.empty()) {
-        addStringAttribute(SUMO_ATTR_CONTAINER_STOP, stopParameter.containerstop);
+    if (!myStopParameter.containerstop.empty()) {
+        addStringAttribute(SUMO_ATTR_CONTAINER_STOP, myStopParameter.containerstop);
     }
     // set attribute parkingarea
-    if (!stopParameter.parkingarea.empty()) {
-        addStringAttribute(SUMO_ATTR_PARKING_AREA, stopParameter.parkingarea);
+    if (!myStopParameter.parkingarea.empty()) {
+        addStringAttribute(SUMO_ATTR_PARKING_AREA, myStopParameter.parkingarea);
     }
     // set attribute chargingStation
-    if (!stopParameter.chargingStation.empty()) {
-        addStringAttribute(SUMO_ATTR_CHARGING_STATION, stopParameter.chargingStation);
+    if (!myStopParameter.chargingStation.empty()) {
+        addStringAttribute(SUMO_ATTR_CHARGING_STATION, myStopParameter.chargingStation);
     }
 }
 
