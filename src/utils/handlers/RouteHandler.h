@@ -221,6 +221,9 @@ private:
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
 
+    /// @brief parse nested CarFollowingModel
+    void parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
     /// @}
 
     /// @brief parse stop parameters

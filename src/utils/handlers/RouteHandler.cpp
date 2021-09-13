@@ -276,6 +276,8 @@ RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
             }
             default:
+                // nested CFM attributes
+                parseNestedCFM(tag, attrs);
                 break;
         }
     } catch (InvalidArgument& e) {
@@ -726,6 +728,27 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
             WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
             // insert parameter in SumoBaseObjectParent
             SumoBaseObjectParent->addParameter(key, value);
+        }
+    }
+}
+
+
+void
+RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
+    // get vehicle type Base object
+    const auto vTypeObject = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
+    // parse embedded car following model information
+    if (vTypeObject && (vTypeObject->getTag() == SUMO_TAG_VTYPE)) {
+        WRITE_WARNING("Defining car following parameters in a nested element is deprecated in vType '" + vTypeObject->getStringAttribute(SUMO_ATTR_ID) + "', use attributes instead!");
+        // get vType to modify it
+        auto vType = vTypeObject->getVehicleTypeParameter();
+        // parse nested CFM attributes
+        if (SUMOVehicleParserHelper::parseVTypeEmbedded(&vType, tag, attrs, myHardFail)) {
+            vTypeObject->setVehicleTypeParameter(&vType);
+        } else if (myHardFail) {
+            throw ProcessError("Invalid parsing embedded VType");
+        } else {
+            WRITE_ERROR("Invalid parsing embedded VType");
         }
     }
 }
