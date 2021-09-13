@@ -493,6 +493,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
                 case SVS_SHIP:
                 case SVS_RAIL:
                 case SVS_RAIL_CARGO:
+                case SVS_SCOOTER:
                 case SVS_RAIL_CAR:
                     break;
                 case SVS_MOTORCYCLE:
@@ -679,6 +680,11 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, R
             }
             if (&(veh->getRoute().getColor()) != &RGBColor::DEFAULT_COLOR) {
                 col = veh->getRoute().getColor();
+                return true;
+            }
+            //test for scooter
+            if (veh->getVehicleType().getGuiShape() == SVS_SCOOTER) {
+                col = RGBColor::RED;
                 return true;
             }
             return false;
