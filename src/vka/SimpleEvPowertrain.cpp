@@ -1,5 +1,5 @@
 /**
- * \file vka/SimpleEvPowertrain.cc
+ * \file vka/SimpleEvPowertrain.cpp
  * \author Lucas Koch (koch_luc@vka.rwth-aachen.de)
  * \author Marius Wegener (wegener_ma@vka.rwth-aachen.de)
  * \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
@@ -15,9 +15,9 @@
 #endif
 #include <cmath>
 
-#include <vka/SimpleEvPowertrain.hh>
-#include <vka/Constants.hh>
-#include <vka/Helper.hh>
+#include <vka/SimpleEvPowertrain.h>
+#include <vka/Constants.h>
+#include <vka/Helper.h>
 
 
 

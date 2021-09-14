@@ -1,5 +1,5 @@
 /**
- * \file   vka/Helper.cc
+ * \file   vka/Helper.cpp
  * \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
  * \copyright Eclipse Public License v2.0
  *            (https://www.eclipse.org/legal/epl-2.0/)
@@ -13,7 +13,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#include <vka/Helper.hh>
+#include <vka/Helper.h>
 
 
 

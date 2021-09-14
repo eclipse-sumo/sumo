@@ -1,5 +1,5 @@
 /**
- * \file vka/CharacteristicMap.cc
+ * \file vka/CharacteristicMap.cpp
  * \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
  * \copyright Eclipse Public License v2.0
  *            (https://www.eclipse.org/legal/epl-2.0/)
@@ -84,8 +84,8 @@
  *****************************************************************************/
 
 
-#include <vka/CharacteristicMap.hh>
-#include <vka/Helper.hh>
+#include <vka/CharacteristicMap.h>
+#include <vka/Helper.h>
 
 #include <cmath>
 #include <stdexcept>

@@ -1,11 +1,11 @@
 set(vka_STAT_SRCS
-  Constants.hh
-  Helper.hh
-  Helper.cc
-  CharacteristicMap.hh
-  CharacteristicMap.cc
-  SimpleEvPowertrain.hh
-  SimpleEvPowertrain.cc
+  Constants.h
+  Helper.h
+  Helper.cpp
+  CharacteristicMap.h
+  CharacteristicMap.cpp
+  SimpleEvPowertrain.h
+  SimpleEvPowertrain.cpp
 )
 
 add_library(vka STATIC ${vka_STAT_SRCS})

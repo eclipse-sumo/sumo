@@ -13,7 +13,7 @@
 #pragma once
 
 
-#include <vka/SimpleEvPowertrain.hh>
+#include <vka/SimpleEvPowertrain.h>
 #include <microsim/devices/MSVehicleDevice.h>
 
 

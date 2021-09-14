@@ -1,5 +1,5 @@
 /**
- * \file vka/SimpleEvPowertrain.hh
+ * \file vka/SimpleEvPowertrain.h
  * \author Lucas Koch (koch_luc@vka.rwth-aachen.de)
  * \author Marius Wegener (wegener_ma@vka.rwth-aachen.de)
  * \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
@@ -13,7 +13,7 @@
 #pragma once
 
 
-#include <vka/CharacteristicMap.hh>
+#include <vka/CharacteristicMap.h>
 
 #include <string>
 
