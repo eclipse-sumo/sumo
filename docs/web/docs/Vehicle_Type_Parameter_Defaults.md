@@ -100,13 +100,13 @@ vehicle types).
     <td class="tg-0lax" rowspan="5">passenger</td>
     <td class="tg-0lax"><img src="images/Wikicommons_passenger.jpg" title="wikicommons_passenger.jpg" width="200" alt="" /></td>
     <td class="tg-0lax">passenger</td>
-    <td class="tg-0lax">4.3m<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup></td>
+    <td class="tg-0lax">5<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup></td>
     <td class="tg-0lax">2.5m</td>
-    <td class="tg-0lax">2.9m/s<sup>2(29)</sup></td>
-    <td class="tg-0lax">7.5m/s<sup>2(27)</sup></td>
+    <td class="tg-0lax">2.6m/s<sup>2(29)</sup></td>
+    <td class="tg-0lax">4.5m/s<sup>2(27)</sup></td>
     <td class="tg-0lax">9m/s<sup>2</sup></td>
-    <td class="tg-0lax">180km/h<sup>(29)</sup></td>
-    <td class="tg-0lax">5</td>
+    <td class="tg-0lax">200km/h<sup>(29)</sup></td>
+    <td class="tg-0lax">4</td>
     <td class="tg-0lax">PC_G_EU4</td>
     <td class="tg-0lax">0.1</td>
   </tr>
