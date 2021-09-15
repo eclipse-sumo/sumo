@@ -51,9 +51,9 @@ MSDevice_EVPowertrain::MSDevice_EVPowertrain(SUMOVehicle& ref_holder,
  : MSVehicleDevice(ref_holder, ref_id),
    P(0),
    b_stateValid(true),
-   model(vka::SimpleEvPowertrain(m, r_wheel, Theta, c_rr, c_d, A_front, i_gear,
-       eta_gear, M_max, P_max, M_recup_max, P_recup_max, R_battery,
-       U_battery_0, P_const, ref_powerLossMapString))
+   model(SimpleEvPowertrain(m, r_wheel, Theta, c_rr, c_d, A_front, i_gear,
+       eta_gear, M_max, P_max, M_recup_max, P_recup_max, R_battery, U_battery_0,
+       P_const, ref_powerLossMapString))
 { }
 
 

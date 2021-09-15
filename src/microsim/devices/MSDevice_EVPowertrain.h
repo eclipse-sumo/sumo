@@ -75,7 +75,7 @@ private:
   /// Indicates whether the current state is valid
   bool b_stateValid;
   /// VKA EV powertrain model
-  vka::SimpleEvPowertrain model;
+  SimpleEvPowertrain model;
 
   /**
    * \brief Constructor
