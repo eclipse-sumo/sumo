@@ -79,7 +79,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     FXDialogBox(parent, "View Settings", GUIDesignViewSettingsMainDialog),
     myParent(parent), mySettings(settings),
     myDecals(decals), myDecalsLock(decalsLock),
-    myDecalsTable(nullptr) {
+    myDecalsTable(nullptr),
+    myDataValuePanel(nullptr)
+{
     myBackup = (*mySettings);
 
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignViewSettingsVerticalFrame1);
