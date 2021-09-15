@@ -16,8 +16,16 @@
 #include <cmath>
 
 #include <vka/SimpleEvPowertrain.h>
-#include <vka/Constants.h>
 #include <utils/geom/GeomHelper.h>
+
+
+
+
+const double EPS = 1e-6;
+// Gravitational acceleration [m/s^2]
+const double G = 9.81;
+// Air density [kg/m^3]
+const double RHO_AIR = 1.204;
 
 
 
@@ -343,13 +351,13 @@ namespace vka
     // Force required for the desired acceleration [N]
     double F_a = m*a*e_i;
     // Grade resistance [N]
-    double F_gr = m * constants::g * std::sin(DEG2RAD(alpha));
+    double F_gr = m * G * std::sin(DEG2RAD(alpha));
     // Rolling resistance [N]
-    double F_rr = m * constants::g * std::cos(DEG2RAD(alpha)) * c_rr;
-    if(std::abs(v_mean) <= constants::eps)
+    double F_rr = m * G * std::cos(DEG2RAD(alpha)) * c_rr;
+    if(std::abs(v_mean) <= EPS)
       F_rr = 0;
     // Drag [N]
-    double F_d = 0.5 * c_d * A_front * constants::rho_air * v_mean * v_mean;
+    double F_d = 0.5 * c_d * A_front * RHO_AIR * v_mean * v_mean;
     // Tractive force [N]
     const double F_tractive = F_a + F_gr + F_rr + F_d;
 
@@ -358,7 +366,7 @@ namespace vka
     // Angular velocity of the motor [1/s]
     double omega_motor = 2*M_PI*n_motor/60;
     if(omega_motor == 0)
-      omega_motor = constants::eps;
+      omega_motor = EPS;
 
     // Torque at the motor [Nm]. Please note that this model, like most real
     // EVs, utilizes the EM to hold the vehicle on an incline rather than the
