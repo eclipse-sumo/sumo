@@ -17,7 +17,7 @@
 
 #include <vka/SimpleEvPowertrain.h>
 #include <vka/Constants.h>
-#include <vka/Helper.h>
+#include <utils/geom/GeomHelper.h>
 
 
 
@@ -343,9 +343,9 @@ namespace vka
     // Force required for the desired acceleration [N]
     double F_a = m*a*e_i;
     // Grade resistance [N]
-    double F_gr = m * constants::g * std::sin(deg2rad(alpha));
+    double F_gr = m * constants::g * std::sin(DEG2RAD(alpha));
     // Rolling resistance [N]
-    double F_rr = m * constants::g * std::cos(deg2rad(alpha)) * c_rr;
+    double F_rr = m * constants::g * std::cos(DEG2RAD(alpha)) * c_rr;
     if(std::abs(v_mean) <= constants::eps)
       F_rr = 0;
     // Drag [N]

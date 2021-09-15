@@ -1,7 +1,5 @@
 set(vka_STAT_SRCS
   Constants.h
-  Helper.h
-  Helper.cpp
   CharacteristicMap.h
   CharacteristicMap.cpp
   SimpleEvPowertrain.h
