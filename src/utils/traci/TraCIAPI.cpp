@@ -1048,7 +1048,7 @@ TraCIAPI::MeMeScope::getLastStepVehicleNumber(const std::string& detID) const {
 
 double
 TraCIAPI::MeMeScope::getLastStepMeanSpeed(const std::string& detID) const {
-    return getInt(libsumo::LAST_STEP_MEAN_SPEED, detID);
+    return getDouble(libsumo::LAST_STEP_MEAN_SPEED, detID);
 }
 
 std::vector<std::string>
