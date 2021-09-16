@@ -669,10 +669,12 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
             case SVS_BUS_COACH:
             case SVS_BUS_FLEXIBLE:
             case SVS_BUS_TROLLEY:
+                frontSeatPos = 0.5;
+                break;
             case SVS_TRUCK:
             case SVS_TRUCK_1TRAILER:
             case SVS_TRUCK_SEMITRAILER:
-                frontSeatPos = 0.5;
+                frontSeatPos = 0.8;
                 break;
             default:
                 break;
