@@ -2242,8 +2242,6 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->savePlain(oc);
-            myUndoList->unmark();
-            myUndoList->mark();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
@@ -2755,8 +2753,6 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->save(oc);
-            myUndoList->unmark();
-            myUndoList->mark();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving network'");

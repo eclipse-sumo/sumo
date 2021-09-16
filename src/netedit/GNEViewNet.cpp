@@ -238,8 +238,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     reparent(actualParent);
     // Build edit modes
     buildEditModeControls();
-    // Mark undo list
-    myUndoList->mark();
     // set this net in Net
     myNet->setViewNet(this);
     // set drag delay

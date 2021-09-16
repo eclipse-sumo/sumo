@@ -49,7 +49,7 @@ private:
 
 private:
   FXCommand2(const FXCommand2&);
-  FXCommand2 &operator=(const FXCommand2&);
+  FXCommand2 &operator=(const FXCommand2&) = delete;
 
 protected:
   FXCommand2():next(NULL){}
@@ -124,7 +124,7 @@ private:
   FXCommandGroup2 *group;
 private:
   FXCommandGroup2(const FXCommandGroup2&);
-  FXCommandGroup2 &operator=(const FXCommandGroup2&);
+  FXCommandGroup2 &operator=(const FXCommandGroup2&) = delete;
 public:
 
   /// Construct initially empty undo command group
@@ -156,12 +156,11 @@ class FXUndoList2 : public FXCommandGroup2 {
 private:
   FXint      undocount;     // Number of undo records
   FXint      redocount;     // Number of redo records
-  FXint      marker;        // Marker value
   FXuint     space;         // Space taken up by all the undo records
   bool       working;       // Currently busy with undo or redo
 private:
   FXUndoList2(const FXUndoList2&);
-  FXUndoList2 &operator=(const FXUndoList2&);
+  FXUndoList2 &operator=(const FXUndoList2&) = delete;
 public:
   long onCmdUndo(FXObject*,FXSelector,void*);
   long onUpdUndo(FXObject*,FXSelector,void*);
@@ -169,8 +168,6 @@ public:
   long onUpdRedo(FXObject*,FXSelector,void*);
   long onCmdClear(FXObject*,FXSelector,void*);
   long onUpdClear(FXObject*,FXSelector,void*);
-  long onCmdRevert(FXObject*,FXSelector,void*);
-  long onUpdRevert(FXObject*,FXSelector,void*);
   long onCmdUndoAll(FXObject*,FXSelector,void*);
   long onCmdRedoAll(FXObject*,FXSelector,void*);
   long onUpdUndoCount(FXObject*,FXSelector,void*);
@@ -250,17 +247,11 @@ public:
   /// Redo all commands
   void redoAll();
 
-  /// Revert to marked
-  void revert();
-
   /// Can we undo more commands
   bool canUndo() const;
 
   /// Can we redo more commands
   bool canRedo() const;
-
-  /// Can revert to marked
-  bool canRevert() const;
 
   /**
   * Return TRUE if currently inside undo or redo operation; this
@@ -312,19 +303,6 @@ public:
   * beyond a certain amount of memory.
   */
   void trimSize(FXuint sz);
-
-  /**
-  * Mark the current state of the undo list, which is initially unmarked.
-  * There can be only one active mark at any time.  Call mark() at any
-  * time when you know the document to be "clean"; for example when you
-  * save the document to disk.
-  */
-  void mark();
-
-  /**
-  * Unmark all states in the undo list.
-  */
-  void unmark();
 
   /**
   * Check if the current state was marked, if the application has returned
