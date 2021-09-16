@@ -902,9 +902,9 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double
     const double vehWidth = getVType().getWidth() * exaggeration;
     const double length = front.distanceTo2D(back);
     const int rowSize = MAX2(1, (int)floor(vehWidth / seatOffset));
-    const double rowOffset = (length - 1) / ceil((double)maxSeats / rowSize);
+    const double rowOffset = MAX2(1.0, (length - getVType().getFrontSeatPos() - 1)) / ceil((double)maxSeats / rowSize);
     const double sideOffset = (rowSize - 1) / 2.0 * seatOffset;
-    double rowPos = 1 - rowOffset;
+    double rowPos = getVType().getFrontSeatPos() - rowOffset;
     double angle = back.angleTo2D(front);
     //if (myVehicle.getID() == "v0") std::cout << SIMTIME << " seatOffset=" << seatOffset << " max=" << maxSeats << " ex=" << exaggeration << " req=" << requiredSeats << " rowSize=" << rowSize << " sideOffset=" << sideOffset << " front=" << front << " back=" << back << " a=" << angle << " da=" << RAD2DEG(angle) << "\n";
     for (int i = 0; requiredSeats > 0 && i < maxSeats; i++) {
@@ -912,7 +912,7 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double
         if (seat == 0) {
             rowPos += rowOffset;
         }
-        into.push_back(Seat(PositionVector::positionAtOffset2D(front, back, rowPos, seat * seatOffset - sideOffset), angle));
+        into.push_back(Seat(PositionVector::positionAtOffset2D(front, back, rowPos, sideOffset - seat * seatOffset), angle));
         requiredSeats--;
     }
 }
