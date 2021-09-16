@@ -62,9 +62,16 @@ def get_options(args=None):
 
 def getEdgesToIntersection(edge):
     result = [edge]
+    seen = set()
+    seen.add(edge)
     while len(edge.getOutgoing().keys()) == 1:
         edge = list(edge.getOutgoing().keys())[0]
-        result.append(edge)
+        if edge in seen:
+            break
+        else:
+            seen.add(edge)
+            result.append(edge)
+
     return result
 
 
