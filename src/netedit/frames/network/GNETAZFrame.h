@@ -435,6 +435,9 @@ public:
         /// @brief Button for open color editor
         FXButton* myColorEditor;
 
+        /// @brief CheckButton to enable or disable fill
+        FXCheckButton* myCheckButtonFill;
+
         /// @brief textField to modify the default value of color parameter
         FXTextField* myTextFieldColor;
 

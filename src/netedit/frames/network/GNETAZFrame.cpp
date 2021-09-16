@@ -1083,6 +1083,11 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, "TAZ parameters", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
     // create Button and string textField for color and set blue as default color
+    FXHorizontalFrame* fillParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelAttribute);
+    myCheckButtonFill = new FXCheckButton(fillParameter, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCheckButtonFill->setCheck(FALSE);
+    // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -1140,6 +1145,7 @@ GNETAZFrame::TAZParameters::getAttributesAndValues() const {
     // set tag
     myTAZFrameParent->myBaseTAZ->setTag(SUMO_TAG_TAZ);
     // get attributes
+    myTAZFrameParent->myBaseTAZ->addBoolAttribute(SUMO_ATTR_FILL, (myCheckButtonFill->getCheck() == TRUE));
     myTAZFrameParent->myBaseTAZ->addColorAttribute(SUMO_ATTR_COLOR, GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text()));
     myTAZFrameParent->myBaseTAZ->addStringAttribute(SUMO_ATTR_NAME, myTextFieldColor->getText().text());
 }
@@ -1166,22 +1172,31 @@ GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*)
 
 
 long
-GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
-    // only COLOR text field has to be checked
-    bool currentParametersValid = GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
-    // change color of textfield dependig of myCurrentParametersValid
-    if (currentParametersValid) {
-        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldColor->killFocus();
-    } else {
-        myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
-        currentParametersValid = false;
-    }
-    // change useInnenEdgesCheckButton text
-    if (myAddEdgesWithinCheckButton->getCheck() == TRUE) {
-        myAddEdgesWithinCheckButton->setText("use");
-    } else {
-        myAddEdgesWithinCheckButton->setText("not use");
+GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+
+    if (obj == myTextFieldColor) {
+        // only COLOR text field has to be checked
+        bool currentParametersValid = GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
+        // change color of textfield dependig of myCurrentParametersValid
+        if (currentParametersValid) {
+            myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldColor->killFocus();
+        } else {
+            myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
+            currentParametersValid = false;
+        }
+        // change useInnenEdgesCheckButton text
+        if (myAddEdgesWithinCheckButton->getCheck() == TRUE) {
+            myAddEdgesWithinCheckButton->setText("use");
+        } else {
+            myAddEdgesWithinCheckButton->setText("not use");
+        }
+    } else if (obj == myCheckButtonFill) {
+        if (myCheckButtonFill->getCheck() == TRUE) {
+            myCheckButtonFill->setText("true");
+        } else {
+            myCheckButtonFill->setText("false");
+        }
     }
     return 0;
 }
