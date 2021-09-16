@@ -15,12 +15,12 @@
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 ///
-// FXUndoList is pretty dandy but some features are missing:
+// FXUndoList2 is pretty dandy but some features are missing:
 //   - we cannot find out wether we have currently begun an undo-group and
 //     thus abort() is hard to use.
 //   - onUpd-methods do not disable undo/redo while in an undo-group
 //
-// GNEUndoList inherits from FXUndoList and patches some methods. these are
+// GNEUndoList inherits from FXUndoList2 and patches some methods. these are
 // prefixed with p_
 /****************************************************************************/
 #pragma once
@@ -28,12 +28,13 @@
 
 #include <stack>
 #include <string>
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/FXUndoList2.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GNEChange;
 class GNEChange_Attribute;
 class GNEApplicationWindow;
 
@@ -43,7 +44,7 @@ class GNEApplicationWindow;
 /**
  * @class  GNEUndoList
  */
-class GNEUndoList : public FXUndoList {
+class GNEUndoList : public FXUndoList2 {
     /// @brief FOX declaration
     FXDECLARE_ABSTRACT(GNEUndoList)
 
@@ -87,6 +88,9 @@ public:
     /// @brief get size of current CommandGroup
     int currentCommandGroupSize() const;
 
+    /// @brief get last inserted change
+    const GNEChange* getlastChange() const;
+
     /// @name FOX-callbacks
     /// @{
     /// @brief event after Undo
@@ -101,7 +105,7 @@ public:
 
 private:
     /// @brief class CommandGroup
-    class CommandGroup : public FXCommandGroup {
+    class CommandGroup : public FXCommandGroup2 {
     public:
         /// @brief Constructor
         CommandGroup(std::string description);

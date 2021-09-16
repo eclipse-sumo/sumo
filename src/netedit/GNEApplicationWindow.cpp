@@ -2080,6 +2080,8 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
     WRITE_DEBUG("Keys Ctrl+Z (Undo) pressed");
     // Undo needs a viewnet and a enabled undoLastChange menu command
     if (myViewNet && myEditMenuCommands.undoLastChange->isEnabled()) {
+        myViewNet->getUndoList()->getlastChange();
+
         myViewNet->getUndoList()->undo();
         // update current show frame after undo
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {

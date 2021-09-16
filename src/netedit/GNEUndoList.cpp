@@ -15,12 +15,12 @@
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 ///
-// FXUndoList is pretty dandy but some features are missing:
+// FXUndoList2 is pretty dandy but some features are missing:
 //   - we cannot find out wether we have currently begun an undo-group and
 //     thus abort() is hard to use.
 //   - onUpd-methods do not disable undo/redo while in an undo-group
 //
-// GNEUndoList inherits from FXUndoList and patches some methods. these are
+// GNEUndoList inherits from FXUndoList2 and patches some methods. these are
 // prefixed with p_
 /****************************************************************************/
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -36,27 +36,27 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEUndoList) GNEUndoListMap[] = {
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList::ID_REVERT,     FXUndoList::onCmdRevert),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList::ID_UNDO,       FXUndoList::onCmdUndo),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList::ID_REDO,       FXUndoList::onCmdRedo),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList::ID_UNDO_ALL,   FXUndoList::onCmdUndoAll),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList::ID_REDO_ALL,   FXUndoList::onCmdRedoAll),
+    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_REVERT,     FXUndoList2::onCmdRevert),
+    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_UNDO,       FXUndoList2::onCmdUndo),
+    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_REDO,       FXUndoList2::onCmdRedo),
+    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_UNDO_ALL,   FXUndoList2::onCmdUndoAll),
+    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_REDO_ALL,   FXUndoList2::onCmdRedoAll),
     //
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_UNDO_COUNT, FXUndoList::onUpdUndoCount),
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_REDO_COUNT, FXUndoList::onUpdRedoCount),
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_CLEAR,      FXUndoList::onUpdClear),
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_REVERT,     FXUndoList::onUpdRevert),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_UNDO_ALL,   GNEUndoList::p_onUpdUndo),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_REDO_ALL,   GNEUndoList::p_onUpdRedo),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_UNDO,       GNEUndoList::p_onUpdUndo),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList::ID_REDO,       GNEUndoList::p_onUpdRedo)
+    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO_COUNT, FXUndoList2::onUpdUndoCount),
+    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO_COUNT, FXUndoList2::onUpdRedoCount),
+    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_CLEAR,      FXUndoList2::onUpdClear),
+    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REVERT,     FXUndoList2::onUpdRevert),
+    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO_ALL,   GNEUndoList::p_onUpdUndo),
+    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO_ALL,   GNEUndoList::p_onUpdRedo),
+    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO,       GNEUndoList::p_onUpdUndo),
+    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO,       GNEUndoList::p_onUpdRedo)
 };
 
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEUndoList, FXUndoList, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
+FXIMPLEMENT_ABSTRACT(GNEUndoList, FXUndoList2, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
 
 
 // ===========================================================================
@@ -64,7 +64,7 @@ FXIMPLEMENT_ABSTRACT(GNEUndoList, FXUndoList, GNEUndoListMap, ARRAYNUMBER(GNEUnd
 // ===========================================================================
 
 GNEUndoList::GNEUndoList(GNEApplicationWindow* parent) :
-    FXUndoList(),
+    FXUndoList2(),
     myGNEApplicationWindowParent(parent) {
 }
 
@@ -132,7 +132,7 @@ GNEUndoList::p_abortLastCommandGroup() {
 void
 GNEUndoList::undo() {
     WRITE_DEBUG("Calling GNEUndoList::undo()");
-    FXUndoList::undo();
+    FXUndoList2::undo();
     // update specific controls
     myGNEApplicationWindowParent->updateControls();
 }
@@ -141,7 +141,7 @@ GNEUndoList::undo() {
 void
 GNEUndoList::redo() {
     WRITE_DEBUG("Calling GNEUndoList::redo()");
-    FXUndoList::redo();
+    FXUndoList2::redo();
     // update specific controls
     myGNEApplicationWindowParent->updateControls();
 }
@@ -163,6 +163,21 @@ GNEUndoList::currentCommandGroupSize() const {
         return myCommandGroups.top()->size();
     } else {
         return 0;
+    }
+}
+
+
+const GNEChange* 
+GNEUndoList::getlastChange() const {
+    if (myCommandGroups.empty()) {
+        return nullptr;
+    } else {
+        const GNEChange* change = dynamic_cast<GNEChange*>(myCommandGroups.top());
+        if (change) {
+            return change;
+        } else {
+            return nullptr;
+        }
     }
 }
 

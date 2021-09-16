@@ -21,7 +21,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
 #include <netedit/elements/GNEHierarchicalContainer.h>
@@ -33,7 +32,7 @@
 #include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <utils/foxtools/fxexdefs.h>
+#include <utils/foxtools/FXUndoList2.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -62,7 +61,7 @@ class GNEViewNet;
  * @class GNEChange
  * @brief the function-object for an editing operation (abstract base)
  */
-class GNEChange : public FXCommand {
+class GNEChange : public FXCommand2 {
     FXDECLARE_ABSTRACT(GNEChange)
 
 public:
