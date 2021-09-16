@@ -376,13 +376,7 @@ The detectors used by an actuated traffic light will be colored to indicate thei
 - white color indicates that the detector is not used in the current phase
 - red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
 
-### Custom Detectors
-To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined laneAreaDetector.
-```
-   <param key="gneE42_2" value="customDetector1"/>
-```
-!!! caution
-    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+
 
 ## Based on Time Loss
 
@@ -418,7 +412,13 @@ the allowed maximal velocity. See \[Oertel, Robert, and Peter Wagner.
 intersection." Transportation Research Board 2011 (90th Annual Meeting).
 2011.\] for details.
 
-
+### Custom Detectors
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined laneAreaDetector.
+```
+   <param key="gneE42_2" value="customDetector1"/>
+```
+!!! caution
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 # Loading a new Program
 
