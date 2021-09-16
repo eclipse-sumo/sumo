@@ -1,5 +1,8 @@
 # Copy of example
 example
 
+# abort search for junction when searching in a circle
+no_junctions
+
 # create overlapping routes for better anticipation of intersections
 long_routes
