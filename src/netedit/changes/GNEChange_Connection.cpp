@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, nullptr, 0)
 
 
 GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward) :
-    GNEChange(forward, selected),
+    GNEChange(Supermode::NETWORK, forward, selected),
     myEdge(edge),
     myNBEdgeConnection(nbCon) {
 }

@@ -40,10 +40,11 @@ public:
     };
 
     /**@brief Constructor for creating/deleting an additional element
+     * @param[in] supermode related with this change
      * @param[in] additional The additional element to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Children(GNEDemandElement* demandElementParent, GNEDemandElement* demandElementChild, const Operation operation);
+    GNEChange_Children(Supermode supermode, GNEDemandElement* demandElementParent, GNEDemandElement* demandElementChild, const Operation operation);
 
     /// @brief Destructor
     ~GNEChange_Children();
