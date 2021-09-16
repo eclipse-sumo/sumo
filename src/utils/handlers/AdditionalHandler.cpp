@@ -238,6 +238,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildTAZ(obj,
                      obj->getStringAttribute(SUMO_ATTR_ID),
                      obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                     obj->getBoolAttribute(SUMO_ATTR_FILL),
                      obj->getColorAttribute(SUMO_ATTR_COLOR),
                      obj->getStringListAttribute(SUMO_ATTR_EDGES),
                      obj->getStringAttribute(SUMO_ATTR_NAME),
@@ -1102,6 +1103,7 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
     const PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, PositionVector());
+    const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), parsedOk, false);
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, std::vector<std::string>());
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
@@ -1112,6 +1114,7 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shape);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FILL, fill);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
@@ -1527,25 +1530,25 @@ AdditionalHandler::parsePolyAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string polygonID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, polygonID.c_str(), parsedOk);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
     // optional attributes
-    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, polygonID.c_str(), parsedOk, RGBColor::RED);
-    const bool geo = attrs.getOpt<bool>(SUMO_ATTR_GEO, polygonID.c_str(), parsedOk, false);
-    const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, polygonID.c_str(), parsedOk, false);
-    const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, polygonID.c_str(), parsedOk, Shape::DEFAULT_LINEWIDTH);
-    const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, polygonID.c_str(), parsedOk, Shape::DEFAULT_LAYER);
-    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, polygonID.c_str(), parsedOk, Shape::DEFAULT_TYPE);
-    const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, polygonID.c_str(), parsedOk, Shape::DEFAULT_IMG_FILE);
-    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, polygonID.c_str(), parsedOk, Shape::DEFAULT_ANGLE);
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, polygonID.c_str(), parsedOk, "");
-    const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, polygonID.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH);
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
+    const bool geo = attrs.getOpt<bool>(SUMO_ATTR_GEO, id.c_str(), parsedOk, false);
+    const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), parsedOk, false);
+    const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, id.c_str(), parsedOk, Shape::DEFAULT_LINEWIDTH);
+    const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), parsedOk, Shape::DEFAULT_LAYER);
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), parsedOk, Shape::DEFAULT_TYPE);
+    const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), parsedOk, Shape::DEFAULT_IMG_FILE);
+    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, Shape::DEFAULT_ANGLE);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_POLY);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, polygonID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_GEO, geo);
