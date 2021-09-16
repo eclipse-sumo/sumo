@@ -1255,7 +1255,8 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
 
 void
 GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                               const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string>& parameters) {
+                               const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, 
+                               const std::map<std::string, std::string>& parameters) {
     // parse edges
     const std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_TAZ, edgeIDs);
     // check TAZShape
@@ -1287,7 +1288,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build TAZ with the given shape
-        GNETAZElement* TAZ = new GNETAZ(id, myNet, TAZShape, color, name, parameters);
+        GNETAZElement* TAZ = new GNETAZ(id, myNet, TAZShape, fill, color, name, parameters);
         // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
         myNet->disableUpdateGeometry();
         // add it depending of allow undoRed

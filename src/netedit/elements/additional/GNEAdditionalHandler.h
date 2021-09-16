@@ -447,12 +447,14 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id TAZ ID
      * @param[in] shape TAZ shape
+     * @param[in] fill Whether the TAZ shall be filled
      * @param[in] edgeIDs list of edges (note: This will create GNETAZSourceSinks/Sinks with default values)
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, const RGBColor& color,
-                  const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string>& parameters);
+    void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
+                  const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, 
+                  const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] sumoBaseObject sumo base object used for build
