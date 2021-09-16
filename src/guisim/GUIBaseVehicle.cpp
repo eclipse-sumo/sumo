@@ -906,13 +906,14 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double
     const double sideOffset = (rowSize - 1) / 2.0 * seatOffset;
     double rowPos = getVType().getFrontSeatPos() - rowOffset;
     double angle = back.angleTo2D(front);
+    const int fillDirection = MSGlobals::gLefthand ? -1 : 1;
     //if (myVehicle.getID() == "v0") std::cout << SIMTIME << " seatOffset=" << seatOffset << " max=" << maxSeats << " ex=" << exaggeration << " req=" << requiredSeats << " rowSize=" << rowSize << " sideOffset=" << sideOffset << " front=" << front << " back=" << back << " a=" << angle << " da=" << RAD2DEG(angle) << "\n";
     for (int i = 0; requiredSeats > 0 && i < maxSeats; i++) {
         int seat = (i % rowSize);
         if (seat == 0) {
             rowPos += rowOffset;
         }
-        into.push_back(Seat(PositionVector::positionAtOffset2D(front, back, rowPos, sideOffset - seat * seatOffset), angle));
+        into.push_back(Seat(PositionVector::positionAtOffset2D(front, back, rowPos, (sideOffset - seat * seatOffset) * fillDirection), angle));
         requiredSeats--;
     }
 }
