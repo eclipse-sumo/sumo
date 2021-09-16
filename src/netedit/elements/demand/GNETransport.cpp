@@ -352,7 +352,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
@@ -362,10 +362,10 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
             if (nextContainerPlan) {
                 undoList->p_begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -379,10 +379,10 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
                 // change from attribute using edge ID
                 undoList->p_begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }

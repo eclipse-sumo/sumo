@@ -396,7 +396,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ACTTYPE:
         case GNE_ATTR_SELECTED:
         case SUMO_ATTR_FRIENDLY_POS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         case SUMO_ATTR_EDGE: {
             // get next personPlan
@@ -405,10 +405,10 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             if (nextPersonPlan) {
                 undoList->p_begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -422,10 +422,10 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 // change from attribute using edge ID
                 undoList->p_begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -438,10 +438,10 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 // change from attribute using edge ID
                 undoList->p_begin("Change arrivalPos attribute of previous personPlan");
                 previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -505,15 +505,15 @@ GNEStopPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(Supermode::DEMAND, this, parametersSet, newParametersSet), true);
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;
@@ -540,7 +540,7 @@ GNEStopPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(Supermode::DEMAND, this, parametersSet, newParametersSet), true);
 }
 
 

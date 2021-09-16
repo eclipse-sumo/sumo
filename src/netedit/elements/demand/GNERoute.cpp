@@ -59,7 +59,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     undoList->p_begin("apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
-        undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE)));
         dist += edge->getNBEdge()->getFinalLength();
     }
     undoList->p_end();
@@ -536,7 +536,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CYCLETIME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         // special case due depart and arrival edge vehicles
         case SUMO_ATTR_EDGES: {
@@ -551,20 +551,20 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             if (vehicles.size() > 0) {
                 undoList->p_begin("reset start and end edges");
                 for (const auto& vehicle : vehicles) {
-                    undoList->p_add(new GNEChange_Attribute(vehicle, SUMO_ATTR_DEPARTEDGE, ""));
-                    undoList->p_add(new GNEChange_Attribute(vehicle, SUMO_ATTR_ARRIVALEDGE, ""));
+                    undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, vehicle, SUMO_ATTR_DEPARTEDGE, ""));
+                    undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, vehicle, SUMO_ATTR_ARRIVALEDGE, ""));
                 }
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
                 undoList->p_begin("reset start and end edges");
-                undoList->p_add(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, ""));
-                undoList->p_add(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, ""));
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, ""));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, ""));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else {
                 // just change edges
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }

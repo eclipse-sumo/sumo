@@ -507,7 +507,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_POSITION_LAT:
         //
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -624,15 +624,15 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(Supermode::DEMAND, this, parametersSet, newParametersSet), true);
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;
@@ -668,7 +668,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(Supermode::DEMAND, this, parametersSet, newParametersSet), true);
 }
 
 
@@ -895,8 +895,8 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+    undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+    undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
     undoList->p_end();
 }
 

@@ -502,7 +502,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -604,18 +604,18 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
-                vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
+                vTypeChangeAttributeForced = new GNEChange_Attribute(Supermode::DEMAND, this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
                 // force change
                 vTypeChangeAttributeForced->forceChange();
                 undoList->p_add(vTypeChangeAttributeForced);
             }
-            vTypeChangeAttributeForced = new GNEChange_Attribute(this, key, value);
+            vTypeChangeAttributeForced = new GNEChange_Attribute(Supermode::DEMAND, this, key, value);
             // force change
             vTypeChangeAttributeForced->forceChange();
             undoList->p_add(vTypeChangeAttributeForced);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
-            vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
+            vTypeChangeAttributeForced = new GNEChange_Attribute(Supermode::DEMAND, this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
             // force change
             vTypeChangeAttributeForced->forceChange();
             undoList->p_add(vTypeChangeAttributeForced);
