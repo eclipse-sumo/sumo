@@ -2,5 +2,4 @@ Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
 Warning: Error parsing key from flow generic parameter. Key contains invalid characters
-Error: There is another flow with the same ID='flow_0'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135052.3908\netedit.gui\demandElements\flow_embedded\load\parameters\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\flow_embedded\load\parameters\input_routes.rou.xml failed.

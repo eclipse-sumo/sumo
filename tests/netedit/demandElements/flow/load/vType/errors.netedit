@@ -21,10 +21,9 @@ Debug: Adding vType 'custom_vType' in GNEChange_DemandElement
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Error: Invalid vehicle type 'dummy_Type' used in flow 'flow_1'.
 Error: Attribute 'type' in definition of flow 'flow_2' is empty.
-Error: Invalid vehicle type '' used in flow 'flow_2'.
 Error: Invalid vehicle type 'id with invalid characters' used in flow 'flow_3'.
 Debug: Adding flow 'flow_4' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\flow\load\vType\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\flow\load\vType\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flow 'flow_4' in GNEChange_DemandElement

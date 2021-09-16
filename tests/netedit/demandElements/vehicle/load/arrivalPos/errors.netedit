@@ -18,16 +18,12 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Error: Invalid arrivalPos definition for vehicle 'vehicle_0';
- must be one of ("random", "max", or a float)
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_5' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_6' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun122115.5868\netedit.gui\demandElements\vehicle\load\arrivalPos\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vehicle 'vehicle_6' in GNEChange_DemandElement
@@ -36,12 +32,10 @@ Debug: Removing vehicle 'vehicle_4' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_3' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_1' in GNEChange_DemandElement
-Debug: Removing vehicle 'vehicle_0' in GNEChange_DemandElement
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_3' in GNEChange_DemandElement
@@ -102,7 +96,6 @@ Debug: Deleting unreferenced vehicle 'vehicle_4'
 Debug: Deleting unreferenced vehicle 'vehicle_3'
 Debug: Deleting unreferenced vehicle 'vehicle_2'
 Debug: Deleting unreferenced vehicle 'vehicle_1'
-Debug: Deleting unreferenced vehicle 'vehicle_0'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

@@ -1,3 +1,2 @@
-Error: Invalid departPos definition for flow 'flow_0';
- must be one of ("random", "random_free", "free", "base", "last" or a float)
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135052.3908\netedit.gui\demandElements\flow_embedded\load\departPos\input_routes.rou.xml failed.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\flow_embedded\load\departPos\input_routes.rou.xml failed.

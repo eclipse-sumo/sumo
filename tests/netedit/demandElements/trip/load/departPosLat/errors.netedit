@@ -17,9 +17,6 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Error: Invalid departPosLat definition for vehicle 'trip_0';
- must be one of ("random", "random_free", "free", "right", "center", "left", or a float)
-Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
 Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
@@ -30,7 +27,6 @@ Debug: Adding trip 'trip_7' in GNEChange_DemandElement
 Debug: Adding trip 'trip_8' in GNEChange_DemandElement
 Debug: Adding trip 'trip_9' in GNEChange_DemandElement
 Debug: Adding trip 'trip_10' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\trip\load\departPosLat\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'trip_10' in GNEChange_DemandElement
@@ -43,10 +39,8 @@ Debug: Removing trip 'trip_4' in GNEChange_DemandElement
 Debug: Removing trip 'trip_3' in GNEChange_DemandElement
 Debug: Removing trip 'trip_2' in GNEChange_DemandElement
 Debug: Removing trip 'trip_1' in GNEChange_DemandElement
-Debug: Removing trip 'trip_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
 Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
@@ -115,7 +109,6 @@ Debug: Deleting unreferenced trip 'trip_4'
 Debug: Deleting unreferenced trip 'trip_3'
 Debug: Deleting unreferenced trip 'trip_2'
 Debug: Deleting unreferenced trip 'trip_1'
-Debug: Deleting unreferenced trip 'trip_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

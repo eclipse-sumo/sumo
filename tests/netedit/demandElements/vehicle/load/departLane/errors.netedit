@@ -18,12 +18,6 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Error: Invalid departLane definition for vehicle 'vehicle_0';
- must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
-Error: Invalid departLane definition for vehicle 'vehicle_1';
- must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
-Debug: Adding vehicle 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Error: Invalid departLane used in vehicle 'vehicle_3'. 500 is greater than number of lanes
 Debug: Adding vehicle 'vehicle_4' in GNEChange_DemandElement
@@ -31,7 +25,7 @@ Debug: Adding vehicle 'vehicle_5' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_6' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_7' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_8' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun122115.5868\netedit.gui\demandElements\vehicle\load\departLane\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\vehicle\load\departLane\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vehicle 'vehicle_8' in GNEChange_DemandElement
@@ -40,14 +34,10 @@ Debug: Removing vehicle 'vehicle_6' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_5' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_4' in GNEChange_DemandElement
 Debug: Removing vehicle 'vehicle_2' in GNEChange_DemandElement
-Debug: Removing vehicle 'vehicle_1' in GNEChange_DemandElement
-Debug: Removing vehicle 'vehicle_0' in GNEChange_DemandElement
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding vehicle 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_5' in GNEChange_DemandElement
@@ -108,8 +98,6 @@ Debug: Deleting unreferenced vehicle 'vehicle_6'
 Debug: Deleting unreferenced vehicle 'vehicle_5'
 Debug: Deleting unreferenced vehicle 'vehicle_4'
 Debug: Deleting unreferenced vehicle 'vehicle_2'
-Debug: Deleting unreferenced vehicle 'vehicle_1'
-Debug: Deleting unreferenced vehicle 'vehicle_0'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

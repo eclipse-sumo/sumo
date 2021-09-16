@@ -1,6 +1,2 @@
-Error: Invalid departLane definition for flow 'flow_0';
- must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
-Error: Invalid departLane definition for flow 'flow_1';
- must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
 Error: Invalid departLane used in flow 'flow_3'. 500 is greater than number of lanes
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135509.8720\netedit.gui\demandElements\routeflow\load\departLane\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\routeflow\load\departLane\input_routes.rou.xml failed.

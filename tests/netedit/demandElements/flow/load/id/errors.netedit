@@ -18,12 +18,15 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'id' is missing in definition of flow
+Error: flow cannot be created
 Error: Attribute 'id' in definition of a flow is empty.
 Error: Invalid flow id ''.
+Error: flow cannot be created
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
+Error: flow cannot be created
 Debug: Adding flow 'flow_valid' in GNEChange_DemandElement
 Error: There is another flow with the same ID='flow_valid'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun124909.1060\netedit.gui\demandElements\flow\load\id\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\flow\load\id\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flow 'flow_valid' in GNEChange_DemandElement
