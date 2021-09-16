@@ -244,10 +244,29 @@ TLS Link indices can be access using either
 In the sumo-gui you can right-click on a red/green stop bar and select *show
 phases*.
 
-# Actuated Traffic Lights
+## Interaction between signal plans and right-of-way rules
 
-Generally, actuated traffic lights switch in response to traffic (or lack thereof). The different controllers and their features are described below.
+Every traffic light intersection has the right-of-way rules of a
+priority intersection underneath of it. This becomes obvious when
+switching a traffic light off (either in [sumo-gui](../sumo-gui.md)
+with a right-click on the traffic light or by [loading the "off"
+program](#loading_a_new_program)).
 
+The right-of-way rules of this priority intersection come into play when
+defining signal plans with simultaneous conflicting green streams (by
+using *g* and *G* states). These signal plans only work correctly if the
+right-of-way rules force vehicles from the *g* stream to yield to the
+*G* stream. In most cases, this relationship was set correctly by the
+default signal plan.
+
+However, when introducing new *g*/*G* relationships, correctness is only
+ensured by loading the network and the new signal plan into
+[netconvert](../netconvert.md) and thus updating the right-of-way
+rules.
+
+# Traffic Lights that respond to traffic
+
+Generally, the designation "actuated" referse to traffic lights that switch in response to traffic (or lack thereof). The different controllers and their features are described below. SUMO supports several algorithms with this property and they are described below.
 !!! note
     [Mesoscopic simulation](Meso.md) does not support actuated traffic lights.
 
@@ -400,26 +419,6 @@ intersection." Transportation Research Board 2011 (90th Annual Meeting).
 2011.\] for details.
 
 
-
-## Interaction between signal plans and right-of-way rules
-
-Every traffic light intersection has the right-of-way rules of a
-priority intersection underneath of it. This becomes obvious when
-switching a traffic light off (either in [sumo-gui](../sumo-gui.md)
-with a right-click on the traffic light or by [loading the "off"
-program](#loading_a_new_program)).
-
-The right-of-way rules of this priority intersection come into play when
-defining signal plans with simultaneous conflicting green streams (by
-using *g* and *G* states). These signal plans only work correctly if the
-right-of-way rules force vehicles from the *g* stream to yield to the
-*G* stream. In most cases, this relationship was set correctly by the
-default signal plan.
-
-However, when introducing new *g*/*G* relationships, correctness is only
-ensured by loading the network and the new signal plan into
-[netconvert](../netconvert.md) and thus updating the right-of-way
-rules.
 
 # Loading a new Program
 
