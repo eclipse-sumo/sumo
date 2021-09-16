@@ -131,8 +131,6 @@ FXDEFMAP(FXUndoList2) FXUndoList2Map[]={
   FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO_ALL,   FXUndoList2::onUpdUndo),
   FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_REDO_ALL,   FXUndoList2::onCmdRedoAll),
   FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO_ALL,   FXUndoList2::onUpdRedo),
-  FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO_COUNT, FXUndoList2::onUpdUndoCount),
-  FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO_COUNT, FXUndoList2::onUpdRedoCount),
   };
 
 
@@ -143,18 +141,8 @@ FXIMPLEMENT(FXUndoList2,FXCommandGroup2,FXUndoList2Map,ARRAYNUMBER(FXUndoList2Ma
 
 // Make new empty undo list
 FXUndoList2::FXUndoList2(){
-  undocount=0;
-  redocount=0;
-  space=0;
   working=false;
   }
-
-
-// Check if marked
-bool FXUndoList2::marked() const {
-  return (group==NULL);
-  }
-
 
 // Cut the redo list; can no longer revert to marked
 // state if mark is inside the redo list.
@@ -166,7 +154,6 @@ void FXUndoList2::cut(){
     delete command;
     }
   redolist=NULL;
-  redocount=0;
   }
 
 
@@ -196,14 +183,8 @@ void FXUndoList2::add(FXCommand2* command,bool doit,bool merge){
   if(g->undolist) size=g->undolist->size();
 
   // Try to merge commands when desired and possible
-  if(merge && g->undolist && !marked() && command->canMerge() && g->undolist->mergeWith(command)){
+  if(merge && g->undolist && (group!=NULL) && command->canMerge() && g->undolist->mergeWith(command)){
 
-    // Account for merge
-    if(this==g){
-
-      // Update space, which is the new size less the old size
-      space+=g->undolist->size()-size;
-      }
 
     // Delete incoming command that was merged
     delete command;
@@ -216,18 +197,7 @@ void FXUndoList2::add(FXCommand2* command,bool doit,bool merge){
     command->next=g->undolist;
     g->undolist=command;
 
-    // Account for one more undo step
-    if(this==g){
-
-      // Update space, add the size of the new command
-      space+=command->size();
-
-      // Update undo counter
-      undocount++;
-      }
     }
-
-  FXTRACE((100,"FXUndoList2::add: space=%d undocount=%d\n",space,undocount));
 
   working=false;
   }
@@ -260,7 +230,7 @@ void FXUndoList2::end(){
   register FXCommandGroup2 *g=this;
 
   // Must have called begin
-  if(!g->group){ fxerror("FXCommandGroup2::end: no matching call to begin.\n"); }
+  if(!g->group){ ("FXCommandGroup2::end: no matching call to begin.\n"); }
 
   // Calling end while in the middle of doing something!
   if(working){ fxerror("FXCommandGroup2::end: already working on undo or redo.\n"); }
@@ -279,15 +249,6 @@ void FXUndoList2::end(){
     command->next=g->undolist;
     g->undolist=command;
 
-    // Update marker and undo count
-    if(this==g){
-
-      // Update space of completed command group
-      space+=command->size();
-
-      // Update undo counter
-      undocount++;
-      }
     }
 
   // Or delete if empty
@@ -328,13 +289,9 @@ void FXUndoList2::undo(){
     working=true;
     command=undolist;                   // Remove from undolist BEFORE undo
     undolist=undolist->next;
-    space-=command->size();		// Measure BEFORE undo!
     command->undo();
     command->next=redolist;             // Hang into redolist AFTER undo
     redolist=command;
-    undocount--;
-    redocount++;
-    FXTRACE((100,"FXUndoList2::undo: space=%d undocount=%d redocount=%\n",space,undocount,redocount));
     working=false;
     }
   }
@@ -349,12 +306,8 @@ void FXUndoList2::redo(){
     command=redolist;                   // Remove from redolist BEFORE redo
     redolist=redolist->next;
     command->redo();
-    space+=command->size();		// Measure AFTER redo!
     command->next=undolist;             // Hang into undolist AFTER redo
     undolist=command;
-    undocount++;
-    redocount--;
-    FXTRACE((100,"FXUndoList2::redo: space=%d undocount=%d redocount=%d\n",space,undocount,redocount));
     working=false;
     }
   }
@@ -401,7 +354,6 @@ FXString FXUndoList2::redoName() const {
 // Clear list
 void FXUndoList2::clear(){
   register FXCommand2 *command;
-  FXTRACE((100,"FXUndoList2::clear: space=%d undocount=%d redocount=%d\n",space,undocount,redocount));
   while(redolist){
     command=redolist;
     redolist=redolist->next;
@@ -415,10 +367,7 @@ void FXUndoList2::clear(){
   delete group;
   redolist=NULL;
   undolist=NULL;
-  undocount=0;
-  redocount=0;
   group=NULL;
-  space=0;
   }
 
 
@@ -475,71 +424,4 @@ long FXUndoList2::onCmdRedoAll(FXObject*,FXSelector,void*){
 long FXUndoList2::onUpdRedo(FXObject* sender,FXSelector,void*){
   sender->handle(this,canRedo()?FXSEL(SEL_COMMAND,FXWindow::ID_ENABLE):FXSEL(SEL_COMMAND,FXWindow::ID_DISABLE),NULL);
   return 1;
-  }
-
-
-// Update undo count
-long FXUndoList2::onUpdUndoCount(FXObject* sender,FXSelector,void*){
-  sender->handle(this,FXSEL(SEL_COMMAND,FXWindow::ID_SETINTVALUE),(void*)&undocount);
-  return 1;
-  }
-
-
-// Update redo count
-long FXUndoList2::onUpdRedoCount(FXObject* sender,FXSelector,void*){
-  sender->handle(this,FXSEL(SEL_COMMAND,FXWindow::ID_SETINTVALUE),(void*)&redocount);
-  return 1;
-  }
-
-
-// Size of undo information
-FXuint FXUndoList2::size() const {
-  return space;
-  }
-
-
-// Trim undo list down to at most nc records
-void FXUndoList2::trimCount(FXint nc){
-  FXTRACE((100,"FXUndoList2::trimCount: was: space=%d undocount=%d; ",space,undocount));
-  if(undocount>nc){
-    register FXCommand2 **pp=&undolist;
-    register FXCommand2 *p=*pp;
-    register FXint i=0;
-    while(p && i<nc){
-      pp=&p->next;
-      p=*pp;
-      i++;
-      }
-    while(*pp){
-      p=*pp;
-      *pp=p->next;
-      space-=p->size();
-      undocount--;
-      delete p;
-      }
-    }
-  FXTRACE((100,"now: space=%d undocount=%d;\n",space,undocount));
-  }
-
-
-// Trim undo list down to at most size sz
-void FXUndoList2::trimSize(FXuint sz){
-  FXTRACE((100,"FXUndoList2::trimSize: was: space=%d undocount=%d;\n",space,undocount));
-  if(space>sz){
-    register FXCommand2 **pp=&undolist;
-    register FXCommand2 *p=*pp;
-    register FXuint s=0;
-    while(p && (s=s+p->size())<=sz){
-      pp=&p->next;
-      p=*pp;
-      }
-    while(*pp){
-      p=*pp;
-      *pp=p->next;
-      space-=p->size();
-      undocount--;
-      delete p;
-      }
-    }
-  FXTRACE((100,"now: space=%d undocount=%d;n",space,undocount));
   }

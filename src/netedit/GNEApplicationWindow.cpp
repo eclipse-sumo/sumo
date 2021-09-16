@@ -3478,7 +3478,8 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Confirm " + operation + " network' with 'Quit'");
-            if (continueWithUnsavedAdditionalChanges(operation) && continueWithUnsavedDemandElementChanges(operation)) {
+            if (continueWithUnsavedAdditionalChanges(operation) && 
+                continueWithUnsavedDemandElementChanges(operation)) {
                 // clear undo list
                 clearUndoList();
                 return true;
@@ -3486,13 +3487,11 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
                 return false;
             }
         } else if (answer == MBOX_CLICKED_SAVE) {
-            // save newtork
+            // save network
             onCmdSaveNetwork(nullptr, 0, nullptr);
-            if (!myUndoList->marked()) {
-                // saving failed
-                return false;
-            }
-            if (continueWithUnsavedAdditionalChanges(operation) && continueWithUnsavedDemandElementChanges(operation)) {
+            // check 
+            if (continueWithUnsavedAdditionalChanges(operation) && 
+                continueWithUnsavedDemandElementChanges(operation)) {
                 // clear undo list
                 clearUndoList();
                 return true;

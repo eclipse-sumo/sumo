@@ -154,9 +154,6 @@ public:
 class FXUndoList2 : public FXCommandGroup2 {
   FXDECLARE(FXUndoList2)
 private:
-  FXint      undocount;     // Number of undo records
-  FXint      redocount;     // Number of redo records
-  FXuint     space;         // Space taken up by all the undo records
   bool       working;       // Currently busy with undo or redo
 private:
   FXUndoList2(const FXUndoList2&);
@@ -170,8 +167,6 @@ public:
   long onUpdClear(FXObject*,FXSelector,void*);
   long onCmdUndoAll(FXObject*,FXSelector,void*);
   long onCmdRedoAll(FXObject*,FXSelector,void*);
-  long onUpdUndoCount(FXObject*,FXSelector,void*);
-  long onUpdRedoCount(FXObject*,FXSelector,void*);
 public:
   enum{
     ID_CLEAR=FXWindow::ID_LAST,
@@ -275,38 +270,9 @@ public:
   */
   virtual FXString redoName() const;
 
-  /// Number of undo records
-  FXint undoCount() const { return undocount; }
-
-  /// Number of redo records
-  FXint redoCount() const { return redocount; }
-
-  /// Size of undo information
-  virtual FXuint size() const;
-
   /**
   * Clear list, and unmark all states.
   * All undo and redo information will be destroyed.
   */
   void clear();
-
-  /**
-  * Trim undo list down to at most nc commands.
-  * Call this periodically to prevent the undo-list from growing
-  * beyond a certain number of records.
-  */
-  void trimCount(FXint nc);
-
-  /**
-  * Trim undo list down to at most size sz.
-  * Call this periodically to prevent the undo-list from growing
-  * beyond a certain amount of memory.
-  */
-  void trimSize(FXuint sz);
-
-  /**
-  * Check if the current state was marked, if the application has returned
-  * to the previously marked state.
-  */
-  bool marked() const;
   };
