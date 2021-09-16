@@ -67,20 +67,25 @@ class GNEChange : public FXCommand {
 
 public:
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, bool forward, const bool selectedElement);
 
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] element hierarchical element
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(GNEHierarchicalElement* element, bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, GNEHierarchicalElement* element, bool forward, const bool selectedElement);
 
     /// @brief Destructor
     ~GNEChange();
+
+    /// @brief get supermode
+    Supermode getSupermode() const;
 
     /// @brief return actual size
     virtual FXuint size() const;
@@ -211,6 +216,9 @@ protected:
         }
     }
 
+    /// @brief supermode related with this change
+    const Supermode mySupermode;
+
     /// @brief we group antagonistic commands (create junction/delete junction) and keep them apart by this flag
     bool myForward;
 
@@ -222,4 +230,8 @@ protected:
 
     /// @brief map with hierarchical container of all parent and children elements
     std::map<GNEHierarchicalElement*, GNEHierarchicalContainer> myHierarchicalContainers;
+
+private:
+    /// @brief Default constructor
+    GNEChange();
 };

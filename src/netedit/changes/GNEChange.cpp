@@ -31,12 +31,14 @@ FXIMPLEMENT_ABSTRACT(GNEChange, FXCommand, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange::GNEChange(bool forward, const bool selectedElement) :
+GNEChange::GNEChange(Supermode supermode, bool forward, const bool selectedElement) :
+    mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement) {}
 
 
-GNEChange::GNEChange(GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
+GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
+    mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement),
     myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()) {
@@ -50,6 +52,12 @@ GNEChange::GNEChange(GNEHierarchicalElement* hierarchicalElement, bool forward, 
 
 
 GNEChange::~GNEChange() {}
+
+
+Supermode 
+GNEChange::getSupermode() const {
+    return mySupermode;
+}
 
 
 FXuint
@@ -84,6 +92,13 @@ GNEChange::restoreHierarchicalContainers() {
     for (const auto& container : myHierarchicalContainers) {
         container.first->restoreHierarchicalContainer(container.second);
     }
+}
+
+
+GNEChange::GNEChange() :
+    mySupermode(Supermode::NETWORK),
+    myForward(false),
+    mySelectedElement(false) {
 }
 
 /****************************************************************************/
