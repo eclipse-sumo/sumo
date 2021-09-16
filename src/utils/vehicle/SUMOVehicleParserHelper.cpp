@@ -433,9 +433,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         bool ok = true;
         if (attrs.get<bool>(SUMO_ATTR_REROUTE, ret->id.c_str(), ok)) {
             if (ok) {
-                handleVehicleError(true, ret);
-            } else {
                 ret->parametersSet |= VEHPARS_FORCE_REROUTE;
+            } else {
+                handleVehicleError(true, ret);
             }
         }
     }
