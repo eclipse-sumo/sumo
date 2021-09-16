@@ -30,7 +30,7 @@ import logging
 
 
 def killall(debugSuffix, binaries):
-    bins = set([name + debugSuffix + ".exe" for name in binaries])
+    bins = set([name + suff + ".exe" for name in binaries for suff in debugSuffix])
     for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
         task = taskline.split()
         if task and task[0] in bins:

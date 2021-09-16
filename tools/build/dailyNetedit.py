@@ -63,7 +63,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
     for call in (cmd, [ttBin, "-b", env["FILEPREFIX"], "-coll"]):
         status.log_subprocess_output(subprocess.Popen(
             call, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True))
-    status.killall(debugSuffix, BINARIES)
+    status.killall((debugSuffix,), BINARIES)
 
 
 optParser = optparse.OptionParser()
