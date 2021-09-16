@@ -255,12 +255,12 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         if (index == 0) {
             // commit new geometry start
             undoList->p_begin("remove first geometry point of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, ""));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_START, ""));
             undoList->p_end();
         } else if (index == lastIndex) {
             // commit new geometry end
             undoList->p_begin("remove last geometry point of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, ""));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_END, ""));
             undoList->p_end();
         } else {
             // remove geometry point
@@ -272,7 +272,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             shape.removeDoublePoints(SNAP_RADIUS);
             // commit new shape
             undoList->p_begin("remove geometry point of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
             undoList->p_end();
         }
     }
@@ -884,7 +884,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 it->setAttribute(key, value, undoList);
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
-            undoList->p_add(new GNEChange_Attribute(this, key, value, origValue));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value, origValue));
             undoList->p_end();
             break;
         }
@@ -895,7 +895,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // continue changing from junction
             GNEJunction* originalFirstParentJunction = getFromJunction();
             getFromJunction()->setLogicValid(false, undoList);
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             getFromJunction()->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_START, toString(getFromJunction()->getNBNode()->getPosition()), undoList);
@@ -914,7 +914,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // continue changing destiny junction
             GNEJunction* originalSecondParentJunction = getToJunction();
             getToJunction()->setLogicValid(false, undoList);
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             getToJunction()->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_END, toString(getToJunction()->getNBNode()->getPosition()), undoList);
@@ -937,13 +937,13 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_SHAPE_END:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             break;
         case SUMO_ATTR_NAME:
             // user cares about street names. Make sure they appear in the output
             OptionsCont::getOptions().resetWritable();
             OptionsCont::getOptions().set("output.street-names", "true");
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             break;
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
@@ -956,7 +956,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // actually the geometry is already updated (incrementally
             // during mouse movement). We set the restore point to the end
             // of the last change-set
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             break;
         case GNE_ATTR_BIDIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
@@ -1532,13 +1532,13 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), 0) != moveResult.geometryPointsToMove.end()) {
-            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
         }
         // update shape
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
+        undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(innenShape)));
         // check if we have to update shape end
         if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), (int)(moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
-            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
+            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
         }
         undoList->p_end();
     }
