@@ -291,9 +291,11 @@ The time gaps which determine the phase extensions are collected by induction lo
 These detectors are placed automatically at a configurable distance (see below). If the incoming lanes are too short and there is a sequence of unique predecessor lanes, the detector will be placed on a predecessor lane at the computed distance instead.
 
 Each lane incoming to the traffic light will receive a detector. However, not all detectors can be used in all phases.
-In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase.
-This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
-Sumo will issue a warning a phase or link index does not have usable detectors.
+In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
+A simple fix is often the provide dedicate left turn lanes.
+
+!!! note
+    Sumo will issue a warning of the form "... has no controlling detector" if a phase or link index does not have usable detectors.
 
 
 ### Example
