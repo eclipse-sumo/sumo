@@ -167,6 +167,9 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
     // write TAZ attributes
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_SHAPE, myShape);
+    if (myFill) {
+        device.writeAttr(SUMO_ATTR_FILL, true);
+    }
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     // write all TAZ Source/sinks
     for (const auto& sourceSink : getChildTAZElements()) {
