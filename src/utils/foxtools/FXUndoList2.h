@@ -137,15 +137,14 @@ public:
 
 private:
     /// @brief undo list command
-    FXCommand2* undolist;
+    FXCommand2* undoList;
 
     /// @brief redo list command
-    FXCommand2* redolist;
+    FXCommand2* redoList;
 
     /// @brief group
     FXCommandGroup2* group;
 
-private:
     /// @brief invalidate copy constructor
     FXCommandGroup2(const FXCommandGroup2&);
     
@@ -156,7 +155,7 @@ private:
 
 /// @brief The Undo List class manages a list of undoable commands.
 class FXUndoList2 : public FXCommandGroup2 {
-  FXDECLARE(FXUndoList2)
+    FXDECLARE(FXUndoList2)
 
 public:
     enum{
@@ -237,10 +236,10 @@ public:
      * is useful to avoid generating another undo command while inside
      * an undo operation.
      */
-    bool busy() const { return working; }
+    bool busy() const;
 
     /// Current top level undo command
-    FXCommand2* current() const { return undolist; }
+    FXCommand2* current() const;
 
     /**
      * Return name of the first undo command available; if no
@@ -271,7 +270,7 @@ public:
 
 private:
     /// @brief  Currently busy with undo or redo
-    bool working;       
+    bool myWorking;       
 
     /// @brief invalidate copy constructor
     FXUndoList2(const FXUndoList2&);
