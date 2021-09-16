@@ -33,9 +33,10 @@ class FXCommand2 : public FXObject {
     FXDECLARE_ABSTRACT(FXCommand2)
 
 public:
-
+    // @name declare friend class
     friend class FXUndoList2;
     friend class FXCommandGroup2;
+
     /**
      * Undo this command; this should save the
      * information for a subsequent redo.
@@ -88,16 +89,19 @@ public:
     virtual ~FXCommand2(){}
 
 protected:
-    FXCommand2():next(NULL){}
+    /// @brief FOX need this
+    FXCommand2();
 
 private:
+    // @brief next command
     FXCommand2 *next;
 
+    /// @brief invalidate assignment operator
     FXCommand2(const FXCommand2&);
     
+    /// @brief invalidate assignment operator
     FXCommand2 &operator=(const FXCommand2&) = delete;
 };
-
 
 
 /**
@@ -110,14 +114,14 @@ class FXCommandGroup2 : public FXCommand2 {
     FXDECLARE(FXCommandGroup2)
 
 public:
-
+    // @name declare friend class
     friend class FXUndoList2;
 
     /// Construct initially empty undo command group
-    FXCommandGroup2():undolist(NULL),redolist(NULL),group(NULL){}
+    FXCommandGroup2();
 
     /// Return TRUE if empty
-    bool empty(){ return !undolist; }
+    bool empty();
 
     /// Undo whole command group
     virtual void undo();
@@ -132,20 +136,25 @@ public:
     virtual ~FXCommandGroup2();
 
 private:
-    FXCommand2      *undolist;
-    FXCommand2      *redolist;
-    FXCommandGroup2 *group;
+    /// @brief undo list command
+    FXCommand2* undolist;
+
+    /// @brief redo list command
+    FXCommand2* redolist;
+
+    /// @brief group
+    FXCommandGroup2* group;
 
 private:
+    /// @brief invalidate copy constructor
     FXCommandGroup2(const FXCommandGroup2&);
+    
+    /// @brief invalidate assignment operator
     FXCommandGroup2 &operator=(const FXCommandGroup2&) = delete;
 };
 
 
-
-/**
-* The Undo List class manages a list of undoable commands.
-*/
+/// @brief The Undo List class manages a list of undoable commands.
 class FXUndoList2 : public FXCommandGroup2 {
   FXDECLARE(FXUndoList2)
 
@@ -162,9 +171,7 @@ public:
         ID_LAST
     };
 
-    /**
-     * Make new empty undo list, initially unmarked.
-     */
+    /// Make new empty undo list, initially unmarked.
     FXUndoList2();
 
     /**
@@ -207,14 +214,10 @@ public:
      */
     void abort();
 
-    /**
-     * Undo last command. This will move the command to the redo list.
-     */
+    /// Undo last command. This will move the command to the redo list.
     virtual void undo();
 
-    /**
-     * Redo next command. This will move the command back to the undo list.
-     */
+    /// Redo next command. This will move the command back to the undo list.
     virtual void redo();
 
     /// Undo all commands
@@ -267,9 +270,12 @@ public:
     long onCmdRedoAll(FXObject*,FXSelector,void*);
 
 private:
-    bool    working;       // Currently busy with undo or redo
+    /// @brief  Currently busy with undo or redo
+    bool working;       
 
+    /// @brief invalidate copy constructor
     FXUndoList2(const FXUndoList2&);
 
+    /// @brief invalidate assignment operator
     FXUndoList2 &operator=(const FXUndoList2&) = delete;
-  };
+};

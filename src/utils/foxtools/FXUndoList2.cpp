@@ -21,12 +21,13 @@
 // =========================================================================
 // included modules
 // =========================================================================
+#include <utils/common/UtilExceptions.h>
 
 #include "FXUndoList2.h"
 
 
 // ===========================================================================
-// FOX-declarations
+// FOX callback mapping
 // ===========================================================================
 
 FXDEFMAP(FXUndoList2) FXUndoList2Map[]={
@@ -48,6 +49,9 @@ FXIMPLEMENT_ABSTRACT(FXCommand2, FXObject, nullptr, 0)
 FXIMPLEMENT(FXCommandGroup2, FXCommand2, nullptr, 0)
 FXIMPLEMENT(FXUndoList2, FXCommandGroup2, FXUndoList2Map, ARRAYNUMBER(FXUndoList2Map))
 
+// ---------------------------------------------------------------------------
+// FXCommand2 - methods
+// ---------------------------------------------------------------------------
 
 FXString 
 FXCommand2::undoName() const { 
@@ -73,17 +77,34 @@ FXCommand2::mergeWith(FXCommand2*) {
 }
 
 
+FXCommand2::FXCommand2() :
+    next(nullptr) {
+}
+
 
 FXuint 
 FXCommand2::size() const { 
     return sizeof(FXCommand2); 
 }
 
+// ---------------------------------------------------------------------------
+// FXCommandGroup2 - methods
+// ---------------------------------------------------------------------------
 
-/*******************************************************************************/
+FXCommandGroup2::FXCommandGroup2() :
+    undolist(nullptr), 
+    redolist(nullptr), 
+    group(nullptr) {
+}
 
 
-void 
+bool
+FXCommandGroup2::empty() { 
+    return (undolist == nullptr); 
+}
+
+
+void
 FXCommandGroup2::undo() {
     register FXCommand2 *command;
     while (undolist) {
@@ -94,7 +115,6 @@ FXCommandGroup2::undo() {
         redolist=command;
     }
 }
-
 
 
 void FXCommandGroup2::redo() {
@@ -137,9 +157,9 @@ FXCommandGroup2::~FXCommandGroup2() {
     delete group;
 }
 
-
-/*******************************************************************************/
-
+// ---------------------------------------------------------------------------
+// FXUndoList2 - methods
+// ---------------------------------------------------------------------------
 
 FXUndoList2::FXUndoList2() {
     working=false;
@@ -164,11 +184,11 @@ FXUndoList2::add(FXCommand2* command, bool doit, bool merge) {
     register FXuint size=0;
     // Must pass a command
     if (!command) { 
-        fxerror("FXCommandGroup2::add: nullptr command argument.\n");
+        throw ProcessError("FXCommandGroup2::add: nullptr command argument");
     }
     // Adding undo while in the middle of doing something!
     if (working) { 
-        fxerror("FXCommandGroup2::add: already working on undo or redo.\n"); 
+        throw ProcessError("FXCommandGroup2::add: already working on undo or redo"); 
     }
     working=true;
     // Cut redo list
@@ -204,11 +224,11 @@ FXUndoList2::begin(FXCommandGroup2 *command) {
     register FXCommandGroup2* g=this;
     // Must pass a command group
     if (!command) {
-        fxerror("FXCommandGroup2::begin: nullptr command argument.\n"); 
+        throw ProcessError("FXCommandGroup2::begin: nullptr command argument"); 
     }
     // Calling begin while in the middle of doing something!
     if (working) { 
-        fxerror("FXCommandGroup2::begin: already working on undo or redo.\n"); 
+        throw ProcessError("FXCommandGroup2::begin: already working on undo or redo"); 
     }
     // Cut redo list
     cut();
@@ -227,11 +247,11 @@ FXUndoList2::end() {
     register FXCommandGroup2 *g=this;
     // Must have called begin
     if (!g->group) { 
-        fxerror("FXCommandGroup2::end: no matching call to begin.\n"); 
+        throw ProcessError("FXCommandGroup2::end: no matching call to begin"); 
     }
     // Calling end while in the middle of doing something!
     if (working) {
-        fxerror("FXCommandGroup2::end: already working on undo or redo.\n"); 
+        throw ProcessError("FXCommandGroup2::end: already working on undo or redo"); 
     }
     // Hunt for one above end of group chain
     while (g->group->group) {
@@ -257,11 +277,11 @@ FXUndoList2::abort() {
     register FXCommandGroup2 *g=this;
     // Must be called after begin
     if (!g->group) { 
-        fxerror("FXCommandGroup2::abort: no matching call to begin.\n");
+        throw ProcessError("FXCommandGroup2::abort: no matching call to begin");
     }
     // Calling abort while in the middle of doing something!
     if (working) { 
-        fxerror("FXCommandGroup2::abort: already working on undo or redo.\n"); 
+        throw ProcessError("FXCommandGroup2::abort: already working on undo or redo"); 
     }
     // Hunt for one above end of group chain
     while (g->group->group) {
@@ -278,7 +298,7 @@ void
 FXUndoList2::undo() {
     register FXCommand2 *command;
     if (group) { 
-        fxerror("FXCommandGroup2::undo: cannot call undo inside begin-end block.\n");
+        throw ProcessError("FXCommandGroup2::undo: cannot call undo inside begin-end block");
     }
     if (undolist) {
         working=true;
@@ -298,7 +318,7 @@ void
 FXUndoList2::redo() {
     register FXCommand2 *command;
     if (group) { 
-        fxerror("FXCommandGroup2::redo: cannot call undo inside begin-end block.\n"); 
+        throw ProcessError("FXCommandGroup2::redo: cannot call undo inside begin-end block"); 
     }
     if (redolist) {
         working=true;
