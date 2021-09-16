@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May 11 17:06:55 2020 by Eclipse SUMO netconvert Version v1_6_0+0177-a73435a41c
+<!-- generated on 2021-09-16 21:09:19 by Eclipse SUMO netconvert Version v1_10_0+0751-9e8cba3d7fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -90,7 +90,7 @@ SPDX-License-Identifier: EPL-2.0
         <access lane="25760224#3_0" pos="14.79" length="76.32" friendlyPos="1"/>
         <access lane="38238350#2_0" pos="105.82" length="51.78" friendlyPos="1"/>
     </busStop>
-    <busStop id="30695393" name="Möllendorffstraße/Storkower Straße" lane="99729384#0_0" startPos="231.25" endPos="252.79" friendlyPos="true" lines="16 M13 21">
+    <busStop id="30695393" name="Möllendorffstraße/Storkower Straße" lane="99729384#0_0" startPos="231.25" endPos="252.88" friendlyPos="true" lines="16 M13 21">
         <access lane="197740390#0_0" pos="126.26" length="167.41" friendlyPos="1"/>
         <access lane="24685976_0" pos="251.65" length="213.37" friendlyPos="1"/>
         <access lane="26139644#0_0" pos="18.81" length="25.49" friendlyPos="1"/>

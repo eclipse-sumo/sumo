@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-07 09:15:01 by Eclipse SUMO netconvert Version v1_10_0+0527-bfd27066ee9
+<!-- generated on 2021-09-16 21:09:40 by Eclipse SUMO netconvert Version v1_10_0+0751-9e8cba3d7fc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -83,7 +83,7 @@
     <busStop id="-3869306773" name="Werderscher Markt" lane="-66071366#1_1" startPos="16.00" endPos="31.00" friendlyPos="true" lines="147"/>
     <busStop id="-4015961303" name="U Stadtmitte" lane="-196850606#4_1" startPos="16.87" endPos="31.87" friendlyPos="true" lines="N6"/>
     <busStop id="-4692172068" name="Behrenstraße/Wilhelmstraße" lane="-326116285#2_1" startPos="5.13" endPos="20.13" friendlyPos="true" lines="200 N2"/>
-    <busStop id="1267954699" name="S+U Friedrichstraße" lane="422000256_0" startPos="31.48" endPos="42.48" friendlyPos="true"/>
+    <busStop id="1267954699" name="S+U Friedrichstraße" lane="422000256_0" startPos="31.48" endPos="43.98" friendlyPos="true"/>
     <busStop id="1615531689" name="S+U Alexanderplatz/Dircksenstraße" lane="148458500#1_0" startPos="33.17" endPos="58.17" friendlyPos="true" lines="M2">
         <access lane="272795478_0" pos="14.43" length="8.91" friendlyPos="1"/>
         <access lane="272795479_0" pos="3.11" length="6.55" friendlyPos="1"/>
@@ -119,7 +119,7 @@
         <access lane="36892597#2_0" pos="0.00" length="11.43" friendlyPos="1"/>
         <access lane="522374555#1_0" pos="0.00" length="8.08" friendlyPos="1"/>
     </busStop>
-    <busStop id="1668497956" name="S Hackescher Markt" lane="153537614#2_0" startPos="20.51" endPos="41.22" friendlyPos="true" lines="M1">
+    <busStop id="1668497956" name="S Hackescher Markt" lane="153537614#2_0" startPos="20.51" endPos="41.23" friendlyPos="true" lines="M1">
         <access lane="46140376#1_0" pos="6.70" length="8.82" friendlyPos="1"/>
         <access lane="59286500#0_0" pos="2.60" length="13.51" friendlyPos="1"/>
         <access lane="59286500#2_0" pos="0.00" length="14.21" friendlyPos="1"/>
@@ -140,7 +140,7 @@
         <access lane="461165667_0" pos="0.00" length="17.61" friendlyPos="1"/>
         <access lane="465398529#1_0" pos="22.21" length="9.01" friendlyPos="1"/>
     </busStop>
-    <busStop id="1673526976" name="Georgenstraße/Am Kupfergraben" lane="167272512#2_0" startPos="68.07" endPos="80.14" friendlyPos="true" lines="12 M1">
+    <busStop id="1673526976" name="Georgenstraße/Am Kupfergraben" lane="167272512#2_0" startPos="68.07" endPos="80.57" friendlyPos="true" lines="12 M1">
         <access lane="-4610476#1_0" pos="0.00" length="7.42" friendlyPos="1"/>
         <access lane="4610476#1_0" pos="77.59" length="3.97" friendlyPos="1"/>
         <access lane="4610476#2_0" pos="0.00" length="4.02" friendlyPos="1"/>
@@ -206,7 +206,7 @@
         <access lane="335576650#0_0" pos="6.24" length="10.81" friendlyPos="1"/>
         <access lane="440946436#2_0" pos="2.64" length="9.06" friendlyPos="1"/>
     </busStop>
-    <busStop id="2071423334" name="U Französische Straße" lane="295255789_0" startPos="0.00" endPos="155.19" friendlyPos="true" lines="U6">
+    <busStop id="2071423334" name="U Französische Straße" lane="295255789_0" startPos="0.00" endPos="155.27" friendlyPos="true" lines="U6">
         <access lane="196850608#0_0" pos="3.61" length="0.41" friendlyPos="1"/>
         <access lane="373866702#0_0" pos="0.00" length="11.82" friendlyPos="1"/>
         <access lane="373866702#1_0" pos="0.00" length="16.26" friendlyPos="1"/>
@@ -337,7 +337,7 @@
         <access lane="272757337#1_0" pos="5.10" length="10.17" friendlyPos="1"/>
         <access lane="272757337#2_0" pos="0.20" length="8.03" friendlyPos="1"/>
     </busStop>
-    <busStop id="27411240" name="S Hackescher Markt" lane="4471817#1_0" startPos="6.63" endPos="192.77" friendlyPos="true" lines="S5 S7 S3 S9">
+    <busStop id="27411240" name="S Hackescher Markt" lane="4471817#1_0" startPos="6.63" endPos="193.81" friendlyPos="true" lines="S5 S7 S3 S9">
         <access lane="377110614_0" pos="0.00" length="15.90" friendlyPos="1"/>
         <access lane="377110615_0" pos="0.00" length="14.83" friendlyPos="1"/>
         <access lane="377110617_0" pos="2.91" length="15.07" friendlyPos="1"/>
@@ -372,7 +372,7 @@
         <access lane="465376252_0" pos="36.53" length="12.43" friendlyPos="1"/>
         <access lane="518508119#0_0" pos="48.70" length="5.89" friendlyPos="1"/>
     </busStop>
-    <busStop id="2915579615" name="S Hackescher Markt" lane="473149636_0" startPos="12.90" endPos="19.89" friendlyPos="true"/>
+    <busStop id="2915579615" name="S Hackescher Markt" lane="473149636_0" startPos="12.90" endPos="25.40" friendlyPos="true"/>
     <busStop id="2915590925" name="Spandauer Straße/Marienkirche" lane="202157002#2_2" startPos="42.40" endPos="57.40" friendlyPos="true" lines="N65 N2 N8 N40 N42"/>
     <busStop id="29190909" name="U Bernauer Straße" lane="379102293#1_0" startPos="696.28" endPos="896.28" friendlyPos="true" lines="U8"/>
     <busStop id="29495029" name="U Klosterstraße" lane="384294423_0" startPos="132.68" endPos="332.68" friendlyPos="true" lines="U2">
@@ -440,7 +440,7 @@
         <access lane="379904843#3_0" pos="0.00" length="18.06" friendlyPos="1"/>
         <access lane="379904843#5_0" pos="0.00" length="22.31" friendlyPos="1"/>
     </busStop>
-    <busStop id="3104797567" name="Friedrichstr./ Reinhardtstr." lane="465376250#1_0" startPos="49.95" endPos="56.78" friendlyPos="true"/>
+    <busStop id="3104797567" name="Friedrichstr./ Reinhardtstr." lane="465376250#1_0" startPos="49.95" endPos="62.45" friendlyPos="true"/>
     <busStop id="3352479219" name="Fischerinsel" lane="4773463#0_1" startPos="0.00" endPos="11.88" friendlyPos="true" lines="M48 248 N42 265"/>
     <busStop id="3352479220" name="Fischerinsel" lane="23851917#0_1" startPos="7.26" endPos="22.26" friendlyPos="true" lines="M48 248 N42"/>
     <busStop id="3419694885" name="Berlin Alexanderplatz" lane="32572622#1_0" startPos="0.00" endPos="143.97" friendlyPos="true" lines="RE2 RE1 RE7 RB14">
