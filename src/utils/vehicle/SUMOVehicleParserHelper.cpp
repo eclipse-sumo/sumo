@@ -167,7 +167,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             bool ok = true;
             flowParameter->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
             if (!ok) {
-                return handleVehicleError(hardFail, flowParameter, "");
+                return handleVehicleError(hardFail, flowParameter);
             } else {
                 flowParameter->parametersSet |= VEHPARS_PERIOD_SET;
             }
@@ -177,7 +177,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             bool ok = true;
             const double vph = attrs.get<double>(PERHOUR, id.c_str(), ok);
             if (!ok) {
-                return handleVehicleError(hardFail, flowParameter, "");
+                return handleVehicleError(hardFail, flowParameter);
             } else if (vph <= 0) {
                 return handleVehicleError(hardFail, flowParameter, "Invalid repetition rate in the definition of " + toString(tag) + " '" + id + "'.");
             } else {
@@ -192,7 +192,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             bool ok = true;
             flowParameter->repetitionProbability = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
             if (!ok) {
-                return handleVehicleError(hardFail, flowParameter, "");
+                return handleVehicleError(hardFail, flowParameter);
             } else if (flowParameter->repetitionProbability <= 0 || flowParameter->repetitionProbability > 1) {
                 return handleVehicleError(hardFail, flowParameter, "Invalid repetition probability in the definition of " + toString(tag) + " '" + id + "'.");
             } else {
@@ -207,7 +207,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             bool ok = true;
             const std::string begin = attrs.get<std::string>(SUMO_ATTR_BEGIN, id.c_str(), ok);
             if (!ok) {
-                return handleVehicleError(hardFail, flowParameter, "");
+                return handleVehicleError(hardFail, flowParameter);
             } else {
                 // parse begin
                 std::string errorMsg;
@@ -229,7 +229,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             bool ok = true;
             flowParameter->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
             if (!ok) {
-                return handleVehicleError(hardFail, flowParameter, "");
+                return handleVehicleError(hardFail, flowParameter);
             } else {
                 flowParameter->parametersSet |= VEHPARS_END_SET;
             }
@@ -253,7 +253,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             bool ok = true;
             flowParameter->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
             if (!ok) {
-                return handleVehicleError(hardFail, flowParameter, "");
+                return handleVehicleError(hardFail, flowParameter);
             } else {
                 flowParameter->parametersSet |= VEHPARS_NUMBER_SET;
                 if (flowParameter->repetitionNumber == 0) {
@@ -303,7 +303,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttrib
         bool ok = true;
         id = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
         if (!ok) {
-            return handleVehicleError(hardFail, nullptr, "");
+            return handleVehicleError(hardFail, nullptr);
         }
     } else {
         // parse ID
@@ -335,7 +335,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttrib
             bool ok = true;
             const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPART, vehicleParameter->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleError(hardFail, vehicleParameter, "");
+                return handleVehicleError(hardFail, vehicleParameter);
             }
             // now parse depart
             std::string departErrorMsg;
@@ -386,7 +386,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         if (ok) {
             ret->parametersSet |= VEHPARS_ROUTE_SET; // !!! needed?
         } else {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_ROUTE) + " cannot be empty");
+            handleVehicleError(true, ret);
         }
     }
     // parse type information
@@ -396,7 +396,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         if (ok) {
             ret->parametersSet |= VEHPARS_VTYPE_SET; // !!! needed?
         } else {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_TYPE) + " cannot be empty");
+            handleVehicleError(true, ret);
         }
     }
     // parse line information
@@ -406,7 +406,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         if (ok) {
             ret->parametersSet |= VEHPARS_LINE_SET; // !!! needed?
         } else {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_LINE) + " cannot be empty");
+            handleVehicleError(true, ret);
         }
     }
     // parse zone information
@@ -416,7 +416,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         if (ok) {
             ret->parametersSet |= VEHPARS_FROM_TAZ_SET;
         } else {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_FROM_TAZ) + " cannot be empty");
+            handleVehicleError(true, ret);
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
@@ -425,7 +425,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         if (ok) {
             ret->parametersSet |= VEHPARS_TO_TAZ_SET;
         } else {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_TO_TAZ) + " cannot be empty");
+            handleVehicleError(true, ret);
         }
     }
     // parse reroute information
@@ -433,9 +433,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         bool ok = true;
         if (attrs.get<bool>(SUMO_ATTR_REROUTE, ret->id.c_str(), ok)) {
             if (ok) {
-                ret->parametersSet |= VEHPARS_FORCE_REROUTE;
+                handleVehicleError(true, ret);
             } else {
-                handleVehicleError(true, ret, toString(SUMO_ATTR_REROUTE) + " cannot be empty");
+                ret->parametersSet |= VEHPARS_FORCE_REROUTE;
             }
         }
     }
@@ -606,7 +606,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         bool ok = true;
         int personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_PERSON_NUMBER) + " cannot be empty");
+            handleVehicleError(true, ret);
         } else if (personNumber >= 0) {
             ret->parametersSet |= VEHPARS_PERSON_NUMBER_SET;
             ret->personNumber = personNumber;
@@ -619,7 +619,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         bool ok = true;
         int containerNumber = attrs.get<int>(SUMO_ATTR_CONTAINER_NUMBER, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_CONTAINER_NUMBER) + " cannot be empty");
+            handleVehicleError(true, ret);
         } else if (containerNumber >= 0) {
             ret->parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
             ret->containerNumber = containerNumber;
@@ -632,7 +632,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         bool ok = true;
         double speedFactor = attrs.get<double>(SUMO_ATTR_SPEEDFACTOR, ret->id.c_str(), ok);
         if (!ok) {
-            handleVehicleError(true, ret, toString(SUMO_ATTR_SPEEDFACTOR) + " cannot be empty");
+            handleVehicleError(true, ret);
         } else if (speedFactor > 0) {
             ret->parametersSet |= VEHPARS_SPEEDFACTOR_SET;
             ret->speedFactor = speedFactor;
@@ -669,7 +669,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double length = attrs.get<double>(SUMO_ATTR_LENGTH, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (length <= 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_LENGTH) + " must be greater than 0");
             } else {
@@ -681,7 +681,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double minGap = attrs.get<double>(SUMO_ATTR_MINGAP, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (minGap < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_MINGAP) + " must be equal or greater than 0");
             } else {
@@ -693,7 +693,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double maxSpeed = attrs.get<double>(SUMO_ATTR_MAXSPEED, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (maxSpeed <= 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_MAXSPEED) + " must be greater than 0");
             } else {
@@ -705,7 +705,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             vType->speedFactor.parse(attrs.get<std::string>(SUMO_ATTR_SPEEDFACTOR, vType->id.c_str(), ok), hardFail);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else {
                 vType->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
             }
@@ -714,7 +714,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double speedDev = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (speedDev < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_SPEEDDEV) + " must be equal or greater than 0");
             } else {
@@ -731,7 +731,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double actionStepLengthSecs = attrs.get<double>(SUMO_ATTR_ACTIONSTEPLENGTH, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else {
                 // processActionStepLength(...) function includes warnings
                 vType->actionStepLength = processActionStepLength(actionStepLengthSecs);
@@ -753,13 +753,13 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const std::string impatienceStr = attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (impatienceStr == "off") {
                 vType->impatience = -std::numeric_limits<double>::max();
             } else {
                 const double impatienceDouble = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vType->id.c_str(), ok);
                 if (!ok) {
-                    return handleVehicleTypeError(hardFail, vType, "");
+                    return handleVehicleTypeError(hardFail, vType);
                 } else {
                     vType->impatience = impatienceDouble;
                     vType->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
@@ -770,7 +770,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double width = attrs.get<double>(SUMO_ATTR_WIDTH, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (width <= 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_WIDTH) + " must be greater than 0");
             } else {
@@ -788,7 +788,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double height = attrs.get<double>(SUMO_ATTR_HEIGHT, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (height < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_HEIGHT) + " must be equal or greater than 0");
             } else {
@@ -806,7 +806,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const std::string osgFile = attrs.get<std::string>(SUMO_ATTR_OSGFILE, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else {
                 vType->osgFile = osgFile;
                 vType->parametersSet |= VTYPEPARS_OSGFILE_SET;
@@ -816,7 +816,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             std::string imgFile = attrs.get<std::string>(SUMO_ATTR_IMGFILE, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else {
                 // check relative path
                 if ((imgFile != "") && !FileHelpers::isAbsolute(imgFile)) {
@@ -830,7 +830,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else {
                 vType->color = color;
                 vType->parametersSet |= VTYPEPARS_COLOR_SET;
@@ -842,7 +842,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double defaultProbability = attrs.get<double>(SUMO_ATTR_PROB, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (defaultProbability < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_PROB) + " must be equal or greater than 0");
             } else {
@@ -854,7 +854,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (lcmS == "JE2013") {
                 WRITE_WARNING("Lane change model 'JE2013' is deprecated. Using default model instead.");
                 lcmS = "default";
@@ -870,7 +870,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const std::string cfmValue = attrs.get<std::string>(SUMO_ATTR_CAR_FOLLOW_MODEL, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (SUMOXMLDefinitions::CarFollowModels.hasString(cfmValue)) {
                 vType->cfModel = SUMOXMLDefinitions::CarFollowModels.get(cfmValue);
                 vType->parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
@@ -882,7 +882,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const int personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (personCapacity < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_PERSON_CAPACITY) + " must be equal or greater than 0");
             } else {
@@ -894,7 +894,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const int containerCapacity = attrs.get<int>(SUMO_ATTR_CONTAINER_CAPACITY, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (containerCapacity < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_CONTAINER_CAPACITY) + " must be equal or greater than 0");
             } else {
@@ -906,7 +906,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const SUMOTime boardingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_BOARDING_DURATION, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (boardingDuration < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_BOARDING_DURATION) + " must be equal or greater than 0");
             } else {
@@ -918,7 +918,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const SUMOTime loadingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_LOADING_DURATION, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (loadingDuration < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_LOADING_DURATION) + " must be equal or greater than 0");
             } else {
@@ -930,7 +930,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (maxSpeedLat <= 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_MAXSPEED_LAT) + " must be greater than 0");
             } else {
@@ -942,7 +942,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const double minGapLat = attrs.get<double>(SUMO_ATTR_MINGAP_LAT, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (minGapLat < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_MINGAP_LAT) + " must be equal or greater than 0");
             } else {
@@ -954,7 +954,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const std::string alignS = attrs.get<std::string>(SUMO_ATTR_LATALIGNMENT, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else {
                 double lao;
                 LatAlignmentDefinition lad;
@@ -971,7 +971,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             bool ok = true;
             const std::string angleTimesS = attrs.get<std::string>(SUMO_ATTR_MANEUVER_ANGLE_TIMES, vType->id.c_str(), ok);
             if (!ok) {
-                return handleVehicleTypeError(hardFail, vType, "");
+                return handleVehicleTypeError(hardFail, vType);
             } else if (parseAngleTimesMap(vType, angleTimesS)) {
                 vType->parametersSet |= VTYPEPARS_MANEUVER_ANGLE_TIMES_SET;
             } else {
@@ -1062,7 +1062,6 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
             std::string parsedCFMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             // check CFM Attribute
             if (!ok) {
-                WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be empty");
                 return false;
             } else if (it == SUMO_ATTR_TRAIN_TYPE) {
                 // check if train value is valid
@@ -1427,7 +1426,6 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
             bool ok = true;
             std::string parsedLCMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             if (!ok) {
-                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be empty");
                 return false;
             }
             // declare a double in wich save CFM attribute
@@ -1502,7 +1500,6 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
             bool ok = true;
             std::string parsedJMAttribute = attrs.get<std::string>(it, into->id.c_str(), ok);
             if (!ok) {
-                WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be empty");
                 return false;
             }
             // declare a double in wich save CFM attribute
@@ -1621,7 +1618,7 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
 
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::handleVehicleError(const bool hardFail, SUMOVehicleParameter* vehicleParameter, const std::string& message) {
+SUMOVehicleParserHelper::handleVehicleError(const bool hardFail, SUMOVehicleParameter* vehicleParameter, const std::string message) {
     if (vehicleParameter) {
         delete vehicleParameter;
     }
@@ -1635,7 +1632,7 @@ SUMOVehicleParserHelper::handleVehicleError(const bool hardFail, SUMOVehiclePara
 
 
 SUMOVTypeParameter*
-SUMOVehicleParserHelper::handleVehicleTypeError(const bool hardFail, SUMOVTypeParameter* vehicleTypeParameter, const std::string& message) {
+SUMOVehicleParserHelper::handleVehicleTypeError(const bool hardFail, SUMOVTypeParameter* vehicleTypeParameter, const std::string message) {
     if (vehicleTypeParameter) {
         delete vehicleTypeParameter;
     }
