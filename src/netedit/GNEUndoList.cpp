@@ -228,12 +228,52 @@ GNEUndoList::p_abortLastCommandGroup() {
 }
 
 
-void
-GNEUndoList::p_add(GNEChange_Attribute* cmd) {
-    if (cmd->trueChange()) {
-        add(cmd, true);
+void 
+GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
+    register GNEChangeGroup* g = this;
+    register FXuint size = 0;
+    // Must pass a change
+    if (!change) { 
+        throw ProcessError("GNEChangeGroup::add: nullptr change argument");
+    }
+    // Adding undo while in the middle of doing something!
+    if (myWorking) { 
+        throw ProcessError("GNEChangeGroup::add: already working on undo or redo"); 
+    }
+    myWorking = true;
+    // Cut redo list
+    cut();
+    // Execute change
+    if (doit) {
+        change->redo();
+    }
+    // Hunt for end of group chain
+    while (g->group) { 
+        g = g->group; 
+    }
+    // Old size of previous record
+    if (g->undoList) {
+        size = g->undoList->size();
+    }
+    // Try to merge commands when desired and possible
+    if (merge && g->undoList && (group != nullptr) && change->canMerge() && g->undoList->mergeWith(change)) {
+        // Delete incoming change that was merged
+        delete change;
     } else {
-        delete cmd;
+        // Append incoming change
+        change->next = g->undoList;
+        g->undoList = change;
+    }
+    myWorking = false;
+}
+
+
+void
+GNEUndoList::changeAttribute(GNEChange_Attribute* change) {
+    if (change->trueChange()) {
+        add(change, true);
+    } else {
+        delete change;
     }
 }
 
@@ -284,47 +324,6 @@ GNEUndoList::cut() {
         delete change;
     }
     redoList = nullptr;
-}
-
-
-void 
-GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
-    register GNEChangeGroup* g = this;
-    register FXuint size = 0;
-    // Must pass a change
-    if (!change) { 
-        throw ProcessError("GNEChangeGroup::add: nullptr change argument");
-    }
-    // Adding undo while in the middle of doing something!
-    if (myWorking) { 
-        throw ProcessError("GNEChangeGroup::add: already working on undo or redo"); 
-    }
-    myWorking = true;
-    // Cut redo list
-    cut();
-    // Execute change
-    if (doit) {
-        change->redo();
-    }
-    // Hunt for end of group chain
-    while (g->group) { 
-        g = g->group; 
-    }
-    // Old size of previous record
-    if (g->undoList) {
-        size = g->undoList->size();
-    }
-    // Try to merge commands when desired and possible
-    if (merge && g->undoList && (group != nullptr) && change->canMerge() && g->undoList->mergeWith(change)) {
-        // Delete incoming change that was merged
-        delete change;
-    } else {
-        // Append incoming change
-        change->next = g->undoList;
-        g->undoList = change;
-
-    }
-    myWorking = false;
 }
 
 

@@ -147,7 +147,7 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
             }
             // commit new shape
             undoList->begin("remove geometry point of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
             undoList->end();
         }
     }
@@ -443,7 +443,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_EDGES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -665,7 +665,7 @@ void
 GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
     undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+    undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
     undoList->end();
 }
 

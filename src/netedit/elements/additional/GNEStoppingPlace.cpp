@@ -428,11 +428,11 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
         undoList->begin("position of " + getTagStr());
         // set startPos
         if (myStartPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
         }
         // set endPos
         if (myEndPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
         }
         // check if lane has to be changed
         if (moveResult.newFirstLane) {

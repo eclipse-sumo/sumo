@@ -406,7 +406,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
@@ -416,10 +416,10 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             if (nextPersonPlan) {
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -433,10 +433,10 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // change from attribute using edge ID
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -450,10 +450,10 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // change from attribute using edge ID
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, edges.back()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -467,10 +467,10 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // change from attribute using edge ID
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, route->getParentEdges().back()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }

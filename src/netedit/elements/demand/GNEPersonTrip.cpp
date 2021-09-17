@@ -358,7 +358,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_VTYPES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
@@ -368,10 +368,10 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             if (nextPersonPlan) {
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -385,10 +385,10 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 // change from attribute using edge ID
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }

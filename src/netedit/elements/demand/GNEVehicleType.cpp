@@ -502,7 +502,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -607,18 +607,18 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
                 vTypeChangeAttributeForced = new GNEChange_Attribute(Supermode::DEMAND, this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
                 // force change
                 vTypeChangeAttributeForced->forceChange();
-                undoList->p_add(vTypeChangeAttributeForced);
+                undoList->changeAttribute(vTypeChangeAttributeForced);
             }
             vTypeChangeAttributeForced = new GNEChange_Attribute(Supermode::DEMAND, this, key, value);
             // force change
             vTypeChangeAttributeForced->forceChange();
-            undoList->p_add(vTypeChangeAttributeForced);
+            undoList->changeAttribute(vTypeChangeAttributeForced);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             vTypeChangeAttributeForced = new GNEChange_Attribute(Supermode::DEMAND, this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
             // force change
             vTypeChangeAttributeForced->forceChange();
-            undoList->p_add(vTypeChangeAttributeForced);
+            undoList->changeAttribute(vTypeChangeAttributeForced);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

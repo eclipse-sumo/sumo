@@ -159,7 +159,7 @@ GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 shape.erase(shape.begin() + index);
                 // commit new shape
                 undoList->begin("remove geometry point of " + getTagStr());
-                undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
                 undoList->end();
             }
         }
@@ -1400,11 +1400,11 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
         if (isShapeEdited()) {
             // commit new shape
             undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
             undoList->end();
         } else if (!myNet->getViewNet()->mergeJunctions(this, myNet->getViewNet()->getObjectsUnderCursor().getJunctionFront())) {
             undoList->begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
             undoList->end();
         }
     }

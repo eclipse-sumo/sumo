@@ -396,7 +396,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_ACTTYPE:
         case GNE_ATTR_SELECTED:
         case SUMO_ATTR_FRIENDLY_POS:
-            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         case SUMO_ATTR_EDGE: {
             // get next containerPlan
@@ -405,10 +405,10 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             if (nextContainerPlan) {
                 undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -422,10 +422,10 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
                 // change from attribute using edge ID
                 undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, stopContainer->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -438,10 +438,10 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
                 // change from attribute using edge ID
                 undoList->begin("Change arrivalPos attribute of previous containerPlan");
                 previousContainerPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
             break;
         }
@@ -509,11 +509,11 @@ GNEStopContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;

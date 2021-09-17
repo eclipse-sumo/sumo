@@ -243,7 +243,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_PARKING_LENGTH:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

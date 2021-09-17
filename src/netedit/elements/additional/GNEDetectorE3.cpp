@@ -163,7 +163,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -310,7 +310,7 @@ GNEDetectorE3::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEDetectorE3::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+    undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->end();
 }
 

@@ -565,7 +565,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         //
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

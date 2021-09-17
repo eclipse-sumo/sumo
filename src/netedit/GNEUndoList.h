@@ -91,6 +91,19 @@ public:
      */
     void end();
 
+    /**@brief Add new command, executing it if desired. The new command will be merged
+     * with the previous command if merge is TRUE and we're not at a marked position
+     * and the commands are mergeable.  Otherwise the new command will be appended
+     * after the last undo command in the currently active undo group.
+     * If the new command is successfully merged, it will be deleted.  Furthermore,
+     * all redo commands will be deleted since it is no longer possible to redo
+     * from this point.
+     */
+    void add(GNEChange* command, bool doit=false, bool merge=true);
+
+    /// @brief special method for change attributes, avoid empty changes, always execute
+    void changeAttribute(GNEChange_Attribute* change);
+
     /// @brief clears the undo list (implies abort)
     void p_clear();
 
@@ -99,9 +112,6 @@ public:
 
     /// @brief reverts last command group
     void p_abortLastCommandGroup();
-
-    /// @brief special method, avoid empty changes, always execute
-    void p_add(GNEChange_Attribute* cmd);
 
     /// @brief get size of current CommandGroup
     int currentCommandGroupSize() const;
@@ -147,17 +157,6 @@ public:
      * This is automatically invoked when a new undo command is added.
      */
     void cut();
-
-    /**
-     * Add new command, executing it if desired. The new command will be merged
-     * with the previous command if merge is TRUE and we're not at a marked position
-     * and the commands are mergeable.  Otherwise the new command will be appended
-     * after the last undo command in the currently active undo group.
-     * If the new command is successfully merged, it will be deleted.  Furthermore,
-     * all redo commands will be deleted since it is no longer possible to redo
-     * from this point.
-     */
-    void add(GNEChange* command, bool doit=false, bool merge=true);
 
     /**
      * Abort the current command sub-group being compiled.  All commands
