@@ -72,8 +72,10 @@ def get_options(args=None):
     optParser.add_option("--bus.parking", default=False, action="store_true",
                          dest='busparking', help="let busses clear the road while stopping")
     optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
-    optParser.add_option("-d", "--stop-duration", default=30, type="float", dest='stopduration',
+    optParser.add_option("-d", "--stop-duration", default=20, type="float", dest='stopduration',
                          help="Configure the minimum stopping duration")
+    optParser.add_option("--stop-duration-slack", default=10, type="float", dest='stopdurationSlack',
+                         help="Stopping time reserve in the schedule")
     optParser.add_option("-H", "--human-readable-time", dest="hrtime", default=False,
                          action="store_true", help="write times as h:m:s")
     optParser.add_option("--night", action="store_true", default=False, help="Export night service lines")
@@ -241,7 +243,8 @@ def createTrips(options):
 
             trpMap[tripID] = (lineRef, line.attr_name, line.completeness, line.period)
             for stop in stop_ids:
-                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopduration))
+                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop,
+                    options.stopduration + options.stopdurationSlack))
             fouttrips.write('    </trip>\n')
             typeCount[line.type] += 1
             numLines += 1
@@ -324,7 +327,7 @@ def createRoutes(options, trpMap, stopNames):
                             stopsUntil[(id, stop.busStop)] = until[1:]
                         foutflows.write(
                             '        <stop busStop="%s" duration="%s" until="%s"%s/>%s\n' % (
-                                stop.busStop, stop.duration, ft(untilZeroBased), parking, stopname))
+                                stop.busStop, options.stopduration, ft(untilZeroBased), parking, stopname))
                     else:
                         sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             else:
