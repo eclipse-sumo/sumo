@@ -94,10 +94,29 @@ FXCommand2::size() const {
 // FXCommandGroup2 - methods
 // ---------------------------------------------------------------------------
 
-FXCommandGroup2::FXCommandGroup2() :
+FXCommandGroup2::FXCommandGroup2(const std::string &description) :
     undoList(nullptr), 
     redoList(nullptr), 
-    group(nullptr) {
+    group(nullptr),
+    myDescription(description) {
+}
+
+
+const std::string&
+FXCommandGroup2::getDescription() {
+    return myDescription;
+}
+
+
+FXString
+FXCommandGroup2::undoName() const {
+    return ("Undo " + myDescription).c_str();
+}
+
+
+FXString
+FXCommandGroup2::redoName() const {
+    return ("Redo " + myDescription).c_str();
 }
 
 
@@ -158,6 +177,13 @@ FXCommandGroup2::~FXCommandGroup2() {
         delete command;
     }
     delete group;
+}
+
+
+FXCommandGroup2::FXCommandGroup2() :
+    undoList(nullptr), 
+    redoList(nullptr), 
+    group(nullptr) {
 }
 
 // ---------------------------------------------------------------------------

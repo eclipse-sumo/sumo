@@ -105,28 +105,8 @@ public:
     bool hasCommandGroup() const;
 
 private:
-    /// @brief class CommandGroup
-    class CommandGroup : public FXCommandGroup2 {
-    public:
-        /// @brief Constructor
-        CommandGroup(std::string description);
-
-        /// @brief get description
-        const std::string& getDescription();
-
-        /// @brief get undo Name
-        FXString undoName() const;
-
-        /// @brief get redo name
-        FXString redoName() const;
-
-    private:
-        /// @brief description of command
-        const std::string myDescription;
-    };
-
     // @brief the stack of currently active command groups
-    std::stack<CommandGroup*> myCommandGroups;
+    std::stack<FXCommandGroup2*> myCommandGroups;
 
     // @brief the parent GNEApplicationWindow for this undolist
     GNEApplicationWindow* const myGNEApplicationWindowParent;

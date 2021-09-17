@@ -118,7 +118,16 @@ public:
     friend class FXUndoList2;
 
     /// Construct initially empty undo command group
-    FXCommandGroup2();
+    FXCommandGroup2(const std::string &description);
+
+    /// @brief get description
+    const std::string& getDescription();
+
+    /// @brief get undo Name
+    FXString undoName() const;
+
+    /// @brief get redo name
+    FXString redoName() const;
 
     /// Return TRUE if empty
     bool empty();
@@ -135,6 +144,10 @@ public:
     /// Delete undo command and sub-commands
     virtual ~FXCommandGroup2();
 
+protected:
+    /// @brief FOX need this
+    FXCommandGroup2();
+
 private:
     /// @brief undo list command
     FXCommand2* undoList;
@@ -143,7 +156,10 @@ private:
     FXCommand2* redoList;
 
     /// @brief group
-    FXCommandGroup2* group;
+    FXCommandGroup2* group;        
+    
+    /// @brief description of command
+    const std::string myDescription;
 
     /// @brief invalidate copy constructor
     FXCommandGroup2(const FXCommandGroup2&);

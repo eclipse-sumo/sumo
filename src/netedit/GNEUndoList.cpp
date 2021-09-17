@@ -71,7 +71,7 @@ GNEUndoList::GNEUndoList(GNEApplicationWindow* parent) :
 
 void
 GNEUndoList::p_begin(const std::string& description) {
-    myCommandGroups.push(new CommandGroup(description));
+    myCommandGroups.push(new FXCommandGroup2(description));
     begin(myCommandGroups.top());
 }
 
@@ -265,27 +265,4 @@ GNEUndoList::p_onUpdRedo(FXObject* sender, FXSelector, void*) {
 bool
 GNEUndoList::hasCommandGroup() const {
     return myCommandGroups.size() != 0;
-}
-
-
-GNEUndoList::CommandGroup::CommandGroup(std::string description) :
-    myDescription(description) {
-}
-
-
-const std::string&
-GNEUndoList::CommandGroup::getDescription() {
-    return myDescription;
-}
-
-
-FXString
-GNEUndoList::CommandGroup::undoName() const {
-    return ("Undo " + myDescription).c_str();
-}
-
-
-FXString
-GNEUndoList::CommandGroup::redoName() const {
-    return ("Redo " + myDescription).c_str();
 }
