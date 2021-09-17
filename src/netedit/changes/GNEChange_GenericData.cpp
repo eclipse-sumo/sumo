@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
-    GNEChange(genericData, forward, genericData->isAttributeCarrierSelected()),
+    GNEChange(Supermode::DATA, genericData, forward, genericData->isAttributeCarrierSelected()),
     myGenericData(genericData),
     myDataSetParent(genericData->getDataIntervalParent()->getDataSetParent()),
     myDataIntervalParent(genericData->getDataIntervalParent()) {

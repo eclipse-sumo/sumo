@@ -31,14 +31,16 @@ FXIMPLEMENT_ABSTRACT(GNEChange, FXObject, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange::GNEChange(bool forward, const bool selectedElement) :
+GNEChange::GNEChange(Supermode supermode, bool forward, const bool selectedElement) :
+    mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement),
     next(nullptr) {
 }
 
 
-GNEChange::GNEChange(GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
+GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
+    mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement),
     next(nullptr),
@@ -62,6 +64,12 @@ GNEChange::size() const {
 }
 
 
+Supermode 
+GNEChange::getSupermode() const {
+    return mySupermode;
+}
+
+
 bool 
 GNEChange::canMerge() const { 
     return false; 
@@ -75,6 +83,7 @@ GNEChange::mergeWith(GNEChange*) {
 
 
 GNEChange::GNEChange() :
+    mySupermode(Supermode::NETWORK),
     myForward(false),
     mySelectedElement(false),
     next(nullptr) {

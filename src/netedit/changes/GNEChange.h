@@ -70,17 +70,19 @@ public:
     friend class GNEUndoList;
 
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, bool forward, const bool selectedElement);
 
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] element hierarchical element
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(GNEHierarchicalElement* element, bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, GNEHierarchicalElement* element, bool forward, const bool selectedElement);
 
     /// @brief Destructor
     ~GNEChange();
@@ -99,6 +101,9 @@ public:
 
     /// @brief Return the size of the command group
     virtual int size() const;
+
+    /// @brief get supermode
+    Supermode getSupermode() const;
 
     /**
      * @brief Return TRUE if this command can be merged with previous undo
@@ -231,6 +236,9 @@ protected:
             genericData->removeParentElement(element);
         }
     }
+
+    /// @brief supermode related with this change
+    const Supermode mySupermode;
 
     /// @brief we group antagonistic commands (create junction/delete junction) and keep them apart by this flag
     bool myForward;

@@ -35,10 +35,8 @@ public:
     /// @name declare friend class
     friend class GNEUndoList;
 
-    /**@brief Construct initially empty undo command group
-     * @param[in] supermode related with this group
-     */
-    GNEChangeGroup(Supermode supermode, const std::string &description);
+    /// @brief Construct initially empty undo command group
+    GNEChangeGroup(const std::string &description);
 
     /// @brief Delete undo command and sub-commands
     ~GNEChangeGroup();
@@ -58,9 +56,6 @@ public:
     /// @brief Return the size of the command group
     int size() const;
 
-    /// @brief get supermode
-    Supermode getSupermode() const;
-
     /// @brief get description
     const std::string& getDescription();
 
@@ -70,9 +65,6 @@ public:
 protected:
     /// @brief FOX need this
     GNEChangeGroup();
-
-    /// @brief supermode related with this change
-    const Supermode mySupermode;
 
     /// @brief description of command
     const std::string myDescription;

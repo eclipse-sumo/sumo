@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& value) :
-    GNEChange(true, false),
+    GNEChange(ac->getTagProperty().getSupermode(), true, false),
     myAC(ac),
     myKey(key),
     myForceChange(false),
@@ -45,7 +45,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr ke
 
 
 GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& value, const std::string& origValue) :
-    GNEChange(true, false),
+    GNEChange(ac->getTagProperty().getSupermode(), true, false),
     myAC(ac),
     myKey(key),
     myForceChange(false),

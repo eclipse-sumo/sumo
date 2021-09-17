@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Junction, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating a junction
 GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
-    GNEChange(junction, forward, junction->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, junction, forward, junction->isAttributeCarrierSelected()),
     myJunction(junction) {
     junction->incRef("GNEChange_Junction");
 }

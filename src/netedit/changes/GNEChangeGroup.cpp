@@ -37,8 +37,7 @@ FXIMPLEMENT(GNEChangeGroup, GNEChange, nullptr, 0)
 // GNEChangeGroup - methods
 // ---------------------------------------------------------------------------
 
-GNEChangeGroup::GNEChangeGroup(Supermode supermode, const std::string &description) :
-    mySupermode(supermode),
+GNEChangeGroup::GNEChangeGroup(const std::string &description) :
     undoList(nullptr), 
     redoList(nullptr), 
     group(nullptr),
@@ -59,12 +58,6 @@ GNEChangeGroup::~GNEChangeGroup() {
         delete change;
     }
     delete group;
-}
-
-
-Supermode 
-GNEChangeGroup::getSupermode() const {
-    return mySupermode;
 }
 
 
@@ -132,7 +125,6 @@ GNEChangeGroup::size() const {
 
 
 GNEChangeGroup::GNEChangeGroup() :
-    mySupermode(Supermode::NETWORK),
     undoList(nullptr), 
     redoList(nullptr), 
     group(nullptr) {
