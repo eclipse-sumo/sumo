@@ -3395,7 +3395,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // destropy Popup
         myViewNet->destroyPopup();
         // clear undo list (This will be remove additionals and shapes)
-        myViewNet->getUndoList()->p_clear();
+        myViewNet->getUndoList()->clear();
         // clear all elements (it will also removed from grid)
         myAttributeCarriers->clearJunctions();
         myAttributeCarriers->clearEdges();

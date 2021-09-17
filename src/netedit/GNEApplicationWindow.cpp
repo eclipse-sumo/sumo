@@ -3740,7 +3740,7 @@ GNEApplicationWindow::clearUndoList() {
         myViewNet->destroyPopup();
     }
     // clear undo list and return true to continue with closing/reload
-    myUndoList->p_clear();
+    myUndoList->clear();
 }
 
 // ---------------------------------------------------------------------------

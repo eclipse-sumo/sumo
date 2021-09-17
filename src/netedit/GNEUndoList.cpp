@@ -194,14 +194,29 @@ GNEUndoList::end() {
 
 
 void
-GNEUndoList::p_clear() {
+GNEUndoList::clear() {
     // disable updating of interval bar (check viewNet due #7252)
     if (myGNEApplicationWindowParent->getViewNet()) {
         myGNEApplicationWindowParent->getViewNet()->getIntervalBar().disableIntervalBarUpdate();
     }
     // abort all change groups
     abortAllChangeGroups();
-    clear();
+    // clear
+    register GNEChange *change;
+    while (redoList) {
+        change = redoList;
+        redoList = redoList->next;
+        delete change;
+    }
+    while (undoList) {
+        change = undoList;
+        undoList = undoList->next;
+        delete change;
+    }
+    delete group;
+    redoList = nullptr;
+    undoList = nullptr;
+    group = nullptr;
     // enable updating of interval bar again (check viewNet due #7252)
     if (myGNEApplicationWindowParent->getViewNet()) {
         myGNEApplicationWindowParent->getViewNet()->getIntervalBar().enableIntervalBarUpdate();
@@ -367,26 +382,6 @@ GNEUndoList::busy() const {
 GNEChange* 
 GNEUndoList::current() const {
     return undoList;
-}
-
-
-void 
-GNEUndoList::clear() {
-    register GNEChange *change;
-    while (redoList) {
-        change = redoList;
-        redoList = redoList->next;
-        delete change;
-    }
-    while (undoList) {
-        change = undoList;
-        undoList = undoList->next;
-        delete change;
-    }
-    delete group;
-    redoList = nullptr;
-    undoList = nullptr;
-    group = nullptr;
 }
 
 

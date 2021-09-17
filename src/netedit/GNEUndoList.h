@@ -104,8 +104,10 @@ public:
     /// @brief special method for change attributes, avoid empty changes, always execute
     void changeAttribute(GNEChange_Attribute* change);
 
-    /// @brief clears the undo list (implies abort)
-    void p_clear();
+    /* @brief clears the undo list (implies abort)
+     * All undo and redo information will be destroyed.
+     */
+    void clear();
 
     /// @brief reverts and discards ALL active chained change groups
     void abortAllChangeGroups();
@@ -132,6 +134,7 @@ public:
 
     /// @brief event after Redo
     long onUpdRedo(FXObject*,FXSelector,void*);
+
     /// @brief clear changes
     long onCmdClear(FXObject*,FXSelector,void*);
 
@@ -179,12 +182,6 @@ public:
 
     /// Current top level undo command
     GNEChange* current() const;
-
-    /**
-     * Clear list, and unmark all states.
-     * All undo and redo information will be destroyed.
-     */
-    void clear();
 
 /* */
 protected:
