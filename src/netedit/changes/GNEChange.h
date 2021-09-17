@@ -32,7 +32,7 @@
 #include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/FXUndoList2.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -61,10 +61,14 @@ class GNEViewNet;
  * @class GNEChange
  * @brief the function-object for an editing operation (abstract base)
  */
-class GNEChange : public FXCommand2 {
+class GNEChange : public FXObject {
     FXDECLARE_ABSTRACT(GNEChange)
 
 public:
+    /// @name friend class
+    friend class FXCommandGroup2;
+    friend class FXUndoList2;
+
     /**@brief Constructor
      * @param[in] supermode related with this change
      * @param[in] forward The direction of this change
@@ -96,12 +100,30 @@ public:
     virtual FXString redoName() const;
 
     /// @brief undo action/operation
-    virtual void undo();
+    virtual void undo() = 0;
 
     /// @brief redo action/operation
-    virtual void redo();
+    virtual void redo() = 0;
+
+    /**
+     * Return TRUE if this command can be merged with previous undo
+     * commands.  This is useful to combine e.g. multiple consecutive
+     * single-character text changes into a single block change.
+     * The default implementation returns FALSE.
+     */
+    virtual bool canMerge() const;
+
+    /**
+     * Called by the undo system to try and merge the new incoming command
+     * with this command; should return TRUE if merging was possible.
+     * The default implementation returns FALSE.
+     */
+    virtual bool mergeWith(GNEChange* command);
 
 protected:
+    /// @brief FOX need this
+    GNEChange();
+
     /// @brief restore container (only use in undo() function)
     void restoreHierarchicalContainers();
 
@@ -231,6 +253,6 @@ protected:
     std::map<GNEHierarchicalElement*, GNEHierarchicalContainer> myHierarchicalContainers;
 
 private:
-    /// @brief Default constructor
-    GNEChange();
+    // @brief next GNEChange
+    GNEChange *next;
 };

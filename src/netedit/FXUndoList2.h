@@ -20,89 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
-
-
-/**
- * Base class for undoable commands.  Each undo records all the
- * information necessary to undo as well as redo a given operation.
- * Since commands are derived from FXObject, subclassed commands can
- * both send and receive messages (like ID_GETINTVALUE, for example).
- */
-class FXCommand2 : public FXObject {
-    FXDECLARE_ABSTRACT(FXCommand2)
-
-public:
-    // @name declare friend class
-    friend class FXUndoList2;
-    friend class FXCommandGroup2;
-
-    /**
-     * Undo this command; this should save the
-     * information for a subsequent redo.
-     */
-    virtual void undo() = 0;
-
-    /**
-     * Redo this command; this should save the
-     * information for a subsequent undo.
-     */
-    virtual void redo() = 0;
-
-    /**
-     * Return the size of the information in the undo record.
-     * The undo list may be trimmed to limit memory usage to
-     * a certain limit.  The value returned should include
-     * the size of the command record itself as well as any
-     * data linked from it.
-     */
-    virtual FXuint size() const;
-
-    /**
-     * Name of the undo command to be shown on a button;
-     * for example, "Undo Delete".
-     */
-    virtual FXString undoName() const;
-
-    /**
-     * Name of the redo command to be shown on a button;
-     * for example, "Redo Delete".
-     */
-    virtual FXString redoName() const;
-
-    /**
-     * Return TRUE if this command can be merged with previous undo
-     * commands.  This is useful to combine e.g. multiple consecutive
-     * single-character text changes into a single block change.
-     * The default implementation returns FALSE.
-     */
-    virtual bool canMerge() const;
-
-    /**
-     * Called by the undo system to try and merge the new incoming command
-     * with this command; should return TRUE if merging was possible.
-     * The default implementation returns FALSE.
-     */
-    virtual bool mergeWith(FXCommand2* command);
-
-    /// Delete undo command
-    virtual ~FXCommand2(){}
-
-protected:
-    /// @brief FOX need this
-    FXCommand2();
-
-private:
-    // @brief next command
-    FXCommand2 *next;
-
-    /// @brief invalidate assignment operator
-    FXCommand2(const FXCommand2&);
-    
-    /// @brief invalidate assignment operator
-    FXCommand2 &operator=(const FXCommand2&) = delete;
-};
-
+#include <netedit/changes/GNEChange.h>
 
 /**
 * Group of undoable commands.  A group may comprise multiple
@@ -110,7 +28,7 @@ private:
 * operation.  Even larger operations may be built by nesting
 * multiple undo groups.
 */
-class FXCommandGroup2 : public FXCommand2 {
+class FXCommandGroup2 : public GNEChange {
     FXDECLARE(FXCommandGroup2)
 
 public:
@@ -150,10 +68,10 @@ protected:
 
 private:
     /// @brief undo list command
-    FXCommand2* undoList;
+    GNEChange* undoList;
 
     /// @brief redo list command
-    FXCommand2* redoList;
+    GNEChange* redoList;
 
     /// @brief group
     FXCommandGroup2* group;        
@@ -204,7 +122,7 @@ public:
      * all redo commands will be deleted since it is no longer possible to redo
      * from this point.
      */
-    void add(FXCommand2* command,bool doit=false,bool merge=true);
+    void add(GNEChange* command, bool doit=false, bool merge=true);
 
     /**
      * Begin undo command sub-group. This begins a new group of commands that
@@ -255,7 +173,7 @@ public:
     bool busy() const;
 
     /// Current top level undo command
-    FXCommand2* current() const;
+    GNEChange* current() const;
 
     /**
      * Return name of the first undo command available; if no

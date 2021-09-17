@@ -46,49 +46,8 @@ FXDEFMAP(FXUndoList2) FXUndoList2Map[] = {
 
 
 // Object implementation
-FXIMPLEMENT(FXCommandGroup2, FXCommand2, nullptr, 0)
+FXIMPLEMENT(FXCommandGroup2, GNEChange, nullptr, 0)
 FXIMPLEMENT(FXUndoList2, FXCommandGroup2, FXUndoList2Map, ARRAYNUMBER(FXUndoList2Map))
-
-// Abstract object
-FXIMPLEMENT_ABSTRACT(FXCommand2, FXObject, nullptr, 0)
-
-// ---------------------------------------------------------------------------
-// FXCommand2 - methods
-// ---------------------------------------------------------------------------
-
-FXString 
-FXCommand2::undoName() const { 
-    return "Undo"; 
-}
-
-
-FXString 
-FXCommand2::redoName() const { 
-    return "Redo";
-}
-
-
-bool 
-FXCommand2::canMerge() const { 
-    return false; 
-}
-
-
-bool 
-FXCommand2::mergeWith(FXCommand2*) {
-    return false; 
-}
-
-
-FXCommand2::FXCommand2() :
-    next(nullptr) {
-}
-
-
-FXuint 
-FXCommand2::size() const { 
-    return sizeof(FXCommand2); 
-}
 
 // ---------------------------------------------------------------------------
 // FXCommandGroup2 - methods
@@ -128,53 +87,53 @@ FXCommandGroup2::empty() {
 
 void
 FXCommandGroup2::undo() {
-    register FXCommand2 *command;
+    register GNEChange *change;
     while (undoList) {
-        command = undoList;
+        change = undoList;
         undoList = undoList->next;
-        command->undo();
-        command->next = redoList;
-        redoList = command;
+        change->undo();
+        change->next = redoList;
+        redoList = change;
     }
 }
 
 
 void FXCommandGroup2::redo() {
-    register FXCommand2 *command;
+    register GNEChange *change;
     while (redoList) {
-        command = redoList;
+        change = redoList;
         redoList = redoList->next;
-        command->redo();
-        command->next = undoList;
-        undoList = command;
+        change->redo();
+        change->next = undoList;
+        undoList = change;
     }
 }
 
 
 FXuint FXCommandGroup2::size() const {
     register FXuint result = sizeof(FXCommandGroup2);
-    register FXCommand2 *command;
-    for (command = undoList; command; command = command->next) {
-        result += command->size();
+    register GNEChange *change;
+    for (change = undoList; change; change = change->next) {
+        result += change->size();
     }
-    for (command = redoList; command; command = command->next) {
-        result += command->size();
+    for (change = redoList; change; change = change->next) {
+        result += change->size();
     }
     return result;
 }
 
 
 FXCommandGroup2::~FXCommandGroup2() {
-    register FXCommand2 *command;
+    register GNEChange *change;
     while (redoList) {
-        command = redoList;
+        change = redoList;
         redoList = redoList->next;
-        delete command;
+        delete change;
     }
     while (undoList) {
-        command = undoList;
+        change = undoList;
         undoList = undoList->next;
-        delete command;
+        delete change;
     }
     delete group;
 }
@@ -197,23 +156,23 @@ FXUndoList2::FXUndoList2() {
 
 void 
 FXUndoList2::cut() {
-    register FXCommand2 *command;
+    register GNEChange *change;
     while (redoList) {
-        command = redoList;
+        change = redoList;
         redoList = redoList->next;
-        delete command;
+        delete change;
     }
     redoList = nullptr;
 }
 
 
 void 
-FXUndoList2::add(FXCommand2* command, bool doit, bool merge) {
+FXUndoList2::add(GNEChange* change, bool doit, bool merge) {
     register FXCommandGroup2* g = this;
     register FXuint size = 0;
-    // Must pass a command
-    if (!command) { 
-        throw ProcessError("FXCommandGroup2::add: nullptr command argument");
+    // Must pass a change
+    if (!change) { 
+        throw ProcessError("FXCommandGroup2::add: nullptr change argument");
     }
     // Adding undo while in the middle of doing something!
     if (myWorking) { 
@@ -222,9 +181,9 @@ FXUndoList2::add(FXCommand2* command, bool doit, bool merge) {
     myWorking = true;
     // Cut redo list
     cut();
-    // Execute command
+    // Execute change
     if (doit) {
-        command->redo();
+        change->redo();
     }
     // Hunt for end of group chain
     while (g->group) { 
@@ -235,13 +194,13 @@ FXUndoList2::add(FXCommand2* command, bool doit, bool merge) {
         size = g->undoList->size();
     }
     // Try to merge commands when desired and possible
-    if (merge && g->undoList && (group != nullptr) && command->canMerge() && g->undoList->mergeWith(command)) {
-        // Delete incoming command that was merged
-        delete command;
+    if (merge && g->undoList && (group != nullptr) && change->canMerge() && g->undoList->mergeWith(change)) {
+        // Delete incoming change that was merged
+        delete change;
     } else {
-        // Append incoming command
-        command->next = g->undoList;
-        g->undoList = command;
+        // Append incoming change
+        change->next = g->undoList;
+        g->undoList = change;
 
     }
     myWorking = false;
@@ -249,11 +208,11 @@ FXUndoList2::add(FXCommand2* command, bool doit, bool merge) {
 
 
 void 
-FXUndoList2::begin(FXCommandGroup2 *command) {
+FXUndoList2::begin(FXCommandGroup2 *change) {
     register FXCommandGroup2* g = this;
-    // Must pass a command group
-    if (!command) {
-        throw ProcessError("FXCommandGroup2::begin: nullptr command argument"); 
+    // Must pass a change group
+    if (!change) {
+        throw ProcessError("FXCommandGroup2::begin: nullptr change argument"); 
     }
     // Calling begin while in the middle of doing something!
     if (myWorking) { 
@@ -266,13 +225,13 @@ FXUndoList2::begin(FXCommandGroup2 *command) {
         g = g->group;
     }
     // Add to end
-    g->group = command;
+    g->group = change;
 }
 
 
 void 
 FXUndoList2::end() {
-    register FXCommandGroup2 *command;
+    register FXCommandGroup2 *change;
     register FXCommandGroup2 *g = this;
     // Must have called begin
     if (!g->group) { 
@@ -287,16 +246,16 @@ FXUndoList2::end() {
         g = g->group;
     }
     // Unlink from group chain
-    command = g->group;
+    change = g->group;
     g->group = nullptr;
     // Add to group if non-empty
-    if (!command->empty()) {
-        // Append new command to undo list
-        command->next = g->undoList;
-        g->undoList = command;
+    if (!change->empty()) {
+        // Append new change to undo list
+        change->next = g->undoList;
+        g->undoList = change;
     } else {
         // Delete bottom group
-        delete command;
+        delete change;
     }
 }
 
@@ -325,19 +284,19 @@ FXUndoList2::abort() {
 
 void 
 FXUndoList2::undo() {
-    register FXCommand2 *command;
+    register GNEChange *change;
     if (group) { 
         throw ProcessError("FXCommandGroup2::undo: cannot call undo inside begin-end block");
     }
     if (undoList) {
         myWorking = true;
-        command = undoList;  
+        change = undoList;  
         // Remove from undoList BEFORE undo
         undoList = undoList->next;
-        command->undo();
+        change->undo();
         // Hang into redoList AFTER undo
-        command->next = redoList;             
-        redoList = command;
+        change->next = redoList;             
+        redoList = change;
         myWorking = false;
     }
 }
@@ -345,19 +304,19 @@ FXUndoList2::undo() {
 
 void 
 FXUndoList2::redo() {
-    register FXCommand2 *command;
+    register GNEChange *change;
     if (group) { 
         throw ProcessError("FXCommandGroup2::redo: cannot call undo inside begin-end block"); 
     }
     if (redoList) {
         myWorking = true;
-        command = redoList;    
+        change = redoList;    
         // Remove from redoList BEFORE redo
         redoList = redoList->next;
-        command->redo();
+        change->redo();
         // Hang into undoList AFTER redo
-        command->next = undoList;             
-        undoList = command;
+        change->next = undoList;             
+        undoList = change;
         myWorking = false;
     }
 }
@@ -397,7 +356,7 @@ FXUndoList2::busy() const {
 }
 
 
-FXCommand2* 
+GNEChange* 
 FXUndoList2::current() const {
     return undoList;
 }
@@ -425,16 +384,16 @@ FXUndoList2::redoName() const {
 
 void 
 FXUndoList2::clear() {
-    register FXCommand2 *command;
+    register GNEChange *change;
     while (redoList) {
-        command = redoList;
+        change = redoList;
         redoList = redoList->next;
-        delete command;
+        delete change;
     }
     while (undoList) {
-        command = undoList;
+        change = undoList;
         undoList = undoList->next;
-        delete command;
+        delete change;
     }
     delete group;
     redoList = nullptr;

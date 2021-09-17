@@ -25,7 +25,7 @@
 // FOX-declarations
 // ===========================================================================
 
-FXIMPLEMENT_ABSTRACT(GNEChange, FXCommand2, nullptr, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange, FXObject, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
@@ -34,13 +34,16 @@ FXIMPLEMENT_ABSTRACT(GNEChange, FXCommand2, nullptr, 0)
 GNEChange::GNEChange(Supermode supermode, bool forward, const bool selectedElement) :
     mySupermode(supermode),
     myForward(forward),
-    mySelectedElement(selectedElement) {}
+    mySelectedElement(selectedElement),
+    next(nullptr) {
+}
 
 
 GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
     mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement),
+    next(nullptr),
     myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()) {
     // get all hierarchical elements (Parents and children)
     const auto hierarchicalElements = hierarchicalElement->getAllHierarchicalElements();
@@ -77,13 +80,24 @@ GNEChange::redoName() const {
     return "Redo";
 }
 
+bool 
+GNEChange::canMerge() const { 
+    return false; 
+}
 
-void
-GNEChange::undo() {}
+
+bool 
+GNEChange::mergeWith(GNEChange*) {
+    return false; 
+}
 
 
-void
-GNEChange::redo() {}
+GNEChange::GNEChange() :
+    mySupermode(Supermode::NETWORK),
+    myForward(false),
+    mySelectedElement(false),
+    next(nullptr) {
+}
 
 
 void
@@ -92,13 +106,6 @@ GNEChange::restoreHierarchicalContainers() {
     for (const auto& container : myHierarchicalContainers) {
         container.first->restoreHierarchicalContainer(container.second);
     }
-}
-
-
-GNEChange::GNEChange() :
-    mySupermode(Supermode::NETWORK),
-    myForward(false),
-    mySelectedElement(false) {
 }
 
 /****************************************************************************/
