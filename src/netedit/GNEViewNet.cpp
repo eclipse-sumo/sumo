@@ -2044,16 +2044,16 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             // continue depending of index
             if (index == 0) {
                 // change shape start
-                myUndoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, lane->getParentEdge(), GNE_ATTR_SHAPE_START, toString(edgeGeometry.front())));
+                myUndoList->changeAttribute(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_START, toString(edgeGeometry.front())));
             } else if (index == ((int)edgeGeometry.size() - 1)) {
                 // change shape end
-                myUndoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, lane->getParentEdge(), GNE_ATTR_SHAPE_END, toString(edgeGeometry.back())));
+                myUndoList->changeAttribute(new GNEChange_Attribute(lane->getParentEdge(), GNE_ATTR_SHAPE_END, toString(edgeGeometry.back())));
             } else {
                 // remove front and back geometry points
                 edgeGeometry.pop_front();
                 edgeGeometry.pop_back();
                 // change shape
-                myUndoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry)));
+                myUndoList->changeAttribute(new GNEChange_Attribute(lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry)));
             }
             // end undo list
             myUndoList->end();
@@ -2074,7 +2074,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             // begin undo list
             myUndoList->begin("change polygon Geometry Point position");
             // change shape
-            myUndoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, poly, SUMO_ATTR_SHAPE, toString(polygonGeometry)));
+            myUndoList->changeAttribute(new GNEChange_Attribute(poly, SUMO_ATTR_SHAPE, toString(polygonGeometry)));
             // end undo list
             myUndoList->end();
         }
@@ -2094,7 +2094,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             // begin undo list
             myUndoList->begin("change TAZ Geometry Point position");
             // change shape
-            myUndoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, TAZ, SUMO_ATTR_SHAPE, toString(TAZGeometry)));
+            myUndoList->changeAttribute(new GNEChange_Attribute(TAZ, SUMO_ATTR_SHAPE, toString(TAZGeometry)));
             // end undo list
             myUndoList->end();
         }

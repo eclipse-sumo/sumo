@@ -2083,8 +2083,6 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
         return 0;
     } else if (!myEditMenuCommands.undoLastChange->isEnabled()) {
         return 0;
-    } else if (!myViewNet->getUndoList()->getCurrentUndoChange()) {
-        return 0;
     } else if (myViewNet->getUndoList()->getCurrentUndoChange()->getSupermode() != myViewNet->getEditModes().currentSupermode) {
         // ask about change supermode
         myViewNet->aksChangeSupermode("Undo", myViewNet->getUndoList()->getCurrentUndoChange()->getSupermode());
@@ -2112,8 +2110,6 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return 0;
     } else if (!myEditMenuCommands.redoLastChange->isEnabled()) {
-        return 0;
-    } else if (!myViewNet->getUndoList()->getCurrentRedoChange()) {
         return 0;
     } else if (myViewNet->getUndoList()->getCurrentRedoChange()->getSupermode() != myViewNet->getEditModes().currentSupermode) {
         // ask about change supermode

@@ -1406,7 +1406,7 @@ GNENetHelper::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const 
 // ---------------------------------------------------------------------------
 
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
-    GNEChange(Supermode::NETWORK, true, false),
+    GNEChange(true, false),
     myTllcont(tllcont),
     myReplaced(replaced),
     myBy(by) {
