@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
                                        double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
-    GNEChange(Supermode::NETWORK, junctionParent, forward, selected),
+    GNEChange(junctionParent, forward, selected),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
@@ -50,7 +50,7 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
 
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const NBNode::Crossing& crossing, bool forward):
-    GNEChange(Supermode::NETWORK, forward, false),
+    GNEChange(forward, false),
     myJunctionParent(junctionParent),
     myEdges(crossing.edges),
     myWidth(crossing.width),

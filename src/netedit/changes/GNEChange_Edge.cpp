@@ -36,7 +36,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an edge
 GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
-    GNEChange(Supermode::NETWORK, edge, forward, edge->isAttributeCarrierSelected()),
+    GNEChange(edge, forward, edge->isAttributeCarrierSelected()),
     myEdge(edge) {
     edge->incRef("GNEChange_Edge");
     // save all hierarchical elements of edge's lane

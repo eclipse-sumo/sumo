@@ -33,7 +33,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
-    GNEChange(Supermode::NETWORK, additional, forward, additional->isAttributeCarrierSelected()),
+    GNEChange(additional, forward, additional->isAttributeCarrierSelected()),
     myAdditional(additional) {
     myAdditional->incRef("GNEChange_Additional");
 }

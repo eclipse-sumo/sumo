@@ -32,8 +32,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Children, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Children::GNEChange_Children(Supermode supermode, GNEDemandElement* demandElementParent, GNEDemandElement* demandElementChild, const Operation operation) :
-    GNEChange(supermode, true, demandElementChild->isAttributeCarrierSelected()),
+GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, GNEDemandElement* demandElementChild, const Operation operation) :
+    GNEChange(true, demandElementChild->isAttributeCarrierSelected()),
     myParentDemandElement(demandElementParent),
     myChildDemandElement(demandElementChild),
     myOperation(operation),

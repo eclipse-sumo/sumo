@@ -36,7 +36,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
-    GNEChange(Supermode::DEMAND, demandElement, forward, demandElement->isAttributeCarrierSelected()),
+    GNEChange(demandElement, forward, demandElement->isAttributeCarrierSelected()),
     myDemandElement(demandElement) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }

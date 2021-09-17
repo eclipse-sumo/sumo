@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
-    GNEChange(Supermode::NETWORK, true, false),
+    GNEChange(true, false),
     myEdge(edge),
     myLane(nullptr),
     myLaneAttrs(laneAttrs),
@@ -45,7 +45,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
 
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
-    GNEChange(Supermode::NETWORK, lane, forward, lane->isAttributeCarrierSelected()),
+    GNEChange(lane, forward, lane->isAttributeCarrierSelected()),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),

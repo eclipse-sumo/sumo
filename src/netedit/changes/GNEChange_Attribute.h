@@ -34,21 +34,19 @@ class GNEChange_Attribute : public GNEChange {
 
 public:
     /**@brief constructor
-     * @param[in] supermode related with this change
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
      */
-    GNEChange_Attribute(Supermode supermode, GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value);
+    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value);
 
     /**@brief Constructor with custom origin value
-     * @param[in] supermode related with this change
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] customOrigValue custon original value
      */
-    GNEChange_Attribute(Supermode supermode, GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value,
+    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value,
                         const std::string& customOrigValue);
 
     /// @brief Destructor

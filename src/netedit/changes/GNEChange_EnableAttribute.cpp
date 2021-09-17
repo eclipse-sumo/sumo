@@ -32,8 +32,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_EnableAttribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_EnableAttribute::GNEChange_EnableAttribute(Supermode supermode, GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes) :
-    GNEChange(supermode, true, false),
+GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes) :
+    GNEChange(true, false),
     myAC(ac),
     myOriginalAttributes(originalAttributes),
     myNewAttributes(newAttributes) {
