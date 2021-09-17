@@ -214,12 +214,13 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
 #                                 "${FREETYPE_PATH}/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-?.?.??/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/curl-?.??.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libssh2-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/openssl-?.?.?/*.dll")
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/curl-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libssh2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/openssl-*/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-*/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-*/bin/*.dll")
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll")
@@ -433,7 +434,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     # copy common dlls
     foreach(DLL ${SUMO_LIBRARIES_DLL})
-        message(STATUS "DLL ${DLL}")
+#        message(STATUS "DLL ${DLL}")
         get_filename_component(DLL_BASENAME ${DLL} NAME)
         set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
         list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
