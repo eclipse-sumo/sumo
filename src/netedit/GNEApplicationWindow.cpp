@@ -2078,10 +2078,18 @@ GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
     WRITE_DEBUG("Keys Ctrl+Z (Undo) pressed");
-    // Undo needs a viewnet and a enabled undoLastChange menu command
-    if (myViewNet && myEditMenuCommands.undoLastChange->isEnabled()) {
-        myViewNet->getUndoList()->getlastChange();
-
+    // Check conditions
+    if (myViewNet == nullptr) {
+        return 0;
+    } else if (!myEditMenuCommands.undoLastChange->isEnabled()) {
+        return 0;
+    } else if (!myViewNet->getUndoList()->getCurrentUndoChange()) {
+        return 0;
+    } else if (myViewNet->getUndoList()->getCurrentUndoChange()->getSupermode() != myViewNet->getEditModes().currentSupermode) {
+        // ask about change supermode
+        myViewNet->aksChangeSupermode("Undo", myViewNet->getUndoList()->getCurrentUndoChange()->getSupermode());
+        return 0;
+    } else {
         myViewNet->getUndoList()->undo();
         // update current show frame after undo
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {
@@ -2100,8 +2108,18 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
     WRITE_DEBUG("Keys Ctrl+Y (Redo) pressed");
-    // redo needs a viewnet and a enabled redoLastChange menu command
-    if (myViewNet && myEditMenuCommands.redoLastChange->isEnabled()) {
+    // Check conditions
+    if (myViewNet == nullptr) {
+        return 0;
+    } else if (!myEditMenuCommands.redoLastChange->isEnabled()) {
+        return 0;
+    } else if (!myViewNet->getUndoList()->getCurrentRedoChange()) {
+        return 0;
+    } else if (myViewNet->getUndoList()->getCurrentRedoChange()->getSupermode() != myViewNet->getEditModes().currentSupermode) {
+        // ask about change supermode
+        myViewNet->aksChangeSupermode("Redo", myViewNet->getUndoList()->getCurrentRedoChange()->getSupermode());
+        return 0;
+    } else {
         myViewNet->getUndoList()->redo();
         // update current show frame after redo
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {

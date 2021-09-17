@@ -108,7 +108,10 @@ public:
     int currentCommandGroupSize() const;
 
     /// @brief getCurrent top level undo command
-    const GNEChange* getCurrentChange() const;
+    const GNEChange* getCurrentUndoChange() const;
+
+    /// @brief getCurrent top level redo command
+    const GNEChange* getCurrentRedoChange() const;
 
     /// @brief Check if undoList has command group
     bool hasCommandGroup() const;

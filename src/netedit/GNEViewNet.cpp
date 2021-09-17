@@ -644,6 +644,31 @@ GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJuncti
 }
 
 
+void 
+GNEViewNet::aksChangeSupermode(const std::string &operation, Supermode expectedSupermode) {
+    std::string supermode;
+    if (expectedSupermode == Supermode::NETWORK) {
+        supermode = "network";
+    } else if (expectedSupermode == Supermode::DEMAND) {
+        supermode = "demand";
+    } else if (expectedSupermode == Supermode::DATA) {
+        supermode = "data";
+    } else {
+        throw ProcessError("invalid expecte supermode");
+    }
+    // open question box
+    const auto answer = FXMessageBox::question(myApp, MBOX_YES_NO,
+                                    "Confirm change supermode", "%s",
+                                    (operation + " requiere to change to " + supermode + " mode. Continue?").c_str());
+    // restore focus to view net
+    setFocus();
+    // return answer
+    if (answer == MBOX_CLICKED_YES) {
+        myEditModes.setSupermode(expectedSupermode, true);
+    }
+}
+
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),

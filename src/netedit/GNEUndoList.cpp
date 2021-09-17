@@ -301,8 +301,14 @@ GNEUndoList::currentCommandGroupSize() const {
 
 
 const GNEChange* 
-GNEUndoList::getCurrentChange() const {
+GNEUndoList::getCurrentUndoChange() const {
     return undoList;
+}
+
+
+const GNEChange* 
+GNEUndoList::getCurrentRedoChange() const {
+    return redoList;
 }
 
 

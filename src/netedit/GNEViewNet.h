@@ -462,6 +462,9 @@ public:
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
 
+    /// @brief ask about change supermode
+    void aksChangeSupermode(const std::string &operation, Supermode expectedSupermode);
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
