@@ -76,6 +76,10 @@ def get_options(args=None):
                          help="Configure the minimum stopping duration")
     optParser.add_option("--stop-duration-slack", default=10, type="float", dest='stopdurationSlack',
                          help="Stopping time reserve in the schedule")
+    optParser.add_option("--speedfactor.bus", default=0.95, type="float", dest='speedFactorBus',
+                         help="Assumed bus relative travel speed")
+    optParser.add_option("--speedfactor.tram", default=1.0, type="float", dest='speedFactorTram',
+                         help="Assumed tram relative travel speed")
     optParser.add_option("-H", "--human-readable-time", dest="hrtime", default=False,
                          action="store_true", help="write times as h:m:s")
     optParser.add_option("--night", action="store_true", default=False, help="Export night service lines")
@@ -98,16 +102,24 @@ def get_options(args=None):
     return options
 
 
-def writeTypes(fout, prefix):
-    print("""    <vType id="%sbus" vClass="bus"/>
-    <vType id="%stram" vClass="tram"/>
-    <vType id="%strain" vClass="rail"/>
-    <vType id="%ssubway" vClass="rail_urban"/>
-    <vType id="%slight_rail" vClass="rail_urban"/>
-    <vType id="%smonorail" vClass="rail"/>
-    <vType id="%strolleybus" vClass="bus"/>
-    <vType id="%saerialway" vClass="bus"/>
-    <vType id="%sferry" vClass="ship"/>""" % tuple([prefix] * 9), file=fout)
+def writeTypes(fout, prefix, options):
+    # note: public transport vehicles have speedDev="0" by default
+    prefixes_and_sf = [prefix, ""] * 9
+    if options:
+        prefixes_and_sf[1] = ' speedFactor="%s"' % options.speedFactorBus
+        prefixes_and_sf[3] = ' speedFactor="%s"' % options.speedFactorTram
+        # trolleybus
+        prefixes_and_sf[13] = ' speedFactor="%s"' % options.speedFactorBus
+
+    print("""    <vType id="%sbus" vClass="bus"%s/>
+    <vType id="%stram" vClass="tram"%s/>
+    <vType id="%strain" vClass="rail"%s/>
+    <vType id="%ssubway" vClass="rail_urban"%s/>
+    <vType id="%slight_rail" vClass="rail_urban"%s/>
+    <vType id="%smonorail" vClass="rail"%s/>
+    <vType id="%strolleybus" vClass="bus"%s/>
+    <vType id="%saerialway" vClass="bus"%s/>
+    <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
 
 def getStopEdge(stopsLanes, stop):
@@ -128,7 +140,7 @@ def createTrips(options):
         sumolib.writeXMLHeader(
             fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes")
-        writeTypes(fouttrips, options.vtypeprefix)
+        writeTypes(fouttrips, options.vtypeprefix, options)
 
         departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
         if options.randomBegin:
@@ -295,7 +307,7 @@ def createRoutes(options, trpMap, stopNames):
             foutflows, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes")
         if not options.novtypes:
-            writeTypes(foutflows, options.vtypeprefix)
+            writeTypes(foutflows, options.vtypeprefix, None)
         collections.defaultdict(int)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
