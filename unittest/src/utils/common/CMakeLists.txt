@@ -5,6 +5,7 @@ add_executable(testcommon
         RGBColorTest.cpp
         ValueTimeLineTest.cpp
         )
+add_dependencies(testcommon install_test_dll)
 set_property(TARGET testcommon PROPERTY FOLDER "test_exe")
 add_test(testcommon ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testcommon)
 

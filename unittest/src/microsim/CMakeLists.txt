@@ -3,6 +3,7 @@ add_executable(testmicrosim
         MSCFModelTest.cpp
         MSCFModel_IDMTest.cpp
         )
+add_dependencies(testmicrosim install_test_dll)
 set_property(TARGET testmicrosim PROPERTY FOLDER "test_exe")
 add_test(testmicrosim ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testmicrosim)
 

@@ -245,9 +245,8 @@ if (SUMO_LIBRARIES AND WIN32)
         # set both google test library
         set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
         # set google test DLLs
-        file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/*.dll")
-        list(APPEND SUMO_LIBRARIES_DLL ${GTEST_DLL})
-        set(GTEST_FOUND true)   
+        file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/gtest*.dll")
+        set(GTEST_FOUND true)
     endif ()
     file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/swig.exe")
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
@@ -430,24 +429,31 @@ endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-#    	execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_DLL)
+    	execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_DLL)
     endif ()
     # copy common dlls
-    foreach(DLL ${SUMO_LIBRARIES_DLL})
-#        message(STATUS "DLL ${DLL}")
+    foreach(DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
+        message(STATUS "DLL ${DLL}")
         get_filename_component(DLL_BASENAME ${DLL} NAME)
         set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
         list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
+        list(FIND GTEST_DLL ${DLL} IS_TEST_DLL)
         if (DLL_KNOWN EQUAL -1)
             add_custom_command(OUTPUT ${TARGET_DLL}
                                COMMAND ${CMAKE_COMMAND} -E copy ${DLL} ${TARGET_DLL}
                                DEPENDS ${DLL})
-            list(APPEND TARGET_DLLS ${TARGET_DLL})
+            if (IS_TEST_DLL EQUAL -1)
+                list(APPEND TARGET_DLLS ${TARGET_DLL})
+            else ()
+                list(APPEND TARGET_TEST_DLLS ${TARGET_DLL})
+            endif ()
         endif()
     endforeach(DLL)
     # copy OSG dlls
     if (HAVE_OSG)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg.dll)
+        file(GLOB OSG_DLL "${OSG_PATH}/bin/*osg.dll")
+        get_filename_component(OSG_DLL_BASENAME ${OSG_DLL} NAME)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_DLL_BASENAME})
         add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
                            DEPENDS ${OSG_PATH})
@@ -460,6 +466,7 @@ if (SUMO_LIBRARIES AND WIN32)
     install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
     # set install_dll target
     add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
+    add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 endif ()
 

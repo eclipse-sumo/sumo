@@ -1,6 +1,7 @@
 add_executable(testfoxtools
         FXWorkerThreadTest.cpp
         )
+add_dependencies(testfoxtools install_test_dll)
 set_property(TARGET testfoxtools PROPERTY FOLDER "test_exe")
 add_test(testfoxtools ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testfoxtools)
 

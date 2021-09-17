@@ -37,4 +37,4 @@ def filterDLL(filelist):
 
 
 if __name__ == "__main__":
-    print(";".join(filterDLL(sys.argv[1:])))
+    sys.stdout.write(";".join(filterDLL(sys.argv[1:])))
