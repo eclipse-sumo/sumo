@@ -65,6 +65,18 @@ GNETagProperties::getTag() const {
 }
 
 
+Supermode 
+GNETagProperties::getSupermode() const {
+    if (isDemandElement()) {
+        return Supermode::DEMAND;
+    } else if (isDataElement()) {
+        return Supermode::DATA;
+    } else {
+        return Supermode::NETWORK;
+    }
+}
+
+
 const std::string&
 GNETagProperties::getTagStr() const {
     return myTagStr;

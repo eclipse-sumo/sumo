@@ -26,6 +26,7 @@
 // ===========================================================================
 
 #include <utils/gui/images/GUIIcons.h>
+#include <netedit/GNEViewNetHelper.h>
 
 #include "GNEAttributeProperties.h"
 
@@ -103,6 +104,9 @@ public:
 
     /// @brief get Tag vinculated with this attribute Property
     SumoXMLTag getTag() const;
+
+    /// @brief get supermode associated with this tag
+    Supermode getSupermode() const;
 
     /// @brief get Tag vinculated with this attribute Property in String Format (used to avoid multiple calls to toString(...)
     const std::string& getTagStr() const;
