@@ -159,7 +159,7 @@ GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 shape.erase(shape.begin() + index);
                 // commit new shape
                 undoList->begin("remove geometry point of " + getTagStr());
-                undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
+                undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
                 undoList->end();
             }
         }
@@ -671,9 +671,9 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
             GNEEdge* srcEdge = myNet->retrieveEdge((*it)->getID());
             removeConnectionsFrom(srcEdge, undoList, false); // false, because the whole tls will be invalidated at the end
-            undoList->add(new GNEChange_Attribute(Supermode::NETWORK, srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
+            undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
-        undoList->add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_MODIFICATION_STATUS, status), true);
+        undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
         invalidateTLS(undoList);
     } else {
         // logic valed, then rebuild GNECrossings to adapt it to the new logic
@@ -811,7 +811,7 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
         NBEdge* srcNBE = *it;
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-        undoList->add(new GNEChange_Attribute(Supermode::NETWORK, srcEdge, GNE_ATTR_MODIFICATION_STATUS, FEATURE_MODIFIED), true);
+        undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, FEATURE_MODIFIED), true);
     }
 }
 
@@ -837,11 +837,11 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                     // however, they could remain valid so we register a change but keep them at their old value
                     for (GNECrossing* c : myGNECrossings) {
                         const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
-                        undoList->add(new GNEChange_Attribute(Supermode::NETWORK, c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
-                        undoList->add(new GNEChange_Attribute(Supermode::NETWORK, c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
                         const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX2);
-                        undoList->add(new GNEChange_Attribute(Supermode::NETWORK, c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
-                        undoList->add(new GNEChange_Attribute(Supermode::NETWORK, c, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
                     }
                 }
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
@@ -852,9 +852,9 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                 // recompute crossing indices along with everything else
                 for (GNECrossing* c : myGNECrossings) {
                     const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
-                    undoList->add(new GNEChange_Attribute(Supermode::NETWORK, c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                    undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
                     const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX2);
-                    undoList->add(new GNEChange_Attribute(Supermode::NETWORK, c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                    undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
                 }
                 replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());
                 replacementDef->setProgramID(tlDef->getProgramID());
@@ -1021,14 +1021,14 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_KEEP_CLEAR:
             // change Keep Clear attribute in all connections
             undoList->begin("change keepClear for whole junction");
             for (const auto& i : myGNEIncomingEdges) {
                 for (const auto& j : i->getGNEConnections()) {
-                    undoList->add(new GNEChange_Attribute(Supermode::NETWORK, j, key, value), true);
+                    undoList->add(new GNEChange_Attribute(j, key, value), true);
                 }
             }
             undoList->end();
@@ -1060,10 +1060,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
-            undoList->add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             for (const auto& crossing : myGNECrossings) {
-                undoList->add(new GNEChange_Attribute(Supermode::NETWORK, crossing, SUMO_ATTR_TLLINKINDEX, "-1"), true);
-                undoList->add(new GNEChange_Attribute(Supermode::NETWORK, crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
+                undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX, "-1"), true);
+                undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
             }
             undoList->end();
             break;
@@ -1085,7 +1085,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     }
                 }
             }
-            undoList->add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             undoList->end();
             break;
         }
@@ -1400,11 +1400,11 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
         if (isShapeEdited()) {
             // commit new shape
             undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
             undoList->end();
         } else if (!myNet->getViewNet()->mergeJunctions(this, myNet->getViewNet()->getObjectsUnderCursor().getJunctionFront())) {
             undoList->begin("position of " + getTagStr());
-            undoList->changeAttribute(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
             undoList->end();
         }
     }
