@@ -135,7 +135,7 @@ GNEUndoList::begin(const std::string& description) {
 
 void
 GNEUndoList::begin(Supermode supermode, const std::string& description) {
-    myChangeGroups.push(new GNEChangeGroup(supermode, description));
+    myChangeGroups.push(new GNEChangeGroup(description));
     // get this reference
     register GNEChangeGroup* g = this;
     // Calling begin while in the middle of doing something!
