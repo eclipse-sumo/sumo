@@ -130,9 +130,22 @@ GNEUndoList::redoName() const {
 
 
 void
-GNEUndoList::p_begin(const std::string& description) {
+GNEUndoList::begin(const std::string& description) {
     myCommandGroups.push(new GNEChangeGroup(description));
-    begin(myCommandGroups.top());
+    // get this reference
+    register GNEChangeGroup* g = this;
+    // Calling begin while in the middle of doing something!
+    if (myWorking) { 
+        throw ProcessError("GNEChangeGroup::begin: already working on undo or redo"); 
+    }
+    // Cut redo list
+    cut();
+    // Hunt for end of group chain
+    while (g->group) { 
+        g = g->group;
+    }
+    // Add to end
+    g->group = myCommandGroups.top();
 }
 
 
@@ -286,28 +299,6 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
 
     }
     myWorking = false;
-}
-
-
-void 
-GNEUndoList::begin(GNEChangeGroup *change) {
-    register GNEChangeGroup* g = this;
-    // Must pass a change group
-    if (!change) {
-        throw ProcessError("GNEChangeGroup::begin: nullptr change argument"); 
-    }
-    // Calling begin while in the middle of doing something!
-    if (myWorking) { 
-        throw ProcessError("GNEChangeGroup::begin: already working on undo or redo"); 
-    }
-    // Cut redo list
-    cut();
-    // Hunt for end of group chain
-    while (g->group) { 
-        g = g->group;
-    }
-    // Add to end
-    g->group = change;
 }
 
 

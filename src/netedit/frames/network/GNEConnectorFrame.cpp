@@ -266,7 +266,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectPass(FXObject*, FXSelector, 
 long
 GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
     myConnectorFrameParent->myConnectionModifications->onCmdCancelModifications(0, 0, 0);
-    myConnectorFrameParent->getViewNet()->getUndoList()->p_begin("clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
+    myConnectorFrameParent->getViewNet()->getUndoList()->begin("clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
     // clear junction's connection
     auto junctions = myConnectorFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
     for (auto i : junctions) {
@@ -293,7 +293,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*
 long
 GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
     myConnectorFrameParent->myConnectionModifications->onCmdCancelModifications(0, 0, 0);
-    myConnectorFrameParent->getViewNet()->getUndoList()->p_begin("reset connections from selected lanes");
+    myConnectorFrameParent->getViewNet()->getUndoList()->begin("reset connections from selected lanes");
     auto junctions = myConnectorFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
     for (auto i : junctions) {
         i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList());
@@ -424,7 +424,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
         myCurrentEditedLane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.source);
         initTargets();
         myNumChanges = 0;
-        myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
+        myViewNet->getUndoList()->begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
     } else if (myPotentialTargets.count(lane)
                || (allowConflict && lane->getParentEdge()->getFromJunction() == myCurrentEditedLane->getParentEdge()->getToJunction())) {
         const int fromIndex = myCurrentEditedLane->getIndex();

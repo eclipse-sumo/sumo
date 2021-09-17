@@ -95,6 +95,6 @@ private:
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModuls::PathCreator* myPathCreator;
 
-    /// @brief build person and return it (note: function includes a call to p_begin(...), but NOT a call to p_end(...))
+    /// @brief build person and return it (note: function includes a call to begin(...), but NOT a call to p_end(...))
     GNEDemandElement* buildPerson();
 };

@@ -56,7 +56,7 @@ long
 GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNERoute* route = static_cast<GNERoute*>(myObject);
     GNEUndoList* undoList = route->myNet->getViewNet()->getUndoList();
-    undoList->p_begin("apply distance along route");
+    undoList->begin("apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
         undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE)));
@@ -549,7 +549,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             }
             // check vehicles
             if (vehicles.size() > 0) {
-                undoList->p_begin("reset start and end edges");
+                undoList->begin("reset start and end edges");
                 for (const auto& vehicle : vehicles) {
                     undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, vehicle, SUMO_ATTR_DEPARTEDGE, ""));
                     undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, vehicle, SUMO_ATTR_ARRIVALEDGE, ""));
@@ -557,7 +557,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
             } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-                undoList->p_begin("reset start and end edges");
+                undoList->begin("reset start and end edges");
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, ""));
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, ""));
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));

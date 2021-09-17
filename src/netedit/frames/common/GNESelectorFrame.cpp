@@ -297,7 +297,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         }
         // change selected attribute in loaded ACs allowing undo/redo
         if (loadedACs.size() > 0) {
-            mySelectorFrameParent->myViewNet->getUndoList()->p_begin("load selection");
+            mySelectorFrameParent->myViewNet->getUndoList()->begin("load selection");
             mySelectorFrameParent->handleIDs(loadedACs);
             mySelectorFrameParent->myViewNet->getUndoList()->p_end();
         }
@@ -343,7 +343,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
     // only continue if there is element for selecting
     if (processNetworkElementSelection(true, false) || processDemandElementSelection(true, false) || processDataElementSelection(true, false)) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
-        mySelectorFrameParent->myViewNet->getUndoList()->p_begin("invert selection");
+        mySelectorFrameParent->myViewNet->getUndoList()->begin("invert selection");
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             processNetworkElementSelection(false, true);
@@ -371,7 +371,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     // only continue if there is element for selecting
     if (processNetworkElementSelection(true, false) || processDemandElementSelection(true, false) || processDataElementSelection(true, false)) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
-        mySelectorFrameParent->myViewNet->getUndoList()->p_begin("invert selection");
+        mySelectorFrameParent->myViewNet->getUndoList()->begin("invert selection");
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // invert network elements
@@ -1041,7 +1041,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     // only continue if there is ACs to select or unselect
     if ((ACsToSelect.size() + ACsToUnselect.size()) > 0) {
         // first unselect AC of ACsToUnselect and then selects AC of ACsToSelect
-        myViewNet->getUndoList()->p_begin("selection");
+        myViewNet->getUndoList()->begin("selection");
         for (const auto& ACToUnselect : ACsToUnselect) {
             if (ACToUnselect.second->getTagProperty().isSelectable()) {
                 ACToUnselect.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());

@@ -425,7 +425,7 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
     // only commit geometry moving if at leats start or end positions is defined
     if ((myStartPosition != INVALID_DOUBLE) || (myEndPosition != INVALID_DOUBLE)) {
         // begin change attribute
-        undoList->p_begin("position of " + getTagStr());
+        undoList->begin("position of " + getTagStr());
         // set startPos
         if (myStartPosition != INVALID_DOUBLE) {
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));

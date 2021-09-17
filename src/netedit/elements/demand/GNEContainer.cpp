@@ -915,7 +915,7 @@ void GNEContainer::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEContainer::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("departPos of " + getTagStr());
+    undoList->begin("departPos of " + getTagStr());
     // now set departPos
     setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
     undoList->p_end();

@@ -67,14 +67,12 @@ public:
     /// @brief redo the last command group
     void redo();
 
-    /**
-     * @brief Return name of the first undo command available; if no
+    /**@brief Return name of the first undo command available; if no
      * undo command available this will return the empty string.
      */
     std::string undoName() const;
 
-    /**
-     * @brief Return name of the first redo command available; if no
+    /**@brief Return name of the first redo command available; if no
      * Redo command available this will return the empty string.
      */
     std::string redoName() const;
@@ -84,7 +82,7 @@ public:
      * matching end() after recording the sub-commands. The new sub-group
      * will be appended to its parent group's undo list when end() is called.
      */
-    void p_begin(const std::string& description);
+    void begin(const std::string& description);
 
     /**@brief End undo command sub-group.  If the sub-group is still empty, it will
      * be deleted; otherwise, the sub-group will be added as a new command
@@ -160,14 +158,6 @@ public:
      * from this point.
      */
     void add(GNEChange* command, bool doit=false, bool merge=true);
-
-    /**
-     * Begin undo command sub-group. This begins a new group of commands that
-     * are treated as a single command.  Must eventually be followed by a
-     * matching end() after recording the sub-commands.  The new sub-group
-     * will be appended to its parent group's undo list when end() is called.
-     */
-    void begin(GNEChangeGroup *command);
 
     /**
      * End undo command sub-group.  If the sub-group is still empty, it will

@@ -203,7 +203,7 @@ GNEConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* 
                 // remove geometry point
                 shape.erase(shape.begin() + index);
                 // commit new shape
-                undoList->p_begin("remove geometry point of " + getTagStr());
+                undoList->begin("remove geometry point of " + getTagStr());
                 undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
                 undoList->p_end();
             }
@@ -584,7 +584,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             }
             break;
         case SUMO_ATTR_INDIRECT:
-            undoList->p_begin("change attribute indirect for connection");
+            undoList->begin("change attribute indirect for connection");
             if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
                 undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value));
                 int linkIndex2 = -1;
@@ -621,7 +621,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 void
 GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList) {
     // trigger GNEChange_TLS
-    undoList->p_begin("change tls linkIndex for connection");
+    undoList->begin("change tls linkIndex for connection");
     // make a copy
     std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
     for (NBTrafficLightDefinition* tlDef : defs) {
@@ -845,7 +845,7 @@ GNEConnection::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEConnection::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    undoList->begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
     undoList->p_end();
 }

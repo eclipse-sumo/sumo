@@ -207,7 +207,7 @@ GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, v
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
     // begin undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("shift edge geometries");
+    myMoveFrameParent->getViewNet()->getUndoList()->begin("shift edge geometries");
     // iterate over edges
     for (const auto& edge : edges) {
         // get edge geometry
@@ -312,7 +312,7 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
     // begin undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("change Z values in selection");
+    myMoveFrameParent->getViewNet()->getUndoList()->begin("change Z values in selection");
     // iterate over junctions
     for (const auto& junction : junctions) {
         if (junction->getNBNode()->hasCustomShape()) {
@@ -557,7 +557,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const auto polygons = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
     const auto POIs = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true);
     // begin undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("shift shape geometries");
+    myMoveFrameParent->getViewNet()->getUndoList()->begin("shift shape geometries");
     // iterate over shapes
     for (const auto& polygon : polygons) {
         // get shape geometry

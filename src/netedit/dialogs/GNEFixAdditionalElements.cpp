@@ -95,21 +95,21 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     // first check options from single lane additionals
     if (myAdditionalList->myInvalidSingleLaneAdditionals.size() > 0) {
         if (myPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
+            myViewNet->getUndoList()->begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
         } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("fix positions of invalid additionals");
+            myViewNet->getUndoList()->begin("fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->fixAdditionalProblem();
             }
             myViewNet->getUndoList()->p_end();
         } else if (myPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("select invalid additionals");
+            myViewNet->getUndoList()->begin("select invalid additionals");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -121,7 +121,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // now check options from multi lane additionals
     if (myAdditionalList->myInvalidMultiLaneAdditionals.size() > 0) {
-        myViewNet->getUndoList()->p_begin("fix multilane additionals problems");
+        myViewNet->getUndoList()->begin("fix multilane additionals problems");
         // fix problems of consecutive lanes
         if (myConsecutiveLaneOptions->buildConnectionBetweenLanes->getCheck() == TRUE) {
             // iterate over invalid single lane elements to enable friendly position

@@ -254,12 +254,12 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         // check if we're removing first geometry proint
         if (index == 0) {
             // commit new geometry start
-            undoList->p_begin("remove first geometry point of " + getTagStr());
+            undoList->begin("remove first geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_START, ""));
             undoList->p_end();
         } else if (index == lastIndex) {
             // commit new geometry end
-            undoList->p_begin("remove last geometry point of " + getTagStr());
+            undoList->begin("remove last geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_END, ""));
             undoList->p_end();
         } else {
@@ -271,7 +271,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             // remove double points
             shape.removeDoublePoints(SNAP_RADIUS);
             // commit new shape
-            undoList->p_begin("remove geometry point of " + getTagStr());
+            undoList->begin("remove geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
             undoList->p_end();
         }
@@ -463,12 +463,12 @@ void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
     if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
             (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
-        undoList->p_begin("remove endpoint");
+        undoList->begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->p_end();
     } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
                (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
-        undoList->p_begin("remove endpoint");
+        undoList->begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
     } else {
@@ -480,7 +480,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             Position newPos = geom.positionAtOffset2D(offset);
             // snap new position to grid
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
-            undoList->p_begin("set endpoint");
+            undoList->begin("set endpoint");
             int index = geom.indexOfClosest(pos, true);
             // check if snap to existing geometry
             if (geom[index].distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
@@ -877,7 +877,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
-            undoList->p_begin("change " + getTagStr() + " attribute");
+            undoList->begin("change " + getTagStr() + " attribute");
             const std::string origValue = myLanes.at(0)->getAttribute(key); // will have intermediate value of "lane specific"
             // lane specific attributes need to be changed via lanes to allow undo
             for (auto it : myLanes) {
@@ -889,7 +889,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         }
         case SUMO_ATTR_FROM: {
-            undoList->p_begin("change  " + getTagStr() + "  attribute");
+            undoList->begin("change  " + getTagStr() + "  attribute");
             // Remove edge from crossings of junction source
             removeEdgeFromCrossings(getFromJunction(), undoList);
             // continue changing from junction
@@ -908,7 +908,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         }
         case SUMO_ATTR_TO: {
-            undoList->p_begin("change  " + getTagStr() + "  attribute");
+            undoList->begin("change  " + getTagStr() + "  attribute");
             // Remove edge from crossings of junction destiny
             removeEdgeFromCrossings(getToJunction(), undoList);
             // continue changing destiny junction
@@ -1530,7 +1530,7 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
         innenShape.pop_front();
         innenShape.pop_back();
         // commit new shape
-        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), 0) != moveResult.geometryPointsToMove.end()) {
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
         }
@@ -1548,7 +1548,7 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // begin undo list
-    undoList->p_begin("change number of " + toString(SUMO_TAG_LANE) +  "s");
+    undoList->begin("change number of " + toString(SUMO_TAG_LANE) +  "s");
     // invalidate logic of source/destiny edges
     getFromJunction()->setLogicValid(false, undoList);
     getToJunction()->setLogicValid(false, undoList);

@@ -239,7 +239,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
     if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // check if we're changing multiple attributes
         if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myInspectorFrameParent->myViewNet->getUndoList()->p_begin("Change multiple attributes");
+            myInspectorFrameParent->myViewNet->getUndoList()->begin("Change multiple attributes");
         }
         if (obj == myCheckBoxCloseShape) {
             // set new values in all inspected Attribute Carriers
@@ -639,7 +639,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
     // first check
     if (myHasEdgeTemplate) {
         // begin copy template
-        myInspectorFrameParent->myViewNet->getUndoList()->p_begin("copy edge template");
+        myInspectorFrameParent->myViewNet->getUndoList()->begin("copy edge template");
         // iterate over inspected ACs
         for (const auto& inspectedAC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             // retrieve edge ID (and throw exception if edge doesn't exist)
@@ -830,14 +830,14 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
             // check inspected parameters
             if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
                 // begin undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_begin("change parameters");
+                myInspectorFrameParent->myViewNet->getUndoList()->begin("change parameters");
                 // set parameters
                 frontAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 // end undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->p_end();
             } else if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
                 // begin undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_begin("change multiple parameters");
+                myInspectorFrameParent->myViewNet->getUndoList()->begin("change multiple parameters");
                 // set parameters in all ACs
                 for (const auto& inspectedAC : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
                     inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());

@@ -403,7 +403,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             GNEDemandElement* nextContainerPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -420,7 +420,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
                 // obtain stopContainer
                 const GNEAdditional* stopContainer = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, stopContainer->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -436,7 +436,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeaveStopPersonsConnected() &&
                     previousContainerPlan && previousContainerPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 // change from attribute using edge ID
-                undoList->p_begin("Change arrivalPos attribute of previous containerPlan");
+                undoList->begin("Change arrivalPos attribute of previous containerPlan");
                 previousContainerPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -746,7 +746,7 @@ GNEStopContainer::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStopContainer::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("endPos of " + getTagStr());
+    undoList->begin("endPos of " + getTagStr());
     // now adjust endPos position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     undoList->p_end();

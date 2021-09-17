@@ -114,7 +114,7 @@ GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) 
 void
 GNEAdditionalDialog::initChanges() {
     // init commandGroup
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
     // save number of command group changes
     myNumberOfChanges = myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
@@ -141,7 +141,7 @@ void
 GNEAdditionalDialog::resetChanges() {
     // abort last command group an start editing again
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
 }
 
 

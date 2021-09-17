@@ -257,7 +257,7 @@ GNEContainerFrame::createPath() {
     } else {
 /*
         // begin undo-redo operation
-        myViewNet->getUndoList()->p_begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
+        myViewNet->getUndoList()->begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
         // create container
         GNEDemandElement* container = buildContainer();
         // check if container and container plan can be created

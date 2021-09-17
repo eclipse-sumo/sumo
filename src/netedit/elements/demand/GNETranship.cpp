@@ -402,7 +402,7 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             GNEDemandElement* nextContainerPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -419,7 +419,7 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 // obtain containerStop
                 const GNEAdditional* containerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -436,7 +436,7 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 // obtain edges
                 const std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
                 // change from attribute using edge ID
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, edges.back()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -636,7 +636,7 @@ GNETranship::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNETranship::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("arrivalPos of " + getTagStr());
+    undoList->begin("arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->p_end();

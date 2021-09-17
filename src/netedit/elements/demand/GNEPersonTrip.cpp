@@ -366,7 +366,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
-                undoList->p_begin("Change from attribute of next personPlan");
+                undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -383,7 +383,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 // obtain busStop
                 const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
-                undoList->p_begin("Change from attribute of next personPlan");
+                undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
                 undoList->p_end();
@@ -556,7 +556,7 @@ GNEPersonTrip::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEPersonTrip::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("arrivalPos of " + getTagStr());
+    undoList->begin("arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->p_end();

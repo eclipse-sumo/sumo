@@ -585,7 +585,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // get inspected AC
         GNEAttributeCarrier* AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
         // set parameter in AC using undoList
-        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
+        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->begin("change parameters");
         AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
     } else if (VTypeAttributeRow) {
@@ -593,7 +593,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         VTypeAttributeRow->setParameters(parameters);
     } else if (myAttributeCarrier) {
         // set parameter in AC using undoList
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->p_begin("change parameters");
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin("change parameters");
         myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->p_end();
     }

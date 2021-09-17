@@ -815,7 +815,7 @@ long
 GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
-        myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + myClickedDemandElement->getTagStr()).c_str());
+        myFrameParent->myViewNet->getUndoList()->begin(("moving up " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position back
         myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(Supermode::DEMAND, myClickedDemandElement->getParentDemandElements().at(0), myClickedDemandElement,
                 GNEChange_Children::Operation::MOVE_BACK), true);
@@ -831,7 +831,7 @@ long
 GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
-        myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + myClickedDemandElement->getTagStr()).c_str());
+        myFrameParent->myViewNet->getUndoList()->begin(("moving down " + myClickedDemandElement->getTagStr()).c_str());
         // move element one position front
         myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(Supermode::DEMAND, myClickedDemandElement->getParentDemandElements().at(0), myClickedDemandElement,
                 GNEChange_Children::Operation::MOVE_FRONT), true);

@@ -1297,7 +1297,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-                    myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
+                    myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin("Change multiple attributes");
                 }
                 // Set new value of attribute in all selected ACs
                 for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
@@ -1312,7 +1312,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
     } else if (obj == myAttributeButtonCombinableChoices) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
+            myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin("Change multiple attributes");
         }
         // get attribute to modify
         SumoXMLAttr modifiedAttr = myACAttr.getAttr() == SUMO_ATTR_DISALLOW ? SUMO_ATTR_ALLOW : myACAttr.getAttr();
@@ -1415,10 +1415,10 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (!mergeJunction(myACAttr.getAttr(), inspectedACs, newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
+                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin("Change multiple attributes");
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
+                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin("change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
             }
             // Set new value of attribute in all selected ACs
             for (const auto &inspectedAC : inspectedACs) {
@@ -1474,7 +1474,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->enable();
         myValueTextField->enable();
         // enable attribute
-        undoList->p_begin("enable attribute '" + myACAttr.getAttrStr() + "'");
+        undoList->begin("enable attribute '" + myACAttr.getAttrStr() + "'");
         myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->enableAttribute(myACAttr.getAttr(), undoList);
         undoList->p_end();
     } else {
@@ -1482,7 +1482,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->disable();
         myValueTextField->disable();
         // disable attribute
-        undoList->p_begin("disable attribute '" + myACAttr.getAttrStr() + "'");
+        undoList->begin("disable attribute '" + myACAttr.getAttrStr() + "'");
         myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->disableAttribute(myACAttr.getAttr(), undoList);
         undoList->p_end();
     }
@@ -1843,7 +1843,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
     WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
     // check if we're editing multiple attributes
     if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-        undoList->p_begin("Change multiple " + toString(attr) + " attributes");
+        undoList->begin("Change multiple " + toString(attr) + " attributes");
     }
     // enable attribute with undo/redo
     for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
@@ -1882,9 +1882,9 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObj
     WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
     // begin undo list
     if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-        undoList->p_begin("enable multiple " + toString(attr) + " attributes");
+        undoList->begin("enable multiple " + toString(attr) + " attributes");
     } else {
-        undoList->p_begin("enable attribute '" + toString(attr) + "'");
+        undoList->begin("enable attribute '" + toString(attr) + "'");
     }
     // enable attribute with undo/redo
     for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
