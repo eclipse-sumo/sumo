@@ -149,21 +149,21 @@ void GNEChange_Crossing::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Crossing::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_CROSSING));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_CROSSING));
     }
 }
 
 
-FXString
+std::string
 GNEChange_Crossing::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_CROSSING));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_CROSSING));
     }
 }

@@ -103,22 +103,22 @@ GNEChange_DataInterval::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_DataInterval::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataInterval->getTagStr()).c_str();
+        return ("Undo create " + myDataInterval->getTagStr());
     } else {
-        return ("Undo delete " + myDataInterval->getTagStr()).c_str();
+        return ("Undo delete " + myDataInterval->getTagStr());
     }
 }
 
 
-FXString
+std::string
 GNEChange_DataInterval::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataInterval->getTagStr()).c_str();
+        return ("Redo create " + myDataInterval->getTagStr());
     } else {
-        return ("Redo delete " + myDataInterval->getTagStr()).c_str();
+        return ("Redo delete " + myDataInterval->getTagStr());
     }
 }
 

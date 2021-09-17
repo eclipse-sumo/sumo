@@ -32,52 +32,52 @@ class GNEChangeGroup : public GNEChange {
     FXDECLARE(GNEChangeGroup)
 
 public:
-    // @name declare friend class
+    /// @name declare friend class
     friend class GNEUndoList;
 
-    /// Construct initially empty undo command group
+    /// @brief Construct initially empty undo command group
     GNEChangeGroup(const std::string &description);
 
-    /// Delete undo command and sub-commands
-    virtual ~GNEChangeGroup();
+    /// @brief Delete undo command and sub-commands
+    ~GNEChangeGroup();
+
+    /// @brief Undo whole command group
+    void undo();
+
+    /// @brief Redo whole command group
+    void redo();
+
+    /// @brief get undo Name
+    std::string undoName() const;
+
+    /// @brief get redo name
+    std::string redoName() const;
+
+    /// @brief Return the size of the command group
+    int size() const;
 
     /// @brief get description
     const std::string& getDescription();
 
-    /// @brief get undo Name
-    FXString undoName() const;
-
-    /// @brief get redo name
-    FXString redoName() const;
-
-    /// Return TRUE if empty
-    bool empty();
-
-    /// Undo whole command group
-    virtual void undo();
-
-    /// Redo whole command group
-    virtual void redo();
-
-    /// Return the size of the command group
-    virtual FXuint size() const;
+    /// @brief Return TRUE if empty
+    bool empty() const;
 
 protected:
     /// @brief FOX need this
     GNEChangeGroup();
 
-private:
-    /// @brief undo list command
-    GNEChange* undoList;
-
-    /// @brief redo list command
-    GNEChange* redoList;
-
-    /// @brief group
-    GNEChangeGroup* group;        
-    
     /// @brief description of command
     const std::string myDescription;
+
+private:
+    /// @brief undo list command (can be access by GNEUndoList)
+    GNEChange* undoList;
+
+    /// @brief redo list command (can be access by GNEUndoList)
+    GNEChange* redoList;
+
+    /// @brief group (can be access by GNEUndoList)
+    GNEChangeGroup* group;  
 
     /// @brief invalidate copy constructor
     GNEChangeGroup(const GNEChangeGroup&);

@@ -67,20 +67,20 @@ GNEChangeGroup::getDescription() {
 }
 
 
-FXString
+std::string
 GNEChangeGroup::undoName() const {
-    return ("Undo " + myDescription).c_str();
+    return ("Undo " + myDescription);
 }
 
 
-FXString
+std::string
 GNEChangeGroup::redoName() const {
-    return ("Redo " + myDescription).c_str();
+    return ("Redo " + myDescription);
 }
 
 
 bool
-GNEChangeGroup::empty() { 
+GNEChangeGroup::empty() const { 
     return (undoList == nullptr); 
 }
 
@@ -110,7 +110,8 @@ void GNEChangeGroup::redo() {
 }
 
 
-FXuint GNEChangeGroup::size() const {
+int
+GNEChangeGroup::size() const {
     register FXuint result = sizeof(GNEChangeGroup);
     register GNEChange *change;
     for (change = undoList; change; change = change->next) {

@@ -2396,13 +2396,13 @@ GNEApplicationWindow::onUpdSaveDataElements(FXObject* sender, FXSelector, void*)
 
 long
 GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
-    return myUndoList->p_onUpdUndo(obj, sel, ptr);
+    return myUndoList->onUpdUndo(obj, sel, ptr);
 }
 
 
 long
 GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
-    return myUndoList->p_onUpdRedo(obj, sel, ptr);
+    return myUndoList->onUpdRedo(obj, sel, ptr);
 }
 
 

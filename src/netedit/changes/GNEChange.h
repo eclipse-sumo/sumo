@@ -87,38 +87,38 @@ public:
     /// @brief Destructor
     ~GNEChange();
 
-    /// @brief get supermode
-    Supermode getSupermode() const;
-
-    /// @brief return actual size
-    virtual FXuint size() const;
-
-    /// @brief return undoName
-    virtual FXString undoName() const;
-
-    /// @brief return rendoName
-    virtual FXString redoName() const;
-
     /// @brief undo action/operation
     virtual void undo() = 0;
 
     /// @brief redo action/operation
     virtual void redo() = 0;
 
+     /// @brief return undoName
+    virtual std::string undoName() const = 0;
+
+    /// @brief return rendoName
+    virtual std::string redoName() const = 0;
+
+    /// @brief Return the size of the command group
+    virtual int size() const;
+
+    /// @brief get supermode
+    Supermode getSupermode() const;
+
     /**
-     * Return TRUE if this command can be merged with previous undo
+     * @brief Return TRUE if this command can be merged with previous undo
      * commands.  This is useful to combine e.g. multiple consecutive
      * single-character text changes into a single block change.
      * The default implementation returns FALSE.
      */
-    virtual bool canMerge() const;
+    bool canMerge() const;
 
     /**
-     * Called by the undo system to try and merge the new incoming command
+     * @brief Called by the undo system to try and merge the new incoming command
      * with this command; should return TRUE if merging was possible.
      * The default implementation returns FALSE.
      */
-    virtual bool mergeWith(GNEChange* command);
+    bool mergeWith(GNEChange* command);
 
 protected:
     /// @brief FOX need this
@@ -253,6 +253,12 @@ protected:
     std::map<GNEHierarchicalElement*, GNEHierarchicalContainer> myHierarchicalContainers;
 
 private:
-    // @brief next GNEChange
+    // @brief next GNEChange (can be access by GNEChangeGroup and GNEUndoList)
     GNEChange *next;
+
+    /// @brief Invalidated copy constructor.
+    GNEChange(const GNEChange&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEChange& operator=(const GNEChange&) = delete;
 };

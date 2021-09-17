@@ -139,23 +139,23 @@ GNEChange_Children::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Children::undoName() const {
     if (myForward) {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Undo moving up " + myChildDemandElement->getTagStr()).c_str();
+            return ("Undo moving up " + myChildDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Undo moving down " + myChildDemandElement->getTagStr()).c_str();
+            return ("Undo moving down " + myChildDemandElement->getTagStr());
         } else {
             return ("Invalid operation");
         }
     } else {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Undo moving down " + myChildDemandElement->getTagStr()).c_str();
+            return ("Undo moving down " + myChildDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Undo moving up " + myChildDemandElement->getTagStr()).c_str();
+            return ("Undo moving up " + myChildDemandElement->getTagStr());
         } else {
             return ("Invalid operation");
         }
@@ -163,23 +163,23 @@ GNEChange_Children::undoName() const {
 }
 
 
-FXString
+std::string
 GNEChange_Children::redoName() const {
     if (myForward) {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Redo moving front " + myParentDemandElement->getTagStr()).c_str();
+            return ("Redo moving front " + myParentDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Redo moving back " + myParentDemandElement->getTagStr()).c_str();
+            return ("Redo moving back " + myParentDemandElement->getTagStr());
         } else {
             return ("Invalid operation");
         }
     } else {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Redo moving front " + myParentDemandElement->getTagStr()).c_str();
+            return ("Redo moving front " + myParentDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Redo moving back " + myParentDemandElement->getTagStr()).c_str();
+            return ("Redo moving back " + myParentDemandElement->getTagStr());
         } else {
             return ("Invalid operation");
         }

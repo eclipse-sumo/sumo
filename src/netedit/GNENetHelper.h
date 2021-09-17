@@ -461,17 +461,17 @@ struct GNENetHelper {
         /// @bief destructor
         ~GNEChange_ReplaceEdgeInTLS();
 
-        /// @brief undo name
-        FXString undoName() const;
-
-        /// @brief get Redo name
-        FXString redoName() const;
-
         /// @brief undo action
         void undo();
 
         /// @brief redo action
         void redo();
+
+        /// @brief undo name
+        std::string undoName() const;
+
+        /// @brief get Redo name
+        std::string redoName() const;
 
         /// @brief wether original and new value differ
         bool trueChange();

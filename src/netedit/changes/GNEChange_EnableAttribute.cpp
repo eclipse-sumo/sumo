@@ -88,15 +88,15 @@ GNEChange_EnableAttribute::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_EnableAttribute::undoName() const {
-    return ("Undo change " + myAC->getTagStr() + " attribute").c_str();
+    return ("Undo change " + myAC->getTagStr() + " attribute");
 }
 
 
-FXString
+std::string
 GNEChange_EnableAttribute::redoName() const {
-    return ("Redo change " + myAC->getTagStr() + " attribute").c_str();
+    return ("Redo change " + myAC->getTagStr() + " attribute");
 }
 
 

@@ -152,21 +152,21 @@ GNEChange_Lane::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Lane::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_LANE));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_LANE));
     }
 }
 
 
-FXString
+std::string
 GNEChange_Lane::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_LANE));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_LANE));
     }
 }

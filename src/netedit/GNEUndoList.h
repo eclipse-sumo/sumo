@@ -56,8 +56,28 @@ public:
     };
 
     /// @brief constructor
-    /// @note be aware that "parent" may be not fully initialized when stored here, so don't call any methods on it.
     GNEUndoList(GNEApplicationWindow* parent);
+
+    /// @brief destructor
+    ~GNEUndoList();
+
+    /// @brief undo the last command group
+    void undo();
+
+    /// @brief redo the last command group
+    void redo();
+
+    /**
+     * @brief Return name of the first undo command available; if no
+     * undo command available this will return the empty string.
+     */
+    std::string undoName() const;
+
+    /**
+     * @brief Return name of the first redo command available; if no
+     * Redo command available this will return the empty string.
+     */
+    std::string redoName() const;
 
     /**@brief Begin undo command sub-group. This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
@@ -82,12 +102,6 @@ public:
     /// @brief reverts last command group
     void p_abortLastCommandGroup();
 
-    /// @brief undo the last command group
-    void undo();
-
-    /// @brief redo the last command group
-    void redo();
-
     /// @brief special method, avoid empty changes, always execute
     void p_add(GNEChange_Attribute* cmd);
 
@@ -99,21 +113,27 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+    /// @brief undo change
+    long onCmdUndo(FXObject*,FXSelector,void*);
+
     /// @brief event after Undo
-    long p_onUpdUndo(FXObject*, FXSelector, void*);
+    long onUpdUndo(FXObject*,FXSelector,void*);
+
+    /// @brief redo change
+    long onCmdRedo(FXObject*,FXSelector,void*);
 
     /// @brief event after Redo
-    long p_onUpdRedo(FXObject*, FXSelector, void*);
-
-
-
-    long onCmdUndo(FXObject*,FXSelector,void*);
-    long onUpdUndo(FXObject*,FXSelector,void*);
-    long onCmdRedo(FXObject*,FXSelector,void*);
     long onUpdRedo(FXObject*,FXSelector,void*);
+    /// @brief clear changes
     long onCmdClear(FXObject*,FXSelector,void*);
+
+    /// @brief event after clear
     long onUpdClear(FXObject*,FXSelector,void*);
+
+    /// @brief undo all changes
     long onCmdUndoAll(FXObject*,FXSelector,void*);
+
+    /// @brief redo all changes
     long onCmdRedoAll(FXObject*,FXSelector,void*);
     /// @}
 
@@ -185,18 +205,6 @@ public:
 
     /// Current top level undo command
     GNEChange* current() const;
-
-    /**
-     * Return name of the first undo command available; if no
-     * undo command available this will return the empty string.
-     */
-    virtual FXString undoName() const;
-
-    /**
-     * Return name of the first redo command available; if no
-     * Redo command available this will return the empty string.
-     */
-    virtual FXString redoName() const;
 
     /**
      * Clear list, and unmark all states.

@@ -97,22 +97,22 @@ GNEChange_DataSet::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_DataSet::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataSet->getTagStr()).c_str();
+        return ("Undo create " + myDataSet->getTagStr());
     } else {
-        return ("Undo delete " + myDataSet->getTagStr()).c_str();
+        return ("Undo delete " + myDataSet->getTagStr());
     }
 }
 
 
-FXString
+std::string
 GNEChange_DataSet::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataSet->getTagStr()).c_str();
+        return ("Redo create " + myDataSet->getTagStr());
     } else {
-        return ("Redo delete " + myDataSet->getTagStr()).c_str();
+        return ("Redo delete " + myDataSet->getTagStr());
     }
 }
 

@@ -57,28 +57,18 @@ GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalEl
 GNEChange::~GNEChange() {}
 
 
+int 
+GNEChange::size() const {
+    // by default, 1
+    return 1;
+}
+
+
 Supermode 
 GNEChange::getSupermode() const {
     return mySupermode;
 }
 
-
-FXuint
-GNEChange::size() const {
-    return 1;
-}
-
-
-FXString
-GNEChange::undoName() const {
-    return "Undo";
-}
-
-
-FXString
-GNEChange::redoName() const {
-    return "Redo";
-}
 
 bool 
 GNEChange::canMerge() const { 

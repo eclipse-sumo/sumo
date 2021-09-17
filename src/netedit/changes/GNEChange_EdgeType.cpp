@@ -105,7 +105,7 @@ GNEChange_EdgeType::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_EdgeType::undoName() const {
     if (myForward) {
         return "Undo create edgeType";
@@ -115,7 +115,7 @@ GNEChange_EdgeType::undoName() const {
 }
 
 
-FXString
+std::string
 GNEChange_EdgeType::redoName() const {
     if (myForward) {
         return "Redo create laneType";

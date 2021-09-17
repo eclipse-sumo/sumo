@@ -1416,18 +1416,6 @@ GNENetHelper::GNEChange_ReplaceEdgeInTLS::GNEChange_ReplaceEdgeInTLS(NBTrafficLi
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::~GNEChange_ReplaceEdgeInTLS() {}
 
 
-FXString
-GNENetHelper::GNEChange_ReplaceEdgeInTLS::undoName() const {
-    return "Redo replace in TLS";
-}
-
-
-FXString
-GNENetHelper::GNEChange_ReplaceEdgeInTLS::redoName() const {
-    return "Undo replace in TLS";
-}
-
-
 void
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::undo() {
     // assuming this is only used for replacing incoming connections (GNENet::replaceIncomingEdge)
@@ -1439,6 +1427,18 @@ void
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::redo() {
     // assuming this is only used for replacing incoming connections (GNENet::replaceIncomingEdge)
     myTllcont.replaceRemoved(myReplaced, -1, myBy, -1, true);
+}
+
+
+std::string
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::undoName() const {
+    return "Redo replace in TLS";
+}
+
+
+std::string
+GNENetHelper::GNEChange_ReplaceEdgeInTLS::redoName() const {
+    return "Undo replace in TLS";
 }
 
 

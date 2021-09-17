@@ -103,21 +103,21 @@ GNEChange_Junction::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Junction::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_JUNCTION));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_JUNCTION));
     }
 }
 
 
-FXString
+std::string
 GNEChange_Junction::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_JUNCTION));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_JUNCTION));
     }
 }

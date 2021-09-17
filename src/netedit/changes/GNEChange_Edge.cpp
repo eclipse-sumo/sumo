@@ -132,22 +132,22 @@ GNEChange_Edge::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Edge::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_EDGE)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_EDGE));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_EDGE)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_EDGE));
     }
 }
 
 
-FXString
+std::string
 GNEChange_Edge::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_EDGE)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_EDGE));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_EDGE)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_EDGE));
     }
 }
 

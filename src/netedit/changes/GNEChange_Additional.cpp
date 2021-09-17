@@ -114,21 +114,21 @@ GNEChange_Additional::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Additional::undoName() const {
     if (myForward) {
-        return ("Undo create " + myAdditional->getTagStr()).c_str();
+        return ("Undo create " + myAdditional->getTagStr());
     } else {
-        return ("Undo delete " + myAdditional->getTagStr()).c_str();
+        return ("Undo delete " + myAdditional->getTagStr());
     }
 }
 
 
-FXString
+std::string
 GNEChange_Additional::redoName() const {
     if (myForward) {
-        return ("Redo create " + myAdditional->getTagStr()).c_str();
+        return ("Redo create " + myAdditional->getTagStr());
     } else {
-        return ("Redo delete " + myAdditional->getTagStr()).c_str();
+        return ("Redo delete " + myAdditional->getTagStr());
     }
 }

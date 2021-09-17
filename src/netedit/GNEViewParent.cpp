@@ -398,8 +398,8 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
 
 void
 GNEViewParent::updateUndoRedoButtons() {
-    myGNEAppWindows->getUndoList()->p_onUpdUndo(myUndoButton, 0, nullptr);
-    myGNEAppWindows->getUndoList()->p_onUpdRedo(myRedoButton, 0, nullptr);
+    myGNEAppWindows->getUndoList()->onUpdUndo(myUndoButton, 0, nullptr);
+    myGNEAppWindows->getUndoList()->onUpdRedo(myRedoButton, 0, nullptr);
 }
 
 
