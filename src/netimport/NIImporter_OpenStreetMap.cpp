@@ -1351,6 +1351,7 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myIsStopArea = false;
     myIsRoute = false;
     myPTRouteType = "";
+    myRouteColor.setValid(false);
 }
 
 void
@@ -1472,6 +1473,13 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
 
         } else if (key == "name") {
             myName = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+        } else if (key == "colour") {
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+            try {
+                myRouteColor = RGBColor::parseColor(value);
+            } catch (...) {
+                WRITE_WARNINGF("Invalid color value '%' in relation %", value, myCurrentRelation);
+            }
         } else if (key == "ref") {
             myRef = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
         } else if (key == "interval" || key == "headway") {
@@ -1590,7 +1598,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1, myCurrentRelation);
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output")) {
-            NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService, interpretTransportType(myPTRouteType));
+            NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService,
+                    interpretTransportType(myPTRouteType), myRouteColor);
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {

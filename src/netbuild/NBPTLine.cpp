@@ -30,11 +30,12 @@
 #include "NBPTStop.h"
 
 NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService,
-                   SUMOVehicleClass vClass) :
+                   SUMOVehicleClass vClass, RGBColor color) :
     myName(name),
     myType(type),
     myPTLineId(id),
     myRef(ref != "" ? ref : name),
+    myColor(color),
     myInterval(interval),
     myNightService(nightService),
     myVClass(vClass)
@@ -72,6 +73,10 @@ void NBPTLine::write(OutputDevice& device) {
     }
     if (myNightService != "") {
         device.writeAttr("nightService", myNightService);
+    }
+    
+    if (myColor.isValid()) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     device.writeAttr("completeness", toString((double)myPTStops.size() / (double)myNumOfStops));
 
