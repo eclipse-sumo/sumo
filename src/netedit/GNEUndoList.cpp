@@ -71,7 +71,7 @@ GNEUndoList::GNEUndoList(GNEApplicationWindow* parent) :
 
 void
 GNEUndoList::p_begin(const std::string& description) {
-    myCommandGroups.push(new FXCommandGroup2(description));
+    myCommandGroups.push(new GNEChangeGroup(description));
     begin(myCommandGroups.top());
 }
 

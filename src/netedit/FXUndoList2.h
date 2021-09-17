@@ -20,75 +20,11 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/changes/GNEChange.h>
-
-/**
-* Group of undoable commands.  A group may comprise multiple
-* individual actions which together undo (or redo) a larger
-* operation.  Even larger operations may be built by nesting
-* multiple undo groups.
-*/
-class FXCommandGroup2 : public GNEChange {
-    FXDECLARE(FXCommandGroup2)
-
-public:
-    // @name declare friend class
-    friend class FXUndoList2;
-
-    /// Construct initially empty undo command group
-    FXCommandGroup2(const std::string &description);
-
-    /// @brief get description
-    const std::string& getDescription();
-
-    /// @brief get undo Name
-    FXString undoName() const;
-
-    /// @brief get redo name
-    FXString redoName() const;
-
-    /// Return TRUE if empty
-    bool empty();
-
-    /// Undo whole command group
-    virtual void undo();
-
-    /// Redo whole command group
-    virtual void redo();
-
-    /// Return the size of the command group
-    virtual FXuint size() const;
-
-    /// Delete undo command and sub-commands
-    virtual ~FXCommandGroup2();
-
-protected:
-    /// @brief FOX need this
-    FXCommandGroup2();
-
-private:
-    /// @brief undo list command
-    GNEChange* undoList;
-
-    /// @brief redo list command
-    GNEChange* redoList;
-
-    /// @brief group
-    FXCommandGroup2* group;        
-    
-    /// @brief description of command
-    const std::string myDescription;
-
-    /// @brief invalidate copy constructor
-    FXCommandGroup2(const FXCommandGroup2&);
-    
-    /// @brief invalidate assignment operator
-    FXCommandGroup2 &operator=(const FXCommandGroup2&) = delete;
-};
+#include <netedit/changes/GNEChangeGroup.h>
 
 
 /// @brief The Undo List class manages a list of undoable commands.
-class FXUndoList2 : public FXCommandGroup2 {
+class FXUndoList2 : public GNEChangeGroup {
     FXDECLARE(FXUndoList2)
 
 public:
@@ -130,7 +66,7 @@ public:
      * matching end() after recording the sub-commands.  The new sub-group
      * will be appended to its parent group's undo list when end() is called.
      */
-    void begin(FXCommandGroup2 *command);
+    void begin(GNEChangeGroup *command);
 
     /**
      * End undo command sub-group.  If the sub-group is still empty, it will

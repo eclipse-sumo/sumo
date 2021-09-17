@@ -66,7 +66,7 @@ class GNEChange : public FXObject {
 
 public:
     /// @name friend class
-    friend class FXCommandGroup2;
+    friend class GNEChangeGroup;
     friend class FXUndoList2;
 
     /**@brief Constructor

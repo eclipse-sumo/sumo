@@ -46,104 +46,7 @@ FXDEFMAP(FXUndoList2) FXUndoList2Map[] = {
 
 
 // Object implementation
-FXIMPLEMENT(FXCommandGroup2, GNEChange, nullptr, 0)
-FXIMPLEMENT(FXUndoList2, FXCommandGroup2, FXUndoList2Map, ARRAYNUMBER(FXUndoList2Map))
-
-// ---------------------------------------------------------------------------
-// FXCommandGroup2 - methods
-// ---------------------------------------------------------------------------
-
-FXCommandGroup2::FXCommandGroup2(const std::string &description) :
-    undoList(nullptr), 
-    redoList(nullptr), 
-    group(nullptr),
-    myDescription(description) {
-}
-
-
-const std::string&
-FXCommandGroup2::getDescription() {
-    return myDescription;
-}
-
-
-FXString
-FXCommandGroup2::undoName() const {
-    return ("Undo " + myDescription).c_str();
-}
-
-
-FXString
-FXCommandGroup2::redoName() const {
-    return ("Redo " + myDescription).c_str();
-}
-
-
-bool
-FXCommandGroup2::empty() { 
-    return (undoList == nullptr); 
-}
-
-
-void
-FXCommandGroup2::undo() {
-    register GNEChange *change;
-    while (undoList) {
-        change = undoList;
-        undoList = undoList->next;
-        change->undo();
-        change->next = redoList;
-        redoList = change;
-    }
-}
-
-
-void FXCommandGroup2::redo() {
-    register GNEChange *change;
-    while (redoList) {
-        change = redoList;
-        redoList = redoList->next;
-        change->redo();
-        change->next = undoList;
-        undoList = change;
-    }
-}
-
-
-FXuint FXCommandGroup2::size() const {
-    register FXuint result = sizeof(FXCommandGroup2);
-    register GNEChange *change;
-    for (change = undoList; change; change = change->next) {
-        result += change->size();
-    }
-    for (change = redoList; change; change = change->next) {
-        result += change->size();
-    }
-    return result;
-}
-
-
-FXCommandGroup2::~FXCommandGroup2() {
-    register GNEChange *change;
-    while (redoList) {
-        change = redoList;
-        redoList = redoList->next;
-        delete change;
-    }
-    while (undoList) {
-        change = undoList;
-        undoList = undoList->next;
-        delete change;
-    }
-    delete group;
-}
-
-
-FXCommandGroup2::FXCommandGroup2() :
-    undoList(nullptr), 
-    redoList(nullptr), 
-    group(nullptr) {
-}
+FXIMPLEMENT(FXUndoList2, GNEChangeGroup, FXUndoList2Map, ARRAYNUMBER(FXUndoList2Map))
 
 // ---------------------------------------------------------------------------
 // FXUndoList2 - methods
@@ -168,15 +71,15 @@ FXUndoList2::cut() {
 
 void 
 FXUndoList2::add(GNEChange* change, bool doit, bool merge) {
-    register FXCommandGroup2* g = this;
+    register GNEChangeGroup* g = this;
     register FXuint size = 0;
     // Must pass a change
     if (!change) { 
-        throw ProcessError("FXCommandGroup2::add: nullptr change argument");
+        throw ProcessError("GNEChangeGroup::add: nullptr change argument");
     }
     // Adding undo while in the middle of doing something!
     if (myWorking) { 
-        throw ProcessError("FXCommandGroup2::add: already working on undo or redo"); 
+        throw ProcessError("GNEChangeGroup::add: already working on undo or redo"); 
     }
     myWorking = true;
     // Cut redo list
@@ -208,15 +111,15 @@ FXUndoList2::add(GNEChange* change, bool doit, bool merge) {
 
 
 void 
-FXUndoList2::begin(FXCommandGroup2 *change) {
-    register FXCommandGroup2* g = this;
+FXUndoList2::begin(GNEChangeGroup *change) {
+    register GNEChangeGroup* g = this;
     // Must pass a change group
     if (!change) {
-        throw ProcessError("FXCommandGroup2::begin: nullptr change argument"); 
+        throw ProcessError("GNEChangeGroup::begin: nullptr change argument"); 
     }
     // Calling begin while in the middle of doing something!
     if (myWorking) { 
-        throw ProcessError("FXCommandGroup2::begin: already working on undo or redo"); 
+        throw ProcessError("GNEChangeGroup::begin: already working on undo or redo"); 
     }
     // Cut redo list
     cut();
@@ -231,15 +134,15 @@ FXUndoList2::begin(FXCommandGroup2 *change) {
 
 void 
 FXUndoList2::end() {
-    register FXCommandGroup2 *change;
-    register FXCommandGroup2 *g = this;
+    register GNEChangeGroup *change;
+    register GNEChangeGroup *g = this;
     // Must have called begin
     if (!g->group) { 
-        throw ProcessError("FXCommandGroup2::end: no matching call to begin"); 
+        throw ProcessError("GNEChangeGroup::end: no matching call to begin"); 
     }
     // Calling end while in the middle of doing something!
     if (myWorking) {
-        throw ProcessError("FXCommandGroup2::end: already working on undo or redo"); 
+        throw ProcessError("GNEChangeGroup::end: already working on undo or redo"); 
     }
     // Hunt for one above end of group chain
     while (g->group->group) {
@@ -262,14 +165,14 @@ FXUndoList2::end() {
 
 void 
 FXUndoList2::abort() {
-    register FXCommandGroup2 *g = this;
+    register GNEChangeGroup *g = this;
     // Must be called after begin
     if (!g->group) { 
-        throw ProcessError("FXCommandGroup2::abort: no matching call to begin");
+        throw ProcessError("GNEChangeGroup::abort: no matching call to begin");
     }
     // Calling abort while in the middle of doing something!
     if (myWorking) { 
-        throw ProcessError("FXCommandGroup2::abort: already working on undo or redo"); 
+        throw ProcessError("GNEChangeGroup::abort: already working on undo or redo"); 
     }
     // Hunt for one above end of group chain
     while (g->group->group) {
@@ -286,7 +189,7 @@ void
 FXUndoList2::undo() {
     register GNEChange *change;
     if (group) { 
-        throw ProcessError("FXCommandGroup2::undo: cannot call undo inside begin-end block");
+        throw ProcessError("GNEChangeGroup::undo: cannot call undo inside begin-end block");
     }
     if (undoList) {
         myWorking = true;
@@ -306,7 +209,7 @@ void
 FXUndoList2::redo() {
     register GNEChange *change;
     if (group) { 
-        throw ProcessError("FXCommandGroup2::redo: cannot call undo inside begin-end block"); 
+        throw ProcessError("GNEChangeGroup::redo: cannot call undo inside begin-end block"); 
     }
     if (redoList) {
         myWorking = true;

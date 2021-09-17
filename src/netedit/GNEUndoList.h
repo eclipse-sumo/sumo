@@ -106,7 +106,7 @@ public:
 
 private:
     // @brief the stack of currently active command groups
-    std::stack<FXCommandGroup2*> myCommandGroups;
+    std::stack<GNEChangeGroup*> myCommandGroups;
 
     // @brief the parent GNEApplicationWindow for this undolist
     GNEApplicationWindow* const myGNEApplicationWindowParent;
