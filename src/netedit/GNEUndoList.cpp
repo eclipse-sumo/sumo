@@ -21,6 +21,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"
@@ -30,23 +31,16 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEUndoList) GNEUndoListMap[] = {
-    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_CLEAR,      GNEUndoList::onCmdClear), 
-    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_CLEAR,      GNEUndoList::onUpdClear), 
-    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_UNDO,       GNEUndoList::onCmdUndo), 
-    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_UNDO,       GNEUndoList::onUpdUndo), 
-    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_REDO,       GNEUndoList::onCmdRedo), 
-    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REDO,       GNEUndoList::onUpdRedo), 
-    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_UNDO_ALL,   GNEUndoList::onCmdUndoAll), 
-    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_UNDO_ALL,   GNEUndoList::onUpdUndo), 
-    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_REDO_ALL,   GNEUndoList::onCmdRedoAll), 
-    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REDO_ALL,   GNEUndoList::onUpdRedo)
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,     GNEUndoList::onCmdUndo), 
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Z_UNDO,     GNEUndoList::onUpdUndo), 
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,     GNEUndoList::onCmdRedo), 
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,     GNEUndoList::onUpdRedo), 
 };
-
-
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
 
 
@@ -324,67 +318,9 @@ GNEUndoList::busy() const {
 }
 
 
-/*******************/
-
-
-
-
-
-
-
-void 
-GNEUndoList::undoAll() {
-    while (canUndo()) {
-        undo();
-    }
-}
-
-
-void
-GNEUndoList::redoAll() {
-    while (canRedo()) {
-        redo();
-    }
-}
-
-
-bool
-GNEUndoList::canUndo() const {
-    return (undoList != nullptr);
-}
-
-
-bool 
-GNEUndoList::canRedo() const {
-    return (redoList != nullptr);
-}
-
-
-
-long 
-GNEUndoList::onCmdClear(FXObject*, FXSelector, void*) {
-    clear();
-    return 1;
-}
-
-
-long 
-GNEUndoList::onUpdClear(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, (canUndo()||canRedo())?FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE):FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    return 1;
-}
-
-
 long
 GNEUndoList::onCmdUndo(FXObject*, FXSelector, void*) {
     undo();
-    return 1;
-}
-
-
-long 
-GNEUndoList::onCmdUndoAll(FXObject*, FXSelector, void*) {
-    undoAll();
     return 1;
 }
 
@@ -432,13 +368,6 @@ GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
 long
 GNEUndoList::onCmdRedo(FXObject*, FXSelector, void*) {
     redo();
-    return 1;
-}
-
-
-long
-GNEUndoList::onCmdRedoAll(FXObject*, FXSelector, void*) {
-    redoAll();
     return 1;
 }
 
@@ -514,6 +443,18 @@ GNEUndoList::abortCurrentSubGroup() {
     delete g->group;
     // New end of chain
     g->group = nullptr;
+}
+
+
+bool
+GNEUndoList::canUndo() const {
+    return (undoList != nullptr);
+}
+
+
+bool 
+GNEUndoList::canRedo() const {
+    return (redoList != nullptr);
 }
 
 /******************************/

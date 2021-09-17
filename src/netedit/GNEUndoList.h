@@ -44,17 +44,6 @@ class GNEUndoList : public GNEChangeGroup {
     FXDECLARE_ABSTRACT(GNEUndoList)
 
 public:
-    ///@name list of messages
-    enum {
-        ID_CLEAR = FXWindow::ID_LAST,
-        ID_REVERT,
-        ID_UNDO,
-        ID_REDO,
-        ID_UNDO_ALL,
-        ID_REDO_ALL,
-        ID_LAST
-    };
-
     /// @brief constructor
     GNEUndoList(GNEApplicationWindow* parent);
 
@@ -143,33 +132,7 @@ public:
 
     /// @brief event after Redo
     long onUpdRedo(FXObject*,FXSelector,void*);
-
-    /// @brief clear changes
-    long onCmdClear(FXObject*,FXSelector,void*);
-
-    /// @brief event after clear
-    long onUpdClear(FXObject*,FXSelector,void*);
-
-    /// @brief undo all changes
-    long onCmdUndoAll(FXObject*,FXSelector,void*);
-
-    /// @brief redo all changes
-    long onCmdRedoAll(FXObject*,FXSelector,void*);
     /// @}
-
-/* FXUndoList */
-
-    /// Undo all commands
-    void undoAll();
-
-    /// Redo all commands
-    void redoAll();
-
-    /// Can we undo more commands
-    bool canUndo() const;
-
-    /// Can we redo more commands
-    bool canRedo() const;
 
 protected:
     /**@brief Cut the redo list.
@@ -182,6 +145,12 @@ protected:
      * Intermediate command groups will be left intact.
      */
     void abortCurrentSubGroup();
+
+    ///@brief Can we undo more commands
+    bool canUndo() const;
+
+    ///@brief Can we redo more commands
+    bool canRedo() const;
 
 private:
     /// @brief  Currently busy with undo or redo
