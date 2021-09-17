@@ -108,7 +108,7 @@ GNEConnectorFrame::ConnectionModifications::~ConnectionModifications() {}
 long
 GNEConnectorFrame::ConnectionModifications::onCmdCancelModifications(FXObject*, FXSelector, void*) {
     if (myConnectorFrameParent->myCurrentEditedLane != 0) {
-        myConnectorFrameParent->getViewNet()->getUndoList()->p_abort();
+        myConnectorFrameParent->getViewNet()->getUndoList()->abortAllChangeGroups();
         if (myConnectorFrameParent->myNumChanges) {
             myConnectorFrameParent->getViewNet()->setStatusBarText("Changes reverted");
         }

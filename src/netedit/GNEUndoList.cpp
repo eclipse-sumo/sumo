@@ -131,7 +131,7 @@ GNEUndoList::redoName() const {
 
 void
 GNEUndoList::begin(const std::string& description) {
-    myCommandGroups.push(new GNEChangeGroup(description));
+    myChangeGroups.push(new GNEChangeGroup(description));
     // get this reference
     register GNEChangeGroup* g = this;
     // Calling begin while in the middle of doing something!
@@ -145,15 +145,15 @@ GNEUndoList::begin(const std::string& description) {
         g = g->group;
     }
     // Add to end
-    g->group = myCommandGroups.top();
+    g->group = myChangeGroups.top();
 }
 
 
 void
 GNEUndoList::end() {
-    myCommandGroups.pop();
+    myChangeGroups.pop();
     // check if net has to be updated
-    if (myCommandGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
+    if (myChangeGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
         myGNEApplicationWindowParent->getViewNet()->updateViewNet();
         // check if we have to update selector frame
         const auto &editModes = myGNEApplicationWindowParent->getViewNet()->getEditModes();
@@ -199,7 +199,8 @@ GNEUndoList::p_clear() {
     if (myGNEApplicationWindowParent->getViewNet()) {
         myGNEApplicationWindowParent->getViewNet()->getIntervalBar().disableIntervalBarUpdate();
     }
-    p_abort();
+    // abort all change groups
+    abortAllChangeGroups();
     clear();
     // enable updating of interval bar again (check viewNet due #7252)
     if (myGNEApplicationWindowParent->getViewNet()) {
@@ -209,21 +210,23 @@ GNEUndoList::p_clear() {
 
 
 void
-GNEUndoList::p_abort() {
+GNEUndoList::abortAllChangeGroups() {
     while (hasCommandGroup()) {
-        myCommandGroups.top()->undo();
-        myCommandGroups.pop();
-        abort();
+        myChangeGroups.top()->undo();
+        myChangeGroups.pop();
+        // abort current subgroup
+        abortCurrentSubGroup();
     }
 }
 
 
 void
-GNEUndoList::p_abortLastCommandGroup() {
-    if (myCommandGroups.size() > 0) {
-        myCommandGroups.top()->undo();
-        myCommandGroups.pop();
-        abort();
+GNEUndoList::abortLastChangeGroup() {
+    if (myChangeGroups.size() > 0) {
+        myChangeGroups.top()->undo();
+        myChangeGroups.pop();
+        // abort current subgroup
+        abortCurrentSubGroup();
     }
 }
 
@@ -280,8 +283,8 @@ GNEUndoList::changeAttribute(GNEChange_Attribute* change) {
 
 int
 GNEUndoList::currentCommandGroupSize() const {
-    if (myCommandGroups.size() > 0) {
-        return myCommandGroups.top()->size();
+    if (myChangeGroups.size() > 0) {
+        return myChangeGroups.top()->size();
     } else {
         return 0;
     }
@@ -290,10 +293,10 @@ GNEUndoList::currentCommandGroupSize() const {
 
 const GNEChange* 
 GNEUndoList::getlastChange() const {
-    if (myCommandGroups.empty()) {
+    if (myChangeGroups.empty()) {
         return nullptr;
     } else {
-        const GNEChange* change = dynamic_cast<GNEChange*>(myCommandGroups.top());
+        const GNEChange* change = dynamic_cast<GNEChange*>(myChangeGroups.top());
         if (change) {
             return change;
         } else {
@@ -305,7 +308,7 @@ GNEUndoList::getlastChange() const {
 
 bool
 GNEUndoList::hasCommandGroup() const {
-    return myCommandGroups.size() != 0;
+    return myChangeGroups.size() != 0;
 }
 
 
@@ -324,28 +327,6 @@ GNEUndoList::cut() {
         delete change;
     }
     redoList = nullptr;
-}
-
-
-void 
-GNEUndoList::abort() {
-    register GNEChangeGroup *g = this;
-    // Must be called after begin
-    if (!g->group) { 
-        throw ProcessError("GNEChangeGroup::abort: no matching call to begin");
-    }
-    // Calling abort while in the middle of doing something!
-    if (myWorking) { 
-        throw ProcessError("GNEChangeGroup::abort: already working on undo or redo"); 
-    }
-    // Hunt for one above end of group chain
-    while (g->group->group) {
-        g = g->group; 
-    }
-    // Delete bottom group
-    delete g->group;
-    // New end of chain
-    g->group = nullptr;
 }
 
 
@@ -466,7 +447,7 @@ GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
         if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
             caption = "Cannot Undo in the middle of " + myGNEApplicationWindowParent->isUndoRedoEnabled();
         } else if (hasCommandGroup()) {
-            caption = "Cannot Undo in the middle of " + myCommandGroups.top()->getDescription();
+            caption = "Cannot Undo in the middle of " + myChangeGroups.top()->getDescription();
         } else if (!canUndo()) {
             caption = "Undo";
         }
@@ -520,7 +501,7 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
         if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
             caption = "Cannot Redo in the middle of " + myGNEApplicationWindowParent->isUndoRedoEnabled();
         } else if (hasCommandGroup()) {
-            caption = "Cannot Redo in the middle of " + myCommandGroups.top()->getDescription();
+            caption = "Cannot Redo in the middle of " + myChangeGroups.top()->getDescription();
         } else if (!canRedo()) {
             caption = "Redo";
         }
@@ -531,6 +512,25 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
 }
 
 
-
+void 
+GNEUndoList::abortCurrentSubGroup() {
+    register GNEChangeGroup *g = this;
+    // Must be called after begin
+    if (!g->group) { 
+        throw ProcessError("GNEChangeGroup::abort: no matching call to begin");
+    }
+    // Calling abort while in the middle of doing something!
+    if (myWorking) { 
+        throw ProcessError("GNEChangeGroup::abort: already working on undo or redo"); 
+    }
+    // Hunt for one above end of group chain
+    while (g->group->group) {
+        g = g->group; 
+    }
+    // Delete bottom group
+    delete g->group;
+    // New end of chain
+    g->group = nullptr;
+}
 
 /******************************/

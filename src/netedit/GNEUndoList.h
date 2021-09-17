@@ -107,11 +107,11 @@ public:
     /// @brief clears the undo list (implies abort)
     void p_clear();
 
-    /// @brief reverts and discards ALL active command groups
-    void p_abort();
+    /// @brief reverts and discards ALL active chained change groups
+    void abortAllChangeGroups();
 
-    /// @brief reverts last command group
-    void p_abortLastCommandGroup();
+    /// @brief reverts last active chained change group
+    void abortLastChangeGroup();
 
     /// @brief get size of current CommandGroup
     int currentCommandGroupSize() const;
@@ -158,13 +158,6 @@ public:
      */
     void cut();
 
-    /**
-     * Abort the current command sub-group being compiled.  All commands
-     * already added to the sub-groups undo list will be discarded.
-     * Intermediate command groups will be left intact.
-     */
-    void abort();
-
     /// Undo all commands
     void undoAll();
 
@@ -194,14 +187,19 @@ public:
     void clear();
 
 /* */
-
+protected:
+    /** @brief Abort the current command sub-group being compiled.  All commands
+     * already added to the sub-groups undo list will be discarded.
+     * Intermediate command groups will be left intact.
+     */
+    void abortCurrentSubGroup();
 
 private:
     /// @brief  Currently busy with undo or redo
     bool myWorking;    
 
-    // @brief the stack of currently active command groups
-    std::stack<GNEChangeGroup*> myCommandGroups;
+    // @brief the stack of currently active change groups
+    std::stack<GNEChangeGroup*> myChangeGroups;
 
     // @brief the parent GNEApplicationWindow for this undolist
     GNEApplicationWindow* const myGNEApplicationWindowParent;

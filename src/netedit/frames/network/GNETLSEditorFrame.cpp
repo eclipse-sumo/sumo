@@ -244,7 +244,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
 long
 GNETLSEditorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
     if (myTLSJunction->getCurrentJunction() != nullptr) {
-        myViewNet->getUndoList()->p_abort();
+        myViewNet->getUndoList()->abortAllChangeGroups();
         cleanup();
         myViewNet->updateViewNet();
     }

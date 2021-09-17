@@ -1066,7 +1066,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         }
     }
     // abort undo list
-    myUndoList->p_abort();
+    myUndoList->abortAllChangeGroups();
     // update view
     updateViewNet();
 }

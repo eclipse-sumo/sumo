@@ -126,21 +126,21 @@ GNEAdditionalDialog::acceptChanges() {
     if (myNumberOfChanges < myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->end();
     } else {
-        myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     }
 }
 
 
 void
 GNEAdditionalDialog::cancelChanges() {
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
 }
 
 
 void
 GNEAdditionalDialog::resetChanges() {
     // abort last command group an start editing again
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
 }
 

@@ -274,7 +274,7 @@ GNEPersonFrame::createPath() {
             person->computePathElement();
         } else {
             // abort person creation
-            myViewNet->getUndoList()->p_abort();
+            myViewNet->getUndoList()->abortAllChangeGroups();
         }
     }
 }

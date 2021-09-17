@@ -126,21 +126,21 @@ GNEDemandElementDialog::acceptChanges() {
     if (myNumberOfChanges < myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
         myEditedDemandElement->getNet()->getViewNet()->getUndoList()->end();
     } else {
-        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     }
 }
 
 
 void
 GNEDemandElementDialog::cancelChanges() {
-    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
 }
 
 
 void
 GNEDemandElementDialog::resetChanges() {
     // abort last command group an start editing again
-    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
 }
 

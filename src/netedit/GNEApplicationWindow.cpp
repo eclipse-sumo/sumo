@@ -703,7 +703,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         myNet->computeNetwork(this);
         if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
             // Abort undo/redo
-            myUndoList->abort();
+            myUndoList->abortAllChangeGroups();
         } else {
             // commit undo/redo operation
             myUndoList->end();
