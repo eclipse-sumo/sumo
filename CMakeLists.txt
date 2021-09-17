@@ -459,15 +459,17 @@ if (SUMO_LIBRARIES AND WIN32)
                            DEPENDS ${OSG_PATH})
     endif (HAVE_OSG)
     # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
-	set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
-	add_custom_command(OUTPUT ${PROJ_DATA}
-					   COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
-					   DEPENDS ${PROJ_PATH})
+    set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
+    add_custom_command(OUTPUT ${PROJ_DATA}
+                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
+                       DEPENDS ${PROJ_PATH})
     install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
     # set install_dll target
     add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
     add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+else ()
+    add_custom_target(install_test_dll)  # dummy target for non-Windows
 endif ()
 
 # java targets
