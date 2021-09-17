@@ -795,7 +795,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           << "\n";
             }
 #endif
-            if (currentLane == this && MSRailSignal::hasOncomingRailTraffic(*link)) {
+            if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED && MSRailSignal::hasOncomingRailTraffic(*link)) {
                 // allow guarding bidirectional tracks at the network border with railSignal
 #ifdef DEBUG_INSERTION
                 if DEBUG_COND2(aVehicle) {
