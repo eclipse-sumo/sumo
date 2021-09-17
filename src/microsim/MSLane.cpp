@@ -3440,11 +3440,14 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
         if (linkLeaders.size() > 0) {
             const MSLink::LinkLeader ll = linkLeaders[0];
+            MSVehicle* veh = ll.vehAndGap.first;
             // in the context of lane changing all junction leader candidates must be respected
-            if (ll.vehAndGap.first != 0 && (MSGlobals::gComputeLC || ego->isLeader(*link, ll.vehAndGap.first))) {
+            if (veh != 0 && (ego->isLeader(*link, veh)
+                        || (MSGlobals::gComputeLC
+                            && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
+                                < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
                 // add link leader to all sublanes and return
                 for (int i = 0; i < result.numSublanes(); ++i) {
-                    MSVehicle* veh = ll.vehAndGap.first;
 #ifdef DEBUG_CONTEXT
                     if (DEBUG_COND2(ego)) {
                         std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << "\n";
