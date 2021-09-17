@@ -485,6 +485,9 @@ struct GNEViewNetHelper {
         /// @check if current supermode is Data
         bool isCurrentSupermodeData() const;
 
+        /// @brief the current supermode
+        Supermode currentSupermode;
+
         /// @brief the current Network edit mode
         NetworkEditMode networkEditMode;
 
@@ -506,9 +509,6 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
-
-        /// @brief the current supermode
-        Supermode myCurrentSupermode;
 
         /// @brief Invalidated copy constructor.
         EditModes(const EditModes&) = delete;

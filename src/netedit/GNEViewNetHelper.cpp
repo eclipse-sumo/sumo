@@ -1716,7 +1716,7 @@ GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
     demandButton(nullptr),
     dataButton(nullptr),
     myViewNet(viewNet),
-    myCurrentSupermode(Supermode::NETWORK) {
+    currentSupermode(Supermode::NETWORK) {
 }
 
 
@@ -1746,7 +1746,7 @@ GNEViewNetHelper::EditModes::buildSuperModeButtons() {
 
 void
 GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force) {
-    if (!force && (supermode == myCurrentSupermode)) {
+    if (!force && (supermode == currentSupermode)) {
         myViewNet->setStatusBarText("Mode already selected");
         if (myViewNet->myCurrentFrame != nullptr) {
             myViewNet->myCurrentFrame->focusUpperElement();
@@ -1756,7 +1756,7 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
         // abort current operation
         myViewNet->abortOperation(false);
         // set super mode
-        myCurrentSupermode = supermode;
+        currentSupermode = supermode;
         // set supermodes
         if (supermode == Supermode::NETWORK) {
             // change buttons
@@ -1819,7 +1819,7 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode, const bool force)
         demandButton->update();
         dataButton->update();
         // update Supermode CommandButtons in GNEAppWindows
-        myViewNet->myViewParent->getGNEAppWindows()->updateSuperModeMenuCommands(myCurrentSupermode);
+        myViewNet->myViewParent->getGNEAppWindows()->updateSuperModeMenuCommands(currentSupermode);
     }
 }
 
@@ -1947,19 +1947,19 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
 
 bool
 GNEViewNetHelper::EditModes::isCurrentSupermodeNetwork() const {
-    return (myCurrentSupermode == Supermode::NETWORK);
+    return (currentSupermode == Supermode::NETWORK);
 }
 
 
 bool
 GNEViewNetHelper::EditModes::isCurrentSupermodeDemand() const {
-    return (myCurrentSupermode == Supermode::DEMAND);
+    return (currentSupermode == Supermode::DEMAND);
 }
 
 
 bool
 GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
-    return (myCurrentSupermode == Supermode::DATA);
+    return (currentSupermode == Supermode::DATA);
 }
 
 // ---------------------------------------------------------------------------
