@@ -32,7 +32,7 @@
 #include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <utils/foxtools/FXUndoList2.h>
+#include <netedit/FXUndoList2.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 

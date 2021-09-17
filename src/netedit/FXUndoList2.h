@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "fxheader.h"
+#include <utils/foxtools/fxheader.h>
 
 
 /**

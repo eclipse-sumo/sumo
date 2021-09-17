@@ -28,7 +28,8 @@
 
 #include <stack>
 #include <string>
-#include <utils/foxtools/FXUndoList2.h>
+
+#include "FXUndoList2.h"
 
 
 // ===========================================================================
