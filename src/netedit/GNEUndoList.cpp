@@ -125,7 +125,7 @@ GNEUndoList::redoName() const {
 
 void
 GNEUndoList::begin(const std::string& description) {
-    myChangeGroups.push(new GNEChangeGroup(description));
+    myChangeGroups.push(new GNEChangeGroup(Supermode::NETWORK, description));
     // get this reference
     register GNEChangeGroup* g = this;
     // Calling begin while in the middle of doing something!
@@ -300,15 +300,15 @@ GNEUndoList::currentCommandGroupSize() const {
 }
 
 
-const GNEChange* 
-GNEUndoList::getCurrentUndoChange() const {
-    return undoList;
+const GNEChangeGroup* 
+GNEUndoList::getCurrentUndoChangeGroup() const {
+    return dynamic_cast<GNEChangeGroup*>(undoList);
 }
 
 
-const GNEChange* 
-GNEUndoList::getCurrentRedoChange() const {
-    return redoList;
+const GNEChangeGroup* 
+GNEUndoList::getCurrentRedoChangeGroup() const {
+    return dynamic_cast<GNEChangeGroup*>(redoList);
 }
 
 
