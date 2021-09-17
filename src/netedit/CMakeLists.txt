@@ -23,8 +23,6 @@ set(netedit_SRCS
    GNEViewParent.cpp
    GNEUndoList.h
    GNEUndoList.cpp
-   FXUndoList2.h
-   FXUndoList2.cpp
    GNEGeometry.h
    GNEGeometry.cpp
    GNEMoveElement.h

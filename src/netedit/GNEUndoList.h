@@ -13,15 +13,9 @@
 /****************************************************************************/
 /// @file    GNEUndoList.h
 /// @author  Jakob Erdmann
+/// @author  Pablo Alvarez Lopez
 /// @date    Mar 2011
 ///
-// FXUndoList2 is pretty dandy but some features are missing:
-//   - we cannot find out wether we have currently begun an undo-group and
-//     thus abort() is hard to use.
-//   - onUpd-methods do not disable undo/redo while in an undo-group
-//
-// GNEUndoList inherits from FXUndoList2 and patches some methods. these are
-// prefixed with p_
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -29,7 +23,7 @@
 #include <stack>
 #include <string>
 
-#include "FXUndoList2.h"
+#include <netedit/changes/GNEChangeGroup.h>
 
 
 // ===========================================================================
@@ -45,11 +39,22 @@ class GNEApplicationWindow;
 /**
  * @class  GNEUndoList
  */
-class GNEUndoList : public FXUndoList2 {
+class GNEUndoList : public GNEChangeGroup {
     /// @brief FOX declaration
     FXDECLARE_ABSTRACT(GNEUndoList)
 
 public:
+    ///@name list of messages
+    enum {
+        ID_CLEAR = FXWindow::ID_LAST,
+        ID_REVERT,
+        ID_UNDO,
+        ID_REDO,
+        ID_UNDO_ALL,
+        ID_REDO_ALL,
+        ID_LAST
+    };
+
     /// @brief constructor
     /// @note be aware that "parent" may be not fully initialized when stored here, so don't call any methods on it.
     GNEUndoList(GNEApplicationWindow* parent);
@@ -99,12 +104,113 @@ public:
 
     /// @brief event after Redo
     long p_onUpdRedo(FXObject*, FXSelector, void*);
+
+
+
+    long onCmdUndo(FXObject*,FXSelector,void*);
+    long onUpdUndo(FXObject*,FXSelector,void*);
+    long onCmdRedo(FXObject*,FXSelector,void*);
+    long onUpdRedo(FXObject*,FXSelector,void*);
+    long onCmdClear(FXObject*,FXSelector,void*);
+    long onUpdClear(FXObject*,FXSelector,void*);
+    long onCmdUndoAll(FXObject*,FXSelector,void*);
+    long onCmdRedoAll(FXObject*,FXSelector,void*);
     /// @}
 
     /// @brief Check if undoList has command group
     bool hasCommandGroup() const;
 
+
+/* FXUndoList */
+
+
+    /**
+     * Cut the redo list.
+     * This is automatically invoked when a new undo command is added.
+     */
+    void cut();
+
+    /**
+     * Add new command, executing it if desired. The new command will be merged
+     * with the previous command if merge is TRUE and we're not at a marked position
+     * and the commands are mergeable.  Otherwise the new command will be appended
+     * after the last undo command in the currently active undo group.
+     * If the new command is successfully merged, it will be deleted.  Furthermore,
+     * all redo commands will be deleted since it is no longer possible to redo
+     * from this point.
+     */
+    void add(GNEChange* command, bool doit=false, bool merge=true);
+
+    /**
+     * Begin undo command sub-group. This begins a new group of commands that
+     * are treated as a single command.  Must eventually be followed by a
+     * matching end() after recording the sub-commands.  The new sub-group
+     * will be appended to its parent group's undo list when end() is called.
+     */
+    void begin(GNEChangeGroup *command);
+
+    /**
+     * End undo command sub-group.  If the sub-group is still empty, it will
+     * be deleted; otherwise, the sub-group will be added as a new command
+     * into parent group.
+     * A matching begin() must have been called previously.
+     */
+    void end();
+
+    /**
+     * Abort the current command sub-group being compiled.  All commands
+     * already added to the sub-groups undo list will be discarded.
+     * Intermediate command groups will be left intact.
+     */
+    void abort();
+
+    /// Undo all commands
+    void undoAll();
+
+    /// Redo all commands
+    void redoAll();
+
+    /// Can we undo more commands
+    bool canUndo() const;
+
+    /// Can we redo more commands
+    bool canRedo() const;
+
+    /**
+     * Return TRUE if currently inside undo or redo operation; this
+     * is useful to avoid generating another undo command while inside
+     * an undo operation.
+     */
+    bool busy() const;
+
+    /// Current top level undo command
+    GNEChange* current() const;
+
+    /**
+     * Return name of the first undo command available; if no
+     * undo command available this will return the empty string.
+     */
+    virtual FXString undoName() const;
+
+    /**
+     * Return name of the first redo command available; if no
+     * Redo command available this will return the empty string.
+     */
+    virtual FXString redoName() const;
+
+    /**
+     * Clear list, and unmark all states.
+     * All undo and redo information will be destroyed.
+     */
+    void clear();
+
+/* */
+
+
 private:
+    /// @brief  Currently busy with undo or redo
+    bool myWorking;    
+
     // @brief the stack of currently active command groups
     std::stack<GNEChangeGroup*> myCommandGroups;
 

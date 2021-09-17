@@ -67,7 +67,7 @@ class GNEChange : public FXObject {
 public:
     /// @name friend class
     friend class GNEChangeGroup;
-    friend class FXUndoList2;
+    friend class GNEUndoList;
 
     /**@brief Constructor
      * @param[in] supermode related with this change

@@ -13,15 +13,9 @@
 /****************************************************************************/
 /// @file    GNEUndoList.cpp
 /// @author  Jakob Erdmann
+/// @author  Pablo Alvarez Lopez
 /// @date    Mar 2011
 ///
-// FXUndoList2 is pretty dandy but some features are missing:
-//   - we cannot find out wether we have currently begun an undo-group and
-//     thus abort() is hard to use.
-//   - onUpd-methods do not disable undo/redo while in an undo-group
-//
-// GNEUndoList inherits from FXUndoList2 and patches some methods. these are
-// prefixed with p_
 /****************************************************************************/
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
@@ -36,27 +30,44 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEUndoList) GNEUndoListMap[] = {
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_REVERT,     FXUndoList2::onCmdRevert),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_UNDO,       FXUndoList2::onCmdUndo),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_REDO,       FXUndoList2::onCmdRedo),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_UNDO_ALL,   FXUndoList2::onCmdUndoAll),
-    //FXMAPFUNC(SEL_COMMAND, FXUndoList2::ID_REDO_ALL,   FXUndoList2::onCmdRedoAll),
+    //FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_REVERT,     GNEUndoList::onCmdRevert),
+    //FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_UNDO,       GNEUndoList::onCmdUndo),
+    //FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_REDO,       GNEUndoList::onCmdRedo),
+    //FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_UNDO_ALL,   GNEUndoList::onCmdUndoAll),
+    //FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_REDO_ALL,   GNEUndoList::onCmdRedoAll),
     //
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO_COUNT, FXUndoList2::onUpdUndoCount),
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO_COUNT, FXUndoList2::onUpdRedoCount),
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_CLEAR,      FXUndoList2::onUpdClear),
-    //FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REVERT,     FXUndoList2::onUpdRevert),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO_ALL,   GNEUndoList::p_onUpdUndo),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO_ALL,   GNEUndoList::p_onUpdRedo),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_UNDO,       GNEUndoList::p_onUpdUndo),
-    FXMAPFUNC(SEL_UPDATE,  FXUndoList2::ID_REDO,       GNEUndoList::p_onUpdRedo)
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_UNDO_COUNT, GNEUndoList::onUpdUndoCount),
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REDO_COUNT, GNEUndoList::onUpdRedoCount),
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_CLEAR,      GNEUndoList::onUpdClear),
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REVERT,     GNEUndoList::onUpdRevert),
+
+    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_CLEAR,      GNEUndoList::onCmdClear), 
+    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_CLEAR,      GNEUndoList::onUpdClear), 
+    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_UNDO,       GNEUndoList::onCmdUndo), 
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_UNDO,       GNEUndoList::onUpdUndo), 
+    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_REDO,       GNEUndoList::onCmdRedo), 
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REDO,       GNEUndoList::onUpdRedo), 
+    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_UNDO_ALL,   GNEUndoList::onCmdUndoAll), 
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_UNDO_ALL,   GNEUndoList::onUpdUndo), 
+    FXMAPFUNC(SEL_COMMAND, GNEUndoList::ID_REDO_ALL,   GNEUndoList::onCmdRedoAll), 
+    //FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REDO_ALL,   GNEUndoList::onUpdRedo), 
+
+
+
+
+
+    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_UNDO_ALL,   GNEUndoList::p_onUpdUndo),
+    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REDO_ALL,   GNEUndoList::p_onUpdRedo),
+    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_UNDO,       GNEUndoList::p_onUpdUndo),
+    FXMAPFUNC(SEL_UPDATE,  GNEUndoList::ID_REDO,       GNEUndoList::p_onUpdRedo)
 };
+
 
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEUndoList, FXUndoList2, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
+FXIMPLEMENT_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
 
 
 // ===========================================================================
@@ -64,7 +75,7 @@ FXIMPLEMENT_ABSTRACT(GNEUndoList, FXUndoList2, GNEUndoListMap, ARRAYNUMBER(GNEUn
 // ===========================================================================
 
 GNEUndoList::GNEUndoList(GNEApplicationWindow* parent) :
-    FXUndoList2(),
+    myWorking(false),
     myGNEApplicationWindowParent(parent) {
 }
 
@@ -132,7 +143,21 @@ GNEUndoList::p_abortLastCommandGroup() {
 void
 GNEUndoList::undo() {
     WRITE_DEBUG("Calling GNEUndoList::undo()");
-    FXUndoList2::undo();
+    register GNEChange *change;
+    if (group) { 
+        throw ProcessError("GNEChangeGroup::undo: cannot call undo inside begin-end block");
+    }
+    if (undoList) {
+        myWorking = true;
+        change = undoList;  
+        // Remove from undoList BEFORE undo
+        undoList = undoList->next;
+        change->undo();
+        // Hang into redoList AFTER undo
+        change->next = redoList;             
+        redoList = change;
+        myWorking = false;
+    }
     // update specific controls
     myGNEApplicationWindowParent->updateControls();
 }
@@ -141,7 +166,21 @@ GNEUndoList::undo() {
 void
 GNEUndoList::redo() {
     WRITE_DEBUG("Calling GNEUndoList::redo()");
-    FXUndoList2::redo();
+    register GNEChange *change;
+    if (group) { 
+        throw ProcessError("GNEChangeGroup::redo: cannot call undo inside begin-end block"); 
+    }
+    if (redoList) {
+        myWorking = true;
+        change = redoList;    
+        // Remove from redoList BEFORE redo
+        redoList = redoList->next;
+        change->redo();
+        // Hang into undoList AFTER redo
+        change->next = undoList;             
+        undoList = change;
+        myWorking = false;
+    }
     // update specific controls
     myGNEApplicationWindowParent->updateControls();
 }
@@ -266,3 +305,278 @@ bool
 GNEUndoList::hasCommandGroup() const {
     return myCommandGroups.size() != 0;
 }
+
+
+
+/*******************/
+
+
+
+
+void 
+GNEUndoList::cut() {
+    register GNEChange *change;
+    while (redoList) {
+        change = redoList;
+        redoList = redoList->next;
+        delete change;
+    }
+    redoList = nullptr;
+}
+
+
+void 
+GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
+    register GNEChangeGroup* g = this;
+    register FXuint size = 0;
+    // Must pass a change
+    if (!change) { 
+        throw ProcessError("GNEChangeGroup::add: nullptr change argument");
+    }
+    // Adding undo while in the middle of doing something!
+    if (myWorking) { 
+        throw ProcessError("GNEChangeGroup::add: already working on undo or redo"); 
+    }
+    myWorking = true;
+    // Cut redo list
+    cut();
+    // Execute change
+    if (doit) {
+        change->redo();
+    }
+    // Hunt for end of group chain
+    while (g->group) { 
+        g = g->group; 
+    }
+    // Old size of previous record
+    if (g->undoList) {
+        size = g->undoList->size();
+    }
+    // Try to merge commands when desired and possible
+    if (merge && g->undoList && (group != nullptr) && change->canMerge() && g->undoList->mergeWith(change)) {
+        // Delete incoming change that was merged
+        delete change;
+    } else {
+        // Append incoming change
+        change->next = g->undoList;
+        g->undoList = change;
+
+    }
+    myWorking = false;
+}
+
+
+void 
+GNEUndoList::begin(GNEChangeGroup *change) {
+    register GNEChangeGroup* g = this;
+    // Must pass a change group
+    if (!change) {
+        throw ProcessError("GNEChangeGroup::begin: nullptr change argument"); 
+    }
+    // Calling begin while in the middle of doing something!
+    if (myWorking) { 
+        throw ProcessError("GNEChangeGroup::begin: already working on undo or redo"); 
+    }
+    // Cut redo list
+    cut();
+    // Hunt for end of group chain
+    while (g->group) { 
+        g = g->group;
+    }
+    // Add to end
+    g->group = change;
+}
+
+
+void 
+GNEUndoList::end() {
+    register GNEChangeGroup *change;
+    register GNEChangeGroup *g = this;
+    // Must have called begin
+    if (!g->group) { 
+        throw ProcessError("GNEChangeGroup::end: no matching call to begin"); 
+    }
+    // Calling end while in the middle of doing something!
+    if (myWorking) {
+        throw ProcessError("GNEChangeGroup::end: already working on undo or redo"); 
+    }
+    // Hunt for one above end of group chain
+    while (g->group->group) {
+        g = g->group;
+    }
+    // Unlink from group chain
+    change = g->group;
+    g->group = nullptr;
+    // Add to group if non-empty
+    if (!change->empty()) {
+        // Append new change to undo list
+        change->next = g->undoList;
+        g->undoList = change;
+    } else {
+        // Delete bottom group
+        delete change;
+    }
+}
+
+
+void 
+GNEUndoList::abort() {
+    register GNEChangeGroup *g = this;
+    // Must be called after begin
+    if (!g->group) { 
+        throw ProcessError("GNEChangeGroup::abort: no matching call to begin");
+    }
+    // Calling abort while in the middle of doing something!
+    if (myWorking) { 
+        throw ProcessError("GNEChangeGroup::abort: already working on undo or redo"); 
+    }
+    // Hunt for one above end of group chain
+    while (g->group->group) {
+        g = g->group; 
+    }
+    // Delete bottom group
+    delete g->group;
+    // New end of chain
+    g->group = nullptr;
+}
+
+
+void 
+GNEUndoList::undoAll() {
+    while (canUndo()) {
+        undo();
+    }
+}
+
+
+void
+GNEUndoList::redoAll() {
+    while (canRedo()) {
+        redo();
+    }
+}
+
+
+bool
+GNEUndoList::canUndo() const {
+    return undoList != nullptr;
+}
+
+
+bool 
+GNEUndoList::canRedo() const {
+    return redoList != nullptr;
+}
+
+
+bool 
+GNEUndoList::busy() const { 
+    return myWorking; 
+}
+
+
+GNEChange* 
+GNEUndoList::current() const {
+    return undoList;
+}
+
+
+FXString 
+GNEUndoList::undoName() const {
+    if (undoList) {
+        return undoList->undoName();
+    } else {
+        return FXString::null;
+    }
+}
+
+
+FXString 
+GNEUndoList::redoName() const {
+    if (redoList) {
+        return redoList->redoName();
+    } else {
+        return FXString::null;
+    }
+}
+
+
+void 
+GNEUndoList::clear() {
+    register GNEChange *change;
+    while (redoList) {
+        change = redoList;
+        redoList = redoList->next;
+        delete change;
+    }
+    while (undoList) {
+        change = undoList;
+        undoList = undoList->next;
+        delete change;
+    }
+    delete group;
+    redoList = nullptr;
+    undoList = nullptr;
+    group = nullptr;
+}
+
+
+long 
+GNEUndoList::onCmdClear(FXObject*, FXSelector, void*) {
+    clear();
+    return 1;
+}
+
+
+long 
+GNEUndoList::onUpdClear(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, (canUndo()||canRedo())?FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE):FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNEUndoList::onCmdUndo(FXObject*, FXSelector, void*) {
+    undo();
+    return 1;
+}
+
+
+long 
+GNEUndoList::onCmdUndoAll(FXObject*, FXSelector, void*) {
+    undoAll();
+    return 1;
+}
+
+
+long 
+GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, canUndo()?FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE):FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNEUndoList::onCmdRedo(FXObject*, FXSelector, void*) {
+    redo();
+    return 1;
+}
+
+
+long
+GNEUndoList::onCmdRedoAll(FXObject*, FXSelector, void*) {
+    redoAll();
+    return 1;
+}
+
+
+long 
+GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
+    sender->handle(this, canRedo()?FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE):FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+
+
+/******************************/

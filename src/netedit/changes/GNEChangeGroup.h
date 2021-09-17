@@ -33,7 +33,7 @@ class GNEChangeGroup : public GNEChange {
 
 public:
     // @name declare friend class
-    friend class FXUndoList2;
+    friend class GNEUndoList;
 
     /// Construct initially empty undo command group
     GNEChangeGroup(const std::string &description);
