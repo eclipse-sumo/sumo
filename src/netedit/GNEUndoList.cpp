@@ -451,7 +451,7 @@ GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
         } else if (!canUndo()) {
             caption = "Undo";
         }
-        menuCommand->handle(this, FXSEL(SEL_COMMAND, FXMenuCaption::ID_SETSTRINGVALUE), (void*)&caption);
+        menuCommand->setText(caption.c_str());
         menuCommand->update();
     }
     return 1;
@@ -505,7 +505,7 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
         } else if (!canRedo()) {
             caption = "Redo";
         }
-        menuCommand->handle(this, FXSEL(SEL_COMMAND, FXMenuCaption::ID_SETSTRINGVALUE), (void*)&caption);
+        menuCommand->setText(caption.c_str());
         menuCommand->update();
     }
     return 1;
