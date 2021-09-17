@@ -939,11 +939,10 @@ public:
     /// @brief get all vehicles that are inlapping from consecutive edges
     MSLeaderInfo getPartialBeyond() const;
 
-    /// @brief Returns all vehicles closer than downstreamDist along the along the road network starting on the given
-    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance
+    /// @brief Returns all vehicles closer than downstreamDist along the road network starting on the given
+    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance.
     /// @note  Re-implementation of the corresponding method in MSDevice_SSM, which cannot be easily adapted, as it gathers
     ///        additional information for conflict lanes, etc.
-    /// @param[in] lanes - sequence of lanes to search along
     /// @param[in] startPos - start position of the search on the first lane
     /// @param[in] downstreamDist - distance to search downstream
     /// @param[in] upstreamDist - distance to search upstream

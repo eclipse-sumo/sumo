@@ -158,6 +158,20 @@ public:
     static void applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs);
 
     /**
+     * @brief Apply the subscription filter "lanes": Only return vehicles on list of lanes relative to ego vehicle.
+     *        Search all predecessor and successor lanes along the road network up until upstreamDist and downstreamDist,
+     *        respectively,
+     * @param[in] s Subscription which holds the filter specification to be applied.
+     * @param[in/out] vehs Set of SUMO traffic objects into which the result is inserted.
+     * @param[in] filterLanes Lane offsets to consider.
+     * @param[in] downstreamDist Downstream distance.
+     * @param[in] upstreamDist Upstream distance.
+     * @param[in] disregardOppositeDirection Whether vehicles on opposite lanes shall be taken into account.
+     */
+    static void applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, std::vector<int>& filterLanes,
+                                             double downstreamDist, double upstreamDist, bool disregardOppositeDirection);
+
+    /**
      * @brief Apply the subscription filter "turn": Gather upcoming junctions and vialanes within downstream
      *        distance and find approaching foes within foeDistToJunction.
      * @param[in] s Subscription which holds the filter specification to be applied.
