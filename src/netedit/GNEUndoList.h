@@ -66,12 +66,21 @@ public:
      */
     std::string redoName() const;
 
-    /**@brief Begin undo command sub-group. This begins a new group of commands that
+    /**@brief Begin undo command sub-group with current supermode. 
+     * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
      * matching end() after recording the sub-commands. The new sub-group
      * will be appended to its parent group's undo list when end() is called.
      */
     void begin(const std::string& description);
+
+    /**@brief Begin undo command sub-group specifing supermode. 
+     * This begins a new group of commands that
+     * are treated as a single command.  Must eventually be followed by a
+     * matching end() after recording the sub-commands. The new sub-group
+     * will be appended to its parent group's undo list when end() is called.
+     */
+    void begin(Supermode supermode, const std::string& description);
 
     /**@brief End undo command sub-group.  If the sub-group is still empty, it will
      * be deleted; otherwise, the sub-group will be added as a new command

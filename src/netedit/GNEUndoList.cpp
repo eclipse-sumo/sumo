@@ -125,7 +125,17 @@ GNEUndoList::redoName() const {
 
 void
 GNEUndoList::begin(const std::string& description) {
-    myChangeGroups.push(new GNEChangeGroup(Supermode::NETWORK, description));
+    if (myGNEApplicationWindowParent->getViewNet()) {
+        begin(myGNEApplicationWindowParent->getViewNet()->getEditModes().currentSupermode, description);
+    } else {
+        begin(Supermode::NETWORK, description);
+    }
+}
+
+
+void
+GNEUndoList::begin(Supermode supermode, const std::string& description) {
+    myChangeGroups.push(new GNEChangeGroup(supermode, description));
     // get this reference
     register GNEChangeGroup* g = this;
     // Calling begin while in the middle of doing something!
