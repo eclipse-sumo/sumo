@@ -25,6 +25,10 @@ second_teleport
 # replace second stop after the vehicle has departed. new stop isn't reachable
 second_unreachable_teleport
 
+# replace second stop after the vehicle has departed. new stop isn't reachable,
+# finish teleport instantly despite oncoming train.
+second_teleport_oncoming
+
 # change attributes of second stop without rerouting
 second_change_attribute
 
