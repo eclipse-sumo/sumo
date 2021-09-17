@@ -134,7 +134,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
             }
         }
         // finish route editing
-        myConnectorFrameParent->getViewNet()->getUndoList()->p_end();
+        myConnectorFrameParent->getViewNet()->getUndoList()->end();
         if (myConnectorFrameParent->myNumChanges) {
             myConnectorFrameParent->getViewNet()->setStatusBarText("Changes accepted");
         }
@@ -285,7 +285,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*
     for (auto i : lanes) {
         myConnectorFrameParent->removeConnections(dynamic_cast<GNELane*>(i));
     }
-    myConnectorFrameParent->getViewNet()->getUndoList()->p_end();
+    myConnectorFrameParent->getViewNet()->getUndoList()->end();
     return 1;
 }
 
@@ -298,7 +298,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
     for (auto i : junctions) {
         i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList());
     }
-    myConnectorFrameParent->getViewNet()->getUndoList()->p_end();
+    myConnectorFrameParent->getViewNet()->getUndoList()->end();
     if (junctions.size() > 0) {
         auto viewNet = myConnectorFrameParent->getViewNet();
         viewNet->getNet()->requireRecompute();

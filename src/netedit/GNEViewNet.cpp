@@ -1088,16 +1088,16 @@ GNEViewNet::hotkeyDel() {
             deleteSelectedJunctions();
             deleteSelectedShapes();
             deleteSelectedTAZElements();
-            myUndoList->p_end();
+            myUndoList->end();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         myUndoList->begin("delete demand selection");
         deleteSelectedDemandElements();
-        myUndoList->p_end();
+        myUndoList->end();
     } else if (myEditModes.isCurrentSupermodeData()) {
         myUndoList->begin("delete data selection");
         deleteSelectedGenericDatas();
-        myUndoList->p_end();
+        myUndoList->end();
     }
     // update view
     updateViewNet();
@@ -1638,11 +1638,11 @@ GNEViewNet::onCmdReverseEdge(FXObject*, FXSelector, void*) {
             for (auto it : edges) {
                 myNet->reverseEdge(it, myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("Reverse " + toString(SUMO_TAG_EDGE));
             myNet->reverseEdge(edge, myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -1659,11 +1659,11 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
             for (auto it : edges) {
                 myNet->addReversedEdge(it, myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("Add reverse " + toString(SUMO_TAG_EDGE));
             myNet->addReversedEdge(edge, myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -1697,7 +1697,7 @@ GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
                 selectedEdge->resetBothEndpoint(myUndoList);
             }
             // end operation
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             edge->resetEndpoint(getPopupPosition(), myUndoList);
         }
@@ -1716,12 +1716,12 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
             for (auto it : edges) {
                 it->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
 
             myUndoList->begin("straighten " + toString(SUMO_TAG_EDGE));
             edge->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -1738,11 +1738,11 @@ GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
             for (auto it : edges) {
                 it->smooth(myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("straighten edge elevation");
             edge->smooth(myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -1759,11 +1759,11 @@ GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
             for (auto it : edges) {
                 it->straightenElevation(myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("straighten edge elevation");
             edge->straightenElevation(myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -1780,11 +1780,11 @@ GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
             for (auto it : edges) {
                 it->smoothElevation(myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("smooth edge elevation");
             edge->smoothElevation(myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -1801,7 +1801,7 @@ GNEViewNet::onCmdResetLength(FXObject*, FXSelector, void*) {
             for (auto it : edges) {
                 it->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             edge->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
         }
@@ -1831,7 +1831,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
                 }
             }
             // end undo-list
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             polygonUnderMouse->simplifyShape();
         }
@@ -1873,7 +1873,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
                 }
             }
             // end undo-list
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             polygonUnderMouse->simplifyShape();
         }
@@ -1904,7 +1904,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
                 }
             }
             // end undo-list
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             polygonUnderMouse->openPolygon();
         }
@@ -1972,7 +1972,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 myNet->deleteShape(POI, myUndoList);
                 // add new POI use route handler
                 additionalHanlder.parseSumoBaseObject(POIBaseObject);
-                myUndoList->p_end();
+                myUndoList->end();
             }
         } else {
             // get sumo base object of POI (And all common attributes)
@@ -1985,7 +1985,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             myNet->deleteShape(POI, myUndoList);
             // add new POI use route handler
             additionalHanlder.parseSumoBaseObject(POIBaseObject);
-            myUndoList->p_end();
+            myUndoList->end();
         }
         // update view after transform
         updateViewNet();
@@ -2031,7 +2031,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
                 myUndoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, lane->getParentEdge(), SUMO_ATTR_SHAPE, toString(edgeGeometry)));
             }
             // end undo list
-            myUndoList->p_end();
+            myUndoList->end();
         }
     } else if (poly != nullptr) {
         // make a copy of polygon geometry
@@ -2051,7 +2051,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             // change shape
             myUndoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, poly, SUMO_ATTR_SHAPE, toString(polygonGeometry)));
             // end undo list
-            myUndoList->p_end();
+            myUndoList->end();
         }
     } else if (TAZ != nullptr) {
         // make a copy of TAZ geometry
@@ -2071,7 +2071,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
             // change shape
             myUndoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, TAZ, SUMO_ATTR_SHAPE, toString(TAZGeometry)));
             // end undo list
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2099,7 +2099,7 @@ GNEViewNet::onCmdResetEndPoints(FXObject*, FXSelector, void*) {
                 selectedEdge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
             }
             // end undo list
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             // begin undo list
             myUndoList->begin("reset end points of " + edge->getID());
@@ -2107,7 +2107,7 @@ GNEViewNet::onCmdResetEndPoints(FXObject*, FXSelector, void*) {
             edge->setAttribute(GNE_ATTR_SHAPE_START, "", myUndoList);
             edge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
             // end undo list
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2126,11 +2126,11 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
             for (const auto& lane : lanes) {
                 myNet->duplicateLane(lane, myUndoList, true);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("duplicate " + toString(SUMO_TAG_LANE));
             myNet->duplicateLane(laneAtPopupPosition, myUndoList, false);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2149,11 +2149,11 @@ GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
             for (const auto& lane : lanes) {
                 lane->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("reset custom lane shape");
             laneAtPopupPosition->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2172,11 +2172,11 @@ GNEViewNet::onCmdResetOppositeLane(FXObject*, FXSelector, void*) {
             for (const auto& lane : lanes) {
                 lane->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("reset opposite lane");
             laneAtPopupPosition->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2236,7 +2236,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
                 }
             }
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
     // update viewNet
     updateViewNet();
@@ -2317,14 +2317,14 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
                 myNet->restrictLane(vclass, i->second, myUndoList);
             }
             // end undo operation
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             // If only have a single lane, start undo/redo operation
             myUndoList->begin("restrict lane to " + toString(vclass));
             // Transform lane to Sidewalk
             myNet->restrictLane(vclass, laneAtPopupPosition, myUndoList);
             // end undo operation
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2394,7 +2394,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
                 myNet->addRestrictedLane(vclass, edge, -1, myUndoList);
             }
             // end undo operation
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             // If only have a single lane, start undo/redo operation
             myUndoList->begin("Add vclass for " + toString(vclass));
@@ -2415,7 +2415,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
                 myNet->addRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), laneAtPopupPosition->getIndex(), myUndoList);
             }
             // end undo/redo operation
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2485,14 +2485,14 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
                 myNet->removeRestrictedLane(vclass, edge, myUndoList);
             }
             // end undo operation
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             // If only have a single lane, start undo/redo operation
             myUndoList->begin("Remove vclass for " + toString(vclass));
             // Remove Sidewalk
             myNet->removeRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), myUndoList);
             // end undo/redo operation
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     return 1;
@@ -2650,11 +2650,11 @@ GNEViewNet::onCmdResetJunctionShape(FXObject*, FXSelector, void*) {
             for (auto it : junctions) {
                 it->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myUndoList->begin("reset custom junction shape");
             junction->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
-            myUndoList->p_end();
+            myUndoList->end();
         }
     }
     // destroy pop-up and set focus in view net
@@ -2751,7 +2751,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
             for (auto i : selectedJunction) {
                 myNet->clearJunctionConnections(i, myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myNet->clearJunctionConnections(junction, myUndoList);
         }
@@ -2783,7 +2783,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
             for (auto i : selectedJunction) {
                 myNet->resetJunctionConnections(i, myUndoList);
             }
-            myUndoList->p_end();
+            myUndoList->end();
         } else {
             myNet->resetJunctionConnections(junction, myUndoList);
         }
@@ -4052,7 +4052,7 @@ GNEViewNet::deleteSelectedJunctions() {
         for (auto i : junctions) {
             myNet->deleteJunction(i, myUndoList);
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4067,7 +4067,7 @@ GNEViewNet::deleteSelectedLanes() {
             // when deleting multiple lanes, recompute connections
             myNet->deleteLane(i, myUndoList, true);
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4082,7 +4082,7 @@ GNEViewNet::deleteSelectedEdges() {
             // when deleting multiple edges, recompute connections
             myNet->deleteEdge(i, myUndoList, true);
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4105,7 +4105,7 @@ GNEViewNet::deleteSelectedAdditionals() {
                 myNet->deleteAdditional(selectedAdditional, myUndoList);
             }
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4135,7 +4135,7 @@ GNEViewNet::deleteSelectedDemandElements() {
                 myNet->deleteDemandElement(person, myUndoList);
             }
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4150,7 +4150,7 @@ GNEViewNet::deleteSelectedGenericDatas() {
         for (const auto& genericData : genericDatas) {
             myNet->deleteGenericData(genericData, myUndoList);
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4176,7 +4176,7 @@ GNEViewNet::deleteSelectedCrossings() {
                 myNet->deleteCrossing(i, myUndoList);
             }
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4200,7 +4200,7 @@ GNEViewNet::deleteSelectedConnections() {
         for (auto i : connections) {
             myNet->deleteConnection(i, myUndoList);
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4216,7 +4216,7 @@ GNEViewNet::deleteSelectedShapes() {
         for (auto i : selectedShapes) {
             myNet->deleteShape(i, myUndoList);
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 
@@ -4232,7 +4232,7 @@ GNEViewNet::deleteSelectedTAZElements() {
         for (auto i : selectedTAZElements) {
             myNet->deleteTAZElement(i, myUndoList);
         }
-        myUndoList->p_end();
+        myUndoList->end();
     }
 }
 

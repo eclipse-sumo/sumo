@@ -87,9 +87,9 @@ public:
     /**@brief End undo command sub-group.  If the sub-group is still empty, it will
      * be deleted; otherwise, the sub-group will be added as a new command
      * into parent group.
-     * A matching begin() must have been called previously.
+     * @note A matching begin() must have been called previously.
      */
-    void p_end();
+    void end();
 
     /// @brief clears the undo list (implies abort)
     void p_clear();
@@ -158,14 +158,6 @@ public:
      * from this point.
      */
     void add(GNEChange* command, bool doit=false, bool merge=true);
-
-    /**
-     * End undo command sub-group.  If the sub-group is still empty, it will
-     * be deleted; otherwise, the sub-group will be added as a new command
-     * into parent group.
-     * A matching begin() must have been called previously.
-     */
-    void end();
 
     /**
      * Abort the current command sub-group being compiled.  All commands

@@ -266,7 +266,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
         }
         // finish change multiple attributes
         if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+            myInspectorFrameParent->myViewNet->getUndoList()->end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
@@ -646,7 +646,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
             myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(inspectedAC->getID())->copyTemplate(myEdgeTemplate, myInspectorFrameParent->myViewNet->getUndoList());
         }
         // end copy template
-        myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+        myInspectorFrameParent->myViewNet->getUndoList()->end();
         // refresh inspector parent
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
         // update view (to see visual changes)
@@ -834,7 +834,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
                 // set parameters
                 frontAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 // end undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+                myInspectorFrameParent->myViewNet->getUndoList()->end();
             } else if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
                 // begin undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->begin("change multiple parameters");
@@ -843,7 +843,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
                     inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 // end undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+                myInspectorFrameParent->myViewNet->getUndoList()->end();
             }
             // update frame parent after attribute sucesfully set
             myInspectorFrameParent->attributeUpdated();

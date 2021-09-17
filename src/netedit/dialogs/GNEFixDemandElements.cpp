@@ -116,7 +116,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
         } else if (myFixRouteOptions->selectInvalidRoutesAndCancel->getCheck() == TRUE) {
             // begin undo list
             myViewNet->getUndoList()->begin("select invalid routes");
@@ -125,7 +125,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort saving
             continueSaving = false;
         }
@@ -140,7 +140,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
         } else if (myFixVehicleOptions->selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
             // begin undo list
             myViewNet->getUndoList()->begin("select invalid vehicles");
@@ -149,7 +149,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort saving
             continueSaving = false;
         }
@@ -163,14 +163,14 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
             for (auto i : myDemandList->myInvalidStops) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
         } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin("fix positions of invalid stops");
             // iterate over invalid stops to fix positions
             for (auto i : myDemandList->myInvalidStops) {
                 i->fixDemandElementProblem();
             }
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
         } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin("select invalid stops");
             // iterate over invalid stops to select all elements
@@ -178,7 +178,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort saving
             continueSaving = false;
         }
@@ -193,7 +193,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
             for (auto i : myDemandList->myInvalidPersonPlans) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             */
         } else if (myFixPersonPlanOptions->selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin("select invalid person plans");
@@ -202,7 +202,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort saving
             continueSaving = false;
         }

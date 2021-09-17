@@ -272,7 +272,7 @@ GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
         setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

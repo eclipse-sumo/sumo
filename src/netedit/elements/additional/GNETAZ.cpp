@@ -148,7 +148,7 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
             // commit new shape
             undoList->begin("remove geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
-            undoList->p_end();
+            undoList->end();
         }
     }
 }
@@ -666,7 +666,7 @@ GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
     // commit new shape
     undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

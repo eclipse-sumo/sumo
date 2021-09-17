@@ -1222,7 +1222,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
             delete moveOperation;
         }
         // end undo list
-        myViewNet->getUndoList()->p_end();
+        myViewNet->getUndoList()->end();
         // clear move operations
         myMoveOperations.clear();
     }
@@ -1242,7 +1242,7 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
         delete moveOperation;
     }
     // end undo list
-    myViewNet->getUndoList()->p_end();
+    myViewNet->getUndoList()->end();
     // clear move operations
     myMoveOperations.clear();
 }
@@ -1585,7 +1585,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
                     AC->setAttribute(GNE_ATTR_SELECTED, "1", myViewNet->myUndoList);
                 }
             }
-            myViewNet->myUndoList->p_end();
+            myViewNet->myUndoList->end();
         }
         myViewNet->makeNonCurrent();
     }

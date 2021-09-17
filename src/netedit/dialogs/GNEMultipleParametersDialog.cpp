@@ -573,7 +573,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // end change
-    undoList->p_end();
+    undoList->end();
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
     return 1;

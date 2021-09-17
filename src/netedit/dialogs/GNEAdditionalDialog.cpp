@@ -124,7 +124,7 @@ void
 GNEAdditionalDialog::acceptChanges() {
     // commit changes or abort last command group depending of number of changes did
     if (myNumberOfChanges < myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
-        myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_end();
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->end();
     } else {
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     }

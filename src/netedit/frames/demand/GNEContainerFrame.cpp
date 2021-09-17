@@ -265,7 +265,7 @@ GNEContainerFrame::createPath() {
                     myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
                     container, myContainerPlanAttributes, myPathCreator)) {
             // end undo-redo operation
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort path creation
             myPathCreator->abortPathCreation();
             // refresh container and containerPlan attributes

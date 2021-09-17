@@ -160,7 +160,7 @@ GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 // commit new shape
                 undoList->begin("remove geometry point of " + getTagStr());
                 undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
-                undoList->p_end();
+                undoList->end();
             }
         }
     }
@@ -1031,7 +1031,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     undoList->add(new GNEChange_Attribute(Supermode::NETWORK, j, key, value), true);
                 }
             }
-            undoList->p_end();
+            undoList->end();
             break;
         case SUMO_ATTR_TYPE: {
             undoList->begin("change " + getTagStr() + " type");
@@ -1065,7 +1065,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 undoList->add(new GNEChange_Attribute(Supermode::NETWORK, crossing, SUMO_ATTR_TLLINKINDEX, "-1"), true);
                 undoList->add(new GNEChange_Attribute(Supermode::NETWORK, crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
             }
-            undoList->p_end();
+            undoList->end();
             break;
         }
         case SUMO_ATTR_TLTYPE: {
@@ -1086,7 +1086,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 }
             }
             undoList->add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value), true);
-            undoList->p_end();
+            undoList->end();
             break;
         }
         case SUMO_ATTR_TLLAYOUT: {
@@ -1106,7 +1106,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
                 }
             }
-            undoList->p_end();
+            undoList->end();
             break;
         }
         case SUMO_ATTR_TLID: {
@@ -1168,7 +1168,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 }
             }
             delete currentTLSCopy;
-            undoList->p_end();
+            undoList->end();
             break;
         }
         default:
@@ -1401,11 +1401,11 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
             // commit new shape
             undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
-            undoList->p_end();
+            undoList->end();
         } else if (!myNet->getViewNet()->mergeJunctions(this, myNet->getViewNet()->getObjectsUnderCursor().getJunctionFront())) {
             undoList->begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-            undoList->p_end();
+            undoList->end();
         }
     }
 }

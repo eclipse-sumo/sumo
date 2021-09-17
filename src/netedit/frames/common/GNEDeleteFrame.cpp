@@ -214,7 +214,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
         // enable update geometry
         myViewNet->getNet()->enableUpdateGeometry();
         // finish deletion
-        myViewNet->getUndoList()->p_end();
+        myViewNet->getUndoList()->end();
     }
 }
 

@@ -256,12 +256,12 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             // commit new geometry start
             undoList->begin("remove first geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_START, ""));
-            undoList->p_end();
+            undoList->end();
         } else if (index == lastIndex) {
             // commit new geometry end
             undoList->begin("remove last geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_END, ""));
-            undoList->p_end();
+            undoList->end();
         } else {
             // remove geometry point
             shape.erase(shape.begin() + index);
@@ -273,7 +273,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             // commit new shape
             undoList->begin("remove geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
-            undoList->p_end();
+            undoList->end();
         }
     }
 }
@@ -465,12 +465,12 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
         undoList->begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
-        undoList->p_end();
+        undoList->end();
     } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
                (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
         undoList->begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
-        undoList->p_end();
+        undoList->end();
     } else {
         // we need to create new Start/End position over Edge shape, not over clicked position
         double offset = myNBEdge->getGeometry().nearest_offset_to_point2D(myNet->getViewNet()->snapToActiveGrid(pos), true);
@@ -501,7 +501,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
                             deleteEdgeGeometryPoint(pos, false);
                         }
             */
-            undoList->p_end();
+            undoList->end();
         }
     }
 }
@@ -885,7 +885,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, key, value, origValue));
-            undoList->p_end();
+            undoList->end();
             break;
         }
         case SUMO_ATTR_FROM: {
@@ -900,7 +900,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_START, toString(getFromJunction()->getNBNode()->getPosition()), undoList);
             getFromJunction()->invalidateShape();
-            undoList->p_end();
+            undoList->end();
             // update geometries of all implicated junctions
             originalFirstParentJunction->updateGeometry();
             getFromJunction()->updateGeometry();
@@ -919,7 +919,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_END, toString(getToJunction()->getNBNode()->getPosition()), undoList);
             getToJunction()->invalidateShape();
-            undoList->p_end();
+            undoList->end();
             // update geometries of all implicated junctions
             originalSecondParentJunction->updateGeometry();
             getToJunction()->updateGeometry();
@@ -1540,7 +1540,7 @@ GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
         if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), (int)(moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
         }
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -1568,7 +1568,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // update geometry of entire edge
     updateGeometry();
     // end undo list
-    undoList->p_end();
+    undoList->end();
     // update centering boundary and grid
     updateCenteringBoundary(true);
 }

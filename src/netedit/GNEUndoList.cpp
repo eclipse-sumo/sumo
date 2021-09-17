@@ -150,7 +150,7 @@ GNEUndoList::begin(const std::string& description) {
 
 
 void
-GNEUndoList::p_end() {
+GNEUndoList::end() {
     myCommandGroups.pop();
     // check if net has to be updated
     if (myCommandGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
@@ -163,7 +163,33 @@ GNEUndoList::p_end() {
             myGNEApplicationWindowParent->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
         }
     }
-    end();
+    // continue with end
+    register GNEChangeGroup *change;
+    register GNEChangeGroup *g = this;
+    // Must have called begin
+    if (!g->group) { 
+        throw ProcessError("GNEChangeGroup::end: no matching call to begin"); 
+    }
+    // Calling end while in the middle of doing something!
+    if (myWorking) {
+        throw ProcessError("GNEChangeGroup::end: already working on undo or redo"); 
+    }
+    // Hunt for one above end of group chain
+    while (g->group->group) {
+        g = g->group;
+    }
+    // Unlink from group chain
+    change = g->group;
+    g->group = nullptr;
+    // Add to group if non-empty
+    if (!change->empty()) {
+        // Append new change to undo list
+        change->next = g->undoList;
+        g->undoList = change;
+    } else {
+        // Delete bottom group
+        delete change;
+    }
 }
 
 
@@ -299,37 +325,6 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
 
     }
     myWorking = false;
-}
-
-
-void 
-GNEUndoList::end() {
-    register GNEChangeGroup *change;
-    register GNEChangeGroup *g = this;
-    // Must have called begin
-    if (!g->group) { 
-        throw ProcessError("GNEChangeGroup::end: no matching call to begin"); 
-    }
-    // Calling end while in the middle of doing something!
-    if (myWorking) {
-        throw ProcessError("GNEChangeGroup::end: already working on undo or redo"); 
-    }
-    // Hunt for one above end of group chain
-    while (g->group->group) {
-        g = g->group;
-    }
-    // Unlink from group chain
-    change = g->group;
-    g->group = nullptr;
-    // Add to group if non-empty
-    if (!change->empty()) {
-        // Append new change to undo list
-        change->next = g->undoList;
-        g->undoList = change;
-    } else {
-        // Delete bottom group
-        delete change;
-    }
 }
 
 

@@ -128,7 +128,7 @@ GNECrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 // commit new shape
                 undoList->begin("remove geometry point of " + getTagStr());
                 undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
-                undoList->p_end();
+                undoList->end();
             }
         }
     }
@@ -578,7 +578,7 @@ GNECrossing::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     // commit new shape
     undoList->begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

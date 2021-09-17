@@ -582,7 +582,7 @@ GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
     } else {
         undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

@@ -440,7 +440,7 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
             setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
         }
         // end change attribute
-        undoList->p_end();
+        undoList->end();
     }
 }
 

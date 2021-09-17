@@ -819,7 +819,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, 
         // move element one position back
         myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(Supermode::DEMAND, myClickedDemandElement->getParentDemandElements().at(0), myClickedDemandElement,
                 GNEChange_Children::Operation::MOVE_BACK), true);
-        myFrameParent->myViewNet->getUndoList()->p_end();
+        myFrameParent->myViewNet->getUndoList()->end();
     }
     // refresh after moving child
     refreshHierarchicalElementTree();
@@ -835,7 +835,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector
         // move element one position front
         myFrameParent->myViewNet->getUndoList()->add(new GNEChange_Children(Supermode::DEMAND, myClickedDemandElement->getParentDemandElements().at(0), myClickedDemandElement,
                 GNEChange_Children::Operation::MOVE_FRONT), true);
-        myFrameParent->myViewNet->getUndoList()->p_end();
+        myFrameParent->myViewNet->getUndoList()->end();
     }
     // refresh after moving child
     refreshHierarchicalElementTree();

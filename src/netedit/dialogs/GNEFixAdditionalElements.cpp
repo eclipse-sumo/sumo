@@ -100,21 +100,21 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
         } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin("fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->fixAdditionalProblem();
             }
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
         } else if (myPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin("select invalid additionals");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort saving
             continueSaving = false;
         }
@@ -156,7 +156,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 i->fixAdditionalProblem();
             }
         }
-        myViewNet->getUndoList()->p_end();
+        myViewNet->getUndoList()->end();
     }
     if (continueSaving) {
         // stop modal with TRUE (continue saving)

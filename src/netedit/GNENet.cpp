@@ -263,7 +263,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         dest->setLogicValid(false, undoList);
     }
     requireRecompute();
-    undoList->p_end();
+    undoList->end();
     return edge;
 }
 
@@ -305,7 +305,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     // delete edge
     undoList->add(new GNEChange_Junction(junction, false), true);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -373,7 +373,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     // remove edge requires always a recompute (due geometry and connections)
     requireRecompute();
     // finish delete edge
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -439,7 +439,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     // Delete edge
     undoList->add(new GNEChange_Edge(which, false), true);
     // finish replace edge
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -482,7 +482,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false, recomputeConnections), true);
         // remove lane requires always a recompute (due geometry and connections)
         requireRecompute();
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -498,7 +498,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     junctionDestiny->invalidateTLS(undoList, deleted);
     // remove connection requires always a recompute (due geometry and connections)
     requireRecompute();
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -516,7 +516,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
                       false), true);
     // remove crossing requires always a recompute (due geometry and connections)
     requireRecompute();
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -537,7 +537,7 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     }
     // remove additional
     undoList->add(new GNEChange_Additional(additional, false), true);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -546,7 +546,7 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
     undoList->begin("delete " + shape->getTagStr());
     // delete shape
     undoList->add(new GNEChange_Shape(shape, false), true);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -567,7 +567,7 @@ GNENet::deleteTAZElement(GNETAZElement* TAZElement, GNEUndoList* undoList) {
     }
     // remove TAZElement
     undoList->add(new GNEChange_TAZElement(TAZElement, false), true);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -592,7 +592,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
         }
         // remove demandElement
         undoList->add(new GNEChange_DemandElement(demandElement, false), true);
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -606,7 +606,7 @@ GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
     for (const auto& dataInterval : copyOfDataIntervalChildren) {
         deleteDataInterval(dataInterval.second, undoList);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -619,7 +619,7 @@ GNENet::deleteDataInterval(GNEDataInterval* dataInterval, GNEUndoList* undoList)
     for (const auto& genericData : copyOfGenericDataChildren) {
         deleteGenericData(genericData, undoList);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -649,7 +649,7 @@ GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
             undoList->add(new GNEChange_DataSet(genericData->getDataIntervalParent()->getDataSetParent(), false), true);
         }
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -665,7 +665,7 @@ GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnec
     GNELane* newLane = new GNELane(edge, lane->getIndex());
     undoList->add(new GNEChange_Lane(edge, newLane, laneAttrs, true, recomputeConnections), true);
     requireRecompute();
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -870,7 +870,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         }
     }
     // finish undo list
-    undoList->p_end();
+    undoList->end();
     // return new junction
     return newJunction;
 }
@@ -884,7 +884,7 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
     newJunction = splitEdge(edge, pos, undoList, newJunction);
     // split second edge
     splitEdge(oppositeEdge, pos, undoList, newJunction);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -897,7 +897,7 @@ GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
     reversed->setAttribute(SUMO_ATTR_SHAPE, toString(edge->getNBEdge()->getInnerGeometry().reverse()), undoList);
     reversed->setAttribute(GNE_ATTR_SHAPE_START, edge->getAttribute(GNE_ATTR_SHAPE_END), undoList);
     reversed->setAttribute(GNE_ATTR_SHAPE_END, edge->getAttribute(GNE_ATTR_SHAPE_START), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -931,7 +931,7 @@ GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
         src->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
         dest->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
     }
-    undoList->p_end();
+    undoList->end();
     return reversed;
 }
 
@@ -965,7 +965,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     }
     // deleted moved junction
     deleteJunction(moved, undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -980,7 +980,7 @@ GNENet::selectRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
                     e->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     e->getToJunction()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 }
-                undoList->p_end();
+                undoList->end();
                 return;
             }
         }
@@ -1046,7 +1046,7 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
         //    << " numSegments=" << numSegments << " innerGeom=" << innerGeom << "\n";
         newEdge->setAttribute(SUMO_ATTR_SHAPE, toString(innerGeom), undoList);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -1894,7 +1894,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     if (pos != oldPos) {
         joined->setAttribute(SUMO_ATTR_POSITION, toString(oldPos), undoList);
     }
-    undoList->p_end();
+    undoList->end();
     return true;
 }
 
@@ -1944,7 +1944,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
             for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
                 deleteCrossing((*i), undoList);
             }
-            undoList->p_end();
+            undoList->end();
         }
     }
     return 1;
@@ -1964,7 +1964,7 @@ GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
     for (auto it : toRemove) {
         deleteJunction(it, undoList);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -1989,7 +1989,7 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
             undoList->add(new GNEChange_DemandElement(i, false), true);
         }
         // end undo list
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -2053,7 +2053,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
             }
         }
         // end undo list
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -2098,7 +2098,7 @@ GNENet::adjustPersonPlans(GNEUndoList* undoList) {
             personPlan.first->setAttribute(SUMO_ATTR_ARRIVALPOS, personPlan.second, undoList);
         }
         // end undo list
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -2138,7 +2138,7 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
             undoList->add(new GNEChange_DemandElement(invalidDemandElement, false), true);
         }
         // end undo list
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -2185,7 +2185,7 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         //delete replaced junction
         deleteJunction(junction, undoList);
         // finish operation
-        undoList->p_end();
+        undoList->end();
     } else {
         throw ProcessError("Junction isn't removable");
     }
@@ -2271,7 +2271,7 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
 
     deleteJunction(junction, undoList);
     // finish operation
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -2284,7 +2284,7 @@ GNENet::clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
     for (auto i : connections) {
         deleteConnection(i, undoList);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -2295,7 +2295,7 @@ GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
     clearJunctionConnections(junction, undoList);
     // invalidate logic to create new connections in the next recomputing
     junction->setLogicValid(false, undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -2320,7 +2320,7 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
             deleteTAZElement(TAZMap.second.begin()->second, undoList);
         }
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -2333,7 +2333,7 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
             deleteDemandElement(demandElementsMap.second.begin()->second, undoList);
         }
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -2344,7 +2344,7 @@ GNENet::clearDataElements(GNEUndoList* undoList) {
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         deleteDataSet(dataSet.second, undoList);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 

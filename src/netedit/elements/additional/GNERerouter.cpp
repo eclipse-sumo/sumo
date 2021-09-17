@@ -322,7 +322,7 @@ void
 GNERerouter::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -342,7 +342,7 @@ GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoL
         // add it using GNEChange_Additional
         myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 

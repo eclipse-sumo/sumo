@@ -417,7 +417,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -434,7 +434,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -451,7 +451,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, edges.back()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -468,7 +468,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, route->getParentEdges().back()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -651,7 +651,7 @@ GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     undoList->begin("arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

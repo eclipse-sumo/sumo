@@ -406,7 +406,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -423,7 +423,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -439,7 +439,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 undoList->begin("Change arrivalPos attribute of previous personPlan");
                 previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -749,7 +749,7 @@ GNEStopPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
     undoList->begin("endPos of " + getTagStr());
     // now adjust endPos position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

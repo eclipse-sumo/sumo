@@ -229,7 +229,7 @@ GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, v
         edge->setAttribute(GNE_ATTR_SHAPE_END, toString(shapeEnd), undoList);
     }
     // end undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    myMoveFrameParent->getViewNet()->getUndoList()->end();
     return 1;
 }
 
@@ -378,7 +378,7 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
         }
     }
     // end undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    myMoveFrameParent->getViewNet()->getUndoList()->end();
     // update info label
     updateInfoLabel();
     return 1;
@@ -580,7 +580,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
         }
     }
     // end undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    myMoveFrameParent->getViewNet()->getUndoList()->end();
     return 1;
 }
 

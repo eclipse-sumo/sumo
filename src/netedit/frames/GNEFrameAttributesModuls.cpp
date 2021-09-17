@@ -1329,7 +1329,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             }
             // finish change multiple attributes
             if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
+                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
             }
             // update frame parent after attribute sucesfully set
             myAttributesEditorParent->getFrameParent()->attributeUpdated();
@@ -1426,9 +1426,9 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             }
             // finish change multiple attributes or ID Attributes
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
+                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
-                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
+                myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->end();
             }
             // If previously value was incorrect, change font color to black
             if (myACAttr.isVClasses()) {
@@ -1476,7 +1476,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         // enable attribute
         undoList->begin("enable attribute '" + myACAttr.getAttrStr() + "'");
         myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->enableAttribute(myACAttr.getAttr(), undoList);
-        undoList->p_end();
+        undoList->end();
     } else {
         // disable input values
         myValueCheckButton->disable();
@@ -1484,7 +1484,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         // disable attribute
         undoList->begin("disable attribute '" + myACAttr.getAttrStr() + "'");
         myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->disableAttribute(myACAttr.getAttr(), undoList);
-        undoList->p_end();
+        undoList->end();
     }
     return 0;
 }
@@ -1851,7 +1851,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
     }
     // check if we're editing multiple attributes
     if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-        undoList->p_end();
+        undoList->end();
     }
     // refresh Attributes edito parent
     refreshAttributeEditorFlow();
@@ -1891,7 +1891,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObj
         inspectedAC->enableAttribute(attr, undoList);
     }
     // end undoList
-    undoList->p_end();
+    undoList->end();
     // refresh Attributes edito parent
     refreshAttributeEditorFlow();
     return 1;

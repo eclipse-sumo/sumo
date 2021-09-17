@@ -461,7 +461,7 @@ GNETAZFrame::TAZSaveChanges::onCmdSaveChanges(FXObject*, FXSelector, void*) {
         mySaveChangesButton->disable();
         myCancelChangesButton->disable();
         // finish undo list set
-        myTAZFrameParent->myViewNet->getUndoList()->p_end();
+        myTAZFrameParent->myViewNet->getUndoList()->end();
         // always refresh TAZ Edges after removing TAZSources/Sinks
         myTAZFrameParent->myCurrentTAZ->refreshTAZEdges();
         // update use edges button

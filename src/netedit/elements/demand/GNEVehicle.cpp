@@ -2000,7 +2000,7 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
         }
     }
     // end change attribute
-    undoList->p_end();
+    undoList->end();
 }
 
 

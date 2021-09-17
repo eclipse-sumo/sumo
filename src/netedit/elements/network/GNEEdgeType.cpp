@@ -141,7 +141,7 @@ GNEEdgeType::addLaneType(GNEUndoList* undoList) {
     laneType->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH), undoList);
     laneType->setAttribute(GNE_ATTR_PARAMETERS, "", undoList);
     // end undoList
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -169,7 +169,7 @@ GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
         // remove last lane
         undoList->add(new GNEChange_LaneType(myLaneTypes.back(), ((int)myLaneTypes.size() - 1), false), true);
         // end undoList
-        undoList->p_end();
+        undoList->end();
     }
 }
 

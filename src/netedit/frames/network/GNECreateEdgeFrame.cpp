@@ -258,7 +258,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType(FXObject*, FXSelector, vo
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin("create new edge type");
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, 0, true), true);
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // update myEdgeTypeSelected
     myEdgeTypeSelected = edgeType;
     // refresh EdgeTypeSelector
@@ -282,7 +282,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
         myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(edgeType->getLaneTypes().at(i), i, false), true);
     }
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // refresh EdgeTypeSelector
     refreshEdgeTypeSelector();
     return 0;
@@ -329,7 +329,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType(FXObject*, FXSelector, 
         // reset parameters
         myEdgeTypeSelected->setAttribute(GNE_ATTR_PARAMETERS, "", undoList);
         // end undoList
-        undoList->p_end();
+        undoList->end();
     }
     // refresh EdgeTypeSelector
     refreshEdgeTypeSelector();
@@ -1427,7 +1427,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                 myCreateEdgeSource->unMarkAsCreateEdgeSource();
                 // end undo list
                 if (myViewNet->getUndoList()->hasCommandGroup()) {
-                    myViewNet->getUndoList()->p_end();
+                    myViewNet->getUndoList()->end();
                 } else {
                     std::cout << "edge created without an open CommandGroup )-:\n";
                 }

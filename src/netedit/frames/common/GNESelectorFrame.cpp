@@ -299,7 +299,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         if (loadedACs.size() > 0) {
             mySelectorFrameParent->myViewNet->getUndoList()->begin("load selection");
             mySelectorFrameParent->handleIDs(loadedACs);
-            mySelectorFrameParent->myViewNet->getUndoList()->p_end();
+            mySelectorFrameParent->myViewNet->getUndoList()->end();
         }
     }
     mySelectorFrameParent->myViewNet->updateViewNet();
@@ -353,7 +353,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
             processDataElementSelection(false, true);
         }
         // finish selection operation
-        mySelectorFrameParent->myViewNet->getUndoList()->p_end();
+        mySelectorFrameParent->myViewNet->getUndoList()->end();
     }
     return 1;
 }
@@ -384,7 +384,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             processDataElementSelection(false, false);
         }
         // finish selection operation
-        mySelectorFrameParent->myViewNet->getUndoList()->p_end();
+        mySelectorFrameParent->myViewNet->getUndoList()->end();
     }
     return 1;
 }
@@ -1053,7 +1053,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
             }
         }
         // finish operation
-        myViewNet->getUndoList()->p_end();
+        myViewNet->getUndoList()->end();
     }
 }
 

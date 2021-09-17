@@ -587,7 +587,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // set parameter in AC using undoList
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->begin("change parameters");
         AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
-        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
+        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->end();
     } else if (VTypeAttributeRow) {
         // set parameter in VTypeAttributeRow
         VTypeAttributeRow->setParameters(parameters);
@@ -595,7 +595,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // set parameter in AC using undoList
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin("change parameters");
         myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->p_end();
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
     }
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);

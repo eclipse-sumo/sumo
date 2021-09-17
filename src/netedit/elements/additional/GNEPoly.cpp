@@ -119,7 +119,7 @@ GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             // commit new shape
             undoList->begin("remove geometry point of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(shape)));
-            undoList->p_end();
+            undoList->end();
         }
     }
 }
@@ -379,7 +379,7 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->begin("delete geometry point");
             setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // first remove object from grid due shape is used for boundary
             myNet->removeGLObjectFromGrid(this);
@@ -409,7 +409,7 @@ GNEPoly::openPolygon(bool allowUndo) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->begin("open polygon");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myShape.pop_back();
             // disable simplified shape flag
@@ -430,7 +430,7 @@ GNEPoly::closePolygon(bool allowUndo) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->begin("close shape");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myShape.closePolygon();
             // disable simplified shape flag
@@ -471,7 +471,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->begin("change first geometry point");
             setAttribute(SUMO_ATTR_SHAPE, toString(newShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // set new shape
             myShape = newShape;
@@ -505,7 +505,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->begin("simplify shape");
             setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // set new shape
             myShape = simplifiedShape;
@@ -806,7 +806,7 @@ GNEPoly::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // commit new shape
     undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

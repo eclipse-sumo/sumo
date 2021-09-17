@@ -264,7 +264,7 @@ GNEPersonFrame::createPath() {
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                     person, myPersonPlanAttributes, myPathCreator)) {
             // end undo-redo operation
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort path creation
             myPathCreator->abortPathCreation();
             // refresh person and personPlan attributes

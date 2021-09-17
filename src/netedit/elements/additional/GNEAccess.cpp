@@ -364,7 +364,7 @@ GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLis
         setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
-    undoList->p_end();
+    undoList->end();
 }
 
 

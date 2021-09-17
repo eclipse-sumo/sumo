@@ -264,7 +264,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
             myEditedDef = nullptr;
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             cleanup();
             myViewNet->updateViewNet();
         } else {

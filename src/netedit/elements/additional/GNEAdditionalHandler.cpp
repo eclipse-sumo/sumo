@@ -108,7 +108,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_BUS_STOP));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(busStop);
                 lane->addChildElement(busStop);
@@ -151,7 +151,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_TRAIN_STOP));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(trainStop, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(trainStop);
                 lane->addChildElement(trainStop);
@@ -196,7 +196,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_ACCESS));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(access, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(access);
             lane->addChildElement(access);
@@ -236,7 +236,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(containerStop);
                 lane->addChildElement(containerStop);
@@ -279,7 +279,7 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_CHARGING_STATION));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(chargingStation);
                 lane->addChildElement(chargingStation);
@@ -328,7 +328,7 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_PARKING_AREA));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(parkingArea);
                 lane->addChildElement(parkingArea);
@@ -377,7 +377,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_PARKING_SPACE));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(parkingSpace);
                 parkingArea->addChildElement(parkingSpace);
@@ -420,7 +420,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_E1DETECTOR));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE1, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(detectorE1);
                 lane->addChildElement(detectorE1);
@@ -484,7 +484,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_E2DETECTOR));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(detectorE2);
                 lane->addChildElement(detectorE2);
@@ -539,7 +539,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin("add " + toString(GNE_TAG_E2DETECTOR_MULTILANE));
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
-                    myNet->getViewNet()->getUndoList()->p_end();
+                    myNet->getViewNet()->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertAdditional(detectorE2);
                     for (const auto& lane : lanes) {
@@ -581,7 +581,7 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_E3DETECTOR));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(E3, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(E3);
             E3->incRef("buildDetectorE3");
@@ -615,7 +615,7 @@ GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObjec
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_DET_ENTRY));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(entry, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(entry);
             lane->addChildElement(entry);
@@ -649,7 +649,7 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_DET_EXIT));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(exit, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(exit);
             lane->addChildElement(exit);
@@ -685,7 +685,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE1Instant, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(detectorE1Instant);
                 lane->addChildElement(detectorE1Instant);
@@ -727,7 +727,7 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_CALIBRATOR));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
                 // center after creation
                 if (neteditParameters.centerAfterCreation) {
                     myNet->getViewNet()->centerTo(calibrator->getPositionInView(), false);
@@ -773,7 +773,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_CALIBRATOR));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
                 // center after creation
                 if (neteditParameters.centerAfterCreation) {
                     myNet->getViewNet()->centerTo(calibrator->getPositionInView(), false);
@@ -831,7 +831,7 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + flow->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(flow, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             calibrator->addChildElement(flow);
             route->addChildElement(flow);
@@ -879,7 +879,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
                 for (const auto& rerouterSymbol : rerouterSymbols) {
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterSymbol, true), true);
                 }
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(rerouter);
                 // add symbols
@@ -935,7 +935,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + rerouterInterval->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterInterval, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 rerouter->addChildElement(rerouterInterval);
                 rerouterInterval->incRef("buildRerouterInterval");
@@ -967,7 +967,7 @@ GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBase
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + closingLaneReroute->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             rerouterInterval->addChildElement(closingLaneReroute);
             closingLaneReroute->incRef("buildClosingLaneReroute");
@@ -996,7 +996,7 @@ GNEAdditionalHandler::buildClosingReroute(const CommonXMLStructure::SumoBaseObje
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + closingLaneReroute->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             rerouterInterval->addChildElement(closingLaneReroute);
             closingLaneReroute->incRef("buildClosingLaneReroute");
@@ -1024,7 +1024,7 @@ GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObj
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + destProbReroute->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             rerouterInterval->addChildElement(destProbReroute);
             destProbReroute->incRef("builDestProbReroute");
@@ -1053,7 +1053,7 @@ GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBase
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + parkingAreaReroute->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             rerouterInterval->addChildElement(parkingAreaReroute);
             parkingAreaReroute->incRef("builParkingAreaReroute");
@@ -1078,7 +1078,7 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + routeProbReroute->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             rerouterInterval->addChildElement(routeProbReroute);
             routeProbReroute->incRef("buildRouteProbReroute");
@@ -1114,7 +1114,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_ROUTEPROBE));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
                 // center after creation
                 if (neteditParameters.centerAfterCreation) {
                     myNet->getViewNet()->centerTo(routeProbe->getPositionInView(), false);
@@ -1162,7 +1162,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
                     for (const auto& VSSSymbol : VSSSymbols) {
                         myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
                     }
-                    myNet->getViewNet()->getUndoList()->p_end();
+                    myNet->getViewNet()->getUndoList()->end();
                 } else {
                     myNet->getAttributeCarriers()->insertAdditional(variableSpeedSign);
                     // add symbols
@@ -1200,7 +1200,7 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + variableSpeedSignStep->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSignStep, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             VSS->addChildElement(variableSpeedSignStep);
             variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
@@ -1236,7 +1236,7 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_VAPORIZER));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
                 // center after creation
                 if (neteditParameters.centerAfterCreation) {
                     myNet->getViewNet()->centerTo(vaporizer->getPositionInView(), false);
@@ -1304,7 +1304,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
                 GNETAZElement* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
             }
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertTAZElement(TAZ);
             TAZ->incRef("buildTAZ");
@@ -1355,7 +1355,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_TAZSINK));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertTAZElement(TAZSink);
                 TAZSink->incRef("buildTAZSource");
@@ -1377,7 +1377,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_TAZSOURCE));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertTAZElement(TAZSource);
                 TAZSource->incRef("buildTAZSource");
@@ -1387,7 +1387,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("update " + toString(SUMO_TAG_TAZSOURCE));
                 TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), myNet->getViewNet()->getUndoList());
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), nullptr);
                 TAZSource->incRef("buildTAZSource");
@@ -1425,7 +1425,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_TAZSOURCE));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertTAZElement(TAZSource);
                 TAZSource->incRef("buildTAZSink");
@@ -1446,7 +1446,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_TAZSINK));
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertTAZElement(TAZSink);
                 TAZSink->incRef("buildTAZSink");
@@ -1456,7 +1456,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("update " + toString(SUMO_TAG_TAZSINK));
                 TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), myNet->getViewNet()->getUndoList());
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), nullptr);
                 TAZSink->incRef("buildTAZSink");
@@ -1486,7 +1486,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_POLY));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(poly, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // insert shape without allowing undo/redo
             myNet->getAttributeCarriers()->insertShape(poly);
@@ -1520,7 +1520,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + POI->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POI, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // insert shape without allowing undo/redo
             myNet->getAttributeCarriers()->insertShape(POI);
@@ -1562,7 +1562,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + POILane->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POILane, true), true);
-                myNet->getViewNet()->getUndoList()->p_end();
+                myNet->getViewNet()->getUndoList()->end();
             } else {
                 // insert shape without allowing undo/redo
                 myNet->getAttributeCarriers()->insertShape(POILane);
@@ -1598,7 +1598,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + POIGEO->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POIGEO, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // insert shape without allowing undo/redo
             myNet->getAttributeCarriers()->insertShape(POIGEO);

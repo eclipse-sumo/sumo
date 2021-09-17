@@ -706,7 +706,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
             myUndoList->abort();
         } else {
             // commit undo/redo operation
-            myUndoList->p_end();
+            myUndoList->end();
             update();
         }
     } else {
@@ -753,7 +753,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
             }
         }
         // end undo list
-        myViewNet->getUndoList()->p_end();
+        myViewNet->getUndoList()->end();
         // refresh edge type selector
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
@@ -1003,7 +1003,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undo list
-        myUndoList->p_end();
+        myUndoList->end();
         // disable save additionals (because additionals were loaded through console)
         myNet->requireSaveAdditionals(false);
     }
@@ -1026,7 +1026,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undo list
-        myUndoList->p_end();
+        myUndoList->end();
         // disable save demand elements (because demand elements were loaded through console)
         myNet->requireSaveDemandElements(false);
     }
@@ -1053,7 +1053,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undolist
-        myUndoList->p_end();
+        myUndoList->end();
         // disable save data elements (because data elements were loaded through console)
         myNet->requireSaveDataElements(false);
         // enable update data
@@ -2972,7 +2972,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
-        myUndoList->p_end();
+        myUndoList->end();
         update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto", "auto");
@@ -3001,7 +3001,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // end undoList operation and update view
-    myUndoList->p_end();
+    myUndoList->end();
     update();
     // restore validation for additionals
     XMLSubSys::setValidation("auto", "auto", "auto");
@@ -3139,7 +3139,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
-        myUndoList->p_end();
+        myUndoList->end();
         update();
         // restore validation for demand
         XMLSubSys::setValidation("auto", "auto", "auto");
@@ -3168,7 +3168,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // end undoList operation and update view
-    myUndoList->p_end();
+    myUndoList->end();
     update();
     // restore validation for demand
     XMLSubSys::setValidation("auto", "auto", "auto");
@@ -3312,7 +3312,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // restore validation for data
         XMLSubSys::setValidation("auto", "auto", "auto");
         // end undoList operation and update view
-        myUndoList->p_end();
+        myUndoList->end();
         // enable update data
         myViewNet->getNet()->enableUpdateData();
         // enable interval bar update
@@ -3350,7 +3350,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // restore validation for data
     XMLSubSys::setValidation("auto", "auto", "auto");
     // end undoList operation and update view
-    myUndoList->p_end();
+    myUndoList->end();
     // enable update data
     myViewNet->getNet()->enableUpdateData();
     // enable interval bar update

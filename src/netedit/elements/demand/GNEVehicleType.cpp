@@ -1179,7 +1179,7 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter
         vType->setAttribute(GNE_ATTR_PARAMETERS, parametersStr, undoList);
     }
     // close undo list
-    undoList->p_end();
+    undoList->end();
 }
 
 // ===========================================================================

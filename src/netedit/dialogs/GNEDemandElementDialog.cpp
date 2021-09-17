@@ -124,7 +124,7 @@ void
 GNEDemandElementDialog::acceptChanges() {
     // commit changes or abort last command group depending of number of changes did
     if (myNumberOfChanges < myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
-        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_end();
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->end();
     } else {
         myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     }

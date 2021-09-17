@@ -282,7 +282,7 @@ void
 GNEVariableSpeedSign::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -302,7 +302,7 @@ GNEVariableSpeedSign::rebuildVSSSymbols(const std::string& value, GNEUndoList* u
         // add it using GNEChange_Additional
         myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

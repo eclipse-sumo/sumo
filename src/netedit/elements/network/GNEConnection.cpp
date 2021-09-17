@@ -205,7 +205,7 @@ GNEConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* 
                 // commit new shape
                 undoList->begin("remove geometry point of " + getTagStr());
                 undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
-                undoList->p_end();
+                undoList->end();
             }
         }
     }
@@ -606,7 +606,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 }
                 changeTLIndex(key, c.tlLinkIndex, linkIndex2, undoList);
             }
-            undoList->p_end();
+            undoList->end();
             break;
         case SUMO_ATTR_DIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
@@ -642,7 +642,7 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
             WRITE_ERROR("Could not set attribute '" + toString(key) + "' (tls is broken)");
         }
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 bool
@@ -847,7 +847,7 @@ GNEConnection::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
     // commit new shape
     undoList->begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(Supermode::NETWORK, this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

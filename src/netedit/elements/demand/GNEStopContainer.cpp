@@ -406,7 +406,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
                 undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -423,7 +423,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
                 undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, stopContainer->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -439,7 +439,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
                 undoList->begin("Change arrivalPos attribute of previous containerPlan");
                 previousContainerPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
-                undoList->p_end();
+                undoList->end();
             } else {
                 undoList->p_add(new GNEChange_Attribute(Supermode::DEMAND, this, key, value));
             }
@@ -749,7 +749,7 @@ GNEStopContainer::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
     undoList->begin("endPos of " + getTagStr());
     // now adjust endPos position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/
