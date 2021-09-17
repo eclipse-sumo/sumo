@@ -307,17 +307,8 @@ GNEUndoList::currentCommandGroupSize() const {
 
 
 const GNEChange* 
-GNEUndoList::getlastChange() const {
-    if (myChangeGroups.empty()) {
-        return nullptr;
-    } else {
-        const GNEChange* change = dynamic_cast<GNEChange*>(myChangeGroups.top());
-        if (change) {
-            return change;
-        } else {
-            return nullptr;
-        }
-    }
+GNEUndoList::getCurrentChange() const {
+    return undoList;
 }
 
 
@@ -327,22 +318,18 @@ GNEUndoList::hasCommandGroup() const {
 }
 
 
+bool 
+GNEUndoList::busy() const { 
+    return myWorking; 
+}
+
 
 /*******************/
 
 
 
 
-void 
-GNEUndoList::cut() {
-    register GNEChange *change;
-    while (redoList) {
-        change = redoList;
-        redoList = redoList->next;
-        delete change;
-    }
-    redoList = nullptr;
-}
+
 
 
 void 
@@ -363,26 +350,15 @@ GNEUndoList::redoAll() {
 
 bool
 GNEUndoList::canUndo() const {
-    return undoList != nullptr;
+    return (undoList != nullptr);
 }
 
 
 bool 
 GNEUndoList::canRedo() const {
-    return redoList != nullptr;
+    return (redoList != nullptr);
 }
 
-
-bool 
-GNEUndoList::busy() const { 
-    return myWorking; 
-}
-
-
-GNEChange* 
-GNEUndoList::current() const {
-    return undoList;
-}
 
 
 long 
@@ -504,6 +480,18 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
         menuCommand->update();
     }
     return 1;
+}
+
+
+void 
+GNEUndoList::cut() {
+    register GNEChange *change;
+    while (redoList) {
+        change = redoList;
+        redoList = redoList->next;
+        delete change;
+    }
+    redoList = nullptr;
 }
 
 

@@ -118,8 +118,17 @@ public:
     /// @brief get size of current CommandGroup
     int currentCommandGroupSize() const;
 
-    /// @brief get last inserted change
-    const GNEChange* getlastChange() const;
+    /// @brief getCurrent top level undo command
+    const GNEChange* getCurrentChange() const;
+
+    /// @brief Check if undoList has command group
+    bool hasCommandGroup() const;
+
+    /**@brief Return TRUE if currently inside undo or redo operation; this
+     * is useful to avoid generating another undo command while inside
+     * an undo operation.
+     */
+    bool busy() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -148,18 +157,7 @@ public:
     long onCmdRedoAll(FXObject*,FXSelector,void*);
     /// @}
 
-    /// @brief Check if undoList has command group
-    bool hasCommandGroup() const;
-
-
 /* FXUndoList */
-
-
-    /**
-     * Cut the redo list.
-     * This is automatically invoked when a new undo command is added.
-     */
-    void cut();
 
     /// Undo all commands
     void undoAll();
@@ -173,18 +171,12 @@ public:
     /// Can we redo more commands
     bool canRedo() const;
 
-    /**
-     * Return TRUE if currently inside undo or redo operation; this
-     * is useful to avoid generating another undo command while inside
-     * an undo operation.
-     */
-    bool busy() const;
-
-    /// Current top level undo command
-    GNEChange* current() const;
-
-/* */
 protected:
+    /**@brief Cut the redo list.
+     * This is automatically invoked when a new undo command is added.
+     */
+    void cut();
+
     /** @brief Abort the current command sub-group being compiled.  All commands
      * already added to the sub-groups undo list will be discarded.
      * Intermediate command groups will be left intact.
