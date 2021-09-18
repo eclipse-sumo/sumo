@@ -684,7 +684,7 @@ MSLaneChangerSublane::checkChangeOpposite(
 
     const double backPosOnTarget = vehicle->getLane()->getOppositePos(vehicle->getBackPositionOnLane());
     if (vehicle->getLaneChangeModel().isOpposite()) {
-        leaders = curLane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
+        leaders = curLane->getFollowersOnConsecutive(vehicle, vehicle->getPositionOnLane(), true);
         leaders.fixOppositeGaps(false);
         curLane->addLeaders(vehicle, vehicle->getBackPositionOnLane(), followers);
         followers.fixOppositeGaps(true);
