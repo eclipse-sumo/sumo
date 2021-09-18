@@ -398,10 +398,10 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             if (getLane()->getEdge().isInternal() && (
                         (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(getLane()->getOutgoingViaLanes().front().first->getEdge()))) {
                 return false;
-            } else if (getPositionOnLane() > getLane()->getLength() && (
-                        (myCurrEdge + 1) == myRoute->end() ||
-                        (newCurrEdge + 1) == edges.end() ||
-                        *(myCurrEdge + 1) != *(newCurrEdge + 1))) {
+            } else if (getPositionOnLane() > getLane()->getLength()
+                    && (myCurrEdge + 1) != myRoute->end()
+                    && (newCurrEdge + 1) != edges.end()
+                    && *(myCurrEdge + 1) != *(newCurrEdge + 1)) {
                 return false;
             }
         }
