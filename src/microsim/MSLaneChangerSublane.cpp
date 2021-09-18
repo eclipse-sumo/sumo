@@ -673,16 +673,21 @@ MSLaneChangerSublane::checkChangeOpposite(
     UNUSED_PARAMETER(neighFollow);
 
     const MSLane& neighLane = *targetLane;
+    MSLane* curLane = myCandi->lane;
 
     MSLeaderDistanceInfo neighLeaders(targetLane, nullptr, 0);
     MSLeaderDistanceInfo neighFollowers(targetLane, nullptr, 0);
     MSLeaderDistanceInfo neighBlockers(targetLane, nullptr, 0);
-    MSLeaderDistanceInfo leaders = myCandi->aheadNext;
-    MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
-    MSLeaderDistanceInfo blockers(vehicle->getLane(), nullptr, 0);
+    MSLeaderDistanceInfo leaders(curLane, nullptr, 0);
+    MSLeaderDistanceInfo followers(curLane, nullptr, 0);
+    MSLeaderDistanceInfo blockers(curLane, nullptr, 0);
 
     const double backPosOnTarget = vehicle->getLane()->getOppositePos(vehicle->getBackPositionOnLane());
     if (vehicle->getLaneChangeModel().isOpposite()) {
+        leaders = curLane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
+        leaders.fixOppositeGaps(false);
+        curLane->addLeaders(vehicle, vehicle->getBackPositionOnLane(), followers);
+        followers.fixOppositeGaps(true);
         const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength() + POSITION_EPS;
         neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
         targetLane->addLeaders(vehicle, posOnTarget, neighLeaders);
@@ -692,6 +697,8 @@ MSLaneChangerSublane::checkChangeOpposite(
         }
         vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(neighLeaders, sublaneIndex, targetLane->getIndex());
     } else {
+        leaders = myCandi->aheadNext;
+        followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
         const double posOnTarget = backPosOnTarget - vehicle->getVehicleType().getLength();
         targetLane->addLeaders(vehicle, backPosOnTarget, neighFollowers);
         neighFollowers.fixOppositeGaps(true);
@@ -703,6 +710,7 @@ MSLaneChangerSublane::checkChangeOpposite(
 #ifdef DEBUG_CHANGE_OPPOSITE
     if (DEBUG_COND) std::cout << SIMTIME
                                   << " checkChangeOppositeSublane: veh=" << vehicle->getID()
+                                  << " isOpposite=" << vehicle->getLaneChangeModel().isOpposite()
                                   << " laneOffset=" << laneOffset
                                   << "\n  leaders=" << leaders.toString()
                                   << "\n  neighLeaders=" << neighLeaders.toString()
