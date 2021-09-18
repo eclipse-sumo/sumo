@@ -3228,7 +3228,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
     // get the follower vehicle on the lane to change to
     const double egoPos = backOffset + ego->getVehicleType().getLength();
     const double egoLatDist = ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
-    const bool getOppositeLeaders = ego->getLaneChangeModel().isOpposite() && ego->getLane() == this;
+    const bool getOppositeLeaders = ((ego->getLaneChangeModel().isOpposite() && ego->getLane() == this)
+            || (!ego->getLaneChangeModel().isOpposite() && &ego->getLane()->getEdge() != &getEdge()));
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(ego)) {
         std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID()
