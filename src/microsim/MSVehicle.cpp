@@ -2135,7 +2135,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
                     if (myLaneChangeModel->isOpposite()) {
                         // ignore oncoming vehicles on the shadow lane
-                        shadowLeaders.removeOpposite();
+                        shadowLeaders.removeOpposite(shadowLane);
                     }
                     adaptToLeaders(shadowLeaders, latOffset, seen, lastLink, shadowLane, v, vLinkPass);
                 } else if (shadowLane == myLaneChangeModel->getShadowLane() && leaderLane == myLane) {
