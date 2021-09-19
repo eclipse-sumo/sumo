@@ -19,6 +19,7 @@ set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
 set(default_build_type "Release")
 
+set(CMAKE_ORIGINAL_BUILD_TYPE "${CMAKE_BUILD_TYPE}")
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
   set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
@@ -393,7 +394,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
-include(GNUInstallDirs)
+if (NOT MSVC)
+    include(GNUInstallDirs)
+endif ()
 if (SKBUILD)
     set(DATA_PATH "")
 else ()
@@ -428,8 +431,8 @@ if (NOT ${SETUPTOOLS_MISSING})
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
-    if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-    	execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_DLL)
+    if ("${CMAKE_ORIGINAL_BUILD_TYPE}" STREQUAL "Release")
+        execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_DLL)
     endif ()
     # copy common dlls
     foreach(DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
