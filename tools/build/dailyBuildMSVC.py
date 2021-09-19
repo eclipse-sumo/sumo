@@ -100,7 +100,8 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
 
 def generateCMake(generator, platform, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + platform)
-    cmakeOpt = ["-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER",
+                "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
     if checkOptionalLibs:
