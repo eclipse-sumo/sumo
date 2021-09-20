@@ -116,11 +116,11 @@ public:
     /// @brief get size of current CommandGroup
     int currentCommandGroupSize() const;
 
-    /// @brief get current top level undo group
-    const GNEChangeGroup* getCurrentUndoChangeGroup() const;
+    /// @brief get undo supermode
+    const Supermode getUndoSupermode() const;
 
-    /// @brief get current top level redo group
-    const GNEChangeGroup* getCurrentRedoChangeGroup() const;
+    /// @brief get redo supermode
+    const Supermode getRedoSupermode() const;
 
     /// @brief Check if undoList has command group
     bool hasCommandGroup() const;
