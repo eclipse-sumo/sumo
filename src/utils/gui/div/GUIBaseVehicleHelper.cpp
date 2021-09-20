@@ -431,41 +431,45 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::popMatrix();
             break;
         case SVS_SCOOTER: {
+            RGBColor darker2 = current.changedBrightness(-25);
             GLHelper::pushMatrix();
-            glColor3d(0.06, 0.2, 0.06);
-            glTranslated(-0.20, 0, 0.1);
+            // front small oval
+            GLHelper::setColor(darker);
+            glTranslated(-0.20, 0, 0.15);
             glScaled(0.04, 0.06, 0.7);
             GLHelper::drawFilledCircle(1, 20);
             GLHelper::popMatrix();
-
+            // handlebar
             GLHelper::pushMatrix();
             glTranslated(0.0, 0, 0.1);
-            glColor3d(0.0, 0.3, 0.1);
+            glColor3d(0.3, 0.3, 0.3);
             drawPoly(vehiclePoly_scooterBase, 5);
             GLHelper::popMatrix();
-
+            // front oval
             GLHelper::pushMatrix();
-            glColor3d(0.1, 0.28, 0.1);
+            GLHelper::setColor(darker2);
             glTranslated(-0.21, 0, 0.1);
             glScaled(0.07, 0.08, 0.9);
             GLHelper::drawFilledCircle(1, 20);
             GLHelper::popMatrix();
-
+            // tail rectangle
             GLHelper::pushMatrix();
-            glColor3d(0.07, 0.1, 0.07);
+            glColor3d(0.3, 0.3, 0.3);
             drawPoly(vehiclePoly_scooterBase2, 5);
-            glColor3d(0.1, 0.28, 0.1);
+            // tail oval
+            GLHelper::setColor(darker2);
             glTranslated(0.21, 0, 0.1);
             glScaled(0.07, 0.08, 0.9);
             GLHelper::drawFilledCircle(1, 20);
             GLHelper::popMatrix();
-
+            // base oval
             GLHelper::pushMatrix();
-            glColor3d(0.1, 0.48, 0.25);
-            glTranslated(0, 0, 0.1);
+            GLHelper::setColor(lighter);
             glScaled(0.28, 0.14, 0.9);
             GLHelper::drawFilledCircle(1, 30);
-            glColor3d(0.1, 0.40, 0.20);
+            // center rectangle
+            glTranslated(0, 0, 0.1);
+            GLHelper::setColor(current);
             drawPoly(vehiclePoly_scooterBase3, 5);
             GLHelper::popMatrix();
             break;
