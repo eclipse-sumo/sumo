@@ -19,6 +19,7 @@ This tutorial shows how to create a simple port simulation with the help of the 
 - [Tutorials](index.md)
 
 Documentation:
+
 - [osmWebWizard.py](../Tutorials/OSMWebWizard.md)
 - [Public Transport Schedules](../Simulation/Public_Transport.md#public_transport_schedules)
 - [Person](../Specification/Persons.md)
@@ -32,18 +33,18 @@ Open the osmWebWizard.py
 ```
 python <SUMO_HOME>/tools/osmWebWizard.py
 ```
-> **__Note:__** [osmWebWizard.py](../Tutorials/OSMWebWizard.md)
-All files that make up the scenario are created in a subfolder of the working directory with the current timestamp (e.g. <SUMO_HOME>/tools/2021-02-22-10-00-00/). If you edit the network, you can use the script `build.bat` to rebuild the random demand.
+!!! note
+	All files that make up the scenario are created in a subfolder of the working directory with the current timestamp (e.g. <SUMO_HOME>/tools/2021-02-22-10-00-00/). If you edit the network, you can use the script `build.bat` to rebuild the random demand.
 
-A browser window is opening. On the left side you see the map and on the right side you can find your position and some options. First, navigate through the map to find the right port.  
-<img src="../images/tutorailport1.png" width="100%">
+A browser window will open. On the left side you see the map and on the right side you can find your position and some options. First, navigate through the map to find the right port.  
+<img src="../images/tutorialport1.png" width="100%">
 
 In our case it is the Skandinavienkai of the Port Lübeck Germany. Here, there are ferries (passenger transport) and cargo vessels (container transport). 	
 
-<img src="../images/tutorailport2.png" width="100%">
+<img src="../images/tutorialport2.png" width="100%">
 
 ### Network Generation
-Now take a look at the right side. You can choose the whole area visible on the screen or select an area by chosing the option `Select Area`. 
+Now take a look at the right side. You can choose the whole area visible on the screen or select an area by choosing the option `Select Area`. 
 Also select the `Add Polygons` and `Import Public Transport` options to put this information directly from OSM to our network. 
 
 ### Demand Generation
@@ -52,7 +53,7 @@ The OSM Web Wizard generates random demand, for more information see the documen
 
 For our scenario we choose `cars`, `trucks`, `pedestrians`, `trains` and of course `ships`.
 
-<img src="../images/tutorailport3.png" width="100%">
+<img src="../images/tutorialport3.png" width="100%">
 
 After you chose all the agents you need press the `Generate Scenario` button.  
 
@@ -60,35 +61,35 @@ The complete scenario is generated automatically. The scenario generation takes 
 
 Here is our scenario! But it looks a little strange because the waterways are very large, so we first have to zoom in to find the port (somewhere in the south).
 
-<img src="../images/tutorailport4.png" width="100%">
+<img src="../images/tutorialport4.png" width="100%">
 
 This is our port: (With additional polygons to get a better overview of the port.) 	
 
-<img src="../images/tutorailport5.png" width="100%">
+<img src="../images/tutorialport5.png" width="100%">
 
 But as you can see, not all piers are connected to the waterways and if you take a closer look you will find more things to fix. So let´s open netedit to correct the network.  	
 
-<img src="../images/tutorailport6.png" width="100%">
+<img src="../images/tutorialport6.png" width="100%">
 
 ## Network editing
 Now we open [netedit](../Netedit/index.md) to correct these parts. You can open it from sumo-gui with the shortcut `Ctrl + T`.
 
 ### Netedit:	
-<img src="../images/tutorailport8.png" width="100%">
+<img src="../images/tutorialport8.png" width="100%">
 
-### 1) Shorten the waterways, so that only the origianlly selected area remains.
+### 1) Shorten the waterways, so that only the originally selected area remains.
 
-Use the inspect mode (`I`): Search the waterways that extend beyond the area and separate these edges in both directions into an appropiate part at the port and a part that can be deleted. To do so, right click on the edge at the position where the edge should be seprataed.
+Use the inspect mode (`I`): Search the waterways that extend beyond the area and separate these edges in both directions into an appropriate part at the port and a part that can be deleted. To do so, right click on the edge at the position where the edge should be separated.
 
-<kbd><img src="../images/tutorailport9.png" width="600"></kbd>
+<kbd><img src="../images/tutorialport9.png" width="600"></kbd>
 
 Use the select mode (`S`):  Select the waterways far from the port and delete them.
 <table><tr>
 	<td>Before</td>
 	<td>After</td>
 </tr><tr>
-	<td><img title="Before" alt="net before cutting the waterways" src="../images/tutorailport10.png" width="100%"></td>
-	<td><img title="after" alt="net after cutting and deleting the waterways" src="../images/tutorailport11.png" width="100%"></td>
+	<td><img title="Before" alt="net before cutting the waterways" src="../images/tutorialport10.png" width="100%"></td>
+	<td><img title="after" alt="net after cutting and deleting the waterways" src="../images/tutorialport11.png" width="100%"></td>
 </tr></table>
 
 ### 2) Delete everything that is superfluous
@@ -97,25 +98,25 @@ Use the select mode (`S`): Select all superfluous edges and delete them.
 	<td>Before</td>
 	<td>After</td>
 </tr><tr>
-	<td><img src="../images/tutorailport12.png" width="500"></td>
-	<td><img src="../images/tutorailport13.png" width="500"></td>
+	<td><img src="../images/tutorialport12.png" width="500"></td>
+	<td><img src="../images/tutorialport13.png" width="500"></td>
 </tr></table>
 
 ### 3) Add the missing connections between the piers and the waterways
 Use the inspect mode (`I`): Split the waterway edge in both directions at the position where you want to add the connection to the pier.
 
-<kbd><img src="../images/tutorailport14.png" width="500"></kbd>
+<kbd><img src="../images/tutorialport14.png" width="500"></kbd>
 
 Use the edge mode (`E`): Connect the pier with the waterway edge (twoway road).
 
-<kbd><img src="../images/tutorailport15.png" width="500"></kbd>
+<kbd><img src="../images/tutorialport15.png" width="500"></kbd>
 
 Use the inspect mode (`I`): Select the new edge and set `allow = ship`
 
 ### 4) Change road vClasses at the port area
 Here is our main port area.
 
-<kbd><img src="../images/tutorailport16.png" width="1000"></kbd>
+<kbd><img src="../images/tutorialport16.png" width="1000"></kbd>
 
 If you have a look at the option allow of the edges, you will see that they have different allowed vClasses. We prefer to have the same allowed vClasses for all edges (trucks, passenger car, pedestrian, delivery, taxi and bus)
 
@@ -123,7 +124,7 @@ Use the select mode (`S`): Select all roads (except the train tracks).
 
 Use the inspect mode (`I`): Open the allow option on the left side and change the allowed vClasses.
 
-<img src="../images/tutorailport18.png" width="1000">
+<img src="../images/tutorialport18.png" width="1000">
 
 ### 5) Train Tracks
 The train tracks imported by the osmWebWizard from OSM just have one direction. 
@@ -145,26 +146,27 @@ Use the connection mode (`C`): Check and adapt the connections between the track
 Use netedit with the additional mode (`A`).
 Select `busStop` or `containerStop` and define a name. Then place the stop at an edge.
 
-<img src="../images/tutorailport19.png" width="100%">
+<img src="../images/tutorialport19.png" width="100%">
 
 After adding all needed stops save them as an additional file (e.g. stops.add.xml).
 
-> **__Note:__** If an agent shall go to a stop with an egde with no permission, you can use access lanes for the stop. 
-For more information see [public transport](../Simulation/Public_Transport.md#access_lanes).
+!!! note
+	If an agent shall go to a stop with an edge with no permission, you can use access lanes for the stop. 
+	For more information see [public transport](../Simulation/Public_Transport.md#access_lanes).
 
 These are the stops for our scenario: (H=busStop, C=containerStop)
 
-<img src="../images/tutorailport20.png" width="100%">
+<img src="../images/tutorialport20.png" width="100%">
 
 If the network is now correct, save the network. Run the file `build.bat` at the scenario folder (for us: <SUMO_HOME>/tools/2021-02-22-10-00-00/ ) to create a new demand suitable for the customized network. You can run the file `run.bat` to restart the simulation. 
 
-<img src="../images/tutorailport21.png" width="100%">
+<img src="../images/tutorialport21.png" width="100%">
 
 Here you can see, that in our scenario there are a little to much ships. So it is time to have a deeper look into the demand. 
 
 ## Demand 
 
-Befor we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can get information about the port from the ports website and from the local logistics companies. Information about the passagener transport you can get from openStreetMap and local public transport- and ferry companies. 
+Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can get information about the port from the ports website and from the local logistics companies. Information about the passenger transport you can get from openStreetMap and local public transport- and ferry companies. 
 
 ### Demand editing 
 If you just want to have a very simple scenario (without containers) then you just change the `Through Traffic Factor` and `count` within the file `build.bat` and generate a better simple demand. For more information see the [osmWebWizard](../Tutorials/OSMWebWizard.md).
@@ -195,7 +197,7 @@ Here is the list of all Agents we want to insert:
 ```
 
 ### Create a demand file
-First, we need some adaptions to the vTypes to add the nessesary capacities to load enough containers and persons. Create a file and add the following definitions for the vTypes:
+First, we need some adaptions to the vTypes to add the necessary capacities to load enough containers and persons. Create a file and add the following definitions for the vTypes:
 ```xml
 <vType id="type_ship" vClass="ship" containerCapacity="25" personCapacity="20"/>
 <vType id="type_train" vClass="rail" containerCapacity="15"/>
@@ -238,7 +240,7 @@ For the passenger cars we use flow definitions:
 ```
 
 #### Staplers
-Because there are no stapler implemented in SUMO, we use trucks equiped with a taxi device. Here, we give them `containerCapacity="1"` and `loadingDuration="30.0"`. (The taxi device also need `personCapacity="1"` because it do not work properly without at the moment.)
+Because there are no stapler implemented in SUMO, we use trucks equipped with a taxi device. Here, we give them `containerCapacity="1"` and `loadingDuration="30.0"`. (The taxi device also need `personCapacity="1"` because it do not work properly without at the moment.)
 ```xml
 <flow id="stapler" begin="0" end="0" number="5" type="type_truck_taxi">
 	<param key="has.taxi.device" value="true"/>
@@ -314,7 +316,7 @@ For the persons we use flow definitions:
 
 You can find the Skandinavienkai, Port Lübeck Germany scenario files here [tbd](port.md)
 
-And two simple port scenarios here: <br />
+And two simple port scenarios here:
 
-* Cologne <br />
-* Brunswick
+- Cologne
+- Brunswick
