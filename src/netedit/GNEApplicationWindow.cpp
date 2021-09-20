@@ -2082,16 +2082,16 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return 0;
     } else if (!myEditMenuCommands.undoLastChange->isEnabled()) {
-/*
-        return 0;
-    } else if (!myViewNet->getUndoList()->getCurrentUndoChangeGroup()) {
-        return 0;
-*/
-    } else if (myViewNet->getUndoList()->getUndoSupermode() != myViewNet->getEditModes().currentSupermode) {
-        // ask about change supermode
-        myViewNet->aksChangeSupermode("Undo", myViewNet->getUndoList()->getUndoSupermode());
         return 0;
     } else {
+        // check supermode (currently ignore supermode data)
+        if ((myViewNet->getUndoList()->getUndoSupermode() != Supermode::DATA) &&
+            (myViewNet->getUndoList()->getUndoSupermode() != myViewNet->getEditModes().currentSupermode)) {
+            // abort if user doesn't press "yes"
+            if (!myViewNet->aksChangeSupermode("Undo", myViewNet->getUndoList()->getUndoSupermode())) {
+                return 0;
+            }
+        }
         myViewNet->getUndoList()->undo();
         // update current show frame after undo
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {
@@ -2102,8 +2102,8 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
         onUpdRedo(myEditMenuCommands.redoLastChange, 0, 0);
         // update toolbar undo-redo buttons
         myViewNet->getViewParent()->updateUndoRedoButtons();
+        return 1;
     }
-    return 1;
 }
 
 
@@ -2115,15 +2115,15 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
         return 0;
     } else if (!myEditMenuCommands.redoLastChange->isEnabled()) {
         return 0;
-/*
-    } else if (!myViewNet->getUndoList()->getCurrentRedoChangeGroup()) {
-        return 0;
-*/
-    } else if (myViewNet->getUndoList()->getRedoSupermode() != myViewNet->getEditModes().currentSupermode) {
-        // ask about change supermode
-        myViewNet->aksChangeSupermode("Redo", myViewNet->getUndoList()->getRedoSupermode());
-        return 0;
     } else {
+        // check supermode (currently ignore supermode data)
+        if ((myViewNet->getUndoList()->getRedoSupermode() != Supermode::DATA) &&
+            (myViewNet->getUndoList()->getRedoSupermode() != myViewNet->getEditModes().currentSupermode)) {
+            // abort if user doesn't press "yes"
+            if(!myViewNet->aksChangeSupermode("Redo", myViewNet->getUndoList()->getRedoSupermode())) {
+                return 0;
+            }
+        }
         myViewNet->getUndoList()->redo();
         // update current show frame after redo
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {
@@ -2134,8 +2134,8 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
         onUpdRedo(myEditMenuCommands.redoLastChange, 0, 0);
         // update toolbar undo-redo buttons
         myViewNet->getViewParent()->updateUndoRedoButtons();
+        return 1;
     }
-    return 1;
 }
 
 

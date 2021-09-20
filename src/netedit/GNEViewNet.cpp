@@ -644,7 +644,7 @@ GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJuncti
 }
 
 
-void 
+bool 
 GNEViewNet::aksChangeSupermode(const std::string &operation, Supermode expectedSupermode) {
     std::string supermode;
     if (expectedSupermode == Supermode::NETWORK) {
@@ -665,6 +665,9 @@ GNEViewNet::aksChangeSupermode(const std::string &operation, Supermode expectedS
     // return answer
     if (answer == MBOX_CLICKED_YES) {
         myEditModes.setSupermode(expectedSupermode, true);
+        return true;
+    } else {
+        return false;
     }
 }
 

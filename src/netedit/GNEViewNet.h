@@ -463,7 +463,7 @@ public:
     bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
 
     /// @brief ask about change supermode
-    void aksChangeSupermode(const std::string &operation, Supermode expectedSupermode);
+    bool aksChangeSupermode(const std::string &operation, Supermode expectedSupermode);
 
 protected:
     /// @brief FOX needs this
