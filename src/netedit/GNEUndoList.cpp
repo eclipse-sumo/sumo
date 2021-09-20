@@ -60,7 +60,7 @@ GNEUndoList::~GNEUndoList() {}
 void
 GNEUndoList::undo() {
     WRITE_DEBUG("Calling GNEUndoList::undo()");
-    register GNEChange *change;
+    GNEChange *change = nullptr;
     if (group) { 
         throw ProcessError("GNEChangeGroup::undo: cannot call undo inside begin-end block");
     }
@@ -83,7 +83,7 @@ GNEUndoList::undo() {
 void
 GNEUndoList::redo() {
     WRITE_DEBUG("Calling GNEUndoList::redo()");
-    register GNEChange *change;
+    GNEChange *change = nullptr;
     if (group) { 
         throw ProcessError("GNEChangeGroup::redo: cannot call undo inside begin-end block"); 
     }
@@ -137,7 +137,7 @@ void
 GNEUndoList::begin(Supermode supermode, const std::string& description) {
     myChangeGroups.push(new GNEChangeGroup(supermode, description));
     // get this reference
-    register GNEChangeGroup* g = this;
+    GNEChangeGroup* changeGroup = this;
     // Calling begin while in the middle of doing something!
     if (myWorking) { 
         throw ProcessError("GNEChangeGroup::begin: already working on undo or redo"); 
@@ -145,11 +145,11 @@ GNEUndoList::begin(Supermode supermode, const std::string& description) {
     // Cut redo list
     cut();
     // Hunt for end of group chain
-    while (g->group) { 
-        g = g->group;
+    while (changeGroup->group) { 
+        changeGroup = changeGroup->group;
     }
     // Add to end
-    g->group = myChangeGroups.top();
+    changeGroup->group = myChangeGroups.top();
 }
 
 
@@ -168,10 +168,10 @@ GNEUndoList::end() {
         }
     }
     // continue with end
-    register GNEChangeGroup *change;
-    register GNEChangeGroup *g = this;
+    GNEChangeGroup *change = nullptr;
+    GNEChangeGroup *changeGroup = this;
     // Must have called begin
-    if (!g->group) { 
+    if (!changeGroup->group) { 
         throw ProcessError("GNEChangeGroup::end: no matching call to begin"); 
     }
     // Calling end while in the middle of doing something!
@@ -179,17 +179,17 @@ GNEUndoList::end() {
         throw ProcessError("GNEChangeGroup::end: already working on undo or redo"); 
     }
     // Hunt for one above end of group chain
-    while (g->group->group) {
-        g = g->group;
+    while (changeGroup->group->group) {
+        changeGroup = changeGroup->group;
     }
     // Unlink from group chain
-    change = g->group;
-    g->group = nullptr;
+    change = changeGroup->group;
+    changeGroup->group = nullptr;
     // Add to group if non-empty
     if (!change->empty()) {
         // Append new change to undo list
-        change->next = g->undoList;
-        g->undoList = change;
+        change->next = changeGroup->undoList;
+        changeGroup->undoList = change;
     } else {
         // Delete bottom group
         delete change;
@@ -206,7 +206,7 @@ GNEUndoList::clear() {
     // abort all change groups
     abortAllChangeGroups();
     // clear
-    register GNEChange *change;
+    GNEChange *change = nullptr;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
@@ -252,8 +252,8 @@ GNEUndoList::abortLastChangeGroup() {
 
 void 
 GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
-    register GNEChangeGroup* g = this;
-    register FXuint size = 0;
+    GNEChangeGroup* changeGroup = this;
+    int size = 0;
     // Must pass a change
     if (!change) { 
         throw ProcessError("GNEChangeGroup::add: nullptr change argument");
@@ -270,21 +270,21 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
         change->redo();
     }
     // Hunt for end of group chain
-    while (g->group) { 
-        g = g->group; 
+    while (changeGroup->group) { 
+        changeGroup = changeGroup->group; 
     }
     // Old size of previous record
-    if (g->undoList) {
-        size = g->undoList->size();
+    if (changeGroup->undoList) {
+        size = changeGroup->undoList->size();
     }
     // Try to merge commands when desired and possible
-    if (merge && g->undoList && (group != nullptr) && change->canMerge() && g->undoList->mergeWith(change)) {
+    if (merge && changeGroup->undoList && (group != nullptr) && change->canMerge() && changeGroup->undoList->mergeWith(change)) {
         // Delete incoming change that was merged
         delete change;
     } else {
         // Append incoming change
-        change->next = g->undoList;
-        g->undoList = change;
+        change->next = changeGroup->undoList;
+        changeGroup->undoList = change;
     }
     myWorking = false;
 }
@@ -450,7 +450,7 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
 
 void 
 GNEUndoList::cut() {
-    register GNEChange *change;
+    GNEChange *change = nullptr;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
@@ -462,9 +462,10 @@ GNEUndoList::cut() {
 
 void 
 GNEUndoList::abortCurrentSubGroup() {
-    register GNEChangeGroup *g = this;
+    // get reference to change group
+    GNEChangeGroup *changeGroup = this;
     // Must be called after begin
-    if (!g->group) { 
+    if (!changeGroup->group) { 
         throw ProcessError("GNEChangeGroup::abort: no matching call to begin");
     }
     // Calling abort while in the middle of doing something!
@@ -472,13 +473,13 @@ GNEUndoList::abortCurrentSubGroup() {
         throw ProcessError("GNEChangeGroup::abort: already working on undo or redo"); 
     }
     // Hunt for one above end of group chain
-    while (g->group->group) {
-        g = g->group; 
+    while (changeGroup->group->group) {
+        changeGroup = changeGroup->group; 
     }
     // Delete bottom group
-    delete g->group;
+    delete changeGroup->group;
     // New end of chain
-    g->group = nullptr;
+    changeGroup->group = nullptr;
 }
 
 
