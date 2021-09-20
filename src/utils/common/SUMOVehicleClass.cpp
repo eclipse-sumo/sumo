@@ -121,6 +121,7 @@ static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitialize
     {"firebrigade",           SVS_FIREBRIGADE},
     {"police",                SVS_POLICE},
     {"rickshaw",              SVS_RICKSHAW },
+    {"scooter",               SVS_SCOOTER},
     {"",                      SVS_UNKNOWN}
 };
 

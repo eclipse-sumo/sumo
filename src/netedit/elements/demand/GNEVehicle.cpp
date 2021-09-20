@@ -1564,6 +1564,10 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(RGBColor::BLUE);
                     break;
                 }
+                if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "scooter") {
+                    GLHelper::setColor(RGBColor::WHITE);
+                    break;
+                }
                 // check if color was set
                 if (wasSet(VEHPARS_COLOR_SET)) {
                     GLHelper::setColor(color);
