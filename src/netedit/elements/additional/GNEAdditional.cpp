@@ -395,11 +395,11 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
             const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment()) ? GNEGeometry::DottedGeometry(s, E2Geometry.getShape(), false) : lane->getDottedLaneGeometry());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
+                GNEGeometry::drawDottedContourGeometryAround(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
+                GNEGeometry::drawDottedContourGeometryAround(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -455,7 +455,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), E2DetectorWidth, false, false);
+                GNEGeometry::drawDottedContourGeometryAround(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), E2DetectorWidth, false, false);
             }
         }
     }

@@ -339,7 +339,7 @@ struct GNEGeometry {
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
     /// @brief draw dotted contour for the given dotted geometry (used by lanes, routes, etc.)
-    static void drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, 
+    static void drawDottedContourGeometryAround(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, 
                                           const double width, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth = -1);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)

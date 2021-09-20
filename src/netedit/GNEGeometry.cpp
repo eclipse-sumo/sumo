@@ -724,7 +724,7 @@ GNEGeometry::HierarchicalConnections::drawDottedConnection(const DottedContourTy
         // change default width
         dottedGeometry.setWidth(0.1);
         // use drawDottedContourGeometry to draw it
-        GNEGeometry::drawDottedContourGeometry(type, s, dottedGeometry, exaggeration * 0.1, false, false);
+        GNEGeometry::drawDottedContourGeometryAround(type, s, dottedGeometry, exaggeration * 0.1, false, false);
         // Pop draw matrix
         GLHelper::popMatrix();
     }
@@ -977,7 +977,7 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& s
 
 
 void
-GNEGeometry::drawDottedContourGeometry(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, 
+GNEGeometry::drawDottedContourGeometryAround(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, 
                                        const double width, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) {
     // declare DottedGeometryColor
     DottedGeometryColor dottedGeometryColor(s);
@@ -1020,7 +1020,7 @@ void
 GNEGeometry::drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
     if (edge->getLanes().size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
-        GNEGeometry::drawDottedContourGeometry(type, s, edge->getLanes().front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, drawFrontExtreme, drawBackExtreme);
+        GNEGeometry::drawDottedContourGeometryAround(type, s, edge->getLanes().front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, drawFrontExtreme, drawBackExtreme);
     } else {
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -1104,7 +1104,7 @@ GNEGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisua
     // calculate dotted geometry
     GNEGeometry::DottedGeometry dottedGeometry(s, shape, false);
     // use drawDottedContourGeometry to draw it
-    drawDottedContourGeometry(type, s, dottedGeometry, width * exaggeration, true, true, lineWidth);
+    drawDottedContourGeometryAround(type, s, dottedGeometry, width * exaggeration, true, true, lineWidth);
 }
 
 

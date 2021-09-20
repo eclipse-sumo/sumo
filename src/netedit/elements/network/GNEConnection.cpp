@@ -446,7 +446,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
                 dottedConnectionGeometry.setWidth(0.1);
                 // use drawDottedContourGeometry to draw it
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                GNEGeometry::drawDottedContourGeometryAround(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
             // check if front contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
@@ -454,7 +454,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
                 dottedConnectionGeometry.setWidth(0.1);
                 // use drawDottedContourGeometry to draw it
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                GNEGeometry::drawDottedContourGeometryAround(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
         }
     }
