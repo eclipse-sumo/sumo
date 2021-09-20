@@ -3501,7 +3501,8 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Confirm " + operation + " network' with 'Quit'");
             if (continueWithUnsavedAdditionalChanges(operation) && 
-                continueWithUnsavedDemandElementChanges(operation)) {
+                continueWithUnsavedDemandElementChanges(operation) &&
+                continueWithUnsavedDataElementChanges(operation)) {
                 // clear undo list
                 clearUndoList();
                 return true;
@@ -3513,7 +3514,8 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
             onCmdSaveNetwork(nullptr, 0, nullptr);
             // check 
             if (continueWithUnsavedAdditionalChanges(operation) && 
-                continueWithUnsavedDemandElementChanges(operation)) {
+                continueWithUnsavedDemandElementChanges(operation) &&
+                continueWithUnsavedDataElementChanges(operation)) {
                 // clear undo list
                 clearUndoList();
                 return true;
@@ -3531,7 +3533,9 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
             return false;
         }
     } else {
-        if (continueWithUnsavedAdditionalChanges(operation) && continueWithUnsavedDemandElementChanges(operation)) {
+        if (continueWithUnsavedAdditionalChanges(operation) && 
+            continueWithUnsavedDemandElementChanges(operation) &&
+            continueWithUnsavedDataElementChanges(operation)) {
             // clear undo list
             clearUndoList();
             return true;
@@ -3618,6 +3622,49 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string&
                 WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before " + operation + "' with 'No'");
             } else if (answer == 4) {
                 WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before " + operation + "' with 'ESC'");
+            }
+            // abort saving
+            return false;
+        }
+    } else {
+        // nothing to save, return true
+        return true;
+    }
+}
+
+
+bool
+GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& operation) {
+    // Check if there are non saved data elements
+    if (myViewNet && myFileMenuCommands.saveDataElements->isEnabled()) {
+        WRITE_DEBUG("Opening FXMessageBox 'Save data elements before " + operation + "'");
+        // open question box
+        FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
+                                               ("Save data elements before " + operation).c_str(), "%s",
+                                               ("You have unsaved data elements. Do you wish to " + operation + " and discard all changes?").c_str());
+        // restore focus to view net
+        myViewNet->setFocus();
+        // if answer was affirmative, but there was an error during saving data elements, return false to stop closing/reloading
+        if (answer == MBOX_CLICKED_QUIT) {
+            WRITE_DEBUG("Closed FXMessageBox 'Save data elements before " + operation + "' with 'Quit'");
+            // nothing to save, return true
+            return true;
+        } else if (answer == MBOX_CLICKED_SAVE) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'Save data elements before " + operation + "' with 'Yes'");
+            if (onCmdSaveDataElements(nullptr, 0, nullptr) == 1) {
+                // data elements sucesfully saved
+                return true;
+            } else {
+                // error saving data elements, abort saving
+                return false;
+            }
+        } else {
+            // write warning if netedit is running in testing mode
+            if (answer == 2) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save data elements before " + operation + "' with 'No'");
+            } else if (answer == 4) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save data elements before " + operation + "' with 'ESC'");
             }
             // abort saving
             return false;

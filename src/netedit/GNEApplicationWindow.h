@@ -548,6 +548,9 @@ private:
     /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
     bool continueWithUnsavedDemandElementChanges(const std::string& operation);
 
+    /// @brief warns about unsaved changes in data elements and gives the user the option to abort
+    bool continueWithUnsavedDataElementChanges(const std::string& operation);
+
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;
 
