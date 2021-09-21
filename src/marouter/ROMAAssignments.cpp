@@ -182,7 +182,7 @@ ROMAAssignments::addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>&
 
 
 const ConstROEdgeVector
-ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
+ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router, bool setBulkMode) {
     const ROEdge* const from = myNet.getEdge(cell->origin + (cell->originIsEdge ? "" : "-source"));
     if (from == nullptr) {
         throw ProcessError("Unknown origin '" + cell->origin + "'.");
@@ -197,6 +197,9 @@ ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double pro
     }
     if (myMaxAlternatives > 0 && (int)cell->pathsVector.size() < myMaxAlternatives) {
         router->compute(from, to, myDefaultVehicle, time, edges);
+        if (setBulkMode) {
+            router->setBulkMode(true);
+        }
         if (addRoute(edges, cell->pathsVector, cell->origin + cell->destination + toString(cell->pathsVector.size()), probability)) {
             return edges;
         }
@@ -301,8 +304,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     myRouter.setBulkMode(false);
                     lastOrigin = c->origin;
                 }
-                computePath(c, begin, linkFlow);
-                myRouter.setBulkMode(true);
+                computePath(c, begin, linkFlow, &myRouter, true);
             }
 #ifdef HAVE_FOX
             if (myNet.getThreadPool().size() > 0) {
