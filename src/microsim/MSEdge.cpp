@@ -569,10 +569,10 @@ bool
 MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
-    if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
+    if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + SPEED_EPS) {
         // check departLane (getVehicleMaxSpeed checks lane 0)
         MSLane* departLane = MSGlobals::gMesoNet ? getLanes()[0] : getDepartLane(dynamic_cast<MSVehicle&>(v));
-        if (departLane != nullptr && pars.departSpeed > departLane->getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
+        if (departLane != nullptr && pars.departSpeed > departLane->getVehicleMaxSpeed(&v) + SPEED_EPS) {
             const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
             if (speedFactorParams[1] > 0.) {
                 v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));

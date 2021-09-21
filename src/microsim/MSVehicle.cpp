@@ -1017,7 +1017,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
                 return false;
             }
         }
-        if (myParameter->departSpeedProcedure == DepartSpeedDefinition::GIVEN && myParameter->departSpeed > myType->getMaxSpeed()) {
+        if (myParameter->departSpeedProcedure == DepartSpeedDefinition::GIVEN && myParameter->departSpeed > myType->getMaxSpeed() + SPEED_EPS) {
             msg = "Departure speed for vehicle '" + getID() + "' is too high for the vehicle type '" + myType->getID() + "'.";
             myRouteValidity |= ROUTE_START_INVALID_LANE;
             return false;

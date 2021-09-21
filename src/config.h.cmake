@@ -198,5 +198,9 @@
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS 0.1
 
+/* defines the epsilon to use on input speed comparison, considering default
+* output precision */
+#define SPEED_EPS 0.005
+
 /* Define length for Xerces 3. */
 #define XERCES3_SIZE_t XMLSize_t
