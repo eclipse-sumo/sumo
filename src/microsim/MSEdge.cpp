@@ -502,6 +502,16 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
     return pos;
 }
 
+MSLane*
+MSEdge::getDepartLaneMeso(SUMOVehicle& veh) const {
+    if (veh.getParameter().departLaneProcedure == DepartLaneDefinition::GIVEN) {
+        if ((int) myLanes->size() <= veh.getParameter().departLane || !(*myLanes)[veh.getParameter().departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+            return nullptr;
+        }
+        return (*myLanes)[veh.getParameter().departLane];
+    }
+    return (*myLanes)[0];
+}
 
 MSLane*
 MSEdge::getDepartLane(MSVehicle& veh) const {
@@ -571,7 +581,7 @@ MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
     const MSVehicleType& type = v.getVehicleType();
     if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + SPEED_EPS) {
         // check departLane (getVehicleMaxSpeed checks lane 0)
-        MSLane* departLane = MSGlobals::gMesoNet ? getLanes()[0] : getDepartLane(dynamic_cast<MSVehicle&>(v));
+        MSLane* departLane = MSGlobals::gMesoNet ? getDepartLaneMeso(v) : getDepartLane(dynamic_cast<MSVehicle&>(v));
         if (departLane != nullptr && pars.departSpeed > departLane->getVehicleMaxSpeed(&v) + SPEED_EPS) {
             const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
             if (speedFactorParams[1] > 0.) {
