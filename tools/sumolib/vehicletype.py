@@ -195,7 +195,7 @@ class VehAttribute:
 
 class CreateVehTypeDistribution:
 
-    def __init__(self, seed=42, size=100, name='vehDist', resampling=100, decimal_places=3):
+    def __init__(self, seed=None, size=100, name='vehDist', resampling=100, decimal_places=3):
         # type: (int, int, str, int, int) -> None
         """
         Creates a VehicleType Distribution.
@@ -208,7 +208,9 @@ class CreateVehTypeDistribution:
             resampling (int, optional): number of attempts to resample a value until it lies in the specified bounds.
             decimal_places (int, optional): number of decimal places.
         """
-        self.seed = seed
+        if seed:
+            random.seed(seed)
+        
         self.size = size
         self.name = name
         self.resampling = resampling
@@ -343,49 +345,3 @@ class CreateMultiVehTypeDistributions(CreateVehTypeDistribution):
         xml_dom, _ = self._check_existing(file_path)
         veh_dist_nodes = [dist.create_veh_dist(xml_dom=xml_dom) for dist in self.distributions]
         write_additional_minidom(xml_dom, veh_dist_nodes, file_path=file_path)
-
-
-# if __name__ == "__main__":
-
-#     for i in range(3):
-#         d = CreateVehTypeDistribution(seed=42, size=300, name=f"testDist{i}", resampling=50, decimal_places=3)
-#         params = [{'name': "tau", 'distribution': 'uniform', 'distribution_params': {'a': 0.8, 'b': 0.1}},
-#                 {'name': "sigma", 'distribution': 'lognormal', 'distribution_params': {'mu': 0.5, 'sd': 0.2}},
-#                 {'name': "length", 'distribution': 'normalCapped',
-#                  'distribution_params': {'mu': 4.9, 'sd': 0.2, "max": 8, "min": 0}},
-#                 {'name': "myCustomParameter", "is_param": True, 'distribution': 'gamma',
-#                  'distribution_params': {'alpha': 0.5, 'beta': 0.2}, 'bounds': (0, 12)},
-#                 {'name': "vClass", 'attribute_value': 'small_car'},
-#                 {'name': "carFollowModel", 'attribute_value': 'Krauss'},
-#         ]
-
-#         for param in params:
-#             d.add_attribute(param)
-
-#         d.to_xml("test.xml")
-#         d.save_myself("test.json")
-
-
-#     params = []
-#     dists = []
-#     for i in range(3):
-
-#         dists.append(dict(seed=i, size=int((i + 1) * 50), name=f"testDist{i}", resampling=50, decimal_places=3))
-
-
-#         params.append([{'name': "tau", 'distribution': 'uniform', 'distribution_params': {'a': 0.8, 'b': 0.1}},
-#                 {'name': "sigma", 'distribution': 'lognormal', 'distribution_params': {'mu': 0.5, 'sd': 0.2}},
-#                 {'name': "length", 'distribution': 'normalCapped',
-#                  'distribution_params': {'mu': 4.9, 'sd': 0.2, "max": 8, "min": 0}},
-#                 {'name': "myCustomParameter", "is_param": True, 'distribution': 'gamma',
-#                  'distribution_params': {'alpha': 0.5, 'beta': 0.2}, 'bounds': (0, 12)},
-#                 {'name': "vClass", 'attribute_value': 'small_car'},
-#                 {'name': "carFollowModel", 'attribute_value': 'Krauss'},
-#         ])
-
-#     c = CreateMultiVehTypeDistributions()
-#     for dist, param_list in zip(dists, params):
-#         c.register_veh_type_distribution(veh_type_dist=dist, veh_attributes=param_list)
-
-#     c.write_xml("test2.xml")
-#     c.save_myself("test2.json")
