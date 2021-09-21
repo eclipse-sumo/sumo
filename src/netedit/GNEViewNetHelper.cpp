@@ -1709,15 +1709,15 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
+    currentSupermode(Supermode::NETWORK),
     networkEditMode(NetworkEditMode::NETWORK_INSPECT),
     demandEditMode(DemandEditMode::DEMAND_INSPECT),
     dataEditMode(DataEditMode::DATA_INSPECT),
     networkButton(nullptr),
     demandButton(nullptr),
     dataButton(nullptr),
-    myViewNet(viewNet),
-    currentSupermode(Supermode::NETWORK) {
-}
+    myViewNet(viewNet)
+{ }
 
 
 void
