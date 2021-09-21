@@ -18,6 +18,7 @@ title: ChangeLog
   - Fixed collision after unsafe lane changing ahead of junction. Issue #8950
   - Fixed emergency braking in sublane simulation. Issue #9051
   - ArrivalEdge is no longer ignored in meso. Issue #8994
+  - Fixed non-deterministic parkingReroute. Issue #9066
   
 - netedit
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
@@ -31,12 +32,21 @@ title: ChangeLog
   - Copying one of several traffic light programs now copies the correct one. Issue #7963
   - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
   - Fixed missung turnaround after adding bike lane. Issue #9079
+  - Fixed invalid drawing style for lane that allows tram and bus. Issue #9089
+  - Fixed various usability issues related to tazRelation edition. Issue #9059, #9086, #9109, #9123
+  - Demand mode now respects "show connections" settings. Issue #9087
+  - Fixed long delay when switching between editing modes while in demand super-mode. Issue #9088
+  - Fixed invalid edge type attributes in saved network. Issue #9070
+  - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102
+  - Fixed crash after selecting edges in taz mode. Issue #9128
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
   - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
   - Fixed unresponsive UI on linux when the simulation has little to do. Issue #9028
   - Speed mode in vehicle parametr dialog now shows all 6 bits. Issue #9078
+  - Option **--no-warnings** now supresses warnings from actuated tls. Issue #9104
+  - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
@@ -44,6 +54,7 @@ title: ChangeLog
   - Attribute 'color' and generic params of loaded stops are now kept. Issue #9011, #9048
   - Guessed bicycle lanes are now always placed to the left of an existing sidewalk. Issue #9084
   - Fixed invalid connections after guessing bicycle lanes. Issue #9083
+  - Option **--no-turnarounds.geometry** now ignores pedestrian paths and bike paths that attach to the main road. Issue #9068
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -72,7 +83,11 @@ title: ChangeLog
     - Initial tripId set via vehicle param is now used. Issue #8959
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
-   
+
+- Miscellaneous
+  - Xsd schema now permit trips in additional files. Issue #9110
+  - Fixed invalid xsd for tazRelations. Issue #9124
+
 ### Enhancements
 
 - simulation
@@ -84,18 +99,24 @@ title: ChangeLog
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
   - All stopping places (busStop, parkingArea, ...) now support custom color. Issue #8280
   - The numerical value behind the current edge color can now be plotted in a tracker window. Issue #9049
+  - Locator dialog now shows number of available objects. Issue #9075
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
   - Added now 'Lock' menu to protect differnt types of objects from inspect,move,select and delete operations. Issue #8342
   - Vehicle stop attribute posLat is now supported. Issue #8808
   - Saved busStop attributes now have the same order as netconvert. Issue #7624
+  - Data mode now permits attributes with non-numeric values. Issue #9060
 
 - netgenerate
   - Added options **--grid.x-attach-length --grid.y-attach-length** to configure attachments separately by direction. Issue #8991
   - The option **--bidi-probability** can now be used to control the generation of reverse edges for grid and spider networks. When set to 0, pure oneway networks are generated. Issue #9006
 
+- od2trips
+  - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
+
 - marouter
+  - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
   - **--netload-output** now includes 'density' and 'laneDensity'.
 
 - traci
@@ -105,6 +126,9 @@ title: ChangeLog
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
   - [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) now supports options **--comment.stop --comment.time --comment.all** for extended annotation of generated constraints. Issue #8963
   - Added tool [addTAZ.py](Tools/Routes.md#addtazpy) for adding taz information to route files. Issue #8884
+  - osmWebWizard.py now imports all bicycle lane data when building scenario with bicycle traffic. Issue #9071
+  - osmWebWizard.py uses improved pedestrian routing on shared space. Issue #9100
+  - [gridDistricts.py](Tools/District.md#griddistrictspy) now supports option **--vclass** for filtering taz edges in multi-modal networks. Issue #9127
 
 ### Other
 
