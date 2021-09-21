@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-13 22:06:49 by Eclipse SUMO sumo Version v1_10_0+0684-90bf6aa
+<!-- generated on 2021-09-21 08:20:27 by Eclipse SUMO sumo Version v1_10_0+0838-8ef0bdf
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -404,7 +404,7 @@
         <registry-viewport value="false" type="BOOL" help="Load current viewport from registry"/>
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
-        <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
+        <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

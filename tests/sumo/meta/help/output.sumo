@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_10_0+0454-70d5b48
+Eclipse SUMO sumo Version v1_10_0+0838-8ef0bdf
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -740,7 +740,7 @@ GUI Only Options:
                                         size
   --window-pos STR[]                   Create initial window at the given x,y
                                         position
-  --tracker-interval FLOAT             The aggregation period for value tracker
+  --tracker-interval TIME              The aggregation period for value tracker
                                         windows
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
