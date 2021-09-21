@@ -9,13 +9,12 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="net3.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -27,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <xml-validation value="never"/>
         <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -38,20 +38,44 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" type="v" depart="0.00" departSpeed="32.25" speedFactor="1.16" arrival="32.00">
-        <route edges="beg end"/>
+    <vehicle id="v.0" depart="0.00" arrival="13.00">
+        <route edges="WC CE"/>
     </vehicle>
 
-    <vehicle id="veh1" type="v" depart="2.00" departSpeed="13.90" speedFactor="0.50" arrival="74.00">
-        <route edges="beg end"/>
+    <vehicle id="v.1" depart="2.00" arrival="15.00">
+        <route edges="WC CE"/>
     </vehicle>
 
-    <vehicle id="trip0" type="v" depart="4.00" departSpeed="17.67" speedFactor="1.11" arrival="75.00">
-        <route edges="beg end"/>
+    <vehicle id="v.2" depart="4.00" arrival="17.00">
+        <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="trip1" type="v" depart="6.00" departSpeed="19.46" speedFactor="0.70" arrival="75.00">
-        <route edges="beg end"/>
+    <vehicle id="v.3" depart="6.00" arrival="19.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="v.4" depart="8.00" arrival="21.00">
+        <route edges="WC CE"/>
+    </vehicle>
+
+    <vehicle id="v.5" depart="10.00" arrival="23.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="v.6" depart="12.00" arrival="25.00">
+        <route edges="WC CE"/>
+    </vehicle>
+
+    <vehicle id="v.7" depart="14.00" arrival="27.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="v.8" depart="16.00" arrival="29.00">
+        <route edges="WC CE"/>
+    </vehicle>
+
+    <vehicle id="v.9" depart="18.00" arrival="31.00">
+        <route edges="WC CE"/>
     </vehicle>
 
 </routes>
