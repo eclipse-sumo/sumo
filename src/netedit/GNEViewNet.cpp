@@ -2289,7 +2289,7 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
     GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
     if (laneAtPopupPosition != nullptr) {
         // Get selected lanes
-        std::vector<GNELane*> lanes = myNet->retrieveLanes(true); ;
+        std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
         // Declare map of edges and lanes
         std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
         // Iterate over selected lanes
@@ -2307,8 +2307,8 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
             // declare counter for number of Sidewalks
             int counter = 0;
             // iterate over selected lanes
-            for (auto i : mapOfEdgesAndLanes) {
-                if (i.first->hasRestrictedLane(vclass)) {
+            for (const auto &edgeLane : mapOfEdgesAndLanes) {
+                if (edgeLane.first->hasRestrictedLane(vclass)) {
                     counter++;
                 }
             }
@@ -2340,9 +2340,9 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
             // begin undo operation
             myUndoList->begin("restrict lanes to " + toString(vclass));
             // iterate over selected lanes
-            for (std::map<GNEEdge*, GNELane*>::iterator i = mapOfEdgesAndLanes.begin(); i != mapOfEdgesAndLanes.end(); i++) {
+            for (const auto &edgeLane : mapOfEdgesAndLanes) {
                 // Transform lane to Sidewalk
-                myNet->restrictLane(vclass, i->second, myUndoList);
+                myNet->restrictLane(vclass, edgeLane.second, myUndoList);
             }
             // end undo operation
             myUndoList->end();
