@@ -579,19 +579,33 @@ bool
 MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
-    if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + SPEED_EPS) {
-        // check departLane (getVehicleMaxSpeed checks lane 0)
-        MSLane* departLane = MSGlobals::gMesoNet ? getDepartLaneMeso(v) : getDepartLane(dynamic_cast<MSVehicle&>(v));
-        if (departLane != nullptr && pars.departSpeed > departLane->getVehicleMaxSpeed(&v) + SPEED_EPS) {
-            const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
-            if (speedFactorParams[1] > 0.) {
-                v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
-                if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
-                    // only warn for significant deviation
-                    WRITE_WARNING("Choosing new speed factor " + toString(v.getChosenSpeedFactor()) + " for vehicle '" + pars.id + "' to match departure speed.");
+    if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN) {
+        // departSpeed could have been rounded down in the output
+        double vMax = getVehicleMaxSpeed(&v) + SPEED_EPS;
+        if (pars.departSpeed > vMax) {
+            // check departLane (getVehicleMaxSpeed checks lane 0)
+            MSLane* departLane = MSGlobals::gMesoNet ? getDepartLaneMeso(v) : getDepartLane(dynamic_cast<MSVehicle&>(v));
+            if (departLane != nullptr) {
+                vMax = departLane->getVehicleMaxSpeed(&v);
+                if (pars.wasSet(VEHPARS_SPEEDFACTOR_SET)) {
+                    // speedFactor could have been rounded down in the output
+                    vMax *= (1 + SPEED_EPS);
                 }
-            } else {
-                return false;
+                // additive term must come after multiplication!
+                vMax += SPEED_EPS;
+                if (pars.departSpeed > vMax) {
+                    const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
+                    if (speedFactorParams[1] > 0.) {
+                        v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
+                        if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
+                            // only warn for significant deviation
+                            WRITE_WARNINGF("Choosing new speed factor % for vehicle '%' to match departure speed % (max %).",
+                                    toString(v.getChosenSpeedFactor()), pars.id, pars.departSpeed, vMax);
+                        }
+                    } else {
+                        return false;
+                    }
+                }
             }
         }
     }

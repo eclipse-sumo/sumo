@@ -200,7 +200,7 @@
 
 /* defines the epsilon to use on input speed comparison, considering default
 * output precision */
-#define SPEED_EPS 0.005
+#define SPEED_EPS 0.01
 
 /* Define length for Xerces 3. */
 #define XERCES3_SIZE_t XMLSize_t
