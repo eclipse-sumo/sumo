@@ -16,6 +16,9 @@ speed_given_30_speedFactor
 # see #9205
 speed_given_defaultMax_speedFactor
 
+# see #9205
+speed_given_speedFactor_roundUp
+
 # checks using the given speed when speedDev is present
 speed_given_deviation
 
