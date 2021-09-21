@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-21 08:20:27 by Eclipse SUMO sumo Version v1_10_0+0838-8ef0bdf
+<!-- generated on 2021-09-21 09:17:51 by Eclipse SUMO sumo Version v1_10_0+0847-ef64dc0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -203,6 +203,9 @@
 
         <!-- Include information about edges between stops -->
         <vehroute-output.stop-edges value="false" type="BOOL"/>
+
+        <!-- Write the vehicle speedFactor (defaults to &apos;true&apos; if departSpeed is written) -->
+        <vehroute-output.speedfactor value="false" type="BOOL"/>
 
         <!-- Save links states into FILE -->
         <link-output value="" type="FILE"/>
