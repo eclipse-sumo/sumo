@@ -38,6 +38,7 @@
 
 //#define DijkstraRouter_DEBUG_QUERY
 //#define DijkstraRouter_DEBUG_QUERY_PERF
+//#define DijkstraRouter_DEBUG_BULKMODE
 
 // ===========================================================================
 // class definitions
@@ -122,6 +123,19 @@ public:
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
         std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
         if (this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) {
+#ifdef DijkstraRouter_DEBUG_BULKMODE
+            if (query != myLastQuery) {
+                std::cout << " invalid bulk mode. myLastQuery="
+                    << std::get<0>(myLastQuery)->getID() << ","
+                    << std::get<1>(myLastQuery)->getID() << ","
+                    << time2string(std::get<2>(myLastQuery))
+                    << " query="
+                    << std::get<0>(query)->getID() << ","
+                    << std::get<1>(query)->getID() << ","
+                    << time2string(std::get<2>(query))
+                    << "\n";
+            }
+#endif
             const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 this->buildPathFrom(&toInfo, into);
