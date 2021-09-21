@@ -1575,14 +1575,18 @@ void
 GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // Create basic commands
     std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
-    const int edgeSelSize = (int)myNet->retrieveEdges(true).size();
+    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected()? (int)myNet->retrieveEdges(true).size() : 0;
     if (edgeSelSize && myParentEdge->isAttributeCarrierSelected() && (edgeSelSize > 1)) {
         edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
     }
     // create menu pane for edge operations
     FXMenuPane* edgeOperations = new FXMenuPane(ret);
     ret->insertMenuPaneChild(edgeOperations);
-    new FXMenuCascade(ret, "edge operations", nullptr, edgeOperations);
+    if (edgeSelSize > 0) {
+        new FXMenuCascade(ret, ("edge operations (" + toString(edgeSelSize) + " selected)").c_str(), nullptr, edgeOperations);
+    } else {
+        new FXMenuCascade(ret, "edge operations", nullptr, edgeOperations);
+    }
     // create menu commands for all edge operations
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge here", nullptr, &parent, MID_GNE_EDGE_SPLIT);
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge in both directions here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
@@ -1614,6 +1618,8 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     FXIcon* bikeIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_BIKE);
     FXIcon* busIcon = GUIIconSubSys::getIcon(GUIIcon::LANE_BUS);
     FXIcon* greenVergeIcon = GUIIconSubSys::getIcon(GUIIcon::LANEGREENVERGE);
+    // declare number of selected lanes
+    int numSelectedLanes = 0;
     // if lane is selected, calculate number of restricted lanes
     bool edgeHasSidewalk = false;
     bool edgeHasBikelane = false;
@@ -1621,6 +1627,9 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     bool differentLaneShapes = false;
     if (isAttributeCarrierSelected()) {
         const auto selectedLanes = myNet->retrieveLanes(true);
+        // update numSelectedLanes
+        numSelectedLanes = (int)selectedLanes.size();
+        // iterate over selected lanes
         for (const auto& selectedLane : selectedLanes) {
             if (selectedLane->myParentEdge->hasRestrictedLane(SVC_PEDESTRIAN)) {
                 edgeHasSidewalk = true;
@@ -1644,7 +1653,11 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     // create menu pane for lane operations
     FXMenuPane* laneOperations = new FXMenuPane(ret);
     ret->insertMenuPaneChild(laneOperations);
-    new FXMenuCascade(ret, "lane operations", nullptr, laneOperations);
+    if (numSelectedLanes > 0) {
+        new FXMenuCascade(ret, ("lane operations (" + toString(numSelectedLanes) + " selected)").c_str(), nullptr, laneOperations);
+    } else {
+        new FXMenuCascade(ret, "lane operations", nullptr, laneOperations);
+    }
     GUIDesigns::buildFXMenuCommand(laneOperations, "Duplicate lane", nullptr, &parent, MID_GNE_LANE_DUPLICATE);
     FXMenuCommand* resetCustomShape = GUIDesigns::buildFXMenuCommand(laneOperations, "reset custom shape", nullptr, &parent, MID_GNE_LANE_RESET_CUSTOMSHAPE);
     if (!differentLaneShapes) {
