@@ -27,6 +27,7 @@
 #include "GNEViewNet.h"
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
+#define MAXIMUM_DOTTEDGEOMETRYLENGTH 500.0
 
 // ===========================================================================
 // static member definitions
@@ -336,9 +337,14 @@ GNEGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings& s, P
         for (int i = 1; i < (int)shape.size(); i++) {
             myDottedGeometrySegments.push_back(Segment({shape[i - 1], shape[i]}));
         }
+        // calculate segment length
+        double segmentLength = s.dottedContourSettings.segmentLength;
+        if (shape.length2D() > MAXIMUM_DOTTEDGEOMETRYLENGTH) {
+            segmentLength = shape.length2D() / (MAXIMUM_DOTTEDGEOMETRYLENGTH * 0.5);
+        }
         // resample
         for (auto& segment : myDottedGeometrySegments) {
-            segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+            segment.shape = segment.shape.resample(segmentLength, true);
         }
         // calculate shape rotations and lenghts
         calculateShapeRotationsAndLengths();
