@@ -245,6 +245,9 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.stop-edges", new Option_Bool(false));
     oc.addDescription("vehroute-output.stop-edges", "Output", "Include information about edges between stops");
 
+    oc.doRegister("vehroute-output.speedfactor", new Option_Bool(false));
+    oc.addDescription("vehroute-output.speedfactor", "Output", "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)");
+
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 
