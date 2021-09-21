@@ -374,6 +374,7 @@ protected:
     std::vector<FXButton*> myPOIButtons;
     FXCheckButton* myPOIColorInterpolation;
     FXComboBox* myPOITextParamKey;
+    FXSpinner* myPoiDetail;
 
     /// @brief Polygons
     MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail;

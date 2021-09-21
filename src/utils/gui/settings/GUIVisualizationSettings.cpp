@@ -462,7 +462,9 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     addSize(1),
     addName(false, 60, RGBColor(255, 0, 128, 255)),
     addFullName(false, 60, RGBColor(255, 0, 128, 255)),
-    poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
+    poiSize(0),
+    poiDetail(16),
+    poiName(false, 50, RGBColor(255, 0, 128, 255)),
     poiType(false, 60, RGBColor(255, 0, 128, 255)),
     poiText(false, 80, RGBColor(140, 0, 255, 255)),
     poiTextParam("PARAM_TEXT"),
@@ -1581,6 +1583,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);
     dev.writeAttr("poiTextParam", poiTextParam);
     poiSize.print(dev, "poi");
+    dev.writeAttr("poiDetail", poiDetail);
     poiName.print(dev, "poiName");
     poiType.print(dev, "poiType");
     poiText.print(dev, "poiText");
@@ -1846,6 +1849,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (poiSize != v2.poiSize) {
+        return false;
+    }
+    if (poiDetail != v2.poiDetail) {
         return false;
     }
     if (poiName != v2.poiName) {

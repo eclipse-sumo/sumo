@@ -800,6 +800,9 @@ public:
     // Setting bundles for controling the size of the drawn POIs
     GUIVisualizationSizeSettings poiSize;
 
+    /// @brief The detail level for drawing POIs
+    int poiDetail;
+
     // Setting bundles for optional drawing poi names
     GUIVisualizationTextSettings poiName;
 

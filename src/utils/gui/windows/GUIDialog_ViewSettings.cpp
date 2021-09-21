@@ -450,6 +450,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
 
         FXMatrix* m61 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
+
+        new FXLabel(m61, "POI detail", nullptr, GUIDesignViewSettingsLabel1);
+        myPoiDetail = new FXSpinner(m61, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+        myPoiDetail->setRange(3, 100);
+        myPoiDetail->setValue(mySettings->poiDetail);
+
         myPOINamePanel = new NamePanel(m61, this, "Show poi id", mySettings->poiName);
         myPOITypePanel = new NamePanel(m61, this, "Show poi type", mySettings->poiType);
         myPOITextPanel = new NamePanel(m61, this, "Show poi text param", mySettings->poiText);
@@ -784,6 +790,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myAddFullNamePanel->update(mySettings->addFullName);
     myAddSizePanel->update(mySettings->addSize);
 
+    myPoiDetail->setValue(mySettings->poiDetail);
     myPOINamePanel->update(mySettings->poiName);
     myPOITypePanel->update(mySettings->poiType);
     myPOITextPanel->update(mySettings->poiText);
@@ -1034,6 +1041,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.addSize = myAddSizePanel->getSettings();
 
     tmpSettings.poiColorer.setActive(myPOIColorMode->getCurrentItem());
+    tmpSettings.poiDetail = myPoiDetail->getValue();
     tmpSettings.poiName = myPOINamePanel->getSettings();
     tmpSettings.poiType = myPOITypePanel->getSettings();
     tmpSettings.poiText = myPOITextPanel->getSettings();
