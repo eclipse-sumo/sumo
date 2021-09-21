@@ -117,10 +117,10 @@ public:
     int currentCommandGroupSize() const;
 
     /// @brief get undo supermode
-    const Supermode getUndoSupermode() const;
+    Supermode getUndoSupermode() const;
 
     /// @brief get redo supermode
-    const Supermode getRedoSupermode() const;
+    Supermode getRedoSupermode() const;
 
     /// @brief Check if undoList has command group
     bool hasCommandGroup() const;

@@ -310,7 +310,7 @@ GNEUndoList::currentCommandGroupSize() const {
 }
 
 
-const Supermode 
+Supermode 
 GNEUndoList::getUndoSupermode() const {
     if (undoList) {
         // try to obtain Change Group
@@ -326,7 +326,7 @@ GNEUndoList::getUndoSupermode() const {
 }
 
 
-const Supermode 
+Supermode 
 GNEUndoList::getRedoSupermode() const {
     if (redoList) {
         // try to obtain Change Group

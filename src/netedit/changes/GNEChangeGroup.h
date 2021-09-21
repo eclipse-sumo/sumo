@@ -60,7 +60,7 @@ public:
     const std::string& getDescription();
 
     /// @brief get supermode associated with this ChangeGroup
-    const Supermode getGroupSupermode() const;
+    Supermode getGroupSupermode() const;
 
     /// @brief Return TRUE if empty
     bool empty() const;
