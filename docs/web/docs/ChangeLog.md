@@ -17,9 +17,11 @@ title: ChangeLog
   - Fixed miscounted teleports in vehicle-person collisions. Issue #9018
   - Fixed collision after unsafe lane changing ahead of junction. Issue #8950
   - Fixed emergency braking in sublane simulation. Issue #9051
+  - ArrivalEdge is no longer ignored in meso. Issue #8994
   
 - netedit
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
+  - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
   - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
   - Multi-parameter speedFactor value can now be set. Issue #8263
   - trainStops with access can now be loaded. Issue #8969
@@ -27,16 +29,21 @@ title: ChangeLog
   - Fixed lost elements when loading personFlow. Issue #7732
   - Vehicles with embedded routes can now load parameters. Issue #7509
   - Copying one of several traffic light programs now copies the correct one. Issue #7963
+  - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
+  - Fixed missung turnaround after adding bike lane. Issue #9079
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
   - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
   - Fixed unresponsive UI on linux when the simulation has little to do. Issue #9028
+  - Speed mode in vehicle parametr dialog now shows all 6 bits. Issue #9078
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
   - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
   - Attribute 'color' and generic params of loaded stops are now kept. Issue #9011, #9048
+  - Guessed bicycle lanes are now always placed to the left of an existing sidewalk. Issue #9084
+  - Fixed invalid connections after guessing bicycle lanes. Issue #9083
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -48,6 +55,7 @@ title: ChangeLog
 
 - polyconvert
   - Shapefiles will now be interpreted correctly when no projection is defined #8948
+  - Fixed hidden buildings due to invalid default layers in OSM typemap. Issue #9061
   
 - traci
   - trafficLights.getControlledLinks passes the correct response size (this has no effect for the end user and is only relevent for client developers). Issue #8891
@@ -70,6 +78,7 @@ title: ChangeLog
 - simulation
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
+  - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
