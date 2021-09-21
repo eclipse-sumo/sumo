@@ -10,6 +10,9 @@ speed_given10
 # test interaction with departLane and lane-specific speed
 speed_given10_laneSpeed
 
+# checks using the given speed (30)
+speed_given_30_speedFactor
+
 # checks using the given speed when speedDev is present
 speed_given_deviation
 
