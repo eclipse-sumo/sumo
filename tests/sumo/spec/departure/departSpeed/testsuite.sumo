@@ -13,6 +13,9 @@ speed_given10_laneSpeed
 # checks using the given speed (30)
 speed_given_30_speedFactor
 
+# see #9205
+speed_given_defaultMax_speedFactor
+
 # checks using the given speed when speedDev is present
 speed_given_deviation
 
