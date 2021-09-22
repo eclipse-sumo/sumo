@@ -210,6 +210,8 @@ private:
     GNETAZRelData& operator=(const GNETAZRelData&) = delete;
 
     mutable RGBColor myColor;
+
+    mutable double myLastWidth;
 };
 
 /****************************************************************************/

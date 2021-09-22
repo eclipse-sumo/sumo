@@ -48,7 +48,9 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}) {
+        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+    myLastWidth(0)
+{
     // update geometry
     updateGeometry();
 }
@@ -57,7 +59,9 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement*
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {}, {}, {TAZ}, {}, {}) {
+        {}, {}, {}, {}, {}, {TAZ}, {}, {}),
+    myLastWidth(0)
+{
     // update geometry
     updateGeometry();
 }
@@ -164,7 +168,7 @@ GNETAZRelData::updateGeometry() {
             line = {TAZA->getPositionInView() - 0.5, TAZB->getPositionInView() + 0.5};
         }
         // add offset to line
-        line.move2side(1);
+        line.move2side(1 + myLastWidth);
         // calculate middle point
         const Position middlePoint = line.getLineCenter();
         // get closest points to middlePoint
@@ -250,30 +254,30 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         myColor = s.dataColorer.getScheme().getColor(val);
         GLHelper::setColor(myColor);
 
+
+        const double width = onlyDrawContour ? 0.1:  0.5 * s.tazRelWidthExaggeration;
+        if (width != myLastWidth) {
+            myLastWidth = width;
+            const_cast<GNETAZRelData*>(this)->updateGeometry();
+        }
+
         // draw geometry
         if (onlyDrawContour) {
             // draw depending of TAZRelDrawing
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.1);
-            } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.1);
-            }
-        } else {
-            const double width = 0.5 * s.tazRelWidthExaggeration;
-            // draw depending of TAZRelDrawing
-            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, width);
-                GLHelper::drawTriangleAtEnd(
-                    *(myTAZRelGeometryCenter.getShape().end() - 2),
-                    *(myTAZRelGeometryCenter.getShape().end() - 1),
-                    1.5, 1.5, 0.5);
             } else {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, width);
-                GLHelper::drawTriangleAtEnd(
-                    *(myTAZRelGeometry.getShape().end() - 2),
-                    *(myTAZRelGeometry.getShape().end() - 1),
-                    1.5, 1.5, 0.5);
             }
+        } else {
+            // draw depending of TAZRelDrawing
+            const GNEGeometry::Geometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
+                ? myTAZRelGeometryCenter : myTAZRelGeometry);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), geom, width);
+            GLHelper::drawTriangleAtEnd(
+                    *(geom.getShape().end() - 2),
+                    *(geom.getShape().end() - 1),
+                    1.5 + width, 1.5 + width, 0.5 + width);
         }
         // pop matrix
         GLHelper::popMatrix();
