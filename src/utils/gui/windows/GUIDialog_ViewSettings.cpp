@@ -1194,18 +1194,20 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         doRebuildColorMatrices = true;
     }
     // data
-    if (tmpSettings.dataColorer.getActive() == prevDataMode) {
-        if (updateColorRanges(sender, myDataColors.begin(), myDataColors.end(),
-                              myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
-                              tmpSettings.dataColorer.getScheme())) {
+    if (tmpSettings.netedit) {
+        if (tmpSettings.dataColorer.getActive() == prevDataMode) {
+            if (updateColorRanges(sender, myDataColors.begin(), myDataColors.end(),
+                myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
+                tmpSettings.dataColorer.getScheme())) {
+                doRebuildColorMatrices = true;
+            }
+            if (sender == myDataColorInterpolation) {
+                tmpSettings.dataColorer.getScheme().setInterpolated(myDataColorInterpolation->getCheck() != FALSE);
+                doRebuildColorMatrices = true;
+            }
+        } else {
             doRebuildColorMatrices = true;
         }
-        if (sender == myDataColorInterpolation) {
-            tmpSettings.dataColorer.getScheme().setInterpolated(myDataColorInterpolation->getCheck() != FALSE);
-            doRebuildColorMatrices = true;
-        }
-    } else {
-        doRebuildColorMatrices = true;
     }
 
     if (tmpSettings == *mySettings) {
