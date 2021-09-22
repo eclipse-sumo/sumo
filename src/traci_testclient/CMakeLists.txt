@@ -14,7 +14,7 @@ endif ()
 
 add_executable(testlibsumo testlibsumo_main.cpp)
 set_property(TARGET testlibsumo PROPERTY FOLDER "test_exe")
-target_link_libraries(testlibsumo libsumocpp)
+target_link_libraries(testlibsumo libsumocpp ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${TCMALLOC_LIBRARY})
 add_test(libsumotest ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testlibsumo)
 
 add_executable(testlibsumostatic testlibsumo_main.cpp)
