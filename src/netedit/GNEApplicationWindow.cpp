@@ -22,6 +22,8 @@
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/GNEGeneralHandler.h>
+#include <netedit/elements/data/GNEDataHandler.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -1041,10 +1043,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every data file
         for (const auto& dataElementsFile : dataElementsFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
-            GNEGeneralHandler handler(myNet, dataElementsFile, true);
+            GNEDataHandler dataHandler(myNet, dataElementsFile, true);
             // disable validation for data elements
             XMLSubSys::setValidation("never", "auto", "auto");
-            if (!handler.parse()) {
+            if (!dataHandler.parse()) {
                 WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
             }
             // disable validation for data elements
@@ -3322,11 +3324,11 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create data handler
-        GNEGeneralHandler handler(myNet, file, true);
+        GNEDataHandler dataHandler(myNet, file, true);
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, "Loading data elements from '" + file + "'");
         // Run data parser
-        if (!handler.parse()) {
+        if (!dataHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // restore validation for data
@@ -3358,13 +3360,13 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEGeneralHandler handler(myNet, file, true);
+    GNEDataHandler dataHandler(myNet, file, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DATA, "Reloading data elements from '" + file + "'");
     // clear data elements
     myNet->clearDemandElements(myUndoList);
     // Run data parser
-    if (!handler.parse()) {
+    if (!dataHandler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // restore validation for data

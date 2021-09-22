@@ -121,7 +121,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between TAZ'" + myFirstTAZ->getID() + "' and '" + mySecondTAZ->getID() + "'.");
         } else {
             // declare data handler
-            GNEDataHandler dataHandler(myViewNet->getNet(), true);
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
             // build data interval object and fill it
             CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
             dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());

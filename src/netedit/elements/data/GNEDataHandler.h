@@ -37,7 +37,7 @@ class GNEDataHandler : public DataHandler {
 
 public:
     /// @brief Constructor
-    GNEDataHandler(GNENet* net, const bool allowUndoRedo);
+    GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEDataHandler();

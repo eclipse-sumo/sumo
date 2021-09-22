@@ -21,7 +21,6 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "DataHandler.h"
@@ -31,53 +30,18 @@
 // method definitions
 // ===========================================================================
 
-DataHandler::DataHandler() {
+DataHandler::DataHandler(const std::string& file) :
+    SUMOSAXHandler(file) {
 }
 
 
 DataHandler::~DataHandler() {}
 
-void 
-DataHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
-    // open SUMOBaseOBject
-    myCommonXMLStructure.openSUMOBaseOBject();
-    // check tag
-    switch (tag) {
-        case SUMO_TAG_INTERVAL:
-            parseInterval(attrs);
-            break;
-        case SUMO_TAG_EDGE:
-            parseEdgeData(attrs);
-            break;
-        case SUMO_TAG_EDGEREL:
-            parseEdgeRelationData(attrs);
-            break;
-        case SUMO_TAG_TAZREL:
-            parseTAZRelationData(attrs);
-            break;
-        default:
-            break;
-    }
-}
 
-
-void
-DataHandler::endParseAttributes() {
-    // get last inserted object
-    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject
-    myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
-    switch (obj->getTag()) {
-        case SUMO_TAG_INTERVAL:
-            // parse object and all their childrens
-            parseSumoBaseObject(obj);
-            // delete object (and all of their childrens)
-            delete obj;
-            break;
-        default:
-            break;
-    }
+bool
+DataHandler::parse() {
+    // run parser and return result
+    return XMLSubSys::runParser(*this, getFileName());
 }
 
 
@@ -116,6 +80,58 @@ DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     for (const auto& child : obj->getSumoBaseObjectChildren()) {
         // call this function recursively
         parseSumoBaseObject(child);
+    }
+}
+
+
+void
+DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    // obtain tag
+    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    // open SUMOBaseOBject
+    myCommonXMLStructure.openSUMOBaseOBject();
+    // check tag
+    try {
+        switch (tag) {
+            case SUMO_TAG_INTERVAL:
+                parseInterval(attrs);
+                break;
+            case SUMO_TAG_EDGE:
+                parseEdgeData(attrs);
+                break;
+            case SUMO_TAG_EDGEREL:
+                parseEdgeRelationData(attrs);
+                break;
+            case SUMO_TAG_TAZREL:
+                parseTAZRelationData(attrs);
+                break;
+            default:
+                break;
+        }
+    } catch (InvalidArgument& e) {
+        WRITE_ERROR(e.what());
+    }
+}
+
+
+void
+DataHandler::myEndElement(int element) {
+    // obtain tag
+    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    // get last inserted object
+    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
+    // close SUMOBaseOBject
+    myCommonXMLStructure.closeSUMOBaseOBject();
+    // check tag
+    switch (tag) {
+        case SUMO_TAG_INTERVAL:
+            // parse object and all their childrens
+            parseSumoBaseObject(obj);
+            // delete object (and all of their childrens)
+            delete obj;
+            break;
+        default:
+            break;
     }
 }
 

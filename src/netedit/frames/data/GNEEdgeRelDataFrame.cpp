@@ -55,7 +55,7 @@ void
 GNEEdgeRelDataFrame::createPath() {
     // first check that we have at least two edges
     if (myPathCreator->getSelectedEdges().size() > 1) {
-        GNEDataHandler dataHandler(myViewNet->getNet(), true);
+        GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
         // create data interval object and fill it
         CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
         dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
