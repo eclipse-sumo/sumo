@@ -13,7 +13,7 @@
 
     <xsd:complexType name="intervalType">
         <xsd:choice maxOccurs="unbounded">
-            <xsd:element name="edgeData" type="edgeDataType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="edge" type="edgeDataType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="edgeRelation" type="edgeRelationType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="tazRelation" type="tazRelationType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
