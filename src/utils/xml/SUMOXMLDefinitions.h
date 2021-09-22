@@ -39,6 +39,8 @@
 enum SumoXMLTag {
     /// @brief invalid tag
     SUMO_TAG_NOTHING,
+    /// @brief root file
+    SUMO_TAG_ROOTFILE,
     /// @brief root element of a network file
     SUMO_TAG_NET,
     /// @brief begin/end of the description of an edge
