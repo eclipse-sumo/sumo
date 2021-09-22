@@ -166,7 +166,7 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myAdditionalFrameParent->getViewNet()->getNet(), "", true);
+        GNEAdditionalHandler additionalHandler(myAdditionalFrameParent->getViewNet()->getNet(), true);
         // build additional
         additionalHandler.parseSumoBaseObject(myAdditionalFrameParent->myBaseAdditional);
         // abort consecutive lane selector
@@ -863,7 +863,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
         return false;
     }
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myAdditionalFrameParent->getViewNet()->getNet(), "", true);
+    GNEAdditionalHandler additionalHandler(myAdditionalFrameParent->getViewNet()->getNet(), true);
     // build additional
     additionalHandler.parseSumoBaseObject(myAdditionalFrameParent->myBaseAdditional);
     // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -1311,7 +1311,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), "", true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
         // build additional
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -1353,7 +1353,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), "", true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
         // build additional
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -1391,7 +1391,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), "", true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
         // build additional
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)

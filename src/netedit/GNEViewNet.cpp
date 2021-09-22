@@ -1957,7 +1957,7 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     // declare additional handler
-    GNEAdditionalHandler additionalHanlder(myNet, "", true);
+    GNEAdditionalHandler additionalHanlder(myNet, true);
     // obtain POI at popup position
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {

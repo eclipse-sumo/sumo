@@ -42,7 +42,7 @@ class GNEAdditionalHandler : public AdditionalHandler {
 
 public:
     /// @brief Constructor
-    GNEAdditionalHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNEAdditionalHandler(GNENet* net, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();

@@ -1533,7 +1533,7 @@ GNETAZFrame::shapeDrawed() {
             myBaseTAZ->addStringListAttribute(SUMO_ATTR_EDGES, std::vector<std::string>());
         }
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), "", true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
         // build TAZ
         additionalHandler.parseSumoBaseObject(myBaseTAZ);
         // TAZ created, then return true

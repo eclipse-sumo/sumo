@@ -67,8 +67,7 @@
 // GNEAdditionalHandler method definitions
 // ===========================================================================
 
-GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
-    AdditionalHandler(file),
+GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, const bool allowUndoRedo) :
     myNet(net),
     myAllowUndoRedo(allowUndoRedo) {
 }
@@ -1899,7 +1898,6 @@ GNEAdditionalHandler::parseLanes(const SumoXMLTag tag, const std::vector<std::st
 
 
 GNEAdditionalHandler::GNEAdditionalHandler() :
-    AdditionalHandler(""),
     myNet(nullptr),
     myAllowUndoRedo(false) {
 }
