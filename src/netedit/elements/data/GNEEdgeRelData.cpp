@@ -264,7 +264,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 // check if lane2lane connection exist
                 if (laneTopA->getLane2laneConnections().exist(laneTopB)) {
                     // obtain lane2lane top dotted geometry
-                    GNEGeometry::DottedGeometry lane2lane = laneTopA->getLane2laneConnections().getLane2laneDottedGeometry(laneTopB);
+                    GNEGeometry::DottedGeometry lane2lane(s, laneTopA->getLane2laneConnections().getLane2laneGeometry(laneTopB).getShape(), false);
                     // move shape to side
                     lane2lane.moveShapeToSide(laneDrawingConstantsTop.halfWidth);
                     // invert offset
@@ -288,7 +288,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 // check if lane2lane bot connection exist
                 if (laneBotA->getLane2laneConnections().exist(laneBotB)) {
                     // obtain lane2lane dotted geometry
-                    GNEGeometry::DottedGeometry lane2lane = laneBotA->getLane2laneConnections().getLane2laneDottedGeometry(laneBotB);
+                    GNEGeometry::DottedGeometry lane2lane(s, laneBotA->getLane2laneConnections().getLane2laneGeometry(laneBotB).getShape(), false);
                     // move shape to side
                     lane2lane.moveShapeToSide(laneDrawingConstantsBot.halfWidth * -1);
                     // reset dottedGeometryColor

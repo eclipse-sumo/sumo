@@ -235,15 +235,12 @@ struct GNEGeometry {
         /// @brief get lane2lane geometry
         const GNEGeometry::Geometry& getLane2laneGeometry(const GNELane* toLane) const;
 
-        /// @brief get lane2lane dotted geometry
-        const GNEGeometry::DottedGeometry& getLane2laneDottedGeometry(const GNELane* toLane) const;
-
     protected:
         /// @brief from lane
         const GNELane* myFromLane;
 
         /// @brief connection shape
-        std::map<const GNELane*, std::pair<GNEGeometry::Geometry, GNEGeometry::DottedGeometry> > myConnectionsMap;
+        std::map<const GNELane*, GNEGeometry::Geometry> myConnectionsMap;
 
     private:
         /// @brief constructor
@@ -337,11 +334,7 @@ struct GNEGeometry {
     /// @brief draw moving hint
     static void drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
-/*
-    /// @brief draw dotted contour for the given dotted geometry (used by lanes, routes, etc.)
-    static void drawDottedContourGeometryAround(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, 
-                                          const double width, const double lineWidth = -1);
-*/
+
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
     static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
                                       const bool drawFrontExtreme, const bool drawBackExtreme);

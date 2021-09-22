@@ -537,10 +537,7 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
                 shape = {myFromLane->getLaneShape().back(), outgoingLane->getLaneShape().front()};
             }
             // update connection map
-            myConnectionsMap[outgoingLane].first.updateGeometry(shape);
-            if (myFromLane->getNet()->getViewNet()) {
-                myConnectionsMap[outgoingLane].second.updateDottedGeometry(myFromLane->getNet()->getViewNet()->getVisualisationSettings(), shape, false);
-            }
+            myConnectionsMap[outgoingLane].updateGeometry(shape);
         }
     }
 }
@@ -554,13 +551,7 @@ GNEGeometry::Lane2laneConnection::exist(const GNELane* toLane) const {
 
 const GNEGeometry::Geometry&
 GNEGeometry::Lane2laneConnection::getLane2laneGeometry(const GNELane* toLane) const {
-    return myConnectionsMap.at(toLane).first;
-}
-
-
-const GNEGeometry::DottedGeometry&
-GNEGeometry::Lane2laneConnection::getLane2laneDottedGeometry(const GNELane* toLane) const {
-    return myConnectionsMap.at(toLane).second;
+    return myConnectionsMap.at(toLane);
 }
 
 
