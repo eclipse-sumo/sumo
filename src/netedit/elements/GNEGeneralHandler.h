@@ -28,6 +28,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/data/GNEDataHandler.h>
 
 // ===========================================================================
 // class declarations
@@ -60,6 +61,9 @@ protected:
 
     /// @brief demand handler
     GNERouteHandler myDemandHandler;
+
+    /// @brief data handler
+    GNEDataHandler myDataHandler;
 
 private:
     /// @name inherited from SUMOSAXHandler
