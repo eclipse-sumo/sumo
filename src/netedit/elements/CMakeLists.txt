@@ -16,6 +16,8 @@ set(netedit_elements_SRCS
    GNEHierarchicalElement.cpp
    GNECandidateElement.h
    GNECandidateElement.cpp
+   GNEGeneralHandler.h
+   GNEGeneralHandler.cpp
    )
 
 add_library(netedit_elements STATIC ${netedit_elements_SRCS})
