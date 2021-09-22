@@ -40,7 +40,7 @@ public:
     void beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
     /// @brief end parse attributes
-    void endParseAttributes(SumoXMLTag tag);
+    void endParseAttributes();
 
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);

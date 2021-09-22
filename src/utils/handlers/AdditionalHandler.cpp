@@ -164,13 +164,13 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
 
 
 void
-AdditionalHandler::endParseAttributes(SumoXMLTag tag) {
+AdditionalHandler::endParseAttributes() {
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
     // close SUMOBaseOBject
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
-    switch (tag) {
+    switch (obj->getTag()) {
         // Stopping Places
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
