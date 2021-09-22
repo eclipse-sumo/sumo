@@ -427,11 +427,11 @@ def quoteattr(val):
     return '"' + xml.sax.saxutils.quoteattr("'" + val)[2:]
 
 
-class Emissions2XML:
+class EmissionsXML2CSV:
 
     """
     Example usage: 
-        e = Emissions2XML("/home/max/tmp/_OUTPUT_emissions.xml",
+        e = EmissionsXML2CSV("/home/max/tmp/_OUTPUT_emissions.xml",
                             "/home/max/tmp/_OUTPUT_emissions.csv", 20)
 
         e.convert()
@@ -497,7 +497,7 @@ class Emissions2XML:
             beg = 0
             while beg < len(chunk) - 1:
                 for i, _chunk in enumerate(chunk[beg + 1:]):
-                    if (_chunk[1] - chunk[beg][0]) >= Emissions2XML.MAX_CHUNK_SIZE:
+                    if (_chunk[1] - chunk[beg][0]) >= EmissionsXML2CSV.MAX_CHUNK_SIZE:
                         break
                 i = min(i, len(chunk) - 2)
                 yield self._data[chunk[beg][0]:chunk[beg + i + 1][1]].decode()
@@ -507,7 +507,7 @@ class Emissions2XML:
     def _chunk_handler(chunk, q, *args, **kwargs):
         # data = []
         vehicle_chunk = "<vehicle"
-        iter_finder = Emissions2XML.TIME_PATTERN.finditer(chunk)
+        iter_finder = EmissionsXML2CSV.TIME_PATTERN.finditer(chunk)
         time_obj = next(iter_finder)
         d = []
         for next_time in [*iter_finder, None]:
@@ -519,7 +519,7 @@ class Emissions2XML:
                     if 'id' in vehicle:
                         d.append(",".join([local_time] +
                                     [v.split("=")[1] for v in
-                                     vehicle.translate(Emissions2XML.TABLE_REPLACE).split(' ')
+                                     vehicle.translate(EmissionsXML2CSV.TABLE_REPLACE).split(' ')
                                      if len(v.split("=")) > 1]) + "\n"
                         )
             if end > 0:
@@ -532,7 +532,7 @@ class Emissions2XML:
         with open(output_csv_path, 'w', newline='', encoding='utf-8') as f:
             # writer = csv.writer(f) TOO SLOW
             # write the header
-            f.writelines([",".join(Emissions2XML.HEADER_ROW) + "\n"])
+            f.writelines([",".join(EmissionsXML2CSV.HEADER_ROW) + "\n"])
 
             while not e.is_set():
                 try:
