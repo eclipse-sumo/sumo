@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-09-09 09:18:48.843259 by route2OD.py v1_10_0+0604-8ae9556
+<!-- generated on 2021-09-22 13:40:37.257751 by route2OD.py v1_10_0+0889-19b5c5b
 <configuration>
     <output-file value="od.xml"/>
     <route-file value="input_routes.rou.xml"/>
@@ -7,7 +7,7 @@
 </configuration>
 
 -->
-<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/data_file.xsd">
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="DEFAULT_VEHTYPE" begin="0" end="1">
         <tazRelation from="1_2" to="1_1" count="1"/>
         <tazRelation from="3_0" to="0_1" count="1"/>
