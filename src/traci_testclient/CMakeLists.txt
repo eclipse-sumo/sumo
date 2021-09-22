@@ -21,3 +21,8 @@ add_executable(testlibsumostatic testlibsumo_main.cpp)
 set_property(TARGET testlibsumostatic PROPERTY FOLDER "test_exe")
 target_link_libraries(testlibsumostatic libsumostatic ${sumolibs} traciserver libsumostatic microsim_traffic_lights microsim_lcmodels microsim_cfmodels microsim_devices microsim_engine microsim_output microsim_transportables)
 add_test(libsumostatictest ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testlibsumostatic)
+
+add_executable(testlibtraci testlibtraci_main.cpp)
+set_property(TARGET testlibtraci PROPERTY FOLDER "test_exe")
+target_link_libraries(testlibtraci libtracicpp)
+add_test(libtracitest ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testlibtraci)
