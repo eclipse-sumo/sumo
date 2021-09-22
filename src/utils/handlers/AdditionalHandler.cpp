@@ -43,6 +43,10 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
     // check tag
     try {
         switch (tag) {
+            // root file
+            case SUMO_TAG_ROOTFILE:
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROOTFILE);
+                break;
             // Stopping Places
             case SUMO_TAG_BUS_STOP:
                 parseBusStopAttributes(attrs);
@@ -1635,13 +1639,11 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // check parent
     if (SumoBaseObjectParent == nullptr) {
         WRITE_ERROR("Parameters must be defined within an object.");
-    }
-    // check tag
-    if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
-        WRITE_ERROR("Parameters cannot be defined in neither the additional file's root nor another parameter.");
-    }
-    // continue if key was sucesfully loaded
-    if (parsedOk) {
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
+        WRITE_ERROR("Parameters cannot be defined in the additional file's root.");
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
+        WRITE_ERROR("Parameters cannot be defined within another parameter.");
+    } else if (parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
         // circumventing empty string value

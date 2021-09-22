@@ -53,6 +53,10 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
     // check tag
     try {
         switch (tag) {
+            // root file
+            case SUMO_TAG_ROOTFILE:
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROOTFILE);
+                break;
             // vTypes
             case SUMO_TAG_VTYPE:
                 parseVType(attrs);
@@ -704,8 +708,10 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // check parent
     if (SumoBaseObjectParent == nullptr) {
         WRITE_ERROR("Parameters must be defined within an object");
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
-        WRITE_ERROR("Parameters cannot be defined in either the route element file's root nor another parameter");
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
+        WRITE_ERROR("Parameters cannot be defined in the additional file's root.");
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
+        WRITE_ERROR("Parameters cannot be defined within another parameter.");
     } else if (parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());

@@ -52,7 +52,7 @@ GNEGeneralHandler::parse() {
 void
 GNEGeneralHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
-    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    const SumoXMLTag tag = (element == 0)? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
     // parse additional elements
     myAdditionalHandler.beginParseAttributes(tag, attrs);
     // parse demand elements
