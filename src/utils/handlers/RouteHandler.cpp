@@ -53,11 +53,6 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
     // check tag
     try {
         switch (tag) {
-            // root file
-            case SUMO_TAG_ROOTFILE:
-            case SUMO_TAG_ROUTES:
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROOTFILE);
-                break;
             // vTypes
             case SUMO_TAG_VTYPE:
                 parseVType(attrs);
@@ -156,9 +151,6 @@ RouteHandler::endParseAttributes() {
                 delete obj;
             }
             break;
-        // root file
-        case SUMO_TAG_ROOTFILE:
-        case SUMO_TAG_ROUTES:
         // demand elements
         case SUMO_TAG_VTYPE:
         case SUMO_TAG_TRIP:

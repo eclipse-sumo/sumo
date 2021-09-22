@@ -521,6 +521,8 @@ CommonXMLStructure::openSUMOBaseOBject() {
     if (mySumoBaseObjectRoot == nullptr) {
         // create root
         mySumoBaseObjectRoot = new SumoBaseObject(nullptr);
+        // set tag
+        mySumoBaseObjectRoot->setTag(SUMO_TAG_ROOTFILE);
         // update last inserted Root
         myCurrentSumoBaseObject = mySumoBaseObjectRoot;
     } else {

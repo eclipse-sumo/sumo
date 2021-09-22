@@ -43,11 +43,6 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
     // check tag
     try {
         switch (tag) {
-            // root file
-            case SUMO_TAG_ROOTFILE:
-            case SUMO_TAG_ROUTES:
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROOTFILE);
-                break;
             // Stopping Places
             case SUMO_TAG_BUS_STOP:
                 parseBusStopAttributes(attrs);
@@ -176,9 +171,6 @@ AdditionalHandler::endParseAttributes() {
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (obj->getTag()) {
-        // root file
-        case SUMO_TAG_ROOTFILE:
-        case SUMO_TAG_ROUTES:
         // Stopping Places
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
