@@ -27,6 +27,7 @@
 
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 
 // ===========================================================================
 // class declarations
@@ -56,6 +57,9 @@ public:
 protected:
     /// @brief additional handler
     GNEAdditionalHandler myAdditionalHandler;
+
+    /// @brief demand handler
+    GNERouteHandler myDemandHandler;
 
 private:
     /// @name inherited from SUMOSAXHandler
