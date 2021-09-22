@@ -240,7 +240,7 @@ if (SUMO_LIBRARIES AND WIN32)
         endif ()
     endif()
     if (USE_GOOGLETEST)
-        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.??.?")
+        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}${LIB_VERSION}/googletest-?.??.?")
         message(STATUS "Found Google test: " ${GTEST_ROOT})
         include_directories("${GTEST_ROOT}/include")
         # set both google test library
