@@ -293,7 +293,6 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                         myNet.getThreadPool().add(new RONet::BulkmodeTask(false), workerIndex);
                         lastOrigin = c->origin;
                         myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
-                        myNet.getThreadPool().add(new RONet::BulkmodeTask(true), workerIndex);
                     } else {
                         myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
                     }
@@ -467,6 +466,6 @@ ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, 
 // ---------------------------------------------------------------------------
 void
 ROMAAssignments::RoutingTask::run(FXWorkerThread* context) {
-    myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING));
+    myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING), mySetBulkMode);
 }
 #endif
