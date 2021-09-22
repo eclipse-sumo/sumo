@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-06-09 01:05:28.068483 by gtfs2pt.py v1_9_2+0412-04f89b33e3
+<!-- generated on 2021-09-23 00:07:27.463671 by gtfs2pt.py v1_10_0+0922-a276f24c106
   options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>vtype-output vehtypes.xml <doubleminus>modes bus <doubleminus>begin 72000 <doubleminus>end 259200
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -195,8 +195,9 @@
     <vehicle id="132185683.2" route="132185612" type="bus" depart="214070" line="418_132185612"/>
     <vehicle id="132185783.1" route="132185783" type="bus" depart="105290" line="418_132185783"/>
     <vehicle id="132185783.2" route="132185783" type="bus" depart="191690" line="418_132185783"/>
-    <vehicle id="132185786.1" route="132185783" type="bus" depart="158390" line="418_132185783"/>
-    <vehicle id="132185786.2" route="132185783" type="bus" depart="244790" line="418_132185783"/>
+    <vehicle id="132185786.0" route="132185783" type="bus" depart="86090" line="418_132185783"/>
+    <vehicle id="132185786.1" route="132185783" type="bus" depart="172490" line="418_132185783"/>
+    <vehicle id="132185786.2" route="132185783" type="bus" depart="258890" line="418_132185783"/>
     <vehicle id="132185789.0" route="132185783" type="bus" depart="76490" line="418_132185783"/>
     <vehicle id="132185789.1" route="132185783" type="bus" depart="162890" line="418_132185783"/>
     <vehicle id="132185789.2" route="132185783" type="bus" depart="249290" line="418_132185783"/>
@@ -220,9 +221,8 @@
     <vehicle id="132185977.0" route="132185783" type="bus" depart="74690" line="418_132185783"/>
     <vehicle id="132185977.1" route="132185783" type="bus" depart="161090" line="418_132185783"/>
     <vehicle id="132185977.2" route="132185783" type="bus" depart="247490" line="418_132185783"/>
-    <vehicle id="132185978.0" route="132185783" type="bus" depart="73190" line="418_132185783"/>
-    <vehicle id="132185978.1" route="132185783" type="bus" depart="159590" line="418_132185783"/>
-    <vehicle id="132185978.2" route="132185783" type="bus" depart="245990" line="418_132185783"/>
+    <vehicle id="132185978.0" route="132185783" type="bus" depart="91190" line="418_132185783"/>
+    <vehicle id="132185978.1" route="132185783" type="bus" depart="177590" line="418_132185783"/>
     <vehicle id="132185981.1" route="132185783" type="bus" depart="107090" line="418_132185783"/>
     <vehicle id="132185981.2" route="132185783" type="bus" depart="193490" line="418_132185783"/>
     <vehicle id="132185998.1" route="132185998" type="bus" depart="143870" line="418_132185998"/>

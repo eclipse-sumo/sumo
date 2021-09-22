@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-09-09 15:09:21.987721 by gtfs2pt.py v1_10_0+0605-458b06afa30
+<!-- generated on 2021-09-23 00:07:25.149919 by gtfs2pt.py v1_10_0+0922-a276f24c106
   options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>vtype-output vehtypes.xml <doubleminus>modes bus <doubleminus>begin 28800 <doubleminus>end 72000
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -38,8 +38,6 @@
     <busStop id="-171756596:0.32" lane="-171756596_0" startPos="0.00" endPos="13.32" friendlyPos="true" name="Braunschweig Staatstheater">
     </busStop>
     <busStop id="-615184925:30.51" lane="-615184925_0" startPos="17.51" endPos="43.51" friendlyPos="true" name="Braunschweig Rathaus">
-    </busStop>
-    <busStop id="-198087353#0:3.24" lane="-198087353#0_0" startPos="0.00" endPos="16.24" friendlyPos="true" name="Braunschweig Rathaus">
     </busStop>
     <busStop id="283066855:0.00" lane="283066855_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Goslarsche Straße">
     </busStop>
@@ -169,9 +167,6 @@
         <stop busStop="8108069:11.15" duration="10" until="300"/>
         <stop busStop="-320399277#2:12.79" duration="10" until="420"/>
         <stop busStop="5140344#0:0.00" duration="10" until="480"/>
-    </route>
-    <route id="132185786" edges="-198087353#0">
-        <stop busStop="-198087353#0:3.24" duration="10" until="0"/>
     </route>
     <route id="132185998" edges="405363048#1 -171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 23233924#0 -8107421#3 -8107421#1 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 8074359#0 409312560#1 409312560#2 22978960 217362180 -8107411#2 -320399277#2 8118970#0 -8118970#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 5140344#0">
         <stop busStop="-171756596:0.32" duration="10" until="0"/>

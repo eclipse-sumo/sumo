@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-09-09 15:09:00.614343 by gtfs2pt.py v1_10_0+0605-458b06afa30
+<!-- generated on 2021-09-23 00:06:43.331167 by gtfs2pt.py v1_10_0+0922-a276f24c106
   options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>begin 72000 <doubleminus>end 259200 <doubleminus>verbose
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="1962" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
-    <vehicle id="418_132185786.0" route="1962" line="14781_3_132185786" depart="0:20:00:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
-        <stop busStop="120010034202_0" arrival="0:20:00:00" duration="10" until="0:20:00:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010032201_0" arrival="0:20:01:00" duration="10" until="0:20:01:00"/><!--Braunschweig Packhof-->
-        <stop busStop="120010031501_0" arrival="0:20:02:00" duration="10" until="0:20:02:00"/><!--Braunschweig Hintern Brüdern-->
-        <stop busStop="120010001502_0" arrival="0:20:03:00" duration="10" until="0:20:03:00"/><!--Braunschweig Altstadtmarkt-->
-        <stop busStop="120010016102_0" arrival="0:20:05:00" duration="10" until="0:20:05:00"/><!--Braunschweig Güldenstraße-->
-    </vehicle>
     <route id="2905" edges="5134732 314841164#0 37976103#0 171756596 405363051#0"/>
     <vehicle id="230_132237994.0" route="2905" line="44892_3_132237994" depart="0:20:03:00" departEdge="0" arrivalEdge="3" type="bus"><!--230 Wolfsburg Hauptbahnhof-->
         <stop busStop="120010034201_0" arrival="0:20:03:00" duration="10" until="0:20:03:00"/><!--Braunschweig Rathaus-->
@@ -47,13 +39,6 @@
         <stop busStop="120010033806_0" arrival="0:20:26:00" duration="10" until="0:20:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="0:20:27:00" duration="10" until="0:20:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="418_132185978.0" route="1962" line="14781_3_132185786" depart="0:20:20:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
-        <stop busStop="120010034202_0" arrival="0:20:20:00" duration="10" until="0:20:20:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010032201_0" arrival="0:20:21:00" duration="10" until="0:20:21:00"/><!--Braunschweig Packhof-->
-        <stop busStop="120010031501_0" arrival="0:20:22:00" duration="10" until="0:20:22:00"/><!--Braunschweig Hintern Brüdern-->
-        <stop busStop="120010001502_0" arrival="0:20:23:00" duration="10" until="0:20:23:00"/><!--Braunschweig Altstadtmarkt-->
-        <stop busStop="120010016102_0" arrival="0:20:25:00" duration="10" until="0:20:25:00"/><!--Braunschweig Güldenstraße-->
-    </vehicle>
     <route id="2425" edges="-615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
     <vehicle id="560_132206624.0" route="2425" line="29609_3_132203581" depart="0:20:22:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="0:20:22:00" duration="10" until="0:20:22:00"/><!--Braunschweig Rathaus-->
@@ -89,7 +74,8 @@
         <stop busStop="120010007513_0" arrival="0:20:41:00" duration="10" until="0:20:41:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="0:20:43:00" duration="10" until="0:20:43:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="418_132185977.0" route="1962" line="14781_3_132185786" depart="0:20:45:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+    <route id="1962" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+    <vehicle id="418_132185977.0" route="1962" line="14781_3_132185977" depart="0:20:45:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:20:45:00" duration="10" until="0:20:45:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:20:46:00" duration="10" until="0:20:46:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="0:20:47:00" duration="10" until="0:20:47:00"/><!--Braunschweig Hintern Brüdern-->
@@ -114,17 +100,17 @@
         <stop busStop="120010007513_0" arrival="0:21:09:00" duration="10" until="0:21:09:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="0:21:11:00" duration="10" until="0:21:11:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="418_132185789.0" route="1962" line="14781_3_132185786" depart="0:21:15:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+    <vehicle id="620_132244315.0" route="1823" line="14737_3_132244314" depart="0:21:15:00" departEdge="3" arrivalEdge="20" type="bus"><!--620 Steterburg(Salzgitter) Danziger Straße-->
+        <stop busStop="120010022113_0" arrival="0:21:19:00" duration="10" until="0:21:19:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+        <stop busStop="120010013704_0" arrival="0:21:21:00" duration="10" until="0:21:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
+        <stop busStop="120010013002_0" arrival="0:21:23:00" duration="10" until="0:21:23:00"/><!--Braunschweig Europaplatz-->
+    </vehicle>
+    <vehicle id="418_132185789.0" route="1962" line="14781_3_132185977" depart="0:21:15:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:21:15:00" duration="10" until="0:21:15:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:21:16:00" duration="10" until="0:21:16:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="0:21:17:00" duration="10" until="0:21:17:00"/><!--Braunschweig Hintern Brüdern-->
         <stop busStop="120010001502_0" arrival="0:21:18:00" duration="10" until="0:21:18:00"/><!--Braunschweig Altstadtmarkt-->
         <stop busStop="120010016102_0" arrival="0:21:20:00" duration="10" until="0:21:20:00"/><!--Braunschweig Güldenstraße-->
-    </vehicle>
-    <vehicle id="620_132244315.0" route="1823" line="14737_3_132244314" depart="0:21:15:00" departEdge="3" arrivalEdge="20" type="bus"><!--620 Steterburg(Salzgitter) Danziger Straße-->
-        <stop busStop="120010022113_0" arrival="0:21:19:00" duration="10" until="0:21:19:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-        <stop busStop="120010013704_0" arrival="0:21:21:00" duration="10" until="0:21:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
-        <stop busStop="120010013002_0" arrival="0:21:23:00" duration="10" until="0:21:23:00"/><!--Braunschweig Europaplatz-->
     </vehicle>
     <vehicle id="560_132206572.0" route="2425" line="29609_3_132203581" depart="0:21:22:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Zweidorf Denkmal-->
         <stop busStop="120010034202_0" arrival="0:21:22:00" duration="10" until="0:21:22:00"/><!--Braunschweig Rathaus-->
@@ -145,7 +131,7 @@
         <stop busStop="120010007513_0" arrival="0:21:41:00" duration="10" until="0:21:41:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="0:21:43:00" duration="10" until="0:21:43:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="418_132185900.0" route="1962" line="14781_3_132185786" depart="0:21:45:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+    <vehicle id="418_132185900.0" route="1962" line="14781_3_132185977" depart="0:21:45:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:21:45:00" duration="10" until="0:21:45:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:21:46:00" duration="10" until="0:21:46:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="0:21:47:00" duration="10" until="0:21:47:00"/><!--Braunschweig Hintern Brüdern-->
@@ -175,7 +161,7 @@
         <stop busStop="120010013704_0" arrival="0:22:21:00" duration="10" until="0:22:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
         <stop busStop="120010013002_0" arrival="0:22:23:00" duration="10" until="0:22:23:00"/><!--Braunschweig Europaplatz-->
     </vehicle>
-    <vehicle id="418_132185791.0" route="1962" line="14781_3_132185786" depart="0:22:15:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+    <vehicle id="418_132185791.0" route="1962" line="14781_3_132185977" depart="0:22:15:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:22:15:00" duration="10" until="0:22:15:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:22:16:00" duration="10" until="0:22:16:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="0:22:17:00" duration="10" until="0:22:17:00"/><!--Braunschweig Hintern Brüdern-->
@@ -192,7 +178,7 @@
         <stop busStop="120010007513_0" arrival="0:22:41:00" duration="10" until="0:22:41:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="0:22:43:00" duration="10" until="0:22:43:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="418_132185792.0" route="1962" line="14781_3_132185786" depart="0:22:45:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+    <vehicle id="418_132185792.0" route="1962" line="14781_3_132185977" depart="0:22:45:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:22:45:00" duration="10" until="0:22:45:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:22:46:00" duration="10" until="0:22:46:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="0:22:47:00" duration="10" until="0:22:47:00"/><!--Braunschweig Hintern Brüdern-->
@@ -208,7 +194,7 @@
         <stop busStop="120010033806_0" arrival="0:22:57:00" duration="10" until="0:22:57:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="0:22:58:00" duration="10" until="0:22:58:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="418_132185972.0" route="1962" line="14781_3_132185786" depart="0:23:00:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+    <vehicle id="418_132185972.0" route="1962" line="14781_3_132185977" depart="0:23:00:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:23:00:00" duration="10" until="0:23:00:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:23:01:00" duration="10" until="0:23:01:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="0:23:02:00" duration="10" until="0:23:02:00"/><!--Braunschweig Hintern Brüdern-->
@@ -243,7 +229,7 @@
         <stop busStop="120010013704_0" arrival="0:23:21:00" duration="10" until="0:23:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
         <stop busStop="120010013002_0" arrival="0:23:23:00" duration="10" until="0:23:23:00"/><!--Braunschweig Europaplatz-->
     </vehicle>
-    <vehicle id="418_132185971.0" route="1962" line="14781_3_132185786" depart="0:23:30:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+    <vehicle id="418_132185971.0" route="1962" line="14781_3_132185977" depart="0:23:30:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:23:30:00" duration="10" until="0:23:30:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:23:31:00" duration="10" until="0:23:31:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="0:23:32:00" duration="10" until="0:23:32:00"/><!--Braunschweig Hintern Brüdern-->
@@ -253,6 +239,13 @@
     <vehicle id="412_132184492.0" route="2500" line="31729_3_132237994" depart="0:23:30:00" departEdge="0" arrivalEdge="3" type="bus"><!--412 Rautheim-->
         <stop busStop="120010034201_0" arrival="0:23:30:00" duration="10" until="0:23:30:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010039402_0" arrival="0:23:31:00" duration="10" until="0:23:31:00"/><!--Braunschweig Staatstheater-->
+    </vehicle>
+    <vehicle id="418_132185786.0" route="1962" line="14781_3_132185977" depart="0:23:55:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+        <stop busStop="120010034202_0" arrival="0:23:55:00" duration="10" until="0:23:55:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010032201_0" arrival="0:23:58:00" duration="10" until="0:23:58:00"/><!--Braunschweig Packhof-->
+        <stop busStop="120010031501_0" arrival="0:23:59:00" duration="10" until="0:23:59:00"/><!--Braunschweig Hintern Brüdern-->
+        <stop busStop="120010001502_0" arrival="1:00:03:00" duration="10" until="1:00:03:00"/><!--Braunschweig Altstadtmarkt-->
+        <stop busStop="120010016102_0" arrival="1:00:05:00" duration="10" until="1:00:05:00"/><!--Braunschweig Güldenstraße-->
     </vehicle>
     <vehicle id="418_132185501.1" route="1962" line="14781_3_132185501" depart="1:00:00:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Braunschweig An der Horst-->
         <stop busStop="120010034202_0" arrival="1:00:00:00" duration="10" until="1:00:00:00"/><!--Braunschweig Rathaus-->
@@ -273,6 +266,13 @@
     <vehicle id="230_132237871.1" route="2905" line="44892_3_132184491" depart="1:00:03:00" departEdge="0" arrivalEdge="3" type="bus"><!--230 Wolfsburg Hauptbahnhof-->
         <stop busStop="120010034201_0" arrival="1:00:03:00" duration="10" until="1:00:03:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010039402_0" arrival="1:00:04:00" duration="10" until="1:00:04:00"/><!--Braunschweig Staatstheater-->
+    </vehicle>
+    <vehicle id="418_132185978.1" route="1962" line="14781_3_132185501" depart="1:01:20:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+        <stop busStop="120010034202_0" arrival="1:01:20:00" duration="10" until="1:01:20:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010032201_0" arrival="1:01:21:00" duration="10" until="1:01:21:00"/><!--Braunschweig Packhof-->
+        <stop busStop="120010031501_0" arrival="1:01:22:00" duration="10" until="1:01:22:00"/><!--Braunschweig Hintern Brüdern-->
+        <stop busStop="120010001502_0" arrival="1:01:23:00" duration="10" until="1:01:23:00"/><!--Braunschweig Altstadtmarkt-->
+        <stop busStop="120010016102_0" arrival="1:01:25:00" duration="10" until="1:01:25:00"/><!--Braunschweig Güldenstraße-->
     </vehicle>
     <route id="1973" edges="283066855 9887577 25087143 59873992 320814798 8118981 59873991 320814805#0 320399277#0 8107411#0 89428515#0 -625229902 30424433#2 8074362#0 8074362#1 8074362#2 141542465 19045105#0 19045105#2 18962450#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 37976103#0 171756596 405363051#0"/>
     <vehicle id="422_132188547.1" route="1973" line="14785_3_132184491" depart="1:05:00:00" departEdge="28" arrivalEdge="31" type="bus"><!--422 Braunschweig Bebelhof-->
@@ -832,6 +832,11 @@
         <stop busStop="120010033806_0" arrival="1:11:26:00" duration="10" until="1:11:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:11:27:00" duration="10" until="1:11:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
+    <vehicle id="420_132187954.1" route="1969" line="14783_3_132187547" depart="1:11:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="1:11:27:00" duration="10" until="1:11:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="1:11:28:00" duration="10" until="1:11:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="1:11:30:00" duration="10" until="1:11:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+    </vehicle>
     <vehicle id="480_132206021.1" route="2032" line="14808_3_132203723" depart="1:11:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="1:11:27:00" duration="10" until="1:11:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="1:11:28:00" duration="10" until="1:11:28:00"/><!--Braunschweig Packhof-->
@@ -840,11 +845,6 @@
         <stop busStop="120010016106_0" arrival="1:11:32:00" duration="10" until="1:11:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="1:11:34:00" duration="10" until="1:11:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:11:35:00" duration="10" until="1:11:35:00"/><!--Braunschweig Maschstraße-->
-    </vehicle>
-    <vehicle id="420_132187954.1" route="1969" line="14783_3_132187547" depart="1:11:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="1:11:27:00" duration="10" until="1:11:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="1:11:28:00" duration="10" until="1:11:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="1:11:30:00" duration="10" until="1:11:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206650.1" route="2425" line="29609_3_132203723" depart="1:11:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="1:11:32:00" duration="10" until="1:11:32:00"/><!--Braunschweig Rathaus-->
@@ -991,11 +991,6 @@
         <stop busStop="120010007513_0" arrival="1:13:13:00" duration="10" until="1:13:13:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="1:13:15:00" duration="10" until="1:13:15:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="730_132218548.1" route="2100" line="22086_3_132187547" depart="1:13:15:00" departEdge="12" arrivalEdge="25" type="bus"><!--730 Evessen Klosterhof-->
-        <stop busStop="120010034205_0" arrival="1:13:15:00" duration="10" until="1:13:15:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="1:13:16:00" duration="10" until="1:13:16:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="1:13:18:00" duration="10" until="1:13:18:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <route id="2171" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 382052543 376743574#0 30424335#0 501412552#0 31413791#0 31413791#1 501412548#1 501412550 394076960#0 501406797"/>
     <vehicle id="411_132200306.1" route="2171" line="24286_3_132203723" depart="1:13:15:00" departEdge="6" arrivalEdge="39" type="bus"><!--411 Braunschweig Lammer Busch-->
         <stop busStop="120010034202_0" arrival="1:13:15:00" duration="10" until="1:13:15:00"/><!--Braunschweig Rathaus-->
@@ -1005,6 +1000,11 @@
         <stop busStop="120010016106_0" arrival="1:13:20:00" duration="10" until="1:13:20:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="1:13:22:00" duration="10" until="1:13:22:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:13:23:00" duration="10" until="1:13:23:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="730_132218548.1" route="2100" line="22086_3_132187547" depart="1:13:15:00" departEdge="12" arrivalEdge="25" type="bus"><!--730 Evessen Klosterhof-->
+        <stop busStop="120010034205_0" arrival="1:13:15:00" duration="10" until="1:13:15:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="1:13:16:00" duration="10" until="1:13:16:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="1:13:18:00" duration="10" until="1:13:18:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="450_132203595.1" route="2013" line="14800_3_132203723" depart="1:13:19:00" departEdge="2" arrivalEdge="35" type="bus"><!--450 Vechelde Bahnhof-->
         <stop busStop="120010034202_0" arrival="1:13:19:00" duration="10" until="1:13:19:00"/><!--Braunschweig Rathaus-->
@@ -1035,6 +1035,11 @@
         <stop busStop="120010041001_0" arrival="1:13:31:00" duration="10" until="1:13:31:00"/><!--Braunschweig Südstraße-->
         <stop busStop="120010016202_0" arrival="1:13:32:00" duration="10" until="1:13:32:00"/><!--Braunschweig Holzhof-->
     </vehicle>
+    <vehicle id="420_132187946.1" route="1969" line="14783_3_132187547" depart="1:13:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="1:13:27:00" duration="10" until="1:13:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="1:13:28:00" duration="10" until="1:13:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="1:13:30:00" duration="10" until="1:13:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+    </vehicle>
     <vehicle id="480_132206022.1" route="2032" line="14808_3_132203723" depart="1:13:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="1:13:27:00" duration="10" until="1:13:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="1:13:28:00" duration="10" until="1:13:28:00"/><!--Braunschweig Packhof-->
@@ -1043,11 +1048,6 @@
         <stop busStop="120010016106_0" arrival="1:13:32:00" duration="10" until="1:13:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="1:13:34:00" duration="10" until="1:13:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:13:35:00" duration="10" until="1:13:35:00"/><!--Braunschweig Maschstraße-->
-    </vehicle>
-    <vehicle id="420_132187946.1" route="1969" line="14783_3_132187547" depart="1:13:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="1:13:27:00" duration="10" until="1:13:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="1:13:28:00" duration="10" until="1:13:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="1:13:30:00" duration="10" until="1:13:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206669.1" route="2425" line="29609_3_132203723" depart="1:13:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="1:13:32:00" duration="10" until="1:13:32:00"/><!--Braunschweig Rathaus-->
@@ -1140,11 +1140,6 @@
         <stop busStop="120010033806_0" arrival="1:14:26:00" duration="10" until="1:14:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:14:27:00" duration="10" until="1:14:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="420_132187942.1" route="1969" line="14783_3_132187547" depart="1:14:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="1:14:27:00" duration="10" until="1:14:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="1:14:28:00" duration="10" until="1:14:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="1:14:30:00" duration="10" until="1:14:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <vehicle id="480_132206023.1" route="2032" line="14808_3_132203723" depart="1:14:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="1:14:27:00" duration="10" until="1:14:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="1:14:28:00" duration="10" until="1:14:28:00"/><!--Braunschweig Packhof-->
@@ -1153,6 +1148,11 @@
         <stop busStop="120010016106_0" arrival="1:14:32:00" duration="10" until="1:14:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="1:14:34:00" duration="10" until="1:14:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:14:35:00" duration="10" until="1:14:35:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="420_132187942.1" route="1969" line="14783_3_132187547" depart="1:14:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="1:14:27:00" duration="10" until="1:14:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="1:14:28:00" duration="10" until="1:14:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="1:14:30:00" duration="10" until="1:14:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206701.1" route="2425" line="29609_3_132203723" depart="1:14:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Zweidorf Denkmal-->
         <stop busStop="120010034202_0" arrival="1:14:32:00" duration="10" until="1:14:32:00"/><!--Braunschweig Rathaus-->
@@ -1240,11 +1240,6 @@
         <stop busStop="120010033806_0" arrival="1:15:26:00" duration="10" until="1:15:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:15:27:00" duration="10" until="1:15:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="420_132187938.1" route="1969" line="14783_3_132187547" depart="1:15:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="1:15:27:00" duration="10" until="1:15:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="1:15:28:00" duration="10" until="1:15:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="1:15:30:00" duration="10" until="1:15:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <vehicle id="480_132206024.1" route="2032" line="14808_3_132203723" depart="1:15:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="1:15:27:00" duration="10" until="1:15:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="1:15:28:00" duration="10" until="1:15:28:00"/><!--Braunschweig Packhof-->
@@ -1253,6 +1248,11 @@
         <stop busStop="120010016106_0" arrival="1:15:32:00" duration="10" until="1:15:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="1:15:34:00" duration="10" until="1:15:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:15:35:00" duration="10" until="1:15:35:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="420_132187938.1" route="1969" line="14783_3_132187547" depart="1:15:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="1:15:27:00" duration="10" until="1:15:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="1:15:28:00" duration="10" until="1:15:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="1:15:30:00" duration="10" until="1:15:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206668.1" route="2425" line="29609_3_132203723" depart="1:15:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="1:15:32:00" duration="10" until="1:15:32:00"/><!--Braunschweig Rathaus-->
@@ -1333,11 +1333,6 @@
         <stop busStop="120010033806_0" arrival="1:16:26:00" duration="10" until="1:16:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:16:27:00" duration="10" until="1:16:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="420_132187934.1" route="1969" line="14783_3_132187547" depart="1:16:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="1:16:27:00" duration="10" until="1:16:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="1:16:28:00" duration="10" until="1:16:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="1:16:30:00" duration="10" until="1:16:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <vehicle id="480_132206025.1" route="2032" line="14808_3_132203723" depart="1:16:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="1:16:27:00" duration="10" until="1:16:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="1:16:28:00" duration="10" until="1:16:28:00"/><!--Braunschweig Packhof-->
@@ -1346,6 +1341,11 @@
         <stop busStop="120010016106_0" arrival="1:16:32:00" duration="10" until="1:16:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="1:16:34:00" duration="10" until="1:16:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:16:35:00" duration="10" until="1:16:35:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="420_132187934.1" route="1969" line="14783_3_132187547" depart="1:16:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="1:16:27:00" duration="10" until="1:16:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="1:16:28:00" duration="10" until="1:16:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="1:16:30:00" duration="10" until="1:16:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206653.1" route="2425" line="29609_3_132203723" depart="1:16:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="1:16:32:00" duration="10" until="1:16:32:00"/><!--Braunschweig Rathaus-->
@@ -1662,13 +1662,6 @@
         <stop busStop="120010007513_0" arrival="1:19:58:00" duration="10" until="1:19:58:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="1:20:00:00" duration="10" until="1:20:00:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="418_132185786.1" route="1962" line="14781_3_132185501" depart="1:20:00:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
-        <stop busStop="120010034202_0" arrival="1:20:00:00" duration="10" until="1:20:00:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010032201_0" arrival="1:20:01:00" duration="10" until="1:20:01:00"/><!--Braunschweig Packhof-->
-        <stop busStop="120010031501_0" arrival="1:20:02:00" duration="10" until="1:20:02:00"/><!--Braunschweig Hintern Brüdern-->
-        <stop busStop="120010001502_0" arrival="1:20:03:00" duration="10" until="1:20:03:00"/><!--Braunschweig Altstadtmarkt-->
-        <stop busStop="120010016102_0" arrival="1:20:05:00" duration="10" until="1:20:05:00"/><!--Braunschweig Güldenstraße-->
-    </vehicle>
     <vehicle id="230_132237994.1" route="2905" line="44892_3_132184491" depart="1:20:03:00" departEdge="0" arrivalEdge="3" type="bus"><!--230 Wolfsburg Hauptbahnhof-->
         <stop busStop="120010034201_0" arrival="1:20:03:00" duration="10" until="1:20:03:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010039402_0" arrival="1:20:04:00" duration="10" until="1:20:04:00"/><!--Braunschweig Staatstheater-->
@@ -1699,13 +1692,6 @@
         <stop busStop="120010016106_0" arrival="1:20:24:00" duration="10" until="1:20:24:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="1:20:26:00" duration="10" until="1:20:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="1:20:27:00" duration="10" until="1:20:27:00"/><!--Braunschweig Maschstraße-->
-    </vehicle>
-    <vehicle id="418_132185978.1" route="1962" line="14781_3_132185501" depart="1:20:20:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
-        <stop busStop="120010034202_0" arrival="1:20:20:00" duration="10" until="1:20:20:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010032201_0" arrival="1:20:21:00" duration="10" until="1:20:21:00"/><!--Braunschweig Packhof-->
-        <stop busStop="120010031501_0" arrival="1:20:22:00" duration="10" until="1:20:22:00"/><!--Braunschweig Hintern Brüdern-->
-        <stop busStop="120010001502_0" arrival="1:20:23:00" duration="10" until="1:20:23:00"/><!--Braunschweig Altstadtmarkt-->
-        <stop busStop="120010016102_0" arrival="1:20:25:00" duration="10" until="1:20:25:00"/><!--Braunschweig Güldenstraße-->
     </vehicle>
     <vehicle id="560_132206624.1" route="2425" line="29609_3_132203723" depart="1:20:22:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="1:20:22:00" duration="10" until="1:20:22:00"/><!--Braunschweig Rathaus-->
@@ -1764,17 +1750,17 @@
         <stop busStop="120010007513_0" arrival="1:21:09:00" duration="10" until="1:21:09:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="1:21:11:00" duration="10" until="1:21:11:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
+    <vehicle id="620_132244315.1" route="1823" line="14737_3_132244371" depart="1:21:15:00" departEdge="3" arrivalEdge="20" type="bus"><!--620 Steterburg(Salzgitter) Danziger Straße-->
+        <stop busStop="120010022113_0" arrival="1:21:19:00" duration="10" until="1:21:19:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+        <stop busStop="120010013704_0" arrival="1:21:21:00" duration="10" until="1:21:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
+        <stop busStop="120010013002_0" arrival="1:21:23:00" duration="10" until="1:21:23:00"/><!--Braunschweig Europaplatz-->
+    </vehicle>
     <vehicle id="418_132185789.1" route="1962" line="14781_3_132185501" depart="1:21:15:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="1:21:15:00" duration="10" until="1:21:15:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="1:21:16:00" duration="10" until="1:21:16:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="1:21:17:00" duration="10" until="1:21:17:00"/><!--Braunschweig Hintern Brüdern-->
         <stop busStop="120010001502_0" arrival="1:21:18:00" duration="10" until="1:21:18:00"/><!--Braunschweig Altstadtmarkt-->
         <stop busStop="120010016102_0" arrival="1:21:20:00" duration="10" until="1:21:20:00"/><!--Braunschweig Güldenstraße-->
-    </vehicle>
-    <vehicle id="620_132244315.1" route="1823" line="14737_3_132244371" depart="1:21:15:00" departEdge="3" arrivalEdge="20" type="bus"><!--620 Steterburg(Salzgitter) Danziger Straße-->
-        <stop busStop="120010022113_0" arrival="1:21:19:00" duration="10" until="1:21:19:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-        <stop busStop="120010013704_0" arrival="1:21:21:00" duration="10" until="1:21:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
-        <stop busStop="120010013002_0" arrival="1:21:23:00" duration="10" until="1:21:23:00"/><!--Braunschweig Europaplatz-->
     </vehicle>
     <vehicle id="560_132206572.1" route="2425" line="29609_3_132203723" depart="1:21:22:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Zweidorf Denkmal-->
         <stop busStop="120010034202_0" arrival="1:21:22:00" duration="10" until="1:21:22:00"/><!--Braunschweig Rathaus-->
@@ -1903,6 +1889,13 @@
         <stop busStop="120010034201_0" arrival="1:23:30:00" duration="10" until="1:23:30:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010039402_0" arrival="1:23:31:00" duration="10" until="1:23:31:00"/><!--Braunschweig Staatstheater-->
     </vehicle>
+    <vehicle id="418_132185786.1" route="1962" line="14781_3_132185501" depart="1:23:55:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+        <stop busStop="120010034202_0" arrival="1:23:55:00" duration="10" until="1:23:55:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010032201_0" arrival="1:23:58:00" duration="10" until="1:23:58:00"/><!--Braunschweig Packhof-->
+        <stop busStop="120010031501_0" arrival="1:23:59:00" duration="10" until="1:23:59:00"/><!--Braunschweig Hintern Brüdern-->
+        <stop busStop="120010001502_0" arrival="2:00:03:00" duration="10" until="2:00:03:00"/><!--Braunschweig Altstadtmarkt-->
+        <stop busStop="120010016102_0" arrival="2:00:05:00" duration="10" until="2:00:05:00"/><!--Braunschweig Güldenstraße-->
+    </vehicle>
     <vehicle id="418_132185501.2" route="1962" line="14781_3_132185501" depart="2:00:00:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Braunschweig An der Horst-->
         <stop busStop="120010034202_0" arrival="2:00:00:00" duration="10" until="2:00:00:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:00:01:00" duration="10" until="2:00:01:00"/><!--Braunschweig Packhof-->
@@ -1922,6 +1915,13 @@
     <vehicle id="230_132237871.2" route="2905" line="44892_3_132184491" depart="2:00:03:00" departEdge="0" arrivalEdge="3" type="bus"><!--230 Wolfsburg Hauptbahnhof-->
         <stop busStop="120010034201_0" arrival="2:00:03:00" duration="10" until="2:00:03:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010039402_0" arrival="2:00:04:00" duration="10" until="2:00:04:00"/><!--Braunschweig Staatstheater-->
+    </vehicle>
+    <vehicle id="418_132185978.2" route="1962" line="14781_3_132185501" depart="2:01:20:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+        <stop busStop="120010034202_0" arrival="2:01:20:00" duration="10" until="2:01:20:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010032201_0" arrival="2:01:21:00" duration="10" until="2:01:21:00"/><!--Braunschweig Packhof-->
+        <stop busStop="120010031501_0" arrival="2:01:22:00" duration="10" until="2:01:22:00"/><!--Braunschweig Hintern Brüdern-->
+        <stop busStop="120010001502_0" arrival="2:01:23:00" duration="10" until="2:01:23:00"/><!--Braunschweig Altstadtmarkt-->
+        <stop busStop="120010016102_0" arrival="2:01:25:00" duration="10" until="2:01:25:00"/><!--Braunschweig Güldenstraße-->
     </vehicle>
     <vehicle id="422_132188547.2" route="1973" line="14785_3_132184491" depart="2:05:00:00" departEdge="28" arrivalEdge="31" type="bus"><!--422 Braunschweig Bebelhof-->
         <stop busStop="120010034201_0" arrival="2:05:00:00" duration="10" until="2:05:00:00"/><!--Braunschweig Rathaus-->
@@ -2480,6 +2480,11 @@
         <stop busStop="120010033806_0" arrival="2:11:26:00" duration="10" until="2:11:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:11:27:00" duration="10" until="2:11:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
+    <vehicle id="420_132187954.2" route="1969" line="14783_3_132187547" depart="2:11:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="2:11:27:00" duration="10" until="2:11:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="2:11:28:00" duration="10" until="2:11:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="2:11:30:00" duration="10" until="2:11:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+    </vehicle>
     <vehicle id="480_132206021.2" route="2032" line="14808_3_132203723" depart="2:11:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="2:11:27:00" duration="10" until="2:11:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:11:28:00" duration="10" until="2:11:28:00"/><!--Braunschweig Packhof-->
@@ -2488,11 +2493,6 @@
         <stop busStop="120010016106_0" arrival="2:11:32:00" duration="10" until="2:11:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="2:11:34:00" duration="10" until="2:11:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:11:35:00" duration="10" until="2:11:35:00"/><!--Braunschweig Maschstraße-->
-    </vehicle>
-    <vehicle id="420_132187954.2" route="1969" line="14783_3_132187547" depart="2:11:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="2:11:27:00" duration="10" until="2:11:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="2:11:28:00" duration="10" until="2:11:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="2:11:30:00" duration="10" until="2:11:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206650.2" route="2425" line="29609_3_132203723" depart="2:11:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="2:11:32:00" duration="10" until="2:11:32:00"/><!--Braunschweig Rathaus-->
@@ -2639,11 +2639,6 @@
         <stop busStop="120010007513_0" arrival="2:13:13:00" duration="10" until="2:13:13:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="2:13:15:00" duration="10" until="2:13:15:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="730_132218548.2" route="2100" line="22086_3_132187547" depart="2:13:15:00" departEdge="12" arrivalEdge="25" type="bus"><!--730 Evessen Klosterhof-->
-        <stop busStop="120010034205_0" arrival="2:13:15:00" duration="10" until="2:13:15:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="2:13:16:00" duration="10" until="2:13:16:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="2:13:18:00" duration="10" until="2:13:18:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <vehicle id="411_132200306.2" route="2171" line="24286_3_132203723" depart="2:13:15:00" departEdge="6" arrivalEdge="39" type="bus"><!--411 Braunschweig Lammer Busch-->
         <stop busStop="120010034202_0" arrival="2:13:15:00" duration="10" until="2:13:15:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:13:16:00" duration="10" until="2:13:16:00"/><!--Braunschweig Packhof-->
@@ -2652,6 +2647,11 @@
         <stop busStop="120010016106_0" arrival="2:13:20:00" duration="10" until="2:13:20:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="2:13:22:00" duration="10" until="2:13:22:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:13:23:00" duration="10" until="2:13:23:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="730_132218548.2" route="2100" line="22086_3_132187547" depart="2:13:15:00" departEdge="12" arrivalEdge="25" type="bus"><!--730 Evessen Klosterhof-->
+        <stop busStop="120010034205_0" arrival="2:13:15:00" duration="10" until="2:13:15:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="2:13:16:00" duration="10" until="2:13:16:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="2:13:18:00" duration="10" until="2:13:18:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="450_132203595.2" route="2013" line="14800_3_132203723" depart="2:13:19:00" departEdge="2" arrivalEdge="35" type="bus"><!--450 Vechelde Bahnhof-->
         <stop busStop="120010034202_0" arrival="2:13:19:00" duration="10" until="2:13:19:00"/><!--Braunschweig Rathaus-->
@@ -2680,6 +2680,11 @@
         <stop busStop="120010041001_0" arrival="2:13:31:00" duration="10" until="2:13:31:00"/><!--Braunschweig Südstraße-->
         <stop busStop="120010016202_0" arrival="2:13:32:00" duration="10" until="2:13:32:00"/><!--Braunschweig Holzhof-->
     </vehicle>
+    <vehicle id="420_132187946.2" route="1969" line="14783_3_132187547" depart="2:13:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="2:13:27:00" duration="10" until="2:13:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="2:13:28:00" duration="10" until="2:13:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="2:13:30:00" duration="10" until="2:13:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+    </vehicle>
     <vehicle id="480_132206022.2" route="2032" line="14808_3_132203723" depart="2:13:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="2:13:27:00" duration="10" until="2:13:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:13:28:00" duration="10" until="2:13:28:00"/><!--Braunschweig Packhof-->
@@ -2688,11 +2693,6 @@
         <stop busStop="120010016106_0" arrival="2:13:32:00" duration="10" until="2:13:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="2:13:34:00" duration="10" until="2:13:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:13:35:00" duration="10" until="2:13:35:00"/><!--Braunschweig Maschstraße-->
-    </vehicle>
-    <vehicle id="420_132187946.2" route="1969" line="14783_3_132187547" depart="2:13:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="2:13:27:00" duration="10" until="2:13:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="2:13:28:00" duration="10" until="2:13:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="2:13:30:00" duration="10" until="2:13:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206669.2" route="2425" line="29609_3_132203723" depart="2:13:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="2:13:32:00" duration="10" until="2:13:32:00"/><!--Braunschweig Rathaus-->
@@ -2785,11 +2785,6 @@
         <stop busStop="120010033806_0" arrival="2:14:26:00" duration="10" until="2:14:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:14:27:00" duration="10" until="2:14:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="420_132187942.2" route="1969" line="14783_3_132187547" depart="2:14:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="2:14:27:00" duration="10" until="2:14:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="2:14:28:00" duration="10" until="2:14:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="2:14:30:00" duration="10" until="2:14:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <vehicle id="480_132206023.2" route="2032" line="14808_3_132203723" depart="2:14:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="2:14:27:00" duration="10" until="2:14:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:14:28:00" duration="10" until="2:14:28:00"/><!--Braunschweig Packhof-->
@@ -2798,6 +2793,11 @@
         <stop busStop="120010016106_0" arrival="2:14:32:00" duration="10" until="2:14:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="2:14:34:00" duration="10" until="2:14:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:14:35:00" duration="10" until="2:14:35:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="420_132187942.2" route="1969" line="14783_3_132187547" depart="2:14:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="2:14:27:00" duration="10" until="2:14:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="2:14:28:00" duration="10" until="2:14:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="2:14:30:00" duration="10" until="2:14:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206701.2" route="2425" line="29609_3_132203723" depart="2:14:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Zweidorf Denkmal-->
         <stop busStop="120010034202_0" arrival="2:14:32:00" duration="10" until="2:14:32:00"/><!--Braunschweig Rathaus-->
@@ -2885,11 +2885,6 @@
         <stop busStop="120010033806_0" arrival="2:15:26:00" duration="10" until="2:15:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:15:27:00" duration="10" until="2:15:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="420_132187938.2" route="1969" line="14783_3_132187547" depart="2:15:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="2:15:27:00" duration="10" until="2:15:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="2:15:28:00" duration="10" until="2:15:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="2:15:30:00" duration="10" until="2:15:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <vehicle id="480_132206024.2" route="2032" line="14808_3_132203723" depart="2:15:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="2:15:27:00" duration="10" until="2:15:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:15:28:00" duration="10" until="2:15:28:00"/><!--Braunschweig Packhof-->
@@ -2898,6 +2893,11 @@
         <stop busStop="120010016106_0" arrival="2:15:32:00" duration="10" until="2:15:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="2:15:34:00" duration="10" until="2:15:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:15:35:00" duration="10" until="2:15:35:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="420_132187938.2" route="1969" line="14783_3_132187547" depart="2:15:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="2:15:27:00" duration="10" until="2:15:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="2:15:28:00" duration="10" until="2:15:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="2:15:30:00" duration="10" until="2:15:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206668.2" route="2425" line="29609_3_132203723" depart="2:15:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="2:15:32:00" duration="10" until="2:15:32:00"/><!--Braunschweig Rathaus-->
@@ -2978,11 +2978,6 @@
         <stop busStop="120010033806_0" arrival="2:16:26:00" duration="10" until="2:16:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:16:27:00" duration="10" until="2:16:27:00"/><!--Braunschweig Maschstraße-->
     </vehicle>
-    <vehicle id="420_132187934.2" route="1969" line="14783_3_132187547" depart="2:16:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
-        <stop busStop="120010034205_0" arrival="2:16:27:00" duration="10" until="2:16:27:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010007513_0" arrival="2:16:28:00" duration="10" until="2:16:28:00"/><!--Braunschweig Schloss-->
-        <stop busStop="120010022110_0" arrival="2:16:30:00" duration="10" until="2:16:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-    </vehicle>
     <vehicle id="480_132206025.2" route="2032" line="14808_3_132203723" depart="2:16:27:00" departEdge="0" arrivalEdge="33" type="bus"><!--480 Groß Schwülper-->
         <stop busStop="120010034202_0" arrival="2:16:27:00" duration="10" until="2:16:27:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:16:28:00" duration="10" until="2:16:28:00"/><!--Braunschweig Packhof-->
@@ -2991,6 +2986,11 @@
         <stop busStop="120010016106_0" arrival="2:16:32:00" duration="10" until="2:16:32:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="2:16:34:00" duration="10" until="2:16:34:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:16:35:00" duration="10" until="2:16:35:00"/><!--Braunschweig Maschstraße-->
+    </vehicle>
+    <vehicle id="420_132187934.2" route="1969" line="14783_3_132187547" depart="2:16:27:00" departEdge="0" arrivalEdge="13" type="bus"><!--420 Wolfenbüttel-->
+        <stop busStop="120010034205_0" arrival="2:16:27:00" duration="10" until="2:16:27:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010007513_0" arrival="2:16:28:00" duration="10" until="2:16:28:00"/><!--Braunschweig Schloss-->
+        <stop busStop="120010022110_0" arrival="2:16:30:00" duration="10" until="2:16:30:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
     <vehicle id="560_132206653.2" route="2425" line="29609_3_132203723" depart="2:16:32:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="2:16:32:00" duration="10" until="2:16:32:00"/><!--Braunschweig Rathaus-->
@@ -3307,13 +3307,6 @@
         <stop busStop="120010007513_0" arrival="2:19:58:00" duration="10" until="2:19:58:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="2:20:00:00" duration="10" until="2:20:00:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
-    <vehicle id="418_132185786.2" route="1962" line="14781_3_132185501" depart="2:20:00:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
-        <stop busStop="120010034202_0" arrival="2:20:00:00" duration="10" until="2:20:00:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010032201_0" arrival="2:20:01:00" duration="10" until="2:20:01:00"/><!--Braunschweig Packhof-->
-        <stop busStop="120010031501_0" arrival="2:20:02:00" duration="10" until="2:20:02:00"/><!--Braunschweig Hintern Brüdern-->
-        <stop busStop="120010001502_0" arrival="2:20:03:00" duration="10" until="2:20:03:00"/><!--Braunschweig Altstadtmarkt-->
-        <stop busStop="120010016102_0" arrival="2:20:05:00" duration="10" until="2:20:05:00"/><!--Braunschweig Güldenstraße-->
-    </vehicle>
     <vehicle id="230_132237994.2" route="2905" line="44892_3_132184491" depart="2:20:03:00" departEdge="0" arrivalEdge="3" type="bus"><!--230 Wolfsburg Hauptbahnhof-->
         <stop busStop="120010034201_0" arrival="2:20:03:00" duration="10" until="2:20:03:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010039402_0" arrival="2:20:04:00" duration="10" until="2:20:04:00"/><!--Braunschweig Staatstheater-->
@@ -3344,13 +3337,6 @@
         <stop busStop="120010016106_0" arrival="2:20:24:00" duration="10" until="2:20:24:00"/><!--Braunschweig Güldenstraße-->
         <stop busStop="120010033806_0" arrival="2:20:26:00" duration="10" until="2:20:26:00"/><!--Braunschweig Radeklint-->
         <stop busStop="120010028602_0" arrival="2:20:27:00" duration="10" until="2:20:27:00"/><!--Braunschweig Maschstraße-->
-    </vehicle>
-    <vehicle id="418_132185978.2" route="1962" line="14781_3_132185501" depart="2:20:20:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
-        <stop busStop="120010034202_0" arrival="2:20:20:00" duration="10" until="2:20:20:00"/><!--Braunschweig Rathaus-->
-        <stop busStop="120010032201_0" arrival="2:20:21:00" duration="10" until="2:20:21:00"/><!--Braunschweig Packhof-->
-        <stop busStop="120010031501_0" arrival="2:20:22:00" duration="10" until="2:20:22:00"/><!--Braunschweig Hintern Brüdern-->
-        <stop busStop="120010001502_0" arrival="2:20:23:00" duration="10" until="2:20:23:00"/><!--Braunschweig Altstadtmarkt-->
-        <stop busStop="120010016102_0" arrival="2:20:25:00" duration="10" until="2:20:25:00"/><!--Braunschweig Güldenstraße-->
     </vehicle>
     <vehicle id="560_132206624.2" route="2425" line="29609_3_132203723" depart="2:20:22:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Wipshausen Bahnhof-->
         <stop busStop="120010034202_0" arrival="2:20:22:00" duration="10" until="2:20:22:00"/><!--Braunschweig Rathaus-->
@@ -3409,17 +3395,17 @@
         <stop busStop="120010007513_0" arrival="2:21:09:00" duration="10" until="2:21:09:00"/><!--Braunschweig Schloss-->
         <stop busStop="120010022110_0" arrival="2:21:11:00" duration="10" until="2:21:11:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
     </vehicle>
+    <vehicle id="620_132244315.2" route="1823" line="14737_3_132244371" depart="2:21:15:00" departEdge="3" arrivalEdge="20" type="bus"><!--620 Steterburg(Salzgitter) Danziger Straße-->
+        <stop busStop="120010022113_0" arrival="2:21:19:00" duration="10" until="2:21:19:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+        <stop busStop="120010013704_0" arrival="2:21:21:00" duration="10" until="2:21:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
+        <stop busStop="120010013002_0" arrival="2:21:23:00" duration="10" until="2:21:23:00"/><!--Braunschweig Europaplatz-->
+    </vehicle>
     <vehicle id="418_132185789.2" route="1962" line="14781_3_132185501" depart="2:21:15:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="2:21:15:00" duration="10" until="2:21:15:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="2:21:16:00" duration="10" until="2:21:16:00"/><!--Braunschweig Packhof-->
         <stop busStop="120010031501_0" arrival="2:21:17:00" duration="10" until="2:21:17:00"/><!--Braunschweig Hintern Brüdern-->
         <stop busStop="120010001502_0" arrival="2:21:18:00" duration="10" until="2:21:18:00"/><!--Braunschweig Altstadtmarkt-->
         <stop busStop="120010016102_0" arrival="2:21:20:00" duration="10" until="2:21:20:00"/><!--Braunschweig Güldenstraße-->
-    </vehicle>
-    <vehicle id="620_132244315.2" route="1823" line="14737_3_132244371" depart="2:21:15:00" departEdge="3" arrivalEdge="20" type="bus"><!--620 Steterburg(Salzgitter) Danziger Straße-->
-        <stop busStop="120010022113_0" arrival="2:21:19:00" duration="10" until="2:21:19:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
-        <stop busStop="120010013704_0" arrival="2:21:21:00" duration="10" until="2:21:21:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
-        <stop busStop="120010013002_0" arrival="2:21:23:00" duration="10" until="2:21:23:00"/><!--Braunschweig Europaplatz-->
     </vehicle>
     <vehicle id="560_132206572.2" route="2425" line="29609_3_132203723" depart="2:21:22:00" departEdge="2" arrivalEdge="35" type="bus"><!--560 Zweidorf Denkmal-->
         <stop busStop="120010034202_0" arrival="2:21:22:00" duration="10" until="2:21:22:00"/><!--Braunschweig Rathaus-->
@@ -3547,5 +3533,12 @@
     <vehicle id="412_132184492.2" route="2500" line="31729_3_132184491" depart="2:23:30:00" departEdge="0" arrivalEdge="3" type="bus"><!--412 Rautheim-->
         <stop busStop="120010034201_0" arrival="2:23:30:00" duration="10" until="2:23:30:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010039402_0" arrival="2:23:31:00" duration="10" until="2:23:31:00"/><!--Braunschweig Staatstheater-->
+    </vehicle>
+    <vehicle id="418_132185786.2" route="1962" line="14781_3_132185501" depart="2:23:55:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
+        <stop busStop="120010034202_0" arrival="2:23:55:00" duration="10" until="2:23:55:00"/><!--Braunschweig Rathaus-->
+        <stop busStop="120010032201_0" arrival="2:23:58:00" duration="10" until="2:23:58:00"/><!--Braunschweig Packhof-->
+        <stop busStop="120010031501_0" arrival="2:23:59:00" duration="10" until="2:23:59:00"/><!--Braunschweig Hintern Brüdern-->
+        <stop busStop="120010001502_0" arrival="3:00:03:00" duration="10" until="3:00:03:00"/><!--Braunschweig Altstadtmarkt-->
+        <stop busStop="120010016102_0" arrival="3:00:05:00" duration="10" until="3:00:05:00"/><!--Braunschweig Güldenstraße-->
     </vehicle>
 </routes>

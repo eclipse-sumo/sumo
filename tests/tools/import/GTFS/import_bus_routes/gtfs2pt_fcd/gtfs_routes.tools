@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-04-14 16:17:29.168094 by gtfs2pt.py v1_9_0+0038-34804216f7
-  options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111
+<!-- generated on 2021-09-23 00:07:22.724036 by gtfs2pt.py v1_10_0+0922-a276f24c106
+  options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>vtype-output vehtypes.xml <doubleminus>modes bus
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="132244163.0" route="132244163" type="bus" depart="34670" line="620_132244163"/>
@@ -95,7 +95,7 @@
     <vehicle id="132185682.0" route="132185612" type="bus" depart="44870" line="418_132185612"/>
     <vehicle id="132185683.0" route="132185612" type="bus" depart="41270" line="418_132185612"/>
     <vehicle id="132185783.0" route="132185783" type="bus" depart="18890" line="418_132185783"/>
-    <vehicle id="132185786.0" route="132185783" type="bus" depart="71990" line="418_132185783"/>
+    <vehicle id="132185786.0" route="132185783" type="bus" depart="86090" line="418_132185783"/>
     <vehicle id="132185789.0" route="132185783" type="bus" depart="76490" line="418_132185783"/>
     <vehicle id="132185791.0" route="132185783" type="bus" depart="80090" line="418_132185783"/>
     <vehicle id="132185792.0" route="132185783" type="bus" depart="81890" line="418_132185783"/>
@@ -104,7 +104,6 @@
     <vehicle id="132185971.0" route="132185783" type="bus" depart="84590" line="418_132185783"/>
     <vehicle id="132185972.0" route="132185783" type="bus" depart="82790" line="418_132185783"/>
     <vehicle id="132185977.0" route="132185783" type="bus" depart="74690" line="418_132185783"/>
-    <vehicle id="132185978.0" route="132185783" type="bus" depart="73190" line="418_132185783"/>
     <vehicle id="132185981.0" route="132185783" type="bus" depart="20690" line="418_132185783"/>
     <vehicle id="132185998.0" route="132185998" type="bus" depart="57470" line="418_132185998"/>
     <vehicle id="132185999.0" route="132185998" type="bus" depart="47870" line="418_132185998"/>
