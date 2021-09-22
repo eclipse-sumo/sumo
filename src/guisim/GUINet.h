@@ -395,11 +395,13 @@ protected:
     class DiscoverAttributes : public SUMOSAXHandler {
     public:
         DiscoverAttributes(const std::string& file):
-            SUMOSAXHandler(file), lastIntervalEnd(0) {};
+            SUMOSAXHandler(file), firstIntervalBegin(SUMOTime_MAX), lastIntervalEnd(0), numIntervals(0) {};
         ~DiscoverAttributes() {};
         void myStartElement(int element, const SUMOSAXAttributes& attrs);
         std::vector<std::string> getEdgeAttrs();
+        SUMOTime firstIntervalBegin;
         SUMOTime lastIntervalEnd;
+        int numIntervals;
     private:
         std::set<std::string> edgeAttrs;
     };
