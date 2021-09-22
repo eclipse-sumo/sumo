@@ -34,6 +34,11 @@ from keyword import iskeyword
 from functools import reduce
 import xml.sax.saxutils
 
+import time
+import mmap
+from queue import Empty
+import multiprocessing as mp
+
 from . import version
 
 DEFAULT_ATTR_CONVERSIONS = {
@@ -420,3 +425,161 @@ def quoteattr(val):
     # saxutils sometimes uses single quotes around the attribute
     # we can prevent this by adding an artificial single quote to the value and removing it again
     return '"' + xml.sax.saxutils.quoteattr("'" + val)[2:]
+
+
+class Emissions2XML:
+
+    """
+    Example usage: 
+        e = Emissions2XML("/home/max/tmp/_OUTPUT_emissions.xml",
+                            "/home/max/tmp/_OUTPUT_emissions.csv", 20)
+
+        e.convert()
+
+    
+    Using 20 CPU cores, it reduces the time to process one 1.5 Gb emissions 
+    output xml from ~650 seconds with $SUMO_HOME/tools/xml/xml2csv.py to ~30 seconds
+    ~
+
+    """
+
+    MAX_CHUNK_SIZE = 50e8
+    TABLE_REPLACE = str.maketrans(dict.fromkeys('\r\n\t"/>'))
+    TIME_PATTERN = re.compile(r'time="[\d.]+"')
+    HEADER_ROW = ['timestep_time',
+                   'vehicle_id',
+                   'vehicle_eclass',
+                   'vehicle_CO2',
+                   'vehicle_CO',
+                   'vehicle_HC',
+                   'vehicle_NOx',
+                   'vehicle_PMx',
+                   'vehicle_fuel',
+                   'vehicle_electricity',
+                   'vehicle_noise',
+                   'vehicle_route',
+                   'vehicle_type',
+                   'vehicle_waiting',
+                   'vehicle_lane',
+                   'vehicle_pos',
+                   'vehicle_speed',
+                   'vehicle_angle',
+                   'vehicle_x',
+                   'vehicle_y']
+
+    def __init__(self, path_2_xml, path_2_csv, num_core):
+        self.path_2_csv = path_2_csv
+        self._data = self._mmap_xml(path_2_xml)
+        self.cpu = num_core
+
+    def _mmap_xml(self, path_2_xml):
+        with open(path_2_xml, 'r+') as f:
+            return mmap.mmap(f.fileno(), 0)
+
+    def _chunk_file(self, ):
+        pattern = br"time="
+        last = 0
+        for m in re.finditer(pattern, self._data):
+            yield last, m.start()
+            last = m.start()
+
+    @staticmethod
+    def _split_list(l, n):
+        """Yield n number of sequential chunks from l."""
+        d, r = divmod(len(l), n)
+        for i in range(n):
+            si = (d+1) * min(i, r) + d*(0 if i < r else i - r)
+            yield l[si:si+(d+1 if i < r else d)]
+
+    def _grouper(self, n,):
+        chunks = self._split_list(list(self._chunk_file()), n)
+        for chunk in chunks:
+            beg = 0
+            while beg < len(chunk) - 1:
+                for i, _chunk in enumerate(chunk[beg + 1:]):
+                    if (_chunk[1] - chunk[beg][0]) >= Emissions2XML.MAX_CHUNK_SIZE:
+                        break
+                i = min(i, len(chunk) - 2)
+                yield self._data[chunk[beg][0]:chunk[beg + i + 1][1]].decode()
+                beg += (i + 2)
+
+    @staticmethod
+    def _chunk_handler(chunk, q, *args, **kwargs):
+        # data = []
+        vehicle_chunk = "<vehicle"
+        iter_finder = Emissions2XML.TIME_PATTERN.finditer(chunk)
+        time_obj = next(iter_finder)
+        d = []
+        for next_time in [*iter_finder, None]:
+            local_time = time_obj.group()[6:-1]
+            end = -1 if not next_time else next_time.span()[0]
+            time_chunk = chunk[time_obj.span()[1]:end]
+            if vehicle_chunk in time_chunk:
+                for vehicle in time_chunk.split(vehicle_chunk):
+                    if 'id' in vehicle:
+                        d.append(",".join([local_time] +
+                                    [v.split("=")[1] for v in
+                                     vehicle.translate(Emissions2XML.TABLE_REPLACE).split(' ')
+                                     if len(v.split("=")) > 1]) + "\n"
+                        )
+            if end > 0:
+                time_obj = next_time
+        
+        q.put(d)
+
+    @staticmethod
+    def _q_consumer(output_csv_path, q, e):
+        with open(output_csv_path, 'w', newline='', encoding='utf-8') as f:
+            # writer = csv.writer(f) TOO SLOW
+            # write the header
+            f.writelines([",".join(Emissions2XML.HEADER_ROW) + "\n"])
+
+            while not e.is_set():
+                try:
+                    item = q.get(block=True, timeout=0.001)
+                    f.writelines(item)
+                except Empty:
+                    continue
+    
+
+    def convert(self, ) -> None:
+        manager = mp.Manager()
+        q = manager.Queue()
+        s = manager.Event()
+
+        writer_p = mp.Process(target=self._q_consumer, kwargs=dict(output_csv_path=self.path_2_csv, q=q, e=s))
+        writer_p.start()
+
+        p = []
+        chunker = self._grouper(self.cpu)
+        while True:
+        # for i, g in enumerate(self._grouper(self.cpu - 2)):
+            try:
+                p.append(mp.Process(target=self._chunk_handler, kwargs=dict(chunk=next(chunker), q=q)))
+                p[-1].start()
+                p[-1].join(timeout=0)
+                cleanup = False
+            except StopIteration:
+                cleanup = True
+
+            while True:
+                
+                alive_p = [(i, _p.is_alive()) for i, _p in enumerate(p)]
+
+                if ((
+                        any(not alive for _, alive in alive_p)
+                        or len(p) < (self.cpu)
+                    ) and not cleanup) or (   
+                        cleanup and all(not alive for _, alive in alive_p)
+                    ):
+
+                    break
+                time.sleep(0.001)
+
+            p = [p[i] for i, alive in alive_p if alive]
+
+            if cleanup:
+                break
+
+        s.set()
+        writer_p.join()
