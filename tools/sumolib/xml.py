@@ -431,20 +431,17 @@ class EmissionsXML2CSV:
 
     """
     Example usage: 
-        e = EmissionsXML2CSV("/home/max/tmp/_OUTPUT_emissions.xml",
-                            "/home/max/tmp/_OUTPUT_emissions.csv", 20)
 
-        e.convert()
+        e = EmissionsXML2CSV("/home/max/tmp/_OUTPUT_emissions.xml", 20)
+        e.convert("/home/max/tmp/_OUTPUT_emissions.csv")
 
     
     Using 20 CPU cores, it reduces the time to process one 1.5 Gb emissions 
-    output xml from ~650 seconds with $SUMO_HOME/tools/xml/xml2csv.py to ~30 seconds
+    output xml from ~240 seconds with $SUMO_HOME/tools/xml/xml2csv.py to ~8 seconds
     ~
 
     """
-
-    MAX_CHUNK_SIZE = 50e8
-    TABLE_REPLACE = str.maketrans(dict.fromkeys('\r\n\t"/>'))
+    TABLE_REPLACE = str.maketrans(dict.fromkeys('\r\n\t"'))
     TIME_PATTERN = re.compile(r'time="[\d.]+"')
     HEADER_ROW = ['timestep_time',
                    'vehicle_id',
@@ -467,49 +464,47 @@ class EmissionsXML2CSV:
                    'vehicle_x',
                    'vehicle_y']
 
-    def __init__(self, path_2_xml, path_2_csv, num_core):
-        self.path_2_csv = path_2_csv
+    def __init__(self, path_2_xml, num_core, chunk_size=None):
+
         self._data = self._mmap_xml(path_2_xml)
         self.cpu = num_core
 
-    def _mmap_xml(self, path_2_xml):
+        # 4x cores seems to be the best setting here
+        self._chunk_size = self._data.size() // (self.cpu * 4) if not chunk_size else chunk_size
+
+    def _mmap_xml(self, path_2_xml: str) -> mmap.mmap:
         with open(path_2_xml, 'r+') as f:
             return mmap.mmap(f.fileno(), 0)
 
-    def _chunk_file(self, ):
+    def _chunk_file(self, ) -> Iterable[int]:
         pattern = br"time="
         last = 0
         for m in re.finditer(pattern, self._data):
             yield last, m.start()
             last = m.start()
 
-    @staticmethod
-    def _split_list(l, n):
-        """Yield n number of sequential chunks from l."""
-        d, r = divmod(len(l), n)
-        for i in range(n):
-            si = (d+1) * min(i, r) + d*(0 if i < r else i - r)
-            yield l[si:si+(d+1 if i < r else d)]
-
     def _grouper(self, n,):
-        chunks = self._split_list(list(self._chunk_file()), n)
-        for chunk in chunks:
-            beg = 0
-            while beg < len(chunk) - 1:
-                for i, _chunk in enumerate(chunk[beg + 1:]):
-                    if (_chunk[1] - chunk[beg][0]) >= EmissionsXML2CSV.MAX_CHUNK_SIZE:
-                        break
-                i = min(i, len(chunk) - 2)
-                yield self._data[chunk[beg][0]:chunk[beg + i + 1][1]].decode()
-                beg += (i + 2)
+        # chunks = self._split_list(list(self._chunk_file()), n)
+        start_ind = 0
+        for i, chunk in enumerate(self._chunk_file()):
+            if ((chunk[0] - start_ind) >= self._chunk_size):
+                # print("yielding", start_ind, chunk[0])
+                yield self._data[start_ind:chunk[0]]
+                start_ind = chunk[0]
+       
+        # The last chunk                
+        yield self._data[start_ind:chunk[0]]
+
 
     @staticmethod
-    def _chunk_handler(chunk, q, *args, **kwargs):
+    def _chunk_handler(chunk, q: mp.Queue, *args, **kwargs):
         # data = []
+        chunk = chunk.decode()
         vehicle_chunk = "<vehicle"
         iter_finder = EmissionsXML2CSV.TIME_PATTERN.finditer(chunk)
         time_obj = next(iter_finder)
         d = []
+        # print("chunk start time: ", time_obj.group()[6:-1])
         for next_time in [*iter_finder, None]:
             local_time = time_obj.group()[6:-1]
             end = -1 if not next_time else next_time.span()[0]
@@ -517,37 +512,39 @@ class EmissionsXML2CSV:
             if vehicle_chunk in time_chunk:
                 for vehicle in time_chunk.split(vehicle_chunk):
                     if 'id' in vehicle:
-                        d.append(",".join([local_time] +
-                                    [v.split("=")[1] for v in
-                                     vehicle.translate(EmissionsXML2CSV.TABLE_REPLACE).split(' ')
-                                     if len(v.split("=")) > 1]) + "\n"
+                        cleaned = vehicle.translate(EmissionsXML2CSV.TABLE_REPLACE)
+                        cleaned = cleaned[1:cleaned.find('/>')]
+                        parsed = [v.split("=")[1] for v in cleaned.split(' ')]
+                        d.append(",".join([local_time] + parsed) + "\n"
                         )
             if end > 0:
                 time_obj = next_time
-        
+        # print("chunk end time: ", time_obj.group()[6:-1])
         q.put(d)
 
     @staticmethod
-    def _q_consumer(output_csv_path, q, e):
+    def _q_consumer(output_csv_path: str, q: mp.Queue, e: mp.Event) -> None:
         with open(output_csv_path, 'w', newline='', encoding='utf-8') as f:
             # writer = csv.writer(f) TOO SLOW
             # write the header
             f.writelines([",".join(EmissionsXML2CSV.HEADER_ROW) + "\n"])
 
-            while not e.is_set():
+            while True:
                 try:
                     item = q.get(block=True, timeout=0.001)
                     f.writelines(item)
                 except Empty:
                     continue
-    
+                
+                # exit condition
+                if e.is_set() and q.empty():
+                    break
 
-    def convert(self, ) -> None:
+    def convert(self, path_2_csv) -> None:
         manager = mp.Manager()
         q = manager.Queue()
         s = manager.Event()
-
-        writer_p = mp.Process(target=self._q_consumer, kwargs=dict(output_csv_path=self.path_2_csv, q=q, e=s))
+        writer_p = mp.Process(target=self._q_consumer, kwargs=dict(output_csv_path=path_2_csv, q=q, e=s))
         writer_p.start()
 
         p = []
@@ -579,7 +576,9 @@ class EmissionsXML2CSV:
             p = [p[i] for i, alive in alive_p if alive]
 
             if cleanup:
+                # kill the writer
+                s.set()
+                writer_p.join()
+                
+                # EXIT
                 break
-
-        s.set()
-        writer_p.join()
