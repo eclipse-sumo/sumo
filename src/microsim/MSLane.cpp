@@ -783,7 +783,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 errorMsg = "unpriorised junction too close";
             } else if ((*link)->getTLLogic() != nullptr && !(*link)->getTLLogic()->getsMajorGreen((*link)->getTLIndex())) {
                 // traffic light never turns 'G'?
-                errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' never switches to 'G'";
+                errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' link " + toString((*link)->getTLIndex()) + " never switches to 'G'";
             }
             const double remaining = seen - currentLane->getStopOffset(aVehicle);
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
