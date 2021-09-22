@@ -21,6 +21,7 @@ title: ChangeLog
   - Fixed non-deterministic parkingReroute. Issue #9066
   
 - netedit
+  - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
   - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
   - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
@@ -33,12 +34,16 @@ title: ChangeLog
   - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
   - Fixed missung turnaround after adding bike lane. Issue #9079
   - Fixed invalid drawing style for lane that allows tram and bus. Issue #9089
-  - Fixed various usability issues related to tazRelation edition. Issue #9059, #9086, #9109, #9123
+  - Fixed various usability issues related to tazRelation editing. Issue #9059, #9086, #9109, #9123, #9114, #9122, #9120, #9121, #9126, #9113
   - Demand mode now respects "show connections" settings. Issue #9087
   - Fixed long delay when switching between editing modes while in demand super-mode. Issue #9088
   - Fixed invalid edge type attributes in saved network. Issue #9070
   - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102
   - Fixed crash after selecting edges in taz mode. Issue #9128
+  - Fixed undo-redo issues after selecting edges in taz mode. Issue #9132
+  - Fixed invalid warning about missing color of POI. Issue #9125
+  - Loading taz without shape is now supported. Issue #9140
+  - Taz are now drawn below roads. Issue #9146
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -129,11 +134,14 @@ title: ChangeLog
   - osmWebWizard.py now imports all bicycle lane data when building scenario with bicycle traffic. Issue #9071
   - osmWebWizard.py uses improved pedestrian routing on shared space. Issue #9100
   - [gridDistricts.py](Tools/District.md#griddistrictspy) now supports option **--vclass** for filtering taz edges in multi-modal networks. Issue #9127
+  - Added tool [route2OD.py](Tools/Routes.md#route2odpy) which generates a [tazRelation-file (OD-Matrix)](Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file. Issue #9117
+  - Major speedup in GTFS import with [gtfs2pt](Tools/Import/GTFS.md). Issue #9136
 
 ### Other
 
 - Miscellaneous
   - Renamed the "master" branch in git to "main". Issue #8591
+  - Parameter 'upstreamDist' of function 'traci.vehicle.addSubscriptionFilterTurn' was renamed to upstreamDist. Issue #9141
 
 - polyconvert
   - When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
