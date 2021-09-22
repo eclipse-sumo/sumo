@@ -896,7 +896,7 @@ listed below.
 The parameters are set within the `<vType>`:
 
 ```xml
-<vType id="ambulance" jmDriveAfterRedTime="300" jmDriveAfterRedSpeed="5.56"/>
+<vType id="ambulance" jmDriveAfterRedTime="300" jmDriveRedSpeed="5.56"/>
 ```
 
 ### Impatience
