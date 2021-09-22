@@ -337,11 +337,11 @@ struct GNEGeometry {
     /// @brief draw moving hint
     static void drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
-
+/*
     /// @brief draw dotted contour for the given dotted geometry (used by lanes, routes, etc.)
     static void drawDottedContourGeometryAround(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, 
-                                          const double width, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth = -1);
-
+                                          const double width, const double lineWidth = -1);
+*/
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
     static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
                                       const bool drawFrontExtreme, const bool drawBackExtreme);
@@ -352,7 +352,8 @@ struct GNEGeometry {
 
     /// @brief draw dotted contour for the given shape (used by additionals)
     static void drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
-                                       const double width, const double exaggeration, const double lineWidth = -1);
+                                       const double width, const double exaggeration, const bool drawFirstExtrem, const bool drawLastExtrem, 
+                                       const double lineWidth = -1);
 
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
     static void drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos, 

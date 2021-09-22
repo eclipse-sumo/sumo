@@ -567,7 +567,8 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         if (getFill() || myTAZGeometry.getShape().isClosed()) {
             GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                TAZExaggeration, 1, 1);
         }
     }
     // dotted contour for front
@@ -576,7 +577,8 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         if (getFill() || myTAZGeometry.getShape().isClosed()) {
             GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                TAZExaggeration, 1, 1);
         }
     }
     // dotted contour for first TAZ 
@@ -585,7 +587,8 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         if (getFill() || myTAZGeometry.getShape().isClosed()) {
             GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                TAZExaggeration, 1, 1);
         }
     }
     // dotted contour for second TAZ
@@ -594,7 +597,8 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         if (getFill() || myTAZGeometry.getShape().isClosed()) {
             GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                TAZExaggeration, 1, 1);
         }
     }
 }
