@@ -25,6 +25,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/shapes/Shape.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "RouteHandler.h"
@@ -34,8 +35,8 @@
 // method definitions
 // ===========================================================================
 
-RouteHandler::RouteHandler(const std::string& file, const bool hardFail) :
-    SUMOSAXHandler(file),
+RouteHandler::RouteHandler(const std::string& filename, const bool hardFail) :
+    myFilename(filename),
     myHardFail(hardFail),
     myFlowBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myFlowEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
@@ -45,10 +46,128 @@ RouteHandler::RouteHandler(const std::string& file, const bool hardFail) :
 RouteHandler::~RouteHandler() {}
 
 
-bool
-RouteHandler::parse() {
-    // run parser and return result
-    return XMLSubSys::runParser(*this, getFileName());
+void
+RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
+    // open SUMOBaseOBject 
+    myCommonXMLStructure.openSUMOBaseOBject();
+    // check tag
+    try {
+        switch (tag) {
+            // vTypes
+            case SUMO_TAG_VTYPE:
+                parseVType(attrs);
+                break;
+            case SUMO_TAG_VTYPE_DISTRIBUTION:
+                parseVTypeDistribution(attrs);
+                break;
+            // routes
+            case SUMO_TAG_ROUTE:
+                parseRoute(attrs);
+                break;
+            case SUMO_TAG_ROUTE_DISTRIBUTION:
+                parseRouteDistribution(attrs);
+                break;
+            // vehicles
+            case SUMO_TAG_TRIP:
+                parseTrip(attrs);
+                break;
+            case SUMO_TAG_VEHICLE:
+                parseVehicle(attrs);
+                break;
+            // flows
+            case SUMO_TAG_FLOW:
+                parseFlow(attrs);
+                break;
+            // stop
+            case SUMO_TAG_STOP:
+                parseStop(attrs);
+                break;
+            // persons
+            case SUMO_TAG_PERSON:
+                parsePerson(attrs);
+                break;
+            case SUMO_TAG_PERSONFLOW:
+                parsePersonFlow(attrs);
+                break;
+            // person plans
+            case SUMO_TAG_PERSONTRIP:
+                parsePersonTrip(attrs);
+                break;
+            case SUMO_TAG_RIDE:
+                parseRide(attrs);
+                break;
+            case SUMO_TAG_WALK:
+                parseWalk(attrs);
+                break;
+            // container
+            case SUMO_TAG_CONTAINER:
+                parseContainer(attrs);
+                break;
+            case SUMO_TAG_CONTAINERFLOW:
+                parseContainerFlow(attrs);
+                break;
+            // container plans
+            case SUMO_TAG_TRANSPORT:
+                parseTransport(attrs);
+                break;
+            case SUMO_TAG_TRANSHIP:
+                parseTranship(attrs);
+                break;
+            // parameters
+            case SUMO_TAG_PARAM:
+                parseParameters(attrs);
+                break;
+            // other
+            case SUMO_TAG_INTERVAL: {
+                parseInterval(attrs);
+                break;
+            }
+            default:
+                // nested CFM attributes
+                parseNestedCFM(tag, attrs);
+                break;
+        }
+    } catch (InvalidArgument& e) {
+        WRITE_ERROR(e.what());
+    }
+}
+
+
+void
+RouteHandler::endParseAttributes() {
+    // get last inserted object
+    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
+    // close SUMOBaseOBject 
+    myCommonXMLStructure.closeSUMOBaseOBject();
+    // check tag
+    switch (obj->getTag()) {
+        // specia case for route (because can be embedded)
+        case SUMO_TAG_ROUTE:
+            // only parse non-embedded routes
+            if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
+                // parse object and all their childrens
+                parseSumoBaseObject(obj);
+                // delete object (and all of their childrens)
+                delete obj;
+            }
+            break;
+        // demand elements
+        case SUMO_TAG_VTYPE:
+        case SUMO_TAG_TRIP:
+        case SUMO_TAG_VEHICLE:
+        case SUMO_TAG_FLOW:
+        case SUMO_TAG_PERSON:
+        case SUMO_TAG_PERSONFLOW:
+        case SUMO_TAG_CONTAINER:
+        case SUMO_TAG_CONTAINERFLOW:
+            // parse object and all their childrens
+            parseSumoBaseObject(obj);
+            // delete object (and all of their childrens)
+            delete obj;
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -197,136 +316,10 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 }
 
 
-void
-RouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    // obtain tag
-    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // open SUMOBaseOBject 
-    myCommonXMLStructure.openSUMOBaseOBject();
-    // check tag
-    try {
-        switch (tag) {
-            // vTypes
-            case SUMO_TAG_VTYPE:
-                parseVType(attrs);
-                break;
-            case SUMO_TAG_VTYPE_DISTRIBUTION:
-                parseVTypeDistribution(attrs);
-                break;
-            // routes
-            case SUMO_TAG_ROUTE:
-                parseRoute(attrs);
-                break;
-            case SUMO_TAG_ROUTE_DISTRIBUTION:
-                parseRouteDistribution(attrs);
-                break;
-            // vehicles
-            case SUMO_TAG_TRIP:
-                parseTrip(attrs);
-                break;
-            case SUMO_TAG_VEHICLE:
-                parseVehicle(attrs);
-                break;
-            // flows
-            case SUMO_TAG_FLOW:
-                parseFlow(attrs);
-                break;
-            // stop
-            case SUMO_TAG_STOP:
-                parseStop(attrs);
-                break;
-            // persons
-            case SUMO_TAG_PERSON:
-                parsePerson(attrs);
-                break;
-            case SUMO_TAG_PERSONFLOW:
-                parsePersonFlow(attrs);
-                break;
-            // person plans
-            case SUMO_TAG_PERSONTRIP:
-                parsePersonTrip(attrs);
-                break;
-            case SUMO_TAG_RIDE:
-                parseRide(attrs);
-                break;
-            case SUMO_TAG_WALK:
-                parseWalk(attrs);
-                break;
-            // container
-            case SUMO_TAG_CONTAINER:
-                parseContainer(attrs);
-                break;
-            case SUMO_TAG_CONTAINERFLOW:
-                parseContainerFlow(attrs);
-                break;
-            // container plans
-            case SUMO_TAG_TRANSPORT:
-                parseTransport(attrs);
-                break;
-            case SUMO_TAG_TRANSHIP:
-                parseTranship(attrs);
-                break;
-            // parameters
-            case SUMO_TAG_PARAM:
-                parseParameters(attrs);
-                break;
-            // other
-            case SUMO_TAG_INTERVAL: {
-                parseInterval(attrs);
-                break;
-            }
-            default:
-                // nested CFM attributes
-                parseNestedCFM(tag, attrs);
-                break;
-        }
-    } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
-    }
-}
-
-
-void
-RouteHandler::myEndElement(int /*element*/) {
-    // get last inserted object
-    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject 
-    myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
-    switch (obj->getTag()) {
-        // specia case for route (because can be embedded)
-        case SUMO_TAG_ROUTE:
-            // only parse non-embedded routes
-            if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
-                // parse object and all their childrens
-                parseSumoBaseObject(obj);
-                // delete object (and all of their childrens)
-                delete obj;
-            }
-            break;
-        case SUMO_TAG_VTYPE:
-        case SUMO_TAG_TRIP:
-        case SUMO_TAG_VEHICLE:
-        case SUMO_TAG_FLOW:
-        case SUMO_TAG_PERSON:
-        case SUMO_TAG_PERSONFLOW:
-        case SUMO_TAG_CONTAINER:
-        case SUMO_TAG_CONTAINERFLOW:
-            // parse object and all their childrens
-            parseSumoBaseObject(obj);
-            // delete object (and all of their childrens)
-            delete obj;
-            break;
-        default:
-            break;
-    }
-}
-
-
 void 
 RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
     // parse vehicleType
-    SUMOVTypeParameter* vehicleTypeParameter = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName());
+    SUMOVTypeParameter* vehicleTypeParameter = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, myFilename);
     if (vehicleTypeParameter) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE);
@@ -712,8 +705,10 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // check parent
     if (SumoBaseObjectParent == nullptr) {
         WRITE_ERROR("Parameters must be defined within an object");
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
-        WRITE_ERROR("Parameters cannot be defined in either the route element file's root nor another parameter");
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
+        WRITE_ERROR("Parameters cannot be defined in the additional file's root.");
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
+        WRITE_ERROR("Parameters cannot be defined within another parameter.");
     } else if (parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());

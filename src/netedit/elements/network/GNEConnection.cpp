@@ -442,19 +442,13 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                // calculate dotted geometry
-                GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
-                dottedConnectionGeometry.setWidth(0.1);
                 // use drawDottedContourGeometry to draw it
-                GNEGeometry::drawDottedContourGeometryAround(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
             // check if front contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                // calculate dotted geometry
-                GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
-                dottedConnectionGeometry.setWidth(0.1);
                 // use drawDottedContourGeometry to draw it
-                GNEGeometry::drawDottedContourGeometryAround(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
         }
     }

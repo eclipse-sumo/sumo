@@ -45,19 +45,22 @@ std::map<const std::string, Connection*> Connection::myConnections;
 #endif
 Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) :
     myLabel(label), myProcessPipe(pipe), myProcessReader(nullptr), mySocket(host, port) {
+    if (pipe != nullptr) {
+        myProcessReader = new std::thread(&Connection::readOutput, this);
+    }
     for (int i = 0; i <= numRetries; i++) {
         try {
             mySocket.connect();
             break;
-        } catch (tcpip::SocketException&) {
+        } catch (tcpip::SocketException& e) {
             if (i == numRetries) {
+                close();
                 throw;
             }
+            std::cout << "Could not connect to TraCI server at " << host << ":" << port << " " << e.what() << std::endl;
+            std::cout << " Retrying in 1 second" << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
-    }
-    if (pipe != nullptr) {
-        myProcessReader = new std::thread(&Connection::readOutput, this);
     }
 }
 
@@ -85,6 +88,15 @@ Connection::readOutput() {
 
 void
 Connection::close() {
+    if (myProcessReader != nullptr) {
+        myProcessReader->join();
+        delete myProcessReader;
+#ifdef WIN32
+        _pclose(myProcessPipe);
+#else
+        pclose(myProcessPipe);
+#endif
+    }
     if (!mySocket.has_client_connection()) {
         return;
     }
@@ -99,15 +111,6 @@ Connection::close() {
     std::string acknowledgement;
     check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
     mySocket.close();
-    if (myProcessReader != nullptr) {
-        myProcessReader->join();
-        delete myProcessReader;
-#ifdef WIN32
-        _pclose(myProcessPipe);
-#else
-        pclose(myProcessPipe);
-#endif
-    }
     myConnections.erase(myLabel);
     delete myActive;
     myActive = nullptr;

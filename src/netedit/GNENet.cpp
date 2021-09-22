@@ -42,9 +42,9 @@
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
@@ -1649,9 +1649,9 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(this, additionalPath, false);
+        GNEGeneralHandler generalHandler(this, additionalPath, false);
         // Run parser
-        if (!additionalHandler.parse()) {
+        if (!generalHandler.parse()) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
         }
         // clear myEdgesAndNumberOfLanes after reload additionals
@@ -1659,10 +1659,10 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
-        // Create demandElement handler
-        GNERouteHandler routeHandler(demandPath, this, false);
+        // Create general handler
+        GNEGeneralHandler handler(this, demandPath, false);
         // Run parser
-        if (!routeHandler.parse()) {
+        if (!handler.parse()) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");
         }
         // clear myEdgesAndNumberOfLanes after reload demandElements

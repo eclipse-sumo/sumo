@@ -314,7 +314,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                    polyExaggeration, 1, 1);
             }
         }
         // check if front dotted contour has to be drawn
@@ -323,7 +324,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                    polyExaggeration, 1, 1);
             }
         }
         // draw lock icon

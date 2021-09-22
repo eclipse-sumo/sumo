@@ -21,34 +21,29 @@
 #include <config.h>
 
 #include <utils/xml/CommonXMLStructure.h>
-#include <utils/xml/SUMOSAXHandler.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class RouteHandler
- * @brief The XML-Handler for network loading
- *
- * The SAX2-handler responsible for parsing networks and routes to load.
- * This is an extension of the MSRouteHandler as routes and vehicles may also
- *  be loaded from network descriptions.
- */
-class RouteHandler : private SUMOSAXHandler {
+
+class RouteHandler {
 
 public:
-    /** @brief Constructor
-     * @param[in] file Name of the parsed file
+    /**@brief Constructor
+     * @param[in] filename Name of the parsed file
      * @param[in] hardFail enable or disable hardFails (continue handling demand elements if there is an error)
      */
-    RouteHandler(const std::string& file, const bool hardFail);
+    RouteHandler(const std::string& filename, const bool hardFail);
 
     /// @brief Destructor
     ~RouteHandler();
 
-    /// @brief parse
-    bool parse();
+    /// @brief begin parse attributes
+    void beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
+    /// @brief end parse attributes
+    void endParseAttributes();
 
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
@@ -128,7 +123,10 @@ public:
     /// @}
 
 private:
-    /// @brif enable or disable hardFail (stop parsing if parameter aren't correct)
+    /// @brief filename (needed for parsing vTypes)
+    const std::string myFilename;
+
+    /// @brief enable or disable hardFail (stop parsing if parameter aren't correct)
     const bool myHardFail;
 
     /// @brief The default value for flow begins
@@ -139,28 +137,6 @@ private:
 
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
-
-    /// @name inherited from GenericSAXHandler
-    /// @{
-    /** @brief Called on the opening of a tag;
-     *
-     * @param[in] element ID of the currently opened element
-     * @param[in] attrs Attributes within the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myStartElement
-     * @todo Refactor/describe
-     */
-    virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
-
-    /** @brief Called when a closing tag occurs
-     *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     * @todo Refactor/describe
-     */
-    virtual void myEndElement(int element);
-    /// @}
 
     /// @name parse route element attributes
     /// @{

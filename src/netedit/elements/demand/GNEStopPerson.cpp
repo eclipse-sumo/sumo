@@ -251,10 +251,12 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, 
+                                                exaggeration, 1, 1);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, 
+                                                exaggeration, 1, 1);
         }
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {

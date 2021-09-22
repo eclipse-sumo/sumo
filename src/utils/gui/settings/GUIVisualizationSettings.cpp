@@ -1191,6 +1191,12 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
     edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
+    scheme.setAllowsNegativeValues(true);
+    edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme.setAllowsNegativeValues(true);
+    edgeColorer.addScheme(scheme);
 
     /// add edge scaling schemes
     {

@@ -21,9 +21,9 @@
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -991,12 +991,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
-            // declare additional handler
-            GNEAdditionalHandler additionalHandler(myNet, additionalFile, true);
+            // declare general handler
+            GNEGeneralHandler generalHandler(myNet, additionalFile, true);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
-            if (!additionalHandler.parse()) {
+            if (!generalHandler.parse()) {
                 WRITE_ERROR("Loading of " + additionalFile + " failed.");
             }
             // disable validation for additionals
@@ -1016,10 +1016,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every route file
         for (const auto& demandElementsFile : demandElementsFiles) {
             WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
-            GNERouteHandler routeHandler(demandElementsFile, myNet);
+            GNEGeneralHandler handler(myNet, demandElementsFile, true);
             // disable validation for demand elements
             XMLSubSys::setValidation("never", "auto", "auto");
-            if (!routeHandler.parse()) {
+            if (!handler.parse()) {
                 WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
             }
             // disable validation for demand elements
@@ -2986,11 +2986,11 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(myNet, file, true);
+        GNEGeneralHandler generalHandler(myNet, file, true);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, "Loading additionals from '" + file + "'");
         // Run parser
-        if (!additionalHandler.parse()) {
+        if (!generalHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
@@ -3012,14 +3012,14 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
     const std::string file = OptionsCont::getOptions().getString("additional-files");
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
-    // Create additional handler
-    GNEAdditionalHandler additionalHandler(myNet, file, true);
+    // Create general handler
+    GNEGeneralHandler generalHandler(myNet, file, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DEMAND, "Reloading additionals from '" + file + "'");
     // clear additionals
     myNet->clearAdditionalElements(myUndoList);
-    // Run parser for additionals
-    if (!additionalHandler.parse()) {
+    // Run parser
+    if (!generalHandler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // end undoList operation and update view
@@ -3152,12 +3152,12 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNERouteHandler routeHandler(file, myNet);
+        // Create generic handler
+        GNEGeneralHandler handler(myNet, file, true);
         // begin undoList operation
         myUndoList->begin(Supermode::DEMAND, "Loading demand elements from '" + file + "'");
         // Run parser for additionals
-        if (!routeHandler.parse()) {
+        if (!handler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // end undoList operation and update view
@@ -3179,14 +3179,14 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     const std::string file = OptionsCont::getOptions().getString("route-files");
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
-    // Create additional handler
-    GNERouteHandler routeHandler(file, myNet);
+    // Create handler
+    GNEGeneralHandler handler(myNet, file, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DEMAND, "Reloading demand elements from '" + file + "'");
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // Run parser for additionals
-    if (!routeHandler.parse()) {
+    if (!handler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
     }
     // end undoList operation and update view

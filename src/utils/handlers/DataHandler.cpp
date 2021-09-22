@@ -87,15 +87,17 @@ DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 void
 DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
-    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    const SumoXMLTag tag = (element == 0)? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
     // open SUMOBaseOBject
     myCommonXMLStructure.openSUMOBaseOBject();
     // check tag
     try {
         switch (tag) {
+            // interval
             case SUMO_TAG_INTERVAL:
                 parseInterval(attrs);
                 break;
+            // datas
             case SUMO_TAG_EDGE:
                 parseEdgeData(attrs);
                 break;
@@ -124,6 +126,7 @@ DataHandler::myEndElement(int element) {
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (tag) {
+        // only interval
         case SUMO_TAG_INTERVAL:
             // parse object and all their childrens
             parseSumoBaseObject(obj);

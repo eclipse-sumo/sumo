@@ -485,7 +485,7 @@ GUIEdge::setMultiColor(const GUIColorer& c) const {
 
 
 double
-GUIEdge::getColorValue(const GUIVisualizationSettings& /*s*/, int activeScheme) const {
+GUIEdge::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 1:
             return gSelected.isSelected(getType(), getGlID());
@@ -505,6 +505,20 @@ GUIEdge::getColorValue(const GUIVisualizationSettings& /*s*/, int activeScheme) 
             return getRoutingSpeed();
         case 16:
             return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
+        case 18:
+            // by numerical edge param value
+            try {
+                return StringUtils::toDouble(getParameter(s.edgeParam, "0"));
+            } catch (NumberFormatException&) {
+                try {
+                    return StringUtils::toBool(getParameter(s.edgeParam, "0"));
+                } catch (BoolFormatException&) {
+                    return -1;
+                }
+            }
+        case 19:
+            // by edge data value
+            return GUINet::getGUIInstance()->getEdgeData(this, s.edgeData);
     }
     return 0;
 }

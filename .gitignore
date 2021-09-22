@@ -65,6 +65,7 @@
 /bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib
 /bin/libtracicpp.dll.manifest
+bin/testlibtraci
 # data dir
 /data/proj
 # docs dir, make artifacts

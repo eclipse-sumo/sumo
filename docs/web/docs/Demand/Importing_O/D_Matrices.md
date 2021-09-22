@@ -137,6 +137,34 @@ are the same). The values stored within the matrix are amounts of
 vehicles driving from the according origin district to the according
 destination district within the described time period.
 
+## tazRelation format
+
+The tazRelation format defines the demand per OD pair in time slices for
+every a given vehicle type as follows:
+
+```
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="car" begin="0" end="1:0:0">
+      <tazRelation count="2000" from="1" to="2"/>
+    </interval>
+    <interval ...>
+    ...
+</data>
+```
+
+Files in tazRelation format can be created and modified with [netedit](../../netedit.md).
+They can also be created from route and taz files with [route2OD.py](../../Tools/Routes.html#route2odpy) (reversing the action of [od2trips](../../od2trips.md)).
+
+For details on the types and units see the schema at
+<https://sumo.dlr.de/xsd/datamode_file.xsd>
+
+!!! note
+    The "id" value of "interval" is used as the vehicle type but the type may be overruled by [od2trips](../../od2trips.md) option **--vtype**.
+
+
+## PTV formats
+
+
 The formats used by PTV are described in the VISUM-documentation more
 detailed. All start with a line where the type of the O/D-matrix is
 given, appended to a '$'. The first following character tells in which
@@ -158,7 +186,7 @@ exclusive; for example, if
 is given, the generated vehicles' depart times will be second 0 to
 second 3599.
 
-## The V format (VISUM/VISSIM)
+### The V format (VISUM/VISSIM)
 
 The V-format stores the O/D matrix by giving the number of districts
 (TAZ) first and then naming them. After this, for each of the named
@@ -201,7 +229,7 @@ left-aligned to a boundary of 11 characters (possibly 10 for the name
 and one space character). Both constraints are not mandatory for the
 importer used in od2trips.
 
-## The O-format (VISUM/VISSIM)
+### The O-format (VISUM/VISSIM)
 
 The O-format instead simply lists each origin and each destination
 together with the amount in one line (please remark that we currently

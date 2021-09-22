@@ -168,7 +168,7 @@ def main(options):
         distinctOD = set()
 
         with open(options.outfile, 'w') as outf:
-            sumolib.writeXMLHeader(outf, "$Id$", "data", options=options)  # noqa
+            sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
             for begin, tazRelations in intervals.items():
                 if options.interval is not None:
                     end = begin + options.interval

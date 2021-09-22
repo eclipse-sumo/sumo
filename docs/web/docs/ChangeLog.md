@@ -19,8 +19,13 @@ title: ChangeLog
   - Fixed emergency braking in sublane simulation. Issue #9051
   - ArrivalEdge is no longer ignored in meso. Issue #8994
   - Fixed non-deterministic parkingReroute. Issue #9066
+  - Fixed unsafe sublane changing on junction. Issue #9180
+  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185
+  - Fixed crash caused by rerouters on short edges. Issue #9186
+  - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
   
 - netedit
+  - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
   - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
   - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
@@ -33,12 +38,19 @@ title: ChangeLog
   - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
   - Fixed missung turnaround after adding bike lane. Issue #9079
   - Fixed invalid drawing style for lane that allows tram and bus. Issue #9089
-  - Fixed various usability issues related to tazRelation edition. Issue #9059, #9086, #9109, #9123
+  - Fixed various usability issues related to tazRelation editing. Issue #9059, #9086, #9109, #9123, #9114, #9122, #9120, #9121, #9126, #9113, #9152
   - Demand mode now respects "show connections" settings. Issue #9087
   - Fixed long delay when switching between editing modes while in demand super-mode. Issue #9088
   - Fixed invalid edge type attributes in saved network. Issue #9070
   - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102
   - Fixed crash after selecting edges in taz mode. Issue #9128
+  - Fixed undo-redo issues after selecting edges in taz mode. Issue #9132
+  - Fixed invalid warning about missing color of POI. Issue #9125
+  - Loading taz without shape is now supported. Issue #9140
+  - Taz are now drawn below roads. Issue #9146
+  - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
+  - Fixed slow operation when inspecting large objects. Issue #9106
+  - Fixed slow loading of large networks. Issue #9207
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -47,6 +59,7 @@ title: ChangeLog
   - Speed mode in vehicle parametr dialog now shows all 6 bits. Issue #9078
   - Option **--no-warnings** now supresses warnings from actuated tls. Issue #9104
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
+  - Fixed invalid error when defining step-length with human readable time. Issue #9196  
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
@@ -64,6 +77,9 @@ title: ChangeLog
   - Persons and containers with depart=triggered are now written in the correct order: directly after their intended vehicle. Issue #9000
   - Fixed crash when loading transport outside a container #9008
 
+- marouter
+  - Fixed invalid route-not-found error. Issue #9193
+
 - polyconvert
   - Shapefiles will now be interpreted correctly when no projection is defined #8948
   - Fixed hidden buildings due to invalid default layers in OSM typemap. Issue #9061
@@ -75,6 +91,7 @@ title: ChangeLog
   - traci.vehicle.getLeader can no longer return -inf when the leader is on an intersection. Issue #9001
   - Fixed problems related to complex types returned from libsumo in java. Issue #7204
   - Fixed invalid result of vehicle.getDistance after vehicle.moveToXY, and vehicle.moveTo. Issue #9050, #8778
+  - Fixed bug where intended teleport after replaceStop failed due to oncoming train. Issue #9175
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -83,6 +100,7 @@ title: ChangeLog
     - Initial tripId set via vehicle param is now used. Issue #8959
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
+  - generateContinousRerouters.py: fixed infinite loop. Issue #9167
 
 - Miscellaneous
   - Xsd schema now permit trips in additional files. Issue #9110
@@ -100,6 +118,9 @@ title: ChangeLog
   - All stopping places (busStop, parkingArea, ...) now support custom color. Issue #8280
   - The numerical value behind the current edge color can now be plotted in a tracker window. Issue #9049
   - Locator dialog now shows number of available objects. Issue #9075
+  - Improve positioning of persons in vehicles. Issue #9159
+  - Taz attribute 'fill' is now supported. Issue #9144
+  - Drawing detail of POIs can now be configured. Issue #9203
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -107,6 +128,10 @@ title: ChangeLog
   - Vehicle stop attribute posLat is now supported. Issue #8808
   - Saved busStop attributes now have the same order as netconvert. Issue #7624
   - Data mode now permits attributes with non-numeric values. Issue #9060
+  - Drawing detail of POIs can now be configured. Issue #9203
+
+- netconvert
+  - Public transport line colors are now imported from OSM. Issue #7845
 
 - netgenerate
   - Added options **--grid.x-attach-length --grid.y-attach-length** to configure attachments separately by direction. Issue #8991
@@ -117,7 +142,7 @@ title: ChangeLog
 
 - marouter
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
-  - **--netload-output** now includes 'density' and 'laneDensity'.
+  - **--netload-output** now includes 'density' and 'laneDensity' and 'speedRelative. Issue #9197
 
 - traci
   - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764  
@@ -129,14 +154,19 @@ title: ChangeLog
   - osmWebWizard.py now imports all bicycle lane data when building scenario with bicycle traffic. Issue #9071
   - osmWebWizard.py uses improved pedestrian routing on shared space. Issue #9100
   - [gridDistricts.py](Tools/District.md#griddistrictspy) now supports option **--vclass** for filtering taz edges in multi-modal networks. Issue #9127
+  - Added tool [route2OD.py](Tools/Routes.md#route2odpy) which generates a [tazRelation-file (OD-Matrix)](Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file. Issue #9117
+  - Major speedup in GTFS import with [gtfs2pt](Tools/Import/GTFS.md). Issue #9136
+  - ptlines2flows.py: Added options **--stop-duration-slack** generate schedules that are more robust with respect to traffic delays. The new default value is '10' which means that vehicles can compensate up to 10s of time loss per stop. Issue #9170
+  - ptlines2flows.py: Added options **--speedfactor.bus** and **--speedfactor.tram** to allow for relaxed schedules of vehicles which may be affected by road congestion. Issue #9170
+  - ptlines2flows.py: Line colors are now supported. Issue #7845
+  - generateContinousRerouters.py: added option **--vlcass** to avoid errors in multi-modal networks. Issue #9188
 
 ### Other
 
-- Miscellaneous
-  - Renamed the "master" branch in git to "main". Issue #8591
-
-- polyconvert
-  - When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
+- Miscellaneous: Renamed the "master" branch in git to "main". Issue #8591  
+- Traci: Parameter 'upstreamDist' of function 'traci.vehicle.addSubscriptionFilterTurn' was renamed to upstreamDist. Issue #9141
+- Netedit: Some Undo-Redo operations are now restricted to the supermode of the operation. Issue #9097
+- polyconvert: When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
 
 ## Version 1.10.0 (17.08.2021)
 

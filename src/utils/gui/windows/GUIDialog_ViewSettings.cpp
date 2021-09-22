@@ -970,11 +970,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
     tmpSettings.spreadSuperposed = (mySpreadSuperposed->getCheck() != FALSE);
     if (sender == myParamKey) {
-        if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
+        if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
             tmpSettings.edgeParam = myParamKey->getText().text();
-        } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
+        } else if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
             tmpSettings.laneParam = myParamKey->getText().text();
-        } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+        } else if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
             tmpSettings.edgeData = myParamKey->getText().text();
         }
     } else if (sender == myVehicleParamKey) {
@@ -1194,18 +1194,20 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         doRebuildColorMatrices = true;
     }
     // data
-    if (tmpSettings.dataColorer.getActive() == prevDataMode) {
-        if (updateColorRanges(sender, myDataColors.begin(), myDataColors.end(),
-                              myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
-                              tmpSettings.dataColorer.getScheme())) {
+    if (tmpSettings.netedit) {
+        if (tmpSettings.dataColorer.getActive() == prevDataMode) {
+            if (updateColorRanges(sender, myDataColors.begin(), myDataColors.end(),
+                myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
+                tmpSettings.dataColorer.getScheme())) {
+                doRebuildColorMatrices = true;
+            }
+            if (sender == myDataColorInterpolation) {
+                tmpSettings.dataColorer.getScheme().setInterpolated(myDataColorInterpolation->getCheck() != FALSE);
+                doRebuildColorMatrices = true;
+            }
+        } else {
             doRebuildColorMatrices = true;
         }
-        if (sender == myDataColorInterpolation) {
-            tmpSettings.dataColorer.getScheme().setInterpolated(myDataColorInterpolation->getCheck() != FALSE);
-            doRebuildColorMatrices = true;
-        }
-    } else {
-        doRebuildColorMatrices = true;
     }
 
     if (tmpSettings == *mySettings) {

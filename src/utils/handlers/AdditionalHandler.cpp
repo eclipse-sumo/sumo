@@ -20,9 +20,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/RGBColor.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/shapes/Shape.h>
 
 #include "AdditionalHandler.h"
@@ -32,18 +30,185 @@
 // method definitions
 // ===========================================================================
 
-AdditionalHandler::AdditionalHandler(const std::string& file) :
-    SUMOSAXHandler(file) {
-}
+AdditionalHandler::AdditionalHandler() {}
 
 
 AdditionalHandler::~AdditionalHandler() {}
 
 
-bool
-AdditionalHandler::parse() {
-    // run parser and return result
-    return XMLSubSys::runParser(*this, getFileName());
+void
+AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
+    // open SUMOBaseOBject
+    myCommonXMLStructure.openSUMOBaseOBject();
+    // check tag
+    try {
+        switch (tag) {
+            // Stopping Places
+            case SUMO_TAG_BUS_STOP:
+                parseBusStopAttributes(attrs);
+                break;
+            case SUMO_TAG_TRAIN_STOP:
+                parseTrainStopAttributes(attrs);
+                break;
+            case SUMO_TAG_ACCESS:
+                parseAccessAttributes(attrs);
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                parseContainerStopAttributes(attrs);
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                parseChargingStationAttributes(attrs);
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                parseParkingAreaAttributes(attrs);
+                break;
+            case SUMO_TAG_PARKING_SPACE:
+                parseParkingSpaceAttributes(attrs);
+                break;
+            // Detectors
+            case SUMO_TAG_E1DETECTOR:
+            case SUMO_TAG_INDUCTION_LOOP:
+                parseE1Attributes(attrs);
+                break;
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+                parseE2Attributes(attrs);
+                break;
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+                parseE3Attributes(attrs);
+                break;
+            case SUMO_TAG_DET_ENTRY:
+                parseEntryAttributes(attrs);
+                break;
+            case SUMO_TAG_DET_EXIT:
+                parseExitAttributes(attrs);
+                break;
+            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+                parseE1InstantAttributes(attrs);
+                break;
+            // TAZs
+            case SUMO_TAG_TAZ:
+                parseTAZAttributes(attrs);
+                break;
+            case SUMO_TAG_TAZSOURCE:
+                parseTAZSourceAttributes(attrs);
+                break;
+            case SUMO_TAG_TAZSINK:
+                parseTAZSinkAttributes(attrs);
+                break;
+            // Variable Speed Sign
+            case SUMO_TAG_VSS:
+                parseVariableSpeedSignAttributes(attrs);
+                break;
+            case SUMO_TAG_STEP:
+                parseVariableSpeedSignStepAttributes(attrs);
+                break;
+            // Calibrator
+            case SUMO_TAG_CALIBRATOR:
+            case SUMO_TAG_LANECALIBRATOR:
+                parseCalibratorAttributes(attrs);
+                break;
+            // flow (calibrator)
+            case SUMO_TAG_FLOW:
+                parseCalibratorFlowAttributes(attrs);
+                break;
+            // Rerouter
+            case SUMO_TAG_REROUTER:
+                parseRerouterAttributes(attrs);
+                break;
+            case SUMO_TAG_INTERVAL:
+                parseRerouterIntervalAttributes(attrs);
+                break;
+            case SUMO_TAG_CLOSING_LANE_REROUTE:
+                parseClosingLaneRerouteAttributes(attrs);
+                break;
+            case SUMO_TAG_CLOSING_REROUTE:
+                parseClosingRerouteAttributes(attrs);
+                break;
+            case SUMO_TAG_DEST_PROB_REROUTE:
+                parseDestProbRerouteAttributes(attrs);
+                break;
+            case SUMO_TAG_PARKING_ZONE_REROUTE:
+                parseParkingAreaRerouteAttributes(attrs);
+                break;
+            case SUMO_TAG_ROUTE_PROB_REROUTE:
+                parseRouteProbRerouteAttributes(attrs);
+                break;
+            // Route probe
+            case SUMO_TAG_ROUTEPROBE:
+                parseRouteProbeAttributes(attrs);
+                break;
+            // Vaporizer (deprecated)
+            case SUMO_TAG_VAPORIZER:
+                parseVaporizerAttributes(attrs);
+                break;
+            // Poly
+            case SUMO_TAG_POLY:
+                parsePolyAttributes(attrs);
+                break;
+            case SUMO_TAG_POI:
+                parsePOIAttributes(attrs);
+                break;
+            // parameters
+            case SUMO_TAG_PARAM:
+                parseParameters(attrs);
+                break;
+            default:
+                break;
+        }
+    } catch (InvalidArgument& e) {
+        WRITE_ERROR(e.what());
+    }
+}
+
+
+void
+AdditionalHandler::endParseAttributes() {
+    // get last inserted object
+    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
+    // close SUMOBaseOBject
+    myCommonXMLStructure.closeSUMOBaseOBject();
+    // check tag
+    switch (obj->getTag()) {
+        // Stopping Places
+        case SUMO_TAG_BUS_STOP:
+        case SUMO_TAG_TRAIN_STOP:
+        case SUMO_TAG_CONTAINER_STOP:
+        case SUMO_TAG_CHARGING_STATION:
+        case SUMO_TAG_PARKING_AREA:
+        // detectors
+        case SUMO_TAG_E1DETECTOR:
+        case SUMO_TAG_INDUCTION_LOOP:
+        case SUMO_TAG_E2DETECTOR:
+        case SUMO_TAG_LANE_AREA_DETECTOR:
+        case SUMO_TAG_E3DETECTOR:
+        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+        // TAZs
+        case SUMO_TAG_TAZ:
+        // Variable Speed Sign
+        case SUMO_TAG_VSS:
+        // Calibrator
+        case SUMO_TAG_CALIBRATOR:
+        case SUMO_TAG_LANECALIBRATOR:
+        // Rerouter
+        case SUMO_TAG_REROUTER:
+        // Route probe
+        case SUMO_TAG_ROUTEPROBE:
+        // Vaporizer (deprecated)
+        case SUMO_TAG_VAPORIZER:
+        // Shapes
+        case SUMO_TAG_POLY:
+        case SUMO_TAG_POI:
+            // parse object and all their childrens
+            parseSumoBaseObject(obj);
+            // delete object (and all of their childrens)
+            delete obj;
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -470,186 +635,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
     for (const auto& child : obj->getSumoBaseObjectChildren()) {
         // call this function recursively
         parseSumoBaseObject(child);
-    }
-}
-
-
-void
-AdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    // obtain tag
-    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // open SUMOBaseOBject
-    myCommonXMLStructure.openSUMOBaseOBject();
-    // check tag
-    try {
-        switch (tag) {
-            // Stopping Places
-            case SUMO_TAG_BUS_STOP:
-                parseBusStopAttributes(attrs);
-                break;
-            case SUMO_TAG_TRAIN_STOP:
-                parseTrainStopAttributes(attrs);
-                break;
-            case SUMO_TAG_ACCESS:
-                parseAccessAttributes(attrs);
-                break;
-            case SUMO_TAG_CONTAINER_STOP:
-                parseContainerStopAttributes(attrs);
-                break;
-            case SUMO_TAG_CHARGING_STATION:
-                parseChargingStationAttributes(attrs);
-                break;
-            case SUMO_TAG_PARKING_AREA:
-                parseParkingAreaAttributes(attrs);
-                break;
-            case SUMO_TAG_PARKING_SPACE:
-                parseParkingSpaceAttributes(attrs);
-                break;
-            // Detectors
-            case SUMO_TAG_E1DETECTOR:
-            case SUMO_TAG_INDUCTION_LOOP:
-                parseE1Attributes(attrs);
-                break;
-            case SUMO_TAG_E2DETECTOR:
-            case SUMO_TAG_LANE_AREA_DETECTOR:
-                parseE2Attributes(attrs);
-                break;
-            case SUMO_TAG_E3DETECTOR:
-            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-                parseE3Attributes(attrs);
-                break;
-            case SUMO_TAG_DET_ENTRY:
-                parseEntryAttributes(attrs);
-                break;
-            case SUMO_TAG_DET_EXIT:
-                parseExitAttributes(attrs);
-                break;
-            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-                parseE1InstantAttributes(attrs);
-                break;
-            // TAZs
-            case SUMO_TAG_TAZ:
-                parseTAZAttributes(attrs);
-                break;
-            case SUMO_TAG_TAZSOURCE:
-                parseTAZSourceAttributes(attrs);
-                break;
-            case SUMO_TAG_TAZSINK:
-                parseTAZSinkAttributes(attrs);
-                break;
-            // Variable Speed Sign
-            case SUMO_TAG_VSS:
-                parseVariableSpeedSignAttributes(attrs);
-                break;
-            case SUMO_TAG_STEP:
-                parseVariableSpeedSignStepAttributes(attrs);
-                break;
-            // Calibrator
-            case SUMO_TAG_CALIBRATOR:
-            case SUMO_TAG_LANECALIBRATOR:
-                parseCalibratorAttributes(attrs);
-                break;
-            // flow (calibrator)
-            case SUMO_TAG_FLOW:
-                parseCalibratorFlowAttributes(attrs);
-                break;
-            // Rerouter
-            case SUMO_TAG_REROUTER:
-                parseRerouterAttributes(attrs);
-                break;
-            case SUMO_TAG_INTERVAL:
-                parseRerouterIntervalAttributes(attrs);
-                break;
-            case SUMO_TAG_CLOSING_LANE_REROUTE:
-                parseClosingLaneRerouteAttributes(attrs);
-                break;
-            case SUMO_TAG_CLOSING_REROUTE:
-                parseClosingRerouteAttributes(attrs);
-                break;
-            case SUMO_TAG_DEST_PROB_REROUTE:
-                parseDestProbRerouteAttributes(attrs);
-                break;
-            case SUMO_TAG_PARKING_ZONE_REROUTE:
-                parseParkingAreaRerouteAttributes(attrs);
-                break;
-            case SUMO_TAG_ROUTE_PROB_REROUTE:
-                parseRouteProbRerouteAttributes(attrs);
-                break;
-            // Route probe
-            case SUMO_TAG_ROUTEPROBE:
-                parseRouteProbeAttributes(attrs);
-                break;
-            // Vaporizer (deprecated)
-            case SUMO_TAG_VAPORIZER:
-                parseVaporizerAttributes(attrs);
-                break;
-            // Poly
-            case SUMO_TAG_POLY:
-                parsePolyAttributes(attrs);
-                break;
-            case SUMO_TAG_POI:
-                parsePOIAttributes(attrs);
-                break;
-            // parameters
-            case SUMO_TAG_PARAM:
-                parseParameters(attrs);
-                break;
-            default:
-                break;
-        }
-    } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
-    }
-}
-
-
-void
-AdditionalHandler::myEndElement(int element) {
-    // obtain tag
-    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // get last inserted object
-    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject
-    myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
-    switch (tag) {
-        // Stopping Places
-        case SUMO_TAG_BUS_STOP:
-        case SUMO_TAG_TRAIN_STOP:
-        case SUMO_TAG_CONTAINER_STOP:
-        case SUMO_TAG_CHARGING_STATION:
-        case SUMO_TAG_PARKING_AREA:
-        // detectors
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-        // TAZs
-        case SUMO_TAG_TAZ:
-        // Variable Speed Sign
-        case SUMO_TAG_VSS:
-        // Calibrator
-        case SUMO_TAG_CALIBRATOR:
-        case SUMO_TAG_LANECALIBRATOR:
-        // Rerouter
-        case SUMO_TAG_REROUTER:
-        // Route probe
-        case SUMO_TAG_ROUTEPROBE:
-        // Vaporizer (deprecated)
-        case SUMO_TAG_VAPORIZER:
-        // Shapes
-        case SUMO_TAG_POLY:
-        case SUMO_TAG_POI:
-            // parse object and all their childrens
-            parseSumoBaseObject(obj);
-            // delete object (and all of their childrens)
-            delete obj;
-            break;
-        default:
-            break;
     }
 }
 
@@ -1255,59 +1240,65 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
 
 void
 AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // check that frecuency and trafficLight aren't defined together
-    if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        WRITE_ERROR("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
-        parsedOk = false;
-    }
-    // needed attributes
-    const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, "", parsedOk);
-    const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk);
-    const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk);
-    // special attributes
-    const std::string vType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, "", parsedOk, "");
-    const std::string vehsPerHour = attrs.getOpt<std::string>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk, "");
-    const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "");
-    // optional attributes
-    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, "", parsedOk, RGBColor::YELLOW);
-    const std::string departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, "", parsedOk, "first");
-    const std::string departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, "", parsedOk, "base");
-    const std::string departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, "", parsedOk, "0");
-    const std::string arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, "", parsedOk, "current");
-    const std::string arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, "max");
-    const std::string arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, "", parsedOk, "current");
-    const std::string line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, "", parsedOk, "");
-    const int personNumber = attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, "", parsedOk, 0);
-    const int containerNumber = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, "", parsedOk, 0);
-    const bool reroute = attrs.getOpt<bool>(SUMO_ATTR_REROUTE, "", parsedOk, false);
-    const std::string departPosLat = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, "", parsedOk, "center");
-    const std::string arrivalPosLat = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, "", parsedOk, "");
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, route);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, vType);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_VEHSPERHOUR, vehsPerHour);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTLANE, departLane);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTPOS, departPos);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTSPEED, departSpeed);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALLANE, arrivalLane);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALSPEED, arrivalSpeed);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LINE, line);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_PERSON_NUMBER, personNumber);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_REROUTE, reroute);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTPOS_LAT, departPosLat);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT, arrivalPosLat);
+    // check parent
+    if (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
+        myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROOTFILE) {
+        // declare Ok Flag
+        bool parsedOk = true;
+        // check that frecuency and trafficLight aren't defined together
+        if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+            WRITE_ERROR("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
+            parsedOk = false;
+        }
+        // needed attributes
+        const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, "", parsedOk);
+        const SUMOTime begin = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk);
+        const SUMOTime end = attrs.get<SUMOTime>(SUMO_ATTR_BEGIN, "", parsedOk);
+        // special attributes
+        const std::string vType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, "", parsedOk, "");
+        const std::string vehsPerHour = attrs.getOpt<std::string>(SUMO_ATTR_VEHSPERHOUR, "", parsedOk, "");
+        const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "");
+        // optional attributes
+        const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, "", parsedOk, RGBColor::YELLOW);
+        const std::string departLane = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, "", parsedOk, "first");
+        const std::string departPos = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, "", parsedOk, "base");
+        const std::string departSpeed = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, "", parsedOk, "0");
+        const std::string arrivalLane = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, "", parsedOk, "current");
+        const std::string arrivalPos = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, "max");
+        const std::string arrivalSpeed = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, "", parsedOk, "current");
+        const std::string line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, "", parsedOk, "");
+        const int personNumber = attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, "", parsedOk, 0);
+        const int containerNumber = attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, "", parsedOk, 0);
+        const bool reroute = attrs.getOpt<bool>(SUMO_ATTR_REROUTE, "", parsedOk, false);
+        const std::string departPosLat = attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, "", parsedOk, "center");
+        const std::string arrivalPosLat = attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, "", parsedOk, "");
+        // check parent
+        checkParent(SUMO_TAG_INTERVAL, {SUMO_TAG_CALIBRATOR}, parsedOk);
+        // continue if flag is ok
+        if (parsedOk) {
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, route);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, vType);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_VEHSPERHOUR, vehsPerHour);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTLANE, departLane);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTPOS, departPos);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTSPEED, departSpeed);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALLANE, arrivalLane);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALSPEED, arrivalSpeed);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LINE, line);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_PERSON_NUMBER, personNumber);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_REROUTE, reroute);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DEPARTPOS_LAT, departPosLat);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ARRIVALPOS_LAT, arrivalPosLat);
+        }
     }
 }
 
@@ -1650,13 +1641,11 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // check parent
     if (SumoBaseObjectParent == nullptr) {
         WRITE_ERROR("Parameters must be defined within an object.");
-    }
-    // check tag
-    if (SumoBaseObjectParent->getTag() == SUMO_TAG_NOTHING) {
-        WRITE_ERROR("Parameters cannot be defined in neither the additional file's root nor another parameter.");
-    }
-    // continue if key was sucesfully loaded
-    if (parsedOk) {
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
+        WRITE_ERROR("Parameters cannot be defined in the additional file's root.");
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
+        WRITE_ERROR("Parameters cannot be defined within another parameter.");
+    } else if (parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
         // circumventing empty string value
