@@ -97,6 +97,9 @@ public:
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;
 
+    /// @brief return list of loaded edgeRelation and tazRelation attributes
+    std::vector<std::string> getRelDataAttrs() const; 
+
     /// @brief open object dialog
     void openObjectDialogAtCursor();
 

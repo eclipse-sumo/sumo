@@ -1805,9 +1805,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             myDataParamKey->clearItems();
             myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
-            for (const std::string& attr : myParent->getEdgeDataAttrs()) {
-                if (attr != mySettings->edgeData) {
-                    myParamKey->appendItem(attr.c_str());
+            for (const std::string& attr : myParent->getRelDataAttrs()) {
+                if (attr != mySettings->relDataAttr) {
+                    myDataParamKey->appendItem(attr.c_str());
                 }
             }
             myDataParamKey->enable();

@@ -746,19 +746,29 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
 std::vector<std::string>
 GNEViewNet::getEdgeDataAttrs() const {
     std::set<std::string> keys;
-    /*
-    for (const auto &edge : myNet->getAttributeCarriers()->getEdges()) {
-        GNEGenericData* genericData = edge.second->getCurrentGenericDataElement();
-        if (genericData != nullptr) {
-            for (const auto &parameter : genericData->getParametersMap()) {
-                keys.insert(parameter.first);
+    for (GNEGenericData* d : myNet->retrieveGenericDatas()) {
+        if (d->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            for (auto item : d->getACParametersMap()) {
+                keys.insert(item.first);
             }
         }
     }
-    */
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 
+
+std::vector<std::string>
+GNEViewNet::getRelDataAttrs() const {
+    std::set<std::string> keys;
+    for (GNEGenericData* d : myNet->retrieveGenericDatas()) {
+        if (d->getTagProperty().getTag() == SUMO_TAG_TAZREL || d->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+            for (auto item : d->getACParametersMap()) {
+                keys.insert(item.first);
+            }
+        }
+    }
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
