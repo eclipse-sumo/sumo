@@ -1,0 +1,2 @@
+# infinite loop after failure to insert with fixed speed (trafficlight that never gets 'G')
+ticket9211
