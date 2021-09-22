@@ -80,6 +80,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Activity-based Demand Generation](Demand/Activity-based_Demand_Generation.md)
 - [Random Trips](Tools/Trip.md#randomtripspy)
 - [Multi-modal random traffic](Tools/Import/OSM.md#osmwebwizardpy)
+- [GTFS data](Tools/Import/GTFS.md)
 
 # Simulation
 
