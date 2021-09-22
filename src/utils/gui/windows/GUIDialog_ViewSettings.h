@@ -394,6 +394,9 @@ protected:
     FXComboBox* myDataParamKey;
     FXRealSpinner* myEdgeRelationUpscaleDialer;
     FXRealSpinner* myTazRelationUpscaleDialer;
+    FXButton* myDataColorRainbow;
+    FXCheckButton* myDataColorRainbowCheck;
+    FXRealSpinner* myDataColorRainbowThreshold;
 
     /// @brief buttons
     FXCheckButton* myShowLane2Lane;

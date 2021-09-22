@@ -541,17 +541,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myDataParamKey->disable();
         myDataParamKey->setEditable(true);
-
         mySettings->dataColorer.fill(*myDataColorMode);
         myDataColorMode->setNumVisible((int)mySettings->dataColorer.size());
 
         // rainbow settings
-        //FXMatrix* m114 = new FXMatrix(frame112, 3, GUIDesignViewSettingsMatrix3);
-        //myLaneColorRainbow = new FXButton(m114, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-        //                                  (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-        //myLaneColorRainbowCheck = new FXCheckButton(m114, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        //myLaneColorRainbowThreshold = new FXRealSpinner(m114, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-        //myLaneColorRainbowThreshold->setRange(-100000, 100000);
+        FXMatrix* m113 = new FXMatrix(frame112, 3, GUIDesignViewSettingsMatrix3);
+        myDataColorRainbow = new FXButton(m113, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+        myDataColorRainbowCheck = new FXCheckButton(m113, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+        myDataColorRainbowThreshold = new FXRealSpinner(m113, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+        myDataColorRainbowThreshold->setRange(-100000000, 100000000);
 
         new FXHorizontalSeparator(frame11, GUIDesignHorizontalSeparator);
         FXMatrix* m112 = new FXMatrix(frame11, 2, GUIDesignViewSettingsMatrix1);
@@ -726,6 +725,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
         myDataColorMode->setCurrentItem((FXint) mySettings->dataColorer.getActive());
         myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
         myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
+        myDataColorRainbowCheck->setCheck(mySettings->dataValueHideCheck);
+        myDataColorRainbowThreshold->setValue(mySettings->dataValueHideThreshold);
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -1058,6 +1059,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.dataValue = myDataValuePanel->getSettings();
         tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
         tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
+        tmpSettings.dataValueHideCheck = (myDataColorRainbowCheck->getCheck() != FALSE);
+        tmpSettings.dataValueHideThreshold = myDataColorRainbowThreshold->getValue();
     }
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
@@ -1077,9 +1080,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
                                     myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
-    }
-    if (sender == myJunctionColorRainbow) {
+    } else if (sender == myJunctionColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
+        doRebuildColorMatrices = true;
+    } else if (sender == myDataColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
+                                    myDataColorRainbowCheck->getCheck() != FALSE, myDataColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
@@ -1799,6 +1805,11 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             myDataParamKey->clearItems();
             myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
+            for (const std::string& attr : myParent->getEdgeDataAttrs()) {
+                if (attr != mySettings->edgeData) {
+                    myParamKey->appendItem(attr.c_str());
+                }
+            }
             myDataParamKey->enable();
         } else {
             myDataParamKey->disable();

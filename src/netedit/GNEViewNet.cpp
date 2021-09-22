@@ -25,6 +25,7 @@
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -538,6 +539,16 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             for (GNEJunction* junction : myNet->retrieveJunctions()) {
                 minValue = MIN2(minValue, junction->getPositionInView().z());
                 maxValue = MAX2(maxValue, junction->getPositionInView().z());
+            }
+        }
+    } else if (objectType == GLO_TAZRELDATA) {
+        if (active == 4) {
+            for (GNEGenericData* d : myNet->retrieveGenericDatas()) {
+                if (d->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
+                    const double value = dynamic_cast<GNETAZRelData*>(d)->getColorValue(s, active);
+                    minValue = MIN2(minValue, value);
+                    maxValue = MAX2(maxValue, value);
+                }
             }
         }
     }

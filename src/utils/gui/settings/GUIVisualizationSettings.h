@@ -845,8 +845,8 @@ public:
     std::string relDataAttr;
 
     /// @brief value below which relation data value should not be rendered
-    //bool relValueHideCheck;
-    //double relValueHideThreshold;
+    bool dataValueHideCheck;
+    double dataValueHideThreshold;
     /// @}
 
 

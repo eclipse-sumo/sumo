@@ -474,6 +474,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     tazRelWidthExaggeration(1),
     edgeRelWidthExaggeration(1),
     relDataAttr("count"),
+    dataValueHideCheck(false),
+    dataValueHideThreshold(0),
     showSizeLegend(true),
     showColorLegend(false),
     showVehicleColorLegend(false),
@@ -1904,6 +1906,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (!(relDataAttr == v2.relDataAttr)) {
+        return false;
+    }
+    if (!(dataValueHideCheck == v2.dataValueHideCheck)) {
+        return false;
+    }
+    if (!(dataValueHideThreshold == v2.dataValueHideThreshold)) {
         return false;
     }
 
