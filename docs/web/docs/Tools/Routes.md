@@ -470,7 +470,7 @@ python tools/route/addTAZ.py -r <route-file> -a <taz-file> -o <output-file>
 
 # route2OD.py
 
-This tool generates a [tazRelation-file (OD-Matrix)](../../Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file.
+This tool generates a [tazRelation-file (OD-Matrix)](../Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file.
 ```
 python tools/route/route2OD.py -r <route-file> -a <taz-file> -o <output-file>
 ```
