@@ -130,6 +130,9 @@ DataHandler::myEndElement(int element) {
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
     switch (tag) {
+        // root file
+        case SUMO_TAG_ROOTFILE:
+        // only interval
         case SUMO_TAG_INTERVAL:
             // parse object and all their childrens
             parseSumoBaseObject(obj);

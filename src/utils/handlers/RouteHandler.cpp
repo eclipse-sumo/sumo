@@ -55,6 +55,7 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
         switch (tag) {
             // root file
             case SUMO_TAG_ROOTFILE:
+            case SUMO_TAG_ROUTES:
                 myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROOTFILE);
                 break;
             // vTypes
@@ -155,6 +156,10 @@ RouteHandler::endParseAttributes() {
                 delete obj;
             }
             break;
+        // root file
+        case SUMO_TAG_ROOTFILE:
+        case SUMO_TAG_ROUTES:
+        // demand elements
         case SUMO_TAG_VTYPE:
         case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
@@ -710,7 +715,7 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Parameters must be defined within an object");
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
         WRITE_ERROR("Parameters cannot be defined in the additional file's root.");
-    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
+    } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
         WRITE_ERROR("Parameters cannot be defined within another parameter.");
     } else if (parsedOk) {
         // get tag str
