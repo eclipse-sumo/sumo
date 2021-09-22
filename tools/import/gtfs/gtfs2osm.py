@@ -114,8 +114,13 @@ def import_gtfs(options, gtfsZip):
     # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
     full_day = pd.to_timedelta("24:00:00")
 
-    stop_times['arrival_fixed'] = pd.to_timedelta(stop_times.arrival_time) % full_day
-    stop_times['departure_fixed'] = pd.to_timedelta(stop_times.departure_time) % full_day
+    stop_times['arrival_fixed'] = pd.to_timedelta(stop_times.arrival_time)
+    stop_times['departure_fixed'] = pd.to_timedelta(stop_times.departure_time)
+
+    fix_trips = stop_times[(stop_times['arrival_fixed'] >= full_day) & (stop_times['stop_sequence'] == 0)].trip_id.to_list()
+
+    stop_times.loc[stop_times.trip_id.isin(fix_trips), 'arrival_fixed'] = stop_times.loc[stop_times.trip_id.isin(fix_trips), 'arrival_fixed'] % full_day
+    stop_times.loc[stop_times.trip_id.isin(fix_trips), 'departure_fixed'] = stop_times.loc[stop_times.trip_id.isin(fix_trips), 'departure_fixed'] % full_day
 
     time_interval = options.end - options.begin
     start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
@@ -575,7 +580,8 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     seqs[stopSeq] = row.trip_id
                 veh_attr = (row.route_short_name, row.trip_id, day,
                             main_shape, row.route_id, seqs[stopSeq],
-                            day, str(row.arrival_fixed).split(' ')[2],
+                            row.arrival_fixed.days + day,
+                            str(row.arrival_fixed).split(' ')[2],
                             min(stop_index), max(stop_index), pt_type,
                             row.route_short_name,
                             row.trip_headsign)
@@ -590,9 +596,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     if stop_index >= check_seq:
                         check_seq = stop_index
                         # TODO check stop position if we are on the same edge as before
-                        stop_attr = (stop.stop_item_id, day,
+                        stop_attr = (stop.stop_item_id, stop.arrival_fixed.days + day,
                                      str(stop.arrival_fixed).split(' ')[2],
-                                     options.duration, day,
+                                     options.duration, stop.departure_fixed.days + day,
                                      str(stop.departure_fixed).split(' ')[2],
                                      stop.stop_name)
                         output_file.write('        <stop busStop="%s" arrival="%s:%s" duration="%s" until="%s:%s"/><!--%s-->\n' % stop_attr)  # noqa
