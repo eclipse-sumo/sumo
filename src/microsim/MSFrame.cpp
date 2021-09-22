@@ -705,7 +705,7 @@ bool
 MSFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
-    if (!oc.isSet("net-file")) {
+    if (!oc.isSet("net-file") && oc.isDefault("remote-port")) {
         WRITE_ERROR("No network file (-n) specified.");
         ok = false;
     }
