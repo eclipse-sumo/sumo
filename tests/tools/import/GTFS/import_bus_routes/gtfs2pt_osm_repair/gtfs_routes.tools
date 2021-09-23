@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-09-23 16:01:19.053019 by gtfs2pt.py v1_10_0+0923-33f3ad6394a
+<!-- generated on 2021-09-23 16:27:48.933828 by gtfs2pt.py v1_10_0+0956-4d48838f15b
   options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>repair <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>verbose
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="1960" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+    <vehicle id="418_132185786.trimmed.0" route="1960" line="14781_3_132185786.trimmed" depart="0:00:03:00" departEdge="25" arrivalEdge="28" type="bus"><!--418 Westpark-->
+        <stop busStop="120010001502_0" arrival="0:00:03:00" duration="10" until="0:00:03:00"/><!--Braunschweig Altstadtmarkt-->
+        <stop busStop="120010016102_0" arrival="0:00:05:00" duration="10" until="0:00:05:00"/><!--Braunschweig Güldenstraße-->
+    </vehicle>
+    <route id="2559" edges="316791974#0 316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
+    <vehicle id="419_132183536.trimmed.0" route="2559" line="32727_3_132183536.trimmed" depart="0:00:19:00" departEdge="1" arrivalEdge="17" type="bus"><!--419 Braunschweig Hauptbahnhof-->
+        <stop busStop="120010016201_0" arrival="0:00:19:00" duration="10" until="0:00:19:00"/><!--Braunschweig Holzhof-->
+        <stop busStop="120010004601_0" arrival="0:00:20:00" duration="10" until="0:00:20:00"/><!--Braunschweig Am Wassertor-->
+        <stop busStop="120010022110_0" arrival="0:00:22:00" duration="10" until="0:00:22:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
+    </vehicle>
     <route id="2548" edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2"/>
     <vehicle id="429_132194506.0" route="2548" line="32616_3_132194506" depart="0:00:42:00" departEdge="2" arrivalEdge="22" type="bus"><!--429 Braunschweig Hauptbahnhof-->
         <stop busStop="120010022108_0" arrival="0:00:42:00" duration="10" until="0:00:42:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
         <stop busStop="120010013713_0" arrival="0:00:43:00" duration="10" until="0:00:43:00"/><!--Braunschweig Friedrich-Wilhelm-Platz-->
         <stop busStop="120010016202_0" arrival="0:00:45:00" duration="10" until="0:00:45:00"/><!--Braunschweig Holzhof-->
     </vehicle>
-    <route id="1960" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
     <vehicle id="418_132185978.0" route="1960" line="14781_3_132185978" depart="0:01:20:00" departEdge="6" arrivalEdge="28" type="bus"><!--418 Westpark-->
         <stop busStop="120010034202_0" arrival="0:01:20:00" duration="10" until="0:01:20:00"/><!--Braunschweig Rathaus-->
         <stop busStop="120010032201_0" arrival="0:01:21:00" duration="10" until="0:01:21:00"/><!--Braunschweig Packhof-->
@@ -62,8 +72,7 @@
         <stop busStop="120010001502_0" arrival="1:00:03:00" duration="10" until="1:00:03:00"/><!--Braunschweig Altstadtmarkt-->
         <stop busStop="120010016102_0" arrival="1:00:05:00" duration="10" until="1:00:05:00"/><!--Braunschweig Güldenstraße-->
     </vehicle>
-    <route id="2559" edges="316791974#0 316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0"/>
-    <vehicle id="419_132183536.0" route="2559" line="32727_3_132183536" depart="1:00:19:00" departEdge="1" arrivalEdge="17" type="bus"><!--419 Braunschweig Hauptbahnhof-->
+    <vehicle id="419_132183536.0" route="2559" line="32727_3_132183536.trimmed" depart="1:00:19:00" departEdge="1" arrivalEdge="17" type="bus"><!--419 Braunschweig Hauptbahnhof-->
         <stop busStop="120010016201_0" arrival="1:00:19:00" duration="10" until="1:00:19:00"/><!--Braunschweig Holzhof-->
         <stop busStop="120010004601_0" arrival="1:00:20:00" duration="10" until="1:00:20:00"/><!--Braunschweig Am Wassertor-->
         <stop busStop="120010022110_0" arrival="1:00:22:00" duration="10" until="1:00:22:00"/><!--Braunschweig John-F.-Kennedy-Platz-->
