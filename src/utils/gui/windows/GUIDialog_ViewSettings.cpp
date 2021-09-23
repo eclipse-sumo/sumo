@@ -943,7 +943,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     // additionals
     tmpSettings.colorSettings.busStopColor = MFXUtils::getRGBColor(myBusStopColor->getRGBA());
-    tmpSettings.colorSettings.trainStopColorSign = MFXUtils::getRGBColor(myTrainStopColor->getRGBA());
+    tmpSettings.colorSettings.trainStopColor = MFXUtils::getRGBColor(myTrainStopColor->getRGBA());
     tmpSettings.colorSettings.containerStopColor = MFXUtils::getRGBColor(myContainerStopColor->getRGBA());
     
     if (mySettings->netedit) {
