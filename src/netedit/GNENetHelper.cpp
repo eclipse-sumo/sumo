@@ -190,9 +190,12 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
         // Lane
         return shape.overlapsWith(myNet->retrieveLane(AC->getID())->getLaneShape());
-    /* 
-     *
-     */
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        // connection
+        return shape.overlapsWith(dynamic_cast<GNEConnection*>(AC)->getConnectionShape());
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+        // crossing
+        return shape.overlapsWith(dynamic_cast<GNECrossing*>(AC)->getCrossingShape());
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // Additional
         const GNEAdditional *additional = dynamic_cast<GNEAdditional*>(AC);
