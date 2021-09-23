@@ -11,65 +11,55 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEGeneralHandler.h
+/// @file    GeneralHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2021
 ///
-// General element handler for NETEDIT
+// General element handler
 /****************************************************************************/
-#pragma once
-#include <config.h>
 
 
 // ===========================================================================
 // included modules
 // ===========================================================================
 
-#include <utils/handlers/GeneralHandler.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
+#include <utils/xml/XMLSubSys.h>
+
+#include "GeneralHandler.h"
+
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class GNENet;
-
-// ===========================================================================
-// class definitions
+// method definitions
 // ===========================================================================
 
-class GNEGeneralHandler : public GeneralHandler {
+GeneralHandler::GeneralHandler(const std::string& file) :
+    SUMOSAXHandler(file) {
+}
 
-public:
-    /**@brief Constructor
-     * @param[in] net GNENet
-     * @param[in] file Name of the parsed file
-     * @param[in] allowUndoRedo enable or disable undoRedo
-     */
-    GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
-    /// @brief Destructor
-    ~GNEGeneralHandler();
+GeneralHandler::~GeneralHandler() {}
 
-private:
-    /// @brief additional handler
-    GNEAdditionalHandler myAdditionalHandler;
 
-    /// @brief demand handler
-    GNERouteHandler myDemandHandler;
+bool
+GeneralHandler::parse() {
+    // run parser and return result
+    return XMLSubSys::runParser(*this, getFileName());
+}
 
-    /// @brief start element
-    void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
-    /// @brief end element
-    void endTag();
+void
+GeneralHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    // obtain tag
+    const SumoXMLTag tag = (element == 0)? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
+    // begin tag
+    beginTag(tag, attrs);
+}
 
-    /// @brief invalidate copy constructor
-    GNEGeneralHandler(const GNEGeneralHandler& s) = delete;
 
-    /// @brief invalidate assignment operator
-    GNEGeneralHandler& operator=(const GNEGeneralHandler& s) = delete;
-};
+void
+GeneralHandler::myEndElement(int /*element*/) {
+    // end tag
+    endTag();
+}
 
 /****************************************************************************/
-
