@@ -1981,14 +1981,14 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
             GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
             if (AC) {
                 if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                    if (myNetworkViewOptions.selectEdges()) {
+                    if (myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
                         ACs.push_back(AC);
                     }
                 } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
-                    if (!myNetworkViewOptions.selectEdges()) {
+                    if (!myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
                         ACs.push_back(AC);
                     }   
-                } else if (AC != polygonUnderMouse) {
+                } else if ((AC != polygonUnderMouse) && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
                     ACs.push_back(AC);
                 }
             }

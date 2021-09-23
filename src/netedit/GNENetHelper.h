@@ -101,6 +101,9 @@ struct GNENetHelper {
         /// @brief remap junction and edge IDs
         void remapJunctionAndEdgeIds();
 
+        /// @brief check if shape of given AC (network element) is around the given shape
+        bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector &shape) const;
+
         /// @name function for junctions
         /// @{
         /// @brief registers a junction in GNENet containers
