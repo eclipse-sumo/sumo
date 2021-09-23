@@ -296,8 +296,10 @@ def loadHighscore():
             printDebug("FAILED")
 
     try:
-        return pickle.load(open(_SCOREFILE))
-    except Exception:
+        with open(_SCOREFILE, 'rb') as sf:
+            return pickle.load(sf)
+    except Exception as e:
+        print(e)
         pass
     return {}
 
@@ -519,10 +521,11 @@ class ScoreDialog:
             Tkinter.Label(self.root, text=name, padx=5,
                           bg="pale green").grid(row=self.idx, sticky=Tkinter.W, column=1)
             try:
-                f = open(_SCOREFILE, 'w')
+                f = open(_SCOREFILE, 'wb')
                 pickle.dump(high, f)
                 f.close()
-            except Exception:
+            except Exception as e:
+                print(e)
                 pass
 
             if _UPLOAD:
