@@ -463,7 +463,7 @@ class ScoreDialog:
             high[category] = _SCORES * [("", "", -1.)]
         idx = 0
         for n, g, p in high[category]:
-            if not haveHigh and p < score:
+            if not haveHigh and score is not None and p < score:
                 Tkinter.Label(
                     self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
                 self.name = Tkinter.Entry(self.root)
