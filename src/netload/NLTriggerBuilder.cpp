@@ -490,8 +490,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
 
     //get the color, use default if not given
     // default color, copy from GUIVisualizationStoppingPlaceSettings::busStopColor / containerStopColor
-    const RGBColor defaultColor = element == SUMO_TAG_CONTAINER_STOP ? RGBColor(83, 89, 172) : RGBColor(76, 170, 50);
-    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, defaultColor);
+    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor::INVISIBLE);
 
     MSLane* lane = getLane(attrs, toString(element), id);
     // get the positions
