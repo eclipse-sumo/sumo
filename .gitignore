@@ -117,6 +117,7 @@ bin/testlibtraci
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
+/tools/game/scores.pkl
 /tools/contributed/lisum/lisum-core/target/
 /tools/contributed/lisum/lisum-gui/target/
 /tools/contributed/lisum/lisumgui/target/
