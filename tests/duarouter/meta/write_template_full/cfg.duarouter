@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-30 15:44:23 by Eclipse SUMO duarouter Version v1_9_2+0769-54ef62a
+<!-- generated on 2021-09-23 17:51:39 by Eclipse SUMO duarouter Version v1_10_0+0951-b6eb60e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -28,6 +28,7 @@
         <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
         <vtype-output value="" synonymes="vtype" type="FILE" help="Write used vehicle types into separate FILE"/>
         <keep-vtype-distributions value="false" type="BOOL" help="Keep vTypeDistribution ids when writing vehicles and their types"/>
+        <named-routes value="false" type="BOOL" help="Write vehicles that reference routes by their id"/>
         <write-license value="false" type="BOOL" help="Include license info into every output file"/>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
