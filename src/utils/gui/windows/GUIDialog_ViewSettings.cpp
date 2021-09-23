@@ -419,19 +419,24 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXTabItem(tabbook, "Additional", nullptr, GUIDesignViewSettingsTabItemBook1);
         FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
         FXVerticalFrame* frame5 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m51 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddNamePanel = new NamePanel(m51, this, "Show object id", mySettings->addName);
-        myAddFullNamePanel = new NamePanel(m51, this, "Show full name", mySettings->addFullName);
+        // IDs
+        FXMatrix* additionalMatrix = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
+        myAddNamePanel = new NamePanel(additionalMatrix, this, "Show object id", mySettings->addName);
+        myAddFullNamePanel = new NamePanel(additionalMatrix, this, "Show full name", mySettings->addFullName);
         new FXHorizontalSeparator(frame5, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m52 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddSizePanel = new SizePanel(m52, this, mySettings->addSize);
-
-        /*
-        new FXLabel(m522, "Color", 0, GUIDesignViewSettingsLabel1);
-        myDetectorNameColor = new FXColorWell(m522, MFXUtils::getFXColor(settings->addNameColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell3);
-        */
+        //Sizes
+        additionalMatrix = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
+        myAddSizePanel = new SizePanel(additionalMatrix, this, mySettings->addSize);
+        // color
+        additionalMatrix = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
+        new FXLabel(additionalMatrix, "Default Selection Color", nullptr, GUIDesignViewSettingsLabel1);
+        new FXLabel(additionalMatrix, "", nullptr, GUIDesignViewSettingsLabel1);
+        new FXLabel(additionalMatrix, "busStops", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectionColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(additionalMatrix, "trainStops", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectionColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(additionalMatrix, "containerStops", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectionColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     }
     {
         // POIs
