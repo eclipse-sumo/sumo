@@ -129,6 +129,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (myColor.isValid()){
                 baseColor = myColor;
                 signColor = s.colorSettings.busStopColorSign;
+            } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
+                baseColor = myNet->getViewNet()->getVisualisationSettings().colorSettings.trainStopColor;
+                signColor = s.colorSettings.trainStopColorSign;
             } else {
                 baseColor = myNet->getViewNet()->getVisualisationSettings().colorSettings.busStopColor;
                 signColor = s.colorSettings.busStopColorSign;
