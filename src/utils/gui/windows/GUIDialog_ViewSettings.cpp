@@ -432,11 +432,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(additionalMatrix, "Default Selection Color", nullptr, GUIDesignViewSettingsLabel1);
         new FXLabel(additionalMatrix, "", nullptr, GUIDesignViewSettingsLabel1);
         new FXLabel(additionalMatrix, "busStops", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectionColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        myBusStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.busStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
         new FXLabel(additionalMatrix, "trainStops", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectionColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        myTrainStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.trainStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
         new FXLabel(additionalMatrix, "containerStops", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectionColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        myContainerStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.containerStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     }
     {
         // POIs
@@ -712,6 +712,11 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     rebuildColorMatrices(true);
 
     myBackgroundColor->setRGBA(MFXUtils::getFXColor(mySettings->backgroundColor));
+
+    myBusStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.busStopColor));
+    myTrainStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.trainStopColor));
+    myContainerStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.containerStopColor));
+
     if (mySettings->netedit) {
         mySelectionColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectionColor));
         mySelectedEdgeColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeColor));
@@ -935,6 +940,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     tmpSettings.name = mySettings->name;
     tmpSettings.backgroundColor = MFXUtils::getRGBColor(myBackgroundColor->getRGBA());
+
+    // additionals
+    tmpSettings.colorSettings.busStopColor = MFXUtils::getRGBColor(myBusStopColor->getRGBA());
+    tmpSettings.colorSettings.trainStopColorSign = MFXUtils::getRGBColor(myTrainStopColor->getRGBA());
+    tmpSettings.colorSettings.containerStopColor = MFXUtils::getRGBColor(myContainerStopColor->getRGBA());
+    
     if (mySettings->netedit) {
         tmpSettings.colorSettings.selectionColor = MFXUtils::getRGBColor(mySelectionColor->getRGBA());
         tmpSettings.colorSettings.selectedEdgeColor = MFXUtils::getRGBColor(mySelectedEdgeColor->getRGBA());

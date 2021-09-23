@@ -304,6 +304,11 @@ protected:
     FXColorWell* mySelectedPersonPlanColor;
     FXColorWell* mySelectedEdgeDataColor;
 
+    /// @brief additional colors
+    FXColorWell* myBusStopColor;
+    FXColorWell* myTrainStopColor;
+    FXColorWell* myContainerStopColor;
+
     /// @brief ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;
     FXVerticalFrame* myLaneColorSettingFrame;
