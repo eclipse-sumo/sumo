@@ -23,6 +23,8 @@ title: ChangeLog
   - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185
   - Fixed crash caused by rerouters on short edges. Issue #9186
   - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
+  - Fixed invalid departSpeed error in meso #9201
+  - Fixed bug where simulation did not terminate after a departSpeed related error. Issue #9211  
   
 - netedit
   - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
@@ -51,6 +53,7 @@ title: ChangeLog
   - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
   - Fixed slow operation when inspecting large objects. Issue #9106
   - Fixed slow loading of large networks. Issue #9207
+  - Dotted contour now matches junction shape at reduced size. Issue #9204
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -59,7 +62,9 @@ title: ChangeLog
   - Speed mode in vehicle parametr dialog now shows all 6 bits. Issue #9078
   - Option **--no-warnings** now supresses warnings from actuated tls. Issue #9104
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
-  - Fixed invalid error when defining step-length with human readable time. Issue #9196  
+  - Fixed invalid error when defining step-length with human readable time. Issue #9196
+  - Coloring by edgedata is now working in meso. Issue #9215
+  - Time range and intervals in loaded edgedata are now reported. Issue #9217
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
@@ -112,6 +117,7 @@ title: ChangeLog
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
   - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
+  - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
