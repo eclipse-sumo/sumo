@@ -306,8 +306,13 @@ protected:
 
     /// @brief additional colors
     FXColorWell* myBusStopColor;
+    FXColorWell* myBusStopColorSign;
     FXColorWell* myTrainStopColor;
+    FXColorWell* myTrainStopColorSign;
     FXColorWell* myContainerStopColor;
+    FXColorWell* myContainerStopColorSign;
+    FXColorWell* myChargingStationColor;
+    FXColorWell* myChargingStationColorSign;
 
     /// @brief ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;
