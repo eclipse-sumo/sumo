@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-23 17:56:21 by Eclipse SUMO jtrrouter Version v1_10_0+0951-b6eb60e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_flows.flows.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <named-routes value="true"/>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <turn-defaults value="50,50,0,0"/>
+        <sink-edges value="end,left2end,right2end"/>
+    </processing>
+
+    <time>
+        <begin value="20"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="beg middle end"/>
+    <vehicle id="1.91" depart="20.02" route="r0"/>
+    <route id="r1" edges="beg beg2right right right2end"/>
+    <vehicle id="1.92" depart="20.24" route="r1"/>
+    <vehicle id="1.93" depart="20.46" route="r1"/>
+    <vehicle id="1.94" depart="20.68" route="r0"/>
+    <vehicle id="1.95" depart="20.90" route="r1"/>
+    <vehicle id="1.96" depart="21.12" route="r1"/>
+    <vehicle id="1.97" depart="21.34" route="r1"/>
+    <route id="r2" edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+    <vehicle id="1.98" depart="21.56" route="r2"/>
+    <vehicle id="1.99" depart="21.78" route="r2"/>
+</routes>
