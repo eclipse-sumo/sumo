@@ -200,7 +200,7 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
                     (shapes['shape_pt_lon'] <= options.bbox[2])]
 
     # get list of trips with departure time to allow a sorted output
-    trip_list = gtfs_data[gtfs_data["stop_sequence"] == 0]
+    trip_list = gtfs_data.loc[gtfs_data.groupby('trip_id').stop_sequence.idxmin()]
 
     # add new column for unambiguous stop_id and edge in sumo
     gtfs_data["stop_item_id"] = None
