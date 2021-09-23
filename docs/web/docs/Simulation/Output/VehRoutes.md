@@ -99,3 +99,4 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.skip-ptlines**:  Skip vehroute output for public transport vehicles (vehicles that have a 'line' attribute)
 - **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the vehroute output
 - **--vehroute-output.stop-edges**:   Include information about edges between stops
+- **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had it's departSpeed set)
