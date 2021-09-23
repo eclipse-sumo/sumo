@@ -573,7 +573,8 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         myEdge.addWaiting(veh);
     }
     if (veh->isParking()) {
-        tleave = stopTime;
+        veh->setEventTime(stopTime);
+        veh->setSegment(this, PARKING_QUEUE);
     } else {
         myEdge.lock();
         if (cars.empty()) {
@@ -600,9 +601,9 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
             q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap()) - 1);
         }
         q.setOccupancy(MIN2(myQueueCapacity, q.getOccupancy() + veh->getVehicleType().getLengthWithGap()));
+        veh->setEventTime(tleave);
+        veh->setSegment(this, qIdx);
     }
-    veh->setEventTime(tleave);
-    veh->setSegment(this, qIdx);
     addReminders(veh);
     if (isDepart) {
         veh->onDepart();

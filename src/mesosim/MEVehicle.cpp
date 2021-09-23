@@ -255,6 +255,7 @@ MEVehicle::checkStop(SUMOTime time) {
                 stop.triggered = false;
                 stop.containerTriggered = false;
             }
+            time = MAX2(time, cur + DELTA_T);
         }
         hadStop = true;
     }
@@ -280,6 +281,7 @@ MEVehicle::resumeFromStopping() {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
         }
         myStops.pop_front();
+        // TODO if this is an aborted stop we need to change the event time of the vehicle!
         return true;
     }
     return false;

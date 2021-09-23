@@ -96,8 +96,10 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     const SUMOTime entry = toSegment->hasSpaceFor(veh, leaveTime, qIdx);
     if (entry == leaveTime && (ignoreLink || veh->mayProceed())) {
         if (onSegment != nullptr) {
-            if (onSegment == toSegment) { // parking
-                veh->processStop();
+            if (veh->getQueIndex() == MESegment::PARKING_QUEUE) { // parking or just aborted parking
+                if (veh->isParking()) {
+                    veh->processStop();
+                }
             } else {
                 onSegment->send(veh, toSegment, qIdx, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
             }
@@ -126,7 +128,7 @@ void
 MELoop::checkCar(MEVehicle* veh) {
     const SUMOTime leaveTime = veh->getEventTime();
     MESegment* const onSegment = veh->getSegment();
-    MESegment* const toSegment = veh->isParking() ? onSegment : nextSegment(onSegment, veh);
+    MESegment* const toSegment = veh->getQueIndex() == MESegment::PARKING_QUEUE ? onSegment : nextSegment(onSegment, veh);
     const bool teleporting = (onSegment == nullptr); // is the vehicle currently teleporting?
     // @note reason is only evaluated if toSegment == nullptr
     const SUMOTime nextEntry = changeSegment(veh, leaveTime, toSegment, MSMoveReminder::NOTIFICATION_ARRIVED, teleporting);
@@ -137,7 +139,7 @@ MELoop::checkCar(MEVehicle* veh) {
         teleportVehicle(veh, toSegment);
         return;
     }
-    if (veh->getBlockTime() == SUMOTime_MAX) {
+    if (veh->getBlockTime() == SUMOTime_MAX && !veh->isStopped()) {
         veh->setBlockTime(leaveTime);
     }
     if (nextEntry == SUMOTime_MAX) {
