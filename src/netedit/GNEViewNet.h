@@ -206,6 +206,9 @@ public:
     /// @brief open closed polygon
     long onCmdOpenPolygon(FXObject*, FXSelector, void*);
 
+    /// @brief select elements within polygon boundary
+    long onCmdSelectPolygonElements(FXObject*, FXSelector, void*);
+
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 

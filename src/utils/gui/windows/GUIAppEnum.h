@@ -1084,6 +1084,8 @@ enum {
     MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief delete geometry point
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
+    /// @brief select elements within polygon boundary
+    MID_GNE_POLYGON_SELECT,
 
     /// @}
 

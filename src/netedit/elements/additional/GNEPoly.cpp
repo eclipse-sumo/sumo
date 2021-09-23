@@ -198,6 +198,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         GUIDesigns::buildFXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
     }
+    GUIDesigns::buildFXMenuCommand(ret, "Select elements within polygon\t\tSelect elements within polygon boundary", nullptr, &parent, MID_GNE_POLYGON_SELECT);
     // add separator
     new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
