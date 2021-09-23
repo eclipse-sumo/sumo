@@ -1145,13 +1145,13 @@ public:
 
 
     ///@brief add parking vehicle. This should only used during state loading
-    void addParking(MSVehicle* veh);
+    void addParking(MSBaseVehicle* veh);
 
     ///@brief remove parking vehicle. This must be syncrhonized when running with GUI
-    virtual void removeParking(MSVehicle* veh);
+    virtual void removeParking(MSBaseVehicle* veh);
 
     /// @brief retrieve the parking vehicles (see GUIParkingArea)
-    const std::set<const MSVehicle*>& getParkingVehicles() const {
+    const std::set<const MSBaseVehicle*>& getParkingVehicles() const {
         return myParkingVehicles;
     }
 
@@ -1364,7 +1364,7 @@ protected:
     /* @brief list of vehicles that are parking near this lane
      * (not necessarily on the road but having reached their stop on this lane)
      * */
-    std::set<const MSVehicle*> myParkingVehicles;
+    std::set<const MSBaseVehicle*> myParkingVehicles;
 
     /// Lane length [m]
     double myLength;

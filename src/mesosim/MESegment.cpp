@@ -575,6 +575,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     if (veh->isParking()) {
         veh->setEventTime(stopTime);
         veh->setSegment(this, PARKING_QUEUE);
+        myEdge.getLanes()[0]->addParking(veh);  // TODO for GUI only
     } else {
         myEdge.lock();
         if (cars.empty()) {

@@ -100,6 +100,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
                 if (veh->isParking()) {
                     veh->processStop();
                 }
+                veh->getEdge()->getLanes()[0]->removeParking(veh);  // TODO for GUI only
             } else {
                 onSegment->send(veh, toSegment, qIdx, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
             }

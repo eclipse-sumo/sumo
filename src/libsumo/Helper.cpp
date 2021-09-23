@@ -71,7 +71,7 @@ LaneStoringVisitor::add(const MSLane* const l) const {
                     myObjects.insert(veh);
                 }
             }
-            for (const MSVehicle* veh : l->getParkingVehicles()) {
+            for (const MSBaseVehicle* veh : l->getParkingVehicles()) {
                 if (myShape.distance2D(veh->getPosition()) <= myRange) {
                     myObjects.insert(veh);
                 }

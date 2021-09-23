@@ -3115,13 +3115,13 @@ MSLane::outgoing_lane_priority_sorter::operator()(const MSLink* link1, const MSL
 }
 
 void
-MSLane::addParking(MSVehicle* veh) {
+MSLane::addParking(MSBaseVehicle* veh) {
     myParkingVehicles.insert(veh);
 }
 
 
 void
-MSLane::removeParking(MSVehicle* veh) {
+MSLane::removeParking(MSBaseVehicle* veh) {
     myParkingVehicles.erase(veh);
 }
 

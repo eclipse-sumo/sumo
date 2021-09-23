@@ -345,6 +345,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     GUIMEVehicleControl* vehicleControl = GUINet::getGUIInstance()->getGUIMEVehicleControl();
+    const double now = SIMTIME;
     if (vehicleControl != nullptr) {
         // draw the meso vehicles
         vehicleControl->secureVehicles();
@@ -363,21 +364,26 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                     const int queueSize = (int)queue.size();
                     double vehiclePosition = segmentOffset + length;
                     // draw vehicles beginning with the leader at the end of the segment
-                    double xOff = 0;
+                    double latOff = 0.;
                     for (int i = 0; i < queueSize; ++i) {
-                        GUIMEVehicle* veh = static_cast<GUIMEVehicle*>(queue[queueSize - i - 1]);
-                        const double vehLength = veh->getVehicleType().getLengthWithGap();
+                        const GUIMEVehicle* const veh = static_cast<GUIMEVehicle*>(queue[queueSize - i - 1]);
+                        const double intendedLeave = MIN2(veh->getEventTimeSeconds(), veh->getBlockTimeSeconds());
+                        const double entry = veh->getLastEntryTimeSeconds();
+                        const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+                        if (relPos < vehiclePosition) {
+                            vehiclePosition = relPos;
+                        }
                         while (vehiclePosition < segmentOffset) {
                             // if there is only a single queue for a
                             // multi-lane edge shift vehicles and start
                             // drawing again from the end of the segment
                             vehiclePosition += length;
-                            xOff += 2;
+                            latOff += 0.2;
                         }
-                        const Position p = l->geometryPositionAtOffset(vehiclePosition);
+                        const Position p = l->geometryPositionAtOffset(vehiclePosition, latOff);
                         const double angle = l->getShape().rotationAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
                         veh->drawOnPos(s, p, angle);
-                        vehiclePosition -= vehLength;
+                        vehiclePosition -= veh->getVehicleType().getLengthWithGap();
                     }
                 }
                 segmentOffset += length;
