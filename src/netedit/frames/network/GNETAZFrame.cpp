@@ -1521,9 +1521,11 @@ GNETAZFrame::shapeDrawed() {
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
             std::vector<std::string> edgeIDs;
-            auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
+            const auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
+            // get only edges with geometry around shape
             for (const auto& AC : ACsInBoundary) {
-                if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                if ((AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
+                    myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, shape)) {
                     edgeIDs.push_back(AC.first);
                 }
             }
