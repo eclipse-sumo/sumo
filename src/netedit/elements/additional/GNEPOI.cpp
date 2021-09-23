@@ -66,6 +66,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
     {}, {}, {lane}, {}, {}, {}, {}, {}
     ) {
+    // update geometry (needed for POILanes)
+    updateGeometry();
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -145,6 +147,12 @@ GNEPOI::updateGeometry() {
         // set new position regarding to lane
         set(getParentLanes().at(0)->getLaneShape().positionAtOffset(fixedPositionOverLane * getParentLanes().at(0)->getLengthGeometryFactor(), -myPosLat));
     }
+}
+
+
+Position 
+GNEPOI::getPositionInView() const {
+    return *this;
 }
 
 

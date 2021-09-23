@@ -89,7 +89,7 @@ public:
     virtual void setParameter(const std::string& key, const std::string& value) = 0;
 
     /**@brief writte shape element into a xml file
-     * @param[in] device device in which write parameters of additional element
+     * @param[in] device device in which write parameters of shape element
      */
     virtual void writeShape(OutputDevice& device) = 0;
 
@@ -104,8 +104,8 @@ public:
     */
     virtual void updateGeometry() = 0;
 
-    /// @brief Returns position of additional in view
-    Position getPositionInView() const;
+    /// @brief Returns position of shape in view
+    virtual Position getPositionInView() const = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
@@ -151,7 +151,7 @@ public:
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
 
-    /* @brief method for setting the attribute and letting the object perform additional changes
+    /* @brief method for setting the attribute and letting the object perform shape changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes

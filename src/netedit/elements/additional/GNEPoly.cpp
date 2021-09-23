@@ -144,6 +144,13 @@ GNEPoly::updateGeometry() {
 }
 
 
+Position
+GNEPoly::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
+
 void
 GNEPoly::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net

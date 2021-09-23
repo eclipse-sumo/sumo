@@ -61,12 +61,6 @@ GNEShape::getGUIGlObject() {
 }
 
 
-Position
-GNEShape::getPositionInView() const {
-    return myBoundary.getCenter();
-}
-
-
 Boundary
 GNEShape::getCenteringBoundary() const {
     return myBoundary;
