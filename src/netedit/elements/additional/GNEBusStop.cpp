@@ -128,10 +128,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 signColor = baseColor.changedBrightness(-32);
             } else if (myColor.isValid()){
                 baseColor = myColor;
-                signColor = s.stoppingPlaceSettings.busStopColorSign;
+                signColor = s.colorSettings.busStopColorSign;
             } else {
-                baseColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor;
-                signColor = s.stoppingPlaceSettings.busStopColorSign;
+                baseColor = myNet->getViewNet()->getVisualisationSettings().colorSettings.busStopColor;
+                signColor = s.colorSettings.busStopColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());

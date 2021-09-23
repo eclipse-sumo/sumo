@@ -93,8 +93,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
             } else {
-                baseColor = s.stoppingPlaceSettings.chargingStationColor;
-                signColor = s.stoppingPlaceSettings.chargingStationColorSign;
+                baseColor = s.colorSettings.chargingStationColor;
+                signColor = s.colorSettings.chargingStationColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());

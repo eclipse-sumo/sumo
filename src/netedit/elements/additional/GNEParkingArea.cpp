@@ -110,8 +110,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
             } else {
-                baseColor = s.stoppingPlaceSettings.parkingAreaColor;
-                signColor = s.stoppingPlaceSettings.parkingAreaColorSign;
+                baseColor = s.colorSettings.parkingAreaColor;
+                signColor = s.colorSettings.parkingAreaColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
