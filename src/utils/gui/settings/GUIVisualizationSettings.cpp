@@ -144,20 +144,9 @@ const double GUIVisualizationDetectorSettings::E3EntryExitHeight(0.5);
 
 const double GUIVisualizationStoppingPlaceSettings::stoppingPlaceSignOffset(1.5);
 const double GUIVisualizationStoppingPlaceSettings::busStopWidth(1);
-const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColor(76, 170, 50);
-const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColorSign(255, 235, 0);
 const double GUIVisualizationStoppingPlaceSettings::trainStopWidth(0.5);
 const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(1);
-const RGBColor GUIVisualizationStoppingPlaceSettings::containerStopColor(83, 89, 172);
-const RGBColor GUIVisualizationStoppingPlaceSettings::containerStopColorSign(177, 184, 186, 171);
 const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
-const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColor(114, 210, 252);
-const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColorSign(255, 235, 0);
-const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColorCharge(255, 180, 0);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingAreaColor(83, 89, 172);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingAreaColorSign(177, 184, 186);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColorContour(0, 255, 0);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColor(255, 200, 200);
 
 // -------------------------------------------------------------------------
 // Dotted contour values
@@ -358,7 +347,20 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     selectedPersonPlanColor(0, 0, 130, 255),
     selectedContainerColor(0, 0, 120, 255),
     selectedContainerPlanColor(0, 0, 130, 255),
-    selectedEdgeDataColor(0, 0, 150, 255) {
+    selectedEdgeDataColor(0, 0, 150, 255),
+    busStopColor(76, 170, 50),
+    busStopColorSign(255, 235, 0),
+    trainStopColor(76, 170, 50),
+    trainStopColorSign(255, 235, 0),
+    containerStopColor(83, 89, 172),
+    containerStopColorSign(177, 184, 186, 171),
+    chargingStationColor(114, 210, 252),
+    chargingStationColorSign(255, 235, 0),
+    chargingStationColorCharge(255, 180, 0),
+    parkingAreaColor(83, 89, 172),
+    parkingAreaColorSign(177, 184, 186),
+    parkingSpaceColorContour(0, 255, 0),
+    parkingSpaceColor(255, 200, 200) {
 }
 
 
@@ -376,7 +378,20 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (selectedPersonColor == v2.selectedPersonColor) &&
            (selectedContainerColor == v2.selectedContainerColor) &&
            (selectedPersonPlanColor == v2.selectedPersonPlanColor) &&
-           (selectedEdgeDataColor == v2.selectedEdgeDataColor);
+           (selectedEdgeDataColor == v2.selectedEdgeDataColor) &&
+           (busStopColor == v2.busStopColor) &&
+           (busStopColorSign == v2.busStopColorSign) &&
+           (trainStopColor == v2.trainStopColor) &&
+           (trainStopColorSign == v2.trainStopColorSign) &&
+           (containerStopColor == v2.containerStopColor) &&
+           (containerStopColorSign == v2.containerStopColorSign) &&
+           (chargingStationColor == v2.chargingStationColor) &&
+           (chargingStationColorSign == v2.chargingStationColorSign) &&
+           (chargingStationColorCharge == v2.chargingStationColorCharge) &&
+           (parkingAreaColor == v2.parkingAreaColor) &&
+           (parkingAreaColorSign == v2.parkingAreaColorSign) &&
+           (parkingSpaceColorContour == v2.parkingSpaceColorContour) &&
+           (parkingSpaceColor == v2.parkingSpaceColor);
 }
 
 
@@ -394,7 +409,20 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (selectedPersonColor != v2.selectedPersonColor) ||
            (selectedContainerColor != v2.selectedContainerColor) ||
            (selectedPersonPlanColor != v2.selectedPersonPlanColor) ||
-           (selectedEdgeDataColor != v2.selectedEdgeDataColor);
+           (selectedEdgeDataColor != v2.selectedEdgeDataColor) ||
+           (busStopColor != v2.busStopColor) ||
+           (busStopColorSign != v2.busStopColorSign) ||
+           (trainStopColor != v2.trainStopColor) ||
+           (trainStopColorSign != v2.trainStopColorSign) ||
+           (containerStopColor != v2.containerStopColor) ||
+           (containerStopColorSign != v2.containerStopColorSign) ||
+           (chargingStationColor != v2.chargingStationColor) ||
+           (chargingStationColorSign != v2.chargingStationColorSign) ||
+           (chargingStationColorCharge != v2.chargingStationColorCharge) ||
+           (parkingAreaColor != v2.parkingAreaColor) ||
+           (parkingAreaColorSign != v2.parkingAreaColorSign) ||
+           (parkingSpaceColorContour != v2.parkingSpaceColorContour) ||
+           (parkingSpaceColor != v2.parkingSpaceColor);
 }
 
 // ---------------------------------------------------------------------------
