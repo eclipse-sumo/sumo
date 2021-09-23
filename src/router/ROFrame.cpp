@@ -57,6 +57,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");
 
+    oc.doRegister("named-routes", new Option_Bool(false));
+    oc.addDescription("named-routes", "Output", "Write vehicles that reference routes by their id");
+
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "d", true);
     oc.addSynonyme("additional-files", "additional");

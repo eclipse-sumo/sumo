@@ -102,6 +102,10 @@ public:
         return myAlternatives.front();
     }
 
+    const RORoute* getUsedRoute() const {
+        return myAlternatives[myLastUsed];
+    }
+
     /** @brief Saves the built route / route alternatives
      *
      * Writes the route into the given stream.
