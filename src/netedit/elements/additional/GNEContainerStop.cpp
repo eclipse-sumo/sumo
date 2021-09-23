@@ -96,7 +96,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = myColor;
                 signColor = s.colorSettings.containerStopColorSign;
             } else {
-                baseColor = myNet->getViewNet()->getVisualisationSettings().colorSettings.containerStopColor;
+                baseColor = s.colorSettings.containerStopColor;
                 signColor = s.colorSettings.containerStopColorSign;
             }
             // Start drawing adding an gl identificator

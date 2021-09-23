@@ -130,10 +130,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = myColor;
                 signColor = s.colorSettings.busStopColorSign;
             } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
-                baseColor = myNet->getViewNet()->getVisualisationSettings().colorSettings.trainStopColor;
+                baseColor = s.colorSettings.trainStopColor;
                 signColor = s.colorSettings.trainStopColorSign;
             } else {
-                baseColor = myNet->getViewNet()->getVisualisationSettings().colorSettings.busStopColor;
+                baseColor = s.colorSettings.busStopColor;
                 signColor = s.colorSettings.busStopColorSign;
             }
             // Start drawing adding an gl identificator
