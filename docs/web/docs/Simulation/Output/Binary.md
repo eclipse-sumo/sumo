@@ -4,6 +4,17 @@ title: Binary
 
 All [SUMO Applications](../../index.md#application_manuals)
 ([sumo](../../sumo.md), [netconvert](../../netconvert.md),...) can
+save all its outputs including networks and routes in gzipped XML
+(.xml.gz) and also read the corresponding files as input. This output
+format is used automatically whenever an output file name with extension
+*.gz* is specified. In order to read these files they must also have
+the *.gz* extension (for all other extensions, XML is assumed). The
+format is simply [gzip-compressed](https://en.wikipedia.org/wiki/Gzip) XML and can be decompressed with standard compression utilities.
+
+## Outdated .sbx format
+
+From version 0.18.0 to 1.2.0 All [SUMO Applications](../../index.md#application_manuals)
+([sumo](../../sumo.md), [netconvert](../../netconvert.md),...) could
 save all its outputs including networks and routes in SUMO Binary XML
 (.sbx) and also read the corresponding files as input. This output
 format is used automatically whenever an output file name with extension
@@ -11,8 +22,6 @@ format is used automatically whenever an output file name with extension
 the *.sbx* extension (for all other extensions, XML is assumed). The
 format is XML and TraCI inspired and aims to be self contained (can be
 read without additional information from a network etc.).
-
-## Data types
 
 Every data item is preceeded by a single byte describing the type which
 is one of the following:
