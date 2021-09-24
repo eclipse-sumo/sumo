@@ -385,7 +385,7 @@ RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         RORoute* route = *i;
         RGBColor* col = route->getColor() != nullptr ? new RGBColor(*route->getColor()) : nullptr;
-        RORoute* newRoute = new RORoute(id, 0, 1, route->getEdgeVector(), col, route->getStops());
+        RORoute* newRoute = new RORoute(id, route->getCosts(), route->getProbability(), route->getEdgeVector(), col, route->getStops());
         newRoute->addStopOffset(stopOffset);
         result->addLoadedAlternative(newRoute);
     }
