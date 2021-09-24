@@ -380,19 +380,6 @@ RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
 
 
 RORouteDef*
-RORouteDef::copyOrigDest(const std::string& id) const {
-    RORouteDef* result = new RORouteDef(id, 0, true, true);
-    RORoute* route = myAlternatives[0];
-    RGBColor* col = route->getColor() != nullptr ? new RGBColor(*route->getColor()) : nullptr;
-    ConstROEdgeVector edges;
-    edges.push_back(route->getFirst());
-    edges.push_back(route->getLast());
-    result->addLoadedAlternative(new RORoute(id, 0, 1, edges, col, route->getStops()));
-    return result;
-}
-
-
-RORouteDef*
 RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
     RORouteDef* result = new RORouteDef(id, 0, myTryRepair, myMayBeDisconnected);
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
