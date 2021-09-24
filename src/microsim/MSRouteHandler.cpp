@@ -605,12 +605,17 @@ MSRouteHandler::closeVehicle() {
             registerLastDepart();
             myVehicleParameter->depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
+            int offset = 0;
             for (int i = 1; i < quota; i++) {
                 if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                 }
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
-                newPars->id = myVehicleParameter->id + "." + toString(i);
+                newPars->id = myVehicleParameter->id + "." + toString(i + offset);
+                while (vehControl.getVehicle(newPars->id) != nullptr) {
+                    offset += 1;
+                    newPars->id = myVehicleParameter->id + "." + toString(i + offset);
+                }
                 newPars->depart = origDepart + MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
                 vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
                 vehControl.addVehicle(newPars->id, vehicle);
