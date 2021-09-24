@@ -217,6 +217,9 @@ protected:
     /// @brief whether a state file is being loaded
     bool myAmLoadingState;
 
+    /// @brief prefix when copying vehicles with --scale
+    std::string myScaleSuffix;
+
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
     static SumoRNG myParsingRNG;
 

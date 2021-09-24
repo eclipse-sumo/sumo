@@ -58,7 +58,9 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(nullptr),
     myCurrentRouteDistribution(nullptr),
-    myAmLoadingState(false) {
+    myAmLoadingState(false),
+    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix"))
+{
     myActiveRoute.reserve(100);
 }
 
@@ -611,10 +613,10 @@ MSRouteHandler::closeVehicle() {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                 }
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
-                newPars->id = myVehicleParameter->id + "." + toString(i + offset);
+                newPars->id = myVehicleParameter->id + myScaleSuffix + toString(i + offset);
                 while (vehControl.getVehicle(newPars->id) != nullptr) {
                     offset += 1;
-                    newPars->id = myVehicleParameter->id + "." + toString(i + offset);
+                    newPars->id = myVehicleParameter->id + myScaleSuffix + toString(i + offset);
                 }
                 newPars->depart = origDepart + MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
                 vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
@@ -633,7 +635,11 @@ MSRouteHandler::closeVehicle() {
             // -> error
             std::string veh_id = myVehicleParameter->id;
             deleteActivePlanAndVehicleParameter();
-            throw ProcessError("Another vehicle with the id '" + veh_id + "' exists.");
+            std::string scaleWarning = "";
+            if (vehControl.getScale() > 0 && veh_id.find(myScaleSuffix) != std::string::npos) {
+                scaleWarning = "\n   (Possibly duplicate id due to using option --scale. Set option --scale-suffix to prevent this)";
+            }
+            throw ProcessError("Another vehicle with the id '" + veh_id + "' exists." + scaleWarning);
         } else {
             // ok, it seems to be loaded previously while loading a simulation state
             vehicle = nullptr;

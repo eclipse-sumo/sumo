@@ -375,6 +375,9 @@ MSFrame::fillOptions() {
     oc.doRegister("scale", new Option_Float(1.));
     oc.addDescription("scale", "Processing", "Scale demand by the given factor (by discarding or duplicating vehicles)");
 
+    oc.doRegister("scale-suffix", new Option_String("."));
+    oc.addDescription("scale-suffix", "Processing", "Suffix to be added when creating ids for cloned vehicles");
+
     oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting");
 
