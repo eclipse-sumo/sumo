@@ -330,16 +330,16 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             delete *i;
         }
         myAlternatives.erase(myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(), myAlternatives.end());
-        // rescale probabilities
-        double newSum = 0.;
-        for (const RORoute* const alt : myAlternatives) {
-            newSum += alt->getProbability();
-        }
-        assert(newSum > 0);
-        // @note newSum may be larger than 1 for numerical reasons
-        for (RORoute* const alt : myAlternatives) {
-            alt->setProbability(alt->getProbability() / newSum);
-        }
+    }
+    // rescale probabilities
+    double newSum = 0.;
+    for (const RORoute* const alt : myAlternatives) {
+        newSum += alt->getProbability();
+    }
+    assert(newSum > 0);
+    // @note newSum may be larger than 1 for numerical reasons
+    for (RORoute* const alt : myAlternatives) {
+        alt->setProbability(alt->getProbability() / newSum);
     }
 
     // find the route to use
