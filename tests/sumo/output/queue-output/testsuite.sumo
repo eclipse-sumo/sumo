@@ -4,6 +4,8 @@ no_vehicles
 # small jam to have a valid queue in front of a tls
 small_jam
 
+# small jam to have a valid queue in front of a tls
+period
+
 # Testing error cases
 errors
-

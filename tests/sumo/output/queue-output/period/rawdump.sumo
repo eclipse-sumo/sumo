@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-24 11:03:11 by Eclipse SUMO sumo Version v1_10_0+0972-edf40ca
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <queue-output value="rawdump.xml"/>
+        <queue-output.period value="5"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<queue-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/queue_file.xsd">
+    <data timestep="0.00">
+        <lanes/>
+    </data>
+    <data timestep="5.00">
+        <lanes/>
+    </data>
+    <data timestep="10.00">
+        <lanes/>
+    </data>
+    <data timestep="15.00">
+        <lanes/>
+    </data>
+    <data timestep="20.00">
+        <lanes/>
+    </data>
+    <data timestep="25.00">
+        <lanes/>
+    </data>
+    <data timestep="30.00">
+        <lanes/>
+    </data>
+    <data timestep="35.00">
+        <lanes/>
+    </data>
+    <data timestep="40.00">
+        <lanes/>
+    </data>
+    <data timestep="45.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="2.00" queueing_length="4.00" queueing_length_experimental="9.59"/>
+        </lanes>
+    </data>
+    <data timestep="50.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="7.00" queueing_length="14.02" queueing_length_experimental="24.88"/>
+        </lanes>
+    </data>
+    <data timestep="55.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="12.00" queueing_length="29.03" queueing_length_experimental="39.68"/>
+        </lanes>
+    </data>
+    <data timestep="60.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="17.00" queueing_length="44.03" queueing_length_experimental="49.10"/>
+        </lanes>
+    </data>
+    <data timestep="65.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="22.00" queueing_length="49.01" queueing_length_experimental="49.01"/>
+        </lanes>
+    </data>
+    <data timestep="70.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="27.00" queueing_length="49.01" queueing_length_experimental="49.01"/>
+        </lanes>
+    </data>
+    <data timestep="75.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="32.00" queueing_length="49.01" queueing_length_experimental="49.01"/>
+        </lanes>
+    </data>
+    <data timestep="80.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="33.50" queueing_length="49.01" queueing_length_experimental="49.01"/>
+        </lanes>
+    </data>
+    <data timestep="85.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="26.50" queueing_length="49.01" queueing_length_experimental="49.01"/>
+        </lanes>
+    </data>
+    <data timestep="90.00">
+        <lanes/>
+    </data>
+    <data timestep="95.00">
+        <lanes>
+            <lane id="4/1to3/1_0" queueing_time="4.50" queueing_length="9.01" queueing_length_experimental="19.42"/>
+        </lanes>
+    </data>
+</queue-export>
