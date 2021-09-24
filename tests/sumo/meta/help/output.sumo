@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_10_0+0847-ef64dc0
+Eclipse SUMO sumo Version v1_10_0+0972-edf40ca
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -87,6 +87,8 @@ Output Options:
                                         timestep (very redundant)
   --queue-output FILE                  Save the vehicle queues at the junctions
                                         (experimental)
+  --queue-output.period TIME           Save vehicle queues with the given
+                                        period
   --vtk-output FILE                    Save complete vehicle positions
                                         inclusive speed values in the VTK Format
                                         (usage: /path/out will produce

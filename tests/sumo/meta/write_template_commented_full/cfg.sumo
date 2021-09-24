@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-21 09:17:51 by Eclipse SUMO sumo Version v1_10_0+0847-ef64dc0
+<!-- generated on 2021-09-24 11:02:16 by Eclipse SUMO sumo Version v1_10_0+0972-edf40ca
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -146,6 +146,9 @@
 
         <!-- Save the vehicle queues at the junctions (experimental) -->
         <queue-output value="" type="FILE"/>
+
+        <!-- Save vehicle queues with the given period -->
+        <queue-output.period value="-1" type="TIME"/>
 
         <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
         <vtk-output value="" type="FILE"/>
