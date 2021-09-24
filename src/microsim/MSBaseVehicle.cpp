@@ -960,8 +960,16 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
         errorMsg = errorMsgStart + " on lane '" + stop.lane->getID() + "' is too short for vehicle '" + myParameter->id + "'.";
     }
-    // if stop is on an internal edge the normal edge before the intersection is used
-    const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
+    const MSEdge* stopLaneEdge = &stop.lane->getEdge();
+    const MSEdge* stopEdge;
+    if (stopLaneEdge->getOppositeEdge() != nullptr && stopLaneEdge->getOppositeEdge()->getID() == stopPar.edge) {
+        // stop lane is on the opposite side
+        stopEdge = stopLaneEdge->getOppositeEdge();
+        stop.isOpposite = true;
+    } else {
+        // if stop is on an internal edge the normal edge before the intersection is used
+        stopEdge = stopLaneEdge->getNormalBefore();
+    }
     if (searchStart == nullptr) {
         searchStart = &myCurrEdge;
     }

@@ -169,6 +169,10 @@ public:
         return *myLanes;
     }
 
+    inline int getNumLanes() const {
+        return (int)myLanes->size();
+    }
+
     /// @brief return total number of vehicles on this edges lanes or segments
     int getVehicleNumber() const;
 

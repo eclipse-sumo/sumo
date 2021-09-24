@@ -1128,11 +1128,25 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 }
             } else if (ok && stop.lane != "") { // lane is given directly
                 MSLane* stopLane = MSLane::dictionary(stop.lane);
+                if (stopLane == nullptr) {
+                    // check for opposite-direction stop
+                    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane);
+                    const int laneIndex = SUMOXMLDefinitions::getIndexFromLane(stop.lane);
+                    edge = MSEdge::dictionary(edgeID);
+                    if (edge != nullptr && edge->getOppositeEdge() != nullptr
+                            && laneIndex < (edge->getNumLanes() + edge->getOppositeEdge()->getNumLanes())) {
+                        const int oppositeIndex = edge->getOppositeEdge()->getNumLanes() + edge->getNumLanes() - 1 - laneIndex;
+                        stopLane = edge->getOppositeEdge()->getLanes()[oppositeIndex];
+                        stop.lane = stopLane->getID();
+                        stop.edge = edgeID;
+                    }
+                } else {
+                    edge = &stopLane->getEdge();
+                }
                 if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
                     WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                     return;
                 }
-                edge = &stopLane->getEdge();
             } else {
                 if (myActiveTransportablePlan && !myActiveTransportablePlan->empty()) { // use end of movement before
                     toStop = myActiveTransportablePlan->back()->getDestinationStop();

@@ -90,7 +90,7 @@
 //#define DEBUG_FURTHER
 //#define DEBUG_SETFURTHER
 //#define DEBUG_TARGET_LANE
-//#define DEBUG_STOPS
+#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPS
@@ -2181,7 +2181,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         // process stops
-        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()
+        if (!myStops.empty()
+                && ((&myStops.begin()->lane->getEdge() == &lane->getEdge())
+                    || (myStops.begin()->isOpposite && myStops.begin()->lane->getEdge().getOppositeEdge() == &lane->getEdge()))
                 && (!myStops.begin()->reached || (myStops.begin()->pars.speed > 0 && keepStopping()))
                 // ignore stops that occur later in a looped route
                 && myStops.front().edge == myCurrEdge + view) {

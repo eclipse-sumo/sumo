@@ -85,6 +85,8 @@ public:
     bool collision = false;
     /// @brief the maximum time at which persons may board this vehicle
     SUMOTime endBoarding = SUMOTime_MAX;
+    /// @brief whether this an opposite-direction stop
+    bool isOpposite = false;
 
     /// @brief Write the current stop configuration (used for state saving)
     void write(OutputDevice& dev) const;

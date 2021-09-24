@@ -705,10 +705,16 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         } else {
             stopLanePos = stop.reached ? getPositionOnLane() : MAX2(0.0, stop.getEndPos(*this));
         }
+        if (stop.isOpposite) {
+            stopLanePos = stop.lane->getLength() - stopLanePos;
+        }
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::setColor(col);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
         std::string label = stop.pars.speed > 0 ? "waypoint" : (stop.reached ? "stopped" : "stop " + toString(stopIndex));
+        if (stop.isOpposite) {
+            label += " (opposite)";
+        }
 #ifdef _DEBUG
         label += " (" + toString(stop.edge - myCurrEdge) + "e)";
 #endif
