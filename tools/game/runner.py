@@ -231,38 +231,28 @@ def computeScoreDRT(gamename):
 
 
 def computeScoreSquare(gamename):
-    rideWaitingTime = 0
-    rideDuration = 0
-    rideStarted = 0
-    rideFinished = 0
+    maxScore = 1000.0
+    expectedVehCount = 142
+    timeLoss = 0
+    tripCount = 0
+    arrived = 0
     tripinfos = gamename + ".tripinfos.xml"
-    rideCount = 0
-    for ride in sumolib.xml.parse(tripinfos, 'tripinfo'):
-        if float(ride.waitingTime) < 0:
-            if _DEBUG:
-                print("negative waitingTime")
-            ride.waitingTime = 10000
-        rideWaitingTime += float(ride.waitingTime)
-        if ride.vType.startswith("ev"):
-            rideWaitingTime += 10 * float(ride.waitingTime)
-        if float(ride.duration) >= 0:
-            rideDuration += float(ride.duration)
-            rideStarted += 1
-        if float(ride.arrival) >= 0:
-            rideFinished += 1
+    for trip in sumolib.xml.parse(tripinfos, 'tripinfo'):
+        timeLoss += float(trip.timeLoss) + float(trip.departDelay)
+        tripCount += 1
+        if float(trip.arrival) > 0:
+            arrived += 1
 
-        rideCount += 1
-
-    if rideCount == 0:
+    if tripCount == 0:
         return 0, 0, False
     else:
-        avgWT = rideWaitingTime / rideCount
-        avgDur = 0 if rideStarted == 0 else rideDuration / rideStarted
-        score = 1000 - int(avgWT + avgDur)
+        # early-abort score is close to 0, do-nothing timeLoss is ~8000
+        earlyEndPenalty = (expectedVehCount - tripCount) * (maxScore / expectedVehCount)
+        score = int(1000 - earlyEndPenalty - timeLoss / 10.0)
         if _DEBUG:
-            print("rideWaitingTime=%s rideDuration=%s persons=%s started=%s finished=%s avgWT=%s avgDur=%s" % (
-                rideWaitingTime, rideDuration, rideCount, rideStarted, rideFinished, avgWT, avgDur))
-        return score, rideCount, True
+            print("tripCount=%s arrived=%s timeLoss=%s avtTimeLoss=%s earlyEndPenalty=%s" % (
+                tripCount, arrived, timeLoss, timeLoss / tripCount, earlyEndPenalty))
+        return score, arrived, True
 
 
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
