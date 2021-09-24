@@ -1,1 +1,2 @@
-Error: The lane 'a_1' for a stop is not known in vehicle 'ego'.
+Warning: Teleporting vehicle 'ego'; waited too long (jam), lane='a_0', time=310.00.
+Warning: Vehicle 'ego' teleports beyond arrival edge 'a', time 310.00.

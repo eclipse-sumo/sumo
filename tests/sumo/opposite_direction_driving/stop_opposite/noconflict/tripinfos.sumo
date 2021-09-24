@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-24 13:24:04 by Eclipse SUMO sumo Version v1_10_0+0983-b879e28
+<!-- generated on 2021-09-24 15:07:49 by Eclipse SUMO sumo Version v1_10_0+0985-1d4f166
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroute.xml"/>
     </output>
 
     <processing>
@@ -33,5 +34,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ego" depart="0.00" departLane="a_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="17.00" arrivalLane="a_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="17.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_ego fcd_ego" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="a_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="310.00" arrivalLane="a_0" arrivalPos="200.00" arrivalSpeed="0.00" duration="310.00" routeLength="200.00" waitingTime="301.00" waitingCount="1" stopTime="0.00" timeLoss="304.24" rerouteNo="0" devices="vehroute_ego tripinfo_ego fcd_ego" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="teleport"/>
 </tripinfos>
