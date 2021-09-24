@@ -777,10 +777,6 @@ public:
 
     };
 
-    /// @brief returns the node id for internal lanes, crossings and walkingareas
-    static std::string getNodeIDFromInternalLane(const std::string id);
-
-
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);
 

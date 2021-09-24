@@ -27,6 +27,7 @@
 #include <cassert>
 #include <utils/common/StringBijection.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 
 #include "SUMOXMLDefinitions.h"
 
@@ -1149,6 +1150,11 @@ SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge
 std::string
 SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
     return laneID.substr(0, laneID.rfind('_'));
+}
+
+int
+SUMOXMLDefinitions::getIndexFromLane(const std::string laneID) {
+    return StringUtils::toInt(laneID.substr(laneID.rfind('_') + 1));
 }
 
 

@@ -794,7 +794,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.lane = stoppingPlace->lane;
         stop.endPos = stoppingPlace->endPos;
         stop.startPos = stoppingPlace->startPos;
-        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+        edge = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane));
     } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
@@ -806,7 +806,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 return;
             }
         } else if (ok && stop.lane != "") {
-            edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+            edge = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane));
             if (edge == nullptr) {
                 myErrorOutput->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                 return;
@@ -1112,7 +1112,7 @@ RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
 
     const SUMOVehicleParameter::Stop* bs = retrieveStoppingPlace(attrs, description, busStopID);
     if (bs != nullptr) {
-        toEdge = myNet.getEdge(bs->lane.substr(0, bs->lane.rfind('_')));
+        toEdge = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(bs->lane));
         arrivalPos = (bs->startPos + bs->endPos) / 2;
     }
     if (toEdge != nullptr) {

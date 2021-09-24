@@ -121,9 +121,7 @@ public:
     /** @brief Returns the id of the edge this detector is placed on
      * @return The id of the edge this detector is placed on
      */
-    std::string getEdgeID() const {
-        return myLaneID.substr(0, myLaneID.rfind('_'));
-    }
+    std::string getEdgeID() const;
 
 
     /** @brief Returns the position at which the detector lies

@@ -1689,6 +1689,9 @@ public:
 
     /// @brief return edge id when given the lane ID
     static std::string getEdgeIDFromLane(const std::string laneID);
+
+    /// @brief return lane index when given the lane ID
+    static int getIndexFromLane(const std::string laneID);
     /// @}
 
     /// @brief all allowed characters for phase state

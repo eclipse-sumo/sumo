@@ -374,7 +374,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 if (oc.isSet("departlane")) {
                     out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
                 } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTLANE, StringUtils::toInt(myLaneID.substr(myLaneID.rfind("_") + 1)));
+                    out.writeAttr(SUMO_ATTR_DEPARTLANE, SUMOXMLDefinitions::getIndexFromLane(myLaneID));
                 }
                 if (oc.isSet("departpos")) {
                     std::string posDesc = oc.getString("departpos");
@@ -487,7 +487,7 @@ RODFDetectorCon::addDetector(RODFDetector* dfd) {
     }
     myDetectorMap[dfd->getID()] = dfd;
     myDetectors.push_back(dfd);
-    std::string edgeid = dfd->getLaneID().substr(0, dfd->getLaneID().rfind('_'));
+    const std::string edgeid = SUMOXMLDefinitions::getEdgeIDFromLane(dfd->getLaneID());
     if (myDetectorEdgeMap.find(edgeid) == myDetectorEdgeMap.end()) {
         myDetectorEdgeMap[edgeid] = std::vector<RODFDetector*>();
     }
@@ -971,5 +971,10 @@ RODFDetectorCon::mesoJoin(const std::string& nid,
     }
 }
 
+
+std::string
+RODFDetector::getEdgeID() const {
+    return SUMOXMLDefinitions::getEdgeIDFromLane(myLaneID);
+}
 
 /****************************************************************************/

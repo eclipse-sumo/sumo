@@ -733,9 +733,15 @@ RONet::getInternalEdgeNumber() const {
     return myNumInternalEdges;
 }
 
+
+ROEdge*
+RONet::getEdgeForLaneID(const std::string& laneID) const {
+    return getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(laneID));
+}
+
 ROLane*
 RONet::getLane(const std::string& laneID) const {
-    int laneIndex = StringUtils::toInt(laneID.substr(laneID.rfind("_") + 1));
+    int laneIndex = SUMOXMLDefinitions::getIndexFromLane(laneID);
     return getEdgeForLaneID(laneID)->getLanes()[laneIndex];
 }
 

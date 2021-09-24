@@ -425,11 +425,6 @@ private:
     std::set<std::string> myDiscardableParams;
 
 private:
-    /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs
-     * @param[in] edge The EdgeAttrs* which should contain the lane
-     * @param[in] lane_id The ID of the lane
-     */
-    LaneAttrs* getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id);
 
     /// @brief read position from the given attributes, attribute errors to id
     static Position readPosition(const SUMOSAXAttributes& attrs, const std::string& id, bool& ok);
