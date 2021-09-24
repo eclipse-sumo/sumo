@@ -35,6 +35,9 @@
 100s_interval_withtype_withclass
 100s_interval_repair_edges
 
+# let flows sample from a route distribution
+routeDistribution_skipNew
+
 # Additional tests for distributing vehicles over time
 distribution_tests
 
