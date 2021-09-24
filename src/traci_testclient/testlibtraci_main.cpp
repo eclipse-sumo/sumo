@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    testlibsumo_main.cpp
+/// @file    testlibtraci_main.cpp
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
 ///
