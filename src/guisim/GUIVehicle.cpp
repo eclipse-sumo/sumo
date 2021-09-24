@@ -705,7 +705,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         } else {
             stopLanePos = stop.reached ? getPositionOnLane() : MAX2(0.0, stop.getEndPos(*this));
         }
-        if (stop.isOpposite) {
+        if (stop.isOpposite && !stop.reached) {
             stopLanePos = stop.lane->getLength() - stopLanePos;
         }
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);

@@ -90,7 +90,7 @@
 //#define DEBUG_FURTHER
 //#define DEBUG_SETFURTHER
 //#define DEBUG_TARGET_LANE
-#define DEBUG_STOPS
+//#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPS
@@ -5058,6 +5058,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     if (!myStops.empty()) {
         const MSStop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
+        if (nextStop.isOpposite) {
+            // target leftmost lane in forward direction
+            nextStopLane = nextStopLane->getEdge().getOppositeEdge()->getLanes().back();
+        }
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
         nextStopIsWaypoint = nextStop.pars.speed > 0;

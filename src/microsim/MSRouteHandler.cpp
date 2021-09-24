@@ -1130,15 +1130,9 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 MSLane* stopLane = MSLane::dictionary(stop.lane);
                 if (stopLane == nullptr) {
                     // check for opposite-direction stop
-                    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane);
-                    const int laneIndex = SUMOXMLDefinitions::getIndexFromLane(stop.lane);
-                    edge = MSEdge::dictionary(edgeID);
-                    if (edge != nullptr && edge->getOppositeEdge() != nullptr
-                            && laneIndex < (edge->getNumLanes() + edge->getOppositeEdge()->getNumLanes())) {
-                        const int oppositeIndex = edge->getOppositeEdge()->getNumLanes() + edge->getNumLanes() - 1 - laneIndex;
-                        stopLane = edge->getOppositeEdge()->getLanes()[oppositeIndex];
-                        stop.lane = stopLane->getID();
-                        stop.edge = edgeID;
+                    stopLane = MSBaseVehicle::interpretOppositeStop(stop);
+                    if (stopLane != nullptr) {
+                        edge = MSEdge::dictionary(stop.edge);
                     }
                 } else {
                     edge = &stopLane->getEdge();

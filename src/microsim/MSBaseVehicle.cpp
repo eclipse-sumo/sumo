@@ -891,6 +891,20 @@ MSBaseVehicle::basePos(const MSEdge* edge) const {
     return result;
 }
 
+MSLane*
+MSBaseVehicle::interpretOppositeStop(SUMOVehicleParameter::Stop& stop) {
+    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane);
+    const int laneIndex = SUMOXMLDefinitions::getIndexFromLane(stop.lane);
+    const MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge != nullptr && edge->getOppositeEdge() != nullptr
+            && laneIndex < (edge->getNumLanes() + edge->getOppositeEdge()->getNumLanes())) {
+        const int oppositeIndex = edge->getOppositeEdge()->getNumLanes() + edge->getNumLanes() - 1 - laneIndex;
+        stop.edge = edgeID;
+        return edge->getOppositeEdge()->getLanes()[oppositeIndex];
+    } else {
+        return nullptr;
+    }
+}
 
 bool
 MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
@@ -911,6 +925,12 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         }
     } else {
         stop.lane = MSLane::dictionary(stopPar.lane);
+        if (stop.lane == nullptr) {
+            // must be an opposite stop
+            SUMOVehicleParameter::Stop tmp = stopPar;
+            stop.lane = interpretOppositeStop(tmp);
+            assert(stop.lane != nullptr);
+        }
         if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
             errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
             return false;

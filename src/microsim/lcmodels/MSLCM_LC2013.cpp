@@ -1122,8 +1122,13 @@ MSLCM_LC2013::_wantsChange(
         neigh = preb[preb.size() - 1];
         curr = neigh;
         best = neigh;
-        bestLaneOffset = -1;
-        curr.bestLaneOffset = -1;
+        if (myVehicle.hasStops() && myVehicle.getNextStop().isOpposite) {
+            bestLaneOffset = 0;
+            curr.bestLaneOffset = 0;
+        } else {
+            bestLaneOffset = -1;
+            curr.bestLaneOffset = -1;
+        }
         neighDist = neigh.length;
         currentDist = curr.length;
     }

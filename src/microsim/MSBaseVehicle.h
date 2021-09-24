@@ -824,6 +824,9 @@ public:
     /// @brief apply departEdge and arrivalEdge attributes
     void setDepartAndArrivalEdge();
 
+    /// @brief interpret stop lane on opposite side of the road
+    static MSLane* interpretOppositeStop(SUMOVehicleParameter::Stop& stop);
+
 protected:
     /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;

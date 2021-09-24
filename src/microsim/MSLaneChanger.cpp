@@ -30,6 +30,7 @@
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSVehicleTransfer.h"
+#include "MSStop.h"
 #include "MSGlobals.h"
 #include <cassert>
 #include <iterator>
@@ -1064,7 +1065,24 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         return false;
     }
 
+    MSLane* opposite = source->getOpposite();
+
     if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
+        // check for opposite direction stop
+        if (vehicle->hasStops()) {
+            const MSStop& stop = vehicle->getNextStop();
+            if (stop.isOpposite && vehicle->nextStopDist() < OPPOSITE_OVERTAKING_MAX_LOOKAHEAD) {
+                std::pair<MSVehicle* const, double> neighLead = opposite->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
+                std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
+                std::vector<MSVehicle::LaneQ> preb = vehicle->getBestLanes();
+                MSVehicle::LaneQ leftmost = preb.back();
+                preb.back().bestLaneOffset += 1;
+                preb.back().length = vehicle->getPositionOnLane() + vehicle->nextStopDist();
+                preb.push_back(leftmost);
+                return checkChangeOpposite(vehicle, 1, opposite, leader, neighLead, neighFollow, preb);
+            }
+        }
+
         // no reason to change unless there is a leader
         // or we are changing back to the propper direction
         // XXX also check whether the leader is so far away as to be irrelevant
@@ -1095,7 +1113,6 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     }
 
 
-    MSLane* opposite = source->getOpposite();
     //There is no lane for opposite driving
     if (opposite == nullptr || !opposite->allowsVehicleClass(vehicle->getVClass())) {
         return false;
