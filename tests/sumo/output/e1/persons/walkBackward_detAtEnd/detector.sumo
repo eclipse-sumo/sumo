@@ -33,9 +33,9 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="60.00" id="det0" nVehContrib="8" flow="480.00" occupancy="2.19" speed="1.31" harmonicMeanSpeed="1.31" length="0.22" nVehEntered="8"/>
-    <interval begin="60.00" end="120.00" id="det0" nVehContrib="18" flow="1080.00" occupancy="5.18" speed="1.25" harmonicMeanSpeed="1.24" length="0.21" nVehEntered="18"/>
-    <interval begin="120.00" end="180.00" id="det0" nVehContrib="18" flow="1080.00" occupancy="5.29" speed="1.23" harmonicMeanSpeed="1.22" length="0.21" nVehEntered="18"/>
-    <interval begin="180.00" end="240.00" id="det0" nVehContrib="16" flow="960.00" occupancy="4.57" speed="1.26" harmonicMeanSpeed="1.25" length="0.21" nVehEntered="16"/>
+    <interval begin="0.00" end="60.00" id="det0" nVehContrib="11" flow="660.00" occupancy="3.16" speed="1.25" harmonicMeanSpeed="1.25" length="0.22" nVehEntered="11"/>
+    <interval begin="60.00" end="120.00" id="det0" nVehContrib="12" flow="720.00" occupancy="3.67" speed="1.21" harmonicMeanSpeed="1.20" length="0.21" nVehEntered="13"/>
+    <interval begin="120.00" end="180.00" id="det0" nVehContrib="12" flow="720.00" occupancy="3.38" speed="1.25" harmonicMeanSpeed="1.24" length="0.21" nVehEntered="11"/>
+    <interval begin="180.00" end="240.00" id="det0" nVehContrib="5" flow="300.00" occupancy="1.48" speed="1.22" harmonicMeanSpeed="1.21" length="0.21" nVehEntered="5"/>
     <interval begin="240.00" end="299.00" id="det0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
 </detector>
