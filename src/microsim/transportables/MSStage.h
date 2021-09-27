@@ -504,7 +504,7 @@ public:
     virtual double getMaxSpeed(const MSTransportable* const transportable = nullptr) const = 0;
 
     /// @brief move forward and return whether the transportable arrived
-    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* nextInternal = 0) = 0;
+    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = 0) = 0;
 
     /// @brief place transportable on a previously passed edge
     virtual void setRouteIndex(MSTransportable* const transportable, int routeOffset);

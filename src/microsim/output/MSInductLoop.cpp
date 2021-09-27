@@ -155,8 +155,12 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
 
 
 bool
-MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
+MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+    if (veh.isPerson() && myDetectPersons != (int)PersonMode::NONE) {
+        const int lastDir = lastPos < 0 ? MSPModel::BACKWARD : MSPModel::FORWARD;
+        notifyMovePerson(dynamic_cast<MSTransportable*>(&veh), lastDir, lastPos);
+    }
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (veh.isPerson() && myDetectPersons != (int)PersonMode::NONE)) {
 #ifdef HAVE_FOX
         FXConditionalLock lock(myNotificationMutex, myNeedLock);
 #endif
@@ -289,19 +293,23 @@ MSInductLoop::detectorUpdate(const SUMOTime /* step */) {
             if (p->getLane() != myLane) {
                 continue;
             }
-            if (personApplies(*p)) {
-                const int dir = p->getDirection();
-                const double newSpeed = p->getSpeed();
-                const double newPos = p->getPositionOnLane();
-                const double oldPos = newPos - dir * newSpeed;
-                if (dir == MSPModel::FORWARD) {
-                    notifyMove(*p, oldPos, newPos, newSpeed);
-                } else {
-                    // ensure that newPos > oldPos even if the person walks
-                    // against edge direction
-                    notifyMove(*p, newPos, oldPos, newSpeed);
-                }
-            }
+            notifyMovePerson(p, p->getDirection(), p->getPositionOnLane());
+        }
+    }
+}
+
+
+void
+MSInductLoop::notifyMovePerson(MSTransportable* p, int dir, double pos) {
+    if (personApplies(*p, dir)) {
+        const double newSpeed = p->getSpeed();
+        const double newPos = (dir == MSPModel::FORWARD
+                ? pos
+                // position relative to detector
+                : myPosition - (pos - myPosition));
+        const double oldPos = newPos - SPEED2DIST(newSpeed);
+        if (oldPos - p->getVehicleType().getLength() <= myPosition) {
+            notifyMove(*p, oldPos, newPos, newSpeed);
         }
     }
 }

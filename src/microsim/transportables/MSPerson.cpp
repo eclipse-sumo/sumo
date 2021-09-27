@@ -270,16 +270,22 @@ MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDe
 
 
 bool
-MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, MSEdge* nextInternal) {
+MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removePerson(person);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
     const bool arrived = myRouteStep == myRoute.end() - 1;
     if (lane != nullptr) {
+        const double tl = person->getVehicleType().getLength();
+        const double lastPos = (arrived
+                ? (prevDir == MSPModel::FORWARD
+                    ? getArrivalPos() + tl
+                    : getArrivalPos() - tl)
+                : (prevDir == MSPModel::FORWARD
+                    ? lane->getLength() + tl
+                    : -tl));
         for (MSMoveReminder* rem : myMoveReminders) {
             rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, currentTime, currentTime, true);
-            rem->notifyLeave(*person,
-                             arrived ? getArrivalPos() : lane->getLength(),
-                             arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);
+            rem->notifyLeave(*person, lastPos, arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);
         }
     }
     if (myExitTimes != nullptr && nextInternal == nullptr) {

@@ -61,7 +61,7 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons = false); 
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons = false);
 
     /// @brief Constructor
     MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons = false);
@@ -129,9 +129,9 @@ public:
     * @param[in] veh the vehicle of which the type is checked.
     * @return whether it should be measured
     */
-    bool vehicleApplies(const SUMOTrafficObject& veh) const; 
+    bool vehicleApplies(const SUMOTrafficObject& veh) const;
 
-    bool personApplies(const MSTransportable& p) const; 
+    bool personApplies(const MSTransportable& p, int dir) const;
 
 
     /** @brief Checks whether the detector is type specific.

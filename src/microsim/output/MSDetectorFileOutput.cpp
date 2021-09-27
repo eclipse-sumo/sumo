@@ -65,10 +65,9 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
 }
 
 bool
-MSDetectorFileOutput::personApplies(const MSTransportable& p) const {
+MSDetectorFileOutput::personApplies(const MSTransportable& p, int dir) const {
     //std::cout << getID() << " p=" << p.getID() << " veh=" << Named::getIDSecure(p.getVehicle()) << "\n";
     if (p.getVehicle() == nullptr) {
-        const int dir = p.getDirection();
         const int dirCode = dir < 0 ? 2 : dir;
         //std::cout << "   dir=" << dir << " dirCode=" << dirCode << " myDetectPersons=" << myDetectPersons << "\n";
         if ((dirCode & myDetectPersons) == 0) {

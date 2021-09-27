@@ -315,6 +315,8 @@ protected:
     }
     ///@}
 
+    /// @brief helper function for mapping person movement
+    void notifyMovePerson(MSTransportable* p, int dir, double pos);
 
 protected:
     /// @brief Detector's position on lane [m]

@@ -102,7 +102,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
         return 0; // descheduled
     }
     const MSEdge* old = myParent.getEdge();
-    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime);
+    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getState()->getDirection(myParent, currentTime));
     if (arrived) {
         myModel->registerArrived();
         return 0;
