@@ -869,13 +869,23 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            return;
+        }
+    }
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          friendlyPos, vTypes);
+                                          friendlyPos, vTypes, detectPersons);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {

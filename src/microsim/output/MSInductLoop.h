@@ -75,6 +75,7 @@ public:
     MSInductLoop(const std::string& id, MSLane* const lane,
                  double positionInMeters,
                  const std::string& vTypes,
+                 int detectPersons,
                  const bool needLocking);
 
 

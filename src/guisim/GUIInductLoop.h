@@ -51,7 +51,8 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes, bool show);
+    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes,
+            int detectPersons, bool show);
 
 
     /// @brief Destructor

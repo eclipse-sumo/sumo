@@ -47,9 +47,10 @@
 MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
                            double positionInMeters,
                            const std::string& vTypes,
+                           int detectPersons,
                            const bool needLocking) :
     MSMoveReminder(id, lane),
-    MSDetectorFileOutput(id, vTypes),
+    MSDetectorFileOutput(id, vTypes, detectPersons),
     myPosition(positionInMeters),
     myNeedLock(needLocking || MSGlobals::gNumSimThreads > 1),
     myLastLeaveTime(SIMTIME),

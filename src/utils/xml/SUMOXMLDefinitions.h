@@ -1368,7 +1368,9 @@ enum class FringeType {
 /// @brief travel modes for persons
 enum class PersonMode {
     NONE = 0,
-    WALK = 1 << 1,
+    WALK_FORWARD = 1,
+    WALK_BACKWARD = 2,
+    WALK = 3,
     BICYCLE = 1 << 2,
     CAR = 1 << 3,
     PUBLIC = 1 << 4,
