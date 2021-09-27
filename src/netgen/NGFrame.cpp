@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NGFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    06.05.2011
-/// @version $Id$
 ///
 // Sets and checks options for netgen
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -39,6 +37,9 @@
 void
 NGFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
+    oc.doRegister("type-files", 't', new Option_FileName());
+    oc.addDescription("type-files", "Input", "Read edge-type defs from FILE");
+
     oc.doRegister("alphanumerical-ids", new Option_Bool(true));
     oc.addDescription("alphanumerical-ids", "Output", "The Ids of generated nodes use an alphanumerical code for easier readability when possible");
 
@@ -49,11 +50,11 @@ NGFrame::fillOptions() {
     oc.addDescription("turn-lanes.length", "Processing", "Set the length of generated turning lanes to FLOAT");
 
     oc.doRegister("perturb-x", new Option_String("0"));
-    oc.addDescription("perturb-x", "Processing", "Apply random spatial pertubation in x direction according the the given distribution");
+    oc.addDescription("perturb-x", "Processing", "Apply random spatial perturbation in x direction according the the given distribution");
     oc.doRegister("perturb-y", new Option_String("0"));
-    oc.addDescription("perturb-y", "Processing", "Apply random spatial pertubation in y direction according the the given distribution");
+    oc.addDescription("perturb-y", "Processing", "Apply random spatial perturbation in y direction according the the given distribution");
     oc.doRegister("perturb-z", new Option_String("0"));
-    oc.addDescription("perturb-z", "Processing", "Apply random spatial pertubation in z direction according the the given distribution");
+    oc.addDescription("perturb-z", "Processing", "Apply random spatial perturbation in z direction according the the given distribution");
 
 
     //  register grid-net options
@@ -95,6 +96,11 @@ NGFrame::fillOptions() {
     oc.addSynonyme("grid.attach-length", "attach-length", true);
     oc.addDescription("grid.attach-length", "Grid Network", "The length of streets attached at the boundary; 0 means no streets are attached");
 
+    oc.doRegister("grid.x-attach-length", new Option_Float(0));
+    oc.addDescription("grid.x-attach-length", "Grid Network", "The length of streets attached at the boundary in x direction; 0 means no streets are attached");
+    oc.doRegister("grid.y-attach-length", new Option_Float(0));
+    oc.addDescription("grid.y-attach-length", "Grid Network", "The length of streets attached at the boundary in y direction; 0 means no streets are attached");
+
     //  register spider-net options
     oc.doRegister("spider", 's', new Option_Bool(false));
     oc.addSynonyme("spider", "spider-net", true);
@@ -131,10 +137,11 @@ NGFrame::fillOptions() {
     oc.addSynonyme("rand.iterations", "iterations");
     oc.addDescription("rand.iterations", "Random Network", "Describes how many times an edge shall be added to the net");
 
-    oc.doRegister("rand.bidi-probability", new Option_Float(1));
-    oc.addSynonyme("rand.bidi-probability", "rand-bidi-probability", true);
-    oc.addSynonyme("rand.bidi-probability", "bidi");
-    oc.addDescription("rand.bidi-probability", "Random Network", "Defines the probability to build a reverse edge");
+    oc.doRegister("bidi-probability", new Option_Float(1));
+    oc.addSynonyme("bidi-probability", "rand-bidi-probability", true);
+    oc.addSynonyme("bidi-probability", "bidi");
+    oc.addSynonyme("bidi-probability", "rand.bidi-probability");
+    oc.addDescription("bidi-probability", "Random Network", "Defines the probability to build a reverse edge");
 
     oc.doRegister("rand.max-distance", new Option_Float(250));
     oc.addSynonyme("rand.max-distance", "rand-max-distance", true);
@@ -228,29 +235,29 @@ NGFrame::checkOptions() {
     // check whether the junction type to use is properly set
     if (oc.isSet("default-junction-type")) {
         std::string type = oc.getString("default-junction-type");
-        if (type != toString(NODETYPE_TRAFFIC_LIGHT) &&
-                type != toString(NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) &&
-                type != toString(NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) &&
-                type != toString(NODETYPE_PRIORITY) &&
-                type != toString(NODETYPE_PRIORITY_STOP) &&
-                type != toString(NODETYPE_ALLWAY_STOP) &&
-                type != toString(NODETYPE_ZIPPER) &&
-                type != toString(NODETYPE_NOJUNCTION) &&
-                type != toString(NODETYPE_RAIL_SIGNAL) &&
-                type != toString(NODETYPE_RAIL_CROSSING) &&
-                type != toString(NODETYPE_RIGHT_BEFORE_LEFT)) {
+        if (type != toString(SumoXMLNodeType::TRAFFIC_LIGHT) &&
+                type != toString(SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION) &&
+                type != toString(SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) &&
+                type != toString(SumoXMLNodeType::PRIORITY) &&
+                type != toString(SumoXMLNodeType::PRIORITY_STOP) &&
+                type != toString(SumoXMLNodeType::ALLWAY_STOP) &&
+                type != toString(SumoXMLNodeType::ZIPPER) &&
+                type != toString(SumoXMLNodeType::NOJUNCTION) &&
+                type != toString(SumoXMLNodeType::RAIL_SIGNAL) &&
+                type != toString(SumoXMLNodeType::RAIL_CROSSING) &&
+                type != toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT)) {
             WRITE_ERROR("Only the following junction types are known: " +
-                        toString(NODETYPE_TRAFFIC_LIGHT) + ", " +
-                        toString(NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) + ", " +
-                        toString(NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) + ", " +
-                        toString(NODETYPE_PRIORITY) + ", " +
-                        toString(NODETYPE_PRIORITY_STOP) + ", " +
-                        toString(NODETYPE_ALLWAY_STOP) + ", " +
-                        toString(NODETYPE_ZIPPER) + ", " +
-                        toString(NODETYPE_NOJUNCTION) + ", " +
-                        toString(NODETYPE_RAIL_SIGNAL) + ", " +
-                        toString(NODETYPE_RAIL_CROSSING) + ", " +
-                        toString(NODETYPE_RIGHT_BEFORE_LEFT));
+                        toString(SumoXMLNodeType::TRAFFIC_LIGHT) + ", " +
+                        toString(SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION) + ", " +
+                        toString(SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) + ", " +
+                        toString(SumoXMLNodeType::PRIORITY) + ", " +
+                        toString(SumoXMLNodeType::PRIORITY_STOP) + ", " +
+                        toString(SumoXMLNodeType::ALLWAY_STOP) + ", " +
+                        toString(SumoXMLNodeType::ZIPPER) + ", " +
+                        toString(SumoXMLNodeType::NOJUNCTION) + ", " +
+                        toString(SumoXMLNodeType::RAIL_SIGNAL) + ", " +
+                        toString(SumoXMLNodeType::RAIL_CROSSING) + ", " +
+                        toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT));
             ok = false;
         }
     }
@@ -259,4 +266,3 @@ NGFrame::checkOptions() {
 
 
 /****************************************************************************/
-

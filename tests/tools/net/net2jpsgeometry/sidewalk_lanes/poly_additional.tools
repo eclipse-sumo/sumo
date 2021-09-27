@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<poly id="CE_0_door_:C_w2_0" color="0,0,255" layer="11" shape="113.4,91.095 113.4,87.35"><param key="jps-type" value="door"/><param key="from-object-id" value="CE_0"/><param key="to-object-id" value=":C_w2_0"/><param key="transition-id" value="0"/></poly>
+<poly id="CE_0_door_:E_w0_0" color="0,0,255" layer="11" shape="200.0,87.35 200.0,91.095"><param key="jps-type" value="door"/><param key="from-object-id" value="CE_0"/><param key="to-object-id" value=":E_w0_0"/><param key="transition-id" value="1"/></poly>
+<poly id="WC_0_door_:W_w0_0" color="0,0,255" layer="11" shape="0.0,88.1 0.0,91.1"><param key="jps-type" value="door"/><param key="from-object-id" value="WC_0"/><param key="to-object-id" value=":W_w0_0"/><param key="transition-id" value="2"/></poly>
+<poly id="WC_0_door_:C_w3_0" color="0,0,255" layer="11" shape="86.6,88.1 86.6,91.1"><param key="jps-type" value="door"/><param key="from-object-id" value="WC_0"/><param key="to-object-id" value=":C_w3_0"/><param key="transition-id" value="3"/></poly>
+<poly id="CW_0_door_:C_w0_0" color="0,0,255" layer="11" shape="86.6,108.905 86.6,111.15"><param key="jps-type" value="door"/><param key="from-object-id" value="CW_0"/><param key="to-object-id" value=":C_w0_0"/><param key="transition-id" value="4"/></poly>
+<poly id="CW_0_door_:W_w0_0" color="0,0,255" layer="11" shape="0.0,111.15 0.0,108.905"><param key="jps-type" value="door"/><param key="from-object-id" value="CW_0"/><param key="to-object-id" value=":W_w0_0"/><param key="transition-id" value="5"/></poly>
+<poly id="NC_0_door_:N_w0_0" color="0,0,255" layer="11" shape="88.1,200.0 91.1,200.0"><param key="jps-type" value="door"/><param key="from-object-id" value="NC_0"/><param key="to-object-id" value=":N_w0_0"/><param key="transition-id" value="6"/></poly>
+<poly id="NC_0_door_:C_w0_0" color="0,0,255" layer="11" shape="88.1,112.65 91.1,112.65"><param key="jps-type" value="door"/><param key="from-object-id" value="NC_0"/><param key="to-object-id" value=":C_w0_0"/><param key="transition-id" value="7"/></poly>
+<poly id="CE_0_boundary_slice_0" color="255,0,0" layer="10" shape="113.4,87.345 200.0,87.345 200.0,87.35"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="CE_0"/></poly>
+<poly id="CE_0_boundary_slice_2" color="255,0,0" layer="10" shape="200.0,91.095 113.4,91.095"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="CE_0"/></poly>
+<poly id="CE_0_boundary_slice_4" color="255,0,0" layer="10" shape="113.4,87.35 113.4,87.345"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="CE_0"/></poly>
+<poly id="WC_0_boundary_slice_0" color="255,0,0" layer="10" shape="0.0,88.1 86.6,88.1"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="WC_0"/></poly>
+<poly id="WC_0_boundary_slice_2" color="255,0,0" layer="10" shape="86.6,91.1 0.0,91.1"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="WC_0"/></poly>
+<poly id="CW_0_boundary_slice_0" color="255,0,0" layer="10" shape="86.6,111.155 0.0,111.155 0.0,111.15"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="CW_0"/></poly>
+<poly id="CW_0_boundary_slice_2" color="255,0,0" layer="10" shape="0.0,108.905 86.6,108.905"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="CW_0"/></poly>
+<poly id="CW_0_boundary_slice_4" color="255,0,0" layer="10" shape="86.6,111.15 86.6,111.155"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="CW_0"/></poly>
+<poly id="NC_0_boundary_slice_0" color="255,0,0" layer="10" shape="88.1,200.0 88.1,112.65"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="NC_0"/></poly>
+<poly id="NC_0_boundary_slice_2" color="255,0,0" layer="10" shape="91.1,112.65 91.1,200.0"><param key="jps-type" value="boundary"/><param key="sumo-object-id" value="NC_0"/></poly>
+</additional>

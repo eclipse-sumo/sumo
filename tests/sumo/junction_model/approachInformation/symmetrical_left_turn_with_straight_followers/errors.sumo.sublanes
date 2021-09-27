@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'SN'; collision with vehicle 'SW', lane=':C_9_0', gap=-1.00', latGap=0.00, time=9.00 stage=move.
+Warning: Teleporting vehicle 'NS'; collision with vehicle 'NE', lane=':C_1_0', gap=-1.00', latGap=0.00, time=9.00 stage=move.
+Warning: Vehicle 'SN' ends teleporting on edge 'CN', time 9.00.
+Warning: Vehicle 'NS' ends teleporting on edge 'CS', time 9.00.

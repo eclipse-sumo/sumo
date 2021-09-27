@@ -1,6 +1,5 @@
 ---
-title: Simulation/Pedestrians
-permalink: /Simulation/Pedestrians/
+title: Pedestrians
 ---
 
 # Pedestrian Simulation
@@ -8,7 +7,7 @@ permalink: /Simulation/Pedestrians/
 This page describes simulations of pedestrians in SUMO. Pedestrians are
 [persons that walk](../Specification/Persons.md). To build an
 intermodal simulation scenario with proper interactions between road
-vehicles and pedestrians, additional steps have to be take in comparison
+vehicles and pedestrians, additional steps have to be taken in comparison
 to a plain vehicular simulation. When using multiple modes all edges and
 lanes need to have the [correct permissions to separate the different modes of traffic](../Simulation/VehiclePermissions.md).
 
@@ -34,7 +33,7 @@ pedestrian crossing. In the latter they may "jump" between any two edges
 which allow pedestrians at an intersection.
 
 !!! note
-    Allmost all of the methods described below can be used for building a pedestrian network either based on an existing *.net.xml* file or while doing the initial import (i.e. from [OSM](../Networks/Import/OpenStreetMap.md)). The exception is [#Type-base_generation](#type-base_generation) which can only be done during import.
+    Almost all of the methods described below can be used for building a pedestrian network either based on an existing *.net.xml* file or while doing the initial import (i.e. from [OSM](../Networks/Import/OpenStreetMap.md)). The exception is [#Type-base_generation](#type-base_generation) which can only be done during import.
 
 ## Generating a network with sidewalks
 
@@ -56,7 +55,7 @@ Sidewalks may be defined explicitly in plain XML input when describing
 This is done by defining an additional lane which only permits the
 vClass “pedestrian” and setting the appropriate width. In this case it
 is important to disallow pedestrians on all other lanes. Also, any
-pre-exisiting connection definitions must be modified to account for the
+pre-existing connection definitions must be modified to account for the
 new sidewalk lane.
 
 ### Explicit specification of sidewalks
@@ -93,7 +92,7 @@ found in [{{SUMO}}/data/typemap/osmNetconvertPedestrians.typ.xml]({{Source}}data
 
 A third option which can be used if no edge types are available is a
 heuristic based on edge speed. It adds a sidewalk for all edges within a
-given speed range. This is controlled by using the following options:
+given speed range. This is controlled by using the following [netconvert](../netconvert.md) options:
 
 | Option                                 | Description                                                                       |
 |----------------------------------------|-----------------------------------------------------------------------------------|
@@ -109,9 +108,9 @@ Option **--sidewalks.guess.from-permissons** {{DT_BOOL}} is suitable for network
 sidewalk for all edges which allow pedestrians on any of their lanes.
 The option **--sidewalks.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]\* applies here as well.
 
-### Adding sidewalks with [NETEDIT](../NETEDIT.md)
+### Adding sidewalks with [netedit](../Netedit/index.md)
 
-To add sidewalks to a set of edges in [NETEDIT](../NETEDIT.md)
+To add sidewalks to a set of edges in [netedit](../Netedit/index.md)
 select these and right click on them. From the context-menu select *lane operations->add restricted lane->Sidewalks*.
 
 ### Non-exclusive sidewalks
@@ -147,10 +146,10 @@ pedestrian traffic.
 
 Crossings may be defined explicitly in plain XML input when describing
 [connections (plain.con.xml) using the XML element `crossings`](../Networks/PlainXML.md#pedestrian_crossings).
-They can also be placed with [NETEDIT](../NETEDIT.md#crossings).
+They can also be placed with [netedit](../Netedit/index.md#crossings).
 
 The second available method for adding crossing information to a network
-is with the option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings
+is with the [netconvert](../netconvert.md) option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings
 wherever sidewalks with similar angle are separated by lanes which
 forbid pedestrians. If the edges to be crossed have sufficient distance
 between them or vary a by a sufficient angle, two crossings with an
@@ -168,7 +167,7 @@ for the network.
 At every junction corner multiple sidewalks footpaths and pedestrian
 crossings may meet. The connectivity between these elements is modeled
 with a *walkingarea*. These walkingareas are generated automatically as
-long as the option **--crossings.guess** is set or there is at least one user-defined
+long as the [netconvert](../netconvert.md) option **--crossings.guess** is set or there is at least one user-defined
 crossing in the network. If no crossings are wanted in the network it is
 also possible to enable the creation of walkingareas by setting the
 option **--walkingareas**.
@@ -208,9 +207,13 @@ the option **--persontrips**.
 
 ## OD-Based
 
-The [OD2TRIPS](../OD2TRIPS.md) application generates pedestrian
+The [od2trips](../od2trips.md) application generates pedestrian
 demand when setting the option **--pedestrians**. Alternative it generates intermodal
 demand by setting option **--persontrips**.
+
+## From local counting data
+
+The tools [routeSampler](../Tools/Turns.md#routesamplerpy) and [flowrouter](../Tools/Detector.md#flowrouterpy) both suppor option **--pedestrians** to generate pedestrians instead of vehicular traffic based on countint data. See also [Chosing the right tool](../Demand/Routes_from_Observation_Points.md#chosing_the_right_tool).
 
 # Pedestrian Models
 
@@ -222,10 +225,10 @@ a high degree of freedom when implementing new models. It is planned to
 implement models with a higher level of interaction detail in the
 future.
 
-## Model *nonInteraction*
+## Model *nonInteracting*
 
 This is a very basic walking model. Pedestrians walk bidirectionally
-along normal edges and “jump” across intersections. They maybe either be
+along normal edges and “jump” across intersections. They may either be
 configured to complete a walk in a fixed amount of time or to move along
 the edges with a fixed speed. No interaction between pedestrians and
 vehicles or other pedestrians takes place. This model has a very high
@@ -251,7 +254,8 @@ algorithm).
 The most important feature of pedestrian interactions is collision
 avoidance. To achieve this, the “striping”-model divides the lateral
 width of a lane into discrete stripes of fixed width. This width is user
-configurable using the option **--pedestrian.striping.stripe-width** {{DT_FLOAT}} and defaults to 0.65 m. These stripes are
+configurable using the option **--pedestrian.striping.stripe-width** {{DT_FLOAT}} and defaults to 0.65 m and
+doesn't have to match the lateral resolution of the sublane model. These stripes are
 similar to lanes of a multi-lane road. Collision avoidance is thus
 reduced to maintaining sufficient distance within the same stripe.
 Whenever a pedestrian comes too close to another pedestrian within the
@@ -262,7 +266,10 @@ occupies two stripes and thus needs to ensure sufficient distances in
 both. The algorithm for selecting the preferred stripe is based on the
 direction of movement (preferring evasion to the right for oncoming
 pedestrians) and the expected distance the pedestrian will be able to
-walk in that stripe without a collision.
+walk in that stripe without a collision. The model assumes that the pedestrian
+can fit into a single strip when walking in it's center. When **--pedestrian.striping-width** {{DT_FLOAT}} 
+is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occour.
+The warning to change the stripe-width will then be shown during simulation.
 
 During every simulation step, each pedestrian advances as fast as
 possible while still avoiding collisions. The updates happen in a single
@@ -290,9 +297,12 @@ pedestrian will be routed according to the fastest path along the road
 edges. This is usually also the shortest path since edges typically have
 no speed restraints that are relevant to pedestrians. This type of
 routing may happen before the simulation starts (using
-[DUAROUTER](../DUAROUTER.md)) or it may be done at insertion time
+[duarouter](../duarouter.md)) or it may be done at insertion time
 when loading only origin and destination into the simulation. Routes may
 later be influenced via [TraCI](../TraCI/Change_Person_State.md).
+
+Since persons may use each edge in both directions some extra configuration may be needed in shared space scenarios.
+The option **--persontrip.walk-opposite-factor** may be use with [duarouter](../duarouter.md) and [sumo](../sumo.md) to set a factor when walking against traffic flow on shared space. A factor below 1 discourages walking against the flow.
 
 When using the *striping*-model, pedestrians will also be routed within
 intersections to selected a sequence of *walkingareas* and *crossings*
@@ -334,4 +344,4 @@ Pedestrians are included in the following outputs:
 - [vehroute-output](../Simulation/Output/VehRoutes.md)
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
-- [aggregated simulation statistics](../Simulation/Output.md#aggregated_traffic_measures)
+- [aggregated simulation statistics](../Simulation/Output/index.md#aggregated_traffic_measures)

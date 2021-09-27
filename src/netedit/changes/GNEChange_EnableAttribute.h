@@ -1,39 +1,26 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEChange_EnableAttribute.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
-/// @version $Id$
 ///
 // A network change in which the attribute of some object is modified
 /****************************************************************************/
-#ifndef GNEChange_EnableAttribute_h
-#define GNEChange_EnableAttribute_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "GNEChange.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
-class GNENetElement;
-class GNEAdditional;
-class GNEDemandElement;
-class GNEShape;
-class GNENet;
 
 // ===========================================================================
 // class definitions
@@ -48,11 +35,10 @@ class GNEChange_EnableAttribute : public GNEChange {
 public:
     /**@brief Constructor
      * @param[in] ac The attribute-carrier to be modified
-     * @param[in] net Net in which AC is saved
      * @param[in] originalAttributes original set of attributes
      * @param[in] newAttributes new set of attributes
      */
-    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GNENet* net, const int originalAttributes, const int newAttributes);
+    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes);
 
     /// @brief Destructor
     ~GNEChange_EnableAttribute();
@@ -60,10 +46,10 @@ public:
     /// @name inherited from GNEChange
     /// @{
     /// @brief get undo Name
-    FXString undoName() const;
+    std::string undoName() const;
 
     /// @brief get Redo name
-    FXString redoName() const;
+    std::string redoName() const;
 
     /// @brief undo action
     void undo();
@@ -84,6 +70,3 @@ private:
     /// @brief original attributes
     const int myNewAttributes;
 };
-
-#endif
-/****************************************************************************/

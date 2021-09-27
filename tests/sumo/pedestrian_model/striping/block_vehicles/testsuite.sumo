@@ -23,6 +23,9 @@ jaywalking_forward
 # walk despite red light and get run over
 jaywalking_forward_collision
 
+# walk despite vehicles at non-priority crossing
+jaywalking_forward_uncontrolled
+
 # pedestrians that are stopped on a crossing should not cause deadlock
 ignore_stopped
 

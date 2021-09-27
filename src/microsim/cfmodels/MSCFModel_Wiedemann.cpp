@@ -1,18 +1,21 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_Wiedemann.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    June 2011
-/// @version $Id$
 ///
 // The psycho-physical model of Wiedemann
 // references:
@@ -20,11 +23,6 @@
 // Werner - Integration von Fahrzeugfolge- und Fahrstreifenwechselmodellen in die Nachtfahrsimulation LucidDrive
 // Olstam, Tapani - Comparison of Car-following models
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -53,6 +51,8 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
     myAX(vtype->getLength() + 1. + 2. * mySecurity),
     myCX(25. *(1. + mySecurity + myEstimation)),
     myMinAccel(0.2 * myAccel) { // +noise?
+    // Wiedemann does not drive very precise and may violate minGap on occasion
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 
@@ -75,14 +75,14 @@ MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */,
 
 
 double
-MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
      * does a lousy job of closing in on a stop / junction
      * hence we borrow from Krauss here
      */
-    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 
@@ -100,10 +100,10 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
 
 
 double
-MSCFModel_Wiedemann::getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+MSCFModel_Wiedemann::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
     const double bx = (1 + 7 * mySecurity) * sqrt(speed);
     const double abx = myAX + bx - myType->getLength(); // abx is the brutto gap
-    return MAX2(abx, MSCFModel::getSecureGap(speed, leaderSpeed, leaderMaxDecel));
+    return MAX2(abx, MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel));
 }
 
 

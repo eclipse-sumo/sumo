@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_Battery.h
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
-/// @version $Id$
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
-#ifndef MSDevice_Battery_h
-#define MSDevice_Battery_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <microsim/devices/MSVehicleDevice.h>
@@ -91,6 +88,9 @@ public:
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+    /// @brief called to update state for parking vehicles
+    void notifyParking();
+
 private:
     /** @brief Constructor
     *
@@ -105,10 +105,10 @@ private:
     void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
 
 public:
-    /// @brief Get the actual vehicle's Battery Capacity in kWh
+    /// @brief Get the actual vehicle's Battery Capacity in Wh
     double getActualBatteryCapacity() const;
 
-    /// @brief Get the total vehicle's Battery Capacity in kWh
+    /// @brief Get the total vehicle's Battery Capacity in Wh
     double getMaximumBatteryCapacity() const;
 
     /// @brief Get the maximum power when accelerating
@@ -125,6 +125,12 @@ public:
 
     /// @brief Get consum
     double getConsum() const;
+
+    /// @brief Get total consumption
+    double getTotalConsumption() const;
+
+    /// @brief Get total regenerated
+    double getTotalRegenerated() const;
 
     /// @brief Get current Charging Station ID
     std::string getChargingStationID() const;
@@ -162,11 +168,16 @@ public:
     /// @brief Increase myVehicleStopped
     void increaseVehicleStoppedTimer();
 
+    /// @brief retrieve parameters for the energy consumption model
+    const std::map<int, double>& getEnergyParams() const {
+        return myParam;
+    }
+
 protected:
-    /// @brief Parameter, The actual vehicles's Battery Capacity in kWh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
+    /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;
 
-    /// @brief Parameter, The total vehicles's Battery Capacity in kWh, [myMaximumBatteryCapacity >= 0]
+    /// @brief Parameter, The total vehicles's Battery Capacity in Wh, [myMaximumBatteryCapacity >= 0]
     double myMaximumBatteryCapacity;
 
     /// @brief Parameter, The Maximum Power when accelerating, [myPowerMax >= 0]
@@ -193,14 +204,26 @@ protected:
     /// @brief Parameter, Vehicle consum during a time step (by default is 0.)
     double myConsum;
 
+    /// @brief Parameter, total vehicle energy consumption
+    double myTotalConsumption;
+
+    /// @brief Parameter, total vehicle energy regeneration
+    double myTotalRegenerated;
+
     /// @brief Parameter, Pointer to current charging station in which vehicle is placed (by default is NULL)
     MSChargingStation* myActChargingStation;
+
+    /// @brief Parameter, Pointer to charging station neighbouring with myActChargingStation in which vehicle was placed previously (by default is NULL), i.e. auxiliar pointer for disabling charging vehicle from previous (not current) ChargingStation (if there is no gap between two different chargingStations)
+    MSChargingStation* myPreviousNeighbouringChargingStation;
 
     /// @brief Parameter, Energy charged in each timestep
     double myEnergyCharged;
 
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
+
+    /// @brief whether to track fuel consumption instead of electricity
+    bool myTrackFuel;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -210,5 +233,4 @@ private:
     MSDevice_Battery& operator=(const MSDevice_Battery&);
 };
 
-#endif
 

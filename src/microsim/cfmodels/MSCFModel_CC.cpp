@@ -1,40 +1,40 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_CC.cpp
 /// @author  Michele Segata
 /// @date    Wed, 18 Apr 2012
-/// @version $Id$
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include "MSCFModel_CC.h"
+#include <algorithm>
+#include <utils/common/RandHelper.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOTime.h>
-#include <utils/common/StringUtils.h>
+#include <microsim/MSStop.h>
 #include <microsim/cfmodels/ParBuffer.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/TraCIDefs.h>
-#include <algorithm>
+#include "MSCFModel_CC.h"
 
 #ifndef sgn
 #define sgn(x) ((x > 0) - (x < 0))
 #endif
+
 
 // ===========================================================================
 // method definitions
@@ -61,9 +61,7 @@ MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
     if (myLanesCount == -1) {
-        std::cerr << "The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute\n";
-        WRITE_ERROR("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
-        assert(false);
+        throw ProcessError("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
     }
 
     //instantiate the driver model. For now, use Krauss as default, then needs to be parameterized
@@ -177,11 +175,11 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
     //check whether the vehicle has collided and set the flag in case
     if (!vars->crashed) {
-        std::list<MSVehicle::Stop> stops = veh->getMyStops();
-        for (auto s : stops)
+        for (const MSStop& s : veh->getStops()) {
             if (s.collision) {
                 vars->crashed = true;
             }
+        }
     }
 
     if (vars->activeController != Plexe::DRIVER) {
@@ -231,18 +229,18 @@ MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, dou
 }
 
 double
-MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred) const {
+MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred, double decel) const {
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER) {
-        double gap2pred, relSpeed;
+        double relSpeed;
         getRadarMeasurements(veh, gap2pred, relSpeed);
         if (gap2pred == -1) {
             gap2pred = std::numeric_limits<double>().max();
         }
         return _v(veh, gap2pred, speed, speed + relSpeed);
     } else {
-        return myHumanDriver->stopSpeed(veh, speed, gap2pred);
+        return myHumanDriver->stopSpeed(veh, speed, gap2pred, decel);
     }
 }
 
@@ -791,7 +789,7 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             if (vars->engine) {
                 delete vars->engine;
             }
-            int engineModel = StringUtils::toInt(value.c_str());;
+            int engineModel = StringUtils::toInt(value.c_str());
             switch (engineModel) {
                 case CC_ENGINE_MODEL_REALISTIC: {
                     vars->engine = new RealisticEngineModel();

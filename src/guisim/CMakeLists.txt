@@ -6,8 +6,6 @@ SET(guisim_STAT_SRCS
    GUIBusStop.h
    GUIContainer.cpp
    GUIContainer.h
-   GUIContainerStop.cpp
-   GUIContainerStop.h
    GUIParkingArea.cpp
    GUIParkingArea.h
    GUIDetectorWrapper.cpp
@@ -38,6 +36,8 @@ SET(guisim_STAT_SRCS
    GUITrafficLightLogicWrapper.h
    GUITriggeredRerouter.cpp
    GUITriggeredRerouter.h
+   GUIOverheadWire.cpp
+   GUIOverheadWire.h
    GUICalibrator.cpp
    GUICalibrator.h
    GUIChargingStation.cpp

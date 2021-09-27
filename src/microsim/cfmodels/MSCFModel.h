@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel.h
 /// @author  Tobias Mayer
@@ -13,16 +17,10 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 27 Jul 2009
-/// @version $Id$
 ///
 // The car-following model abstraction
 /****************************************************************************/
-#ifndef MSCFModel_h
-#define MSCFModel_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <cmath>
@@ -145,7 +143,21 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const = 0;
+    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+        return stopSpeed(veh, speed, gap, myDecel);
+    }
+
+    /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
+     *
+     * Returns the velocity of the vehicle when approaching a static object (such as the end of a lane) assuming no reaction time is needed.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap The (netto) distance to the the obstacle
+     * @param[in] decel The desired deceleration rate
+     * @return EGO's safe speed for approaching a non-moving obstacle
+     * @todo generic Interface, models can call for the values they need
+     */
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
@@ -180,6 +192,15 @@ public:
      * @todo evaluate signature
      */
     virtual double interactionGap(const MSVehicle* const veh, double vL) const;
+
+
+    /** @brief Returns the maximum velocity the CF-model wants to achieve in the next step
+     * @param[in] maxSpeed The maximum achievable speed in the next step
+     * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
+     */
+    virtual double maximumLaneSpeedCF(double maxSpeed, double maxSpeedLane) const {
+        return MIN2(maxSpeed, maxSpeedLane);
+    }
 
 
     /** @brief Returns the model's ID; the XML-Tag number is used
@@ -276,7 +297,7 @@ public:
      *  speed may depend on the vehicle's current speed (given).
      *
      * @param[in] speed The vehicle's current speed
-     * @param[in] speed The vehicle itself, for obtaining other values
+     * @param[in] veh The vehicle itself, for obtaining other values
      * @return The maximum possible speed for the next step
      */
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
@@ -310,22 +331,24 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
-    inline double brakeGap(const double speed) const {
+    virtual double brakeGap(const double speed) const {
         return brakeGap(speed, myDecel, myHeadwayTime);
     }
 
-    static double brakeGap(const double speed, const double decel, const double headwayTime);
+    virtual double brakeGap(const double speed, const double decel, const double headwayTime) const;
 
     static double brakeGapEuler(const double speed, const double decel, const double headwayTime);
 
     static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion, const double actionStepLength);
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
-      * @param[in] speed EGO's speed
-      * @param[in] leaderSpeed LEADER's speed
-      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
-      */
-    inline virtual double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+     * @param[in] veh The vehicle itself, for obtaining other values
+     * @param[in] pred The leader vehicle, for obtaining other values
+     * @param[in] speed EGO's speed
+     * @param[in] leaderSpeed LEADER's speed
+     * @param[in] leaderMaxDecel LEADER's max. deceleration rate
+     */
+    inline virtual double getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we use a value of leaderDecel which errs on the side of caution
@@ -444,7 +467,7 @@ public:
 
 
     /// @brief calculates the distance travelled after accelerating for time t
-    static double distAfterTime(double t, double speed, double accel);
+    virtual double distAfterTime(double t, double speed, double accel) const;
 
 
 
@@ -536,17 +559,19 @@ public:
     /** @brief Returns the maximum next velocity for stopping within gap
      * @param[in] gap The (netto) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle
+     * @param[in] decel The desired deceleration rate
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
      */
-    double maximumSafeStopSpeed(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
+    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
      * when using the semi-implicit Euler update
      * @param[in] gap The (netto) distance to the LEADER
+     * @param[in] decel The desired deceleration rate
      */
-    double maximumSafeStopSpeedEuler(double gap, double headway = -1) const;
+    double maximumSafeStopSpeedEuler(double gap, double decel, double headway = -1) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
@@ -554,13 +579,14 @@ public:
      * @note This takes into account the driver's reaction time tau (i.e. the desired headway) and the car's current speed.
      * (The latter is required to calculate the distance covered in the following timestep.)
      * @param[in] gap The (netto) distance to the desired stopping point
+     * @param[in] decel The desired deceleration rate
      * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
      * @return the safe velocity (to be attained at the end of the following time step) that assures the possibility of stopping within gap.
      * If a negative value is returned, the required stop has to take place before the end of the time step.
      */
-    double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
+    double maximumSafeStopSpeedBallistic(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
     /**
      * @brief try to get the given parameter for this carFollowingModel
@@ -632,5 +658,4 @@ protected:
 };
 
 
-#endif /* MSCFModel_h */
 

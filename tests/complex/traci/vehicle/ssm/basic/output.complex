@@ -1,0 +1,51 @@
+Loading configuration ... done.
+vehicle 'leader' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'
+vehicle 'leader' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'
+vehicle 'leader' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'
+vehicle 'leader' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'
+ Retrying in 1 seconds
+step 0
+  veh=ego minTTC= maxDRAC= minPET=
+  veh=leader minTTC= maxDRAC= minPET=
+step 1
+  veh=ego minTTC= maxDRAC= minPET=
+  veh=leader minTTC= maxDRAC= minPET=
+step 2
+  veh=ego minTTC= maxDRAC=0.00 minPET=
+  veh=leader minTTC= maxDRAC=0.00 minPET=
+step 3
+  veh=ego minTTC= maxDRAC=0.00 minPET=
+  veh=leader minTTC= maxDRAC=0.00 minPET=
+step 4
+  veh=ego minTTC= maxDRAC=0.00 minPET=
+  veh=leader minTTC= maxDRAC=0.00 minPET=
+step 5
+  veh=ego minTTC= maxDRAC=0.00 minPET=
+  veh=leader minTTC= maxDRAC=0.00 minPET=
+step 6
+  veh=ego minTTC=4.18 maxDRAC=0.39 minPET=
+  veh=leader minTTC=4.18 maxDRAC=0.39 minPET=
+step 7
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+step 8
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+step 9
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+step 10
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+step 11
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+step 12
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+step 13
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=
+step 14
+  veh=ego minTTC=2.03 maxDRAC=1.12 minPET=
+  veh=leader minTTC=2.03 maxDRAC=1.12 minPET=

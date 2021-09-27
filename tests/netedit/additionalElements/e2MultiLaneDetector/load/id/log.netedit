@@ -1,3 +1,0 @@
-Warning: Essential unique string attribute 'id' of e2MultilaneDetector is missing; e2MultilaneDetector cannot be created
-Warning: Format of essential unique string attribute 'id' of e2MultilaneDetector is invalid; Detector ID contains invalid characters; e2MultilaneDetector cannot be created
-Warning: There is another e2MultilaneDetector with the same ID='e2MultilaneDetector_1'.

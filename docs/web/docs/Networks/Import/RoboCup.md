@@ -1,6 +1,5 @@
 ---
-title: Networks/Import/RoboCup
-permalink: /Networks/Import/RoboCup/
+title: RoboCup
 ---
 
 This import function is in a rather experimental state. We need someone

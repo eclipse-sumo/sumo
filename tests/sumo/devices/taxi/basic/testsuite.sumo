@@ -1,0 +1,14 @@
+# use a ride definition to call a taxi
+1person
+
+# test taxi device attribute end
+end_of_work
+
+# configure stop duration and parking attributes
+stop_attributes
+
+# some taxis are late to work
+late_taxi
+
+# use a transport definition to call a taxi
+1container

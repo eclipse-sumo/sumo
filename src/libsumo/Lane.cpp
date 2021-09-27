@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Lane.cpp
 /// @author  Daniel Krajzewicz
@@ -15,21 +19,17 @@
 /// @author  Robert Hilbrich
 /// @author  Leonhard Luecken
 /// @date    30.05.2012
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSLink.h>
+#include <microsim/MSInsertionControl.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
 
@@ -130,7 +130,7 @@ Lane::getShape(std::string laneID) {
         p.x = pi->x();
         p.y = pi->y();
         p.z = pi->z();
-        pv.push_back(p);
+        pv.value.push_back(p);
     }
     return pv;
 }
@@ -271,13 +271,11 @@ Lane::getLastStepVehicleIDs(std::string laneID) {
 std::vector<std::string>
 Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
     std::vector<std::string> foeIDs;
-    const MSLane* from = getLane(laneID);
-    const MSLane* to = getLane(toLaneID);
-    const MSLink* link = MSLinkContHelper::getConnectingLink(*from, *to);
+    const MSLink* const link = getLane(laneID)->getLinkTo(getLane(toLaneID));
     if (link == nullptr) {
         throw TraCIException("No connection from lane '" + laneID + "' to lane '" + toLaneID + "'");
     }
-    for (MSLink* foe : link->getFoeLinks()) {
+    for (const MSLink* foe : link->getFoeLinks()) {
         foeIDs.push_back(foe->getLaneBefore()->getID());
     }
     return foeIDs;
@@ -291,7 +289,7 @@ Lane::getInternalFoes(const std::string& laneID) {
     std::vector<const MSLane*>::const_iterator it;
     std::vector<std::string> foeIDs;
 
-    if (lane->isInternal()) {
+    if (lane->isInternal() && lane->getLinkCont().size() > 0) {
         MSLink* link = lane->getLinkCont().front();
         foeLanes = &link->getFoeLanes();
 
@@ -303,14 +301,29 @@ Lane::getInternalFoes(const std::string& laneID) {
 }
 
 
+const std::vector<std::string>
+Lane::getPendingVehicles(const std::string& laneID) {
+    getLane(laneID); // validate laneID
+    std::vector<std::string> vehIDs;
+    for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
+        if (veh->getLane() != nullptr && veh->getLane()->getID() == laneID) {
+            vehIDs.push_back(veh->getID());
+        }
+    }
+    return vehIDs;
+}
+
+void
+Lane::setAllowed(std::string laneID, std::string allowedClass) {
+    setAllowed(laneID, std::vector<std::string>({allowedClass}));
+}
+
+
 void
 Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
-    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
-        pred->rebuildAllowedTargets();
-    }
 }
 
 
@@ -319,9 +332,6 @@ Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClass
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(invertPermissions(parseVehicleClasses(disallowedClasses)), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
-    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
-        pred->rebuildAllowedTargets();
-    }
 }
 
 
@@ -343,6 +353,9 @@ std::string
 Lane::getParameter(const std::string& laneID, const std::string& param) {
     return getLane(laneID)->getParameter(param, "");
 }
+
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Lane)
 
 
 void
@@ -378,7 +391,7 @@ Lane::makeWrapper() {
 
 
 bool
-Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -430,12 +443,20 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
         case VAR_WIDTH:
             return wrapper->wrapDouble(objID, variable, getWidth(objID));
+        case VAR_SHAPE:
+            return wrapper->wrapPositionVector(objID, variable, getShape(objID));
+        case VAR_PENDING_VEHICLES:
+            return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }
 }
-
-
 }
 
 

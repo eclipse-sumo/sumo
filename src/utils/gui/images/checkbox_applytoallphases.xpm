@@ -1,0 +1,25 @@
+/* XPM */
+static const char *checkbox_applytoallphases_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c black",
+"8 c #CC0000",
+"k c None",
+/* pixels */
+"kkkkkkkkkk      ",
+"kkkkkkkkkk  kk  ",
+"kkkkkkk88k kkkk ",
+"kkkkkk88kk kkkk ",
+"88kkk88kkk  kk  ",
+"k88k88kkkk      ",
+"kk888kkkkk  kk  ",
+"kkk8kkkkkk kkkk ",
+"kkkkkkk88k kkkk ",
+"kkkkkk88kk  kk  ",
+"88kkk88kkk      ",
+"k88k88kkkk  kk  ",
+"kk888kkkkk kkkk ",
+"kkk8kkkkkk kkkk ",
+"kkkkkkkkkk  kk  ",
+"kkkkkkkkkk      "
+};

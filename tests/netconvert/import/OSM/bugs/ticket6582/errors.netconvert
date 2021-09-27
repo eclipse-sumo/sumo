@@ -1,0 +1,6 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '145575264').
+Warning: Discarding unknown compound 'cycleway.sidepath' in type 'cycleway.sidepath|highway.cycleway' (first occurence for edge '158325374').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurence for edge '321455267').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.shared_lane|highway.primary' (first occurence for edge '321455268').
+Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.lane|cycleway.shared_lane|highway.primary' (first occurence for edge '321455268').
+Warning: Reducing junction cluster 32048730,359942,359943 (parallel outgoing 158325382#0,321455269#0).

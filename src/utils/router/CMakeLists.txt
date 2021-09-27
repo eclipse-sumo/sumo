@@ -14,6 +14,8 @@ set(utils_router_STAT_SRCS
    IntermodalNetwork.h
    IntermodalRouter.h
    IntermodalTrip.h
+   RailwayRouter.h
+   RailEdge.h
    EffortCalculator.h
    GawronCalculator.h
    LogitCalculator.h

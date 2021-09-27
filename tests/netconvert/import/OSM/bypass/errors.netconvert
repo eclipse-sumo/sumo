@@ -4,3 +4,6 @@ Warning: No way found for reference '146236075' in relation '295792'
 Warning: Ignoring restriction relation '295792' with unknown from-way.
 Warning: No way found for reference '26493934' in relation '74756'
 Warning: Ignoring restriction relation '74756' with unknown to-way.
+Warning: Speed of straight connection '185283364#2_0->288192130_0' reduced by 16.03 due to turning radius of 25.09 (length=13.38, angle=46.57).
+Warning: Speed of straight connection '185283364#2_1->288192130_1' reduced by 15.30 due to turning radius of 28.31 (length=15.16, angle=46.57).
+Warning: Speed of straight connection '154546883#1_0->288192130_1' reduced by 8.59 due to turning radius of 27.27 (length=12.89, angle=42.90).

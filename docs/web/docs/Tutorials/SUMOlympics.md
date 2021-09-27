@@ -1,6 +1,5 @@
 ---
-title: Tutorials/SUMOlympics
-permalink: /Tutorials/SUMOlympics/
+title: SUMOlympics
 ---
 
 This tutorial sets up a competition (a collective 100 meter sprint) for
@@ -16,7 +15,7 @@ by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 # Building the Net
 
 ![editEdgeAttr.png](../images/EditEdgeAttr.png "Editing the location of the edge's startpoint")Open
-[NETEDIT](../NETEDIT.md) and create a new network and add a single
+[netedit](../Netedit/index.md) and create a new network and add a single
 edge by pressing `e` for entering the edge creation mode and clicking on
 two different locations in the editing area. Change to inspection mode
 (press `i`) and click on the starting point of the edge (at the location
@@ -133,7 +132,7 @@ lane width) 2) We wish to include pedestrians into the competition.
 
 ![sumolympics_TLSediting.png](../images/Sumolympics_TLSediting.png
 "Editing traffic lights")First we create a traffic light on the
-junction between the edges "beg" and "end" with NETEDIT: Press `t` to
+junction between the edges "beg" and "end" with netedit: Press `t` to
 enter the traffic light editing mode. Click on the junction, then on
 "Create TLS" in the left panel. Below, under the label phases, type
 "rrrrr" for the first phase ("r" for red) and set its duration to 100
@@ -150,8 +149,8 @@ basic consistency and missing yellow phases may lead to crashes if you
 have intersecting flows. However, this is a special situation and we
 don't need to care about this, obviously. If you want to learn more
 about traffic light control, see the TraCI-Tutorials
-[TraCIPedCrossing](../Tutorials/TraCIPedCrossing.md) and
-[TraCI4Traffic_Lights](../Tutorials/TraCI4Traffic_Lights.md) or
+[TraCIPedCrossing](TraCIPedCrossing.md) and
+[TraCI4Traffic_Lights](TraCI4Traffic_Lights.md) or
 the main section on [traffic
 lights](../Simulation/Traffic_Lights.md).
 
@@ -195,7 +194,7 @@ computer, install it before doing anything else\!
 ([get it from here](https://www.python.org/downloads/)) We have to
 include the generated route file `sumolympicWalks.rou.xml` in the config
 file `sumolympic.sumocfg` to let the simulation know about them. Several
-route files can be included by merely seperating them by a comma.
+route files can be included by merely separating them by a comma.
 Therefore, modify the `<route-files .../>`-entry of our config to look
 like this (be sure to put no spaces between the filenames\!):
 
@@ -211,4 +210,4 @@ Get the popcorn and start the simulation\!
 
 1.  <https://www.forschungsinformationssystem.de/servlet/is/79638/>
 
-Back to [Tutorials](../Tutorials.md).
+Back to [Tutorials](index.md).

@@ -1,25 +1,30 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    generateMeanDataDefinitions.py
 # @author  Karol Stosiek
 # @author  Michael Behrisch
 # @date    2011-10-25
-# @version $Id$  # noqa
 
 from __future__ import absolute_import
 
-import xml.dom.minidom
-
+import os
 import logging
 import optparse
 import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib  # noqa
 
 
 def generate_mean_data_xml(detectors_xml,
@@ -36,19 +41,14 @@ def generate_mean_data_xml(detectors_xml,
             string.
         """
 
-    meandata_xml = xml.dom.minidom.getDOMImplementation().createDocument(
-        None, 'additional', None)
+    meandata_xml = sumolib.xml.create_document("additional")
 
-    for detector_xml in detectors_xml.getElementsByTagName(
-            detectors_type + "Detector"):
-
-        detector_id = detector_xml.getAttribute('id')
-        meandata_element = meandata_xml.createElement(detectors_output_type)
+    for detector in detectors_xml:
+        detector_id = detector.getAttribute('id')
+        meandata_element = meandata_xml.addChild(detectors_output_type)
         meandata_element.setAttribute("id", detector_id)
         meandata_element.setAttribute("freq", str(detectors_frequency))
-        meandata_element.setAttribute("file", detector_id +
-                                      detectors_suffix + ".xml")
-        meandata_xml.documentElement.appendChild(meandata_element)
+        meandata_element.setAttribute("file", detector_id + detectors_suffix + ".xml")
 
     return meandata_xml
 
@@ -62,11 +62,11 @@ if __name__ == "__main__":
             detector file is invalid (None or empty). """
 
         if (provided_options.detector_file is None or
-                provided_options.detector_file is ""):
+                provided_options.detector_file == ""):
             logging.fatal("Invalid input file. \n" +
                           option_parser.format_help())
             exit()
-        return xml.dom.minidom.parse(provided_options.detector_file)
+        return sumolib.xml.parse(provided_options.detector_file, get_detector_type(provided_options) + "Detector")
 
     def get_detector_type(provided_options):
         """ Returns validated detector type located in provided_options.
@@ -83,7 +83,7 @@ if __name__ == "__main__":
             Validated frequency is either an empty string or is a positive
             integer. """
 
-        if provided_options.frequency is not "":
+        if provided_options.frequency != "":
             try:
                 frequency = int(provided_options.frequency)
                 if frequency < 0:
@@ -164,6 +164,7 @@ if __name__ == "__main__":
     output = sys.stdout
     if options.output is not None:
         output = open(options.output, "w")
+        sumolib.xml.writeHeader(output)
 
     output.write(
         generate_mean_data_xml(
@@ -171,6 +172,6 @@ if __name__ == "__main__":
             get_detector_type(options),
             get_detector_frequency(options),
             get_detector_suffix(options),
-            get_detector_output_type(options)).toprettyxml())
+            get_detector_output_type(options)).toXML())
 
     output.close()

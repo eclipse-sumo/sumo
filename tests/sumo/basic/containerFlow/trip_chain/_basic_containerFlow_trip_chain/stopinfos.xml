@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10.12.2020 14:46:11 by Eclipse SUMO GUI Version v1_8_0+0100-9052e56b94
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\net.net.xml"/>
+        <route-files value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\input_routes.rou.xml"/>
+        <additional-files value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\tripinfos.xml"/>
+        <stop-output value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="train0" type="DEFAULT_VEHTYPE" lane="1/3to0/3_0" pos="60.00" parking="0" started="66.00" ended="468.00" delay="348.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="4" unloadedContainers="0" containerStop="containerStop0"/>
+    <stopinfo id="train0" type="DEFAULT_VEHTYPE" lane="0/4to1/4_0" pos="60.00" parking="0" started="487.00" ended="497.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="4" loadedContainers="0" unloadedContainers="4" containerStop="containerStop1"/>
+</stops>

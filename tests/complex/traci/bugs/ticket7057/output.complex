@@ -1,0 +1,11 @@
+ Retrying in 1 seconds
+pois in range {'poi0': {}}
+added poi1
+pois in range {'poi0': {}, 'poi1': {}}
+removed poi0
+pois in range {'poi1': {}}
+polys in range {'poly0': {}}
+added poly1
+polys in range [('poly0', {}), ('poly1', {})]
+removed poly1
+polys in range {'poly0': {}}

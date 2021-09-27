@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-17 10:22:08 by Eclipse SUMO netconvert Version v1_10_0+0759-0b3a782ef3e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <edges.join-tram-dist value="1.6"/>
+    </processing>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="passenger,tram,bus"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="2064835" name="Bus 164: S Köpenick =&gt; Flughafen BER - Terminal 5" line="164" type="bus" vClass="bus" completeness="0.04">
+        <route edges="220075351 175769905#0 175769905#1 175769905#2 175769905#3 175769905#4 175772156 220075344 175925599 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 93704162#1 901108202 176031292 343029979 199387279 181020318#0 181020318#1"/>
+        <busStop id="3923335405" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2077646" name="Tram 27: Krankenhaus Köpenick =&gt; Weißensee, Pasedagplatz" line="27" type="tram" vClass="tram" period="1200" color="153,51,51" completeness="0.05">
+        <route edges="107509085#0#0 180892741#0 180892741#1 107509085#0 107509085#1#0 181020321#0 107509085#1#1 -343029979 -176031292 -901108202 107509085#1 107509089#0 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175772163#0 175772163#1 175772163#2 175772163#3 175925594#0 175925594#1"/>
+        <busStop id="1863260107" name="Freiheit"/>
+        <busStop id="94942335" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2077647" name="Tram 27: Weißensee, Pasedagplatz =&gt; Krankenhaus Köpenick" line="27" type="tram" vClass="tram" period="1200" color="153,51,51" completeness="0.02">
+        <route edges="175769910 175769919#0 175769919#1 175769919#2 175769919#3 175769919#4 175769919#5 175772156 220075344 175925596#0 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 329180745 175925595#0#0 901108202 176031292 343029979 199387279 175925595#0 175925595#1#0 181020318#1 175925595#1"/>
+        <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2077946" name="Tram 60: Friedrichshagen, Altes Wasserwerk =&gt; Johannisthal, Haeckelstraße" line="60" type="tram" vClass="tram" period="1200" color="11,154,218" completeness="0.03">
+        <route edges="220075351 175769916#0 175769916#1 175769916#2 175769916#3 175925594#0 175925594#1"/>
+        <busStop id="94942335" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2077947" name="Tram 60: Johannisthal, Haeckelstraße =&gt; Friedrichshagen, Altes Wasserwerk" line="60" type="tram" vClass="tram" period="1200" color="11,154,218" completeness="0.03">
+        <route edges="175769910 175769903#0 175769903#1 175769903#2 175769903#3 175769903#4 175925602"/>
+        <busStop id="370884692" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2077981" name="Tram 61: Adlershof, Karl-Ziegler-Straße =&gt; Rahnsdorf/Waldschänke" line="61" type="tram" vClass="tram" period="1200" color="102,153,51" completeness="0.07">
+        <route edges="107509085#0#0 180892741#0 180892741#1 107509085#0 107509085#1#0 181020321#0 107509085#1#1 -343029979 -176031292 -901108202 107509085#1 107509089#0 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175925600#0 175925600#1 175925600#2 175925600#3 175925600#4 175925602"/>
+        <busStop id="1863260107" name="Freiheit"/>
+        <busStop id="370884692" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2077982" name="Tram 61: Rahnsdorf/Waldschänke =&gt; Adlershof, Karl-Ziegler-Straße" line="61" type="tram" vClass="tram" period="1200" color="102,153,51" completeness="0.03">
+        <route edges="220075351 175769905#0 175769905#1 175769905#2 175769905#3 175769905#4 175772156 220075344 175925596#0 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 329180745 175925595#0#0 901108202 176031292 343029979 199387279 175925595#0 175925595#1#0 181020318#1 175925595#1"/>
+        <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2078078" name="Tram 62: S Mahlsdorf =&gt; Wendenschloß" line="62" type="tram" vClass="tram" period="600" color="0,102,51" completeness="0.03">
+        <route edges="220075351 175769905#0 175769905#1 175769905#2 175769905#3 175769905#4 175772156 220075344 175925596#0 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 329180745 175925595#0#0 901108202 176031292 343029979 199387279 175925595#0 175925595#1#0 181020318#1 175925595#1"/>
+        <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2078079" name="Tram 62: Wendenschloß =&gt; S Mahlsdorf" line="62" type="tram" vClass="tram" period="600" color="0,102,51" completeness="0.07">
+        <route edges="107509085#0#0 180892741#0 180892741#1 107509085#0 107509085#1#0 181020321#0 107509085#1#1 -343029979 -176031292 -901108202 107509085#1 107509089#0 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175925600#0 175925600#1 175925600#2 175925600#3 175925600#4 175925602"/>
+        <busStop id="1863260107" name="Freiheit"/>
+        <busStop id="370884692" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2084109" name="Tram 68: Alt-Schmöckwitz =&gt; S Köpenick" line="68" type="tram" vClass="tram" period="1200" color="0,153,51" completeness="0.07">
+        <route edges="107509085#0#0 180892741#0 180892741#1 107509085#0 107509085#1#0 181020321#0 107509085#1#1 -343029979 -176031292 -901108202 107509085#1 107509089#0 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175925600#0 175925600#1 175925600#2 175925600#3 175925600#4 175925602"/>
+        <busStop id="1863260107" name="Freiheit"/>
+        <busStop id="370884692" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2084110" name="Tram 68: S Köpenick =&gt; Alt-Schmöckwitz" line="68" type="tram" vClass="tram" period="1200" color="0,153,51" completeness="0.04">
+        <route edges="220075351 175769905#0 175769905#1 175769905#2 175769905#3 175769905#4 175772156 220075344 175925596#0 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 329180745 175925595#0#0 901108202 176031292 343029979 199387279 175925595#0 175925595#1#0 181020318#1 175925595#1"/>
+        <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2084473" name="Tram 67: Krankenhaus Köpenick =&gt; S Schöneweide" line="67" type="tram" vClass="tram" period="1200" color="0,153,51" completeness="0.11">
+        <route edges="107509085#0#0 180892741#0 180892741#1 107509085#0 107509085#1#0 181020321#0 107509085#1#1 -343029979 -176031292 -901108202 107509085#1 107509089#0 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175772163#0 175772163#1 175772163#2 175772163#3 175925594#0 175925594#1"/>
+        <busStop id="1863260107" name="Freiheit"/>
+        <busStop id="94942335" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2084474" name="Tram 67: S Schöneweide =&gt; Krankenhaus Köpenick" line="67" type="tram" vClass="tram" period="1200" color="0,153,51" completeness="0.06">
+        <route edges="175769910 175769919#0 175769919#1 175769919#2 175769919#3 175769919#4 175769919#5 175772156 220075344 175925596#0 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 329180745 175925595#0#0 901108202 176031292 343029979 199387279 175925595#0 175925595#1#0 181020318#1 175925595#1"/>
+        <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2084497" name="Tram 63: Adlershof, Karl-Ziegler-Straße =&gt; S Köpenick (=&gt; Mahlsdorf, Rahnsdorfer Straße)" line="63" type="tram" vClass="tram" period="1200" color="238,114,3" completeness="0.08">
+        <route edges="107509085#0#0 180892741#0 180892741#1 107509085#0 107509085#1#0 181020321#0 107509085#1#1 -343029979 -176031292 -901108202 107509085#1 107509089#0 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175925600#0 175925600#1 175925600#2 175925600#3 175925600#4 175925602"/>
+        <busStop id="1863260107" name="Freiheit"/>
+        <busStop id="370884692" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2084498" name="Tram 63: (Mahlsdorf, Rahnsdorfer Straße =&gt;) S Köpenick =&gt; Adlershof, Karl-Ziegler-Straße" line="63" type="tram" vClass="tram" period="1200" color="238,114,3" completeness="0.04">
+        <route edges="220075351 175769905#0 175769905#1 175769905#2 175769905#3 175769905#4 175772156 220075344 175925596#0 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 329180745 175925595#0#0 901108202 176031292 343029979 199387279 175925595#0 175925595#1#0 181020318#1 175925595#1"/>
+        <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="228027" name="Bus 164: Flughafen BER - Terminal 5 =&gt; S Köpenick" line="164" type="bus" vClass="bus" completeness="0.07">
+        <route edges="180892741#0 180892741#1 180892741#2 181020321#0 181020321#1 -343029979 -176031292 -901108202 -93704162#1 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175925600#0 175925600#1 175925600#2 175925600#3 175925600#4 175925602"/>
+        <busStop id="1907551292" name="Freiheit"/>
+        <busStop id="3923335406" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2405630" name="Bus N90: S+U Wuhletal =&gt; Köpenick, Müggelschlößchenweg" line="N90" type="bus" vClass="bus" nightService="only" completeness="0.03">
+        <route edges="220075351 175769905#0 175769905#1 175769905#2 175769905#3 175769905#4 175772156 220075344 175925599 10699691#0 10699691#1 10699691#2 10699691#3 148614162 93704162#0 93704162#1 901108202 176031292 343029979 199387279 181020318#0 181020318#1"/>
+        <busStop id="3923335405" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+    <ptLine id="2405631" name="Bus N90: Köpenick, Müggelschlößchenweg =&gt; S+U Wuhletal" line="N90" type="bus" vClass="bus" nightService="only" completeness="0.06">
+        <route edges="180892741#0 180892741#1 180892741#2 181020321#0 181020321#1 -343029979 -176031292 -901108202 -93704162#1 -93704162#0 -148614162 -10699691#3 -10699691#2 -10699691#1 -10699691#0 32935325 175925601 220075348 175925600#0 175925600#1 175925600#2 175925600#3 175925600#4 175925602"/>
+        <busStop id="1907551292" name="Freiheit"/>
+        <busStop id="3923335406" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+</ptLines>

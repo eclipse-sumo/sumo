@@ -1,0 +1,1 @@
+Warning: Action step length '0.60' is used for vehicle type 'bike' but step-method.ballistic was not set. Setting it now to avoid collisions.

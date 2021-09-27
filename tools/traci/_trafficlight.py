@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    _trafficlight.py
 # @author  Michael Behrisch
 # @date    2011-03-16
-# @version $Id$
 
 from __future__ import absolute_import
-import struct
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 from .exceptions import TraCIException
 
@@ -73,8 +74,8 @@ def _readLogics(result):
         programID = result.readTypedString()
         type = result.readTypedInt()
         currentPhaseIndex = result.readTypedInt()
-        logic = Logic(programID, type, currentPhaseIndex)
         numPhases = result.readCompound()
+        phases = []
         for __ in range(numPhases):
             result.readCompound(6)
             duration = result.readTypedDouble()
@@ -84,13 +85,29 @@ def _readLogics(result):
             numNext = result.readCompound()
             next = tuple([result.readTypedInt() for ___ in range(numNext)])
             name = result.readTypedString()
-            logic.phases.append(Phase(duration, state, minDur, maxDur, next, name))
+            phases.append(Phase(duration, state, minDur, maxDur, next, name))
+        logic = Logic(programID, type, currentPhaseIndex, tuple(phases))
         numParams = result.readCompound()
         for __ in range(numParams):
             key, value = result.readTypedStringList()
             logic.subParameter[key] = value
         logics.append(logic)
-    return logics
+    return tuple(logics)
+
+
+class Constraint:
+    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait):
+        self.signalId = signalId
+        self.tripId = tripId
+        self.foeId = foeId
+        self.foeSignal = foeSignal
+        self.limit = limit
+        self.type = type
+        self.mustWait = mustWait
+
+    def __repr__(self):
+        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s)" %
+                (self.signalId, self.tripId, self.foeId, self.foeSignal, self.limit, self.type, self.mustWait))
 
 
 def _readLinks(result):
@@ -111,16 +128,28 @@ def _readLinks(result):
     return signals
 
 
-_RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
-                      tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
-                      tc.TL_CONTROLLED_LANES: Storage.readStringList,
+def _readConstraints(result):
+    result.readLength()
+    num = result.readInt()  # Length
+    constraints = []
+    for _ in range(num):
+        signalId = result.readTypedString()
+        tripId = result.readTypedString()
+        foeId = result.readTypedString()
+        foeSignal = result.readTypedString()
+        limit = result.readTypedInt()
+        type = result.readTypedInt()
+        mustWait = bool(result.readTypedByte())
+        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait))
+    return constraints
+
+
+_RETURN_VALUE_FUNC = {tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
                       tc.TL_CONTROLLED_LINKS: _readLinks,
-                      tc.TL_CURRENT_PROGRAM: Storage.readString,
-                      tc.TL_CURRENT_PHASE: Storage.readInt,
-                      tc.VAR_PERSON_NUMBER: Storage.readInt,
-                      tc.VAR_NAME: Storage.readString,
-                      tc.TL_NEXT_SWITCH: Storage.readDouble,
-                      tc.TL_PHASE_DURATION: Storage.readDouble}
+                      tc.TL_CONSTRAINT: _readConstraints,
+                      tc.TL_CONSTRAINT_BYFOE: _readConstraints,
+                      tc.TL_CONSTRAINT_SWAP: _readConstraints,
+                      }
 
 
 class TrafficLightDomain(Domain):
@@ -143,13 +172,15 @@ class TrafficLightDomain(Domain):
         """
         return self._getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
-    def getCompleteRedYellowGreenDefinition(self, tlsID):
-        """getCompleteRedYellowGreenDefinition(string) -> list(Logic)
+    def getAllProgramLogics(self, tlsID):
+        """getAllProgramLogics(string) -> list(Logic)
 
         Returns a list of Logic objects.
         Each Logic encodes a traffic light program for the given tlsID.
         """
         return self._getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
+
+    getCompleteRedYellowGreenDefinition = getAllProgramLogics
 
     def getControlledLanes(self, tlsID):
         """getControlledLanes(string) -> c
@@ -207,12 +238,45 @@ class TrafficLightDomain(Domain):
         """getPhase(string, int) -> int
         Returns the number of persons that would be served in the given phase
         """
-        self._connection._beginMessage(
-            self._cmdGetID, tc.VAR_PERSON_NUMBER, tlsID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, index)
-        result = self._connection._checkResult(
-            self._cmdGetID, tc.VAR_PERSON_NUMBER, tlsID)
-        return result.readInt()
+        return self._getUniversal(tc.VAR_PERSON_NUMBER, tlsID, "i", index)
+
+    def getBlockingVehicles(self, tlsID, linkIndex):
+        """getBlockingVehicles(string, int) -> int
+        Returns the list of vehicles that are blocking the subsequent block for
+        the given tls-linkIndex
+        """
+        return self._getUniversal(tc.TL_BLOCKING_VEHICLES, tlsID, "i", linkIndex)
+
+    def getRivalVehicles(self, tlsID, linkIndex):
+        """getRivalVehicles(string, int) -> int
+        Returns the list of vehicles that also wish to enter the subsequent block for
+        the given tls-linkIndex (regardless of priority)
+        """
+        return self._getUniversal(tc.TL_RIVAL_VEHICLES, tlsID, "i", linkIndex)
+
+    def getPriorityVehicles(self, tlsID, linkIndex):
+        """getPriorityVehicles(string, int) -> int
+        Returns the list of vehicles that also wish to enter the subsequent block for
+        the given tls-linkIndex (only those with higher priority)
+        """
+        return self._getUniversal(tc.TL_PRIORITY_VEHICLES, tlsID, "i", linkIndex)
+
+    def getConstraints(self, tlsID, tripId=""):
+        """getConstraints(string, string) -> list(Constraint)
+        Returns the list of rail signal constraints for the given rail signal.
+        If tripId is not "", only constraints with the given tripId are
+        returned. Otherwise, all constraints are returned
+        """
+        return self._getUniversal(tc.TL_CONSTRAINT, tlsID, "s", tripId)
+
+    def getConstraintsByFoe(self, foeSignal, foeId=""):
+        """getConstraintsByFoe(string, string) -> list(Constraint)
+        Returns the list of rail signal constraints that have the given rail
+        signal id as their foeSignal.
+        If foeId is not "", only constraints with the given foeId are
+        returned. Otherwise, all constraints are returned
+        """
+        return self._getUniversal(tc.TL_CONSTRAINT_BYFOE, foeSignal, "s", foeId)
 
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None
@@ -221,8 +285,7 @@ class TrafficLightDomain(Domain):
         rugGyYuoO, for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has
         to decelerate.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, state)
+        self._setCmd(tc.TL_RED_YELLOW_GREEN_STATE, tlsID, "s", state)
 
     def setLinkState(self, tlsID, tlsLinkIndex, state):
         """setLinkState(string, string, int, string) -> None
@@ -246,16 +309,14 @@ class TrafficLightDomain(Domain):
         Switches to the phase with the given index in the list of all phases for
         the current program.
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
+        self._setCmd(tc.TL_PHASE_INDEX, tlsID, "i", index)
 
     def setPhaseName(self, tlsID, name):
         """setPhase(string, string) -> None
 
         Sets the name of the current phase within the current program
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.VAR_NAME, tlsID, name)
+        self._setCmd(tc.VAR_NAME, tlsID, "s", name)
 
     def setProgram(self, tlsID, programID):
         """setProgram(string, string) -> None
@@ -264,8 +325,7 @@ class TrafficLightDomain(Domain):
         been loaded earlier. The special value 'off' can always be used to
         switch off the traffic light.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, programID)
+        self._setCmd(tc.TL_PROGRAM, tlsID, "s", programID)
 
     def setPhaseDuration(self, tlsID, phaseDuration):
         """setPhaseDuration(string, double) -> None
@@ -273,42 +333,43 @@ class TrafficLightDomain(Domain):
         Set the remaining phase duration of the current phase in seconds.
         This value has no effect on subsquent repetitions of this phase.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, phaseDuration)
+        self._setCmd(tc.TL_PHASE_DURATION, tlsID, "d", phaseDuration)
 
-    def setCompleteRedYellowGreenDefinition(self, tlsID, tls):
-        """setCompleteRedYellowGreenDefinition(string, Logic) -> None
+    def setProgramLogic(self, tlsID, tls):
+        """setProgramLogic(string, Logic) -> None
 
         Sets a new program for the given tlsID from a Logic object.
         See getCompleteRedYellowGreenDefinition.
         """
-        length = 1 + 4 + 1 + 4 + \
-            len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
+        format = "tsiit"
+        values = [5, tls.programID, tls.type, tls.currentPhaseIndex, len(tls.phases)]
         for p in tls.phases:
-            length += (1 + 4 + 1 + 8 + 1 + 4 + len(p.state)
-                       + 1 + 8 + 1 + 8  # minDur, maxDur
-                       + 1 + 4 + len(p.next) * (1 + 4)
-                       + 1 + 4 + len(p.name))
-        length += 1 + 4  # subparams
-        for k, v in tls.subParameter.items():
-            length += 1 + 4 + 4 + len(k) + 4 + len(v)
-        self._connection._beginMessage(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_COMPLETE_PROGRAM_RYG, tlsID, length)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
-        self._connection._packString(tls.programID)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tls.type)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tls.currentPhaseIndex)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.phases))
-        for p in tls.phases:
-            self._connection._string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 6, tc.TYPE_DOUBLE, p.duration)
-            self._connection._packString(p.state)
-            self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur)
-            self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(p.next))
+            format += "tdsddt"
+            values += [6, p.duration, p.state, p.minDur, p.maxDur, len(p.next)]
             for n in p.next:
-                self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, n)
-            self._connection._packString(p.name)
+                format += "i"
+                values += [n]
+            format += "s"
+            values += [p.name]
         # subparams
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.subParameter))
+        format += "t"
+        values += [len(tls.subParameter)]
         for par in tls.subParameter.items():
-            self._connection._packStringList(par)
-        self._connection._sendExact()
+            format += "l"
+            values += [par]
+        self._setCmd(tc.TL_COMPLETE_PROGRAM_RYG, tlsID, format, *values)
+
+    setCompleteRedYellowGreenDefinition = setProgramLogic
+
+    def swapConstraints(self, tlsID, tripId, foeSignal, foeId):
+        """swapConstraints(string, string, string, string) -> list(Constraint)
+        Reverse the given constraint and return list of new constraints that
+        were created (by swapping) to avoid deadlock.
+        """
+        return self._getUniversal(tc.TL_CONSTRAINT_SWAP, tlsID, "tsss", 3, tripId, foeSignal, foeId)
+
+    def removeConstraints(self, tlsID, tripId, foeSignal, foeId):
+        """removeConstraints(string, string, string, string)
+        remove constraints with the given values. Any combination of inputs may
+        be set to "" to act as a wildcard filter """
+        self._setCmd(tc.TL_CONSTRAINT_REMOVE, tlsID, "tsss", 3, tripId, foeSignal, foeId)

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-07-21 18:04:17 by Eclipse SUMO sumo Version v1_9_2+0878-fdc1e2a8d6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="10"/>
+        <save-state.files value="state.xml"/>
+        <save-state.rng value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0878-fdc1e2a8d6" time="10.00" type="micro">
+    <rngState default="0" routeHandler="1" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="4"/>
+        <rngLane index="1" state="0"/>
+        <rngLane index="2" state="10"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="0"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="0"/>
+        <rngLane index="9" state="0"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="0"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="0"/>
+        <rngLane index="16" state="0"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="0"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="0"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="0"/>
+        <rngLane index="35" state="0"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="0"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="0"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+    </rngState>
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="2" begin="2" end="0" depart="4.00" time="0.00"/>
+    <vType id="type0" sigma="0"/>
+    <vType id="type1" sigma="0"/>
+    <vType id="type2" sigma="0">
+        <param key="has.rerouting.device" value="false"/>
+    </vType>
+    <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" distance="7 0" speedFactor="1.00" state="17410 0 1 5.10 0 2.77 9000 0 0" pos="71.77 66.77 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <stop lane="middle_0" startPos="199.80" endPos="200.00" duration="0.00"/>
+        <param key="has.rerouting.device" value="false"/>
+    </vehicle>
+    <vehicle id="v1" type="type2" depart="0.00" route="r0" distance="7 0" speedFactor="1.00" state="1026 4000 1 5.10 0 2.59 9000 0 0" pos="18.70 13.70 8.80" speed="8.80 6.20" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <lane id="middle_0">
+        <vehicles value="v1 v0"/>
+    </lane>
+</snapshot>

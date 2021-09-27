@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-05-13 10:09:25 by Eclipse SUMO duarouter Version v1_9_1+0299-ed28f7acbb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="/home/kobo/dlr/sumo/tests/sumo/net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes2.rou.xml"/>
+        <alternatives-output value="routes2.rou.alt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="600"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00">
+        <route edges="SC CE"/>
+    </vehicle>
+    <vehicle id="1" depart="30.00">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="2" depart="60.00">
+        <route edges="SC CS"/>
+    </vehicle>
+    <vehicle id="3" depart="90.00">
+        <route edges="WC CE"/>
+    </vehicle>
+    <vehicle id="4" depart="120.00">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="5" depart="150.00">
+        <route edges="EC CS"/>
+    </vehicle>
+    <vehicle id="6" depart="180.00">
+        <route edges="EC CE"/>
+    </vehicle>
+    <vehicle id="7" depart="210.00">
+        <route edges="SC CS"/>
+    </vehicle>
+    <vehicle id="8" depart="240.00">
+        <route edges="EC CS"/>
+    </vehicle>
+    <vehicle id="9" depart="270.00">
+        <route edges="WC CE"/>
+    </vehicle>
+    <vehicle id="10" depart="300.00">
+        <route edges="WC CS"/>
+    </vehicle>
+    <vehicle id="11" depart="330.00">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="12" depart="360.00">
+        <route edges="WC CN"/>
+    </vehicle>
+    <vehicle id="13" depart="390.00">
+        <route edges="EC CE"/>
+    </vehicle>
+    <vehicle id="14" depart="420.00">
+        <route edges="WC CS"/>
+    </vehicle>
+    <vehicle id="15" depart="450.00">
+        <route edges="WC CS"/>
+    </vehicle>
+    <vehicle id="16" depart="480.00">
+        <route edges="SC CW"/>
+    </vehicle>
+    <vehicle id="17" depart="510.00">
+        <route edges="NC CS"/>
+    </vehicle>
+    <vehicle id="18" depart="540.00">
+        <route edges="WC CS"/>
+    </vehicle>
+    <vehicle id="19" depart="570.00">
+        <route edges="WC CS"/>
+    </vehicle>
+</routes>

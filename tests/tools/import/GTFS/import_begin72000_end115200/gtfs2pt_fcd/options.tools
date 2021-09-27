@@ -1,0 +1,1 @@
+-n net.net.xml --gtfs gtfs.zip --date 20201111 --vtype-output vehtypes.xml --modes bus --begin 72000 --end 115200 tools/import/gtfs/gtfs2pt.py

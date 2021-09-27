@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOXMLDefinitions.h
 /// @author  Daniel Krajzewicz
@@ -15,17 +19,10 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Definitions of elements and attributes known by SUMO
 /****************************************************************************/
-#ifndef SUMOXMLDefinitions_h
-#define SUMOXMLDefinitions_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/common/StringBijection.h>
@@ -42,6 +39,8 @@
 enum SumoXMLTag {
     /// @brief invalid tag
     SUMO_TAG_NOTHING,
+    /// @brief root file
+    SUMO_TAG_ROOTFILE,
     /// @brief root element of a network file
     SUMO_TAG_NET,
     /// @brief begin/end of the description of an edge
@@ -50,24 +49,24 @@ enum SumoXMLTag {
     SUMO_TAG_LANE,
     /// @brief begin/end of the description of a neighboring lane
     SUMO_TAG_NEIGH,
-    /// @brief begin/end of the description of a Point of interest
-    SUMO_TAG_POI,
-    /// @brief begin/end of the description of a Point of interest over Lane (used by Netedit)
-    SUMO_TAG_POILANE,
     /// @brief begin/end of the description of a polygon
     SUMO_TAG_POLY,
+    /// @brief begin/end of the description of a Point of interest
+    SUMO_TAG_POI,
     /// @brief begin/end of the description of a junction
     SUMO_TAG_JUNCTION,
     /// @brief begin/end of the description of an edge restriction
     SUMO_TAG_RESTRICTION,
+    /// @brief edge-specific meso settings
+    SUMO_TAG_MESO,
     /// @brief an e1 detector
     SUMO_TAG_E1DETECTOR,
     /// @brief alternative tag for e1 detector
     SUMO_TAG_INDUCTION_LOOP,
     /// @brief an e2 detector
     SUMO_TAG_E2DETECTOR,
-    /// @brief an e2 detector over multiple lanes (used by Netedit)
-    SUMO_TAG_E2DETECTOR_MULTILANE,
+    /// @brief an e2 detector over multiple lanes (placed here due create Additional Frame)
+    GNE_TAG_E2DETECTOR_MULTILANE,
     /// @brief alternative tag for e2 detector
     SUMO_TAG_LANE_AREA_DETECTOR,
     /// @brief an e3 detector
@@ -110,6 +109,14 @@ enum SumoXMLTag {
     SUMO_TAG_PARKING_SPACE,
     /// @brief  A Charging Station
     SUMO_TAG_CHARGING_STATION,
+    /// @brief  An overhead wire segment
+    SUMO_TAG_OVERHEAD_WIRE_SEGMENT,
+    /// @brief  An overhead wire section
+    SUMO_TAG_OVERHEAD_WIRE_SECTION,
+    /// @brief  A traction substation
+    SUMO_TAG_TRACTION_SUBSTATION,
+    /// @brief  An overhead wire clamp (connection of wires in opposite directions)
+    SUMO_TAG_OVERHEAD_WIRE_CLAMP,
     /// @brief a vtypeprobe detector
     SUMO_TAG_VTYPEPROBE,
     /// @brief a routeprobe detector
@@ -124,8 +131,6 @@ enum SumoXMLTag {
     SUMO_TAG_PTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
-    /// @brief begin/end of the description of a embedded route (used in NETEDIT)
-    SUMO_TAG_EMBEDDEDROUTE,
     /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
     /// @brief a source
@@ -148,16 +153,16 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
     SUMO_TAG_FLOW,
-    /// @brief a flow definition nusing a route instead of a from-to edges route (used in NETEDIT)
-    SUMO_TAG_ROUTEFLOW,
-    /// @brief a flow definition within in Calibrator (used in NETEDIT)
-    SUMO_TAG_FLOW_CALIBRATOR,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
     /// @brief trigger: a step description
     SUMO_TAG_STEP,
     /// @brief an aggreagated-output interval
     SUMO_TAG_INTERVAL,
+    /// @brief a relation between two edges
+    SUMO_TAG_EDGEREL,
+    /// @brief a relation between two TAZs
+    SUMO_TAG_TAZREL,
     /// @brief The definition of a periodic event
     SUMO_TAG_TIMEDEVENT,
     /// @brief Incoming edge specification (jtrrouter)
@@ -173,8 +178,8 @@ enum SumoXMLTag {
     SUMO_TAG_WAUT_JUNCTION,
     /// @brief segment of a lane
     SUMO_TAG_SEGMENT,
-    /// @brief delete certain element
-    SUMO_TAG_DELETE,
+    /// @brief delete certain element (note: DELETE is a macro)
+    SUMO_TAG_DEL,
     /// @brief stop for vehicles
     SUMO_TAG_STOP,
     /// @brief stop placed over a lane (used in netedit)
@@ -207,8 +212,10 @@ enum SumoXMLTag {
     SUMO_TAG_SPLIT,
     /// @brief alternative definition for junction
     SUMO_TAG_NODE,
-    /// @brief type
+    /// @brief type (edge)
     SUMO_TAG_TYPE,
+    /// @brief lane type
+    SUMO_TAG_LANETYPE,
     /// @brief definition of a detector
     SUMO_TAG_DETECTOR_DEFINITION,
     /// @brief distribution of a route
@@ -229,6 +236,18 @@ enum SumoXMLTag {
     SUMO_TAG_WALKINGAREA,
     /// @brief Information on vClass specific stop offsets at lane end
     SUMO_TAG_STOPOFFSET,
+    /// @brief Constraints on switching a rail signal
+    SUMO_TAG_RAILSIGNAL_CONSTRAINTS,
+    /// @brief Predecessor constraint on switching a rail signal
+    SUMO_TAG_PREDECESSOR,
+    /// @brief Predecessor constraint on insertion before rail signal
+    SUMO_TAG_INSERTION_PREDECESSOR,
+    /// @brief Saved state for constraint tracker
+    SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
+    /// @brief Link information for state-saving
+    SUMO_TAG_LINK,
+    /// @brief Link-approaching vehicle information for state-saving
+    SUMO_TAG_APPROACHING,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
@@ -259,13 +278,13 @@ enum SumoXMLTag {
     SUMO_TAG_DELAY,
     SUMO_TAG_VIEWPORT,
     SUMO_TAG_SNAPSHOT,
-    SUMO_TAG_BREAKPOINTS_FILE,
     SUMO_TAG_BREAKPOINT,
     SUMO_TAG_LOCATION,
     SUMO_TAG_COLORSCHEME,
     SUMO_TAG_SCALINGSCHEME,
     SUMO_TAG_ENTRY,
     SUMO_TAG_RNGSTATE,
+    SUMO_TAG_RNGLANE,
     /// @}
 
     SUMO_TAG_VEHICLETRANSFER,
@@ -277,6 +296,7 @@ enum SumoXMLTag {
     SUMO_TAG_CF_KRAUSS_PLUS_SLOPE,
     SUMO_TAG_CF_KRAUSS_ORIG1,
     SUMO_TAG_CF_KRAUSSX,
+    SUMO_TAG_CF_EIDM,
     SUMO_TAG_CF_SMART_SK,
     SUMO_TAG_CF_DANIEL1,
     SUMO_TAG_CF_IDM,
@@ -300,29 +320,27 @@ enum SumoXMLTag {
     SUMO_TAG_PERSONFLOW,
     /// @}
 
-    /// @name Persons (used by Netedit)
+    /// @name Data elements (used by Netedit)
     /// @{
-    SUMO_TAG_PERSONTRIP_FROMTO,
-    SUMO_TAG_PERSONTRIP_BUSSTOP,
-    SUMO_TAG_WALK_EDGES,
-    SUMO_TAG_WALK_FROMTO,
-    SUMO_TAG_WALK_BUSSTOP,
-    SUMO_TAG_WALK_ROUTE,
-    SUMO_TAG_RIDE_FROMTO,
-    SUMO_TAG_RIDE_BUSSTOP,
-    SUMO_TAG_PERSONSTOP_BUSSTOP,
-    SUMO_TAG_PERSONSTOP_LANE,
+    SUMO_TAG_DATASET,
+    SUMO_TAG_DATAINTERVAL,
     /// @}
 
+    /// @name Containers
+    /// @{
     SUMO_TAG_CONTAINER,
     SUMO_TAG_TRANSPORT,
     SUMO_TAG_TRANSHIP,
+    SUMO_TAG_CONTAINERFLOW,
+    /// @}
+
     SUMO_TAG_TRAJECTORIES,
     SUMO_TAG_TIMESTEP,
     SUMO_TAG_TIMESLICE,
     SUMO_TAG_ACTORCONFIG,
     SUMO_TAG_MOTIONSTATE,
     SUMO_TAG_OD_PAIR,
+    SUMO_TAG_TRANSPORTABLES,
 
     /// @brief ActivityGen Tags
     AGEN_TAG_GENERAL,
@@ -360,7 +378,55 @@ enum SumoXMLTag {
     /// @brief alternative definition for city entrances
     AGEN_TAG_ENTRANCE,
     /// @brief parameters
-    AGEN_TAG_PARAM
+    AGEN_TAG_PARAM,
+
+    /// @name NETEDIT elements
+    /// @{
+    /// @brief internal lane
+    GNE_TAG_INTERNAL_LANE,
+    /// @brief a flow definition within in Calibrator
+    GNE_TAG_FLOW_CALIBRATOR,
+    /// @brief Point of interest over Lane
+    GNE_TAG_POILANE,
+    /// @brief Point of interest over view with GEO attributes
+    GNE_TAG_POIGEO,
+    /// @brief Rerouter Symbol
+    GNE_TAG_REROUTER_SYMBOL,
+    /// @brief VSS Symbol
+    GNE_TAG_VSS_SYMBOL,
+    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    GNE_TAG_VEHICLE_WITHROUTE,
+    /// @brief embedded route (used in NETEDIT)
+    GNE_TAG_ROUTE_EMBEDDED,
+    /// @brief a flow definition using a route instead of a from-to edges route (used in NETEDIT)
+    GNE_TAG_FLOW_ROUTE,
+    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    GNE_TAG_FLOW_WITHROUTE,
+    // person trips
+    GNE_TAG_PERSONTRIP_EDGE,
+    GNE_TAG_PERSONTRIP_BUSSTOP,
+    // walks
+    GNE_TAG_WALK_EDGE,
+    GNE_TAG_WALK_BUSSTOP,
+    GNE_TAG_WALK_EDGES,
+    GNE_TAG_WALK_ROUTE,
+    // rides
+    GNE_TAG_RIDE_EDGE,
+    GNE_TAG_RIDE_BUSSTOP,
+    // person stops
+    GNE_TAG_STOPPERSON_BUSSTOP,
+    GNE_TAG_STOPPERSON_EDGE,
+    // person trips
+    GNE_TAG_TRANSPORT_EDGE,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP,
+    // walks
+    GNE_TAG_TRANSHIP_EDGE,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_EDGES,
+    // container stops
+    GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
+    GNE_TAG_STOPCONTAINER_EDGE,
+    /// @}
 };
 
 
@@ -372,17 +438,84 @@ enum SumoXMLTag {
  */
 enum SumoXMLAttr {
     /// @brief invalid attribute
-    SUMO_ATTR_NOTHING,
+    SUMO_ATTR_NOTHING = 0,
+
+    /// @name meanData output attributes
+    /// @note: sorted first to simplify filtering written attributes with bit operations
+    /// @{
+    SUMO_ATTR_DEFAULT            =  1,
+    /// MSMeanData_Net
+    SUMO_ATTR_SAMPLEDSECONDS     =  2,
+    SUMO_ATTR_DENSITY            =  3,
+    SUMO_ATTR_LANEDENSITY        =  4,
+    SUMO_ATTR_OCCUPANCY          =  5,
+    SUMO_ATTR_WAITINGTIME        =  6,
+    SUMO_ATTR_TIMELOSS           =  7,
+    SUMO_ATTR_SPEED              =  8,
+    SUMO_ATTR_DEPARTED           =  9,
+    SUMO_ATTR_ARRIVED            = 10,
+    SUMO_ATTR_ENTERED            = 11,
+    SUMO_ATTR_LEFT               = 12,
+    SUMO_ATTR_VAPORIZED          = 13,
+    SUMO_ATTR_TRAVELTIME         = 14,
+    SUMO_ATTR_LANECHANGEDFROM    = 15,
+    SUMO_ATTR_LANECHANGEDTO      = 16,
+    SUMO_ATTR_OVERLAPTRAVELTIME  = 17,
+    /// MSMeanData_Emissions
+    SUMO_ATTR_CO_ABS             = 18,
+    SUMO_ATTR_CO2_ABS            = 19,
+    SUMO_ATTR_HC_ABS             = 20,
+    SUMO_ATTR_PMX_ABS            = 21,
+    SUMO_ATTR_NOX_ABS            = 22,
+    SUMO_ATTR_FUEL_ABS           = 23,
+    SUMO_ATTR_ELECTRICITY_ABS    = 24,
+    SUMO_ATTR_CO_NORMED          = 25,
+    SUMO_ATTR_CO2_NORMED         = 26,
+    SUMO_ATTR_HC_NORMED          = 27,
+    SUMO_ATTR_PMX_NORMED         = 28,
+    SUMO_ATTR_NOX_NORMED         = 29,
+    SUMO_ATTR_FUEL_NORMED        = 30,
+    SUMO_ATTR_ELECTRICITY_NORMED = 31,
+    SUMO_ATTR_CO_PERVEH          = 32,
+    SUMO_ATTR_CO2_PERVEH         = 33,
+    SUMO_ATTR_HC_PERVEH          = 34,
+    SUMO_ATTR_PMX_PERVEH         = 35,
+    SUMO_ATTR_NOX_PERVEH         = 36,
+    SUMO_ATTR_FUEL_PERVEH        = 37,
+    SUMO_ATTR_ELECTRICITY_PERVEH = 38,
+    /// MSMeanData_Harmonoise
+    SUMO_ATTR_NOISE              = 39,
+    /// MSMeanData_Amitran
+    SUMO_ATTR_AMOUNT             = 40,
+    SUMO_ATTR_AVERAGESPEED       = 41,
+    // FCD-Output
+    SUMO_ATTR_X                  = 42,
+    SUMO_ATTR_Y                  = 43,
+    SUMO_ATTR_Z                  = 44,
+    SUMO_ATTR_ANGLE              = 45,
+    SUMO_ATTR_TYPE               = 46,
+    SUMO_ATTR_POSITION           = 47,
+    SUMO_ATTR_EDGE               = 48,
+    SUMO_ATTR_LANE               = 49,
+    SUMO_ATTR_SLOPE              = 50,
+    SUMO_ATTR_SIGNALS            = 51,
+    SUMO_ATTR_ACCELERATION       = 52,
+    SUMO_ATTR_ACCELERATION_LAT   = 53,
+    SUMO_ATTR_DISTANCE           = 54,
+    SUMO_ATTR_LEADER_ID          = 55,
+    SUMO_ATTR_LEADER_SPEED       = 56,
+    SUMO_ATTR_LEADER_GAP         = 57,
+    SUMO_ATTR_VEHICLE            = 58,
+    /// @}
 
     /// @name common attributes
     /// @{
     SUMO_ATTR_ID,
     SUMO_ATTR_REFID,
     SUMO_ATTR_NAME,
-    SUMO_ATTR_TYPE,
+    SUMO_ATTR_VERSION,
     SUMO_ATTR_PRIORITY,
     SUMO_ATTR_NUMLANES,
-    SUMO_ATTR_SPEED,
     SUMO_ATTR_ONEWAY,
     SUMO_ATTR_WIDTH,
     SUMO_ATTR_WIDTHRESOLUTION,
@@ -393,12 +526,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_REMOVE,
     SUMO_ATTR_LENGTH,
     SUMO_ATTR_BIDI,
-    SUMO_ATTR_DISTANCE,
     SUMO_ATTR_ID_BEFORE,
     SUMO_ATTR_ID_AFTER,
-    SUMO_ATTR_X,
-    SUMO_ATTR_Y,
-    SUMO_ATTR_Z,
     SUMO_ATTR_CENTER_X,
     SUMO_ATTR_CENTER_Y,
     SUMO_ATTR_CENTER_Z,
@@ -411,6 +540,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_REQUEST,
     SUMO_ATTR_RESPONSE,
     SUMO_ATTR_PROGRAMID,
+    SUMO_ATTR_PHASE,
     SUMO_ATTR_OFFSET,
     SUMO_ATTR_ENDOFFSET,
     SUMO_ATTR_INCLANES,
@@ -421,7 +551,6 @@ enum SumoXMLAttr {
     /// @{
     SUMO_ATTR_WEIGHT,
     SUMO_ATTR_NODE,
-    SUMO_ATTR_EDGE,
     /// @}
 
     /// @brief the edges of a route
@@ -434,10 +563,12 @@ enum SumoXMLAttr {
     SUMO_ATTR_DEPARTPOS,
     SUMO_ATTR_DEPARTPOS_LAT,
     SUMO_ATTR_DEPARTSPEED,
+    SUMO_ATTR_DEPARTEDGE,
     SUMO_ATTR_ARRIVALLANE,
     SUMO_ATTR_ARRIVALPOS,
     SUMO_ATTR_ARRIVALPOS_LAT,
     SUMO_ATTR_ARRIVALSPEED,
+    SUMO_ATTR_ARRIVALEDGE,
     SUMO_ATTR_ROUTE,
     SUMO_ATTR_MAXSPEED,
     SUMO_ATTR_MAXSPEED_LAT,
@@ -447,7 +578,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_DECEL,
     SUMO_ATTR_EMERGENCYDECEL,
     SUMO_ATTR_APPARENTDECEL,
-    SUMO_ATTR_HASDRIVERSTATE,
     SUMO_ATTR_ACTIONSTEPLENGTH,
     SUMO_ATTR_VCLASS,
     SUMO_ATTR_VCLASSES,
@@ -463,6 +593,36 @@ enum SumoXMLAttr {
     SUMO_ATTR_LOADING_DURATION,
     /// @brief Class specific timing values for vehicle manoeuvering through angle ranges
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
+    /// @}
+
+    /// @name elecHybrid output attributes
+    /// @{
+    /// @brief power charging from overhead wire to battery if the battery SoC is not full
+    SUMO_ATTR_OVERHEADWIRECHARGINGPOWER,
+    /// @}
+
+    /// @name overheadWire attributes
+    /// @{
+    SUMO_ATTR_OVERHEAD_WIRE_SEGMENT,
+    SUMO_ATTR_OVERHEAD_WIRE_SECTION,
+    /// @brief voltage of the traction substation [V]
+    SUMO_ATTR_VOLTAGE,
+    /// @brief a voltage source on the overhead wire segment [bool]
+    SUMO_ATTR_VOLTAGESOURCE,
+    /// @brief current limit of the traction substation [A]
+    SUMO_ATTR_CURRENTLIMIT,
+    /// @brief id of a traction substation substation
+    SUMO_ATTR_SUBSTATIONID,
+    /// @brief resistivity of overhead wires
+    SUMO_ATTR_OVERHEAD_WIRE_RESISTIVITY,
+    /// @brief forbidden lanes for overhead wire segment
+    SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN,
+    /// @brief overhead wire clamps for overhead wire segment
+    SUMO_ATTR_OVERHEAD_WIRE_CLAMPS,
+    /// @brief id of the overhead wire segment, to the start of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_START,
+    /// @brief id of the overhead wire segment, to the end of which the overhead wire clamp is connected
+    SUMO_ATTR_OVERHEAD_WIRE_CLAMP_END,
     /// @}
 
     /// @name charging stations attributes
@@ -509,12 +669,30 @@ enum SumoXMLAttr {
     SUMO_ATTR_STOPPINGTRESHOLD,
     /// @}
 
+    /// @name elecHybrid device export parameters
+    /// @{
+    // @brief Overhead Wire Segment ID
+    SUMO_ATTR_OVERHEADWIREID,
+    // @brief Traction substation ID
+    SUMO_ATTR_TRACTIONSUBSTATIONID,
+    // @brief Electric current drawn from overhead wire
+    SUMO_ATTR_CURRENTFROMOVERHEADWIRE,
+    // @brief Voltage of overhead wire (above the vehicle)
+    SUMO_ATTR_VOLTAGEOFOVERHEADWIRE,
+    // @brief Circuit solver alpha parameter
+    SUMO_ATTR_ALPHACIRCUITSOLVER,
+    /// @}
+
     /// @name battery export parameters
     /// @{
     /// @brief charging status
     SUMO_ATTR_CHARGING_STATUS,
     /// @brief Energy consumed
     SUMO_ATTR_ENERGYCONSUMED,
+    /// @brief Total energy consumed
+    SUMO_ATTR_TOTALENERGYCONSUMED,
+    /// @brief Total energy regenerated
+    SUMO_ATTR_TOTALENERGYREGENERATED,
     /// @brief Charging Station ID
     SUMO_ATTR_CHARGINGSTATIONID,
     /// @brief tgotal of Energy charged
@@ -554,6 +732,22 @@ enum SumoXMLAttr {
     SUMO_ATTR_TMP3,
     SUMO_ATTR_TMP4,
     SUMO_ATTR_TMP5,
+    // Car Following Model attributes of the Extended IDM
+    SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS,
+    SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD,
+    SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE,
+    SUMO_ATTR_CF_EIDM_T_REACTION,
+    SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE,
+    SUMO_ATTR_CF_EIDM_C_COOLNESS,
+    SUMO_ATTR_CF_EIDM_SIG_LEADER,
+    SUMO_ATTR_CF_EIDM_SIG_GAP,
+    SUMO_ATTR_CF_EIDM_SIG_ERROR,
+    SUMO_ATTR_CF_EIDM_JERK_MAX,
+    SUMO_ATTR_CF_EIDM_EPSILON_ACC,
+    SUMO_ATTR_CF_EIDM_T_ACC_MAX,
+    SUMO_ATTR_CF_EIDM_M_FLATNESS,
+    SUMO_ATTR_CF_EIDM_M_BEGIN,
+    SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW,
     /// @}
 
     // @name Train ACC model attributes
@@ -577,6 +771,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_CA_GAIN_GAP_CACC,
     SUMO_ATTR_CA_GAIN_GAP_DOT_CACC,
     SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC,
+    SUMO_ATTR_APPLYDRIVERSTATE,
     /// @}
 
 
@@ -601,10 +796,17 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_ACCEL_LAT,
     SUMO_ATTR_LCA_LOOKAHEADLEFT,
     SUMO_ATTR_LCA_SPEEDGAINRIGHT,
+    SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD,
+    SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT,
+    SUMO_ATTR_LCA_COOPERATIVE_SPEED,
     SUMO_ATTR_LCA_MAXSPEEDLATSTANDING,
     SUMO_ATTR_LCA_MAXSPEEDLATFACTOR,
+    SUMO_ATTR_LCA_MAXDISTLATSTANDING,
     SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE,
     SUMO_ATTR_LCA_OVERTAKE_RIGHT,
+    SUMO_ATTR_LCA_LANE_DISCIPLINE,
+    SUMO_ATTR_LCA_SIGMA,
+    SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME,
     SUMO_ATTR_LCA_EXPERIMENTAL1,
     /// @}
 
@@ -617,16 +819,23 @@ enum SumoXMLAttr {
     SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
     SUMO_ATTR_JM_IGNORE_FOE_SPEED,
     SUMO_ATTR_JM_IGNORE_FOE_PROB,
+    SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB,
     SUMO_ATTR_JM_SIGMA_MINOR,
+    SUMO_ATTR_JM_STOPLINE_GAP,
     SUMO_ATTR_JM_TIMEGAP_MINOR,
+    SUMO_ATTR_JM_IGNORE_IDS,
+    SUMO_ATTR_JM_IGNORE_TYPES,
     /// @}
 
     /// @name route alternatives / distribution attributes
     /// @{
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
+    SUMO_ATTR_COSTS,
     SUMO_ATTR_SAVINGS,
+    SUMO_ATTR_EXITTIMES,
     SUMO_ATTR_PROB,
+    SUMO_ATTR_COUNT,
     SUMO_ATTR_PROBS,
     SUMO_ATTR_ROUTES,
     SUMO_ATTR_VTYPES,
@@ -634,7 +843,6 @@ enum SumoXMLAttr {
 
     /// @name trip definition attributes
     /// @{
-    SUMO_ATTR_LANE,
     SUMO_ATTR_LANES,
     SUMO_ATTR_FROM,
     SUMO_ATTR_TO,
@@ -642,12 +850,17 @@ enum SumoXMLAttr {
     SUMO_ATTR_TOLONLAT,
     SUMO_ATTR_FROMXY,
     SUMO_ATTR_TOXY,
+    SUMO_ATTR_FROMJUNCTION,
+    SUMO_ATTR_TOJUNCTION,
     SUMO_ATTR_PERIOD,
+    SUMO_ATTR_REPEAT,
+    SUMO_ATTR_CYCLETIME,
     SUMO_ATTR_FROM_TAZ,
     SUMO_ATTR_TO_TAZ,
     SUMO_ATTR_REROUTE,
     SUMO_ATTR_PERSON_CAPACITY,
     SUMO_ATTR_CONTAINER_CAPACITY,
+    SUMO_ATTR_PARKING_LENGTH,
     SUMO_ATTR_PERSON_NUMBER,
     SUMO_ATTR_CONTAINER_NUMBER,
     SUMO_ATTR_MODES,
@@ -657,7 +870,6 @@ enum SumoXMLAttr {
     /// @name source definitions
     /// @{
     SUMO_ATTR_FUNCTION,
-    SUMO_ATTR_POSITION,
     SUMO_ATTR_POSITION_LAT,
     SUMO_ATTR_FREQUENCY,
     SUMO_ATTR_STYLE,
@@ -666,8 +878,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_NUMBER,
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
+    SUMO_ATTR_ARRIVAL,
     SUMO_ATTR_EXTENSION,
     SUMO_ATTR_ROUTEPROBE,
+    SUMO_ATTR_STARTED,
+    SUMO_ATTR_ENDED,
     /// @}
 
     /// @brief the edges crossed by a pedestrian crossing
@@ -682,6 +897,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TLID,
     /// @brief node: the type of traffic light
     SUMO_ATTR_TLTYPE,
+    /// @brief node: the layout of the traffic light program
+    SUMO_ATTR_TLLAYOUT,
     /// @brief link: the index of the link within the traffic light
     SUMO_ATTR_TLLINKINDEX,
     /// @brief link: the index of the opposite direction link of a pedestrian crossing
@@ -694,6 +911,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RADIUS,
     /// @brief Whether vehicles must keep the junction clear
     SUMO_ATTR_KEEP_CLEAR,
+    /// @brief Whether this connection is an indirect (left) turn
+    SUMO_ATTR_INDIRECT,
     /// @brief How to compute right of way
     SUMO_ATTR_RIGHT_OF_WAY,
     /// @brief Fringe type of node
@@ -723,6 +942,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VIA,
     SUMO_ATTR_VIALONLAT,
     SUMO_ATTR_VIAXY,
+    SUMO_ATTR_VIAJUNCTIONS,
     /// @brief a list of node ids, used for controlling joining
     SUMO_ATTR_NODES,
 
@@ -741,6 +961,7 @@ enum SumoXMLAttr {
     /// @brief Information within the junction logic which internal lanes block external
     SUMO_ATTR_FOES,
     /// @}
+    SUMO_ATTR_CONSTRAINTS,
 
     /// @name Attributes for detectors
     /// @{
@@ -767,14 +988,18 @@ enum SumoXMLAttr {
     SUMO_ATTR_UNCONTROLLED,
     SUMO_ATTR_PASS,
     SUMO_ATTR_BUS_STOP,
+    SUMO_ATTR_TRAIN_STOP,
     SUMO_ATTR_CONTAINER_STOP,
     SUMO_ATTR_PARKING_AREA,
     SUMO_ATTR_ROADSIDE_CAPACITY,
     SUMO_ATTR_ONROAD,
     SUMO_ATTR_CHARGING_STATION,
+    SUMO_ATTR_GROUP,
     SUMO_ATTR_LINE,
     SUMO_ATTR_LINES,
     SUMO_ATTR_TRIP_ID,
+    SUMO_ATTR_SPLIT,
+    SUMO_ATTR_JOIN,
     SUMO_ATTR_INTENDED,
     SUMO_ATTR_VALUE,
     SUMO_ATTR_PROHIBITOR,
@@ -782,16 +1007,19 @@ enum SumoXMLAttr {
     SUMO_ATTR_ALLOW,
     SUMO_ATTR_DISALLOW,
     SUMO_ATTR_PREFER,
+    SUMO_ATTR_CHANGE_LEFT,
+    SUMO_ATTR_CHANGE_RIGHT,
     SUMO_ATTR_CONTROLLED_INNER,
     SUMO_ATTR_VEHSPERHOUR,
     SUMO_ATTR_PERSONSPERHOUR,
+    SUMO_ATTR_CONTAINERSPERHOUR,
+    SUMO_ATTR_PERHOUR,
     SUMO_ATTR_OUTPUT,
     SUMO_ATTR_HEIGHT,
     SUMO_ATTR_GUISHAPE,
     SUMO_ATTR_OSGFILE,
     SUMO_ATTR_IMGFILE,
     SUMO_ATTR_RELATIVEPATH,
-    SUMO_ATTR_ANGLE,
     SUMO_ATTR_EMISSIONCLASS,
     SUMO_ATTR_IMPATIENCE,
     SUMO_ATTR_STARTPOS,
@@ -800,6 +1028,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_CONTAINER_TRIGGERED,
     SUMO_ATTR_PARKING,
     SUMO_ATTR_EXPECTED,
+    SUMO_ATTR_PERMITTED,
     SUMO_ATTR_EXPECTED_CONTAINERS,
     SUMO_ATTR_INDEX,
 
@@ -810,12 +1039,12 @@ enum SumoXMLAttr {
     SUMO_ATTR_DETECT_PERSONS,
     SUMO_ATTR_MAX_TRAVELTIME,
     SUMO_ATTR_MIN_SAMPLES,
+    SUMO_ATTR_WRITE_ATTRIBUTES,
 
     SUMO_ATTR_LON,
     SUMO_ATTR_LAT,
     SUMO_ATTR_GEO,
     SUMO_ATTR_GEOSHAPE,
-    SUMO_ATTR_GEOPOSITION,
     SUMO_ATTR_K,
     SUMO_ATTR_V,
     SUMO_ATTR_REF,
@@ -872,8 +1101,6 @@ enum SumoXMLAttr {
 
     SUMO_ATTR_GENERATE_WALKS,
     SUMO_ATTR_ACTTYPE,
-    SUMO_ATTR_SLOPE,
-    SUMO_ATTR_VERSION,
     SUMO_ATTR_CORNERDETAIL,
     SUMO_ATTR_LINKDETAIL,
     SUMO_ATTR_RECTANGULAR_LANE_CUT,
@@ -882,19 +1109,22 @@ enum SumoXMLAttr {
     SUMO_ATTR_LIMIT_TURN_SPEED,
     SUMO_ATTR_CHECKLANEFOES_ALL,
     SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT,
+    SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM,
+    SUMO_ATTR_AVOID_OVERLAP,
+    SUMO_ATTR_HIGHER_SPEED,
     SUMO_ATTR_COMMAND,
 
     SUMO_ATTR_ACTORCONFIG,
-    SUMO_ATTR_VEHICLE,
     SUMO_ATTR_STARTTIME,
     SUMO_ATTR_VEHICLECLASS,
     SUMO_ATTR_FUEL,
-    SUMO_ATTR_ACCELERATION,
-    SUMO_ATTR_AMOUNT,
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,
-
+    SUMO_ATTR_LIMIT,
+    SUMO_ATTR_ARRIVALTIME,
+    SUMO_ATTR_ARRIVALTIMEBRAKING,
+    SUMO_ATTR_ARRIVALSPEEDBRAKING,
 
     /// @name ActivityGen Tags
     /// @{
@@ -977,14 +1207,12 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_END,
     /// @brief whether an edge is part of a bidirectional railway
     GNE_ATTR_BIDIR,
-    /// @brief block movement of a graphic element
-    GNE_ATTR_BLOCK_MOVEMENT,
-    /// @brief block shape of a graphic element (Used mainly in GNEShapes)
-    GNE_ATTR_BLOCK_SHAPE,
     /// @brief Close shape of a polygon (Used by GNEPolys)
     GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
     GNE_ATTR_PARENT,
+    /// @brief data set of a generic data
+    GNE_ATTR_DATASET,
     /// @brief parameters "key1=value1|key2=value2|...|keyN=valueN"
     GNE_ATTR_PARAMETERS,
     /// @brief min source (used only by TAZs)
@@ -1005,6 +1233,17 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE,
     /// @brief Flag to check if a default VType was modified
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
+    /// @brief flag to center camera after element creation
+    GNE_ATTR_CENTER_AFTER_CREATION,
+    /// @brief to busStop (used by personPlans)
+    GNE_ATTR_TO_BUSSTOP,
+    /// @brief to busStop (used by containerPlans)
+    GNE_ATTR_TO_CONTAINERSTOP,
+    /// @brief neighboring lane, simplified lane attr instead of child element
+    GNE_ATTR_OPPOSITE,
+    /// @brief center (used in stoppingPlaces)
+    GNE_ATTR_CENTER,
+
     // @}
 
     /// @name train parameters
@@ -1021,15 +1260,26 @@ enum SumoXMLAttr {
 
     //@name RNG state saving attributes
     // @{
-    SUMO_ATTR_RNG_DEFAULT,
     SUMO_ATTR_RNG_ROUTEHANDLER,
     SUMO_ATTR_RNG_INSERTIONCONTROL,
     SUMO_ATTR_RNG_DEVICE,
     SUMO_ATTR_RNG_DEVICE_BT,
+    SUMO_ATTR_RNG_DEVICE_TOC,
     SUMO_ATTR_RNG_DRIVERSTATE,
-    SUMO_ATTR_RNG_DEVICE_TOC
     // @}
 
+    //@name meso edge type attributes
+    // @{
+    SUMO_ATTR_MESO_TAUFF,
+    SUMO_ATTR_MESO_TAUFJ,
+    SUMO_ATTR_MESO_TAUJF,
+    SUMO_ATTR_MESO_TAUJJ,
+    SUMO_ATTR_MESO_JUNCTION_CONTROL,
+    SUMO_ATTR_MESO_TLS_PENALTY,
+    SUMO_ATTR_MESO_TLS_FLOW_PENALTY,
+    SUMO_ATTR_MESO_MINOR_PENALTY,
+    SUMO_ATTR_MESO_OVERTAKING
+    // @}
 };
 
 /*
@@ -1049,23 +1299,23 @@ extern const std::string SUMO_PARAM_ORIGID;
  * @brief Numbers representing special SUMO-XML-attribute values
  * for representing node- (junction-) types used in netbuild/netimport and netload
  */
-enum SumoXMLNodeType {
-    NODETYPE_UNKNOWN, // terminator
-    NODETYPE_TRAFFIC_LIGHT,
-    NODETYPE_TRAFFIC_LIGHT_NOJUNCTION, // junction controlled only by traffic light but without other prohibitions,
-    NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED,
-    NODETYPE_RAIL_SIGNAL,
-    NODETYPE_RAIL_CROSSING,
-    NODETYPE_PRIORITY,
-    NODETYPE_PRIORITY_STOP, // like priority but all minor links have stop signs
-    NODETYPE_RIGHT_BEFORE_LEFT,
-    NODETYPE_ALLWAY_STOP,
-    NODETYPE_ZIPPER,
-    NODETYPE_DISTRICT,
-    NODETYPE_NOJUNCTION,
-    NODETYPE_INTERNAL,
-    NODETYPE_DEAD_END,
-    NODETYPE_DEAD_END_DEPRECATED
+enum class SumoXMLNodeType {
+    UNKNOWN, // terminator
+    TRAFFIC_LIGHT,
+    TRAFFIC_LIGHT_NOJUNCTION, // junction controlled only by traffic light but without other prohibitions,
+    TRAFFIC_LIGHT_RIGHT_ON_RED,
+    RAIL_SIGNAL,
+    RAIL_CROSSING,
+    PRIORITY,
+    PRIORITY_STOP, // like priority but all minor links have stop signs
+    RIGHT_BEFORE_LEFT,
+    ALLWAY_STOP,
+    ZIPPER,
+    DISTRICT,
+    NOJUNCTION,
+    INTERNAL,
+    DEAD_END,
+    DEAD_END_DEPRECATED
 };
 
 
@@ -1074,13 +1324,13 @@ enum SumoXMLNodeType {
  * @brief Numbers representing special SUMO-XML-attribute values
  * for representing edge functions used in netbuild/netimport and netload
  */
-enum SumoXMLEdgeFunc {
-    EDGEFUNC_UNKNOWN,
-    EDGEFUNC_NORMAL,
-    EDGEFUNC_CONNECTOR,
-    EDGEFUNC_CROSSING,
-    EDGEFUNC_WALKINGAREA,
-    EDGEFUNC_INTERNAL
+enum class SumoXMLEdgeFunc {
+    UNKNOWN,
+    NORMAL,
+    CONNECTOR,
+    CROSSING,
+    WALKINGAREA,
+    INTERNAL
 };
 
 
@@ -1092,32 +1342,39 @@ enum SumoXMLEdgeFunc {
  * to both sides from the given edge geometry (Also used when node
  * positions are used as edge geometry).
  */
-enum LaneSpreadFunction {
-    LANESPREAD_RIGHT,
-    LANESPREAD_CENTER
+enum class LaneSpreadFunction {
+    RIGHT = 0,
+    ROADCENTER = 1,
+    CENTER = 2
 };
 
 
 /// @brief algorithms for computing right of way
-enum RightOfWay {
-    RIGHT_OF_WAY_DEFAULT,
-    RIGHT_OF_WAY_EDGEPRIORITY
+enum class RightOfWay {
+    DEFAULT,
+    EDGEPRIORITY
 };
 
-/// @brief algorithms for computing right of way
-enum FringeType {
-    FRINGE_TYPE_OUTER,
-    FRINGE_TYPE_INNER,
-    FRINGE_TYPE_DEFAULT
+/// @brief classifying boundary nodes
+enum class FringeType {
+    // outer border of the network
+    OUTER,
+    // fringe edge within the network (i.e. due to pruning some road types)
+    INNER,
+    // not fringe (nothing is cut off)
+    DEFAULT
 };
 
 /// @brief travel modes for persons
-enum PersonMode {
-    PERSONMODE_NONE = 0,
-    PERSONMODE_WALK = 1,
-    PERSONMODE_BICYCLE = 2,
-    PERSONMODE_CAR = 4,
-    PERSONMODE_PUBLIC = 8
+enum class PersonMode {
+    NONE = 0,
+    WALK_FORWARD = 1,
+    WALK_BACKWARD = 2,
+    WALK = 3,
+    BICYCLE = 1 << 2,
+    CAR = 1 << 3,
+    PUBLIC = 1 << 4,
+    TAXI = 1 << 5
 };
 
 /**
@@ -1171,42 +1428,50 @@ enum LinkState {
  * stream between two edges).
  * used in netbuild (formerly NBMMLDirection) and MSLink
  */
-enum LinkDirection {
-    /// @brief The link is a straight direction
-    LINKDIR_STRAIGHT = 0,
-    /// @brief The link is a 180 degree turn
-    LINKDIR_TURN,
-    /// @brief The link is a 180 degree turn (left-hand network)
-    LINKDIR_TURN_LEFTHAND,
-    /// @brief The link is a (hard) left direction
-    LINKDIR_LEFT,
+enum class LinkDirection {
     /// @brief The link is a (hard) right direction
-    LINKDIR_RIGHT,
-    /// @brief The link is a partial left direction
-    LINKDIR_PARTLEFT,
+    RIGHT = 0,
     /// @brief The link is a partial right direction
-    LINKDIR_PARTRIGHT,
+    PARTRIGHT,
+    /// @brief The link is a straight direction
+    STRAIGHT,
+    /// @brief The link is a partial left direction
+    PARTLEFT,
+    /// @brief The link is a (hard) left direction
+    LEFT,
+    /// @brief The link is a 180 degree turn
+    TURN,
+    /// @brief The link is a 180 degree turn (left-hand network)
+    TURN_LEFTHAND,
     /// @brief The link has no direction (is a dead end link)
-    LINKDIR_NODIR
+    NODIR
 };
 
 
 /// @enum TrafficLightType
-enum TrafficLightType {
-    TLTYPE_STATIC,
-    TLTYPE_RAIL_SIGNAL,
-    TLTYPE_RAIL_CROSSING,
-    TLTYPE_ACTUATED,
-    TLTYPE_DELAYBASED,
-    TLTYPE_SOTL_PHASE,
-    TLTYPE_SOTL_PLATOON,
-    TLTYPE_SOTL_REQUEST,
-    TLTYPE_SOTL_WAVE,
-    TLTYPE_SOTL_MARCHING,
-    TLTYPE_SWARM_BASED,
-    TLTYPE_HILVL_DETERMINISTIC,
-    TLTYPE_OFF,
-    TLTYPE_INVALID //< must be the last one
+enum class TrafficLightType {
+    STATIC,
+    RAIL_SIGNAL,
+    RAIL_CROSSING,
+    ACTUATED,
+    DELAYBASED,
+    SOTL_PHASE,
+    SOTL_PLATOON,
+    SOTL_REQUEST,
+    SOTL_WAVE,
+    SOTL_MARCHING,
+    SWARM_BASED,
+    HILVL_DETERMINISTIC,
+    OFF,
+    INVALID //< must be the last one
+};
+
+/// @enum TrafficLightLayout
+enum class TrafficLightLayout {
+    OPPOSITES,
+    INCOMING,
+    ALTERNATE_ONEWAY,
+    DEFAULT //< must be the last one
 };
 
 
@@ -1318,26 +1583,6 @@ enum TrainType {
     TRAINTYPE_UNKNOWN
 };
 
-/**
- * @enum LateralAlignment
- * @brief Numbers representing special SUMO-XML-attribute values
- * Information how vehicles align themselves within their lane by default
- */
-enum LateralAlignment {
-    /// @brief drive on the right side
-    LATALIGN_RIGHT,
-    /// @brief drive in the middle
-    LATALIGN_CENTER,
-    /// @brief maintain the current alignment
-    LATALIGN_ARBITRARY,
-    /// @brief align with the closest sublane border
-    LATALIGN_NICE,
-    /// @brief align with the rightmost sublane that allows keeping the current speed
-    LATALIGN_COMPACT,
-    /// @brief drive on the left side
-    LATALIGN_LEFT
-};
-
 // @}
 
 /**
@@ -1389,14 +1634,14 @@ public:
     /// @brief traffic light types
     static StringBijection<TrafficLightType> TrafficLightTypes;
 
+    /// @brief traffic light layouts
+    static StringBijection<TrafficLightLayout> TrafficLightLayouts;
+
     /// @brief lane change models
     static StringBijection<LaneChangeModel> LaneChangeModels;
 
     /// @brief car following models
     static StringBijection<SumoXMLTag> CarFollowModels;
-
-    /// @brief lateral alignments
-    static StringBijection<LateralAlignment> LateralAlignments;
 
     /// @brief lane change actions
     static StringBijection<LaneChangeAction> LaneChangeActions;
@@ -1417,6 +1662,9 @@ public:
     /// @brief whether the given string is a valid id for an edge or vehicle type
     static bool isValidTypeID(const std::string& value);
 
+    /// @brief whether the given string is a valid id for an additional object
+    static bool isValidAdditionalID(const std::string& value);
+
     /// @brief whether the given string is a valid id for an detector
     static bool isValidDetectorID(const std::string& value);
 
@@ -1432,17 +1680,20 @@ public:
     /// @brief whether the given string is a valid list of ids for an edge or vehicle type (empty aren't allowed)
     static bool isValidListOfTypeID(const std::string& value);
 
+    /// @brief whether the given list of strings is a valid list of ids for an edge or vehicle type (empty aren't allowed)
+    static bool isValidListOfTypeID(const std::vector<std::string>& typeIDs);
+
     /// @brief whether the given string is a valid key for a parameter
     static bool isValidParameterKey(const std::string& value);
-
-    /// @brief whether the given string is a valid value for a parameter
-    static bool isValidParameterValue(const std::string& value);
 
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
 
     /// @brief return edge id when given the lane ID
     static std::string getEdgeIDFromLane(const std::string laneID);
+
+    /// @brief return lane index when given the lane ID
+    static int getIndexFromLane(const std::string laneID);
     /// @}
 
     /// @brief all allowed characters for phase state
@@ -1481,14 +1732,14 @@ private:
     /// @brief traffic light types values
     static StringBijection<TrafficLightType>::Entry trafficLightTypesValues[];
 
+    /// @brief traffic light layout values
+    static StringBijection<TrafficLightLayout>::Entry trafficLightLayoutValues[];
+
     /// @brief lane change model values
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];
 
     /// @brief car follwing model values
     static StringBijection<SumoXMLTag>::Entry carFollowModelValues[];
-
-    /// @brief lanteral alignment values
-    static StringBijection<LateralAlignment>::Entry lateralAlignmentValues[];
 
     /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
@@ -1500,8 +1751,3 @@ private:
     /// @brief all allowed characters for phase state
     static const char AllowedTLS_linkStatesInitializer[];
 };
-
-#endif
-
-
-/****************************************************************************/

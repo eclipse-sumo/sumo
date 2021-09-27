@@ -1,0 +1,18 @@
+<routes>
+    <flow type="t" id="NW" from="NC" to="CW" begin="0" end="1000" probability="0.05" departLane="random" color="green"/>
+    <flow type="t" id="NS" from="NC" to="CS" begin="0" end="1000" probability="0.05" departLane="random" color="blue"/>
+    <flow type="t" id="NE" from="NC" to="CE" begin="0" end="1000" probability="0.05" departLane="random" color="red"/>
+
+    <flow type="t" id="EN" from="EC" to="CN" begin="0" end="1000" probability="0.05" departLane="random" color="green"/>
+    <flow type="t" id="EW" from="EC" to="CW" begin="0" end="1000" probability="0.05" departLane="random" color="blue"/>
+    <flow type="t" id="ES" from="EC" to="CS" begin="0" end="1000" probability="0.05" departLane="random" color="red"/>
+
+    <flow type="t" id="SE" from="SC" to="CE" begin="0" end="1000" probability="0.05" departLane="random" color="green"/>
+    <flow type="t" id="SN" from="SC" to="CN" begin="0" end="1000" probability="0.05" departLane="random" color="blue"/>
+    <flow type="t" id="SW" from="SC" to="CW" begin="0" end="1000" probability="0.05" departLane="random" color="red"/>
+
+    <flow type="t" id="WS" from="WC" to="CS" begin="0" end="1000" probability="0.05" departLane="random" color="green"/>
+    <flow type="t" id="WE" from="WC" to="CE" begin="0" end="1000" probability="0.05" departLane="random" color="blue"/>
+    <flow type="t" id="WN" from="WC" to="CN" begin="0" end="1000" probability="0.05" departLane="random" color="red"/>
+
+</routes>

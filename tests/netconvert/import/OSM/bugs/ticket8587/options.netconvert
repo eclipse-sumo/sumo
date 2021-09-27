@@ -1,0 +1,5 @@
+--osm-files osm.xml
+--ptstop-output additional.xml --ptline-output ptlines.xml
+-R --junctions.join
+--remove-edges.by-vclass pedestrian,bicycle
+--no-internal-links

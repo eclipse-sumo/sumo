@@ -1,29 +1,26 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMORTree.h
 /// @author  Daniel Krajzewicz
 /// @date    27.10.2008
-/// @version $Id$
 ///
 // A RT-tree for efficient storing of SUMO's GL-objects
 /****************************************************************************/
-#ifndef SUMORTree_h
-#define SUMORTree_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Boundary.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -126,8 +123,8 @@ public:
      */
     void addAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked before insert objects
-        if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object insertion");
+        if (myLock.locked()) {
+            throw ProcessError("Mutex of SUMORTree is locked before object insertion");
         }
         // lock mutex
         FXMutexLock locker(myLock);
@@ -156,8 +153,8 @@ public:
      */
     void removeAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked remove insert objects
-        if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object remove");
+        if (myLock.locked()) {
+            throw ProcessError("Mutex of SUMORTree is locked before object remove");
         }
         // lock mutex
         FXMutexLock locker(myLock);
@@ -169,8 +166,10 @@ public:
                 throw ProcessError("Boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
             } else if (myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject wasn't inserted");
-            } else if (b != myTreeDebug.at(o)) {
-                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of removed boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
+            } else if (toString(b) != toString(myTreeDebug.at(o))) {
+                // show information in console before throwing exception
+                std::cout << "Tree: " << toString(myTreeDebug.at(o)) << " original: " << toString(b) << std::endl;
+                throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of removed boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
             } else {
                 myTreeDebug.erase(o);
                 WRITE_GLDEBUG("\tRemoved object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
@@ -192,9 +191,3 @@ private:
      */
     std::map<GUIGlObject*, Boundary> myTreeDebug;
 };
-
-
-#endif
-
-/****************************************************************************/
-

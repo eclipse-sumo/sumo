@@ -1,0 +1,10 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+
+    <trip id="tripFromTo" type="t0" fromTaz="1" toTaz="1" depart="9"/>
+    <trip id="tripFromTo2" type="t0" fromTaz="1" toTaz="1" depart="10"/>
+    <trip id="tripFromTo3" type="t0" fromTaz="1" toTaz="1" depart="199"/>
+    <trip id="tripFromTo4" type="t0" fromTaz="1" toTaz="1" depart="399"/>
+    <trip id="tripFromTo5" type="t0" fromTaz="3" toTaz="3" depart="599"/>
+
+</routes>

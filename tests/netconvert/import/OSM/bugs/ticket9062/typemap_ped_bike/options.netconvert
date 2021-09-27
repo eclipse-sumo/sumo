@@ -1,0 +1,1 @@
+--type-files $SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertPedestrians.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertBicycle.typ.xml

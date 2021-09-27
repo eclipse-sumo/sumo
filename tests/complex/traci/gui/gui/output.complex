@@ -1,0 +1,29 @@
+Loading configuration ... done.
+step 0
+step 1
+step 2
+hasGUI True
+views ('View #0',)
+examining View #0
+set zoom (80.0)
+get zoom 80.0
+set offset (400.0, 400.0)
+get offset (400.0, 400.0)
+set schema ('real world')
+get schema real world
+visible boundary ((-805.859375, -230.0), (1605.859375, 1030.0))
+has view View #0 True
+has view 'foo' False
+track vehicle 'horiz'
+get tracked vehicle horiz
+{0: ('View #0',)}
+step 3
+{0: ('View #0',)}
+step 4
+{0: ('View #0',)}
+step 5
+{0: ('View #0',)}
+veh selected: False
+edge selected: False
+veh selected: True
+edge selected: True

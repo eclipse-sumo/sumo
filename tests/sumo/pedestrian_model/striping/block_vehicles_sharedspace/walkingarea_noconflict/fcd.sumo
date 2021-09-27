@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 27 12:57:13 2018 by Eclipse SUMO Version cac3710
+<!-- generated on Fri Dec 11 23:41:55 2020 by Eclipse SUMO sumo Version v1_8_0+0220-5bcf3faf94
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -55,43 +56,38 @@ SPDX-License-Identifier: EPL-2.0
         <person id="p0" x="54.19" y="2.93" angle="270.00" speed="1.39" pos="0.56" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="car.0" x="41.76" y="-1.65" angle="90.00" type="car" speed="10.66" pos="41.76" lane="WC_0" slope="0.00"/>
+        <vehicle id="car.0" x="44.10" y="-1.65" angle="90.00" type="car" speed="13.00" pos="44.10" lane="WC_0" slope="0.00"/>
         <person id="p0" x="52.81" y="2.93" angle="270.00" speed="1.39" pos="1.94" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="car.0" x="47.49" y="-1.65" angle="90.00" type="car" speed="5.74" pos="2.24" lane=":C_4_0" slope="0.00"/>
+        <vehicle id="car.0" x="57.99" y="-1.65" angle="90.00" type="car" speed="13.89" pos="3.24" lane="CE_0" slope="0.00"/>
         <person id="p0" x="51.42" y="2.93" angle="270.00" speed="1.39" pos="3.33" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="car.0" x="49.01" y="-1.65" angle="90.00" type="car" speed="1.52" pos="3.76" lane=":C_4_0" slope="0.00"/>
+        <vehicle id="car.0" x="71.88" y="-1.65" angle="90.00" type="car" speed="13.89" pos="17.13" lane="CE_0" slope="0.00"/>
         <person id="p0" x="50.03" y="2.93" angle="270.00" speed="1.39" pos="4.72" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="car.0" x="49.89" y="-1.65" angle="90.00" type="car" speed="0.88" pos="4.64" lane=":C_4_0" slope="0.00"/>
+        <vehicle id="car.0" x="85.77" y="-1.65" angle="90.00" type="car" speed="13.89" pos="31.02" lane="CE_0" slope="0.00"/>
         <person id="p0" x="48.64" y="2.93" angle="270.00" speed="1.39" pos="6.11" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="car.0" x="51.46" y="-1.65" angle="90.00" type="car" speed="1.57" pos="6.21" lane=":C_4_0" slope="0.00"/>
+        <vehicle id="car.0" x="99.66" y="-1.65" angle="90.00" type="car" speed="13.89" pos="44.91" lane="CE_0" slope="0.00"/>
         <person id="p0" x="47.25" y="2.93" angle="270.00" speed="1.39" pos="7.50" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="car.0" x="54.98" y="-1.65" angle="90.00" type="car" speed="3.52" pos="0.23" lane="CE_0" slope="0.00"/>
         <person id="p0" x="45.86" y="2.93" angle="270.00" speed="1.39" pos="8.89" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="car.0" x="61.10" y="-1.65" angle="90.00" type="car" speed="6.12" pos="6.35" lane="CE_0" slope="0.00"/>
         <person id="p0" x="44.47" y="2.93" angle="270.00" speed="1.39" pos="0.78" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="car.0" x="69.82" y="-1.65" angle="90.00" type="car" speed="8.72" pos="15.07" lane="CE_0" slope="0.00"/>
         <person id="p0" x="43.08" y="2.93" angle="270.00" speed="1.39" pos="2.17" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="car.0" x="81.14" y="-1.65" angle="90.00" type="car" speed="11.32" pos="26.39" lane="CE_0" slope="0.00"/>
         <person id="p0" x="41.69" y="2.93" angle="270.00" speed="1.39" pos="3.56" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="car.0" x="95.03" y="-1.65" angle="90.00" type="car" speed="13.89" pos="40.28" lane="CE_0" slope="0.00"/>
         <person id="p0" x="40.31" y="2.93" angle="270.00" speed="1.39" pos="4.94" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="15.00">

@@ -1,29 +1,27 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    FileHelpers.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Functions for an easier usage of files
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
-#ifdef _MSC_VER
+#ifdef WIN32
 // this is how fox does it in xincs.h
 #include <io.h>
 #define access _access
@@ -32,8 +30,10 @@
 #include <unistd.h>
 #endif
 #include <fstream>
+#include <sys/stat.h>
 #include "FileHelpers.h"
 #include "StringTokenizer.h"
+#include "StringUtils.h"
 #include "MsgHandler.h"
 
 
@@ -56,7 +56,21 @@ FileHelpers::isReadable(std::string path) {
     if (path.length() == 0) {
         return false;
     }
-    return access(path.c_str(), R_OK) == 0;
+    return access(StringUtils::transcodeToLocal(path).c_str(), R_OK) == 0;
+}
+
+bool
+FileHelpers::isDirectory(std::string path) {
+#ifdef _MSC_VER
+    struct _stat64 fileInfo;
+    if (_stat64(StringUtils::transcodeToLocal(path).c_str(), &fileInfo) != 0) {
+#else
+    struct stat fileInfo;
+    if (stat(StringUtils::transcodeToLocal(path).c_str(), &fileInfo) != 0) {
+#endif
+        throw ProcessError("Cannot get file attributes for file '" + path + "'!");
+    }
+    return (fileInfo.st_mode & S_IFMT) == S_IFDIR;
 }
 
 // ---------------------------------------------------------------------------
@@ -85,10 +99,10 @@ FileHelpers::addExtension(const std::string& path, const std::string& extension)
         return path + extension;
     } else {
         // declare two reverse iterator for every string
-        std::string::const_reverse_iterator it_path = path.crbegin();
-        std::string::const_reverse_iterator it_extension = extension.crbegin();
+        std::string::const_reverse_iterator it_path = path.rbegin();
+        std::string::const_reverse_iterator it_extension = extension.rbegin();
         // iterate over extension and compare both characters
-        while (it_extension != extension.crend()) {
+        while (it_extension != extension.rend()) {
             // if both characters are different, then return path + extension
             if (*it_path != *it_extension) {
                 return path + extension;
@@ -208,5 +222,5 @@ FileHelpers::writeTime(std::ostream& strm, SUMOTime value) {
     return strm;
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

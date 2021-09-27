@@ -1,19 +1,16 @@
 /* XPM */
 static const char *lanebus[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 34 1",
+"16 16 29 1",
 "  c #000000",
-". c #020202",
 "X c #2F2F2F",
 "o c #323232",
 "O c #383838",
 "+ c #404040",
-"@ c #424242",
 "# c #464646",
 "$ c #4A4A4A",
 "% c #4C4C4C",
 "& c #525252",
-"* c #535353",
 "= c #555555",
 "- c #575757",
 "; c #666666",
@@ -32,8 +29,6 @@ static const char *lanebus[] = {
 "9 c #DDDDDD",
 "0 c #ECECEC",
 "q c #FBFBFB",
-"w c #FDFDFD",
-"e c #FEFEFE",
 "r c #FFFFFF",
 "t c None",
 /* pixels */

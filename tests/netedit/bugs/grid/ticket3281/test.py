@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -32,17 +35,17 @@ netedit.setZoom("100", "0", "200")
 netedit.createEdgeMode()
 
 # Create one way edge
-netedit.leftClick(referencePosition, -30, 245)
-netedit.leftClick(referencePosition, 430, 245)
+netedit.leftClick(referencePosition, 62, 225)
+netedit.leftClick(referencePosition, 590, 225)
 
 # change to move mode
 netedit.moveMode()
 
 # Try to move to origin position
-netedit.moveElement(referencePosition, 215, 247, -40, 247)
+netedit.moveElement(referencePosition, 326, 226, 62, 226)
 
 # Now move to top
-netedit.moveElement(referencePosition, 215, 247, 215, 447)
+netedit.moveElement(referencePosition, 326, 226, 326, -15)
 
 # rebuild network
 netedit.rebuildNetwork()

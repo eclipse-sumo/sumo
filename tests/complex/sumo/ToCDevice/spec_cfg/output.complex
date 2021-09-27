@@ -1,0 +1,21 @@
+Loading configuration ... done.
+time 1.0
+ToC device infos for vehicle 'ToC_veh'
+Static parameters:
+  holder = ToC_veh
+  manualType = manual
+  automatedType = automated
+  responseTime = 23.00
+  recoveryRate = 0.20
+  initialAwareness = 0.25
+  mrmDecel = 1.20
+  lcAbstinence = 0.40
+  dynamicToCThreshold = 10.00
+  dynamicMRMProbability = 0.30
+  mrmKeepRight = 1
+  maxPreparationAccel = 1.00
+  ogNewSpaceHeadway = 10.00
+Dynamic parameters:
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = AUTOMATED

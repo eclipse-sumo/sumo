@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    HelpersPHEMlight.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Nikolaus Furian
 /// @date    Sat, 20.04.2013
-/// @version $Id$
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <limits>
@@ -30,7 +28,9 @@
 #include "PHEMConstants.h"
 #endif
 #include <foreign/PHEMlight/cpp/Constants.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
+
 #include "HelpersPHEMlight.h"
 
 // idle speed is usually given in rpm (but may depend on electrical consumers). Actual speed depends on the gear so this number is only a rough estimate
@@ -39,8 +39,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersPHEMlight::HelpersPHEMlight() : PollutantsInterface::Helper("PHEMlight"), myIndex(PHEMLIGHT_BASE) {
-    myEmissionClassStrings.insert("zero", myIndex++);
+HelpersPHEMlight::HelpersPHEMlight() :
+    PollutantsInterface::Helper("PHEMlight", PHEMLIGHT_BASE, -1),
+    myIndex(PHEMLIGHT_BASE) {
 }
 
 
@@ -48,6 +49,9 @@ SUMOEmissionClass
 HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     if (eClass == "unknown" && !myEmissionClassStrings.hasString("unknown")) {
         myEmissionClassStrings.addAlias("unknown", getClassByName("PC_G_EU4", vc));
+    }
+    if (eClass == "default" && !myEmissionClassStrings.hasString("default")) {
+        myEmissionClassStrings.addAlias("default", getClassByName("PC_G_EU4", vc));
     }
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
@@ -84,9 +88,7 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
 #ifdef INTERNAL_PHEM
     }
 #endif
-    std::string eclower = eClass;
-    std::transform(eclower.begin(), eclower.end(), eclower.begin(), tolower);
-    myEmissionClassStrings.addAlias(eclower, index);
+    myEmissionClassStrings.addAlias(StringUtils::to_lower_case(eClass), index);
     return index;
 }
 
@@ -254,10 +256,7 @@ HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, co
 
 double
 HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* /* param */) const {
-    if (c == PHEMLIGHT_BASE) { // zero emission class
-        return 0.;
-    }
-    const double corrSpeed = MAX2((double) 0.0, v);
+    const double corrSpeed = MAX2(0.0, v);
     double power = 0.;
 #ifdef INTERNAL_PHEM
     const PHEMCEP* const oldCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);
@@ -275,7 +274,9 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != nullptr) {
         const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
-        if (currCep->getFuelType() != PHEMlightdll::Constants::strBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) && corrSpeed > PHEMlightdll::Constants::ZERO_SPEED_ACCURACY) {
+        if (currCep->getFuelType() != PHEMlightdll::Constants::strBEV &&
+                corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
+                corrSpeed > PHEMlightdll::Constants::ZERO_SPEED_ACCURACY) {
             // the IDLE_SPEED fix above is now directly in the decel coast calculation.
             return 0;
         }

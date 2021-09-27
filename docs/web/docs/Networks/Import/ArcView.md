@@ -1,18 +1,17 @@
 ---
-title: Networks/Import/ArcView
-permalink: /Networks/Import/ArcView/
+title: ArcView
 ---
 
-[NETCONVERT](../../NETCONVERT.md) is able to directly read binary
+[netconvert](../../netconvert.md) is able to directly read binary
 ArcView databases ("shapefiles"). To convert such databases, at least
 three files are needed: a file with the extension ".dbf", one with the
 extension ".shp" and one with the extension ".shx". Additionally, having
 a projection file with the extension ".proj" is of benefit. The option
-to load a shape-file into [NETCONVERT](../../NETCONVERT.md) in order
+to load a shape-file into [netconvert](../../netconvert.md) in order
 to convert it into a SUMO-network is named **--shapefile-prefix** {{DT_FILE}}. Because shape-file
 descriptions use more than a single file, one has to supply the file
 name without extension, only. So, the following call to
-[NETCONVERT](../../NETCONVERT.md) should be used to import the road
+[netconvert](../../netconvert.md) should be used to import the road
 network stored in "my_shape_files.shp", "my_shape_files.shx",
 "my_shape_files.proj", and "my_shape_files.dbf":
 
@@ -24,20 +23,20 @@ Unfortunately, shape files describe how information is stored
 physically, but neither which is stored nor how the entries of the
 according database (\*.dbf) are named. Due to this, one has to examine
 how a given road network is stored within the database file and give
-this information to [NETCONVERT](../../NETCONVERT.md); a plain call
+this information to [netconvert](../../netconvert.md); a plain call
 almost always fails.
 
 # Defining the Input
 
 The table below shows which information
-[NETCONVERT](../../NETCONVERT.md) is trying to read from the given
+[netconvert](../../netconvert.md) is trying to read from the given
 input files, what the standard values are, and how they can be changed.
 Also, it shows whether the information is mandatory - must be given - or
 optional.
 
 <center>
 
-**Table: Information [NETCONVERT](../../NETCONVERT.md) reads from
+**Table: Information [netconvert](../../netconvert.md) reads from
 shape-files**
 
 </center>
@@ -65,9 +64,9 @@ is possible use [SUMO edge type file](../../SUMO_edge_type_file.md)
 for describing the edges' attributes. In this case, the column to
 retrieve an according street's type name from must be named using **--shapefile.type-id** {{DT_IDList}} and a
 [SUMO edge type file](../../SUMO_edge_type_file.md) must be given to
-[NETCONVERT](../../NETCONVERT.md) using **--type-files** {{DT_FILE}}. If something fails with the
+[netconvert](../../netconvert.md) using **--type-files** {{DT_FILE}}. If something fails with the
 types or the explicit values, it can be catched using **--shapefile.use-defaults-on-failure**. In these cases,
-the default [NETCONVERT](../../NETCONVERT.md) values are used. Besides
+the default [netconvert](../../netconvert.md) values are used. Besides
 this, it is possible to load own [connection
 descriptions](../../Networks/PlainXML.md#connection_descriptions).
 
@@ -87,7 +86,7 @@ options to set the correct one.
 
 The complete list of options used for reading shapefiles is given in the
 table below. You may find further options which control the import
-behaviour on [NETCONVERT](../../NETCONVERT.md).
+behavior on [netconvert](../../netconvert.md).
 
 | Option                              | Description                                                           |
 |-------------------------------------|-----------------------------------------------------------------------|
@@ -104,9 +103,9 @@ behaviour on [NETCONVERT](../../NETCONVERT.md).
 
 ## '36_NEW_YORK' from TIGER database
 
-The network is available at the [TIGER2008 ftp server
-(?)](ftp://ftp2.census.gov/geo/tiger/TIGER2008/36_NEW_YORK/36061_New_York_County/).
-**<font color="red">Missing copyright information; please add</font>**.
+The network is available from the [US Census Bureau ftp server](https://www2.census.gov/geo/tiger/TIGER2008/36_NEW_YORK/36061_New_York_County/).
+TIGER data is freely available because U.S. Government publications are
+required to be released into the public domain.
 
 Opening the edges-dbf (*tl_2008_36061_edges.dbf*) of which we hope
 that it contains information about roads shows us, that:
@@ -169,7 +168,7 @@ Ok, let's solve these problems one after another.
 
 - Missing node names
 
-  [NETCONVERT](../../NETCONVERT.md) can deal with networks which do
+  [netconvert](../../netconvert.md) can deal with networks which do
   not have node names (since version 0.9.4).
 
 
@@ -177,7 +176,7 @@ Ok, let's solve these problems one after another.
   file](../../SUMO_edge_type_file.md)
 
   The possibility to describe edges using attributes was already
-  available in [NETCONVERT](../../NETCONVERT.md) and may be used in
+  available in [netconvert](../../netconvert.md) and may be used in
   combination with ArcView files since version 0.9.4. Still, the types
   have to be translated into XML. The generated file (*frida.typ.xml*)
   looks like this:
@@ -251,7 +250,7 @@ on-/off-ramps**
 
 There is no demand available for Frida - at least none we know about.
 
-### Conlusion
+### Conclusion
 
 Using the current features we are able to parse the network from the
 Frida-project but we can not state it is completely usable for traffic

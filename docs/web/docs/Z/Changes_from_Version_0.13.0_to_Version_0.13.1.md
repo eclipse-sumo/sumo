@@ -1,6 +1,5 @@
 ---
-title: Z/Changes from Version 0.13.0 to Version 0.13.1
-permalink: /Z/Changes_from_Version_0.13.0_to_Version_0.13.1/
+title: Changes from Version 0.13.0 to Version 0.13.1
 ---
 
 **Release Date: 01.11.2011**
@@ -21,7 +20,7 @@ permalink: /Z/Changes_from_Version_0.13.0_to_Version_0.13.1/
   - Added the possibility to [remove a vehicle via TraCI](../TraCI/Change_Vehicle_State.md)
   - Added the description about how to [add a vehicle via TraCI](../TraCI/Change_Vehicle_State.md)
   - Retrieve the number of still expected vehicles
-- NETCONVERT
+- netconvert
   - added more control over joining junctions. You can declare nodes
     to be joined as well as exclude nodes from joining (see
     [Networks/PlainXML\#Joining_Nodes](../Networks/PlainXML.md#joining_nodes))
@@ -34,7 +33,7 @@ permalink: /Z/Changes_from_Version_0.13.0_to_Version_0.13.1/
   - added importer for openDRIVE files, see
     [Networks/Import/OpenDRIVE](../Networks/Import/OpenDRIVE.md);
     many thanks go to Marius Dupuis from
-    [VIRES](http://www.vires.com/) for allowing to use the example
+    [VIRES](https://vires.mscsoftware.com/) for allowing to use the example
     files for tests
   - added importer for matSIM files, see
     [Networks/Import/MATsim](../Networks/Import/MATsim.md)
@@ -50,9 +49,9 @@ permalink: /Z/Changes_from_Version_0.13.0_to_Version_0.13.1/
   - Added [Simulation/Output/Instantaneous Induction Loops Detectors](../Simulation/Output/Instantaneous_Induction_Loops_Detectors.md)
   - [Simulation/Output/Induction Loops Detectors (E1)](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
     now also allow to generate values on per-vehicle type base
-- JTRROUTER
+- jtrrouter
   - added Karol Stosiek's patch for reading more than one turn-definitions file; changes **--turn-ratio-file** {{DT_FILE}} to **--turn-ratio-files** ** *<FILE\>\[,<FILE\>\]\** **
-- SUMO-GUI
+- sumo-gui
   - can now switch traffic lights back on
 - Tutorials
   - moved tutorials from {{SUMO}}/docs to {{SUMO}}/tests/complex for assuring their

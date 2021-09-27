@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/StopOutput
-permalink: /Simulation/Output/StopOutput/
+title: StopOutput
 ---
 
 ## Instantiating within the Simulation
@@ -17,7 +16,7 @@ every time a stop ends.
 
 The format is the following:
 
-```
+```xml
 <stops>
     <stopinfo ''ATTRIBUTES''...\>
     ...

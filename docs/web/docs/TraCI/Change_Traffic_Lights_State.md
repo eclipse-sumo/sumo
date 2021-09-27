@@ -1,6 +1,5 @@
 ---
-title: TraCI/Change Traffic Lights State
-permalink: /TraCI/Change_Traffic_Lights_State/
+title: Change Traffic Lights State
 ---
 
 # Command 0xc2: Change Traffic Light State

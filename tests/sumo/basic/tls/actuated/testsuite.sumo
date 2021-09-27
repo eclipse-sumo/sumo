@@ -6,6 +6,12 @@ from_additional
 # test supplying additional parameters
 parameters
 
+# test using custom detectors
+custom_detector
+
+# set custom max-gap value for a single detector
+custom_detector_maxGap
+
 # check that the initialization can handle different begin times
 simstart_at_100
 minDur_too_short
@@ -36,3 +42,24 @@ unused_indices
 
 # test for moving detector upstream when the the lane that is incoming to the intersection is too short.
 short_lane
+
+# test for approximating a dual-ring controller by using the actuated branching logic
+dualring_simple
+
+# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on maximum green time for selected links
+dualring_simple_linkMaxDur
+
+# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on minimum green time for selected links
+dualring_simple_linkMinDur
+
+# test for approximating a dual-ring controller by using the actuated branching logic
+dualring
+
+# network contains a static traffic light, load actuated as additional program (new default) with linkMinDur constraints
+linkMinDur
+
+# test detector usage at joined tls
+joined_tls_controlling_detectors
+
+# test detector usage
+controlling_detectors

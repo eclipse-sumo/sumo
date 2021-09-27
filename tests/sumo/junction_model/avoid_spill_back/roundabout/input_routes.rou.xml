@@ -1,0 +1,14 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0">
+        <param key="has.tripinfo.device" value="false"/>
+    </vType>
+    <vType id="ego" sigma="0">
+        <param key="has.tripinfo.device" value="true"/>
+    </vType>
+    <trip id="blocker0" from="CW" to="CW" depart="0" departSpeed="max">
+        <stop edge="CW" endPos="6" duration="100"/>
+    </trip>
+    <flow id="flow" from="EC" to="CS" begin="0" end="100" period="2" departPos="-20" departSpeed="max"/>
+    <trip id="ego" from="SC" to="CW" depart="10" type="ego" arrivalPos="10"/>
+
+</routes>

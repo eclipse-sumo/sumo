@@ -1,0 +1,9 @@
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
+Warning: Vehicle 'always_right.0'; collision with vehicle 'horizontal.0', lane='2o_0', gap=-5.000, time=27.000 stage=move.
+Warning: Vehicle 'always_right.1'; collision with vehicle 'horizontal.1', lane='2o_0', gap=-5.000, time=31.000 stage=move.
+Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-5.000, time=35.000 stage=move.
+Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-5.000, time=39.000 stage=move.
+Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-0.200, time=53.000 stage=move.
+Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-2.750, time=56.000 stage=move.
+Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-5.000, time=75.000 stage=move.
+Warning: Vehicle 'always_right.5'; collision with vehicle 'horizontal.5', lane='2o_0', gap=-5.000, time=94.000 stage=move.

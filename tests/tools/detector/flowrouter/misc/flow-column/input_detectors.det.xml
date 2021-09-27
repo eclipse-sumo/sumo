@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<detectors>
+   <detectorDefinition id="1_0" lane="1_0" pos="5"/>
+   <detectorDefinition id="-1_0" lane="-1_0" pos="5"/>
+   <detectorDefinition id="2_0" lane="2_0" pos="5"/>
+   <detectorDefinition id="-2_0" lane="-2_0" pos="5"/>
+</detectors>

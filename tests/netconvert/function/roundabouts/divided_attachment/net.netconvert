@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  8 10:25:20 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<!-- generated on Mon Dec 14 11:32:48 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,12 +28,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-323544.43,-4694869.84" convBoundary="0.00,0.00,265.54,264.62" origBoundary="-71.156689,42.374818,-71.129316,42.392703" projParameter="+proj=utm +zone=19 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -150,8 +151,8 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="634899414" type="dead_end" x="0.00" y="244.41" incLanes="" intLanes="" shape="2.07,246.85 -2.07,241.97"/>
 
-    <connection from="128366152#0" to="8615117" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="128366152#0" to="8615117" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="128366152#0" to="8615117" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="128366152#0" to="8615117" fromLane="1" toLane="1" dir="s" state="m" visibility="9.00"/>
     <connection from="8615117" to="8856384" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8615117" to="8856384" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="8615117" to="8615594" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -171,13 +172,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="8615594" to="8615120#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8615594" to="8615120#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="8615654" to="8615831" fromLane="1" toLane="1" dir="t" state="M"/>
-    <connection from="8615831" to="8615120#1" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="8615831" to="8615120#1" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="8615831" to="8615120#1" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="8615831" to="8615120#1" fromLane="1" toLane="1" dir="s" state="m" visibility="9.00"/>
     <connection from="8616039#0" to="8616039#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8616039#0" to="8616039#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="8616185" to="8615654" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="8616185" to="8615120#0" fromLane="0" toLane="0" dir="L" state="m"/>
-    <connection from="8616185" to="8615120#0" fromLane="1" toLane="1" dir="L" state="m"/>
+    <connection from="8616185" to="8615120#0" fromLane="0" toLane="0" dir="L" state="m" visibility="9.00"/>
+    <connection from="8616185" to="8615120#0" fromLane="1" toLane="1" dir="L" state="m" visibility="9.00"/>
     <connection from="8856384" to="8616185" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="96329516#0" to="96329519#0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="96329519#0" to="8616039#1" fromLane="0" toLane="0" dir="s" state="m"/>

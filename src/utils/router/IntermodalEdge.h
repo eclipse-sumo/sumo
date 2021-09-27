@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    IntermodalEdge.h
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The Edge definition for the Intermodal Router
 /****************************************************************************/
-#ifndef IntermodalEdge_h
-#define IntermodalEdge_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -30,6 +27,43 @@
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/RandHelper.h>
 #include "IntermodalTrip.h"
+
+// ===========================================================================
+// function definitions
+// ===========================================================================
+template <class E, class L>
+inline const L* getSidewalk(const E* edge, SUMOVehicleClass svc = SVC_PEDESTRIAN) {
+    if (edge == nullptr) {
+        return nullptr;
+    }
+    // prefer lanes that are exclusive to pedestrians
+    const std::vector<L*>& lanes = edge->getLanes();
+    for (const L* const lane : lanes) {
+        if (lane->getPermissions() == svc) {
+            return lane;
+        }
+    }
+    for (const L* const lane : lanes) {
+        if (lane->allowsVehicleClass(svc)) {
+            return lane;
+        }
+    }
+    if (svc != SVC_PEDESTRIAN) {
+        // persons should always be able to use the sidewalk
+        for (const L* const lane : lanes) {
+            if (lane->getPermissions() == SVC_PEDESTRIAN) {
+                return lane;
+            }
+        }
+        for (const L* const lane : lanes) {
+            if (lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
+                return lane;
+            }
+        }
+    }
+    return nullptr;
+}
+
 
 
 // ===========================================================================
@@ -39,12 +73,12 @@
 template<class E, class L, class N, class V>
 class IntermodalEdge : public Named {
 public:
-    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = 0.) :
+    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = -1) :
         Named(id),
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge == nullptr || length > 0. ? length : edge->getLength()),
+        myLength(edge == nullptr || length >= 0. ? MAX2(0.0, length) : edge->getLength()),
         myEfforts(nullptr) { }
 
     virtual ~IntermodalEdge() {}
@@ -77,15 +111,21 @@ public:
         myFollowingViaEdges.clear();
     }
 
-    void removeSuccessor(const IntermodalEdge* const edge) {
-        myFollowingEdges.erase(std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge));
-        for (auto it = myFollowingViaEdges.begin(); it != myFollowingViaEdges.end();) {
-            if (it->first == edge) {
-                it = myFollowingViaEdges.erase(it);
+    bool removeSuccessor(const IntermodalEdge* const edge) {
+        auto it = std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge);
+        if (it != myFollowingEdges.end()) {
+            myFollowingEdges.erase(it);
+        } else {
+            return false;
+        }
+        for (auto viaIt = myFollowingViaEdges.begin(); viaIt != myFollowingViaEdges.end();) {
+            if (viaIt->first == edge) {
+                viaIt = myFollowingViaEdges.erase(viaIt);
             } else {
-                ++it;
+                ++viaIt;
             }
         }
+        return true;
     }
 
     virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
@@ -104,12 +144,25 @@ public:
         return false;
     }
 
-    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
+    virtual bool restricts(const IntermodalTrip<E, N, V>* const /* trip */) const {
+        return false;
+    }
+
+    virtual inline double getPartialLength(const IntermodalTrip<E, N, V>* const /*trip*/) const {
+        return myLength;
+    }
+
+
+    virtual inline double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0.;
     }
 
+    virtual inline double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        return getTravelTime(trip, time);
+    }
+
     /// @brief get intended vehicle id and departure time of next public transport ride
-    virtual double getIntended(const double /* time */, std::string& /* intended */) const {
+    virtual inline double getIntended(const double /* time */, std::string& /* intended */) const {
         return 0.;
     }
 
@@ -118,8 +171,13 @@ public:
     }
 
     static inline double getTravelTimeStaticRandomized(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
-        return edge == nullptr ? 0. : edge->getTravelTime(trip, time) * RandHelper::rand(1., gWeightsRandomFactor);;
+        return edge == nullptr ? 0. : edge->getTravelTime(trip, time) * RandHelper::rand(1., gWeightsRandomFactor);
     }
+
+    static inline double getTravelTimeAggregated(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
+        return edge == nullptr ? 0. : edge->getTravelTimeAggregated(trip, time);
+    }
+
 
     virtual double getEffort(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0.;
@@ -129,6 +187,7 @@ public:
         return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
     }
 
+    /// @brief required by DijkstraRouter et al for external effort computation
     inline double getLength() const {
         return myLength;
     }
@@ -173,6 +232,11 @@ public:
         return myLength / trip->getMaxSpeed();
     }
 
+    /// @brief only used by mono-modal routing
+    IntermodalEdge* getBidiEdge() const {
+        return nullptr;
+    }
+
 protected:
     /// @brief List of edges that may be approached from this edge
     std::vector<IntermodalEdge*> myFollowingEdges;
@@ -204,8 +268,3 @@ private:
     IntermodalEdge& operator=(const IntermodalEdge& src);
 
 };
-
-
-#endif
-
-/****************************************************************************/

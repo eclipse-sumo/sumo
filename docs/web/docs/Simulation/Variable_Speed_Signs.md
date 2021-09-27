@@ -1,12 +1,11 @@
 ---
-title: Simulation/Variable Speed Signs
-permalink: /Simulation/Variable_Speed_Signs/
+title: Variable Speed Signs
 ---
 
 One of the trigger objects that may be specified within an {{AdditionalFile}} allows the
 simulation of variable speed signs. The syntax for such an object is:
 
-```
+```xml
 <additional>
   <variableSpeedSign id="VSS_ID" lanes="LANE_IDS" file="DEF_FILE">
      <step time="<TIME>" speed="<SPEED>"/>
@@ -31,7 +30,7 @@ and the speed to set itself. A file name can be supplied, called
 information about when a certain speed shall be set onto the lane. This
 file has the following format:
 
-```
+```xml
 <vss>
   <step time="<TIME>" speed="<SPEED>"/>
   <step time="<TIME>" speed="<SPEED>"/>

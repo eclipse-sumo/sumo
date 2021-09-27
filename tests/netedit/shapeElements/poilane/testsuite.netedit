@@ -17,8 +17,5 @@ load
 # move poi
 move
 
-# lock/unlock poi
-lock_unlock
-
 # volatile recomputing
 volatileRecomputing

@@ -1,0 +1,42 @@
+# tests for rail signals
+rail_signal
+
+# trams driving in a loop servicing stops
+tramwayLoop
+
+# splitting and joining train parts
+portion_working
+
+# test rail-specific routing features (train reversal / train length constraints)
+routing
+
+# tests for train reversal
+reversal
+
+# Two trains approaching conflicting block simultaneously causing a head-on conflict
+headonconflict
+
+# Tests interlocked block signalling
+interlocking
+
+# speed when passing tracks with different speed limits
+slow_fast_slow
+
+# trains passing each other at two loops
+two_passing_loops
+
+# as above but with intermediate nodes on the tracks
+two_passing_loops2
+
+# frontal train collision
+collision
+crossing_tracks
+
+# as above but without rail signals
+crossing_tracks_collision
+
+# rerouting trains that pass each other in a complex network
+alternativeRoute
+
+# railway-specific bugs
+bugs

@@ -1,0 +1,27 @@
+# like 'basic' but repeat the same trains again after 1000s and 2000s
+repeat3
+
+# each train has multiple stops. Constraints should not be written for stops after the first inconsistence.
+# 
+multiStop
+
+# one train passes the stop and the other train is inserted there. the passing stain was previously overtaken and therefore generates no constraint
+insertion
+
+# one train passes the stop and the other train is inserted there. the passing stain was previously overtaken and therefore generates no constraint.
+# the passing train is set to parking at the insertion stop
+insertion_preParking
+
+# one train passes the stop and the other train is inserted there
+insertion3
+
+# each train has multiple stops. If a train has a self-inconsistent schedule, other trains should not wait for it.
+# 
+multiStop2
+
+# each train has multiple stops. If a train has a self-inconsistent schedule, other trains should not wait for it. Even with --ignore-parking, two vehicles with the same until time cannot be ignored.
+# 
+multistop_cannot_ignore_parking
+
+# one train passes the stop and the other train is inserted there
+foeInsertion

@@ -1,0 +1,6 @@
+read 2 busStops on 2 edges
+read 4 routes (2 unique) and 5 stops at 2 busStops
+processed 2 routes across 5 edges with 1 merging switches (including 1 reversal-merges)
+Found 5 stops after merging switches and 3 signals that guard switches
+Found 0 conflicts
+Found 0 insertion conflicts

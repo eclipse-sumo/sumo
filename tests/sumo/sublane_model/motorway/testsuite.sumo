@@ -57,3 +57,4 @@ change_reason
 # test given change reason in lanechange-output
 change_reason2
 overtaking_right_forbidden
+strategic_disable

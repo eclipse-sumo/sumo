@@ -28,3 +28,12 @@ different_lengths
 
 # guess opposites returns edges with different length but their length is adjusted automatically
 different_lengths_fix
+
+# load network with invalid opposites
+load_invalid
+
+# load network with invalid opposites
+load_invalid_index
+
+# load network with invalid opposites and guess opposites anew
+load_invalid_guess

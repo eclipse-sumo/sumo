@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <input>
+        <net-file value="net.netedit"/>
+        <additional-files value="additionals.netedit"/>
+		<route-files value="routes.netedit"/>
+    </input>
+	
+</configuration>

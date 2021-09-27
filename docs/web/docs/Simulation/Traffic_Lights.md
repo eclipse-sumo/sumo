@@ -1,25 +1,25 @@
 ---
-title: Simulation/Traffic Lights
-permalink: /Simulation/Traffic_Lights/
+title: Traffic Lights
 ---
 
-Normally, [NETCONVERT](../NETCONVERT.md) and
-[NETGENERATE](../NETGENERATE.md) generate traffic lights and
+Normally, [netconvert](../netconvert.md) and
+[netgenerate](../netgenerate.md) generate traffic lights and
 programs for junctions during the computation of the networks. Still,
 these computed programs quite often differ from those found in reality.
 To feed the simulation with real traffic light programs, it is possible
-to run [SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) with
+to run [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) with
 additional program definitions. Also,
-[SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) allow loading
+[sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) allow loading
 definitions which describe when and how a set of traffic lights can
 switch from one program to another. Both will be discussed in the
 following subchapters. Another possiblity is to edit traffic light plans
-visually in [NETEDIT](../NETEDIT.md#traffic_lights).
+visually in [netedit](../Netedit/index.md#traffic_lights).
 
 # Automatically Generated TLS-Programs
 
 - All traffic lights are generated with a fixed cycle and a default
   cycle time of 90s. This can be changed with the option **--tls.cycle.time**.
+- The green time is split equally between the main phases
 - All green phases are followed by a yellow phase. The length of the
   yellow phase is computed from the maximum speed of the incoming
   roads but may be customized with the option **--tls.yellow.time**
@@ -38,15 +38,19 @@ visually in [NETEDIT](../NETEDIT.md#traffic_lights).
   would typically be a left-turning phase). The duration of this phase
   defaults to 6s and can be customized (or disabled) by setting the
   option **--tls.left-green.time**.
+- The generated cycle starts at time 0 by default with a green phase for the first main direction 
+  (sorted by road priority, lane count and speed). This can be influenced for a specified list of traffic light ids using the options **--tls.half-offset TLS1,TLS2,..** and **--tls.quarter-offset TLS3,TLS4,...**. (shifting the start of the first phase by the indicated fraction of the cycle time).
 - In reality there are often phases where all streams have red to
   allow clearing an intersection. SUMO does not build these phases by
   default. To have each green phase preceded by an all-red phase, the
   option **--tls.allred.time** can be used.
 - It is also possible to generate
   [\#Actuated_Traffic_Lights](#actuated_traffic_lights)
-  by setting the option **--tls.default-type actuated**. This will generated the same signal plans as
+  by setting the option **--tls.default-type**. This will generated the same signal plans as
   above but with green phases that have a variable length of 5s-50s
   (both values can be set using the options **--tls.min-dur, --tls.max-dur**).
+    - default type **actuated**: traffic light actuation is based on gaps measured by automatically generated induction loops
+    - default ypte **delay_based**: actuation is based on vehicle delays
 - The generated phase layout can be selected setting option **--tls.layout** to
   *opposites* (default) or *incoming*.
 - The generated phase layout is also influenced by the [node
@@ -79,6 +83,10 @@ where all directions of movement are allowed
 - If the node type is set to *traffic_light_right_on_red* rather
 than *traffic_light*, then compatible right-turns are allowed
 simultaneously
+
+## Intersection layout *alternateOneWay*
+This layout can be used to model alternating access to a road section which can only be used by one direction at a time.
+To make use of this layout, a [joint traffic light](#controlling_multiple_junctions_with_the_same_controller) must be defined for all junctions that border the restricted section. Alternating green phases are separated by an all-red phase that is long enough to clear the interior section.
 
 ## Other Intersections
 
@@ -159,7 +167,7 @@ Each phase is defined using the following attributes:
 | minDur         | time (int)            | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
 | maxDur         | time (int)            | The maximum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
 | name           | string                | An optional description for the phase. This can be used to establish the correspondence between SUMO-phase-indexing and traffic engineering phase names.     |
-| next           | index (int)           | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. |
+| next           | list of phase indices (int ...)           | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. Traffic lights of type 'actuated' can make use of a list of indices for selecting among alternative successor phases. |
 
 !!! caution
     In a SUMO-TLS definition, time is on the vertical axis and each phase describes all signal states that last for a fixed duration. This differs from typical traffic engineering diagrams where time is on the horizontal axis and each row describes the states for one signal. Another crucial difference is, that in SUMO a new phase is introduced whenever at least one signal changes its state. This means that transitions between green phases can be made up of multiple intermediate phases.
@@ -174,12 +182,12 @@ lanes, but links - each connecting a lane which is incoming into a
 junction and one which is outgoing from this junction. In SUMO, a
 one-to-n dependency between signals and links is implemented, this means
 each signal may control more than a single link - though networks
-generated by [NETCONVERT](../NETCONVERT.md) or
-[NETGENERATE](../NETGENERATE.md) usually use one signal per link.
+generated by [netconvert](../netconvert.md) or
+[netgenerate](../netgenerate.md) usually use one signal per link.
 Please note also, that a traffic light may control lanes incoming into
 different junctions. The information about which link is controlled by
 which traffic light signal may be obtained using the "show link tls
-index" option within [SUMO-GUI](../SUMO-GUI.md)'s visualisation
+index" option within [sumo-gui](../sumo-gui.md)'s visualisation
 settings or from the according `linkIndex`
 attribute of the `<connection>` elements in the *.net.xml* file.
 
@@ -198,17 +206,19 @@ The following signal colors are used:
 
 
 ![traci_tutorial_tls.png](../images/Traci_tutorial_tls.png
-"traci_tutorial_tls.png")Example: traffic light with the current state
+"traci_tutorial_tls.png")
+
+Example: traffic light with the current state
 **"GrGr"**. The leftmost letter "G" encodes the green light for link 0,
 followed by red for link 1, green for link 2 and red for link 3. The
-link numbers are enabled via [SUMO-GUI settings](../SUMO-GUI.md) by
+link numbers are enabled via [sumo-gui settings](../sumo-gui.md) by
 activating *show link tls index*.
 
 ### Default link indices
 
 For traffic lights that control a single intersection, the default
 [indices generated generated by
-NETCONVERT](../Networks/SUMO_Road_Networks.md#indices_of_a_connection)
+netconvert](../Networks/SUMO_Road_Networks.md#indices_of_a_connection)
 are numbered in a clockwise pattern starting with 0 at 12 o'clock with
 right-turns ordered before straight connections and left turns.
 [Pedestrian
@@ -231,17 +241,41 @@ TLS Link indices can be access using either
 
 ## Viewing TLS-Programs graphically
 
-In the sumo-gui you can click on a red/green stop bar and select show
-phases.
+In the sumo-gui you can right-click on a red/green stop bar and select *show
+phases*.
 
-## Actuated Traffic Lights
+## Interaction between signal plans and right-of-way rules
 
-### Based on Time Gaps
+Every traffic light intersection has the right-of-way rules of a
+priority intersection underneath of it. This becomes obvious when
+switching a traffic light off (either in [sumo-gui](../sumo-gui.md)
+with a right-click on the traffic light or by [loading the "off"
+program](#loading_a_new_program)).
 
-SUMO supports *gap-based* actuated traffic control This control scheme
+The right-of-way rules of this priority intersection come into play when
+defining signal plans with simultaneous conflicting green streams (by
+using *g* and *G* states). These signal plans only work correctly if the
+right-of-way rules force vehicles from the *g* stream to yield to the
+*G* stream. In most cases, this relationship was set correctly by the
+default signal plan.
+
+However, when introducing new *g*/*G* relationships, correctness is only
+ensured by loading the network and the new signal plan into
+[netconvert](../netconvert.md) and thus updating the right-of-way
+rules.
+
+# Traffic Lights that respond to traffic
+
+Generally, the designation "actuated" referse to traffic lights that switch in response to traffic (or lack thereof). The different controllers and their features are described below. SUMO supports several algorithms with this property and they are described below.
+!!! note
+    [Mesoscopic simulation](Meso.md) does not support actuated traffic lights.
+
+## Based on Time Gaps
+
+SUMO supports *gap-based* actuated traffic control. This control scheme
 is common in Germany and works by prolonging traffic phases whenever a
 continuous stream of traffic is detected. It switches to the next phase
-after detecting a sufficient time gap between sucessive vehicles. This
+after detecting a sufficient time gap between successive vehicles. This
 allows for better distribution of green-time among phases and also
 affects cycle duration in response to dynamic traffic conditions.
 
@@ -252,10 +286,26 @@ values are equal or only `duration` is given, that phase will have constant
 duration). Additional parameters may be used to configure the control
 algorithm further. These may be given within the `<tlLogic>`-Element as follows:
 
+### Detectors
+The time gaps which determine the phase extensions are collected by induction loop detectors.
+These detectors are placed automatically at a configurable distance (see below). If the incoming lanes are too short and there is a sequence of unique predecessor lanes, the detector will be placed on a predecessor lane at the computed distance instead.
+
+Each lane incoming to the traffic light will receive a detector. However, not all detectors can be used in all phases.
+In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
+A simple fix is often the provide dedicate left turn lanes.
+
+!!! note
+    Sumo will issue a warning of the form "... has no controlling detector" if a phase or link index does not have usable detectors.
+
+
+### Example
+
 ```
 <tlLogic id="0" programID="my_program" offset="0" type="actuated">
   <param key="max-gap" value="3.0"/>
   <param key="detector-gap" value="2.0"/>
+  <param key="passing-time" value="2.0"/>
+  <param key="vTypes" value=""/>
   <param key="show-detectors" value="false"/>
   <param key="file" value="NULL"/>
   <param key="freq" value="300"/>
@@ -264,24 +314,73 @@ algorithm further. These may be given within the `<tlLogic>`-Element as follows:
   ...
 </tlLogic>
 ```
+### Parameters
+Several optional parameters can be used to control the behavior of actuated traffic lights. The examples values in the previous section are the default values for these parameters and their meaning is given below:
 
-The value of **max-gap** describes the maximum time gap between
-successive vehicle that will cause the current phase to be prolonged
-(within limits). **detector-gap** determines the time distance between
-the (automatially generated) detector and the stop line in seconds (at
-each lanes maximum speed). If **show-detectors** is set to *true*, the
-generated detectors are shown in [SUMO-GUI](../SUMO-GUI.md). The
-parameters **file** and **freq** have the same meaning as for [regular
-induction loop
-detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
-The examples values are the default values for these parameters.
+- **max-gap**: the maximum time gap between successive vehicles that will cause the current phase to be prolonged
+(within maxDur limit)
+- **detector-gap**: determines the time distance between the (automatically generated) detector and the stop line in seconds (at
+each lanes maximum speed). 
+- **passing-time**: estimates the headway between vehicles when passing the stop line. This sets an upper bound on the distance between detector and stop line according to the formula `(minDur / passingTime + 0.5) / 7.5`. The intent of this bound is to allow all vehicles between the detector and the stop line to pass the intersection within the minDur time. A warning will be issued if the minDur gives insufficient clearing time.
+- **linkMaxDur:X** (where X is a traffic light index): This sets an additional maximum duration criterion based on individual signals green duration rather than phase duration.
+- **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals green duration rather than phase duration.
+- **show-detectors** controls whether generated detectors will be visible or hidden in [sumo-gui](../sumo-gui.md). The default for all traffic lights can be set with option **--tls.actuated.show-detectors**. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
+- parameters **vTypes**, **file** and **freq** have the same meaning as for [regular
+induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 
+Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
+
+- **inactive-threshold** (default 180): The parameter sets the time in s after which an inactive phase will be entered preferentially.
+- **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals rather than phase duration
+
+### Custom Detectors
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane).
+```
+   <param key="gneE42_2" value="customDetector1"/>
+```
+
+By assigning the special value `NO_DETECTOR`, the detector for a given lane key can be completely disabled.
+
+!!! caution
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+    
+### Lane-specific max-gap
+To define a max-gap value that differs from the default you can use a param with `key="max-gap:<LANE_ID>"` where LANE_ID is a lane incoming to the traffic light (the detector might lie further upstream).
+```
+   <param key="max-gap:gneE42_2" value="2"/>
+```
+
+### Dynamic Phase Selection (Phase Skipping)
+When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
+
+- compute the priority for each phase given in 'next'. Priority is primarily given by the number of active detectors for that phase. Active means either of:
+  - with detection gap below threshold
+  - with a detection since the last time where the signal after this detector was green
+- the current phase is implicitly available for continuation as long as it's maxDur is not reached. Detectors of the current phase get a bonus priority
+- the phase with the highest priority is used with phases coming earlier in the next list given precedence over those coming later
+- if there is no traffic, the phases will run through a default cycle defined by the first value in the 'next' attribute
+- if a particular phase should remain active indefinitely in the absence of traffic it must have its own index in the 'next' list as well as a high maxDur value
+- if an active detector was not served for a given time threshold (param **inactive-threshold**), this detector receives bonus priority according the time it was not served. This can be used to prevent starvation if other phases are consistently preferred due to serving more traffic 
+
+Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/basic/tls/actuated/dualring_simple]({{Source}}tests/sumo/basic/tls/actuated/dualring_simple).
+
+The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
+
+
+### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
-set. Also, in [SUMO-GUI](../SUMO-GUI.md) detectors can be
+set. Also, in [sumo-gui](../sumo-gui.md) detectors can be
 shown/hidden by right-clicking on an actuated traffic light and
 selecting the corresponding menu entry.
 
-### Based on Time Loss
+The detectors used by an actuated traffic light will be colored to indicate their status:
+- green color indicates that the detector is used to determine the length of the current phase
+- white color indicates that the detector is not used in the current phase
+- red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
+
+
+
+## Based on Time Loss
 
 Similar to the control by time gaps between vehicles, a phase
 prolongation can also be triggered by the presence of vehicles with time
@@ -315,25 +414,13 @@ the allowed maximal velocity. See \[Oertel, Robert, and Peter Wagner.
 intersection." Transportation Research Board 2011 (90th Annual Meeting).
 2011.\] for details.
 
-## Interaction between signal plans and right-of-way rules
-
-Every traffic light intersection has the right-of-way rules of a
-priority intersection underneath of it. This becomes obvious when
-switching a traffic light off (either in [SUMO-GUI](../SUMO-GUI.md)
-with a right-click on the traffic light or by [loading the "off"
-program](#loading_a_new_program)).
-
-The right-of-way rules of this priority intersection come into play when
-defining signal plans with simultaneous conflicting green streams (by
-using *g* and *G* states). These signal plans only work correctly if the
-right-of-way rules force vehicles from the *g* stream to yield to the
-*G* stream. In most cases, this relationship was set correctly by the
-default signal plan.
-
-However, when introducing new *g*/*G* relationships, correctness is only
-ensured by loading the network and the new signal plan into
-[NETCONVERT](../NETCONVERT.md) and thus updating the right-of-way
-rules.
+### Custom Detectors
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined laneAreaDetector.
+```
+   <param key="gneE42_2" value="customDetector1"/>
+```
+!!! caution
+    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 # Loading a new Program
 
@@ -346,7 +433,7 @@ describe the same tls.
 
 Assuming the program as defined above is put in a file called
 *tls.add.xml* it can be loaded in
-[SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) like this
+[sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) like this
 
 ```
 sumo -a tls.add.xml ...<other options for network and routes>
@@ -383,7 +470,7 @@ For an easier import than editing the XML by hand, some tools exists in
   red-yellow) are added automatically. The splitting into smaller
   SUMO-phases is also done automatically.
 
-Alternatively [NETEDIT](../NETEDIT.md) can be used to edit programs
+Alternatively [netedit](../Netedit/index.md) can be used to edit programs
 using a graphical user interface.
 
 # Modifying Existing TLS-Programs
@@ -402,17 +489,17 @@ programID:
 
 # Controlling multiple Junctions with the same controller
 
-In SUMO, a traffic light controller can controll an arbitary number of
+In SUMO, a traffic light controller can control an arbitrary number of
 junctions simultaneously. This is accomplished by one of the following
 methods:
 
 - Defining the same *tl* attribute (the controller ID) for a set of
   nodes in *.nod.xml* file when building the network with
-  [NETCONVERT](../NETCONVERT.md)
+  [netconvert](../netconvert.md)
 - Setting the same *tl* attribute for multiple nodes in
-  [NETEDIT](../NETEDIT.md)
+  [netedit](../Netedit/index.md)
 - Setting the option **--tls.join** when building the network with
-  [NETCONVERT](../NETCONVERT.md). This will automatically join
+  [netconvert](../netconvert.md). This will automatically join
   the traffic lights of nodes in close proximity within a default
   distance of 20m (customizable by setting option **tls.join-dist** {{DT_FLOAT}}).
 
@@ -431,7 +518,7 @@ In SUMO every lane-to-lane connection at a controlled intersection is
 assigned an index called *link tls index*. This index is used to
 determine the state for each phase by looking up the character code at
 that index in the state vector. The link index can be shown in
-[SUMO-GUI](../SUMO-GUI.md) by setting the junction visualization
+[sumo-gui](../sumo-gui.md) by setting the junction visualization
 option *show link tls index*. By default link indices are unique for
 each connection and assigned in a clockwise manner starting at the north
 (the same as the junction link index which is used for defining
@@ -442,7 +529,7 @@ junctions.
 
 The tls index for each connection can be [freely assigned in a
 *.tll.file*](../Networks/PlainXML.md#controlled_connections)
-or by setting attribute *linkIndex* in [NETEDIT](../NETEDIT.md). By
+or by setting attribute *linkIndex* in [netedit](../Netedit/index.md). By
 assigning the **same** index to multiple connection they form a signal
 group and always show the same state (simply because they reference the
 same state index). This allows shortening and thus simplifying the state
@@ -478,9 +565,10 @@ The fields in WAUT have the following meanings:
 
 | Attribute Name | Value Type | Description                                                                                      |
 | -------------- | ---------- | ------------------------------------------------------------------------------------------------ |
-| **id**         | string id  | The name of the defined WAUT                                                                     |
-| **refTime**    | int        | A reference time which is used as offset to the switch times given later (in simulation seconds) |
-| **startProg**  | string id  | The program that will be used at the simulation's begin                                          |
+| **id**         | string id  | The name of the defined WAUT                                   |
+| **startProg**  | string id  | The program that will be used at the simulation's begin     |
+| refTime   | time   | A reference time which is used as offset to the switch times given later (in simulation seconds or D:H:M:S) |
+| period  | time  | The period for repeating switch times. Disabled when set to <= 0, default 0     |
 
 and the fields in wautSwitch:
 
@@ -541,6 +629,9 @@ switching between programs **S1** and **S2** for traffic light logic
 <additional>
 ```
 
+!!! note
+    If a traffic light program called "online" is loaded, this program will interrupt WAUT switching at that traffic light. This can be used to override WAUT behavior via TraCI.
+
 # Evaluation of Traffic Lights Performance
 
 ## Tools For Automatic Detector Generation
@@ -591,7 +682,7 @@ a program (usually from an
 [additional-file](#defining_new_tls-programs)) where all
 green phases have a long duration (i.e. 1000s) to avoid switching by
 SUMO and then use the **setPhase** function to switch to the next phase
-(typically a yellow phase) whenever the green phasee should end. The
+(typically a yellow phase) whenever the green phase should end. The
 nice thing about this approach is, that yellow phase and all-red phases
 can still be handled automatically by SUMO and the control script simply
 determines the duration of the current green phase.
@@ -602,11 +693,11 @@ setPhase, select the yellow phase that starts the transition to the
 target green phase.
 
 These additional transition phases can be added to the end of the
-program and the optional phase attribute  can be used to indicated the
+program and the optional phase attribute "next" can be used to indicated the
 next phase after the transition ends.
 
 Tutorials for controlling traffic lights in this way can be found at
-[Tutorials\#TraCI_Tutorials](../Tutorials.md#traci_tutorials).
+[Tutorials\#TraCI_Tutorials](../Tutorials/index.md#traci_tutorials).
 
 ## Setting the duration
 
@@ -625,13 +716,13 @@ transitions.
 
 ## Setting the complete Program
 
-Using the method **setCompleteRedYellowGreenDefinition**, a static
+Using the method **setProgramLogic**, a static
 signal plan can be loaded. Since this method requires a complex data
 structure as argument, it is recommend to first obtain a data structure
-using **getCompleteRedYellowGreenDefinition** and then modify it
+using **getAllProgramLogics** and then modify it.
 
 ## Switching between pre-defined Programs
 
 SUMO can load multiple traffic light programs from the *.net.mxl* file
 and from [additional files](#defining_new_tls-programs). Using
-the traci function **setProgram**, a script can switch between them.
+the TraCI function **setProgram**, a script can switch between them.

@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROMAAssignments.cpp
 /// @author  Yun-Pang Floetteroed
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Feb 2013
-/// @version $Id$
 ///
 // Assignment methods
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -48,10 +46,10 @@ std::map<const ROEdge* const, double> ROMAAssignments::myPenalties;
 // ===========================================================================
 
 ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                                 const double adaptionFactor, const int maxAlternatives, RONet& net, ODMatrix& matrix,
-                                 SUMOAbstractRouter<ROEdge, ROVehicle>& router)
+                                 const double adaptionFactor, const int maxAlternatives, const bool defaultCapacities,
+                                 RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router)
     : myBegin(begin), myEnd(end), myAdditiveTraffic(additiveTraffic), myAdaptionFactor(adaptionFactor),
-      myMaxAlternatives(maxAlternatives), myNet(net), myMatrix(matrix), myRouter(router) {
+      myMaxAlternatives(maxAlternatives), myUseDefaultCapacities(defaultCapacities), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
 }
 
@@ -62,11 +60,11 @@ ROMAAssignments::~ROMAAssignments() {
 
 // based on the definitions in PTV-Validate and in the VISUM-Cologne network
 double
-ROMAAssignments::getCapacity(const ROEdge* edge) {
+ROMAAssignments::getCapacity(const ROEdge* edge) const {
     if (edge->isTazConnector()) {
         return 0;
     }
-    const int roadClass = -edge->getPriority();
+    const int roadClass = myUseDefaultCapacities ? -1 : -edge->getPriority();
     // TODO: differ road class 1 from the unknown road class 1!!!
     if (edge->getNumLanes() == 0) {
         // TAZ have no cost
@@ -118,7 +116,7 @@ ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const double flo
     if (edge->isTazConnector()) {
         return 0;
     }
-    const int roadClass = -edge->getPriority();
+    const int roadClass = myUseDefaultCapacities ? -1 : -edge->getPriority();
     const double capacity = getCapacity(edge);
     // TODO: differ road class 1 from the unknown road class 1!!!
     if (edge->getNumLanes() == 0) {
@@ -184,7 +182,7 @@ ROMAAssignments::addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>&
 
 
 const ConstROEdgeVector
-ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
+ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router, bool setBulkMode) {
     const ROEdge* const from = myNet.getEdge(cell->origin + (cell->originIsEdge ? "" : "-source"));
     if (from == nullptr) {
         throw ProcessError("Unknown origin '" + cell->origin + "'.");
@@ -199,6 +197,9 @@ ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double pro
     }
     if (myMaxAlternatives > 0 && (int)cell->pathsVector.size() < myMaxAlternatives) {
         router->compute(from, to, myDefaultVehicle, time, edges);
+        if (setBulkMode) {
+            router->setBulkMode(true);
+        }
         if (addRoute(edges, cell->pathsVector, cell->origin + cell->destination + toString(cell->pathsVector.size()), probability)) {
             return edges;
         }
@@ -292,7 +293,6 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                         myNet.getThreadPool().add(new RONet::BulkmodeTask(false), workerIndex);
                         lastOrigin = c->origin;
                         myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
-                        myNet.getThreadPool().add(new RONet::BulkmodeTask(true), workerIndex);
                     } else {
                         myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
                     }
@@ -303,8 +303,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     myRouter.setBulkMode(false);
                     lastOrigin = c->origin;
                 }
-                computePath(c, begin, linkFlow);
-                myRouter.setBulkMode(true);
+                computePath(c, begin, linkFlow, &myRouter, true);
             }
 #ifdef HAVE_FOX
             if (myNet.getThreadPool().size() > 0) {
@@ -333,6 +332,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     edge->addTravelTime(travelTime, STEPS2TIME(begin), STEPS2TIME(end));
                 }
             }
+            myRouter.reset(myDefaultVehicle);
         }
         lastBegin = intervalStart;
     }
@@ -466,6 +466,6 @@ ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, 
 // ---------------------------------------------------------------------------
 void
 ROMAAssignments::RoutingTask::run(FXWorkerThread* context) {
-    myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter());
+    myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING), mySetBulkMode);
 }
 #endif

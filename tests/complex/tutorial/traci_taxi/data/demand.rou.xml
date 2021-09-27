@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Route -->
+    <route edges="-gneE2 gneE0 -gneE0 gneE2 -gneE2" color="yellow" id="route_0"/>
+   
+    <!-- Taxi-Type -->
+    <vType id="taxi" vClass="taxi" personCapacity="8">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+
+    <!-- Other vehicles driving on streets -->
+    <vehicle id="vehicle_0" depart="0.00" route="route_0"/>
+
+    <vehicle id="vehicle_1" depart="0.00" route="route_0"/>
+
+    <!-- People heading to the busstop -->
+    <person id="HeadingBusstop1" depart="0.00" color="green">
+        <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
+        <ride from="gneE0" to="gneE2" lines="taxi"/>   
+    </person>
+
+    <person id="HeadingBusstop2" depart="1.00" color="green">
+        <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
+        <ride from="gneE0" to="-gneE2" lines="taxi"/>
+    </person>
+  
+    <person id="HeadingBusstop3" depart="3.00" color="green">
+        <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
+        <ride from="gneE0" to="-gneE0" lines="taxi"/>
+    </person>
+     
+    <person id="HeadingBusstop4" depart="4.00" color="green">
+        <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
+        <ride from="gneE0" to="gneE0" lines="taxi"/>
+    </person>
+    
+    <person id="HeadingBusstop5" depart="5.00" color="green">
+        <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
+        <ride from="gneE0" to="gneE2" lines="taxi"/>
+    </person>
+
+    <!-- Other vehicles driving on streets -->
+    <vehicle id="vehicle_3" depart="130.00" route="route_0"/>
+    <vehicle id="vehicle_4" depart="134.00" route="route_0"/>
+</routes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIAppEnum.h
 /// @author  Daniel Krajzewicz
@@ -13,20 +17,13 @@
 /// @author  Michael Behrisch
 /// @author  Andreas Gaubatz
 /// @date    Mon, 08.03.2004
-/// @version $Id$
 ///
 // Message and object IDs used by the FOX-version of the gui
 /****************************************************************************/
-#ifndef GUIAppEnum_h
-#define GUIAppEnum_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 
 
 // ===========================================================================
@@ -43,31 +40,35 @@ enum {
     /// @{
 
     /// @brief hotkey for mode editing additionals AND stops
-    MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,
+    MID_HOTKEY_A_MODES_ADDITIONAL_STOP,
     /// @brief hotkey for mode connecting lanes
-    MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,
+    MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN,
     /// @brief hotkey for mode deleting things
-    MID_HOTKEY_D_DELETEMODE,
-    /// @brief hotkey for mode adding edges
-    MID_HOTKEY_E_EDGEMODE,
+    MID_HOTKEY_D_MODES_DELETE,
+    /// @brief hotkey for mode adding edges AND edgeDatas
+    MID_HOTKEY_E_MODES_EDGE_EDGEDATA,
+    /// @brief hotkey for mode container
+    MID_HOTKEY_G_MODE_CONTAINER,
+    /// @brief hotkey for mode containerData
+    MID_HOTKEY_H_MODE_CONTAINERDATA,
     /// @brief hotkey for mode inspecting object attributes
-    MID_HOTKEY_I_INSPECTMODE,
+    MID_HOTKEY_I_MODES_INSPECT,
     /// @brief hotkey for mode moving element
-    MID_HOTKEY_M_MOVEMODE,
+    MID_HOTKEY_M_MODES_MOVE,
     /// @brief hotkey for mode creating polygons
-    MID_HOTKEY_P_POLYGONMODE_PERSONMODE,
+    MID_HOTKEY_P_MODES_POLYGON_PERSON,
     /// @brief hotkey for mode selecting objects
-    MID_HOTKEY_S_SELECTMODE,
-    /// @brief hotkey for mode editing crossing AND routes
-    MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,
+    MID_HOTKEY_S_MODES_SELECT,
+    /// @brief hotkey for mode editing crossing, routes and edge rel datas
+    MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types
-    MID_HOTKEY_T_TLSMODE_VTYPEMODE,
+    MID_HOTKEY_T_MODES_TLS_VTYPE,
     /// @brief hotkey for mode create vehicles
-    MID_HOTKEY_V_VEHICLEMODE,
+    MID_HOTKEY_V_MODES_VEHICLE,
     /// @brief hotkey for mode editing connection prohibitions AND person types
-    MID_HOTKEY_W_PROHIBITIONMODE_PERSONTYPEMODE,
-    /// @brief hotkey for mode editing TAZ
-    MID_HOTKEY_Z_TAZMODE,
+    MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,
+    /// @brief hotkey for mode editing TAZ and TAZRel
+    MID_HOTKEY_Z_MODES_TAZ_TAZREL,
 
     /// @}
 
@@ -76,14 +77,16 @@ enum {
 
     /// @brief Start the simulation in SUMO and open Additionals Elemements in NETEDIT
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
-    /// @brief Edit simulation breakpoints
-    MID_HOTKEY_CTRL_B_EDITBREAKPOINT,
+    /// @brief Edit simulation breakpoints in SUMO and open Data Elements in NETEDIT
+    MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,
     /// @brief Copy the current selection / element
     MID_HOTKEY_CTRL_C_COPY,
     /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
-    MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,
-    /// @brief Toogle Gaming mode in SUMO and grid in NETEDIT
-    MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,
+    MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
+    /// @brief Toggle Gaming mode in SUMO and grid in NETEDIT
+    MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,
+    /// @brief open edge type files
+    MID_HOTKEY_CTRL_H_OPENEDGETYPES,
     /// @brief Open viewport editor
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief Fullscreen mode - menu entry
@@ -120,26 +123,26 @@ enum {
     /// @name Alt hotkeys
     /// @{
 
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_2_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_3_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_4_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_5_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_6_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_7_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,
-    /// @brief toogle edit option
-    MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_0_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_1_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_2_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_3_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_4_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_5_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_6_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_7_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_8_TOGGLEEDITOPTION,
+    /// @brief toggle edit option
+    MID_HOTKEY_ALT_9_TOGGLEEDITOPTION,
     /// @brief Main window closes
     MID_HOTKEY_ALT_F4_CLOSE,
 
@@ -150,26 +153,40 @@ enum {
 
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
+    /// @brief save Edge Types
+    MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
+    /// @brief save Data Elements
+    MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
     /// @brief save TLS Programs
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
+    /// @brief Open a New Window
+    MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
     /// @brief save network as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
+    /// @brief Force save network (flag)
+    MID_HOTKEY_CTRL_SHIFT_T_FORCESAVENETEWORK,
+    /// @brief Force save additionals (flag)
+    MID_HOTKEY_CTRL_SHIFT_U_FORCESAVEADDITIONALS,
+    /// @brief Force save demand elements (flag)
+    MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,
+    /// @brief Force save data elements (flag)
+    MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,
 
     /// @}
 
     /// @name Functional hotkeys
     /// @{
 
-    /// @brief hot key <F1> open online documentation
+    /// @brief open online documentation
     MID_HOTKEY_F1_ONLINEDOCUMENTATION,
-    /// @brief hot key <F2> open about dialog
-    MID_HOTKEY_F2_ABOUT,
-    /// @brief hot key <F3> set network mode in NETEDIT
-    MID_HOTKEY_F3_SUPERMODE_NETWORK,
-    /// @brief hot key <F4> set demand mode in NETEDIT
-    MID_HOTKEY_F4_SUPERMODE_DEMAND,
+    /// @brief select network supermode in NETEDIT
+    MID_HOTKEY_F2_SUPERMODE_NETWORK,
+    /// @brief select demand supermode in NETEDIT
+    MID_HOTKEY_F3_SUPERMODE_DEMAND,
+    /// @brief select data supermode in NETEDIT
+    MID_HOTKEY_F4_SUPERMODE_DATA,
     /// @brief compute Network in network mode and Demand elements in demand mode
     MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
     /// @brief clean junctions without edges in network mode and unused routes in demand mode
@@ -182,8 +199,12 @@ enum {
     MID_HOTKEY_F9_EDIT_VIEWSCHEME,
     /// @brief open options menu
     MID_HOTKEY_F10_OPTIONSMENU,
-    /// @brief hot key <F12> focus upper element of current frame
-    MID_HOTKEY_F12_FOCUSUPPERELEMENT,
+    /// @brief set/clear front element
+    MID_HOTKEY_F11_FRONTELEMENT,
+    /// @brief show the hall of fame dialog
+    MID_HOTKEY_SHIFT_F11_HALLOFFAME,
+    /// @brief open about dialog
+    MID_HOTKEY_F12_ABOUT,
     /// @}
 
     /// @name shift + Functional hotkeys
@@ -197,7 +218,10 @@ enum {
     MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
-
+    /// @brief Adjust person plans (start und end positions, arrival positions, etc.)
+    MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,
+    /// @brief focus upper element of current frame (only used in NETEDIT)
+    MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
     /// @}
 
     /// @name Other hotkeys
@@ -229,6 +253,8 @@ enum {
     MID_OK,
     /// @brief Cancel-button pressed
     MID_CANCEL,
+    /// @brief Update-button pressed
+    MID_UPDATE,
     /// @}
 
     /// @name Main Window File Menu - IDs
@@ -331,6 +357,8 @@ enum {
     MID_LOCATESTOP,
     /// @brief Locate person - button
     MID_LOCATEPERSON,
+    /// @brief Locate container - button
+    MID_LOCATECONTAINER,
     /// @brief Locate TLS - button
     MID_LOCATETLS,
     /// @brief Locate addtional structure - button
@@ -343,14 +371,16 @@ enum {
     MID_SHOWTOOLTIPS,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
-    /// @brief toogle zooming style
+    /// @brief toggle zooming style
     MID_ZOOM_STYLE,
-    /// @brief toogle time display mode
-    MID_TIME_TOOGLE,
-    /// @brief toogle delay between alternative value
-    MID_DELAY_TOOGLE,
+    /// @brief toggle time display mode
+    MID_TIME_TOGGLE,
+    /// @brief toggle delay between alternative value
+    MID_DELAY_TOGGLE,
     /// @brief scale traffic
     MID_DEMAND_SCALE,
+    /// @brief scale vehicle speed
+    MID_SPEEDFACTOR,
     /// @}
 
     /// @name Common view IDs
@@ -419,6 +449,10 @@ enum {
     MID_SHOW_FUTUREROUTE,
     /// @brief Hide vehicle's future route
     MID_HIDE_FUTUREROUTE,
+    /// @brief Show vehicle's future route (without loops)
+    MID_SHOW_ROUTE_NOLOOPS,
+    /// @brief Hide vehicle's future route (without loops)
+    MID_HIDE_ROUTE_NOLOOPS,
     /// @brief Show vehicle's best lanes
     MID_SHOW_BEST_LANES,
     /// @brief Hide vehicle's best lanes
@@ -435,12 +469,16 @@ enum {
     MID_SHOW_FOES,
     MID_SHOW_LFLINKITEMS,
     MID_HIDE_LFLINKITEMS,
+    /// @brief toggle stop state of a vehice or person
+    MID_TOGGLE_STOP,
     /// @brief remove a vehice or person
     MID_REMOVE_OBJECT,
     /// @brief Show persons's path on walkingarea
     MID_SHOW_WALKINGAREA_PATH,
     /// @brief Hide persons's path on walkingarea
     MID_HIDE_WALKINGAREA_PATH,
+    /// @brief show reachability from a given lane
+    MID_REACHABILITY,
 
     /// @}
 
@@ -495,6 +533,8 @@ enum {
     MID_CHOOSER_LIST,
     /// @brief Filter selected
     MID_CHOOSER_FILTER,
+    /// @brief Filter list by substring
+    MID_CHOOSER_FILTER_SUBSTR,
 
     /// @}
 
@@ -511,6 +551,8 @@ enum {
     MID_CHOOSEN_SAVE,
     /// @brief Clear set
     MID_CHOOSEN_CLEAR,
+    /// @brief delete set
+    MID_CHOOSEN_DELETE,
     /// @brief Reset set
     MID_CHOOSEN_RESET,
     /// @brief Deselect selected items
@@ -541,6 +583,8 @@ enum {
     MID_SIMPLE_VIEW_LOAD_DECALS,
     /// @brief For the save-decals - button
     MID_SIMPLE_VIEW_SAVE_DECALS,
+    /// @brief For the clear-decals - button
+    MID_SIMPLE_VIEW_CLEAR_DECALS,
 
     /// @}
 
@@ -564,12 +608,24 @@ enum {
 
     /// @brief open foreign network
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
+    /// @brief save all element
+    MID_GNE_SAVEALLELEMENTS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief reload additionals
+    MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
+    /// @brief save edgeTypes as
+    MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
+    /// @brief reload demand elements
+    MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS,
+    /// @brief save data elements as
+    MID_GNE_TOOLBARFILE_SAVEDATA_AS,
+    /// @brief reload data elements
+    MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,
 
     /// @}
 
@@ -580,6 +636,8 @@ enum {
     MID_GNE_TOOLBAREDIT_LOADADDITIONALS,
     /// @brief load demand in SUMO-GUI after press ctrl+T
     MID_GNE_TOOLBAREDIT_LOADDEMAND,
+    /// @brief compute path manager
+    MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
 
     /// @}
 
@@ -591,11 +649,13 @@ enum {
 
     /// @}
 
-    /// @name GNEViewNet view options messages
+    /// @name GNEViewNet Network view options messages
     /// @{
 
     /// @brief show grid
-    MID_GNE_COMMONVIEWOPTIONS_SHOWGRID,
+    MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,
+    /// @brief Draw vehicles in begin position or spread in lane
+    MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief show demand elements
     MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,
     /// @brief select edges
@@ -618,14 +678,78 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,
     /// @brief automatically create opposite edge
     MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,
+    /// @brief Add edge to selected items - menu entry
+    MID_GNE_ADDSELECT_EDGE,
+    /// @brief Remove edge from selected items - Menu Etry
+    MID_GNE_REMOVESELECT_EDGE,
+    /// @brief lock element
+    MID_GNE_LOCKELEMENT,
+    /// @brief lock all element
+    MID_GNE_LOCKALLELEMENTS,
+    /// @brief unlock all element
+    MID_GNE_UNLOCKALLELEMENTS,
+
+    /// @}
+
+    /// @name GNEViewNet Demand view options messages
+    /// @{
+
+    /// @brief show grid
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,
+    /// @brief Draw vehicles in begin position or spread in lane
+    MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,
     /// @brief hide non-inspected demand element
     MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,
     /// @brief hide shapes
     MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,
+    /// @brief show all trips
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS,
     /// @brief show all person plans
     MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS,
     /// @brief lock person
     MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,
+    /// @brief show all container plans
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS,
+    /// @brief lock container
+    MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,
+
+    /// @}
+
+    /// @name GNEViewNet Data view options messages
+    /// @{
+
+    /// @brief show additionals
+    MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,
+    /// @brief show shapes
+    MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,
+    /// @brief show demand elements
+    MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
+    /// @brief toogle TAZRel drawing
+    MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,
+    /// @brief toogle draz TAZ fill
+    MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,
+    /// @brief toogle draz TAZRel only from
+    MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,
+    /// @brief toogle draz TAZRel only to
+    MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,
+
+    /// @}
+
+    /// @name GNEViewNet interval bar messages
+    /// @{
+
+    /// @brief generic data selected
+    MID_GNE_INTERVALBAR_GENERICDATATYPE,
+    /// @brief data set selected
+    MID_GNE_INTERVALBAR_DATASET,
+    /// @brief enable/disable show data elements by interval
+    MID_GNE_INTERVALBAR_LIMITED,
+    /// @brief begin changed in InterbalBar
+    MID_GNE_INTERVALBAR_BEGIN,
+    /// @brief end changed in InterbalBar
+    MID_GNE_INTERVALBAR_END,
+    /// @brief attribute changed in InterbalBar
+    MID_GNE_INTERVALBAR_ATTRIBUTE,
 
     /// @}
 
@@ -647,6 +771,8 @@ enum {
     MID_GNE_INSPECT,
     /// @brief reset element
     MID_GNE_RESET,
+    /// @brief aply element
+    MID_GNE_APPLY,
     /// @brief center element
     MID_GNE_CENTER,
     /// @brief copy element
@@ -659,12 +785,20 @@ enum {
     MID_GNE_TAGTYPE_SELECTED,
     /// @brief tag selected in ComboBox
     MID_GNE_TAG_SELECTED,
+    /// @brief create new data set
+    MID_GNE_DATASET_NEW,
+    /// @brief GNEDataInterval selected in comboBox of IntervalBar
+    MID_GNE_DATASET_SELECTED,
+    /// @brief GNEDataInterval selected in comboBox of IntervalBar
+    MID_GNE_DATAINTERVAL_SELECTED,
     /// @brief text attribute edited
     MID_GNE_SET_ATTRIBUTE_TEXT,
     /// @brief bool attribute edited
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trought dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
+    /// @brief open parameters dialog
+    MID_GNE_OPEN_PARAMETERS_DIALOG,
     /// @brief attribute selected using button (radio button or checkbox)
     MID_GNE_SET_ATTRIBUTE_BUTTON,
     /// @brief abort edge path creation
@@ -673,11 +807,21 @@ enum {
     MID_GNE_EDGEPATH_FINISH,
     /// @brief remove last inserted element in path
     MID_GNE_EDGEPATH_REMOVELAST,
-    /// @brief In AttributeCarrierHierarchy list, show child menu
+    /// @brief enable or disable show path candidates
+    MID_GNE_EDGEPATH_SHOWCANDIDATES,
+    /// @brief abort lane path creation
+    MID_GNE_LANEPATH_ABORT,
+    /// @brief finish lane path creation
+    MID_GNE_LANEPATH_FINISH,
+    /// @brief remove last inserted element in path
+    MID_GNE_LANEPATH_REMOVELAST,
+    /// @brief enable or disable show path candidates
+    MID_GNE_LANEPATH_SHOWCANDIDATES,
+    /// @brief In HierarchicalElementTree list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
-    /// @brief In AttributeCarrierHierarchy list, move element to up
+    /// @brief In HierarchicalElementTree list, move element to up
     MID_GNE_ACHIERARCHY_MOVEUP,
-    /// @brief In AttributeCarrierHierarchy list, move element to down
+    /// @brief In HierarchicalElementTree list, move element to down
     MID_GNE_ACHIERARCHY_MOVEDOWN,
     /// @brief start drawing polygon
     MID_GNE_STARTDRAWING,
@@ -693,6 +837,12 @@ enum {
     MID_GNE_OVERLAPPED_SHOWLIST,
     /// @brief list item selected in overlapped modul
     MID_GNE_OVERLAPPED_ITEMSELECTED,
+    /// @brief mark item as front element
+    MID_GNE_MARKFRONTELEMENT,
+    /// @brief set custom geometry point
+    MID_GNE_CUSTOM_GEOMETRYPOINT,
+    /// @brief reset geometry point
+    MID_GNE_RESET_GEOMETRYPOINT,
 
     /// @}
 
@@ -707,6 +857,12 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
+    /// @brief change interval
+    MID_GNE_SELECTORFRAME_SETINTERVAL,
+    /// @brief edit begin text field
+    MID_GNE_SELECTORFRAME_SETBEGIN,
+    /// @brief end text field
+    MID_GNE_SELECTORFRAME_SETEND,
 
     /// @}
 
@@ -729,6 +885,25 @@ enum {
 
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
+
+    /// @}
+
+    /// @name GNECreateEdgeFrame messages
+    /// @{
+    /// @brief selected radio button
+    MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,
+    /// @brief add new edge type
+    MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE,
+    /// @brief delete edge type
+    MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,
+    /// @brief reset edge type
+    MID_GNE_CREATEEDGEFRAME_RESETEDGETYPE,
+    /// @brief select edge type
+    MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE,
+    /// @brief delete lane type
+    MID_GNE_CREATEEDGEFRAME_DELETELANETYPE,
+    /// @brief reset lane type
+    MID_GNE_CREATEEDGEFRAME_RESETLANETYPE,
 
     /// @}
 
@@ -765,8 +940,12 @@ enum {
     MID_GNE_TLSFRAME_CLEANUP,
     /// @brief mark unused states
     MID_GNE_TLSFRAME_MARKUNUSED,
-    /// @brief mark unused states
+    /// @brief add unused states
     MID_GNE_TLSFRAME_ADDUNUSED,
+    /// @brief group states
+    MID_GNE_TLSFRAME_GROUP_STATES,
+    /// @brief ungroup states
+    MID_GNE_TLSFRAME_UNGROUP_STATES,
     /// @brief Load Program
     MID_GNE_TLSFRAME_LOAD_PROGRAM,
     /// @brief cleanup unused states
@@ -867,6 +1046,10 @@ enum {
     MID_GNE_JUNCTION_EDIT_SHAPE,
     /// @brief reset junction shape
     MID_GNE_JUNCTION_RESET_SHAPE,
+    /// @brief select all roundabout nodes and edges of the current roundabout
+    MID_GNE_JUNCTION_SELECT_ROUNDABOUT,
+    /// @brief convert junction to roundabout
+    MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,
 
     /// @}
 
@@ -901,6 +1084,8 @@ enum {
     MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief delete geometry point
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
+    /// @brief select elements within polygon boundary
+    MID_GNE_POLYGON_SELECT,
 
     /// @}
 
@@ -917,8 +1102,10 @@ enum {
 
     /// @brief duplicate a lane
     MID_GNE_LANE_DUPLICATE,
-    /// @brief remove greenVerge
+    /// @brief reset custom shape
     MID_GNE_LANE_RESET_CUSTOMSHAPE,
+    /// @brief reset opposite lane
+    MID_GNE_LANE_RESET_OPPOSITELANE,
     /// @brief transform lane to sidewalk
     MID_GNE_LANE_TRANSFORM_SIDEWALK,
     /// @brief transform lane to bikelane
@@ -933,8 +1120,10 @@ enum {
     MID_GNE_LANE_ADD_BIKE,
     /// @brief add busLane
     MID_GNE_LANE_ADD_BUS,
-    /// @brief add greenVerge
-    MID_GNE_LANE_ADD_GREENVERGE,
+    /// @brief add greenVerge front of current lane
+    MID_GNE_LANE_ADD_GREENVERGE_FRONT,
+    /// @brief add greenVerge back of current laen
+    MID_GNE_LANE_ADD_GREENVERGE_BACK,
     /// @brief remove sidewalk
     MID_GNE_LANE_REMOVE_SIDEWALK,
     /// @brief remove bikelane
@@ -955,17 +1144,27 @@ enum {
     MID_GNE_VEHICLE_TRANSFORM,
     /// @brief transform person to another person type (ej: person to personflow)
     MID_GNE_PERSON_TRANSFORM,
+    /// @brief transform container to another container type (ej: container to containerflow)
+    MID_GNE_CONTAINER_TRANSFORM,
     /// @}
 
-    /// @name Additional Dialog messages (used in all GNEAdditionalDialogs)
+    /// @name Netedit Dialogs
     /// @{
 
     /// @brief accept button
-    MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,
+    MID_GNE_BUTTON_ACCEPT,
     /// @brief cancel button
-    MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,
+    MID_GNE_BUTTON_CANCEL,
     /// @brief reset button
-    MID_GNE_ADDITIONALDIALOG_BUTTONRESET,
+    MID_GNE_BUTTON_RESET,
+    /// @brief load button
+    MID_GNE_BUTTON_LOAD,
+    /// @brief save button
+    MID_GNE_BUTTON_SAVE,
+    /// @brief clear button
+    MID_GNE_BUTTON_CLEAR,
+    /// @brief sort button
+    MID_GNE_BUTTON_SORT,
 
     /// @}
 
@@ -1029,8 +1228,6 @@ enum {
     MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE,
     /// @brief add vehicle type
     MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE,
-    /// @brief set new variable
-    MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,
 
     /// @}
 
@@ -1056,26 +1253,17 @@ enum {
 
     /// @}
 
-    /// @name GNEParameters Dialog messages
+    /// @name other
     /// @{
 
-    /// @brief load parameters
-    MID_GNE_PARAMETERS_LOAD,
-    /// @brief save parameters
-    MID_GNE_PARAMETERS_SAVE,
-    /// @brief clear parameters
-    MID_GNE_PARAMETERS_CLEAR,
-    /// @brief sort parameters
-    MID_GNE_PARAMETERS_SORT,
+    /// @brief selector for ModesMenuTitle
+    MID_GNE_MODESMENUTITLE,
+
+    /// @brief selector for LOckMenuTitle
+    MID_GNE_LOCKMENUTITLE,
 
     /// @}
 
     /// @brief last element of enum (not used)
     MID_LAST
 };
-
-
-#endif
-
-/****************************************************************************/
-

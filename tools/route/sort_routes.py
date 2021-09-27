@@ -1,29 +1,36 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    sort_routes.py
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @author  Pieter Loof
 # @date    2011-07-14
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
 from xml.dom import pulldom
 from xml.sax import handler
 from xml.sax import make_parser
 from optparse import OptionParser
-import time
 
-DEPART_ATTRS = {'vehicle': 'depart', 'flow': 'begin', 'person': 'depart'}
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib  # noqa
+from sumolib.miscutils import parseTime  # noqa
+
+DEPART_ATTRS = {'vehicle': 'depart', 'trip': 'depart', 'flow': 'begin', 'person': 'depart'}
 
 
 def get_options(args=None):
@@ -42,7 +49,7 @@ def get_options(args=None):
 
 
 def sort_departs(routefilename, outfile):
-    routes_doc = pulldom.parse(sys.argv[1])
+    routes_doc = pulldom.parse(routefilename)
     vehicles = []
     root = None
     for event, parsenode in routes_doc:
@@ -55,10 +62,10 @@ def sort_departs(routefilename, outfile):
             departAttr = DEPART_ATTRS.get(parsenode.localName)
             if departAttr is not None:
                 startString = parsenode.getAttribute(departAttr)
-                if ':' in startString:
-                    start = time.strptime(startString, "%d:%H:%M:%S")
+                if startString == "triggered":
+                    start = -1  # before everything else
                 else:
-                    start = float(startString)
+                    start = parseTime(startString)
                 vehicles.append(
                     (start, parsenode.toprettyxml(indent="", newl="")))
             else:
@@ -87,14 +94,23 @@ class RouteHandler(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name in DEPART_ATTRS.keys():
-            self._depart = float(attrs[DEPART_ATTRS[name]])
+            startString = attrs[DEPART_ATTRS[name]]
+            if startString == "triggered":
+                self._depart = -1
+            else:
+                self._depart = parseTime(startString)
             self._start_line = self.locator.getLineNumber()
+        if name == "ride" and self._depart == -1 and "depart" in attrs:
+            # this is at least the attempt to put triggered persons behind their vehicle
+            # it probably works only for vehroute output
+            self._depart = parseTime(attrs["depart"])
 
     def endElement(self, name):
         if name in DEPART_ATTRS.keys():
             end_line = self.locator.getLineNumber()
             self.elements_with_depart.append(
                 (self._depart, self._start_line, end_line))
+            self._depart = None
 
 
 def create_line_index(file):

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ShapeContainer.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Storage for geometrical objects, sorted by the layers they are in
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fstream>
@@ -65,8 +63,9 @@ bool
 ShapeContainer::addPolygon(const std::string& id, const std::string& type,
                            const RGBColor& color, double layer,
                            double angle, const std::string& imgFile, bool relativePath,
-                           const PositionVector& shape, bool geo, bool fill, double lineWidth, bool ignorePruning) {
-    return add(new SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath), ignorePruning);
+                           const PositionVector& shape, bool geo, bool fill, double lineWidth, bool ignorePruning,
+                           const std::string& name) {
+    return add(new SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name), ignorePruning);
 }
 
 
@@ -144,9 +143,9 @@ ShapeContainer::removePolygonDynamics(const std::string& polyID) {
 
 bool
 ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                       const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                       const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
                        const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning) {
-    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height), ignorePruning);
+    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height), ignorePruning);
 }
 
 
@@ -203,6 +202,13 @@ ShapeContainer::add(PointOfInterest* poi, bool /* ignorePruning */) {
     return true;
 }
 
+void
+ShapeContainer::clearState() {
+    for (auto& item : myPolygonUpdateCommands) {
+        item.second->deschedule();
+    }
+    myPolygonUpdateCommands.clear();
+}
 
 void
 ShapeContainer::cleanupPolygonDynamics(const std::string& id) {

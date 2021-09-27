@@ -1,18 +1,21 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    FXLCDLabel.cpp
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004-03-19
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -23,12 +26,9 @@
  * ======================================================================= */
 #include <config.h>
 
-#include <fxver.h>
 #define NOMINMAX
-#include <xincs.h>
 #undef NOMINMAX
-#include <fxdefs.h>
-#include <fx.h>
+#include "fxheader.h"
 /*
 #include <FXStream.h>
 #include <FXString.h>
@@ -194,11 +194,11 @@ FXint FXLCDLabel::getThickness() const {
 }
 
 // set the width of the segments
-void FXLCDLabel::setThickness(const FXint width) {
+void FXLCDLabel::setThickness(const FXint w) {
     FXSevenSegment* child = (FXSevenSegment*)getFirst();
-    if (width != child->getThickness()) {
+    if (w != child->getThickness()) {
         for (child = (FXSevenSegment*)getFirst(); child; child = (FXSevenSegment*)child->getNext()) {
-            child->setThickness(width);
+            child->setThickness(w);
         }
         recalc();
         update();
@@ -212,11 +212,11 @@ FXint FXLCDLabel::getGroove() const {
 }
 
 // set the groove width
-void FXLCDLabel::setGroove(const FXint width) {
+void FXLCDLabel::setGroove(const FXint w) {
     FXSevenSegment* child = (FXSevenSegment*)getFirst();
-    if (width != child->getGroove()) {
+    if (w != child->getGroove()) {
         for (child = (FXSevenSegment*)getFirst(); child; child = (FXSevenSegment*)child->getNext()) {
-            child->setGroove(width);
+            child->setGroove(w);
         }
         recalc();
         update();
@@ -310,17 +310,17 @@ void FXLCDLabel::drawString(const FXString& lbl) {
     //        for the last sevensegment, so as to fill the remaining space.
     FXSevenSegment* child = (FXSevenSegment*)getFirst();
     if (options & LAYOUT_FILL) {
-        FXint width = this->width - padleft - padright - (border << 1);
-        FXint height = this->height - padtop - padbottom - (border << 1);
-        hspacing = FXMAX(width, height) / 50;
+        const FXint w = this->width - padleft - padright - (border << 1);
+        const FXint h = this->height - padtop - padbottom - (border << 1);
+        hspacing = FXMAX(w, h) / 50;
         if (hspacing < 1) {
             hspacing = 1;
         }
-        FXint hsl = (width - (nfigures - 1) * hspacing) / nfigures;
+        FXint hsl = (w - (nfigures - 1) * hspacing) / nfigures;
         if (hsl < 5) {
             hsl = 5;
         }
-        FXint vsl = height >> 1;
+        FXint vsl = h >> 1;
         if (vsl < 5) {
             vsl = 5;
         }

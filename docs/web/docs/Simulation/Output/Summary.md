@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Summary
-permalink: /Simulation/Output/Summary/
+title: Summary
 ---
 
 This output contains the simulation-wide number of vehicles that are
@@ -18,7 +17,7 @@ You can force the simulation to generate this output using **--summary** {{DT_FI
 The information containing all those values is computed for each time
 step and the output file looks like following:
 
-```
+```xml
 <summary>
     <step time="<SIMULATION_TIME>" \
             loaded="<LOADED_VEHICLE_NUMBER>" \
@@ -41,7 +40,7 @@ is given in the table below.
 | Name              | Type                 | Description                                                                                                                                                             |
 | ----------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | time              | (simulation) seconds | The time step described by the entry                                                                                                                                    |
-| loaded            | \#                   | Number of vehicles that were loaded into the simulation so far (including reported time step)                                                                           |
+| loaded            | \#                   | Number of vehicles that were loaded from input files up to this time step. This can included vehicle with depart times in the future.
 | inserted          | \#                   | Number of vehicles inserted so far (including reported time step)                                                                                                       |
 | running           | \#                   | Number of vehicles that were running within the reported time step                                                                                                      |
 | waiting           | \#                   | Number of vehicles which were waiting for insertion (could not be inserted) within the reported time step                                                               |

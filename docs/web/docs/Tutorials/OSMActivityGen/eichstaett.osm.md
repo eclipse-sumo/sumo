@@ -1,6 +1,5 @@
 ---
-title: Tutorials/OSMActivityGen/eichstaett.osm
-permalink: /Tutorials/OSMActivityGen/eichstaett.osm/
+title: eichstaett.osm
 ---
 
 [{{SUMO}}/tests/complex/tutorial/osm_activitygen/eichstaett.osm]({{Source}}tests/complex/tutorial/osm_activitygen/eichstaett.osm)

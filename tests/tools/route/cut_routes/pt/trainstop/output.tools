@@ -1,0 +1,9 @@
+Valid area contains 96 edges
+Kept 10 of 13 busStops
+Parsing routes from input_routes.rou.xml
+Parsed 0 vehicles, 0 persons, 4 flows and kept 4 routes
+Number of disconnected routes: 0.
+Parsing routes from input_routes2.rou.xml
+Parsed 0 vehicles, 2 persons, 0 flows and kept 0 routes
+Number of disconnected routes: 0.
+Wrote 2 persons

@@ -22,7 +22,7 @@ transfer_unconnected_2
 # person ride for restricted capacity
 capacity
 
-# test wheather the containerNumber of a vehicle increases/decreases if a container gets loaded/unloaded
+# test whether the containerNumber of a vehicle increases/decreases if a container gets loaded/unloaded
 container_number
 
 # tests if a container leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the container reached its current destination stop (plus minos some tolerance)
@@ -36,6 +36,9 @@ stop_duration
 
 # car triggered by containers
 triggered
+
+# car triggered by containers using deprecated attribute containerTriggered
+triggered_oldStyle
 
 # car triggered by containers
 triggeredParking
@@ -64,8 +67,15 @@ loading_duration_extension
 # a truck will stop at two containerstop that are located at the same edge and a container is waiting at the second container stop. the container has to get loaded onto the truck when the truck stops at the second container stop and not before.
 two_containerstops_at_one_edge
 
-# test whether a chain of walks rides and stops works
+# test whether a chain of tranships, transports and stops works
 trip_chain
+
+# Test whether a chain of tranships, transports and stops works with destination defined by 'containerStop', instead of 'to'.
+trip_chain_containerStop_input
+
+# test whether a chain of tranships, transports and stops works without 'from' statement
+trip_chain_no_from
+container_start_containerStop
 
 # container with a transfer from one edge to the next one
 transfer
@@ -75,4 +85,7 @@ abort_impossible_transport
 
 # container with a single transport
 transport
+
+# specify the persons that may enter
+permitted
 errors

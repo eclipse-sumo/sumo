@@ -1,0 +1,22 @@
+Loading net-file from 'net.net.xml' ... done (12ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading done.
+Simulation version v1_7_0+1166-554a675755 started with time: 0.00
+Simulation ended at time: 111.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.01s
+ Real time factor: 10090.9
+ UPS: 62090.909091
+Vehicles: 
+ Inserted: 30
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 300.00
+ Speed: 13.19
+ Duration: 22.77
+ WaitingTime: 0.00
+ TimeLoss: 0.80
+ DepartDelay: 8.90
+

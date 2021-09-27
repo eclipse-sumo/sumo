@@ -1,0 +1,5 @@
+# test connection building in the presence of bicycle lanes
+connections
+
+# same as 'connections' but with different priorities
+connections2

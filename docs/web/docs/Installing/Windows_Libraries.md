@@ -1,6 +1,5 @@
 ---
-title: Installing/Windows Libraries
-permalink: /Installing/Windows_Libraries/
+title: Windows Libraries
 ---
 
 !!! note
@@ -10,8 +9,7 @@ permalink: /Installing/Windows_Libraries/
 
 ### Xerces-C
 
-SUMO uses Xerces-C 3.1.x or 3.2.x by default but if you are still stuck
-with Xerces 2.8 changes should be limited to [{{SUMO}}/src/windows_config.h]({{Source}}src/windows_config.h), [{{SUMO}}/build/msvc10/Win32.props]({{Source}}build/msvc10/Win32.props) and / or [{{SUMO}}/build/msvc10/x64.props]({{Source}}build/msvc10/x64.props). Please be
+SUMO uses Xerces-C 3.1.x or 3.2.x by default. Please be
 aware that Xerces-C 3.1.4 can cause problems when using unicode
 characters in your networks (especially importing chinese street names
 from OpenStreetMap).
@@ -80,9 +78,8 @@ set FOX16=D:\libs\fox-1.6.36.
 - Warning: This is a little advanced, we were successful with libpng
 1.5.2 and 1.6.20 together with zlib 1.2.5 and 1.2.8
 - download zlib sources and libpng sources from
-[\[1\]](http://ftp.fox-toolkit.org/pub/) or from
-[\[2\]](http://www.libpng.org/pub/png/libpng.html) and
-[\[3\]](http://www.zlib.net/)
+[\[1\]](http://www.libpng.org/pub/png/libpng.html) and
+[\[2\]](http://www.zlib.net/)
 - unzip all zips
 - there is no need to build zlib
 - build pnglib by first adapting the path in
@@ -107,9 +104,7 @@ your path
 and 9b the jpeg 8c which can be found at the fox-toolkit site was
 broken
 - download libjpeg sources from [\[4\]](http://www.ijg.org/) and unzip it
-- download
-[win32.mak](http://www.bvbcode.com/code/f2kivdrh-395674-down) and
-place it in the jpeg dir
+- download win32.mak and place it in the jpeg dir
 - open a visual studio command prompt, cd to the jpeg dir and execute
 
 ```
@@ -146,18 +141,6 @@ adventurous). Building from source should only be necessary if you want
 a 64bit build or if you want to ship a copy of the SUMO executable(s)
 without the need to ship the FWTools as well.
 
-#### Tamas Szekeres binary packages at <http://www.gisinternals.com/release.php>
-
-- Choose the latest stable release and then the [binaries
-  zip](http://download.gisinternals.com/sdk/downloads/release-1600-gdal-1-11-1-mapserver-6-4-1.zip)
-  and the [libs
-  zip](http://download.gisinternals.com/sdk/downloads/release-1600-gdal-1-11-1-mapserver-6-4-1-libs.zip)
-  (links valid for MSVC10 as of 31/8/2015)
-- unzip the zips in a directory of your choice (lets say
-  D:\\libs\\proj_gdal) and set PROJ_GDAL=D:\\libs\\proj_gdal.
-- Add `%PROJ_GDAL%\bin` to your PATH (or copy the contents to some
-  directory in your PATH).
-
 #### FWTools (very outdated)
 
 - Just execute the binary and select a target directory.
@@ -175,8 +158,8 @@ set PROJ_GDAL=D:\libs\FWTools1.1.3.
 
 If you want to build PROJ and GDAL yourself for some reason, please
 follow the relevant [build instructions for
-PROJ](http://trac.osgeo.org/proj/browser/trunk/proj/README) and [for
-GDAL](http://trac.osgeo.org/gdal/wiki/BuildingOnWindows). You then
+PROJ](https://proj.org/install.html) and [for
+GDAL](https://gdal.org/download.html#build-requirements). You then
 should install in a common directory and let the PROJ_GDAL variable
 point to it as above. You should also copy proj.dll and gdal\*.dll to a
 directory in your PATH.
@@ -190,7 +173,7 @@ This is only needed, if you want to save videos directly from the
 sumo-gui.
 
 - You just need to install [the binary ffmpeg
-  distributions](http://ffmpeg.zeranoe.com/builds/) in the Shared and
+  distributions](https://ffmpeg.org/download.html) in the Shared and
   the Dev flavor. Also be sure to download all the platforms (32
   and/or 64 bit) you need.
 - Unzip the Dev version and create a environment variable FFMPEG

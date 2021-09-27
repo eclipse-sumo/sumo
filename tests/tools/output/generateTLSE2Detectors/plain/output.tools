@@ -1,21 +1,27 @@
 Missing arguments
-Usage: generateTLSE2Detectors.py -n example.net.xml -l 250 -d .1 -f 60
+usage: generateTLSE2Detectors.py -n example.net.xml -l 250 -d .1 -f 60
 
-Options:
+optional arguments:
   -h, --help            show this help message and exit
-  -n NET_FILE, --net-file=NET_FILE
+  -c FILE, --configuration-file FILE
+                        read configuration from FILE
+  -C FILE, --save-configuration FILE
+                        save configuration to FILE and exit
+  --save-template FILE  save configuration template to FILE and exit
+  -n NET_FILE, --net-file NET_FILE
                         Network file to work with. Mandatory.
-  -l REQUESTED_DETECTOR_LENGTH, --detector-length=REQUESTED_DETECTOR_LENGTH
+  -l REQUESTED_DETECTOR_LENGTH, --detector-length REQUESTED_DETECTOR_LENGTH
                         Length of the detector in meters (-1 for maximal
                         length).
-  -d REQUESTED_DISTANCE_TO_TLS, --distance-to-TLS=REQUESTED_DISTANCE_TO_TLS
+  -d REQUESTED_DISTANCE_TO_TLS, --distance-to-TLS REQUESTED_DISTANCE_TO_TLS
                         Distance of the detector to the traffic light in
                         meters. Defaults to 0.1m.
-  -f FREQUENCY, --frequency=FREQUENCY
+  -f FREQUENCY, --frequency FREQUENCY
                         Detector's frequency. Defaults to 60.
-  -o OUTPUT, --output=OUTPUT
+  -o OUTPUT, --output OUTPUT
                         The name of the file to write the detector definitions
                         into. Defaults to e2.add.xml.
-  -r RESULTS, --results-file=RESULTS
+  -r RESULTS, --results-file RESULTS
                         The name of the file the detectors write their output
                         into. Defaults to e2output.xml.
+  --tl-coupled          Couple output frequency to traffic light phase

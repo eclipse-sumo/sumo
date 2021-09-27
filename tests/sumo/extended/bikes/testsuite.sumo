@@ -1,0 +1,15 @@
+# bike lane ends at tls and merges with vehicle lanes going straight
+tls_merge_straight
+
+# bike lane ends at tls and merges with vehicle lanes going straight
+tls_merge_straight_noInternal
+
+# bike lane ends at tls and merges with vehicle lanes going right
+tls_merge_right
+
+# bike lane ends at tls and merges with vehicle lanes going right
+tls_merge_right_noInternal
+
+# bike lane ends at tls and merges with vehicle lanes going right.
+# The junction has straight pedestrian crossing that intersects the right turn
+tls_merge_right_crossing

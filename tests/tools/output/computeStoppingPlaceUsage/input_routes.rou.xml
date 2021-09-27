@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 24.03.2021 14:48:34 by Eclipse SUMO GUI Version v1_8_0+1788-cedb8bba4f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\ART-FORUM\2-Scenarios\2.1-Multiple_Parkings\test_scenario\input_net.net.xml"/>
+        <route-files value="D:\ART-FORUM\2-Scenarios\2.1-Multiple_Parkings\test_scenario\input_routes.rou.parking.xml"/>
+        <additional-files value="D:\ART-FORUM\2-Scenarios\2.1-Multiple_Parkings\test_scenario\input_parkings.add.xml,D:\ART-FORUM\2-Scenarios\2.1-Multiple_Parkings\test_scenario\parking_rerouters.add.xml"/>
+    </input>
+
+    <output>
+        <stop-output value="D:\ART-FORUM\2-Scenarios\2.1-Multiple_Parkings\test_scenario\stops.out.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="vehicle_00" type="DEFAULT_VEHTYPE" lane="gneE7_0" pos="6.40" parking="1" started="10.00" ended="30.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingA"/>
+    <stopinfo id="vehicle_01" type="DEFAULT_VEHTYPE" lane="gneE4_0" pos="6.40" parking="1" started="20.00" ended="40.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingA"/>
+    <stopinfo id="vehicle_02" type="DEFAULT_VEHTYPE" lane="gneE5_0" pos="6.40" parking="1" started="20" ended="30" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingA"/>
+    <stopinfo id="vehicle_03" type="DEFAULT_VEHTYPE" lane="gneE6_0" pos="6.40" parking="1" started="25" ended="28" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingA"/>
+    <stopinfo id="vehicle_04" type="DEFAULT_VEHTYPE" lane="gneE7_0" pos="6.40" parking="1" started="15" ended="35" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingB"/>
+</stops>

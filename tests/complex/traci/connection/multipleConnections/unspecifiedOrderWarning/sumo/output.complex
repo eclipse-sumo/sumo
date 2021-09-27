@@ -1,0 +1,21 @@
+----------- Warning Test -----------
+ Run 1
+Loading configuration ... done.
+***Starting server on port 35091 ***
+  waiting for 2 clients...
+Starting process 1
+Starting process 2
+  client connected
+  client connected
+client 1:  connection closed by SUMO  (at TraCIStep 1)
+client 2:  connection closed by SUMO  (at TraCIStep 1)
+ Run 2
+Loading configuration ... done.
+***Starting server on port 35091 ***
+  waiting for 2 clients...
+Starting process 1
+Starting process 2
+  client connected
+  client connected
+client 1:  connection closed by SUMO  (at TraCIStep 1)
+client 2:  connection closed by SUMO  (at TraCIStep 1)

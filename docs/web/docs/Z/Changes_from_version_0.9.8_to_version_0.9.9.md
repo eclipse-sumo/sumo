@@ -1,7 +1,8 @@
 ---
-title: Z/Changes from version 0.9.8 to version 0.9.9
-permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
+title: Changes from version 0.9.8 to version 0.9.9
 ---
+
+**Release date: 05.08.2008**
 
 - All
   - debugged [bug 1976405 Saving invalid dump
@@ -25,10 +26,10 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
   - Hidden state loading/saving completely from the microsim
   - Vehicle may now end their route at a certain position of the
     route's last edge (see
-    [Specification](../Specification.md))
+    [Specification](../Specification/index.md))
   - The route may be now given as an attribute (*route*) within the
     vehicle definition (see
-    [Specification](../Specification.md))
+    [Specification](../Specification/index.md))
   - The vehicle now stores most of its definition parameters in
     *myParameter*, not as atomar values
   - Solved problems with multiple stop on same edge and with stops
@@ -53,7 +54,7 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
   - debugged [bug 1912547 linux 64 bit compile error for sumo svn 5143](http://sourceforge.net/tracker/index.php?func=detail&aid=1912547&group_id=45607&atid=443421)
   - debugged [bug 1913655 command line sumo throws unknown exception](http://sourceforge.net/tracker/index.php?func=detail&aid=1913655&group_id=45607&atid=443421)
   - debugged [bug 1924989 sumo r5186 crashs by pure virtual function call](http://sourceforge.net/tracker/index.php?func=detail&aid=1924989&group_id=45607&atid=443421)
-  - begun work on [Specification](../Specification.md)
+  - begun work on [Specification](../Specification/index.md)
     - all vehicles are emitted at position=0, with speed=0
   - removed usage of NLLoadFilter
   - added an option to quit the simulation if a number of vehicles
@@ -71,7 +72,7 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
   - further work on devices-consolidation
   - implemented a one-shot / multi-shot routing device
 
-- GUISIM
+- sumo-gui
   - Removed opening an additional command line window from the
     release version
   - Title is now set properly
@@ -88,7 +89,7 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
   - [bug 1919509 guisim crashed](http://sourceforge.net/tracker/index.php?func=detail&aid=1919509&group_id=45607&atid=443421)
       is invalid, the issue was a buggy opengl driver
 
-- NETCONVERT
+- netconvert
   - debugged [bug 1993928 --keep-edges.input-file does not remove empty nodes](http://sourceforge.net/tracker/index.php?func=detail&aid=1993928&group_id=45607&atid=443421);
     as soon as one edge-removal(keeping) option occures, nodes are
     rechecked whether they contain any further edge. If not, the
@@ -101,7 +102,7 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
     vehicles are emitted the same (parametrised) way on each edge,
     we do not need a distinction between source and normal edges;
     sink edges were never distinguished.
-  - Refactored the way edge types are stored in NETCONVERT
+  - Refactored the way edge types are stored in netconvert
   - removed "name" attribute from NBEdge; was not written anyway
   - work on SUMO-networks reimport
     <font color="red">(unfinished)</font>
@@ -112,11 +113,11 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
   - thanks to Christoph Sommer, the OSM importer now handles speed
     and lanes information; default OS values are now used, too
 
-- DUAROUTER / JTRROUTER
+- duarouter / jtrrouter
   - Removed option **--move-on-short**. It got obsolete as vehicles
-    may start on edges which are shroter than they are, now.
+    may start on edges which are shorter than they are, now.
 
-- DUAROUTER
+- duarouter
   - debugged [bug 1981921 duarouter truncates routes](http://sourceforge.net/tracker/index.php?func=detail&aid=1981921&group_id=45607&atid=443421);
     Now, **--remove-loops** only prunes the route if the vehicle
     would have to take a turnaround at the begin or end.
@@ -124,11 +125,11 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
     replaced; incomplete routes may be corrected using the new
     **--repair** option
 
-- JTRROUTER
+- jtrrouter
   - Removed possibility to specify turning percentages using CSV
     files
 
-- DFROUTER
+- dfrouter
   - Definition of emitters, vss, etc. are now written into the same
     folder as the declaration
 
@@ -136,7 +137,7 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
   - TraCI is now enabled as default
 
 - od2trips
-  - due to being used for macroscopic demand definitions, OD2TRIPS
+  - due to being used for macroscopic demand definitions, od2trips
     now emits vehicles using departlane="best" and departspeed="max"
   - removed option to parse list of tables from a vissim file; they
     may be given at the command line (**--vissim** is no longer
@@ -144,7 +145,7 @@ permalink: /Z/Changes_from_version_0.9.8_to_version_0.9.9/
   - added the possibility to omit writing the vehicle type
     (**--no-vtype**)
 
-- [Tools/Main](../Tools.md)
+- [Tools](../Tools/index.md)
   - added some tools for output visualization
     (mpl_dump_twoAgainst.py, mpl_tripinfos_twoAgainst.py,
     mpl_dump_timeline.py) (see

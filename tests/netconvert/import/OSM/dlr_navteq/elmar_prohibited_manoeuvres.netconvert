@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on Wed Aug 15 14:52:45 2018 by Eclipse SUMO netconvert Version feccab3
+# <!-- generated on Wed Sep 30 11:17:49 2020 by Eclipse SUMO netconvert Version v1_7_0+0361-087c97c9f0
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@
 #         <output-file value="net.net.xml"/>
 #         <dlr-navteq-output value="elmar_output"/>
 #         <dlr-navteq.precision value="2"/>
+#         <output.street-names value="true"/>
 #         <output.original-names value="true"/>
 #     </output>
 # 
@@ -55,6 +56,7 @@
 #     <report>
 #         <verbose value="true"/>
 #         <xml-validation value="never"/>
+#         <aggregate-warnings value="5"/>
 #     </report>
 # 
 # </configuration>
@@ -62,6 +64,7 @@
 #
 #No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn
 #RELATREC_ID	PERMANENT_ID_INFO	VALIDITY_PERIOD	THROUGH_TRAFFIC	VEHICLE_TYPE	NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]
-415852976	1	-1	1	100000000000	415852958	415852955
-415852977	1	-1	1	100000000000	224769559	415852919
-415852978	1	-1	1	100000000000	180239847	16942869
+415852990	1	-1	1	100000000000	415852972	415852969
+415852991	1	-1	1	100000000000	224769559	415852933
+415852992	1	-1	1	100000000000	180239847	16942869
+415852993	1	-1	1	100000000000	415852922	415852923

@@ -1,3 +1,6 @@
+# Define source taz edge only when needed, see #818
+noSourceTaz
+
 # only different source and sink edges
 differSourceSink
 
@@ -21,3 +24,6 @@ default_arrivalpos
 
 # Default arrivalspeed
 default_arrivalspeed
+
+# define trips between junctions instead of edges
+junctionTrips

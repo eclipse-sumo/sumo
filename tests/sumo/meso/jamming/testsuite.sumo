@@ -1,2 +1,11 @@
 # a traffic light creates a jam across 5 segments and then the jam resolves fully
 single_jam_1lane
+
+# test sumo default speed threshold and meso defaults
+speedDev_jamThreshold_-1
+
+# test sumo default speed threshold and meso defaults
+speedDev_jamThreshold_-0.8
+
+# test sumo default speed threshold and meso defaults
+speedDev_jamThreshold_default

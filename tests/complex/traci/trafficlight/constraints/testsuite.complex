@@ -1,0 +1,17 @@
+# Tests the constraint API
+getConstraints
+
+# reverse constraint-based train order and adapt other constraints to avoid deadlock
+swapConstraints
+
+# reverse constraint-based train order and adapt other constraints to avoid deadlock.
+# loadState before swap and then swap again
+swapConstraints_loadState
+removeConstraints_all
+removeConstraints_signalId
+removeConstraints_tripId
+removeConstraints_foeId
+removeConstraints_foeSignal
+
+# tests for automatic deadlock-avoidance after swapConstraints
+swap

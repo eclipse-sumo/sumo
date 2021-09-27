@@ -1,0 +1,2 @@
+-n input_net.net.xml -d input_taz.taz.xml -m input_od_o.fma -o routes.rou.xml
+--weight-attribute foo

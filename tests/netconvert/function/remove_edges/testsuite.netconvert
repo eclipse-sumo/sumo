@@ -12,6 +12,9 @@ removing_top
 # The bottom (3*) edges are removed
 removing_bottom
 
+# The bottom (3*) edges are removed and loaded public transport stops on these edges are filtered out.
+removing_bottom_with_stops
+
 # The left (1*) edges are removed
 removing_left
 

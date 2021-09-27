@@ -1,0 +1,19 @@
+<routes>
+    <route id="A" edges="A"/>
+    <route id="B" edges="B"/>
+    <route id="C" edges="C"/>
+    <route id="D" edges="D"/>
+
+    <vType id="t1" sigma="0" speedFactor="1.5" lcKeepRight="0"/>
+    <!-- type t0 is defined differently for every test -->
+
+    <vehicle id="a" type="t0" route="A" depart="0" departLane="1" departSpeed="max"/>
+    <vehicle id="b" type="t0" route="B" depart="0" departLane="1" departSpeed="max"/>
+    <vehicle id="c" type="t0" route="C" depart="0" departLane="1" departSpeed="max"/>
+    <vehicle id="d" type="t0" route="D" depart="0" departLane="1" departSpeed="max"/>
+
+    <vehicle id="a_f" type="t1" route="A" depart="10" departLane="1" departSpeed="max"/>
+    <vehicle id="b_f" type="t1" route="B" depart="10" departLane="1" departSpeed="max"/>
+    <vehicle id="c_f" type="t1" route="C" depart="10" departLane="1" departSpeed="max"/>
+    <vehicle id="d_f" type="t1" route="D" depart="10" departLane="1" departSpeed="max"/>
+</routes>

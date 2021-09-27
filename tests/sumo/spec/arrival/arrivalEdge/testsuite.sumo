@@ -1,0 +1,32 @@
+# checks using the default arrivalEdge (0)
+edge_default
+
+# checks using the explicit arrivalEdge=0
+edge_0
+
+# checks using the explicit arrivalEdge=2
+edge_2
+
+# checks using the explicit arrvivalEdge=5
+edge_last
+
+# checks using a random arrival edge along the route
+edge_random
+
+# checks using the explicit arrivalEdge=-1
+edge_negative
+
+# checks using the explicit arrivalEdge=10 which is beyond route size
+edge_invalid
+
+# checks using arrivalEdge=1 with a trip
+edge_1_trip
+
+# checks using arrivalEdge=2 with a trip
+edge_2_trip
+
+# checks using arrivalEdge=1 with a flow (from-to)
+edge_1_flow
+
+# checks using arrivalEdge=random with a flow using a fixed route
+edge_random_routeFlow

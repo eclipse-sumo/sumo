@@ -1,0 +1,21 @@
+# base case
+default
+tauff
+taufj
+taujf
+taufjj
+jamThreshold
+minorPenalty
+junctionControl
+
+# base case
+tls_default
+tls_penalty
+tls_flowPenalty
+overtaking_default
+
+# enable overtaking via option
+overtaking_option
+
+# enable overtaking via edge type
+overtaking

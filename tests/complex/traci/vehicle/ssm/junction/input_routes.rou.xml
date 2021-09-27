@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <trip id="ego" depart="0" from="NC" to="CE" departSpeed="max"/>
+   <trip id="leader" depart="2" from="SC" to="CN" departSpeed="max"/>
+</routes>

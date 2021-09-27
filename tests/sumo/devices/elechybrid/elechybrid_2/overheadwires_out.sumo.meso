@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Dec 10 10:19:54 2019 by Eclipse SUMO Version 1.4.0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="elechybrid_2.net.xml"/>
+        <route-files value="trolleybuses.rou.xml"/>
+        <additional-files value="overheadwires.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <elecHybrid-output value="elechybrid_out"/>
+        <elecHybrid-output.precision value="4"/>
+        <elecHybrid-output.aggregated value="false"/>
+        <overheadWireSegments-output value="overheadwires_out.xml"/>
+        <substations-output value="substation_out.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <stop-output value="stopinfo_out.xml"/>
+    </output>
+
+    <time>
+        <end value="50"/>
+    </time>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+        <overhead-wire-solver value="true"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <battery>
+        <device.battery.explicit value="test1"/>
+    </battery>
+
+    <elechybrid_device>
+        <device.elecHybrid.explicit value="test1,test2"/>
+    </elechybrid_device>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<overheadWireSegments-export>
+    <overheadWireSegment id="ovrhdSgmnt_-gneE10_0_6" tractionSubstationId="trSubstation2" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_-gneE13_0_8" tractionSubstationId="" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_-gneE14_0_9" tractionSubstationId="" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_-gneE7_0_7" tractionSubstationId="trSubstation2" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_-gneE8_0_5" tractionSubstationId="trSubstation2" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_gneE2_0_3" tractionSubstationId="trSubstation1" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_gneE2_1_2" tractionSubstationId="trSubstation1" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <overheadWireSegment id="ovrhdSgmnt_gneE6_0_7" tractionSubstationId="trSubstation2" totalEnergyCharged="0.00" chargingSteps="0"/>
+</overheadWireSegments-export>

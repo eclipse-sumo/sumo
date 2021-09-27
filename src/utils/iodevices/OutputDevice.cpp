@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OutputDevice.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2004
-/// @version $Id$
 ///
 // Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <map>
@@ -28,6 +26,11 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#endif
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
@@ -46,6 +49,7 @@
 // static member definitions
 // ===========================================================================
 std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
+int OutputDevice::myPrevConsoleCP = -1;
 
 
 // ===========================================================================
@@ -53,6 +57,13 @@ std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
 // ===========================================================================
 OutputDevice&
 OutputDevice::getDevice(const std::string& name) {
+#ifdef WIN32
+    // fix the windows console output on first call
+    if (myPrevConsoleCP == -1) {
+        myPrevConsoleCP = GetConsoleOutputCP();
+        SetConsoleOutputCP(CP_UTF8);
+    }
+#endif
     // check whether the device has already been aqcuired
     if (myOutputDevices.find(name) != myOutputDevices.end()) {
         return *myOutputDevices[name];
@@ -89,7 +100,7 @@ OutputDevice::getDevice(const std::string& name) {
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
-        dev = new OutputDevice_File(name2, len > 4 && name.substr(len - 4) == ".sbx", len > 3 && name.substr(len - 3) == ".gz");
+        dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
@@ -134,24 +145,28 @@ OutputDevice::closeAll(bool keepErrorRetrievers) {
             nonErrorDevices.push_back(i->second);
         }
     }
-    for (std::vector<OutputDevice*>::iterator i = nonErrorDevices.begin(); i != nonErrorDevices.end(); ++i) {
+    for (OutputDevice* const dev : nonErrorDevices) {
         try {
-            //std::cout << "  close '" << (*i)->getFilename() << "'\n";
-            (*i)->close();
+            dev->close();
         } catch (const IOError& e) {
             WRITE_ERROR("Error on closing output devices.");
             WRITE_ERROR(e.what());
         }
     }
     if (!keepErrorRetrievers) {
-        for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
+        for (OutputDevice* const dev : errorDevices) {
             try {
-                (*i)->close();
+                dev->close();
             } catch (const IOError& e) {
                 std::cerr << "Error on closing error output devices." << std::endl;
                 std::cerr << e.what() << std::endl;
             }
         }
+#ifdef WIN32
+        if (myPrevConsoleCP != -1) {
+            SetConsoleOutputCP(myPrevConsoleCP);
+        }
+#endif
     }
 }
 
@@ -177,14 +192,8 @@ OutputDevice::realString(const double v, const int precision) {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-OutputDevice::OutputDevice(const bool binary, const int defaultIndentation, const std::string& filename) :
-    myAmBinary(binary),
-    myFilename(filename) {
-    if (binary) {
-        myFormatter = new BinaryFormatter();
-    } else {
-        myFormatter = new PlainXMLFormatter(defaultIndentation);
-    }
+OutputDevice::OutputDevice(const int defaultIndentation, const std::string& filename) :
+    myFilename(filename), myFormatter(new PlainXMLFormatter(defaultIndentation)) {
 }
 
 
@@ -276,4 +285,3 @@ OutputDevice::inform(const std::string& msg, const char progress) {
 
 
 /****************************************************************************/
-

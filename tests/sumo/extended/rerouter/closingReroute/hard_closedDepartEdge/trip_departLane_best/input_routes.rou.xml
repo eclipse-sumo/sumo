@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <trip id="tripCloseEnroute"  depart="0"    from="beg" to="end2" departLane="best"/>
+    <trip id="tripClosedAlready" depart="1000" from="beg" to="end2" departLane="best"/>
+</routes>

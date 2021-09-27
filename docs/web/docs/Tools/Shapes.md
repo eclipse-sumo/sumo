@@ -1,7 +1,30 @@
 ---
-title: Tools/Shapes
-permalink: /Tools/Shapes/
+title: Shapes
 ---
+
+# circlePolygon.py
+
+Generate circular polygons with custom radius, and number of vertices.
+
+```
+<SUMO\>/tools/shape/ciclePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
+```
+
+- <X\>: Polygon center X
+- <Y\>: Polygon center Y
+- <RADIUS\>: Polygon radius
+- <NUMVERTICES\>: number of vertices
+
+# CSV2polyconvertXML.py
+
+Converts a given CSV-file that contains a list of pois to an XML-file that may be read by POLYCONVERT
+
+```
+<SUMO\>/tools/shape/CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*
+```
+
+- <CSV_FILE\>: CSV document to be coverted
+- <OUTPUT_FILE\>: POIs compatible with POLYCONVERT
 
 # pois2inductionLoops.py
 
@@ -43,6 +66,23 @@ with type="default", color="1,0,0", and layer="0".
 
 The tool uses the <SUMO\>/tools/lib/sumonet.py library.
 
+# poi_at_stops.py
+
+Spatial distribute of POIs along given edges on a given network.
+
+Generates a PoI-file containing a PoI for each Stop from the given net.
+
+```
+poi_at_stops.py <NET> <STOPS>
+```
+
+- <NET\>: The network
+- <STOPS\>: The stops to read stop positions from
+
+PoIs are stored with type="default", color="1,0,0", and layer="0".
+
+The tool uses the <SUMO\>/tools/lib/sumonet.py library.
+
 # poi_atTLS.py
 
 Spatial distribute of POIs along given edges on a given network.
@@ -64,12 +104,3 @@ poi_atTLS.py <NET> [nojoin]
 PoIs are stored with type="default", color="1,0,0", and layer="0".
 
 The tool uses the <SUMO\>/tools/lib/sumonet.py library.
-
-# circlePolygon.py
-
-Generate circular polygons with custom radius, and number of vertices.
-See **--help** for additional options.
-
-```
-<SUMO\>/tools/shape/ciclePolygon.py x,y,radius,points [x2,y2,radius2,points2] ....
-```

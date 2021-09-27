@@ -5,6 +5,16 @@ motorway
 
 # sublane behavior on junctions
 junction
+lateral_speed
+
+# tests for behavior at a 2-lane roundabout
+roundabout
+
+# testing opposite-direction driving
+opposite_direction_driving
+
+# test latAlignment configuration
+latAlignment
 
 # vehicle behavior on a single edge with 2 lanes (default alignment)
 1edge_2lanes
@@ -13,12 +23,20 @@ depart_random_last
 # narrow vehicle behavior on a single edge with 2 lanes
 1edge_2lanes_mopeds
 
+# narrow vehicle behavior on a single edge with 1 lane
+1edge_1lane_mopeds
+
 # vehicle behavior on a single edge with 2 lanes (compact alignment)
 1edge_2lanes_compact_cars
 
+# vehicle behavior on a single edge with 2 lanes and lane discipline
+1edge_2lanes_lane_discipline
+
 # vehicle behavior on a single edge with cars and mopeds
 1edge_2lanes_compact_mixed
-1edge_2lanes_compact_mixed_maxSpeedLatStanding
+
+# vehicle behavior on a single edge with cars and mopeds
+1edge_3lanes_mixed
 
 # vehicle behavior on a single edge with cars and mopeds (all pushy)
 1edge_2lanes_compact_mixed_pushy
@@ -47,6 +65,12 @@ future_braking
 
 # test usage of a rescue lane. see also #5783
 rescueLane
+
+# vehicle behavior on a single edge with cars and mopeds
+lane_discipline
+
+# use calibrator to change vehicle alignment
+calibrate_alignment
 
 # tests for various tickets
 bugs

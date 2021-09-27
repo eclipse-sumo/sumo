@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    POI.cpp
 /// @author  Daniel Krajzewicz
@@ -14,15 +18,9 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    30.05.2012
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/shapes/PointOfInterest.h>
@@ -41,6 +39,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults POI::mySubscriptionResults;
 ContextSubscriptionResults POI::myContextSubscriptionResults;
+NamedRTree* POI::myTree(nullptr);
 
 
 // ===========================================================================
@@ -109,6 +108,9 @@ POI::getParameter(const std::string& poiID, const std::string& key) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(POI)
+
+
 void
 POI::setType(const std::string& poiID, const std::string& type) {
     getPoI(poiID)->setShapeType(type);
@@ -156,18 +158,33 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 bool
 POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType, int layer, const std::string& imgFile, double width, double height, double angle) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color), Position(x, y), false, "", 0, 0, (double)layer,
-                            angle,
-                            imgFile,
-                            Shape::DEFAULT_RELATIVEPATH,
-                            width,
-                            height);
+    bool ok = shapeCont.addPOI(poiID, poiType,
+                               Helper::makeRGBColor(color),
+                               Position(x, y), false, "", 0, false, 0, (double)layer,
+                               angle,
+                               imgFile,
+                               Shape::DEFAULT_RELATIVEPATH,
+                               width,
+                               height);
+    if (ok && myTree != nullptr) {
+        PointOfInterest* p = shapeCont.getPOIs().get(poiID);
+        const float cmin[2] = {(float)p->x(), (float)p->y()};
+        const float cmax[2] = {(float)p->x(), (float)p->y()};
+        myTree->Insert(cmin, cmax, p);
+    }
+    return ok;
 }
 
 
 bool
 POI::remove(const std::string& poiID, int /* layer */) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    PointOfInterest* p = shapeCont.getPOIs().get(poiID);
+    if (p != nullptr && myTree != nullptr) {
+        const float cmin[2] = {(float)p->x(), (float)p->y()};
+        const float cmax[2] = {(float)p->x(), (float)p->y()};
+        myTree->Remove(cmin, cmax, p);
+    }
     return shapeCont.removePOI(poiID);
 }
 
@@ -249,14 +266,22 @@ POI::getPoI(const std::string& id) {
 
 NamedRTree*
 POI::getTree() {
-    NamedRTree* t = new NamedRTree();
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (const auto& i : shapeCont.getPOIs()) {
-        const float cmin[2] = {(float)i.second->x(), (float)i.second->y()};
-        const float cmax[2] = {(float)i.second->x(), (float)i.second->y()};
-        t->Insert(cmin, cmax, i.second);
+    if (myTree == nullptr) {
+        myTree = new NamedRTree();
+        ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+        for (const auto& i : shapeCont.getPOIs()) {
+            const float cmin[2] = {(float)i.second->x(), (float)i.second->y()};
+            const float cmax[2] = {(float)i.second->x(), (float)i.second->y()};
+            myTree->Insert(cmin, cmax, i.second);
+        }
     }
-    return t;
+    return myTree;
+}
+
+void
+POI::cleanup() {
+    delete myTree;
+    myTree = nullptr;
 }
 
 
@@ -273,7 +298,7 @@ POI::makeWrapper() {
 
 
 bool
-POI::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+POI::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -295,6 +320,12 @@ POI::handleVariable(const std::string& objID, const int variable, VariableWrappe
             return wrapper->wrapDouble(objID, variable, getAngle(objID));
         case VAR_IMAGEFILE:
             return wrapper->wrapString(objID, variable, getImageFile(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

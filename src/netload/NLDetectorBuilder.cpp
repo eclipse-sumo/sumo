@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLDetectorBuilder.cpp
 /// @author  Daniel Krajzewicz
@@ -15,15 +19,9 @@
 /// @author  Christian Roessel
 /// @author  Jakob Erdmann
 /// @date    Mon, 15 Apr 2002
-/// @version $Id$
 ///
 // Builds detectors for microsim
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -95,14 +93,14 @@ void
 NLDetectorBuilder::buildInductLoop(const std::string& id,
                                    const std::string& lane, double pos, SUMOTime splInterval,
                                    const std::string& device, bool friendlyPos,
-                                   const std::string& vTypes) {
+                                   const std::string& vTypes, int detectPersons) {
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     // build the loop
-    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes);
+    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes, detectPersons);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
 }
@@ -182,8 +180,8 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
         // add the file output (XXX: Where's the corresponding delete?)
         if (toLaneGiven) {
             // Detector also associated to specific link
-            MSLane* lastLane = det->getLastLane();
-            MSLink* link = MSLinkContHelper::getConnectingLink(*lastLane, *toLane);
+            const MSLane* const lastLane = det->getLastLane();
+            const MSLink* const link = lastLane->getLinkTo(toLane);
             if (link == nullptr) {
                 throw InvalidArgument(
                     "The detector '" + id + "' cannot be build as no connection between lanes '"
@@ -260,7 +258,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
         if (toLaneGiven) {
             // Detector also associated to specific link
             const MSLane* const lastDetLane = det->getLastLane();
-            const MSLink* const link = MSLinkContHelper::getConnectingLink(*lastDetLane, *toLane);
+            const MSLink* const link = lastDetLane->getLinkTo(toLane);
             if (link == nullptr) {
                 throw InvalidArgument(
                     "The detector '" + id + "' cannot be build as no connection between lanes '"
@@ -378,11 +376,13 @@ NLDetectorBuilder::buildRouteProbe(const std::string& id, const std::string& edg
 MSDetectorFileOutput*
 NLDetectorBuilder::createInductLoop(const std::string& id,
                                     MSLane* lane, double pos,
-                                    const std::string& vTypes, bool) {
+                                    const std::string& vTypes,
+                                    int detectPersons,
+                                    bool /*show*/) {
     if (MSGlobals::gUseMesoSim) {
-        return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes);
+        return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes, detectPersons);
     }
-    return new MSInductLoop(id, lane, pos, vTypes);
+    return new MSInductLoop(id, lane, pos, vTypes, detectPersons, false);
 }
 
 
@@ -455,6 +455,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
         const bool withInternal, const bool trackVehicles, const int detectPersons,
         const double maxTravelTime, const double minSamples,
         const double haltSpeed, const std::string& vTypes,
+        const std::string& writeAttributes,
         const std::string& device) {
     if (begin < 0) {
         throw InvalidArgument("Negative begin time for meandata dump '" + id + "'.");
@@ -465,28 +466,31 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     if (end <= begin) {
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
     }
+    checkStepLengthMultiple(begin, " for meandata dump '" + id + "'");
     MSMeanData* det = nullptr;
     if (type == "" || type == "performance" || type == "traffic") {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
-                                 printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes);
+                                 printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes);
     } else if (type == "emissions" || type == "hbefa") {
         if (type == "hbefa") {
             WRITE_WARNING("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead.");
         }
         det = new MSMeanData_Emissions(id, begin, end, useLanes, withEmpty,
-                                       printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes);
+                                       printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes);
     } else if (type == "harmonoise") {
         det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty,
-                                        printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes);
+                                        printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes);
     } else if (type == "amitran") {
         det = new MSMeanData_Amitran(id, begin, end, useLanes, withEmpty,
-                                     printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes);
+                                     printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes);
     } else {
         throw InvalidArgument("Invalid type '" + type + "' for meandata dump '" + id + "'.");
     }
     if (det != nullptr) {
         if (frequency < 0) {
             frequency = end - begin;
+        } else {
+            checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
         }
         MSNet::getInstance()->getDetectorControl().add(det, device, frequency, begin);
     }
@@ -528,8 +532,8 @@ NLDetectorBuilder::checkSampleInterval(SUMOTime splInterval, SumoXMLTag type, co
     if (splInterval == 0) {
         throw InvalidArgument("Sampling frequency must not be zero (in " + toString(type) + " '" + id + "').");
     }
+    checkStepLengthMultiple(splInterval, " (in " + toString(type) + " '" + id + "')");
 }
 
 
 /****************************************************************************/
-

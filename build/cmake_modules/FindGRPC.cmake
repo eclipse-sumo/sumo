@@ -12,8 +12,6 @@ find_library(GRPC_LIBRARY NAMES grpc++ libgrpc++
 set(GRPC_LIBRARIES ${GRPC_LIBRARY})
 set(GRPC_INCLUDE_DIRS ${GRPC_INCLUDE_DIR})
 
-message(STATUS  ${GRPC_LIBRARY})
-message(STATUS  ${GRPC_INCLUDE_DIR})
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GRPC DEFAULT_MSG
         GRPC_LIBRARY GRPC_INCLUDE_DIR)

@@ -1,13 +1,12 @@
 ---
-title: TraCI/Object Context Subscription
-permalink: /TraCI/Object_Context_Subscription/
+title: Object Context Subscription
 ---
 
 # Introduction
 
 Context subscriptions are allowing the obtaining of specific values from
 surrounding objects of a certain so called "EGO" object. With these
-datas one can determine the traffic status around that EGO object. Such
+data one can determine the traffic status around that EGO object. Such
 an EGO Object can be any possible Vehicle, inductive loop,
 points-of-interest, and such like. A vehicle driving through a city, for
 example, is surrounded by a lot of different and changing vehicles,
@@ -78,8 +77,8 @@ Some notes:
   the subscription is removed if the simulation has reached a higher
   time step; in ms
 - Context Domain: the type of objects in the addressed object's
-  surrounding to ask values from
-- Context Range: the radius of the surrounding
+  surroundings to ask values from
+- Context Range: the radius of the surroundings
 - The size of the variables list must be equal to the field "Variable
   Number".
 
@@ -89,7 +88,7 @@ Some notes:
 | :-------: | :------------: | :------------: | :-----------: | :-----------: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: | :-: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: | :-: | :-----------: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: | :-: | :--------------------------: | :------------------------------: | :------------------------------------------: | :-----------------------: |
 | Object ID | Context Domain | Variable Count | Objects Count | Object \#1 ID | Object \#1 / Variable \#1 Id | Object \#1 / Variable \#1 status | Object \#1 / Return type of the variable \#1 | Object \#1 / <VALUE\#1\> | ... | Object \#1 / Variable \#n Id | Object \#1 / Variable \#n status | Object \#1 / Return type of the variable \#n | Object \#1 / <VALUE\#n\> | ... | Object \#m ID | Object \#m / Variable \#1 Id | Object \#m / Variable \#1 status | Object \#m / Return type of the variable \#1 | Object \#m / <VALUE\#1\> | ... | Object \#m / Variable \#n Id | Object \#m / Variable \#n status | Object \#m / Return type of the variable \#n | Object \#m / <VALUE\#n\> |
 
-The respond to a **"Subscribe ... Variable"**.
+The response to a **"Subscribe ... Variable"**.
 
 The status is 0x00 (RTYPE_OK) if the variable could be retrieved
 successfully. If not, the status is 0xff (RTYPE_ERR). In the second
@@ -109,14 +108,26 @@ Count).
 | :---------: | :------------: | :--------------------------------: |
 | filter type | parameter type |          parameter value           |
 
-For the parameter different value types are possible depending on the
-filter type. The lanes filter (FILTER_TYPE_LANES) takes a list of
-bytes, vType (FILTER_TYPE_VTYPE) and vClass filter
-(FILTER_TYPE_VCLASS) take a list of strings, the upstream/downstream
-filters take doubles (FILTER_TYPE_DOWNSTREAM_DIST,
-FILTER_TYPE_UPSTREAM_DIST), and no parameters are expected for the
-no-opposite filter (FILTER_TYPE_NOOPPOSITE), the lead/follow filter
-(FILTER_TYPE_LEAD_FOLLOW), and the turn filter (FILTER_TYPE_TURN).
+Currently, the following context subscription filter types are implemented:
+
+| filter name | filter type |   parameter value   |     description     |       uses context range       |
+|  ---------  | :---------: | :-----------------: |  -----------------  | :----------------------------: |
+| [lanes](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterLanes)       | 0x01        |    list(byte)       | only return vehicles on list of lanes relative to ego vehicle | no |
+| [no-opposite](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterNoOpposite) | 0x02        |    -                | exclude vehicles on opposite (and other) lanes | yes |
+| [downstream distance](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterDownstreamDistance) | 0x03|    double           | only return vehicles within the given downstream distance | no |
+| [upstream distance](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterUpstreamDistance) | 0x04  |    double           | only return vehicles within the given maximal upstream distance | no |
+| [leader/follower](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterLeadFollow)   | 0x05  |    -                | only return leader and follower on the specified lanes (requires 'lanes' filter) | no |
+| [turn](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterTurn)        | 0x07        |    -                | only return foes on upcoming junctions | no |
+| [vClass](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterVClass)     | 0x08        |    list(string)      | only return vehicles of the given vClass(es) | yes |
+| [vType](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterVType)       | 0x09        |    list(string)     | only return vehicles of the given vType(s) | yes |
+| [field of vision](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterFieldOfVision) | 0x0A    |    double           | only return vehicles within field of vision (angle in degrees) | yes |
+| [lateral distance](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterLateralDistance) | 0x0B    |    double          | only return vehicles within the given lateral distance | no |
+
+### Intercompatibility
+
+While the context subscription filters can - in principal - be combined, be aware that not all combinations will work (or at least not as expected).
+This is due to the fact that a sub-class of the filters (see last column 'uses context range' above) does not operate on the set of objects collected within the context subscription's range but operates on the set of objects defined by their respective filter parameters instead.
+Consequently, a combination of, e.g., the field-of-vision and lateral distance filter is infeasible.
 
 # Client library methods
 

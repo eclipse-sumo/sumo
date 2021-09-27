@@ -1,9 +1,8 @@
 ---
-title: Basics/Notation
-permalink: /Basics/Notation/
+title: Notation
 ---
 
-The documentation within this wiki uses coloring to differ between
+This documentation uses coloring to differ between
 different type of information. Below, these annotations and colors are
 described.
 
@@ -28,7 +27,7 @@ netconvert --visum=MyVisumNet.inp \
 
 ## Application Options
 
-Command line option names are normally coloured **this way**. Their values ** *<LIKE THIS\>* **.
+Command line option names are normally colored **this way**. Their values ** *<LIKE THIS\>* **.
 
 ## XML Examples
 
@@ -37,10 +36,12 @@ XML-elements and attributes are shown `like this`. Their values, if variable,
 
 Complete examples of XML-Files are shown like the following:
 
-    <myType>
-       <myElem myAttr1="0" myAttr2="0.0"/>
-       <myElem myAttr1="1" myAttr2="-500.0"/>
-    </myType>
+```xml
+<myType>
+  <myElem myAttr1="0" myAttr2="0.0"/>
+  <myElem myAttr1="1" myAttr2="-500.0"/>
+</myType>
+```
 
 ## Referenced Data Types
 
@@ -69,7 +70,7 @@ Complete examples of XML-Files are shown like the following:
   and there are no spaces allowed. The color may also be defined using
   a single string with a [HTML color code](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet) or one of
   the basic colors ("red", "green", "blue", "yellow", "cyan",
-  "magenta", "black", "white", "grey")
+  "magenta", "black", "white", "grey"). The value of "random" will assign a random color.
 - *<2D-POSITION\>*: two floats separated by ','
   (*<FLOAT\>*,*<FLOAT\>*), which describe the x- and the y-offset,
   respectively. z is 0 implicitly
@@ -88,11 +89,11 @@ Complete examples of XML-Files are shown like the following:
 ### Referenced File Types
 
 - *<NETWORK_FILE\>*: a [SUMO network file](../Networks/SUMO_Road_Networks.md) as built by
-  [NETGENERATE](../NETGENERATE.md) or
-  [NETCONVERT](../NETCONVERT.md)
+  [netgenerate](../netgenerate.md) or
+  [netconvert](../netconvert.md)
 - *<ROUTES_FILE\>*: a [SUMO routes file](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-  as built by [DUAROUTER](../DUAROUTER.md) or
-  [JTRROUTER](../JTRROUTER.md) or by hand
+  as built by [duarouter](../duarouter.md) or
+  [jtrrouter](../jtrrouter.md) or by hand
 - *<TYPE_FILE\>*: a [SUMO edge type file](../SUMO_edge_type_file.md), built by hand or downloaded
 - *<OSM_FILE\>*: a [OpenStreetMap file](../OpenStreetMap_file.md)
   as exported from [OpenStreetMap](https://www.openstreetmap.org/)

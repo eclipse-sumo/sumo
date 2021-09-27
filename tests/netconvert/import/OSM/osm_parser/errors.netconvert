@@ -3,5 +3,10 @@ Error: Tag element on wrong XML hierarchy level.
 Error: Attribute 'id' is missing in definition of a node.
 Error: Attribute 'lon' is missing in definition of node '-122'.
 Error: Node element on wrong XML hierarchy level (id='1', level='3').
+Repeating initial error messages:
+Attribute 'lat' is missing in definition of node '-4'.
+Tag element on wrong XML hierarchy level.
+Attribute 'id' is missing in definition of a node.
+Attribute 'lon' is missing in definition of node '-122'.
 Error: No nodes loaded.
 Quitting (on error).

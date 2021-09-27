@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.08.2019 11:36:53 by Eclipse SUMO netedit Version v1_2_0+1623-45f6df626d
+<!-- generated on 2021-09-16 13:03:25 by Eclipse SUMO netedit Version v1_10_0+0721-94326db740
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,31 +30,34 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\routes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug111532.2916/netedit.gui/demandElements/vehicletype/load/actionStepLength\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\actionStepLength\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="vType0" actionStepLength="1.00"/>
     <vType id="vType1" actionStepLength="1.00"/>
     <vType id="vType2" actionStepLength="1.00"/>
     <vType id="vType3" actionStepLength="12.00"/>

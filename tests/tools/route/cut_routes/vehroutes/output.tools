@@ -1,0 +1,5 @@
+Valid area contains 64 edges
+Parsing routes from input_routes.rou.xml
+Parsed 119 vehicles, 0 persons, 0 flows and kept 112 routes (avg teleportFactor 0.232142857143)
+Number of disconnected routes: 0.
+Wrote 112 vehicles

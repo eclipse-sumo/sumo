@@ -1,0 +1,55 @@
+<add>
+    <tlLogic id="C" offset="0" programID="0" type="actuated">
+        <phase duration="99" maxDur="50" minDur="5" name="2+6" next="8 11 12 9 10 13 14" state="rrrGGrrrrGGr"/>
+        <phase duration="99" maxDur="50" minDur="5" name="1+5" next="15 16 17 18" state="rrrrrGrrrrrG"/>
+        <phase duration="99" maxDur="50" minDur="5" name="4+8" next="21 24 25 19 20 22 23" state="GGrrrrGGrrrr"/>
+        <phase duration="99" maxDur="50" minDur="5" name="3+7" next="26 27 28 29" state="rrGrrrrrGrrr"/>
+        <phase duration="99" maxDur="50" minDur="5" name="2+5" next="30 31 32 33 34" state="rrrrrrrrrGGG"/>
+        <phase duration="99" maxDur="50" minDur="5" name="1+6" next="35 36 37 38 39" state="rrrGGGrrrrrr"/>
+        <phase duration="99" maxDur="50" minDur="5" name="3+8" next="42 40 41 43 44" state="rrrrrrGGGrrr"/>
+        <phase duration="99" maxDur="50" minDur="5" name="4+7" next="47 45 46 48 49" state="GGGrrrrrrrrr"/>
+        <phase duration="4" name="2+6-1+5" next="1" state="rrryyrrrryyr"/>
+        <phase duration="4" name="2+6-4+8" next="2" state="rrryyrrrryyr"/>
+        <phase duration="4" name="2+6-3+7" next="3" state="rrryyrrrryyr"/>
+        <phase duration="4" name="2+6-2+5" next="4" state="rrryyrrrrGGr"/>
+        <phase duration="4" name="2+6-1+6" next="5" state="rrrGGrrrryyr"/>
+        <phase duration="4" name="2+6-3+8" next="6" state="rrryyrrrryyr"/>
+        <phase duration="4" name="2+6-4+7" next="7" state="rrryyrrrryyr"/>
+        <phase duration="4" name="1+5-4+8" next="2" state="rrrrryrrrrry"/>
+        <phase duration="4" name="1+5-3+7" next="3" state="rrrrryrrrrry"/>
+        <phase duration="4" name="1+5-3+8" next="6" state="rrrrryrrrrry"/>
+        <phase duration="4" name="1+5-4+7" next="7" state="rrrrryrrrrry"/>
+        <phase duration="4" name="4+8-2+6" next="0" state="yyrrrryyrrrr"/>
+        <phase duration="4" name="4+8-1+5" next="1" state="yyrrrryyrrrr"/>
+        <phase duration="4" name="4+8-3+7" next="3" state="yyrrrryyrrrr"/>
+        <phase duration="4" name="4+8-2+5" next="4" state="yyrrrryyrrrr"/>
+        <phase duration="4" name="4+8-1+6" next="5" state="yyrrrryyrrrr"/>
+        <phase duration="4" name="4+8-3+8" next="6" state="yyrrrrGGrrrr"/>
+        <phase duration="4" name="4+8-4+7" next="7" state="GGrrrryyrrrr"/>
+        <phase duration="4" name="3+7-2+6" next="0" state="rryrrrrryrrr"/>
+        <phase duration="4" name="3+7-1+5" next="1" state="rryrrrrryrrr"/>
+        <phase duration="4" name="3+7-2+5" next="4" state="rryrrrrryrrr"/>
+        <phase duration="4" name="3+7-1+6" next="5" state="rryrrrrryrrr"/>
+        <phase duration="4" name="2+5-1+5" next="1" state="rrrrrrrrryyG"/>
+        <phase duration="4" name="2+5-4+8" next="2" state="rrrrrrrrryyy"/>
+        <phase duration="4" name="2+5-3+7" next="3" state="rrrrrrrrryyy"/>
+        <phase duration="4" name="2+5-3+8" next="6" state="rrrrrrrrryyy"/>
+        <phase duration="4" name="2+5-4+7" next="7" state="rrrrrrrrryyy"/>
+        <phase duration="4" name="1+6-1+5" next="1" state="rrryyGrrrrrr"/>
+        <phase duration="4" name="1+6-4+8" next="2" state="rrryyyrrrrrr"/>
+        <phase duration="4" name="1+6-3+7" next="3" state="rrryyyrrrrrr"/>
+        <phase duration="4" name="1+6-3+8" next="6" state="rrryyyrrrrrr"/>
+        <phase duration="4" name="1+6-4+7" next="7" state="rrryyyrrrrrr"/>
+        <phase duration="4" name="3+8-2+6" next="0" state="rrrrrryyyrrr"/>
+        <phase duration="4" name="3+8-1+5" next="1" state="rrrrrryyyrrr"/>
+        <phase duration="4" name="3+8-3+7" next="3" state="rrrrrryyGrrr"/>
+        <phase duration="4" name="3+8-2+5" next="4" state="rrrrrryyyrrr"/>
+        <phase duration="4" name="3+8-1+6" next="5" state="rrrrrryyyrrr"/>
+        <phase duration="4" name="4+7-2+6" next="0" state="yyyrrrrrrrrr"/>
+        <phase duration="4" name="4+7-1+5" next="1" state="yyyrrrrrrrrr"/>
+        <phase duration="4" name="4+7-3+7" next="3" state="yyGrrrrrrrrr"/>
+        <phase duration="4" name="4+7-2+5" next="4" state="yyyrrrrrrrrr"/>
+        <phase duration="4" name="4+7-1+6" next="5" state="yyyrrrrrrrrr"/>
+    </tlLogic>
+
+</add>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0.00">
+        <personTrip from="CE" to="WC"/>
+    </person>
+    <route id="00" edges="WC CN">
+        <stop edge="WC" duration="5"/>
+    </route>
+</routes>

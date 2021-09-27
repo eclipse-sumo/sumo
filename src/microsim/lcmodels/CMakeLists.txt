@@ -1,6 +1,8 @@
 set(microsim_lcmodels_STAT_SRCS
    MSAbstractLaneChangeModel.cpp
    MSAbstractLaneChangeModel.h
+   MSLCHelper.h
+   MSLCHelper.cpp
    MSLCM_DK2008.cpp
    MSLCM_DK2008.h
    MSLCM_LC2013.cpp

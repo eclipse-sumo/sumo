@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="pa0" lane="beg_0" startPos="100" endPos="120" roadsideCapacity="100" departPos="150"/>
+
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="1" edges="beg"/>
+
+</additional>

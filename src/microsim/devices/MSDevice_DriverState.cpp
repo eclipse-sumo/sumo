@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_DriverState.cpp
 /// @author  Leonhard Luecken
@@ -13,16 +17,11 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    15.06.2018
-/// @version $Id$
 ///
 /// The Driver State Device mainly provides a configuration and interaction interface for the vehicle's driver state.
 /// @see microsim/MSDriverState.h
 ///
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -229,8 +228,6 @@ MSDevice_DriverState::getParameter(const std::string& key) const {
         return toString(myDriverState->getErrorTimeScale());
     } else if (key == "errorNoiseIntensity") {
         return toString(myDriverState->getErrorNoiseIntensity());
-    } else if (key == "errorNoiseIntensity") {
-        return toString(myDriverState->getErrorNoiseIntensity());
     } else if (key == "minAwareness") {
         return toString(myDriverState->getMinAwareness());
     } else if (key == "initialAwareness") {
@@ -298,4 +295,3 @@ MSDevice_DriverState::setParameter(const std::string& key, const std::string& va
 
 
 /****************************************************************************/
-

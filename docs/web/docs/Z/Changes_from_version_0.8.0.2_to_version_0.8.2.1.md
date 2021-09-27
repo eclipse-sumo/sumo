@@ -1,7 +1,8 @@
 ---
-title: Z/Changes from version 0.8.0.2 to version 0.8.2.1
-permalink: /Z/Changes_from_version_0.8.0.2_to_version_0.8.2.1/
+title: Changes from version 0.8.0.2 to version 0.8.2.1
 ---
+
+**Release date: 22.12.2004**
 
 **Please remind that several option names have changed!** The most
 important: "net-files" (router, simulation) is now "net-file"...
@@ -29,7 +30,7 @@ User-relevant changes:
   - Patched some of the lane-changing bugs
   - time-to-teleport -option added
   - replace "treshhold" by "treshold"
-- Netconvert
+- netconvert
   - Plain output of node and edges added (--plain-output)
   - got rid of the arcview/shapelib-import chaos
   - \--explicite-junctions -\> --explicite-tls

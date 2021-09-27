@@ -1,26 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PedestrianRouter.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The Pedestrian Router builds a special network and delegates to a SUMOAbstractRouter.
 /****************************************************************************/
-#ifndef PedestrianRouter_h
-#define PedestrianRouter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -50,19 +47,19 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalNetwork<E, L, N, V> _IntermodalNetwork;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip, SUMOAbstractRouterPermissions<_IntermodalEdge, _IntermodalTrip > > _InternalRouter;
+    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
 
 public:
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true), myAmClone(false) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true, nullptr, nullptr, false, false), myAmClone(false) {
         myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
                                                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true), myAmClone(true) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true, nullptr, nullptr, false, false), myAmClone(true) {
         myPedNet = net;
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
                                                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
@@ -146,8 +143,3 @@ private:
     PedestrianRouter& operator=(const PedestrianRouter& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/

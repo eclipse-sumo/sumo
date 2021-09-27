@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCIServer.h
 /// @author  Axel Wegener
@@ -18,17 +22,10 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    2007/10/24
-/// @version $Id$
 ///
 // TraCI server used to control sumo by a remote TraCI client
 /****************************************************************************/
-#ifndef TRACISERVER_H
-#define TRACISERVER_H
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <map>
@@ -59,7 +56,7 @@
 /** @class TraCIServer
  * @brief TraCI server used to control sumo by a remote TraCI client
  */
-class TraCIServer final : public MSNet::VehicleStateListener, public libsumo::VariableWrapper {
+class TraCIServer final : public MSNet::VehicleStateListener, public libsumo::VariableWrapper, public MSNet::TransportableStateListener {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
     typedef bool(*CmdExecutor)(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
@@ -103,6 +100,8 @@ public:
 
     void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
+    void transportableStateChanged(const MSTransportable* const transportable, MSNet::TransportableState to, const std::string& info = "");
+
     /// @name Writing Status Messages
     /// @{
 
@@ -140,6 +139,16 @@ public:
         } else {
             // Requested in the context of a custom query by active client
             return myCurrentSocket->second->vehicleStateChanges;
+        }
+    }
+
+    const std::map<MSNet::TransportableState, std::vector<std::string> >& getTransportableStateChanges() const {
+        if (myCurrentSocket == mySockets.end()) {
+            // Requested in context of a subscription update
+            return myTransportableStateChanges;
+        } else {
+            // Requested in the context of a custom query by active client
+            return myCurrentSocket->second->transportableStateChanges;
         }
     }
 
@@ -242,9 +251,9 @@ public:
     /// @}
 
 
-    /// @brief Sets myTargetTime on server and sockets to the given value
+    /// @brief updates myTargetTime and resets vehicle state changes after loading a simulation state
     /// @note  Used in MSStateHandler to update the server's time after loading a state
-    void setTargetTime(SUMOTime targetTime);
+    void stateLoaded(SUMOTime targetTime);
 
     std::vector<std::string>& getLoadArgs() {
         return myLoadArgs;
@@ -258,8 +267,10 @@ public:
     bool wrapString(const std::string& objID, const int variable, const std::string& value);
     bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
     bool wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value);
+    bool wrapPositionVector(const std::string& objID, const int variable, const libsumo::TraCIPositionVector& value);
     bool wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value);
-    bool wrapRoadPosition(const std::string& objID, const int variable, const libsumo::TraCIRoadPosition& value);
+    bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
+    bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 
@@ -291,6 +302,8 @@ private:
         tcpip::Socket* socket;
         /// @brief container for vehicle state changes since last step taken by this client
         std::map<MSNet::VehicleState, std::vector<std::string> > vehicleStateChanges;
+        /// @brief container for transportable state changes since last step taken by this client
+        std::map<MSNet::TransportableState, std::vector<std::string> > transportableStateChanges;
     private:
         SocketInfo(const SocketInfo&);
     };
@@ -345,9 +358,6 @@ private:
     /// @brief Whether the connection was set to be to close
     static bool myDoCloseConnection;
 
-    /// @brief The server socket
-    tcpip::Socket* myServerSocket;
-
     /// @brief The socket connections to the clients
     /// the first component (index) determines the client's order (lowest index's commands are processed first), @see CMD_SETORDER
     std::map<int, SocketInfo*> mySockets;
@@ -376,8 +386,8 @@ private:
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;
 
-    /// @brief Map of variable ids to the size of the parameter in bytes
-    std::map<int, int> myParameterSizes;
+    /// @brief Set of variables which have parameters
+    std::set<std::pair<int, int>> myParameterized;
 
     std::vector<std::string> myLoadArgs;
 
@@ -395,6 +405,15 @@ private:
     /// with a proper vehicleStateChanges container mySockets[...].second->vehicleStateChanges
     /// Performance could be improved if for a single client, myVehicleStateChanges is used only.
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
+
+    /// @brief Changes in the states of simulated transportables
+    /// @note
+    /// Server cache myTransportableStateChanges is used for managing last steps subscription updates
+    /// and for client information in case that myAmEmbedded==true, which implies a single client.
+    /// For the potential multiclient case (myAmEmbedded==false), each socket in mySockets is associated
+    /// with a proper TransportableStateChanges container mySockets[...].second->TransportableStateChanges
+    /// Performance could be improved if for a single client, myTransportableStateChanges is used only.
+    std::map<MSNet::TransportableState, std::vector<std::string> > myTransportableStateChanges;
 
 private:
     bool addObjectVariableSubscription(const int commandId, const bool hasContext);
@@ -414,12 +433,19 @@ private:
     // TODO: for libsumo, implement convenience definitions present in python client:
     //    void addSubscriptionFilterCF();
     //    void addSubscriptionFilterLC(int direction);
-    void addSubscriptionFilterTurn();
+    void addSubscriptionFilterTurn(double dist);
     void addSubscriptionFilterVClass(SVCPermissions vClasses);
     void addSubscriptionFilterVType(std::set<std::string> vTypes);
-    bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
-
-    bool findObjectShape(int domain, const std::string& id, PositionVector& shape);
+    /** @brief Filter only vehicles within field of vision
+     *
+     * @param[in] openingAngle The opening angle of the circle sector
+     */
+    void addSubscriptionFilterFieldOfVision(double openingAngle);
+    /** @brief Filter only vehicles within the given lateral distance
+     *
+     * @param[in] dist The lateral distance
+     */
+    void addSubscriptionFilterLateralDistance(double dist);
 
     /// @brief check whether a found objID refers to the central object of a context subscription
     bool centralObject(const libsumo::Subscription& s, const std::string& objID);
@@ -427,9 +453,8 @@ private:
 
 private:
     /// @brief Invalidated assignment operator
-    TraCIServer& operator=(const TraCIServer& s);
+    TraCIServer& operator=(const TraCIServer& s) = delete;
 
 };
 
 
-#endif

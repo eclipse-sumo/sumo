@@ -1,0 +1,1 @@
+--no-internal-links --no-step-log --no-duration-log --net-file=three_split.net.xml -r input_routes.rou.xml -b 0 -e 1000

@@ -1,0 +1,11 @@
+# Spreads 100 vehicles over a day
+100vehs_day
+
+# Spreads 100 vehicles over an hour
+100vehs_hour
+
+# Spreads 100 vehicles over an hour probabilistically
+100vehs_hour_probability
+
+# Trieds to spreads 7200 vehicles over an hour probabilistically
+7200vehs_hour_probability

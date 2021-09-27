@@ -107,7 +107,7 @@ on("ready", function(){
 
     var canvas = elem("canvas");
     var canvasActive = false;
-    var canvasRect = [.1, .1, .9, .9];
+    var canvasRect = [.1, .1, .75, .9];
     var ctx = canvas.getContext("2d");
 
     /**
@@ -191,15 +191,43 @@ on("ready", function(){
         mouse.x = evt.clientX;
         mouse.y = evt.clientY;
         if(mouse.area !== null){
-            if(mouse.area[1] == "n")
-                canvasRect[1] += dy;
-            else if(mouse.area[1] == "s")
-                canvasRect[3] += dy;
+            if(mouse.area[1] == "n"){
+                if((canvasRect[1] + dy)<=canvasRect[3]){
+                    canvasRect[1] += dy;
+                } else if ((canvasRect[1] + dy)>canvasRect[3]){
+                    [canvasRect[1], canvasRect[3]] = [canvasRect[3], canvasRect[1]];
+                    canvasRect[3] += dy;
+                    mouse.area[1] = "s";
+                }
+            }
+            else if(mouse.area[1] == "s"){
+                if((canvasRect[3] + dy)>=canvasRect[1]){
+                    canvasRect[3] += dy;
+                } else if ((canvasRect[3] + dy)<canvasRect[1]){
+                    [canvasRect[1], canvasRect[3]] = [canvasRect[3], canvasRect[1]];
+                    canvasRect[1] += dy;
+                    mouse.area[1] = "n";
+                }
+            }
 
-            if(mouse.area[2] == "w")
-                canvasRect[0] += dx;
-            else if(mouse.area[2] == "e")
-                canvasRect[2] += dx;
+            if(mouse.area[2] == "w"){
+                if((canvasRect[0] + dx)<=canvasRect[2]){
+                    canvasRect[0] += dx;
+                } else if ((canvasRect[0] + dx)>canvasRect[2]){
+                    [canvasRect[0], canvasRect[2]] = [canvasRect[2], canvasRect[0]];
+                    canvasRect[2] += dx;
+                    mouse.area[2] = "e";
+                }
+            }
+            else if(mouse.area[2] == "e"){
+                if((canvasRect[2] + dx)>=canvasRect[0]){
+                    canvasRect[2] += dx;
+                } else if ((canvasRect[2] + dx)<canvasRect[0]){
+                    [canvasRect[0], canvasRect[2]] = [canvasRect[2], canvasRect[0]];
+                    canvasRect[0] += dx;
+                    mouse.area[2] = "w";
+                }
+            }
 
             if(mouse.area[1] == "m"){
                 canvasRect[0] += dx;
@@ -216,8 +244,8 @@ on("ready", function(){
      * @function
      * checks if the checkbox is checked and displays the canvas in this case, else not
      **/
-    function toogleCanvas(){
-        if(canvasToogle.checked){
+    function toggleCanvas(){
+        if(canvasToggle.checked){
             canvasActive = true;
             canvas.style.removeProperty("display");
         } else {
@@ -226,10 +254,10 @@ on("ready", function(){
         }
     }
 
-    var canvasToogle = elem("#canvas-toogle");
+    var canvasToggle = elem("#canvas-toggle");
 
-    canvasToogle.on("click", toogleCanvas);
-    toogleCanvas();
+    canvasToggle.on("click", toggleCanvas);
+    toggleCanvas();
 
     // OSM map
     // avoid cross domain resource sharing issues (#3991)
@@ -277,21 +305,21 @@ on("ready", function(){
     }
 
     function setPositionByString() {
-      query = elem("#address").value
-      var url = "https://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback";
-      getJSON(url,
-          function(err, data) {
-            if (err != null) {
-              window.alert('Could not locate address: ' + err);
-            } else if (data.length == 0) {
-              window.alert('Could not locate address');
-            } else {
-              var result = data[0];
-              lon = parseFloat(result.lon);
-              lat = parseFloat(result.lat);
-              setPosition(lon, lat);
+        query = elem("#address").value
+        $.ajax({
+        url: "https://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback",
+        cache: false,
+        dataType: "json",
+            success: function(data) {
+                var result = data[0];
+                lon = parseFloat(result.lon);
+                lat = parseFloat(result.lat);
+                setPosition(lon, lat);
+            },
+            error: function (request, status, err) {
+                window.alert('Could not locate address: ' + err);
             }
-          });
+        });
     }
 
     elem("#address").on("keyup", function(e){
@@ -431,6 +459,8 @@ on("ready", function(){
             duration: parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
             leftHand: elem("#leftHand").checked,
+            decal: elem("#decal").checked,
+            carOnlyNetwork: elem("#carOnlyNetwork").checked,
             vehicles: {}
         };
 

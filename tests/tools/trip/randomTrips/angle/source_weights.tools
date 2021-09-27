@@ -1,5 +1,5 @@
 <edgedata>
-    <interval begin="0" end="10">
+    <interval id="src" begin="0" end="3600">
         <edge id="1fi" value="100.00"/>
         <edge id="1si" value="99.44"/>
         <edge id="4si" value="50.70"/>

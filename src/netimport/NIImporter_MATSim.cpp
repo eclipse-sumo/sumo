@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_MATSim.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 26.04.2011
-/// @version $Id$
 ///
 // Importer for networks stored in MATSim format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <set>
 #include <functional>
@@ -161,7 +159,7 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_MATSim::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont& nc, NBEdgeCont& toFill,
+NIImporter_MATSim::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& toFill,
         bool keepEdgeLengths, bool lanesFromCapacity,
         NBCapacity2Lanes capacity2Lanes)
     : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
@@ -177,11 +175,25 @@ NIImporter_MATSim::EdgesHandler::~EdgesHandler() {
 
 
 void
+NIImporter_MATSim::EdgesHandler::insertEdge(const std::string& id, NBNode* fromNode, NBNode* toNode, double freeSpeed, int numLanes, double capacity, double length) {
+    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, numLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
+    edge->setParameter("capacity", toString(capacity));
+    if (myKeepEdgeLengths) {
+        edge->setLoadedLength(length);
+    }
+    if (!myEdgeCont.insert(edge)) {
+        delete edge;
+        WRITE_ERROR("Could not add edge '" + id + "'. Probably declared twice.");
+    }
+}
+
+
+void
 NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         const SUMOSAXAttributes& attrs) {
-    bool ok = true;
     if (element == MATSIM_TAG_NETWORK) {
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
+            bool ok = true;
             int capDivider = attrs.get<int>(MATSIM_ATTR_CAPDIVIDER, "network", ok);
             if (ok) {
                 myCapacityNorm = (double)(capDivider * 3600);
@@ -211,6 +223,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (element != MATSIM_TAG_LINK) {
         return;
     }
+    bool ok = true;
     std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, nullptr, ok);
     std::string fromNodeID = attrs.get<std::string>(MATSIM_ATTR_FROM, id.c_str(), ok);
     std::string toNodeID = attrs.get<std::string>(MATSIM_ATTR_TO, id.c_str(), ok);
@@ -235,17 +248,19 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (myLanesFromCapacity) {
         permLanes = myCapacity2Lanes.get(capacity);
     }
-    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (int) permLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
-    edge->setParameter("capacity", toString(capacity));
-    if (myKeepEdgeLengths) {
-        edge->setLoadedLength(length);
+    if (fromNode == toNode) {
+        // adding node and edge with a different naming scheme to keep the original edge id for easier route repair
+        NBNode* intermediate = new NBNode(id + ".0", toNode->getPosition() + Position(POSITION_EPS, POSITION_EPS));
+        if (myNodeCont.insert(intermediate)) {
+            insertEdge(id + ".0", intermediate, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length);
+            toNode = intermediate;
+        } else {
+            delete intermediate;
+            WRITE_ERROR("Could not add intermediate node to split loop edge '" + id + "'.");
+        }
     }
-    if (!myEdgeCont.insert(edge)) {
-        delete edge;
-        WRITE_ERROR("Could not add edge '" + id + "'. Probably declared twice.");
-    }
+    insertEdge(id, fromNode, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length);
 }
 
 
 /****************************************************************************/
-

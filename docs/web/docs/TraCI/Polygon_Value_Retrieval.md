@@ -1,6 +1,5 @@
 ---
-title: TraCI/Polygon Value Retrieval
-permalink: /TraCI/Polygon_Value_Retrieval/
+title: Polygon Value Retrieval
 ---
 
 ## Command 0xa8: Get Polygon Variable

@@ -1,0 +1,11 @@
+# Tests the gui API
+gui
+
+# Tests adding polygon dynamics with gui enabled
+polygon_dynamics_gui
+
+# Tests adding and removing polygon dynamics with gui enabled
+polygon_dynamics_remove
+
+# Test for many screenshots
+b50

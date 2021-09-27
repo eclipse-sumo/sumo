@@ -1,0 +1,7 @@
+
+[Reported by kobo at 23Apr10:59:01]
+search_string:edges="beg2left left left2end end"
+trigger_on_absence:1
+search_file:routes
+full_description:invalid distribution
+brief_description:see #6935

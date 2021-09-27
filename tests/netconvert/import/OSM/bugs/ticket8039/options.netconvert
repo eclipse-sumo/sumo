@@ -1,0 +1,8 @@
+--osm-files osm.xml
+--keep-edges.components 1 
+--remove-edges.by-type highway.service
+--junctions.join
+-R
+--ptstop-output additional.xml
+--ptline-output ptlines.xml
+--no-internal-links

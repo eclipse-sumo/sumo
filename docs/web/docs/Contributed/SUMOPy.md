@@ -1,13 +1,12 @@
 ---
-title: Contributed/SUMOPy
-permalink: /Contributed/SUMOPy/
+title: SUMOPy
 ---
 
 This document describes the capabilities and basic usage of the software
 SUMOPy. SUMOPy is intended to expand the user-base of the traffic
 micro-simulator SUMO by providing a user-friendly, yet flexible
 simulation suite. The original publication related to SUMOPy can be
-found at the [University of Bologna](http://campus.unibo.it/200538/1/Research-A-Choudhry-657079-.pdf)
+found at the [University of Bologna](https://web.archive.org/web/20181101145057/http://campus.unibo.it/200538/1/Research-A-Choudhry-657079-.pdf)
 and in the [proceedings of the SUMO2013](http://sumo.dlr.de/2013/SUMO2013_15-17May%202013_Berlin-Adlershof.pdf).
 
 A further scope of SUMOPy is to manage the huge amount of data necessary
@@ -82,7 +81,7 @@ The following packages are optional:
     different file formats.
 2.  basemap or pyproj for geographic coordinate projection
 3.  PIL-1.1.7 or newer and basemap-1.0 (or pyproj) for downloading
-    backround maps from mapservers.
+    background maps from mapservers.
 
 The exact choice of package-versions and installation methods depend on
 the operating system. Below we give short recommendations regarding the

@@ -1,6 +1,5 @@
 ---
-title: Tutorials/TraCIPedCrossing
-permalink: /Tutorials/TraCIPedCrossing/
+title: TraCIPedCrossing
 ---
 
 This tutorial shows how to use the Traffic Control Interface (in short
@@ -41,7 +40,7 @@ python runner.py
 ## Code
 
 The control logic resides in the python script *runner.py*. It builds
-the network (via [NETCONVERT](../NETCONVERT.md)) generates the
+the network (via [netconvert](../netconvert.md)) generates the
 pedestrian routes (via
 [\[1\]](http://sumo.dlr.de/wiki/Tools/Trip#randomTrips.py%7CrandomTrips.py),
 and interacts with the simulation to controls the traffic light. It
@@ -55,7 +54,7 @@ documentation](http://sumo.dlr.de/daily/pydoc/traci.html).
 
 The traffic light follows a fixed cycle of phases of as defined below.
 The definition below is taken from
-[pedcrossing.tll.xml](http://sumo.dlr.de/trac.wsgi/browser/trunk/sumo/tests/complex/tutorial/traci_pedestrian_crossing/data/pedcrossing.tll.xml)
+[pedcrossing.tll.xml]({{Source}}tests/complex/tutorial/traci_pedestrian_crossing/data/pedcrossing.tll.xml)
 
 ```
 <tlLogic id="C" type="static" programID="custom" offset="0">
@@ -73,7 +72,7 @@ the traffic light is switched into the next phase and then continues its
 cycle automatically. The only traffic light related TraCI functions used
 are *traci.trafficlights.getPhase()* and traci.trafficlights.setPhase().
 
-## Person related traci functions
+## Person related TraCI functions
 
 To simulate the push button it must be known whether pedestrians are
 waiting to cross the intersection. The following TraCI functions are

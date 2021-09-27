@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-21 08:30:23 by Eclipse SUMO marouter Version v1_10_0+0845-04fca0a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <tazrelation-files value="input_od.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <netload-output value="aggregated.xml"/>
+        <write-license value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata>
+    <interval begin="0.00" end="3600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" speedRelative="1.00" entered="0.00" density="0.00" laneDensity="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.11" speed="27.78" speedRelative="1.00" entered="1.00" density="0.01" laneDensity="0.01" flowCapacityRatio="0.05"/>
+        <edge id="end" traveltime="18.05" speed="27.69" speedRelative="1.00" entered="10.00" density="0.10" laneDensity="0.05" flowCapacityRatio="0.25"/>
+        <edge id="left" traveltime="36.22" speed="27.78" speedRelative="1.00" entered="1.00" density="0.01" laneDensity="0.01" flowCapacityRatio="0.05"/>
+        <edge id="left2end" traveltime="18.11" speed="27.78" speedRelative="1.00" entered="1.00" density="0.01" laneDensity="0.01" flowCapacityRatio="0.05"/>
+        <edge id="middle" traveltime="72.44" speed="13.80" speedRelative="0.99" entered="9.00" density="0.18" laneDensity="0.18" flowCapacityRatio="0.45"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" speedRelative="1.00" entered="0.00" density="0.00" laneDensity="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+</meandata>

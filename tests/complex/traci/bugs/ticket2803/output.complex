@@ -1,0 +1,17 @@
+Loading configuration ... done.
+***Starting server on port 58669 ***
+Loading net-file from 'input_net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation ended at time: 1.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 3ms
+ Real time factor: 333.333
+ UPS: 0.000000
+Vehicles: 
+ Inserted: 0 (Loaded: 1)
+ Running: 0
+ Waiting: 0
+
+ Retrying in 1 seconds

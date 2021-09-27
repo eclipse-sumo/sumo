@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="D0E0" to="A1A0" fromTaz="3_0" toTaz="0_1" />
+    <trip id="1" depart="0.00" from="B2B3" to="B1B0" fromTaz="1_2" toTaz="1_1" />
+</routes>

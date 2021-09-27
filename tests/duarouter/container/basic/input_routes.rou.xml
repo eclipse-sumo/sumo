@@ -1,0 +1,20 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <container id="c0" depart="0">
+        <tranship from="beg" to="end"/>
+    </container>
+    <container id="c0_edges" depart="0">
+        <tranship edges="beg middle end"/>
+    </container>
+    <container id="c1" depart="0">
+        <transport from="end" to="beg"/>
+    </container>
+    <container id="c2" depart="0">
+        <stop edge="end" duration="20"/>
+    </container>
+    <container id="c3" depart="0">
+        <transport from="end" to="beg"/>
+        <tranship from="end" to="beg"/>
+        <stop edge="beg" duration="20"/>
+    </container>
+
+</routes>

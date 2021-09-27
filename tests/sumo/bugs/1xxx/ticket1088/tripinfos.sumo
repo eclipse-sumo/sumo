@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/13/18 16:09:23 by SUMO Version v0_32_0+0193-b79a12bb06
+<!-- generated on Wed Mar 11 22:24:16 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <no-step-log value="true"/>
@@ -28,5 +32,5 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="fast_follower" depart="0.00" departLane="beg_0" departPos="33.00" departSpeed="20.00" departDelay="0.00" arrival="16.00" arrivalLane="end_0" arrivalPos="112.83" arrivalSpeed="20.00" duration="16.00" routeLength="162.73" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.23" rerouteNo="0" devices="tripinfo_fast_follower" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="change_left" depart="0.00" departLane="end_1" departPos="10.00" departSpeed="1.00" departDelay="0.00" arrival="25.00" arrivalLane="end_0" arrivalPos="112.83" arrivalSpeed="20.00" duration="25.00" routeLength="102.83" waitingTime="9.00" waitingCount="1" stopTime="6.00" timeLoss="13.21" rerouteNo="0" devices="tripinfo_change_left" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="change_left" depart="0.00" departLane="end_1" departPos="10.00" departSpeed="1.00" departDelay="0.00" arrival="24.00" arrivalLane="end_0" arrivalPos="112.83" arrivalSpeed="20.00" duration="24.00" routeLength="102.83" waitingTime="9.00" waitingCount="1" stopTime="5.00" timeLoss="13.21" rerouteNo="0" devices="tripinfo_change_left" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

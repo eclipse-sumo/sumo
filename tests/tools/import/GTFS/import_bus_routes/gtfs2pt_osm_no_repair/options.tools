@@ -1,0 +1,1 @@
+-n net.net.xml --osm-routes ptlines.xml --gtfs gtfs.zip --date 20201111 --bbox 10.509219,52.256458,10.530758,52.270119 --modes bus --min-stops 0 --vtype-output vehtypes.xml --verbose tools/import/gtfs/gtfs2pt.py

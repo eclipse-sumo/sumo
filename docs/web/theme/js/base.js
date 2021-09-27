@@ -1,5 +1,4 @@
-function getSearchTerm()
-{
+function getSearchTerm(){
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     for (var i = 0; i < sURLVariables.length; i++)
@@ -14,6 +13,10 @@ function getSearchTerm()
 
 $(document).ready(function() {
 
+    if (navigator.userAgent.match(/msie|trident/i)) {
+        $('#dark-mode-div').hide();
+      }
+
     var search_term = getSearchTerm(),
         $search_modal = $('#mkdocs_search_modal'),
         $keyboard_modal = $('#mkdocs_keyboard_modal');
@@ -24,7 +27,7 @@ $(document).ready(function() {
 
     // make sure search input gets autofocus everytime modal opens.
     $search_modal.on('shown.bs.modal', function () {
-        $search_modal.find('#mkdocs-search-query').focus();
+        $search_modal.find('#gsc-i-id1').focus();
     });
 
     // Close search modal when result is selected
@@ -50,7 +53,7 @@ $(document).ready(function() {
                 e.preventDefault();
                 $keyboard_modal.modal('hide');
                 $search_modal.modal('show');
-                $search_modal.find('#mkdocs-search-query').focus();
+                $search_modal.find('#gsc-i-id1').focus();
                 break;
             case shortcuts.edit:
                 page = $('.navbar a[rel="edit"]:first').prop('href');
@@ -84,7 +87,6 @@ $(document).ready(function() {
 
 });
 
-
 $('body').scrollspy({
     target: '.bs-sidebar',
     offset: 100
@@ -95,8 +97,6 @@ $("li.disabled a").click(function() {
     event.preventDefault();
 });
 
-// See https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-// We only list common keys below. Obscure keys are omited and their use is discouraged.
 var keyCodes = {
   8: 'backspace',
   9: 'tab',

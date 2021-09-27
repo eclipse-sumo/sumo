@@ -1,6 +1,5 @@
 ---
-title: Models/Electric
-permalink: /Models/Electric/
+title: Electric
 ---
 
 # Overview
@@ -50,6 +49,7 @@ An example of a vehicle with electric attribute:
 ```
 <routes>
     <vType id="ElectricBus" accel="1.0" decel="1.0" lenght="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+        <param key="has.battery.device" value="true"/>
         <param key="maximumBatteryCapacity" value="2000"/>
         <param key="maximumPower" value="1000"/>
         <param key="vehicleMass" value="10000"/>
@@ -77,6 +77,10 @@ be set in the vehicle definitions
 </routes>
 ```
 
+## Vehicle behavior
+
+Vehicle behavior will not be affected by battery level. Car will keep driving even when their battery capacity is at 0. To avoid this [TraCI](#traci) must be used to change speed or route based on the current battery level.
+
 ## Charging Stations
 
 A charging station is a surface defined on a lane in which the vehicles
@@ -89,8 +93,8 @@ of bus stops were used for the implementation of charging stations.
 | **lane**            | string     | valid lane id                                                                              |           | Lane of the charging station location                                                                                           |
 | **startPos**        | float      | lane.length < x < lane.length (negative values count backwards from the end of the lane) | 0         | Begin position in the specified lane                                                                                            |
 | **endPos**          | float      | lane.length < x < lane.length (negative values count backwards from the end of the lane) |           | End position in the specified lane                                                                                              |
-| **power**           | float      | power \> 0                                                                                 | 22000(Wh) | Charging power *P<sub>chrg</sub>*                                                                                               |
-| **efficiency**      | float      | 0 <= efficiency <= 1                                                                     | 0.95      | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
+| **power**           | float  (W)    | power \> 0                                                                                 | 0  | Charging power *P<sub>chrg</sub>*                                                                                               |
+| **efficiency**      | float      | 0 <= efficiency <= 1                                                                     | 0      | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
 | **chargeInTransit** | bool       | 0 or 1                                                                                     | 0         | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
 | **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
 | name                | string     | simple String                                                                              |           | Charging station name. This is only used for visualization purposes.                                                            |
@@ -256,6 +260,10 @@ The [Emission model](../Models/Emissions.md#outputs)-outputs of
 SUMO can be used together with the battery device when setting the
 `<vType>`-parameter `emissionClass="Energy/unknown"`.
 
+## Tracking fuel consumption for non-electrical vehicles
+
+By setting option **--device.battery.track-fuel**, equipped vehicles will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
+
 ## TraCI
 
 The internal state of the battery device can be accessed directly using
@@ -267,6 +275,15 @@ Furthermore, the function
 [*traci.vehicle.getElectricityConsumption()*](../TraCI/Vehicle_Value_Retrieval.md#command_0xa4_get_vehicle_variable)
 can be used to access the consumption of the vehicle if the `emissionClass="Energy/unknown"` [is
 declared](#emission_output).
+
+### Calculating the remaining Range:
+
+After the vehicle has been driving for a while, the remaining range can be computed based on previous consumption and distance:
+```
+mWh = traci.vehicle.getDistance(vehID) / float(traci.vehicle.getParameter(vehID, "device.battery.totalEnergyConsumed"))
+remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity")) * mWh
+```
+To compute the remaining range on departure, the value of `mWh` (meters per Watt-hour) should be calibrated from a prior simulation.
 
 ## Model Details
 

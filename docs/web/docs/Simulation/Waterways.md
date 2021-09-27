@@ -1,6 +1,5 @@
 ---
-title: Simulation/Waterways
-permalink: /Simulation/Waterways/
+title: Waterways
 ---
 
 # Waterway Simulation
@@ -28,5 +27,5 @@ setting `guiShape="ship"`, vehicles are drawn in a more appropriate shape.
 
 Waterways can be imported from
 [OSM](../Networks/Import/OpenStreetMap.md) by adding the type map
-[osmNetconvertShips.typ.xml](http://sumo.dlr.de/trac.wsgi/browser/trunk/sumo/data/typemap/osmNetconvertShips.typ.xml).
+[osmNetconvertShips.typ.xml]({{Source}}data/typemap/osmNetconvertShips.typ.xml).
 They can also be explicitly specified by setting `allow="ship"`.

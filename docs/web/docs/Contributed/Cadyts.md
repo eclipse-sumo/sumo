@@ -1,6 +1,5 @@
 ---
-title: Contributed/Cadyts
-permalink: /Contributed/Cadyts/
+title: Cadyts
 ---
 
 ## Introduction
@@ -8,7 +7,7 @@ permalink: /Contributed/Cadyts/
 Cadyts is a tool to overcome the gap between the real traffic flows,
 which you should have, in form of induction loop data and the simulated
 traffic flows produced by SUMO. It adapts the flows by using the script
-cadytsIterate.py. For further information please consult the [Cadyts home page](http://transp-or.epfl.ch/cadyts/).
+cadytsIterate.py. For further information please consult the [Cadyts home page](https://github.com/gunnarfloetteroed/java).
 
 ## Usage
 

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSInductLoop.h
 /// @author  Christian Roessel
@@ -14,17 +18,10 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2004-11-23
-/// @version $Id$
 ///
 // An unextended detector measuring at a fixed position on a fixed lane.
 /****************************************************************************/
-#ifndef MSInductLoop_h
-#define MSInductLoop_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -62,7 +59,7 @@ class OutputDevice;
  * @see MSDetectorFileOutput
  */
 class MSInductLoop
-    : public MSMoveReminder, public MSDetectorFileOutput {
+    : public MSMoveReminder, public MSDetectorFileOutput, public Parameterised {
 public:
     /**
      * @brief Constructor.
@@ -73,10 +70,13 @@ public:
      * @param[in] lane Lane where detector works on
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
+     * @param[in] needLocking whether internals need to be guarded against concurrent access (GUI)
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
                  double positionInMeters,
-                 const std::string& vTypes);
+                 const std::string& vTypes,
+                 int detectPersons,
+                 const bool needLocking);
 
 
     /// @brief Destructor
@@ -139,7 +139,7 @@ public:
      * @param[in] lastPos Position on the lane when leaving.
      * @param[in] isArrival whether the vehicle arrived at its destination
      * @param[in] isLaneChange whether the vehicle changed from the lane
-     * @see leaveDetectorByLaneChange
+     * @see discardVehicle
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
@@ -160,7 +160,7 @@ public:
      *
      * @return The speed [m/s] of the vehicle if one is on the detector, -1 otherwise
      */
-    double getCurrentSpeed() const;
+    double getSpeed(const int offset) const;
 
 
     /** @brief Returns the length of the vehicle on the detector
@@ -170,7 +170,7 @@ public:
      *
      * @return The length [m] of the vehicle if one is on the detector, -1 otherwise
      */
-    double getCurrentLength() const;
+    double getVehicleLength(const int offset) const;
 
 
     /** @brief Returns the current occupancy
@@ -182,7 +182,7 @@ public:
      * @return This detector's current occupancy
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    double getCurrentOccupancy() const;
+    double getOccupancy() const;
 
 
     /** @brief Returns the number of vehicles that have passed the detector
@@ -194,7 +194,7 @@ public:
      * @return The number of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    int getCurrentPassedNumber() const;
+    double getEnteredNumber(const int offset) const;
 
 
     /** @brief Returns the ids of vehicles that have passed the detector
@@ -202,14 +202,17 @@ public:
      * @return The ids of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    std::vector<std::string> getCurrentVehicleIDs() const;
+    std::vector<std::string> getVehicleIDs(const int offset) const;
 
 
     /** @brief Returns the time since the last vehicle left the detector
      *
-     * @return Timesteps from last leaving (detection) of the detector
+     * @return seconds from last leaving (detection) of the detector
      */
     double getTimeSinceLastDetection() const;
+
+    ///@brief return last time a vehicle was on the detector
+    SUMOTime getLastDetectionTime() const;
     //@}
 
 
@@ -235,8 +238,14 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLDetectorProlog(OutputDevice& dev) const;
-    /// @}
 
+    /** @brief Updates the detector (computes values)
+     * only used when detecting persons
+     *
+     * @param[in] step The current time step
+     */
+    void detectorUpdate(const SUMOTime step);
+    /// @}
 
 
     /** @brief Struct to store the data of the counted vehicle internally.
@@ -248,16 +257,14 @@ public:
     struct VehicleData {
         /** @brief Constructor
          *
-         * Used if the vehicle has passed the induct loop completely
+         * Used if the vehicle has left the induction loop completely
          *
          * @param[in] vehLength The length of the vehicle
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
-        VehicleData(const std::string& id, double vehLength, double entryTimestep, double leaveTimestep,
-                    const std::string& typeID)
-            : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-              speedM(vehLength / MAX2(leaveTimestep - entryTimestep, NUMERICAL_EPS)), typeIDM(typeID) {}
+        VehicleData(const SUMOTrafficObject& v, double entryTimestep,
+                    double leaveTimestep, const bool leftEarly);
 
         /// @brief The id of the vehicle
         std::string idM;
@@ -269,8 +276,10 @@ public:
         double leaveTimeM;
         /// @brief Speed of the vehicle in [m/s]
         double speedM;
-        /// @brief Type of the vehicle in
+        /// @brief Type of the vehicle
         std::string typeIDM;
+        /// @brief whether the vehicle left the detector with a lane change / teleport etc.
+        bool leftEarlyM;
     };
 
 
@@ -281,42 +290,15 @@ public:
      *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
      * @return The list of vehicles
      */
-    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false, bool forOccupancy = false) const;
 
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};
 
     virtual void setVisible(bool /*show*/) {};
 
-protected:
-    /// @name Methods that add and remove vehicles from internal container
-    /// @{
-
-    /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
-     * @param veh The entering vehicle.
-     * @param entryTimestep Timestep (not necessary integer) of entrance.
-     */
-    virtual void enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep);
-
-
-    /** @brief Processes a vehicle that leaves the detector
-     *
-     * Removes a vehicle from the detector's map myVehiclesOnDet and
-     * adds the vehicle data to the internal myVehicleDataCont.
-     *
-     * @param veh The leaving vehicle.
-     * @param leaveTimestep Timestep (not necessary integer) of leaving.
-     */
-    virtual void leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep);
-
-
-    /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
-     * @param veh The leaving vehicle.
-     * @param lastPos The last position of the leaving vehicle.
-     */
-    virtual void leaveDetectorByLaneChange(SUMOTrafficObject& veh, double lastPos);
-    /// @}
-
+    /** @brief Remove all vehicles before quick-loading state */
+    virtual void clearState();
 
 protected:
     /// @name Function for summing up values
@@ -338,15 +320,14 @@ protected:
     /// @brief Detector's position on lane [m]
     const double myPosition;
 
+    /// @brief whether internals need to be guarded against concurrent access (GUI or multi threading)
+    const bool myNeedLock;
+
     /// @brief Leave-time of the last vehicle detected [s]
     double myLastLeaveTime;
 
-    /// @brief Occupancy by the last vehicle detected.
-    double myLastOccupancy;
-
     /// @brief The number of entered vehicles
     int myEnteredVehicleNumber;
-
 
     /// @brief Type of myVehicleDataCont.
     typedef std::deque< VehicleData > VehicleDataCont;
@@ -357,13 +338,8 @@ protected:
     /// @brief Data of vehicles that have completely passed the detector in the last time interval
     VehicleDataCont myLastVehicleDataCont;
 
-
-    /// @brief Type of myVehiclesOnDet
-
-    typedef std::map< SUMOTrafficObject*, double > VehicleMap;
-
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
-    VehicleMap myVehiclesOnDet;
+    std::map<SUMOTrafficObject*, double> myVehiclesOnDet;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -374,9 +350,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

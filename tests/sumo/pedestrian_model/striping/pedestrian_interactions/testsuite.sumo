@@ -3,6 +3,7 @@ jam_trafficlight
 
 # test interaction with default pedestrian attributes
 jam_trafficlight_defaults
+bidirectional_flow_1stripe
 bidirectional_flow_2stripes
 bidirectional_flow_3stripes
 
@@ -15,3 +16,15 @@ bidirectional_flow_jammed
 
 # orthogonal streams crossing on a wide plaza
 plaza
+
+# dense traffic in opposite directions on walkingarea
+walkingarea_jam
+
+# dense traffic in opposite directions on walkingarea (crossing is wider than sidewalk)
+walkingarea_jam_4m_crossing
+
+# dense traffic in opposite directions on walkingarea
+walkingarea_jam_reserve_oncoming
+
+# busStop is at capacity and persons jam the sidewalk
+jam_busStop

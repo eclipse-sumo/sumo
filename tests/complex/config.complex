@@ -9,16 +9,21 @@ copy_test_path:input_nodes.nod.xml
 copy_test_path:input_connections.con.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
+copy_test_path:net.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
+copy_test_path:input_net3.net.xml
+copy_test_path:input_net4.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
+copy_test_path:input_additional4.add.xml
 copy_test_path:input_definitionA.def.xml
 copy_test_path:input_definitionB.def.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.turns.xml
 copy_test_path:input_types.typ.xml
 copy_test_path:input_types2.typ.xml
+copy_test_path:input_state.xml
 copy_test_path:settings.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:sumo_log.sumocfg
@@ -33,6 +38,7 @@ copy_test_path:ARTEMIS_road_Gear3.csv
 copy_test_path:ARTEMIS_urban_Gear3.csv
 copy_test_path:cadc_full.csv
 copy_test_path:runner.py
+copy_test_path:runnerlib.py
 copy_test_path:classes.txt
 copy_test_path:nefz.csv
 copy_test_path:input_additional_template.add.xml
@@ -58,12 +64,17 @@ lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
 log:log.txt
+log2:log2.txt
 cadytslog:cadySumo-log.txt
 png:out.png
 png2:out2.png
 detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
+stopinfos:stopinfos.xml
+collisions:collisions.xml
+ssm:ssm.xml
+summary:summary.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -81,7 +92,16 @@ output:Parsing connections from .*{REPLACE Parsing connections from (FILE)}
 output:Loading vehicle type mappings from file.*{REPLACE Loading vehicle type mappings from file '<vtype.map>'...}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:([0-9]* ms){REPLACE (TIME)}
+output:version .*SUMO .*{REPLACE version SUMO}
+output:Running main\(\) from .*gtest_main.cc{REPLACE Running main() from gtest_main.cc}
+output: test case{REPLACE  test suite}
+output:function .* called at .*
+output:function .* finished after .*
+log:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
+log:^Performance:{->}^Vehicles:
+log:traci.start(.*){REPLACE traci.start(ARGS)}
+log2:traci.start(.*){REPLACE traci.start(ARGS)}
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 vehroutes2:<!--{[->]}-->
@@ -89,11 +109,20 @@ tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
 stops:<!--{[->]}-->
+stopinfos:<!--{[->]}-->
+collisions:<!--{[->]}-->
+ssm:<!--{[->]}-->
+summary:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
+state2:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
+state2:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->
+toc:<!--{[->]}-->
+toc2:<!--{[->]}-->
+tocs:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 errors:Leaked object at 
 errors:*** 9 leaks found
@@ -107,6 +136,10 @@ errors:^Ran ([0-9]+) tests in ([0-9\.]*)s{REPLACE Ran \1 tests in <ELAPSED>s}
 errors:Traceback (most recent call last):{->}FatalTraCIError
 errors:data\\{REPLACE data/}
 errors:javax.xml.soap.FactoryFinder find
+errors:Warning: State was written with sumo version
+errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation
+errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
+errors:Network contains internal links which are ignored.
 ps:%%CreationDate
 
 [unordered_text]
@@ -117,7 +150,9 @@ output:[0-9] simulation subscription results:
 output:Process [0-9]:
 output:Starting process
 output:[0-9] stepping \(step 
+output:^Loading configuration ... done.
 output:^Starting process [0-9] with steplength
+output:does not supply vehicle parameter
 errors:^This will probably
 errors:^[0-9]*\.*[0-9]*: WARNING:
 errors:^WARNING:
@@ -130,6 +165,7 @@ vss:0.0001
 results:0.00101
 tripinfo:0.0101
 fcd:0.0101
+log:0.0101
 
 [batch_extra_version]
 gcc4_64:perf

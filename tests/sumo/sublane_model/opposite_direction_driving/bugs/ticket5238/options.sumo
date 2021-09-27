@@ -1,0 +1,3 @@
+-n net.net.xml -r input_routes.rou.xml --no-step-log --step-length 0.2
+--duration-log.statistics
+-e 300

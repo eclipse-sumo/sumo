@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 05Aug16:29:05]
+search_string:25:00:00:00
+trigger_on_absence:1
+search_file:tripinfos
+ignore_other_errors:1
+full_description:platform dependent ostringstream bug
+brief_description:see #8912

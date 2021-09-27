@@ -1,0 +1,1 @@
+{CLEAR} data/1234.xml tools/xml/xml2csv.py

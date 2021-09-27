@@ -1,8 +1,8 @@
 /* XPM */
 static const char * redo_xpm[] = {
-"16 16 66 1",
-" 	c None",
-".	c #D4D0C8",
+/* columns rows colors chars-per-pixel */
+"16 16 65 1",
+".	c None",
 "+	c #000000",
 "@	c #BADA9C",
 "#	c #79B463",
@@ -67,6 +67,7 @@ static const char * redo_xpm[] = {
 "y	c #6AAF3C",
 "z	c #70B33F",
 "A	c #6EB23E",
+/* pixels */
 "................",
 "................",
 "..........++....",
@@ -82,4 +83,5 @@ static const char * redo_xpm[] = {
 "+wxt+...........",
 "+yzA+...........",
 ".+++............",
-"................"};
+"................"
+};

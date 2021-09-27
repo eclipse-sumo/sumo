@@ -1,0 +1,23 @@
+# test reading trips with geo-coordinates
+geoTrips
+
+# test reading trips with geo-coordinates
+geoTrips_lonLat
+
+# test reading trips with geo-coordinates
+geoTrips_distance
+
+# test mapmatching trips with geo-coordinates to junctions
+geoTrips_junctions
+
+# test mapmatching trips with geo-coordinates to junctions in a network that has internal lanes
+geoTrips_junctions_internalLanes
+
+# test mapmatching trips with geo-coordinates to junctions and then writing output positions
+geoTrips_junctions_writeGeo
+
+# test mapmatching trips with geo-coordinates to junctions and then writing junction locations
+geoTrips_junctions_writeJunctions
+
+# handle mutiple locations on the same edge
+dense

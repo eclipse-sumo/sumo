@@ -1,0 +1,13 @@
+<add>
+    <chargingStation id="cs1" lane="o_0" pos="10" endPos="20" name="megaCharger">
+        <param key="key1" value="val1"/>
+    </chargingStation>
+    <busStop id="bs" lane="o_0" endPos="50" name="Magnusstr.">
+        <param key="key2" value="val2"/>
+    </busStop>
+    <parkingArea id="pa1" lane="2o_0" endPos="50" roadsideCapacity="4" name="DLR">
+        <space x="3380" y="10"/>
+        <space x="3380" y="20"/>
+        <param key="key3" value="val3"/>
+    </parkingArea>
+</add>

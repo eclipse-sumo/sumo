@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09.12.2019 15:46:06 by Eclipse SUMO netedit Version v1_3_1+1335-13e298d933
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec143839.9672\netedit.gui\demandElements\flow\inspect_selection\parameters\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flowA" begin="0.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" from="gneE2" to="gneE5" end="26.00" number="14">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </flow>
+    <flow id="flowB" begin="5.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" from="gneE4" to="gneE5" end="36.00" number="18">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </flow>
+</routes>

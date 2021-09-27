@@ -1,0 +1,6 @@
+<routes>
+    <trip id="0" from="WC" to="CE" depart="0"/>
+    <person id="p1" depart="60">
+        <walk from="WC" to="CE" />
+    </person>
+</routes>

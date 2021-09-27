@@ -1,14 +1,10 @@
-Warning: Shape for junction '1' has distance 22.63 to its given position
-Warning: Shape for junction '13' has distance 22.63 to its given position
-Warning: Shape for junction '14' has distance 22.63 to its given position
-Warning: Shape for junction '15' has distance 22.63 to its given position
-Warning: Speed of turning connection '23_0->1_0' reduced by 23.88 due to turning radius of 2.77 (length=2.58 angle=90.00)
-Warning: Speed of straight connection '13_0->20_13' reduced by 6.99 due to turning radius of 78.59 (length=33.97 angle=40.02)
-Warning: Speed of straight connection '13_0->20_14' reduced by 7.98 due to turning radius of 71.26 (length=30.77 angle=40.02)
-Warning: Speed of straight connection '13_0->20_15' reduced by 8.99 due to turning radius of 64.16 (length=27.67 angle=40.02)
-Warning: Speed of straight connection '13_0->20_16' reduced by 10.02 due to turning radius of 57.37 (length=24.70 angle=40.02)
-Warning: Speed of turning connection '20_0->21_0' reduced by 23.88 due to turning radius of 2.77 (length=2.58 angle=90.00)
-Warning: Speed of turning connection '21_0->22_0' reduced by 23.88 due to turning radius of 2.77 (length=2.58 angle=90.00)
-Warning: Speed of turning connection '22_0->23_0' reduced by 23.88 due to turning radius of 2.77 (length=2.58 angle=90.00)
-Warning: Speed of straight connection '5_1->14_0' reduced by 12.72 due to turning radius of 41.25 (length=10.19 angle=29.44)
-Warning: Speed of straight connection '7_1->16_0' reduced by 13.83 due to turning radius of 35.40 (length=8.72 angle=29.44)
+Warning: Shape for junction '1' has distance 22.63 to its given position.
+Warning: Shape for junction '13' has distance 22.63 to its given position.
+Warning: Shape for junction '14' has distance 22.63 to its given position.
+Warning: Shape for junction '15' has distance 22.63 to its given position.
+Warning: Speed of turning connection '23_0->1_0' reduced by 23.88 due to turning radius of 2.77 (length=2.58, angle=90.00).
+Warning: Speed of straight connection '13_0->20_13' reduced by 6.99 due to turning radius of 78.59 (length=33.97, angle=40.02).
+Warning: Speed of straight connection '13_0->20_14' reduced by 7.98 due to turning radius of 71.26 (length=30.77, angle=40.02).
+Warning: Speed of straight connection '13_0->20_15' reduced by 8.99 due to turning radius of 64.16 (length=27.67, angle=40.02).
+Warning: Speed of straight connection '13_0->20_16' reduced by 10.02 due to turning radius of 57.37 (length=24.70, angle=40.02).
+Warning: 10 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

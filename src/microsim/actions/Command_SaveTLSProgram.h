@@ -1,26 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Command_SaveTLSProgram.h
 /// @author  Jakob Erdmann
 /// @date    18.09.2019
-/// @version $Id$
 ///
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
-#ifndef Command_SaveTLSProgram_h
-#define Command_SaveTLSProgram_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -54,7 +51,7 @@ public:
      * @param[in] od The output device to write the state into
      */
     Command_SaveTLSProgram(const MSTLLogicControl::TLSLogicVariants& logics,
-                                OutputDevice& od);
+                           OutputDevice& od);
 
 
     /// @brief Destructor
@@ -79,7 +76,7 @@ public:
 
 private:
     /// @brief Write the current program
-    void writeCurrent(); 
+    void writeCurrent();
 
 private:
     /// @brief The device to write to
@@ -105,9 +102,3 @@ private:
     Command_SaveTLSProgram& operator=(const Command_SaveTLSProgram&);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

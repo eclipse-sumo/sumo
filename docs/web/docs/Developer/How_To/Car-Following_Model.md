@@ -1,12 +1,10 @@
 ---
-title: Developer/How To/Car-Following Model
-permalink: /Developer/How_To/Car-Following_Model/
+title: Car-Following Model
 ---
 
 This short document describes how a new car-following model can be added
 to SUMO. We'll do this by implementing a test model named "smartSK".
-When implementing your own model, you should also grep (look for)
-occurences of the name we use, here.
+When implementing your own model, you should also grep (look for) occurrences of the name we use, here.
 
 ## The car-following model's class
 
@@ -22,7 +20,7 @@ MSCFModel_KraussOrig1.cpp and rename them. The name should be
 !!! convention
     A car-following class' name should start with "MSCFModel_".
 
-Now, open both files and rename all occurences of MSCFModel_KraussOrig1
+Now, open both files and rename all occurrences of MSCFModel_KraussOrig1
 into your class' name.
 
 Add the files to the [{{SUMO}}/src/microsim/cfmodels/CMakeLists.txt]({{Source}}src/microsim/cfmodels/CMakeLists.txt).
@@ -128,6 +126,16 @@ virtual int getModelID() const {
  return SUMO_TAG_CF_SMART_SK;
 }
 ```
+
+## Using Custom Parameters via TraCI
+
+A carFollowModel can override the functions getParameter and setParameter inherited from MSCFModel. 
+Any calls to 'traci.vehicle.setParameter' and 'traci.vehicle.getParameter' where the key starts with "carFollowModel." will then be forwarded to these methods (without the prefix).
+The call
+`traci.vehicle.setParameter(vehID, "carFollowModel.XYZ", "42")`
+will be mapped onto the call
+`MSCFModel::setParameter(MSVehicle* veh, "XYZ" , "42")` which is called on the current carFollowModel of the vehicle.
+
 
 ## XML Validation
 

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSE2Collector.cpp
 /// @author  Christian Roessel
@@ -16,7 +20,6 @@
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
 /// @date    Mon Feb 03 2014 10:13 CET
-/// @version $Id$
 ///
 // An areal detector covering a sequence of consecutive lanes
 /****************************************************************************/
@@ -31,19 +34,19 @@
  * Compatibility without internal lanes?
  * Include leftVehicles into output?
  */
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
 #include <algorithm>
-#include "MSE2Collector.h"
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXConditionalLock.h>
+#endif
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include "MSE2Collector.h"
 
 //#define DEBUG_E2_CONSTRUCTOR
 //#define DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
@@ -70,7 +73,15 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myJamDistanceThreshold(jamDistThreshold),
     myNumberOfEnteredVehicles(0),
     myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0) {
+    myNumberOfLeftVehicles(0),
+    myCurrentVehicleSamples(0),
+    myCurrentOccupancy(0),
+    myCurrentMeanSpeed(0),
+    myCurrentMeanLength(0),
+    myCurrentJamNo(0),
+    myCurrentJamLengthInMeters(0),
+    myCurrentJamLengthInVehicles(0),
+    myCurrentHaltingsNumber(0) {
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -160,7 +171,15 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myJamDistanceThreshold(jamDistThreshold),
     myNumberOfEnteredVehicles(0),
     myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0) {
+    myNumberOfLeftVehicles(0),
+    myCurrentVehicleSamples(0),
+    myCurrentOccupancy(0),
+    myCurrentMeanSpeed(0),
+    myCurrentMeanLength(0),
+    myCurrentJamNo(0),
+    myCurrentJamLengthInMeters(0),
+    myCurrentJamLengthInVehicles(0),
+    myCurrentHaltingsNumber(0) {
     reset();
 
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -296,16 +315,7 @@ MSE2Collector::recalculateDetectorLength() {
 
 MSE2Collector::~MSE2Collector() {
     // clear move notifications
-    for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
-        delete *j;
-    }
-    myMoveNotifications.clear();
-
-    // clear vehicle infos
-    for (VehicleInfoMap::iterator j = myVehicleInfos.begin(); j != myVehicleInfos.end(); ++j) {
-        delete j->second;
-    }
-    myVehicleInfos.clear();
+    clearState();
 }
 
 
@@ -602,6 +612,9 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
         return false;
     }
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
     assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
 
@@ -685,6 +698,9 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSM
     }
 #endif
 
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle left lane via junction, unsubscription and registering in myLeftVehicles when
         // moving beyond the detector end is controlled in notifyMove.
@@ -775,6 +791,9 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
     }
 #endif
 
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     const std::string& vehID = veh.getID();
     VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);
     if (vi != myVehicleInfos.end()) {
@@ -811,6 +830,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
     // Subscribe to vehicle's movement notifications
     return true;
 }
+
 
 MSE2Collector::VehicleInfo*
 MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const {
@@ -854,6 +874,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     std::sort(myMoveNotifications.begin(), myMoveNotifications.end(), compareMoveNotification);
 
     // reset values concerning current time step (these are updated in integrateMoveNotification() and aggregateOutputValues())
+    myCurrentVehicleSamples = 0;
     myCurrentMeanSpeed = 0;
     myCurrentMeanLength = 0;
     myCurrentStartedHalts = 0;
@@ -955,7 +976,7 @@ MSE2Collector::aggregateOutputValues() {
     myMeanVehicleNumber += numVehicles;
     myMaxVehicleNumber = MAX2(numVehicles, myMaxVehicleNumber);
     // norm current values
-    myCurrentMeanSpeed = numVehicles != 0 ? myCurrentMeanSpeed / (double) numVehicles : -1;
+    myCurrentMeanSpeed = numVehicles != 0 ? myCurrentMeanSpeed / myCurrentVehicleSamples : -1;
     myCurrentMeanLength = numVehicles != 0 ? myCurrentMeanLength / (double) numVehicles : -1;
 }
 
@@ -979,6 +1000,7 @@ MSE2Collector::integrateMoveNotification(VehicleInfo* vi, const MoveNotification
     myVehicleSamples += mni->timeOnDetector;
     myTotalTimeLoss += mni->timeLoss;
     mySpeedSum += mni->speed * mni->timeOnDetector;
+    myCurrentVehicleSamples += mni->timeOnDetector;
     myCurrentMeanSpeed += mni->speed * mni->timeOnDetector;
     myCurrentMeanLength += mni->lengthOnDetector;
 
@@ -1178,9 +1200,9 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
         // compute current jam's values
         MoveNotificationInfo* lastVeh = *((*i)->lastStandingVehicle);
         MoveNotificationInfo* firstVeh = *((*i)->firstStandingVehicle);
-        const double jamLengthInMeters = lastVeh->distToDetectorEnd
-                                         - firstVeh->distToDetectorEnd
-                                         + lastVeh->lengthOnDetector;
+        const double jamLengthInMeters = MAX2(lastVeh->distToDetectorEnd, 0.) -
+                                         MAX2(firstVeh->distToDetectorEnd, 0.) +
+                                         lastVeh->lengthOnDetector;
         const int jamLengthInVehicles = (int) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics
         myCurrentMaxJamLengthInMeters = MAX2(myCurrentMaxJamLengthInMeters, jamLengthInMeters);
@@ -1486,5 +1508,19 @@ MSE2Collector::getEstimateQueueLength() const {
     }
 }
 
-/****************************************************************************/
 
+void
+MSE2Collector::clearState() {
+    for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
+        delete *j;
+    }
+    myMoveNotifications.clear();
+
+    // clear vehicle infos
+    for (VehicleInfoMap::iterator j = myVehicleInfos.begin(); j != myVehicleInfos.end(); ++j) {
+        delete j->second;
+    }
+    myVehicleInfos.clear();
+}
+
+/****************************************************************************/

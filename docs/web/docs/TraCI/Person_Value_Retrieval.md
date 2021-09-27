@@ -1,6 +1,5 @@
 ---
-title: TraCI/Person Value Retrieval
-permalink: /TraCI/Person_Value_Retrieval/
+title: Person Value Retrieval
 ---
 
 ## Command 0xae: Get Person Variable
@@ -43,6 +42,7 @@ value is also shown in the table.
 | next edge (0xc1)        | string                  | Returns the next edge on the persons route while it is walking. If there is no further edge or the person is in another stage, returns the empty string.       | [getNextEdge](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getNextEdge)         |
 | remaining stages (0xc2) | int                     | Returns the number of remaining stages for the given person including the current stage.                                                                       | [getRemainingStages](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getStage)     |
 | vehicle (0xc3)          | string                  | Returns the id of the vehicle if the person is in stage driving and has entered a vehicle.                                                                     | [getVehicle](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getVehicle)           |
+| taxi reservations (0xc6)| list(Stage) (see below)     | Returns all reservations. If onlyNew is 1, each reservation is returned only once.                                                                     | [getTaxiReservations](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getTaxiReservations)           |
 
 ## Response 0xb4: Person Variable
 
@@ -51,6 +51,14 @@ value is also shown in the table.
 | Variable | Person ID | Return type of the variable | <VARIABLE_VALUE\> |
 
 The respond to a **"Command Get Person Variable"**.
+
+## Response 0xc6: taxi reservations
+
+Returns all reservations. If onlyNew is 1, each reservation is returned only once.
+
+| string  | string   |  string  | string   | string   |  double   |  double    |  double |  double         |
+| :-----: | :------: | :------: | :------: | :------: | :-------: | :--------: | :-----: | :-------------: |
+|    id   | persons  | group    | fromEdge | toEdge   | departPos | arrivalPos | depart  | reservationTime | 
 
 ## Extended retrieval messages
 

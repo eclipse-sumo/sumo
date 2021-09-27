@@ -1,6 +1,5 @@
 ---
 title: OpenStreetMap file
-permalink: /OpenStreetMap_file/
 ---
 
 | **OpenStreetMap file**           |                   |
@@ -12,7 +11,8 @@ permalink: /OpenStreetMap_file/
 | XML Schema                       | [XSD of API v0.6](http://wiki.openstreetmap.org/wiki/API_v0.6/XSD)   |
 | [wiki.openstreetmap.org/wiki/.osm](http://wiki.openstreetmap.org/wiki/.osm) |                   |
 
-![eichstaett.osm.png](images/Eichstaett.osm.png "The screenshot of an OpenStreetMap file opened in JOSM. It shows the map of the German city Eichstätt.") 
+![Eichstaett.osm.png](images/Eichstaett.osm.png "The screenshot of an OpenStreetMap file opened in JOSM. It shows the map of the German city Eichstätt.")
+
 The screenshot of an OpenStreetMap file opened in JOSM. It shows the map of the German city Eichstätt.
 
 An **OpenStreetMap file** contains an extract of the OpenStreetMap
@@ -73,9 +73,9 @@ networks](Networks/Import/OpenStreetMap.md#editing_osm_networks)).
 
 To use the map in the OpenStreetMap file with SUMO, you must convert it
 in a [SUMO network file](Networks/SUMO_Road_Networks.md).
-Typically you do this with **[NETCONVERT](NETCONVERT.md)** (see
+Typically you do this with **[netconvert](netconvert.md)** (see
 also [Tutorials/Import from
 OpenStreetMap](Tutorials/Import_from_OpenStreetMap.md) and
 [Networks/Import/OpenStreetMap](Networks/Import/OpenStreetMap.md)).
-You could also use **[eWorld](http://eworld.sourceforge.net)** to
+You could also use **eWorld** to
 manipulate a OpenStreetMap file and convert it in a SUMO network file.

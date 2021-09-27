@@ -1,15 +1,18 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    _platoonmanager.py
 # @author Leonhard Luecken
 # @date   2017-04-09
-# @version $Id$
 
 
 # TODO: For CATCHUP_FOLLOWER mode could also be set active if intra-platoon gap becomes too large
@@ -101,16 +104,16 @@ class PlatoonManager(traci.StepListener):
 
         # Check for undefined vtypes and fill with defaults
         for origType, specialTypes in cfg.PLATOON_VTYPES.items():
-            if specialTypes[PlatoonMode.FOLLOWER] is None:
+            if specialTypes.get(PlatoonMode.FOLLOWER) is None:
                 if rp.VERBOSITY >= 2:
                     report("Setting unspecified follower vtype for '%s' to '%s'" %
                            (origType, specialTypes[PlatoonMode.LEADER]), True)
                 specialTypes[PlatoonMode.FOLLOWER] = specialTypes[PlatoonMode.LEADER]
-            if specialTypes[PlatoonMode.CATCHUP] is None:
+            if specialTypes.get(PlatoonMode.CATCHUP) is None:
                 if rp.VERBOSITY >= 2:
                     report("Setting unspecified catchup vtype for '%s' to '%s'" % (origType, origType), True)
                 specialTypes[PlatoonMode.CATCHUP] = origType
-            if specialTypes[PlatoonMode.CATCHUP_FOLLOWER] is None:
+            if specialTypes.get(PlatoonMode.CATCHUP_FOLLOWER) is None:
                 if rp.VERBOSITY >= 2:
                     report("Setting unspecified catchup-follower vtype for '%s' to '%s'" %
                            (origType, specialTypes[PlatoonMode.FOLLOWER]), True)
@@ -655,6 +658,7 @@ class PlatoonManager(traci.StepListener):
                     continue
                 # Find the leader in the platoon and request a lanechange if appropriate
                 leader = pltn.getVehicles()[ix]
+
                 if leader.state.edgeID == veh.state.edgeID:
                     # distance between vehicle and end of edge
                     d = traci.lane.getLength(laneID)-traci.vehicle.getLanePosition(veh.getID())
@@ -680,6 +684,7 @@ class PlatoonManager(traci.StepListener):
                     except traci.exceptions.TraCIException as e:
                         if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
+
 
     def _isConnected(self, vehID):
         '''_isConnected(string) -> bool

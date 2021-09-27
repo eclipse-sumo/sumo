@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOVehicleClass.h
 /// @author  Daniel Krajzewicz
@@ -14,18 +18,11 @@
 /// @author  Walter Bamberger
 /// @author  Laura Bieker
 /// @date    2006-01-24
-/// @version $Id$
 ///
 // Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/
-#ifndef SUMOVehicleClass_h
-#define SUMOVehicleClass_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
+#pragma once
+#include <config.h>
 #include <string>
 #include <set>
 #include <limits>
@@ -106,7 +103,9 @@ enum SUMOVehicleShape {
     /// @brief render as a police car
     SVS_POLICE,
     /// @brief render as a rickshaw
-    SVS_RICKSHAW
+    SVS_RICKSHAW,
+    /// @brief render as a scooter
+    SVS_SCOOTER
 };
 
 
@@ -203,6 +202,8 @@ enum SUMOVehicleClass {
 
     /// @brief classes which drive on tracks
     SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    /// @brief public transport
+    SVC_PUBLIC_CLASSES = SVC_BUS | SVC_RAIL_CLASSES,
     /// @brief classes which drive on roads
     SVC_ROAD_CLASSES = (SVC_PEDESTRIAN | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY
                         | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE),
@@ -210,7 +211,7 @@ enum SUMOVehicleClass {
     SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
 
-extern const int SUMOVehicleClass_MAX;
+extern const SUMOVehicleClass SUMOVehicleClass_MAX;
 extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
 extern std::set<std::string> deprecatedVehicleClassesSeen;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
@@ -325,6 +326,18 @@ extern bool canParseVehicleShape(const std::string& shape);
  */
 extern bool isRailway(SVCPermissions permissions);
 
+/** @brief Returns whether an edge with the given permission is a tram edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a tram edge
+ */
+extern bool isTram(SVCPermissions permissions);
+
+/** @brief Returns whether an edge with the given permission is a bicycle edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a bicycle edge
+ */
+extern bool isBikepath(SVCPermissions permissions);
+
 /** @brief Returns whether an edge with the given permission is a waterway edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a waterway edge
@@ -349,20 +362,24 @@ extern bool isSidewalk(SVCPermissions permissions);
  */
 extern bool noVehicles(SVCPermissions permissions);
 
+/** @brief Returns the default vehicle length
+ * This put into a function so it can be used by NBVehicle
+ * @param[in] vc the vehicle class
+ * @return the default length in m
+ */
+extern double getDefaultVehicleLength(const SUMOVehicleClass vc = SVC_IGNORING);
+
 // ---------------------------------------------------------------------------
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
 extern const std::string DEFAULT_VTYPE_ID;
 extern const std::string DEFAULT_PEDTYPE_ID;
 extern const std::string DEFAULT_BIKETYPE_ID;
+extern const std::string DEFAULT_CONTAINERTYPE_ID;
+extern const std::string DEFAULT_TAXITYPE_ID;
 
 extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 
 extern const double DEFAULT_PEDESTRIAN_SPEED;
 
 extern const double DEFAULT_CONTAINER_TRANSHIP_SPEED;
-
-#endif
-
-/****************************************************************************/
-

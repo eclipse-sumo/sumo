@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r=input_routes.rou.xml --save-state.period 12 --save-state.suffix .xml --vehroute-output vehroutes.xml
+-H
+-e 20

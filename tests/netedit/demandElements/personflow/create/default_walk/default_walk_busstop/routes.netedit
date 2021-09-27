@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11.12.2019 09:47:58 by Eclipse SUMO netedit Version v1_4_0+0017-d2e7b7ff2f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Dec094311.8792\netedit.gui\demandElements\personFlow\create\default_walk\default_walk_busstop\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="personFlow_0" begin="0.00" end="3600.00" number="1800">
+        <walk from="gneE2" busStop="busStop"/>
+    </personFlow>
+</routes>

@@ -1,6 +1,5 @@
 ---
-title: Contributed/SUMOPy/Installation/Windows
-permalink: /Contributed/SUMOPy/Installation/Windows/
+title: Windows
 ---
 
 For Windows, as required packages the following are recommended:

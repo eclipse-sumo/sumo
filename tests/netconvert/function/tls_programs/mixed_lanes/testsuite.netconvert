@@ -1,0 +1,18 @@
+2lanes_all
+
+# one lane and one edge has 3 lanes (1 turnlane)
+1lane_1turnlane
+
+# one lane and one edge has 3 lanes (1 turnlane)
+# 
+1lane_1turnlane_sidewalk
+
+# two lanes and one edge has 3 lanes (1 turnlane)
+2lane_1turnlane
+
+# two lanes and one edge has 3 lanes (1 turnlane)
+2lane_1turnlane_sidewalk
+
+# mixed lane is green due to lack of oncoming traffic
+mixed_lane_green
+2lanes_3arm

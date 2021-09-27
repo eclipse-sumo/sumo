@@ -1,0 +1,8 @@
+<routes>
+    <trip id="0" from="WC" to="CE" depart="40">
+        <stop busStop="Stop" duration="300"/>
+    </trip>
+    <trip id="1" from="WC" to="CE" depart="60">
+        <stop busStop="Stop" duration="10"/>
+    </trip>
+</routes>

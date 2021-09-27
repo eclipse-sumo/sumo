@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-04-14 11:22:08.302942 by routeSampler.py v1_5_0+1128-62027a14e2
+  options: -r input_routes2.rou.xml <doubleminus>od-files input_turns.xml <doubleminus>edgedata-files input_edgedata.xml -o out.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <vehicle id="0" depart="0.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="1" depart="19.80">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="2" depart="39.60">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="3" depart="59.40">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="4" depart="79.20">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+</routes>

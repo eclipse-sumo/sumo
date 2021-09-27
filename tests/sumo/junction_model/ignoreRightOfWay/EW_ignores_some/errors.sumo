@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'ego.0'; junction collision with vehicle 'foe.5', lane=':C_6_0', gap=-1.00, time=18.00 stage=move.
+Warning: Vehicle 'ego.0' ends teleporting on edge 'CW', time 18.00.

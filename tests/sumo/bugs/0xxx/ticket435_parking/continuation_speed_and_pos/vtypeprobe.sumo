@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 30 01:26:48 2017 by SUMO Version dev-SVN-r22662
+<!-- generated on Thu Mar 12 08:41:42 2020 by Eclipse SUMO Version v1_5_0+0668-3019609
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,14 @@ SPDX-License-Identifier: EPL-2.0
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -41,25 +49,23 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="veh_parking" lane="1to2_0" pos="60.00" x="60.00" y="-1.65" speed="4.40"/>
     </timestep>
     <timestep time="6.00" id="test1" vType="DEFAULT_VEHTYPE"/>
-    <timestep time="7.00" id="test1" vType="DEFAULT_VEHTYPE"/>
-    <timestep time="8.00" id="test1" vType="DEFAULT_VEHTYPE"/>
-    <timestep time="9.00" id="test1" vType="DEFAULT_VEHTYPE">
+    <timestep time="7.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="veh_parking" lane="1to2_0" pos="60.00" x="60.00" y="-4.85" speed="0.00"/>
     </timestep>
-    <timestep time="10.00" id="test1" vType="DEFAULT_VEHTYPE">
+    <timestep time="8.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="veh_parking" lane="1to2_0" pos="62.60" x="62.60" y="-1.65" speed="2.60"/>
     </timestep>
-    <timestep time="11.00" id="test1" vType="DEFAULT_VEHTYPE">
+    <timestep time="9.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="veh_parking" lane="1to2_0" pos="67.80" x="67.80" y="-1.65" speed="5.20"/>
     </timestep>
-    <timestep time="12.00" id="test1" vType="DEFAULT_VEHTYPE">
+    <timestep time="10.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="veh_parking" lane="1to2_0" pos="75.60" x="75.60" y="-1.65" speed="7.80"/>
     </timestep>
-    <timestep time="13.00" id="test1" vType="DEFAULT_VEHTYPE">
+    <timestep time="11.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="veh_parking" lane="1to2_0" pos="86.00" x="86.00" y="-1.65" speed="10.40"/>
     </timestep>
-    <timestep time="14.00" id="test1" vType="DEFAULT_VEHTYPE">
+    <timestep time="12.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="veh_parking" lane="1to2_0" pos="99.00" x="99.00" y="-1.65" speed="13.00"/>
     </timestep>
-    <timestep time="15.00" id="test1" vType="DEFAULT_VEHTYPE"/>
+    <timestep time="13.00" id="test1" vType="DEFAULT_VEHTYPE"/>
 </vehicle-type-probes>

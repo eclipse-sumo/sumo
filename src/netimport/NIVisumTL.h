@@ -1,26 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIVisumTL.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 07 May 2003
-/// @version $Id$
 ///
 // Intermediate class for storing visum traffic lights during their import
 /****************************************************************************/
-#ifndef NIVisumTL_h
-#define NIVisumTL_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -72,11 +69,15 @@ public:
 
     private:
         /// @brief Start time
-        SUMOTime myStartTime;
+        const SUMOTime myStartTime;
         /// @brief End time
-        SUMOTime myEndTime;
+        const SUMOTime myEndTime;
         /// @brief Yellow time
-        SUMOTime myYellowTime;
+        const SUMOTime myYellowTime;
+
+    private:
+        /// @brief Invalidated assignment operator
+        TimePeriod& operator=(const TimePeriod& s) = delete;
     };
 
 
@@ -178,7 +179,7 @@ private:
     /// @brief The all-red time (unused here)
     SUMOTime myIntermediateTime;
 
-    /// @brief Toogles the usage either of phases or of time periods in signal groups
+    /// @brief Toggles the usage either of phases or of time periods in signal groups
     bool myPhaseDefined;
 
     /// @brief Vector of nodes belonging to this traffic light
@@ -192,9 +193,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 26 Feb 2019 03:28:00 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/netconvert/import/XML/connections/cross3l_no-turnarounds.except-deadend/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/netconvert/import/XML/connections/cross3l_no-turnarounds.except-deadend/net.netconvert"/>
+        <plain-output-prefix value="/scr1/sumo/tests/netconvert/import/XML/connections/cross3l_no-turnarounds.except-deadend/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="1fi" from="1" to="m1" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="1o" from="0" to="1" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="1si" from="m1" to="0" priority="3" numLanes="2" speed="13.89"/>
+    <edge id="2fi" from="2" to="m2" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="2o" from="0" to="2" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="2si" from="m2" to="0" priority="3" numLanes="1" speed="13.89"/>
+    <edge id="3fi" from="3" to="m3" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="3o" from="0" to="3" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="3si" from="m3" to="0" priority="3" numLanes="4" speed="13.89"/>
+    <edge id="4fi" from="4" to="m4" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="4o" from="0" to="4" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="4si" from="m4" to="0" priority="3" numLanes="3" speed="13.89"/>
+    <edge id="gneE0" from="gneJ0" to="2" priority="-1" numLanes="1" speed="13.89" allow="pedestrian"/>
+    <edge id="gneE1" from="2" to="gneJ1" priority="-1" numLanes="1" speed="13.89" allow="pedestrian"/>
+</edges>

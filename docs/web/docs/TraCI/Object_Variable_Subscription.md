@@ -1,6 +1,5 @@
 ---
-title: TraCI/Object Variable Subscription
-permalink: /TraCI/Object_Variable_Subscription/
+title: Object Variable Subscription
 ---
 
 # Introduction
@@ -41,7 +40,7 @@ the "domain" - the type of the structure:
 
 The subscription for a structure's variables is initiated using a
 "Subscribe ... Variable" command (0xd0-0xde). The command is evaluated
-immediately on request, verifing it this way. It returns a "Subscribe
+immediately on request, verifying it this way. It returns a "Subscribe
 ... Variable" response (0xe0-0xee). In the case of vehicles, the
 subscription is descheduled as soon as the vehicle leaves the
 simulation.
@@ -96,5 +95,9 @@ the error message.
 
 - The VAR_LEADER variable is special because the *getLeader (0x68)*
   command requires an additional distance argument. To subscribe to
-  VAR_LEADER the function *subscribeLeader* is provided by the
+  VAR_LEADER, the function *subscribeLeader* is provided by the
+  [python client](../TraCI/Interfacing_TraCI_from_Python.md).
+- The VAR_PARAMETER_WITH_KEY generic variable is special because the *getParameterWithKey (0x3e)*
+  command requires an additional key argument. To subscribe to
+  VAR_PARAMETER_WITH_KEY, the function *subscribeParameterWithKey* is provided by the
   [python client](../TraCI/Interfacing_TraCI_from_Python.md).

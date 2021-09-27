@@ -1,0 +1,8 @@
+
+[Reported by kobo at 06Aug08:22:49]
+search_string:Collisions: 25
+trigger_on_absence:1
+search_file:output
+ignore_other_errors:1
+full_description:platform dependant behavior
+brief_description:see #8921

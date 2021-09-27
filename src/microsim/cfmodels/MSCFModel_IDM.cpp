@@ -1,32 +1,31 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_IDM.cpp
 /// @author  Tobias Mayer
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Thu, 03 Sep 2009
-/// @version $Id$
 ///
 // The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "MSCFModel_IDM.h"
 #include <microsim/MSVehicle.h>
 
 //#define DEBUG_V
+//#define DEBUG_INSERTION_SPEED
 
 // ===========================================================================
 // method definitions
@@ -63,13 +62,13 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
         // can occur for ballistic update (in context of driving at red light)
         return maxSpeed;
     }
-    const double secGap = getSecureGap(maxSpeed, 0, myDecel);
+    const double secGap = getSecureGap(veh, nullptr, maxSpeed, 0, myDecel);
     double vSafe;
     if (speed <= maxSpeed) {
         // accelerate
         vSafe = _v(veh, 1e6, speed, maxSpeed, veh->getLane()->getVehicleMaxSpeed(veh), false);
     } else {
-        // decelerate 
+        // decelerate
         // @note relax gap to avoid emergency braking
         // @note since the transition point does not move we set the leader speed to 0
         vSafe = _v(veh, MAX2(seen, secGap), speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
@@ -78,13 +77,14 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
         // avoid overshoot when close to change in speed limit
         vSafe = MIN2(vSafe, maxSpeed);
     }
-    //std::cout << SIMTIME << " speed=" << speed << " maxSpeed=" << maxSpeed << " seen=" << seen << " secGap=" << secGap << " vSafe=" << vSafe << "\n"; 
+    //std::cout << SIMTIME << " speed=" << speed << " maxSpeed=" << maxSpeed << " seen=" << seen << " secGap=" << secGap << " vSafe=" << vSafe << "\n";
     return vSafe;
 }
 
 
 double
-MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
 #ifdef DEBUG_V
     gDebugFlag1 = veh->isSelected();
 #endif
@@ -93,20 +93,36 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     // see definition of s in _v()
     double s = MAX2(0., speed * myHeadwayTime + speed * (speed - predSpeed) / myTwoSqrtAccelDecel);
     if (gap2pred >= s) {
         // followSpeed always stays below speed because s*s / (gap2pred * gap2pred) > 0. This would prevent insertion with maximum speed at all distances
         return speed;
     } else {
-        return followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
+        // we cannot call follow speed directly because it assumes that 'speed'
+        // is the current speed rather than the desired insertion speed.
+        // If the safe speed is much lower than the desired speed, the
+        // followSpeed function would still return a new speed that involves
+        // reasonable braking rather than the actual safe speed (and cause
+        // emergency braking in a subsequent step)
+        const double speed2 = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
+        const double speed3 = followSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel);
+        if (speed2 - speed3 < 1) {
+            return speed2;
+        } else {
+#ifdef DEBUG_INSERTION_SPEED
+            std::cout << SIMTIME << " veh=" << v->getID() << " speed=" << speed << " gap2pred=" << gap2pred << " predSpeed=" << predSpeed << " predMaxDecel=" << predMaxDecel << " pred=" << Named::getIDSecure(pred) << " s=" << s << " speed2=" << speed2 << " speed3=" << speed3 << "\n";
+#endif
+            return insertionFollowSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel, pred);
+        }
     }
 }
 
 
 double
-MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+    applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
         return 0;
     }
@@ -114,7 +130,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
     if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";
-        result = maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs());
+        result = maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs());
     }
     //if (result * TS > gap) {
     //    std::cout << "Maximum stop speed exceeded for gap=" << gap << " result=" << result << " veh=" << veh->getID() << " speed=" << speed << " t=" << SIMTIME << "\n";
@@ -138,7 +154,7 @@ MSCFModel_IDM::interactionGap(const MSVehicle* const veh, double vL) const {
 }
 
 double
-MSCFModel_IDM::getSecureGap(const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
+MSCFModel_IDM::getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
     const double delta_v = speed - leaderSpeed;
     return MAX2(0.0, speed * myHeadwayTime + speed * delta_v / myTwoSqrtAccelDecel);
 }
@@ -174,7 +190,7 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
             std::cout << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
         }
 #endif
-        newSpeed += ACCEL2SPEED(acc) / myIterations;
+        newSpeed = MAX2(0.0, newSpeed + ACCEL2SPEED(acc) / myIterations);
 #ifdef DEBUG_V
         if (gDebugFlag1) {
             std::cout << " v2=" << newSpeed << "\n";

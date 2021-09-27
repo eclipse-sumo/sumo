@@ -32,3 +32,6 @@ ticket4528
 
 # crash when moving edges
 ticket5540
+
+# Crash after sequence of Undo-redo, recomputings and Join junctions 
+ticket5552

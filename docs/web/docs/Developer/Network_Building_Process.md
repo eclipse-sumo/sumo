@@ -1,14 +1,13 @@
 ---
-title: Developer/Network Building Process
-permalink: /Developer/Network_Building_Process/
+title: Network Building Process
 ---
 
-[NETCONVERT](../NETCONVERT.md),
-[NETGENERATE](../NETGENERATE.md), and [NETEDIT](../NETEDIT.md)
+[netconvert](../netconvert.md),
+[netgenerate](../netgenerate.md), and [netedit](../Netedit/index.md)
 share the same process of building networks which is started as soon as
-data are read (in [NETCONVERT](../NETCONVERT.md)) or after an
+data are read (in [netconvert](../netconvert.md)) or after an
 internal description is generated (in
-[NETGENERATE](../NETGENERATE.md)).
+[netgenerate](../netgenerate.md)).
 
 The process requires that at least nodes and edges are given, optionally
 also connections between edges and/or lanes and other optional
@@ -30,26 +29,26 @@ network. Optional steps are in *italics*.
   8.  *Guessing and setting on-/off-ramps*
 2.  *Moving network to origin*
 3.  TLS position computation
-  1.  *Assigning nodes to traffic lights*
-  2.  *Joining traffic light nodes*
+  9.  *Assigning nodes to traffic lights*
+  10. *Joining traffic light nodes*
 4.  Computing connections between lanes
-  1.  Computing turning directions
-  2.  Sorting nodes' edges
-  3.  Computing Approached Edges
-  4.  Computing Approaching Lanes
-  5.  Dividing of Lanes on Approached Lanes
-  6.  *Appending Turnarounds*
-  7.  Rechecking of lane endings
+  11. Computing turning directions
+  12. Sorting nodes' edges
+  13. Computing Approached Edges
+  14. Computing Approaching Lanes
+  15. Dividing of Lanes on Approached Lanes
+  16. *Appending Turnarounds*
+  17. Rechecking of lane endings
 5.  Geometry computation
-  1.  Computing node shapes
-  2.  Computing edge shapes
+  18. Computing node shapes
+  19. Computing edge shapes
 6.  Computing right-of-way and traffic light programs
-  1.  Computing tls logics
-  2.  Computing node logics
-  3.  Computing traffic light logics
+  20. Computing tls logics
+  21. Computing node logics
+  22. Computing traffic light logics
 7.  Finishing inner edges
 
-These computation steps are perfomed within void
+These computation steps are performed within void
 NBNetBuilder::compute(OptionsCont &oc). These steps are described more
 detailed in the following.
 
@@ -77,7 +76,7 @@ The following sub-steps are done:
   **Purpose**: Join network graph nodes which form a single
   intersection.
   *post-condition*: junction joined, attributes as above
-  *affects*: removes and adds nodes, removes edges, remapps
+  *affects*: removes and adds nodes, removes edges, remaps
   connections (tbd)
   *state*: tbd
 
@@ -295,7 +294,7 @@ following three cases must be distinguished:
 | ![<File:laneShapeOutsideOfNodeShape.png>](../images/LaneShapeOutsideOfNodeShape.png "File:laneShapeOutsideOfNodeShape.png")                | The edge shape is outside the node shape. The the present algorithm extrapolates the last line of the edge shape and enlarges the edge to the new intersection point. This looks reasonable to me as well. |
 | ![<File:laneShapeInsideOfNodeShape.png>](../images/LaneShapeInsideOfNodeShape.png "File:laneShapeInsideOfNodeShape.png")                   | The edge shape is completely within the node shape. What should happen here? (The red dots show, what netconvert does at present.)                                                                         |
 
-So I am wondering, what the right behaviour of netconvert would be in
+So I am wondering, what the right behavior of netconvert would be in
 the third case.
 
 ## Steps \#20-\#22: Computing right-of-way rules

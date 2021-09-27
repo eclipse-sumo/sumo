@@ -1,18 +1,21 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2013-2017 Dresden University of Technology
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    APITest.java
 /// @author  Mario Krumnow
 /// @date    2013
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -29,14 +32,14 @@ import de.tudresden.sumo.cmd.Polygon;
 import de.tudresden.sumo.cmd.Person;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Trafficlight;
-import de.tudresden.ws.container.SumoVehicleData;
-import de.tudresden.ws.container.SumoStopFlags;
-import de.tudresden.ws.container.SumoStringList;
-import de.tudresden.ws.container.SumoStage;
-import de.tudresden.ws.container.SumoPosition2D;
-import de.tudresden.ws.container.SumoRoadPosition;
-import de.tudresden.ws.container.SumoTLSController;
-import de.tudresden.ws.container.SumoTLSProgram;
+import de.tudresden.sumo.objects.SumoVehicleData;
+import de.tudresden.sumo.objects.SumoStopFlags;
+import de.tudresden.sumo.objects.SumoStringList;
+import de.tudresden.sumo.objects.SumoStage;
+import de.tudresden.sumo.objects.SumoPosition2D;
+import de.tudresden.sumo.objects.SumoRoadPosition;
+import de.tudresden.sumo.objects.SumoTLSController;
+import de.tudresden.sumo.objects.SumoTLSProgram;
 
 public class APITest {
     public static void main(String[] args) {
@@ -60,6 +63,8 @@ public class APITest {
             conn.runServer();
             conn.setOrder(1);
 
+            double deltaT = (double)conn.do_job_get(Simulation.getDeltaT());
+            System.out.println("deltaT:" + deltaT);
             SumoStage stage = (SumoStage)conn.do_job_get(Simulation.findRoute("gneE0", "gneE2", "car", 0, 0));
             System.out.println("findRoute result stage:");
             for (String s : stage.edges) {
@@ -152,7 +157,7 @@ public class APITest {
 
             conn.do_job_set(Poi.setParameter("t0", "poiParam", "poiValue"));
             System.out.println("Poi.getParameter: " + (String)conn.do_job_get(Poi.getParameter("t0", "poiParam")));
-            
+
             SumoStringList controlledJunctions = (SumoStringList)conn.do_job_get(Trafficlight.getControlledJunctions("gneJ1"));
             System.out.println("Trafficlight.getControlledJunctions: " + controlledJunctions);
 
@@ -177,12 +182,27 @@ public class APITest {
             System.out.println("Simulation.convertGeo: " + geoPos);
 
             System.out.println("Lane.getLinks: " + conn.do_job_get(Lane.getLinks(":gneJ1_6_0")));
+
             conn.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
+        try {
+            SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
+            conn.addOption("step-length", step_length + "");
+            conn.addOption("start", "true"); //start sumo immediately
+
+            //start Traci Server
+            conn.runServer();
+            conn.setOrder(1);
+
+            // expecting exception here since we use get instead of set
+            conn.do_job_get(Simulation.saveState("file-state-now"));
+        } catch (Exception tex) {
+            System.err.println(tex.getMessage());
+        }
     }
 
 }

@@ -1,30 +1,28 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCIServerAPI_Person.cpp
 /// @author  Daniel Krajzewicz
 /// @date    26.05.2014
-/// @version $Id$
 ///
 // APIs for getting/setting person values via TraCI
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringTokenizer.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <libsumo/Person.h>
@@ -46,8 +44,8 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_PERSON_VARIABLE, variable, id);
     try {
-        if (!libsumo::Person::handleVariable(id, variable, &server) &&
-                !libsumo::VehicleType::handleVariable(libsumo::Person::getTypeID(id), variable, &server)) {
+        // in case of SPLIT_TAXI_RESERVATIONS id is a reservation id and handleVariable would throw an "unknown person" error
+        if (variable == libsumo::SPLIT_TAXI_RESERVATIONS || !libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::VAR_EDGES: {
                     int nextStageIndex = 0;
@@ -66,13 +64,48 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     TraCIServerAPI_Simulation::writeStage(server.getWrapperStorage(), libsumo::Person::getStage(id, nextStageIndex));
                     break;
                 }
-                case libsumo::VAR_PARAMETER: {
-                    std::string paramName = "";
-                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                case libsumo::VAR_TAXI_RESERVATIONS: {
+                    int onlyNew = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, onlyNew)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Retrieval of reservations requires an integer flag.", outputStorage);
                     }
+                    const std::vector<libsumo::TraCIReservation> result = libsumo::Person::getTaxiReservations(onlyNew);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    server.getWrapperStorage().writeInt((int)result.size());
+                    for (const libsumo::TraCIReservation& r : result) {
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                        server.getWrapperStorage().writeInt(10);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.id);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+                        server.getWrapperStorage().writeStringList(r.persons);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.group);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.fromEdge);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.toEdge);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.departPos);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.arrivalPos);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.depart);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.reservationTime);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+                        server.getWrapperStorage().writeInt(r.state);
+                    }
+                    break;
+                }
+                case libsumo::SPLIT_TAXI_RESERVATIONS: {
+                    std::vector<std::string> persons;
+                    if (!server.readTypeCheckingStringList(inputStorage, persons)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Splitting of reservations requires an string list.", outputStorage);
+                    }
+                    std::string splitID = libsumo::Person::splitTaxiReservation(id, persons);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::Person::getParameter(id, paramName));
+                    server.getWrapperStorage().writeString(splitID);
                     break;
                 }
                 default:
@@ -103,6 +136,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != libsumo::MOVE_TO_XY
             && variable != libsumo::VAR_SPEED
             && variable != libsumo::VAR_TYPE
+            && variable != libsumo::VAR_SPEED_FACTOR
             && variable != libsumo::VAR_LENGTH
             && variable != libsumo::VAR_WIDTH
             && variable != libsumo::VAR_HEIGHT
@@ -144,6 +178,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 libsumo::Person::setType(id, vTypeID);
                 break;
             }
+            case libsumo::VAR_SPEED_FACTOR: {
+                double speedfactor = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, speedfactor)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting SpeedFactor requires a double.", outputStorage);
+                }
+                libsumo::Person::setSpeedFactor(id, speedfactor);
+            }
+            break;
             case libsumo::VAR_COLOR: {
                 libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
@@ -184,13 +226,13 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 int numParameters = inputStorage.readInt();
                 if (numParameters == 13) {
-                    libsumo::Person::appendStage(*TraCIServerAPI_Simulation::readStage(server, inputStorage), id);
+                    libsumo::Person::appendStage(id, *TraCIServerAPI_Simulation::readStage(server, inputStorage));
                 } else {
                     int stageType;
                     if (!server.readTypeCheckingInt(inputStorage, stageType)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
                     }
-                    if (stageType == MSTransportable::DRIVING) {
+                    if (stageType == libsumo::STAGE_DRIVING) {
                         // append driving stage
                         if (numParameters != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a driving stage needs four parameters.", outputStorage);
@@ -208,7 +250,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                         }
                         libsumo::Person::appendDrivingStage(id, edgeID, lines, stopID);
-                    } else if (stageType == MSTransportable::WAITING) {
+                    } else if (stageType == libsumo::STAGE_WAITING) {
                         // append waiting stage
                         if (numParameters != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
@@ -226,7 +268,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                         }
                         libsumo::Person::appendWaitingStage(id, duration, description, stopID);
-                    } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
+                    } else if (stageType == libsumo::STAGE_WALKING) {
                         // append walking stage
                         if (numParameters != 6) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);
@@ -284,7 +326,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             case libsumo::REMOVE_STAGE: {
                 int nextStageIndex = 0;
                 if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                 }
                 libsumo::Person::removeStage(id, nextStageIndex);
             }
@@ -304,8 +346,8 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person requires a compound object.", outputStorage);
                 }
                 const int numArgs = inputStorage.readInt();
-                if (numArgs != 5) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person should obtain: edgeID, x, y, angle and keepRouteFlag.", outputStorage);
+                if (numArgs != 5 && numArgs != 6) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person should obtain: edgeID, x, y, angle, keepRouteFlag and optionally matchThreshold.", outputStorage);
                 }
                 // edge ID
                 std::string edgeID;
@@ -331,7 +373,13 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The fifth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
                 }
-                libsumo::Person::moveToXY(id, edgeID, x, y, angle, keepRouteFlag);
+                double matchThreshold = 100;
+                if (numArgs == 6) {
+                    if (!server.readTypeCheckingDouble(inputStorage, matchThreshold)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth parameter for moveToXY must be the matchThreshold given as a double.", outputStorage);
+                    }
+                }
+                libsumo::Person::moveToXY(id, edgeID, x, y, angle, keepRouteFlag, matchThreshold);
             }
             break;
             case libsumo::VAR_PARAMETER: {

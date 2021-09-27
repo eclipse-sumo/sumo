@@ -1,6 +1,5 @@
 ---
-title: Tools/tls
-permalink: /Tools/tls/
+title: tls
 ---
 
 # tlsCoordinator.py
@@ -9,11 +8,11 @@ This script modifies the traffic-light offsets to coordinate them for a
 given traffic demand. Example call:
 
 ```
-<SUMO_HOME>/tools/tlsCoordinator.py -n net.net.xml -r routes.rou.xml -o tlsOffsets.add.xml
+python tools/tlsCoordinator.py -n net.net.xml -r routes.rou.xml -o tlsOffsets.add.xml
 ```
 
 This would generate the file *tlsOffsets.add.xml* which can be loaded
-into [SUMO](../SUMO.md):
+into [sumo](../sumo.md):
 
 ```
 sumo -n net.net.xml -r routes.rou.xml -a tlsOffsets.add.xml
@@ -31,11 +30,11 @@ This script modifies the duration of green phases according to Websters
 formula to best accomodate a given traffic demand. Example call:
 
 ```
-<SUMO_HOME>/tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml
+python tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml
 ```
 
 This would generate the file *newTLS.add.xml* which can be loaded into
-[SUMO](../SUMO.md):
+[sumo](../sumo.md):
 
 ```
 sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
@@ -50,7 +49,7 @@ This tool requires the program definition and the SUMO-network it shall
 be converted to:
 
 ```
-tls_csv2SUMO.py <TLS_CSV> <NET>
+python tools/tls/tls_csv2SUMO.py <TLS_CSV> <NET>
 ```
 
 It prints the generated TLS definition on stdout (you can pipe it to a
@@ -215,11 +214,11 @@ time;31;16;6;16;31;16;6;16
 We convert those program definitions using
 
 ```
-tools/tls/tls_csv2SUMO.py lsa_def.csv,lsa_def2.csv input_net.net.xml
+python tools/tls/tls_csv2SUMO.py lsa_def.csv,lsa_def2.csv input_net.net.xml
 ```
 
 And obtain the following programs after loading them into
-[SUMO-GUI](../SUMO-GUI.md):
+[sumo-gui](../sumo-gui.md):
 
 **Figure: converted programs**
 
@@ -232,20 +231,20 @@ Converts a csv-tls-description into one SUMO can read as additional
 file. This tool differs from **tls_csv2SUMO.py** by being based on
 signal groups in a way that is closer to the typical representation used
 by traffic engineers. It accepts green times per signal group and
-creates the [SUMO](../SUMO.md) tls representation out of it using
+creates the [sumo](../sumo.md) tls representation out of it using
 the . Example call to convert two csv-tls-descriptions into the
 additional file *tls.add.xml*:
 
 ```
-<SUMO_HOME>/tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tl1.csv,tl2.csv -o tls.add.xml
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tl1.csv,tl2.csv -o tls.add.xml
 ```
 
 In the opposite direction, templates for csv-tls-descriptions of all tls
-in a [SUMO](../SUMO.md) network can be written to a given directory
+in a [sumo](../sumo.md) network can be written to a given directory
 and completed by hand:
 
 ```
-<SUMO_HOME>/tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
 ```
 
 The input csv file contains input blocks divided by titles in brackets.
@@ -253,7 +252,7 @@ The block \[general\] sets general information relating to the signal
 program like the tls ID, the program ID, the cycle time \[s\] and the
 offset time \[s\]. Additional 0..n optional parameters can also be
 supplied. The \[links\] block lists the relations between signal groups
-and junction connections in [SUMO](../SUMO.md). The relation is
+and junction connections in [sumo](../sumo.md). The relation is
 build from the edges/lanes controlled by the respective signal group.
 The target edge/lane can be omitted. The last block \[signal groups\]
 contains the table of green times and signal group properties. The table
@@ -324,3 +323,16 @@ FZ31;0;25;1;3;;
 FZ32;0;15;1;3;40;55
 FZ41;25;35;1;3;;
 ```
+
+
+# buildTransitions.py
+
+This tool creates tlLogic definitions with branching signal plans based on a simplified
+input: named green phases and list of successor green phases names.
+The corresponding yellow and red phases will be build and the 'next' attribute
+will be set to the appropriate transition phase.
+
+```
+python tools/tls/buildTransitions.py -d <tlLogic-file> -o <output-file>
+```
+

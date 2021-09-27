@@ -1,27 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIMEVehicleControl.cpp
 /// @author  Jakob Erdmann
 /// @date    Okt 2012
-/// @version $Id$
 ///
 // The class responsible for building and deletion of meso vehicles (gui-version)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <gui/GUIGlobals.h>
 #include <microsim/MSRouteHandler.h>
@@ -48,10 +46,8 @@ SUMOVehicle*
 GUIMEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                   const MSRoute* route, MSVehicleType* type,
                                   const bool ignoreStopErrors, const bool fromRouteFile) {
-    myLoadedVehNo++;
     MSBaseVehicle* built = new GUIMEVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    built->addStops(ignoreStopErrors);
-    MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
+    initVehicle(built, ignoreStopErrors);
     return built;
 }
 
@@ -83,6 +79,18 @@ GUIMEVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into) {
     }
 }
 
+std::pair<double, double>
+GUIMEVehicleControl::getVehicleMeanSpeeds() const {
+    FXMutexLock locker(myLock);
+    return MSVehicleControl::getVehicleMeanSpeeds();
+}
+
+
+int
+GUIMEVehicleControl::getHaltingVehicleNo() const {
+    FXMutexLock locker(myLock);
+    return MSVehicleControl::getHaltingVehicleNo();
+}
 
 
 void
@@ -97,6 +105,4 @@ GUIMEVehicleControl::releaseVehicles() {
 }
 
 
-
 /****************************************************************************/
-

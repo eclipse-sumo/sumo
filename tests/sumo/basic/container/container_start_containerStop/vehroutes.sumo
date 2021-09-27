@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-24 11:28:13 by Eclipse SUMO sumo Version v1_10_0+0165-ee91fbe
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <container id="c0" depart="0.00" arrival="128.00">
+        <stop containerStop="containerStop0" duration="1.00"/>
+        <transport from="1/3to0/3" to="0/4to1/4" containerStop="containerStop1" lines="car0"/>
+    </container>
+
+    <vehicle id="car0" depart="10.00" arrival="142.00">
+        <route edges="1/3to0/3 0/3to0/4 0/4to1/4"/>
+        <stop containerStop="containerStop0" duration="10.00"/>
+        <stop containerStop="containerStop1" duration="10.00"/>
+    </vehicle>
+
+    <container id="c1" depart="0.00">
+        <stop containerStop="containerStop0" duration="1.00"/>
+        <transport from="1/3to0/3" to="0/4to1/4" containerStop="containerStop1" lines="car0"/>
+    </container>
+
+</routes>

@@ -1,12 +1,9 @@
 /* XPM */
 static const char *modepolygon_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 30 1 ",
-"  c #1D136F",
+"16 16 23 1",
 ". c #1E136F",
-"X c #00127D",
 "o c #00127E",
-"O c #00137E",
 "+ c #00137F",
 "@ c #08137B",
 "# c #351362",
@@ -24,11 +21,7 @@ static const char *modepolygon_xpm[] = {
 "1 c #DC1409",
 "2 c #CA1412",
 "3 c #CD1411",
-"4 c #E01305",
 "5 c #E11305",
-"6 c #E01306",
-"7 c #E11306",
-"8 c #E11405",
 "9 c #E01406",
 "0 c #E11406",
 "q c None",

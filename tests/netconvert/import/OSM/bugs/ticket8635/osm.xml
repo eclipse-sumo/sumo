@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.9 76e5016d">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2021-05-17T15:39:28Z"/>
+
+  <node id="109753" lat="51.5057204" lon="-0.1113433"/>
+  <node id="109756" lat="51.5066697" lon="-0.1088756"/>
+  <node id="25468756" lat="51.5046850" lon="-0.1106646"/>
+  <node id="25468771" lat="51.5049235" lon="-0.1107978"/>
+  <node id="25472464" lat="51.5063095" lon="-0.1118085"/>
+  <node id="25472467" lat="51.5048386" lon="-0.1114628"/>
+  <node id="25472468" lat="51.5042740" lon="-0.1111303"/>
+  <node id="25472469" lat="51.5050019" lon="-0.1108451"/>
+  <node id="25472854" lat="51.5067404" lon="-0.1121290">
+    <tag k="traffic_calming" v="table"/>
+  </node>
+  <node id="25473290" lat="51.5043869" lon="-0.1105221"/>
+  <node id="25496842" lat="51.5062300" lon="-0.1110639">
+    <tag k="amenity" v="parking"/>
+    <tag k="name" v="Cornwall Road Parking"/>
+    <tag k="operator" v="APCOA"/>
+  </node>
+  <node id="277675369" lat="51.5067185" lon="-0.1087734">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="291659537" lat="51.5047134" lon="-0.1124316"/>
+  <node id="291659569" lat="51.5047442" lon="-0.1123319"/>
+  <node id="291659707" lat="51.5053285" lon="-0.1127296"/>
+  <node id="291659708" lat="51.5057774" lon="-0.1115014"/>
+  <node id="291659709" lat="51.5062490" lon="-0.1118543"/>
+  <node id="291659710" lat="51.5057575" lon="-0.1133116"/>
+  <node id="291659711" lat="51.5054258" lon="-0.1128341"/>
+  <node id="338823853" lat="51.5060492" lon="-0.1106681">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="capacity" v="10"/>
+  </node>
+  <node id="338823854" lat="51.5055998" lon="-0.1117670">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="bicycle_parking" v="stands"/>
+    <tag k="capacity" v="28"/>
+    <tag k="covered" v="no"/>
+    <tag k="source" v="Survey CH"/>
+  </node>
+  <node id="590151410" lat="51.5046602" lon="-0.1126031"/>
+  <node id="590151419" lat="51.5049804" lon="-0.1116028"/>
+  <node id="590151424" lat="51.5043145" lon="-0.1112186"/>
+  <node id="590151427" lat="51.5041843" lon="-0.1120435"/>
+  <node id="886299497" lat="51.5055678" lon="-0.1115093">
+    <tag k="amenity" v="bicycle_rental"/>
+    <tag k="brand" v="Santander Cycles"/>
+    <tag k="brand:wikidata" v="Q807961"/>
+    <tag k="brand:wikipedia" v="en:Santander Cycles"/>
+    <tag k="capacity" v="30"/>
+    <tag k="local" v="South Bank"/>
+    <tag k="name" v="Stamford Street"/>
+    <tag k="network" v="tfl_cycle_hire"/>
+    <tag k="official_name" v="Stamford Street, South Bank"/>
+    <tag k="official_ref" v="197"/>
+    <tag k="operator" v="Serco"/>
+  </node>
+  <node id="913199203" lat="51.5052952" lon="-0.1107054"/>
+  <node id="913199208" lat="51.5054953" lon="-0.1131187"/>
+  <node id="913199215" lat="51.5060578" lon="-0.1108108"/>
+  <node id="913199223" lat="51.5054529" lon="-0.1132717"/>
+  <node id="913199226" lat="51.5055318" lon="-0.1110634"/>
+  <node id="913199230" lat="51.5055744" lon="-0.1110981"/>
+  <node id="913199234" lat="51.5055698" lon="-0.1109310"/>
+  <node id="913199235" lat="51.5063878" lon="-0.1103646"/>
+  <node id="913199240" lat="51.5052618" lon="-0.1108646"/>
+  <node id="913199242" lat="51.5063010" lon="-0.1110079"/>
+  <node id="913199243" lat="51.5055760" lon="-0.1130002"/>
+  <node id="913199251" lat="51.5062366" lon="-0.1102420"/>
+  <node id="913199255" lat="51.5063734" lon="-0.1107774"/>
+  <node id="913199257" lat="51.5048948" lon="-0.1115454"/>
+  <node id="913199260" lat="51.5054623" lon="-0.1128745"/>
+  <node id="913199262" lat="51.5054871" lon="-0.1131739"/>
+  <node id="913199267" lat="51.5055180" lon="-0.1130593"/>
+  <node id="913199288" lat="51.5056168" lon="-0.1113652"/>
+  <node id="913199292" lat="51.5055437" lon="-0.1130846"/>
+  <node id="913199294" lat="51.5056758" lon="-0.1132252"/>
+  <node id="913199300" lat="51.5053512" lon="-0.1120770"/>
+  <node id="913199306" lat="51.5056468" lon="-0.1137011"/>
+  <node id="913199309" lat="51.5056795" lon="-0.1111964"/>
+  <node id="913199312" lat="51.5050437" lon="-0.1109299"/>
+  <node id="914309853" lat="51.5060787" lon="-0.1116157"/>
+  <node id="914309873" lat="51.5050361" lon="-0.1118902"/>
+  <node id="914309900" lat="51.5052421" lon="-0.1118713"/>
+  <node id="914309909" lat="51.5051031" lon="-0.1111508"/>
+  <node id="914309926" lat="51.5049577" lon="-0.1116679"/>
+  <node id="914309936" lat="51.5053440" lon="-0.1117638"/>
+  <node id="914309939" lat="51.5049237" lon="-0.1117739"/>
+  <node id="914309949" lat="51.5062228" lon="-0.1119513"/>
+  <node id="914310000" lat="51.5054697" lon="-0.1114213"/>
+  <node id="914310010" lat="51.5053976" lon="-0.1134142"/>
+  <node id="914310012" lat="51.5052079" lon="-0.1119395"/>
+  <node id="914310020" lat="51.5050030" lon="-0.1115069"/>
+  <node id="914310025" lat="51.5061877" lon="-0.1119203"/>
+  <node id="915006219" lat="51.5057621" lon="-0.1109742"/>
+  <node id="915006232" lat="51.5057950" lon="-0.1105900"/>
+  <node id="915006251" lat="51.5056806" lon="-0.1108978"/>
+  <node id="915006269" lat="51.5058993" lon="-0.1106046"/>
+  <node id="915006301" lat="51.5057163" lon="-0.1110974"/>
+  <node id="915006303" lat="51.5058179" lon="-0.1105284"/>
+  <node id="915006314" lat="51.5057492" lon="-0.1107131"/>
+  <node id="915006317" lat="51.5059222" lon="-0.1105431"/>
+  <node id="915006321" lat="51.5056348" lon="-0.1110209"/>
+  <node id="915006333" lat="51.5058536" lon="-0.1107278"/>
+  <node id="915006346" lat="51.5057392" lon="-0.1110358"/>
+  <node id="915006355" lat="51.5057721" lon="-0.1106515"/>
+  <node id="915006373" lat="51.5058764" lon="-0.1106662"/>
+  <node id="915006387" lat="51.5058078" lon="-0.1108510"/>
+  <node id="915006396" lat="51.5057263" lon="-0.1107746"/>
+  <node id="915006399" lat="51.5057034" lon="-0.1108362"/>
+  <node id="915006412" lat="51.5058307" lon="-0.1107894"/>
+  <node id="915006430" lat="51.5056107" lon="-0.1110003"/>
+  <node id="915006431" lat="51.5058408" lon="-0.1104669"/>
+  <node id="915006446" lat="51.5059451" lon="-0.1104815"/>
+  <node id="915006449" lat="51.5056577" lon="-0.1109593"/>
+  <node id="915006458" lat="51.5057849" lon="-0.1109126"/>
+  <node id="915006464" lat="51.5058637" lon="-0.1104053"/>
+  <node id="915410138" lat="51.5055035" lon="-0.1114232">
+    <tag k="leisure" v="sports_centre"/>
+    <tag k="name" v="Kinetic"/>
+    <tag k="sport" v="multi"/>
+  </node>
+  <node id="917072538" lat="51.5064160" lon="-0.1077938"/>
+  <node id="975660514" lat="51.5067850" lon="-0.1086013"/>
+  <node id="1237057143" lat="51.5048910" lon="-0.1111287"/>
+  <node id="1237057148" lat="51.5047403" lon="-0.1110294"/>
+  <node id="1237057150" lat="51.5047892" lon="-0.1107920"/>
+  <node id="1237057152" lat="51.5049562" lon="-0.1108733"/>
+  <node id="1309005569" lat="51.5050593" lon="-0.1105195"/>
+  <node id="1309005573" lat="51.5050744" lon="-0.1104306"/>
+  <node id="1309005574" lat="51.5051748" lon="-0.1108159"/>
+  <node id="1309005579" lat="51.5051857" lon="-0.1107699"/>
+  <node id="1309005586" lat="51.5052714" lon="-0.1105382"/>
+  <node id="1309005590" lat="51.5053049" lon="-0.1107129"/>
+  <node id="1309005600" lat="51.5050864" lon="-0.1103697"/>
+  <node id="1309005602" lat="51.5052328" lon="-0.1103652"/>
+  <node id="1309005609" lat="51.5053315" lon="-0.1106417"/>
+  <node id="1309005617" lat="51.5055692" lon="-0.1113198"/>
+  <node id="1309005619" lat="51.5049691" lon="-0.1106558"/>
+  <node id="1309005621" lat="51.5054600" lon="-0.1109213"/>
+  <node id="1309005635" lat="51.5051336" lon="-0.1103091"/>
+  <node id="1309005648" lat="51.5055384" lon="-0.1108954"/>
+  <node id="1309005649" lat="51.5055723" lon="-0.1113106"/>
+  <node id="1309005652" lat="51.5050660" lon="-0.1101367"/>
+  <node id="1309005663" lat="51.5051159" lon="-0.1104538"/>
+  <node id="1309005664" lat="51.5052161" lon="-0.1106114"/>
+  <node id="1309005665" lat="51.5053357" lon="-0.1102627"/>
+  <node id="1309005667" lat="51.5050226" lon="-0.1106838"/>
+  <node id="1309005671" lat="51.5055433" lon="-0.1109097"/>
+  <node id="1309005683" lat="51.5054639" lon="-0.1108339"/>
+  <node id="1309005685" lat="51.5052972" lon="-0.1103410"/>
+  <node id="1309005694" lat="51.5053036" lon="-0.1105480"/>
+  <node id="1309005698" lat="51.5052888" lon="-0.1103952"/>
+  <node id="1309005703" lat="51.5053187" lon="-0.1106421"/>
+  <node id="1309005716" lat="51.5050293" lon="-0.1103378"/>
+  <node id="1309005720" lat="51.5054417" lon="-0.1109066"/>
+  <node id="1309005725" lat="51.5053183" lon="-0.1103488"/>
+  <node id="1309005727" lat="51.5053333" lon="-0.1105605"/>
+  <node id="1309005738" lat="51.5054817" lon="-0.1108453"/>
+  <node id="1309005744" lat="51.5051574" lon="-0.1101841"/>
+  <node id="1309005747" lat="51.5050985" lon="-0.1105425"/>
+  <node id="1309005748" lat="51.5053032" lon="-0.1106586"/>
+  <node id="1309005749" lat="51.5053670" lon="-0.1102792"/>
+  <node id="1309025251" lat="51.5048505" lon="-0.1108236"/>
+  <node id="1309025262" lat="51.5048857" lon="-0.1108905"/>
+  <node id="1309025269" lat="51.5046191" lon="-0.1113976"/>
+  <node id="1309025272" lat="51.5048446" lon="-0.1108664"/>
+  <node id="1309025284" lat="51.5048973" lon="-0.1108474"/>
+  <node id="1309025289" lat="51.5051803" lon="-0.1109461"/>
+  <node id="1313713305" lat="51.5047583" lon="-0.1109436"/>
+  <node id="1313713313" lat="51.5047678" lon="-0.1110450"/>
+  <node id="1313713314" lat="51.5043879" lon="-0.1112474"/>
+  <node id="1617512815" lat="51.5061884" lon="-0.1100581"/>
+  <node id="1696030874" lat="51.5051968" lon="-0.1127522"/>
+  <node id="1707216637" lat="51.5066934" lon="-0.1088366"/>
+  <node id="2248887738" lat="51.5053046" lon="-0.1109297">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="bicycle_parking" v="post_hoop"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="no"/>
+    <tag k="source" v="Survey CH"/>
+  </node>
+  <node id="2248887744" lat="51.5055333" lon="-0.1112529">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="bicycle_parking" v="post_hoop"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="no"/>
+    <tag k="source" v="Survey CH"/>
+  </node>
+  <node id="2248887749" lat="51.5055918" lon="-0.1111443">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="bicycle_parking" v="post_hoop"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="no"/>
+    <tag k="source" v="Survey CH"/>
+  </node>
+  <node id="2248907880" lat="51.5049843" lon="-0.1110641">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="bicycle_parking" v="post_hoop"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="no"/>
+    <tag k="source" v="Survey CH"/>
+  </node>
+  <node id="2248907883" lat="51.5050778" lon="-0.1109673">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="bicycle_parking" v="post_hoop"/>
+    <tag k="capacity" v="2"/>
+    <tag k="covered" v="no"/>
+    <tag k="source" v="Survey CH"/>
+  </node>
+  <node id="2375039192" lat="51.5042740" lon="-0.1121561"/>
+  <node id="2375039198" lat="51.5043400" lon="-0.1112286"/>
+  <node id="2375039233" lat="51.5047732" lon="-0.1114802"/>
+  <node id="2395024142" lat="51.5045382" lon="-0.1124625"/>
+  <node id="2395024147" lat="51.5047014" lon="-0.1124675"/>
+  <node id="2625372932" lat="51.5046872" lon="-0.1125901"/>
+  <node id="2625372940" lat="51.5041674" lon="-0.1120108"/>
+  <node id="2625372949" lat="51.5046797" lon="-0.1125557"/>
+  <node id="2625372950" lat="51.5041580" lon="-0.1119750"/>
+  <node id="3079338358" lat="51.5051429" lon="-0.1114854">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338360" lat="51.5051540" lon="-0.1114081">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338362" lat="51.5051984" lon="-0.1115211">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338364" lat="51.5052318" lon="-0.1114438">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338366" lat="51.5052614" lon="-0.1115628">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338367" lat="51.5052762" lon="-0.1114795">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338371" lat="51.5053170" lon="-0.1106344">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338381" lat="51.5054429" lon="-0.1106642">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338390" lat="51.5055842" lon="-0.1107623">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3079338399" lat="51.5057244" lon="-0.1106404">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="3519079527" lat="51.5055853" lon="-0.1117931">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="bicycle_parking" v="stands"/>
+    <tag k="capacity" v="54"/>
+    <tag k="covered" v="no"/>
+  </node>
+  <node id="3546582891" lat="51.5061295" lon="-0.1105828"/>
+  <node id="3546582892" lat="51.5062815" lon="-0.1107029"/>
+  <node id="3560401443" lat="51.5052630" lon="-0.1125739">
+    <tag k="bus" v="yes"/>
+    <tag k="local_ref" v="L"/>
+    <tag k="name" v="Waterloo Road"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="3560401444" lat="51.5054192" lon="-0.1121538">
+    <tag k="bus" v="yes"/>
+    <tag k="local_ref" v="M"/>
+    <tag k="name" v="Waterloo Road"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="3696111395" lat="51.5055864" lon="-0.1114467"/>
+  <node id="4290398591" lat="51.5058730" lon="-0.1113537"/>
+  <node id="4290398592" lat="51.5060333" lon="-0.1108226"/>
+  <node id="4290398593" lat="51.5062336" lon="-0.1109889"/>
+  <node id="4290398594" lat="51.5060767" lon="-0.1115173"/>
+  <node id="4407679618" lat="51.5063872" lon="-0.1095698">
+    <tag k="bus" v="yes"/>
+    <tag k="local_ref" v="SP"/>
+    <tag k="name" v="Coin Street"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="4407679619" lat="51.5064459" lon="-0.1094254">
+    <tag k="bus" v="yes"/>
+    <tag k="local_ref" v="SJ"/>
+    <tag k="name" v="Coin Street"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="4528393248" lat="51.5056236" lon="-0.1113647"/>
+  <node id="4528393249" lat="51.5055881" lon="-0.1113154"/>
+  <node id="4528393250" lat="51.5050320" lon="-0.1109118"/>
+  <node id="4528393251" lat="51.5048786" lon="-0.1115367"/>
+  <node id="4528393252" lat="51.5056706" lon="-0.1112183"/>
+  <node id="4528393253" lat="51.5054107" lon="-0.1110042"/>
+  <node id="4528393254" lat="51.5052631" lon="-0.1108902"/>
+  <node id="4528393255" lat="51.5049553" lon="-0.1107100"/>
+  <node id="4528393260" lat="51.5049164" lon="-0.1092025"/>
+  <node id="4528393261" lat="51.5043924" lon="-0.1089430"/>
+  <node id="4528393262" lat="51.5047395" lon="-0.1067524"/>
+  <node id="4528393263" lat="51.5047740" lon="-0.1064674"/>
+  <node id="4528393264" lat="51.5049562" lon="-0.1065167"/>
+  <node id="4528393265" lat="51.5053848" lon="-0.1066625"/>
+  <node id="4528393266" lat="51.5057852" lon="-0.1074090"/>
+  <node id="4528393267" lat="51.5065196" lon="-0.1072033"/>
+  <node id="4528393268" lat="51.5068644" lon="-0.1081892"/>
+  <node id="4528393269" lat="51.5068212" lon="-0.1084007"/>
+  <node id="4528393270" lat="51.5065758" lon="-0.1089707"/>
+  <node id="4528393271" lat="51.5061558" lon="-0.1099782"/>
+  <node id="4528393272" lat="51.5061088" lon="-0.1101277"/>
+  <node id="4629860951" lat="51.5056435" lon="-0.1109670"/>
+  <node id="4629860952" lat="51.5058589" lon="-0.1103447"/>
+  <node id="4629860953" lat="51.5054565" lon="-0.1099611"/>
+  <node id="4629860954" lat="51.5053213" lon="-0.1106987"/>
+  <node id="4629860955" lat="51.5053680" lon="-0.1107309"/>
+  <node id="4680746714" lat="51.5053747" lon="-0.1103058"/>
+  <node id="4805652928" lat="51.5056596" lon="-0.1137146"/>
+  <node id="4805652929" lat="51.5053268" lon="-0.1121041"/>
+  <node id="4805652930" lat="51.5047859" lon="-0.1121885"/>
+  <node id="4805652931" lat="51.5049316" lon="-0.1117492"/>
+  <node id="4805652933" lat="51.5049023" lon="-0.1123026"/>
+  <node id="5483342897" lat="51.5053900" lon="-0.1111003"/>
+  <node id="5501949497" lat="51.5057557" lon="-0.1099903"/>
+  <node id="5501949498" lat="51.5054264" lon="-0.1109900"/>
+  <node id="5501949499" lat="51.5054522" lon="-0.1109116"/>
+  <node id="6022739722" lat="51.5051796" lon="-0.1093630"/>
+  <node id="6022739723" lat="51.5051636" lon="-0.1094656"/>
+  <node id="6196407068" lat="51.5061374" lon="-0.1077856"/>
+  <node id="6196407070" lat="51.5062610" lon="-0.1071121"/>
+  <node id="7580376900" lat="51.5058223" lon="-0.1110662">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="7580376901" lat="51.5056398" lon="-0.1115627">
+    <tag k="cycleway" v="asl"/>
+    <tag k="direction" v="forward"/>
+  </node>
+  <node id="7580376902" lat="51.5055610" lon="-0.1112307">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="7580376903" lat="51.5056106" lon="-0.1112649">
+    <tag k="cycleway" v="asl"/>
+    <tag k="direction" v="backward"/>
+  </node>
+  <node id="7580376904" lat="51.5056103" lon="-0.1116396">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="7580376905" lat="51.5056606" lon="-0.1112993">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7580376906" lat="51.5057912" lon="-0.1113959">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7580376907" lat="51.5058399" lon="-0.1114331">
+    <tag k="cycleway" v="asl"/>
+    <tag k="direction" v="forward"/>
+  </node>
+  <node id="7580376908" lat="51.5058023" lon="-0.1111244">
+    <tag k="cycleway" v="asl"/>
+    <tag k="direction" v="backward"/>
+  </node>
+  <node id="7580376909" lat="51.5056534" lon="-0.1115249">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7580376910" lat="51.5058744" lon="-0.1114595">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="7580376911" lat="51.5057822" lon="-0.1111802">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7902936059" lat="51.5067268" lon="-0.1121189">
+    <tag k="direction" v="backward"/>
+    <tag k="highway" v="give_way"/>
+  </node>
+  <way id="3115950">
+    <nd ref="25472854"/>
+    <nd ref="7902936059"/>
+    <nd ref="25472464"/>
+    <nd ref="914309853"/>
+    <nd ref="7580376910"/>
+    <nd ref="7580376907"/>
+    <nd ref="7580376906"/>
+    <nd ref="109753"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Cornwall Road"/>
+    <tag k="postal_code" v="SE1"/>
+  </way>
+  <way id="4253647">
+    <nd ref="25472469"/>
+    <nd ref="25472467"/>
+    <nd ref="25472468"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Secker Street"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="26595530">
+    <nd ref="291659707"/>
+    <nd ref="291659708"/>
+    <nd ref="291659709"/>
+    <nd ref="914309949"/>
+    <nd ref="914310025"/>
+    <nd ref="291659710"/>
+    <nd ref="913199294"/>
+    <nd ref="913199292"/>
+    <nd ref="913199243"/>
+    <nd ref="913199260"/>
+    <nd ref="291659711"/>
+    <nd ref="291659707"/>
+    <tag k="addr:city" v="London"/>
+    <tag k="addr:country" v="GB"/>
+    <tag k="addr:housename" v="Franklin-Wilkins Building"/>
+    <tag k="addr:housenumber" v="150"/>
+    <tag k="addr:postcode" v="SE1 9NH"/>
+    <tag k="addr:street" v="Stamford Street"/>
+    <tag k="building" v="university"/>
+    <tag k="building:levels" v="6"/>
+    <tag k="contact:phone" v="+44 20 7836 5454"/>
+    <tag k="contact:website" v="http://www.kcl.ac.uk/campuslife/campuses/waterloo/Waterloo.aspx"/>
+    <tag k="name" v="Franklin-Wilkins Building"/>
+    <tag k="operator" v="King's College London"/>
+    <tag k="roof:colour" v="grey"/>
+    <tag k="roof:shape" v="flat"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikipedia" v="en:King's College London"/>
+  </way>
+  <way id="46251142">
+    <nd ref="590151410"/>
+    <nd ref="2625372932"/>
+    <nd ref="2625372949"/>
+    <nd ref="2395024147"/>
+    <nd ref="291659537"/>
+    <nd ref="291659569"/>
+    <nd ref="4805652930"/>
+    <nd ref="914309939"/>
+    <nd ref="4805652931"/>
+    <nd ref="914309926"/>
+    <nd ref="590151419"/>
+    <nd ref="913199257"/>
+    <nd ref="4528393251"/>
+    <nd ref="2375039233"/>
+    <nd ref="1309025269"/>
+    <nd ref="1313713314"/>
+    <nd ref="2375039198"/>
+    <nd ref="590151424"/>
+    <nd ref="2625372950"/>
+    <nd ref="2625372940"/>
+    <nd ref="590151427"/>
+    <nd ref="2375039192"/>
+    <nd ref="2395024142"/>
+    <nd ref="590151410"/>
+    <tag k="amenity" v="grave_yard"/>
+    <tag k="denomination" v="anglican"/>
+    <tag k="leisure" v="garden"/>
+    <tag k="name" v="Saint John the Evangelist's Churchyard"/>
+    <tag k="religion" v="christian"/>
+  </way>
+  <way id="77611529">
+    <nd ref="913199300"/>
+    <nd ref="914310012"/>
+    <nd ref="914309900"/>
+    <nd ref="914309926"/>
+    <nd ref="590151419"/>
+    <nd ref="913199257"/>
+    <nd ref="913199312"/>
+    <nd ref="1309005649"/>
+    <nd ref="1309005617"/>
+    <nd ref="913199288"/>
+    <nd ref="3696111395"/>
+    <nd ref="913199300"/>
+    <tag k="source" v="Bing"/>
+  </way>
+  <way id="77611535">
+    <nd ref="913199242"/>
+    <nd ref="913199215"/>
+    <nd ref="3546582891"/>
+    <nd ref="913199251"/>
+    <nd ref="913199235"/>
+    <nd ref="3546582892"/>
+    <nd ref="913199255"/>
+    <nd ref="913199242"/>
+    <tag k="addr:housenumber" v="108"/>
+    <tag k="addr:street" v="Stamford Street"/>
+    <tag k="building" v="yes"/>
+    <tag k="name" v="Coin Street Neighbourhood Centre"/>
+    <tag k="wheelchair" v="yes"/>
+  </way>
+  <way id="77611536">
+    <nd ref="913199234"/>
+    <nd ref="1309005671"/>
+    <nd ref="1309005648"/>
+    <nd ref="1309005738"/>
+    <nd ref="1309005621"/>
+    <nd ref="1309005720"/>
+    <nd ref="1309005683"/>
+    <nd ref="1309005590"/>
+    <nd ref="913199203"/>
+    <nd ref="913199240"/>
+    <nd ref="913199226"/>
+    <nd ref="913199234"/>
+    <tag k="addr:housename" v="Edward Henry House"/>
+    <tag k="building" v="residential"/>
+    <tag k="url" v="http://www.cds.coop/co-op-directory/az-listing/edward-henry-house-co-operative-limited"/>
+  </way>
+  <way id="77611539">
+    <nd ref="915006301"/>
+    <nd ref="913199309"/>
+    <nd ref="913199230"/>
+    <nd ref="915006430"/>
+    <nd ref="915006301"/>
+    <tag k="addr:housenumber" v="123"/>
+    <tag k="addr:street" v="Stamford Street"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77739110">
+    <nd ref="4805652930"/>
+    <nd ref="914309939"/>
+    <nd ref="914309873"/>
+    <nd ref="4805652933"/>
+    <nd ref="4805652930"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77739137">
+    <nd ref="913199230"/>
+    <nd ref="913199226"/>
+    <tag k="barrier" v="wall"/>
+  </way>
+  <way id="77739159">
+    <nd ref="25496842"/>
+    <nd ref="914309853"/>
+    <tag k="highway" v="service"/>
+    <tag k="incline" v="yes"/>
+    <tag k="service" v="driveway"/>
+  </way>
+  <way id="77739195">
+    <nd ref="914309936"/>
+    <nd ref="914310000"/>
+    <nd ref="914309909"/>
+    <nd ref="914310020"/>
+    <nd ref="914309936"/>
+  </way>
+  <way id="77830716">
+    <nd ref="915006373"/>
+    <nd ref="915006333"/>
+    <nd ref="915006355"/>
+    <nd ref="915006232"/>
+    <nd ref="915006373"/>
+    <tag k="addr:housenumber" v="109"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830721">
+    <nd ref="915006458"/>
+    <nd ref="915006219"/>
+    <nd ref="915006251"/>
+    <nd ref="915006399"/>
+    <nd ref="915006458"/>
+    <tag k="addr:housenumber" v="117"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830724">
+    <nd ref="915006446"/>
+    <nd ref="915006317"/>
+    <nd ref="915006431"/>
+    <nd ref="915006464"/>
+    <nd ref="915006446"/>
+    <tag k="addr:housenumber" v="103"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830741">
+    <nd ref="915006333"/>
+    <nd ref="915006412"/>
+    <nd ref="915006314"/>
+    <nd ref="915006355"/>
+    <nd ref="915006333"/>
+    <tag k="addr:housenumber" v="111"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830746">
+    <nd ref="915006219"/>
+    <nd ref="915006346"/>
+    <nd ref="915006449"/>
+    <nd ref="915006251"/>
+    <nd ref="915006219"/>
+    <tag k="addr:housenumber" v="119"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830765">
+    <nd ref="915006317"/>
+    <nd ref="915006269"/>
+    <nd ref="915006303"/>
+    <nd ref="915006431"/>
+    <nd ref="915006317"/>
+    <tag k="addr:housenumber" v="105"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830769">
+    <nd ref="915006412"/>
+    <nd ref="915006387"/>
+    <nd ref="915006396"/>
+    <nd ref="915006314"/>
+    <nd ref="915006412"/>
+    <tag k="addr:housenumber" v="113"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830796">
+    <nd ref="915006346"/>
+    <nd ref="915006301"/>
+    <nd ref="915006321"/>
+    <nd ref="915006449"/>
+    <nd ref="915006346"/>
+    <tag k="addr:housenumber" v="121"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830803">
+    <nd ref="915006269"/>
+    <nd ref="915006373"/>
+    <nd ref="915006232"/>
+    <nd ref="915006303"/>
+    <nd ref="915006269"/>
+    <tag k="addr:housenumber" v="107"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="77830808">
+    <nd ref="915006387"/>
+    <nd ref="915006458"/>
+    <nd ref="915006399"/>
+    <nd ref="915006396"/>
+    <nd ref="915006387"/>
+    <tag k="addr:housenumber" v="115"/>
+    <tag k="addr:street" v="Frank Harris"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="107678660">
+    <nd ref="1237057143"/>
+    <nd ref="1313713313"/>
+    <nd ref="1237057148"/>
+    <nd ref="1313713305"/>
+    <nd ref="1237057150"/>
+    <nd ref="1309025251"/>
+    <nd ref="1309025272"/>
+    <nd ref="1309025262"/>
+    <nd ref="1309025284"/>
+    <nd ref="1237057152"/>
+    <nd ref="1237057143"/>
+    <tag k="addr:housenumber" v="26"/>
+    <tag k="addr:street" v="Cornwall Road"/>
+    <tag k="amenity" v="place_of_worship"/>
+    <tag k="building" v="yes"/>
+    <tag k="denomination" v="roman_catholic"/>
+    <tag k="name" v="St Patrick's"/>
+    <tag k="postal_code" v="SE1 8TW"/>
+    <tag k="religion" v="christian"/>
+    <tag k="source" v="OS;survey;website"/>
+    <tag k="url" v="http://www.stpatrickwaterloo.org.uk/"/>
+  </way>
+  <way id="115978905">
+    <nd ref="1309005579"/>
+    <nd ref="1309005667"/>
+    <nd ref="1309005569"/>
+    <nd ref="1309005747"/>
+    <nd ref="1309005664"/>
+    <nd ref="1309005579"/>
+    <tag k="building" v="house"/>
+  </way>
+  <way id="115978912">
+    <nd ref="913199240"/>
+    <nd ref="1309005574"/>
+    <nd ref="1309005579"/>
+    <nd ref="1309005664"/>
+    <nd ref="1309005748"/>
+    <nd ref="913199203"/>
+    <nd ref="913199240"/>
+    <tag k="building" v="vacant"/>
+  </way>
+  <way id="115978914">
+    <nd ref="1309005667"/>
+    <nd ref="1309005619"/>
+    <nd ref="1309005716"/>
+    <nd ref="1309005600"/>
+    <nd ref="1309005573"/>
+    <nd ref="1309005663"/>
+    <nd ref="1309005747"/>
+    <nd ref="1309005569"/>
+    <nd ref="1309005667"/>
+    <tag k="addr:housenumber" v="33-34"/>
+    <tag k="addr:street" v="Cornwall Road"/>
+    <tag k="building" v="yes"/>
+    <tag k="musical_instrument" v="string"/>
+    <tag k="name" v="The Cello Factory"/>
+    <tag k="shop" v="musical_instrument"/>
+    <tag k="wikimedia_commons" v="File:The_Cello_Factory_in_Cornwall_Road,_Lambeth.jpg"/>
+  </way>
+  <way id="115978918">
+    <nd ref="1309005716"/>
+    <nd ref="1309005652"/>
+    <nd ref="1309005744"/>
+    <nd ref="1309005635"/>
+    <nd ref="1309005602"/>
+    <nd ref="1309005698"/>
+    <nd ref="1309005586"/>
+    <nd ref="1309005663"/>
+    <nd ref="1309005573"/>
+    <nd ref="1309005600"/>
+    <nd ref="1309005716"/>
+    <tag k="building" v="office"/>
+  </way>
+  <way id="115978920">
+    <nd ref="1309005665"/>
+    <nd ref="1309005749"/>
+    <nd ref="1309005727"/>
+    <nd ref="1309005609"/>
+    <nd ref="1309005703"/>
+    <nd ref="1309005590"/>
+    <nd ref="913199203"/>
+    <nd ref="1309005748"/>
+    <nd ref="1309005694"/>
+    <nd ref="1309005586"/>
+    <nd ref="1309005698"/>
+    <nd ref="1309005685"/>
+    <nd ref="1309005725"/>
+    <nd ref="1309005665"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="157380566">
+    <nd ref="1696030874"/>
+    <nd ref="3560401443"/>
+    <nd ref="3560401444"/>
+    <nd ref="7580376904"/>
+    <nd ref="7580376901"/>
+    <nd ref="7580376909"/>
+    <nd ref="109753"/>
+    <nd ref="7580376911"/>
+    <nd ref="7580376908"/>
+    <nd ref="7580376900"/>
+    <nd ref="1617512815"/>
+    <nd ref="4407679618"/>
+    <nd ref="4407679619"/>
+    <nd ref="109756"/>
+    <nd ref="1707216637"/>
+    <nd ref="277675369"/>
+    <nd ref="975660514"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Stamford Street"/>
+    <tag k="note" v="no PRN within ring road"/>
+    <tag k="operator" v="Transport for London"/>
+    <tag k="postal_code" v="SE1 9NN"/>
+    <tag k="ref" v="A3200"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="233229666">
+    <nd ref="109753"/>
+    <nd ref="7580376905"/>
+    <nd ref="7580376903"/>
+    <nd ref="7580376902"/>
+    <nd ref="5483342897"/>
+    <nd ref="1309025289"/>
+    <nd ref="25472469"/>
+    <nd ref="25468771"/>
+    <nd ref="25468756"/>
+    <nd ref="25473290"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Cornwall Road"/>
+    <tag k="postal_code" v="SE1"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="348210566">
+    <nd ref="3546582891"/>
+    <nd ref="913199251"/>
+    <nd ref="913199235"/>
+    <nd ref="3546582892"/>
+    <nd ref="3546582891"/>
+    <tag k="addr:city" v="London"/>
+    <tag k="addr:housename" v="Coin Street Neighbourhood Centre"/>
+    <tag k="addr:housenumber" v="108"/>
+    <tag k="addr:postcode" v="SE1 9NH"/>
+    <tag k="addr:street" v="Stamford Street"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="brand" v="Nando's"/>
+    <tag k="brand:wikidata" v="Q3472954"/>
+    <tag k="brand:wikipedia" v="en:Nando's"/>
+    <tag k="building:levels" v="1"/>
+    <tag k="cuisine" v="chicken;portuguese"/>
+    <tag k="name" v="Nando's"/>
+    <tag k="opening_hours" v="Mo-Th,Su 11:30-22:00; Fr-Sa 11:30-23:00"/>
+    <tag k="phone" v="+44 20 7261 9006"/>
+    <tag k="website" v="https://www.nandos.co.uk/"/>
+    <tag k="wheelchair" v="yes"/>
+  </way>
+  <way id="429838940">
+    <nd ref="4290398591"/>
+    <nd ref="4290398592"/>
+    <nd ref="4290398593"/>
+    <nd ref="4290398594"/>
+    <nd ref="4290398591"/>
+    <tag k="landuse" v="construction"/>
+  </way>
+  <way id="456587227">
+    <nd ref="4805652929"/>
+    <nd ref="4528393248"/>
+    <nd ref="4528393249"/>
+    <nd ref="4528393250"/>
+    <nd ref="4528393251"/>
+    <nd ref="590151419"/>
+    <nd ref="4805652931"/>
+    <nd ref="4805652929"/>
+    <tag k="landuse" v="residential"/>
+  </way>
+  <way id="468452231">
+    <nd ref="4629860951"/>
+    <nd ref="4629860952"/>
+    <nd ref="4629860953"/>
+    <nd ref="4680746714"/>
+    <nd ref="4629860954"/>
+    <nd ref="4629860955"/>
+    <nd ref="4629860951"/>
+    <tag k="leisure" v="park"/>
+    <tag k="name" v="Edward Henry House Gardens"/>
+  </way>
+  <way id="488235201">
+    <nd ref="913199306"/>
+    <nd ref="914310010"/>
+    <nd ref="913199223"/>
+    <nd ref="913199262"/>
+    <nd ref="913199208"/>
+    <nd ref="913199267"/>
+    <nd ref="913199292"/>
+    <nd ref="913199243"/>
+    <nd ref="913199260"/>
+    <nd ref="291659711"/>
+    <nd ref="291659707"/>
+    <nd ref="291659708"/>
+    <nd ref="291659709"/>
+    <nd ref="914309949"/>
+    <nd ref="4805652928"/>
+    <nd ref="913199306"/>
+  </way>
+  <way id="570350782">
+    <nd ref="5483342897"/>
+    <nd ref="5501949498"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="572711111">
+    <nd ref="5501949499"/>
+    <nd ref="5501949497"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="572711113">
+    <nd ref="5501949498"/>
+    <nd ref="5501949499"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="no"/>
+    <tag k="layer" v="-1"/>
+    <tag k="surface" v="paved"/>
+    <tag k="tunnel" v="building_passage"/>
+  </way>
+  <way id="639121633">
+    <nd ref="4528393252"/>
+    <nd ref="4528393253"/>
+    <nd ref="4528393254"/>
+    <nd ref="4528393255"/>
+    <nd ref="6022739723"/>
+    <nd ref="6022739722"/>
+    <nd ref="4528393260"/>
+    <nd ref="4528393261"/>
+    <nd ref="4528393262"/>
+    <nd ref="4528393263"/>
+    <nd ref="4528393264"/>
+    <nd ref="4528393265"/>
+    <nd ref="4528393266"/>
+    <nd ref="6196407068"/>
+    <nd ref="6196407070"/>
+    <nd ref="4528393267"/>
+    <nd ref="917072538"/>
+    <nd ref="4528393268"/>
+    <nd ref="4528393269"/>
+    <nd ref="4528393270"/>
+    <nd ref="4528393271"/>
+    <nd ref="4528393272"/>
+    <nd ref="4528393252"/>
+    <tag k="landuse" v="residential"/>
+  </way>
+
+</osm>

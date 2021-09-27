@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLEdgeControlBuilder.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // Interface for building edges
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -37,7 +35,6 @@
 #include <utils/common/UtilExceptions.h>
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
-#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 
 
@@ -81,9 +78,11 @@ MSLane*
 NLEdgeControlBuilder::addLane(const std::string& id,
                               double maxSpeed, double length,
                               const PositionVector& shape, double width,
-                              SVCPermissions permissions, int index, bool isRampAccel,
+                              SVCPermissions permissions,
+                              SVCPermissions changeLeft, SVCPermissions changeRight,
+                              int index, bool isRampAccel,
                               const std::string& type) {
-    MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, index, isRampAccel, type);
+    MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
     myLaneStorage->push_back(lane);
     myCurrentLaneIndex = index;
     return lane;
@@ -232,5 +231,5 @@ void NLEdgeControlBuilder::addCrossingEdges(const std::vector<std::string>& cros
     myActiveEdge->setCrossingEdges(crossingEdges);
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

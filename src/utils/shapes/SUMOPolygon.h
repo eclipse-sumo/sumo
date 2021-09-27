@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOPolygon.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Jakob Erdmann
 /// @author  Melanie Knocke
 /// @date    Jun 2004
-/// @version $Id$
 ///
 // A 2D- or 3D-polygon
 /****************************************************************************/
-#ifndef Polygon_h
-#define Polygon_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/geom/PositionVector.h>
@@ -45,8 +42,11 @@ class OutputDevice;
  * @brief A 2D- or 3D-polygon
  */
 class SUMOPolygon : public Shape, public Parameterised {
-    friend class PolygonDynamics;
+
 public:
+    /// @brief friend class
+    friend class PolygonDynamics;
+
     /** @brief Constructor
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
@@ -59,6 +59,8 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth The line with for drawing an unfilled polygon
      * @param[in] relativePath set image file as relative path
+     * @param[in] name Polygon name
+     * @param[in] parameters generic parameters
      */
     SUMOPolygon(const std::string& id, const std::string& type,
                 const RGBColor& color, const PositionVector& shape,
@@ -66,12 +68,12 @@ public:
                 double layer = DEFAULT_LAYER,
                 double angle = DEFAULT_ANGLE,
                 const std::string& imgFile = DEFAULT_IMG_FILE,
-                bool relativePath = DEFAULT_RELATIVEPATH);
-
+                bool relativePath = DEFAULT_RELATIVEPATH,
+                const std::string& name = DEFAULT_NAME,
+                const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS);
 
     /// @brief Destructor
     virtual ~SUMOPolygon();
-
 
     /// @name Getter
     /// @{
@@ -87,7 +89,7 @@ public:
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
      */
-    inline bool getFill() const {
+    virtual bool getFill() const {
         return myFill;
     }
 
@@ -141,8 +143,3 @@ protected:
     /// @brief The line width for drawing an unfilled polygon
     double myLineWidth;
 };
-
-
-#endif
-
-/****************************************************************************/

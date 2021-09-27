@@ -4,6 +4,12 @@ parade
 # A parade of vehicle coloring methods
 paradeColor
 
+# A parade of persons walking and riding
+paradePersons
+
+# A parade of containers being shipped
+paradeContainers
+
 # show some ships on a river
 ships
 

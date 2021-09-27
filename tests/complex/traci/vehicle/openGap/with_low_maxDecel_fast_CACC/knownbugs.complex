@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 09Dec10:06:28]
+search_string:Error
+search_file:errors
+ignore_other_errors:1
+full_description:not even failing as intended
+brief_description:see #6192

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-23 12:17:07 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="a" type="t0" time="70.00" from="A_1" to="A_0" dir="-1" speed="8.33" pos="338.30" reason="keepRight" leaderGap="21.66" leaderSecureGap="11.11" leaderSpeed="6.66" followerGap="21.66" followerSecureGap="3.89" followerSpeed="6.66" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="a" type="t0" time="78.00" from="A_0" to="A_1" dir="1" speed="7.12" pos="403.41" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="9.86" origLeaderSecureGap="7.82" origLeaderSpeed="6.66"/>
+    <change id="b" type="t0" time="99.00" from="B_1" to="B_0" dir="-1" speed="13.89" pos="963.51" reason="keepRight" leaderGap="47.78" leaderSecureGap="21.61" leaderSpeed="11.11" followerGap="31.11" followerSecureGap="3.39" followerSpeed="11.11" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="c" type="t0" time="110.00" from="C_1" to="C_0" dir="-1" speed="27.78" pos="2227.50" reason="keepRight" leaderGap="217.24" leaderSecureGap="58.65" leaderSpeed="22.22" followerGap="39.45" followerSecureGap="0.00" followerSpeed="22.22" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="b" type="t0" time="110.00" from="B_0" to="B_1" dir="1" speed="12.81" pos="1115.39" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="18.14" origLeaderSecureGap="17.34" origLeaderSpeed="11.11"/>
+    <change id="d" type="t0" time="111.00" from="D_1" to="D_0" dir="-1" speed="36.11" pos="2930.01" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="60.00" followerSecureGap="0.00" followerSpeed="28.89" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="a" type="t0" time="127.00" from="A_1" to="A_0" dir="-1" speed="8.33" pos="810.97" reason="keepRight" leaderGap="35.46" leaderSecureGap="11.11" leaderSpeed="6.66" followerGap="7.85" followerSecureGap="3.89" followerSpeed="6.66" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="a" type="t0" time="143.00" from="A_0" to="A_1" dir="1" speed="7.21" pos="943.04" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="10.01" origLeaderSecureGap="8.05" origLeaderSpeed="6.66"/>
+    <change id="b" type="t0" time="155.00" from="B_1" to="B_0" dir="-1" speed="13.89" pos="1739.90" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="7.44" followerSecureGap="3.39" followerSpeed="11.11" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="a" type="t0" time="160.00" from="A_1" to="A_0" dir="-1" speed="8.33" pos="1084.09" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="7.75" followerSecureGap="3.89" followerSpeed="6.66" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+</lanechanges>

@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 17Sep23:47:10]
+search_string:emergency
+search_file:errors
+full_description:unsafe lateral acceleration
+brief_description:see #9181

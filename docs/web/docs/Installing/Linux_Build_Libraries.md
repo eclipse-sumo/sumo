@@ -1,7 +1,9 @@
 ---
-title: Installing/Linux Build Libraries
-permalink: /Installing/Linux_Build_Libraries/
+title: Linux Build Libraries
 ---
+
+!!! note
+    The documentation here is probably outdated and refers to old library versions!
 
 This document contains instructions for two basic ways of installing
 tools and libraries.
@@ -46,9 +48,9 @@ Unix-like environments. Documentation can be found in the
 - [GNU autoconf pages](http://www.gnu.org/software/autoconf/),
 - [Manual for autoconf](http://www.gnu.org/software/autoconf/manual/),
 - [Manual for
-  automake](http://sources.redhat.com/automake/automake.html),
+  automake](https://www.gnu.org/software/automake/),
 - [Manual for
-  libtool](http://www.gnu.org/software/libtool/manual.html), and
+  libtool](https://www.gnu.org/software/libtool/manual/libtool.html), and
 - the
   [Autobook](http://sources.redhat.com/autobook/autobook/autobook_toc.html).
 
@@ -82,19 +84,19 @@ cd proj-4.6.0
 - Note: It seems like some distributions of Fox are built with
   disabled openGl-support. If you get unresolved references to methods
   such as "glColor...", "glVertex3f...", etc. during compilation of
-  [SUMO-GUI](../SUMO-GUI.md) you have to enable openGL-support
+  [sumo-gui](../sumo-gui.md) you have to enable openGL-support
   before compiling the FOX-library using "./configure
   --with-opengl=yes --prefix=$HOME && make install"; Still, this is
   the default normally.
 
-<!-- end list -->
+
 
 - In contrast to the other libraries, it is very likely that Xerces-C
   also comes with your Linux distribution (at least it does with a
   recent SuSE). If so, please first try to install it from there and
   do not forget to install the developer package as well.
 - The [Xerces
-  build](http://xml.apache.org/xerces-c/build-winunix.html#UNIX) is
+  build](https://xerces.apache.org/xerces-c/build-3.html) is
   somewhat more involved:
 
 ```
@@ -179,8 +181,17 @@ sudo mv  /usr/local/src/sumo-0.22.0/doc /usr/local/share/sumo-0.22.0/
 
 #### Ubuntu 18.04 (tested with SUMO 0.32.0)
 
-The rquired libraries are libxerces-c-dev, libgdal-dev, libproj-dev and
+The required libraries are libxerces-c-dev, libgdal-dev, libproj-dev and
 libfox-1.6-dev.
+
+#### CentOS / RHEL
+
+```
+sudo yum install xerces-c-devel cmake libxerces-c-dev  gdal-devel proj-develgl2ps-devel gcc-c++
+```
+
+You need to download fox-toolkit from it's website and build manually
+http://www.fox-toolkit.org/download.html
 
 #### Cygwin
 

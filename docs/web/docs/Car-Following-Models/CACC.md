@@ -1,6 +1,5 @@
 ---
-title: Car-Following-Models/CACC
-permalink: /Car-Following-Models/CACC/
+title: CACC
 ---
 
 ## Overview
@@ -48,7 +47,11 @@ less than 1.5 s and the gap deviation is negative.
 - This part of SUMO was developed and extended within the project
   [TransAID](https://www.transaid.eu).
 - The model is primarily intended for use in specific traffic
-  situations.
+  situations.  
+- When there is no leader vehicle, the model uses the same speed as the Krauss model to approach junctions and speed limits
+  
+!!! caution
+    The model is known to produce collisions at the default step-length of 1s. Better results can be achieved by setting a lower step length.
 
 ## References
 

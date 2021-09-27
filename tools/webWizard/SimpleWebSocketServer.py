@@ -4,7 +4,6 @@
 # @file    SimpleWebSocketServer.py
 # @author  Dave Pallot
 # @date    2013
-# @version $Id$
 
 """
 A web socket server implementation to be used by the osm server.py

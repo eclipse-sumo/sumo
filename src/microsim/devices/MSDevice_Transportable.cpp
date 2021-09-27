@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_Transportable.cpp
 /// @author  Daniel Krajzewicz
@@ -15,23 +19,20 @@
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Fri, 30.01.2009
-/// @version $Id$
 ///
 // A device which is used to keep track of persons and containers riding with a vehicle
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include <microsim/MSTransportableControl.h>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSStageDriving.h>
 #include "MSDevice_Transportable.h"
+#include "MSDevice_Taxi.h"
 
 
 // ===========================================================================
@@ -58,15 +59,20 @@ MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::s
 
 MSDevice_Transportable::~MSDevice_Transportable() {
     // flush any unfortunate riders still remaining
-    while (!myTransportables.empty()) {
-        MSTransportable* transportable = myTransportables.front();
+    for (auto it = myTransportables.begin(); it != myTransportables.end();) {
+        MSTransportable* transportable = *it;
         WRITE_WARNING((myAmContainer ? "Removing container '" : "Removing person '") + transportable->getID() +
                       "' at removal of vehicle '" + myHolder.getID() + "'");
+        MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
+        if (stage != nullptr) {
+            stage->setVehicle(nullptr);
+        }
         if (myAmContainer) {
             MSNet::getInstance()->getContainerControl().erase(transportable);
         } else {
             MSNet::getInstance()->getPersonControl().erase(transportable);
         }
+        it = myTransportables.erase(it);
     }
 }
 
@@ -96,8 +102,13 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
         if (veh.isStopped()) {
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
-                if (transportable->getDestination() == veh.getEdge()) {
+                MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
+                if (stage->canLeaveVehicle(transportable, myHolder)) {
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
+                    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+                    if (taxiDevice != nullptr) {
+                        taxiDevice->customerArrived(transportable);
+                    }
                     if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                         if (myAmContainer) {
                             MSNet::getInstance()->getContainerControl().erase(transportable);
@@ -113,9 +124,9 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                             MSStopOut::getInstance()->unloadedPersons(vehicle, 1);
                         }
                     }
-                } else {
-                    ++i;
+                    continue;
                 }
+                ++i;
             }
             myStopped = true;
         }
@@ -125,11 +136,15 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
 
 
 bool
-MSDevice_Transportable::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Transportable::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
         }
+    }
+    if (MSGlobals::gUseMesoSim) {
+        // to trigger vehicle leaving
+        notifyMove(veh, -1., -1., -1.);
     }
     return true;
 }
@@ -146,7 +161,7 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
                               "' to intended destination edge '" + transportable->getDestination()->getID() + "'");
             }
-            if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+            if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {
                 if (myAmContainer) {
                     MSNet::getInstance()->getContainerControl().erase(transportable);
                 } else {
@@ -170,6 +185,10 @@ MSDevice_Transportable::addTransportable(MSTransportable* transportable) {
             MSStopOut::getInstance()->loadedPersons(&myHolder, 1);
         }
     }
+    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+    if (taxiDevice != nullptr) {
+        taxiDevice->customerEntered(transportable);
+    }
 }
 
 
@@ -180,12 +199,34 @@ MSDevice_Transportable::removeTransportable(MSTransportable* transportable) {
         myTransportables.erase(it);
         if (MSStopOut::active() && myHolder.isStopped()) {
             if (myAmContainer) {
-                MSStopOut::getInstance()->loadedContainers(&myHolder, 1);
+                MSStopOut::getInstance()->unloadedContainers(&myHolder, 1);
             } else {
-                MSStopOut::getInstance()->loadedPersons(&myHolder, 1);
+                MSStopOut::getInstance()->unloadedPersons(&myHolder, 1);
             }
         }
+        MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+        if (taxiDevice != nullptr) {
+            taxiDevice->customerArrived(transportable);
+        }
     }
+}
+
+
+void
+MSDevice_Transportable::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myStopped));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSDevice_Transportable::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myStopped;
 }
 
 
@@ -193,8 +234,8 @@ std::string
 MSDevice_Transportable::getParameter(const std::string& key) const {
     if (key == "IDList") {
         std::vector<std::string> ids;
-        for (std::vector<MSTransportable*>::const_iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-            ids.push_back((*i)->getID());
+        for (const MSTransportable* t : myTransportables) {
+            ids.push_back(t->getID());
         }
         return toString(ids);
     }
@@ -203,4 +244,3 @@ MSDevice_Transportable::getParameter(const std::string& key) const {
 
 
 /****************************************************************************/
-

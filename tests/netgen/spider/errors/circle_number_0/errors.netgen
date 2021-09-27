@@ -1,2 +1,3 @@
+Warning: Spider networks with many arms should use option ommit-center
 Error: Spider networks need at least one circle.
 Quitting (on error).

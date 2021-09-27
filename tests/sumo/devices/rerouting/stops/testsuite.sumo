@@ -3,3 +3,12 @@ cyclic_trip
 
 # reroute while on a stop edge but already past the stop
 cyclic_trip_past_stop
+
+# define a repeating route without defining edges
+public_transport_implicit_route
+
+# define a repeating route without defining edges, first and last stop are not repeated
+public_transport_implicit_route_depot
+
+# define a repeating route without defining edges, first and last stop are not repeated
+public_transport_implicit_route_depot_flow

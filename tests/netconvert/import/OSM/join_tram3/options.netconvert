@@ -1,0 +1,5 @@
+ --osm-files osm.xml --edges.join-tram-dist 1.6
+ --ptstop-output additional.xml
+ --ptline-output ptlines.xml
+ --no-internal-links
+ --keep-edges.by-vclass passenger,tram,bus

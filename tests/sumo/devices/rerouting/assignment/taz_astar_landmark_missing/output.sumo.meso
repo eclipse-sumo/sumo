@@ -1,5 +1,5 @@
-Loading net-file from 'net.net.xml'... done (82ms).
-Loading additional-files from 'input_districts.taz.xml'... done (0ms).
+Loading net-file from 'net.net.xml' ... done (82ms).
+Loading additional-files from 'input_districts.taz.xml' ... done (0ms).
 Loading done.
 Simulation started with time: 0.00
 Building Contraction Hierarchy for vClass='passenger' and time=0.00 (364 edges)

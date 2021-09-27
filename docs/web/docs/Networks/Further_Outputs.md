@@ -1,17 +1,16 @@
 ---
-title: Networks/Further Outputs
-permalink: /Networks/Further_Outputs/
+title: Further Outputs
 ---
 
-[NETCONVERT](../NETCONVERT.md),
-[NETGENERATE](../NETGENERATE.md), and [NETEDIT](../NETEDIT.md)
+[netconvert](../netconvert.md),
+[netgenerate](../netgenerate.md), and [netedit](../Netedit/index.md)
 allow to generate additional output files besides writing a SUMO network
 file. They will be presented in the following.
 
 # Writing/Exporting Networks
 
-If no other output option is given, [NETCONVERT](../NETCONVERT.md)
-and [NETGENERATE](../NETGENERATE.md) will write the result of
+If no other output option is given, [netconvert](../netconvert.md)
+and [netgenerate](../netgenerate.md) will write the result of
 network import/generation as a SUMO network file into "net.net.xml".
 Otherwise the specified output will be generated.
 
@@ -28,7 +27,7 @@ formats:
 
 This is the default output format, see above. The name of the file to
 write the network into can be given using the option **--output-file** {{DT_FILE}}. **--sumo-output** {{DT_FILE}} and **--output** {{DT_FILE}} are
-synonymes.
+synonyms.
 
 ## Plain XML Output
 
@@ -39,8 +38,8 @@ Descriptions](../Networks/PlainXML.md#node_descriptions)
 and [Edge
 Descriptions](../Networks/PlainXML.md#node_descriptions)).
 This shall ease processing of networks read from other formats than XML.
-The option **--plain-output** {{DT_FILE}} forces [NETCONVERT](../NETCONVERT.md) and
-[NETGENERATE](../NETGENERATE.md) to generate a file named
+The option **--plain-output** {{DT_FILE}} forces [netconvert](../netconvert.md) and
+[netgenerate](../netgenerate.md) to generate a file named
 "{{DT_FILE}}.nod.xml" which contains the previously imported nodes, a file named
 "{{DT_FILE}}.edg.xml" which contains the previously imported edges, and a file
 named "{{DT_FILE}}.con.xml" which contains the previously imported connections. The
@@ -111,7 +110,7 @@ Recommended options
 
 ### Embedding Road Objects
 
-To include road ojects in the generated *xodr*-output, the following
+To include road objects in the generated *xodr*-output, the following
 conditions must be met:
 
 - a polygon file is loaded with `<poly>` elements that encode a rectangular
@@ -122,23 +121,11 @@ conditions must be met:
 Such edges will receive the polygon objects with the indicated IDs as
 road objects
 
-## (Q)GIS
+## (Q)GIS / GeoJSON
+Conversion of .net.xml file with [python tool net2geojson](../Tools/Net.md#net2geojsonpy)
 
-NETCONVERT does not directly support an output that can be read by QGIS
-but on Linux the following conversion script can be used to convert a
-*net.xml* file into a loadable layer. The layer can be loaded with
-function *Add Delimited Text Layer* (Delimiter must be set to
-'semicolon', Geometry to WKT).
-
-```
-  #!/bin/bash
-  grep "<lane\|<net\|</net" $1 > $1.lanes.xml
-  python $SUMO_HOME/tools/xml/xml2csv.py $1.lanes.xml
-  sed -i 's/ /|/g' $1.lanes.csv
-  sed -i 's/,/ /g' $1.lanes.csv
-  sed -i 's/|/,/g' $1.lanes.csv
-  awk '$5="LINESTRING("$5")"' FS=';' OFS=';' $1.lanes.csv > $1.lanes.qgis.csv
-```
+## KML
+Conversion of .net.xml file with [python tool net2kml](../Tools/Net.md#net2kmlpy)
 
 # Further Outputs
 
@@ -146,8 +133,8 @@ function *Add Delimited Text Layer* (Delimiter must be set to
 
 The option **--ptstop-output** {{DT_FILE}} causes an {{AdditionalFile}} to be written that contains `<busStop/>` elements for the
 imported network. These can be loaded directly into
-[SUMO](../SUMO.md) or further modified with
-[NETEDIT](../NETEDIT.md).
+[sumo](../sumo.md) or further modified with
+[netedit](../Netedit/index.md).
 
 ## Public Transport Lines
 
@@ -178,7 +165,7 @@ are optional and only serve to enhance human reader comprehension. The
 (other allowed types are
 *train,subway,light_rail,monorail,trolleybus,aerialway,ferry*). The
 **line** attribute will be used in the simulation when distinguishing
-public transport lines. The optinal **completeness** attribute serves to
+public transport lines. The optional **completeness** attribute serves to
 inform the human reader that the stops only descibe 11% of the complete
 line. Incomplete lines are typical when importing only a part of the
 complete public transport network.
@@ -195,7 +182,7 @@ The option **--street-sign-output** {{DT_FILE}} causes a file with
 [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions)
 to be written. These POIs encode the type of street signs that are
 encountered on each edge and can be loaded as {{AdditionalFile}} in
-[SUMO-GUI](../SUMO-GUI.md). Currently used sign types are:
+[sumo-gui](../sumo-gui.md). Currently used sign types are:
 
 - priority
 - yield

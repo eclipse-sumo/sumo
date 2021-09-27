@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2019-07-16
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -32,36 +35,32 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walks", "walkEdges")
+netedit.changePersonPlan("walks", "walk: edges")
 
 # set invalid color
 netedit.changeDefaultValue(6, "dummyColor")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
-# press enter to create route
+# press enter to create person
 netedit.typeEnter()
 
 # set valid color
 netedit.changeDefaultValue(6, "cyan")
 
-# create person
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 180, 60)
-
-# press enter to create route
+# press enter to create person
 netedit.typeEnter()
 
 # set valid color
 netedit.changeDefaultValue(6, "12,13,14")
 
 # create person
-netedit.leftClick(referencePosition, 274, 414)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
-# press enter to create route
+# press enter to create person
 netedit.typeEnter()
 
 # Check undo redo

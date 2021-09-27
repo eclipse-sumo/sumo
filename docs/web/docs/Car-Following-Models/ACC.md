@@ -1,6 +1,5 @@
 ---
-title: Car-Following-Models/ACC
-permalink: /Car-Following-Models/ACC/
+title: ACC
 ---
 
 ## Overview
@@ -38,7 +37,7 @@ transfer between the two strategies.
 ## Collision avoidance control mode
 
 The collision avoidance mode prevents rear-end collisions when safety
-critical conditions prevail.This mode is activated when the spacing to
+critical conditions prevail. This mode is activated when the spacing to
 the preceding vehicle is smaller than 100 m and the gap deviation is
 negative.
 
@@ -52,6 +51,7 @@ negative.
   [TransAID](https://www.transaid.eu).
 - The model is primarily intended for use in specific traffic
   situations.
+- When there is no leader vehicle, the model uses the same speed as the Krauss model to approach junctions and speed limits
 
 ## References
 

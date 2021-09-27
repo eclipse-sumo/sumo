@@ -4,11 +4,13 @@ add_executable(testgeom
         PositionVectorTest.cpp
         GeomHelperTest.cpp
         )
+add_dependencies(testgeom install_test_dll)
 set_property(TARGET testgeom PROPERTY FOLDER "test_exe")
-add_test(NAME testgeom COMMAND $<TARGET_FILE:testgeom>)
-set_target_properties(testgeom PROPERTIES OUTPUT_NAME_DEBUG testgeomD)
+add_test(testgeom ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testgeom)
 
-if (MSVC OR APPLE)
+if (CLANG_COMPILER AND WIN32)
+    target_link_libraries(testgeom -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} -lpthread -lm)
+elseif (MSVC OR APPLE)
     target_link_libraries(testgeom ${commonlibs} ${GTEST_BOTH_LIBRARIES})
 else ()
     target_link_libraries(testgeom -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} -lpthread -lm)

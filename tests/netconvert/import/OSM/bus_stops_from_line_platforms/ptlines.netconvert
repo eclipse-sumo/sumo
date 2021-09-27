@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Apr  3 10:39:54 2020 by Eclipse SUMO netconvert Version v1_5_0+1091-c6b579fffd
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="8614125" name="社区巴士9011路" line="9011" type="bus" vClass="bus" completeness="0.14">
+        <route edges="-621164893#1 -621164893#0 -620937810#2 -620937810#1 -620937810#0"/>
+        <busStop id="-5866058270" name="三元坊（十全街）"/>
+        <busStop id="-5866058279" name="南园宾馆"/>
+    </ptLine>
+    <ptLine id="8617712" name="社区巴士9003路" line="9003" type="bus" vClass="bus" completeness="0.20">
+        <route edges="44669527#0 44669527#1 621562724#0 621562724#1 621562724#2 621156405 44669522#0 44669522#1 44669522#2 44669522#3 454323073 454323074 454323085#0 454323085#1 621156387 -621156405 621156406"/>
+        <busStop id="5867361086" name="大公园"/>
+        <busStop id="5867326285" name="平桥直街"/>
+        <busStop id="5866058274" name="乌鹊桥路北"/>
+    </ptLine>
+    <ptLine id="8617761" name="社区巴士9004路" line="9004" type="bus" vClass="bus" completeness="0.21">
+        <route edges="-440356231#3 -440356231#2 -440356231#1 -440356231#0 -621164893#1 -621164893#0 -454323074 -454323073 -44669522#3 -44669522#2 -44669522#1 -44669522#0 -621156405 -621562724#2 -621562724#1 -621562724#0 -44669527#1 -44669527#0 -621562724#2 -621562724#1 -621562724#0 -454323212#3 -454323212#2 -454323212#1 -454323212#0 131443652#0 131443652#1 131443652#2 131443652#3 131443652#4 454323072 454323071 440356231#0 440356231#1 440356231#2 440356231#3"/>
+        <busStop id="-5867326289" name="网师园北"/>
+        <busStop id="-5866058279" name="南园宾馆"/>
+        <busStop id="-5866058277" name="南林饭店"/>
+        <busStop id="-5867326286" name="平桥直街"/>
+    </ptLine>
+</ptLines>

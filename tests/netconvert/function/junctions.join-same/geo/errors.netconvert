@@ -1,0 +1,5 @@
+Warning: Ignoring loaded location attribute nr. 2 for tracking of original location
+Warning: Ambiguity in turnarounds computation at junction 'cluster_56455689_s56455689'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_cluster_32444587_6273887394_scluster_32444587_6273887394'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_cluster_32444589_4396212913_scluster_32444589_4396212913'.
+Warning: Intersecting left turns at junction 'cluster_cluster_32444587_6273887394_scluster_32444587_6273887394' from lane 's304426109#0_0' and lane 's-239924883_0' (increase junction radius to avoid this).

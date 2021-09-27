@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIMEVehicle.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/globjects/GLIncludes.h>
@@ -61,11 +59,11 @@ GUIMEVehicle::~GUIMEVehicle() { }
 GUIParameterTableWindow*
 GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 21 + (int)getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("edge [id]", true, new FunctionBindingString<GUIMEVehicle>(this, &GUIMEVehicle::getEdgeID));
     ret->mkItem("segment [#]", true,  new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getSegmentIndex));
+    ret->mkItem("queue [#]", true,  new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getQueIndex));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getSpeed));
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, double>(this, &GUIBaseVehicle::getNaviDegree));
@@ -82,6 +80,8 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
+    ret->mkItem("odometer [m]", true,
+                new FunctionBinding<GUIMEVehicle, double>(this, &MSBaseVehicle::getOdometer));
     if (getParameter().repetitionNumber < std::numeric_limits<int>::max()) {
         ret->mkItem("remaining [#]", false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
@@ -107,7 +107,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getFuelConsumption));
     //ret->mkItem("noise (Harmonoise) [dB]", true,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getHarmonoise_NoiseEmissions));
-    ret->mkItem("devices", false, toString(myDevices));
+    ret->mkItem("devices", false, getDeviceDescription());
     //ret->mkItem("persons", true,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,
@@ -127,8 +127,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 9 + (int)myType->getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -212,13 +211,17 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 
 
 void
-GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future) const {
+GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& /*col*/) const {
     const double exaggeration = s.vehicleSize.getExaggeration(s, this);
-    MSRouteIterator i = future ? myCurrEdge : r.begin();
+    MSRouteIterator start = future ? myCurrEdge : r.begin();
+    MSRouteIterator i = start;
     for (; i != r.end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), 1.0);
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+        if (noLoop && i != start && (*i) == (*start)) {
+            break;
+        }
     }
 }
 
@@ -250,7 +253,7 @@ GUIMEVehicle::getEdgeID() const {
 
 int
 GUIMEVehicle::getSegmentIndex() const {
-    return getSegment()->getIndex();
+    return getSegment() != nullptr ? getSegment()->getIndex() : -1;
 }
 
 
@@ -258,5 +261,28 @@ void
 GUIMEVehicle::selectBlockingFoes() const {
     // @todo possibly we could compute something reasonable here
 }
-/****************************************************************************/
 
+
+Boundary
+GUIMEVehicle::getCenteringBoundary() const {
+    // getPosition returns the start of the first lane, so we do not use it here
+    getEdge()->lock();
+    const MSLane* const lane = getEdge()->getLanes()[getQueIndex()];
+    double offset = 0;
+    if (getSegment() != nullptr) {
+        offset = getSegment()->getLength();
+        const std::vector<MEVehicle*>& queue = getSegment()->getQueue(getQueIndex());
+        for (int i = (int)queue.size() - 1; i >= 0 && queue[i] != this; i--) {
+            offset -= queue[i]->getVehicleType().getLengthWithGap();
+        }
+    }
+    getEdge()->unlock();
+    Position pos = lane->geometryPositionAtOffset(getPositionOnLane() + offset);
+    Boundary b;
+    b.add(pos);
+    b.grow(getVehicleType().getLength());
+    return b;
+}
+
+
+/****************************************************************************/

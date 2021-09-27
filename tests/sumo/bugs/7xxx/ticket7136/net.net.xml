@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 08 Jun 2020 03:49:25 PM CEST by Eclipse SUMO netedit Version v1_6_0+0596-ffb68dde50
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,-0.04,200.00,135.80" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C2_0" function="internal">
+        <lane id=":C2_0_0" index="0" speed="13.89" length="13.30" shape="110.90,98.50 115.06,98.80 118.10,99.38 120.84,99.93 124.08,100.17"/>
+    </edge>
+    <edge id=":C2_1" function="internal">
+        <lane id=":C2_1_0" index="0" speed="13.89" length="12.85" shape="110.90,98.50 114.32,99.02 116.90,100.49 118.63,102.90 119.51,106.25"/>
+    </edge>
+    <edge id=":C2_2" function="internal">
+        <lane id=":C2_2_0" index="0" speed="13.89" length="8.18" shape="110.85,101.70 113.03,102.03 114.67,102.97 115.77,104.50 116.33,106.63"/>
+    </edge>
+    <edge id=":cluster_C_gneJ0_0" function="internal">
+        <lane id=":cluster_C_gneJ0_0_0" index="0" speed="13.89" length="12.62" shape="99.00,93.94 98.90,96.32 100.72,97.84 104.33,98.12 108.56,98.46"/>
+    </edge>
+    <edge id=":cluster_C_gneJ0_1" function="internal">
+        <lane id=":cluster_C_gneJ0_1_0" index="0" speed="13.89" length="5.92" shape="93.11,98.47 94.24,98.18 95.06,97.32 95.58,95.87 95.80,93.85"/>
+    </edge>
+    <edge id=":cluster_C_gneJ0_2" function="internal">
+        <lane id=":cluster_C_gneJ0_2_0" index="0" speed="13.89" length="15.43" shape="93.11,98.47 108.56,98.46"/>
+        <lane id=":cluster_C_gneJ0_2_1" index="1" speed="13.89" length="15.43" shape="93.11,101.67 108.52,101.66"/>
+    </edge>
+
+    <edge id="C2E" from="C2" to="E" priority="2" spreadType="center">
+        <lane id="C2E_0" index="0" speed="13.89" length="75.92" shape="124.08,100.17 200.00,100.00"/>
+    </edge>
+    <edge id="C2N" from="C2" to="N" priority="-1" spreadType="center">
+        <lane id="C2N_0" index="0" speed="13.89" length="29.57" shape="119.51,106.25 123.02,135.61"/>
+        <lane id="C2N_1" index="1" speed="13.89" length="29.57" shape="116.33,106.63 119.84,135.99"/>
+    </edge>
+    <edge id="CC2" from="cluster_C_gneJ0" to="C2" priority="2" spreadType="center" shape="108.54,100.06 117.17,100.19">
+        <lane id="CC2_0" index="0" speed="13.89" length="2.34" shape="108.56,98.46 110.90,98.50"/>
+        <lane id="CC2_1" index="1" speed="13.89" length="2.34" shape="108.52,101.66 110.85,101.70"/>
+    </edge>
+    <edge id="CS" from="cluster_C_gneJ0" to="S" priority="2" spreadType="center" shape="95.80,93.85 98.40,-0.04">
+        <lane id="CS_0" index="0" speed="13.89" length="93.93" shape="95.80,93.85 98.40,-0.04"/>
+    </edge>
+    <edge id="SC" from="S" to="cluster_C_gneJ0" priority="2" spreadType="center" shape="101.60,0.04 99.00,93.94">
+        <lane id="SC_0" index="0" speed="13.89" length="93.93" shape="101.60,0.04 99.00,93.94"/>
+    </edge>
+    <edge id="WC" from="W" to="cluster_C_gneJ0" priority="2" spreadType="center" shape="0.00,100.00 93.93,100.07">
+        <lane id="WC_0" index="0" speed="13.89" length="93.11" shape="0.00,98.40 93.11,98.47"/>
+        <lane id="WC_1" index="1" speed="13.89" length="93.11" shape="-0.00,101.60 93.11,101.67"/>
+    </edge>
+
+    <junction id="C2" type="priority" x="117.17" y="100.19" incLanes="CC2_0 CC2_1" intLanes=":C2_0_0 :C2_1_0 :C2_2_0" shape="114.74,106.82 121.09,106.06 124.08,101.77 124.07,98.57 110.93,96.90 110.83,103.29">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="C2E_0" intLanes="" shape="200.00,98.40 200.00,101.60"/>
+    <junction id="N" type="dead_end" x="121.43" y="135.80" incLanes="C2N_0 C2N_1" intLanes="" shape="124.61,135.42 118.25,136.18"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="100.00,-0.00 96.80,-0.09 100.00,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="-0.00,103.20 0.00,96.80"/>
+    <junction id="cluster_C_gneJ0" type="priority" x="97.40" y="93.87" incLanes="SC_0 WC_0 WC_1" intLanes=":cluster_C_gneJ0_0_0 :cluster_C_gneJ0_1_0 :cluster_C_gneJ0_2_0 :cluster_C_gneJ0_2_1" shape="108.49,103.26 108.59,96.86 100.60,93.99 94.20,93.81 93.12,96.87 93.11,103.27" radius="1.00">
+        <request index="0" response="1100" foes="1100" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0001" cont="0"/>
+        <request index="3" response="0000" foes="0001" cont="0"/>
+    </junction>
+
+    <connection from="CC2" to="C2E" fromLane="0" toLane="0" via=":C2_0_0" dir="s" state="M"/>
+    <connection from="CC2" to="C2N" fromLane="0" toLane="0" via=":C2_1_0" dir="l" state="M"/>
+    <connection from="CC2" to="C2N" fromLane="1" toLane="1" via=":C2_2_0" dir="l" state="M"/>
+    <connection from="SC" to="CC2" fromLane="0" toLane="0" shape="99.00,93.94 98.90,96.32 100.72,97.84 104.33,98.12 108.56,98.46" via=":cluster_C_gneJ0_0_0" dir="r" state="m"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":cluster_C_gneJ0_1_0" dir="r" state="M"/>
+    <connection from="WC" to="CC2" fromLane="0" toLane="0" via=":cluster_C_gneJ0_2_0" dir="s" state="M"/>
+    <connection from="WC" to="CC2" fromLane="1" toLane="1" via=":cluster_C_gneJ0_2_1" dir="s" state="M"/>
+
+    <connection from=":C2_0" to="C2E" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C2_1" to="C2N" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C2_2" to="C2N" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_C_gneJ0_0" to="CC2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":cluster_C_gneJ0_1" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":cluster_C_gneJ0_2" to="CC2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_C_gneJ0_2" to="CC2" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

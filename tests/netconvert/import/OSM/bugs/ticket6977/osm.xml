@@ -1,0 +1,4342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.1004 6cd3eaec">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2020-05-03T21:28:02Z"/>
+
+  <node id="25726537" lat="38.7133477" lon="-9.1379469"/>
+  <node id="32268731" lat="38.7131730" lon="-9.1382268"/>
+  <node id="33360488" lat="38.7125055" lon="-9.1375473">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="pedestrian_crossing"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="33360489" lat="38.7117959" lon="-9.1372672">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="pedestrian_crossing"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="33360490" lat="38.7111194" lon="-9.1370001">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="pedestrian_crossing"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="33360491" lat="38.7104413" lon="-9.1367323">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="pedestrian_crossing"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="33360492" lat="38.7097771" lon="-9.1364701"/>
+  <node id="33360496" lat="38.7096858" lon="-9.1368428"/>
+  <node id="33360504" lat="38.7117581" lon="-9.1376687"/>
+  <node id="33360505" lat="38.7124559" lon="-9.1379469"/>
+  <node id="33360514" lat="38.7127267" lon="-9.1367471"/>
+  <node id="33360515" lat="38.7120488" lon="-9.1364714">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="33360516" lat="38.7113789" lon="-9.1361989">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="33360517" lat="38.7108266" lon="-9.1359742"/>
+  <node id="33360518" lat="38.7105668" lon="-9.1358686">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="33360519" lat="38.7099803" lon="-9.1356300"/>
+  <node id="33360522" lat="38.7127517" lon="-9.1362299">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="33360523" lat="38.7126327" lon="-9.1367089"/>
+  <node id="33360529" lat="38.7103912" lon="-9.1371239"/>
+  <node id="33360530" lat="38.7110873" lon="-9.1374013"/>
+  <node id="33360534" lat="38.7105847" lon="-9.1363266"/>
+  <node id="33360535" lat="38.7112807" lon="-9.1366040"/>
+  <node id="33360536" lat="38.7119516" lon="-9.1368715"/>
+  <node id="33360537" lat="38.7126494" lon="-9.1371496"/>
+  <node id="33360538" lat="38.7098793" lon="-9.1360454"/>
+  <node id="207597690" lat="38.7114661" lon="-9.1393436"/>
+  <node id="218024662" lat="38.7143276" lon="-9.1363752"/>
+  <node id="218024664" lat="38.7145275" lon="-9.1363261"/>
+  <node id="218024670" lat="38.7148986" lon="-9.1362415">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="218034780" lat="38.7142294" lon="-9.1373783">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="218034785" lat="38.7139688" lon="-9.1375599"/>
+  <node id="218034789" lat="38.7135626" lon="-9.1374156"/>
+  <node id="218034791" lat="38.7134869" lon="-9.1374835"/>
+  <node id="218034794" lat="38.7134203" lon="-9.1377604">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="218039742" lat="38.7133945" lon="-9.1381064"/>
+  <node id="224955563" lat="38.7085226" lon="-9.1400847"/>
+  <node id="256673563" lat="38.7061368" lon="-9.1451115">
+    <tag k="name" v="Cais do Sodré"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="public_transport" v="station"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/cais-do-sodre/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q14915993"/>
+    <tag k="wikipedia" v="pt:Estação Cais do Sodré"/>
+  </node>
+  <node id="256673564" lat="38.7061862" lon="-9.1435535"/>
+  <node id="256673565" lat="38.7063652" lon="-9.1429047"/>
+  <node id="256673567" lat="38.7066827" lon="-9.1421295"/>
+  <node id="256673569" lat="38.7089653" lon="-9.1400573"/>
+  <node id="256673570" lat="38.7096087" lon="-9.1401367"/>
+  <node id="256673575" lat="38.7113335" lon="-9.1403862"/>
+  <node id="256673576" lat="38.7123109" lon="-9.1405041"/>
+  <node id="256673577" lat="38.7134154" lon="-9.1398477"/>
+  <node id="256673579" lat="38.7140693" lon="-9.1379420">
+    <tag k="name" v="Rossio"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/rossio/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikipedia" v="pt:Estação Rossio"/>
+  </node>
+  <node id="256673584" lat="38.7163499" lon="-9.1359339"/>
+  <node id="256674870" lat="38.7262651" lon="-9.1349411">
+    <tag k="name" v="Anjos"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="public_transport" v="station"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="subway" v="yes"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/anjos/"/>
+    <tag k="wheelchair" v="no"/>
+    <tag k="wikidata" v="Q1265848"/>
+    <tag k="wikipedia" v="pt:Estação Anjos"/>
+  </node>
+  <node id="256674875" lat="38.7419672" lon="-9.1333422"/>
+  <node id="256674877" lat="38.7428026" lon="-9.1335343"/>
+  <node id="256675147" lat="38.7335128" lon="-9.1342227">
+    <tag k="description" v="Station actual (oct 2019) out of order"/>
+    <tag k="name" v="Arroios"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/arroios/"/>
+    <tag k="wheelchair" v="no"/>
+    <tag k="wikidata" v="Q1848374"/>
+    <tag k="wikipedia" v="pt:Estação Arroios"/>
+  </node>
+  <node id="256971860" lat="38.7452040" lon="-9.1347334"/>
+  <node id="256971861" lat="38.7455566" lon="-9.1355325"/>
+  <node id="256971862" lat="38.7455986" lon="-9.1360303"/>
+  <node id="256971863" lat="38.7454926" lon="-9.1380949"/>
+  <node id="256971864" lat="38.7455367" lon="-9.1393982"/>
+  <node id="256971865" lat="38.7459369" lon="-9.1401240"/>
+  <node id="256971868" lat="38.7486692" lon="-9.1415844">
+    <tag k="name" v="Roma"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/roma/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q1252781"/>
+    <tag k="wikipedia" v="pt:Estação Roma"/>
+  </node>
+  <node id="256971869" lat="38.7530340" lon="-9.1439777">
+    <tag k="name" v="Alvalade"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/alvalade/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q1690706"/>
+    <tag k="wikipedia" v="pt:Estação Alvalade"/>
+  </node>
+  <node id="256971871" lat="38.7601420" lon="-9.1477602"/>
+  <node id="256971872" lat="38.7607642" lon="-9.1482105"/>
+  <node id="256971874" lat="38.7612741" lon="-9.1489570"/>
+  <node id="256971875" lat="38.7617148" lon="-9.1498944"/>
+  <node id="256971876" lat="38.7619771" lon="-9.1514137"/>
+  <node id="256971877" lat="38.7619543" lon="-9.1524552"/>
+  <node id="257058314" lat="38.7129532" lon="-9.1356988"/>
+  <node id="257058315" lat="38.7132068" lon="-9.1356927"/>
+  <node id="257058316" lat="38.7133385" lon="-9.1357311"/>
+  <node id="257058317" lat="38.7134622" lon="-9.1356448"/>
+  <node id="257058318" lat="38.7136802" lon="-9.1355247"/>
+  <node id="257058319" lat="38.7138476" lon="-9.1354347"/>
+  <node id="262253942" lat="38.7134127" lon="-9.1373614">
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:de" v="Platz des Feigenbaums"/>
+    <tag k="name:en" v="Square of the Fig Tree"/>
+    <tag k="name:ru" v="Остановка трамвая #15 в Белен, #12, #25"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="917"/>
+    <tag k="tram" v="yes"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="262253943" lat="38.7134436" lon="-9.1372305"/>
+  <node id="265897891" lat="38.7169196" lon="-9.1358945">
+    <tag k="name" v="Martim Moniz"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/martim-moniz/"/>
+    <tag k="wheelchair" v="no"/>
+    <tag k="wikidata" v="Q473021"/>
+    <tag k="wikipedia" v="pt:Estação Martim Moniz"/>
+  </node>
+  <node id="265897892" lat="38.7226276" lon="-9.1353016">
+    <tag k="name" v="Intendente"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/intendente/"/>
+    <tag k="wheelchair" v="no"/>
+    <tag k="wikidata" v="Q1848345"/>
+    <tag k="wikipedia" v="pt:Estação Intendente"/>
+  </node>
+  <node id="268394752" lat="38.7144503" lon="-9.1374480"/>
+  <node id="355017757" lat="38.7511826" lon="-9.1429609"/>
+  <node id="1106335301" lat="38.7145791" lon="-9.1381772"/>
+  <node id="1106335460" lat="38.7145459" lon="-9.1381910"/>
+  <node id="1106335839" lat="38.7145851" lon="-9.1380479"/>
+  <node id="1106336552" lat="38.7139575" lon="-9.1385850"/>
+  <node id="1106336793" lat="38.7142544" lon="-9.1374447"/>
+  <node id="1106336950" lat="38.7131539" lon="-9.1385284"/>
+  <node id="1106337071" lat="38.7144042" lon="-9.1375047"/>
+  <node id="1106337200" lat="38.7132100" lon="-9.1382879"/>
+  <node id="1106402300" lat="38.7142134" lon="-9.1373013"/>
+  <node id="1106402822" lat="38.7130336" lon="-9.1385370"/>
+  <node id="1106403094" lat="38.7132261" lon="-9.1377366"/>
+  <node id="1106403114" lat="38.7136227" lon="-9.1366527"/>
+  <node id="1106403175" lat="38.7128442" lon="-9.1393245"/>
+  <node id="1106403269" lat="38.7131214" lon="-9.1381719"/>
+  <node id="1106403412" lat="38.7131018" lon="-9.1382534"/>
+  <node id="1106403415" lat="38.7135340" lon="-9.1370180"/>
+  <node id="1106403417" lat="38.7132953" lon="-9.1374488"/>
+  <node id="1106403869" lat="38.7143824" lon="-9.1364917"/>
+  <node id="1106404169" lat="38.7133095" lon="-9.1373898"/>
+  <node id="1106404210" lat="38.7133839" lon="-9.1370802"/>
+  <node id="1106404688" lat="38.7143112" lon="-9.1364515"/>
+  <node id="1106405157" lat="38.7129992" lon="-9.1386800"/>
+  <node id="1106405349" lat="38.7131889" lon="-9.1378911"/>
+  <node id="1116184082" lat="38.7129128" lon="-9.1390394"/>
+  <node id="1116184099" lat="38.7128791" lon="-9.1391792"/>
+  <node id="1116184112" lat="38.7129666" lon="-9.1388156"/>
+  <node id="1116246843" lat="38.7138429" lon="-9.1368634"/>
+  <node id="1116246845" lat="38.7140350" lon="-9.1361324"/>
+  <node id="1116246859" lat="38.7144075" lon="-9.1361458"/>
+  <node id="1116246874" lat="38.7142787" lon="-9.1373285"/>
+  <node id="1116246886" lat="38.7138529" lon="-9.1362155"/>
+  <node id="1116246903" lat="38.7140727" lon="-9.1362987"/>
+  <node id="1116246907" lat="38.7142798" lon="-9.1361351"/>
+  <node id="1116246916" lat="38.7137671" lon="-9.1364677"/>
+  <node id="1116246918" lat="38.7138717" lon="-9.1364140"/>
+  <node id="1116246919" lat="38.7145009" lon="-9.1371638"/>
+  <node id="1116246927" lat="38.7143803" lon="-9.1361002"/>
+  <node id="1116246938" lat="38.7136488" lon="-9.1368574"/>
+  <node id="1116246946" lat="38.7144044" lon="-9.1382164"/>
+  <node id="1116246947" lat="38.7138972" lon="-9.1365725"/>
+  <node id="1116246948" lat="38.7139136" lon="-9.1361914"/>
+  <node id="1116246966" lat="38.7138362" lon="-9.1368968"/>
+  <node id="1116246968" lat="38.7135803" lon="-9.1368274"/>
+  <node id="1116246970" lat="38.7138634" lon="-9.1367788"/>
+  <node id="1116246974" lat="38.7144389" lon="-9.1362879"/>
+  <node id="1116246980" lat="38.7142386" lon="-9.1386024"/>
+  <node id="1116246989" lat="38.7141670" lon="-9.1365987"/>
+  <node id="1116247001" lat="38.7142763" lon="-9.1366441"/>
+  <node id="1116247006" lat="38.7142621" lon="-9.1370773"/>
+  <node id="1116247008" lat="38.7138278" lon="-9.1369478"/>
+  <node id="1116247009" lat="38.7136452" lon="-9.1370644"/>
+  <node id="1116247026" lat="38.7144720" lon="-9.1374002"/>
+  <node id="1116247031" lat="38.7142150" lon="-9.1365803"/>
+  <node id="1116247048" lat="38.7140992" lon="-9.1369823"/>
+  <node id="1116247052" lat="38.7137899" lon="-9.1371247"/>
+  <node id="1116247054" lat="38.7144117" lon="-9.1381736"/>
+  <node id="1116247072" lat="38.7138550" lon="-9.1368029"/>
+  <node id="1116247074" lat="38.7142526" lon="-9.1360385"/>
+  <node id="1116247075" lat="38.7139199" lon="-9.1363926"/>
+  <node id="1116247089" lat="38.7141973" lon="-9.1369397"/>
+  <node id="1116247103" lat="38.7141082" lon="-9.1361512"/>
+  <node id="1116247113" lat="38.7137755" lon="-9.1367707"/>
+  <node id="1116247114" lat="38.7136959" lon="-9.1369010"/>
+  <node id="1116247115" lat="38.7141501" lon="-9.1363389"/>
+  <node id="1116247117" lat="38.7140789" lon="-9.1372452"/>
+  <node id="1116247120" lat="38.7142129" lon="-9.1362075"/>
+  <node id="1116247130" lat="38.7143508" lon="-9.1377597"/>
+  <node id="1116247131" lat="38.7138673" lon="-9.1362535"/>
+  <node id="1116247132" lat="38.7141744" lon="-9.1370466"/>
+  <node id="1116247136" lat="38.7144547" lon="-9.1375262"/>
+  <node id="1116247147" lat="38.7138006" lon="-9.1362611"/>
+  <node id="1116247151" lat="38.7138738" lon="-9.1367359"/>
+  <node id="1116247159" lat="38.7141208" lon="-9.1361270"/>
+  <node id="1116247161" lat="38.7138236" lon="-9.1362692"/>
+  <node id="1116247181" lat="38.7137504" lon="-9.1360948"/>
+  <node id="1116247184" lat="38.7141731" lon="-9.1361699"/>
+  <node id="1116247189" lat="38.7143189" lon="-9.1382025"/>
+  <node id="1116247190" lat="38.7133937" lon="-9.1383611"/>
+  <node id="1116247200" lat="38.7137211" lon="-9.1363416"/>
+  <node id="1116247201" lat="38.7141512" lon="-9.1379380"/>
+  <node id="1116247202" lat="38.7141309" lon="-9.1370320"/>
+  <node id="1116247206" lat="38.7136541" lon="-9.1368190"/>
+  <node id="1116247218" lat="38.7142819" lon="-9.1362879"/>
+  <node id="1116247221" lat="38.7144237" lon="-9.1385089"/>
+  <node id="1116247236" lat="38.7136897" lon="-9.1362236"/>
+  <node id="1116247243" lat="38.7143636" lon="-9.1359902"/>
+  <node id="1116247245" lat="38.7137776" lon="-9.1361994"/>
+  <node id="1116247255" lat="38.7141052" lon="-9.1381578"/>
+  <node id="1116247257" lat="38.7143491" lon="-9.1366696"/>
+  <node id="1116247270" lat="38.7142577" lon="-9.1382045"/>
+  <node id="1116247274" lat="38.7141919" lon="-9.1361565"/>
+  <node id="1116247275" lat="38.7141506" lon="-9.1364984"/>
+  <node id="1116247284" lat="38.7133283" lon="-9.1385991"/>
+  <node id="1116247285" lat="38.7137022" lon="-9.1368807"/>
+  <node id="1116247287" lat="38.7138194" lon="-9.1362504"/>
+  <node id="1116247292" lat="38.7142631" lon="-9.1366393"/>
+  <node id="1116247303" lat="38.7143520" lon="-9.1384753"/>
+  <node id="1116247323" lat="38.7140496" lon="-9.1368646"/>
+  <node id="1116247324" lat="38.7141522" lon="-9.1361163"/>
+  <node id="1116247327" lat="38.7141082" lon="-9.1361807"/>
+  <node id="1116247338" lat="38.7141710" lon="-9.1366232"/>
+  <node id="1116247339" lat="38.7142067" lon="-9.1384479"/>
+  <node id="1116247352" lat="38.7141271" lon="-9.1362558"/>
+  <node id="1116247354" lat="38.7139764" lon="-9.1363604"/>
+  <node id="1116247358" lat="38.7143765" lon="-9.1379154"/>
+  <node id="1116247364" lat="38.7140910" lon="-9.1370178"/>
+  <node id="1116247373" lat="38.7143528" lon="-9.1380335"/>
+  <node id="1116247381" lat="38.7141157" lon="-9.1369094"/>
+  <node id="1116247387" lat="38.7136729" lon="-9.1361109"/>
+  <node id="1116247393" lat="38.7143085" lon="-9.1379619"/>
+  <node id="1116247409" lat="38.7142589" lon="-9.1360787"/>
+  <node id="1116247410" lat="38.7141971" lon="-9.1377183"/>
+  <node id="1116247411" lat="38.7144028" lon="-9.1386469"/>
+  <node id="1116247414" lat="38.7142840" lon="-9.1366018"/>
+  <node id="1116247415" lat="38.7148365" lon="-9.1377417"/>
+  <node id="1116247433" lat="38.7142045" lon="-9.1361807"/>
+  <node id="1116247437" lat="38.7140569" lon="-9.1383886"/>
+  <node id="1116247438" lat="38.7141020" lon="-9.1366474"/>
+  <node id="1116300980" lat="38.7130603" lon="-9.1368204"/>
+  <node id="1116301002" lat="38.7134112" lon="-9.1369668"/>
+  <node id="1116301005" lat="38.7133294" lon="-9.1367952"/>
+  <node id="1116301017" lat="38.7130402" lon="-9.1365614"/>
+  <node id="1116301020" lat="38.7132082" lon="-9.1368801"/>
+  <node id="1116301041" lat="38.7132931" lon="-9.1367355"/>
+  <node id="1116301101" lat="38.7133430" lon="-9.1365328"/>
+  <node id="1116301102" lat="38.7131259" lon="-9.1365535"/>
+  <node id="1116301120" lat="38.7130302" lon="-9.1366024"/>
+  <node id="1116301144" lat="38.7133395" lon="-9.1367542"/>
+  <node id="1116301312" lat="38.7133147" lon="-9.1367442"/>
+  <node id="1116301432" lat="38.7131003" lon="-9.1366576"/>
+  <node id="1116301493" lat="38.7134514" lon="-9.1367995"/>
+  <node id="1116301552" lat="38.7133046" lon="-9.1367852"/>
+  <node id="1116301553" lat="38.7130938" lon="-9.1366841"/>
+  <node id="1116301567" lat="38.7132482" lon="-9.1367173"/>
+  <node id="1116301585" lat="38.7130242" lon="-9.1366269"/>
+  <node id="1116301621" lat="38.7132995" lon="-9.1369170"/>
+  <node id="1116301635" lat="38.7130740" lon="-9.1364242"/>
+  <node id="1116301671" lat="38.7135001" lon="-9.1365970"/>
+  <node id="1116301694" lat="38.7133187" lon="-9.1366313"/>
+  <node id="1120611090" lat="38.7148426" lon="-9.1363808"/>
+  <node id="1120611201" lat="38.7130471" lon="-9.1384808"/>
+  <node id="1122508396" lat="38.7140139" lon="-9.1384179">
+    <tag k="name" v="Rossio"/>
+    <tag k="railway" v="subway_entrance"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="1122689127" lat="38.7157375" lon="-9.1412425"/>
+  <node id="1122758176" lat="38.7136735" lon="-9.1393551"/>
+  <node id="1123904651" lat="38.7457355" lon="-9.1399514"/>
+  <node id="1123904659" lat="38.7453644" lon="-9.1349122"/>
+  <node id="1128787022" lat="38.7129929" lon="-9.1379763"/>
+  <node id="1128787055" lat="38.7130286" lon="-9.1370819"/>
+  <node id="1128787065" lat="38.7130310" lon="-9.1378216"/>
+  <node id="1128787112" lat="38.7133483" lon="-9.1372282"/>
+  <node id="1128787124" lat="38.7131118" lon="-9.1374994"/>
+  <node id="1128787126" lat="38.7131533" lon="-9.1371502"/>
+  <node id="1128787129" lat="38.7131022" lon="-9.1375400"/>
+  <node id="1128787133" lat="38.7130699" lon="-9.1383859"/>
+  <node id="1128787140" lat="38.7131908" lon="-9.1369963"/>
+  <node id="1128787144" lat="38.7131225" lon="-9.1376837"/>
+  <node id="1128787201" lat="38.7131521" lon="-9.1375595"/>
+  <node id="1128787203" lat="38.7132640" lon="-9.1375788"/>
+  <node id="1128787222" lat="38.7130830" lon="-9.1372743"/>
+  <node id="1128787239" lat="38.7129630" lon="-9.1380976"/>
+  <node id="1128787242" lat="38.7131495" lon="-9.1371659"/>
+  <node id="1128787254" lat="38.7130006" lon="-9.1379451"/>
+  <node id="1128787262" lat="38.7130544" lon="-9.1375214"/>
+  <node id="1128787266" lat="38.7131574" lon="-9.1371335"/>
+  <node id="1128787267" lat="38.7130620" lon="-9.1369447"/>
+  <node id="1128787268" lat="38.7130249" lon="-9.1376455"/>
+  <node id="1128787281" lat="38.7131130" lon="-9.1371513"/>
+  <node id="1128787288" lat="38.7131414" lon="-9.1373751"/>
+  <node id="1128787305" lat="38.7131574" lon="-9.1375371"/>
+  <node id="1128851571" lat="38.7144620" lon="-9.1357247"/>
+  <node id="1128851576" lat="38.7141194" lon="-9.1364305"/>
+  <node id="1128851584" lat="38.7141815" lon="-9.1360841"/>
+  <node id="1128851592" lat="38.7139567" lon="-9.1353689"/>
+  <node id="1128851594" lat="38.7137828" lon="-9.1357749"/>
+  <node id="1128851599" lat="38.7143050" lon="-9.1359956"/>
+  <node id="1128851608" lat="38.7140654" lon="-9.1361543"/>
+  <node id="1128851609" lat="38.7150856" lon="-9.1356925"/>
+  <node id="1128851625" lat="38.7151484" lon="-9.1356094"/>
+  <node id="1128851629" lat="38.7144892" lon="-9.1359420"/>
+  <node id="1128851630" lat="38.7137481" lon="-9.1358074"/>
+  <node id="1128851631" lat="38.7133611" lon="-9.1357623"/>
+  <node id="1128851646" lat="38.7134909" lon="-9.1358615"/>
+  <node id="1128851651" lat="38.7135516" lon="-9.1358883"/>
+  <node id="1128851656" lat="38.7143727" lon="-9.1357664"/>
+  <node id="1128851664" lat="38.7145373" lon="-9.1374809"/>
+  <node id="1128851673" lat="38.7142255" lon="-9.1358454"/>
+  <node id="1128851677" lat="38.7144232" lon="-9.1364794"/>
+  <node id="1128851682" lat="38.7146817" lon="-9.1358562"/>
+  <node id="1128851705" lat="38.7148177" lon="-9.1358213"/>
+  <node id="1128851710" lat="38.7139691" lon="-9.1356744"/>
+  <node id="1128851711" lat="38.7150124" lon="-9.1357542"/>
+  <node id="1128851723" lat="38.7139894" lon="-9.1358338"/>
+  <node id="1128851727" lat="38.7136164" lon="-9.1358857"/>
+  <node id="1128851740" lat="38.7139758" lon="-9.1357979"/>
+  <node id="1128851746" lat="38.7143176" lon="-9.1358213"/>
+  <node id="1128851762" lat="38.7152091" lon="-9.1355236"/>
+  <node id="1128851772" lat="38.7141522" lon="-9.1358696"/>
+  <node id="1128851785" lat="38.7142401" lon="-9.1360359"/>
+  <node id="1128851789" lat="38.7152319" lon="-9.1354927"/>
+  <node id="1128851802" lat="38.7141020" lon="-9.1363363"/>
+  <node id="1128851804" lat="38.7141083" lon="-9.1358401"/>
+  <node id="1128851814" lat="38.7140053" lon="-9.1356590"/>
+  <node id="1135629305" lat="38.7141012" lon="-9.1376649"/>
+  <node id="1135629307" lat="38.7140187" lon="-9.1377348">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1135629311" lat="38.7138628" lon="-9.1378551">
+    <tag k="amenity" v="parking"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:en" v="Square of the Fig Tree"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="parking" v="underground"/>
+  </node>
+  <node id="1135629312" lat="38.7137097" lon="-9.1382307">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="1135629313" lat="38.7136811" lon="-9.1372009"/>
+  <node id="1135629317" lat="38.7138841" lon="-9.1372840"/>
+  <node id="1135629319" lat="38.7138790" lon="-9.1382790"/>
+  <node id="1135629321" lat="38.7139440" lon="-9.1380466">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="short_name" v="Pç. Figueira"/>
+  </node>
+  <node id="1135629323" lat="38.7136406" lon="-9.1382872"/>
+  <node id="1135629324" lat="38.7136856" lon="-9.1371749"/>
+  <node id="1135629326" lat="38.7134131" lon="-9.1381655"/>
+  <node id="1135629327" lat="38.7136919" lon="-9.1371542"/>
+  <node id="1135629328" lat="38.7138904" lon="-9.1372594">
+    <tag k="amenity" v="parking_entrance"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+  </node>
+  <node id="1135629332" lat="38.7133289" lon="-9.1377243">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="1135629333" lat="38.7136517" lon="-9.1382391"/>
+  <node id="1135629338" lat="38.7139294" lon="-9.1381064"/>
+  <node id="1135629342" lat="38.7140985" lon="-9.1374241"/>
+  <node id="1135629344" lat="38.7138959" lon="-9.1372368"/>
+  <node id="1135629347" lat="38.7140090" lon="-9.1380671"/>
+  <node id="1135629348" lat="38.7134447" lon="-9.1381603"/>
+  <node id="1135629350" lat="38.7140801" lon="-9.1377639">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1135629353" lat="38.7133055" lon="-9.1377500"/>
+  <node id="1135629354" lat="38.7139981" lon="-9.1385489"/>
+  <node id="1135629355" lat="38.7140485" lon="-9.1376105"/>
+  <node id="1135629362" lat="38.7136437" lon="-9.1382593">
+    <tag k="amenity" v="parking_entrance"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+  </node>
+  <node id="1135629364" lat="38.7135787" lon="-9.1371993"/>
+  <node id="1135912673" lat="38.7139558" lon="-9.1374291"/>
+  <node id="1135912677" lat="38.7137458" lon="-9.1382721"/>
+  <node id="1135912681" lat="38.7136876" lon="-9.1382742"/>
+  <node id="1135912687" lat="38.7137856" lon="-9.1382241"/>
+  <node id="1135912698" lat="38.7139158" lon="-9.1372750"/>
+  <node id="1135912712" lat="38.7139619" lon="-9.1373450"/>
+  <node id="1135912714" lat="38.7139346" lon="-9.1372965"/>
+  <node id="1177747780" lat="38.7131580" lon="-9.1360975"/>
+  <node id="1177747815" lat="38.7131810" lon="-9.1358319"/>
+  <node id="1177747819" lat="38.7130993" lon="-9.1358695"/>
+  <node id="1177747828" lat="38.7132011" lon="-9.1357246"/>
+  <node id="1177747834" lat="38.7131406" lon="-9.1358695"/>
+  <node id="1177747840" lat="38.7130659" lon="-9.1362423"/>
+  <node id="1177747873" lat="38.7130617" lon="-9.1359687"/>
+  <node id="1177747875" lat="38.7130993" lon="-9.1361377"/>
+  <node id="1177747913" lat="38.7130470" lon="-9.1359526"/>
+  <node id="1177747914" lat="38.7130638" lon="-9.1360170"/>
+  <node id="1177747930" lat="38.7131684" lon="-9.1362316"/>
+  <node id="1177747932" lat="38.7130303" lon="-9.1357273"/>
+  <node id="1177747940" lat="38.7130596" lon="-9.1362960"/>
+  <node id="1177747944" lat="38.7130428" lon="-9.1359312"/>
+  <node id="1177747948" lat="38.7130680" lon="-9.1361163"/>
+  <node id="1177747955" lat="38.7131559" lon="-9.1358695"/>
+  <node id="1177747972" lat="38.7130993" lon="-9.1359419"/>
+  <node id="1177747975" lat="38.7131214" lon="-9.1359594"/>
+  <node id="1177747983" lat="38.7131559" lon="-9.1358266"/>
+  <node id="1177747986" lat="38.7131705" lon="-9.1363389"/>
+  <node id="1177747988" lat="38.7131475" lon="-9.1359553"/>
+  <node id="1177749834" lat="38.7118024" lon="-9.1358493"/>
+  <node id="1398493277" lat="38.7129227" lon="-9.1389979"/>
+  <node id="1465237705" lat="38.7423786" lon="-9.1333962">
+    <tag k="name" v="Areeiro"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/areeiro/"/>
+    <tag k="wikidata" v="Q1815575"/>
+    <tag k="wikipedia" v="pt:Estação Areeiro"/>
+  </node>
+  <node id="1545693812" lat="38.7144291" lon="-9.1363309"/>
+  <node id="1545693828" lat="38.7088011" lon="-9.1351258"/>
+  <node id="1548142607" lat="38.7150047" lon="-9.1381271"/>
+  <node id="1548142667" lat="38.7151127" lon="-9.1372991"/>
+  <node id="1548142709" lat="38.7151127" lon="-9.1389674"/>
+  <node id="1548142969" lat="38.7149659" lon="-9.1375544"/>
+  <node id="1627708356" lat="38.7128979" lon="-9.1357318"/>
+  <node id="1627708393" lat="38.7133403" lon="-9.1364645"/>
+  <node id="1627708397" lat="38.7133916" lon="-9.1362429"/>
+  <node id="1627708398" lat="38.7135131" lon="-9.1356202"/>
+  <node id="1627708399" lat="38.7135132" lon="-9.1362741"/>
+  <node id="1627708402" lat="38.7136608" lon="-9.1361580"/>
+  <node id="1627708403" lat="38.7136829" lon="-9.1362520"/>
+  <node id="1627708404" lat="38.7137506" lon="-9.1365293"/>
+  <node id="1627708405" lat="38.7137750" lon="-9.1360510"/>
+  <node id="1627708406" lat="38.7138115" lon="-9.1357565"/>
+  <node id="1627708407" lat="38.7138519" lon="-9.1359010"/>
+  <node id="1627708408" lat="38.7139789" lon="-9.1357041"/>
+  <node id="1627708409" lat="38.7140159" lon="-9.1357036"/>
+  <node id="1627708410" lat="38.7140156" lon="-9.1356738"/>
+  <node id="1627708412" lat="38.7144071" lon="-9.1350808"/>
+  <node id="1627708418" lat="38.7149747" lon="-9.1357672"/>
+  <node id="1801874997" lat="38.7142885" lon="-9.1404665"/>
+  <node id="1933844170" lat="38.7070850" lon="-9.1414115"/>
+  <node id="1933844173" lat="38.7076855" lon="-9.1406400"/>
+  <node id="2499503040" lat="38.7136757" lon="-9.1360801"/>
+  <node id="2499503046" lat="38.7138241" lon="-9.1359507"/>
+  <node id="2531065863" lat="38.7138822" lon="-9.1354138"/>
+  <node id="2531065872" lat="38.7141391" lon="-9.1352518"/>
+  <node id="2893279136" lat="38.7137476" lon="-9.1368092">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:postcode" v="1100-408"/>
+    <tag k="addr:street" v="Poço do Borratem"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="regional"/>
+    <tag k="name" v="Pioneiro, Loja Gourmet"/>
+    <tag k="website" v="http://www.pioneiro.pt"/>
+  </node>
+  <node id="2933990248" lat="38.7128599" lon="-9.1392592">
+    <tag k="name" v="Feira dos Tecidos"/>
+    <tag k="shop" v="fabric"/>
+  </node>
+  <node id="2933990249" lat="38.7128967" lon="-9.1391063">
+    <tag k="name" v="Ferreira Marques Joalheiros"/>
+    <tag k="shop" v="watches"/>
+  </node>
+  <node id="2949661470" lat="38.7130970" lon="-9.1382734">
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:street" v="Rua da Betesga"/>
+  </node>
+  <node id="2949661478" lat="38.7130546" lon="-9.1384497">
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:street" v="Rua da Betesga"/>
+  </node>
+  <node id="2949661481" lat="38.7130881" lon="-9.1383104">
+    <tag k="addr:housenumber" v="1A"/>
+    <tag k="addr:street" v="Rua da Betesga"/>
+    <tag k="name" v="Manues Tavares"/>
+    <tag k="shop" v="alcohol"/>
+  </node>
+  <node id="2949753509" lat="38.7129429" lon="-9.1389142">
+    <tag k="addr:housenumber" v="6"/>
+    <tag k="addr:street" v="Rua da Betesga"/>
+    <tag k="amenity" v="fast_food"/>
+    <tag k="name" v="Terdinha"/>
+  </node>
+  <node id="2949753510" lat="38.7129566" lon="-9.1388570">
+    <tag k="name" v="Vodaphone"/>
+    <tag k="shop" v="mobile_phone"/>
+  </node>
+  <node id="3147346983" lat="38.7134235" lon="-9.1380693"/>
+  <node id="3147346989" lat="38.7135558" lon="-9.1375134"/>
+  <node id="3147346994" lat="38.7138577" lon="-9.1382406"/>
+  <node id="3147347000" lat="38.7139912" lon="-9.1376849"/>
+  <node id="3147398837" lat="38.7138886" lon="-9.1389935"/>
+  <node id="3147435635" lat="38.7145383" lon="-9.1400819"/>
+  <node id="3207112636" lat="38.7134080" lon="-9.1378111"/>
+  <node id="3343661827" lat="38.7138431" lon="-9.1357142"/>
+  <node id="3343661828" lat="38.7138108" lon="-9.1356082"/>
+  <node id="3343661829" lat="38.7137336" lon="-9.1356656"/>
+  <node id="3343661830" lat="38.7137649" lon="-9.1357664"/>
+  <node id="3395021968" lat="38.7141981" lon="-9.1378872">
+    <tag k="addr:housenumber" v="6"/>
+    <tag k="addr:postcode" v="1100-373"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="portuguese;regional;breakfast;local"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Casa das Bifanas"/>
+    <tag k="name:en" v="Casa Das Bifanas"/>
+    <tag k="name:zh" v="Casa Das Bifanas"/>
+    <tag k="opening_hours" v="Mo-Sa 06:30-00:00"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="phone" v="213423184"/>
+  </node>
+  <node id="3412943452" lat="38.7140244" lon="-9.1366000">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:postcode" v="1100-408"/>
+    <tag k="addr:street" v="Poço do Borratem"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Hotel Alcobia Pensão Residencial"/>
+    <tag k="name:en" v="Grande Pensão Residencial Alcobia (Hotel Alcobia Pensão Residencial)"/>
+    <tag k="name:pt" v="Grande Pensão Residencial Alcobia (Hotel Alcobia Pensão Residencial)"/>
+    <tag k="smoking" v="separated"/>
+    <tag k="tourism" v="hotel"/>
+    <tag k="website" v="http://www.grandepensaoresidencialalcobia.com/"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="3663654264" lat="38.7139083" lon="-9.1370505">
+    <tag k="level" v="5"/>
+    <tag k="name" v="Chiado"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="3678173463" lat="38.7143224" lon="-9.1376797">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="9"/>
+    <tag k="addr:postcode" v="1100-372"/>
+    <tag k="addr:street" v="Travessa Nova de São Domingos"/>
+    <tag k="name" v="Pensão Praça da Figueira"/>
+    <tag k="phone" v="+351 213 426757"/>
+    <tag k="smoking" v="no"/>
+    <tag k="tourism" v="guest_house"/>
+    <tag k="website" v="http://www.pensaopracadafigueira.com/Pensao.php"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="3717044473" lat="38.7127625" lon="-9.1360928"/>
+  <node id="3717044474" lat="38.7129038" lon="-9.1361322"/>
+  <node id="3717044475" lat="38.7129948" lon="-9.1361431"/>
+  <node id="3717044476" lat="38.7131676" lon="-9.1361115"/>
+  <node id="3717044477" lat="38.7131808" lon="-9.1364010"/>
+  <node id="3717044478" lat="38.7131522" lon="-9.1359444"/>
+  <node id="3717044479" lat="38.7131661" lon="-9.1359434"/>
+  <node id="3717044480" lat="38.7131602" lon="-9.1361301"/>
+  <node id="3717044481" lat="38.7131625" lon="-9.1362082"/>
+  <node id="3717044482" lat="38.7131024" lon="-9.1362112"/>
+  <node id="3717044483" lat="38.7132136" lon="-9.1361049"/>
+  <node id="3717044484" lat="38.7131721" lon="-9.1362430"/>
+  <node id="3717044486" lat="38.7131861" lon="-9.1362254"/>
+  <node id="3717044488" lat="38.7133050" lon="-9.1361075"/>
+  <node id="3717044489" lat="38.7132797" lon="-9.1362244"/>
+  <node id="3717044490" lat="38.7131750" lon="-9.1360892"/>
+  <node id="3717044491" lat="38.7131615" lon="-9.1359550"/>
+  <node id="3717044492" lat="38.7132170" lon="-9.1359489"/>
+  <node id="3717044493" lat="38.7132131" lon="-9.1359764"/>
+  <node id="3717044494" lat="38.7132678" lon="-9.1359957"/>
+  <node id="3717044495" lat="38.7132408" lon="-9.1360993"/>
+  <node id="3717044496" lat="38.7131821" lon="-9.1362528"/>
+  <node id="3717044497" lat="38.7131861" lon="-9.1363656"/>
+  <node id="3717044498" lat="38.7133384" lon="-9.1364256"/>
+  <node id="3717044499" lat="38.7133851" lon="-9.1361601"/>
+  <node id="3717044500" lat="38.7133050" lon="-9.1361378"/>
+  <node id="3717044501" lat="38.7132733" lon="-9.1362628"/>
+  <node id="3717044502" lat="38.7145896" lon="-9.1358973"/>
+  <node id="3729080871" lat="38.7142216" lon="-9.1377603">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="7 B"/>
+    <tag k="addr:postcode" v="1110-240"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="name" v="Ourivesaria Dolar"/>
+    <tag k="opening_hours" v="Mo-Su 10:00-13:30,14:30-18:45"/>
+    <tag k="shop" v="pawnbroker"/>
+  </node>
+  <node id="3975964586" lat="38.7100371" lon="-9.1356531">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="3975964588" lat="38.7135310" lon="-9.1371549">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="3976103514" lat="38.7129085" lon="-9.1395325"/>
+  <node id="3976103515" lat="38.7135186" lon="-9.1365771"/>
+  <node id="3976158525" lat="38.7135381" lon="-9.1375083"/>
+  <node id="3976180900" lat="38.7126814" lon="-9.1367287">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3976180901" lat="38.7133976" lon="-9.1370200">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3976234284" lat="38.7119427" lon="-9.1359056">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3976234285" lat="38.7135057" lon="-9.1365305">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="3989338976" lat="38.7142116" lon="-9.1372570"/>
+  <node id="3989338978" lat="38.7144290" lon="-9.1367246"/>
+  <node id="3989338983" lat="38.7145603" lon="-9.1401492"/>
+  <node id="3989338992" lat="38.7146775" lon="-9.1362931"/>
+  <node id="3999451162" lat="38.7140987" lon="-9.1365296">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:country" v="PT"/>
+    <tag k="addr:housenumber" v="10-18"/>
+    <tag k="addr:postcode" v="1100-408"/>
+    <tag k="addr:street" v="Poço do Borratém"/>
+    <tag k="email" v="nortelsul@nortelsul.pt"/>
+    <tag k="name" v="Braz e Braz"/>
+    <tag k="opening_hours" v="Mo-Fr 10:00-19:00; Sa 09:30-13:30"/>
+    <tag k="operator" v="Braz e Braz"/>
+    <tag k="phone" v="+351 213 462 346"/>
+    <tag k="shop" v="kitchen"/>
+    <tag k="website" v="brazebraz.pt"/>
+  </node>
+  <node id="4124472718" lat="38.7537533" lon="-9.1443368"/>
+  <node id="4124472740" lat="38.7565139" lon="-9.1458141"/>
+  <node id="4138988192" lat="38.7138800" lon="-9.1357781"/>
+  <node id="4242679987" lat="38.7139658" lon="-9.1358923">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="name" v="Taste of Punjab"/>
+  </node>
+  <node id="4252064697" lat="38.7140087" lon="-9.1382371">
+    <tag k="amenity" v="bicycle_parking"/>
+    <tag k="capacity" v="6"/>
+  </node>
+  <node id="4253661179" lat="38.7148193" lon="-9.1361411"/>
+  <node id="4288630409" lat="38.7132983" lon="-9.1363968">
+    <tag k="addr:housenumber" v="226/228"/>
+    <tag k="addr:street" v="Rua da Madalena"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="cuisine" v="burger;sandwich;breakfast;tea;coffee_shop"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Soul Coffee Bar"/>
+    <tag k="opening_hours" v="Mo-Su 12:00-02:00"/>
+    <tag k="phone" v="00351218860782"/>
+    <tag k="website" v="facebook: Soulcoffee"/>
+  </node>
+  <node id="4288638243" lat="38.7139574" lon="-9.1370775">
+    <tag k="addr:housenumber" v="10-2"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="email" v="pensaoiberica786@gmail.com"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="Pensão Iberica"/>
+    <tag k="opening_hours" v="24/7"/>
+    <tag k="phone" v="218865781"/>
+    <tag k="tourism" v="hostel"/>
+  </node>
+  <node id="4298952890" lat="38.7138978" lon="-9.1371244">
+    <tag k="name" v="Mercado da Figueira"/>
+    <tag k="shop" v="convenience"/>
+  </node>
+  <node id="4298966090" lat="38.7135796" lon="-9.1369256">
+    <tag k="shop" v="convenience"/>
+  </node>
+  <node id="4347279263" lat="38.7138282" lon="-9.1358177"/>
+  <node id="4349146895" lat="38.7135178" lon="-9.1374409"/>
+  <node id="4349146897" lat="38.7135883" lon="-9.1375259"/>
+  <node id="4349146898" lat="38.7136038" lon="-9.1374619"/>
+  <node id="4349146901" lat="38.7140052" lon="-9.1376220"/>
+  <node id="4360243450" lat="38.7127319" lon="-9.1362247"/>
+  <node id="4360243469" lat="38.7136064" lon="-9.1365766"/>
+  <node id="4360243499" lat="38.7143886" lon="-9.1363895"/>
+  <node id="4360243524" lat="38.7146561" lon="-9.1362478"/>
+  <node id="4360243537" lat="38.7154568" lon="-9.1357370"/>
+  <node id="4360243538" lat="38.7154832" lon="-9.1358258"/>
+  <node id="4379397644" lat="38.7092311" lon="-9.1353415"/>
+  <node id="4379397646" lat="38.7096117" lon="-9.1355106"/>
+  <node id="4379397651" lat="38.7098104" lon="-9.1364832"/>
+  <node id="4379397655" lat="38.7098824" lon="-9.1365117"/>
+  <node id="4379397657" lat="38.7099215" lon="-9.1365072"/>
+  <node id="4379397658" lat="38.7099770" lon="-9.1356441"/>
+  <node id="4379397659" lat="38.7104874" lon="-9.1367275"/>
+  <node id="4379397662" lat="38.7111867" lon="-9.1369915"/>
+  <node id="4379397663" lat="38.7113761" lon="-9.1362119"/>
+  <node id="4379397664" lat="38.7118593" lon="-9.1372520"/>
+  <node id="4379397665" lat="38.7120458" lon="-9.1364836"/>
+  <node id="4379397666" lat="38.7125554" lon="-9.1375369"/>
+  <node id="4379397667" lat="38.7127228" lon="-9.1367584"/>
+  <node id="4379397668" lat="38.7132058" lon="-9.1377803"/>
+  <node id="4379397669" lat="38.7132354" lon="-9.1377806"/>
+  <node id="4379397670" lat="38.7132867" lon="-9.1377658"/>
+  <node id="4379397671" lat="38.7133386" lon="-9.1370082"/>
+  <node id="4379446538" lat="38.7134679" lon="-9.1370939"/>
+  <node id="4562515003" lat="38.7134433" lon="-9.1370718"/>
+  <node id="4562515004" lat="38.7134608" lon="-9.1370879"/>
+  <node id="4562515005" lat="38.7134812" lon="-9.1371050"/>
+  <node id="4562515006" lat="38.7135114" lon="-9.1371424"/>
+  <node id="4562515007" lat="38.7135471" lon="-9.1371858"/>
+  <node id="4562515008" lat="38.7135809" lon="-9.1372145"/>
+  <node id="4562515009" lat="38.7136023" lon="-9.1372254"/>
+  <node id="4562515010" lat="38.7140376" lon="-9.1373995"/>
+  <node id="4562515011" lat="38.7140567" lon="-9.1374024"/>
+  <node id="4562515012" lat="38.7140666" lon="-9.1374029"/>
+  <node id="4562515013" lat="38.7140957" lon="-9.1374006"/>
+  <node id="4562515014" lat="38.7141360" lon="-9.1373979"/>
+  <node id="4562515015" lat="38.7142020" lon="-9.1374006"/>
+  <node id="4562515016" lat="38.7142276" lon="-9.1374026"/>
+  <node id="4562515017" lat="38.7142501" lon="-9.1374086"/>
+  <node id="4562515018" lat="38.7143558" lon="-9.1374435"/>
+  <node id="4562515019" lat="38.7144793" lon="-9.1374857"/>
+  <node id="4562515023" lat="38.7148535" lon="-9.1375685"/>
+  <node id="4562515024" lat="38.7149917" lon="-9.1374258"/>
+  <node id="4562515025" lat="38.7145665" lon="-9.1375263"/>
+  <node id="4562515026" lat="38.7146766" lon="-9.1375769"/>
+  <node id="4562515027" lat="38.7147180" lon="-9.1375852"/>
+  <node id="4562515028" lat="38.7147618" lon="-9.1375867"/>
+  <node id="4562515029" lat="38.7148199" lon="-9.1375840"/>
+  <node id="4562515030" lat="38.7148843" lon="-9.1375472"/>
+  <node id="4562515031" lat="38.7149191" lon="-9.1375136"/>
+  <node id="4562515033" lat="38.7150687" lon="-9.1373037"/>
+  <node id="4562515034" lat="38.7151325" lon="-9.1372407"/>
+  <node id="4562515035" lat="38.7151984" lon="-9.1371871"/>
+  <node id="4562515045" lat="38.7153201" lon="-9.1371254"/>
+  <node id="4562515070" lat="38.7143379" lon="-9.1363797"/>
+  <node id="4562515071" lat="38.7136572" lon="-9.1365728"/>
+  <node id="4562515072" lat="38.7136127" lon="-9.1365863"/>
+  <node id="4562515073" lat="38.7135839" lon="-9.1366137"/>
+  <node id="4562515074" lat="38.7135672" lon="-9.1366546"/>
+  <node id="4562515075" lat="38.7135494" lon="-9.1367257"/>
+  <node id="4562515076" lat="38.7134816" lon="-9.1370169"/>
+  <node id="4574621290" lat="38.7142557" lon="-9.1375353">
+    <tag k="addr:housenumber" v="18B"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="Confeitaria Nacional"/>
+    <tag k="name:zh" v="皇家糕點店"/>
+    <tag k="opening_hours" v="Mo-Su 08:00-20:00"/>
+  </node>
+  <node id="4624385894" lat="38.7132171" lon="-9.1383313">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:street" v="Rua da Betesga"/>
+    <tag k="name" v="Ouriversaria Lisboa"/>
+    <tag k="shop" v="jewelry"/>
+  </node>
+  <node id="4662273137" lat="38.7147730" lon="-9.1362330"/>
+  <node id="4662273138" lat="38.7146155" lon="-9.1362853"/>
+  <node id="4710039197" lat="38.7134549" lon="-9.1381883">
+    <tag k="amenity" v="parking_entrance"/>
+  </node>
+  <node id="4764680626" lat="38.7140245" lon="-9.1371762">
+    <tag k="name" v="Mercado Figueira"/>
+    <tag k="name:pt" v="Mercado Figueira"/>
+    <tag k="shop" v="convenience"/>
+  </node>
+  <node id="4785254923" lat="38.7142196" lon="-9.1378069">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:postcode" v="1110-240"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="email" v="info@hospitaldebonecas.com"/>
+    <tag k="name" v="Hospital de Bonecas"/>
+    <tag k="name:de" v="Hospital de Bonecas"/>
+    <tag k="name:en" v="Hospital de Bonecas"/>
+    <tag k="name:pt" v="Hospital de Bonecas"/>
+    <tag k="phone" v="213 428 574"/>
+    <tag k="tourism" v="museum"/>
+    <tag k="website" v="http://hospitaldebonecas.com/"/>
+  </node>
+  <node id="4803746521" lat="38.7133521" lon="-9.1371209">
+    <tag k="addr:housenumber" v="14"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="name" v="Seaside"/>
+    <tag k="name:pt" v="Seaside"/>
+    <tag k="opening_hours" v="Mo-Sa 09:30-19:00; Su 10:00-19:00"/>
+    <tag k="shop" v="shoes"/>
+  </node>
+  <node id="4808145123" lat="38.7141386" lon="-9.1361732">
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:postcode" v="1100-591"/>
+    <tag k="addr:street" v="Beco dos Surradores"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="local"/>
+    <tag k="name" v="Restaurante Zé Dos Cornos"/>
+    <tag k="name:en" v="Restaurante Zé Dos Cornos"/>
+    <tag k="name:pt" v="Restaurante Zé Dos Cornos"/>
+    <tag k="opening_hours" v="Mo-We 11:45-16:00; Th, Fr 11:45-16:00, 19:00-22:00; Sa 11:45-16:30"/>
+    <tag k="phone" v="00351218869641"/>
+    <tag k="website" v="https://m.facebook.com/ZeCornos?utm_source=tripadvisor&amp;utm_medium=referral"/>
+  </node>
+  <node id="4977337121" lat="38.7134236" lon="-9.1357482">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="italian_pizza;pasta"/>
+    <tag k="name" v="Pizzas Baldracca"/>
+  </node>
+  <node id="5095561603" lat="38.7137304" lon="-9.1366634">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="13"/>
+    <tag k="addr:postcode" v="1100-240"/>
+    <tag k="addr:street" v="Poço do Borratem"/>
+    <tag k="cod_act_econ" v="40103"/>
+    <tag k="cod_post_3" v="159"/>
+    <tag k="cod_post_4" v="1100"/>
+    <tag k="contact:email" v="reservas@lisboatejohotel.com"/>
+    <tag k="contact:fax" v="+351 218 865 163"/>
+    <tag k="contact:phone" v="+351 218 866 182"/>
+    <tag k="contact:website" v="www.lisboatejohotel.com"/>
+    <tag k="morada" v="Rua dos Condes de Monsanto, 2"/>
+    <tag k="name" v="Lisboa Tejo"/>
+    <tag k="rooms" v="58"/>
+    <tag k="stars" v="3"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="5096400071" lat="38.7146139" lon="-9.1366810"/>
+  <node id="5096400072" lat="38.7144867" lon="-9.1373372"/>
+  <node id="5096400073" lat="38.7145251" lon="-9.1371731"/>
+  <node id="5096400074" lat="38.7145039" lon="-9.1371514"/>
+  <node id="5096400075" lat="38.7144377" lon="-9.1365679"/>
+  <node id="5096400076" lat="38.7143292" lon="-9.1370868"/>
+  <node id="5104206636" lat="38.7149725" lon="-9.1361880"/>
+  <node id="5185768824" lat="38.7105436" lon="-9.1400971">
+    <tag k="name" v="Baixa-Chiado"/>
+    <tag k="operator" v="Metropolitano de Lisboa"/>
+    <tag k="public_transport" v="station"/>
+    <tag k="railway" v="station"/>
+    <tag k="station" v="subway"/>
+    <tag k="subway" v="yes"/>
+    <tag k="website" v="https://www.metrolisboa.pt/viajar/baixa-chiado-linha-azul/"/>
+    <tag k="wheelchair" v="limited"/>
+    <tag k="wikidata" v="Q2300323"/>
+    <tag k="wikipedia" v="pt:Estação Baixa-Chiado"/>
+  </node>
+  <node id="5227364164" lat="38.7110385" lon="-9.1369681">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Rua da Prata"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref" v="5518"/>
+    <tag k="short_name" v="R. Prata"/>
+  </node>
+  <node id="5236372822" lat="38.7135523" lon="-9.1363200">
+    <tag k="amenity" v="cafe"/>
+  </node>
+  <node id="5241545539" lat="38.7146655" lon="-9.1404707"/>
+  <node id="5331010307" lat="38.7133959" lon="-9.1374549"/>
+  <node id="5331010308" lat="38.7134430" lon="-9.1371297"/>
+  <node id="5331010309" lat="38.7134617" lon="-9.1370518"/>
+  <node id="5331010310" lat="38.7135579" lon="-9.1366477">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="5333201956" lat="38.7136550" lon="-9.1365101"/>
+  <node id="5333201957" lat="38.7137022" lon="-9.1363657"/>
+  <node id="5333201959" lat="38.7137304" lon="-9.1364780"/>
+  <node id="5333201961" lat="38.7136360" lon="-9.1363899"/>
+  <node id="5445432938" lat="38.7133833" lon="-9.1373246">
+    <tag k="access" v="yes"/>
+    <tag k="alt_name" v="Instalação Sanitária Automática"/>
+    <tag k="alt_name:en" v="Public Restroom;Public WC"/>
+    <tag k="amenity" v="toilets"/>
+    <tag k="description" v="Acesso: Praça da Figueira. Junto Rua dos Douradores."/>
+    <tag k="fee" v="yes"/>
+    <tag k="name" v="WC Público Automatizado"/>
+    <tag k="name:en" v="Automated Public Toilet"/>
+    <tag k="opening_hours" v="24/7"/>
+    <tag k="operator" v="Câmara Municipal de Lisboa"/>
+    <tag k="ownership" v="municipal"/>
+    <tag k="source" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="72495db2-61d3-4d5f-9b63-0a9fb5dcc318"/>
+    <tag k="survey:date" v="2014-12-01"/>
+  </node>
+  <node id="5585526855" lat="38.7132112" lon="-9.1382604"/>
+  <node id="5585526856" lat="38.7135846" lon="-9.1366703"/>
+  <node id="5585526857" lat="38.7136056" lon="-9.1366038"/>
+  <node id="5588842712" lat="38.7618843" lon="-9.1529751"/>
+  <node id="5672629221" lat="38.7138769" lon="-9.1358212">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="5672629222" lat="38.7139622" lon="-9.1358482"/>
+  <node id="5672629223" lat="38.7139899" lon="-9.1359707"/>
+  <node id="5672629224" lat="38.7138753" lon="-9.1360536"/>
+  <node id="5672629225" lat="38.7138361" lon="-9.1359647"/>
+  <node id="5672629226" lat="38.7136974" lon="-9.1358545"/>
+  <node id="5672629227" lat="38.7139340" lon="-9.1358943">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="12"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5672629228" lat="38.7138759" lon="-9.1359472">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="11"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5672665011" lat="38.7140880" lon="-9.1360088"/>
+  <node id="5672665012" lat="38.7141558" lon="-9.1359767"/>
+  <node id="5672665013" lat="38.7141248" lon="-9.1360986"/>
+  <node id="5672665014" lat="38.7140704" lon="-9.1359635"/>
+  <node id="5672665015" lat="38.7141553" lon="-9.1360753"/>
+  <node id="5672665016" lat="38.7141056" lon="-9.1360540"/>
+  <node id="5672665017" lat="38.7140771" lon="-9.1360709"/>
+  <node id="5672665018" lat="38.7140537" lon="-9.1359712"/>
+  <node id="5672665019" lat="38.7140626" lon="-9.1360810"/>
+  <node id="5672665020" lat="38.7140822" lon="-9.1361272"/>
+  <node id="5672669521" lat="38.7141289" lon="-9.1358768"/>
+  <node id="5672669522" lat="38.7140860" lon="-9.1358466"/>
+  <node id="5672669523" lat="38.7140700" lon="-9.1358963"/>
+  <node id="5672669524" lat="38.7140530" lon="-9.1359127"/>
+  <node id="5672669525" lat="38.7140565" lon="-9.1358602"/>
+  <node id="5672669526" lat="38.7141086" lon="-9.1358525"/>
+  <node id="5672669527" lat="38.7141469" lon="-9.1359244"/>
+  <node id="5672699457" lat="38.7139891" lon="-9.1361549"/>
+  <node id="5672699458" lat="38.7139314" lon="-9.1360146"/>
+  <node id="5672708214" lat="38.7138328" lon="-9.1358960"/>
+  <node id="5672708215" lat="38.7137741" lon="-9.1360093"/>
+  <node id="5672708216" lat="38.7137095" lon="-9.1358694"/>
+  <node id="5672708217" lat="38.7137901" lon="-9.1357943"/>
+  <node id="5683193149" lat="38.7134929" lon="-9.1358265"/>
+  <node id="5683193150" lat="38.7136110" lon="-9.1357631"/>
+  <node id="5683193151" lat="38.7135869" lon="-9.1357685"/>
+  <node id="5683193152" lat="38.7136195" lon="-9.1358587"/>
+  <node id="5683193153" lat="38.7136556" lon="-9.1357385"/>
+  <node id="5683193154" lat="38.7136945" lon="-9.1358331"/>
+  <node id="5683193155" lat="38.7136412" lon="-9.1360488"/>
+  <node id="5683193156" lat="38.7135850" lon="-9.1360585"/>
+  <node id="5683193157" lat="38.7136361" lon="-9.1359714"/>
+  <node id="5683193158" lat="38.7136235" lon="-9.1359013"/>
+  <node id="5683193159" lat="38.7135690" lon="-9.1359071"/>
+  <node id="5683193160" lat="38.7135766" lon="-9.1359808"/>
+  <node id="5683193161" lat="38.7133958" lon="-9.1358930"/>
+  <node id="5683193162" lat="38.7134680" lon="-9.1359412"/>
+  <node id="5683193163" lat="38.7134918" lon="-9.1358788"/>
+  <node id="5683193164" lat="38.7137367" lon="-9.1359355"/>
+  <node id="5683193167" lat="38.7134670" lon="-9.1356719"/>
+  <node id="5683193168" lat="38.7135630" lon="-9.1358627"/>
+  <node id="5683193169" lat="38.7133830" lon="-9.1357461"/>
+  <node id="5683193170" lat="38.7132941" lon="-9.1358534"/>
+  <node id="5683193171" lat="38.7133903" lon="-9.1359016"/>
+  <node id="5683193172" lat="38.7134196" lon="-9.1358265"/>
+  <node id="5683193173" lat="38.7131781" lon="-9.1358533"/>
+  <node id="5683193175" lat="38.7133108" lon="-9.1357568"/>
+  <node id="5683193176" lat="38.7132878" lon="-9.1358855"/>
+  <node id="5683387766" lat="38.7138042" lon="-9.1358554">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387767" lat="38.7138979" lon="-9.1358651"/>
+  <node id="5683387768" lat="38.7139222" lon="-9.1357454">
+    <tag k="board_type" v="history"/>
+    <tag k="information" v="board"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="5683387769" lat="38.7139677" lon="-9.1356898"/>
+  <node id="5683387770" lat="38.7139449" lon="-9.1357957"/>
+  <node id="5683387771" lat="38.7138654" lon="-9.1358560"/>
+  <node id="5683387772" lat="38.7138476" lon="-9.1358044"/>
+  <node id="5683387782" lat="38.7137953" lon="-9.1357327">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="18"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387783" lat="38.7139905" lon="-9.1357508">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="13"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387784" lat="38.7138346" lon="-9.1359962">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="10"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387785" lat="38.7137409" lon="-9.1361129">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="9"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387786" lat="38.7136933" lon="-9.1361236">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="8"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387787" lat="38.7136635" lon="-9.1361035">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="7"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387788" lat="38.7136582" lon="-9.1360652">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="6"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387789" lat="38.7137890" lon="-9.1360766"/>
+  <node id="5683387790" lat="38.7136755" lon="-9.1360284">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387791" lat="38.7136980" lon="-9.1360210">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387792" lat="38.7137304" lon="-9.1360150">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387793" lat="38.7137508" lon="-9.1360076">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:housenumber" v="2"/>
+    <tag k="addr:postcode" v="1100-611"/>
+    <tag k="addr:street" v="Largo dos Trigueiros"/>
+  </node>
+  <node id="5683387794" lat="38.7136621" lon="-9.1360440"/>
+  <node id="5683387795" lat="38.7136046" lon="-9.1360533"/>
+  <node id="5683387796" lat="38.7136122" lon="-9.1361269"/>
+  <node id="5685665874" lat="38.7140085" lon="-9.1356890"/>
+  <node id="5695469539" lat="38.7131782" lon="-9.1361175"/>
+  <node id="5695469546" lat="38.7134472" lon="-9.1363695"/>
+  <node id="5695469547" lat="38.7134765" lon="-9.1363802"/>
+  <node id="5695469548" lat="38.7133894" lon="-9.1362670"/>
+  <node id="5695469549" lat="38.7134610" lon="-9.1362865"/>
+  <node id="5695469550" lat="38.7134453" lon="-9.1363793"/>
+  <node id="5695469551" lat="38.7134492" lon="-9.1363574"/>
+  <node id="5695469552" lat="38.7134751" lon="-9.1363924"/>
+  <node id="5695469553" lat="38.7133775" lon="-9.1363364"/>
+  <node id="5695469554" lat="38.7133616" lon="-9.1364253"/>
+  <node id="5695469555" lat="38.7135716" lon="-9.1363822"/>
+  <node id="5695469556" lat="38.7135687" lon="-9.1363004"/>
+  <node id="5695469557" lat="38.7134966" lon="-9.1362899"/>
+  <node id="5695469558" lat="38.7134837" lon="-9.1363529"/>
+  <node id="5695469559" lat="38.7134620" lon="-9.1364548"/>
+  <node id="5695469560" lat="38.7135079" lon="-9.1362483"/>
+  <node id="5695469561" lat="38.7135126" lon="-9.1360914"/>
+  <node id="5695469562" lat="38.7135824" lon="-9.1360921"/>
+  <node id="5695469563" lat="38.7135813" lon="-9.1362671"/>
+  <node id="5695469564" lat="38.7135981" lon="-9.1362865"/>
+  <node id="5695469565" lat="38.7135578" lon="-9.1364884"/>
+  <node id="5695469566" lat="38.7087562" lon="-9.1346639"/>
+  <node id="5739072236" lat="38.7099900" lon="-9.1356494">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="5739072237" lat="38.7099653" lon="-9.1356394">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="5895322559" lat="38.7126976" lon="-9.1404574"/>
+  <node id="5895322561" lat="38.7084761" lon="-9.1400886"/>
+  <node id="5895322562" lat="38.7080470" lon="-9.1402978"/>
+  <node id="5895322563" lat="38.7061248" lon="-9.1445173"/>
+  <node id="5895322565" lat="38.7146251" lon="-9.1365011"/>
+  <node id="5895322566" lat="38.7143028" lon="-9.1369745"/>
+  <node id="5895322567" lat="38.7131015" lon="-9.1402066"/>
+  <node id="5915824587" lat="38.7132921" lon="-9.1370538">
+    <tag k="amenity" v="cafe"/>
+    <tag k="name" v="frutaria"/>
+  </node>
+  <node id="5938049191" lat="38.7133003" lon="-9.1378374"/>
+  <node id="5978467191" lat="38.7134912" lon="-9.1377876"/>
+  <node id="5978467192" lat="38.7134727" lon="-9.1377805"/>
+  <node id="5978547337" lat="38.7130499" lon="-9.1386319"/>
+  <node id="5978547338" lat="38.7130889" lon="-9.1385374">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="6001706462" lat="38.7061230" lon="-9.1443715"/>
+  <node id="6001707692" lat="38.7061272" lon="-9.1442594"/>
+  <node id="6047570285" lat="38.7138314" lon="-9.1371001">
+    <tag k="addr:housenumber" v="12a;12A"/>
+    <tag k="addr:postcode" v="1100-241"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="diet:vegan" v="only"/>
+    <tag k="name" v="Eight - The Health Lounge"/>
+    <tag k="opening_hours" v="Mo-Th 09:30-20:00; Fr 09:30-15:00; Su 11:00-20:00"/>
+    <tag k="phone" v="+351 218 862 859"/>
+    <tag k="website" v="https://www.8healthlounge.com/"/>
+  </node>
+  <node id="6139260685" lat="38.7138370" lon="-9.1381941"/>
+  <node id="6203168932" lat="38.7138780" lon="-9.1357747"/>
+  <node id="6203168933" lat="38.7138753" lon="-9.1357742"/>
+  <node id="6203168934" lat="38.7138735" lon="-9.1357756"/>
+  <node id="6203168935" lat="38.7138725" lon="-9.1357779"/>
+  <node id="6203168936" lat="38.7138726" lon="-9.1357803"/>
+  <node id="6203168937" lat="38.7138737" lon="-9.1357826"/>
+  <node id="6203168938" lat="38.7138754" lon="-9.1357836"/>
+  <node id="6203168939" lat="38.7138781" lon="-9.1357832"/>
+  <node id="6203168940" lat="38.7138796" lon="-9.1357813"/>
+  <node id="6208962393" lat="38.7136392" lon="-9.1380882">
+    <tag k="source" v="dadosabertos.cm-lisboa.pt"/>
+  </node>
+  <node id="6208962394" lat="38.7134865" lon="-9.1380268">
+    <tag k="source" v="dadosabertos.cm-lisboa.pt"/>
+  </node>
+  <node id="6208962395" lat="38.7135328" lon="-9.1378380">
+    <tag k="source" v="dadosabertos.cm-lisboa.pt"/>
+  </node>
+  <node id="6208962396" lat="38.7136854" lon="-9.1378994">
+    <tag k="source" v="dadosabertos.cm-lisboa.pt"/>
+  </node>
+  <node id="6214332386" lat="38.7136369" lon="-9.1383466">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="6214332387" lat="38.7135915" lon="-9.1383316">
+    <tag k="natural" v="tree"/>
+  </node>
+  <node id="6214332390" lat="38.7136125" lon="-9.1370936">
+    <tag k="leisure" v="outdoor_seating"/>
+  </node>
+  <node id="6214332391" lat="38.7136344" lon="-9.1370095">
+    <tag k="name" v="A Tentação"/>
+    <tag k="shop" v="pastry"/>
+  </node>
+  <node id="6214332392" lat="38.7138190" lon="-9.1371699">
+    <tag k="leisure" v="outdoor_seating"/>
+  </node>
+  <node id="6214332393" lat="38.7136585" lon="-9.1381222"/>
+  <node id="6214332394" lat="38.7137181" lon="-9.1378794"/>
+  <node id="6214332395" lat="38.7139562" lon="-9.1377083"/>
+  <node id="6214332396" lat="38.7135727" lon="-9.1375537"/>
+  <node id="6214332397" lat="38.7135131" lon="-9.1377967"/>
+  <node id="6222428010" lat="38.7145525" lon="-9.1393556"/>
+  <node id="6234361985" lat="38.7142177" lon="-9.1370228">
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:street" v="Rua João das Regras"/>
+    <tag k="name" v="ALROSSI"/>
+    <tag k="name:en" v="ALROSSI Mobile Repair"/>
+    <tag k="name:pt" v="ALROSSI Reparar Celluar"/>
+    <tag k="shop" v="mobile_phone"/>
+  </node>
+  <node id="6374685172" lat="38.7137244" lon="-9.1381656">
+    <tag k="bus" v="yes"/>
+    <tag k="highway" v="bus_stop"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="platform"/>
+  </node>
+  <node id="6381185187" lat="38.7133839" lon="-9.1382111">
+    <tag k="emergency" v="fire_hydrant"/>
+    <tag k="fire_hydrant:type" v="pillar"/>
+    <tag k="source:geometry" v="Mapillary 2017-12-03"/>
+  </node>
+  <node id="6396751240" lat="38.7132309" lon="-9.1376085">
+    <tag k="name" v="Figueira Beautique Hotel"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="6403173678" lat="38.7133772" lon="-9.1373493">
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="railway" v="platform"/>
+    <tag k="tram" v="yes"/>
+  </node>
+  <node id="6403173680" lat="38.7133875" lon="-9.1374635"/>
+  <node id="6403173681" lat="38.7133736" lon="-9.1375553"/>
+  <node id="6403173682" lat="38.7133646" lon="-9.1376300"/>
+  <node id="6403173683" lat="38.7133571" lon="-9.1376674"/>
+  <node id="6403173985" lat="38.7131815" lon="-9.1377749"/>
+  <node id="6403173986" lat="38.7132193" lon="-9.1377816"/>
+  <node id="6403173987" lat="38.7132569" lon="-9.1377765"/>
+  <node id="6403173988" lat="38.7133377" lon="-9.1377109"/>
+  <node id="6403173989" lat="38.7133485" lon="-9.1376873"/>
+  <node id="6403173990" lat="38.7133819" lon="-9.1374952"/>
+  <node id="6403173991" lat="38.7133679" lon="-9.1376074"/>
+  <node id="6403174908" lat="38.7134472" lon="-9.1371790"/>
+  <node id="6403174909" lat="38.7134461" lon="-9.1371559"/>
+  <node id="6403485665" lat="38.7138962" lon="-9.1380279">
+    <tag k="bench" v="yes"/>
+    <tag k="bus" v="yes"/>
+    <tag k="highway" v="bus_stop"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="shelter" v="yes"/>
+    <tag k="short_name" v="Pç. Figueira"/>
+  </node>
+  <node id="6403485666" lat="38.7139443" lon="-9.1378257">
+    <tag k="bench" v="yes"/>
+    <tag k="bus" v="yes"/>
+    <tag k="highway" v="bus_stop"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="shelter" v="yes"/>
+    <tag k="short_name" v="Pç. Figueira"/>
+  </node>
+  <node id="6403485667" lat="38.7139921" lon="-9.1378443">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="short_name" v="Pç. Figueira"/>
+  </node>
+  <node id="6446407441" lat="38.7073782" lon="-9.1410440"/>
+  <node id="6468738164" lat="38.7147387" lon="-9.1407491"/>
+  <node id="6470634387" lat="38.7144862" lon="-9.1398685"/>
+  <node id="6471130182" lat="38.7138498" lon="-9.1382788"/>
+  <node id="6471130183" lat="38.7138953" lon="-9.1382485"/>
+  <node id="6471130184" lat="38.7138895" lon="-9.1382656"/>
+  <node id="6471130485" lat="38.7138647" lon="-9.1382823"/>
+  <node id="6471130486" lat="38.7140392" lon="-9.1379385"/>
+  <node id="6481301320" lat="38.7138499" lon="-9.1373220">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="6481301321" lat="38.7138310" lon="-9.1373977">
+    <tag k="bench" v="yes"/>
+    <tag k="bus" v="yes"/>
+    <tag k="departures_board" v="realtime"/>
+    <tag k="highway" v="bus_stop"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="network" v="Carris"/>
+    <tag k="operator" v="Carris"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="shelter" v="yes"/>
+  </node>
+  <node id="6481318687" lat="38.7090204" lon="-9.1352560"/>
+  <node id="6481318692" lat="38.7133925" lon="-9.1370333"/>
+  <node id="6481318693" lat="38.7134185" lon="-9.1370506"/>
+  <node id="6481318694" lat="38.7134328" lon="-9.1370912"/>
+  <node id="6481318695" lat="38.7134207" lon="-9.1370691"/>
+  <node id="6481318696" lat="38.7133927" lon="-9.1370407"/>
+  <node id="6481318697" lat="38.7133677" lon="-9.1370245"/>
+  <node id="6481318699" lat="38.7105777" lon="-9.1358879"/>
+  <node id="6481318700" lat="38.7108092" lon="-9.1359818"/>
+  <node id="6501155044" lat="38.7155590" lon="-9.1411179"/>
+  <node id="6501155045" lat="38.7155349" lon="-9.1410961"/>
+  <node id="6501155046" lat="38.7155221" lon="-9.1410843"/>
+  <node id="6501155047" lat="38.7155108" lon="-9.1410756"/>
+  <node id="6501155048" lat="38.7154870" lon="-9.1410629"/>
+  <node id="6501155049" lat="38.7154745" lon="-9.1410582"/>
+  <node id="6501155050" lat="38.7154543" lon="-9.1410528"/>
+  <node id="6501155051" lat="38.7154318" lon="-9.1410502"/>
+  <node id="6501155052" lat="38.7154130" lon="-9.1410485"/>
+  <node id="6501155053" lat="38.7153895" lon="-9.1410495"/>
+  <node id="6501155054" lat="38.7153714" lon="-9.1410525"/>
+  <node id="6501155055" lat="38.7153445" lon="-9.1410599"/>
+  <node id="6501155056" lat="38.7153275" lon="-9.1410656"/>
+  <node id="6501155057" lat="38.7153149" lon="-9.1410699"/>
+  <node id="6501155058" lat="38.7153058" lon="-9.1410726"/>
+  <node id="6501155059" lat="38.7152911" lon="-9.1410753"/>
+  <node id="6501155060" lat="38.7152762" lon="-9.1410760"/>
+  <node id="6501155061" lat="38.7152592" lon="-9.1410760"/>
+  <node id="6501155062" lat="38.7152406" lon="-9.1410746"/>
+  <node id="6501155063" lat="38.7152223" lon="-9.1410719"/>
+  <node id="6501155064" lat="38.7152084" lon="-9.1410686"/>
+  <node id="6501155065" lat="38.7151812" lon="-9.1410585"/>
+  <node id="6501155066" lat="38.7151548" lon="-9.1410445"/>
+  <node id="6501155067" lat="38.7151373" lon="-9.1410337"/>
+  <node id="6501155068" lat="38.7155025" lon="-9.1410706"/>
+  <node id="6501155071" lat="38.7151234" lon="-9.1410227"/>
+  <node id="6501155072" lat="38.7150925" lon="-9.1409972"/>
+  <node id="6501155073" lat="38.7158312" lon="-9.1413468"/>
+  <node id="6501155074" lat="38.7158307" lon="-9.1413484"/>
+  <node id="6501155075" lat="38.7158300" lon="-9.1413497"/>
+  <node id="6501155076" lat="38.7158289" lon="-9.1413506"/>
+  <node id="6501155077" lat="38.7158277" lon="-9.1413510"/>
+  <node id="6501155078" lat="38.7158264" lon="-9.1413509"/>
+  <node id="6501155079" lat="38.7158252" lon="-9.1413502"/>
+  <node id="6501155080" lat="38.7158307" lon="-9.1413437"/>
+  <node id="6501155081" lat="38.7158311" lon="-9.1413452"/>
+  <node id="6501155082" lat="38.7158253" lon="-9.1413335"/>
+  <node id="6501155083" lat="38.7158200" lon="-9.1413251"/>
+  <node id="6501155084" lat="38.7158096" lon="-9.1413110"/>
+  <node id="6501156485" lat="38.7157978" lon="-9.1412963"/>
+  <node id="6501156486" lat="38.7157906" lon="-9.1412886"/>
+  <node id="6501156487" lat="38.7157690" lon="-9.1412678"/>
+  <node id="6501156488" lat="38.7157383" lon="-9.1412410"/>
+  <node id="6538520547" lat="38.7151054" lon="-9.1410568"/>
+  <node id="6538543016" lat="38.7155730" lon="-9.1411301"/>
+  <node id="6540421106" lat="38.7130586" lon="-9.1385265"/>
+  <node id="6540421108" lat="38.7130544" lon="-9.1385700"/>
+  <node id="6540421109" lat="38.7130550" lon="-9.1386148"/>
+  <node id="6540421111" lat="38.7130765" lon="-9.1387038"/>
+  <node id="6540421113" lat="38.7130910" lon="-9.1387370"/>
+  <node id="6540421115" lat="38.7131058" lon="-9.1387634"/>
+  <node id="6540421117" lat="38.7131128" lon="-9.1387881"/>
+  <node id="6540421119" lat="38.7131109" lon="-9.1388124"/>
+  <node id="6540421123" lat="38.7129781" lon="-9.1393514"/>
+  <node id="6540421125" lat="38.7129711" lon="-9.1393678"/>
+  <node id="6540421127" lat="38.7129597" lon="-9.1393801"/>
+  <node id="6540421129" lat="38.7129453" lon="-9.1393867"/>
+  <node id="6540421131" lat="38.7129246" lon="-9.1393870"/>
+  <node id="6540421132" lat="38.7129112" lon="-9.1393855"/>
+  <node id="6540421134" lat="38.7128485" lon="-9.1393690"/>
+  <node id="6540421135" lat="38.7130634" lon="-9.1386612"/>
+  <node id="6540421160" lat="38.7130866" lon="-9.1385825"/>
+  <node id="6540421178" lat="38.7144983" lon="-9.1399553"/>
+  <node id="6540421179" lat="38.7145089" lon="-9.1399928"/>
+  <node id="6540421180" lat="38.7145213" lon="-9.1400327"/>
+  <node id="6540477693" lat="38.7131537" lon="-9.1383981"/>
+  <node id="6540477694" lat="38.7131409" lon="-9.1384485"/>
+  <node id="6540477695" lat="38.7131319" lon="-9.1384862"/>
+  <node id="6540477696" lat="38.7131247" lon="-9.1385180"/>
+  <node id="6540477697" lat="38.7131231" lon="-9.1385341"/>
+  <node id="6540477698" lat="38.7131222" lon="-9.1385547"/>
+  <node id="6540477699" lat="38.7131238" lon="-9.1385748"/>
+  <node id="6540477700" lat="38.7131300" lon="-9.1386005"/>
+  <node id="6540477701" lat="38.7131368" lon="-9.1386227"/>
+  <node id="6540477702" lat="38.7131527" lon="-9.1386598"/>
+  <node id="6540477703" lat="38.7131616" lon="-9.1386747"/>
+  <node id="6540477704" lat="38.7131746" lon="-9.1386890"/>
+  <node id="6540477705" lat="38.7131864" lon="-9.1387003"/>
+  <node id="6540477706" lat="38.7131994" lon="-9.1387111"/>
+  <node id="6540477707" lat="38.7132124" lon="-9.1387187"/>
+  <node id="6540477708" lat="38.7132258" lon="-9.1387237"/>
+  <node id="6540477709" lat="38.7131446" lon="-9.1386430"/>
+  <node id="6540477710" lat="38.7139408" lon="-9.1390147"/>
+  <node id="6540477713" lat="38.7144742" lon="-9.1392351"/>
+  <node id="6540477715" lat="38.7145069" lon="-9.1392687"/>
+  <node id="6540477717" lat="38.7145314" lon="-9.1393034"/>
+  <node id="6540477718" lat="38.7131709" lon="-9.1383273"/>
+  <node id="6540477719" lat="38.7131844" lon="-9.1382876"/>
+  <node id="6540477720" lat="38.7131998" lon="-9.1382531"/>
+  <node id="6540477721" lat="38.7132141" lon="-9.1382246"/>
+  <node id="6540477722" lat="38.7132300" lon="-9.1381977"/>
+  <node id="6540477723" lat="38.7132432" lon="-9.1381810"/>
+  <node id="6540477724" lat="38.7132552" lon="-9.1381683"/>
+  <node id="6540477725" lat="38.7132614" lon="-9.1381632"/>
+  <node id="6540477726" lat="38.7132692" lon="-9.1381573"/>
+  <node id="6540477727" lat="38.7132746" lon="-9.1381550"/>
+  <node id="6540477728" lat="38.7132899" lon="-9.1381532"/>
+  <node id="6540477729" lat="38.7132977" lon="-9.1381547"/>
+  <node id="6540477730" lat="38.7133118" lon="-9.1381594"/>
+  <node id="6540477731" lat="38.7133291" lon="-9.1381670"/>
+  <node id="6540477732" lat="38.7132823" lon="-9.1381532"/>
+  <node id="6540477733" lat="38.7134336" lon="-9.1382084"/>
+  <node id="6540477734" lat="38.7131770" lon="-9.1383075"/>
+  <node id="6540477735" lat="38.7145423" lon="-9.1393239"/>
+  <node id="6540477736" lat="38.7145504" lon="-9.1393487"/>
+  <node id="6540477737" lat="38.7145556" lon="-9.1393658"/>
+  <node id="6540477738" lat="38.7145598" lon="-9.1393842"/>
+  <node id="6540477739" lat="38.7145627" lon="-9.1394090"/>
+  <node id="6540477740" lat="38.7145632" lon="-9.1394362"/>
+  <node id="6540477741" lat="38.7145632" lon="-9.1394556"/>
+  <node id="6540477742" lat="38.7145604" lon="-9.1394788"/>
+  <node id="6540477743" lat="38.7145570" lon="-9.1395002"/>
+  <node id="6540477744" lat="38.7145504" lon="-9.1395264"/>
+  <node id="6540477745" lat="38.7144981" lon="-9.1397312"/>
+  <node id="6540477746" lat="38.7144913" lon="-9.1397647"/>
+  <node id="6540477747" lat="38.7144881" lon="-9.1397939"/>
+  <node id="6540477748" lat="38.7144862" lon="-9.1398248"/>
+  <node id="6540477749" lat="38.7144855" lon="-9.1398553"/>
+  <node id="6540477750" lat="38.7144866" lon="-9.1398767"/>
+  <node id="6540477751" lat="38.7144905" lon="-9.1399126"/>
+  <node id="6540477752" lat="38.7144942" lon="-9.1399351"/>
+  <node id="6540477753" lat="38.7147638" lon="-9.1407110"/>
+  <node id="6540477754" lat="38.7147537" lon="-9.1407007"/>
+  <node id="6540477755" lat="38.7147485" lon="-9.1406940"/>
+  <node id="6540477756" lat="38.7147392" lon="-9.1406812"/>
+  <node id="6540477757" lat="38.7147330" lon="-9.1406692"/>
+  <node id="6540477758" lat="38.7147289" lon="-9.1406593"/>
+  <node id="6540477759" lat="38.7147228" lon="-9.1406444"/>
+  <node id="6540477760" lat="38.7147171" lon="-9.1406285"/>
+  <node id="6551713172" lat="38.7147355" lon="-9.1406743"/>
+  <node id="6551820305" lat="38.7131381" lon="-9.1385714"/>
+  <node id="6551820308" lat="38.7131393" lon="-9.1385215"/>
+  <node id="6551820309" lat="38.7131969" lon="-9.1382909"/>
+  <node id="6551820310" lat="38.7132360" lon="-9.1382563"/>
+  <node id="6551820313" lat="38.7130482" lon="-9.1385433"/>
+  <node id="6551820314" lat="38.7131285" lon="-9.1382080"/>
+  <node id="6551820316" lat="38.7131467" lon="-9.1382970"/>
+  <node id="6552924438" lat="38.7128698" lon="-9.1403505"/>
+  <node id="6747200759" lat="38.7255538" lon="-9.1350062"/>
+  <node id="6747220721" lat="38.7191690" lon="-9.1356451"/>
+  <node id="6747261692" lat="38.7290510" lon="-9.1346551"/>
+  <node id="6813434121" lat="38.7136555" lon="-9.1382888">
+    <tag k="amenity" v="telephone"/>
+  </node>
+  <node id="6813434122" lat="38.7137021" lon="-9.1382734">
+    <tag k="addr:city" v="Lisboa"/>
+    <tag k="addr:street" v="Praça da Figueira"/>
+    <tag k="amenity" v="bicycle_rental"/>
+    <tag k="capacity" v="30"/>
+    <tag k="description" v="Gira. Bicicletas de Lisboa"/>
+    <tag k="email" v="gira@emel.pt"/>
+    <tag k="fixme" v="Work in progress;Trabalhos a decorrer"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="internet_access:fee" v="no"/>
+    <tag k="name" v="Bicicletas Gira Estação 222"/>
+    <tag k="network" v="Gira"/>
+    <tag k="note" v="Sistema de Bicicletas Públicas Partilhadas"/>
+    <tag k="official_name" v="222 - Praça da Figueira"/>
+    <tag k="opening_hours" v="24/7"/>
+    <tag k="operator" v="EMEL"/>
+    <tag k="payment:paypal" v="yes"/>
+    <tag k="payment:wire_transfer" v="yes"/>
+    <tag k="phone" v="+351 211 163 060"/>
+    <tag k="ref" v="222"/>
+    <tag k="website" v="https://www.gira-bicicletasdelisboa.pt"/>
+  </node>
+  <node id="6813434123" lat="38.7137175" lon="-9.1382768"/>
+  <node id="6813434124" lat="38.7137667" lon="-9.1382558"/>
+  <node id="6842652551" lat="38.7131290" lon="-9.1382468"/>
+  <node id="6842652554" lat="38.7131460" lon="-9.1382022"/>
+  <node id="6842652556" lat="38.7131687" lon="-9.1381616"/>
+  <node id="6842652557" lat="38.7131847" lon="-9.1381365"/>
+  <node id="6842652561" lat="38.7132326" lon="-9.1380701"/>
+  <node id="6842652563" lat="38.7132446" lon="-9.1380392"/>
+  <node id="6842652565" lat="38.7132524" lon="-9.1380020"/>
+  <node id="6842652567" lat="38.7132524" lon="-9.1379678"/>
+  <node id="6842652569" lat="38.7132464" lon="-9.1379333"/>
+  <node id="6842652571" lat="38.7132341" lon="-9.1378991"/>
+  <node id="6842652572" lat="38.7132250" lon="-9.1378833"/>
+  <node id="6842652573" lat="38.7132143" lon="-9.1378673"/>
+  <node id="6842652575" lat="38.7131931" lon="-9.1378441"/>
+  <node id="6842652577" lat="38.7131750" lon="-9.1378317"/>
+  <node id="6842652578" lat="38.7131630" lon="-9.1378267"/>
+  <node id="6842652579" lat="38.7104592" lon="-9.1367692"/>
+  <node id="6842652580" lat="38.7132339" lon="-9.1380535"/>
+  <node id="6842652581" lat="38.7132243" lon="-9.1380487"/>
+  <node id="6842652582" lat="38.7132336" lon="-9.1380182"/>
+  <node id="6842652583" lat="38.7132431" lon="-9.1380230"/>
+  <node id="6842652584" lat="38.7132085" lon="-9.1379003"/>
+  <node id="6842664287" lat="38.7142748" lon="-9.1374339"/>
+  <node id="6842664288" lat="38.7142677" lon="-9.1374322"/>
+  <node id="6842664289" lat="38.7142504" lon="-9.1374295"/>
+  <node id="6842664290" lat="38.7142410" lon="-9.1374285"/>
+  <node id="6842664291" lat="38.7142274" lon="-9.1374295"/>
+  <node id="6842664292" lat="38.7142044" lon="-9.1374386"/>
+  <node id="6842664293" lat="38.7141931" lon="-9.1374476"/>
+  <node id="6842664294" lat="38.7141853" lon="-9.1374560"/>
+  <node id="6842664295" lat="38.7141790" lon="-9.1374641"/>
+  <node id="6842664296" lat="38.7141743" lon="-9.1374741"/>
+  <node id="6842664297" lat="38.7141691" lon="-9.1374926"/>
+  <node id="6842664298" lat="38.7139546" lon="-9.1383639"/>
+  <node id="6842664299" lat="38.7142980" lon="-9.1373521"/>
+  <node id="6842664300" lat="38.7142847" lon="-9.1373471"/>
+  <node id="6842664301" lat="38.7142669" lon="-9.1373430"/>
+  <node id="6842664302" lat="38.7142559" lon="-9.1373417"/>
+  <node id="6842664303" lat="38.7142347" lon="-9.1373387"/>
+  <node id="6842664304" lat="38.7142156" lon="-9.1373383"/>
+  <node id="6842664305" lat="38.7142041" lon="-9.1373390"/>
+  <node id="6842664306" lat="38.7141377" lon="-9.1373481"/>
+  <node id="6842664307" lat="38.7141115" lon="-9.1373497"/>
+  <node id="6842664308" lat="38.7140950" lon="-9.1373501"/>
+  <node id="6842664309" lat="38.7140791" lon="-9.1373491"/>
+  <node id="6842664310" lat="38.7140613" lon="-9.1373481"/>
+  <node id="6842664311" lat="38.7140328" lon="-9.1373417"/>
+  <node id="6842664312" lat="38.7140082" lon="-9.1373340"/>
+  <node id="6842664313" lat="38.7140689" lon="-9.1373410"/>
+  <node id="6842664314" lat="38.7140766" lon="-9.1373092"/>
+  <node id="6842664315" lat="38.7140235" lon="-9.1372880"/>
+  <node id="6842664316" lat="38.7140157" lon="-9.1373198"/>
+  <node id="6842664317" lat="38.7141534" lon="-9.1373192"/>
+  <node id="6842664318" lat="38.7135500" lon="-9.1370776"/>
+  <node id="6842664320" lat="38.7140412" lon="-9.1384263"/>
+  <node id="6842664321" lat="38.7142243" lon="-9.1375389"/>
+  <node id="6842664322" lat="38.7142149" lon="-9.1374456"/>
+  <node id="6842664332" lat="38.7141590" lon="-9.1374028"/>
+  <node id="6842664334" lat="38.7135457" lon="-9.1370957"/>
+  <node id="6842664336" lat="38.7135233" lon="-9.1370849"/>
+  <node id="6842664338" lat="38.7135082" lon="-9.1370671"/>
+  <node id="6842664340" lat="38.7135000" lon="-9.1370470"/>
+  <node id="6842664341" lat="38.7135233" lon="-9.1370493"/>
+  <node id="6842664343" lat="38.7134987" lon="-9.1370285"/>
+  <node id="6842664344" lat="38.7135006" lon="-9.1370121"/>
+  <node id="6842664345" lat="38.7135032" lon="-9.1369997"/>
+  <node id="6842664347" lat="38.7134750" lon="-9.1369960">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6842664348" lat="38.7134850" lon="-9.1370023"/>
+  <node id="6842664349" lat="38.7136369" lon="-9.1373788"/>
+  <node id="6842664350" lat="38.7136281" lon="-9.1373763"/>
+  <node id="6842664351" lat="38.7136173" lon="-9.1373741"/>
+  <node id="6842664352" lat="38.7136075" lon="-9.1373722"/>
+  <node id="6842664353" lat="38.7135974" lon="-9.1373711"/>
+  <node id="6842664354" lat="38.7135889" lon="-9.1373709"/>
+  <node id="6842664355" lat="38.7135784" lon="-9.1373709"/>
+  <node id="6842664356" lat="38.7135698" lon="-9.1373714"/>
+  <node id="6842664357" lat="38.7135591" lon="-9.1373739"/>
+  <node id="6842664358" lat="38.7135459" lon="-9.1373774"/>
+  <node id="6842664359" lat="38.7135338" lon="-9.1373824"/>
+  <node id="6842664360" lat="38.7135221" lon="-9.1373891"/>
+  <node id="6842664361" lat="38.7135077" lon="-9.1373985"/>
+  <node id="6842664362" lat="38.7134930" lon="-9.1374092"/>
+  <node id="6842664363" lat="38.7134846" lon="-9.1374159"/>
+  <node id="6842664364" lat="38.7134790" lon="-9.1374235"/>
+  <node id="6842664365" lat="38.7134734" lon="-9.1374327"/>
+  <node id="6842664366" lat="38.7134686" lon="-9.1374375"/>
+  <node id="6842664367" lat="38.7134632" lon="-9.1374399"/>
+  <node id="6842664368" lat="38.7134574" lon="-9.1374399"/>
+  <node id="6842664369" lat="38.7134514" lon="-9.1374372"/>
+  <node id="6842664370" lat="38.7134472" lon="-9.1374328"/>
+  <node id="6842664371" lat="38.7134441" lon="-9.1374271"/>
+  <node id="6842664372" lat="38.7134431" lon="-9.1374209"/>
+  <node id="6842664373" lat="38.7134431" lon="-9.1374144"/>
+  <node id="6842664374" lat="38.7134449" lon="-9.1374053"/>
+  <node id="6842664375" lat="38.7134471" lon="-9.1373973"/>
+  <node id="6842664376" lat="38.7134916" lon="-9.1372117"/>
+  <node id="6842664377" lat="38.7134922" lon="-9.1372101"/>
+  <node id="6842664378" lat="38.7134931" lon="-9.1372090"/>
+  <node id="6842664379" lat="38.7134943" lon="-9.1372085"/>
+  <node id="6842664380" lat="38.7134952" lon="-9.1372086"/>
+  <node id="6842664381" lat="38.7136249" lon="-9.1372576"/>
+  <node id="6842664382" lat="38.7136368" lon="-9.1372631"/>
+  <node id="6842664383" lat="38.7136499" lon="-9.1372696"/>
+  <node id="6842664384" lat="38.7136627" lon="-9.1372770"/>
+  <node id="6842665785" lat="38.7136732" lon="-9.1372852"/>
+  <node id="6842665786" lat="38.7136851" lon="-9.1372950"/>
+  <node id="6842665787" lat="38.7136935" lon="-9.1373040"/>
+  <node id="6842665788" lat="38.7137090" lon="-9.1373199"/>
+  <node id="6842665789" lat="38.7137192" lon="-9.1373292"/>
+  <node id="6842665790" lat="38.7137271" lon="-9.1373354"/>
+  <node id="6842665791" lat="38.7137370" lon="-9.1373416"/>
+  <node id="6842665792" lat="38.7137506" lon="-9.1373483"/>
+  <node id="6842665793" lat="38.7137644" lon="-9.1373540"/>
+  <node id="6842665794" lat="38.7137801" lon="-9.1373603"/>
+  <node id="6842665795" lat="38.7139710" lon="-9.1374363"/>
+  <node id="6842665796" lat="38.7139772" lon="-9.1374415"/>
+  <node id="6842665797" lat="38.7139815" lon="-9.1374475"/>
+  <node id="6842665798" lat="38.7139845" lon="-9.1374547"/>
+  <node id="6842665799" lat="38.7139871" lon="-9.1374633"/>
+  <node id="6842665800" lat="38.7139875" lon="-9.1374717"/>
+  <node id="6842665801" lat="38.7139869" lon="-9.1374799"/>
+  <node id="6842665802" lat="38.7139848" lon="-9.1374862"/>
+  <node id="6842665803" lat="38.7139819" lon="-9.1374914"/>
+  <node id="6842665804" lat="38.7139777" lon="-9.1374975"/>
+  <node id="6842665805" lat="38.7139725" lon="-9.1375018"/>
+  <node id="6842665806" lat="38.7139682" lon="-9.1375047"/>
+  <node id="6842665807" lat="38.7139636" lon="-9.1375062"/>
+  <node id="6842665808" lat="38.7139580" lon="-9.1375062"/>
+  <node id="6842665809" lat="38.7139510" lon="-9.1375047"/>
+  <node id="6842665810" lat="38.7136595" lon="-9.1373870"/>
+  <node id="6842665811" lat="38.7136470" lon="-9.1373825"/>
+  <node id="6842665812" lat="38.7134218" lon="-9.1375333"/>
+  <node id="6842665813" lat="38.7133559" lon="-9.1377975"/>
+  <node id="6842665814" lat="38.7134967" lon="-9.1366110"/>
+  <node id="6842665815" lat="38.7131551" lon="-9.1378762"/>
+  <node id="6842665816" lat="38.7139861" lon="-9.1380393">
+    <tag k="highway" v="street_lamp"/>
+  </node>
+  <node id="6842665817" lat="38.7140661" lon="-9.1377187">
+    <tag k="highway" v="street_lamp"/>
+  </node>
+  <node id="6842665818" lat="38.7141967" lon="-9.1376196"/>
+  <node id="6842665819" lat="38.7142146" lon="-9.1375360"/>
+  <node id="6842665820" lat="38.7141764" lon="-9.1375225"/>
+  <node id="6842665821" lat="38.7141585" lon="-9.1376059"/>
+  <node id="6842665822" lat="38.7141955" lon="-9.1375293">
+    <tag k="name" v="Rossio"/>
+    <tag k="railway" v="subway_entrance"/>
+    <tag k="wheelchair" v="no"/>
+  </node>
+  <node id="6842665823" lat="38.7141773" lon="-9.1376127"/>
+  <node id="6842679286" lat="38.7132474" lon="-9.1377598"/>
+  <node id="6842679287" lat="38.7132205" lon="-9.1377628"/>
+  <node id="6842679289" lat="38.7132262" lon="-9.1377632"/>
+  <node id="6842679292" lat="38.7132709" lon="-9.1377481"/>
+  <node id="6842679294" lat="38.7132895" lon="-9.1377307"/>
+  <node id="6842679297" lat="38.7133093" lon="-9.1376874"/>
+  <node id="6842679298" lat="38.7133480" lon="-9.1375382"/>
+  <node id="6842679301" lat="38.7134549" lon="-9.1372177">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="6842679303" lat="38.7132996" lon="-9.1377140"/>
+  <node id="6842679305" lat="38.7134280" lon="-9.1372026"/>
+  <node id="6842679307" lat="38.7134286" lon="-9.1371667"/>
+  <node id="6842679309" lat="38.7134212" lon="-9.1371281"/>
+  <node id="6842679311" lat="38.7134110" lon="-9.1371013"/>
+  <node id="6842679313" lat="38.7133977" lon="-9.1370788"/>
+  <node id="6842679315" lat="38.7133817" lon="-9.1370624"/>
+  <node id="6842679317" lat="38.7133535" lon="-9.1370413"/>
+  <node id="6842679319" lat="38.7133090" lon="-9.1370171"/>
+  <node id="6842679320" lat="38.7134197" lon="-9.1369957"/>
+  <node id="6842679321" lat="38.7134046" lon="-9.1370528"/>
+  <node id="6842679322" lat="38.7134072" lon="-9.1370430"/>
+  <node id="6842679323" lat="38.7134114" lon="-9.1370269">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6842679324" lat="38.7134270" lon="-9.1369662"/>
+  <node id="6842679325" lat="38.7133824" lon="-9.1371930"/>
+  <node id="6842679328" lat="38.7134269" lon="-9.1372100"/>
+  <node id="6842679329" lat="38.7134387" lon="-9.1371088"/>
+  <node id="6842679330" lat="38.7135094" lon="-9.1372411"/>
+  <node id="6842679331" lat="38.7133254" lon="-9.1374256"/>
+  <node id="6845518185" lat="38.7135844" lon="-9.1368684">
+    <tag k="amenity" v="fast_food"/>
+    <tag k="name" v="Kebab Mahal"/>
+  </node>
+  <node id="6852911257" lat="38.7144592" lon="-9.1375062"/>
+  <node id="6852911258" lat="38.7144100" lon="-9.1374882"/>
+  <node id="6852911259" lat="38.7143351" lon="-9.1374578"/>
+  <node id="6852911260" lat="38.7143058" lon="-9.1374460"/>
+  <node id="6852911261" lat="38.7142893" lon="-9.1374393"/>
+  <node id="6852911262" lat="38.7142799" lon="-9.1374356"/>
+  <node id="6852911264" lat="38.7143887" lon="-9.1384851"/>
+  <node id="6852911265" lat="38.7143868" lon="-9.1385040"/>
+  <node id="6852911267" lat="38.7141932" lon="-9.1376360"/>
+  <node id="6852911268" lat="38.7141550" lon="-9.1376226"/>
+  <node id="6852911269" lat="38.7140122" lon="-9.1383173"/>
+  <node id="6852911270" lat="38.7139941" lon="-9.1384116"/>
+  <node id="6852911271" lat="38.7140338" lon="-9.1384241"/>
+  <node id="6852911272" lat="38.7140518" lon="-9.1383297"/>
+  <node id="6852911273" lat="38.7140285" lon="-9.1383410"/>
+  <node id="6852911274" lat="38.7140101" lon="-9.1383281"/>
+  <node id="6852911275" lat="38.7140494" lon="-9.1383420"/>
+  <node id="6852911276" lat="38.7142341" lon="-9.1375418"/>
+  <node id="6852911278" lat="38.7140313" lon="-9.1383233"/>
+  <node id="6852911279" lat="38.7140355" lon="-9.1382985"/>
+  <node id="6852911280" lat="38.7140654" lon="-9.1383087"/>
+  <node id="6852911281" lat="38.7133008" lon="-9.1370441"/>
+  <node id="6852911283" lat="38.7128346" lon="-9.1393641"/>
+  <node id="6852911284" lat="38.7130467" lon="-9.1386106"/>
+  <node id="6852912985" lat="38.7130462" lon="-9.1385768"/>
+  <node id="6852912986" lat="38.7130583" lon="-9.1384888"/>
+  <node id="6852912987" lat="38.7130525" lon="-9.1385161"/>
+  <node id="7001612211" lat="38.7130912" lon="-9.1386276">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7001612216" lat="38.7128047" lon="-9.1376587"/>
+  <node id="7001612217" lat="38.7132620" lon="-9.1378233"/>
+  <node id="7001612219" lat="38.7132354" lon="-9.1378123">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="7001612220" lat="38.7132432" lon="-9.1377784"/>
+  <node id="7001612221" lat="38.7125487" lon="-9.1375644">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7001612222" lat="38.7118503" lon="-9.1372887">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7001612223" lat="38.7111789" lon="-9.1370236">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7001612224" lat="38.7104823" lon="-9.1367485">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="7126591806" lat="38.7128501" lon="-9.1396596"/>
+  <node id="7126591808" lat="38.7142537" lon="-9.1374434"/>
+  <node id="7126591809" lat="38.7144072" lon="-9.1375022"/>
+  <node id="7126591810" lat="38.7141823" lon="-9.1385857"/>
+  <node id="7126591811" lat="38.7140206" lon="-9.1385357"/>
+  <node id="7126591812" lat="38.7140072" lon="-9.1386004"/>
+  <node id="7126591813" lat="38.7131515" lon="-9.1385294"/>
+  <node id="7126591814" lat="38.7132085" lon="-9.1382843"/>
+  <node id="7126591816" lat="38.7150221" lon="-9.1395038"/>
+  <node id="7126591820" lat="38.7149524" lon="-9.1400467"/>
+  <node id="7126591822" lat="38.7144659" lon="-9.1401901"/>
+  <node id="7126591823" lat="38.7148655" lon="-9.1414966"/>
+  <node id="7126591825" lat="38.7145348" lon="-9.1411198"/>
+  <node id="7126591828" lat="38.7151288" lon="-9.1391633"/>
+  <node id="7126591829" lat="38.7147613" lon="-9.1406413"/>
+  <node id="7126591831" lat="38.7143898" lon="-9.1405175"/>
+  <node id="7126591832" lat="38.7136096" lon="-9.1365393"/>
+  <node id="7126591837" lat="38.7128261" lon="-9.1395010"/>
+  <node id="7126591838" lat="38.7128860" lon="-9.1394730"/>
+  <node id="7126591840" lat="38.7141801" lon="-9.1407569"/>
+  <node id="7127442313" lat="38.7132615" lon="-9.1376993"/>
+  <node id="7127442314" lat="38.7142402" lon="-9.1373284"/>
+  <node id="7127553321" lat="38.7086158" lon="-9.1359254"/>
+  <node id="7127553322" lat="38.7087497" lon="-9.1351077"/>
+  <node id="7127576194" lat="38.7080688" lon="-9.1381429"/>
+  <node id="7185050689" lat="38.7136312" lon="-9.1364886">
+    <tag k="amenity" v="toilets"/>
+  </node>
+  <node id="7188001141" lat="38.7133419" lon="-9.1378992"/>
+  <node id="7188001142" lat="38.7133317" lon="-9.1379800"/>
+  <node id="7188001143" lat="38.7133319" lon="-9.1378737"/>
+  <node id="7188001144" lat="38.7133802" lon="-9.1378851"/>
+  <node id="7188001145" lat="38.7135741" lon="-9.1366123"/>
+  <node id="7188001146" lat="38.7134755" lon="-9.1370855"/>
+  <node id="7188001147" lat="38.7134712" lon="-9.1370751">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="7245472736" lat="38.7131995" lon="-9.1365343">
+    <tag k="addr:housenumber" v="271"/>
+    <tag k="addr:street" v="Rua da Madalena"/>
+    <tag k="name" v="Madalena by The Beautique Hotels"/>
+    <tag k="tourism" v="hotel"/>
+  </node>
+  <node id="7266183885" lat="38.7142276" lon="-9.1371211">
+    <tag k="amenity" v="restaurant"/>
+    <tag k="cuisine" v="vegan;vegetarian"/>
+    <tag k="internet_access" v="wlan"/>
+    <tag k="name" v="manjerica"/>
+  </node>
+  <way id="5011480">
+    <nd ref="33360496"/>
+    <nd ref="33360529"/>
+    <nd ref="33360530"/>
+    <nd ref="33360504"/>
+    <nd ref="33360505"/>
+    <nd ref="6551820314"/>
+    <nd ref="32268731"/>
+    <tag k="description" v="Toponímia: Comércio e comerciantes, artesãos e ofícios. Início: Rua da Conceição. Fim: Praça da Figueira."/>
+    <tag k="goods:conditional" v="delivery @ (20:00-10:00)"/>
+    <tag k="highway" v="pedestrian"/>
+    <tag k="horse" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Rua dos Correeiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="957"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="5011573">
+    <nd ref="5331010309"/>
+    <nd ref="6842679323"/>
+    <nd ref="3976180901"/>
+    <nd ref="33360514"/>
+    <nd ref="3976180900"/>
+    <nd ref="33360523"/>
+    <nd ref="33360515"/>
+    <nd ref="33360516"/>
+    <nd ref="33360517"/>
+    <nd ref="33360518"/>
+    <nd ref="3975964586"/>
+    <nd ref="33360519"/>
+    <tag k="description" v="Toponímia: Comércio e comerciantes. Início: Rua da Alfândega. Fim: Praça da Figueira."/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Rua dos Fanqueiros"/>
+    <tag k="old_name" v="Rua da Princesa;Rua Nova da Princesa"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="849"/>
+    <tag k="start_date" v="1910-11-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="5011579">
+    <nd ref="5331010307"/>
+    <nd ref="6842679331"/>
+    <nd ref="33360537"/>
+    <nd ref="33360536"/>
+    <nd ref="33360535"/>
+    <nd ref="33360534"/>
+    <nd ref="33360538"/>
+    <tag k="description" v="Toponímia: Comércio e comerciantes, artesãos e ofícios. Início: Rua da Conceição. Fim: Praça da Figueira."/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Rua dos Douradores"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1746"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="20428609">
+    <nd ref="4360243469"/>
+    <nd ref="1627708404"/>
+    <nd ref="1128851576"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Poço do Borratem"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="20429428">
+    <nd ref="5938049191"/>
+    <nd ref="1135629332"/>
+    <nd ref="5331010307"/>
+    <nd ref="6842679301"/>
+    <nd ref="5331010309"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="yes"/>
+    <tag k="motor_vehicle" v="destination"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+  </way>
+  <way id="20429528">
+    <nd ref="6481301320"/>
+    <nd ref="1135629364"/>
+    <nd ref="3975964588"/>
+    <nd ref="7188001146"/>
+    <nd ref="7188001147"/>
+    <nd ref="5331010309"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="20429655">
+    <nd ref="218039742"/>
+    <nd ref="1135629312"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="service"/>
+    <tag k="motor_vehicle" v="destination"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="cobblestone"/>
+    <tag k="tourist_bus" v="yes"/>
+  </way>
+  <way id="20429779">
+    <nd ref="5331010309"/>
+    <nd ref="6842664347"/>
+    <nd ref="5331010310"/>
+    <nd ref="7188001145"/>
+    <nd ref="4360243469"/>
+    <tag k="description" v="Toponímia: Nobre. Início: Rua da Madalena / (Freg. Santa Justa) Praça da Figueira. Fim: Praça da Figueira / (Freg. Santa Justa) Poço do Borratem."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Rua dos Condes de Monsanto"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1748"/>
+    <tag k="start_date" v="1950-09-05"/>
+  </way>
+  <way id="23704509">
+    <nd ref="256673563"/>
+    <nd ref="5895322563"/>
+    <nd ref="6001706462"/>
+    <nd ref="6001707692"/>
+    <nd ref="256673564"/>
+    <nd ref="256673565"/>
+    <nd ref="256673567"/>
+    <nd ref="1933844170"/>
+    <nd ref="6446407441"/>
+    <nd ref="1933844173"/>
+    <nd ref="5895322562"/>
+    <nd ref="5895322561"/>
+    <nd ref="224955563"/>
+    <nd ref="256673569"/>
+    <nd ref="256673570"/>
+    <nd ref="5185768824"/>
+    <nd ref="256673575"/>
+    <nd ref="256673576"/>
+    <nd ref="5895322559"/>
+    <nd ref="6552924438"/>
+    <nd ref="5895322567"/>
+    <nd ref="256673577"/>
+    <nd ref="1122758176"/>
+    <nd ref="1106336552"/>
+    <nd ref="256673579"/>
+    <nd ref="3989338976"/>
+    <nd ref="5895322566"/>
+    <nd ref="3989338978"/>
+    <nd ref="5895322565"/>
+    <nd ref="1120611090"/>
+    <nd ref="256673584"/>
+    <nd ref="265897891"/>
+    <nd ref="6747220721"/>
+    <nd ref="265897892"/>
+    <nd ref="6747200759"/>
+    <nd ref="256674870"/>
+    <nd ref="6747261692"/>
+    <nd ref="256675147"/>
+    <nd ref="256674875"/>
+    <nd ref="1465237705"/>
+    <nd ref="256674877"/>
+    <nd ref="256971860"/>
+    <nd ref="1123904659"/>
+    <nd ref="256971861"/>
+    <nd ref="256971862"/>
+    <nd ref="256971863"/>
+    <nd ref="256971864"/>
+    <nd ref="1123904651"/>
+    <nd ref="256971865"/>
+    <nd ref="256971868"/>
+    <nd ref="355017757"/>
+    <nd ref="256971869"/>
+    <nd ref="4124472718"/>
+    <nd ref="4124472740"/>
+    <nd ref="256971871"/>
+    <nd ref="256971872"/>
+    <nd ref="256971874"/>
+    <nd ref="256971875"/>
+    <nd ref="256971876"/>
+    <nd ref="256971877"/>
+    <nd ref="5588842712"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="layer" v="-2"/>
+    <tag k="line" v="Verde"/>
+    <tag k="name" v="Linha Verde"/>
+    <tag k="railway" v="subway"/>
+    <tag k="tunnel" v="yes"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="24221007">
+    <nd ref="5938049191"/>
+    <nd ref="7188001143"/>
+    <nd ref="7188001141"/>
+    <nd ref="25726537"/>
+    <tag k="description" v="Toponímia: Comércio e comerciantes, artesãos e ofícios. Início: Praça do Comércio. Fim: Praça da Figueira."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rua da Prata"/>
+    <tag k="old_name" v="Rua Bela da Rainha"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="955"/>
+    <tag k="start_date" v="1910-11-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="24221008">
+    <nd ref="262253942"/>
+    <nd ref="262253943"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="900"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="railway" v="tram"/>
+    <tag k="voltage" v="600"/>
+  </way>
+  <way id="24691785">
+    <nd ref="32268731"/>
+    <nd ref="6551820316"/>
+    <nd ref="5978547338"/>
+    <nd ref="6540421160"/>
+    <nd ref="7001612211"/>
+    <tag k="description" v="Toponímia: Outros. Início: Praça da Figueira. Fim: Praça D. Pedro IV."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rua da Betesga"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2528"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="95408987">
+    <nd ref="1116247410"/>
+    <nd ref="1116247130"/>
+    <nd ref="1106337071"/>
+    <nd ref="1106336793"/>
+    <nd ref="6852911276"/>
+    <nd ref="1116247410"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="95417243">
+    <nd ref="1128787065"/>
+    <nd ref="6842665815"/>
+    <nd ref="1106405349"/>
+    <nd ref="1106403269"/>
+    <nd ref="1128787239"/>
+    <nd ref="1128787022"/>
+    <nd ref="1128787254"/>
+    <nd ref="1128787065"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="95417306">
+    <nd ref="1128787112"/>
+    <nd ref="1128787126"/>
+    <nd ref="1128787242"/>
+    <nd ref="1128787281"/>
+    <nd ref="1128787222"/>
+    <nd ref="1106404169"/>
+    <nd ref="1128787112"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306154">
+    <nd ref="5096400076"/>
+    <nd ref="5096400074"/>
+    <nd ref="5096400071"/>
+    <nd ref="5096400075"/>
+    <nd ref="5096400076"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306156">
+    <nd ref="1116247284"/>
+    <nd ref="1116247190"/>
+    <nd ref="1106337200"/>
+    <nd ref="1106336950"/>
+    <nd ref="1116247284"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306159">
+    <nd ref="1116246938"/>
+    <nd ref="1116247206"/>
+    <nd ref="1116246966"/>
+    <nd ref="1116246843"/>
+    <nd ref="1116247072"/>
+    <nd ref="1116247113"/>
+    <nd ref="1116247151"/>
+    <nd ref="1116246947"/>
+    <nd ref="1106403114"/>
+    <nd ref="1116246968"/>
+    <nd ref="1116246938"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306165">
+    <nd ref="1116247009"/>
+    <nd ref="1116247052"/>
+    <nd ref="1116247008"/>
+    <nd ref="1116247114"/>
+    <nd ref="1116247009"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306169">
+    <nd ref="1116247393"/>
+    <nd ref="1116247130"/>
+    <nd ref="1116247410"/>
+    <nd ref="1116247201"/>
+    <nd ref="1116247393"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306170">
+    <nd ref="1116247323"/>
+    <nd ref="1116247438"/>
+    <nd ref="1116247338"/>
+    <nd ref="1116246989"/>
+    <nd ref="1116247275"/>
+    <nd ref="1116246947"/>
+    <nd ref="1116247151"/>
+    <nd ref="1116246970"/>
+    <nd ref="1116247323"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306174">
+    <nd ref="1116247270"/>
+    <nd ref="1116247393"/>
+    <nd ref="1116247201"/>
+    <nd ref="1116247255"/>
+    <nd ref="1116247270"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306177">
+    <nd ref="1116247257"/>
+    <nd ref="1106403869"/>
+    <nd ref="1106404688"/>
+    <nd ref="1116247275"/>
+    <nd ref="1116246989"/>
+    <nd ref="1116247031"/>
+    <nd ref="1116247414"/>
+    <nd ref="1116247001"/>
+    <nd ref="1116247257"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306179">
+    <nd ref="1116247052"/>
+    <nd ref="1116247117"/>
+    <nd ref="1116247202"/>
+    <nd ref="1116247364"/>
+    <nd ref="1116247048"/>
+    <nd ref="1116246843"/>
+    <nd ref="1116246966"/>
+    <nd ref="1116247008"/>
+    <nd ref="1116247052"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306186">
+    <nd ref="1116247324"/>
+    <nd ref="1116247409"/>
+    <nd ref="1116246907"/>
+    <nd ref="1116247274"/>
+    <nd ref="1116247184"/>
+    <nd ref="1116247324"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306187">
+    <nd ref="1116247189"/>
+    <nd ref="1116247373"/>
+    <nd ref="1106335839"/>
+    <nd ref="1106335301"/>
+    <nd ref="1106335460"/>
+    <nd ref="1116247054"/>
+    <nd ref="1116246946"/>
+    <nd ref="1116247189"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306190">
+    <nd ref="1116247048"/>
+    <nd ref="1116247381"/>
+    <nd ref="1116247089"/>
+    <nd ref="1116247132"/>
+    <nd ref="1116247202"/>
+    <nd ref="1116247364"/>
+    <nd ref="1116247048"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306198">
+    <nd ref="1116247352"/>
+    <nd ref="1116247327"/>
+    <nd ref="1116247103"/>
+    <nd ref="1116247159"/>
+    <nd ref="1116247324"/>
+    <nd ref="1116247184"/>
+    <nd ref="1116247274"/>
+    <nd ref="1116247433"/>
+    <nd ref="1116247352"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306200">
+    <nd ref="1116247117"/>
+    <nd ref="1106402300"/>
+    <nd ref="1116247006"/>
+    <nd ref="1116247132"/>
+    <nd ref="1116247202"/>
+    <nd ref="1116247117"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306202">
+    <nd ref="1116247409"/>
+    <nd ref="1116247074"/>
+    <nd ref="1116247243"/>
+    <nd ref="1116246927"/>
+    <nd ref="1116246907"/>
+    <nd ref="1116247409"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306204">
+    <nd ref="1116247009"/>
+    <nd ref="1116247114"/>
+    <nd ref="1116247285"/>
+    <nd ref="1116246938"/>
+    <nd ref="1116246968"/>
+    <nd ref="1106403415"/>
+    <nd ref="1116247009"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306205">
+    <nd ref="1116247339"/>
+    <nd ref="1116247270"/>
+    <nd ref="1116247255"/>
+    <nd ref="1116247437"/>
+    <nd ref="1116247339"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306215">
+    <nd ref="1116246918"/>
+    <nd ref="1116247161"/>
+    <nd ref="1116247287"/>
+    <nd ref="1116247147"/>
+    <nd ref="1116247245"/>
+    <nd ref="1116247236"/>
+    <nd ref="1116247200"/>
+    <nd ref="1116246916"/>
+    <nd ref="1116246918"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306217">
+    <nd ref="1116247075"/>
+    <nd ref="1116247131"/>
+    <nd ref="1116247161"/>
+    <nd ref="1116246918"/>
+    <nd ref="1116247075"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306220">
+    <nd ref="5096400076"/>
+    <nd ref="5096400074"/>
+    <nd ref="1116246919"/>
+    <nd ref="5096400073"/>
+    <nd ref="5096400072"/>
+    <nd ref="1116247026"/>
+    <nd ref="1116246874"/>
+    <nd ref="5096400076"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306221">
+    <nd ref="1116246974"/>
+    <nd ref="1116247218"/>
+    <nd ref="1116247115"/>
+    <nd ref="1116247352"/>
+    <nd ref="1116247433"/>
+    <nd ref="1116247120"/>
+    <nd ref="1116246859"/>
+    <nd ref="1116246974"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306223">
+    <nd ref="1116247006"/>
+    <nd ref="1116247257"/>
+    <nd ref="1116247001"/>
+    <nd ref="1116247292"/>
+    <nd ref="1116247089"/>
+    <nd ref="1116247132"/>
+    <nd ref="1116247006"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306225">
+    <nd ref="1116247354"/>
+    <nd ref="1116246948"/>
+    <nd ref="1116246886"/>
+    <nd ref="1116247131"/>
+    <nd ref="1116247075"/>
+    <nd ref="1116247354"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306229">
+    <nd ref="1116246903"/>
+    <nd ref="1116246845"/>
+    <nd ref="5672699457"/>
+    <nd ref="1116246948"/>
+    <nd ref="1116247354"/>
+    <nd ref="1116246903"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306234">
+    <nd ref="1116247245"/>
+    <nd ref="1116247181"/>
+    <nd ref="1116247387"/>
+    <nd ref="1116247236"/>
+    <nd ref="1116247245"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96306239">
+    <nd ref="1116247411"/>
+    <nd ref="1116246980"/>
+    <nd ref="1116247189"/>
+    <nd ref="1116246946"/>
+    <nd ref="1116247303"/>
+    <nd ref="6852911264"/>
+    <nd ref="6852911265"/>
+    <nd ref="1116247221"/>
+    <nd ref="1116247411"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96313037">
+    <nd ref="1116301020"/>
+    <nd ref="1116301567"/>
+    <nd ref="1116301432"/>
+    <nd ref="1116301553"/>
+    <nd ref="1116300980"/>
+    <nd ref="1116301020"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96313050">
+    <nd ref="1116301493"/>
+    <nd ref="6842665814"/>
+    <nd ref="1116301671"/>
+    <nd ref="1116301101"/>
+    <nd ref="1116301694"/>
+    <nd ref="1116301041"/>
+    <nd ref="1116301312"/>
+    <nd ref="1116301144"/>
+    <nd ref="1116301493"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="96313075">
+    <nd ref="1116301621"/>
+    <nd ref="1116301005"/>
+    <nd ref="1116301552"/>
+    <nd ref="1116301312"/>
+    <nd ref="1116301041"/>
+    <nd ref="1116301567"/>
+    <nd ref="1116301020"/>
+    <nd ref="1116301621"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="96313102">
+    <nd ref="1116301002"/>
+    <nd ref="1116301493"/>
+    <nd ref="1116301144"/>
+    <nd ref="1116301005"/>
+    <nd ref="1116301621"/>
+    <nd ref="1116301002"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="96313114">
+    <nd ref="1116301694"/>
+    <nd ref="1116301102"/>
+    <nd ref="1116301432"/>
+    <nd ref="1116301585"/>
+    <nd ref="1116301120"/>
+    <nd ref="1116301017"/>
+    <nd ref="1116301635"/>
+    <nd ref="1116301101"/>
+    <nd ref="1116301694"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="96770748">
+    <nd ref="3147346994"/>
+    <nd ref="3147347000"/>
+    <nd ref="4349146897"/>
+    <nd ref="3147346989"/>
+    <nd ref="5978467191"/>
+    <nd ref="3147346983"/>
+    <nd ref="3147346994"/>
+    <tag k="area" v="yes"/>
+    <tag k="highway" v="pedestrian"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:de" v="Platz de Figueira"/>
+    <tag k="name:en" v="Square of Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="name:zh" v="无花果树广场"/>
+    <tag k="place" v="square"/>
+    <tag k="surface" v="paved"/>
+    <tag k="wikidata" v="Q1305091"/>
+  </way>
+  <way id="97475287">
+    <nd ref="1128787140"/>
+    <nd ref="1128787267"/>
+    <nd ref="1128787055"/>
+    <nd ref="1128787266"/>
+    <nd ref="1128787140"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="97475302">
+    <nd ref="1128787112"/>
+    <nd ref="1106404210"/>
+    <nd ref="6852911281"/>
+    <nd ref="1128787140"/>
+    <nd ref="1128787266"/>
+    <nd ref="1128787126"/>
+    <nd ref="1128787112"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="97475331">
+    <nd ref="1106403094"/>
+    <nd ref="1128787203"/>
+    <nd ref="1128787305"/>
+    <nd ref="1128787201"/>
+    <nd ref="1128787144"/>
+    <nd ref="1106403094"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="97475355">
+    <nd ref="1128787268"/>
+    <nd ref="1128787144"/>
+    <nd ref="1128787201"/>
+    <nd ref="1128787129"/>
+    <nd ref="1128787262"/>
+    <nd ref="1128787268"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="97475381">
+    <nd ref="1128787203"/>
+    <nd ref="1106403417"/>
+    <nd ref="1128787288"/>
+    <nd ref="1128787124"/>
+    <nd ref="1128787129"/>
+    <nd ref="1128787201"/>
+    <nd ref="1128787305"/>
+    <nd ref="1128787203"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="97498811">
+    <nd ref="1128851584"/>
+    <nd ref="1128851772"/>
+    <nd ref="1128851673"/>
+    <nd ref="1128851746"/>
+    <nd ref="1128851656"/>
+    <nd ref="1128851571"/>
+    <tag k="highway" v="steps"/>
+    <tag k="name" v="Calçada de São Lourenço"/>
+  </way>
+  <way id="97498813">
+    <nd ref="1128851772"/>
+    <nd ref="1128851804"/>
+    <nd ref="1128851723"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="97498831">
+    <nd ref="1128851576"/>
+    <nd ref="1128851802"/>
+    <nd ref="1128851608"/>
+    <tag k="description" v="Toponímia: artesãos e ofícios. Início: Poço do Borratem. Fim: Largo dos Trigueiros."/>
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Beco dos Surradores"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1059"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="97498846">
+    <nd ref="1128851608"/>
+    <nd ref="1128851584"/>
+    <nd ref="1128851785"/>
+    <nd ref="1128851599"/>
+    <nd ref="1128851629"/>
+    <nd ref="3717044502"/>
+    <nd ref="1128851682"/>
+    <nd ref="1128851705"/>
+    <nd ref="1627708418"/>
+    <nd ref="1128851711"/>
+    <nd ref="1128851609"/>
+    <nd ref="1128851625"/>
+    <nd ref="1128851762"/>
+    <nd ref="1128851789"/>
+    <tag k="description" v="Toponímia: Hagiotopónimo. Início: Beco dos Surradores. Fim: Rua das Fontaínhas a São Lourenço."/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rua de São Pedro Mártir"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1375"/>
+  </way>
+  <way id="98136499">
+    <nd ref="1135629328"/>
+    <nd ref="1135629324"/>
+    <nd ref="1135629364"/>
+    <tag k="highway" v="service"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="98136504">
+    <nd ref="1135629313"/>
+    <nd ref="1135629317"/>
+    <nd ref="1135629328"/>
+    <nd ref="1135629344"/>
+    <nd ref="1135629327"/>
+    <tag k="barrier" v="retaining_wall"/>
+  </way>
+  <way id="98136506">
+    <nd ref="218039742"/>
+    <nd ref="1135629326"/>
+    <nd ref="1135629362"/>
+    <tag k="highway" v="service"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="98136507">
+    <nd ref="1135629338"/>
+    <nd ref="1135629347"/>
+    <nd ref="6471130486"/>
+    <nd ref="1135629350"/>
+    <nd ref="1135629305"/>
+    <nd ref="1135629342"/>
+    <tag k="access" v="no"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="emergency" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="service"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="cobblestone"/>
+    <tag k="tourist_bus" v="yes"/>
+    <tag k="vehicle" v="no"/>
+  </way>
+  <way id="98186852">
+    <nd ref="1135629362"/>
+    <nd ref="1135912681"/>
+    <nd ref="6813434123"/>
+    <nd ref="1135912677"/>
+    <nd ref="6813434124"/>
+    <nd ref="1135912687"/>
+    <nd ref="1135629311"/>
+    <nd ref="1135912673"/>
+    <nd ref="1135912712"/>
+    <nd ref="1135912714"/>
+    <nd ref="1135912698"/>
+    <nd ref="1135629328"/>
+    <tag k="highway" v="service"/>
+    <tag k="layer" v="-1"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="service" v="parking_aisle"/>
+    <tag k="tunnel" v="yes"/>
+  </way>
+  <way id="98385800">
+    <nd ref="33360492"/>
+    <nd ref="4379397651"/>
+    <nd ref="4379397655"/>
+    <nd ref="33360491"/>
+    <nd ref="7001612224"/>
+    <nd ref="5227364164"/>
+    <nd ref="33360490"/>
+    <nd ref="7001612223"/>
+    <nd ref="33360489"/>
+    <nd ref="7001612222"/>
+    <nd ref="33360488"/>
+    <nd ref="7001612221"/>
+    <nd ref="7001612216"/>
+    <nd ref="7001612219"/>
+    <nd ref="7001612217"/>
+    <nd ref="5938049191"/>
+    <tag k="description" v="Toponímia: Comércio e comerciantes, artesãos e ofícios. Início: Praça do Comércio. Fim: Praça da Figueira."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rua da Prata"/>
+    <tag k="old_name" v="Rua Bela da Rainha"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="955"/>
+    <tag k="start_date" v="1910-11-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="102019501">
+    <nd ref="1177747940"/>
+    <nd ref="1177747840"/>
+    <nd ref="1177747930"/>
+    <nd ref="1177747986"/>
+    <nd ref="1177747940"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="102019507">
+    <nd ref="1177747932"/>
+    <nd ref="1177747828"/>
+    <nd ref="1177747815"/>
+    <nd ref="1177747983"/>
+    <nd ref="1177747955"/>
+    <nd ref="1177747834"/>
+    <nd ref="1177747819"/>
+    <nd ref="1177747972"/>
+    <nd ref="1177747913"/>
+    <nd ref="1177747944"/>
+    <nd ref="1177747932"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="102019521">
+    <nd ref="1177747948"/>
+    <nd ref="1177747780"/>
+    <nd ref="1177747988"/>
+    <nd ref="1177747975"/>
+    <nd ref="1177747873"/>
+    <nd ref="1177747914"/>
+    <nd ref="1177747948"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="146666974">
+    <nd ref="25726537"/>
+    <nd ref="7188001142"/>
+    <nd ref="32268731"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="149824180">
+    <nd ref="1627708397"/>
+    <nd ref="1627708393"/>
+    <tag k="description" v="Toponímia: Morador/Proprietário do local. Início: Rua da Madalena. Fim: Poço do Borratem."/>
+    <tag k="highway" v="steps"/>
+    <tag k="name" v="Beco do Rosendo"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1060"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="149824181">
+    <nd ref="1627708404"/>
+    <nd ref="1627708403"/>
+    <nd ref="1627708402"/>
+    <tag k="description" v="Toponímia: Morador/Proprietário do local. Início: Rua da Madalena. Fim: Poço do Borratem."/>
+    <tag k="highway" v="steps"/>
+    <tag k="name" v="Beco do Rosendo"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1060"/>
+  </way>
+  <way id="149824182">
+    <nd ref="1627708403"/>
+    <nd ref="5695469564"/>
+    <nd ref="1627708399"/>
+    <nd ref="1627708397"/>
+    <tag k="description" v="Toponímia: Morador/Proprietário do local. Início: Rua da Madalena. Fim: Poço do Borratem."/>
+    <tag k="highway" v="footway"/>
+    <tag k="name" v="Beco do Rosendo"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1060"/>
+  </way>
+  <way id="149824183">
+    <nd ref="1128851608"/>
+    <nd ref="1128851723"/>
+    <tag k="description" v="Toponímia: artesãos e ofícios. Início: Poço do Borratem. Fim: Largo dos Trigueiros."/>
+    <tag k="highway" v="steps"/>
+    <tag k="name" v="Beco dos Surradores"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1059"/>
+  </way>
+  <way id="149824192">
+    <nd ref="1128851740"/>
+    <nd ref="5683387767"/>
+    <tag k="description" v="Início: Confluência da Rua das Farinhas, Rua de são Lourenço e Escadinhas da Rua das Farinhas ."/>
+    <tag k="highway" v="steps"/>
+    <tag k="name" v="Largo dos Trigueiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2995"/>
+  </way>
+  <way id="149824193">
+    <nd ref="1627708406"/>
+    <nd ref="4347279263"/>
+    <tag k="description" v="Início: Confluência da Rua das Farinhas, Rua de são Lourenço e Escadinhas da Rua das Farinhas ."/>
+    <tag k="highway" v="footway"/>
+    <tag k="name" v="Largo dos Trigueiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2995"/>
+  </way>
+  <way id="149824194">
+    <nd ref="1128851814"/>
+    <nd ref="1128851710"/>
+    <nd ref="1627708406"/>
+    <nd ref="1128851594"/>
+    <tag k="description" v="Início: Confluência da Rua das Farinhas, Rua de são Lourenço e Escadinhas da Rua das Farinhas ."/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Largo dos Trigueiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2995"/>
+  </way>
+  <way id="149824195">
+    <nd ref="1128851723"/>
+    <nd ref="1128851740"/>
+    <nd ref="1627708408"/>
+    <nd ref="1627708409"/>
+    <nd ref="1627708410"/>
+    <nd ref="1128851710"/>
+    <tag k="description" v="Início: Confluência da Rua das Farinhas, Rua de são Lourenço e Escadinhas da Rua das Farinhas ."/>
+    <tag k="highway" v="steps"/>
+    <tag k="name" v="Largo dos Trigueiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2995"/>
+  </way>
+  <way id="149824197">
+    <nd ref="1128851576"/>
+    <nd ref="218024662"/>
+    <nd ref="218024664"/>
+    <nd ref="3989338992"/>
+    <nd ref="218024670"/>
+    <tag k="description" v="Toponímia: Nobre, Morador/Proprietário do local. Início: Poço do Borratem. Fim: Praça Martim Moniz /na Freg. S. Cristóvão e S. Lourenço - Rua da Mouraria."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Rua do Arco do Marquês de Alegrete"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2530"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="149824200">
+    <nd ref="257058316"/>
+    <nd ref="257058317"/>
+    <nd ref="1627708398"/>
+    <nd ref="257058318"/>
+    <nd ref="257058319"/>
+    <nd ref="2531065863"/>
+    <nd ref="1128851592"/>
+    <nd ref="2531065872"/>
+    <nd ref="1627708412"/>
+    <tag k="description" v="Toponímia: artesãos e ofícios. Início: Beco das Farinhas. Fim: Largo da Rosa."/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rua das Farinhas"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="472"/>
+  </way>
+  <way id="149824211">
+    <nd ref="1128851594"/>
+    <nd ref="1128851630"/>
+    <nd ref="5672629226"/>
+    <nd ref="1128851727"/>
+    <nd ref="1128851651"/>
+    <nd ref="1128851646"/>
+    <nd ref="1128851631"/>
+    <nd ref="257058316"/>
+    <tag k="description" v="Toponímia: artesãos e ofícios. Início: Rua de São Cristóvão. Fim: Largo dos Trigueiros."/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Beco das Farinhas"/>
+    <tag k="old_name" v="Beco do Forno"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1066"/>
+    <tag k="start_date" v="1859-09-01"/>
+  </way>
+  <way id="245991053">
+    <nd ref="1627708356"/>
+    <nd ref="257058314"/>
+    <nd ref="257058315"/>
+    <nd ref="257058316"/>
+    <tag k="description" v="Toponímia: Santos. Início: Escadinhas de São Cristóvão. Fim: Rua das Farinhas."/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rua de São Cristóvão"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1063"/>
+  </way>
+  <way id="327562185">
+    <nd ref="3343661827"/>
+    <nd ref="3343661828"/>
+    <nd ref="3343661829"/>
+    <nd ref="3343661830"/>
+    <nd ref="3343661827"/>
+    <tag k="building" v="apartments"/>
+  </way>
+  <way id="367827371">
+    <nd ref="3717044473"/>
+    <nd ref="3717044474"/>
+    <nd ref="3717044475"/>
+    <nd ref="3717044476"/>
+    <nd ref="3717044484"/>
+    <nd ref="3717044477"/>
+    <tag k="description" v="Toponímia: Igrejas e Ermidas. Início: Escadinhas de S. Cristóvão. Fim: Rua da Madalena."/>
+    <tag k="highway" v="footway"/>
+    <tag k="name" v="Travessa da Madalena"/>
+    <tag k="old_name" v="Beco do Monete"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2430"/>
+    <tag k="start_date" v="1924-10-17"/>
+  </way>
+  <way id="367827372">
+    <nd ref="3717044476"/>
+    <nd ref="3717044478"/>
+    <nd ref="3717044479"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="367827373">
+    <nd ref="1177747875"/>
+    <nd ref="3717044480"/>
+    <nd ref="3717044481"/>
+    <nd ref="3717044482"/>
+    <nd ref="1177747875"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="367827374">
+    <nd ref="3717044476"/>
+    <nd ref="3717044483"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="367827379">
+    <nd ref="3717044486"/>
+    <nd ref="5695469539"/>
+    <nd ref="3717044488"/>
+    <nd ref="3717044489"/>
+    <nd ref="3717044486"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="367827382">
+    <nd ref="3717044490"/>
+    <nd ref="3717044491"/>
+    <nd ref="3717044492"/>
+    <nd ref="3717044493"/>
+    <nd ref="3717044494"/>
+    <nd ref="3717044495"/>
+    <nd ref="3717044490"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="367827383">
+    <nd ref="3717044496"/>
+    <nd ref="3717044497"/>
+    <nd ref="3717044498"/>
+    <nd ref="3717044499"/>
+    <nd ref="3717044500"/>
+    <nd ref="3717044501"/>
+    <nd ref="3717044496"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="386423053">
+    <nd ref="218034780"/>
+    <nd ref="7127442314"/>
+    <nd ref="1128851677"/>
+    <tag k="access" v="delivery"/>
+    <tag k="description" v="Toponímia: Outros. Início: Rua do Arco do Marquês do Alegrete. Fim: Praça da Figueira."/>
+    <tag k="emergency" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="motor_vehicle:conditional" v="delivery @ 07:00-11:00"/>
+    <tag k="name" v="Rua João das Regras"/>
+    <tag k="old_name" v="Rua do Amparo"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="1408"/>
+    <tag k="start_date" v="1950-09-05"/>
+  </way>
+  <way id="394631209">
+    <nd ref="7127576194"/>
+    <nd ref="7127553321"/>
+    <nd ref="1545693828"/>
+    <nd ref="7127553322"/>
+    <nd ref="5695469566"/>
+    <nd ref="3976103515"/>
+    <nd ref="7126591837"/>
+    <nd ref="207597690"/>
+    <nd ref="7127576194"/>
+    <tag k="landuse" v="retail"/>
+    <tag k="name" v="Baixa"/>
+    <tag k="name:de" v="Unterstadt"/>
+    <tag k="place" v="suburb"/>
+    <tag k="wikidata" v="Q804032"/>
+  </way>
+  <way id="394635406">
+    <nd ref="25726537"/>
+    <nd ref="218039742"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="service"/>
+    <tag k="motor_vehicle" v="destination"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+  </way>
+  <way id="394635407">
+    <nd ref="218034780"/>
+    <nd ref="6842664332"/>
+    <nd ref="1135629342"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="394635408">
+    <nd ref="1135629342"/>
+    <nd ref="218034785"/>
+    <nd ref="218034789"/>
+    <nd ref="4349146895"/>
+    <nd ref="218034791"/>
+    <nd ref="218034794"/>
+    <nd ref="3207112636"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="394635410">
+    <nd ref="218034789"/>
+    <nd ref="3976158525"/>
+    <nd ref="5978467192"/>
+    <nd ref="218039742"/>
+    <tag k="access" v="no"/>
+    <tag k="emergency" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="service"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="surface" v="cobblestone"/>
+    <tag k="tourist_bus" v="yes"/>
+    <tag k="vehicle" v="no"/>
+  </way>
+  <way id="394648768">
+    <nd ref="1177749834"/>
+    <nd ref="3976234284"/>
+    <nd ref="33360522"/>
+    <nd ref="3717044477"/>
+    <nd ref="1627708393"/>
+    <nd ref="3976234285"/>
+    <nd ref="4360243469"/>
+    <tag k="description" v="Toponímia: Hagiotopónimo. Início: Rua da Alfândega. Fim: Poço do Borratem."/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Rua da Madalena"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="parking:lane:right" v="parallel"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2579"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="396118605">
+    <nd ref="1135629355"/>
+    <nd ref="1135629342"/>
+    <tag k="access" v="no"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="emergency" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="service"/>
+    <tag k="motor_vehicle" v="destination"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="cobblestone"/>
+    <tag k="tourist_bus" v="yes"/>
+    <tag k="vehicle" v="no"/>
+  </way>
+  <way id="426044984">
+    <nd ref="7126591840"/>
+    <nd ref="7126591825"/>
+    <nd ref="7126591823"/>
+    <nd ref="6538520547"/>
+    <nd ref="6468738164"/>
+    <nd ref="7126591829"/>
+    <nd ref="7126591820"/>
+    <nd ref="7126591816"/>
+    <nd ref="7126591828"/>
+    <nd ref="1548142709"/>
+    <nd ref="1548142607"/>
+    <nd ref="1116247415"/>
+    <nd ref="1548142969"/>
+    <nd ref="1548142667"/>
+    <nd ref="4253661179"/>
+    <nd ref="1545693812"/>
+    <nd ref="7126591832"/>
+    <nd ref="3976103514"/>
+    <nd ref="7126591822"/>
+    <nd ref="7126591831"/>
+    <nd ref="1801874997"/>
+    <nd ref="7126591840"/>
+    <tag k="landuse" v="commercial"/>
+  </way>
+  <way id="436871809">
+    <nd ref="1627708407"/>
+    <nd ref="2499503046"/>
+    <nd ref="1627708405"/>
+    <nd ref="2499503040"/>
+    <tag k="description" v="Início: Confluência da Rua das Farinhas, Rua de são Lourenço e Escadinhas da Rua das Farinhas ."/>
+    <tag k="highway" v="footway"/>
+    <tag k="name" v="Largo dos Trigueiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2995"/>
+  </way>
+  <way id="436871810">
+    <nd ref="4347279263"/>
+    <nd ref="1627708407"/>
+    <tag k="description" v="Início: Confluência da Rua das Farinhas, Rua de são Lourenço e Escadinhas da Rua das Farinhas ."/>
+    <tag k="highway" v="steps"/>
+    <tag k="name" v="Largo dos Trigueiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2995"/>
+  </way>
+  <way id="437082812">
+    <nd ref="3207112636"/>
+    <nd ref="7188001144"/>
+    <nd ref="25726537"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="437082813">
+    <nd ref="1128851664"/>
+    <nd ref="268394752"/>
+    <nd ref="218034780"/>
+    <tag k="description" v="Toponímia: Monarquia. Início: Praça da Figueira. Fim: Rua da Palma."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Rua Dom Duarte"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2032"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="437082816">
+    <nd ref="4349146897"/>
+    <nd ref="4349146898"/>
+    <nd ref="4349146901"/>
+    <nd ref="3147347000"/>
+    <nd ref="4349146897"/>
+    <tag k="amenity" v="taxi"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:de" v="Platz de Figueira"/>
+    <tag k="name:en" v="Square of Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+  </way>
+  <way id="438289911">
+    <nd ref="4360243450"/>
+    <nd ref="5585526857"/>
+    <tag k="border_type" v="localidade"/>
+    <tag k="boundary" v="historic"/>
+    <tag k="end_date" v="2013"/>
+    <tag k="source" v="DGT - CAOP 2012.1"/>
+  </way>
+  <way id="438289933">
+    <nd ref="5585526857"/>
+    <nd ref="5585526856"/>
+    <nd ref="6842664341"/>
+    <nd ref="5585526855"/>
+    <nd ref="7126591838"/>
+    <nd ref="7126591806"/>
+    <tag k="border_type" v="localidade"/>
+    <tag k="boundary" v="historic"/>
+    <tag k="end_date" v="2013"/>
+    <tag k="source" v="DGT - CAOP 2012.1"/>
+  </way>
+  <way id="438289957">
+    <nd ref="4360243537"/>
+    <nd ref="4360243538"/>
+    <nd ref="4360243524"/>
+    <nd ref="4360243499"/>
+    <nd ref="5585526857"/>
+    <tag k="border_type" v="localidade"/>
+    <tag k="boundary" v="historic"/>
+    <tag k="end_date" v="2013"/>
+    <tag k="source" v="DGT - CAOP 2012.1"/>
+  </way>
+  <way id="440216977">
+    <nd ref="4379397657"/>
+    <nd ref="4379397659"/>
+    <nd ref="4379397662"/>
+    <nd ref="4379397664"/>
+    <nd ref="4379397666"/>
+    <nd ref="6403173985"/>
+    <nd ref="4379397668"/>
+    <nd ref="6403173986"/>
+    <nd ref="4379397669"/>
+    <nd ref="7001612220"/>
+    <nd ref="6403173987"/>
+    <nd ref="4379397670"/>
+    <nd ref="1135629353"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="900"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="railway" v="tram"/>
+    <tag k="voltage" v="600"/>
+  </way>
+  <way id="440221935">
+    <nd ref="262253943"/>
+    <nd ref="4379446538"/>
+    <nd ref="7188001147"/>
+    <nd ref="4562515076"/>
+    <nd ref="6842664348"/>
+    <nd ref="4562515075"/>
+    <nd ref="4562515074"/>
+    <nd ref="4562515073"/>
+    <nd ref="4562515072"/>
+    <nd ref="4562515071"/>
+    <nd ref="4562515070"/>
+    <nd ref="4662273138"/>
+    <nd ref="4662273137"/>
+    <nd ref="5104206636"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="900"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="railway" v="tram"/>
+    <tag k="voltage" v="600"/>
+  </way>
+  <way id="440229525">
+    <nd ref="1135629353"/>
+    <nd ref="1135629332"/>
+    <nd ref="6403173988"/>
+    <nd ref="6403173989"/>
+    <nd ref="6403173683"/>
+    <nd ref="6403173682"/>
+    <nd ref="6403173991"/>
+    <nd ref="6403173681"/>
+    <nd ref="6403173990"/>
+    <nd ref="6403173680"/>
+    <nd ref="262253942"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="900"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="railway" v="tram"/>
+    <tag k="voltage" v="600"/>
+  </way>
+  <way id="460629534">
+    <nd ref="4562515045"/>
+    <nd ref="4562515035"/>
+    <nd ref="4562515034"/>
+    <nd ref="4562515033"/>
+    <nd ref="4562515024"/>
+    <nd ref="4562515031"/>
+    <nd ref="4562515030"/>
+    <nd ref="4562515023"/>
+    <nd ref="4562515029"/>
+    <nd ref="4562515028"/>
+    <nd ref="4562515027"/>
+    <nd ref="4562515026"/>
+    <nd ref="4562515025"/>
+    <nd ref="4562515019"/>
+    <nd ref="4562515018"/>
+    <nd ref="4562515017"/>
+    <nd ref="4562515016"/>
+    <nd ref="4562515015"/>
+    <nd ref="4562515014"/>
+    <nd ref="4562515013"/>
+    <nd ref="4562515012"/>
+    <nd ref="4562515011"/>
+    <nd ref="4562515010"/>
+    <nd ref="4562515009"/>
+    <nd ref="4562515008"/>
+    <nd ref="4562515007"/>
+    <nd ref="4562515006"/>
+    <nd ref="4562515005"/>
+    <nd ref="4379446538"/>
+    <nd ref="4562515004"/>
+    <nd ref="4562515003"/>
+    <nd ref="6481318693"/>
+    <nd ref="6842679322"/>
+    <nd ref="6481318692"/>
+    <nd ref="4379397671"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="900"/>
+    <tag k="railway" v="tram"/>
+    <tag k="voltage" v="600"/>
+  </way>
+  <way id="552381416">
+    <nd ref="5333201959"/>
+    <nd ref="5333201956"/>
+    <nd ref="5333201961"/>
+    <nd ref="5333201957"/>
+    <nd ref="5333201959"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595097209">
+    <nd ref="5672629225"/>
+    <nd ref="5672629224"/>
+    <nd ref="5672699458"/>
+    <nd ref="5672629223"/>
+    <nd ref="5672629222"/>
+    <nd ref="5672629225"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595101511">
+    <nd ref="5672665012"/>
+    <nd ref="5672669527"/>
+    <nd ref="5672665014"/>
+    <nd ref="5672665011"/>
+    <nd ref="5672665012"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595101512">
+    <nd ref="5672665011"/>
+    <nd ref="5672665016"/>
+    <nd ref="5672665013"/>
+    <nd ref="5672665015"/>
+    <nd ref="5672665012"/>
+    <nd ref="5672665011"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595101513">
+    <nd ref="5672665014"/>
+    <nd ref="5672665018"/>
+    <nd ref="5672665017"/>
+    <nd ref="5672665016"/>
+    <nd ref="5672665011"/>
+    <nd ref="5672665014"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595101514">
+    <nd ref="5672665020"/>
+    <nd ref="5672665013"/>
+    <nd ref="5672665016"/>
+    <nd ref="5672665017"/>
+    <nd ref="5672665019"/>
+    <nd ref="5672665020"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595101515">
+    <nd ref="5672665014"/>
+    <nd ref="5672669527"/>
+    <nd ref="5672669521"/>
+    <nd ref="5672669526"/>
+    <nd ref="5672669522"/>
+    <nd ref="5672669525"/>
+    <nd ref="5672669523"/>
+    <nd ref="5672669524"/>
+    <nd ref="5672665014"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595105094">
+    <nd ref="1116246845"/>
+    <nd ref="5672629223"/>
+    <nd ref="5672699458"/>
+    <nd ref="5672699457"/>
+    <nd ref="1116246845"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="595108881">
+    <nd ref="5672708217"/>
+    <nd ref="5672708216"/>
+    <nd ref="5683193164"/>
+    <nd ref="5672708215"/>
+    <nd ref="5672708214"/>
+    <nd ref="5672708217"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649400">
+    <nd ref="5683193152"/>
+    <nd ref="5683193150"/>
+    <nd ref="5683193151"/>
+    <nd ref="5683193168"/>
+    <nd ref="5683193152"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649401">
+    <nd ref="5683193152"/>
+    <nd ref="5683193154"/>
+    <nd ref="5683193153"/>
+    <nd ref="5683193150"/>
+    <nd ref="5683193152"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649402">
+    <nd ref="5683193154"/>
+    <nd ref="3343661830"/>
+    <nd ref="3343661829"/>
+    <nd ref="5683193153"/>
+    <nd ref="5683193154"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649403">
+    <nd ref="5683193159"/>
+    <nd ref="5683193160"/>
+    <nd ref="5683193156"/>
+    <nd ref="5683387795"/>
+    <nd ref="5683193155"/>
+    <nd ref="5683193157"/>
+    <nd ref="5683193158"/>
+    <nd ref="5683193159"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649404">
+    <nd ref="5683193164"/>
+    <nd ref="5672708216"/>
+    <nd ref="5683193158"/>
+    <nd ref="5683193157"/>
+    <nd ref="5683193164"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649405">
+    <nd ref="5683193160"/>
+    <nd ref="5683193159"/>
+    <nd ref="5683193163"/>
+    <nd ref="5683193162"/>
+    <nd ref="5683193160"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649406">
+    <nd ref="5683193172"/>
+    <nd ref="5683193161"/>
+    <nd ref="5683193162"/>
+    <nd ref="5683193163"/>
+    <nd ref="5683193172"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649407">
+    <nd ref="5683193155"/>
+    <nd ref="5683387794"/>
+    <nd ref="5672708215"/>
+    <nd ref="5683193164"/>
+    <nd ref="5683193157"/>
+    <nd ref="5683193155"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649409">
+    <nd ref="5683193169"/>
+    <nd ref="5683193149"/>
+    <nd ref="5683193168"/>
+    <nd ref="5683193151"/>
+    <nd ref="5683193167"/>
+    <nd ref="5683193169"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649410">
+    <nd ref="5683193175"/>
+    <nd ref="5683193170"/>
+    <nd ref="5683193171"/>
+    <nd ref="5683193172"/>
+    <nd ref="5683193175"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596649411">
+    <nd ref="5683193176"/>
+    <nd ref="5683193170"/>
+    <nd ref="5683193175"/>
+    <nd ref="1177747828"/>
+    <nd ref="1177747815"/>
+    <nd ref="5683193173"/>
+    <nd ref="5683193176"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="596668733">
+    <nd ref="5683387767"/>
+    <nd ref="1627708407"/>
+    <tag k="description" v="Início: Confluência da Rua das Farinhas, Rua de são Lourenço e Escadinhas da Rua das Farinhas ."/>
+    <tag k="highway" v="footway"/>
+    <tag k="name" v="Largo dos Trigueiros"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="2995"/>
+  </way>
+  <way id="596668735">
+    <nd ref="5683387772"/>
+    <nd ref="5683387771"/>
+    <nd ref="5683387770"/>
+    <nd ref="5683387769"/>
+    <nd ref="5685665874"/>
+    <tag k="barrier" v="fence"/>
+    <tag k="fence_type" v="railing"/>
+    <tag k="height" v="1"/>
+  </way>
+  <way id="596668740">
+    <nd ref="5672629225"/>
+    <nd ref="5683387789"/>
+    <nd ref="1116247181"/>
+    <tag k="barrier" v="wall"/>
+  </way>
+  <way id="596668741">
+    <nd ref="1116247387"/>
+    <nd ref="5683387794"/>
+    <nd ref="5683193155"/>
+    <nd ref="5683387795"/>
+    <nd ref="5683387796"/>
+    <nd ref="1116247387"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="598409671">
+    <nd ref="5695469549"/>
+    <nd ref="5695469551"/>
+    <nd ref="5695469546"/>
+    <nd ref="5695469547"/>
+    <nd ref="5695469557"/>
+    <nd ref="5695469549"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="598409672">
+    <nd ref="5695469551"/>
+    <nd ref="5695469549"/>
+    <nd ref="5695469548"/>
+    <nd ref="5695469553"/>
+    <nd ref="5695469551"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="598409673">
+    <nd ref="5695469559"/>
+    <nd ref="5695469552"/>
+    <nd ref="5695469550"/>
+    <nd ref="5695469546"/>
+    <nd ref="5695469551"/>
+    <nd ref="5695469553"/>
+    <nd ref="5695469554"/>
+    <nd ref="5695469559"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="598409674">
+    <nd ref="5695469558"/>
+    <nd ref="5695469555"/>
+    <nd ref="5695469556"/>
+    <nd ref="5695469557"/>
+    <nd ref="5695469558"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="598409675">
+    <nd ref="5695469565"/>
+    <nd ref="5695469555"/>
+    <nd ref="5695469558"/>
+    <nd ref="5695469552"/>
+    <nd ref="5695469559"/>
+    <nd ref="5695469565"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="598409676">
+    <nd ref="5695469563"/>
+    <nd ref="5695469562"/>
+    <nd ref="5695469561"/>
+    <nd ref="5695469560"/>
+    <nd ref="5695469563"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="598409677">
+    <nd ref="5695469565"/>
+    <nd ref="5333201956"/>
+    <nd ref="5333201961"/>
+    <nd ref="5695469555"/>
+    <nd ref="5695469565"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="628933832">
+    <nd ref="262253943"/>
+    <nd ref="6403174908"/>
+    <nd ref="6403174909"/>
+    <nd ref="5331010308"/>
+    <nd ref="6842679329"/>
+    <nd ref="6481318694"/>
+    <nd ref="6481318695"/>
+    <nd ref="6842679321"/>
+    <nd ref="6481318696"/>
+    <nd ref="6481318697"/>
+    <nd ref="4379397671"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="900"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="railway" v="tram"/>
+    <tag k="voltage" v="600"/>
+  </way>
+  <way id="633323065">
+    <nd ref="7127442313"/>
+    <nd ref="6842679303"/>
+    <nd ref="1135629332"/>
+    <nd ref="218034794"/>
+    <nd ref="5978467192"/>
+    <nd ref="5978467191"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="662610908">
+    <nd ref="4138988192"/>
+    <nd ref="6203168940"/>
+    <nd ref="6203168939"/>
+    <nd ref="6203168938"/>
+    <nd ref="6203168937"/>
+    <nd ref="6203168936"/>
+    <nd ref="6203168935"/>
+    <nd ref="6203168934"/>
+    <nd ref="6203168933"/>
+    <nd ref="6203168932"/>
+    <nd ref="4138988192"/>
+    <tag k="amenity" v="fountain"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="663318735">
+    <nd ref="6208962393"/>
+    <nd ref="6208962394"/>
+    <nd ref="6208962395"/>
+    <nd ref="6208962396"/>
+    <nd ref="6208962393"/>
+    <tag k="description" v="D. João I (1357-1433), fundador da Dinastia de Avis, subiu ao trono por vontade popular, após a morte do rei D. Fernando, em 1383, tendo sido aclamado rei nas Cortes de Coimbra, em 1385."/>
+    <tag k="historic" v="memorial"/>
+    <tag k="material" v="bronze;stone"/>
+    <tag k="memorial" v="statue"/>
+    <tag k="name" v="D. João I"/>
+    <tag k="name:de" v="Johann I."/>
+    <tag k="name:ko" v="주앙 1세"/>
+    <tag k="name:ru" v="Жуан I"/>
+    <tag k="operator" v="Câmara Municipal de Lisboa"/>
+    <tag k="source" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="9_15"/>
+  </way>
+  <way id="663925349">
+    <nd ref="6139260685"/>
+    <nd ref="6214332393"/>
+    <nd ref="6214332394"/>
+    <nd ref="6214332397"/>
+    <nd ref="6214332396"/>
+    <nd ref="6214332395"/>
+    <nd ref="6139260685"/>
+    <tag k="amenity" v="marketplace"/>
+    <tag k="tourism" v="attraction"/>
+  </way>
+  <way id="673222183">
+    <nd ref="1135629312"/>
+    <nd ref="6471130182"/>
+    <nd ref="6471130485"/>
+    <nd ref="1135629319"/>
+    <nd ref="6471130184"/>
+    <nd ref="6471130183"/>
+    <nd ref="1135629338"/>
+    <nd ref="1135629321"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="service"/>
+    <tag k="motor_vehicle" v="destination"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="cobblestone"/>
+    <tag k="tourist_bus" v="yes"/>
+  </way>
+  <way id="683648284">
+    <nd ref="1135629321"/>
+    <nd ref="6403485667"/>
+    <nd ref="1135629307"/>
+    <nd ref="1135629355"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="service"/>
+    <tag k="motor_vehicle" v="destination"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="cobblestone"/>
+    <tag k="tourist_bus" v="yes"/>
+  </way>
+  <way id="690772465">
+    <nd ref="4379397671"/>
+    <nd ref="4379397667"/>
+    <nd ref="4379397665"/>
+    <nd ref="4379397663"/>
+    <nd ref="6481318700"/>
+    <nd ref="6481318699"/>
+    <nd ref="5739072236"/>
+    <nd ref="4379397658"/>
+    <nd ref="5739072237"/>
+    <nd ref="4379397646"/>
+    <nd ref="4379397644"/>
+    <nd ref="6481318687"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="900"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="railway" v="tram"/>
+    <tag k="voltage" v="600"/>
+  </way>
+  <way id="693788385">
+    <nd ref="1135629342"/>
+    <nd ref="6481301320"/>
+    <tag k="description" v="Início: Confluência da Rua dos Fanqueiros, Rua dos Douradores, Rua da Prata, Rua da Betesga, Rua Dom Antão de Almada, Rua Dom Duarte e Rua João das Regras ."/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="name" v="Praça da Figueira"/>
+    <tag k="name:ru" v="Площадь Фигейра"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:description" v="dadosabertos.cm-lisboa.pt"/>
+    <tag k="source:pkey" v="3212"/>
+    <tag k="start_date" v="1950-09-05"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="696471837">
+    <nd ref="1122689127"/>
+    <nd ref="6501156488"/>
+    <nd ref="6501156487"/>
+    <nd ref="6501156486"/>
+    <nd ref="6501156485"/>
+    <nd ref="6501155084"/>
+    <nd ref="6501155083"/>
+    <nd ref="6501155082"/>
+    <nd ref="6501155080"/>
+    <nd ref="6501155081"/>
+    <nd ref="6501155073"/>
+    <nd ref="6501155074"/>
+    <nd ref="6501155075"/>
+    <nd ref="6501155076"/>
+    <nd ref="6501155077"/>
+    <nd ref="6501155078"/>
+    <nd ref="6501155079"/>
+    <nd ref="6538543016"/>
+    <nd ref="6501155044"/>
+    <nd ref="6501155045"/>
+    <nd ref="6501155046"/>
+    <nd ref="6501155047"/>
+    <nd ref="6501155068"/>
+    <nd ref="6501155048"/>
+    <nd ref="6501155049"/>
+    <nd ref="6501155050"/>
+    <nd ref="6501155051"/>
+    <nd ref="6501155052"/>
+    <nd ref="6501155053"/>
+    <nd ref="6501155054"/>
+    <nd ref="6501155055"/>
+    <nd ref="6501155056"/>
+    <nd ref="6501155057"/>
+    <nd ref="6501155058"/>
+    <nd ref="6501155059"/>
+    <nd ref="6501155060"/>
+    <nd ref="6501155061"/>
+    <nd ref="6501155062"/>
+    <nd ref="6501155063"/>
+    <nd ref="6501155064"/>
+    <nd ref="6501155065"/>
+    <nd ref="6501155066"/>
+    <nd ref="6501155067"/>
+    <nd ref="6501155071"/>
+    <nd ref="6501155072"/>
+    <nd ref="6540477753"/>
+    <nd ref="6540477754"/>
+    <nd ref="6540477755"/>
+    <nd ref="6540477756"/>
+    <nd ref="6551713172"/>
+    <nd ref="6540477757"/>
+    <nd ref="6540477758"/>
+    <nd ref="6540477759"/>
+    <nd ref="6540477760"/>
+    <nd ref="5241545539"/>
+    <nd ref="3989338983"/>
+    <nd ref="3147435635"/>
+    <nd ref="6540421180"/>
+    <nd ref="6540421179"/>
+    <nd ref="6540421178"/>
+    <nd ref="6540477752"/>
+    <nd ref="6540477751"/>
+    <nd ref="6540477750"/>
+    <nd ref="6470634387"/>
+    <nd ref="6540477749"/>
+    <nd ref="6540477748"/>
+    <nd ref="6540477747"/>
+    <nd ref="6540477746"/>
+    <nd ref="6540477745"/>
+    <nd ref="6540477744"/>
+    <nd ref="6540477743"/>
+    <nd ref="6540477742"/>
+    <nd ref="6540477741"/>
+    <nd ref="6540477740"/>
+    <nd ref="6540477739"/>
+    <nd ref="6540477738"/>
+    <nd ref="6540477737"/>
+    <nd ref="6222428010"/>
+    <nd ref="6540477736"/>
+    <nd ref="6540477735"/>
+    <nd ref="6540477717"/>
+    <nd ref="6540477715"/>
+    <nd ref="6540477713"/>
+    <nd ref="6540477710"/>
+    <nd ref="3147398837"/>
+    <nd ref="6540477708"/>
+    <nd ref="6540477707"/>
+    <nd ref="6540477706"/>
+    <nd ref="6540477705"/>
+    <nd ref="6540477704"/>
+    <nd ref="6540477703"/>
+    <nd ref="6540477702"/>
+    <nd ref="6540477709"/>
+    <nd ref="6540477701"/>
+    <nd ref="6540477700"/>
+    <nd ref="6540477699"/>
+    <nd ref="6540477698"/>
+    <nd ref="6540477697"/>
+    <nd ref="6540477696"/>
+    <nd ref="6540477695"/>
+    <nd ref="6540477694"/>
+    <nd ref="6540477693"/>
+    <nd ref="6540477718"/>
+    <nd ref="6540477734"/>
+    <nd ref="6540477719"/>
+    <nd ref="6540477720"/>
+    <nd ref="6540477721"/>
+    <nd ref="6540477722"/>
+    <nd ref="6540477723"/>
+    <nd ref="6540477724"/>
+    <nd ref="6540477725"/>
+    <nd ref="6540477726"/>
+    <nd ref="6540477727"/>
+    <nd ref="6540477732"/>
+    <nd ref="6540477728"/>
+    <nd ref="6540477729"/>
+    <nd ref="6540477730"/>
+    <nd ref="6540477731"/>
+    <nd ref="6540477733"/>
+    <tag k="barrier" v="kerb"/>
+    <tag k="level" v="0"/>
+  </way>
+  <way id="696476305">
+    <nd ref="6842652579"/>
+    <nd ref="6842652578"/>
+    <nd ref="6842652577"/>
+    <nd ref="6842652575"/>
+    <nd ref="6842652573"/>
+    <nd ref="6842652572"/>
+    <nd ref="6842652571"/>
+    <nd ref="6842652569"/>
+    <nd ref="6842652567"/>
+    <nd ref="6842652565"/>
+    <nd ref="6842652563"/>
+    <nd ref="6842652561"/>
+    <nd ref="6842652557"/>
+    <nd ref="6842652556"/>
+    <nd ref="6842652554"/>
+    <nd ref="6842652551"/>
+    <nd ref="6540421106"/>
+    <nd ref="6540421108"/>
+    <nd ref="6540421109"/>
+    <nd ref="6540421135"/>
+    <nd ref="6540421111"/>
+    <nd ref="6540421113"/>
+    <nd ref="6540421115"/>
+    <nd ref="6540421117"/>
+    <nd ref="6540421119"/>
+    <nd ref="6540421123"/>
+    <nd ref="6540421125"/>
+    <nd ref="6540421127"/>
+    <nd ref="6540421129"/>
+    <nd ref="6540421131"/>
+    <nd ref="6540421132"/>
+    <nd ref="6540421134"/>
+    <tag k="barrier" v="kerb"/>
+  </way>
+  <way id="697651095">
+    <nd ref="6551820305"/>
+    <nd ref="6551820308"/>
+    <nd ref="6551820309"/>
+    <nd ref="6551820310"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="697651096">
+    <nd ref="6551820310"/>
+    <nd ref="1135629354"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="697651097">
+    <nd ref="6842652584"/>
+    <nd ref="6551820314"/>
+    <nd ref="6852912986"/>
+    <nd ref="6852912987"/>
+    <nd ref="6551820313"/>
+    <nd ref="6852912985"/>
+    <nd ref="6852911284"/>
+    <nd ref="5978547337"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="730443583">
+    <nd ref="1135629333"/>
+    <nd ref="6842664298"/>
+    <nd ref="6842664297"/>
+    <nd ref="6842664296"/>
+    <nd ref="6842664295"/>
+    <nd ref="6842664294"/>
+    <nd ref="6842664293"/>
+    <nd ref="6842664292"/>
+    <nd ref="6842664291"/>
+    <nd ref="6842664290"/>
+    <nd ref="6842664289"/>
+    <nd ref="6842664288"/>
+    <nd ref="6842664287"/>
+    <nd ref="6852911262"/>
+    <nd ref="6852911261"/>
+    <nd ref="6852911260"/>
+    <nd ref="6852911259"/>
+    <nd ref="6852911258"/>
+    <nd ref="6852911257"/>
+    <tag k="barrier" v="kerb"/>
+  </way>
+  <way id="730443584">
+    <nd ref="6842664299"/>
+    <nd ref="6842664300"/>
+    <nd ref="6842664301"/>
+    <nd ref="6842664302"/>
+    <nd ref="6842664303"/>
+    <nd ref="6842664304"/>
+    <nd ref="6842664305"/>
+    <nd ref="6842664306"/>
+    <nd ref="6842664307"/>
+    <nd ref="6842664308"/>
+    <nd ref="6842664309"/>
+    <nd ref="6842664310"/>
+    <nd ref="6842664311"/>
+    <nd ref="6842664312"/>
+    <nd ref="1135629317"/>
+    <tag k="barrier" v="kerb"/>
+  </way>
+  <way id="730443585">
+    <nd ref="6842664313"/>
+    <nd ref="6842664314"/>
+    <nd ref="6842664315"/>
+    <nd ref="6842664316"/>
+    <nd ref="6842664313"/>
+    <tag k="area" v="yes"/>
+    <tag k="barrier" v="wall"/>
+    <tag k="man_made" v="ventilation_shaft"/>
+  </way>
+  <way id="730443586">
+    <nd ref="7127442314"/>
+    <nd ref="6842664317"/>
+    <nd ref="6842664318"/>
+    <nd ref="6842664344"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730443587">
+    <nd ref="218034780"/>
+    <nd ref="6842664322"/>
+    <tag k="crossing" v="marked"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730443588">
+    <nd ref="6842664322"/>
+    <nd ref="6842664321"/>
+    <nd ref="6852911280"/>
+    <nd ref="6842664320"/>
+    <nd ref="1135629354"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730443590">
+    <nd ref="1135629327"/>
+    <nd ref="6842664334"/>
+    <nd ref="6842664336"/>
+    <nd ref="6842664338"/>
+    <nd ref="6842664340"/>
+    <nd ref="6842664343"/>
+    <nd ref="6842664344"/>
+    <nd ref="6842664345"/>
+    <tag k="barrier" v="kerb"/>
+  </way>
+  <way id="730443591">
+    <nd ref="6842664344"/>
+    <nd ref="6842664348"/>
+    <nd ref="6842664347"/>
+    <nd ref="6842679324"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730443592">
+    <nd ref="6842664334"/>
+    <nd ref="6842664318"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730443593">
+    <nd ref="6842664349"/>
+    <nd ref="6842664350"/>
+    <nd ref="6842664351"/>
+    <nd ref="6842664352"/>
+    <nd ref="6842664353"/>
+    <nd ref="6842664354"/>
+    <nd ref="6842664355"/>
+    <nd ref="6842664356"/>
+    <nd ref="6842664357"/>
+    <nd ref="6842664358"/>
+    <nd ref="6842664359"/>
+    <nd ref="6842664360"/>
+    <nd ref="6842664361"/>
+    <nd ref="6842664362"/>
+    <nd ref="6842664363"/>
+    <nd ref="6842664364"/>
+    <nd ref="6842664365"/>
+    <nd ref="6842664366"/>
+    <nd ref="6842664367"/>
+    <nd ref="6842664368"/>
+    <nd ref="6842664369"/>
+    <nd ref="6842664370"/>
+    <nd ref="6842664371"/>
+    <nd ref="6842664372"/>
+    <nd ref="6842664373"/>
+    <nd ref="6842664374"/>
+    <nd ref="6842664375"/>
+    <nd ref="6842664376"/>
+    <nd ref="6842664377"/>
+    <nd ref="6842664378"/>
+    <nd ref="6842664379"/>
+    <nd ref="6842664380"/>
+    <nd ref="6842664381"/>
+    <nd ref="6842664382"/>
+    <nd ref="6842664383"/>
+    <nd ref="6842664384"/>
+    <nd ref="6842665785"/>
+    <nd ref="6842665786"/>
+    <nd ref="6842665787"/>
+    <nd ref="6842665788"/>
+    <nd ref="6842665789"/>
+    <nd ref="6842665790"/>
+    <nd ref="6842665791"/>
+    <nd ref="6842665792"/>
+    <nd ref="6842665793"/>
+    <nd ref="6842665794"/>
+    <nd ref="6842665795"/>
+    <nd ref="6842665796"/>
+    <nd ref="6842665797"/>
+    <nd ref="6842665798"/>
+    <nd ref="6842665799"/>
+    <nd ref="6842665800"/>
+    <nd ref="6842665801"/>
+    <nd ref="6842665802"/>
+    <nd ref="6842665803"/>
+    <nd ref="6842665804"/>
+    <nd ref="6842665805"/>
+    <nd ref="6842665806"/>
+    <nd ref="6842665807"/>
+    <nd ref="6842665808"/>
+    <nd ref="6842665809"/>
+    <nd ref="6842665810"/>
+    <nd ref="6842665811"/>
+    <nd ref="6842664349"/>
+    <tag k="area:highway" v="pedestrian"/>
+    <tag k="barrier" v="kerb"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="730443594">
+    <nd ref="6842665812"/>
+    <nd ref="6842665813"/>
+    <tag k="traffic_calming" v="island"/>
+  </way>
+  <way id="730443595">
+    <nd ref="6842665823"/>
+    <nd ref="6842665822"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="730443596">
+    <nd ref="6842665818"/>
+    <nd ref="6842665819"/>
+    <nd ref="6842665822"/>
+    <nd ref="6842665820"/>
+    <nd ref="6842665821"/>
+    <tag k="barrier" v="wall"/>
+  </way>
+  <way id="730445279">
+    <nd ref="6842652580"/>
+    <nd ref="6842652581"/>
+    <nd ref="6842652582"/>
+    <nd ref="6842652583"/>
+    <nd ref="6842652580"/>
+    <tag k="building" v="yes"/>
+    <tag k="shop" v="kiosk"/>
+  </way>
+  <way id="730445281">
+    <nd ref="6842679319"/>
+    <nd ref="6842679317"/>
+    <nd ref="6842679315"/>
+    <nd ref="6842679313"/>
+    <nd ref="6842679311"/>
+    <nd ref="6842679309"/>
+    <nd ref="6842679307"/>
+    <nd ref="6842679305"/>
+    <nd ref="6842679328"/>
+    <nd ref="6842679298"/>
+    <nd ref="6842679297"/>
+    <nd ref="6842679303"/>
+    <nd ref="6842679294"/>
+    <nd ref="6842679292"/>
+    <nd ref="6842679286"/>
+    <nd ref="6842679289"/>
+    <nd ref="6842679287"/>
+    <tag k="barrier" v="kerb"/>
+  </way>
+  <way id="730445285">
+    <nd ref="6842679313"/>
+    <nd ref="6842679321"/>
+    <nd ref="6842679322"/>
+    <nd ref="6842679323"/>
+    <nd ref="6842679320"/>
+    <tag k="crossing" v="marked"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730445286">
+    <nd ref="6842679320"/>
+    <nd ref="6842679324"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730445287">
+    <nd ref="6842679313"/>
+    <nd ref="6842679325"/>
+    <nd ref="6842679331"/>
+    <nd ref="7127442313"/>
+    <nd ref="6842679286"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730445289">
+    <nd ref="6842679328"/>
+    <nd ref="6842679325"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="730445290">
+    <nd ref="6842679328"/>
+    <nd ref="6842679301"/>
+    <nd ref="6842679330"/>
+    <nd ref="3975964588"/>
+    <nd ref="6842664334"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="731800493">
+    <nd ref="6540477733"/>
+    <nd ref="1135629323"/>
+    <nd ref="1135629333"/>
+    <nd ref="1135629348"/>
+    <tag k="barrier" v="retaining_wall"/>
+  </way>
+  <way id="731800494">
+    <nd ref="6842664289"/>
+    <nd ref="6842664290"/>
+    <nd ref="6842664291"/>
+    <nd ref="6842664292"/>
+    <nd ref="6842664293"/>
+    <nd ref="6842664294"/>
+    <nd ref="6842664295"/>
+    <nd ref="6842664296"/>
+    <nd ref="6842664297"/>
+    <nd ref="6842664298"/>
+    <nd ref="1135629333"/>
+    <nd ref="1135629323"/>
+    <nd ref="6540477733"/>
+    <nd ref="6540477731"/>
+    <nd ref="6540477730"/>
+    <nd ref="6540477729"/>
+    <nd ref="6540477728"/>
+    <nd ref="6540477732"/>
+    <nd ref="6540477727"/>
+    <nd ref="6540477726"/>
+    <nd ref="6540477725"/>
+    <nd ref="6540477724"/>
+    <nd ref="6540477723"/>
+    <nd ref="6540477722"/>
+    <nd ref="6540477721"/>
+    <nd ref="6540477720"/>
+    <nd ref="7126591814"/>
+    <nd ref="7126591812"/>
+    <nd ref="7126591811"/>
+    <nd ref="7126591808"/>
+    <nd ref="6842664289"/>
+    <tag k="area:highway" v="pedestrian"/>
+  </way>
+  <way id="731800497">
+    <nd ref="6842665819"/>
+    <nd ref="6842665818"/>
+    <nd ref="6852911267"/>
+    <nd ref="6852911268"/>
+    <nd ref="6842665821"/>
+    <nd ref="6842665820"/>
+    <nd ref="6842665822"/>
+    <nd ref="6842665819"/>
+  </way>
+  <way id="731800498">
+    <nd ref="6852911269"/>
+    <nd ref="6852911274"/>
+    <nd ref="6852911270"/>
+    <nd ref="1122508396"/>
+    <nd ref="6852911271"/>
+    <nd ref="6852911275"/>
+    <nd ref="6852911272"/>
+    <nd ref="6852911278"/>
+    <nd ref="6852911269"/>
+  </way>
+  <way id="731800499">
+    <nd ref="1122508396"/>
+    <nd ref="6852911273"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="731800500">
+    <nd ref="6852911274"/>
+    <nd ref="6852911270"/>
+    <nd ref="1122508396"/>
+    <nd ref="6852911271"/>
+    <nd ref="6852911275"/>
+    <tag k="barrier" v="wall"/>
+  </way>
+  <way id="731800501">
+    <nd ref="6842665822"/>
+    <nd ref="6842664322"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="731800502">
+    <nd ref="6852911273"/>
+    <nd ref="6852911278"/>
+    <nd ref="6852911279"/>
+    <nd ref="6852911280"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="731800503">
+    <nd ref="6842664345"/>
+    <nd ref="1106403415"/>
+    <nd ref="1116247009"/>
+    <nd ref="1116247052"/>
+    <nd ref="1116247117"/>
+    <nd ref="1106402300"/>
+    <nd ref="6842664305"/>
+    <nd ref="6842664306"/>
+    <nd ref="6842664307"/>
+    <nd ref="6842664308"/>
+    <nd ref="6842664309"/>
+    <nd ref="6842664310"/>
+    <nd ref="6842664311"/>
+    <nd ref="6842664312"/>
+    <nd ref="1135629317"/>
+    <nd ref="1135629344"/>
+    <nd ref="1135629327"/>
+    <nd ref="6842664334"/>
+    <nd ref="6842664336"/>
+    <nd ref="6842664338"/>
+    <nd ref="6842664340"/>
+    <nd ref="6842664343"/>
+    <nd ref="6842664344"/>
+    <nd ref="6842664345"/>
+    <tag k="area:highway" v="footway"/>
+  </way>
+  <way id="731800504">
+    <nd ref="6842679319"/>
+    <nd ref="6852911281"/>
+    <nd ref="1106404210"/>
+    <nd ref="1128787112"/>
+    <nd ref="1106404169"/>
+    <nd ref="1106403417"/>
+    <nd ref="1128787203"/>
+    <nd ref="1106403094"/>
+    <nd ref="6842679287"/>
+    <nd ref="6842679289"/>
+    <nd ref="6842679286"/>
+    <nd ref="6842679292"/>
+    <nd ref="6842679294"/>
+    <nd ref="6842679303"/>
+    <nd ref="6842679297"/>
+    <nd ref="6842679298"/>
+    <nd ref="6842679328"/>
+    <nd ref="6842679305"/>
+    <nd ref="6842679307"/>
+    <nd ref="6842679309"/>
+    <nd ref="6842679311"/>
+    <nd ref="6842679313"/>
+    <nd ref="6842679315"/>
+    <nd ref="6842679317"/>
+    <nd ref="6842679319"/>
+    <tag k="area:highway" v="footway"/>
+  </way>
+  <way id="731800505">
+    <nd ref="1106405349"/>
+    <nd ref="1106403269"/>
+    <nd ref="1106403412"/>
+    <nd ref="2949661470"/>
+    <nd ref="2949661481"/>
+    <nd ref="1128787133"/>
+    <nd ref="2949661478"/>
+    <nd ref="1120611201"/>
+    <nd ref="1106402822"/>
+    <nd ref="1106405157"/>
+    <nd ref="1116184112"/>
+    <nd ref="2949753510"/>
+    <nd ref="2949753509"/>
+    <nd ref="1398493277"/>
+    <nd ref="1116184082"/>
+    <nd ref="2933990249"/>
+    <nd ref="1116184099"/>
+    <nd ref="2933990248"/>
+    <nd ref="1106403175"/>
+    <nd ref="6852911283"/>
+    <nd ref="6540421134"/>
+    <nd ref="6540421132"/>
+    <nd ref="6540421131"/>
+    <nd ref="6540421129"/>
+    <nd ref="6540421127"/>
+    <nd ref="6540421125"/>
+    <nd ref="6540421123"/>
+    <nd ref="6540421119"/>
+    <nd ref="6540421117"/>
+    <nd ref="6540421115"/>
+    <nd ref="6540421113"/>
+    <nd ref="6540421111"/>
+    <nd ref="6540421135"/>
+    <nd ref="6540421109"/>
+    <nd ref="6540421108"/>
+    <nd ref="6540421106"/>
+    <nd ref="6842652551"/>
+    <nd ref="6842652554"/>
+    <nd ref="6842652556"/>
+    <nd ref="6842652557"/>
+    <nd ref="6842652561"/>
+    <nd ref="6842652563"/>
+    <nd ref="6842652565"/>
+    <nd ref="6842652567"/>
+    <nd ref="6842652569"/>
+    <nd ref="6842652571"/>
+    <nd ref="6842652572"/>
+    <nd ref="6842652573"/>
+    <nd ref="6842652575"/>
+    <nd ref="1106405349"/>
+    <tag k="area:highway" v="footway"/>
+  </way>
+  <way id="748680788">
+    <nd ref="6842679286"/>
+    <nd ref="7001612220"/>
+    <nd ref="7001612219"/>
+    <nd ref="6842652584"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="762688192">
+    <nd ref="6852911258"/>
+    <nd ref="6852911259"/>
+    <nd ref="6852911260"/>
+    <nd ref="6852911261"/>
+    <nd ref="6852911262"/>
+    <nd ref="6842664287"/>
+    <nd ref="6842664288"/>
+    <nd ref="6842664289"/>
+    <nd ref="7126591808"/>
+    <nd ref="7126591809"/>
+    <nd ref="6852911258"/>
+    <tag k="area:highway" v="footway"/>
+  </way>
+  <way id="762688194">
+    <nd ref="7126591809"/>
+    <nd ref="7126591810"/>
+    <nd ref="1116246980"/>
+    <nd ref="1116247189"/>
+    <nd ref="1116247373"/>
+    <nd ref="1116247358"/>
+    <nd ref="1116247136"/>
+    <nd ref="6852911257"/>
+    <nd ref="6852911258"/>
+    <nd ref="7126591809"/>
+    <tag k="area:highway" v="pedestrian"/>
+  </way>
+  <way id="762688195">
+    <nd ref="6540477720"/>
+    <nd ref="6540477719"/>
+    <nd ref="6540477734"/>
+    <nd ref="6540477718"/>
+    <nd ref="6540477693"/>
+    <nd ref="6540477694"/>
+    <nd ref="6540477695"/>
+    <nd ref="6540477696"/>
+    <nd ref="7126591813"/>
+    <nd ref="7126591814"/>
+    <nd ref="6540477720"/>
+    <tag k="area:highway" v="pedestrian"/>
+  </way>
+
+</osm>

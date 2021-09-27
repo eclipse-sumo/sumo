@@ -1,2 +1,1 @@
-Error: The distance between nodes must be at least 10m in both directions.
-Quitting (on error).
+Warning: The distance between nodes should be at least 14.50 for the given lanenumber, lanewidth and junction radius

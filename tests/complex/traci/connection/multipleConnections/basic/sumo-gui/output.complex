@@ -1,0 +1,78 @@
+----------- SUMO ends first -----------
+   -------- numClients: 2  --------    
+ Run 0
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+ Run 1
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+   -------- numClients: 5  --------    
+ Run 0
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Starting process 3 with steplength 1.0
+Starting process 4 with steplength 1.0
+Starting process 5 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+Process 3 ended at step 99
+Process 4 ended at step 99
+Process 5 ended at step 99
+ Run 1
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Starting process 3 with steplength 1.0
+Starting process 4 with steplength 1.0
+Starting process 5 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+Process 3 ended at step 99
+Process 4 ended at step 99
+Process 5 ended at step 99
+----------- TraCI ends first -----------
+   -------- numClients: 2  --------    
+ Run 0
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+ Run 1
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+   -------- numClients: 5  --------    
+ Run 0
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Starting process 3 with steplength 1.0
+Starting process 4 with steplength 1.0
+Starting process 5 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+Process 3 ended at step 99
+Process 4 ended at step 99
+Process 5 ended at step 99
+ Run 1
+Loading configuration ... done.
+Starting process 1 with steplength 1.0
+Starting process 2 with steplength 1.0
+Starting process 3 with steplength 1.0
+Starting process 4 with steplength 1.0
+Starting process 5 with steplength 1.0
+Process 1 ended at step 99
+Process 2 ended at step 99
+Process 3 ended at step 99
+Process 4 ended at step 99
+Process 5 ended at step 99

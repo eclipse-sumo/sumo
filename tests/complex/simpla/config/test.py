@@ -1,21 +1,23 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Leonhard Luecken
 # @date    2017
-# @version $Id$
 
 import unittest as ut
 import os
 import sys
-import subprocess
 
 # Put tools into PYTHONPATH
 sumoHome = os.environ.get("SUMO_HOME", os.path.abspath(
@@ -76,21 +78,19 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         self.cfg_body4 = '<vTypeMapFile file="FileThatDoesntExist"></vTypeMapFile>'
         self.cfg_body5 = '<vTypeMap original="original_type1" leader="leader_type1" follower="follower_type1" ' + \
                          'catchup ="catchup_type1" catchupFollower ="catchupFollower_type1"/>'
+        self.cfg_body6 =\
+            """
+                <catchupDist value="50.0" />
+                <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" \
+catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
+            """
 
         # start a sumo instance
         self.sumocfg = os.path.join(self.testDir, "sumo.sumocfg")
         self.connectToSumo(self.sumocfg)
 
     def connectToSumo(self, sumo_cfg):
-        # Set up a running sumo instance
-        SUMO_BINARY = sumolib.checkBinary('sumo')
-        PORT = sumolib.miscutils.getFreeSocketPort()
-        # print("PORT=",PORT)
-        sumoCall = [SUMO_BINARY, "-c", sumo_cfg, "--remote-port", str(PORT), "-S"]
-        # print("sumoCall = '%s'"%sumoCall)
-        self.SUMO_PROCESS = subprocess.Popen(sumoCall)
-        # Connect
-        traci.init(PORT, numRetries=2)
+        traci.start([sumolib.checkBinary('sumo'), "-c", sumo_cfg, "-S"])
 
     def tearDown(self):
         ut.TestCase.tearDown(self)
@@ -99,8 +99,6 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         rp.initDefaults()
         os.remove(self.CFG1)
         traci.close()
-        self.SUMO_PROCESS.wait()
-        # print("tearDown() done.")
 
     def patchConfigFile(self, cfg_body):
         with open(self.CFG0, "r") as empty_cfg, open(self.CFG1, "w") as target_cfg:
@@ -156,6 +154,12 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
             for mode in PlatoonMode:
                 self.assertTrue(mode in cfg.PLATOON_VTYPES[tp])
         self.assertListEqual(list(rp.WARNING_LOG), [])
+
+    def test_partial_config(self):
+        print("Testing partial config...")
+        self.patchConfigFile(self.cfg_body6)
+        cfg.load(self.CFG1)
+        self.assertEqual(cfg.CATCHUP_DIST, 50.)
 
     def test_config_warnings(self):
         print("Testing config warnings...")

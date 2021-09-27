@@ -1,19 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    xml2protobuf.py
 # @author  Michael Behrisch
 # @author  Laura Bieker
 # @author  Jakob Erdmann
 # @date    2014-01-22
-# @version $Id$
 
 
 from __future__ import print_function
@@ -148,20 +151,20 @@ def writeField(protof, use, typ, name, tagNumber):
 def generateProto(tagAttrs, depthTags, enums, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
         protof.write('syntax = "proto2";\npackage %s;\n' % base)
-        for name, enum in enums.iteritems():
+        for name, enum in enums.items():
             protof.write("\nenum %s {\n" % capitalFirst(name))
             for idx, entry in enumerate(enum):
                 if entry[0].isdigit():
                     entry = "_" + entry
                 protof.write("  %s = %s;\n" % (entry, idx))
             protof.write("}\n")
-        for tagList in depthTags.itervalues():
+        for tagList in depthTags.values():
             next = 1
             for tags in tagList:
                 for tag in tags:
                     protof.write("\nmessage %s {\n" % capitalFirst(tag))
                     count = 1
-                    for a in tagAttrs[tag].itervalues():
+                    for a in tagAttrs[tag].values():
                         writeField(protof, a.use, a.type, a.name, count)
                         count += 1
                     if next < len(tagList):

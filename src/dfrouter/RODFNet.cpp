@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RODFNet.cpp
 /// @author  Daniel Krajzewicz
@@ -13,13 +17,9 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // A DFROUTER-network
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -51,6 +51,7 @@ RODFNet::RODFNet(bool amInHighwayMode) :
     myAvgSpeedFactorPKW(1),
     myAvgSpeedFactorLKW(1) {
     myDisallowedEdges = OptionsCont::getOptions().getStringVector("disallowed-edges");
+    myAllowedVClass = getVehicleClassID(OptionsCont::getOptions().getString("vclass"));
     myKeepTurnarounds = OptionsCont::getOptions().getBool("keep-turnarounds");
 }
 
@@ -59,18 +60,25 @@ RODFNet::~RODFNet() {
 }
 
 
+bool
+RODFNet::isAllowed(const ROEdge* const edge) const {
+    return (!edge->isInternal() && !edge->isWalkingArea() && !edge->isCrossing() &&
+            (edge->getPermissions() & myAllowedVClass) == myAllowedVClass &&
+            find(myDisallowedEdges.begin(), myDisallowedEdges.end(), edge->getID()) == myDisallowedEdges.end());
+
+}
+
+
 void
 RODFNet::buildApproachList() {
     for (const auto& rit : getEdgeMap()) {
-        ROEdge* ce = rit.second;
-        if (ce->isInternal()) {
+        ROEdge* const ce = rit.second;
+        if (!isAllowed(ce)) {
             continue;
         }
-        const ROEdgeVector& successors = ce->getSuccessors();
-        for (ROEdgeVector::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-            ROEdge* help = *it;
-            if (find(myDisallowedEdges.begin(), myDisallowedEdges.end(), help->getID()) != myDisallowedEdges.end()) {
-                // edges in sinks will not be used
+        for (ROEdge* const help : ce->getSuccessors()) {
+            if (!isAllowed(help)) {
+                // blocked edges will not be used
                 continue;
             }
             if (!myKeepTurnarounds && help->getToJunction() == ce->getFromJunction()) {
@@ -78,14 +86,8 @@ RODFNet::buildApproachList() {
                 continue;
             }
             // add the connection help->ce to myApproachingEdges
-            if (myApproachingEdges.find(help) == myApproachingEdges.end()) {
-                myApproachingEdges[help] = ROEdgeVector();
-            }
             myApproachingEdges[help].push_back(ce);
             // add the connection ce->help to myApproachingEdges
-            if (myApproachedEdges.find(ce) == myApproachedEdges.end()) {
-                myApproachedEdges[ce] = ROEdgeVector();
-            }
             myApproachedEdges[ce].push_back(help);
         }
     }
@@ -299,7 +301,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             t.distance += appr[i]->getLength();
             t.edges2Pass.push_back(appr[i]);
             if (!addNextNoFurther) {
-                t.passedNo = t.passedNo + 1;
+                t.passedNo++;
                 toSolve.push(t);
             } else {
                 if (!hadOne) {
@@ -323,7 +325,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             } else {
                 bool ok = into.removeRouteDesc(*i);
                 assert(ok);
-                UNUSED_PARAMETER(ok); // ony used for assertion
+                UNUSED_PARAMETER(ok); // only used for assertion
             }
         }
     } else {
@@ -390,11 +392,9 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool keepUnfoundEnds, bool includ
                         distance -= (*k)->getLength();
                         continue;
                     }
-                    // get the detectors
-                    const std::vector<std::string>& dets = myDetectorsOnEdges.find(*k)->second;
                     // go through the detectors
-                    for (std::vector<std::string>::const_iterator l = dets.begin(); l != dets.end(); ++l) {
-                        const RODFDetector& m = detcont.getDetector(*l);
+                    for (const std::string& l : myDetectorsOnEdges.find(*k)->second) {
+                        const RODFDetector& m = detcont.getDetector(l);
                         if (m.getType() == BETWEEN_DETECTOR) {
                             RODFRouteDesc nrd;
                             copy(k, routeend, back_inserter(nrd.edges2Pass));
@@ -512,23 +512,21 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
     std::vector<FlowDef> mflows;
     int index = 0;
     for (SUMOTime t = startTime; t < endTime; t += stepOffset, index++) {
+        // collect incoming
         FlowDef inFlow;
         inFlow.qLKW = 0;
         inFlow.qPKW = 0;
         inFlow.vLKW = 0;
         inFlow.vPKW = 0;
-        // collect incoming
-        {
-            // !! time difference is missing
-            for (ROEdgeVector::iterator i = previous.begin(); i != previous.end(); ++i) {
-                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(*i)->getFlows();
-                if (flows.size() != 0) {
-                    const FlowDef& srcFD = flows[index];
-                    inFlow.qLKW += srcFD.qLKW;
-                    inFlow.qPKW += srcFD.qPKW;
-                    inFlow.vLKW += srcFD.vLKW;
-                    inFlow.vPKW += srcFD.vPKW;
-                }
+        // !! time difference is missing
+        for (const ROEdge* const e : previous) {
+            const std::vector<FlowDef>& eflows = static_cast<const RODFEdge*>(e)->getFlows();
+            if (eflows.size() != 0) {
+                const FlowDef& srcFD = eflows[index];
+                inFlow.qLKW += srcFD.qLKW;
+                inFlow.qPKW += srcFD.qPKW;
+                inFlow.vLKW += srcFD.vLKW;
+                inFlow.vPKW += srcFD.vPKW;
             }
         }
         inFlow.vLKW /= (double) previous.size();
@@ -539,17 +537,15 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
         outFlow.qPKW = 0;
         outFlow.vLKW = 0;
         outFlow.vPKW = 0;
-        {
-            // !! time difference is missing
-            for (ROEdgeVector::iterator i = latter.begin(); i != latter.end(); ++i) {
-                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(*i)->getFlows();
-                if (flows.size() != 0) {
-                    const FlowDef& srcFD = flows[index];
-                    outFlow.qLKW += srcFD.qLKW;
-                    outFlow.qPKW += srcFD.qPKW;
-                    outFlow.vLKW += srcFD.vLKW;
-                    outFlow.vPKW += srcFD.vPKW;
-                }
+        // !! time difference is missing
+        for (const ROEdge* const e : latter) {
+            const std::vector<FlowDef>& eflows = static_cast<const RODFEdge*>(e)->getFlows();
+            if (eflows.size() != 0) {
+                const FlowDef& srcFD = eflows[index];
+                outFlow.qLKW += srcFD.qLKW;
+                outFlow.qPKW += srcFD.qPKW;
+                outFlow.vLKW += srcFD.vLKW;
+                outFlow.vPKW += srcFD.vPKW;
             }
         }
         outFlow.vLKW /= (double) latter.size();
@@ -624,8 +620,7 @@ RODFNet::reportEmptyDetectors(RODFDetectorCon& detectors,
 
 ROEdge*
 RODFNet::getDetectorEdge(const RODFDetector& det) const {
-    std::string edgeName = det.getLaneID();
-    edgeName = edgeName.substr(0, edgeName.rfind('_'));
+    const std::string edgeName = SUMOXMLDefinitions::getEdgeIDFromLane(det.getLaneID());
     ROEdge* ret = getEdge(edgeName);
     if (ret == nullptr) {
         throw ProcessError("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");
@@ -1114,6 +1109,4 @@ RODFNet::mesoJoin(RODFDetectorCon& detectors, RODFDetectorFlows& flows) {
 }
 
 
-
 /****************************************************************************/
-

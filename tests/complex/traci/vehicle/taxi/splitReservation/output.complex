@@ -1,0 +1,4 @@
+ Retrying in 1 seconds
+taxiFleet ('taxi_0', 'taxi_1')
+reservations (Reservation(id=0, persons=('p.0', 'p.1', 'p.2', 'p.3'), group=g0, fromEdge=A2B2, toEdge=C2D2, departPos=0.0, arrivalPos=90.6, depart=0.0, reservationTime=0.0, state=1),)
+reservations2 (Reservation(id=0, persons=('p.2', 'p.3'), group=g0, fromEdge=A2B2, toEdge=C2D2, departPos=0.0, arrivalPos=90.6, depart=0.0, reservationTime=0.0, state=2), Reservation(id=1, persons=('p.0', 'p.1'), group=g0, fromEdge=A2B2, toEdge=C2D2, departPos=0.0, arrivalPos=90.6, depart=0.0, reservationTime=0.0, state=1))

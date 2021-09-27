@@ -1,11 +1,10 @@
 ---
-title: Contributed/iTranSIM
-permalink: /Contributed/iTranSIM/
+title: iTranSIM
 ---
 
 ## Summary
 
-<b>iTranSIM - Simulation-based Vehicle Location</b>
+**iTranSIM - Simulation-based Vehicle Location**
 
 By: Tino Morenz<br>
 Supervisor: Dr. René Meier

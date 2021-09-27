@@ -1,26 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIEvent_Message.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed 18 Jun 2003
-/// @version $Id$
 ///
 // Event send when a message (message, warning, error) has to besubmitted
 /****************************************************************************/
-#ifndef GUIEvent_Message_h
-#define GUIEvent_Message_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "GUIEvent.h"
@@ -47,19 +44,19 @@ public:
     GUIEvent_Message(MsgHandler::MsgType type, const std::string& msg)
         : GUIEvent(EVENT_MESSAGE_OCCURRED), myMsg(msg) {
         switch (type) {
-            case MsgHandler::MT_MESSAGE:
+            case MsgHandler::MsgType::MT_MESSAGE:
                 myType = EVENT_MESSAGE_OCCURRED;
                 break;
-            case MsgHandler::MT_WARNING:
+            case MsgHandler::MsgType::MT_WARNING:
                 myType = EVENT_WARNING_OCCURRED;
                 break;
-            case MsgHandler::MT_ERROR:
+            case MsgHandler::MsgType::MT_ERROR:
                 myType = EVENT_ERROR_OCCURRED;
                 break;
-            case MsgHandler::MT_DEBUG:
+            case MsgHandler::MsgType::MT_DEBUG:
                 myType = EVENT_DEBUG_OCCURRED;
                 break;
-            case MsgHandler::MT_GLDEBUG:
+            case MsgHandler::MsgType::MT_GLDEBUG:
                 myType = EVENT_GLDEBUG_OCCURRED;
                 break;
             default:
@@ -81,9 +78,3 @@ protected:
     std::string myMsg;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

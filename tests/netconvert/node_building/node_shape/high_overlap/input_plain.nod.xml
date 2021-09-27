@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 31 Jan 2020 02:16:46 PM CET by Eclipse SUMO netedit Version v1_4_0+0886-4dbe3cf
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="/scr2/debug/joinFail/bolten_niehler/input_plain"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="57.05,0.00,158.03,9.03" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="gneJ0" x="57.05" y="0.23" type="dead_end"/>
+    <node id="gneJ1" x="100.00" y="0.00" type="priority"/>
+    <node id="gneJ2" x="158.03" y="0.16" type="dead_end"/>
+    <node id="gneJ3" x="156.77" y="9.03" type="dead_end"/>
+</nodes>

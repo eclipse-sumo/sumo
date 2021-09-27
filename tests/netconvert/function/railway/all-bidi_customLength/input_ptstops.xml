@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="stopA" name="Dudenstraße" lane="a_0" startPos="10" endPos="40" lines="140"/>
+    <busStop id="stopC" name="Kolonnenbrücke" lane="c_0" startPos="20" endPos="90" lines="104 N42"/>
+</additional>

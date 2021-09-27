@@ -82,9 +82,14 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void Storage::reset()
-	{
+	void Storage::reset() {
 		store.clear();
+		iter_ = store.begin();
+	}
+
+
+	// ----------------------------------------------------------------------
+	void Storage::resetPos() {
 		iter_ = store.begin();
 	}
 

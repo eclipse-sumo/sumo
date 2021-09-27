@@ -18,3 +18,5 @@ beg15_end30_nointerval
 
 # only begin and end are given, but no interval
 beg0_end30_nointerval
+beg0_end30_simBeg10
+beg0_end30_simBeg5

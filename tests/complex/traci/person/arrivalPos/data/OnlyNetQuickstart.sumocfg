@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Oct 15 10:50:48 2020 by Eclipse SUMO sumo Version v1_7_0+0609-5b4b722211
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="OnlyNetQuickstart.net.xml"/>
+        <additional-files value="OnlyNetQuickstart.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="../tripinfo.xml"/>
+    </output>
+
+</configuration>

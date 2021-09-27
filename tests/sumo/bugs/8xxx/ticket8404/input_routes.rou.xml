@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 23.03.2021 09:55:05 by Eclipse SUMO netedit Version v1_8_0+1744-662ff8fcc3
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <output-file value="D:\Bug\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <additional-files value="D:\Bug\add.xml"/>
+        <route-files value="D:\Bug\trips.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="vehicle_1" depart="0.00" from="gneE0" to="gneE2" departPos="stop">
+		<stop duration="100" parkingArea="ParkingArea0"/>
+		<stop duration="100" parkingArea="ParkingArea1"/>
+	</trip>
+	<trip id="vehicle_2" depart="0.00" from="gneE0" to="gneE2" departPos="stop">
+		<stop duration="110" parkingArea="ParkingArea0"/>
+		<stop duration="110" parkingArea="ParkingArea1"/>
+	</trip>
+	<trip id="vehicle_3" depart="0.00" from="gneE0" to="gneE2" departPos="stop">
+		<stop duration="120" parkingArea="ParkingArea0"/>
+		<stop duration="120" parkingArea="ParkingArea1"/>
+	</trip>
+	<trip id="vehicle_4" depart="0.00" from="gneE0" to="gneE2" departPos="stop">
+		<stop duration="130" parkingArea="ParkingArea0"/>
+		<stop duration="130" parkingArea="ParkingArea1"/>
+	</trip>
+	<trip id="vehicle_5" depart="0.00" from="gneE0" to="gneE2" departPos="stop">
+		<stop duration="140" parkingArea="ParkingArea0"/>
+		<stop duration="140" parkingArea="ParkingArea1"/>
+	</trip>
+	<trip id="vehicle_6" depart="0.00" from="gneE0" to="gneE2" departPos="stop">
+		<stop duration="150" parkingArea="ParkingArea0"/>
+		<stop duration="150" parkingArea="ParkingArea1"/>
+	</trip>
+</routes>

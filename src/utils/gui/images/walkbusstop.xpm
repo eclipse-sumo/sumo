@@ -2,7 +2,7 @@
 static const char *walkbusstop_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 7 1 ",
-"  c None",
+"  c green",
 ". c black",
 "X c red",
 "o c #4CAA32",

@@ -1,5 +1,6 @@
 /* XPM */
 static const char * sumo_icon16_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 106 2",
 "  	c None",
 ". 	c #338033",
@@ -122,4 +123,5 @@ static const char * sumo_icon16_xpm[] = {
 ". +.@.#.$.%.&.z *.=.@ @ @ @ @ . ",
 ". @ @ 3 -.;.@ e >.,.@ @ @ @ @ . ",
 ". + @ @ @ @ @ @ @ @ @ @ @ @ + . ",
-". . . . . . . . . . . . . . . . "};
+". . . . . . . . . . . . . . . . "
+};

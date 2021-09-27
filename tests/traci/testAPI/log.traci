@@ -1,0 +1,36 @@
+***Starting server on port 50686 ***
+Loading net-file from 'net.net.xml' ... done (6ms).
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading done.
+Simulation version v1_3_1+1083-5d228cb4f4 started with time: 0.00
+Error: Answered with error to command 0xa3: No connection from lane 'e_vu0_0' to lane 'e_m4_1'
+Error: Answered with error to command 0xa3: Lane 'dummy' is not known
+custom message test
+Simulation ended at time: 15.00
+Reason: TraCI issued load command.
+DijkstraRouter answered 3 queries and explored 12.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter answered 1 queries and explored 38.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter answered 5 queries and explored 9.80 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
+Loading net-file from 'net.net.xml' ... done (5ms).
+Loading additional-files from 'input_additional.add.xml' ... done (10ms).
+Loading done.
+Simulation version v1_3_1+1083-5d228cb4f4 started with time: 0.00
+Error: Requested command not implemented (0xcc): GUI is not running, command not implemented in command line sumo
+Simulation ended at time: 5.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 27ms
+ Real time factor: 185.185
+ UPS: 185.185185
+ UPS-Persons: 185.185185
+Vehicles: 
+ Inserted: 1
+ Running: 1
+ Waiting: 0
+Persons: 
+ Inserted: 2
+ Running: 1
+

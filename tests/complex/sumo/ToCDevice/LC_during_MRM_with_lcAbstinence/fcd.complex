@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 12 13:27:04 2019 by Eclipse SUMO Version v1_2_0+1531-5689942
+<!-- generated on Wed Nov 27 14:02:51 2019 by Eclipse SUMO Version v1_3_1+1146-7ff922b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -21,7 +21,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="36681"/>
+        <remote-port value="41829"/>
     </traci_server>
 
 </configuration>
@@ -329,16 +329,16 @@
         <vehicle id="ToC_veh" x="1492.69" y="-1.60" angle="90.00" type="manual" speed="0.85" pos="992.69" lane="WE_1" slope="0.00"/>
     </timestep>
     <timestep time="100.00">
-        <vehicle id="ToC_veh" x="1492.75" y="-4.80" angle="90.00" type="manual" speed="0.06" pos="992.75" lane="WE_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1492.76" y="-4.80" angle="90.00" type="manual" speed="0.06" pos="992.76" lane="WE_0" slope="0.00"/>
     </timestep>
     <timestep time="101.00">
         <vehicle id="ToC_veh" x="1495.32" y="-5.19" angle="94.53" type="manual" speed="2.60" pos="2.56" lane=":gneJ1_0_0" slope="0.00"/>
     </timestep>
     <timestep time="102.00">
-        <vehicle id="ToC_veh" x="1498.06" y="-8.00" angle="129.01" type="manual" speed="4.05" pos="6.60" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.06" y="-8.00" angle="128.99" type="manual" speed="4.04" pos="6.60" lane=":gneJ1_0_0" slope="0.00"/>
     </timestep>
     <timestep time="103.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-13.69" angle="177.23" type="manual" speed="5.72" pos="3.29" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-13.69" angle="177.22" type="manual" speed="5.72" pos="3.29" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="104.00">
         <vehicle id="ToC_veh" x="1498.40" y="-21.16" angle="180.00" type="manual" speed="7.47" pos="10.76" lane="NS_0" slope="0.00"/>
@@ -347,28 +347,28 @@
         <vehicle id="ToC_veh" x="1498.40" y="-30.54" angle="180.00" type="manual" speed="9.38" pos="20.14" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="106.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-42.01" angle="180.00" type="manual" speed="11.47" pos="31.61" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-42.00" angle="180.00" type="manual" speed="11.47" pos="31.60" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="107.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-54.88" angle="180.00" type="manual" speed="12.87" pos="44.48" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-54.87" angle="180.00" type="manual" speed="12.87" pos="44.47" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="108.00">
         <vehicle id="ToC_veh" x="1498.40" y="-67.76" angle="180.00" type="manual" speed="12.88" pos="57.36" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="109.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-81.14" angle="180.00" type="manual" speed="13.38" pos="70.74" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-81.13" angle="180.00" type="manual" speed="13.38" pos="70.73" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="110.00">
         <vehicle id="ToC_veh" x="1498.40" y="-94.17" angle="180.00" type="manual" speed="13.03" pos="83.77" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="111.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-107.55" angle="180.00" type="manual" speed="13.38" pos="97.15" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-107.54" angle="180.00" type="manual" speed="13.38" pos="97.14" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="112.00">
         <vehicle id="ToC_veh" x="1498.40" y="-121.00" angle="180.00" type="manual" speed="13.45" pos="110.60" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="113.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-134.26" angle="180.00" type="manual" speed="13.26" pos="123.86" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-134.25" angle="180.00" type="manual" speed="13.26" pos="123.85" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="114.00">
         <vehicle id="ToC_veh" x="1498.40" y="-147.47" angle="180.00" type="manual" speed="13.21" pos="137.07" lane="NS_0" slope="0.00"/>
@@ -377,13 +377,13 @@
         <vehicle id="ToC_veh" x="1498.40" y="-160.74" angle="180.00" type="manual" speed="13.27" pos="150.34" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="116.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-173.44" angle="180.00" type="manual" speed="12.70" pos="163.04" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-173.43" angle="180.00" type="manual" speed="12.70" pos="163.03" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="117.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-186.06" angle="180.00" type="manual" speed="12.62" pos="175.66" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-186.05" angle="180.00" type="manual" speed="12.62" pos="175.65" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="118.00">
-        <vehicle id="ToC_veh" x="1498.40" y="-199.22" angle="180.00" type="manual" speed="13.16" pos="188.82" lane="NS_0" slope="0.00"/>
+        <vehicle id="ToC_veh" x="1498.40" y="-199.21" angle="180.00" type="manual" speed="13.16" pos="188.81" lane="NS_0" slope="0.00"/>
     </timestep>
     <timestep time="119.00"/>
 </fcd-export>

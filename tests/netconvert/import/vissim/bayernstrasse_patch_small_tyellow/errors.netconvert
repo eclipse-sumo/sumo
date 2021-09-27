@@ -149,7 +149,7 @@ Warning: Ugly split to prohibit '10' by '6'.
 Warning: Ugly split to prohibit '10' by '1'.
 Warning: Ugly split to prohibit '10' by '1'.
 Warning: Would have to split edge '10' to build a prohibition
-Warning: Could not prohibit '10004' by '11'. Have not found disturbance.
+Warning: Would have to split edge '11[0]' to build a prohibition
 Warning: Ugly split to prohibit '10' by '3'.
 Warning: Ugly split to prohibit '10' by '3'.
 Warning: Ugly split to prohibit '11' by '6'.
@@ -183,7 +183,7 @@ Warning: Ugly split to prohibit '20002' by '6'.
 Warning: Ugly split to prohibit '20002' by '6'.
 Warning: Would have to split edge '60' to build a prohibition
 Warning: Would have to split edge '61' to build a prohibition
-Warning: Would have to split edge '26[1][0]' to build a prohibition
+Warning: Could not prohibit '10015' by '26'. Have not found disturbance.
 Warning: Ugly split to prohibit '20003' by '31'.
 Warning: Could not prohibit '10017' by '31'. Have not found disturbance.
 Warning: Ugly split to prohibit '73' by '70'.
@@ -226,10 +226,10 @@ Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 4 of 37 signals.
 Warning: Found sharp turn with radius 4.37 at the end of edge '82[0]'.
 Warning: Found sharp turn with radius 6.53 at the start of edge '82[1]'.
-Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:3)
+Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:3.00)
 Warning: During computation of traffic light '454'.

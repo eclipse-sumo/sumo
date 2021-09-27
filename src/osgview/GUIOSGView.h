@@ -1,34 +1,30 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIOSGView.h
 /// @author  Daniel Krajzewicz
 /// @date    19.01.2012
-/// @version $Id$
 ///
 // An OSG-based 3D view on the simulation
 /****************************************************************************/
-#ifndef GUIOSGView_h
-#define GUIOSGView_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #ifdef HAVE_OSG
 
+#include "GUIOSGHeader.h"
+
 #include <string>
-#include <osgGA/TerrainManipulator>
-#include <osgViewer/Viewer>
-#include <osg/PositionAttitudeTransform>
-#include <osg/ShapeDrawable>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
@@ -41,16 +37,19 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GUINet;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
 class MSRoute;
+class MSTransportable;
+class MSVehicle;
+
 namespace osgGA {
 class CameraManipulator;
 class NodeTrackerManipulator;
 }
-
 
 // ===========================================================================
 // class definitions
@@ -78,10 +77,8 @@ public:
          */
         Command_TLSChange(const MSLink* const link, osg::Switch* switchNode);
 
-
         /// @brief Destructor
         virtual ~Command_TLSChange();
-
 
         /** @brief Executes the command
          *
@@ -90,7 +87,6 @@ public:
          *  the old traffic light and adds a new one.
          */
         void execute();
-
 
     private:
         /// @brief The link to observe
@@ -102,17 +98,15 @@ public:
         /// @brief The previous link state
         LinkState myLastState;
 
-
     private:
         /// @brief Invalidated copy constructor.
-        Command_TLSChange(const Command_TLSChange&);
+        Command_TLSChange(const Command_TLSChange&) = delete;
 
         /// @brief Invalidated assignment operator.
-        Command_TLSChange& operator=(const Command_TLSChange&);
-
+        Command_TLSChange& operator=(const Command_TLSChange&) = delete;
     };
 
-
+    /// @brief struct for OSG movable elements
     struct OSGMovable {
         osg::ref_ptr<osg::PositionAttitudeTransform> pos;
         osg::ref_ptr<osg::ShapeDrawable> geom;
@@ -120,18 +114,18 @@ public:
         bool active;
     };
 
-
-    /// constructor
+    /// @brief constructor
     GUIOSGView(FXComposite* p, GUIMainWindow& app,
                GUISUMOViewParent* parent, GUINet& net, FXGLVisual* glVis,
                FXGLCanvas* share);
 
+    /// @brief destructor
     virtual ~GUIOSGView();
 
-    /// builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow&);
+    /// @brief builds the view toolbars
+    virtual void buildViewToolBars(GUIGlChildWindow*);
 
-    /// recenters the view
+    /// @brief recenters the view
     void recenterView();
 
     /** @brief centers to the chosen artifact
@@ -142,12 +136,13 @@ public:
      */
     void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
+    /// @brief show viewport editor
     void showViewportEditor();
 
-    /// applies the given viewport settings
+    /// @brief applies the given viewport settings
     void setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation);
 
-    ///@brief copy the viewport to the given view
+    /// @brief copy the viewport to the given view
     void copyViewportTo(GUISUMOAbstractView* view);
 
     /** @brief Starts vehicle tracking
@@ -155,11 +150,9 @@ public:
      */
     void startTrack(int id);
 
-
     /** @brief Stops vehicle tracking
      */
     void stopTrack();
-
 
     /** @brief Returns the id of the tracked vehicle (-1 if none)
      * @return The glID of the vehicle to track
@@ -244,6 +237,7 @@ private:
     };
 
 protected:
+    GUIOSGView() {}
 
     osg::ref_ptr<FXOSGAdapter> myAdapter;
     osg::ref_ptr<osgViewer::Viewer> myViewer;
@@ -262,16 +256,6 @@ private:
     osg::ref_ptr<osg::Node> myYellowLight;
     osg::ref_ptr<osg::Node> myRedLight;
     osg::ref_ptr<osg::Node> myRedYellowLight;
-
-protected:
-    GUIOSGView() { }
-
 };
 
 #endif
-
-#endif
-
-/****************************************************************************/
-
-

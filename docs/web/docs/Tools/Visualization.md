@@ -1,10 +1,9 @@
 ---
-title: Tools/Visualization
-permalink: /Tools/Visualization/
+title: Visualization
 ---
 
-[SUMO](../SUMO.md) offers a wide range of
-[outputs](../Simulation/Output.md), but one may find it hard to
+[sumo](../sumo.md) offers a wide range of
+[outputs](../Simulation/Output/index.md), but one may find it hard to
 parse and visualize them. Below, you may find some tools that allow to
 visualize a simulation run's results for being included in a scientific
 paper. Additional tools read plain .csv-files and were added to the
@@ -15,7 +14,7 @@ All these tools are just wrappers around the wonderful
 Python, you must have a look.
 
 The tools share a set of [common options](#common_options) to
-fine-tune the appearence of the generated figures. These options' names
+fine-tune the appearance of the generated figures. These options' names
 where chosen similar to the [matplotlib](http://matplotlib.org/) calls.
 
 The tools are implemented in Python and need
@@ -25,7 +24,7 @@ found in {{SUMO}}/tools/visualization.
 # Current Tools
 
 Below, you will find the descriptions of tools that should work with the
-current outputs [SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md)
+current outputs [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md)
 generate. To run them, you'll need:
 
 - to install Python
@@ -40,12 +39,12 @@ may not work for certain scripts.
 
 ## plot_trajectories.py
 
-Show plots for all trajectories in a given **--fcd-output** file.
+Show plots for all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
 
 Example use:
 
 ```
-python plot_trajectories.py fcd.xml -t td -o plot.png -s
+python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
 The option **-t (--trajectory-type)** supports different plot styles:
@@ -115,6 +114,9 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
   you may simply skip one entry. Then, the default values are used.
 - dump-files cover usually more than one interval. To generate an extra output file for each interval, use the string '%s' as part of the output filename (this part will be replaced with the corresponding begin time).
 
+!!! caution
+    If two input files are given they must cover the same time intervals or no data will be plotted.
+
 **Options**
 
 | Option                                               | Description                                         |
@@ -137,7 +139,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 ## plot_net_selection.py
 
 plot_net_selection.py reads a road network and a selection file as
-written by [SUMO-GUI](../SUMO-GUI.md). It plots the road network,
+written by [sumo-gui](../sumo-gui.md). It plots the road network,
 choosing a different color and width for the edges which are within the
 selection (all edge with at least one lane in the selection).
 
@@ -146,7 +148,7 @@ selection (all edge with at least one lane in the selection).
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_selection.py -n bs.net.xml \</code><br />
+<td><p><code>python plot_net_selection.py -n bs.net.xml \</code><br />
 <code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
 <code> -i selection_environmental_zone.txt \</code><br />
 <code> --xlabel [m] --ylabel [m] \</code><br />
@@ -266,6 +268,7 @@ visualised as a time line along the simulation time.
 | **-i** {{DT_FILE}}\[,{{DT_FILE}}\]\*<br>**--summary-inputs** {{DT_FILE}}[,{{DT_FILE}}]* | Defines the [summary-file](../Simulation/Output/Summary.md)(s) to read            |
 | **-m** {{DT_STR}}<br>**--measure** {{DT_STR}}                        | Defines the measure to read from the summary file; default: *running* |
 | **-v**<br>**--verbose**                                          | If set, the progress is printed on the screen                       |
+| **--dpi** {{DT_FLOAT}}                                           | Define dpi resolution for figures; default: *None*                       |
 
 ## plot_tripinfo_distributions.py
 
@@ -273,7 +276,7 @@ plot_tripinfo_distributions.py reads one or multiple
 [tripinfo-files](../Simulation/Output/TripInfo.md) and plots a
 selected measure (attribute of the read
 [tripinfo-files](../Simulation/Output/TripInfo.md)). The measure is
-visualised as vertical bars that represent the numbers of occurences of
+visualised as vertical bars that represent the numbers of occurrences of
 the measure (vehicles) that fall into a bin.
 
 <table>
@@ -460,9 +463,9 @@ the figure (once known it is as it should be). In such cases, the option
 
 # Further Visualization Methods
 
-## Coloring edges in [SUMO-GUI](../SUMO-GUI.md) according to arbitrary data
+## Coloring edges in [sumo-gui](../sumo-gui.md) according to arbitrary data
 
-[SUMO-GUI](../SUMO-GUI.md) can load weight files and show their
+[sumo-gui](../sumo-gui.md) can load weight files and show their
 values when setting edge coloring mode to *by loaded weight*. When
 stepping through the simulation, different time intervals contained in
 the weight file can be shown.
@@ -482,12 +485,12 @@ The weight files generated by [randomTrips option **--weights-output-prefix**](.
 
 To visualize the flow on an intersection with line widths according to the amount of traffic, the tool [route2poly.py](../Tools/Routes.md#route2polypy) can be used.
 
-1. Use [NETEDIT](../NETEDIT.md) to select all edges at one or more intersection for which the flow shall be visualized and save the selection to a file (e.g. *sel.txt*)
+1. Use [netedit](../Netedit/index.md) to select all edges at one or more intersection for which the flow shall be visualized and save the selection to a file (e.g. *sel.txt*)
 2. generate polygons with widths according to the number of vehicles passing the selected edges. When setting **--scale-width to 0.01**, 100 vehicles using the same edge sequence will correspond to a polygon width of 1m. The option **--spread** is used to prevent overlapping of the generated polygons and should be adapted according the the polygon width.
 
         route2poly.py NET routes.rou.xml -o flows.poly.xml --filter-output.file sel.txt --scale-width 0.01 --internal --spread 1 --hue cycle
 
-3. visualize the flows in [SUMO-GUI](../SUMO-GUI.md)
+3. visualize the flows in [sumo-gui](../sumo-gui.md)
 
         sumo-gui -n NET -a flows.poly.xml
 

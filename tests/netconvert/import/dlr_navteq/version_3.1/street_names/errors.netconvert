@@ -1,8 +1,6 @@
-Warning: Speed of turning connection '3_0->-2_0' reduced by 37.13 due to turning radius of 9.73 (length=11.70 angle=90.10)
-Warning: Speed of turning connection '3_1->-1_2' reduced by 34.08 due to turning radius of 19.51 (length=24.54 angle=90.13)
-Warning: Speed of turning connection '1_0->-3_0' reduced by 49.05 due to turning radius of 7.69 (length=9.03 angle=90.13)
-Warning: Speed of turning connection '1_2->-4_2' reduced by 45.18 due to turning radius of 19.57 (length=24.53 angle=89.87)
-Warning: Speed of turning connection '4_0->-1_0' reduced by 37.10 due to turning radius of 9.80 (length=11.77 angle=89.87)
-Warning: Speed of turning connection '4_1->-2_2' reduced by 34.08 due to turning radius of 19.54 (length=24.50 angle=89.90)
-Warning: Speed of turning connection '2_0->-4_0' reduced by 49.04 due to turning radius of 7.71 (length=9.03 angle=89.90)
-Warning: Speed of turning connection '2_2->-3_2' reduced by 45.20 due to turning radius of 19.50 (length=24.51 angle=90.10)
+Warning: Speed of turning connection '3_0->-2_0' reduced by 37.13 due to turning radius of 9.73 (length=11.70, angle=90.10).
+Warning: Speed of turning connection '3_1->-1_2' reduced by 34.08 due to turning radius of 19.51 (length=24.54, angle=90.13).
+Warning: Speed of turning connection '1_0->-3_0' reduced by 49.05 due to turning radius of 7.69 (length=9.03, angle=90.13).
+Warning: Speed of turning connection '1_2->-4_2' reduced by 45.18 due to turning radius of 19.57 (length=24.53, angle=89.87).
+Warning: Speed of turning connection '4_0->-1_0' reduced by 37.10 due to turning radius of 9.80 (length=11.77, angle=89.87).
+Warning: 8 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

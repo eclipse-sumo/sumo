@@ -1,9 +1,8 @@
 ---
-title: Z/Changes from Version 0.17.1 to Version 0.18.0
-permalink: /Z/Changes_from_Version_0.17.1_to_Version_0.18.0/
+title: Changes from Version 0.17.1 to Version 0.18.0
 ---
 
-## Version 0.18.0 (28.08.2013)
+**Release date: 28.08.2013**
 
 ### Bugfixes
 
@@ -28,7 +27,7 @@ permalink: /Z/Changes_from_Version_0.17.1_to_Version_0.18.0/
     remains unchanged.
   - Fixed rerouting for not departed vehicles (change target, change
     route and change route id)
-- NETCONVERT
+- netconvert
   - street-names will no longer be missing from the output when
     importing a net.xml or edg.xml file which has them
   - using option **--ramps.no-split** {{DT_BOOL}} no longer creates networks with faulty
@@ -41,10 +40,10 @@ permalink: /Z/Changes_from_Version_0.17.1_to_Version_0.18.0/
     connections from the same edge to the same lane) are no longer
     silently discarded
   - fixed bug that caused invalid node geometries when using **--junctions.join** together with ramp building options **--ramps.\***.
-- DUAROUTER
+- duarouter
   - option **--ignore-errors** {{DT_BOOL}} now works correctly when a vehicle is not allowed to
     drive on its depart edge
-- SUMO-GUI
+- sumo-gui
   - vehicles with guiShape="pedestrian" now have the same size in
     all levels of detail
   - traffic lights and lane-to-lane connections are now drawn for
@@ -75,7 +74,7 @@ permalink: /Z/Changes_from_Version_0.17.1_to_Version_0.18.0/
     leave the stop. Should be used with "triggered='true'" (would
     not work otherwise). Thanks to Shubham Jain for pointing out the
     wrong description of the possibilities in
-    [\[1\]](http://sumo.sourceforge.net/cite.bib).
+    [\[1\]](https://sumo.dlr.de/cite.bib).
   - added options for saving and loading simulation states.
     Simulation states can be saved at predetermined times and then loaded to initialize a new
     simulation (this also requires loading the network and routes of the
@@ -91,7 +90,7 @@ permalink: /Z/Changes_from_Version_0.17.1_to_Version_0.18.0/
     default, use **--eager-insert** {{DT_BOOL}} to get the old behavior
   - vehicle route output for persons now includes complete plans
 
-- SUMO-GUI
+- sumo-gui
   - it is now possible to toggle the simulation time display between
     'seconds' and 'hour-minute-seconds' by clicking on the
     'Time'-button next to the time display. The state of this
@@ -111,7 +110,7 @@ permalink: /Z/Changes_from_Version_0.17.1_to_Version_0.18.0/
   - now providing separate options for customizing the visualization
     of persons
 
-- NETCONVERT
+- netconvert
   - when using the option **--no-internal-links** the edge lengths are now increased to
     compensate for the missing internal links. Thus, route lengths
     will correspond better to physical distances and roundabouts are

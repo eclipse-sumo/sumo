@@ -2,7 +2,13 @@
 guess
 
 # guess bike lanes using plain xml input
-guess_width_sidewalks
+guess_with_sidewalks
+
+# guess bike lanes using .net.xml input
+guess_sumonet
+
+# guess bike lanes using plain xml input
+guess_with_guess_sidewalks
 
 # guess bike lanes but prevent one edge from receiving a sidewalks 
 guess_disable1
@@ -13,11 +19,11 @@ typemap
 # add bike lane via plain-xml input
 addFromPlainXML
 
-# test connection building in the presence of bicycle lanes
-connections
-
-# same as 'connections' but with different priorities
-connections2
-
 # guess bicycle lanes based on edge permissions
 guess.from-permissions
+
+# test connection building when all lanes are reserved for either bicycle or passenger traffic
+connections_dedicated
+
+# test connection building when there are some roads with dedicated lanes and some roads with mixed traffic
+connections_mixed

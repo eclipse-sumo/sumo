@@ -2,6 +2,10 @@
 # 
 basic
 
+# increased time gap
+# 
+time_gap
+
 # train is inserted directly in front of the crossing
 # 
 sudden_insertion

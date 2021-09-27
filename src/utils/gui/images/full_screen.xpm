@@ -1,0 +1,23 @@
+/* XPM */
+static const char *full_screen_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"15 15 2 1",
+"  c none",
+". c black",
+/* pixels */
+"               ",
+"        ...... ",
+"        ...... ",
+"          .... ",
+"         ..... ",
+"        ... .. ",
+"        ..  .. ",
+"               ",
+" ..  ..        ",
+" .. ...        ",
+" .....         ",
+" ....          ",
+" ......        ",
+" ......        ",
+"               "
+};

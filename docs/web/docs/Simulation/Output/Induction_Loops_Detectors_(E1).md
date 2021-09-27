@@ -1,13 +1,12 @@
 ---
-title: Simulation/Output/Induction Loops Detectors (E1)
-permalink: /Simulation/Output/Induction_Loops_Detectors_(E1)/
+title: Induction Loops Detectors (E1)
 ---
 
 ## Instantiating within the Simulation
 
 An induction loop is defined this way within an {{AdditionalFile}} like this:
 
-```
+```xml
 <additional>
    <inductionLoop id="<ID>" lane="<LANE_ID>" pos="<POSITION_ON_LANE>" freq="<AGGREGATION_TIME>"
    file="<OUTPUT_FILE>" friendlyPos="true"/>
@@ -27,7 +26,7 @@ Multiple definitions may be placed in the same {{AdditionalFile}} and also refer
 same output file. Ensure that the {{AdditionalFile}} always starts and ends with a top
 level of tags like so:
 
-```
+```xml
 <additional>
   <inductionLoop id="myLoop1" lane="foo_0" pos="42" freq="900" file="out.xml"/>
   <inductionLoop id="myLoop2" lane="foo_2" pos="42" freq="900" file="out.xml"/>
@@ -52,7 +51,7 @@ The attributes:
 A single data line within the output of a simulated induction loop looks
 as following:
 
-```
+```xml
    <interval begin="''<BEGIN_TIME>''" end="''<END_TIME>''" id="''<DETECTOR_ID>''" \
       nVehContrib="''<MEASURED_VEHICLES>''" flow="''<FLOW>''" occupancy="''<OCCUPANCY>''" \
       speed="''<MEAN_SPEED>''" harmonicMeanSpeed="''<HARM_MEAN_SPEED>''" length="''<MEAN_LENGTH>''" nVehEntered="''<ENTERED_VEHICLES>''"/>

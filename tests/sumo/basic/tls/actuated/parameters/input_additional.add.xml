@@ -13,7 +13,6 @@
         <param key="detector-gap" value="1.0"/>
         <param key="file" value="detector.xml"/>
         <param key="freq" value="180"/>
-        <param key="splitByType" value="true"/>
         <param key="show-detectors" value="true"/>
     </tlLogic>
 </additional>

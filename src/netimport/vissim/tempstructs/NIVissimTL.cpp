@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIVissimTL.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 
@@ -201,7 +199,7 @@ NIVissimTL::GroupDictType NIVissimTL::NIVissimTLSignalGroup::myDict;
 NIVissimTL::NIVissimTLSignalGroup::NIVissimTLSignalGroup(
     int id,
     const std::string& name,
-    bool isGreenBegin, const std::vector<double>& times,
+    bool isGreenBegin, const std::vector<SUMOTime>& times,
     SUMOTime tredyellow, SUMOTime tyellow)
     : myID(id), myName(name), myTimes(times),
       myFirstIsRed(!isGreenBegin), myTRedYellow(tredyellow),
@@ -276,9 +274,9 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef* tl) const {
     NBTrafficLightDefinition::TLColor color = myFirstIsRed
             ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
     std::string id = toString<int>(myID);
-    tl->addSignalGroup(id); // !!! myTimes als SUMOTime
-    for (std::vector<double>::const_iterator i = myTimes.begin(); i != myTimes.end(); i++) {
-        tl->addSignalGroupPhaseBegin(id, (SUMOTime) *i, color);
+    tl->addSignalGroup(id);
+    for (SUMOTime t : myTimes) {
+        tl->addSignalGroupPhaseBegin(id, t, color);
         color = color == NBTrafficLightDefinition::TLCOLOR_RED
                 ? NBTrafficLightDefinition::TLCOLOR_GREEN : NBTrafficLightDefinition::TLCOLOR_RED;
     }
@@ -294,12 +292,6 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef* tl) const {
 }
 
 
-
-
-
-
-
-
 NIVissimTL::DictType NIVissimTL::myDict;
 
 NIVissimTL::NIVissimTL(int id, const std::string& type,
@@ -312,9 +304,6 @@ NIVissimTL::NIVissimTL(int id, const std::string& type,
 
 
 NIVissimTL::~NIVissimTL() {}
-
-
-
 
 
 bool
@@ -380,13 +369,13 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
           }*/
         std::string id = toString<int>(tl->myID);
         TrafficLightType type = ((tl->getType() == "festzeit" || tl->getType() == "festzeit_fake") ?
-                                 TLTYPE_STATIC : TLTYPE_ACTUATED);
+                                 TrafficLightType::STATIC : TrafficLightType::ACTUATED);
         NBLoadedTLDef* def = new NBLoadedTLDef(ec, id, 0, type);
         if (!tlc.insert(def)) {
             WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
         }
-        def->setCycleDuration((int) tl->myAbsDuration);
+        def->setCycleDuration(tl->myAbsDuration);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for (SGroupDictType::const_iterator j = sgs.begin(); j != sgs.end(); j++) {
@@ -432,6 +421,4 @@ NIVissimTL::getID() const {
 }
 
 
-
 /****************************************************************************/
-

@@ -1,0 +1,3 @@
+--no-internal-links -v --edge-files=input_plain.edg.xml
+--node-files=input_plain.nod.xml --output=net.net.xml --keep-edges.components 2
+--ptstop-files input_ptstops.xml --ptstop-output dummy.xml

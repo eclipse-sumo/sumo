@@ -1,0 +1,4 @@
+{CLEAR}
+--net-file net.net.xml --route-files input_routes.rou.xml --no-step-log
+--pedestrian.striping.reserve-oncoming 0.34
+-t

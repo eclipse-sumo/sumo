@@ -29,3 +29,5 @@ Modifications to the files and directories listed here are considered _derivativ
 - MSDevice_Tripinfo.h
 - MSDevice_Vehroutes.cpp
 - MSDevice_Vehroutes.h
+- MSDevice_ElecHybrid.cpp
+- MSDevice_ElecHybrid.h

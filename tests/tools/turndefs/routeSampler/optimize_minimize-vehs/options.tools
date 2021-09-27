@@ -1,0 +1,3 @@
+-r input_routes2.rou.xml -t input_turns.xml -o out.rou.xml 
+--optimize 5 --minimize-vehicles 0.5
+-I -f number

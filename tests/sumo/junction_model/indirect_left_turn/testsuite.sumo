@@ -13,3 +13,27 @@ straight_from_left
 # Tests interaction with straight-going vehicle from the same origin.
 # At test creation, the left turning vehicle does not recognize the queue of indirect left turning bikes as possible foes (#4252).
 straight_from_left_blockedSecond
+
+# bicycles make an indirect left turn and wait at the internal junction until the flow across gets the green light
+internal_junction_controlled
+
+# bicycles make an indirect left turn and wait at the internal junction until a gap in the flow of their own phase
+internal_junction_uncontrolled
+
+# mopeds make an indirect left turn and wait at the internal junction until the flow across gets the green light.
+internal_junction_controlled_moped
+
+# bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction
+priority_sameStraight
+
+# bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction
+priority_sameStraight_defaultShape
+
+# bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction
+priority_oncoming
+
+# bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction. bike road has priority
+priority2_sameStraight
+
+# bikes make an indirect left turn and wait at the internal junction for straight traffic from the same and the opposite direction. bike road has priority
+priority2_oncoming

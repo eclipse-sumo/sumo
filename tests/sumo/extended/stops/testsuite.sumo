@@ -40,6 +40,9 @@ at_start
 # Tests whether parking can be handled
 parking
 
+# test stop timing
+parking_until
+
 # vehicle cannot resume from parking immediately due to traffic on the road
 parking_delay_insertion
 
@@ -96,6 +99,9 @@ on_junction_invalid
 # tests  defining a stop on an invalid internal lane
 on_junction_invalid2
 
+# tests  defining a stop on an internal lane
+on_junction_trip
+
 # stop is before departPos and must be used on the second time the it is reached
 looped_route
 
@@ -114,8 +120,17 @@ busstop_stopping_position_assignment
 # Tests for flexible assignment of stopping positions (#3937)
 busstop_stopping_position_assignment_parking
 
+# provide more parking length than the distance between endPos and startPos
+busstop_parkingLength
+
 # check consistency of stop positions and depar/arrival position
 departPos_arrivalPos
 
 # long stopping times should not trigger teleport, but teleports should possible after the stop
 long_stop
+
+# custom departPos at parkingArea
+parkingArea_departPos
+
+# stop with lateral offset
+posLat

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-06-09 12:17:46.111696 by edgeDataFromFlow.py v1_6_0+0609-41146a8601
+  options: -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml <doubleminus>verbose -i 60
+-->
+<data>
+    <interval id="flowdata" begin="0" end="3600">
+        <edge id="1" qLKW="0" qPKW="600.0" groups="1"/>
+        <edge id="2" qLKW="0" qPKW="600.0" groups="1"/>
+        <edge id="3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="4" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="5" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="6" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="8" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="9" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on7" qLKW="0" qPKW="0" groups="1"/>
+    </interval>
+    <interval id="flowdata" begin="3600" end="7200">
+        <edge id="1" qLKW="0" qPKW="300.0" groups="1"/>
+        <edge id="2" qLKW="0" qPKW="300.0" groups="1"/>
+        <edge id="3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="4" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="5" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="6" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="8" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="9" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on7" qLKW="0" qPKW="0" groups="1"/>
+    </interval>
+</data>

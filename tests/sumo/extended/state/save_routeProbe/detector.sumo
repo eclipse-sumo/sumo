@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Nov 23 09:08:47 2019 by Eclipse SUMO Version v1_3_1+1000-b1209a6c2c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <save-state.times value="10"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <routeDistribution id="middle_0.00">
+        <route id="r0_0.00" edges="beg middle end" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="middle_10.00">
+        <route id="r0_10.00" edges="beg middle end" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="middle_20.00">
+        <route id="r0_20.00" edges="beg middle end" probability="2.00"/>
+    </routeDistribution>
+    <routeDistribution id="end_20.00">
+        <route id="r0_20.00" edges="beg middle end" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="middle_30.00">
+        <route id="r0_30.00" edges="beg middle end" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="end_30.00">
+        <route id="r0_30.00" edges="beg middle end" probability="2.00"/>
+    </routeDistribution>
+    <routeDistribution id="end_40.00">
+        <route id="r0_40.00" edges="beg middle end" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="end_50.00">
+        <route id="r0_50.00" edges="beg middle end" probability="1.00"/>
+    </routeDistribution>
+</routes>

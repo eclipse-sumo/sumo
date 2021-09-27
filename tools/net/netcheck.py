@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    netcheck.py
 # @author  Michael Behrisch
@@ -14,7 +18,6 @@
 # @author  Jakob Erdmann
 # @author  Greg Albiston
 # @date    2007-03-20
-# @version $Id$
 
 """
 This script does simple check for the network.
@@ -50,6 +53,9 @@ def parse_args():
     optParser.add_option("-r", "--results-output",
                          default=None, help="Write results summary of disconnected network to file - not compatible " +
                          "with --source or --destination options")
+    optParser.add_option("-t", "--print-types", action="store_true",
+                         default=False,
+                         help="Print edge types used in the component")
 
     options, args = optParser.parse_args()
     if len(args) != 1:
@@ -166,6 +172,12 @@ if __name__ == "__main__":
                 with open("{}comp{}.txt".format(options.selection_output, idx), 'w') as f:
                     for e in comp:
                         f.write("edge:{}\n".format(e))
+            types = set()
+            if options.print_types:
+                for e in comp:
+                    types.add(net.getEdge(e).getType())
+                    if len(types) > 10:
+                        break
 
             edge_count = len(comp)
             total += edge_count
@@ -178,6 +190,8 @@ if __name__ == "__main__":
             edge_count_dist[edge_count] += 1
             output_str = "Component: #{} Edge Count: {}\n {}\n".format(
                 idx, edge_count, " ".join(comp))
+            if types:
+                output_str += "Type(s): {}\n".format(" ".join(sorted(types)))
             print(output_str)
             output_str_list.append(output_str)
 

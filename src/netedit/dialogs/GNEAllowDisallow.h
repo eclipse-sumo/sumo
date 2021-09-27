@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEAllowDisallow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
-/// @version $Id$
 ///
 // Dialog for edit allow and disallow attributes
 /****************************************************************************/
-#ifndef GNEAllowDisallow_h
-#define GNEAllowDisallow_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 #include <utils/common/SUMOVehicleClass.h>
 
@@ -44,8 +42,11 @@ class GNEAllowDisallow : public FXDialogBox {
     FXDECLARE(GNEAllowDisallow)
 
 public:
-    /// @brief Constructor
-    GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC);
+    /// @brief Constructor (for AC)
+    GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges);
+
+    /// @brief Constructor (For
+    GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow, bool* acceptChanges);
 
     /// @brief destructor
     ~GNEAllowDisallow();
@@ -75,6 +76,7 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEAllowDisallow)
 
     /// @pointer to viewNet
@@ -82,6 +84,16 @@ protected:
 
     /// @brief edited AC
     GNEAttributeCarrier* myAC;
+
+    /// @brief the attribute being edited
+    SumoXMLAttr myEditedAttr;
+
+    /// @brief accept changes
+    bool* myAcceptChanges;
+
+    std::string* myAllow;
+
+    std::string* myDisAllow;
 
     /// @brief select all VClass
     FXButton* mySelectAllVClassButton;
@@ -105,6 +117,9 @@ protected:
     std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> > myVClassMap;
 
 private:
+    /// @brief constructor
+    void constructor();
+
     /// @brief build VClass
     void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 
@@ -115,4 +130,3 @@ private:
     GNEAllowDisallow& operator=(const GNEAllowDisallow&) = delete;
 };
 
-#endif

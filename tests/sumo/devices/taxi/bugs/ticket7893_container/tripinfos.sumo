@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec  2 16:08:15 2020 by Eclipse SUMO sumo Version v1_8_0+0069-7c07a8ba59
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <containerinfo id="0" depart="1.00" type="DEFAULT_CONTAINERTYPE">
+        <transport waitingTime="154.00" vehicle="taxi" depart="155.00" arrival="260.00" arrivalPos="7.09" duration="105.00" routeLength="1197.09" timeLoss="18.82"/>
+    </containerinfo>
+    <tripinfo id="taxi" depart="1.00" departLane="A1B1_1" departPos="7.20" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="320.00" routeLength="1199.89" waitingTime="3.00" waitingCount="1" stopTime="210.00" timeLoss="23.62" rerouteNo="2" devices="tripinfo_taxi routing_taxi taxi_taxi container_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="1" occupiedDistance="1197.09" occupiedTime="107.00"/>
+    </tripinfo>
+</tripinfos>

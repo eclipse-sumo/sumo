@@ -1,0 +1,2 @@
+-f input_flows.txt -o edgedata.xml
+--verbose

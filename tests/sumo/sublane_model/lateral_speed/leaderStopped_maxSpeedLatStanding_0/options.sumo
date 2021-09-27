@@ -1,0 +1,5 @@
+--no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
+--tripinfo-output tripinfos.xml
+--lanechange-output lanechanges.xml
+--netstate-output rawdump.xml
+--lateral-resolution 0.8

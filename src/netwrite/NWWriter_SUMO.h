@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NWWriter_SUMO.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Michael Behrisch
 /// @author  Leonhard Luecken
 /// @date    Tue, 04.05.2011
-/// @version $Id$
 ///
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
-#ifndef NWWriter_SUMO_h
-#define NWWriter_SUMO_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -40,6 +37,7 @@
 class OutputDevice;
 class OptionsCont;
 class NBNetBuilder;
+class NBTrafficLightLogic;
 class NBTrafficLightLogicCont;
 class NBNode;
 class NBDistrict;
@@ -79,13 +77,16 @@ public:
      * @param[in] plain Whether only plain-xml output should be written (omit some attributes)
      */
     static void writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
-                                bool includeInternal, ConnectionStyle style = SUMONET, bool geoAccuracy=false);
+                                bool includeInternal, ConnectionStyle style = SUMONET, bool geoAccuracy = false);
 
     /// @brief writes the given prohibitions
     static void writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions);
 
     /// @brief writes the traffic light logics to the given device
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
+
+    /// @brief writes a single traffic light logic to the given device
+    static void writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic);
 
     /** @brief Writes roundabouts
      * @param[in] into The device to write the edge into
@@ -99,6 +100,12 @@ public:
     /** @brief Write a stopOffset element into output device
      */
     static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets);
+
+    /** @brief Writes a district
+     * @param[in] into The device to write the edge into
+     * @param[in] d The district
+     */
+    static void writeDistrict(OutputDevice& into, const NBDistrict& d);
 
 
 private:
@@ -134,6 +141,7 @@ private:
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
+                          SVCPermissions changeLeft, SVCPermissions changeRight,
                           double startOffset, double endOffset,
                           std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
@@ -163,12 +171,6 @@ private:
     static bool writeInternalConnections(OutputDevice& into, const NBNode& n);
 
 
-    /** @brief Writes a district
-     * @param[in] into The device to write the edge into
-     * @param[in] d The district
-     */
-    static void writeDistrict(OutputDevice& into, const NBDistrict& d);
-
     /** @brief Writes a single internal connection
      * @param[in] from The id of the from-edge
      * @param[in] to The id of the to-edge
@@ -178,9 +180,10 @@ private:
     static void writeInternalConnection(OutputDevice& into,
                                         const std::string& from, const std::string& to,
                                         int fromLane, int toLane, const std::string& via,
-                                        LinkDirection dir = LINKDIR_STRAIGHT,
+                                        LinkDirection dir = LinkDirection::STRAIGHT,
                                         const std::string& tlID = "",
-                                        int linkIndex = NBConnection::InvalidTlIndex);
+                                        int linkIndex = NBConnection::InvalidTlIndex,
+                                        double visibility = NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
     static std::string writeSUMOTime(SUMOTime time);
@@ -201,9 +204,3 @@ private:
     static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

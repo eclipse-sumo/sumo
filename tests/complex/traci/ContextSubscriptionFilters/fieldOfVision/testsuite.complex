@@ -1,0 +1,20 @@
+# Vehicles 'v9' and 'v10' should be returned
+range_50_angle_270
+
+# Vehicles 'v8', 'v9' and 'v10' should be returned (due to no FOV filtering). Should additionally result in a warning.
+range_50_angle_360
+
+# Should return no vehicles
+range_0_angle_90
+
+# Vehicle 'v9' should be returned
+range_50_angle_90
+
+# Vehicles 'v8', 'v9' and 'v10' should be returned (due to no FOV filtering). Should additionally result in a warning.
+range_50_angle_0
+
+# Tries to apply lanes and field of vision filters. Should result in an incompatibility warning.
+incompatible_filter
+
+# detect and filter surrounding persons
+persons

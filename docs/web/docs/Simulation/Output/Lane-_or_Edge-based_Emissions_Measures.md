@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Lane- or Edge-based Emissions Measures
-permalink: /Simulation/Output/Lane-_or_Edge-based_Emissions_Measures/
+title: Lane- or Edge-based Emissions Measures
 ---
 
 The edge/lane based vehicular emission output writes absolute and normed
@@ -22,7 +21,7 @@ population in the means of vehicle emission class distribution.
 
 An edge-based emissions output is defined way within an {{AdditionalFile}} as following:
 
-```
+```xml
 <edgeData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
@@ -30,7 +29,7 @@ An edge-based emissions output is defined way within an {{AdditionalFile}} as fo
 
 A lane-based emissions output is defined way within an {{AdditionalFile}} as following:
 
-```
+```xml
 <laneData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
@@ -97,7 +96,7 @@ Notes:
 - The interval end is the interval begin + aggregation time, meaning
   that values were collected within these steps excluding the end time
   itself. If the simulation ends before the last interval is over, the
-  interval will be prunned.
+  interval will be pruned.
 - The output file will be generated, does not have to exist earlier
   and will be overwritten if existing without any warning. The folder
   the output file shall be generated in must exist.
@@ -140,12 +139,12 @@ be done for travel time computation.
 ### Value Range
 
 **17.07.2009**: The values generated for absolute (..._abs) emission
-during the perion and for the mean per-vehicle emission to pass a
+during the period and for the mean per-vehicle emission to pass a
 lane/edge are now given in mg for making lower values visible though
 only digits after the dot are used. I am not really happy with the
 results. If a vehicle passes a lane of 390m length at 10m/s, it is
 assumed it emits less CO than 0.005mg so it does not appear in the
 outputs; On the other hand, if one looks at a jammed situation, the
 emissions of CO2 may climb up to CO_perVeh="21246834688.00" (sure, they
-would get inifite if the vehicle would be really standing). I suppose we
+would get infinite if the vehicle would be really standing). I suppose we
 have to evaluate how the system behaves.

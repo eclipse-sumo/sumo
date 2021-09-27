@@ -1,31 +1,31 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    HelpersHBEFA3.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Helper methods for HBEFA3-based emission computation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <limits>
 #include <cmath>
 #include <algorithm>
+#include <utils/common/StringUtils.h>
+
 #include "HelpersHBEFA3.h"
 
 
@@ -445,9 +445,8 @@ HelpersHBEFA3::myFunctionParameter[45][6][6] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
+HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3", HBEFA3_BASE, -1) {
     int index = HBEFA3_BASE;
-    myEmissionClassStrings.insert("zero", index++);
     std::string light[] = { "LDV", "LDV_G_EU0", "LDV_G_EU1", "LDV_G_EU2", "LDV_G_EU3", "LDV_G_EU4", "LDV_G_EU5", "LDV_G_EU6", "LDV_G_East",
                             "LDV_D_EU0", "LDV_D_EU1", "LDV_D_EU2", "LDV_D_EU3", "LDV_D_EU4", "LDV_D_EU5", "LDV_D_EU6",
                             "PC", "PC_Alternative", "PC_G_EU0", "PC_G_EU1", "PC_G_EU2", "PC_G_EU3", "PC_G_EU4", "PC_G_EU5", "PC_G_EU6", "PC_G_East",
@@ -456,17 +455,18 @@ HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
     std::string heavy[] = { "Bus", "Coach", "HDV", "HDV_G", "HDV_D_EU0", "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East"};
     for (int i = 0; i < 33; i++) {
         myEmissionClassStrings.insert(light[i], index);
-        std::transform(light[i].begin(), light[i].end(), light[i].begin(), tolower);
+        light[i] = StringUtils::to_lower_case(light[i]);
         myEmissionClassStrings.addAlias(light[i], index);
         index++;
     }
     for (int i = 0; i < 12; i++) {
         myEmissionClassStrings.insert(heavy[i], index | PollutantsInterface::HEAVY_BIT);
-        std::transform(heavy[i].begin(), heavy[i].end(), heavy[i].begin(), tolower);
+        heavy[i] = StringUtils::to_lower_case(heavy[i]);
         myEmissionClassStrings.addAlias(heavy[i], index | PollutantsInterface::HEAVY_BIT);
         index++;
     }
     myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("PC_G_EU4"));
+    myEmissionClassStrings.addAlias("default", myEmissionClassStrings.get("PC_G_EU4"));
 }
 
 
@@ -561,4 +561,3 @@ HelpersHBEFA3::getEuroClass(const SUMOEmissionClass c) const {
 
 
 /****************************************************************************/
-

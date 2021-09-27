@@ -1,12 +1,11 @@
 ---
-title: Simulation/VehicleInsertion
-permalink: /Simulation/VehicleInsertion/
+title: VehicleInsertion
 ---
 
 # Loading
 
 Vehicles are either loaded [from XML
-inputs](../SUMO_User_Documentation.md#demand_modelling) or [added
+inputs](../index.md#demand_modelling) or [added
 at runtime via TraCI](../TraCI.md). When loading from XML, not all
 vehicles are loaded at once. Instead, vehicles are loaded in chunks, the
 size of which can be configured with the option **--route-steps**. This is done to
@@ -35,7 +34,7 @@ necessary constraints must be fulfilled:
 If a vehicle cannot be inserted due to any of the above reasons it's
 insertion is delayed (see below). This *departDelay* is recorded in the
 [tripinfo-output](../Simulation/Output/TripInfo.md) and can also be
-inspected in [SUMO-GUI](../SUMO-GUI.md) via the vehicle parameter
+inspected in [sumo-gui](../sumo-gui.md) via the vehicle parameter
 dialog.
 
 The precise nature of insertion in regard to position, speed and depart
@@ -65,7 +64,7 @@ the default and one may switch to 1) using the option **--eager-insert**.
 
 ## Investigating insertion delay
 
-Using [SUMO-GUI](../SUMO-GUI.md) several options exist for showing
+Using [sumo-gui](../sumo-gui.md) several options exist for showing
 insertion delay:
 
 - Color vehicles *by insertion delay*
@@ -74,9 +73,20 @@ insertion delay:
   vehicles* for the whole network.
 - The parameter Dialog for individual vehicles lists *desired depart*
   and *depart delay*
+  
+## Effect of simulation step-length
+Insertion attemps can only happen in every simulation step. This may cause artifacts in insertion spacing because at the default step-length of 1s is (usually) too short for vehicles to be inserted in successive steps on the same depart location.
+By default, the next attempt happens 2 seconds after the first vehicle has departed and this gap may be much larger then mandated by the carFollowModel. There are multiple ways to avoid this effect:
+
+- the step-length can be reduced
+- the insertion location must be modified by any of the following methods
+  - specifying a specific departPos
+  - using `departPos="last"`
+  - setting option **--extrapolate-departpos**
 
 ## Forcing Insertion / Avoiding depart delay
 
+- Make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
 - Insert with `departSpeed="max"`: vehicle speeds at insertion will be adjusted to the
   maximum safe speed that allows insertion at the specified time to
   succeed
@@ -96,13 +106,15 @@ insertion delay:
 ## Global options that affect Departure
 
 - **--random-depart-offset** {{DT_TIME}}: randomly delays departure time for all vehicles
-- **--max-num-vehicles** {{DT_INT}}: limits the total amount of vehicles that may exist in the networ.
+- **--max-num-vehicles** {{DT_INT}}: limits the total amount of vehicles that may exist in the network.
   Setting this may cause delayed insertion
 - **--max-depart-delay** {{DT_TIME}}: removes vehicles from the insertion queue after a set amount of
   time
 - **--eager-insert** {{DT_BOOL}}: tries to insert all vehicles that are insertion-delayed on each
   edge. By default, insertion on an edge stops after the first failure
   in each time step
+- **--step-length** {{DT_FLOAT}}: the frequency of insertion attempts can be raised and also the number of possible headways (for a fixed departPos) is increased by setting a lower step-length.
+- **--extrapolate-departpos** {{DT_BOOL}}: Moves the default depart position of a vehicle downstream if it's departure time is a fraction of the simulation step-length. The offset in depart position is proportional to the depart delay from step-length discretization.
 
 # Miscellaneous
 

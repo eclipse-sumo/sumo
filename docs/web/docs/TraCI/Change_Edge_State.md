@@ -1,6 +1,5 @@
 ---
-title: TraCI/Change Edge State
-permalink: /TraCI/Change_Edge_State/
+title: Change Edge State
 ---
 
 # Command 0xca: Change Edge State

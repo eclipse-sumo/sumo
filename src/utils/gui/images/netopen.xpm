@@ -1,25 +1,27 @@
 /* XPM */
 static const char *netopen_xpm[] = {
-"16 15 7 1",
+/* columns rows colors chars-per-pixel */
+"16 15 6 1",
 " 	c None",
-".	c #040404",
 "X	c #f3f704",
 "o	c #f3f7f3",
 "O	c Black",
 "+	c Gray100",
 "@	c #808304",
-"         ...    ",
-"        .   . . ",
-"             .. ",
-" ...        ... ",
-".XoX.......     ",
-".oXoXoXoXo.     ",
-".XoXoXoXoX.     ",
-".oXoXOOOOOOOOOOO",
-".XoX.O+++++O+++O",
-".oX.@OO++++O++OO",
-".X.@@O+O+++OOO+O",
-"..@@@O++OOOO+++O",
-".....OOO+++O+++O",
+/* pixels */
+"         OOO    ",
+"        O   O O ",
+"             OO ",
+" OOO        OOO ",
+"OXoXOOOOOOO     ",
+"OoXoXoXoXoO     ",
+"OXoXoXoXoXO     ",
+"OoXoXOOOOOOOOOOO",
+"OXoXOO+++++O+++O",
+"OoXO@OO++++O++OO",
+"OXO@@O+O+++OOO+O",
+"OO@@@O++OOOO+++O",
+"OOOOOOOO+++O+++O",
 "     O+++++O+++O",
-"     OOOOOOOOOOO"};
+"     OOOOOOOOOOO"
+};

@@ -1,1 +1,1 @@
-net.net.xml routes.rou.xml routes2.rou.xml -o selection.txt tools/route2sel.py
+net.net.xml routes.rou.xml routes2.rou.xml -o selection.txt tools/route/route2sel.py

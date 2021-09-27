@@ -1,6 +1,5 @@
 ---
-title: Networks/Import/OpenStreetMap
-permalink: /Networks/Import/OpenStreetMap/
+title: OpenStreetMap
 ---
 
 *"[OpenStreetMap](http://www.openstreetmap.org/) is a free editable map
@@ -25,10 +24,10 @@ used.
 
 # Importing the Road Network
 
-[NETCONVERT](../../NETCONVERT.md) can import OSM-files natively. The
+[netconvert](../../netconvert.md) can import OSM-files natively. The
 according option is named **--osm-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--osm** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
 
-The following call to [NETCONVERT](../../NETCONVERT.md) imports the
+The following call to [netconvert](../../netconvert.md) imports the
 road network stored in "berlin.osm.xml" and stores the SUMO-network
 generated from this data into "berlin.net.xml":
 
@@ -39,35 +38,31 @@ netconvert --osm-files berlin.osm.xml -o berlin.net.xml
 OSM-data has always WGS84 geo coordinates which will be automatically
 UTM transformed by netconvert (since sumo 0.11.1). Thus you need
 explicit projection parameters only if you need a different projection.
-Refer to the [NETCONVERT](../../NETCONVERT.md) documentation for other
+Refer to the [netconvert](../../netconvert.md) documentation for other
 conversion options.
 
 !!! note
-    Several aspects of the imported network may have to be modified to suit your needs. Some of the relevant [NETCONVERT](../../NETCONVERT.md) options are described below. For more flexible alterations see [Tutorials/ScenarioGuide#Modifying_the_Network](../../Tutorials/ScenarioGuide.md#modifying_the_network).
+    Several aspects of the imported network may have to be modified to suit your needs. Some of the relevant [netconvert](../../netconvert.md) options are described below. For more flexible alterations see [Tutorials/ScenarioGuide#Modifying_the_Network](../../Tutorials/ScenarioGuide.md#modifying_the_network).
 
 The number of tiles given in both calls must match.
 
-### Recommended [NETCONVERT](../../NETCONVERT.md) Options
+### Recommended [netconvert](../../netconvert.md) Options
 
 ```
- --geometry.remove --ramps.guess \
- --junctions.join --tls.guess-signals --tls.discard-simple --tls.join
+ --geometry.remove --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --tls.join --tls.default-type actuated
 ```
 
 Rationale:
 
-- \--geometry.remove: Simplifies the network (saving space) without
+- \--geometry.remove : Simplifies the network (saving space) without
   changing topology
-- \--roundabouts.guess: This sets the appropriate right-of-way rules
-  at roundabouts. (Explicit right-of-way rules are not imported from
-  OSM). If this option is not used and roundabouts are not defined
-  manually, then traffic jams will likely occur at roundabouts
-- \--ramps.guess. Acceleration/Deceleration lanes are often not
+- \--ramps.guess : Acceleration/Deceleration lanes are often not
   included in OSM data. This option identifies likely roads that have
   these additional lanes and causes them to be added
-- \--junctions.join. See [\#Junctions](#junctions)
-- \--tls.guess-signals, --tls.discard-simple, --tls.join. See
+- \--junctions.join : See [\#Junctions](#junctions)
+- \--tls.guess-signals --tls.discard-simple --tls.join : See
   [\#Traffic_Lights](#traffic_lights)
+- \--tls.default-type actuated : Default static traffic lights are defined without knowledge about traffic patterns and may work badly in high traffic
 
 ### Countries with left-hand driving
 
@@ -85,15 +80,15 @@ tool for making these choices are via typemaps. SUMO provides
 recommended typemaps in the folder {{SUMO}}/data/typemap/. They are explained
 below.
 
-- **osmNetconvert.typ.xml** default settings. appropriate for rural
+- **osmNetconvert.typ.xml** default settings, appropriate for rural
   and motorway scenarios. This is used in the absence of
   user-specified types. All other typemaps are intended as *patches*
-  to this typemap
+  to this typemap.
 - **osmNetconvertUrbanDe.typ.xml** Changes default speeds to reflect
-  typical urban speed limits (50km/h)
+  typical urban speed limits (50km/h).
 - **osmNetconvertPedestrians.typ.xml** Adds sidewalks for some edge
-  types and sets permissions appropriate for pedestrian simulation
-- **osmNetconvertBicycle.typ.xml** imports bicycle lanes
+  types and sets permissions appropriate for pedestrian simulation.
+- **osmNetconvertBicycle.typ.xml** Imports bicycle lanes.
 - **osmNetconvertShips.typ.xml** Imports waterways and ferry routes.
   This typemap can be combined with any other typemap.
 - **osmNetconvertRailUsage.typ.xml** Imports additional
@@ -102,18 +97,26 @@ below.
   in combination with other typemaps.
 - **osmBidiRailNetconvert.typ.xml**. Changes the default from
   uni-directional railroads to bi-directional railroads. This may be
-  usefull in some regions of the world where OSM contributors used
+  useful in some regions of the world where OSM contributors used
   this style of date representation. The use of this typemap supplants
   the older option **--osm.railway.oneway-default** {{DT_BOOL}}.
 
 !!! caution
-    When specifying a typemap using the option **--type-files**, the defaults are not loaded. To achieve the desired types, the user should load the default typemap along with the desired modification (**--type-files <SUMO_HOME\>/data/typemap/osmNetconvert.typ.de,<SUMO_HOME\>/data/typemap/osmNetconvertUrbanDe.typ.de** or create a fully specified typemap file by himself.
+    When specifying a typemap using the option **--type-files**, the defaults are not loaded. To achieve the desired types, the user should load the default typemap along with the desired modification (**--type-files <SUMO_HOME\>/data/typemap/osmNetconvert.typ.xml,<SUMO_HOME\>/data/typemap/osmNetconvertUrbanDe.typ.xml**) or create a fully specified typemap file by himself.
+
+### Bicycle Traffic
+
+Importing bicycle infrastructure can be achieved using the option **--osm-bike-access** and the bicycle typemap.
+The first will evaluate the [bike=yes/no tags](https://wiki.openstreetmap.org/wiki/Key:bicycle)
+as well as oneway information for bicycles. This usually applies only to the permissions
+for existing lanes and streets. If you want to add further bike lanes use the bicycle
+type map mentioned above.
 
 # Importing additional Polygons (Buildings, Water, etc.)
 
 OSM-data not only contains the road network but also a wide range of
 additional polygons such as buildings and rivers. These polygons can be
-imported using [POLYCONVERT](../../POLYCONVERT.md) and then added to a
+imported using [polyconvert](../../polyconvert.md) and then added to a
 `sumo-gui`-configuration.
 
 To interpret the OSM-data an additional *typemap*-file is required (the
@@ -163,7 +166,7 @@ example below is identical to {{SUMO}}/data/typemap/osmPolyconvert.typ.xml):
 ```
 
 Using the typemap file *typemap.xml* the following call to
-[POLYCONVERT](../../POLYCONVERT.md) imports polygons from OSM-data and
+[polyconvert](../../polyconvert.md) imports polygons from OSM-data and
 produces a Sumo-polygon file.
 
 ```
@@ -198,7 +201,7 @@ can be imported.
 
 The help script *osmGet.py* allows downloading a large area. The
 resulting file called "<PREFIX\>.osm.xml" can then be imported using the
-script *osmBuild.Py*. Both scripts are located in {{SUMO}}/tools/import/osm.
+script *osmBuild.Py*. Both scripts are located in {{SUMO}}/tools.
 
 The call is:
 
@@ -213,11 +216,11 @@ vehicles.
 
 When using the option **--type-file** an additional output file with polygons of rivers
 and buildings as well as Points of Interest (POIs) will be generated.
-This can be loaded in [SUMO-GUI](../../SUMO-GUI.md) for additional
+This can be loaded in [sumo-gui](../../sumo-gui.md) for additional
 visualization. Useful type files can be found at {{SUMO}}/data/typemap/.
 
-Additional options for [NETCONVERT](../../NETCONVERT.md) and
-[POLYCONVERT](../../POLYCONVERT.md) can be supplied using the options **--netconvert-options**
+Additional options for [netconvert](../../netconvert.md) and
+[polyconvert](../../polyconvert.md) can be supplied using the options **--netconvert-options**
 and **-polyconvert-options**
 
 !!! note
@@ -272,9 +275,9 @@ junctions instead of one. To merge such junctions into a single
 junction, one can define which nodes to merge. See [Networks/Building
 Networks from own XML-descriptions\#Joining
 Nodes](../../Networks/PlainXML.md#joining_nodes)
-and [NETCONVERT](../../NETCONVERT.md) documentation for usage details.
+and [netconvert](../../netconvert.md) documentation for usage details.
 
-The [NETCONVERT](../../NETCONVERT.md) option **--junctions.join** applies a heuristic to
+The [netconvert](../../netconvert.md) option **--junctions.join** applies a heuristic to
 join these junction clusters automatically and is used by default when
 using the *osmBuild.py* script described above. However, some junction
 clusters are too complex for the heuristic and should be checked
@@ -293,7 +296,7 @@ junction clusters.
 
 ### Interpreting traffic light information in OSM
 
-[NETCONVERT](../../NETCONVERT.md) prefers each intersection to be
+[netconvert](../../netconvert.md) prefers each intersection to be
 represented by a single node with a single traffic light controller. To
 achieve the former, see [\#Junctions](#junctions). To achieve
 the latter some extra options are recommended. OSM often uses nodes
@@ -322,23 +325,23 @@ nodes](#node_descriptions).
 Occasionally intersections that should be TLS-controlled are set to
 uncontrolled in the exported *.net.xml*-file. This may either be due to
 lack of data in OSM, or due to the invalid interpretation of that data
-by [NETCONVERT](../../NETCONVERT.md). Either of the following steps
+by [netconvert](../../netconvert.md). Either of the following steps
 may be useful to diagnose the problem:
 
-- run [NETCONVERT](../../NETCONVERT.md) **without** the options **--tls.discard-loaded --tls.discard-simple**
-- run [POLYCONVERT](../../POLYCONVERT.md) with a type-file that
+- run [netconvert](../../netconvert.md) **without** the options **--tls.discard-loaded --tls.discard-simple**
+- run [polyconvert](../../polyconvert.md) with a type-file that
   contains `<polygonType id="highway" name="highway"` and then look at the generated POIs in
-  [SUMO-GUI](../../SUMO-GUI.md#loading_shapes_and_pois). They should
+  [sumo-gui](../../sumo-gui.md#loading_shapes_and_pois). They should
   include all traffic light locations defined in the OSM file.
 
 ### Overriding the traffic light information
 
 If the traffic light information embedded in the OSM file does not fit
 your needs, you can strip it with **--osm.discard-tls** option in
-[NETCONVERT](../../NETCONVERT.md) and then provide your own definition
+[netconvert](../../netconvert.md) and then provide your own definition
 in a separate
 [\*.nod.xml](../../Networks/PlainXML.md#node_descriptions)
-file in a second run of [NETCONVERT](../../NETCONVERT.md):
+file in a second run of [netconvert](../../netconvert.md):
 
 ```
 # 1. Import the OSM file to SUMO, discarding TLS information.
@@ -358,14 +361,8 @@ and new node type.
 ## Highway On- and Off-Ramps
 
 OSM networks often lack additional lanes for highway on- and off-ramps.
-They can be guessed via [NETCONVERT](../../NETCONVERT.md) using the **--guess-ramps**
+They can be guessed via [netconvert](../../netconvert.md) using the **--guess-ramps**
 option.
-
-## Roundabouts
-
-To ensure correct right-of-way at roundabouts, the option **--roundabouts.guess** should be
-added. This option is set automatically when using the *osmBuild.py*
-script.
 
 ## Isolated Edges
 
@@ -380,14 +377,19 @@ To discard edges which have no predecessor and no successor edge.
 However, this often causes the removal of railways or waterways which is
 not desirable for multi-modal scenarios.
 
-## Editing OSM networks
+## Shared Space for Trams and Road Vehicles
 
-### JOSM
+In the OSM database, shared space for tram and road vehicles is often modelled with distinct elements that occupy the same space. When imported directly, this would allow those modes of traffic to ignore each other due to running on different edges.
+To fix this, the option **--edges.join-tram-dist FLOAT** may be used. When this option is set (values between 1 and 2 are recommended), overlapping OSM elements will be converted to road lanes with shared permissions (indicated by a dark purple in [sumo-gui](../../sumo-gui.md#default_coloring)).
+
+# Editing OSM networks
+
+## JOSM
 
 *From George Dita, on 01.07.2009* [JOSM](http://josm.openstreetmap.de/)
 can be used to edit OSM-data (i.e. for trimming a rectangular map and
-deleting unwated features). After you delete the part that does not
-interest you have to alter the file using xmlstarlet which actually
+deleting unwanted features). After you delete the part that does not
+interest you, you have to alter the file using xmlstarlet which actually
 deletes the nodes.
 
 xmlstarlet can be used like this:
@@ -399,7 +401,7 @@ xmlstarlet ed -d "/osm/*[@action='delete']" < input.osm > output.osm
 !!! caution
     Up to version 4279 of JOSM, nodes and ways created or modified by JOSM are assigned a negative ID. With each run of JOSM, these IDs are recalculated. Please do not rely on them in your SUMO files. If you decide not to upload your changes to OpenStreetMap, you can remove the minuses in the IDs, assure that IDs are unique and then safely refer to them in SUMO files.
 
-### OSMOSIS
+## OSMOSIS
 
 *From Christian Klotz, on 01.07.2009, tip by Christoph Sommmer*
 
@@ -413,15 +415,21 @@ java -jar osmosis.jar --read-xml file="orginal.osm.xml" --way-key-value \
     keyValueList="highway.motorway,highway.motorway_link" \
     --used-node --write-xml file="filtered.osm.xml"
 ```
+## osmfilter
 
-# NETCONVERT Details
+[osmfilter](https://wiki.openstreetmap.org/wiki/Osmfilter) is a command line tool used to filter OpenStreetMap data files.
+It can be used to preprocess the data and can save a lot of work for netconvert.
+With this tool it is possible to import the top-level roads for a whole country within minutes of processing time.
+It is recommended to use the associated tool [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert) to convert the data into the '.o5m' format and back to speed up the work on large datasets.
+
+# netconvert Details
 
 ## Road Types
 
-When importing road networks, [NETCONVERT](../../NETCONVERT.md)
+When importing road networks, [netconvert](../../netconvert.md)
 searches for the street type, encoded in OSM as a key/value-pair where
 the key is either "*highway*", "*railway*" or "*waterway*". Only if such
-a key occures in the edge definition, the edge is imported (see also
+a key occurs in the edge definition, the edge is imported (see also
 below). The edge's type name is built from the found key/value pair by
 building a name as: *<KEY\>*.*<VALUE\>*. Using this type name, the edge's
 attributes are determined using a predefined map of type names to type
@@ -441,11 +449,11 @@ additional type maps from
 
 ## Explicite Road Attributes
 
-In the case an edge contains the definition about the number of lanes
+In case an edge contains the definition about the number of lanes
 (key="*lanes*") or the allowed speed (key="*maxspeed*"), this
 information is used instead of the according type's value. Also, the
 per-edge information whether the edge is a one-way edge is read
-(key="*oneway*"). In the case the edge belongs to a roundabout
+(key="*oneway*"). In case the edge belongs to a roundabout
 (key="*junction*" and value="*roundabout*"), it is also set as being a
 one-way edge.
 
@@ -454,7 +462,7 @@ one-way edge.
 In most cases, tracks and edges which not may be crossed by motorised
 traffic are not interesting for road traffic research. It is possible to
 exclude these edges from being imported using the
-[NETCONVERT](../../NETCONVERT.md)-option **--remove-edges.by-vclass** {{DT_STR}}\[,{{DT_STR}}\]\*.
+[netconvert](../../netconvert.md)-option **--remove-edges.by-vclass** {{DT_STR}}\[,{{DT_STR}}\]\*.
 
 For removing all edges which can not be used by passenger vehicles the
 call must be extended by:
@@ -509,7 +517,7 @@ may be issued during OSM import.
 | Warning: Direction of restriction relation could not be determined         | Some data is missing within the OSM file.                                    | Ignore, because this relation most likely falls outside the boundaries of the road network.     |
 
 [Additional warnings are described
-here](../../NETCONVERT.md#warnings_during_import).
+here](../../netconvert.md#warnings_during_import).
 
 # Importing large Networks
 
@@ -536,7 +544,7 @@ whole of Scotland) but some precautions should be taken:
 
 # Importing Public Transport Data
 
-Netconvert and further SUMO tools can be used to import public transpot
+netconvert and further SUMO tools can be used to import public transpot
 data from OSM. The easiest way to do this is by using the
 [OSM-Web-Wizard tool](../../Tutorials/OSMWebWizard.md). Performing the
 import without the wizard is explained in
@@ -544,10 +552,10 @@ import without the wizard is explained in
 
 The following data is imported:
 
-- Public transport Stops
+- Public transport stops
 - Public transport lines that service these stops
 
-Pulic transport schedules which are needed to make use of the above data
+Public transport schedules which are needed to make use of the above data
 are generated with a user-defined service period based on a simulation
 of the lines.
 
@@ -581,10 +589,14 @@ Python Example (Get OSM River Data from OSM in BBox)
      return data, query
 ```
 
-Caution: If the data volume is too large, the overpass Api abort.
+Caution: If the data volume is too large, the overpass API aborts.
 
 More information about the query syntax and a GUI for testing the querys
 can be found on the website <https://overpass-turbo.eu/>.
+
+# Importing other formats (pbf, o5m)
+
+To use a [pbf](https://wiki.openstreetmap.org/wiki/PBF_Format) or [o5m](https://wiki.openstreetmap.org/wiki/O5m) network in SUMO, you first need to convert it to the OSM format. This can be done using [Osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert).
 
 # Missing Descriptions
 
@@ -596,7 +608,6 @@ can be found on the website <https://overpass-turbo.eu/>.
 
 # References
 
-- <http://www.openstreetmap.org/> - the home site
-- <http://www.openstreetmap.de/> - the German home site
-- <http://wiki.openstreetmap.org/index.php/Map_Features> - information
-  about database attributes
+- <https://www.openstreetmap.org/> - the home site
+- <https://www.openstreetmap.de/> - the German home site
+- <https://wiki.openstreetmap.org/wiki/Map_features> - information about database attributes

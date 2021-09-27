@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 08 Jun 2020 02:36:56 PM CEST by Eclipse SUMO netedit Version v1_6_0+0596-ffb68dde50
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="/home/kobo/dlr/debug/roundaboutDeadlock/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="long" sigma="0" length="5.4"/>
+    <vType id="side" sigma="0" minGap="1"/>
+    <vType id="collider" sigma="0" minGap="1" jmIgnoreKeepClearTime="0"/>
+
+    <route id="WE" edges="WC CC2 C2E"/>
+    <route id="WS" edges="WC CS"/>
+
+    <vehicle id="blocker1" type="long" route="WE" depart="0.00" departPos="-1">
+        <stop lane="C2E_0" endPos="4" duration="30"/>
+    </vehicle>
+    <vehicle id="blocker2" type="long" route="WE" depart="0.00" departPos="-1"/>
+    <vehicle id="blocker3" type="long" route="WE" depart="0.00" departPos="-1"/>
+
+    <vehicle id="side" type="side" depart="0.00" departPos="-1" color="blue">
+        <route edges="SC CC2 C2N"/>
+    </vehicle>
+    <vehicle id="collider" type="collider" route="WE" depart="17.00" departPos="-20" departSpeed="5" color="red"/>
+</routes>

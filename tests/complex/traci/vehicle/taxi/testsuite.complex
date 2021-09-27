@@ -1,0 +1,40 @@
+getTaxiFleet
+
+# dispatch a taxi to service a single customer
+basic
+
+# dispatch a taxi to pick up 3 customers in sequence
+shared_3
+
+# split a group reservation
+splitReservation
+
+# dispatch taxi to pick up person and then redispatch during 'pickup' state to pick someone else first. (existing customers not mentioned)
+case1_redispatch_before_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'occupied' state to pick someone else before first delivery. (existing customers not mentioned)
+case1_redispatch_after_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'pickup' state to pick someone else first. (existing customers all mentioned twice)
+case2_redispatch_before_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'occupied' state to pick someone else before first delivery. (existing customers all mentioned twice)
+case2_redispatch_after_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'pickup' state to pick someone else first. (existing customers mentioned only once)
+case3_redispatch_before_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'occupied' state to pick someone else before first delivery. (existing customers mentioned only once)
+case3_redispatch_after_pickup
+
+# dispatch taxi to pick up person and then redispatch during 'pickup' state to pickup someone else later (first stop stays the same)
+case1_redispatch_before_pickup_close_to_stop
+
+# shared dispatch of multiple partially-overlapping reservations picks up persons at the same location twice and each stop must track whom to pick up (stop attribute 'permitted').
+looped_dispatch
+
+# update reservations when removing a person
+remove_person
+
+# see #8398
+redispatch_on_internal

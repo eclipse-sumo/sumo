@@ -1,0 +1,4 @@
+--sumo-net-file input_net.net.xml --output=net.net.xml
+--keep-edges.components 1
+
+

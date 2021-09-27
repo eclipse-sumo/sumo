@@ -1,3 +1,6 @@
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
 # Copy of basic
 basic
 
@@ -154,4 +157,25 @@ ride_trip
 ride_trip_access
 trip_output
 trip_output_geo
+
+# trip with fromTaz and toTaz
+taz
+
+# walk past a train stop to reach  the destination edge (access both ways) and then ride a taxi
+walk_via_trainStop_ride_taxi
+
+# ride to train station and use access
+car_access_allJunctions
+
+# ride to train station and use access
+car_access_ptStops
+
+# test reading trips with geo-coordinates
+geoTrips
+
+# test reading trips with geo-coordinates
+geoTrips_lonLat
+
+# test routing taxi trips
+taxi
 errors

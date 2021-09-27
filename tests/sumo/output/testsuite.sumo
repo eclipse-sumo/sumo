@@ -24,12 +24,14 @@ tls
 
 # Tests for summary-output (earlier: emission-output)
 summary
+personSummary
 
 # Tests for tripinfo-output
 tripinfo
 
 # Tests for vehroutes-output
 vehroutes
+stop-output
 
 # Tests for rawdump-output
 rawdump
@@ -76,7 +78,14 @@ queue-output
 
 # test the duration log output
 duration_log
+collisions
+
+# --statistic-output
+statistic
 
 # Tests which serve as examples
 examples
 examples_multimodal
+
+# emission outputs impacted by idling
+emission-idling

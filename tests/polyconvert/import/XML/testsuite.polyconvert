@@ -7,6 +7,9 @@ invalid_geo
 # using lon lat attributes
 lonlat
 
+# using lon lat attributes and rotation
+lonlat_rotate
+
 # using lane and pos attributes
 lanepos
 
@@ -15,3 +18,12 @@ default_fill
 
 # do not fill by default
 default_nofill
+
+# rotate input
+rotate
+
+# using lon lat attributes and rotation
+simple_rotate
+
+# using lon lat attributes and simple projection
+simple

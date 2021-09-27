@@ -1,0 +1,5 @@
+# import public transport using routes from osm
+gtfs2pt_osm
+
+# import public transport using shorter path between stops
+gtfs2pt_fcd

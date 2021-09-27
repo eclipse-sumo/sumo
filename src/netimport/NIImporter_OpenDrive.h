@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_OpenDrive.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in openDrive format
 /****************************************************************************/
-#ifndef NIImporter_OpenDrive_h
-#define NIImporter_OpenDrive_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -99,6 +96,8 @@ protected:
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
         OPENDRIVE_TAG_SIGNAL,
+        OPENDRIVE_TAG_SIGNALREFERENCE,
+        OPENDRIVE_TAG_VALIDITY,
         OPENDRIVE_TAG_JUNCTION,
         OPENDRIVE_TAG_CONNECTION,
         OPENDRIVE_TAG_LANELINK,
@@ -162,6 +161,8 @@ protected:
         OPENDRIVE_ATTR_CONNECTINGROAD,
         OPENDRIVE_ATTR_FROM,
         OPENDRIVE_ATTR_TO,
+        OPENDRIVE_ATTR_FROMLANE,
+        OPENDRIVE_ATTR_TOLANE,
         OPENDRIVE_ATTR_MAX,
         OPENDRIVE_ATTR_SOFFSET,
         OPENDRIVE_ATTR_NAME,
@@ -376,8 +377,15 @@ protected:
          * @param[in] dynamicArg Whether the signal is dynamic
          * @param[in] sArg The offset from the start, counted from the begin
          */
-        OpenDriveSignal(const std::string& idArg, const std::string typeArg, const std::string nameArg, int orientationArg, bool dynamicArg, double sArg)
-            : id(idArg), type(typeArg), name(nameArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
+        OpenDriveSignal(const std::string& idArg, const std::string typeArg, const std::string nameArg,
+                        int orientationArg, bool dynamicArg, double sArg) :
+            id(idArg), type(typeArg), name(nameArg),
+            orientation(orientationArg), dynamic(dynamicArg), s(sArg),
+            minLane(0), maxLane(0)
+        { }
+
+        /// dummy constructor for use in maps
+        OpenDriveSignal() {}
 
         std::string id;
         std::string type;
@@ -385,6 +393,9 @@ protected:
         int orientation;
         bool dynamic;
         double s;
+        /// @brief signal validity range
+        int minLane;
+        int maxLane;
     };
 
 
@@ -562,14 +573,20 @@ protected:
     void myEndElement(int element);
     //@}
 
-
+    std::map<std::string, OpenDriveSignal>& getSignals() {
+        return mySignals;
+    }
 
 private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
                  const std::string& contactPoint);
     void addGeometryShape(GeometryType type, const std::vector<double>& vals);
     static void setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string, OpenDriveEdge*>& edges);
-    static void buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into, std::set<Connection>& seen);
+    static void buildConnectionsToOuter(const Connection& c,
+            const std::map<std::string, OpenDriveEdge*>& innerEdges,
+            const std::map<std::string, OpenDriveEdge*>& edges,
+            const NBTypeCont& tc,
+            std::vector<Connection>& into, std::set<Connection>& seen);
     static bool laneSectionsConnected(OpenDriveEdge* edge, int in, int out);
     friend bool operator<(const Connection& c1, const Connection& c2);
     static std::string revertID(const std::string& id);
@@ -584,6 +601,7 @@ private:
     std::string myCurrentConnectingRoad;
     ContactPoint myCurrentContactPoint;
     bool myConnectionWasEmpty;
+    std::map<std::string, OpenDriveSignal> mySignals;
 
     static bool myImportAllTypes;
     static bool myImportWidths;
@@ -634,8 +652,12 @@ protected:
     static void revisitLaneSections(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges);
 
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
-                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
+                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt, std::vector<NodeSet>& joinedNodeIDs);
 
+    static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb);
+
+
+    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction);
 
     static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);
 
@@ -660,9 +682,3 @@ protected:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

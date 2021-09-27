@@ -1,6 +1,14 @@
+# Tests for circle polygons
+circlePolygon
+
+# test for CSV2polyconvertXML
+CSV2polyconvertXML
+
 # Tests for Point of Interest along Roads
 poi_alongRoads
 
+# Tests for Point of Interest at stops
+poi_at_stops
+
 # Tests for Point of Interest at Trafic light signals
 poi_atTLS
-circlePolygon

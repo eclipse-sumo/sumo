@@ -1,0 +1,14 @@
+Error: Type 'highway.cycleway' used by edge '-411031867' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Additional lane information could not be set - the edge with id '-411031867s' is not known.
+Error: Type 'highway.cycleway' used by edge '-68014253#1' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Additional lane information could not be set - the edge with id '-68014253#1s' is not known.
+Error: Type 'railway.tram' used by edge '226356742#0' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Additional lane information could not be set - the edge with id '226356742#0s' is not known.
+Error: Type 'railway.tram' used by edge '226356745#0' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Additional lane information could not be set - the edge with id '226356745#0s' is not known.
+Error: Type 'railway.tram' used by edge '226356751#0' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Additional lane information could not be set - the edge with id '226356751#0s' is not known.
+Error: 29 total messages of type: Additional lane information could not be set - the edge with id '%s' is not known.
+Error: 23 total messages of type: Type '%' used by edge '%' was not defined (ignore with option --ignore-errors.edge-type).
+Error: No edges loaded.
+Quitting (on error).

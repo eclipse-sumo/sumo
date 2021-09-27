@@ -1,6 +1,5 @@
 ---
-title: Simulation/Randomness
-permalink: /Simulation/Randomness/
+title: Randomness
 ---
 
 Stochasticity is an important aspect of reproducing reality in a
@@ -31,18 +30,16 @@ simulation aspects
 The decoupling is done to ensure that loading vehicles does not affect
 simulation behavior of earlier vehicles. All RNGs use the same seed.
 
-# Vehicle type and route distributions
+# Route Distributions
 
-The easiest way of dynamically modifying vehicle behavior is to choose
-the type or the route from a distribution on loading. Each type / route
-has to be given explicitly with an assigned probability, see [route and
-vehicle type
-distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#route_and_vehicle_type_distributions).
-This gives on the one hand fine grained control of the results but on
-the other hand makes it hard to model something like for instance a
-uniform distribution of vehicle lengths between 5m and 7m.
+Vehicles can be added to the simulation with a fixed route (`<vehicle>`) or with an origin-destination pair (`<trip>`).
+A third alternative is to specify a set of routes (`<routeDistribution>`) and let the vehicle draw a random route from such a distribution. For details, see [route distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#route_distributions).
 
-# [Speed distribution](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
+# Vehicle Type Distributions
+
+A simple way of of modelling a heterogeneous vehicle fleet works by defining a `<vTypeDistribution>` and let each vehicle pick it's type randomly from this distribution. For details, see [vehicle type distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_type_distributions).
+
+# Speed distribution
 
 By default, vehicles in SUMO adhere to the maximum speed defined for the
 lane they are driving on (if the maximumSpeed of their vehicle type
@@ -52,6 +49,8 @@ attribute also allows the specification of the parameters of a normal
 distribution with optional cutoffs. The random value is selected once
 for each vehicle at the time of its creation. Using a speed deviation is
 the recommended way for getting a heterogenous mix of vehicle speeds.
+By default, a speed distribution with a standard deviation of 10% is active.
+For details, see [speed distribution](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
 
 # Car-Following
 
@@ -70,8 +69,8 @@ to its departure time, equidistributed on \[0, {{DT_TIME}}\].
 
 # Flows with a fixed number of vehicles
 
-The [DUAROUTER](../DUAROUTER.md), [DFROUTER](../DFROUTER.md)
-and [JTRROUTER](../JTRROUTER.md) applications support the option **--randomize-flows**.
+The [duarouter](../duarouter.md), [dfrouter](../dfrouter.md)
+and [jtrrouter](../jtrrouter.md) applications support the option **--randomize-flows**.
 When this option is used, each vehicle defined by a `<flow>`-element will be
 given a random departure time which is equidistributed within the time
 interval of the flow. (By default vehicles of a flow are spaced equally
@@ -79,7 +78,7 @@ in time).
 
 # Flows with a random number of vehicles
 
-Both [DUAROUTER](../DUAROUTER.md) and [SUMO](../SUMO.md)
+Both [duarouter](../duarouter.md) and [sumo](../sumo.md)
 support loading of `<flow>` elements with attribute `probability`. When this attribute is
 used (instead of `vehsPerHour,number`, or `period`), a vehicle will be emitted randomly with the
 given probability each second. This results in a [binomially
@@ -89,22 +88,25 @@ Distribution](https://en.wikipedia.org/wiki/Poisson_distribution) for
 small probabilities). When modeling such a flow on a multi-lane road it
 is recommended to define a `<flow>` for each individual lane.
 
+When simulating with subsecond time resolution, the random decision for insertion is take in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length. 
+!!! note
+    The effective flow may be higher at lower step-length because the discretization error is reduced (vehicles usually cannot be inserted in subsequent seconds due to safety constraints and insertion in every other second does not achieve maximum flow).
+
 # Departure and arrival attributes
 
 The `<flow>`, `<trip>` and `<vehicle>` elements support the value "random" for their attributes `departLane`, `departPos`,
 `departSpeed` and `arrivalPos`. The value will be chosen randomly on every insertion try (for the
 departure attributes) or whenever there is a need to revalidate the
-arrival value (i.e. after rerouting).
+arrival value (i.e. after rerouting). The attribute `departPosLat` also supports the value "random". 
+The lateral offset at departue will only affect simulatoin behavior when using the [sublane model](SublaneModel.md) though it will be visible without this model too.
+
+# Lateral Variation
+When setting the lane change mode attribute `lcSigma` to a positive value, Vehicles will exhibit some random lateral drift.
 
 # Further sources of randomness
 
-- The tool [randomTrips.py](../Tools/Trip.md#randomtripspy)
-  allows generating traffic between random edges. It also supports
-  randomizing arrival rates.
-- [OD2TRIPS](../OD2TRIPS.md) adds randomness when drawing
-  individual trips from an O/D-Matrix
-- [DUAROUTER](../DUAROUTER.md) adds randomness when performing
-  [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md)
-- [Simulation routing can be
-  randomized](../Demand/Automatic_Routing.md#randomness) to
-  ensure usage of alternative routes.
+- The tool [randomTrips.py](../Tools/Trip.md#randomtripspy) allows generating traffic between random edges. It also supports randomizing arrival rates.
+- [od2trips](../od2trips.md) randomly selecting depart and arrival edges for each trip when disaggregating the O/D-Matrix
+- [duarouter](../duarouter.md) adds randomness when performing [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md)
+- [duarouter](../duarouter.md) can randomly disturb the fastest-paths by setting option **--weights.random-factor**
+- [Simulation routing can be randomized](../Demand/Automatic_Routing.md#randomness) to ensure usage of alternative routes.

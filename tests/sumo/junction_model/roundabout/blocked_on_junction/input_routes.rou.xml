@@ -1,0 +1,10 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <trip id="blocker" depart="0" from="WC" to="CS" departPos="-5" departSpeed="max" arrivalPos="50">
+        <stop edge="CS" endPos="4" duration="100"/>
+    </trip>
+    <trip id="foe" depart="0" from="WC" to="CE" departPos="-15" departSpeed="max" arrivalPos="50"/>
+    <trip id="ego" depart="5" from="SC" to="CN" departPos="-5" departSpeed="max" arrivalPos="50"/>
+        
+</routes>

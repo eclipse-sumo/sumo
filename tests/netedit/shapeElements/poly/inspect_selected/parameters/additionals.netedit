@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 13.05.2019 09:51:14 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
+<!-- generated on 30.09.2019 11:21:42 by Eclipse SUMO netedit Version v1_3_1+0524-8f85d9a110
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\routes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect_selected/genericparameters\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\log.txt"/>
     </report>
 
 </configuration>
@@ -54,13 +54,13 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="poly_0" color="red" fill="0" layer="128.00" shape="12.000000,8.000000 12.000000,18.000000 2.000000,18.000000 2.000000,8.000000 12.000000,8.000000">
-        <param key="keyA1" value="valueA1"/>
-        <param key="keyA2" value="valueA2"/>
-        <param key="keyA3" value="valueA3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </poly>
     <poly id="poly_1" color="red" fill="0" layer="128.00" shape="32.000000,8.000000 32.000000,18.000000 22.000000,18.000000 22.000000,8.000000 32.000000,8.000000">
-        <param key="keyB1" value="valueB1"/>
-        <param key="keyB2" value="valueB2"/>
-        <param key="keyB3" value="valueB3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </poly>
 </additional>

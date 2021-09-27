@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -32,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change width (invalid, dummy)
-netedit.changeDefaultValue(7, "dummyWidth")
+netedit.changeDefaultValue(8, "dummyWidth")
 
 # try to create poi
 netedit.leftClick(referencePosition, 100, 50)
 
 # change width (invalid, negative)
-netedit.changeDefaultValue(7, "-2")
+netedit.changeDefaultValue(8, "-2")
 
 # try to create poi
 netedit.leftClick(referencePosition, 150, 50)
 
 # change width (valid)
-netedit.changeDefaultValue(7, "2.5")
+netedit.changeDefaultValue(8, "2.5")
 
 # create poi
 netedit.leftClick(referencePosition, 200, 50)

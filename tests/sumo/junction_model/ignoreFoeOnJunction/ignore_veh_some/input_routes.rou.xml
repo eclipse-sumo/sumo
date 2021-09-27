@@ -1,0 +1,12 @@
+<routes>
+    <vType id="default" sigma="0" maxSpeed="8"/>
+    <vType id="ignoreJunctionFoes" sigma="0" jmIgnoreJunctionFoeProb="0.5"/>
+
+    <flow id="WE" type="default" begin="0" end="100" period="9">
+        <route edges="WC CE"/>
+    </flow>
+    <flow id="SN" type="ignoreJunctionFoes" begin="0" end="100" period="5">
+        <route edges="SC CN"/>
+    </flow>
+
+</routes>

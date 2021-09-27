@@ -1,0 +1,14 @@
+# customer exists early and leave taxi in invalid state
+ticket7257
+
+# customer enters early and taxi exits before first dispatch
+ticket7893
+
+# customer enters early and taxi exits before first dispatch
+ticket7893_container
+
+# dispatch-rerouting must handle the case where the vehicle is too close to the junction to reroute to an arbitrary successor (reroute-origin is the next edge).
+ticket8423
+
+# ride destination is a busStop only reachable via access
+ticket8578

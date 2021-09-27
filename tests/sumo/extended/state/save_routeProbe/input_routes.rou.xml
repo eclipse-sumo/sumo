@@ -1,0 +1,7 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg middle end"/>
+
+    <flow id="flowNumber" type="t0" route="r0" begin="5" end="40" number="5"/>
+
+</routes>

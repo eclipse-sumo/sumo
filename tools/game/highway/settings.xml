@@ -1,7 +1,7 @@
 <viewsettings>
     <delay value="50"/>
     <viewport zoom="800" x="1290.00" y="800.00"/>
-    <decal filename="highway_bremen.gif" centerX="1290.00" centerY="800.00" centerZ="0.00" width="385.00" height="217.00" altitude="0.00" rotation="0.00" tilt="0.00" roll="0.00" layer="0.00"/>
+    <decal file="highway_bremen.gif" centerX="1290.00" centerY="800.00" centerZ="0.00" width="385.00" height="217.00" altitude="0.00" rotation="0.00" tilt="0.00" roll="0.00" layer="0.00"/>
     <scheme name="game_highway">
         <opengl antialiase="0" dither="0"/>
         <vehicles vehicleMode="10" vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.00" showBlinker="1"

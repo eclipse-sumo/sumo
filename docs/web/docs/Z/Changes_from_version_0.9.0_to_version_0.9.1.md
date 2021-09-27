@@ -1,6 +1,5 @@
 ---
-title: Z/Changes from version 0.9.0 to version 0.9.1
-permalink: /Z/Changes_from_version_0.9.0_to_version_0.9.1/
+title: Changes from version 0.9.0 to version 0.9.1
 ---
 
 User-relevant changes

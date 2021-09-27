@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 12 13:31:39 2019 by Eclipse SUMO polyconvert Version v1_2_0+1531-5689942
+<!-- generated on Wed Mar 24 21:07:20 2021 by Eclipse SUMO polyconvert Version v1_8_0+1803-fe50666
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -18,6 +18,7 @@
         <dlr-navteq-poly-files value="" type="FILE" help="Reads polygons from FILE assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
         <dlr-navteq-poi-files value="" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
         <visum-files value="" synonymes="visum" type="FILE" help="Reads polygons from FILE assuming it&apos;s a Visum-net"/>
+        <visum.language-file value="" type="FILE" help="Load language mappings from FILE"/>
         <xml-files value="" synonymes="xml" type="FILE" help="Reads pois and shapes from FILE assuming they&apos;re coded in XML"/>
         <osm-files value="" synonymes="osm" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in OSM"/>
         <osm.keep-full-type value="false" type="BOOL" help="The type will be made of the key-value - pair"/>
@@ -25,8 +26,9 @@
         <osm.merge-relations value="-1" type="FLOAT" help="If FLOAT &gt;= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"/>
         <shapefile-prefixes value="" synonymes="shape-files shapefile shapefile-prefix" type="FILE" help="Reads shapes from shapefiles FILE+"/>
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
+        <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
         <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
-        <shapefile.type-columns value="" synonymes="shapefile.type-column" type="STR" help="Defines which columns form the type id (comma separated list)"/>
+        <shapefile.type-columns value="" synonymes="shapefile.type-column" type="STR[]" help="Defines which columns form the type id (comma separated list)"/>
         <shapefile.use-running-id value="false" type="BOOL" help="A running number will be used as id"/>
         <shapefile.add-param value="false" type="BOOL" help="Extract all additional columns as params"/>
         <shapefile.fill value="" type="STR" help="[auto|true|false]. Forces the &apos;fill&apos; status to the given value. Default &apos;auto&apos; tries to determine it from the data type"/>
@@ -38,7 +40,7 @@
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
         <dlr-tdp-output value="" type="FILE" help="Write generated polygons/pois to a dlr-tdp file with the given prefix"/>
     </output>
@@ -60,12 +62,13 @@
         <prune.in-net.offsets value="0,0,0,0" synonymes="prune.on-net.offsets" type="STR" help="Uses STR as offset definition added to the net boundaries"/>
         <prune.boundary value="" type="STR" help="Uses STR as pruning boundary"/>
         <prune.keep-list value="" synonymes="prune.ignore prune.keep" type="STR" help="Items in STR will be kept though out of boundary"/>
-        <prune.explicit value="" synonymes="remove" type="STR" help="Items with names in STR will be removed"/>
+        <prune.explicit value="" synonymes="remove" type="STR[]" help="Items with names in STR[] will be removed"/>
     </pruning>
 
     <processing>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
+        <offset.z value="0" type="FLOAT" help="Adds FLOAT to net z-positions"/>
         <all-attributes value="false" type="BOOL" help="Imports all attributes as key/value pairs"/>
         <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
         <poi-layer-offset value="0" type="FLOAT" help="Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"/>
@@ -88,6 +91,7 @@
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>

@@ -1,0 +1,12 @@
+--osm-files osm.xml
+-e input_plain.edg.xml
+-n input_plain.nod.xml
+-x input_plain.con.xml
+-R
+--junctions.join
+--tls.discard-simple
+--tls.join
+--tls.guess-signals
+--keep-edges.components 1
+--keep-edges.by-vclass passenger,bus,tram
+--remove-edges.by-type highway.track,highway.unsurfaced,highway.service

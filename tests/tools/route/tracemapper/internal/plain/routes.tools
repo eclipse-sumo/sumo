@@ -1,4 +1,8 @@
-<routes>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-12-06 11:01:21.239653 by tracemapper.py v1_3_1+1311-8b96af5bef
+  options: -n input_net.net.xml -t tracefile.txt -o out.rou.xml -v
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="1" edges="start short_0 end"/>
     <route id="2" edges="start end"/>
 </routes>

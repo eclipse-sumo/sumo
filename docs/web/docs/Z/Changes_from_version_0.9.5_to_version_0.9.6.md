@@ -1,12 +1,13 @@
 ---
-title: Z/Changes from version 0.9.5 to version 0.9.6
-permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
+title: Changes from version 0.9.5 to version 0.9.6
 ---
 
-- POLYCONVERT: possibility to prune the polygons to import on a
+**Release date: 23.05.2007**
+
+- polyconvert: possibility to prune the polygons to import on a
   bounding box added
 - DUA: Simulation may now load only a part of defined vehicles
-- NETCONVERT:
+- netconvert:
   - debugged connections for on-ramps which already have the right
     number of lanes
   - debugged problems when using networks built without internal
@@ -16,7 +17,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
   - added error messages when false lanes are defined in connections
 - SIMULATION:
   - c2c wth rerouting
-- GUISIM:
+- sumo-gui:
   - debugged memory leak in polygon visualization
   - removed simple/full geometry options; everything is now drawn
     using full geometry
@@ -32,7 +33,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
   - execute now gets the current simulation time
   - event handlers are non-static
 - .icc-files removed
-- class-documentation added/patched within DFROUTER
+- class-documentation added/patched within dfrouter
 - made access to positions in Position2DVector c++ compliant
 - xml-types are now read prior to other formats (other Xml-description
   afterwards)
@@ -42,7 +43,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
 - extracted drawing of lane geometries
 - added projection information to the network
 - edge types may now store the edge function
-- removed the unneded slow lane changer
+- removed the unneeded slow lane changer
 - VISUM: lane connections for unsplitted lanes implemented, further
   refactoring
 - retrieval of microsim ids is now also done using getID() instead of
@@ -58,7 +59,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
 - got rid of the cell-to-meter conversions
 - began with the extraction of the car-following-model from MSVehicle
 - began the work on a network editor
-- added consective process messages
+- added consecutive process messages
 - debugged splitting of matrices
 - added the possibility to stretch/change the current phase and
   consecutive phases
@@ -69,7 +70,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
   dictionary; MSVehicle is completely scheduled by MSVehicleControl;
   new lanechanging algorithm
 - tls switches added
-- made the assertion that two consecutive edge geomtry points must not
+- made the assertion that two consecutive edge geometry points must not
   be same less aggressive
 - made MSVehicleControl completely responsible for vehicle handling\*
   MSVehicle has no longer a static dictionary

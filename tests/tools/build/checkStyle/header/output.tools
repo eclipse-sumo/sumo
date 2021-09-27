@@ -1,6 +1,9 @@
 docs/web/theme/__init__.py is empty
 src/foreign/eulerspiral/odrSpiral.cpp header does not start
 src/foreign/eulerspiral/odrSpiral.h header does not start
+src/foreign/fmi/fmi2FunctionTypes.h header does not start
+src/foreign/fmi/fmi2Functions.h header does not start
+src/foreign/fmi/fmi2TypesPlatform.h header does not start
 src/foreign/fontstash/fontstash.h header does not start
 src/foreign/fontstash/glfontstash.h header does not start
 src/foreign/fontstash/stb_truetype.h header does not start

@@ -1,0 +1,7 @@
+<routes>
+    <flow id="0" number="2" from="beg" to="end" begin="0"         end="100"/>
+    <flow id="1" number="2" from="beg" to="end" begin="2000"      end="2100"/>
+    <flow id="2" number="2" from="beg" to="end" begin="30000"     end="30100"/>
+    <trip id="t" number="2" from="beg" to="end" depart="31000"/>
+    <flow id="3" number="2" from="beg" to="end" begin="400000"    end="400100"/>
+</routes>

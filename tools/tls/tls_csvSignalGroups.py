@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    tls_csvSignalGroups.py
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 # @date    2017-10-17
-# @version $Id$
 
 """
 This script helps with converting a CSV input file with green times per signal group into the SUMO format.
@@ -55,9 +58,8 @@ from __future__ import print_function
 
 import sys
 import os
+import io
 import csv
-import xml
-import xml.dom.minidom
 import argparse
 
 if 'SUMO_HOME' in os.environ:
@@ -66,7 +68,19 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-import sumolib.net  # noqa
+import sumolib  # noqa
+
+
+def getEdgeID(laneOrEdgeID):
+    sep = laneOrEdgeID.rfind('_')
+    if sep > 0 and laneOrEdgeID[sep + 1:].isdigit():
+        return laneOrEdgeID[:sep]
+    else:
+        return laneOrEdgeID
+
+
+def isLaneID(laneOrEdgeID):
+    return laneOrEdgeID != getEdgeID(laneOrEdgeID)
 
 
 class TlLogic(sumolib.net.TLSProgram):
@@ -131,14 +145,12 @@ class TlLogic(sumolib.net.TLSProgram):
                 for fromLink, toLink in sgToLinks[sgID]:
                     # check link validity (lane exists?)
                     for connIn, connOut, tlIndex in connections:
-                        fromLaneSep = fromLink.find('_')
-                        if fromLaneSep > 0 and fromLink[fromLaneSep + 1:].isdigit():
+                        if isLaneID(fromLink):
                             valid = fromLink == connIn.getID()
                         else:
                             valid = fromLink == connIn.getEdge().getID()
                         if toLink != '' and valid:
-                            toLaneSep = toLink.find('_')
-                            if toLaneSep > 0 and toLink[toLaneSep + 1:].isdigit():
+                            if isLaneID(toLink):
                                 valid = toLink == connOut.getID()
                             else:
                                 valid = toLink == connOut.getEdge().getID()
@@ -179,27 +191,25 @@ class TlLogic(sumolib.net.TLSProgram):
         # TODO: insert tlIndex in completeSignals query
         self._allTimes.sort()
         tlIndices = []
-        if(len(self._tlIndexToSignalGroup) > 0):
+        if len(self._tlIndexToSignalGroup) > 0:
             tlIndices = list(self._tlIndexToSignalGroup.keys())
             tlIndices.sort()
-        elif(self._debug):
+        elif self._debug:
             print("No tlIndex to signal group relation available: Signal program will be empty.")
-        tlEl = doc.createElement("tlLogic")
+        tlEl = doc.addChild("tlLogic")
         tlEl.setAttribute("id", self._id)
         tlEl.setAttribute("type", "static")
         tlEl.setAttribute("programID", self._programID)
         tlEl.setAttribute("offset", self._offset)
 
-        commentNode = doc.createComment(" Order of signal groups:\n%s" % "\n".join(
+        tlEl.setText("<!-- Order of signal groups:\n%s-->\n" % "\n".join(
             [str(tlIndex) + " " + self._tlIndexToSignalGroup[tlIndex] for tlIndex in tlIndices]))
-        tlEl.appendChild(commentNode)
 
         # output custom parameters
         for key in self._parameters:
-            parEl = doc.createElement("param")
+            parEl = tlEl.addChild("param")
             parEl.setAttribute("key", key)
             parEl.setAttribute("value", self._parameters[key])
-            tlEl.appendChild(parEl)
 
         for i in range(0, len(self._allTimes)):
             states = {}
@@ -212,10 +222,9 @@ class TlLogic(sumolib.net.TLSProgram):
             else:
                 duration = self._allTimes[i + 1] - self._allTimes[i]
             states = "".join([states[tlIndex] for tlIndex in tlIndices])
-            phaseEl = doc.createElement("phase")
+            phaseEl = tlEl.addChild("phase")
             phaseEl.setAttribute("duration", str(duration))
             phaseEl.setAttribute("state", states)
-            tlEl.appendChild(phaseEl)
         return tlEl
 
 
@@ -283,8 +292,7 @@ class SignalGroup(object):
         result = "o"
         wait = False
 
-        if(len(self._times) > 0 and tlIndex in self._tlIndexToYield):
-
+        if len(self._times) > 0 and tlIndex in self._tlIndexToYield:
             timeKeys = list(self._times.keys())
             timeKeys.sort()
             relevantKey = None
@@ -297,7 +305,7 @@ class SignalGroup(object):
                         break
             result = self._times[relevantKey]
 
-            if(checkPriority and result in ["o", "g"]):
+            if checkPriority and result in ["o", "g"]:
                 for yieldTlIndex in self._tlIndexToYield[tlIndex]:
                     # ask signal state of signal to yield
                     if(yieldTlIndex in self.tlLogic._tlIndexToSignalGroup):
@@ -309,11 +317,11 @@ class SignalGroup(object):
                         # (("SG %s (tlIndex %d) at time %d (state %s) has to wait for SG %s " +
                         # "(tlIndex %d, state %s)? %s") % (
                         #  self._id, tlIndex, time, result, sgID, yieldTlIndex, yieldSignal, str(wait)))
-                        if(wait):
+                        if wait:
                             break
         elif tlIndex in self._tlIndexToYield:
             wait = len(self._tlIndexToYield[tlIndex]) > 0
-        if(result in ["g", "o"] and not wait):  # prioritary signal
+        if result in ["g", "o"] and not wait:  # prioritary signal
             result = result.upper()
         return result
 
@@ -325,14 +333,12 @@ class SignalGroup(object):
 
 def writeXmlOutput(tlList, outputFile):
     if(len(tlList) > 0):
-        doc = xml.dom.minidom.Document()
-        root = doc.createElement("add")
-        doc.appendChild(root)
-
+        root = sumolib.xml.create_document("additional")
         for tlLogic in tlList:
-            tlEl = tlLogic.xmlOutput(doc)
-            root.appendChild(tlEl)
-        doc.writexml(open(options.output, 'w'), indent="", addindent="    ", newl="\n")
+            tlLogic.xmlOutput(root)
+        with open(options.output, 'w') as out:
+            sumolib.xml.writeHeader(out)
+            out.write(root.toXML())
 
 
 def writeInputTemplates(net, outputDir, delimiter):
@@ -350,7 +356,7 @@ def writeInputTemplates(net, outputDir, delimiter):
             data.append(["SG_" + str(tlIndex)])
 
         # write the template file
-        with open(os.path.join(outputDir, "%s.csv" % tlsID), 'wb') as inputTemplate:
+        with io.open(os.path.join(outputDir, "%s.csv" % tlsID), 'w', newline='') as inputTemplate:
             csvWriter = csv.writer(inputTemplate, quoting=csv.QUOTE_NONE, delimiter=delimiter)
             csvWriter.writerows(data)
 
@@ -388,7 +394,9 @@ if __name__ == "__main__":
     # read SUMO network
     net = None
     if(len(options.net) > 0):
-        net = sumolib.net.readNet(options.net, withInternal=True)
+        net = sumolib.net.readNet(options.net,
+                                  withInternal=True,
+                                  withPedestrianConnections=True)
 
         if(len(options.make_input_dir) > 0):  # check input template directory
             if(os.path.isdir(options.make_input_dir)):
@@ -459,17 +467,21 @@ if __name__ == "__main__":
                                     colIndices[line[colIndex].strip()] = colIndex
                             secondFreeTime = "on2" in colIndices.keys() and "off2" in colIndices.keys()
                         else:
-                            sg = SignalGroup(
-                                line[colIndices["id"]],
-                                transTimeOn=int(line[colIndices["transOn"]]),
-                                transTimeOff=int(line[colIndices["transOff"]]),
-                                debug=options.debug)
+                            sgID = line[colIndices["id"]]
+                            sg = SignalGroup(sgID,
+                                             transTimeOn=int(line[colIndices["transOn"]]),
+                                             transTimeOff=int(line[colIndices["transOff"]]),
+                                             debug=options.debug)
                             sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
                             if(secondFreeTime):
                                 if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
                                     sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
-                            signalGroups[sg._id] = sg
-                            signalGroupOrder.append(sg._id)
+                            signalGroups[sgID] = sg
+                            signalGroupOrder.append(sgID)
+                            sgFromLinkEdge = getEdgeID(sgToLinks[sgID][0][0])
+                            if net.getEdge(sgFromLinkEdge).getFunction() == "walkingarea":
+                                sg._stop = 'r'
+
                 except Exception:
                     print("In file %s, line %s" % (inputFileName, i + 1), file=sys.stderr)
                     raise

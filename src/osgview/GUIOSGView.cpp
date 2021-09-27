@@ -1,83 +1,65 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIOSGView.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    19.01.2012
-/// @version $Id$
 ///
 // An OSG-based 3D view on the simulation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_OSG
 
-#include <iostream>
-#include <utility>
 #include <cmath>
+#include <iostream>
 #include <limits>
-// osg may include windows.h somewhere so we need to guard against macro pollution
-#ifdef WIN32
-#define NOMINMAX
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
-#include <osgViewer/Viewer>
-#include <osgViewer/ViewerEventHandlers>
-#include <osgGA/NodeTrackerManipulator>
-#include <osgDB/ReadFile>
-#include <osg/PositionAttitudeTransform>
-#include <osg/Vec4>
-#include <osg/ShapeDrawable>
-#ifdef WIN32
-#undef NOMINMAX
-#pragma warning(pop)
-#endif
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <gui/GUIApplicationWindow.h>
-#include <utils/gui/windows/GUIDialog_ViewSettings.h>
-#include <utils/gui/windows/GUIDialog_EditViewport.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/foxtools/MFXImageHelper.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utility>
 #include <foreign/rtree/SUMORTree.h>
-#include <utils/gui/div/GLHelper.h>
-#include <guisim/GUINet.h>
-#include <guisim/GUIJunctionWrapper.h>
+#include <gui/GUIApplicationWindow.h>
+#include <gui/GUISUMOViewParent.h>
 #include <guisim/GUIEdge.h>
+#include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUILane.h>
+#include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
-#include <microsim/MSLane.h>
 #include <microsim/MSJunctionControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
-#include <utils/common/RGBColor.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/StringUtils.h>
+#include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXImageHelper.h>
 #include <utils/geom/PositionVector.h>
-#include <gui/GUISUMOViewParent.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIDialog_EditViewport.h>
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+
 #include "GUIOSGBuilder.h"
 #include "GUIOSGView.h"
 
@@ -94,10 +76,10 @@ operator<<(std::ostream& os, const osg::Vec3d& v) {
     return os << v.x() << "," << v.y() << "," << v.z();
 }
 
-
 // ===========================================================================
 // GUIOSGView::Command_TLSChange member method definitions
 // ===========================================================================
+
 GUIOSGView::Command_TLSChange::Command_TLSChange(const MSLink* const link, osg::Switch* switchNode)
     : myLink(link), mySwitch(switchNode), myLastState(LINKSTATE_TL_OFF_NOSIGNAL) {
     execute();
@@ -130,11 +112,10 @@ GUIOSGView::Command_TLSChange::execute() {
     myLastState = myLink->getState();
 }
 
-
-
 // ===========================================================================
 // GUIOSGView member method definitions
 // ===========================================================================
+
 GUIOSGView::GUIOSGView(
     FXComposite* p,
     GUIMainWindow& app,
@@ -200,57 +181,62 @@ GUIOSGView::~GUIOSGView() {
 
 
 void
-GUIOSGView::buildViewToolBars(GUIGlChildWindow& v) {
+GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
     {
         const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            v.getColoringSchemesCombo()->appendItem(i->c_str());
+            v->getColoringSchemesCombo()->appendItem(i->c_str());
             if ((*i) == myVisualizationSettings->name) {
-                v.getColoringSchemesCombo()->setCurrentItem(v.getColoringSchemesCombo()->getNumItems() - 1);
+                v->getColoringSchemesCombo()->setCurrentItem(v->getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v.getColoringSchemesCombo()->setNumVisible(5);
+        v->getColoringSchemesCombo()->setNumVisible(5);
     }
     // for junctions
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate Junction\tLocate a junction within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate Street\tLocate a street within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate Vehicle\tLocate a vehicle within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for persons
-    new FXButton(v.getLocatorPopup(),
-                 "\tLocate Vehicle\tLocate a person within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate Person\tLocate a person within the network.",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    // for containers
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate Container\tLocate a container within the network.",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_LOCATECONTAINER,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for tls
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATETLS), &v, MID_LOCATETLS,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate Additional\tLocate an additional structure within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEADD), &v, MID_LOCATEADD,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate POI\tLocate a POI within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPOI), &v, MID_LOCATEPOI,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate Polygon\tLocate a Polygon within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPOLY), &v, MID_LOCATEPOLY,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 
@@ -301,8 +287,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         return 1;
     }
     myDecalsLock.lock();
-    for (std::vector<GUISUMOAbstractView::Decal>::iterator l = myDecals.begin(); l != myDecals.end(); ++l) {
-        GUISUMOAbstractView::Decal& d = *l;
+    for (GUISUMOAbstractView::Decal& d : myDecals) {
         if (!d.initialised) {
             if (d.filename.length() == 6 && d.filename.substr(0, 5) == "light") {
                 GUIOSGBuilder::buildLight(d, *myRoot);
@@ -315,14 +300,14 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                     if (linkIdx < 0 || linkIdx >= static_cast<int>(vars.getActive()->getLinks().size())) {
                         throw NumberFormatException("");
                     }
-                    const MSLink* const l = vars.getActive()->getLinksAt(linkIdx)[0];
+                    const MSLink* const link = vars.getActive()->getLinksAt(linkIdx)[0];
                     osg::Switch* switchNode = new osg::Switch();
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3)), false);
                     switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3)), false);
                     myRoot->addChild(switchNode);
-                    vars.addSwitchCommand(new Command_TLSChange(l, switchNode));
+                    vars.addSwitchCommand(new Command_TLSChange(link, switchNode));
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("Invalid link index in '" + d.filename + "'.");
                 } catch (InvalidArgument&) {
@@ -376,11 +361,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
     // remove inactive
-    for (auto it = myVehicles.begin(); it != myVehicles.end();) {
-        if (!it->second.active) {
-            removeVeh((it++)->first);
+    for (auto veh = myVehicles.begin(); veh != myVehicles.end();) {
+        if (!veh->second.active) {
+            removeVeh((veh++)->first);
         } else {
-            ++it;
+            ++veh;
         }
     }
 
@@ -406,8 +391,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (auto& item : myPersons) {
         item.second.active = false;
     }
-    for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedBegin(); it != MSNet::getInstance()->getPersonControl().loadedEnd(); ++it) {
-        MSTransportable* person = (*it).second;
+    for (auto transIt = MSNet::getInstance()->getPersonControl().loadedBegin(); transIt != MSNet::getInstance()->getPersonControl().loadedEnd(); ++transIt) {
+        MSTransportable* const person = transIt->second;
         // XXX if not departed: continue
         if (person->hasArrived() || !person->hasDeparted()) {
             //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
@@ -427,11 +412,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
     }
     // remove inactive
-    for (auto it = myPersons.begin(); it != myPersons.end();) {
-        if (!it->second.active) {
-            removeTransportable((it++)->first);
+    for (auto person = myPersons.begin(); person != myPersons.end();) {
+        if (!person->second.active) {
+            removeTransportable((person++)->first);
         } else {
-            ++it;
+            ++person;
         }
     }
 
@@ -494,7 +479,6 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
 }
 
 
-
 void
 GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
     osg::Vec3d lookFrom, lookAt, up;
@@ -502,7 +486,6 @@ GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
     view->setViewportFromToRot(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
                                Position(lookAt[0], lookAt[1], lookAt[2]), 0);
 }
-
 
 
 void
@@ -551,12 +534,9 @@ GUIOSGView::getTrackedID() const {
 void
 GUIOSGView::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
-    const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
-    MSTrafficLightLogic* minTll = 0;
+    const MSTrafficLightLogic* minTll = nullptr;
     double minDist = std::numeric_limits<double>::infinity();
-    for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
-        // get the logic
-        MSTrafficLightLogic* tll = (*i);
+    for (const MSTrafficLightLogic* const tll : tlsControl.getAllLogics()) {
         if (tlsControl.isActive(tll)) {
             // get the links
             const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
@@ -604,6 +584,7 @@ long GUIOSGView::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
     return FXGLCanvas::onConfigure(sender, sel, ptr);
 }
 
+
 long GUIOSGView::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
     int key = ((FXEvent*)ptr)->code;
     myAdapter->getEventQueue()->keyPress(key);
@@ -611,12 +592,14 @@ long GUIOSGView::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
     return FXGLCanvas::onKeyPress(sender, sel, ptr);
 }
 
+
 long GUIOSGView::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
     int key = ((FXEvent*)ptr)->code;
     myAdapter->getEventQueue()->keyRelease(key);
 
     return FXGLCanvas::onKeyRelease(sender, sel, ptr);
 }
+
 
 long GUIOSGView::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
@@ -630,12 +613,14 @@ long GUIOSGView::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     return FXGLCanvas::onLeftBtnPress(sender, sel, ptr);
 }
 
+
 long GUIOSGView::onLeftBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 1);
 
     return FXGLCanvas::onLeftBtnRelease(sender, sel, ptr);
 }
+
 
 long GUIOSGView::onMiddleBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
@@ -645,6 +630,7 @@ long GUIOSGView::onMiddleBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
 
     return FXGLCanvas::onMiddleBtnPress(sender, sel, ptr);
 }
+
 
 long GUIOSGView::onMiddleBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
@@ -662,6 +648,7 @@ long GUIOSGView::onRightBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     return FXGLCanvas::onRightBtnPress(sender, sel, ptr);
 }
 
+
 long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 3);
@@ -677,6 +664,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
     return FXGLCanvas::onMotion(sender, sel, ptr);
 }
 
+
 long
 GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     forceRefresh();
@@ -684,7 +672,6 @@ GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     getApp()->addChore(this, MID_CHORE);
     return 1;
 }
-
 
 
 GUIOSGView::FXOSGAdapter::FXOSGAdapter(GUISUMOAbstractView* parent, FXCursor* cursor)
@@ -720,6 +707,7 @@ void GUIOSGView::FXOSGAdapter::grabFocus() {
     myParent->setFocus();
 }
 
+
 void GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
     if (cursorOn) {
         myParent->setDefaultCursor(myOldCursor);
@@ -728,15 +716,18 @@ void GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
     }
 }
 
+
 bool GUIOSGView::FXOSGAdapter::makeCurrentImplementation() {
     myParent->makeCurrent();
     return true;
 }
 
+
 bool GUIOSGView::FXOSGAdapter::releaseContext() {
     myParent->makeNonCurrent();
     return true;
 }
+
 
 void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
     myParent->swapBuffers();

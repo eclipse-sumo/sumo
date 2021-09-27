@@ -1,5 +1,8 @@
 cross3ltl_summary
 cross3ltl_fcd
+
+# cross3ltl_fcd gzipped
+cross3ltl_fcd_gz
 cross3ltl_inductloops
 cross3ltl_meandata_edges
 
@@ -32,3 +35,6 @@ amitran_trajectories
 
 # Copy of amitran_trajectories
 amitran_trajectories_schema
+
+# numeric name of input file
+cross3ltl_1234

@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIVissimSingleTypeParser_Signalgruppendefinition.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 18 Dec 2002
-/// @version $Id$
 ///
 //
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -102,7 +100,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     int id, const std::string& name, int lsaid, std::istream& from) {
     //
     bool isGreenBegin;
-    std::vector<double> times;
+    std::vector<SUMOTime> times;
     std::string tag = myRead(from);
     if (tag == "dauergruen") {
         isGreenBegin = true;
@@ -116,10 +114,10 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
         while (tag == "rotende" || tag == "gruenanfang") {
             double point;
             from >> point; // type-checking is missing!
-            times.push_back(point);
+            times.push_back(TIME2STEPS(point));
             from >> tag;
             from >> point; // type-checking is missing!
-            times.push_back(point);
+            times.push_back(TIME2STEPS(point));
             tag = myRead(from);
         }
     }
@@ -130,7 +128,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     from >> tyellow;
     NIVissimTL::NIVissimTLSignalGroup* group =
         new NIVissimTL::NIVissimTLSignalGroup(
-        id, name, isGreenBegin, times, (SUMOTime) tredyellow, (SUMOTime) tyellow);
+        id, name, isGreenBegin, times, TIME2STEPS(tredyellow), TIME2STEPS(tyellow));
     if (!NIVissimTL::NIVissimTLSignalGroup::dictionary(lsaid, id, group)) {
         throw 1; // !!!
     }
@@ -198,6 +196,4 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseExternFixedTime(
 }
 
 
-
 /****************************************************************************/
-

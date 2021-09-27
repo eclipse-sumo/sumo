@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // Abstract class for lateral frames in NetEdit
 /****************************************************************************/
-#ifndef GNEFrame_h
-#define GNEFrame_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
+#pragma once
+#include <config.h>
 #include "GNEFrameModuls.h"
 #include "GNEFrameAttributesModuls.h"
 
@@ -78,7 +76,6 @@ public:
     virtual void updateFrameAfterUndoRedo();
 
 protected:
-    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEFrame)
 
     /// @name functions called by moduls that can be reimplemented in frame children
@@ -90,9 +87,6 @@ protected:
     /// @brief selected demand element in DemandElementSelector
     virtual void demandElementSelected();
 
-    /// @brief finish edge path creation
-    virtual void edgePathCreated();
-
     /// @brief build a shaped element using the drawed shape (can be reimplemented in frame children)
     virtual bool shapeDrawed();
 
@@ -103,21 +97,18 @@ protected:
     virtual void attributesEditorExtendedDialogOpened();
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
-    virtual void selectedOverlappedElement(GNEAttributeCarrier *AC);
+    virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
+
+    /// @brief create path (can be reimplemented in frame children)
+    virtual void createPath();
 
     /// @}
 
     /// @brief Open help attributes dialog
-    void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;
-
-    /// @brief get edge candidate color
-    const RGBColor& getEdgeCandidateColor() const;
-
-    /// @brief get selected color
-    const RGBColor& getEdgeCandidateSelectedColor() const;
+    void openHelpAttributesDialog(const GNETagProperties& tagProperties) const;
 
     /// @brief get predefinedTagsMML
-    const std::map<int, std::string>& getPredefinedTagsMML() const;
+    const std::vector<std::string>& getPredefinedTagsMML() const;
 
     /// @brief View Net
     GNEViewNet* myViewNet = nullptr;
@@ -144,14 +135,8 @@ private:
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel = nullptr;
 
-    /// @brief edge candidate color (used by some modulds to mark edges)
-    RGBColor myEdgeCandidateColor;
-
-    /// @brief selected edge candidate color (used by some modulds to selected mark edges)
-    RGBColor myEdgeCandidateSelectedColor;
-
     /// @brief Map of attribute ids to their (readable) string-representation (needed for SUMOSAXAttributesImpl_Cached)
-    std::map<int, std::string> myPredefinedTagsMML;
+    std::vector<std::string> myPredefinedTagsMML;
 
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&) = delete;
@@ -159,8 +144,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEFrame& operator=(const GNEFrame&) = delete;
 };
-
-
-#endif
-
-/****************************************************************************/

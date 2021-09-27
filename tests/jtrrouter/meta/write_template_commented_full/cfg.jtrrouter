@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/28/19 15:40:12 by Eclipse SUMO jtrrouter Version v1_3_0+0081-36f1e9c334b
+<!-- generated on 2021-09-23 17:51:45 by Eclipse SUMO jtrrouter Version v1_10_0+0951-b6eb60e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -36,12 +36,27 @@
         <!-- Determines where to load PHEMlight definitions from. -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
+
         <!-- Read turning ratios from FILE(s) -->
         <turn-ratio-files value="" synonymes="t turns" type="FILE"/>
 
     </input>
 
     <output>
+        <!-- Write generated routes to FILE -->
+        <output-file value="" synonymes="o output" type="FILE"/>
+
+        <!-- Write used vehicle types into separate FILE -->
+        <vtype-output value="" synonymes="vtype" type="FILE"/>
+
+        <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
+        <keep-vtype-distributions value="false" type="BOOL"/>
+
+        <!-- Write vehicles that reference routes by their id -->
+        <named-routes value="false" type="BOOL"/>
+
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
 
@@ -54,17 +69,8 @@
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
 
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
-
-        <!-- Write generated routes to FILE -->
-        <output-file value="" synonymes="o output" type="FILE"/>
-
-        <!-- Write used vehicle types into separate FILE -->
-        <vtype-output value="" synonymes="vtype" type="FILE"/>
-
-        <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
-        <keep-vtype-distributions value="false" type="BOOL"/>
 
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>
@@ -108,6 +114,12 @@
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
 
+        <!-- Maximum distance when mapping input coordinates (fromXY etc.) to the road network -->
+        <mapmatch.distance value="100" type="FLOAT"/>
+
+        <!-- Match positions to junctions instead of edges -->
+        <mapmatch.junctions value="false" type="BOOL"/>
+
         <!-- Aggregate routing queries with the same origin -->
         <bulk-routing value="false" type="BOOL"/>
 
@@ -115,16 +127,16 @@
         <routing-threads value="0" type="INT"/>
 
         <!-- Comma separated list of param keys to compare for additional restrictions -->
-        <restriction-params value="" type="STR"/>
+        <restriction-params value="" type="STR[]"/>
 
         <!-- Routes are cut off when the route edges to net edges ratio is larger than FLOAT -->
         <max-edges-factor value="2" type="FLOAT"/>
 
-        <!-- Use STR as default turn definition -->
-        <turn-defaults value="30,50,20" synonymes="T" type="STR"/>
+        <!-- Use STR[] as default turn definition -->
+        <turn-defaults value="30,50,20" synonymes="T" type="STR[]"/>
 
-        <!-- Use STR as list of sink edges -->
-        <sink-edges value="" synonymes="sinks" type="STR"/>
+        <!-- Use STR[] as list of sink edges -->
+        <sink-edges value="" synonymes="sinks" type="STR[]"/>
 
         <!-- Whether all edges are allowed as sink edges -->
         <accept-all-destinations value="false" synonymes="A" type="BOOL"/>
@@ -134,6 +146,12 @@
 
         <!-- Allow to re-use a road -->
         <allow-loops value="false" type="BOOL"/>
+
+        <!-- Use all source edges as sink edges. -->
+        <sources-are-sinks value="false" synonymes="S" type="BOOL"/>
+
+        <!-- Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remaining part terminates. -->
+        <discount-sources value="false" synonymes="D" type="BOOL"/>
 
     </processing>
 
@@ -189,8 +207,14 @@
         <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
 
+        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.routes value="auto" type="STR"/>
+
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+
+        <!-- Aggregate warnings of the same type whenever more than INT occur -->
+        <aggregate-warnings value="-1" type="INT"/>
 
         <!-- Writes all messages to FILE (implies verbose) -->
         <log value="" synonymes="l log-file" type="FILE"/>

@@ -13,9 +13,6 @@ dlr_navteq
 # testing SUMO-import
 SUMO
 
-# testing OpenStreetMap-import (disabled until Eclipse acknowledges the ODbl)
-#OSM
-
 # Tests for MATSIM-networks
 matsim
 

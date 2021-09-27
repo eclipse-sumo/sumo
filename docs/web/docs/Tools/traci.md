@@ -1,6 +1,5 @@
 ---
-title: Tools/traci
-permalink: /Tools/traci/
+title: traci
 ---
 
 # areal.py

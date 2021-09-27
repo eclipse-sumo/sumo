@@ -1,0 +1,6 @@
+ Retrying in 1 seconds
+1.0 reservations (Reservation(id=0, persons=('a',), group=a, fromEdge=A1B1, toEdge=D2D3, departPos=0.0, arrivalPos=92.1, depart=0.0, reservationTime=0.0, state=1), Reservation(id=1, persons=('b',), group=b, fromEdge=B1C1, toEdge=C1D1, departPos=0.0, arrivalPos=50.0, depart=0.0, reservationTime=0.0, state=1), Reservation(id=2, persons=('c',), group=c, fromEdge=C1D1, toEdge=D2D3, departPos=50.0, arrivalPos=92.1, depart=0.0, reservationTime=0.0, state=1))
+301.0 reservations (Reservation(id=1, persons=('b',), group=b, fromEdge=B1C1, toEdge=C1D1, departPos=0.0, arrivalPos=50.0, depart=0.0, reservationTime=0.0, state=2), Reservation(id=2, persons=('c',), group=c, fromEdge=C1D1, toEdge=D2D3, departPos=50.0, arrivalPos=92.1, depart=0.0, reservationTime=0.0, state=2))
+taxiFleet ('taxi_0',)
+reservations (Reservation(id=1, persons=('b',), group=b, fromEdge=B1C1, toEdge=C1D1, departPos=0.0, arrivalPos=50.0, depart=0.0, reservationTime=0.0, state=2), Reservation(id=2, persons=('c',), group=c, fromEdge=C1D1, toEdge=D2D3, departPos=50.0, arrivalPos=92.1, depart=0.0, reservationTime=0.0, state=2))
+currentCustomers b c

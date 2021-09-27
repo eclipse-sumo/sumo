@@ -20,6 +20,15 @@ distance
 
 # test kilometrage output
 distance_reverse
+
+# test acceleration output
+acceleration
+
+# write additional parameters
+params
+
+# test caccVehicleMode parameter for CACC CFModel
+params_caccVehicleMode
 subsecond
 
 # output not in every time step
@@ -27,6 +36,9 @@ period
 
 # output not from every vehicle
 explicit_assignment
+
+# output in range around equipped vehicles
+radius
 
 # disable output for all vehicles via option
 disable_all
@@ -42,3 +54,13 @@ short_lane
 
 # only write fcd output on some edges
 edge_filter
+
+# output vehicle leader information
+leader
+
+# automatically set precision on long step length
+precision
+
+# filter written attributes
+attributes
+person_attributes

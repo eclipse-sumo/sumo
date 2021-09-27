@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIVehicle.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUIVehicle_h
-#define GUIVehicle_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -86,7 +83,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future) const;
+    void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const;
 
     void drawAction_drawVehicleBlinker(double length) const;
     void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = false) const;
@@ -147,14 +144,20 @@ public:
     /// @brief return the lanechange state
     std::string getLCStateRight() const;
     std::string getLCStateLeft() const;
+    std::string getLCStateCenter() const;
 
     /// @brief return vehicle lane id
     std::string getLaneID() const;
+    std::string getBackLaneID() const;
     std::string getShadowLaneID() const;
     std::string getTargetLaneID() const;
 
     /// @brief return the lane-change maneuver distance
     double getManeuverDist() const;
+    /// @brief return the speed mode as bit string
+    std::string getSpeedMode() const;
+    /// @brief return the lane change mode as bit string
+    std::string getLaneChangeMode() const;
 
     /// @brief handle route to accomodate to given stop
     void rerouteDRTStop(MSStoppingPlace* busStop);
@@ -174,15 +177,9 @@ private:
      * @param[in] current The lane of which the predecessor should be returned
      * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
      */
-    MSLane* getPreviousLane(MSLane* current, int& routeIndex) const;
+    MSLane* getPreviousLane(MSLane* current, int& furtherIndex) const;
 
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

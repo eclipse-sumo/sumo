@@ -1,0 +1,4 @@
+<routes>
+    <vType id="t0" carFollowModel="W99" accel="1" decel="2" emergencyDecel="3"/>
+    <trip id="test" type="t0" depart="0" from="beg" to="end"/>
+</routes>

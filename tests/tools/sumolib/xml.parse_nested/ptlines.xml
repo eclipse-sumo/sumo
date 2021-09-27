@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ptLines>
+    <ptLine id="0" name="bus0" line="line0" type="bus">
+        <route edges="edge0"/>
+    </ptLine>
+    <ptLine id="1" line="line1" type="bus">
+        <route edges="edge0 edge1"/>
+    </ptLine>
+    <ptLine id="2" name="bus2" line="line2" type="bus">
+        <route edges="edge0 edge1 edge2"/>
+    </ptLine>
+</ptLines>

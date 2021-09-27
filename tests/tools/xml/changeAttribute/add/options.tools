@@ -1,0 +1,1 @@
+-f input_routes.rou.xml -o out.rou.xml -t trip -a color -v cyan

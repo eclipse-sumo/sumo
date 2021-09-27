@@ -1,0 +1,6 @@
+--no-step-log -v --net-file=net.net.xml --additional-files
+input_additional.add.xml --route-files input_routes.rou.xml --end 200
+--collision.action warn
+--collision.stoptime 10
+--vehroute-output vehroutes.xml
+--precision 3

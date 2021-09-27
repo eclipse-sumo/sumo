@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 26 16:24:45 2015 by SUMO duarouter Version dev-SVN-r18156I
+<!-- generated on Mon Mar 23 14:03:52 2020 by Eclipse SUMO duarouter Version v1_5_0+0895-90b9912ba1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -10,13 +10,15 @@ SPDX-License-Identifier: EPL-2.0
 
     <input>
         <net-file value="input_net.net.xml"/>
+        <route-files value="input_trips.trips.xml"/>
         <weight-files value="input_weights.dump.xml"/>
         <weight-attribute value="traveltime"/>
-        <trip-files value="input_trips.trips.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <report>
@@ -30,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.00">
         <routeDistribution last="0">
-            <route cost="124.10" probability="1.00000000" edges="beg b2b3 b3a3 a3a25 a25e"/>
+            <route cost="94.97" probability="1.00000000" edges="beg b2b3 b3a3 a3a25 a25e"/>
         </routeDistribution>
     </vehicle>
 </routes>

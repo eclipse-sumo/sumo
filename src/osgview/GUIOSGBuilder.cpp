@@ -1,86 +1,58 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIOSGBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    19.01.2012
-/// @version $Id$
 ///
 // Builds OSG nodes from microsim objects
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_OSG
 
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
-#include <osg/Version>
-#include <osgViewer/ViewerEventHandlers>
-#include <osgGA/TrackballManipulator>
-#include <osgDB/ReadFile>
-#include <osgDB/WriteFile>
-#include <osg/ShapeDrawable>
-#include <osg/Node>
-#include <osg/Group>
-#include <osg/Geode>
-#include <osg/Geometry>
-#include <osg/Sequence>
-#include <osg/Texture2D>
-#include <osgViewer/Viewer>
-#include <osgUtil/Tessellator>
-#include <osg/PositionAttitudeTransform>
-#include <osg/ShadeModel>
-#include <osg/Light>
-#include <osg/LightSource>
-#include <osg/ComputeBoundsVisitor>
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-
-#include <microsim/MSNet.h>
+#include <guisim/GUIEdge.h>
+#include <guisim/GUIJunctionWrapper.h>
+#include <guisim/GUILane.h>
+#include <guisim/GUINet.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
 #include <microsim/MSEdgeControl.h>
-#include <microsim/MSJunctionControl.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSJunctionControl.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include <guisim/GUIJunctionWrapper.h>
-#include <guisim/GUINet.h>
-#include <guisim/GUIEdge.h>
-#include <guisim/GUILane.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+
 #include "GUIOSGView.h"
 #include "GUIOSGBuilder.h"
-
 
 //#define DEBUG_TESSEL
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
-std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 
+std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 osg::Group*
 GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu) {
     osgUtil::Tessellator tesselator;
@@ -425,6 +397,4 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
 
 #endif
 
-
 /****************************************************************************/
-

@@ -1,0 +1,4 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: The edge ':C_c1' within the route  is not known.
+ The route can not be build.
+Quitting (on error).

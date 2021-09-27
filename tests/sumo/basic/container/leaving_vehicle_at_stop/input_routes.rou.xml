@@ -8,7 +8,7 @@
     
     <container id="container1" depart="0">
         <tranship from="2/3to1/3" to="1/3to0/3" departPos="80" arrivalPos="55"/>
-        <transport from="1/3to0/3" to="0/4to1/4" lines="truck1"/>
+        <transport containerStop="containerStop1" lines="truck1"/>
     </container>
 
     <vehicle id="truck0" depart="50" type="truck">

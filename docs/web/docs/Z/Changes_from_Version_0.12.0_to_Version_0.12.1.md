@@ -1,9 +1,8 @@
 ---
-title: Z/Changes from Version 0.12.0 to Version 0.12.1
-permalink: /Z/Changes_from_Version_0.12.0_to_Version_0.12.1/
+title: Changes from Version 0.12.0 to Version 0.12.1
 ---
 
-**Release Date: 7.10.2010**
+**Release Date: 07.10.2010**
 
 - TraCI
   - added a possibility to access a vehicle's signals, wipers, and
@@ -17,16 +16,15 @@ permalink: /Z/Changes_from_Version_0.12.0_to_Version_0.12.1/
     [Definition of Vehicles, Vehicle Types, and Routes\#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)).
   - addressing teleports
     - corrected "incoming lanes" determination
-    - added the option **--lanechange.allow-swap**; if enabled, vehicles blocking each other
-      are exchanged (see [Purgatory/Lane Changing](../Purgatory/Lane_Changing.md), in work)
+    - added the option **--lanechange.allow-swap**; if enabled, vehicles blocking each other are exchanged
 - GUI
   - debugged traffic lights tracker broken when moving to subseconds
-- NETCONVERT
+- netconvert
   - OSM-Import
     - osm importer fails fast - furtherly given files are not
       processed in the case of an error
     - assigned default velocities to not-numerical maxspeed values
-      ('none':300km/h, 'walk':5km/h); was: [defect 344: The TAPAS Cologne scenario does not work with the current(0.12.0) SUMO version - maxspeed not numeric](http://apps.sourceforge.net/trac/sumo/ticket/344)
+      ('none':300km/h, 'walk':5km/h); was: [defect 344: The TAPAS Cologne scenario does not work with the current(0.12.0) SUMO version - maxspeed not numeric](https://github.com/eclipse/sumo/issues/344)
     - parsing maxspeed values given as '50 km/h'; was:
-      [defect 344: The TAPAS Cologne scenario does not work with the current(0.12.0) SUMO version - maxspeed not numeric](http://apps.sourceforge.net/trac/sumo/ticket/344)
+      [defect 344: The TAPAS Cologne scenario does not work with the current(0.12.0) SUMO version - maxspeed not numeric](https://github.com/eclipse/sumo/issues/344)
     - new option **--osm.skip-duplicates-check** added which, well, skips checks for duplicate nodes and edges

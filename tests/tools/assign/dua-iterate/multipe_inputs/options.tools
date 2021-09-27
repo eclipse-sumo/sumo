@@ -1,0 +1,1 @@
+-n input_net.net.xml -t input_trips.trips_bar.xml,input_trips.trips_foo.xml -l 5

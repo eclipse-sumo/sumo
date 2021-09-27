@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OutputDevice.h
 /// @author  Daniel Krajzewicz
@@ -13,25 +17,18 @@
 /// @author  Michael Behrisch
 /// @author  Mario Krumnow
 /// @date    2004
-/// @version $Id$
 ///
 // Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/
-#ifndef OutputDevice_h
-#define OutputDevice_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
 #include <map>
+#include <cassert>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "PlainXMLFormatter.h"
-#include "BinaryFormatter.h"
 
 
 // ===========================================================================
@@ -137,7 +134,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const bool binary = false, const int defaultIndentation = 0, const std::string& filename = "");
+    OutputDevice(const int defaultIndentation = 0, const std::string& filename = "");
 
 
     /// @brief Destructor
@@ -186,9 +183,6 @@ public:
 
     template <typename E>
     bool writeHeader(const SumoXMLTag& rootElement) {
-        if (myAmBinary) {
-            return static_cast<BinaryFormatter*>(myFormatter)->writeHeader<E>(getOStream(), rootElement);
-        }
         return static_cast<PlainXMLFormatter*>(myFormatter)->writeHeader(getOStream(), rootElement);
     }
 
@@ -232,17 +226,7 @@ public:
     /** @brief writes a line feed if applicable
      */
     void lf() {
-        if (!myAmBinary) {
-            getOStream() << "\n";
-        }
-    }
-
-
-    /** @brief Returns whether we have a binary output
-     * @return whether we have a binary output
-     */
-    bool isBinary() const {
-        return myAmBinary;
+        getOStream() << "\n";
     }
 
 
@@ -254,9 +238,21 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-        if (myAmBinary) {
-            BinaryFormatter::writeAttr(getOStream(), attr, val);
-        } else {
+        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        return *this;
+    }
+
+    /** @brief writes a named attribute unless filtered
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     * @param[in] attributeMask The filter that specifies whether the attribute shall be written
+     * @return The OutputDevice for further processing
+     */
+    template <typename T>
+    OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
+        assert((int)attr <= 63);
+        if (attributeMask == 0 || attributeMask & ((long long int)1 << attr)) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         }
         return *this;
@@ -271,14 +267,9 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const std::string& attr, const T& val) {
-        if (myAmBinary) {
-            BinaryFormatter::writeAttr(getOStream(), attr, val);
-        } else {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-        }
+        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         return *this;
     }
-
 
     /** @brief writes a string attribute only if it is not the empty string and not the string "default"
      *
@@ -349,29 +340,21 @@ private:
     /// @brief map from names to output devices
     static std::map<std::string, OutputDevice*> myOutputDevices;
 
+    /// @brief old console code page to restore after ending
+    static int myPrevConsoleCP;
+
+protected:
+    const std::string myFilename;
 
 private:
     /// @brief The formatter for XML
-    OutputFormatter* myFormatter;
-
-    const bool myAmBinary;
-
-protected:
-    std::string myFilename;
-
-public:
-    /// @brief Invalidated copy constructor.
-    OutputDevice(const OutputDevice&);
+    OutputFormatter* const myFormatter;
 
 private:
+    /// @brief Invalidated copy constructor.
+    OutputDevice(const OutputDevice&) = delete;
 
     /// @brief Invalidated assignment operator.
-    OutputDevice& operator=(const OutputDevice&);
+    OutputDevice& operator=(const OutputDevice&) = delete;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

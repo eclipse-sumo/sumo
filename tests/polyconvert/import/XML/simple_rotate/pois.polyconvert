@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Oct 25 13:00:55 2019 by Eclipse SUMO polyconvert Version v1_3_1+0697-9537bd26b2a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <xml-files value="input_poi.poi.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <simple-projection value="true"/>
+        <proj.scale value="1"/>
+        <proj.rotate value="5"/>
+    </projection>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="1262817.10,5673198.72,1262991.40,5673267.75" origBoundary="13.526699,52.425832,13.529100,52.426404" projParameter="-"/>
+
+    <poly id="-974" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="1262871.608181,5673198.715058 1262817.097868,5673267.748085 1262818.721173,5673254.044554 1262863.048319,5673233.740496 1262991.397324,5673233.002392"/>
+    <poi id="32266935" type="unknown" color="51,128,255" layer="-1.00" x="1262817.10" y="5673267.75"/>
+</additional>

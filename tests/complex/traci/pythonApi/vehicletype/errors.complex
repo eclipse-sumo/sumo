@@ -1,3 +1,0 @@
-Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (2.2 s.) to the adjusted value 2 s.
-Warning: Given action step length 2 for vehicle type 'DEFAULT_VEHTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
-Warning: Vehicle 'horiz' performs emergency braking with decel=-2.20 wished=1.10 severity=1.00, time=6.00.

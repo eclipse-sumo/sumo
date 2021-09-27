@@ -1,5 +1,5 @@
-Parsing network projection from 'input_net.net.xml'... done (0ms).
-Parsing nodes from osm-file 'osm.xml'... done (7ms).
-Parsing relations from osm-file 'osm.xml'... done (6ms).
-Parsing edges from osm-file 'osm.xml'... done (8ms).
+Parsing network projection from 'input_net.net.xml' ... done (0ms).
+Parsing nodes from osm-file 'osm.xml' ... done (30ms).
+Parsing relations from osm-file 'osm.xml' ... done (16ms).
+Parsing edges from osm-file 'osm.xml' ... done (17ms).
 Success.

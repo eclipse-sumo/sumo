@@ -1,6 +1,5 @@
 ---
 title: Students And Support
-permalink: /Students_And_Support/
 ---
 
 Please find below a list of possible work items. It includes both,
@@ -24,7 +23,7 @@ should do this before starting the work on one of the topics. One of us
 will then act as the second reader/redactor and will guide you along
 your work. Of course, an initial discussion between the professor /
 advisor and us is wished for clarifying the work. Further regulations
-and legal issues are a matter of your home university / organisation.
+and legal issues are a matter of your home university / organization.
 
 The following list contains proposals only. If you have an own idea, you
 can present it to us, too. There is also [a more verbose list of the
@@ -56,7 +55,7 @@ topics, in German](DiplomStudArb.md).
 
 ### Traffic Simulation Models
 
-- Simulation Validation (should be concretised)
+- Simulation Validation (should be concretized)
 - Emergency Vehicle Simulation
 - Using the opposite Lane for Overtaking - a Microsim Approach
 - Left-Hand Traffic (includes both, work on the simulation and network
@@ -82,7 +81,7 @@ topics, in German](DiplomStudArb.md).
   Demand Modelling
 - Matching Road Networks
 
-### Software Enginneering
+### Software Engineering
 
 - Checkstyle for c++
 - Fixed point vs. Floating point

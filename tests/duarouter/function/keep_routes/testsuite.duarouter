@@ -1,0 +1,14 @@
+# no calculation of new routes
+skip_new_routes
+
+# no calculation of new routes
+keep-route-probability_1
+
+# calculation of new routes for all
+keep-route-probability_0
+
+# calculation of new routes for half input
+keep-route-probability_0.5
+
+# no calculation of new routes
+keep-route-probability_trips

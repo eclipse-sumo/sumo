@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-19 11:26:13 by Eclipse SUMO duarouter Version v1_10_0+0086-d9a23d2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <container id="c0" depart="0">
+        <tranship from="beg" to="end"/>
+    </container>
+    <container id="c0_edges" depart="0">
+        <tranship edges="beg middle end"/>
+    </container>
+    <container id="c1" depart="0">
+        <transport from="end" to="beg"/>
+    </container>
+    <container id="c2" depart="0">
+        <stop edge="end" duration="20"/>
+    </container>
+    <container id="c3" depart="0">
+        <transport from="end" to="beg"/>
+        <tranship from="end" to="beg"/>
+        <stop edge="beg" duration="20"/>
+    </container>
+</routes>

@@ -1,3 +1,6 @@
+# cross a road
+2_arm
+
 # attempt to specify an invalid crossing
 2_arm_oneway_invalid
 
@@ -50,6 +53,9 @@ sumonet_customTLIndex2
 # 4 arm junction with 1 crossing (with custom shape)
 4_arm_1_customshape
 
+# 4 arm junction with 1 crossing (with custom shape), shifted by normalization
+4_arm_1_customshape_normalized
+
 # reimport .net.xml and keep the crossings with its custom shape
 sumonet_customshape
 
@@ -74,6 +80,9 @@ sumonet_customshape
 
 # custom walking area shapes, shifter by user defined offset
 4_arm_3_neighboring_split_customshape_shifted2
+
+# custom walking area width
+4_arm_3_neighboring_split_customsWidth
 
 # reimport .net.xml and keep the crossings and walkingareas with custom shape
 sumonet_custom_washape
@@ -114,6 +123,9 @@ sumonet_customshapes_shifted
 
 # duplicated crossings shall be rejected
 4_arm_duplicate
+
+# underlying priority junction has a turning priority road but tls layout is oncoming.  Related to #7764
+4_arm_bent_priority_tls_oncoming
 
 # a walkingarea should not try to follow the connection shape if there can be no adjacent road connection
 sharp_angle_incompatible_vclass

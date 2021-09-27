@@ -22,16 +22,16 @@ Running main() from gtest_main.cc
 [       OK ] Boundary.test_method_flipY (0 ms)
 [ RUN      ] Boundary.test_method_moveby
 [       OK ] Boundary.test_method_moveby (0 ms)
-[----------] 10 tests from Boundary (1 ms total)
+[----------] 10 tests from Boundary (0 ms total)
 
 [----------] 1 test from GeoConvHelper
 [ RUN      ] GeoConvHelper.test_method_x2cartesian
-[       OK ] GeoConvHelper.test_method_x2cartesian (2 ms)
-[----------] 1 test from GeoConvHelper (2 ms total)
+[       OK ] GeoConvHelper.test_method_x2cartesian (1 ms)
+[----------] 1 test from GeoConvHelper (1 ms total)
 
 [----------] 15 tests from PositionVectorTest
 [ RUN      ] PositionVectorTest.test_method_around
-[       OK ] PositionVectorTest.test_method_around (1 ms)
+[       OK ] PositionVectorTest.test_method_around (0 ms)
 [ RUN      ] PositionVectorTest.test_method_area
 [       OK ] PositionVectorTest.test_method_area (0 ms)
 [ RUN      ] PositionVectorTest.test_method_scaleRelative
@@ -44,8 +44,8 @@ Running main() from gtest_main.cc
 [       OK ] PositionVectorTest.test_method_getBoxBoundary (0 ms)
 [ RUN      ] PositionVectorTest.test_method_splitAt
 [       OK ] PositionVectorTest.test_method_splitAt (0 ms)
-[ RUN      ] PositionVectorTest.test_method_intersectsAtLenghts2D
-[       OK ] PositionVectorTest.test_method_intersectsAtLenghts2D (0 ms)
+[ RUN      ] PositionVectorTest.test_method_intersectsAtLengths2D
+[       OK ] PositionVectorTest.test_method_intersectsAtLengths2D (0 ms)
 [ RUN      ] PositionVectorTest.test_method_nearest_offset_to_point2D
 [       OK ] PositionVectorTest.test_method_nearest_offset_to_point2D (0 ms)
 [ RUN      ] PositionVectorTest.test_method_extrapolate2D
@@ -60,8 +60,8 @@ Running main() from gtest_main.cc
 [       OK ] PositionVectorTest.test_method_distances (0 ms)
 [ RUN      ] PositionVectorTest.test_method_overlapsWith
 [       OK ] PositionVectorTest.test_method_overlapsWith (0 ms)
-[----------] 15 tests from PositionVectorTest (1 ms total)
+[----------] 15 tests from PositionVectorTest (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 26 tests from 3 test cases ran. (4 ms total)
+[==========] 26 tests from 3 test cases ran. (2 ms total)
 [  PASSED  ] 26 tests.

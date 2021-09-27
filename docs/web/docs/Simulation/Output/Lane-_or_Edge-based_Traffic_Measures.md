@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Lane- or Edge-based Traffic Measures
-permalink: /Simulation/Output/Lane-_or_Edge-based_Traffic_Measures/
+title: Lane- or Edge-based Traffic Measures
 ---
 
 Values within this output describe the situation within the network in
@@ -20,17 +19,25 @@ possibilities to constraint the outputs are given.
 
 ### Meandata Definition
 
-An edge-based state dump is defined within an {{AdditionalFile}} as following:
+An edge-based state dump is defined within an {{AdditionalFile}} added to the sumo config as following:
 
-```
-<edgeData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/\>
+```xml
+<additional>
+    <edgeData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>" .../>
+</additional>
 ```
 
 For a lane based dump simply write:
 
+```xml
+<additional>
+    <laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>" .../>
+</additional>
 ```
-<laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/\>
-```
+
+!!! note
+    attribute 'id' is only used to distinguish outputs if there are multiple edgeData definitions. The value is otherwise arbitrary and does not influence written outputs.
+    
 
 For additional attributes see the table below.
 
@@ -49,6 +56,7 @@ For additional attributes see the table below.
 | vTypes         | string                         | space separated list of vehicle type ids to consider, "" means all; *default ""*.                                                                                                                                                           |
 | trackVehicles  | bool                           | whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval                                                                                                                            |
 | detectPersons  | string list                    | whether pedestrians shall be recorded instead of vehicles. Allowed value is *walk*.<br>**Note:** further modes are planned           |
+| writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
 
 ## Generated Output
 
@@ -57,9 +65,9 @@ For additional attributes see the table below.
 For edge-based state dumps, the output file will look like the
 following:
 
-```
+```xml
 <meandata>
-    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<MEASUREMENT_ID>">
       <edge id="<EDGE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
             traveltime="<MEAN_TRAVEL_TIME>" \
             density="<MEAN_DENSITY>" occupancy="<MEAN_OCCUPANCY>" \
@@ -84,9 +92,9 @@ values are reported in one line.
 
 The generated output looks like the following:
 
-```
+```xml
 <meandata>
-    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<DETECTOR_ID>">
+    <interval begin="<INTERVAL_BEGIN>" end="<INTERVAL_END>" id="<MEASUREMENT_ID>">
       <edge id="<EDGE_ID>">
           <lane id="<LANE_ID>" sampledSeconds="<COLLECTED_VEHICLE_SECONDS>" \
                 traveltime="<MEAN_TRAVEL_TIME>" \
@@ -133,9 +141,11 @@ The meanings of the written values are given in the following table.
 | sampledSeconds    | s                    | The number of vehicles that are present on the edge/lane in each second summed up over the measurement interval (may be subseconds if a vehicle enters/leaves the edge/lane).                                                 |
 | traveltime        | s                    | Time needed to pass the edge/lane, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time needed for the front of the vehicle to pass the edge. |
 | overlapTraveltime | s                    | Time needed to pass the edge/lane completely, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time any part of the vehicle was the edge.      |
-| density           | \#veh/km             | Vehicle density on the lane/edge                                                                                                                                                                                              |
+| density           | \#veh/km             | Vehicle density on the edge                                                                                                                                                                                              |
+| laneDensity           | \#veh/km/lane             | Vehicle density on the edge per lane                                                                                                                                                                                              |
 | occupancy         | %                    | Occupancy of the edge/lane in %. A value of 100 would indicate vehicles standing bumper to bumper on the whole edge (minGap=0).                                                                                               |
-| waitingTime       | s                    | The total number of seconds vehicles were considered stopped (summed up over all vehicles)                                                                                                                                                                 |
+| waitingTime       | s                    | The total number of seconds vehicles were considered halting (speed < speedThreshold). Summed up over all vehicles                                                                                                                                                                 |
+| timeLoss         | s                     | The total number of seconds vehicles lost due to driving slower than desired (summed up over all vehicles)                                                                                                                                                                 |
 | speed             | m/s                  | The mean speed on the edge/lane within the reported interval.<br><br>**Caution:** This is an average over time and space (space-mean-speed), rather than a local average over the vehicles (time-mean-speed). Since slow vehicles spend more time on the edge they will have a proportionally bigger influence on average speed.                                                                                                                                                                 |
 | departed          | \#veh                | The number of vehicles that have been emitted onto the edge/lane within the described interval                                                                                                                                |
 | arrived           | \#veh                | The number of vehicles that have finished their route on the edge lane                                                                                                                                                        |
@@ -168,20 +178,19 @@ have long and slow vehicles you cannot aggregate as above.
 The following measurements can be derived from the values given (period
 denotes the length of the aggregation interval):
 
-- Average number of vehicles on the edge (\#) = sampledSeconds /
-  period
-- Average traffic volume (\#/h) = speed \* 3.6 \* density
-- Traffic volume at the begin of the lane / edge (\#/h) = 3600 \*
-  entered / period
-- Traffic volume at the end of the lane / edge (\#/h) = 3600 \* left /
-  period
-- Total distance travelled (m) = speed \* sampledSeconds
+- Average number of vehicles on the edge (\#) = `sampledSeconds /  period`
+- Average traffic volume (\#/h) = `speed * 3.6 * density`
+- Traffic volume at the begin of the lane / edge (\#/h) = `3600 * entered / period`
+- Traffic volume at the end of the lane / edge (\#/h) = `3600 * left /  period`
+- Total distance travelled (m) = `speed * sampledSeconds`
+- Edge length = `sampledSeconds / period * 1000 / density`
+
 
 Sometimes one wants to know how many vehicles were on an edge. The exact
 definition of this value depends on how departed, arrived and
 lane-changing vehicles are counted. Each vehicle is either in *arrived*,
 *left* or *laneChangedFrom* and each vehicle is also either in
-*departed*, *entered* or *laneChangedTo*. Hoever, a vehicle may be
+*departed*, *entered* or *laneChangedTo*. However, a vehicle may be
 counted multiple times in *laneChangedFrom* and *laneChangedTo* if it
 performed back-and-forth lane changing.
 
@@ -194,7 +203,7 @@ vehicle only once but they include/exclude some special cases.
 - left + arrived
 
 !!! note
-    When using `<laneData>` the sum *left* + *arrived* excludes all the vehicles that exited the lane by lane-changing. whereas the sum *left* + *arrived* + *laneChangedFrom* may count vehicles multiple times. If total counts on a lane are needed it is better to use a [detector](../../Simulation/Output.md#simulated_detectors).
+    When using `<laneData>` the sum *left* + *arrived* excludes all the vehicles that exited the lane by lane-changing. whereas the sum *left* + *arrived* + *laneChangedFrom* may count vehicles multiple times. If total counts on a lane are needed it is better to use a [detector](../../Simulation/Output/index.md#simulated_detectors).
 
 ## Notes
 

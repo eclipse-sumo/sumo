@@ -1,35 +1,32 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIParameterTableWindow.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The window that holds the table of an object's parameter
 /****************************************************************************/
-#ifndef GUIParameterTableWindow_h
-#define GUIParameterTableWindow_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
 #include <string>
 #include <algorithm>
 #include <functional>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/SUMOTime.h>
 #include "GUIParameterTableItem.h"
@@ -67,10 +64,8 @@ public:
      *
      * @param[in] app The application this window belongs to
      * @param[in] o The gl-object this table describes
-     * @param[in] noRows Number of rows to allocate
      */
-    GUIParameterTableWindow(GUIMainWindow& app,
-                            GUIGlObject& o, int noRows);
+    GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o);
 
 
     /// @brief Destructor
@@ -88,6 +83,8 @@ public:
     void closeBuilding(const Parameterised* p = 0);
 
 
+    /// @brief ensure that the font covers the given text
+    void checkFont(const std::string& text);
 
     /** @brief Lets this window know the object shown is being deleted
      * @param[in] o The deleted (shown) object
@@ -107,6 +104,7 @@ public:
      */
     template<class T>
     void mkItem(const char* name, bool dynamic, ValueSource<T>* src) {
+        myTable->insertRows((int)myItems.size() + 1);
         GUIParameterTableItemInterface* i = new GUIParameterTableItem<T>(myTable, myCurrentPos++, name, dynamic, src);
         myItems.push_back(i);
     }
@@ -181,6 +179,7 @@ public:
      */
     long onTableDeselected(FXObject*, FXSelector, void*);
 
+
     /** @brief Shows a popup
      *
      * Callback for right-mouse-button pressing event. Obtains the selected row
@@ -191,13 +190,18 @@ public:
      * @see GUIParam_PopupMenuInterface
      */
     long onRightButtonPress(FXObject*, FXSelector, void*);
+
+    /// @brief directly opens tracker when clicking on last column
+    long onLeftBtnPress(FXObject*, FXSelector, void*);
     /// @}
 
     /** @brief Updates all instances
      */
     static void updateAll() {
         FXMutexLock locker(myGlobalContainerLock);
-        std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GUIParameterTableWindow::updateTable));
+        for (GUIParameterTableWindow* const window : myContainer) {
+            window->updateTable();
+        }
     }
 
 protected:
@@ -228,6 +232,9 @@ private:
     /// @brief The list of table rows
     std::vector<GUIParameterTableItemInterface*> myItems;
 
+    /// @brief y-position for opening new tracker window
+    int myTrackerY;
+
     /// @brief The index of the next row to add - used while building
     unsigned myCurrentPos;
 
@@ -238,13 +245,6 @@ private:
     static int numParams(const GUIGlObject* obj);
 
 protected:
-    /// FOX needs this
-    GUIParameterTableWindow() { }
+    FOX_CONSTRUCTOR(GUIParameterTableWindow)
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

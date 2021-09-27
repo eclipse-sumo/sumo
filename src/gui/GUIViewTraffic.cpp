@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIViewTraffic.cpp
 /// @author  Daniel Krajzewicz
@@ -14,15 +18,9 @@
 /// @author  Michael Behrisch
 /// @author  Andreas Gaubatz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_FFMPEG
@@ -37,14 +35,17 @@
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSJunctionControl.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/shapes/ShapeContainer.h>
 #include "GUISUMOViewParent.h"
 #include "GUIViewTraffic.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -69,6 +70,7 @@ FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE, GUIViewTraffic::onCmdCloseLane),
     FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE, GUIViewTraffic::onCmdCloseEdge),
     FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER, GUIViewTraffic::onCmdAddRerouter),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY, GUIViewTraffic::onCmdShowReachability),
 };
 
 
@@ -99,62 +101,62 @@ GUIViewTraffic::~GUIViewTraffic() {
 
 
 void
-GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
+GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
     {
         const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            v.getColoringSchemesCombo()->appendItem(i->c_str());
+            v->getColoringSchemesCombo()->appendItem(i->c_str());
             if ((*i) == myVisualizationSettings->name) {
-                v.getColoringSchemesCombo()->setCurrentItem(v.getColoringSchemesCombo()->getNumItems() - 1);
+                v->getColoringSchemesCombo()->setCurrentItem(v->getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v.getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)names.size() + 1));
+        v->getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)names.size() + 1));
     }
     // for junctions
-    new FXButton(v.getLocatorPopup(),
-                 "\tLocate Junction\tLocate a junction within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate Junctions\tLocate a junction within the network.",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
-    new FXButton(v.getLocatorPopup(),
-                 "\tLocate Street\tLocate a street within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate Edges\tLocate an edge within the network.",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-
     // for vehicles
-    new FXButton(v.getLocatorPopup(),
-                 "\tLocate Vehicle\tLocate a vehicle within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate Vehicles\tLocate a vehicle within the network.",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-
     // for persons
-    if (!MSGlobals::gUseMesoSim) { // there are no persons in mesosim (yet)
-        new FXButton(v.getLocatorPopup(),
-                     "\tLocate Vehicle\tLocate a person within the network.",
-                     GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
-                     ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-    }
-
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate Persons\tLocate a person within the network.",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    // for containers
+    new FXButton(v->getLocatorPopup(),
+                 "\tLocate Container\tLocate a container within the network.",
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_LOCATECONTAINER,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for tls
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATETLS), &v, MID_LOCATETLS,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate Additional\tLocate an additional structure within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEADD), &v, MID_LOCATEADD,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate PoI\tLocate a PoI within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPOI), &v, MID_LOCATEPOI,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
-    new FXButton(v.getLocatorPopup(),
+    new FXButton(v->getLocatorPopup(),
                  "\tLocate Polygon\tLocate a Polygon within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPOLY), &v, MID_LOCATEPOLY,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 
@@ -194,12 +196,18 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
             if (MSGlobals::gUseMesoSim) {
                 const double val = static_cast<GUIEdge*>(*it)->getColorValue(s, active);
+                if (val == s.MISSING_DATA) {
+                    continue;
+                }
                 minValue = MIN2(minValue, val);
                 maxValue = MAX2(maxValue, val);
             } else {
                 const std::vector<MSLane*>& lanes = (*it)->getLanes();
                 for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
                     const double val = static_cast<GUILane*>(*it_l)->getColorValue(s, active);
+                    if (val == s.MISSING_DATA) {
+                        continue;
+                    }
                     minValue = MIN2(minValue, val);
                     maxValue = MAX2(maxValue, val);
                 }
@@ -239,8 +247,12 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
+        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+            scheme.addColor(RGBColor(204, 204, 204), std::numeric_limits<double>::max(), "missing data");
+        }
         if (hide) {
-            minValue = MAX2(hideThreshold + 1, minValue);
+            const double rawRange = maxValue - minValue;
+            minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);
             scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
         }
         double range = maxValue - minValue;
@@ -284,14 +296,40 @@ GUIViewTraffic::getEdgeLaneParamKeys(bool edgeKeys) const {
 }
 
 
+std::vector<std::string>
+GUIViewTraffic::getVehicleParamKeys(bool /*vTypeKeys*/) const {
+    std::set<std::string> keys;
+    GUIVehicleControl* vc = GUINet::getGUIInstance()->getGUIVehicleControl();
+    vc->secureVehicles();
+    for (auto vehIt = vc->loadedVehBegin(); vehIt != vc->loadedVehEnd(); ++vehIt) {
+        for (auto kv : vehIt->second->getParameter().getParametersMap()) {
+            keys.insert(kv.first);
+        }
+    }
+    vc->releaseVehicles();
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
+
+std::vector<std::string>
+GUIViewTraffic::getPOIParamKeys() const {
+    std::set<std::string> keys;
+    const ShapeContainer::POIs& pois = static_cast<ShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIs();
+    for (auto item : pois) {
+        for (auto kv : item.second->getParametersMap()) {
+            keys.insert(kv.first);
+        }
+    }
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
+
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     // (uncomment the next line to check select mode)
-    //myVisualizationSettings->drawForSelecting = true;
+    //myVisualizationSettings->drawForPositionSelection = true;
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_ALPHA_TEST);
     glEnable(GL_BLEND);
@@ -299,18 +337,17 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_DEPTH_TEST);
 
     // draw decals (if not in grabbing mode)
-    if (!myUseToolTips) {
-        drawDecals();
-        if (myVisualizationSettings->showGrid) {
-            paintGLGrid();
-        }
+    drawDecals();
+    if (myVisualizationSettings->showGrid) {
+        paintGLGrid();
     }
+
 
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
     const float maxB[2] = { (float)bound.xmax(), (float)bound.ymax() };
-    myVisualizationSettings->scale = myVisualizationSettings->drawForSelecting ? myVisualizationSettings->scale : m2p(SUMO_const_laneWidth);
+    myVisualizationSettings->scale = myVisualizationSettings->drawForPositionSelection ? myVisualizationSettings->scale : m2p(SUMO_const_laneWidth);
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
@@ -324,7 +361,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
         GUINet::getGUIInstance()->unlock();
         glTranslated(0, 0, .01);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     /*
     // draw legends
     glMatrixMode(GL_MODELVIEW);
@@ -360,12 +397,9 @@ void
 GUIViewTraffic::onGamingClick(Position pos) {
     if (myTLSGame) {
         MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
-        const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
-        MSTrafficLightLogic* minTll = nullptr;
+        const MSTrafficLightLogic* minTll = nullptr;
         double minDist = std::numeric_limits<double>::infinity();
-        for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
-            // get the logic
-            MSTrafficLightLogic* tll = (*i);
+        for (const MSTrafficLightLogic* const tll : tlsControl.getAllLogics()) {
             if (tlsControl.isActive(tll) && tll->getProgramID() != "off") {
                 // get the links
                 const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
@@ -441,7 +475,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
                 GUIGlID id = *sel.begin();
                 GUIVehicle* veh = dynamic_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
                 assert(veh != 0);
-                MSLane* lane = veh->getLane();
+                MSLane* lane = veh->getMutableLane();
                 lane->getVehiclesSecure();
                 veh->rerouteDRTStop(closestStop);
                 GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -518,6 +552,59 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        // reset
+        const double UNREACHABLE = -1;
+        gSelected.clear();
+        for (const MSEdge* const e : MSEdge::getAllEdges()) {
+            for (MSLane* const l : e->getLanes()) {
+                GUILane* gLane = dynamic_cast<GUILane*>(l);
+                gLane->setReachability(UNREACHABLE);
+            }
+        }
+        // prepare
+        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
+        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
+        // find reachable
+        std::map<MSEdge*, double> reachableEdges;
+        reachableEdges[&lane->getEdge()] = 0;
+        MSEdgeVector check;
+        check.push_back(&lane->getEdge());
+        while (check.size() > 0) {
+            MSEdge* e = check.front();
+            check.erase(check.begin());
+            double traveltime = reachableEdges[e];
+            for (MSLane* const l : e->getLanes()) {
+                if (l->allowsVehicleClass(svc)) {
+                    GUILane* gLane = dynamic_cast<GUILane*>(l);
+                    gSelected.select(gLane->getGlID());
+                    gLane->setReachability(traveltime);
+                }
+            }
+            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
+            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
+                if (reachableEdges.count(nextEdge) == 0 ||
+                        // revisit edge via faster path
+                        reachableEdges[nextEdge] > traveltime) {
+                    reachableEdges[nextEdge] = traveltime;
+                    check.push_back(nextEdge);
+                }
+            }
+        }
+        // switch to 'color by selection' unless coloring 'by reachability'
+        if (myVisualizationSettings->laneColorer.getActive() != 36) {
+            myVisualizationSettings->laneColorer.setActive(1);
+        }
         update();
     }
     return 1;

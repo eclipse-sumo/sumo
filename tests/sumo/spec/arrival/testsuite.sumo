@@ -1,3 +1,6 @@
+# tests for arriving with an offset along the route
+arrivalEdge
+
 # checks using the default position
 pos_default
 pos_default_trip
@@ -49,6 +52,12 @@ lane_given0
 
 # checks using the given lane (lane 1)
 lane_given1
+
+# checks using arrivalLane=first
+lane_first
+
+# checks using arrivalLane=random
+lane_random
 
 # Errors on emission
 errors

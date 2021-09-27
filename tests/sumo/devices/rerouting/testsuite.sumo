@@ -7,6 +7,9 @@ routes_explicite_routes
 # whether the devices are properly assigned
 assignment
 
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
 # tests for parallel simulation routing
 parallel
 
@@ -24,6 +27,9 @@ reroute_congestions
 
 # handlng stops while rerouting
 stops
+
+# test routing if vehicle speeds on the same edge strongly differ by turning direction
+turn_specific_speeds
 
 # handle input errors
 invalid_adaptation_interval

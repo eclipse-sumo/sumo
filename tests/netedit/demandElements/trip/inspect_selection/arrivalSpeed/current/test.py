@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2019-07-16
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -32,22 +35,25 @@ netedit.supermodeDemand()
 netedit.selectMode()
 
 # select all using invert
-netedit.selectionInvertDemand()
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
+# apply zoom
+netedit.setZoom("14", "17", "12")
+
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 413)
+netedit.leftClick(referencePosition, 330, 150)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(7, "", True)
+netedit.modifyAttribute(8, "", False)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(7, "dummySpeed", True)
+netedit.modifyAttribute(8, "dummySpeed", False)
 
 # change arrivalSpeed with a valid value
-netedit.modifyAttribute(7, "current", True)
+netedit.modifyAttribute(8, "current", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

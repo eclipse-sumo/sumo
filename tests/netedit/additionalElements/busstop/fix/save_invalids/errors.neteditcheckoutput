@@ -1,0 +1,3 @@
+Error: Invalid position for busStop 'busStopA'.
+Error: Could not end a stopping place that is not opened.
+Quitting (on error).

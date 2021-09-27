@@ -1,4 +1,2 @@
 Warning: Edge '181961196' is not connected to outgoing edges at junction '337745510'.
-Warning: Invalid pedestrian topology: crossing ':1865620843_c2' across '-324751734#2' has no target.
-Warning: Discarding invalid crossing ':1865620843_c0' at junction '1865620843' with edges '324751734#2' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':3526736114_c0' across '175999143#1' has no target.
+Warning: Invalid pedestrian topology: crossing ':3526736114_c0' across [175999143#1] has no target.

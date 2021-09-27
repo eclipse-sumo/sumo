@@ -1,0 +1,24 @@
+# use mode taxi
+basic
+
+# walk instead of taxi
+longTaxiWait
+
+# walk and then use taxi (all persons walks because taxi option is not set)
+walk_first
+
+# walk and then use taxi (taxi transfer enabled with option)
+walk_first_transferTaxi
+
+# walk and then keep walking due to configure taxi.waiting-time
+walk_first_longTaxiWait
+
+# use taxi and then walk (all persons walks because taxi option is not set)
+walk_last
+
+# use taxi and then walk (taxi transfer enabled with option)
+walk_last_transferTaxi
+
+# even when using shared space, transfer should only happen on "normal" edges (not on junction internal edges)
+transfer_allJunctions_shared_space
+walk_taxi_walk_transfer_ptStops

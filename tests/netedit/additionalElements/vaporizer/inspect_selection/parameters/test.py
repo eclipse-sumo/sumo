@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -38,41 +41,11 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, 310, 215)
+netedit.leftClick(referencePosition, 533, 200)
 
-# Change generic parameters with an invalid value (dummy)
-netedit.modifyAttribute(4, "dummyGenericParameters", False)
 
-# Change generic parameters with an invalid value (invalid format)
-netedit.modifyAttribute(4, "key1|key2|key3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(4, "key1=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(4, "key1=|key2=|key3=", False)
-
-# Change generic parameters with a valid value (clear parameters)
-netedit.modifyAttribute(4, "", False)
-
-# Change generic parameters with an valid value (duplicated keys)
-netedit.modifyAttribute(4, "key1duplicated=value1|key1duplicated=value2|key3=value3", False)
-
-# Change generic parameters with a valid value (duplicated values)
-netedit.modifyAttribute(4, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", False)
-
-# Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(4, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", False)
-
-# Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(4, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", False)
-
-# Change generic parameters with a valid value
-netedit.modifyAttribute(4, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
-
-# Check undo redo
-netedit.undo(referencePosition, 7)
-netedit.redo(referencePosition, 7)
+# check parameters
+netedit.checkParameters(referencePosition, 4, True)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

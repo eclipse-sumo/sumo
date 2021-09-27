@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    cadytsIterate.py
 # @author  Jakob Erdmann
@@ -14,11 +18,15 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2010-09-15
-# @version $Id$
 
 """
-Run cadyts to calibrate the simulation with given routes and traffic measurements.
-Respective traffic zones information has to exist in the given route files.
+- Run Cadyts to calibrate the SUMO simulation with given routes (including alternatives and
+  exit time) for each edge and traffic measurements.
+- Edges' exit-time information can be obtained by setting the option "exit-times" True when
+  running DUARouter/duaIterate.py
+- The file format of the route alternatives (together with exit-times info) corresponds to
+  the DUAROUTER assignment result (*.alt.xml)
+- Respective traffic zones information has to exist in the given route files.
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -124,6 +132,10 @@ def main():
     for step in range(options.calibStep):
         print('calibration step:', step)
         files = []
+        current_directory = os.getcwd()
+        final_directory = os.path.join(current_directory, str(step))
+        if not os.path.exists(final_directory):
+            os.makedirs(final_directory)
 
         # calibration choice
         firstRoute = options.routes.split(",")[0]
@@ -134,7 +146,7 @@ def main():
             output = "%s_%03i.cal.xml" % (routname[:routname.find('.')], step)
 
         call(calibrator + ["CHOICE", "-choicesetfile",
-                           options.routes, "-choicefile", "%s" % output], log)
+                           options.routes, "-choicefile", "%s/%s" % (step, output)], log)
         files.append(output)
 
         # simulation
@@ -142,7 +154,7 @@ def main():
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
         writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
-        call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
+        call([sumoBinary, "-c", "%s/iteration_%03i.sumocfg" % (step, step)], log)
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
@@ -150,11 +162,11 @@ def main():
 
         # calibration update
         if evalprefix:
-            call(calibrator + ["UPDATE", "-netfile", "dump_%03i_%s.xml" % (
-                step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
+            call(calibrator + ["UPDATE", "-netfile", "%s/dump_%03i_%s.xml" % (
+                step, step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
         else:
             call(calibrator + ["UPDATE", "-netfile",
-                               "dump_%03i_%s.xml" % (step, options.aggregation)], log)
+                               "%s/dump_%03i_%s.xml" % (step, step, options.aggregation)], log)
         print("< Step %s ended (duration: %s)" %
               (step, datetime.now() - btime))
         print("------------------\n")
@@ -164,5 +176,6 @@ def main():
     log.close()
 
 
+pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
 if __name__ == "__main__":
     main()

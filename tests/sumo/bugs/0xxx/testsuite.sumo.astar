@@ -1,0 +1,5 @@
+# testing route length in tripinfos and vehroute output with rerouting
+ticket676
+
+# testing router in network without internal edges
+ticket676_no_internal

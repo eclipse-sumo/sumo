@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jun  4 09:53:34 2020 by Eclipse SUMO Version v1_6_0+0521-bad558c3e9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="overtaking1" type="emergency" time="68.00" from="WE_1" to="EW_1" dir="1" speed="13.89" pos="900.18" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="94.82" origLeaderSecureGap="28.56" origLeaderSpeed="0.00"/>
+    <change id="overtaking1" type="emergency" time="80.00" from="EW_1" to="WE_1" dir="-1" speed="13.89" pos="933.14" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="60.36" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="overtaking1" type="emergency" time="86.00" from="WE_1" to="WE_0" dir="-1" speed="13.89" pos="1150.20" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="143.70" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+</lanechanges>

@@ -1,2 +1,2 @@
-Warning: Intersecting left turns at junction 'cluster_node_C_node_C2' from lane 'edge_U2C2_0' and lane 'edge_D2C_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'cluster_node_C_node_C2' from lane 'edge_R2C2_0' and lane 'edge_L2C_0'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'cluster_node_C_node_C2' from lane 'edge_U2C2_0' and lane 'edge_D2C_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'cluster_node_C_node_C2' from lane 'edge_R2C2_0' and lane 'edge_L2C_0' (increase junction radius to avoid this).

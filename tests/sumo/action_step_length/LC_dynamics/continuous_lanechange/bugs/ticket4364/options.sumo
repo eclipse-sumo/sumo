@@ -1,0 +1,6 @@
+--no-step-log 
+--net-file=net.net.xml
+--routes=input_routes.rou.xml -a input_additional.add.xml 
+--lanechange-output lanechanges.xml
+--duration-log.statistics
+--lanechange.duration=2.5

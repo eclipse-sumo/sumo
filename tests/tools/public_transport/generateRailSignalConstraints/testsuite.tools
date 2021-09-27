@@ -1,0 +1,28 @@
+# simple network with two branches that merge towards a single stop
+one_switch
+
+# switch is being passed by trains (targetting a different stop) in between the two constraint-trains 
+in_between
+
+# train reversal can have the same effect as a switch by merging two train routes from different sources
+reversal
+
+# find insertion conflicts
+insertion
+
+# do not enter station (block with stop) until foe vehicle has been inserted there and left
+insertionFoe
+
+# maintain vehicle order at a parking-stop (especially when partial started/ended information is available)
+parkingInsertion
+
+# simple network with two branches that merge towards a single stop
+# test aborting after inconsistency
+abort
+
+# add redundant constraints to limit the impact of swapping constraints at runtime
+redundant
+
+# integrate schedule information with post-facto timing information 
+# arrival,until + started,ended
+started_ended

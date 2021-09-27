@@ -1,6 +1,5 @@
 ---
-title: Tools/Xml
-permalink: /Tools/Xml/
+title: Xml
 ---
 
 ## xml2csv.py
@@ -11,7 +10,7 @@ opened in [LibreOffice](http://www.libreoffice.org/) or Microsoft Excel.
 Usage:
 
 ```
-python xml2csv.py input.xml
+python tools/xml/xml2csv.py input.xml
 ```
 
 With the option **--separator** {{DT_STR}} you can customize the field separator (default is
@@ -40,7 +39,7 @@ limited to only one type of child elements.
 This is the inverse tool to xml2csv.py. Usage:
 
 ```
-python csv2xml.py -x schema.xsd input.csv
+python tools/xml/csv2xml.py -x schema.xsd input.csv
 ```
 
 The options have the same meaning as above. For some file types as
@@ -58,7 +57,7 @@ require the protoc compiler as well as the protobuf packages for python
 and your target language to be installed. Usage:
 
 ```
-python xml2protobuf.py -x schema.xsd input.xml
+python tools/xml/xml2protobuf.py -x schema.xsd input.xml
 ```
 
 The xsd schema file needs to be given the using **--xsd** {{DT_FILE}} and the **--validation** option will
@@ -73,13 +72,24 @@ protomsg file containing the binary stream.
 This is the inverse tool to xml2protobuf.py. Usage:
 
 ```
-python protobuf2xml.py -x schema.xsd input.protomsg
+python tools/xml/protobuf2xml.py -x schema.xsd input.protomsg
 ```
 
 The options have the same meaning as above.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="http://cordis.europa.eu/fp7/home_en.html"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="http://cordis.europa.eu/fp7/home_en.html">Seventh Framework Programme</a>.</span></div>
+<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+
+
+## changeAttribute.py
+
+This sets/removes the specified attribute on all tags (elements) in the input file and writes the result to a new file
+If option **--value** (**-v**) is not given, the attribute is removed. Otherwise it is added/modified to the given value.
+
+```
+python tools/xml/tools/xml/changeAttrbiute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
+```
+

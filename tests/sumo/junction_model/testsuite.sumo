@@ -1,3 +1,9 @@
+# avoid spill back of jams onto a junction (checkRewindLinkLanes)
+avoid_spill_back
+
+# tests for driver impatience
+impatience
+
 # test behavior at different types of junction
 junction_type
 
@@ -10,12 +16,22 @@ approachInformation
 # test dynamics on internal lanes
 internalLanes
 
+# test stopping position at internal junction
+internalJunction
+
 # tests for ignoring keepClear rules
 ignoreKeepClear
 driveAfterRedTime
 
 # tests for ignoring right of way
 ignoreRightOfWay
+ignoreFoeOnJunction
+
+# tests ignoring foes by id
+ignoreID
+
+# tests ignoring foes by type
+ignoreType
 
 # configure timegap to observe when passing a minor link
 timegapMinor
@@ -29,3 +45,10 @@ indirect_left_turn
 # vehicles turning left from opposite directions at the same time
 opposite_left_turn
 jmSigmaMinor
+roundabout
+
+# test option --ignore-junction-blocker
+ignoreJunctionBlocker
+
+# test behavior when a minor road has an internal junction
+minor_internalJunction

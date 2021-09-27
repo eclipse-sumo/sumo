@@ -1,0 +1,40 @@
+# call moveToXY directly after person.add
+after_creation
+
+# call moveToXY directly after person.add
+# Person only has a stop stage so a walk must be added
+after_creation_add_walk
+
+# move person within the current route
+within_route
+
+# move person within the current route but on the road (off the sidewalk)
+within_route_onRoad
+
+# move person within the current route but on the road (off the sidewalk)
+within_route_jaywalk
+
+# move person along it's natural path via crossing and walkingareas
+within_route_walkingarea
+
+# move person outside the road network
+outside_network
+
+# move person within the current route across a walkingarea and crossing
+keepRoute1_junction
+
+# move person within the current route across a walkingarea and crossing
+keepRoute2_junction
+
+# move person within the current route across a walkingarea and crossing
+keepRoute2_junction_offroad
+
+# move person to an edge not on it's route
+leaveRoute
+
+# move person to an edge not on it's route via walkingareas that only have incoming or outgoing edges
+leaveRoute_walkingarea
+
+# move person accross a busy road between junctions
+leaveRoute_jaywalk
+matchThreshold

@@ -1,0 +1,6 @@
+<routes>
+    <vType id="car" vClass="passenger" speedDev="0.2"/>
+
+    <route id="r0" edges="beg end"/>
+    <flow id="cars" begin="0" period="1" number="1000" route="r0" type="car" departLane="random" departPosLat="random"/>
+</routes>

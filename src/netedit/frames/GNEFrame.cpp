@@ -1,24 +1,22 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
 ///
 // The Widget for add additional elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <netedit/GNEViewNet.h>
@@ -41,15 +39,17 @@ FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 
 GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
-    myViewNet(viewNet),
-    myEdgeCandidateColor(RGBColor(0, 64, 0, 255)),
-    myEdgeCandidateSelectedColor(RGBColor::GREEN) {
+    myViewNet(viewNet) {
 
     // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
     int i = 0;
     while (SUMOXMLDefinitions::attrs[i].key != SUMO_ATTR_NOTHING) {
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = toString(SUMOXMLDefinitions::attrs[i].str);
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = SUMOXMLDefinitions::attrs[i].str;
+        int key = SUMOXMLDefinitions::attrs[i].key;
+        assert(key >= 0);
+        while (key >= (int)myPredefinedTagsMML.size()) {
+            myPredefinedTagsMML.push_back("");
+        }
+        myPredefinedTagsMML[key] = SUMOXMLDefinitions::attrs[i].str;
         i++;
     }
 
@@ -168,12 +168,6 @@ GNEFrame::demandElementSelected() {
 }
 
 
-void
-GNEFrame::edgePathCreated() {
-    // this function has to be reimplemente in all child frames that uses a EdgePathCreator
-}
-
-
 bool
 GNEFrame::shapeDrawed() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
@@ -193,18 +187,23 @@ GNEFrame::attributesEditorExtendedDialogOpened()  {
 }
 
 
-void 
+void
 GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
     // this function has to be reimplemente in all child frames that uses a OverlappedInspection
 }
 
 
 void
-GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const {
+GNEFrame::createPath() {
+    // this function has to be reimplemente in all child frames that uses a path
+}
+
+void
+GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const {
     FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
-    attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEINSPECT));
+    attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
     myTable->setVisibleRows((FXint)(tagProperties.getNumberOfAttributes()));
@@ -249,7 +248,7 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tag
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(attributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + tagProperties.getTagStr() + "' showing " + toString(tagProperties.getNumberOfAttributes()) + " attributes");
@@ -266,19 +265,7 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tag
 }
 
 
-const RGBColor&
-GNEFrame::getEdgeCandidateColor() const {
-    return myEdgeCandidateColor;
-}
-
-
-const RGBColor&
-GNEFrame::getEdgeCandidateSelectedColor() const {
-    return myEdgeCandidateSelectedColor;
-}
-
-
-const std::map<int, std::string>&
+const std::vector<std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
 }

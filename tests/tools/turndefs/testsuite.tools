@@ -1,2 +1,17 @@
 # Tests for generateTurnDefs.py script
 generateTurnDefs
+
+# tests for generateTurnRatios.py
+generateTurnRatios
+
+# tests for turnCount2EdgeCount.py
+turnCount2EdgeCount
+
+# convert deprecated turn-file format into the new edgerelations_file format
+turnFile2EdgeRelations
+
+# tests for jtcrouter.py
+jtcrouter
+
+# tests for routeSampler.py
+routeSampler

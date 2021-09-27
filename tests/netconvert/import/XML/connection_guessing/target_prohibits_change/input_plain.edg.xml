@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 19 Mar 2021 01:36:11 PM CET by Eclipse SUMO netedit Version v1_8_0+1727-e8eb006
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata2/debug/wizard_adlershof/8391/part2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/wizard_adlershof/8391/part2.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/wizard_adlershof/8391/input_plain2"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-a" from="C" to="5543923995" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" numLanes="1" speed="13.89" shape="1900.43,1184.96 1916.44,1167.74 1932.81,1150.13 1936.16,1146.53" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+    <edge id="-b" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" to="C" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" numLanes="1" speed="13.89" shape="1881.69,1206.58 1900.43,1184.96" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0" changeLeft="authority">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <param key="origFrom" value="3366620136"/>
+    </edge>
+    <edge id="-c" from="C" to="4854982237" name="Moriz-Seeler-Straße" priority="4" type="highway.unclassified" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="a" from="5543923995" to="C" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" numLanes="1" speed="13.89" shape="1936.16,1146.53 1932.81,1150.13 1916.44,1167.74 1900.43,1184.96" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+    <edge id="b" from="C" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" numLanes="2" speed="13.89" shape="1900.43,1184.96 1881.69,1206.58" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0" changeLeft="authority">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <param key="origTo" value="3366620136"/>
+    </edge>
+    <edge id="c" from="4854982237" to="C" name="Moriz-Seeler-Straße" priority="4" type="highway.unclassified" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+</edges>

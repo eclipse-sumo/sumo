@@ -1,6 +1,5 @@
 ---
-title: Specification/Duarouter
-permalink: /Specification/Duarouter/
+title: Duarouter
 ---
 
 # Inputs

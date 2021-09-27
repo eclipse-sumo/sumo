@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @author  Leonhard Luecken
 # @date    2012-10-19
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -36,7 +39,7 @@ else:
 egoID = "ego"
 
 
-def runSingle(traciEndTime, downstreamDist, upstreamDist):
+def runSingle(traciEndTime, downstreamDist, foeDistToJunction):
     step = 0
     traci.start(sumoCall + ["-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
     subscribed = False
@@ -45,11 +48,9 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
         near1 = set()
         if subscribed:
             print("Step %s:\nContext results for veh '%s':" % (step, egoID))
-            results = traci.vehicle.getContextSubscriptionResults(egoID)
-            if results is not None:
-                for v in sorted(results):
-                    print(v)
-                    near1.add(v)
+            for v in sorted(traci.vehicle.getContextSubscriptionResults(egoID) or []):
+                print(v)
+                near1.add(v)
             if egoID in traci.simulation.getArrivedIDList():
                 break
 
@@ -57,9 +58,9 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
             print("Subscribing to context of vehicle '%s'" % (egoID))
             traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
                                            [traci.constants.VAR_POSITION])
-            print("Adding turn filter ... \n(downstreamDist=%s, upstreamDist=%s)" % (downstreamDist, upstreamDist))
+            print("Adding turn filter ... \n(downstreamDist=%s, foeDistToJunction=%s)" % (downstreamDist, foeDistToJunction))
             sys.stdout.flush()
-            traci.vehicle.addSubscriptionFilterTurn(downstreamDist, upstreamDist)
+            traci.vehicle.addSubscriptionFilterTurn(downstreamDist, foeDistToJunction)
             subscribed = True
         step += 1
 
@@ -70,14 +71,13 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
             print("Error: Unsubscribe did not work")
         else:
             print("Ok: Unsubscribe successful")
-    print("Print ended at step %s" %
-          (traci.simulation.getTime()))
+    print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
     sys.stdout.flush()
 
 
 if len(sys.argv) < 4:
-    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist>")
+    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <foeDistToJunction>")
     sys.exit("")
 sys.stdout.flush()
 runSingle(100, float(sys.argv[2]), float(sys.argv[3]))

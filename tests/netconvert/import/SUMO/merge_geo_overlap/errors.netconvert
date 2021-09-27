@@ -1,0 +1,10 @@
+Warning: Ignoring loaded location attribute nr. 2 for tracking of original location
+Warning: Edge ':56455689_0' occurred at least twice in the input.
+Warning: Edge ':56455689_1' occurred at least twice in the input.
+Warning: Edge ':56455689_4' occurred at least twice in the input.
+Warning: Edge ':56455689_2' occurred at least twice in the input.
+Warning: Edge ':56455689_3' occurred at least twice in the input.
+Warning: Junction '56455689' occurred at least twice in the input.
+Warning: Junction 'cluster_32444587_6273887394' occurred at least twice in the input.
+Warning: Junction 'cluster_32444589_4396212913' occurred at least twice in the input.
+Warning: 13 total messages of type: Edge '%' occurred at least twice in the input.

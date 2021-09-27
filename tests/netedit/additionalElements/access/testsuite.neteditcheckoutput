@@ -14,9 +14,6 @@ inspect_selection
 # load additional
 load
 
-# lock/unlock additional
-lock_unlock
-
 # move additional
 move
 

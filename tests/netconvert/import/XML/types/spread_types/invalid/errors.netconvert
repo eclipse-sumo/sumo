@@ -1,0 +1,10 @@
+Error: Attribute 'spreadType' in definition of type 'a' is empty.
+Error: Invalid lane spread type 'dummy'. Using default 'right'
+Error: Type 'a' used by edge 'A1' was not defined (ignore with option --ignore-errors.edge-type).
+Error: Type 'a' used by edge 'A2' was not defined (ignore with option --ignore-errors.edge-type).
+Repeating initial error messages:
+Attribute 'spreadType' in definition of type 'a' is empty.
+Invalid lane spread type 'dummy'. Using default 'right'
+Type 'a' used by edge 'A1' was not defined (ignore with option --ignore-errors.edge-type).
+Type 'a' used by edge 'A2' was not defined (ignore with option --ignore-errors.edge-type).
+Quitting (on error).

@@ -1,10 +1,9 @@
 Error: Attribute 'id' is missing in definition of flow
+Error: flow cannot be created
 Error: Attribute 'id' in definition of a flow is empty.
 Error: Invalid flow id ''.
+Error: flow cannot be created
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_valid' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_valid' is missing; trip cannot be created
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_valid' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_valid' is missing; trip cannot be created
-Error: There is another routeFlow with the same ID='flow_valid'.
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug133013.5732/netedit.gui/demandElements/routeflow/load/id\input_routes.rou.xml failed.
+Error: flow cannot be created
+Error: There is another flowRoute with the same ID='flow_valid'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\routeflow\load\id\input_routes.rou.xml failed.

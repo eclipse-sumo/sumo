@@ -1,24 +1,22 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDelayBasedTrafficLightLogic.cpp
 /// @author  Leonhard Luecken
 /// @date    Feb 2017
-/// @version
 ///
 // An actuated traffic light logic based on time delay of approaching vehicles
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -49,7 +47,7 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TLTYPE_DELAYBASED, phases, step, delay, parameter) {
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::DELAYBASED, phases, step, delay, parameter) {
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "Building delay based tls logic '" << id << "'" << std::endl;
 #endif
@@ -87,10 +85,22 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 continue;
             }
             // Build the detectors and register them at the detector control
-            std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
             if (myLaneDetectors.find(lane) == myLaneDetectors.end()) {
-                myLaneDetectors[lane] = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, myShowDetectors);
-                MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_E2DETECTOR, myLaneDetectors[lane], myFile, myFreq);
+                MSE2Collector* det = nullptr;
+                const std::string customID = getParameter(lane->getID());
+                if (customID != "") {
+                    det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(customID));
+                    if (det == nullptr) {
+                        WRITE_ERROR("Unknown laneAreaDetector '" + customID + "' given as custom detector for delay_based tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                        continue;
+                    }
+                    det->setVisible(myShowDetectors);
+                } else {
+                    std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
+                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, myShowDetectors);
+                    MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
+                }
+                myLaneDetectors[lane] = det;
             }
         }
     }
@@ -114,27 +124,24 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
     for (int i = 0; i < (int) state.size(); i++)  {
         // this lane index corresponds to a non-green time
         bool igreen = state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR;
-        const std::vector<MSLane*>& lanes = getLanesAt(i);
-        for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
-            LaneDetectorMap::iterator i = myLaneDetectors.find(*j);
-            if (i == myLaneDetectors.end()) {
+        for (const MSLane* const lane : getLanesAt(i)) {
+            std::map<const MSLane*, MSE2Collector*>::iterator it = myLaneDetectors.find(lane);
+            if (it == myLaneDetectors.end()) {
 #ifdef DEBUG_TIMELOSS_CONTROL
                 // no detector for this lane!? maybe noVehicles allowed
-                std::cout << "no detector on lane '" << (*j)->getID() << std::endl;
+                std::cout << "no detector on lane '" << lane->getID() << std::endl;
 #endif
                 continue;
             }
-            MSE2Collector* detector = static_cast<MSE2Collector* >(i->second);
-            const std::vector<MSE2Collector::VehicleInfo*> vehInfos = detector->getCurrentVehicles();
+            const std::vector<MSE2Collector::VehicleInfo*> vehInfos = it->second->getCurrentVehicles();
 #ifdef DEBUG_TIMELOSS_CONTROL
             int nrVehs = 0; // count vehicles on detector
 #endif
             if (igreen) {
                 // green phase
-                for (std::vector<MSE2Collector::VehicleInfo*>::const_iterator ivp = vehInfos.begin(); ivp != vehInfos.end(); ++ivp) {
-                    MSE2Collector::VehicleInfo* iv = *ivp;
+                for (const MSE2Collector::VehicleInfo* const iv : vehInfos) {
                     if (iv->accumulatedTimeLoss > myTimeLossThreshold && iv->distToDetectorEnd > 0) {
-                        const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / (*j)->getSpeedLimit());
+                        const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / lane->getSpeedLimit());
                         if (actDuration + estimatedTimeToJunction  <= maxDuration) {
                             // only prolong if vehicle has a chance to pass until max duration is reached
                             prolongation = MAX2(prolongation, estimatedTimeToJunction);
@@ -239,6 +246,14 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
     return newPhase->minDuration;
 }
 
+void
+MSDelayBasedTrafficLightLogic::setShowDetectors(bool show) {
+    myShowDetectors = show;
+    for (auto& item : myLaneDetectors) {
+        item.second->setVisible(myShowDetectors);
+    }
+}
+
+
 
 /****************************************************************************/
-

@@ -1,5 +1,4 @@
-Loading configuration... done.
- Retrying in 1 seconds
+Loading configuration ... done.
 Subscribing to vehicle context of object 'ego'
 [001] Context results for vehicle 'ego':
 follow_right
@@ -142,4 +141,4 @@ follow_right2
 follow_right
 follow_right2
 [031] Vehicle 'ego' has arrived at destination
-Print ended at step 32
+Print ended at step 31

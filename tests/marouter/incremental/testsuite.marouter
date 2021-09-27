@@ -1,6 +1,9 @@
 # straight call of the incremental assignment
 simple
 
+# do not use edge prios
+default_capacities
+
 # adaptive call of the incremental assignment
 adapt
 

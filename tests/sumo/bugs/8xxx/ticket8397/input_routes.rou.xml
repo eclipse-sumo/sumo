@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0" containerCapacity="1"/>
+    <trip id="trip_0" depart="0.00" from="SC" to="CN">
+        <stop lane="SC_0" triggered="container person"/>
+    </trip>
+    <trip id="trip_1" depart="0.00" from="NC" to="CS">
+    </trip>
+
+</routes>

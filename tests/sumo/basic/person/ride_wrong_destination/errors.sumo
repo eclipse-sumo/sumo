@@ -1,2 +1,2 @@
 Warning: Person 'p1' aborted waiting for v1 at edge 'beg'.
-Warning: Vehicle v1 aborted waiting for a person or a container that will never come.
+Warning: Vehicle 'v1' aborted waiting for a person or container that will never come.

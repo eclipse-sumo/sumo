@@ -28,6 +28,9 @@ hbefa
 # Tests for bus stops
 busses
 
+# test with bicycles that do not fit anywhere else
+bikes
+
 # test loading of shapes 
 # (relevant for cmd-line sumo since they can be access via TraCI)
 shapes
@@ -40,3 +43,6 @@ collisions
 
 # test for using option --max-num-vehicles
 max_num_vehicles
+
+# prevent id collision by using another suffix
+scale-suffix

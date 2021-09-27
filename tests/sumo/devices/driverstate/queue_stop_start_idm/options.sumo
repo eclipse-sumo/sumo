@@ -1,0 +1,8 @@
+--no-step-log
+-n net.net.xml
+-r input_routes.rou.xml
+--device.driverstate.probability 1
+--device.driverstate.initialAwareness 0.5
+--collision.mingap-factor 0
+--fcd-output fcd.xml
+--default.carfollowmodel IDM

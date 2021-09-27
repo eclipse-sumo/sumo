@@ -15,3 +15,6 @@ parallel_disconnected
 
 # trips as input, no edges, districts used
 trip_taz_noedge_disconnected_parallel
+
+# public transport and walk possible
+public_walk

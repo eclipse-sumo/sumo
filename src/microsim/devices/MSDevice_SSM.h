@@ -1,29 +1,27 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_SSM.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
+/// @author  Mirko Barthauer
 /// @date    11.06.2013
-/// @version $Id$
 ///
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles.
 // XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.
 /****************************************************************************/
-#ifndef MSDevice_SSM_h
-#define MSDevice_SSM_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <queue>
@@ -118,7 +116,7 @@ public:
         ENCOUNTER_TYPE_COLLISION = 111 //!< ENCOUNTER_TYPE_COLLISION
     };
 
-    static std::string toString(EncounterType type) {
+    static std::string encounterToString(EncounterType type) {
         switch (type) {
             case (ENCOUNTER_TYPE_NOCONFLICT_AHEAD):
                 return ("NOCONFLICT_AHEAD");
@@ -379,12 +377,23 @@ public:
      */
     static const std::set<MSDevice_SSM*, ComparatorNumericalIdLess>& getInstances();
 
+    /// @brief return the edges where the SSM device should scan
+    static const std::set<const MSEdge*>& getEdgeFilter() {
+        return myEdgeFilter;
+    }
+
     /** @brief This is called once per time step in MSNet::writeOutput() and
      *         collects the surrounding vehicles, updates information on encounters
      *         and flushes the encounters qualified as conflicts (@see thresholds)
      *         to the output file.
      */
     void updateAndWriteOutput();
+
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const;
+
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value);
 
 private:
     void update();
@@ -480,7 +489,7 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::generateOutput
      */
-    void generateOutput() const;
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
 
 
@@ -672,8 +681,9 @@ private:
      * @param sep separator for values in string
      * @return String concatenation of the vector entries
      */
-    static std::string makeStringWithNAs(std::vector<double> v, double NA, std::string sep = " ");
-    static std::string makeStringWithNAs(std::vector<double> v, std::vector<double> NAs, std::string sep = " ");
+    static std::string makeStringWithNAs(const std::vector<double>& v, const double NA);
+    static std::string makeStringWithNAs(const std::vector<double>& v, const std::vector<double>& NAs);
+    static std::string makeStringWithNAs(const PositionVector& v, const int precision);
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
@@ -685,6 +695,10 @@ private:
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                          std::map<std::string, double>& thresholds);
     ///@}
+
+    /// @brief initialize edge filter (once)
+    static void initEdgeFilter();
+
 
 private:
     /// @name Device parameters
@@ -736,6 +750,11 @@ private:
     /// @}
     /// @}
 
+    /// @brief spatial filter for SSM device output
+    static std::set<const MSEdge*> myEdgeFilter;
+    static bool myEdgeFilterInitialized;
+    static bool myEdgeFilterActive;
+
     /// Output device
     OutputDevice* myOutputFile;
 
@@ -766,8 +785,3 @@ private:
 
 
 };
-
-#endif
-
-/****************************************************************************/
-

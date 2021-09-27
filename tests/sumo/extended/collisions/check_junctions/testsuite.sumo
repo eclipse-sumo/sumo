@@ -1,4 +1,16 @@
 basic
 
+# detect more collisions
+junctionMinGap20
+
+# detect fewer collisions
+junctionMinGap-2
+
 # stop after collision
 stoptime
+
+# collider stop position should not be moved back too far
+slow_collider
+
+# stop after junction collision, test for #8359
+stoptime_warn

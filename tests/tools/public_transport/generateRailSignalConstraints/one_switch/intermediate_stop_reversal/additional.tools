@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-08-13 17:41:07.420996 by $Id$ v1_9_2+1054-a591eff
+  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml <doubleminus>comment.line <doubleminus>comment.id
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+</additional>

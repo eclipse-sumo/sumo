@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLCM_LC2013.h
 /// @author  Daniel Krajzewicz
@@ -14,17 +18,10 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Fri, 08.10.2013
-/// @version $Id$
 ///
 // A lane change model developed by D. Krajzewicz, J. Erdmann et al. between 2004 and 2013
 /****************************************************************************/
-#ifndef MSLCM_LC2013_h
-#define MSLCM_LC2013_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "MSAbstractLaneChangeModel.h"
@@ -53,14 +50,14 @@ public:
     virtual ~MSLCM_LC2013();
 
     /// @brief Returns the model's id
-    LaneChangeModel getModelID() const {
+    LaneChangeModel getModelID() const override {
         return LCM_LC2013;
     }
 
     /// @brief init cached parameters derived directly from model parameters
     void initDerivedParameters();
 
-    bool debugVehicle() const;
+    bool debugVehicle() const override;
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
@@ -74,14 +71,15 @@ public:
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& follower,
         const std::pair<MSVehicle*, double>& neighLead,
         const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
-        MSVehicle** firstBlocked);
+        MSVehicle** firstBlocked) override;
 
-    void* inform(void* info, MSVehicle* sender);
+    void* inform(void* info, MSVehicle* sender) override;
 
     /** @brief Called to adapt the speed in order to allow a lane change.
      *         It uses information on LC-related desired speed-changes from
@@ -94,39 +92,41 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     double patchSpeed(const double min, const double wanted, const double max,
-                      const MSCFModel& cfModel);
-    /** helper function which contains the actual logic */
-    double _patchSpeed(const double min, const double wanted, const double max,
-                       const MSCFModel& cfModel);
+                      const MSCFModel& cfModel) override;
 
-    void changed();
+    void changed() override;
 
-    double getSafetyFactor() const;
+    double getSafetyFactor() const override;
 
-    double getOppositeSafetyFactor() const;
+    double getOppositeSafetyFactor() const override;
 
-    void prepareStep();
+    void prepareStep() override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief decides the next lateral speed (for continuous lane changing)
-    double computeSpeedLat(double latDist, double& maneuverDist);
+    double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
-    double getAssumedDecelForLaneChangeDuration() const;
+    double getAssumedDecelForLaneChangeDuration() const override;
 
 protected:
+
+    /** helper function which contains the actual logic */
+    double _patchSpeed(const double min, const double wanted, const double max,
+                       const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
     int _wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& follower,
         const std::pair<MSVehicle*, double>& neighLead,
         const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
@@ -165,14 +165,8 @@ protected:
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
-
-    /// @brief Computes the artificial bonus distance for roundabout lanes
-    ///        this additional distance reduces the sense of urgency within
-    ///        roundabouts and thereby promotes the use of the inner roundabout
-    ///        lane in multi-lane roundabouts.
-    /// @param[in] curr continuation info along veh's current lane
-    /// @param[in] neigh continuation info along a neighboring lane (in MSLCM_2013::_wantsChange() the considered lane for a lanechange)
-    double getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh, const MSVehicle::LaneQ& best);
+    /// @brief anticipate future follow speed for the given leader
+    double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader);
 
     /// @brief save space for vehicles which need to counter-lane-change
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
@@ -181,7 +175,7 @@ protected:
     void adaptSpeedToPedestrians(const MSLane* lane, double& v);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(double length) {
+    inline void saveBlockerLength(double length) override {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
     };
 
@@ -252,9 +246,20 @@ protected:
 
     // @brief willingness to undercut longitudinal safe gaps
     double myAssertive;
+    // @brief lookahead for speedGain in seconds
+    double mySpeedGainLookahead;
+    // @brief bounus factor staying on the inside of multi-lane roundabout
+    double myRoundaboutBonus;
+    // @brief factor for cooperative speed adjustment
+    double myCooperativeSpeed;
+    // allow overtaking right even though it is prohibited
+    double myOvertakeRightParam;
 
-    const double myOvertakeRightParam; // allow overtaking right even though it is prohibited
-    const double myExperimentalParam1; // for feature testing
+    // time for unrestricted driving on the right to accept keepRight change
+    double myKeepRightAcceptanceTime;
+
+    // for feature testing
+    const double myExperimentalParam1;
 
     //@}
 
@@ -265,9 +270,3 @@ protected:
     double myChangeProbThresholdLeft;
     //@}
 };
-
-
-#endif
-
-/****************************************************************************/
-

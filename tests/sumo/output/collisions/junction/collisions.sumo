@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-16 15:32:06 by Eclipse SUMO sumo Version v1_9_2+1069-f9b761f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <collision-output value="collisions.xml"/>
+    </output>
+
+    <time>
+        <end value="400"/>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
+    <collision time="2.50" type="junction" lane=":0_13_0" pos="19.65" collider="horizontal.0" victim="vertical.0" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.36" victimSpeed="11.36"/>
+    <collision time="12.50" type="junction" lane=":0_13_0" pos="19.24" collider="horizontal.2" victim="vertical.2" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.24" victimSpeed="11.36"/>
+    <collision time="22.50" type="junction" lane=":0_13_0" pos="19.24" collider="horizontal.4" victim="vertical.5" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.24" victimSpeed="11.36"/>
+    <collision time="32.50" type="junction" lane=":0_13_0" pos="19.24" collider="horizontal.6" victim="vertical.8" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="11.24" victimSpeed="11.36"/>
+    <collision time="42.50" type="junction" lane=":0_9_0" pos="11.85" collider="vertical.11" victim="horizontal.8" colliderType="SUMO_DEFAULT_TYPE" victimType="SUMO_DEFAULT_TYPE" colliderSpeed="10.55" victimSpeed="11.36"/>
+</collisions>

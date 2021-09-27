@@ -1,10 +1,13 @@
-[![Linux and MacOS Build Status](https://travis-ci.org/eclipse/sumo.svg?branch=master)](https://travis-ci.org/eclipse/sumo)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo)
-![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
-
+<a href="https://sumo.dlr.de/docs"><p align="center"><img width=50% src="https://github.com/eclipse/sumo/blob/main/docs/web/docs/images/sumo-logo.svg"></p></a>
 
 Eclipse SUMO - Simulation of Urban MObility 
 ===========================================
+[![Windows](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml)
+[![Linux](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml)
+[![macOS](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml)
+![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
+
+<!-- [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo) -->
 
 What is SUMO
 ------------
@@ -50,7 +53,7 @@ If you want to develop under Windows, please also clone the dependent libraries 
 
 Using Linux you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
-[open build service instance](https://build.opensuse.org/project/show?project=home%3Abehrisch).
+[open build service instance](https://build.opensuse.org/project/show/home:behrisch).
 If you want to build yourself, the steps for ubuntu are:
 
         sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig

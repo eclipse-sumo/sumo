@@ -5,3 +5,9 @@ ticket4010
 
 # Copied from speedGain/default, added option --lanechangeDuration=2.5
 ticket4364
+
+# emergency braking due to unsorted partial vehicles
+ticket8466
+
+# emergency braking
+ticket8489

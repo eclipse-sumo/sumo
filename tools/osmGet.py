@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    osmGet.py
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2009-08-01
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -20,15 +23,18 @@ import os
 try:
     import httplib
     import urlparse
+    from urllib2 import urlopen
 except ImportError:
     # python3
     import http.client as httplib
     import urllib.parse as urlparse
+    from urllib.request import urlopen
 
-import optparse
+import base64
 from os import path
 
 import sumolib  # noqa
+import gzip
 
 
 def readCompressed(conn, urlpath, query, filename):
@@ -54,21 +60,23 @@ def readCompressed(conn, urlpath, query, filename):
         out.close()
 
 
-optParser = optparse.OptionParser()
-optParser.add_option("-p", "--prefix", default="osm", help="for output file")
-optParser.add_option("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
-optParser.add_option("-t", "--tiles", type="int",
-                     default=1, help="number of tiles the output gets split into")
-optParser.add_option("-d", "--output-dir", help="optional output directory (must already exist)")
-optParser.add_option("-a", "--area", type="int", help="area id to retrieve")
-optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
-optParser.add_option("-u", "--url", default="www.overpass-api.de/api/interpreter",
-                     help="Download from the given OpenStreetMap server")
+optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
+optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
+optParser.add_argument("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
+optParser.add_argument("-t", "--tiles", type=int,
+                       default=1, help="number of tiles the output gets split into")
+optParser.add_argument("-d", "--output-dir", help="optional output directory (must already exist)")
+optParser.add_argument("-a", "--area", type=int, help="area id to retrieve")
+optParser.add_argument("-x", "--polygon", help="calculate bounding box from polygon data in file")
+optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
+                       help="Download from the given OpenStreetMap server")
 # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
+optParser.add_argument("-w", "--wikidata", action="store_true", dest="wikidata",
+                       default=False, help="get the corresponding wikidata")
 
 
 def get(args=None):
-    (options, args) = optParser.parse_args(args=args)
+    options = optParser.parse_args(args=args)
     if not options.bbox and not options.area and not options.polygon:
         optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
     if options.polygon:
@@ -97,9 +105,13 @@ def get(args=None):
     else:
         url = urlparse.urlparse("https://" + options.url)
     if os.environ.get("https_proxy") is not None:
+        headers = {}
         proxy_url = urlparse.urlparse(os.environ.get("https_proxy"))
+        if proxy_url.username and proxy_url.password:
+            auth = '%s:%s' % (proxy_url.username, proxy_url.password)
+            headers['Proxy-Authorization'] = 'Basic ' + base64.b64encode(auth)
         conn = httplib.HTTPSConnection(proxy_url.hostname, proxy_url.port)
-        conn.set_tunnel(url.hostname, 443, {})
+        conn.set_tunnel(url.hostname, 443, headers)
     else:
         if url.scheme == "https":
             conn = httplib.HTTPSConnection(url.hostname, url.port)
@@ -125,6 +137,39 @@ def get(args=None):
                 b = e
 
     conn.close()
+    # extract the wiki data according to the wikidata-value in the extracted osm file
+    if options.wikidata:
+        filename = options.prefix + '.wikidata.xml.gz'
+        osmFile = path.join(os.getcwd(), options.prefix + "_bbox.osm.xml")
+        codeSet = set()
+        # deal with invalid characters
+        bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$', '//', '\\', '#', '<', '>']
+        for line in open(osmFile, encoding='utf8'):
+            subSet = set()
+            if 'wikidata' in line and line.split('"')[3][0] == 'Q':
+                basicData = line.split('"')[3]
+                for i in bad_chars:
+                    basicData = basicData.replace(i, ' ')
+                elems = basicData.split(' ')
+                for e in elems:
+                    if e and e[0] == 'Q':
+                        subSet.add(e)
+                codeSet.update(subSet)
+
+        # make and save query results iteratively
+        codeList = list(codeSet)
+        interval = 50  # the maximal number of query items
+        outf = gzip.open(path.join(os.getcwd(), filename), "wb")
+        for i in range(0, len(codeSet), interval):
+            j = i + interval
+            if j > len(codeSet):
+                j = len(codeSet)
+            subList = codeList[i:j]
+            content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %
+                              ("|".join(subList))).read()
+            print(type(content))
+            outf.write(content + b"\n")
+        outf.close()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="elechybrid_2.net.xml"/>
+        <route-files value="trolleybuses.rou.xml"/>
+        <additional-files value="overheadwires.add.xml"/>
+    </input>
+    
+    <processing>
+        <ignore-route-errors value="true"/>
+        <overhead-wire-solver value="true"/>
+        <no-internal-links value="true"/>
+    </processing>
+    
+    <time>
+        <end value="50"/>
+    </time>
+    
+    <elechybrid_device>
+         <device.elechybrid.explicit value="test1,test2"/>
+    </elechybrid_device>
+    
+    <battery>
+         <device.battery.explicit value="test1"/>
+    </battery>
+    
+    <output>
+        <tripinfo-output.write-unfinished  value="true"/>
+        <stop-output value="stopinfo_out.xml"/>
+        <!-- Note: For disaggregated output we have a separate file for every 
+             vehicle, and the `value` attribute works as a prefix ... -->
+        <elechybrid-output value="elechybrid_out"/>
+        <elechybrid-output.aggregated value="false"/>
+        <elechybrid-output.precision value="4"/>
+        <overheadwiresegments-output value="overheadwires_out.xml"/>
+        <substations-output value="substation_out.xml"/>
+    </output> 
+    
+</configuration>

@@ -1,6 +1,5 @@
 ---
-title: Simulation/ParkingArea
-permalink: /Simulation/ParkingArea/
+title: ParkingArea
 ---
 
 # Parking Areas
@@ -55,7 +54,7 @@ The parkingArea supports the following attributes:
 | friendlyPos      | bool           | *true,false*                                                                                 | *false*                                | whether invalid stop positions should be corrected automatically (default *false*)                                         |
 | name             | string         | simple String                                                                                |                                        | Arbitrary text to describe the parking area. This is only used for visualization purposes.                                 |
 | roadsideCapacity | int            | non-negative                                                                                 | 0                                      | The number of parking spaces for road-side parking                                                                         |
-| onRoad           | bool           |                                                                                              | false                                  | Whether vehicles remain on the road while parking.<br>**Note:**<br>If set to *true*, only roadSideCapacity is used and no `<space>`-definitions are permitted.                                                                        |
+| onRoad           | bool           |                                                                                              | false                                  | Whether vehicles remain on the road while parking.<br>**Note:**<br>If set to *true*, only roadsideCapacity is used and no `<space>`-definitions are permitted.                                                                        |
 | width            | float          | positive                                                                                     | 3.2                                    | The width of the road-side parking spaces                                                                                  |
 | length           | float          | positive                                                                                     | (endPos - startPos) / roadsideCapacity | The length of the road-side parking spaces                                                                                 |
 | angle            | float (degree) |                                                                                              | 0                                      | The angle of the road-side parking spaces relative to the lane angle, positive means clockwise                             |
@@ -72,6 +71,7 @@ The space element supports the following attributes:
 | width          | float          |             | width value of the parent parking area                                   | The width of the parking space                  |
 | length         | float          |             | length value of the parent parking area                                  | The length of the parking space                 |
 | angle          | float (degree) |             | absolute angle of the parent parking area (lane angle + angle attribute) | Absolute angle of the parking space             |
+| slope          | float (degree) |             | 0                                                                        | Slope angle of the parking space                |
 
 !!! caution
     Please note that parking areas must be added to a config via the *--additional-files* parameter (see {{AdditionalFile}}).
@@ -96,7 +96,7 @@ For a complete list of attributes for the "stop"-element of a vehicle
 see
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
 
-# Modelling Maneuvering times when Entering and leaving the parking Space
+# Modelling Maneuvering Times when Entering and Leaving the Parking Space
 
 When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of numer-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
 
@@ -106,9 +106,9 @@ When setting the (boolean) option **--parking.maneuver**, vehicles will spend ex
 
 The value corresponding to the closest angle is used. The value of maneuverAngleTimes is initialized to a vClass-specific value:
 
-- default: `manoeuverAngleTimes="10 3 4,80 1 11,110 11 2,170 8 3,181 3 4"`
+- default: `maneuverAngleTimes="10 3 4,80 1 11,110 11 2,170 8 3,181 3 4"`
 - truck, trailer, coach, delivery: all times doubled compared to default
-- bicycle, moped: `manoeuverAngleTimes="181 1 1"`
+- bicycle, moped: `maneuverAngleTimes="181 1 1"`
 
 # Rerouting when the current parkingArea is full
 

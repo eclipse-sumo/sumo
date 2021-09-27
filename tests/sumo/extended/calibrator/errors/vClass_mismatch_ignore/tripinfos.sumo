@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/20/19 11:40:00 by Eclipse SUMO Version v1_2_0+0771-4380e3528ec
+<!-- generated on Fri May 29 12:15:11 2020 by Eclipse SUMO Version v1_6_0+0448-9de36b110b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,8 +36,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="cali.0.0" depart="8.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="23.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.27" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.73" rerouteNo="0" devices="tripinfo_cali.0.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="cali.0.1" depart="10.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="25.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.19" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.78" rerouteNo="0" devices="tripinfo_cali.0.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="cali.0.2" depart="13.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="28.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.35" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.86" rerouteNo="0" devices="tripinfo_cali.0.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="cali.0.3" depart="19.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="34.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.83" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.71" rerouteNo="0" devices="tripinfo_cali.0.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="cali.0.0" depart="6.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="21.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.26" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.72" rerouteNo="0" devices="tripinfo_cali.0.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="cali.0.1" depart="9.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="24.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.19" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.84" rerouteNo="0" devices="tripinfo_cali.0.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="cali.0.2" depart="12.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="27.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.05" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.83" rerouteNo="0" devices="tripinfo_cali.0.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="cali.0.3" depart="17.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="32.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.83" duration="15.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.70" rerouteNo="0" devices="tripinfo_cali.0.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

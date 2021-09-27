@@ -1,0 +1,29 @@
+# check reachability when rerouting to a parkingArea on the same edge
+ticket6283
+
+# check reachability when rerouting to a parkingArea on the same edge
+ticket6283b
+
+# collision on junction
+ticket6415
+
+# collision on junction
+ticket6436
+
+# collision on junction
+ticket6437
+
+# collision on junction
+ticket6438
+
+# infinite loop when when trying to detect deadlock at right_before_left junction
+ticket6471
+
+# infinite loop when when trying to detect deadlock at right_before_left junction
+ticket6471b
+
+# network with special characters
+ticket6597
+
+# deadlock on junction after lane change
+ticket6762

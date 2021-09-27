@@ -1,29 +1,29 @@
  Generation done;
    200 nodes generated.
    280 edges generated.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (1ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (6ms).
-Computing edge shapes... done (4ms).
-Computing node types... done (0ms).
-Computing priorities... done (1ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (1ms).
-Dividing of lanes on approached lanes... done (1ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
-Computing traffic light logics... done (0ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (7ms).
+Computing edge shapes ... done (7ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (1ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (2ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (1ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges... 
-done (4ms).
+Building inner edges ... 
+done (5ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -36,5 +36,5 @@ Summary:
   Applied offset     : 1263.68,1880.98
   Converted boundary : 0.00,0.00,2463.28,3477.43
 -----------------------------------------------------
-Writing network... done (36ms).
+Writing network ... done (36ms).
 Success.

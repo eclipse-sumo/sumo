@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_ArcView.cpp
 /// @author  Daniel Krajzewicz
@@ -14,15 +18,9 @@
 /// @author  Thimor Bohn
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Importer for networks stored in ArcView-shape format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -143,14 +141,19 @@ NIImporter_ArcView::load() {
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
+#if GDAL_VERSION_MAJOR > 2
+    if (myOptions.getBool("shapefile.traditional-axis-mapping")) {
+        destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+    }
+#endif
     OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
-    if (poCT == NULL) {
+    if (poCT == nullptr) {
         if (myOptions.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
         }
-        if (poCT == 0) {
+        if (poCT == nullptr) {
             WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
@@ -165,7 +168,7 @@ NIImporter_ArcView::load() {
     int featureIndex = 0;
     bool warnNotUnique = true;
     std::string idPrefix = ""; // prefix for non-unique street-id values
-    int idIndex = 1; // running index to make street-id unique
+    std::map<std::string, int> idIndex; // running index to make street-id unique
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
         if (featureIndex == 0) {
@@ -207,17 +210,17 @@ NIImporter_ArcView::load() {
             type = poFeature->GetFieldAsString("ST_TYP_AFT");
         }
         if ((type != "" || myOptions.isSet("shapefile.type-id")) && !myTypeCont.knows(type)) {
-            WRITE_WARNING("Unknown type '" + type + "' for edge '" + id + "'");
+            WRITE_WARNINGF("Unknown type '%' for edge '%'", type, id);
         }
-        double width = myTypeCont.getWidth(type);
-        bool oneway = myTypeCont.knows(type) ? myTypeCont.getIsOneWay(type) : false;
+        double width = myTypeCont.getEdgeTypeWidth(type);
+        bool oneway = myTypeCont.knows(type) ? myTypeCont.getEdgeTypeIsOneWay(type) : false;
         double speed = getSpeed(*poFeature, id);
         int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
         if (nolanes <= 0 || speed <= 0) {
             if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
-                nolanes = nolanes <= 0 ? myTypeCont.getNumLanes(type) : nolanes;
-                speed = speed <= 0 ? myTypeCont.getSpeed(type) : speed;
+                nolanes = nolanes <= 0 ? myTypeCont.getEdgeTypeNumLanes(type) : nolanes;
+                speed = speed <= 0 ? myTypeCont.getEdgeTypeSpeed(type) : speed;
             } else {
                 const std::string lanesField = myOptions.isSet("shapefile.laneNumber") ? myOptions.getString("shapefile.laneNumber") : "nolanes";
                 const std::string speedField = myOptions.isSet("shapefile.speed") ? myOptions.getString("shapefile.speed") : "speed";
@@ -241,7 +244,7 @@ NIImporter_ArcView::load() {
             return;
         }
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
-        if (poCT != 0) {
+        if (poCT != nullptr) {
             // try transform to wgs84
             cgeom->transform(poCT);
         }
@@ -250,7 +253,7 @@ NIImporter_ArcView::load() {
         for (int j = 0; j < cgeom->getNumPoints(); j++) {
             Position pos((double) cgeom->getX(j), (double) cgeom->getY(j), (double) cgeom->getZ(j));
             if (!NBNetBuilder::transformCoordinate(pos)) {
-                WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
+                WRITE_WARNINGF("Unable to project coordinates for edge '%'.", id);
             }
             shape.push_back_noDoublePos(pos);
         }
@@ -285,7 +288,7 @@ NIImporter_ArcView::load() {
         }
 
         if (from == to) {
-            WRITE_WARNING("Edge '" + id + "' connects identical nodes, skipping.");
+            WRITE_WARNINGF("Edge '%' connects identical nodes, skipping.", id);
             continue;
         }
 
@@ -305,24 +308,24 @@ NIImporter_ArcView::load() {
                     || (existingReverse != 0 && existingReverse->getGeometry() == shape.reverse())) {
                 WRITE_ERROR("Edge '" + duplicateID + " is not unique");
             } else {
-                if (id != idPrefix) {
-                    idPrefix = id;
-                    idIndex = 1;
+                if (idIndex.count(id) == 0) {
+                    idIndex[id] = 0;
                 }
-                id += "#" + toString(idIndex);
+                idIndex[id]++;
+                idPrefix = id;
+                id += "#" + toString(idIndex[id]);
                 if (warnNotUnique) {
                     WRITE_WARNING("street-id '" + idPrefix + "' is not unique. Renaming subsequent edge to '" + id + "'");
                     warnNotUnique = false;
                 }
-                idIndex++;
             }
         }
         // add positive direction if wanted
         if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id) == 0) {
-                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, name, origID, spread);
-                edge->setPermissions(myTypeCont.getPermissions(type));
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+                NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, spread, name, origID);
+                edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
@@ -333,9 +336,9 @@ NIImporter_ArcView::load() {
         // add negative direction if wanted
         if ((dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) && !oneway) {
             if (myEdgeCont.retrieve("-" + id) == 0) {
-                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, origID, spread);
-                edge->setPermissions(myTypeCont.getPermissions(type));
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+                NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), spread, name, origID);
+                edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
@@ -375,7 +378,7 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
         }
     }
     if (myOptions.isSet("shapefile.type-id")) {
-        return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+        return myTypeCont.getEdgeTypeSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
@@ -414,7 +417,7 @@ NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
         }
     }
     if (myOptions.isSet("shapefile.type-id")) {
-        return (int) myTypeCont.getNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+        return (int) myTypeCont.getEdgeTypeNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
@@ -442,7 +445,7 @@ NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
 int
 NIImporter_ArcView::getPriority(OGRFeature& poFeature, const std::string& /*edgeid*/) {
     if (myOptions.isSet("shapefile.type-id")) {
-        return myTypeCont.getPriority(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+        return myTypeCont.getEdgeTypePriority(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
@@ -466,8 +469,8 @@ void
 NIImporter_ArcView::checkSpread(NBEdge* e) {
     NBEdge* ret = e->getToNode()->getConnectionTo(e->getFromNode());
     if (ret != 0) {
-        e->setLaneSpreadFunction(LANESPREAD_RIGHT);
-        ret->setLaneSpreadFunction(LANESPREAD_RIGHT);
+        e->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
+        ret->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
     }
 }
 
@@ -514,6 +517,4 @@ NIImporter_ArcView::addParams(NBEdge* edge, OGRFeature* poFeature, const std::ve
 #endif
 
 
-
 /****************************************************************************/
-

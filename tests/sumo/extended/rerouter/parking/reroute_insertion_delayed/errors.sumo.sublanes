@@ -1,0 +1,9 @@
+Warning: Teleporting vehicle 'flow.42'; waited too long (wrong lane), lane='SC_1', time=1059.00.
+Warning: Vehicle 'flow.42' skips stop on lane 'SC_0' time=1059.00.
+Warning: Vehicle 'flow.42' ends teleporting on edge 'CN', time 1059.00.
+Warning: Teleporting vehicle 'flow.43'; waited too long (wrong lane), lane='SC_1', time=1060.00.
+Warning: Vehicle 'flow.43' skips stop on lane 'SC_0' time=1060.00.
+Warning: Vehicle 'flow.43' ends teleporting on edge 'CN', time 1060.00.
+Warning: Teleporting vehicle 'flow.29'; waited too long (wrong lane), lane='SC_0', time=1061.00.
+Warning: Vehicle 'flow.29' skips stop on lane 'SC_0' time=1061.00.
+Warning: Vehicle 'flow.29' ends teleporting on edge 'CN', time 1061.00.

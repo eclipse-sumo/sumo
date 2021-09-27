@@ -1,0 +1,8 @@
+<routes>
+    <vType sigma="0" id="custom" jmDriveAfterYellowTime="1">
+        <param key="device.glosa.range" value="200"/>
+        <param key="device.glosa.max-speedfactor" value="1.15"/>
+    </vType>
+    <trip id="veh0" type="custom" depart="60" from="WC" to="CE" departSpeed="max"/>
+
+</routes>

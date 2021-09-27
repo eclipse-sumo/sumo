@@ -1,19 +1,23 @@
-# Start searching the fox-config.in file (used in linux distributions)
-find_program(FOX_CONFIG fox-config)
-# if was found, execute it and obtain the variables FOX_CXX_FLAGS and FOX_LIBRARY, needed for compilations
-IF(FOX_CONFIG)
-    exec_program(
-        ${FOX_CONFIG}
-        ARGS --cflags
-        OUTPUT_VARIABLE FOX_CXX_FLAGS)
-    exec_program(
-        ${FOX_CONFIG}
-        ARGS --libs
-        OUTPUT_VARIABLE FOX_LIBRARY)
-endif(FOX_CONFIG)
-
+# Start searching the fox-config.in file (only used in linux distributions)
+if (UNIX)
+    #find fox-config file
+    find_program(FOX_CONFIG fox-config)
+    # if was found, execute it and obtain the variables FOX_CXX_FLAGS and FOX_LIBRARY, needed for compilations
+    IF(FOX_CONFIG)
+        exec_program(
+            ${FOX_CONFIG}
+            ARGS --cflags
+            OUTPUT_VARIABLE FOX_CXX_FLAGS)
+        exec_program(
+            ${FOX_CONFIG}
+            ARGS --libs
+            OUTPUT_VARIABLE FOX_LIBRARY)
+    endif(FOX_CONFIG)
+endif(UNIX)
+    
 # Declare ab boolean flag to note if Fox library was found
 set(FOX_FOUND FALSE)
+
 # if fox-config was executed successfully, fox was found
 if(FOX_LIBRARY AND FOX_CXX_FLAGS)
     SET(FOX_FOUND TRUE)

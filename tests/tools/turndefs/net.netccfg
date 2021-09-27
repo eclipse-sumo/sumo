@@ -1,0 +1,19 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+
+    <random_network>
+        <rand value="true"/>
+        <rand.iterations value="20"/>
+        <rand.grid value="true"/>
+    </random_network>
+
+    <processing>
+        <turn-lanes value="1"/>
+        <fringe.guess value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds.except-turnlane value="true"/>
+        <no-turnarounds.fringe value="true"/>
+    </junctions>
+
+</configuration>

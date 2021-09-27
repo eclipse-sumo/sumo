@@ -1,39 +1,43 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Helper.cpp
 /// @author  Laura Bieker-Walz
 /// @author  Robert Hilbrich
 /// @author  Leonhard Luecken
 /// @date    15.09.2017
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
+#include <cstring>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSTransportableControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/MSTransportable.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
@@ -58,15 +62,18 @@
 //#define DEBUG_MOVEXY_ANGLE
 //#define DEBUG_SURROUNDING
 
-
 void
 LaneStoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
         case libsumo::CMD_GET_VEHICLE_VARIABLE: {
-            const MSLane::VehCont& vehs = l->getVehiclesSecure();
-            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                if (myShape.distance2D((*j)->getPosition()) <= myRange) {
-                    myIDs.insert((*j)->getID());
+            for (const MSVehicle* veh : l->getVehiclesSecure()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
+                }
+            }
+            for (const MSBaseVehicle* veh : l->getParkingVehicles()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
                 }
             }
             l->releaseVehicles();
@@ -77,7 +84,7 @@ LaneStoringVisitor::add(const MSLane* const l) const {
             std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
             for (auto p : persons) {
                 if (myShape.distance2D(p->getPosition()) <= myRange) {
-                    myIDs.insert(p->getID());
+                    myObjects.insert(p);
                 }
             }
             l->releaseVehicles();
@@ -85,13 +92,13 @@ LaneStoringVisitor::add(const MSLane* const l) const {
         break;
         case libsumo::CMD_GET_EDGE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myIDs.insert(l->getEdge().getID());
+                myObjects.insert(&l->getEdge());
             }
         }
         break;
         case libsumo::CMD_GET_LANE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myIDs.insert(l->getID());
+                myObjects.insert(l);
             }
         }
         break;
@@ -106,9 +113,10 @@ namespace libsumo {
 // static member initializations
 // ===========================================================================
 std::vector<Subscription> Helper::mySubscriptions;
+Subscription* Helper::myLastContextSubscription = nullptr;
 std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
 Helper::VehicleStateListener Helper::myVehicleStateListener;
-std::map<int, NamedRTree*> Helper::myObjects;
+Helper::TransportableStateListener Helper::myTransportableStateListener;
 LANE_RTREE_QUAL* Helper::myLaneTree;
 std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
 std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
@@ -117,15 +125,57 @@ std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
+void
+Helper::debugPrint(const SUMOTrafficObject* veh) {
+    if (veh != nullptr) {
+        if (veh->isVehicle()) {
+            std::cout << "  '" << veh->getID() << "' on lane '" << ((SUMOVehicle*)veh)->getLane()->getID() << "'\n";
+        } else {
+            std::cout << "  '" << veh->getID() << "' on edge '" << veh->getEdge()->getID() << "'\n";
+        }
+    }
+}
+
+
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
-                  const double beginTime, const double endTime, const int contextDomain, const double range) {
-    std::vector<std::vector<unsigned char> > parameters;
+                  const double beginTime, const double endTime, const libsumo::TraCIResults& params,
+                  const int contextDomain, const double range) {
+    myLastContextSubscription = nullptr;
+    if (variables.empty()) {
+        for (std::vector<libsumo::Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
+            if (j->id == id && j->commandId == commandId && j->contextDomain == contextDomain) {
+                j = mySubscriptions.erase(j);
+            } else {
+                ++j;
+            }
+        }
+        return;
+    }
+    std::vector<std::shared_ptr<tcpip::Storage> > parameters;
+    for (const int var : variables) {
+        const auto& p = params.find(var);
+        if (p == params.end()) {
+            parameters.push_back(std::make_shared<tcpip::Storage>());
+        } else {
+            parameters.push_back(libsumo::StorageHelper::toStorage(*p->second));
+        }
+    }
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
-    mySubscriptions.push_back(s);
+    if (s.variables.size() == 1 && s.variables.front() == -1) {
+        s.variables.clear();
+    }
     handleSingleSubscription(s);
+    libsumo::Subscription* modifiedSubscription = nullptr;
+    needNewSubscription(s, mySubscriptions, modifiedSubscription);
+    if (modifiedSubscription->isVehicleToVehicleContextSubscription()
+            || modifiedSubscription->isVehicleToPersonContextSubscription()) {
+        // Set last modified vehicle context subscription active for filter modifications
+        myLastContextSubscription = modifiedSubscription;
+    }
 }
 
 
@@ -134,12 +184,66 @@ Helper::handleSubscriptions(const SUMOTime t) {
     for (auto& wrapper : myWrapper) {
         wrapper.second->clear();
     }
-    for (const libsumo::Subscription& s : mySubscriptions) {
-        if (s.beginTime > t) {
+    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
+        const libsumo::Subscription& s = *i;
+        const bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
+                                      && (find(getVehicleStateChanges(MSNet::VehicleState::ARRIVED).begin(), getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end(), s.id) != getVehicleStateChanges(MSNet::VehicleState::ARRIVED).end());
+        const bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT)
+                                     && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
+        if (s.endTime < t || isArrivedVehicle || isArrivedPerson) {
+            i = mySubscriptions.erase(i);
             continue;
         }
-        handleSingleSubscription(s);
+        ++i;
     }
+    for (const libsumo::Subscription& s : mySubscriptions) {
+        if (s.beginTime <= t) {
+            handleSingleSubscription(s);
+        }
+    }
+}
+
+
+bool
+Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription) {
+    for (libsumo::Subscription& o : subscriptions) {
+        if (s.commandId == o.commandId && s.id == o.id &&
+                s.beginTime == o.beginTime && s.endTime == o.endTime &&
+                s.contextDomain == o.contextDomain && s.range == o.range) {
+            std::vector<std::shared_ptr<tcpip::Storage> >::const_iterator k = s.parameters.begin();
+            for (const int v : s.variables) {
+                const int offset = (int)(std::find(o.variables.begin(), o.variables.end(), v) - o.variables.begin());
+                if (offset == (int)o.variables.size() || o.parameters[offset]->size() != (*k)->size() || !std::equal((*k)->begin(), (*k)->end(), o.parameters[offset]->begin())) {
+                    o.variables.push_back(v);
+                    o.parameters.push_back(*k);
+                }
+                ++k;
+            }
+            modifiedSubscription = &o;
+            return false;
+        }
+    }
+    subscriptions.push_back(s);
+    modifiedSubscription = &subscriptions.back();
+    return true;
+}
+
+
+void
+Helper::clearSubscriptions() {
+    mySubscriptions.clear();
+    myLastContextSubscription = nullptr;
+}
+
+
+Subscription*
+Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
+    if (myLastContextSubscription != nullptr) {
+        myLastContextSubscription->activeFilters |= filter;
+    } else {
+        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
+    }
+    return myLastContextSubscription;
 }
 
 
@@ -151,7 +255,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
         if ((s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
             PositionVector shape;
             findObjectShape(s.commandId, s.id, shape);
-            collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+            collectObjectIDsInRange(s.contextDomain, shape, s.range, objIDs);
         }
         applySubscriptionFilters(s, objIDs);
     } else {
@@ -178,28 +282,38 @@ Helper::handleSingleSubscription(const Subscription& s) {
         throw TraCIException("Unsupported command specified");
     }
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
+    VariableWrapper* container = handler.get();
     if (s.contextDomain > 0) {
-        handler->setContext(s.id);
+        auto containerWrapper = myWrapper.find(s.commandId + 0x20);
+        if (containerWrapper == myWrapper.end()) {
+            throw TraCIException("Unsupported domain specified");
+        }
+        container = containerWrapper->second.get();
+        container->setContext(s.id);
     } else {
-        handler->setContext("");
+        container->setContext("");
     }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
+            std::vector<std::shared_ptr<tcpip::Storage> >::const_iterator k = s.parameters.begin();
             for (const int variable : s.variables) {
-                handler->handle(objID, variable, handler.get());
+                (*k)->resetPos();
+                handler->handle(objID, variable, container, k->get());
+                ++k;
             }
         } else {
             if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
                 // default for vehicles is edge id and lane position
-                handler->handle(objID, VAR_ROAD_ID, handler.get());
-                handler->handle(objID, VAR_LANEPOSITION, handler.get());
-            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, handler.get())) {
+                handler->handle(objID, VAR_ROAD_ID, container, nullptr);
+                handler->handle(objID, VAR_LANEPOSITION, container, nullptr);
+            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, container, nullptr)) {
                 // default for detectors is vehicle number, for all others (and contexts) id list
-                handler->handle(objID, libsumo::TRACI_ID_LIST, handler.get());
+                handler->handle(objID, libsumo::TRACI_ID_LIST, container, nullptr);
             }
         }
     }
 }
+
 
 
 void
@@ -224,7 +338,7 @@ TraCIPositionVector
 Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
     TraCIPositionVector tp;
     for (int i = 0; i < (int)positionVector.size(); ++i) {
-        tp.push_back(makeTraCIPosition(positionVector[i]));
+        tp.value.push_back(makeTraCIPosition(positionVector[i]));
     }
     return tp;
 }
@@ -233,7 +347,7 @@ Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
 PositionVector
 Helper::makePositionVector(const TraCIPositionVector& vector) {
     PositionVector pv;
-    for (const TraCIPosition& pos : vector) {
+    for (const TraCIPosition& pos : vector.value) {
         if (std::isnan(pos.x) || std::isnan(pos.y)) {
             throw libsumo::TraCIException("NaN-Value in shape.");
         }
@@ -311,11 +425,11 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
     const Boundary& netBounds = GeoConvHelper::getFinal().getConvBoundary();
     const double maxRange = MAX2(1001., netBounds.getWidth() + netBounds.getHeight() + netBounds.distanceTo2D(pos));
     while (range < maxRange) {
-        std::set<std::string> laneIds;
-        collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, range, laneIds);
+        std::set<const Named*> lanes;
+        collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, range, lanes);
         double minDistance = std::numeric_limits<double>::max();
-        for (const std::string& laneID : laneIds) {
-            MSLane* const lane = MSLane::dictionary(laneID);
+        for (const Named* named : lanes) {
+            MSLane* lane = const_cast<MSLane*>(dynamic_cast<const MSLane*>(named));
             if (lane->allowsVehicleClass(vClass)) {
                 // @todo this may be a place where 3D is required but 2D is used
                 const double newDistance = lane->getShape().distance2D(pos);
@@ -335,19 +449,62 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
 }
 
 
-MSVehicle*
+double
+Helper::getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair<const MSLane*, double>& roadPos2) {
+    if (roadPos1.first == roadPos2.first && roadPos1.second <= roadPos2.second) {
+        // same edge
+        return roadPos2.second - roadPos1.second;
+    }
+    double distance = 0.0;
+    ConstMSEdgeVector newRoute;
+    while (roadPos2.first->isInternal() && roadPos2.first != roadPos1.first) {
+        distance += roadPos2.second;
+        roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+        roadPos2.second = roadPos2.first->getLength();
+    }
+    MSNet::getInstance()->getRouterTT(0).compute(&roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, SIMSTEP, newRoute, true);
+    if (newRoute.empty()) {
+        return libsumo::INVALID_DOUBLE_VALUE;
+    }
+    MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+    return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+}
+
+
+MSBaseVehicle*
 Helper::getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == nullptr) {
         throw TraCIException("Vehicle '" + id + "' is not known.");
     }
-    MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
+    MSBaseVehicle* v = dynamic_cast<MSBaseVehicle*>(sumoVehicle);
     if (v == nullptr) {
-        throw TraCIException("Vehicle '" + id + "' is not a micro-simulation vehicle.");
+        throw TraCIException("Vehicle '" + id + "' is not a proper vehicle.");
     }
     return v;
 }
 
+
+MSPerson*
+Helper::getPerson(const std::string& personID) {
+    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
+    MSPerson* p = dynamic_cast<MSPerson*>(c.get(personID));
+    if (p == nullptr) {
+        throw TraCIException("Person '" + personID + "' is not known");
+    }
+    return p;
+}
+
+SUMOTrafficObject*
+Helper::getTrafficObject(int domain, const std::string& id) {
+    if (domain == CMD_GET_VEHICLE_VARIABLE) {
+        return getVehicle(id);
+    } else if (domain == CMD_GET_PERSON_VARIABLE) {
+        return getPerson(id);
+    } else {
+        throw TraCIException("Cannot retrieve traffic object for domain " + toString(domain));
+    }
+}
 
 const MSVehicleType&
 Helper::getVehicleType(const std::string& vehicleID) {
@@ -355,12 +512,171 @@ Helper::getVehicleType(const std::string& vehicleID) {
 }
 
 
+MSTLLogicControl::TLSLogicVariants&
+Helper::getTLS(const std::string& id) {
+    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
+        throw TraCIException("Traffic light '" + id + "' is not known");
+    }
+    return MSNet::getInstance()->getTLSControl().get(id);
+}
+
+
+SUMOVehicleParameter::Stop
+Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
+                            double pos, int laneIndex, double startPos, int flags, double duration, double until) {
+    SUMOVehicleParameter::Stop newStop;
+    newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
+    newStop.until = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
+    newStop.index = STOP_INDEX_FIT;
+    if (newStop.duration >= 0) {
+        newStop.parametersSet |= STOP_DURATION_SET;
+    }
+    if (newStop.until >= 0) {
+        newStop.parametersSet |= STOP_UNTIL_SET;
+    }
+    if ((flags & 1) != 0) {
+        newStop.parking = true;
+        newStop.parametersSet |= STOP_PARKING_SET;
+    }
+    if ((flags & 2) != 0) {
+        newStop.triggered = true;
+        newStop.parametersSet |= STOP_TRIGGER_SET;
+    }
+    if ((flags & 4) != 0) {
+        newStop.containerTriggered = true;
+        newStop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+    }
+
+    SumoXMLTag stoppingPlaceType = SUMO_TAG_NOTHING;
+    if ((flags & 8) != 0) {
+        stoppingPlaceType = SUMO_TAG_BUS_STOP;
+    }
+    if ((flags & 16) != 0) {
+        stoppingPlaceType = SUMO_TAG_CONTAINER_STOP;
+    }
+    if ((flags & 32) != 0) {
+        stoppingPlaceType = SUMO_TAG_CHARGING_STATION;
+    }
+    if ((flags & 64) != 0) {
+        stoppingPlaceType = SUMO_TAG_PARKING_AREA;
+    }
+    if ((flags & 128) != 0) {
+        stoppingPlaceType = SUMO_TAG_OVERHEAD_WIRE_SEGMENT;
+    }
+
+    if (stoppingPlaceType != SUMO_TAG_NOTHING) {
+        MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(edgeOrStoppingPlaceID, stoppingPlaceType);
+        if (bs == nullptr) {
+            throw TraCIException("The " + toString(stoppingPlaceType) + " '" + edgeOrStoppingPlaceID + "' is not known");
+        }
+        newStop.lane = bs->getLane().getID();
+        newStop.edge = bs->getLane().getEdge().getID();
+        newStop.endPos = bs->getEndLanePosition();
+        newStop.startPos = bs->getBeginLanePosition();
+        switch (stoppingPlaceType) {
+            case SUMO_TAG_BUS_STOP:
+                newStop.busstop = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                newStop.containerstop = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                newStop.chargingStation = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                newStop.parkingarea = edgeOrStoppingPlaceID;
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+                newStop.overheadWireSegment = edgeOrStoppingPlaceID;
+                break;
+            default:
+                throw TraCIException("Unknown stopping place type '" + toString(stoppingPlaceType) + "'.");
+        }
+    } else {
+        if (startPos == INVALID_DOUBLE_VALUE) {
+            startPos = pos - POSITION_EPS;
+        }
+        if (startPos < 0.) {
+            throw TraCIException("Position on lane must not be negative.");
+        }
+        if (pos < startPos) {
+            throw TraCIException("End position on lane must be after start position.");
+        }
+        // get the actual lane that is referenced by laneIndex
+        MSEdge* road = MSEdge::dictionary(edgeOrStoppingPlaceID);
+        if (road == nullptr) {
+            throw TraCIException("Edge '" + edgeOrStoppingPlaceID + "' is not known.");
+        }
+        const std::vector<MSLane*>& allLanes = road->getLanes();
+        if ((laneIndex < 0) || laneIndex >= (int)(allLanes.size())) {
+            throw TraCIException("No lane with index '" + toString(laneIndex) + "' on edge '" + edgeOrStoppingPlaceID + "'.");
+        }
+        newStop.lane = allLanes[laneIndex]->getID();
+        newStop.edge = allLanes[laneIndex]->getEdge().getID();
+        newStop.endPos = pos;
+        newStop.startPos = startPos;
+        newStop.parametersSet |= STOP_START_SET | STOP_END_SET;
+    }
+    return newStop;
+}
+
+
+TraCINextStopData
+Helper::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
+    std::string stoppingPlaceID = "";
+    if (stopPar.busstop != "") {
+        stoppingPlaceID = stopPar.busstop;
+    }
+    if (stopPar.containerstop != "") {
+        stoppingPlaceID = stopPar.containerstop;
+    }
+    if (stopPar.parkingarea != "") {
+        stoppingPlaceID = stopPar.parkingarea;
+    }
+    if (stopPar.chargingStation != "") {
+        stoppingPlaceID = stopPar.chargingStation;
+    }
+    if (stopPar.overheadWireSegment != "") {
+        stoppingPlaceID = stopPar.overheadWireSegment;
+    }
+    int stopFlags = (
+                        (stopPar.parking ? 1 : 0) +
+                        (stopPar.triggered ? 2 : 0) +
+                        (stopPar.containerTriggered ? 4 : 0) +
+                        (stopPar.busstop != "" ? 8 : 0) +
+                        (stopPar.containerstop != "" ? 16 : 0) +
+                        (stopPar.chargingStation != "" ? 32 : 0) +
+                        (stopPar.parkingarea != "" ? 64 : 0) +
+                        (stopPar.overheadWireSegment != "" ? 128 : 0));
+
+    return TraCINextStopData(stopPar.lane,
+                             stopPar.startPos,
+                             stopPar.endPos,
+                             stoppingPlaceID,
+                             stopFlags,
+                             // negative duration is permitted to indicate that a vehicle cannot
+                             // re-enter traffic after parking
+                             stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
+                             stopPar.until >= 0 ? STEPS2TIME(stopPar.until) : INVALID_DOUBLE_VALUE,
+                             stopPar.arrival >= 0 ? STEPS2TIME(stopPar.arrival) : INVALID_DOUBLE_VALUE,
+                             stopPar.started >= 0 ? STEPS2TIME(stopPar.started) : INVALID_DOUBLE_VALUE,
+                             stopPar.ended >= 0 ? STEPS2TIME(stopPar.ended) : INVALID_DOUBLE_VALUE,
+                             stopPar.split,
+                             stopPar.join,
+                             stopPar.actType,
+                             stopPar.tripId,
+                             stopPar.line,
+                             stopPar.speed);
+}
+
+
 void
 Helper::cleanup() {
-    for (const auto i : myObjects) {
-        delete i.second;
-    }
-    myObjects.clear();
+    // clean up NamedRTrees
+    Polygon::cleanup();
+    POI::cleanup();
+    InductionLoop::cleanup();
+    Junction::cleanup();
     delete myLaneTree;
     myLaneTree = nullptr;
 }
@@ -383,6 +699,28 @@ Helper::getVehicleStateChanges(const MSNet::VehicleState state) {
 void
 Helper::clearVehicleStates() {
     for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
+        i.second.clear();
+    }
+}
+
+
+void
+Helper::registerTransportableStateListener() {
+    if (MSNet::hasInstance()) {
+        MSNet::getInstance()->addTransportableStateListener(&myTransportableStateListener);
+    }
+}
+
+
+const std::vector<std::string>&
+Helper::getTransportableStateChanges(const MSNet::TransportableState state) {
+    return myTransportableStateListener.myTransportableStateChanges[state];
+}
+
+
+void
+Helper::clearTransportableStates() {
+    for (auto& i : myTransportableStateListener.myTransportableStateChanges) {
         i.second.clear();
     }
 }
@@ -422,55 +760,44 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
 
 
 void
-Helper::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
-    // build the look-up tree if not yet existing
-    if (myObjects.find(domain) == myObjects.end()) {
-        switch (domain) {
-            case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
-                myObjects[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::getTree();
-                break;
-            case libsumo::CMD_GET_EDGE_VARIABLE:
-            case libsumo::CMD_GET_LANE_VARIABLE:
-            case libsumo::CMD_GET_PERSON_VARIABLE:
-            case libsumo::CMD_GET_VEHICLE_VARIABLE:
-                myObjects[libsumo::CMD_GET_EDGE_VARIABLE] = nullptr;
-                myObjects[libsumo::CMD_GET_LANE_VARIABLE] = nullptr;
-                myObjects[libsumo::CMD_GET_PERSON_VARIABLE] = nullptr;
-                myObjects[libsumo::CMD_GET_VEHICLE_VARIABLE] = nullptr;
-                myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
-                MSLane::fill(*myLaneTree);
-                break;
-            case libsumo::CMD_GET_POI_VARIABLE:
-                myObjects[libsumo::CMD_GET_POI_VARIABLE] = POI::getTree();
-                break;
-            case libsumo::CMD_GET_POLYGON_VARIABLE:
-                myObjects[libsumo::CMD_GET_POLYGON_VARIABLE] = Polygon::getTree();
-                break;
-            case libsumo::CMD_GET_JUNCTION_VARIABLE:
-                myObjects[libsumo::CMD_GET_JUNCTION_VARIABLE] = Junction::getTree();
-                break;
-            default:
-                break;
-        }
+Helper::collectObjectIDsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
+    std::set<const Named*> objects;
+    collectObjectsInRange(domain, shape, range, objects);
+    for (const Named* obj : objects) {
+        into.insert(obj->getID());
     }
+}
+
+
+void
+Helper::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<const Named*>& into) {
     const Boundary b = shape.getBoxBoundary().grow(range);
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+    Named::StoringVisitor sv(into);
     switch (domain) {
         case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
+            InductionLoop::getTree()->Search(cmin, cmax, sv);
+            break;
         case libsumo::CMD_GET_POI_VARIABLE:
+            POI::getTree()->Search(cmin, cmax, sv);
+            break;
         case libsumo::CMD_GET_POLYGON_VARIABLE:
-        case libsumo::CMD_GET_JUNCTION_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[domain]->Search(cmin, cmax, sv);
-        }
-        break;
+            Polygon::getTree()->Search(cmin, cmax, sv);
+            break;
+        case libsumo::CMD_GET_JUNCTION_VARIABLE:
+            Junction::getTree()->Search(cmin, cmax, sv);
+            break;
         case libsumo::CMD_GET_EDGE_VARIABLE:
         case libsumo::CMD_GET_LANE_VARIABLE:
         case libsumo::CMD_GET_PERSON_VARIABLE:
         case libsumo::CMD_GET_VEHICLE_VARIABLE: {
-            LaneStoringVisitor sv(into, shape, range, domain);
-            myLaneTree->Search(cmin, cmax, sv);
+            if (myLaneTree == nullptr) {
+                myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
+                MSLane::fill(*myLaneTree);
+            }
+            LaneStoringVisitor lsv(into, shape, range, domain);
+            myLaneTree->Search(cmin, cmax, lsv);
         }
         break;
         default:
@@ -483,7 +810,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
 void
 Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs) {
 #ifdef DEBUG_SURROUNDING
-    MSVehicle* _veh = libsumo::Vehicle::getVehicle(s.id);
+    MSBaseVehicle* _veh = getVehicle(s.id);
     std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() << "'"
               << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")\n"
               << "objIDs = " << toString(objIDs) << std::endl;
@@ -494,21 +821,25 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         return;
     }
 
+    MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
+
     // Whether vehicles on opposite lanes shall be taken into account
     const bool disregardOppositeDirection = (s.activeFilters & SUBS_FILTER_NOOPPOSITE) != 0;
 
     // Check filter specification consistency
-    // TODO: Warn only once
     if (disregardOppositeDirection && (s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
-        WRITE_WARNING("Ignoring no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.")
+        WRITE_WARNINGF("Ignoring veh '%' no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.", v->getID())
+    }
+    if ((s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) != 0 && (s.activeFilters & SUBS_FILTER_NO_RTREE) != 0) {
+        WRITE_WARNINGF("Ignoring veh '%' field of vision subscription filter due to incompatibility with other filter(s).", v->getID())
     }
 
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
-    std::set<const MSVehicle*> vehs;
+    std::set<const SUMOTrafficObject*> vehs;
     if (s.activeFilters & SUBS_FILTER_NO_RTREE) {
-        // Set defaults for upstream and downstream distances
-        double downstreamDist = s.range, upstreamDist = s.range;
+        // Set defaults for upstream/downstream/lateral distances
+        double downstreamDist = s.range, upstreamDist = s.range, lateralDist = s.range;
         if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
             // Specifies maximal downstream distance for vehicles in context subscription result
             downstreamDist = s.filterDownstreamDist;
@@ -517,11 +848,17 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Specifies maximal downstream distance for vehicles in context subscription result
             upstreamDist = s.filterUpstreamDist;
         }
-        MSVehicle* v = getVehicle(s.id);
+        if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
+            // Specifies maximal lateral distance for vehicles in context subscription result
+            lateralDist = s.filterLateralDist;
+        }
+        if (v == nullptr) {
+            throw TraCIException("Subscription filter not yet implemented for meso vehicle");
+        }
         if (!v->isOnRoad()) {
             return;
         }
-        MSLane* vehLane = v->getLane();
+        const MSLane* vehLane = v->getLane();
         if (vehLane == nullptr) {
             return;
         }
@@ -541,11 +878,12 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         std::cout << "Filter lanes: " << toString(filterLanes) << std::endl;
         std::cout << "Downstream distance: " << downstreamDist << std::endl;
         std::cout << "Upstream distance: " << upstreamDist << std::endl;
+        std::cout << "Lateral distance: " << lateralDist << std::endl;
 #endif
 
-        if (s.activeFilters & SUBS_FILTER_MANEUVER) {
+        if ((s.activeFilters & SUBS_FILTER_MANEUVER) != 0) {
             // Maneuver filters disables road net search for all surrounding vehicles
-            if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
+            if ((s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) != 0) {
                 // Return leader and follower on the specified lanes in context subscription result.
                 for (int offset : filterLanes) {
                     MSLane* lane = v->getLane()->getParallelLane(offset, false);
@@ -594,134 +932,54 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
 
             if (s.activeFilters & SUBS_FILTER_TURN) {
-                // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
-                MSLane* lane = v->getLane();
-                std::vector<const MSLink*> links = lane->getUpcomingLinks(v->getPositionOnLane(), downstreamDist, v->getBestLanesContinuation());
-#ifdef DEBUG_SURROUNDING
-                std::cout << "Applying turn filter for vehicle '" << v->getID() << "'\n Gathering foes ..." << std::endl;
-#endif
-                // Iterate through junctions and find approaching foes within upstreamDist.
-                for (auto& l : links) {
-#ifdef DEBUG_SURROUNDING
-                    std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
-#endif
-                    for (auto& foeLane : l->getFoeLanes()) {
-                        // Check vehicles approaching the entry link corresponding to this lane
-                        const MSLink* foeLink = foeLane->getEntryLink();
-                        for (auto& vi : foeLink->getApproaching()) {
-                            if (vi.second.dist <= upstreamDist) {
-#ifdef DEBUG_SURROUNDING
-                                std::cout << "    Approaching from foe-lane '" << vi.first->getID() << "'" << std::endl;
-#endif
-                                vehs.insert(vehs.end(), dynamic_cast<const MSVehicle*>(vi.first));
-                            }
-                        }
-                        // add vehicles currently on the junction
-                        for (const MSVehicle* foe : foeLane->getVehiclesSecure()) {
-                            vehs.insert(vehs.end(), foe);
-                        }
-                        foeLane->releaseVehicles();
-                    }
+                applySubscriptionFilterTurn(s, vehs);
+                if (s.activeFilters & SUBS_FILTER_LANES) {
+                    applySubscriptionFilterLanes(s, vehs, filterLanes, downstreamDist, upstreamDist, disregardOppositeDirection);
                 }
             }
 #ifdef DEBUG_SURROUNDING
             std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
             for (auto veh : vehs) {
-                if (veh != nullptr) {
-                    std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-                }
+                debugPrint(veh);
             }
 #endif
+        } else if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
+            assert(vehs.size() == 0);
+            assert(objIDs.size() == 0);
+
+            // collect all vehicles within maximum range of interest to get an upper bound
+            PositionVector vehShape;
+            findObjectShape(s.commandId, s.id, vehShape);
+            double range = MAX3(downstreamDist, upstreamDist, lateralDist);
+            collectObjectIDsInRange(s.contextDomain, vehShape, range, objIDs);
+
+#ifdef DEBUG_SURROUNDING
+            std::cout << "FILTER_LATERAL_DIST: collected object IDs (range " << range << "):" << std::endl;
+            for (std::string i : objIDs) {
+                std::cout << i << std::endl;
+            }
+#endif
+
+#ifdef DEBUG_SURROUNDING
+            std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "', pos " << v->getPositionOnLane() << std::endl;
+            std::cout << "FILTER_LATERAL_DIST: opposite lane is '" << v->getLane()->getOpposite()->getID() << "'" << std::endl;
+#endif
+            double frontPosOnLane = v->getPositionOnLane();
+            if (v->getLaneChangeModel().isOpposite()) {
+                frontPosOnLane = v->getLane()->getOppositePos(frontPosOnLane);
+            }
+            // 1st pass: downstream (make sure that the whole length of the vehicle is included in the match)
+            const double backPosOnLane = MAX2(0.0, frontPosOnLane - v->getVehicleType().getLength());
+            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist),
+                    backPosOnLane, v->getLateralPositionOnLane(), true);
+            // 2nd pass: upstream
+            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist),
+                    frontPosOnLane, v->getLateralPositionOnLane(), false);
+
+            objIDs.clear();
         } else {
-            // No maneuver filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
-            assert(filterLanes.size() > 0);
-            // This is to remember the lanes checked in the driving direction of the vehicle (their opposites can be added in a second pass)
-            auto checkedLanesInDrivingDir = std::make_shared<LaneCoverageInfo>();
-            for (int offset : filterLanes) {
-                MSLane* lane = vehLane->getParallelLane(offset, false);
-                if (lane != nullptr) {
-#ifdef DEBUG_SURROUNDING
-                    std::cout << "Checking for surrounding vehicles starting on lane '" << lane->getID() << "' at index " << offset << std::endl;
-#endif
-                    // Search vehs along this lane
-                    // (Coverage info is collected per origin lane since lanes reached from neighboring lanes may have different distances
-                    // and aborting at previously scanned when coming from a closer origin may prevent scanning of parts that should be included.)
-                    std::shared_ptr<LaneCoverageInfo> checkedLanes = std::make_shared<LaneCoverageInfo>();
-                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist + v->getLength(), checkedLanes);
-                    vehs.insert(new_vehs.begin(), new_vehs.end());
-                    fuseLaneCoverage(checkedLanesInDrivingDir, checkedLanes);
-                } else if (!disregardOppositeDirection && offset > 0) {
-                    // Check opposite edge, too
-                    assert(vehLane->getIndex() + offset >= (int)vehEdge->getLanes().size()); // index points beyond this edge
-                    const MSEdge* opposite = vehEdge->getOppositeEdge();
-                    if (opposite == nullptr) {
-#ifdef DEBUG_SURROUNDING
-                        std::cout << "No opposite edge, thus no lane at index " << offset << std::endl;
-#endif
-                        // no opposite edge
-                        continue;
-                    }
-                    // Index of opposite lane at relative offset
-                    const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + offset - (int)vehEdge->getLanes().size());
-                    if (ix_opposite < 0) {
-#ifdef DEBUG_SURROUNDING
-                        std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
-#endif
-                        // no opposite edge
-                        continue;
-                    }
-                    lane = opposite->getLanes()[ix_opposite];
-                    // Search vehs along opposite lanes (swap upstream and downstream distance)
-                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist + v->getLength(), downstreamDist, std::make_shared<LaneCoverageInfo>());
-                    vehs.insert(new_vehs.begin(), new_vehs.end());
-                }
-#ifdef DEBUG_SURROUNDING
-                else {
-                    std::cout << "No lane at index " << offset << std::endl;
-                }
-#endif
-
-                if (!disregardOppositeDirection) {
-                    // If opposite should be checked, do this for each lane of the search tree in checkedLanesInDrivingDir
-                    // (For instance, some opposite lanes of these would not be obtained if the ego lane does not have an opposite.)
-
-                    // Number of opposite lanes to be checked (assumes filterLanes.size()>0, see assertion above) determined as hypothetical offset
-                    // overlap into opposing edge from the vehicle's current lane.
-                    // TODO: offset<0 may indicate opposite query when vehicle is on opposite itself (-> use min_element(filterLanes...) instead, etc)
-                    const int nOpp = MAX2(0, (*std::max_element(filterLanes.begin(), filterLanes.end())) - ((int)vehEdge->getLanes().size() - 1 - vehLane->getIndex()));
-                    // Collect vehicles from opposite lanes
-                    if (nOpp > 0) {
-                        for (auto& laneCov : *checkedLanesInDrivingDir) {
-                            const MSLane* lane = laneCov.first;
-                            if (lane == nullptr || lane->getEdge().getOppositeEdge() == nullptr) {
-                                continue;
-                            }
-                            const MSEdge* edge = &(lane->getEdge());
-                            const MSEdge* opposite = edge->getOppositeEdge();
-                            const std::pair<double, double>& range = laneCov.second;
-                            auto leftMostOppositeLaneIt = opposite->getLanes().rbegin();
-                            for (auto oppositeLaneIt = leftMostOppositeLaneIt;
-                                    oppositeLaneIt != opposite->getLanes().rend(); ++oppositeLaneIt) {
-                                if ((int)(oppositeLaneIt - leftMostOppositeLaneIt) == nOpp) {
-                                    break;
-                                }
-                                // Add vehicles from corresponding range on opposite direction
-                                const MSLane* oppositeLane = *oppositeLaneIt;
-                                auto new_vehs = oppositeLane->getVehiclesInRange(lane->getLength() - range.second, lane->getLength() - range.first);
-                                vehs.insert(new_vehs.begin(), new_vehs.end());
-                            }
-                        }
-                    }
-                }
-#ifdef DEBUG_SURROUNDING
-                std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
-                for (auto veh : vehs) {
-                    if (veh != nullptr) {
-                        std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-                    }
-                }
-#endif
-            }
+            // No maneuver or lateral distance filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
+            applySubscriptionFilterLanes(s, vehs, filterLanes, downstreamDist, upstreamDist, disregardOppositeDirection);
 
             // filter vehicles in vehs by class and/or type if requested
             if (s.activeFilters & SUBS_FILTER_VCLASS) {
@@ -748,18 +1006,17 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
         }
         // Write vehs IDs in objIDs
-        for (const MSVehicle* veh : vehs) {
+        for (const SUMOTrafficObject* veh : vehs) {
             if (veh != nullptr) {
                 objIDs.insert(objIDs.end(), veh->getID());
             }
         }
-    } else {
-        // filter vehicles in vehs by class and/or type if requested
+    } else { // apply rTree-based filters
         if (s.activeFilters & SUBS_FILTER_VCLASS) {
             // Only return vehicles of the given vClass in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = getVehicle(*i);
+                MSBaseVehicle* veh = getVehicle(*i);
                 if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
                     i = objIDs.erase(i);
                 } else {
@@ -771,13 +1028,251 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Only return vehicles of the given vType in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = getVehicle(*i);
+                MSBaseVehicle* veh = getVehicle(*i);
                 if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
                     i = objIDs.erase(i);
                 } else {
                     ++i;
                 }
             }
+        }
+        if (s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) {
+            // Only return vehicles within field of vision in context subscription result
+            applySubscriptionFilterFieldOfVision(s, objIDs);
+        }
+    }
+}
+
+void
+Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, std::vector<int>& filterLanes, double downstreamDist,
+                                     double upstreamDist, bool disregardOppositeDirection) {
+    assert(filterLanes.size() > 0);
+    MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
+    const MSLane* vehLane = v->getLane();
+    MSEdge* vehEdge = &vehLane->getEdge();
+    // This is to remember the lanes checked in the driving direction of the vehicle (their opposites can be added in a second pass)
+    auto checkedLanesInDrivingDir = std::make_shared<LaneCoverageInfo>();
+    for (int offset : filterLanes) {
+        MSLane* lane = vehLane->getParallelLane(offset, false);
+        if (lane != nullptr) {
+#ifdef DEBUG_SURROUNDING
+            std::cout << "Checking for surrounding vehicles starting on lane '" << lane->getID() << "' at index " << offset << std::endl;
+#endif
+            // Search vehs along this lane
+            // (Coverage info is collected per origin lane since lanes reached from neighboring lanes may have different distances
+            // and aborting at previously scanned when coming from a closer origin may prevent scanning of parts that should be included.)
+            std::shared_ptr<LaneCoverageInfo> checkedLanes = std::make_shared<LaneCoverageInfo>();
+            const std::set<MSVehicle*> new_vehs =
+                lane->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist + v->getLength(), checkedLanes);
+            vehs.insert(new_vehs.begin(), new_vehs.end());
+            fuseLaneCoverage(checkedLanesInDrivingDir, checkedLanes);
+        } else if (!disregardOppositeDirection && offset > 0) {
+            // Check opposite edge, too
+            assert(vehLane->getIndex() + offset >= (int)vehEdge->getLanes().size());  // index points beyond this edge
+            const MSEdge* opposite = vehEdge->getOppositeEdge();
+            if (opposite == nullptr) {
+#ifdef DEBUG_SURROUNDING
+                std::cout << "No opposite edge, thus no lane at index " << offset << std::endl;
+#endif
+                // no opposite edge
+                continue;
+            }
+            // Index of opposite lane at relative offset
+            const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + offset - (int)vehEdge->getLanes().size());
+            if (ix_opposite < 0) {
+#ifdef DEBUG_SURROUNDING
+                std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
+#endif
+                // no opposite edge
+                continue;
+            }
+            lane = opposite->getLanes()[ix_opposite];
+            // Search vehs along opposite lanes (swap upstream and downstream distance)
+            const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist + v->getLength(),
+                                                                               downstreamDist, std::make_shared<LaneCoverageInfo>());
+            vehs.insert(new_vehs.begin(), new_vehs.end());
+        }
+#ifdef DEBUG_SURROUNDING
+        else {
+            std::cout << "No lane at index " << offset << std::endl;
+        }
+#endif
+
+        if (!disregardOppositeDirection) {
+            // If opposite should be checked, do this for each lane of the search tree in checkedLanesInDrivingDir
+            // (For instance, some opposite lanes of these would not be obtained if the ego lane does not have an opposite.)
+
+            // Number of opposite lanes to be checked (assumes filterLanes.size()>0, see assertion above) determined as hypothetical offset
+            // overlap into opposing edge from the vehicle's current lane.
+            // TODO: offset<0 may indicate opposite query when vehicle is on opposite itself (-> use min_element(filterLanes...) instead, etc)
+            const int nOpp = MAX2(0, (*std::max_element(filterLanes.begin(), filterLanes.end())) - ((int)vehEdge->getLanes().size() - 1 - vehLane->getIndex()));
+            // Collect vehicles from opposite lanes
+            if (nOpp > 0) {
+                for (auto& laneCov : *checkedLanesInDrivingDir) {
+                    const MSLane* const l = laneCov.first;
+                    if (l == nullptr || l->getEdge().getOppositeEdge() == nullptr) {
+                        continue;
+                    }
+                    const MSEdge* opposite = l->getEdge().getOppositeEdge();
+                    const std::pair<double, double>& range = laneCov.second;
+                    auto leftMostOppositeLaneIt = opposite->getLanes().rbegin();
+                    for (auto oppositeLaneIt = leftMostOppositeLaneIt; oppositeLaneIt != opposite->getLanes().rend(); ++oppositeLaneIt) {
+                        if ((int)(oppositeLaneIt - leftMostOppositeLaneIt) == nOpp) {
+                            break;
+                        }
+                        // Add vehicles from corresponding range on opposite direction
+                        const MSLane* oppositeLane = *oppositeLaneIt;
+                        auto new_vehs = oppositeLane->getVehiclesInRange(l->getLength() - range.second, l->getLength() - range.first);
+                        vehs.insert(new_vehs.begin(), new_vehs.end());
+                    }
+                }
+            }
+        }
+#ifdef DEBUG_SURROUNDING
+        std::cout << SIMTIME << " applySubscriptionFilterLanes() for veh '" << v->getID() << "', lane offset '" << offset << "'. Found the following vehicles so far:\n";
+        for (auto veh : vehs) {
+            debugPrint(veh);
+        }
+#endif
+    }
+}
+
+void
+Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs) {
+    // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
+    MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
+    const MSLane* lane = v->getLane();
+    std::vector<const MSLink*> links = lane->getUpcomingLinks(v->getPositionOnLane(), s.filterDownstreamDist, v->getBestLanesContinuation());
+#ifdef DEBUG_SURROUNDING
+    std::cout << "Applying turn filter for vehicle '" << v->getID() << "'\n Gathering foes ..." << std::endl;
+#endif
+    // Iterate through junctions and find approaching foes within foeDistToJunction.
+    for (auto& l : links) {
+#ifdef DEBUG_SURROUNDING
+        std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
+#endif
+        for (auto& foeLane : l->getFoeLanes()) {
+            // Check vehicles approaching the entry link corresponding to this lane
+            const MSLink* foeLink = foeLane->getEntryLink();
+            for (auto& vi : foeLink->getApproaching()) {
+                if (vi.second.dist <= s.filterFoeDistToJunction) {
+#ifdef DEBUG_SURROUNDING
+                    std::cout << "    Approaching from foe-lane '" << vi.first->getID() << "'" << std::endl;
+#endif
+                    vehs.insert(vehs.end(), dynamic_cast<const MSVehicle*>(vi.first));
+                }
+            }
+            // add vehicles currently on the junction
+            for (const MSVehicle* foe : foeLane->getVehiclesSecure()) {
+                vehs.insert(vehs.end(), foe);
+            }
+            foeLane->releaseVehicles();
+        }
+    }
+}
+
+void
+Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs) {
+    if (s.filterFieldOfVisionOpeningAngle <= 0. || s.filterFieldOfVisionOpeningAngle >= 360.) {
+        WRITE_WARNINGF("Field of vision opening angle ('%') should be within interval (0, 360), ignoring filter...", s.filterFieldOfVisionOpeningAngle);
+        return;
+    }
+
+    MSBaseVehicle* egoVehicle = getVehicle(s.id);
+    Position egoPosition = egoVehicle->getPosition();
+    double openingAngle = DEG2RAD(s.filterFieldOfVisionOpeningAngle);
+
+#ifdef DEBUG_SURROUNDING
+    std::cout << "FOVFILTER: ego direction = " << toString(RAD2DEG(egoVehicle->getAngle())) << " (deg)" << std::endl;
+#endif
+
+    auto i = objIDs.begin();
+    while (i != objIDs.end()) {
+        if (s.id.compare(*i) == 0) { // skip if this is the ego vehicle
+            ++i;
+            continue;
+        }
+        SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
+        double angleEgoToVeh = egoPosition.angleTo2D(obj->getPosition());
+        double alpha = GeomHelper::angleDiff(egoVehicle->getAngle(), angleEgoToVeh);
+
+#ifdef DEBUG_SURROUNDING
+        const std::string objType = s.isVehicleToPersonContextSubscription() ? "person" : "veh";
+        std::cout << "FOVFILTER: " << objType << " '" << *i << "' dist  = " << toString(egoPosition.distanceTo2D(obj->getPosition())) << std::endl;
+        std::cout << "FOVFILTER: " << objType << " '" << *i << "' alpha = " << toString(RAD2DEG(alpha)) << " (deg)" << std::endl;
+#endif
+
+        if (abs(alpha) > openingAngle * 0.5) {
+            i = objIDs.erase(i);
+        } else {
+            ++i;
+        }
+    }
+}
+
+void
+Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, std::set<std::string>& objIDs,
+        std::set<const SUMOTrafficObject*>& vehs,
+        const std::vector<const MSLane*>& lanes, double posOnLane, double posLat, bool isDownstream) {
+    const double streamDist = isDownstream ? s.filterDownstreamDist : s.filterUpstreamDist;
+    double distRemaining = streamDist;
+    bool isFirstLane = true;
+    PositionVector combinedShape;
+    for (const MSLane* lane : lanes) {
+#ifdef DEBUG_SURROUNDING
+        std::cout << "FILTER_LATERAL_DIST: current lane " << (isDownstream ? "down" : "up") << " is '" << lane->getID() << "', length " << lane->getLength()
+                  << ", pos " << posOnLane << ", distRemaining " << distRemaining << std::endl;
+#endif
+        PositionVector laneShape = lane->getShape();
+        if (isFirstLane) {
+            isFirstLane = false;
+            if (posOnLane == 0) {
+                if (!isDownstream) {
+                    continue;
+                }
+            } else {
+                double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
+                if (geometryPos >= laneShape.length()) {
+                    laneShape = isDownstream ? PositionVector() : laneShape;
+                } else {
+                    auto pair = laneShape.splitAt(geometryPos, false);
+                    laneShape = isDownstream ? pair.second : pair.first;
+                }
+            }
+        }
+        double laneLength = lane->interpolateGeometryPosToLanePos(laneShape.length());
+        if (distRemaining - laneLength < 0.) {
+            double geometryPos = lane->interpolateLanePosToGeometryPos(isDownstream ? distRemaining : laneLength - distRemaining);
+            auto pair = laneShape.splitAt(geometryPos, false);
+            laneShape = isDownstream ? pair.first : pair.second;
+        }
+        distRemaining -= laneLength;
+        try {
+            laneShape.move2side(-posLat);
+        } catch (ProcessError&) {
+            WRITE_WARNING("addSubscriptionFilterLateralDistance could not determine shape of lane '" + lane->getID() + "' with lateral shift of " + toString(posLat));
+        }
+#ifdef DEBUG_SURROUNDING
+        std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";
+#endif
+        combinedShape.append(laneShape);
+        if (distRemaining <= 0) {
+            break;
+        }
+    }
+    // check remaining objects' distances to the combined shape
+    auto i = objIDs.begin();
+    while (i != objIDs.end()) {
+        SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
+        double minPerpendicularDist = combinedShape.distance2D(obj->getPosition(), true);
+#ifdef DEBUG_SURROUNDING
+        std::cout << " obj " << obj->getID() << " dist=" << minPerpendicularDist << " filterDist=" << s.filterLateralDist << "\n";
+#endif
+        if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
+            vehs.insert(obj);
+            i = objIDs.erase(i);
+        } else {
+            ++i;
         }
     }
 }
@@ -820,29 +1315,88 @@ Helper::postProcessRemoteControl() {
 
 bool
 Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
-                    double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
-                    SUMOVehicleClass vClass,
+                    double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, const MSLane* currentLane, double currentLanePos, bool onRoad,
+                    SUMOVehicleClass vClass, bool setLateralPos,
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person
+#ifdef DEBUG_MOVEXY
+    std::cout << SIMTIME << " moveToXYMap pos=" << pos << " angle=" << angle << " vClass=" << toString(vClass) << "\n";
+#endif
     const MSEdge* const currentRouteEdge = currentRoute[routePosition];
-    std::set<std::string> into;
+    std::set<const Named*> into;
     PositionVector shape;
     shape.push_back(pos);
     collectObjectsInRange(libsumo::CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
     double maxDist = 0;
-    std::map<MSLane*, LaneUtility> lane2utility;
+    std::map<MSLane*, LaneUtility, ComparatorNumericalIdLess> lane2utility;
     // compute utility for all candidate edges
-    for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
-        const MSEdge* const e = MSEdge::dictionary(*j);
+    for (const Named* namedEdge : into) {
+        const MSEdge* e = dynamic_cast<const MSEdge*>(namedEdge);
+        if ((e->getPermissions() & vClass) != vClass) {
+            continue;
+        }
         const MSEdge* prevEdge = nullptr;
         const MSEdge* nextEdge = nullptr;
         bool onRoute = false;
         // the next if/the clause sets "onRoute", "prevEdge", and "nextEdge", depending on
         //  whether the currently seen edge is an internal one or a normal one
-        if (!e->isInternal()) {
+        if (e->isWalkingArea() || e->isCrossing()) {
+            // find current intersection along the route
+            const MSJunction* junction = e->getFromJunction();
+            for (int i = routePosition; i < (int)currentRoute.size(); i++) {
+                const MSEdge* cand = currentRoute[i];
+                if (cand->getToJunction() == junction) {
+                    prevEdge = cand;
+                    if (i + 1 < (int)currentRoute.size()) {
+                        onRoute = true;
+                        nextEdge = currentRoute[i + 1];
+                    }
+                    break;
+                }
+            }
+            if (onRoute == false) {
+                // search backward
+                for (int i = routePosition - 1; i >= 0; i--) {
+                    const MSEdge* cand = currentRoute[i];
+                    if (cand->getToJunction() == junction) {
+                        onRoute = true;
+                        prevEdge = cand;
+                        nextEdge = currentRoute[i + 1];
+                        break;
+                    }
+                }
+            }
+            if (prevEdge == nullptr) {
+                // use arbitrary predecessor
+                if (e->getPredecessors().size() > 0) {
+                    prevEdge = e->getPredecessors().front();
+                } else if (e->getSuccessors().size() > 1) {
+                    for (MSEdge* e2 : e->getSuccessors()) {
+                        if (e2 != nextEdge) {
+                            prevEdge = e2;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (nextEdge == nullptr) {
+                if (e->getSuccessors().size() > 0) {
+                    nextEdge = e->getSuccessors().front();
+                } else if (e->getPredecessors().size() > 1) {
+                    for (MSEdge* e2 : e->getPredecessors()) {
+                        if (e2 != prevEdge) {
+                            nextEdge = e2;
+                            break;
+                        }
+                    }
+                }
+            }
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "Ego on normal" << std::endl;
+            std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge)
+                      << " pred=" << toString(e->getPredecessors()) << " succ=" << toString(e->getSuccessors())
+                      << "\n";
 #endif
+        } else if (e->isNormal()) {
             // a normal edge
             //
             // check whether the currently seen edge is in the vehicle's route
@@ -861,16 +1415,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             prevEdge = e;
             nextEdge = !onRoute || edgePos == currentRoute.end() - 1 ? nullptr : *(edgePos + 1);
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "normal:" << e->getID() << " prev:" << prevEdge->getID() << " next:";
-            if (nextEdge != 0) {
-                std::cout << nextEdge->getID();
-            }
-            std::cout << std::endl;
+            std::cout << "normal:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
 #endif
-        } else {
-#ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "Ego on internal" << std::endl;
-#endif
+        } else if (e->isInternal()) {
             // an internal edge
             // get the previous edge
             prevEdge = e;
@@ -889,7 +1436,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                 onRoute = *(prevEdgePos + 1) == nextEdge;
             }
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "internal:" << e->getID() << " prev:" << prevEdge->getID() << " next:" << nextEdge->getID() << std::endl;
+            std::cout << "internal:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
 #endif
         }
 
@@ -900,13 +1447,17 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             if (!l->allowsVehicleClass(vClass)) {
                 continue;
             }
+            if (l->getShape().length() == 0) {
+                // mapping to shapeless lanes is a bad idea
+                continue;
+            }
             double langle = 180.;
             double dist = FAR_AWAY;
             double perpendicularDist = FAR_AWAY;
             // add some slack to avoid issues from tiny gaps between consecutive lanes
             const double slack = POSITION_EPS;
             PositionVector laneShape = l->getShape();
-			laneShape.extrapolate2D(slack);
+            laneShape.extrapolate2D(slack);
             double off = laneShape.nearest_offset_to_point2D(pos, true);
             if (off != GeomHelper::INVALID_OFFSET) {
                 perpendicularDist = laneShape.distance2D(pos, true);
@@ -916,7 +1467,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                 dist = l->getShape().distance2D(pos, perpendicular);
                 langle = GeomHelper::naviDegree(l->getShape().rotationAtOffset(off));
             }
-            bool sameEdge = onRoad && e == &currentLane->getEdge() && currentRouteEdge->getLength() > currentLanePos + SPEED2DIST(speed);
+            // cannot trust lanePos on walkingArea
+            bool sameEdge = onRoad && e == &currentLane->getEdge() && currentRouteEdge->getLength() > currentLanePos + SPEED2DIST(speed) && !e->isWalkingArea();
             /*
             const MSEdge* rNextEdge = nextEdge;
             while(rNextEdge==0&&lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -929,7 +1481,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                 // ambiguous mapping. Don't trust this
                 dist2 = FAR_AWAY;
             }
-            const double angleDiff = (angle == INVALID_DOUBLE_VALUE ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
+            const double angleDiff = (angle == INVALID_DOUBLE_VALUE || l->getEdge().isWalkingArea() ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << std::setprecision(gPrecision)
                       << " candLane=" << l->getID() << " lAngle=" << langle << " lLength=" << l->getLength()
@@ -939,11 +1491,17 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                       << " dist=" << dist
                       << " dist2=" << dist2
                       << "\n";
-            std::cout << l->getID() << " param=" << l->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
+            std::cout << l->getID() << " param=" << l->getParameter(SUMO_PARAM_ORIGID, "") << " origID='" << origID << "\n";
 #endif
+
+            bool origIDMatch = l->getParameter(SUMO_PARAM_ORIGID, l->getID()) == origID;
+            if (origIDMatch && setLateralPos
+                    && perpendicularDist > l->getWidth() / 2) {
+                origIDMatch = false;
+            }
             lane2utility.emplace(l, LaneUtility(
                                      dist2, perpendicularDist, off, angleDiff,
-                                     l->getParameter(SUMO_PARAM_ORIGID, l->getID()) == origID,
+                                     origIDMatch,
                                      onRoute, sameEdge, prevEdge, nextEdge));
             // update scaling value
             maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
@@ -961,7 +1519,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         double angleDiffN = 1. - (u.angleDiff / 180.);
         double idN = u.ID ? 1 : 0;
         double onRouteN = u.onRoute ? 1 : 0;
-        double sameEdgeN = u.sameEdge ? MIN2(currentRouteEdge->getLength() / speed, (double)1.) : 0;
+        double sameEdgeN = u.sameEdge ? MIN2(currentRouteEdge->getLength() / MAX2(NUMERICAL_EPS, speed), (double)1.) : 0;
         double value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
                         + angleDiffN * 0.35 /*.5 */
                         + idN * 1
@@ -987,7 +1545,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     const LaneUtility& u = lane2utility.find(bestLane)->second;
     bestDistance = u.dist;
     *lane = bestLane;
-    lanePos = bestLane->getShape().nearest_offset_to_point25D(pos, false);
+    lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
+                            bestLane->interpolateGeometryPosToLanePos(
+                                bestLane->getShape().nearest_offset_to_point25D(pos, false))));
     const MSEdge* prevEdge = u.prevEdge;
     if (u.onRoute) {
         ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin(), currentRoute.end(), prevEdge);
@@ -1005,7 +1565,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         }
         routeOffset = 0;
 #ifdef DEBUG_MOVEXY_ANGLE
-        std::cout << SIMTIME << " internal2: lane=" << bestLane->getID() << " prev=" << Named::getIDSecure(u.prevEdge) << " next=" << Named::getIDSecure(u.nextEdge) << "\n";;
+        std::cout << SIMTIME << " internal2: lane=" << bestLane->getID() << " prev=" << Named::getIDSecure(u.prevEdge) << " next=" << Named::getIDSecure(u.nextEdge) << "\n";
 #endif
     }
     return true;
@@ -1014,21 +1574,25 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
 
 bool
 Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass vClass, double& bestDistance, MSLane** lane) {
+    // TODO maybe there is a way to abort this early if the lane already found is good enough but simply
+    // checking for bestDistance < POSITON_EPS gives ugly order dependencies (#7933), so think twice and profile first
     if (edge == nullptr) {
         return false;
     }
-    const std::vector<MSLane*>& lanes = edge->getLanes();
     bool newBest = false;
-    for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
-        MSLane* candidateLane = *k;
+    for (MSLane* const candidateLane : edge->getLanes()) {
         if (!candidateLane->allowsVehicleClass(vClass)) {
+            continue;
+        }
+        if (candidateLane->getShape().length() == 0) {
+            // mapping to shapeless lanes is a bad idea
             continue;
         }
         const double dist = candidateLane->getShape().distance2D(pos); // get distance
 #ifdef DEBUG_MOVEXY
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
 #endif
-        if (dist < bestDistance) {
+        if (dist < bestDistance || (dist == bestDistance && candidateLane->getNumericalID() < (*lane)->getNumericalID())) {
             // is the new distance the best one? keep then...
             bestDistance = dist;
             *lane = candidateLane;
@@ -1042,8 +1606,11 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
 bool
 Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
         const ConstMSEdgeVector& currentRoute, int routeIndex,
-        SUMOVehicleClass vClass,
+        SUMOVehicleClass vClass, bool setLateralPos,
         double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
+#ifdef DEBUG_MOVEXY
+    std::cout << SIMTIME << " moveToXYMap_matchingRoutePosition pos=" << pos << " vClass=" << toString(vClass) << "\n";
+#endif
     //std::cout << "moveToXYMap_matchingRoutePosition pos=" << pos << "\n";
     routeOffset = 0;
     // routes may be looped which makes routeOffset ambiguous. We first try to
@@ -1083,6 +1650,26 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         }
         next = cand;
     }
+    if (vClass == SVC_PEDESTRIAN) {
+        // consider all crossings and walkingareas along the route
+        std::map<const MSJunction*, int> routeJunctions;
+        for (int i = 0; i < (int)currentRoute.size() - 1; ++i) {
+            routeJunctions[currentRoute[i]->getToJunction()] = i;
+        }
+        std::set<const Named*> into;
+        PositionVector shape;
+        shape.push_back(pos);
+        collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, 100, into);
+        for (const Named* named : into) {
+            const MSLane* cand = dynamic_cast<const MSLane*>(named);
+            if ((cand->getEdge().isWalkingArea() || cand->getEdge().isCrossing())
+                    && routeJunctions.count(cand->getEdge().getToJunction()) != 0) {
+                if (findCloserLane(&cand->getEdge(), pos, vClass, bestDistance, lane)) {
+                    routeOffset = routeJunctions[cand->getEdge().getToJunction()];
+                }
+            }
+        }
+    }
 
     assert(lane != 0);
     // quit if no solution was found, reporting a failure
@@ -1100,8 +1687,18 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
         for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
             if ((*i)->getParameter(SUMO_PARAM_ORIGID, (*i)->getID()) == origID) {
-                *lane = *i;
-                break;
+                if (setLateralPos) {
+                    // vehicle might end up on top of another lane with a big
+                    // lateral offset to the lane with origID.
+                    const double dist = (*i)->getShape().distance2D(pos); // get distance
+                    if (dist < (*i)->getWidth() / 2) {
+                        *lane = *i;
+                        break;
+                    }
+                } else {
+                    *lane = *i;
+                    break;
+                }
             }
         }
     }
@@ -1175,6 +1772,13 @@ Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int va
 
 
 bool
+Helper::SubscriptionWrapper::wrapPositionVector(const std::string& objID, const int variable, const TraCIPositionVector& value) {
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIPositionVector>(value);
+    return true;
+}
+
+
+bool
 Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int variable, const TraCIColor& value) {
     (*myActiveResults)[objID][variable] = std::make_shared<TraCIColor>(value);
     return true;
@@ -1182,8 +1786,18 @@ Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int varia
 
 
 bool
-Helper::SubscriptionWrapper::wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value) {
-    (*myActiveResults)[objID][variable] = std::make_shared<TraCIRoadPosition>(value);
+Helper::SubscriptionWrapper::wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value) {
+    (*myActiveResults)[objID][variable] = std::make_shared<TraCIRoadPosition>(value.first, value.second);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value) {
+    auto sl = std::make_shared<TraCIStringList>();
+    sl->value.push_back(value.first);
+    sl->value.push_back(value.second);
+    (*myActiveResults)[objID][variable] = sl;
     return true;
 }
 
@@ -1191,6 +1805,12 @@ Helper::SubscriptionWrapper::wrapRoadPosition(const std::string& objID, const in
 void
 Helper::VehicleStateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
     myVehicleStateChanges[to].push_back(vehicle->getID());
+}
+
+
+void
+Helper::TransportableStateListener::transportableStateChanged(const MSTransportable* const transportable, MSNet::TransportableState to, const std::string& /*info*/) {
+    myTransportableStateChanges[to].push_back(transportable->getID());
 }
 
 

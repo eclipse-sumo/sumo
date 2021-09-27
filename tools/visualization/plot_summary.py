@@ -1,17 +1,21 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    plot_summary.py
 # @author  Daniel Krajzewicz
 # @author  Laura Bieker
+# @author  Michael Behrisch
 # @date    2013-11-11
-# @version $Id$
 
 """
 
@@ -29,15 +33,6 @@ sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
-
-
-def readValues(files, verbose, measure):
-    ret = {}
-    for f in files:
-        if verbose:
-            print("Reading '%s'..." % f)
-        ret[f] = sumolib.output.parse_sax__asList(f, "step", [measure])
-    return ret
 
 
 def main(args=None):
@@ -61,19 +56,14 @@ def main(args=None):
         print("Error: at least one summary file must be given")
         sys.exit(1)
 
-    minV = 0
-    maxV = 0
     files = options.summary.split(",")
-    nums = readValues(files, options.verbose, options.measure)
-    times = readValues(files, options.verbose, "time")
-    for f in files:
-        maxV = max(maxV, len(nums[f]))
-    range(minV, maxV + 1)
-
     fig, ax = helpers.openFigure(options)
     for i, f in enumerate(files):
-        v = sumolib.output.toList(nums[f], options.measure)
-        t = sumolib.output.toList(times[f], "time")
+        t = []
+        v = []
+        for time, val in sumolib.xml.parse_fast(f, "step", ("time", options.measure)):
+            t.append(sumolib.miscutils.parseTime(time))
+            v.append(float(val))
         c = helpers.getColor(options, i, len(files))
         plt.plot(t, v, label=helpers.getLabel(f, i, options), color=c)
     helpers.closeFigure(fig, ax, options)

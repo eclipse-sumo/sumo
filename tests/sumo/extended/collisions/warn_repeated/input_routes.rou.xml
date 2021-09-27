@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="SC CN NC CS" repeat="3">
+        <stop edge="SC" endPos="60" duration="10"/>
+        <stop edge="CN" endPos="60" speed="20"/>
+    </route>
+    <route id="r1" edges="SC CN NC CS" repeat="3">
+        <stop edge="SC" endPos="80" duration="6"/>
+        <stop edge="CN" endPos="60" speed="20"/>
+    </route>
+    <vType id="surprise" decel="9" apparentDecel="2" sigma="0"/>
+    <vType id="chump" decel="3"  sigma="0"/>
+    <vehicle id="v" route="r0" type="surprise" depart="0"/>
+    <vehicle id="c" route="r1" type="chump" depart="3" departSpeed="max"/>
+</routes>

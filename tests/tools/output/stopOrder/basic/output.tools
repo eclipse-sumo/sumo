@@ -1,0 +1,5 @@
+Parsed 8 expected stops at 6 locations
+Parsed 8 actual stops at 6 locations
+At stop_c vehicle v1 (plan=160.0) comes after v0 (plan=200.0).
+At stop_c2 vehicle v1 (plan=220.0) comes after v0 (plan=300.0).
+Simulation missed 0 stops at 0 locations

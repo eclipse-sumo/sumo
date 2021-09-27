@@ -1,13 +1,14 @@
-Loading net-file from 'net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional.add.xml'... done (0ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_1_0+0435-678c69824b started with time: 0.00
-Simulation ended at time: 849.00
+Simulation version v1_6_0+0680-3599babf66 started with time: 0.00
+Simulation ended at time: 900.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 1356ms
- Real time factor: 626.106
+ Duration: 1995ms
+ Real time factor: 451.128
  UPS: 0.000000
+ UPS-Persons: 49275.187970
 Vehicles: 
  Inserted: 0
  Running: 0
@@ -17,12 +18,13 @@ Persons:
  Running: 0
 Statistics (avg):
  RouteLength: 0.00
+ Speed: 0.00
  Duration: 0.00
  WaitingTime: 0.00
  TimeLoss: 0.00
  DepartDelay: 0.00
 Pedestrian Statistics (avg of 300 walks):
  RouteLength: 79.00
- Duration: 316.48
- TimeLoss: 239.54
+ Duration: 327.68
+ TimeLoss: 250.75
 

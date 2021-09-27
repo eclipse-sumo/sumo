@@ -5,6 +5,8 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_Daniel1.h
    MSCFModel_IDM.cpp
    MSCFModel_IDM.h
+   MSCFModel_EIDM.cpp
+   MSCFModel_EIDM.h
    MSCFModel_Kerner.cpp
    MSCFModel_Kerner.h
    MSCFModel_Krauss.cpp

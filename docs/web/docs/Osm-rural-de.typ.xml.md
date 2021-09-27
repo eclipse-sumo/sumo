@@ -1,1 +1,0 @@
-1.  REDIRECT [OsmNetconvert.typ.xml](OsmNetconvert.typ.xml.md)

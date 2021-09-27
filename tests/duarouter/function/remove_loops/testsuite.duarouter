@@ -33,3 +33,6 @@ duplicate_last
 
 # the old route should be preserved even if it is longer wherever there are no loops.
 preserve_old_route
+
+# using zones for start / end
+with_taz

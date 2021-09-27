@@ -1,0 +1,19 @@
+wait_for_one
+
+# use vehicleId instead of tripId
+wait_for_one_tripId
+
+# vehicle constraint is already met
+wait_not
+
+# check last two passed vehicles
+limit2
+
+# check last three passed vehicles
+limit3
+
+# check last three passed vehicles
+wait_for_three
+
+# check last three passed vehicles (three constraints)
+wait_for_three_individual

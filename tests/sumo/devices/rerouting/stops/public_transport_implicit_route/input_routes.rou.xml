@@ -1,0 +1,11 @@
+<routes>
+    <vType id="bus" sigma="0" maxSpeed="3"/>
+    <route id="busroute" repeat="2">
+        <stop busStop="busStop_a" duration="10"/>
+        <stop busStop="busStop_c" duration="10"/>
+        <stop busStop="busStop_-c" duration="10"/>
+        <stop busStop="busStop_-a" duration="10"/>
+    </route>
+    <flow id="bus" type="bus" begin="0" number="2" period="100" route="busroute"/>
+    <vehicle id="bus_single" type="bus" depart="300" route="busroute"/>
+</routes>

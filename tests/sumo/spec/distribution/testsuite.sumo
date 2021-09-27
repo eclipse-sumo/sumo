@@ -10,6 +10,9 @@ route_basic
 # checks using nested route distribution
 route_nested
 
+# checks using nested route distribution
+route_nested_refId
+
 # checks using nested route distribution twice
 route_nested_repeat
 
@@ -30,6 +33,9 @@ speed_basic
 
 # tests the effect of using speedDev > 0
 speedDev
+
+# override speedDev with individual speedFactor
+speedDev_override_individual
 
 # tests setting speeddev by option
 speedDev_option

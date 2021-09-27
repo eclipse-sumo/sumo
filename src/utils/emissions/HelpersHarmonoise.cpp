@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    HelpersHarmonoise.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Noise data collector for edges/lanes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "PollutantsInterface.h"
@@ -43,7 +41,6 @@ HelpersHarmonoise::myR_A_C1_Parameter[27] = { 69.9, 69.9, 69.9, 74.9, 74.9, 74.9
 double
 HelpersHarmonoise::myR_B_C1_Parameter[27] = { 33.0, 33.0, 33.0, 15.2, 15.2, 15.2, 41.0, 41.2, 42.3, 41.8, 38.6, 35.5, 31.7, 21.5, 21.2, 23.5, 29.1, 33.5, 34.1, 35.1, 36.4, 37.4, 38.9, 39.7, 39.7, 39.7, 39.7 };
 
-
 // rolling component, heavy vehicles, alpha
 double
 HelpersHarmonoise::myR_A_C3_Parameter[27] = { 80.5, 80.5, 80.5, 82.5, 83.5, 83.5, 86.5, 88.3, 88.7, 88.3, 91.4, 92.2, 96.0, 98.1, 97.8, 98.4, 97.2, 94.6, 95.9, 90.5, 87.1, 85.1, 83.2, 81.3, 81.3, 81.3, 81.3 };
@@ -51,8 +48,6 @@ HelpersHarmonoise::myR_A_C3_Parameter[27] = { 80.5, 80.5, 80.5, 82.5, 83.5, 83.5
 // rolling component, heavy vehicles, beta
 double
 HelpersHarmonoise::myR_B_C3_Parameter[27] = { 33.0, 33.0, 33.0, 30.0, 30.0, 30.0, 41.0, 41.2, 42.3, 41.8, 38.6, 35.5, 31.7, 21.5, 21.2, 23.5, 29.1, 33.5, 34.1, 35.1, 36.4, 37.4, 38.9, 39.7, 39.7, 39.7, 39.7 };
-
-
 
 // traction component, light vehicles, alpha
 double
@@ -62,7 +57,6 @@ HelpersHarmonoise::myT_A_C1_Parameter[27] = { 90.0, 92.0, 89.0, 91.0, 92.4, 94.8
 double
 HelpersHarmonoise::myT_B_C1_Parameter[27] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4, 9.4 };
 
-
 // traction component, heavy vehicles, alpha
 double
 HelpersHarmonoise::myT_A_C3_Parameter[27] = { 97.7, 97.3, 98.2, 103.3, 109.5, 104.3, 99.8, 100.2, 98.9, 99.5, 100.7, 101.2, 100.6, 100.2, 97.4, 97.1, 97.8, 97.3, 95.8, 94.9, 92.7, 90.6, 89.9, 87.9, 85.9, 83.8, 82.2 };
@@ -71,24 +65,20 @@ HelpersHarmonoise::myT_A_C3_Parameter[27] = { 97.7, 97.3, 98.2, 103.3, 109.5, 10
 double
 HelpersHarmonoise::myT_B_C3_Parameter[27] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7, 11.7 };
 
-
 // ---------------------------------------------------------------------------
 // A-weighted correction for octave bands
 // ---------------------------------------------------------------------------
-double
+const double
 HelpersHarmonoise::myAOctaveBandCorrection[27] = { -44.7, -39.4, -34.6, -30.2, -26.2, -22.5, -19.1, -16.1, -13.4,
                                                    -10.9, -8.6, -6.6, -4.8, -3.2, -1.9, -0.8, 0.0, +0.6,
                                                    +1.0, +1.2, +1.3, +1.2, +1.0, +0.5, -0.1, -1.1, -2.5
                                                    };
 
-
-
-double
-mySurfaceCorrection[27] = { 0.7, 0.2, 3.6, -1.0, -1.8, -0.1, -0.9, -0.7, -1.1, -0.5, -1.5,
-                            -2.4, -3.0, -4.6, -5.8, -6.5, -7.9, -7.8, -7.2, -6.3, -5.6,
-                            -5.5, -4.8, -4.3
-                            };
-
+const double
+HelpersHarmonoise::mySurfaceCorrection[27] = { 0.7, 0.2, 3.6, -1.0, -1.8, -0.1, -0.9, -0.7, -1.1, -0.5, -1.5,
+                                               -2.4, -3.0, -4.6, -5.8, -6.5, -7.9, -7.8, -7.2, -6.3, -5.6,
+                                               -5.5, -4.8, -4.3
+                                               };
 
 // ===========================================================================
 // method definitions
@@ -136,7 +126,4 @@ HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) {
 }
 
 
-
-
 /****************************************************************************/
-

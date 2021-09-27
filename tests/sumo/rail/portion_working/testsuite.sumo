@@ -1,0 +1,14 @@
+# split a train into two parts
+split
+
+# join two train parts into a single train
+join
+
+# join two train parts into a single train. Make sure that the rail model can close the gap
+join_RB425
+
+# join two train parts into a single train. rail signal must allow second train to enter the block
+join_signal
+
+# the front part of the train is joined to the rear part (the rear part keeps its id)
+join_front

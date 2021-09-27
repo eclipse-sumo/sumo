@@ -1,6 +1,6 @@
 Warning: Minor green from edge 'NC' to edge 'CE' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge 'SC' to edge 'CW' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge 'WC' to edge 'CN' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Speed of turning connection 'NC_0->CW_0' reduced by 24.16 due to turning radius of 6.55 (length=9.03 angle=90.00)
-Warning: Speed of turning connection 'WC_1->CN_1' reduced by 22.66 due to turning radius of 13.12 (length=19.35 angle=90.00)
-Warning: Speed of straight connection 'E2E3_0->E3E4_0' reduced by 11.69 due to turning radius of 2.42 (length=1.13 angle=39.79)
+Warning: Speed of turning connection 'NC_0->CW_0' reduced by 24.16 due to turning radius of 6.55 (length=9.03, angle=90.00).
+Warning: Speed of turning connection 'WC_1->CN_1' reduced by 22.66 due to turning radius of 13.12 (length=19.35, angle=90.00).
+Warning: Speed of straight connection 'E2E3_0->E3E4_0' reduced by 11.69 due to turning radius of 2.42 (length=1.13, angle=39.79).

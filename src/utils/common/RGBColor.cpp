@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RGBColor.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A RGB-color definition
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -34,12 +32,14 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+
 #include "RGBColor.h"
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
 const RGBColor RGBColor::RED = RGBColor(255, 0, 0, 255);
 const RGBColor RGBColor::GREEN = RGBColor(0, 255, 0, 255);
 const RGBColor RGBColor::BLUE = RGBColor(0, 0, 255, 255);
@@ -56,24 +56,42 @@ const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::YELLOW;
 const std::string RGBColor::DEFAULT_COLOR_STRING = toString(RGBColor::DEFAULT_COLOR);
 
 // random colors do not affect the simulation. No initialization is necessary
-std::mt19937 RGBColor::myRNG;
+SumoRNG RGBColor::myRNG;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RGBColor::RGBColor()
-    : myRed(0), myGreen(0), myBlue(0), myAlpha(0) {}
+
+RGBColor::RGBColor(bool valid)
+    : myRed(0), myGreen(0), myBlue(0), myAlpha(0), myValid(valid) {}
 
 
 RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
-    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha) {}
+    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha), myValid(true) {}
 
 
-RGBColor::RGBColor(const RGBColor& col)
-    : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue), myAlpha(col.myAlpha) {}
+unsigned char
+RGBColor::red() const {
+    return myRed;
+}
 
 
-RGBColor::~RGBColor() {}
+unsigned char
+RGBColor::green() const {
+    return myGreen;
+}
+
+
+unsigned char 
+RGBColor::blue() const {
+    return myBlue;
+}
+
+
+unsigned char 
+RGBColor::alpha() const {
+    return myAlpha;
+}
 
 
 void
@@ -82,6 +100,25 @@ RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a
     myGreen = g;
     myBlue = b;
     myAlpha = a;
+    myValid = true;
+}
+
+
+void 
+RGBColor::setAlpha(unsigned char alpha) {
+    myAlpha = alpha;
+}
+
+
+void
+RGBColor::setValid(const bool value) {
+    myValid = value;
+}
+
+
+bool 
+RGBColor::isValid() const {
+    return myValid;
 }
 
 
@@ -129,13 +166,13 @@ operator<<(std::ostream& os, const RGBColor& col) {
 
 bool
 RGBColor::operator==(const RGBColor& c) const {
-    return myRed == c.myRed && myGreen == c.myGreen && myBlue == c.myBlue && myAlpha == c.myAlpha;
+    return (myRed == c.myRed) && (myGreen == c.myGreen) && (myBlue == c.myBlue) && (myAlpha == c.myAlpha) && (myValid == c.myValid);
 }
 
 
 bool
 RGBColor::operator!=(const RGBColor& c) const {
-    return myRed != c.myRed || myGreen != c.myGreen || myBlue != c.myBlue || myAlpha != c.myAlpha;
+    return (myRed != c.myRed) || (myGreen != c.myGreen) || (myBlue != c.myBlue) || (myAlpha != c.myAlpha) || (myValid != c.myValid);
 }
 
 
@@ -147,6 +184,12 @@ RGBColor::invertedColor() const {
     const unsigned char b = (unsigned char)(255  - (int)myBlue);
     // return inverted RBColor
     return RGBColor(r, g, b, myAlpha);
+}
+
+
+SumoRNG* 
+RGBColor::getColorRNG() {
+    return &myRNG;
 }
 
 
@@ -172,10 +215,18 @@ RGBColor::changedBrightness(int change, int toChange) const {
     }
 }
 
+RGBColor
+RGBColor::multiply(double factor) const {
+    const unsigned char red = (unsigned char)floor(MIN2(MAX2(myRed * factor, 0.0), 255.0) + 0.5);
+    const unsigned char blue = (unsigned char)floor(MIN2(MAX2(myBlue * factor, 0.0), 255.0) + 0.5);
+    const unsigned char green = (unsigned char)floor(MIN2(MAX2(myGreen * factor, 0.0), 255.0) + 0.5);
+    return RGBColor(red, green, blue, myAlpha);
+}
+
 
 RGBColor
 RGBColor::parseColor(std::string coldef) {
-    std::transform(coldef.begin(), coldef.end(), coldef.begin(), tolower);
+    coldef = StringUtils::to_lower_case(coldef);
     if (coldef == "red") {
         return RED;
     }
@@ -205,6 +256,16 @@ RGBColor::parseColor(std::string coldef) {
     }
     if (coldef == "grey" || coldef == "gray") {
         return GREY;
+    }
+    if (coldef == "invisible") {
+        return INVISIBLE;
+    }
+    if (coldef == "random") {
+        return fromHSV(RandHelper::rand(360, &myRNG),
+                       // prefer more saturated colors
+                       pow(RandHelper::rand(&myRNG), 0.3),
+                       // prefer brighter colors
+                       pow(RandHelper::rand(&myRNG), 0.3));
     }
     unsigned char r = 0;
     unsigned char g = 0;
@@ -329,5 +390,5 @@ RGBColor::randomHue(double s, double v) {
     return fromHSV(RandHelper::rand(360, &myRNG), s, v);
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

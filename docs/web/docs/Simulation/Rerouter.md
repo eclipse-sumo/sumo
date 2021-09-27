@@ -1,6 +1,5 @@
 ---
-title: Simulation/Rerouter
-permalink: /Simulation/Rerouter/
+title: Rerouter
 ---
 
 # Rerouter
@@ -79,6 +78,8 @@ like this:
 
 Note, that the name of the root-level element (`<rerouter>` in this case) is
 arbitrary.
+
+All the following examples use the separate file syntax.
 
 ## Closing a Street
 
@@ -183,7 +184,7 @@ first applicable value is used):
 - subjective edge costs for the current vehicle if set via[TraCI
    command *change edge travel time
    information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
-- edge weights loaded via the [SUMO](../SUMO.md) option **--weight-files**
+- edge weights loaded via the [sumo](../sumo.md) option **--weight-files**
 - travel times in the empty network
 
 The attributes used within a dest_prob_reroute are:
@@ -227,6 +228,10 @@ The attributes used within such definitions are:
 | -------------- | ----------- | ---------------------------------------------------------------------------------------------- |
 | **id**         | id (string) | The id of a new route to assign; the id must be the id of a previously loaded route                                                                          |
 | probability    | float       | The the probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
+
+### Repeated public transport routes
+
+If the new route assigned with the rerouter contains stops, the vehicle will use these stops. If the stops use attribute 'until' then the route should use attribute ['cycleTime'](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#repeated_routes) to shift the until-times by a set amount on each repeat.
 
 ## Rerouting to an alternative Parking Area
 
@@ -276,16 +281,18 @@ that are visible and have at least 1 free space according to the minimum
 weighted sum over a number of attributes. For invisible parkingAreas
 (attribute `visible="false"`, the occupancy value is a taken as a random number from
 \[0,capacity\[ which means they are always among the set of alternatives
-even when full. By default only the distance from the current vehicle
+even when full. Each attribute (i.e. occupancy, time, distance) is normalized to [0-1] with the maximum value of all candidate parkingAreas with positive remaining capacity) and inverted as necessary.
+
+By default only the distance from the current vehicle
 position to the new parking area is considered. The following table
 describes the weighting factors that can be customized using [generic
 parameters of the vehicle or its
 vType](../Simulation/GenericParameters.md):
+ 
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
 | --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
 | parking.probability.weight  | 0             | the influence of the *probability* attribute of the `parkingAreaReroute` | yes                        |
-| parking.capacity.weight     | 0             | The total capacity of the parking area                                   | yes                        |
 | parking.capacity.weight     | 0             | The total capacity of the parking area                                   | yes                        |
 | parking.absfreespace.weight | 0             | The absolute number of free spaces                                       | yes                        |
 | parking.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
@@ -306,3 +313,86 @@ where
 
 then the new route will also end at the new parkingArea and the endPos
 of the new parkingArea will be set as new arrivalPos.
+
+# Vehicle Behavior when closing a street
+The interaction of vehicles with reroutes is complex and depends on many
+different factors. Below we give a description of each of the factors and then
+describe the behavior for each combination of factors.
+The following assumes vehicles that have an edge affected by `<closingReroute .../>`
+along their route (other vehicles are not affected directly).
+
+1. closing style
+   - a) hard closing: `<closingReroute>` uses attribute 'allow' or 'disallow' to prohibit the vehicle
+   - b) soft closing: attribute is not used (edge use is discouraged but not forbidden)
+2. alternatives
+   - a) an alternative route exists
+   - b) no alternative route exists
+3. detour signage
+   - a) an rerouter edge is encountered before the alternative route branches off
+   - b) no rerouter edge is encountered before the alternative route branches off
+4. vehicle style
+   - a) vehicle defined with origin and destination where the affected edge is on the preferred route (i.e. `<trip from="..." to="...">`)
+   - b) vehicle defined with fixed route
+5. closing time versus departure time
+   - a) vehicle departs after closing becomes active
+   - b) vehicle departs before closing becomes active (closing occurs while en-route)
+
+The following vehicle behaviors are possible:
+
+- **R**: use an alternative route upon reaching the rerouter edge
+- **D**: use an alternative route on departure
+- **I**: ignore the closed edge and keep driving
+- **W**: wait ahead of the closed edge until it reopens or time-to-teleport is
+  reached (in this case teleport across the closed edge(s))
+- **E**: generate an error
+
+To following effects occur:
+
+## Hard closing
+
+- 1a-2a-3a-4a-5a: **D** 
+- 1a-2a-3a-4a-5b: **R** 
+- 1a-2a-3a-4b-5a: **R** 
+- 1a-2a-3a-4b-5b: **R** 
+                       
+- 1a-2a-3b-4a-5a: **D**
+- 1a-2a-3b-4a-5b: **W**
+- 1a-2a-3b-4b-5a: **W**
+- 1a-2a-3b-4b-5b: **W**
+                       
+- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3a-4a-5b: **W**
+- 1a-2b-3a-4b-5a: **W**
+- 1a-2b-3a-4b-5b: **W**
+                       
+- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3b-4a-5b: **W**
+- 1a-2b-3b-4b-5a: **W**
+- 1a-2b-3b-4b-5b: **W**
+                       
+## Soft closing        
+                       
+- 1b-2a-3a-4a-5a: **R**
+- 1b-2a-3a-4a-5b: **R**
+- 1b-2a-3a-4b-5a: **R**
+- 1b-2a-3a-4b-5b: **R**
+                       
+- 1b-2a-3b-4a-5a: **I**
+- 1b-2a-3b-4a-5b: **I**
+- 1b-2a-3b-4b-5a: **I**
+- 1b-2a-3b-4b-5b: **I**
+                       
+- 1b-2b-3a-4a-5a: **I**
+- 1b-2b-3a-4a-5b: **I**
+- 1b-2b-3a-4b-5a: **I**
+- 1b-2b-3a-4b-5b: **I**
+                       
+- 1b-2b-3b-4a-5a: **I**
+- 1b-2b-3b-4a-5b: **I**
+- 1b-2b-3b-4b-5a: **I**
+- 1b-2b-3b-4b-5b: **I**
+
+## Departure on a closed edge
+
+When the departure edge for a vehicle is closed, vehicles will ignore this for
+'soft' closing. For a 'hard' closing the simulation will raise an error. If **--ignore-route-errors** is set, the vehicle will be discarded with a warning.

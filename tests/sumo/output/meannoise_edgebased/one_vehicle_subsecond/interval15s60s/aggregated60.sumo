@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:28:51 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on Mon Mar 30 15:08:38 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,30 +13,42 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
         <step-length value="0.1"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
 
 </configuration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" sampledSeconds="29.00" noise="58.62" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="28.90" noise="58.60" traveltime="40.00"/>
         <edge id="4/1to3/1" sampledSeconds="30.30" noise="58.81" traveltime="40.00"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="1/1to0/1" sampledSeconds="9.00" noise="53.54" traveltime="40.00"/>
+        <edge id="1/1to0/1" sampledSeconds="8.90" noise="53.49" traveltime="40.00"/>
         <edge id="2/1to1/1" sampledSeconds="40.30" noise="60.05" traveltime="40.00"/>
-        <edge id="3/1to2/1" sampledSeconds="11.30" noise="54.52" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="11.40" noise="54.56" traveltime="40.00"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
         <edge id="1/1to0/1" sampledSeconds="30.00" noise="61.77" traveltime="40.00"/>

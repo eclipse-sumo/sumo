@@ -1,0 +1,17 @@
+<routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0" containerCapacity="1"/>
+   <container id="c0" depart="0">
+       <stop containerStop="containerStop0" duration="1"/>
+       <transport containerStop="containerStop1" lines="car0"/>
+    </container>
+   <container id="c1" depart="0">
+       <stop containerStop="containerStop0" duration="1"/>
+       <transport containerStop="containerStop1" lines="car0"/>
+    </container>
+
+    <trip id="car0" depart="10">
+        <stop containerStop="containerStop0" duration="10"/>
+        <stop containerStop="containerStop1" duration="10"/>
+    </trip>
+
+</routes>

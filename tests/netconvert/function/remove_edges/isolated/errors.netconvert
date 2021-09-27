@@ -1,9 +1,6 @@
-Warning: Removed a road without junctions: -gneE10, -gneE9, -gneE8, -gneE7
-Warning: Removed a road without junctions: -gneE11, -gneE6
-Warning: Removed a road without junctions: -gneE28
-Warning: Removed a road without junctions: -gneE39, -gneE38, -gneE37, -gneE36
-Warning: Removed a road without junctions: gneE28
-Warning: Removed a road without junctions: gneE36, gneE37, gneE38, gneE39
-Warning: Removed a road without junctions: gneE55
-Warning: Removed a road without junctions: gneE6, gneE11
-Warning: Removed a road without junctions: gneE7, gneE8, gneE9, gneE10
+Warning: Removed a road without junctions: -gneE10,-gneE9,-gneE8,-gneE7.
+Warning: Removed a road without junctions: -gneE11,-gneE6.
+Warning: Removed a road without junctions: -gneE28.
+Warning: Removed a road without junctions: -gneE39,-gneE38,-gneE37,-gneE36.
+Warning: Removed a road without junctions: gneE28.
+Warning: 9 total messages of type: Removed a road without junctions: %.

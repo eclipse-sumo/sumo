@@ -1,3 +1,6 @@
+# Tests for using laneTypes
+laneTypes
+
 # Simple cross using types for edge definition (verbose). 
 # The additional --remove-edges.by-vclass should remove 
 # one edge during net conversion.
@@ -20,7 +23,19 @@ cross_usingtypes_v
 
 # Simple cross disallowing ships
 cross_default_disallow
+
+# Simple cross allowing only bikes
+cross_default_allow
+
+# Simple cross using types for edge definition
+cross_default_type
 ignore_unknown_type
 
 # Simple cross using types for edge definition and overwriting allowed
 cross_usingtypes_overwrite
+
+# test invalid default lanenumber and width
+cross_default_invalid
+
+# spread types
+spread_types

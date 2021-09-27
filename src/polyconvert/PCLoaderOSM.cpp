@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PCLoaderOSM.cpp
 /// @author  Daniel Krajzewicz
@@ -14,15 +18,9 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    Wed, 19.11.2008
-/// @version $Id$
 ///
 // A reader of pois and polygons stored in OSM-format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -82,6 +80,7 @@ std::set<std::string> PCLoaderOSM::initMyKeysToInclude() {
     result.insert("polygon");
     result.insert("place");
     result.insert("population");
+    result.insert("barrier");
     result.insert("openGeoDB:population");
     result.insert("openGeoDB:name");
     return result;
@@ -106,8 +105,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             WRITE_ERROR("Could not open osm-file '" + *file + "'.");
             return;
         }
-        const long before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
         if (!XMLSubSys::runParser(nodesHandler, *file)) {
             for (std::map<long long int, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
                 delete (*i).second;
@@ -122,8 +120,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     RelationsHandler relationsHandler(additionalWays, relations, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
-        const long before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Parsing relations from osm-file '" + *file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing relations from osm-file '" + *file + "'");
         XMLSubSys::runParser(relationsHandler, *file);
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -133,8 +130,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     EdgesHandler edgesHandler(nodes, edges, additionalWays, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
-        const long before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Parsing edges from osm-file '" + *file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing edges from osm-file '" + *file + "'");
         XMLSubSys::runParser(edgesHandler, *file);
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -362,7 +358,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
             def.color, vec, false, def.allowFill && closedShape, 1, def.layer);
         if (withAttributes) {
-            poly->updateParameter(edge->myAttributes);
+            poly->updateParameters(edge->myAttributes);
         }
         if (!toFill.add(poly, ignorePruning)) {
             return index;
@@ -384,9 +380,9 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
         PointOfInterest* poi = new PointOfInterest(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, pos, false, "", 0, 0, (double)def.layer);
+            def.color, pos, false, "", 0, false, 0, (double)def.layer);
         if (withAttributes) {
-            poi->updateParameter(node->myAttributes);
+            poi->updateParameters(node->myAttributes);
         }
         if (!toFill.add(poi, ignorePruning)) {
             return index;
@@ -425,7 +421,6 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             //  ... so we won't report duplicate nodes
             PCOSMNode* toAdd = new PCOSMNode();
             toAdd->id = id;
-            bool ok = true;
             toAdd->lon = attrs.get<double>(SUMO_ATTR_LON, toString(id).c_str(), ok);
             toAdd->lat = attrs.get<double>(SUMO_ATTR_LAT, toString(id).c_str(), ok);
             if (!ok) {
@@ -646,4 +641,3 @@ PCLoaderOSM::EdgesHandler::myEndElement(int element) {
 
 
 /****************************************************************************/
-

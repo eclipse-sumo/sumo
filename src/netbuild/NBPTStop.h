@@ -1,30 +1,30 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBPTStop.h
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // The representation of a single pt stop
 /****************************************************************************/
-#ifndef SUMO_NBPTSTOP_H
-#define SUMO_NBPTSTOP_H
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
 #include <utils/geom/Position.h>
 #include "utils/common/SUMOVehicleClass.h"
+#include <utils/common/Parameterised.h>
+#include "NBCont.h"
 #include "NBPTPlatform.h"
 
 
@@ -33,6 +33,7 @@
 // ===========================================================================
 class OutputDevice;
 class NBEdgeCont;
+class NBEdge;
 
 
 // ===========================================================================
@@ -42,7 +43,7 @@ class NBEdgeCont;
 * @class NBPTStop
 * @brief The representation of a single pt stop
 */
-class NBPTStop {
+class NBPTStop : public Parameterised {
 
 public:
     /**@brief Constructor
@@ -50,28 +51,63 @@ public:
     * @param[in] position The position of the pt stop
     * @param[in] edgeId The edge id of the pt stop
     * @param[in] length The length of the pt stop
+    * @param[in] color ptStop color
     */
-    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name, SVCPermissions svcPermissions);
+    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name,
+             SVCPermissions svcPermissions, double parkingLength = 0, const RGBColor color = RGBColor(false));
+
+    /// @brief Destructor
+    virtual ~NBPTStop() {};
+
     std::string getID() const;
 
     const std::string getEdgeId() const;
+
     const std::string getOrigEdgeId() const;
+
     const std::string getName() const;
+
     const Position& getPosition() const;
+
     SVCPermissions getPermissions() const;
+
+    long long int getAreaID() const {
+        return myAreaID;
+    }
+
     void write(OutputDevice& device);
+
     void reshiftPosition(const double offsetX, const double offsetY);
 
     const std::vector<NBPTPlatform>& getPlatformCands();
-    bool getIsMultipleStopPositions() const;
-    void setIsMultipleStopPositions(bool multipleStopPositions);
-    double getLength() const;
-    bool setEdgeId(std::string edgeId, NBEdgeCont& ec);
-    void registerAdditionalEdge(std::string wayId, std::string edgeId);
-    void addPlatformCand(NBPTPlatform platform);
-    bool findLaneAndComputeBusStopExtent(NBEdgeCont& ec);
 
-    void setMyPTStopId(std::string id);
+    bool getIsMultipleStopPositions() const;
+
+    void setIsMultipleStopPositions(bool multipleStopPositions, long long int areaID);
+
+    double getLength() const;
+
+    bool setEdgeId(std::string edgeId, const NBEdgeCont& ec);
+
+    void registerAdditionalEdge(std::string wayId, std::string edgeId);
+
+    void addPlatformCand(NBPTPlatform platform);
+
+    bool findLaneAndComputeBusStopExtent(const NBEdgeCont& ec);
+
+    bool findLaneAndComputeBusStopExtent(const NBEdge* edge);
+
+    void setPTStopId(std::string id) {
+        myPTStopId = id;
+    }
+
+    void setIsPlatform() {
+        myIsPlatform = true;
+    }
+
+    bool isPlatform() const {
+        return myIsPlatform;
+    }
     void addAccess(std::string laneID, double offset, double length);
 
     /// @brief remove all access definitions
@@ -88,6 +124,34 @@ public:
         return myBidiStop;
     }
 
+    bool isLoose() const {
+        return myIsLoose;
+    }
+
+    double getEndPos() const {
+        return myEndPos;
+    }
+
+    const std::vector<std::string>& getLines() const {
+        return myLines;
+    }
+
+    /// @brief mirror coordinates along the x-axis
+    void mirrorX();
+
+    /// @brief replace the stop edge with the closest edge on the given edge list in all stops
+    bool replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+
+    const std::map<std::string, std::string>& getAdditionalEdgeCandidates() const {
+        return myAdditionalEdgeCandidates;
+    }
+    void setOrigEdgeId(const std::string& origEdgeId) {
+        myOrigEdgeId = origEdgeId;
+    }
+    void setPTStopLength(double ptStopLength) {
+        myPTStopLength = ptStopLength;
+    }
+
 private:
     void computeExtent(double center, double d);
 
@@ -96,18 +160,11 @@ private:
     Position myPosition;
     std::string myEdgeId;
     std::map<std::string, std::string> myAdditionalEdgeCandidates;
-public:
-    const std::map<std::string, std::string>& getMyAdditionalEdgeCandidates() const;
-private:
     std::string myOrigEdgeId;
-public:
-    void setMyOrigEdgeId(const std::string& myOrigEdgeId);
-private:
     double myPTStopLength;
-public:
-    void setMyPTStopLength(double myPTStopLength);
-private:
     const std::string myName;
+    const double myParkingLength;
+    const RGBColor myColor;
     std::string myLaneId;
     const SVCPermissions myPermissions;
 
@@ -122,14 +179,19 @@ private:
 
     NBPTStop* myBidiStop;
 
+    /// @brief whether the stop was not part of the road network and must be mapped
+    bool myIsLoose;
+
+    /// @brief whether this stop was build from a platform position
+    bool myIsPlatform;
+
+    std::vector<NBPTPlatform> myPlatformCands;
+    bool myIsMultipleStopPositions;
+    long long int myAreaID;
 
 private:
     /// @brief Invalidated assignment operator.
     NBPTStop& operator=(const NBPTStop&);
 
-
-    std::vector<NBPTPlatform> myPlatformCands;
-    bool myIsMultipleStopPositions;
 };
 
-#endif //SUMO_NBPTSTOP_H

@@ -1,3 +1,5 @@
+first_edge_disallowed
+
 # Test with a vehicle and no route given
 no_route
 
@@ -43,6 +45,12 @@ disconnected
 # disconnected routes with check switched off
 disconnected_off
 
+# disconnected routes with check switched off, special time-to-teleport.disconnected for this use case
+disconnected_off_customTeleport
+
+# disconnected routes with check switched off, special time-to-teleport.disconnected for this use case
+disconnected_off_customTeleport0
+
 # route file with empty person
 emptyperson
 
@@ -51,7 +59,3 @@ disconnected_walk
 
 # position beyond the lanes end
 invalid_departpos
-first_edge_disallowed
-
-# with --ignore-route-errors
-first_edge_disallowed_ignore

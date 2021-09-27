@@ -29,6 +29,8 @@
 /build/cmake-build*
 /build/cmake_build*
 /build/cmake-codeblocks*
+/build/cmake-clang*
+/build/cmake-mingw*
 /out
 # bin dir
 /bin/TraCITestClient*
@@ -52,15 +54,26 @@
 /bin/testmicrosim*
 /bin/testnetbuild*
 /bin/testlibsumo*
+/bin/testthreadpool*
 /bin/*.dll
+/bin/*.dylib
 /bin/*.so
 /bin/*.pyd
 /bin/osgPlugins*
 /bin/libsumoc*
+/bin/liblibsumojni.jnilib
+/bin/liblibtracijni.jnilib
+/bin/libsumofmi2.dylib
+/bin/libtracicpp.dll.manifest
+bin/testlibtraci
+# data dir
+/data/proj
 # docs dir, make artifacts
 /docs/doxygen
 /docs/examples
 /docs/javadoc
+/docs/lcov
+/docs/man
 /docs/pydoc
 /docs/tutorial
 /docs/userdoc
@@ -94,25 +107,40 @@
 /src/utils/empty.cpp
 /unittest/src/sumo-unittest
 # tools dir
+/tools/*.egg-info
+/tools/[0-9]*
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
+/tools/game/netstate.xml
+/tools/game/tlsstate.xml
 /tools/game/*.tripinfos.xml
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
-/tools/contributed/lisum-core/target
-/tools/contributed/lisum-gui/target
+/tools/game/scores.pkl
+/tools/contributed/lisum/lisum-core/target/
+/tools/contributed/lisum/lisum-gui/target/
+/tools/contributed/lisum/lisumgui/target/
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
 /tools/contributed/traas/target
-/tools/libsumo/java/
 /tools/libsumo/_libsumo.*
 /tools/libsumo/libsumo.py
 /tools/libsumo/libsumoPYTHON_wrap.cxx
 /tools/libsumo/libsumoc.so
+/tools/libsumo/libsumocpp.so
+/tools/libsumo/libsumocpp.dylib
+/tools/libtraci/_libtraci.*
+/tools/libtraci/libtraci.py
+/tools/libtraci/libtraciPYTHON_wrap.cxx
+/tools/libtraci/libtracicpp.so
+/tools/libtraci/libtracicpp.dylib
 # extracted tests
 /tests/_*
+# netedit test
+/tests/netedit/__pycache__
+/tests/netedit/filter_files
 # global patterns
 Makefile
 Makefile.in
@@ -120,6 +148,7 @@ Makefile.in
 *.class
 lib*.a
 .deps
+**/.DS_Store
 .libs
 *.o
 *.pyc
@@ -143,3 +172,7 @@ lib*.a
 *.res
 *.ipch
 .vscode
+*.aps
+.gdb_history
+
+/share

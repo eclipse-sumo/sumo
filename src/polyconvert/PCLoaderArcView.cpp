@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PCLoaderArcView.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A reader of pois and polygons from shape files
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -103,14 +101,19 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
+#if GDAL_VERSION_MAJOR > 2
+    if (oc.getBool("shapefile.traditional-axis-mapping")) {
+        destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+    }
+#endif
     OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
-    if (poCT == NULL) {
-        if (oc.isSet("shapefile.guess-projection")) {
+    if (poCT == nullptr) {
+        if (oc.getBool("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
         }
-        if (poCT == 0) {
+        if (poCT == nullptr) {
             WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
@@ -118,7 +121,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     OGRFeature* poFeature;
     poLayer->ResetReading();
     int runningID = 0;
-    while ((poFeature = poLayer->GetNextFeature()) != NULL) {
+    while ((poFeature = poLayer->GetNextFeature()) != nullptr) {
         std::vector<Parameterised*> parCont;
         // read in edge attributes
         std::string id = useRunningID ? toString(runningID) : poFeature->GetFieldAsString(idField.c_str());
@@ -162,7 +165,9 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             continue;
         }
         // try transform to wgs84
-        poGeometry->transform(poCT);
+        if (poCT != nullptr) {
+            poGeometry->transform(poCT);
+        }
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         switch (gtype) {
             case wkbPoint: {
@@ -171,7 +176,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
                 }
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile);
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
                 if (toFill.add(poi)) {
                     parCont.push_back(poi);
                 }
@@ -219,7 +224,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, false, "", 0, 0, layer, angle, imgFile);
+                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
                     if (toFill.add(poi)) {
                         parCont.push_back(poi);
                     }
@@ -305,4 +310,3 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
 
 
 /****************************************************************************/
-

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 24 15:47:49 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Thu Mar 12 09:42:26 2020 by Eclipse SUMO Version v1_5_0+0671-ab1576c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,11 +39,11 @@ SPDX-License-Identifier: EPL-2.0
         <walk edges="end"/>
     </person>
 
-    <person id="p1" depart="0.00" arrival="999.00">
+    <person id="p1" depart="0.00" arrival="1000.00">
         <walk edges="end middle beg"/>
     </person>
 
-    <person id="walker" depart="0.00" arrival="1403.00">
+    <person id="walker" depart="0.00" arrival="1402.00">
         <walk edges="beg middle end"/>
     </person>
 

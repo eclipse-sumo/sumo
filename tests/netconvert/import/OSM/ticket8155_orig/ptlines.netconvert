@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-17 10:22:08 by Eclipse SUMO netconvert Version v1_10_0+0759-0b3a782ef3e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <geometry.remove.keep-ptstops value="true"/>
+    </processing>
+
+    <edge_removal>
+        <keep-edges.components value="1"/>
+        <remove-edges.by-type value="highway.service"/>
+    </edge_removal>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="2653085" name="Linie 113 via Schwülper Baunschweiger Straße" line="113" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2656639" name="Linie 113 via Rothemühle" line="113" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2657421" name="Linie 112" line="112" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="2777015" name="Tram 1: Wenden =&gt; Stöckheim" line="1" type="tram" vClass="tram" period="600" color="227,0,11" completeness="0.06">
+        <route edges="859066433#0 859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
+        <busStop id="54142977" name="Heideblick"/>
+        <busStop id="54143009" name="Veltenhöfer Straße"/>
+    </ptLine>
+    <ptLine id="31366" name="Tram 1: Stöckheim =&gt; Wenden" line="1" type="tram" vClass="tram" period="600" color="227,0,11" completeness="0.06">
+        <route edges="859066429#0 859066429#1 859066429#2 859066430#1 859066430#2 859066434#1 859066434#3"/>
+        <busStop id="54143012" name="Veltenhöfer Straße"/>
+        <busStop id="54142977" name="Heideblick"/>
+    </ptLine>
+    <ptLine id="4599998" name="Tram 1: Stöckheim =&gt; Anklamstraße =&gt; Wenden" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.05">
+        <route edges="859066429#0 859066429#1 859066429#2 859066430#1 859066430#2 859066434#1 859066434#3"/>
+        <busStop id="54143012" name="Veltenhöfer Straße"/>
+        <busStop id="54142977" name="Heideblick"/>
+    </ptLine>
+    <ptLine id="4599999" name="Tram 1: Wenden =&gt; Anklamstraße =&gt; Stöckheim" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.05">
+        <route edges="859066433#0 859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
+        <busStop id="54142977" name="Heideblick"/>
+        <busStop id="54143009" name="Veltenhöfer Straße"/>
+    </ptLine>
+    <ptLine id="4617961" name="Bus 464: Harxbüttel =&gt; Volkmarode" line="464" type="bus" vClass="bus" color="215,181,46" completeness="0.00"/>
+    <ptLine id="6768240" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Heideblick" line="414" type="bus" vClass="bus" color="91,197,242" completeness="0.06">
+        <busStop id="4539420388" name="Veltenhöfer Straße"/>
+        <busStop id="91556880" name="Brandenburgstraße"/>
+    </ptLine>
+    <ptLine id="6768729" name="Bus 434: Heideblick =&gt; Krugplatz" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00"/>
+    <ptLine id="6768731" name="Bus 434: Krugplatz =&gt; Heideblick" line="434" type="bus" vClass="bus" color="163,16,8" completeness="0.00"/>
+    <ptLine id="6974398" name="Bus 424: Bevenrode =&gt; Heideblick" line="424" type="bus" vClass="bus" color="225,182,0" completeness="0.00"/>
+    <ptLine id="7090404" name="Tram 1: Rathaus =&gt; Wenden" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.12">
+        <route edges="859066429#0 859066429#1 859066429#2 859066430#1 859066430#2 859066434#1 859066434#3"/>
+        <busStop id="54143012" name="Veltenhöfer Straße"/>
+        <busStop id="54142977" name="Heideblick"/>
+    </ptLine>
+    <ptLine id="7090406" name="Tram 1: Wenden =&gt; Rathaus" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.12">
+        <route edges="859066433#0 859066433#1 859066433#2 859066431#1 859066431#2 859066427#1 859066427#2"/>
+        <busStop id="54142977" name="Heideblick"/>
+        <busStop id="54143009" name="Veltenhöfer Straße"/>
+    </ptLine>
+    <ptLine id="7378840" name="Bus 191: Gifhorn, Steinweg =&gt; Wenden, Heideblick" line="191" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7378841" name="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Steinweg" line="191" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7392814" name="Bus 191: Gifhorn, Bahnhof (Süd) =&gt; Wenden, Heideblick" line="191" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7392821" name="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Bahnhof (Süd)" line="191" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7393653" name="Bus 111: Gifhorn, Gesundheitsamt =&gt; Wenden, Heideblick" line="111" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="7393662" name="Bus 111: Wenden, Heideblick =&gt; Gifhorn, Gesundheitsamt" line="111" type="bus" vClass="bus" completeness="0.00"/>
+    <ptLine id="76955" name="Bus 414: Heideblick =&gt; Stadion (Schwarzer Berg)" line="414" type="bus" vClass="bus" color="91,197,242" completeness="0.00"/>
+</ptLines>

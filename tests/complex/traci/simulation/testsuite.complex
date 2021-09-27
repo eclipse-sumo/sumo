@@ -1,0 +1,10 @@
+loadState
+
+# Tests the simulation API
+simulation
+
+# test collision retrieval
+collisions
+
+# test loading a simulation
+load

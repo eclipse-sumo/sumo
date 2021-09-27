@@ -1,0 +1,17 @@
+# vehicles configured to ignore pedestrians (probability = 0)
+ignore_pedestrians_none
+
+# vehicles configured to ignore pedestrians (probability = 0.5)
+ignore_pedestrians_some
+
+# vehicles configured to ignore pedestrians (probability = 1)
+ignore_pedestrians_all
+
+# vehicles configured to ignore junction leaders (probability = 0)
+ignore_veh_none
+
+# vehicles configured to ignore junction leaders (probability = 0.5)
+ignore_veh_some
+
+# vehicles configured to ignore junction leaders (probability = 1)
+ignore_veh_all

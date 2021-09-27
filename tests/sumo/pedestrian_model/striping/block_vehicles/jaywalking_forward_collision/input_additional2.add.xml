@@ -1,5 +1,5 @@
 <routes>    
-    <vType id="p0" vClass="pedestrian" width="0.70" length="3.00" minGap="1" guiShape="pedestrian" color="255,0,0" jmDriveAfterRedTime="25"/>
+    <vType id="p0" vClass="pedestrian" width="0.64" length="3.00" minGap="1" guiShape="pedestrian" color="255,0,0" jmDriveAfterRedTime="25"/>
     <person id="p0" type="p0" depart="0" departPos="2.0">
         <walk edges="CS NC"/>
     </person>

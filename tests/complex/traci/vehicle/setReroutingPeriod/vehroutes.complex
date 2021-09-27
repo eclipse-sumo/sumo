@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue May 26 14:10:39 2020 by Eclipse SUMO Version v1_6_0+0381-92c9486dad
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <junction-taz value="true"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <routing>
+        <weights.random-factor value="10"/>
+        <device.rerouting.period value="300"/>
+    </routing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="49105"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" type="DEFAULT_VEHTYPE@ego" depart="0.00" arrival="367.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0B0" reason="device.rerouting" replacedAtTime="20.00" probability="0" edges="A0B0 B0B1 B1B2 B2B3 B3B4 B4C4 C4C5 C5D5 D5E5 E5F5 F5F6 F6F7 F7G7 G7H7"/>
+            <route replacedOnEdge="B2C2" reason="device.rerouting" replacedAtTime="80.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4F5 F5F6 F6G6 G6G7 G7H7"/>
+            <route replacedOnEdge="C2D2" reason="device.rerouting" replacedAtTime="100.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2E3 E3F3 F3F4 F4G4 G4G5 G5G6 G6G7 G7H7"/>
+            <route replacedOnEdge="D2E2" reason="device.rerouting" replacedAtTime="120.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2G2 G2G3 G3G4 G4G5 G5G6 G6G7 G7H7"/>
+            <route replacedOnEdge="E2F2" reason="device.rerouting" replacedAtTime="140.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4G5 G5G6 G6G7 G7H7"/>
+            <route replacedOnEdge="F3F4" reason="device.rerouting" replacedAtTime="200.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4F5 F5F6 F6G6 G6G7 G7H7"/>
+            <route replacedOnEdge="F4G4" reason="device.rerouting" replacedAtTime="220.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4G5 G5G6 G6G7 G7H7"/>
+            <route replacedOnEdge="H4H5" reason="device.rerouting" replacedAtTime="260.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4H4 H4H5 H5H6 H6G6 G6G7 G7H7"/>
+            <route replacedOnEdge="H5H6" reason="device.rerouting" replacedAtTime="280.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4H4 H4H5 H5H6 H6H7 H7G7 G7H7"/>
+            <route edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4H4 H4H5 H5H6 H6G6 G6G7 G7H7"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RONet.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Jakob Erdmann
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The router's network representation
 /****************************************************************************/
-#ifndef RONet_h
-#define RONet_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -48,6 +45,7 @@ class ROEdge;
 class RONode;
 class ROPerson;
 class ROVehicle;
+class ROAbstractEdgeBuilder;
 class OptionsCont;
 class OutputDevice;
 
@@ -134,6 +132,12 @@ public:
      */
     bool addDistrictEdge(const std::string tazID, const std::string edgeID, const bool isSource);
 
+    /// @brief add a taz for every junction unless a taz with the same id already exists
+    void addJunctionTaz(ROAbstractEdgeBuilder& eb);
+
+    /// @brief add a taz for every junction unless a taz with the same id already exists
+    void setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap);
+
     /** @brief Retrieves all TAZ (districts) from the network
      *
      * @return The map of all districts
@@ -160,10 +164,14 @@ public:
      * @param[in] laneID The name of the lane to retrieve the edge for
      * @return The edge of the named lane if known, otherwise 0
      */
-    ROEdge* getEdgeForLaneID(const std::string& laneID) const {
-        return getEdge(laneID.substr(0, laneID.rfind("_")));
-    }
+    ROEdge* getEdgeForLaneID(const std::string& laneID) const;
 
+    /** @brief Retrieves a lane rom the network given it's id
+     *
+     * @param[in] laneID The name of the lane to retrieve the edge for
+     * @return The lane object
+     */
+    ROLane* getLane(const std::string& laneID) const;
 
     /* @brief Adds a read node to the network
      *
@@ -214,6 +222,9 @@ public:
 
     /// @brief return the name for the given stopping place id
     const std::string getStoppingPlaceName(const std::string& id) const;
+
+    /// @brief return the element name for the given stopping place id
+    const std::string getStoppingPlaceElement(const std::string& id) const;
     //@}
 
 
@@ -309,6 +320,11 @@ public:
      */
     virtual bool addVehicle(const std::string& id, ROVehicle* veh);
 
+    /// @brief returns whether a vehicle with the given id was already loaded
+    bool knowsVehicle(const std::string& id) const;
+
+    /// @brief returns departure time for the given vehicle id
+    SUMOTime getDeparture(const std::string& vehID) const;
 
     /* @brief Adds a flow of vehicles to the network
      *
@@ -400,6 +416,14 @@ public:
 
     void setPermissionsFound();
 
+    /// @brief return whether the network contains bidirectional rail edges
+    bool hasBidiEdges() const {
+        return myHasBidiEdges;
+    }
+
+    /// @brief whether efforts were loaded from file
+    bool hasLoadedEffort() const;
+
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
             return myRouteAlternativesOutput;
@@ -426,7 +450,7 @@ public:
     public:
         BulkmodeTask(const bool value) : myValue(value) {}
         void run(FXWorkerThread* context) {
-            static_cast<WorkerThread*>(context)->getVehicleRouter().setBulkMode(myValue);
+            static_cast<WorkerThread*>(context)->setBulkMode(myValue);
         }
     private:
         const bool myValue;
@@ -446,8 +470,8 @@ private:
     /// @brief Unique instance of RONet
     static RONet* myInstance;
 
-    /// @brief Known vehicle ids
-    std::set<std::string> myVehIDs;
+    /// @brief Known vehicle ids and their departure
+    std::map<std::string, SUMOTime> myVehIDs;
 
     /// @brief Known person ids
     std::set<std::string> myPersonIDs;
@@ -536,6 +560,9 @@ private:
     /// @brief whether to keep the the vtype distribution in output
     const bool myKeepVTypeDist;
 
+    /// @brief whether the network contains bidirectional railway edges
+    bool myHasBidiEdges;
+
 #ifdef HAVE_FOX
 private:
     class RoutingTask : public FXWorkerThread::Task {
@@ -566,9 +593,3 @@ private:
     RONet& operator=(const RONet& src);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

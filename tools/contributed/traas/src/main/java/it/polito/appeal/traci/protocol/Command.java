@@ -1,19 +1,22 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
 // TraCI4J module
 // Copyright (C) 2011 ApPeAL Group, Politecnico di Torino
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Command.java
 /// @author  Enrico Gueli
 /// @author  Mario Krumnow
 /// @date    2011
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -25,14 +28,14 @@ import de.uniluebeck.itm.tcpip.Storage;
  * Represents a single TraCI command, with its identifier and content. It can
  * be used either as a request (i.e. from client to server) and as a response
  * (i.e. from server to client). The "command" term reflects the description
- * in the <a href="https://sumo.dlr.de/wiki/TraCI/Protocol#Messages">wiki</a>.
+ * in the <a href="https://sumo.dlr.de/docs/TraCI/Protocol.html#messages">wiki</a>.
  * Each command is characterized by a type identifier and a variable-sized
  * content. The command can be constructed either from a data block (a
  * {@link Storage}) or from scratch; its content can be read or written to a
  * {@link Storage}.
  *
  * @author Enrico Gueli &lt;enrico.gueli@polito.it&gt;
- * @see <a href="https://sumo.dlr.de/wiki/TraCI/Protocol#Messages">Messages</a>
+ * @see <a href="https://sumo.dlr.de/docs/TraCI/Protocol.html#messages">Messages</a>
  */
 public class Command {
 

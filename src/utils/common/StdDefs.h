@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    StdDefs.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,11 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 //
 /****************************************************************************/
-#ifndef StdDefs_h
-#define StdDefs_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
+#include <config.h>
 #include <string>
 #include <cmath>
 #include <limits>
@@ -56,6 +54,8 @@ const double SUMO_const_halfLaneAndOffset = SUMO_const_halfLaneWidth + SUMO_cons
 const double SUMO_const_laneMarkWidth = (double) 0.1;
 const double SUMO_const_waitingPersonWidth = 0.8;
 const double SUMO_const_waitingPersonDepth = 0.67;
+const double SUMO_const_waitingContainerWidth = 2.5;
+const double SUMO_const_waitingContainerDepth = 6.2;
 
 /// @brief the speed threshold at which vehicles are considered as halting
 const double SUMO_const_haltingSpeed = (double) 0.1;
@@ -63,7 +63,7 @@ const double SUMO_const_haltingSpeed = (double) 0.1;
 const double INVALID_DOUBLE = std::numeric_limits<double>::max();
 
 /// @brief version for written networks and default version for loading
-const double NETWORK_VERSION = 1.3;
+const double NETWORK_VERSION = 1.9;
 
 
 /* -------------------------------------------------------------------------
@@ -124,6 +124,7 @@ extern int gPrecisionGeo; // for lon,lat
 extern bool gHumanReadableTime;
 extern bool gSimulation; // whether the current application is sumo or sumo-gui (as opposed to a router)
 extern double gWeightsRandomFactor; // randomization for edge weights
+extern double gWeightsWalkOppositeFactor; // factor for walking against flow of traffic
 
 
 /// @brief global utility flags for debugging
@@ -131,6 +132,10 @@ extern bool gDebugFlag1;
 extern bool gDebugFlag2;
 extern bool gDebugFlag3;
 extern bool gDebugFlag4;
+extern bool gDebugFlag5;
+
+// synchronized output to stdout with << (i.e. DEBUGOUT(SIMTIME << " var=" << var << "\n")
+#define DEBUGOUT(msg) {std::ostringstream oss; oss << msg; std::cout << oss.str();}
 
 /// @brief discrds mantissa bits beyond the given number
 double truncate(double x, int fractionBits);
@@ -138,7 +143,9 @@ double truncate(double x, int fractionBits);
 /// @brief round to the given number of mantissa bits beyond the given number
 double roundBits(double x, int fractionBits);
 
-#endif
-
-/****************************************************************************/
-
+/** @brief Returns the number of instances of the current object that shall be emitted
+ * given the number of loaded objects
+ * considering that "frac" of all objects shall be emitted overall
+ * @return the number of objects to create (something between 0 and ceil(frac))
+ */
+int getScalingQuota(double frac, int loaded);

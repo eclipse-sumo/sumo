@@ -1,0 +1,14 @@
+# all the vehicles from the first flow appear again at the second flow
+equal
+
+# all the vehicles from the first flow appear again at the second flow but they appear earlier
+equal_upstream_earlier
+
+# all the vehicles from the first flow appear again at the second flow but they appear later
+equal_upstream_later
+
+# the number of vehicles from the first flow is bigger than the second flow when reaching the second source
+upstream_bigger
+
+# the number of vehicles from the first flow is smaller than the second flow when reaching the second source
+upstream_smaller

@@ -1,0 +1,5 @@
+# Tests the vehicletype API
+vehicletype
+
+# Change different vType and vehicle parameters via traci, save the state and load it again should yield the same parameters.
+save_and_load_vtype_params

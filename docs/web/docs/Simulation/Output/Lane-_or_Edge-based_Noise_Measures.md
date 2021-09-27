@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Lane- or Edge-based Noise Measures
-permalink: /Simulation/Output/Lane-_or_Edge-based_Noise_Measures/
+title: Lane- or Edge-based Noise Measures
 ---
 
 The edge/lane based noise output based on Harmonoise writes information
@@ -23,7 +22,7 @@ model](http://www.imagine-project.org/bestanden/D18_WP3_HAR32TR-040922-DGMR20.pd
 An edge-based noise emissions output is defined way within an additional
 file as following:
 
-```
+```xml
 <edgeData id="<DETECTOR_ID>" type="harmonoise" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
@@ -32,7 +31,7 @@ file as following:
 An edge-based noise emissions output is defined way within an additional
 file as following:
 
-```
+```xml
 <laneData id="<DETECTOR_ID>" type="harmonoise" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
@@ -74,7 +73,7 @@ Notes:
 - The interval end is the interval begin + aggregation time, meaning
   that values were collected within these steps excluding the end time
   itself. If the simulation ends before the last interval is over, the
-  interval will be prunned.
+  interval will be pruned.
 - The output file will be generated, does not have to exist earlier
   and will be overwritten if existing without any warning. The folder
   the output file shall be generated in must exist.
@@ -91,7 +90,7 @@ Notes:
 
 ## See Also
 
-- [edge/lane-based network performace measures
+- [edge/lane-based network performance measures
   output](../../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
   and [edge/lane-based vehicular pollutant emission
   output](../../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md)

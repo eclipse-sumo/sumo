@@ -9,3 +9,12 @@ min-dist
 
 # only rate by mininimum air distance
 min-air-dist
+
+# Checking for a route which visits a node twice
+node_loop
+
+# Checking for a route which visits an edge twice
+edge_loop
+
+# network with internal links
+internal

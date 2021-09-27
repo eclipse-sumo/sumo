@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-17 10:22:10 by Eclipse SUMO netconvert Version v1_10_0+0759-0b3a782ef3e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+        <ptline-clean-up value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="12151739" name="Nachtbus 669: U Ahrensburg West =&gt; U Ahrensburg West" line="669" type="bus" vClass="bus" color="black" completeness="0.01">
+        <route edges="244492518#0 244492518#1 244492518#2 244492518#3 -76424358 -228523367#1 -228523367#0 11645842#0 11645842#1 11645842#2 206357901#0 206357901#1 206357901#2 206357901#3 206357901#4 206357901#5 206357901#6 297003188#0 297003188#1 11646390 372818658#0 372818658#1 372818658#2 372818658#3 -11646390 -297003188#1 -297003188#0 297003189#0 297003189#1 297003189#2 297003189#3 297003189#4 297003189#5 297003189#6 297003189#7 -11645842#2 -11645842#1 -11645842#0 228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
+        <busStop id="-1792502642" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+    <ptLine id="12218240" name="Bus 576: Wulfsdorf, Allmende =&gt; Ahrensburg, Freizeitbad" line="576" type="bus" vClass="bus" color="red" completeness="0.07">
+        <route edges="11645842#0 11645842#1 11645842#2 206357901#0 206357901#1 206357901#2 206357901#3 206357901#4 206357901#5 206357901#6 297003188#0 297003188#1 -19431426#10 -19431426#9 -19431426#8 -19431426#7 -19431426#6 -19431426#5 -19431426#4 -19431426#3 -19431426#2 -19431426#1 -19431426#0 -39546438"/>
+        <busStop id="1711974496" name="Ahrensburg, Rathaus"/>
+        <busStop id="-8341032348" name="Ahrensburg, Grauer Esel"/>
+        <busStop id="-2705494849" name="Ahrensburg, Fritz-Reuter-Straße"/>
+    </ptLine>
+    <ptLine id="12235869" name="Bus 476: Ahrensburg, Freizeitbad =&gt; Ahrensburg, Auestieg" line="476" type="bus" vClass="bus" color="red" completeness="0.07">
+        <route edges="-372818658#3 -372818658#2 -372818658#1 -372818658#0 -11646390 -297003188#1 -297003188#0 297003189#0 297003189#1 297003189#2 297003189#3 297003189#4 297003189#5 297003189#6 297003189#7 -11645842#2 -11645842#1 -11645842#0"/>
+        <busStop id="-1711953916" name="Ahrensburg, Klaus-Groth-Straße"/>
+        <busStop id="1711974498" name="Ahrensburg, Rathaus"/>
+    </ptLine>
+    <ptLine id="12235870" name="Bus 476: Ahrensburg, Auestieg =&gt; Ahrensburg, Freizeitbad" line="476" type="bus" vClass="bus" color="red" completeness="0.07">
+        <route edges="11645842#0 11645842#1 11645842#2 206357901#0 206357901#1 206357901#2 206357901#3 206357901#4 206357901#5 206357901#6 297003188#0 297003188#1 11646390 372818658#0 372818658#1 372818658#2 372818658#3"/>
+        <busStop id="1711974496" name="Ahrensburg, Rathaus"/>
+        <busStop id="1711953915" name="Ahrensburg, Klaus-Groth-Straße"/>
+    </ptLine>
+    <ptLine id="1526252" name="Bus 569: Ahrensburg, Schulzentrum Am Heimgarten =&gt; Ahrensburg, Am Weinberg" line="569" type="bus" vClass="bus" color="red" completeness="0.04">
+        <route edges="11645842#0 11645842#1 11645842#2 206357901#0 206357901#1 206357901#2 206357901#3 206357901#4 206357901#5 206357901#6 297003188#0 297003188#1 11646390 372818658#0 372818658#1 372818658#2 372818658#3"/>
+        <busStop id="1711974496" name="Ahrensburg, Rathaus"/>
+        <busStop id="1711953916" name="Ahrensburg, Klaus-Groth-Straße"/>
+    </ptLine>
+    <ptLine id="1817063" name="Bus 474: Wragekamp =&gt; Bf. Ahrensburg" line="474" type="bus" vClass="bus" color="red" completeness="0.04">
+        <route edges="-372818658#3 -372818658#2 -372818658#1 -372818658#0 -11646390 -297003188#1 -297003188#0 297003189#0 297003189#1 297003189#2 297003189#3 297003189#4 297003189#5 297003189#6 297003189#7 -11645842#2 -11645842#1 -11645842#0"/>
+        <busStop id="-1711953915" name="Ahrensburg, Klaus-Groth-Straße"/>
+        <busStop id="1711974498" name="Ahrensburg, Rathaus"/>
+    </ptLine>
+    <ptLine id="2141597" name="Bus 569: Ahrensburg, Rosenhof =&gt; Ahrensburg, Schulzentrum Am Heimgarten" line="569" type="bus" vClass="bus" color="red" completeness="0.04">
+        <route edges="-372818658#3 -372818658#2 -372818658#1 -372818658#0 -11646390 -297003188#1 -297003188#0 297003189#0 297003189#1 297003189#2 297003189#3 297003189#4 297003189#5 297003189#6 297003189#7 -11645842#2 -11645842#1 -11645842#0"/>
+        <busStop id="-1711953915" name="Ahrensburg, Klaus-Groth-Straße"/>
+        <busStop id="1711974498" name="Ahrensburg, Rathaus"/>
+    </ptLine>
+    <ptLine id="216083" name="Bus 576: Ahrensburg, Freizeitbad =&gt; Wulfsdorf, Allmende" line="576" type="bus" vClass="bus" color="red" completeness="0.05">
+        <route edges="39546438 19431426#0 19431426#1 19431426#2 19431426#3 19431426#4 19431426#5 19431426#6 19431426#7 19431426#8 19431426#9 19431426#10 -297003188#1 -297003188#0 297003189#0 297003189#1 297003189#2 297003189#3 297003189#4 297003189#5 297003189#6 297003189#7 -11645842#2 -11645842#1 -11645842#0"/>
+        <busStop id="2705494849" name="Ahrensburg, Fritz-Reuter-Straße"/>
+        <busStop id="8341032348" name="Ahrensburg, Grauer Esel"/>
+        <busStop id="1711974498" name="Ahrensburg, Rathaus"/>
+    </ptLine>
+    <ptLine id="233378" name="Bus 474: Bf. Ahrensburg =&gt; Wragekamp" line="474" type="bus" vClass="bus" color="red" completeness="0.04">
+        <route edges="11645842#0 11645842#1 11645842#2 206357901#0 206357901#1 206357901#2 206357901#3 206357901#4 206357901#5 206357901#6 297003188#0 297003188#1 11646390 372818658#0 372818658#1 372818658#2 372818658#3"/>
+        <busStop id="1711974496" name="Ahrensburg, Rathaus"/>
+        <busStop id="1711953916" name="Ahrensburg, Klaus-Groth-Straße"/>
+    </ptLine>
+    <ptLine id="3301506" name="Bus 769: Ahrensburg, Schimmelmannstraße =&gt; Wulfsdorf, Allmende" line="769" type="bus" vClass="bus" color="red" completeness="0.03">
+        <route edges="244492518#0 244492518#1 244492518#2 244492518#3 -76424358 -228523367#1 -228523367#0"/>
+        <busStop id="-1792502642" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+    <ptLine id="3651123" name="Bus 8110: Bf. Ahrensburg =&gt; Bf. Bad Oldesloe (ZOB)" line="8110" type="bus" vClass="bus" completeness="0.04">
+        <route edges="11645842#0 11645842#1 11645842#2 297003188#0 297003188#1 11646390 372818658#0 372818658#1 372818658#2 372818658#3"/>
+        <busStop id="1711974496" name="Ahrensburg, Rathaus"/>
+        <busStop id="1711953916" name="Ahrensburg, Klaus-Groth-Straße"/>
+    </ptLine>
+    <ptLine id="3651124" name="Bus 8110: Bf. Bad Oldesloe (ZOB) =&gt; Bf. Ahrensburg" line="8110" type="bus" vClass="bus" completeness="0.04">
+        <route edges="-372818658#3 -372818658#2 -372818658#1 -372818658#0 -11646390 -297003188#1 -297003188#0 297003189#0 297003189#1 297003189#2 297003189#3 297003189#4 297003189#5 297003189#6 297003189#7 -11645842#2 -11645842#1 -11645842#0"/>
+        <busStop id="-1711953915" name="Ahrensburg, Klaus-Groth-Straße"/>
+        <busStop id="1711974498" name="Ahrensburg, Rathaus"/>
+    </ptLine>
+    <ptLine id="3652930" name="Bus 369: Schulzentrum Am Heimgarten =&gt; Trittau, Vorburg" line="369" type="bus" vClass="bus" color="red" completeness="0.01">
+        <route edges="39546438 321385419"/>
+        <busStop id="2705494849" name="Ahrensburg, Fritz-Reuter-Straße"/>
+    </ptLine>
+    <ptLine id="3652931" name="Bus 369: Trittau, Vorburg =&gt; Schulzentrum Am Heimgarten" line="369" type="bus" vClass="bus" color="red" completeness="0.01">
+        <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
+        <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+    <ptLine id="4476344" name="Bus 769: Ahrensburg, Schulzentrum Am Heimgarten =&gt; Ahrensburg, Dänenweg" line="769" type="bus" vClass="bus" color="red" completeness="0.02">
+        <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3 39546438 321385419"/>
+        <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+    <ptLine id="4476352" name="Bus 769: Ahrensburg, Schulzentrum Am Heimgarten =&gt; Ahrensburg, Am Weinberg" line="769" type="bus" vClass="bus" color="red" completeness="0.07">
+        <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3 39546438 19431426#0 19431426#1 19431426#2 19431426#3 19431426#4 19431426#5 19431426#6 19431426#7 19431426#8 19431426#9 19431426#10 11646390 372818658#0 372818658#1 372818658#2 372818658#3"/>
+        <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
+        <busStop id="8341032348" name="Ahrensburg, Grauer Esel"/>
+        <busStop id="1711953916" name="Ahrensburg, Klaus-Groth-Straße"/>
+    </ptLine>
+    <ptLine id="4476376" name="Bus 769: Ahrensburg, Dänenweg =&gt; Ahrensburg, Schulzentrum Am Heimgarten" line="769" type="bus" vClass="bus" color="red" completeness="0.03">
+        <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
+        <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+    <ptLine id="4476409" name="Bus 769: Wulfsdorf, Allmende =&gt; Ahrensburg, Schimmelmannstraße" line="769" type="bus" vClass="bus" color="red" completeness="0.03">
+        <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
+        <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+    <ptLine id="4476426" name="Bus 769: Ahrensburg, Auestieg =&gt; Ahrensburg, Schulzentrum Am Heimgarten" line="769" type="bus" vClass="bus" color="red" completeness="0.05">
+        <route edges="-372818658#3 -372818658#2 -372818658#1 -372818658#0 -11646390 -297003188#1 -297003188#0 297003189#0 297003189#1 297003189#2 297003189#3 297003189#4 297003189#5 297003189#6 297003189#7 -11645842#2 -11645842#1 -11645842#0 228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
+        <busStop id="-1711953916" name="Ahrensburg, Klaus-Groth-Straße"/>
+        <busStop id="1711974498" name="Ahrensburg, Rathaus"/>
+    </ptLine>
+    <ptLine id="9316947" name="Bus 776: Ahrensburg, Berufsschule =&gt; Meilsdorf, Kampsredder =&gt; S Reinbek" line="776" type="bus" vClass="bus" color="red" completeness="0.01">
+        <route edges="39546438 321385419"/>
+        <busStop id="2705494849" name="Ahrensburg, Fritz-Reuter-Straße"/>
+    </ptLine>
+    <ptLine id="9316948" name="Bus 776: Ahrensburg, Berufsschule =&gt; S Reinbek" line="776" type="bus" vClass="bus" color="red" completeness="0.01">
+        <route edges="39546438 321385419"/>
+        <busStop id="2705494849" name="Ahrensburg, Fritz-Reuter-Straße"/>
+    </ptLine>
+    <ptLine id="9316949" name="Bus 776: S Reinbek =&gt; Ahrensburg, Berufsschule" line="776" type="bus" vClass="bus" color="red" completeness="0.01">
+        <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
+        <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+    <ptLine id="9316950" name="Bus 776: Glinde, Markt =&gt; Ahrensburg, Berufsschule" line="776" type="bus" vClass="bus" color="red" completeness="0.01">
+        <route edges="228523367#0 228523367#1 76424358 244492518#0 244492518#1 244492518#2 244492518#3"/>
+        <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben"/>
+    </ptLine>
+</ptLines>

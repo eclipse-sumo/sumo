@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROLane.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A single lane the router may use
 /****************************************************************************/
-#ifndef ROLane_h
-#define ROLane_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -58,8 +55,9 @@ public:
      * @param[in] permissions Vehicle classes that may pass this lane
      */
     ROLane(const std::string& id, ROEdge* edge, double length, double maxSpeed, SVCPermissions permissions, const PositionVector& shape) :
-        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions), myShape(shape) {
-    }
+        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions), myShape(shape),
+        myLengthGeometryFactor(MAX2(NUMERICAL_EPS, myShape.length() / myLength)) // factor should not be 0
+    { }
 
 
     /// @brief Destructor
@@ -118,6 +116,18 @@ public:
         return myShape;
     }
 
+    /* @brief fit the given lane position to a visibly suitable geometry position
+     * (lane length might differ from geometry length) */
+    inline double interpolateLanePosToGeometryPos(double lanePos) const {
+        return lanePos * myLengthGeometryFactor;
+    }
+
+    /* @brief fit the given lane position to a visibly suitable geometry position
+     * and return the coordinates */
+    inline const Position geometryPositionAtOffset(double offset, double lateralOffset = 0) const {
+        return myShape.positionAtOffset(interpolateLanePosToGeometryPos(offset), lateralOffset);
+    }
+
 private:
     /// @brief The parent edge of this lane
     ROEdge* myEdge;
@@ -136,6 +146,9 @@ private:
     /// @brief shape for this lane
     const PositionVector myShape;
 
+    /// @brief precomputed myShape.length / myLength
+    const double myLengthGeometryFactor;
+
 
 private:
     /// @brief Invalidated copy constructor
@@ -145,9 +158,3 @@ private:
     ROLane& operator=(const ROLane& src);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

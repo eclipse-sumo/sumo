@@ -1,0 +1,5 @@
+# allow conversion of selected junctions
+allow_junctions
+
+# convert selected sidewalk lanes
+sidewalk_lanes

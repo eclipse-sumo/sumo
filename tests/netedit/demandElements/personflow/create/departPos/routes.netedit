@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10/27/2019 11:06:17 AM by Eclipse SUMO netedit Version v1_3_1+0712-b5fac1c722
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Oct155707.568\netedit.gui\demandElements\personFlow\create\departPos\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="personFlow_0" begin="0.00" departPos="-12.00" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+    <personFlow id="personFlow_1" begin="0.00" departPos="5000.00" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+    <personFlow id="personFlow_2" begin="0.00" departPos="20.00" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+    <personFlow id="personFlow_3" begin="0.00" departPos="random" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+    <personFlow id="personFlow_4" begin="0.00" departPos="free" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+    <personFlow id="personFlow_5" begin="0.00" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+    <personFlow id="personFlow_6" begin="0.00" departPos="random_free" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+    <personFlow id="personFlow_7" begin="0.00" departPos="last" end="3600.00" vehsPerHour="3600.00">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+</routes>

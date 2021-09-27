@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 17.03.2021 08:10:44 by Eclipse SUMO netedit Version v1_8_0+1661-481d0d6cf2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\ART-FORUM\1-Network\miv.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\bug\net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="D:\bug\add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_-159245989#4_0_1" lane="-159245989#4_0" roadsideCapacity="2"/>
+    <parkingArea id="parkingArea_159245987#3_0_3" lane="159245987#3_0" roadsideCapacity="2"/>
+    <parkingArea id="parkingArea_4531517#5_0_2" lane="4531517#5_0" roadsideCapacity="2"/>
+    <parkingArea id="parkingArea_61567479#3_0_0" lane="61567479#3_0" roadsideCapacity="2"/>
+	
+	<rerouter id="parkingArea_-159245989#4_0_1" edges="-159245989#4">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkingArea_-159245989#4_0_1" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parkingArea_159245987#3_0_3" edges="159245987#3">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkingArea_159245987#3_0_3" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parkingArea_4531517#5_0_2" edges="4531517#5">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkingArea_4531517#5_0_2" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parkingArea_61567479#3_0_0" edges="61567479#3">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkingArea_61567479#3_0_0" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parkingArea_-159245989#4_0_1" visible="true"/> <!-- dist: 107.14 -->
+        </interval>
+    </rerouter>
+</additional>

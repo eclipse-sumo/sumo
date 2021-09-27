@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 19 11:02:27 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on 2021-08-16 15:46:25 by Eclipse SUMO sumo Version v1_9_2+1069-f9b761f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -37,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep id="2.00"/>
     <timestep id="3.00">
         <link from=":C_1_0" via="" to="CS_0">
-            <approaching id="foe" impatience="0.00" arrivalTime="13.79" arrivalTimeBraking="43.79" leaveTime="14.31" arrivalSpeed="9.51" arrivalSpeedBraking="0.00" leaveSpeed="9.51" willPass="1"/>
+            <approaching id="foe" impatience="0.00" arrivalTime="13.79" arrivalTimeBraking="43.79" leaveTime="14.32" arrivalSpeed="9.51" arrivalSpeedBraking="0.00" leaveSpeed="9.51" willPass="1"/>
         </link>
         <link from=":C_13_0" via=":C_24_0" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="10.88" arrivalTimeBraking="40.88" leaveTime="12.19" arrivalSpeed="9.70" arrivalSpeedBraking="0.00" leaveSpeed="11.92" willPass="1"/>
@@ -80,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="ego" impatience="0.00" arrivalTime="9.52" arrivalTimeBraking="39.52" leaveTime="9.88" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="NC_0" via=":C_1_0" to="CS_0">
-            <approaching id="foe" impatience="0.00" arrivalTime="10.21" arrivalTimeBraking="40.20" leaveTime="11.72" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
+            <approaching id="foe" impatience="0.00" arrivalTime="10.21" arrivalTimeBraking="40.21" leaveTime="11.72" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_13_0" to="CW_1">
             <approaching id="ego" impatience="0.00" arrivalTime="8.75" arrivalTimeBraking="38.75" leaveTime="9.79" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.74" willPass="1"/>
@@ -134,7 +135,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="foe" impatience="0.00" arrivalTime="10.45" arrivalTimeBraking="40.45" leaveTime="11.96" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_1" via=":C_13_0" to="CW_1">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.55" arrivalTimeBraking="9.66" leaveTime="9.59" arrivalSpeed="10.22" arrivalSpeedBraking="10.22" leaveSpeed="11.74" willPass="1"/>
+            <approaching id="ego" impatience="0.00" arrivalTime="8.55" arrivalTimeBraking="9.67" leaveTime="9.59" arrivalSpeed="10.22" arrivalSpeedBraking="10.22" leaveSpeed="11.74" willPass="1"/>
         </link>
     </timestep>
     <timestep id="9.00">

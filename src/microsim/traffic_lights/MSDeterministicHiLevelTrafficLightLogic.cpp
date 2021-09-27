@@ -1,27 +1,35 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDeterministicHiLevelTrafficLightLogic.cpp
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
-/// @version $Id$
 ///
 // The class for deterministic high level traffic light logic
 /****************************************************************************/
 
 #include "MSDeterministicHiLevelTrafficLightLogic.h"
+//#define SWARM_DEBUG
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSDeterministicHiLevelTrafficLightLogic::MSDeterministicHiLevelTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& programID, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters) :
-    MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TLTYPE_HILVL_DETERMINISTIC, phases, step,
+    MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::HILVL_DETERMINISTIC, phases, step,
                                    delay, parameters) {
 
     addPolicy(new MSSOTLPlatoonPolicy(new MSSOTLPolicy3DStimulus("PLATOON", parameters), parameters));
@@ -51,22 +59,21 @@ void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
             currentLane = (*lane);
             if (inputLanes.find(currentLane->getID()) == inputLanes.end()) {
                 inputLanes.insert(currentLane->getID());
-                DBG(
-                    WRITE_MESSAGE("*** Intersection " + getID() + " inputLanes adding " + currentLane->getID());)
+#ifdef SWARM_DEBUG
+                WRITE_MESSAGE("*** Intersection " + getID() + " inputLanes adding " + currentLane->getID());
+#endif
             }
         }
     }
 
-    LinkVectorVector myLinks = getLinks();
-
-    for (int i = 0; i < (int)myLinks.size(); i++) {
-        LinkVector oneLink = getLinksAt(i);
+    for (const LinkVector& oneLink : getLinks()) {
         for (int j = 0; j < (int)oneLink.size(); j++) {
             currentLane = oneLink[j]->getLane();
             if (outputLanes.find(currentLane->getID()) == outputLanes.end()) {
                 outputLanes.insert(currentLane->getID());
-                DBG(
-                    WRITE_MESSAGE("*** Intersection " + getID() + " outputLanes adding " + currentLane->getID());)
+#ifdef SWARM_DEBUG
+                WRITE_MESSAGE("*** Intersection " + getID() + " outputLanes adding " + currentLane->getID());
+#endif
             }
         }
     }
@@ -74,23 +81,29 @@ void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
 }
 
 int MSDeterministicHiLevelTrafficLightLogic::decideNextPhase() {
-
-    DBG(
-        MsgHandler::getMessageInstance()->inform("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic decideNextPhase()"); std::ostringstream dnp; dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSDeterministicHiLevelTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " getCurrentPhaseDef().getState()=" << getCurrentPhaseDef().getState() << " is commit?" << getCurrentPhaseDef().isCommit(); MsgHandler::getMessageInstance()->inform(dnp.str());)
+#ifdef SWARM_DEBUG
+    MsgHandler::getMessageInstance()->inform("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic decideNextPhase()");
+    std::ostringstream dnp;
+    dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSDeterministicHiLevelTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " getCurrentPhaseDef().getState()=" << getCurrentPhaseDef().getState() << " is commit?" << getCurrentPhaseDef().isCommit();
+    MsgHandler::getMessageInstance()->inform(dnp.str());
+#endif
 
     //Decide the current policy according to pheromone levels. this should be done only at the end of a chain, before selecting the new one
     if (getCurrentPhaseDef().isCommit()) {
         decidePolicy();
     }
 
-    DBG(
-        std::ostringstream str; str << "tlsID=" << getID() << " currentPolicyname=" + getCurrentPolicy()->getName(); WRITE_MESSAGE(str.str());)
+#ifdef SWARM_DEBUG
+    std::ostringstream str;
+    str << "tlsID=" << getID() << " currentPolicyname=" + getCurrentPolicy()->getName();
+    WRITE_MESSAGE(str.str());
+#endif
 
     //Execute current policy. congestion "policy" must maintain the commit phase, and that must be an all-red one
-    return getCurrentPolicy()->decideNextPhase(getCurrentPhaseElapsed(),
-            &getCurrentPhaseDef(), getCurrentPhaseIndex(),
-            getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(),
-            countVehicles(getCurrentPhaseDef()));
+    return myCurrentPolicy->decideNextPhase(getCurrentPhaseElapsed(),
+                                            &getCurrentPhaseDef(), getCurrentPhaseIndex(),
+                                            getPhaseIndexWithMaxCTS(), isThresholdPassed(), isPushButtonPressed(),
+                                            countVehicles(getCurrentPhaseDef()));
 }
 
 double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
@@ -105,8 +118,11 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
         if (maxSpeed > -1) {
             vSpeedInTot += (13.89 - maxSpeed) * 10. / 13.89;
         }
-        DBG(
-            std::ostringstream i_str; i_str << " meanVehiclesSpeed " << maxSpeed << " inputLane " << laneId << " ID " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes:: in" + i_str.str());)
+#ifdef SWARM_DEBUG
+        std::ostringstream i_str;
+        i_str << " meanVehiclesSpeed " << maxSpeed << " inputLane " << laneId << " ID " << getID() << " .";
+        WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes:: in" + i_str.str());
+#endif
     }
     return vSpeedInTot / inputLanes.size();
 }
@@ -123,8 +139,11 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
         if (maxSpeed > -1) {
             vSpeedOutTot += (13.89 - maxSpeed) * 10. / 13.89;
         }
-        DBG(
-            std::ostringstream i_str; i_str << " meanVehiclesSpeed " << maxSpeed << " outputLane " << laneId << " ID " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes:: out" + i_str.str());)
+#ifdef SWARM_DEBUG
+        std::ostringstream i_str;
+        i_str << " meanVehiclesSpeed " << maxSpeed << " outputLane " << laneId << " ID " << getID() << " .";
+        WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes:: out" + i_str.str());
+#endif
     }
     return vSpeedOutTot / outputLanes.size();
 }
@@ -133,19 +152,25 @@ void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {
     // Decide if it is the case to check for another plan
     double mean_vSpeed_in = getMeanSpeedForInputLanes();
     double mean_vSpeed_out = getMeanSpeedForOutputLanes();
+#ifdef SWARM_DEBUG
     MSSOTLPolicy* oldPolicy = getCurrentPolicy();
+#endif
     choosePolicy(mean_vSpeed_in, mean_vSpeed_out);
-    MSSOTLPolicy* newPolicy = getCurrentPolicy();
 
+#ifdef SWARM_DEBUG
+    MSSOTLPolicy* newPolicy = getCurrentPolicy();
     if (newPolicy != oldPolicy) {
         SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
-        DBG(
-            std::ostringstream phero_str; phero_str << " (mean_vSpeed_in= " << mean_vSpeed_in << " ,mean_vSpeed_out= " << mean_vSpeed_out << " )"; WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");)
+        std::ostringstream phero_str;
+        phero_str << " (mean_vSpeed_in= " << mean_vSpeed_in << " ,mean_vSpeed_out= " << mean_vSpeed_out << " )";
+        WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
     } else { //debug purpose only
-        DBG(
-            std::ostringstream phero_str; phero_str << " (mean_vSpeed_in= " << mean_vSpeed_in << " ,mean_vSpeed_out= " << mean_vSpeed_out << " )"; SUMOTime step = MSNet::getInstance()->getCurrentTimeStep(); WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");)
+        std::ostringstream phero_str;
+        phero_str << " (mean_vSpeed_in= " << mean_vSpeed_in << " ,mean_vSpeed_out= " << mean_vSpeed_out << " )";
+        SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
+        WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
     }
-
+#endif
 }
 
 void MSDeterministicHiLevelTrafficLightLogic::choosePolicy(
@@ -154,25 +179,30 @@ void MSDeterministicHiLevelTrafficLightLogic::choosePolicy(
     int index_maxStimulus = 0;
     double maxStimulus = -1;
     // Compute simulus for each policy
-    for (int i = 0; i < (int)getPolicies().size(); i++) {
-        double stimulus = getPolicies()[i]->computeDesirability(mean_vSpeed_in,
+    for (int i = 0; i < (int)myPolicies.size(); i++) {
+        double stimulus = myPolicies[i]->computeDesirability(mean_vSpeed_in,
                           mean_vSpeed_out);
         if (stimulus > maxStimulus) {
             maxStimulus = stimulus;
             index_maxStimulus = i;
         }
-        DBG(
-            std::ostringstream so_str; so_str << " policy " << getPolicies()[i]->getName() << " stimulus " << stimulus; WRITE_MESSAGE("MSDeterministicHiLevelTrafficLightLogic::choosePolicy::" + so_str.str());)
-
+#ifdef SWARM_DEBUG
+        std::ostringstream so_str;
+        so_str << " policy " << getPolicies()[i]->getName() << " stimulus " << stimulus;
+        WRITE_MESSAGE("MSDeterministicHiLevelTrafficLightLogic::choosePolicy::" + so_str.str());
+#endif
     }
-    activate(getPolicies()[index_maxStimulus]);
+    activate(myPolicies[index_maxStimulus]);
 
 }
 
 bool MSDeterministicHiLevelTrafficLightLogic::canRelease() {
-    DBG(
-        std::ostringstream phero_str; phero_str << "getCurrentPhaseElapsed()=" << time2string(getCurrentPhaseElapsed()) << " isThresholdPassed()=" << isThresholdPassed() << " currentPhase=" << (&getCurrentPhaseDef())->getState() << " countVehicles()=" << countVehicles(getCurrentPhaseDef()); WRITE_MESSAGE("\nMSDeterministicHiLevelTrafficLightLogic::canRelease(): " + phero_str.str());)
-    return getCurrentPolicy()->canRelease(getCurrentPhaseElapsed(),
-                                          isThresholdPassed(), isPushButtonPressed(), &getCurrentPhaseDef(),
-                                          countVehicles(getCurrentPhaseDef()));
+#ifdef SWARM_DEBUG
+    std::ostringstream phero_str;
+    phero_str << "getCurrentPhaseElapsed()=" << time2string(getCurrentPhaseElapsed()) << " isThresholdPassed()=" << isThresholdPassed() << " currentPhase=" << (&getCurrentPhaseDef())->getState() << " countVehicles()=" << countVehicles(getCurrentPhaseDef());
+    WRITE_MESSAGE("\nMSDeterministicHiLevelTrafficLightLogic::canRelease(): " + phero_str.str());
+#endif
+    return myCurrentPolicy->canRelease(getCurrentPhaseElapsed(),
+                                       isThresholdPassed(), isPushButtonPressed(), &getCurrentPhaseDef(),
+                                       countVehicles(getCurrentPhaseDef()));
 }

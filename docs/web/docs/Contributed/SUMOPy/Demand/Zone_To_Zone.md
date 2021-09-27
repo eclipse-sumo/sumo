@@ -1,6 +1,5 @@
 ---
-title: Contributed/SUMOPy/Demand/Zone To Zone
-permalink: /Contributed/SUMOPy/Demand/Zone_To_Zone/
+title: Zone To Zone
 ---
 
 We first explain the general concept of Zone to zone demand generation
@@ -79,7 +78,7 @@ have the following format:
 
 Once the OD flows are all entered, press `Save flows`. The scale factor
 can be used to multiply all entered trips with a constant (default is 1)
-wwhile saving. The demand flows are now saved to SUMOPy and can be
+while saving. The demand flows are now saved to SUMOPy and can be
 browsed and modified under
 
 `scenario.demand.odintervals`

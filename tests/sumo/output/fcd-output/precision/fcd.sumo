@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Jan 26 08:46:35 2021 by Eclipse SUMO sumo Version v1_8_0+0740-6951576
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <precision value="3"/>
+        <netstate-dump.precision value="3"/>
+        <emission-output.precision value="3"/>
+        <battery-output.precision value="3"/>
+        <elechybrid-output.precision value="3"/>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <time>
+        <end value="0.2"/>
+        <step-length value="0.025"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.025"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.000">
+        <vehicle id="0" x="1495.250" y="401.650" angle="270.000" type="t1" speed="10.000" pos="100.000" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+    <timestep time="0.025">
+        <vehicle id="0" x="1495.000" y="401.650" angle="270.000" type="t1" speed="10.000" pos="100.250" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+    <timestep time="0.050">
+        <vehicle id="0" x="1494.750" y="401.650" angle="270.000" type="t1" speed="10.000" pos="100.500" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+    <timestep time="0.075">
+        <vehicle id="0" x="1494.500" y="401.650" angle="270.000" type="t1" speed="10.000" pos="100.750" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+    <timestep time="0.100">
+        <vehicle id="0" x="1494.250" y="401.650" angle="270.000" type="t1" speed="10.000" pos="101.000" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+    <timestep time="0.125">
+        <vehicle id="0" x="1494.000" y="401.650" angle="270.000" type="t1" speed="10.000" pos="101.250" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+    <timestep time="0.150">
+        <vehicle id="0" x="1493.750" y="401.650" angle="270.000" type="t1" speed="10.000" pos="101.500" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+    <timestep time="0.175">
+        <vehicle id="0" x="1493.500" y="401.650" angle="270.000" type="t1" speed="10.000" pos="101.750" lane="4/1to3/1_0" slope="0.000"/>
+    </timestep>
+</fcd-export>

@@ -1,0 +1,32 @@
+# persontrip triggers taxi call
+1persontrip
+
+# persontrip is too short so walking is used instead
+short
+
+# walk to the next road edge and use taxi to destination
+walk_first
+
+# walk the whole way because assumed taxi waitingtime is too high
+walk_first_longTaxiWait
+
+# take the taxi as far as possible and then walk
+walk_last
+
+# persontrip triggers taxi call
+taxiflow
+
+# persontrip triggers taxi call
+pickup_ptStops
+
+# person prefers walking due to assumed waiting time
+pickup_ptStops_longTaxiWait
+
+# persontrip triggers taxi call
+dropoff_ptStops
+
+# persontrip triggers taxi call
+ptStops
+
+# person should use a walk to leave the trainStop before boarding the taxi
+walk_via_trainStop_ride_taxi

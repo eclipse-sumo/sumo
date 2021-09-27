@@ -1,18 +1,21 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PositionVectorTest.cpp
 /// @author  Matthias Heppner
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2009-10-24
-/// @version $Id$
 ///
 // Tests the class PositionVector
 /****************************************************************************/
@@ -243,7 +246,7 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
 
 
 /* Test the method 'intersectsAtLengths2D'*/
-TEST_F(PositionVectorTest, test_method_intersectsAtLenghts2D) {
+TEST_F(PositionVectorTest, test_method_intersectsAtLengths2D) {
     PositionVector vec1;
     vec1.push_back(Position(0, 0, 42));
     vec1.push_back(Position(100, 0, 0));
@@ -558,6 +561,11 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     vec5.push_back(Position(5, 7));
     vec5.push_back(Position(4, 7));
 
+    PositionVector vec6;
+    vec6.push_back(Position(4, 0));
+    vec6.push_back(Position(4, 8));
+    vec6.push_back(Position(-4, 8));
+
     PositionVector empty;
 
     EXPECT_TRUE(vec1.overlapsWith(vec1));
@@ -565,6 +573,8 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     EXPECT_TRUE(vec1.overlapsWith(vec3));
     EXPECT_TRUE(vec1.overlapsWith(vec4));
     EXPECT_FALSE(vec1.overlapsWith(vec5, 0));
+    EXPECT_TRUE(vec1.overlapsWith(vec6)); // overlapsWith implicitly closes the shape of vec6
+    EXPECT_TRUE(vec6.overlapsWith(vec1)); // overlapsWith implicitly closes the shape of vec6
     // growth is from centroid and thus different from Boundary behavior
     EXPECT_FALSE(vec1.overlapsWith(vec5, 1));
     EXPECT_TRUE(vec1.overlapsWith(vec5, 3));

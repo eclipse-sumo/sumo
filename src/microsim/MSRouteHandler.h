@@ -1,35 +1,32 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRouteHandler.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
-#ifndef MSRouteHandler_h
-#define MSRouteHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMORouteHandler.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include "MSContainer.h"
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSTransportable.h>
 #include "MSVehicle.h"
 
 
@@ -53,6 +50,14 @@ class MSVehicleType;
  */
 class MSRouteHandler : public SUMORouteHandler {
 public:
+
+    /// @brief enum for object type
+    enum class ObjectTypeEnum {
+        PERSON,
+        CONTAINER,
+        UNDEFINED
+    };
+
     /// @brief standard constructor
     MSRouteHandler(const std::string& file, bool addVehiclesDirectly);
 
@@ -60,9 +65,10 @@ public:
     virtual ~MSRouteHandler();
 
     /// @brief get parsing RNG
-    static std::mt19937* getParsingRNG() {
+    static SumoRNG* getParsingRNG() {
         return &myParsingRNG;
     }
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -85,8 +91,7 @@ protected:
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      */
-    void parseFromViaTo(std::string element,
-                        const SUMOSAXAttributes& attrs);
+    void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
@@ -99,6 +104,9 @@ protected:
 
     /// @brief opens a flow for reading
     void openFlow(const SUMOSAXAttributes& attrs);
+
+    /// @brief opens a route flow for reading
+    void openRouteFlow(const SUMOSAXAttributes& attrs);
 
     /// @brief opens a trip for reading
     void openTrip(const SUMOSAXAttributes& attrs);
@@ -132,11 +140,17 @@ protected:
     /// @brief Ends the processing of a container
     void closeContainer();
 
+    /// @brief Ends the processing of a containerFlow
+    void closeContainerFlow();
+
     /// @brief Ends the processing of a flow
     void closeFlow();
 
     /// @brief Ends the processing of a trip
     void closeTrip();
+
+    /// @brief Parse destination stop
+    MSStoppingPlace* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);
@@ -156,27 +170,34 @@ protected:
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
 
-    /// @brief Processing of a transport
-    void addTransport(const SUMOSAXAttributes& attrs);
-
     /// @brief Processing of a tranship
     void addTranship(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a transport
+    void addTransport(const SUMOSAXAttributes& attrs);
 
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                             const MSEdge* fromEdge, const MSEdge*& toEdge,
                             double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
-                            const MSTransportable::Stage* const lastStage, bool& ok);
+                            const MSStage* const lastStage, bool& ok);
 
 protected:
     /// @brief The current route
     ConstMSEdgeVector myActiveRoute;
 
-    /// @brief The plan of the current person
-    MSTransportable::MSTransportablePlan* myActivePlan;
+    /// @brief number of repetitions of the active route
+    int myActiveRouteRepeat;
+    SUMOTime myActiveRoutePeriod;
 
-    /// @brief The plan of the current container
-    MSTransportable::MSTransportablePlan* myActiveContainerPlan;
+    /// @brief The type of the current object
+    ObjectTypeEnum myActiveType;
+
+    /// @brief The name of the current object type
+    std::string myActiveTypeName;
+
+    /// @brief The plan of the current transportable (person or container)
+    MSTransportable::MSTransportablePlan* myActiveTransportablePlan;
 
     /// @brief Information whether vehicles shall be directly added to the network or kept within the buffer
     bool myAddVehiclesDirectly;
@@ -196,25 +217,41 @@ protected:
     /// @brief whether a state file is being loaded
     bool myAmLoadingState;
 
+    /// @brief prefix when copying vehicles with --scale
+    std::string myScaleSuffix;
+
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static std::mt19937 myParsingRNG;
+    static SumoRNG myParsingRNG;
 
 private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void deleteActivePlans();
+    void deleteActivePlanAndVehicleParameter();
+
+    /// @brief reset MSTransportablePlans after transportable tag closes
+    void resetActivePlanAndVehicleParameter();
+
+    /// @brief ends the flow of a transportable
+    void closeTransportableFlow();
+
+    /// @brief ends the processing of a transportable (as person or container)
+    void closeTransportable();
 
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+    void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+
+    /// @brief adapt implicit route (edges derived from stops) to additional vehicle-stops
+    MSRoute* addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent);
 
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s) = delete;
 
     /// @brief Invalidated assignment operator
     MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
+
+    /// @brief Check if vtype of given transportable exists
+    void checkTransportableType();
+
+    /// @brief Processing of a transport
+    void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag);
+
 };
-
-
-#endif
-
-/****************************************************************************/
-

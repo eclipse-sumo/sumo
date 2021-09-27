@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOVTypeParameter.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    10.09.2009
-/// @version $Id$
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/
-#ifndef SUMOVTypeParameter_h
-#define SUMOVTypeParameter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -67,15 +64,44 @@ const int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
 const int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
 const int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
 const int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
-const int VTYPEPARS_HASDRIVERSTATE_SET = 1 << 24;
+
 const int VTYPEPARS_CARRIAGE_LENGTH_SET = 1 << 25;
 const int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
 const int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
 const int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
+const int VTYPEPARS_FRONT_SEAT_POS_SET = 1 << 29;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
+
+
+// ===========================================================================
+// enum definitions
+// ===========================================================================
+/**
+ * @enum LatAlignmentDefinition
+ * @brief Possible ways to choose the lateral alignment, i.e., how vehicles align themselves within their lane
+ */
+enum class LatAlignmentDefinition {
+    /// @brief No information given; use default
+    DEFAULT,
+    /// @brief The alignment as offset is given
+    GIVEN,
+    /// @brief drive on the right side
+    RIGHT,
+    /// @brief drive in the middle
+    CENTER,
+    /// @brief maintain the current alignment
+    ARBITRARY,
+    /// @brief align with the closest sublane border
+    NICE,
+    /// @brief align with the rightmost sublane that allows keeping the current speed
+    COMPACT,
+    /// @brief drive on the left side
+    LEFT
+};
+
 
 // ===========================================================================
 // struct definitions
@@ -85,6 +111,7 @@ const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
  * @brief Structure representing possible vehicle parameter
  */
 class SUMOVTypeParameter : public Parameterised {
+
 public:
     /// @brief struct for default values that depend of VClass
     struct VClassDefaultValues {
@@ -209,6 +236,9 @@ public:
 
     void cacheParamRestrictions(const std::vector<std::string>& restrictionKeys);
 
+    /// @brief init Rail Visualization Parameters
+    void initRailVisualizationParameters();
+
     /// @brief The vehicle type's id
     std::string id;
 
@@ -278,9 +308,6 @@ public:
     /// @brief The enum-representation of the car-following model to use
     SumoXMLTag cfModel;
 
-    /// @brief Whether vehicles of this type are equipped with a driver (i.e. MSDriverState))
-    bool hasDriverState;
-
     /// @brief Car-following parameter
     SubParams cfParameter;
 
@@ -296,8 +323,11 @@ public:
     /// @brief The vehicle type's maximum lateral speed [m/s]
     double maxSpeedLat;
 
-    /// @brief The vehicles desired lateral alignment
-    LateralAlignment latAlignment;
+    /// @brief (optional) The vehicle's desired lateral alignment as offset in m from center line
+    double latAlignmentOffset;
+
+    /// @brief Information on how the vehicle shall choose the lateral alignment
+    LatAlignmentDefinition latAlignmentProcedure;
 
     /// @brief The vehicle type's minimum lateral gap [m]
     double minGapLat;
@@ -306,6 +336,9 @@ public:
     double carriageLength;
     double locomotiveLength;
     double carriageGap;
+
+    /// @brief the offset of the first person seat from the front of the vehicle
+    double frontSeatPos;
 
     /// @brief Information for the router which parameter were set
     int parametersSet;
@@ -318,6 +351,11 @@ public:
 
     /// @brief cached value of parameters which may restrict access to certain edges
     std::vector<double> paramRestrictions;
+
+    /// @brief satisfy vType / router template requirements
+    inline double getLength() const {
+        return length;
+    }
 
     /** @brief Returns the default acceleration for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model
@@ -351,18 +389,45 @@ public:
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
     static const SUMOVTypeParameter& getDefault();
 
-    /// @brief Map of manoeuver angles versus the times (entry, exit) to execute the manoeuver 
+    /** @brief Parses and validates a given latAlignment value
+     * @param[in] val The latAlignment value to parse
+     * @param[out] lao The parsed lateral alignment offset, if given
+     * @param[out] lad The parsed latAlignment definition
+     * @return Whether the given value is a valid latAlignment definition
+     */
+    static bool parseLatAlignment(const std::string& val, double& lao, LatAlignmentDefinition& lad);
+
+    static inline bool isValidLatAlignment(const std::string& val) {
+        double lao;
+        LatAlignmentDefinition lad;
+        return SUMOVTypeParameter::parseLatAlignment(val, lao, lad);
+    }
+
+    /// @brief return all valid strings for latAlignment
+    // XXX: does not include valid float strings
+    static inline std::vector<std::string> getLatAlignmentStrings() {
+        std::vector<std::string> result;
+        result.push_back("right");
+        result.push_back("center");
+        result.push_back("arbitrary");
+        result.push_back("nice");
+        result.push_back("compact");
+        result.push_back("left");
+        return result;
+    }
+
+    /// @brief Map of manoeuver angles versus the times (entry, exit) to execute the manoeuver
     std::map<int, std::pair<SUMOTime, SUMOTime>>  myManoeuverAngleTimes;
 
-/** @brief Initialise the default mapping between manoeuver angle and times dependant on vehicle class
- *  @param[in] vclass The vehicle class
- *  @note  These default values were 'informed' by a paper by Purnawan, and Yousif:
- *  @note    usir.salford.ac.uk/id/eprint/9729/3/Paper_Kassel_%28Seminar%29.pdf (no reverse park values in paper)
- *  @note    truck values were simply doubled - all are modifiable in the vehicle type definition and there is no limit to the no of triplets
- *    TODO:
- *        optionality for 90 degree bay entry (forwards or reverse) not implemented - probably should be a driver propensity
- *        the defaults assume reverse entry - a reverse manoeuvre has to happen and there will be a small difference in timings depending whether its reverse in or out
- */
+    /** @brief Initialise the default mapping between manoeuver angle and times dependant on vehicle class
+     *  @param[in] vclass The vehicle class
+     *  @note  These default values were 'informed' by a paper by Purnawan, and Yousif:
+     *  @note    usir.salford.ac.uk/id/eprint/9729/3/Paper_Kassel_%28Seminar%29.pdf (no reverse park values in paper)
+     *  @note    truck values were simply doubled - all are modifiable in the vehicle type definition and there is no limit to the no of triplets
+     *    TODO:
+     *        optionality for 90 degree bay entry (forwards or reverse) not implemented - probably should be a driver propensity
+     *        the defaults assume reverse entry - a reverse manoeuvre has to happen and there will be a small difference in timings depending whether its reverse in or out
+     */
     void setManoeuverAngleTimes(const SUMOVehicleClass vclass);
 
     /** @brief Returns the time that will be needed for the vehicle type to execute the (entry) manoeuvre (and be blocking the lane)
@@ -382,8 +447,3 @@ public:
      */
     std::string getManoeuverAngleTimesS() const;
 };
-
-#endif
-
-/****************************************************************************/
-

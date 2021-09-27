@@ -1,0 +1,10 @@
+<tazs>
+    <taz id="1">
+        <tazSource id="a1" weight="1"/>
+        <tazSink id="a2" weight="1"/>
+    </taz>
+    <taz id="2">
+        <tazSource id="b1" weight="1"/>
+        <tazSink id="b2" weight="1"/>
+    </taz>
+</tazs>

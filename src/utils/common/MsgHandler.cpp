@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MsgHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Tue, 17 Jun 2003
-/// @version $Id$
 ///
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -27,9 +25,6 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#ifdef HAVE_FOX
-#include <fx.h>
-#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -59,9 +54,9 @@ MsgHandler*
 MsgHandler::getMessageInstance() {
     if (myMessageInstance == nullptr) {
         if (myFactory == nullptr) {
-            myMessageInstance = new MsgHandler(MT_MESSAGE);
+            myMessageInstance = new MsgHandler(MsgType::MT_MESSAGE);
         } else {
-            myMessageInstance = myFactory(MT_MESSAGE);
+            myMessageInstance = myFactory(MsgType::MT_MESSAGE);
         }
     }
     return myMessageInstance;
@@ -71,7 +66,11 @@ MsgHandler::getMessageInstance() {
 MsgHandler*
 MsgHandler::getWarningInstance() {
     if (myWarningInstance == nullptr) {
-        myWarningInstance = new MsgHandler(MT_WARNING);
+        if (myFactory == nullptr) {
+            myWarningInstance = new MsgHandler(MsgType::MT_WARNING);
+        } else {
+            myWarningInstance = myFactory(MsgType::MT_WARNING);
+        }
     }
     return myWarningInstance;
 }
@@ -80,7 +79,7 @@ MsgHandler::getWarningInstance() {
 MsgHandler*
 MsgHandler::getErrorInstance() {
     if (myErrorInstance == nullptr) {
-        myErrorInstance = new MsgHandler(MT_ERROR);
+        myErrorInstance = new MsgHandler(MsgType::MT_ERROR);
     }
     return myErrorInstance;
 }
@@ -89,7 +88,7 @@ MsgHandler::getErrorInstance() {
 MsgHandler*
 MsgHandler::getDebugInstance() {
     if (myDebugInstance == nullptr) {
-        myDebugInstance = new MsgHandler(MT_DEBUG);
+        myDebugInstance = new MsgHandler(MsgType::MT_DEBUG);
     }
     return myDebugInstance;
 }
@@ -98,7 +97,7 @@ MsgHandler::getDebugInstance() {
 MsgHandler*
 MsgHandler::getGLDebugInstance() {
     if (myGLDebugInstance == nullptr) {
-        myGLDebugInstance = new MsgHandler(MT_GLDEBUG);
+        myGLDebugInstance = new MsgHandler(MsgType::MT_GLDEBUG);
     }
     return myGLDebugInstance;
 }
@@ -116,6 +115,9 @@ MsgHandler::enableDebugGLMessages(bool enable) {
 
 void
 MsgHandler::inform(std::string msg, bool addType) {
+    if (addType && !myInitialMessages.empty() && myInitialMessages.size() < 5) {
+        myInitialMessages.push_back(msg);
+    }
     // beautify progress output
     if (myAmProcessingProcess) {
         myAmProcessingProcess = false;
@@ -157,8 +159,26 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 
 void
-MsgHandler::clear() {
-    myWasInformed = false;
+MsgHandler::clear(bool resetInformed) {
+    if (resetInformed) {
+        myWasInformed = false;
+    }
+    if (myAggregationThreshold >= 0) {
+        for (const auto& i : myAggregationCount) {
+            if (i.second > myAggregationThreshold) {
+                inform(toString(i.second) + " total messages of type: " + i.first);
+            }
+        }
+    }
+    myAggregationCount.clear();
+    if (!resetInformed && myInitialMessages.size() > 1) {
+        const bool wasInformed = myWasInformed;
+        for (const std::string& msg : myInitialMessages) {
+            inform(msg, false);
+        }
+        myInitialMessages.clear();
+        myWasInformed = wasInformed;
+    }
 }
 
 
@@ -210,6 +230,8 @@ MsgHandler::initOutputOptions() {
     OutputDevice::getDevice("stdout");
     OutputDevice::getDevice("stderr");
     OptionsCont& oc = OptionsCont::getOptions();
+    getWarningInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
+    getErrorInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
     if (oc.getBool("no-warnings")) {
         getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     }
@@ -231,7 +253,9 @@ MsgHandler::initOutputOptions() {
         getErrorInstance()->addRetriever(logFile);
         getWarningInstance()->addRetriever(logFile);
     }
-    if (!oc.getBool("verbose")) {
+    if (oc.getBool("verbose")) {
+        getErrorInstance()->myInitialMessages.push_back("Repeating initial error messages:");
+    } else {
         getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
     }
 }
@@ -253,8 +277,8 @@ MsgHandler::cleanupOnEnd() {
 
 
 MsgHandler::MsgHandler(MsgType type) :
-    myType(type), myWasInformed(false) {
-    if (type == MT_MESSAGE) {
+    myType(type), myWasInformed(false), myAggregationThreshold(-1) {
+    if (type == MsgType::MT_MESSAGE) {
         addRetriever(&OutputDevice::getDevice("stdout"));
     } else {
         addRetriever(&OutputDevice::getDevice("stderr"));

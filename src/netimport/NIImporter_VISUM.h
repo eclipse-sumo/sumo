@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_VISUM.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
 ///
 // A VISUM network importer
 /****************************************************************************/
-#ifndef NIImporter_VISUM_h
-#define NIImporter_VISUM_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -415,6 +412,7 @@ private:
 
     /// @brief Parses ANBINDUNG
     void parse_Connectors();
+    void parse_Connectors_legacy();
 
     /// @brief Parses ABBIEGEBEZIEHUNG/ABBIEGER
     void parse_Turns();
@@ -449,6 +447,8 @@ private:
     /// @brief Parses FAHRSTREIFENABBIEGER
     void parse_LanesConnections();
 
+    /// @brief Parses HALTEPUNKT (public transport stop locations)
+    void parse_stopPoints();
 
     /** @brief Adds a parser into the sorted list of parsers to use
      *
@@ -542,6 +542,36 @@ protected:
         VISUM_FROMNODE,
         VISUM_TONODE,
         VISUM_TYPE,
+        VISUM_TYP,
+        VISUM_ID,
+        VISUM_CODE,
+        VISUM_DISTRICT_CONNECTION,
+        VISUM_SOURCE_DISTRICT,
+        VISUM_FROMNODENO,
+        VISUM_DIRECTION,
+        VISUM_SURFACEID,
+        VISUM_FACEID,
+        VISUM_FROMPOINTID,
+        VISUM_TOPOINTID,
+        VISUM_EDGE,
+        VISUM_VIANODENO,
+        VISUM_NUMLANES,
+        VISUM_TURN,
+        VISUM_INDEX,
+        VISUM_LINKPOLY,
+        VISUM_SURFACEITEM,
+        VISUM_FACEITEM,
+        VISUM_EDGEID,
+        VISUM_ORIGIN,
+        VISUM_DESTINATION,
+        VISUM_STOPPOINT,
+        VISUM_NAME,
+        VISUM_LINKNO,
+        VISUM_RELPOS,
+        // polyconvert keys added to avoid warnings
+        VISUM_CATID,
+        VISUM_EDGEITEM,
+        VISUM_POICATEGORY,
         VISUM_NO // must be the last one
     };
 
@@ -553,9 +583,3 @@ protected:
 
     void loadLanguage(const std::string& file);
 };
-
-
-#endif
-
-/****************************************************************************/
-

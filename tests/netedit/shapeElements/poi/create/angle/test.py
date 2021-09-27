@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -32,25 +35,25 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change angle (invalid)
-netedit.changeDefaultValue(11, "dummyAngle")
+netedit.changeDefaultValue(12, "dummyAngle")
 
 # try to create POI
 netedit.leftClick(referencePosition, 100, 50)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(11, "500")
+netedit.changeDefaultValue(12, "500")
 
 # create POI
 netedit.leftClick(referencePosition, 150, 50)
 
 # change angle (valid, < 0)
-netedit.changeDefaultValue(11, "-27")
+netedit.changeDefaultValue(12, "-27")
 
 # create POI
 netedit.leftClick(referencePosition, 200, 50)
 
 # change angle (valid)
-netedit.changeDefaultValue(11, "45")
+netedit.changeDefaultValue(12, "45")
 
 # create POI
 netedit.leftClick(referencePosition, 250, 50)

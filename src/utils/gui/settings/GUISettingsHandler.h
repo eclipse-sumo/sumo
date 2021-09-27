@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISettingsHandler.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Fri, 24. Apr 2009
-/// @version $Id$
 ///
 // The handler for parsing gui settings from xml.
 /****************************************************************************/
-#ifndef GUISettingsHandler_h
-#define GUISettingsHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/xml/SUMOSAXHandler.h>
@@ -65,14 +62,22 @@ public:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    void myEndElement(int element);
     //@}
 
 
 
     /** @brief Adds the parsed settings to the global list of settings
-     * @return the name of the parsed settings
+     * @return the names of the parsed settings
      */
-    std::string addSettings(GUISUMOAbstractView* view = 0) const;
+    const std::vector<std::string>& addSettings(GUISUMOAbstractView* view = 0) const;
 
 
     /** @brief Sets the viewport which has been parsed
@@ -130,9 +135,16 @@ public:
         return myJamSoundTime;
     }
 
+    const std::string& getSettingName() const {
+        return mySettings.name;
+    }
+
 private:
     /// @brief The settings to fill
     GUIVisualizationSettings mySettings;
+
+    /// @brief names of all loaded settings
+    std::vector<std::string> myLoadedSettingNames;
 
     /// @brief The view type (osg, opengl, default) loaded
     std::string myViewType;
@@ -172,6 +184,8 @@ private:
     double myJamSoundTime;
 
 private:
+    /// @brief parse color attribute
+    RGBColor parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor &defaultValue) const;
 
     /// @brief parse attributes for textSettings
     GUIVisualizationTextSettings parseTextSettings(
@@ -182,9 +196,4 @@ private:
     GUIVisualizationSizeSettings parseSizeSettings(
         const std::string& prefix, const SUMOSAXAttributes& attrs,
         GUIVisualizationSizeSettings defaults);
-
 };
-
-#endif
-
-/****************************************************************************/

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 23 13:41:04 2017 by SUMO Version dev-SVN-r26667
+<!-- generated on 2021-06-30 13:06:16 by Eclipse SUMO sumo Version v1_9_2+0763-fdcd89e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,17 +14,20 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
 
     <processing>
         <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
         <pedestrian.striping.dawdling value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -214,19 +217,19 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="45.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
-        <person id="p0" x="110.87" y="106.26" angle="180.00" speed="1.39" pos="13.91" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="110.87" y="106.26" angle="158.20" speed="1.39" pos="13.91" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="46.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
-        <person id="p0" x="111.42" y="104.87" angle="180.00" speed="1.39" pos="12.52" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="111.42" y="104.87" angle="158.20" speed="1.39" pos="12.52" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="47.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
-        <person id="p0" x="111.59" y="103.48" angle="180.00" speed="1.39" pos="11.13" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="111.59" y="103.49" angle="173.07" speed="1.39" pos="11.14" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="48.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
-        <person id="p0" x="111.59" y="102.09" angle="180.00" speed="1.39" pos="9.74" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="111.59" y="102.10" angle="180.00" speed="1.39" pos="9.75" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="49.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
@@ -258,11 +261,11 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="56.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
-        <person id="p0" x="111.59" y="90.98" angle="180.00" speed="1.39" pos="5.66" edge=":C_w2" slope="0.00"/>
+        <person id="p0" x="111.59" y="90.99" angle="180.00" speed="1.39" pos="5.67" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="57.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
-        <person id="p0" x="111.38" y="89.62" angle="192.25" speed="1.39" pos="4.27" edge=":C_w2" slope="0.00"/>
+        <person id="p0" x="111.38" y="89.62" angle="192.25" speed="1.39" pos="4.28" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="58.00">
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
@@ -299,34 +302,31 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
     </timestep>
     <timestep time="68.00">
-        <vehicle id="v0" x="103.85" y="101.65" angle="270.00" type="car" speed="0.00" pos="10.00" lane=":C_9_1" slope="0.00"/>
-    </timestep>
-    <timestep time="69.00">
         <vehicle id="v0" x="101.25" y="101.65" angle="270.00" type="car" speed="2.60" pos="12.60" lane=":C_9_1" slope="0.00"/>
     </timestep>
-    <timestep time="70.00">
+    <timestep time="69.00">
         <vehicle id="v0" x="96.05" y="101.65" angle="270.00" type="car" speed="5.20" pos="17.80" lane=":C_9_1" slope="0.00"/>
     </timestep>
-    <timestep time="71.00">
+    <timestep time="70.00">
         <vehicle id="v0" x="88.25" y="101.65" angle="270.00" type="car" speed="7.80" pos="25.60" lane=":C_9_1" slope="0.00"/>
     </timestep>
-    <timestep time="72.00">
+    <timestep time="71.00">
         <vehicle id="v0" x="77.85" y="101.65" angle="270.00" type="car" speed="10.40" pos="8.30" lane="CW_4" slope="0.00"/>
     </timestep>
-    <timestep time="73.00">
+    <timestep time="72.00">
         <vehicle id="v0" x="64.85" y="101.65" angle="270.00" type="car" speed="13.00" pos="21.30" lane="CW_4" slope="0.00"/>
     </timestep>
-    <timestep time="74.00">
+    <timestep time="73.00">
         <vehicle id="v0" x="50.96" y="101.65" angle="270.00" type="car" speed="13.89" pos="35.19" lane="CW_4" slope="0.00"/>
     </timestep>
-    <timestep time="75.00">
+    <timestep time="74.00">
         <vehicle id="v0" x="37.07" y="101.65" angle="270.00" type="car" speed="13.89" pos="49.08" lane="CW_4" slope="0.00"/>
     </timestep>
-    <timestep time="76.00">
+    <timestep time="75.00">
         <vehicle id="v0" x="23.18" y="101.65" angle="270.00" type="car" speed="13.89" pos="62.97" lane="CW_4" slope="0.00"/>
     </timestep>
-    <timestep time="77.00">
+    <timestep time="76.00">
         <vehicle id="v0" x="9.29" y="101.65" angle="270.00" type="car" speed="13.89" pos="76.86" lane="CW_4" slope="0.00"/>
     </timestep>
-    <timestep time="78.00"/>
+    <timestep time="77.00"/>
 </fcd-export>

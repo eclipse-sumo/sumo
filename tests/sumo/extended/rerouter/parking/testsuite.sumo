@@ -57,3 +57,12 @@ subsequent_stop_requires_loop
 
 # check reroute handling with parking.meneuver and vtype configuration of maneuverAngleTimes
 maneuver_reroute
+
+# parkingReroute is triggered on the insertion edge, insertion is delayed. Should not crash (#6705)
+reroute_insertion_delayed
+
+# test slope for parking vehicles 
+roadside_slope
+
+# reroute full parking (see #8338)
+reroute_fullparking
