@@ -645,7 +645,6 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
     // also used by vehicle in saved state but this is parsed elsewhere
     if (tag == SUMO_TAG_FLOW && attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         bool ok = true;
-        std::cout << "veh=" << ret->id << " attrs=" << attrs << "\n";
         double calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, ret->id.c_str(), ok);
         if (!ok) {
             handleVehicleError(true, ret);
