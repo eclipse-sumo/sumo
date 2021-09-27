@@ -16,6 +16,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    2004-11-23
 ///
 // Base of value-generating classes (detectors)
@@ -28,18 +29,17 @@
 
 #include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/vehicle/SUMOTrafficObject.h>
-#include <microsim/MSVehicleType.h>
-#include <microsim/MSVehicleControl.h>
+#include <utils/common/FileHelpers.h>
 #include <microsim/MSNet.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class OutputDevice;
 class GUIDetectorWrapper;
+class SUMOTrafficObject;
+class MSTransportable;
 
 
 // ===========================================================================
@@ -61,17 +61,10 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons = false) :
-        Named(id),
-        myDetectPersons(detectPersons) {
-        const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
-        myVehicleTypes.insert(vt.begin(), vt.end());
-    }
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons = false); 
 
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons = false)
-        : Named(id), myVehicleTypes(vTypes), myDetectPersons(detectPersons)
-    { }
+    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons = false);
 
 
     /// @brief (virtual) destructor
@@ -136,21 +129,9 @@ public:
     * @param[in] veh the vehicle of which the type is checked.
     * @return whether it should be measured
     */
-    bool vehicleApplies(const SUMOTrafficObject& veh) const {
-        if (veh.isVehicle() == detectPersons()) {
-            return false;
-        } else if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getOriginalID()) > 0) {
-            return true;
-        } else {
-            std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getOriginalID());
-            for (auto vTypeDist : vTypeDists) {
-                if (myVehicleTypes.count(vTypeDist) > 0) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
+    bool vehicleApplies(const SUMOTrafficObject& veh) const; 
+
+    bool personApplies(const MSTransportable& p) const; 
 
 
     /** @brief Checks whether the detector is type specific.

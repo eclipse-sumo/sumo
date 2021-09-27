@@ -238,6 +238,13 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLDetectorProlog(OutputDevice& dev) const;
+
+    /** @brief Updates the detector (computes values)
+     * only used when detecting persons
+     *
+     * @param[in] step The current time step
+     */
+    void detectorUpdate(const SUMOTime step);
     /// @}
 
 

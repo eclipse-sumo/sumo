@@ -32,8 +32,11 @@
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSPModel.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
@@ -78,7 +81,8 @@ MSInductLoop::reset() {
 
 bool
 MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* /* enteredLane */) {
-    if (!vehicleApplies(veh)) {
+    // vehicles must be kept if the "inductionloop" wants to detect passeengers
+    if (!vehicleApplies(veh) && (veh.isPerson() || myDetectPersons <= (int)PersonMode::WALK)) {
         return false;
     }
     if (reason != NOTIFICATION_JUNCTION) { // the junction case is handled in notifyMove
@@ -103,6 +107,14 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
     if (newPos < myPosition) {
         // detector not reached yet
         return true;
+    }
+    if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
+        bool keep = false;
+        MSBaseVehicle& v = dynamic_cast<MSBaseVehicle&>(veh);
+        for (MSTransportable* p : v.getPersons()) {
+            keep = notifyMove(*p, oldPos, newPos, newSpeed);
+        }
+        return keep;
     }
 #ifdef HAVE_FOX
     FXConditionalLock lock(myNotificationMutex, myNeedLock);
@@ -264,6 +276,34 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
     dev.writeAttr("flow", flow).writeAttr("occupancy", occupancy).writeAttr("speed", meanSpeed).writeAttr("harmonicMeanSpeed", harmonicMeanSpeed);
     dev.writeAttr("length", meanLength).writeAttr("nVehEntered", myEnteredVehicleNumber).closeTag();
     reset();
+}
+
+
+void
+MSInductLoop::detectorUpdate(const SUMOTime /* step */) {
+    if (myDetectPersons == (int)PersonMode::NONE) {
+        return;
+    }
+    if (myLane->hasPedestrians()) {
+        for (MSTransportable* p : myLane->getEdge().getPersons()) {
+            if (p->getLane() != myLane) {
+                continue;
+            }
+            if (personApplies(*p)) {
+                const int dir = p->getDirection();
+                const double newSpeed = p->getSpeed();
+                const double newPos = p->getPositionOnLane();
+                const double oldPos = newPos - dir * newSpeed;
+                if (dir == MSPModel::FORWARD) {
+                    notifyMove(*p, oldPos, newPos, newSpeed);
+                } else {
+                    // ensure that newPos > oldPos even if the person walks
+                    // against edge direction
+                    notifyMove(*p, newPos, oldPos, newSpeed);
+                }
+            }
+        }
+    }
 }
 
 

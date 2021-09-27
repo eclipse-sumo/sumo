@@ -24,6 +24,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSCalibrator.h>
+#include <microsim/MSVehicleControl.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "Calibrator.h"
