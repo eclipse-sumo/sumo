@@ -344,6 +344,8 @@ private:
 
     /// @brief the meso segment index for each geometry segment
     std::vector<int> myShapeSegments;
+    /// @brief the shape indices where the meso segment changes (for segmentsIndex > 0)
+    std::vector<int> mySegmentStartIndex;
 
     /// @brief Half of lane width, for speed-up
     double myHalfLaneWidth;
