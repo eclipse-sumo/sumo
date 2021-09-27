@@ -257,6 +257,22 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(priority);
             }
+        // non editable attributes
+        case SUMO_ATTR_ONEWAY:
+            return toString(oneWay);
+        case SUMO_ATTR_DISCARD:
+            return toString(discard);
+        case SUMO_ATTR_WIDTHRESOLUTION:
+            return toString(widthResolution);
+        case SUMO_ATTR_MAXWIDTH:
+            return toString(maxWidth);
+        case SUMO_ATTR_MINWIDTH:
+            return toString(minWidth);
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            return toString(sidewalkWidth);
+        case SUMO_ATTR_BIKELANEWIDTH:
+            return toString(bikeLaneWidth);
+        // parameters
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -325,8 +341,20 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEEdgeType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
+GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+    // non editable attributes
+    case SUMO_ATTR_ONEWAY:
+    case SUMO_ATTR_DISCARD:
+    case SUMO_ATTR_WIDTHRESOLUTION:
+    case SUMO_ATTR_MAXWIDTH:
+    case SUMO_ATTR_MINWIDTH:
+    case SUMO_ATTR_SIDEWALKWIDTH:
+    case SUMO_ATTR_BIKELANEWIDTH:
+        return false;
+    default:
+        return true;
+    }
 }
 
 
