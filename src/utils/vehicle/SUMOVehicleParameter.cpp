@@ -66,7 +66,10 @@ SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::s
 
 void
 SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag altTag, const std::string& typeID) const {
-    dev.openTag(altTag).writeAttr(SUMO_ATTR_ID, id);
+    if (!id.empty()) {
+        // only used by calibrator flows
+        dev.openTag(altTag).writeAttr(SUMO_ATTR_ID, id);
+    }
     if (typeID == "") {
         if (wasSet(VEHPARS_VTYPE_SET)) {
             dev.writeAttr(SUMO_ATTR_TYPE, vtypeid);

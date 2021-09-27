@@ -790,14 +790,11 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
 
 
 void
-GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const std::string& routeID,
-        const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed,
-        const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, const int personNumber, const int containerNumber,
-        const bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, const SUMOTime begin, const SUMOTime end, const std::map<std::string, std::string>& parameters) {
+GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameter) {
     // get vType
-    GNEDemandElement* vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID, false);
+    GNEDemandElement* vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid, false);
     // get route
-    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, routeID, false);
+    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.routeid, false);
     // get calibrator parent
     GNEAdditional* calibrator = myNet->retrieveAdditional(sumoBaseObject->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
     // check parents
@@ -807,25 +804,9 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
         writeErrorInvalidParent(SUMO_TAG_FLOW, SUMO_TAG_ROUTE);
     } else if (calibrator == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_FLOW, SUMO_TAG_CALIBRATOR);
-
-        /*
-        } else if (freq < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
-        } else if (timeThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-        } else if (speedThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-        } else if (jamThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
-        } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
-            writeErrorInvalidFilename(SUMO_TAG_E2DETECTOR, id);
-        } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
-            writeErrorInvalidVTypes(SUMO_TAG_E2DETECTOR, id);
-        */
     } else {
         // create calibrator flow
-        GNEAdditional* flow = new GNECalibratorFlow(calibrator, vType, route, vehsPerHour, speed, color, departLane, departPos, departSpeed,
-                arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end, parameters);
+        GNEAdditional* flow = new GNECalibratorFlow(calibrator, vType, route, vehicleParameter);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + flow->getTagStr());

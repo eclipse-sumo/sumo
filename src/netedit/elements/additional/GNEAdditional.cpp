@@ -476,9 +476,9 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
-    for (const auto& i : myTagProperty) {
-        if (i.hasStaticDefaultValue()) {
-            setAttribute(i.getAttr(), i.getDefaultValue());
+    for (const auto& attr : myTagProperty) {
+        if (attr.hasStaticDefaultValue()) {
+            setAttribute(attr.getAttr(), attr.getDefaultValue());
         }
     }
 }

@@ -49,6 +49,11 @@ public:
     /// @brief destructor
     ~GNECalibratorFlow();
 
+    /**@brief writte additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
     */

@@ -20,6 +20,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNECalibratorFlow.h"
 
@@ -36,14 +37,12 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
-    // fill calibrator flows with default values
-    setDefaultValues();
 }
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-    {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
     std::map<std::string, std::string>()),
     SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
@@ -52,6 +51,33 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 
 
 GNECalibratorFlow::~GNECalibratorFlow() {}
+
+
+void 
+GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
+    // attribute VType musn't be written if is DEFAULT_VTYPE_ID
+    if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
+        // unset VType parameter
+        parametersSet &= ~VEHPARS_VTYPE_SET;
+        // write vehicle attributes (VType will not be written)
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag());
+        // set VType parameter again
+        parametersSet |= VEHPARS_VTYPE_SET;
+    } else {
+        // write vehicle attributes, including VType
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
+    }
+    // write route
+    device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
+    // VPH
+    if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
+        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
+    }
+    // write parameters
+    SUMOVehicleParameter::writeParams(device);
+    // close vehicle tag
+    device.closeTag();
+}
 
 
 GNEMoveOperation*
@@ -109,9 +135,17 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ROUTE:
             return getParentDemandElements().at(1)->getID();
         case SUMO_ATTR_VEHSPERHOUR:
-            return toString(3600 / STEPS2TIME(repetitionOffset));
+            if (wasSet(VEHPARS_VPH_SET)) {
+                return toString(3600 / STEPS2TIME(repetitionOffset));
+            } else {
+                return "";
+            }
         case SUMO_ATTR_SPEED:
-            return toString(calibratorSpeed);
+            if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
+                return toString(calibratorSpeed);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
                 return toString(color);
@@ -209,6 +243,7 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
             return STEPS2TIME(depart);
         case SUMO_ATTR_DEPARTPOS:
             // only return departPos it if is given
@@ -277,7 +312,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
@@ -429,11 +464,15 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
+            // set parameters
+            parametersSet &= ~VEHPARS_CALIBRATORSPEED_SET;
+            parametersSet |= VEHPARS_VPH_SET;
             break;
         case SUMO_ATTR_SPEED:
             calibratorSpeed = parse<double>(value);
             // mark parameter as set
             parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
+            parametersSet &= ~VEHPARS_VPH_SET;
             break;
         case SUMO_ATTR_COLOR:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
