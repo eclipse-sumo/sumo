@@ -1614,6 +1614,34 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     addSize.print(dev, "add");
     addName.print(dev, "addName");
     addFullName.print(dev, "addFullName");
+    // temporal (will be integrated in a schema)
+    dev.writeAttr("selectionColor", colorSettings.selectionColor);
+    dev.writeAttr("selectedEdgeColor", colorSettings.selectedEdgeColor);
+    dev.writeAttr("selectedLaneColor", colorSettings.selectedLaneColor);
+    dev.writeAttr("selectedConnectionColor", colorSettings.selectedConnectionColor);
+    dev.writeAttr("selectedProhibitionColor", colorSettings.selectedProhibitionColor);
+    dev.writeAttr("selectedCrossingColor", colorSettings.selectedCrossingColor);
+    dev.writeAttr("selectedAdditionalColor", colorSettings.selectedAdditionalColor);
+    dev.writeAttr("selectedRouteColor", colorSettings.selectedRouteColor);
+    dev.writeAttr("selectedVehicleColor", colorSettings.selectedVehicleColor);
+    dev.writeAttr("selectedPersonColor", colorSettings.selectedPersonColor);
+    dev.writeAttr("selectedPersonPlanColor", colorSettings.selectedPersonPlanColor);
+    dev.writeAttr("selectedContainerColor", colorSettings.selectedContainerColor);
+    dev.writeAttr("selectedContainerPlanColor", colorSettings.selectedContainerPlanColor);
+    dev.writeAttr("selectedEdgeDataColor", colorSettings.selectedEdgeDataColor);
+    dev.writeAttr("busStopColor", colorSettings.busStopColor);
+    dev.writeAttr("busStopColorSign", colorSettings.busStopColorSign);
+    dev.writeAttr("trainStopColor", colorSettings.trainStopColor);
+    dev.writeAttr("trainStopColorSign", colorSettings.trainStopColorSign);
+    dev.writeAttr("containerStopColor", colorSettings.containerStopColor);
+    dev.writeAttr("containerStopColorSign", colorSettings.containerStopColorSign);
+    dev.writeAttr("chargingStationColor", colorSettings.chargingStationColor);
+    dev.writeAttr("chargingStationColorSign", colorSettings.chargingStationColorSign);
+    dev.writeAttr("chargingStationColorCharge", colorSettings.chargingStationColorCharge);
+    dev.writeAttr("parkingAreaColor", colorSettings.parkingAreaColor);
+    dev.writeAttr("parkingAreaColorSign", colorSettings.parkingAreaColorSign);
+    dev.writeAttr("parkingSpaceColorContour", colorSettings.parkingSpaceColorContour);
+    dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
     dev.closeTag();
     // pois
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);
