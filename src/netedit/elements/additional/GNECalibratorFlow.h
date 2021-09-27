@@ -19,6 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -35,17 +37,14 @@ class GNECalibratorDialog;
  * @class GNECalibratorFlow
  * flow flow used by GNECalibrators
  */
-class GNECalibratorFlow : public GNEAdditional {
+class GNECalibratorFlow : public GNEAdditional, public SUMOVehicleParameter {
 
 public:
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorFlow(GNEAdditional* calibratorParent);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
-                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
-                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                      const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end, const std::map<std::string, std::string>& parameters);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNECalibratorFlow();
@@ -123,67 +122,6 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    /// @}
-
-protected:
-    /// @brief type of flow
-    GNEDemandElement* myVehicleType;
-
-    /// @brief route in which this flow is used
-    GNEDemandElement* myRoute;
-
-    /// @brief flows per hour (String instead float because can be empty)
-    std::string myVehsPerHour;
-
-    /// @brief flow speed (String instead float because can be empty)
-    std::string mySpeed;
-
-    /// @brief color of flow
-    RGBColor myColor;
-
-    /// @brief depart lane
-    std::string myDepartLane;
-
-    /// @brief depart position
-    std::string myDepartPos;
-
-    /// @brief depart speed
-    std::string myDepartSpeed;
-
-    /// @brief arrival lane
-    std::string myArrivalLane;
-
-    /// @brief arrival pos
-    std::string myArrivalPos;
-
-    /// @brief arrival speed
-    std::string myArrivalSpeed;
-
-    /// @brief line of bus/container stop
-    std::string myLine;
-
-    /// @brief number of person
-    int myPersonNumber;
-
-    /// @brief number of container
-    int myContainerNumber;
-
-    /// @brief reroute
-    bool myReroute;
-
-    /// @brief departPosLat
-    std::string myDepartPosLat;
-
-    //// @brief arrivalPosLat
-    std::string myArrivalPosLat;
-
-    /// @name specific of flows
-    /// @{
-    /// @brief time step begin
-    SUMOTime myBegin;
-
-    /// @brief time step end
-    SUMOTime myEnd;
     /// @}
 
 private:
