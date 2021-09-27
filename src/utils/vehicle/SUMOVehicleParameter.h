@@ -67,7 +67,8 @@ const int VEHPARS_VIA_SET = 2 << 22;
 const int VEHPARS_SPEEDFACTOR_SET = 2 << 23;
 const int VEHPARS_DEPARTEDGE_SET = 2 << 24;
 const int VEHPARS_ARRIVALEDGE_SET = 2 << 25;
-const int VEHPARS_JUNCTIONMODEL_PARAMS_SET = 2 << 26;
+const int VEHPARS_CALIBRATORSPEED_SET = 2 << 26;
+const int VEHPARS_JUNCTIONMODEL_PARAMS_SET = 2 << 27;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -740,6 +741,9 @@ public:
 
     /// @brief individual speedFactor (overriding distribution from vType)
     double speedFactor;
+
+    /// @brief speed (used by calibrator flows
+    double calibratorSpeed;
 
     /// @brief Information for the router which parameter were set, TraCI may modify this (when changing color)
     mutable int parametersSet;

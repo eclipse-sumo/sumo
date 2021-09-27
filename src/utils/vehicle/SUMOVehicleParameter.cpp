@@ -49,6 +49,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
       line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0),
       speedFactor(-1),
+      calibratorSpeed(-1),
       parametersSet(0)
 { }
 
@@ -164,6 +165,10 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     // individual speedFactor
     if (wasSet(VEHPARS_SPEEDFACTOR_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEEDFACTOR, speedFactor);
+    }
+    // speed (only used by calibrators)
+    if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
+        dev.writeAttr(SUMO_ATTR_SPEED, calibratorSpeed);
     }
 }
 
