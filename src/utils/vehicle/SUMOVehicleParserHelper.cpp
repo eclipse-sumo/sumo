@@ -153,7 +153,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         }
         // parse common vehicle attributes
         try {
-            parseCommonAttributes(attrs, flowParameter, "flow");
+            parseCommonAttributes(attrs, flowParameter, tag);
         } catch (ProcessError& attributeError) {
             // check if continue handling another vehicles or stop handling
             if (hardFail) {
@@ -321,7 +321,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttrib
         }
         // parse common attributes
         try {
-            parseCommonAttributes(attrs, vehicleParameter, "vehicle");
+            parseCommonAttributes(attrs, vehicleParameter, (SumoXMLTag)element);
         } catch (ProcessError& attributeError) {
             // check if continue handling another vehicles or stop handling
             if (hardFail) {
@@ -377,7 +377,8 @@ SUMOVehicleParserHelper::parseID(const SUMOSAXAttributes& attrs, const SumoXMLTa
 
 
 void
-SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, std::string element) {
+SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, SumoXMLTag tag) {
+    const std::string element = toString(tag);
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
@@ -640,9 +641,11 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
             handleVehicleError(true, ret, toString(SUMO_ATTR_SPEEDFACTOR) + " must be positive");
         }
     }
-    // parse speed (only used by calibrators)
-    if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+    // parse speed (only used by calibrators flow)
+    // also used by vehicle in saved state but this is parsed elsewhere
+    if (tag == SUMO_TAG_FLOW && attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         bool ok = true;
+        std::cout << "veh=" << ret->id << " attrs=" << attrs << "\n";
         double calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, ret->id.c_str(), ok);
         if (!ok) {
             handleVehicleError(true, ret);
