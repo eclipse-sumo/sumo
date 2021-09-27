@@ -340,7 +340,7 @@ public:
         myQueryTimeSum += (SysUtils::getCurrentMillis() - myQueryStartTime);
     }
 
-    inline void setBulkMode(const bool mode) {
+    virtual void setBulkMode(const bool mode) {
         myBulkMode = mode;
     }
 

@@ -586,10 +586,13 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
             RORoutable* const first = i->second.front();
-            myThreadPool.add(new RoutingTask(first, removeLoops, myErrorHandler), workerIndex);
-            myThreadPool.add(new BulkmodeTask(true), workerIndex);
-            for (std::vector<RORoutable*>::const_iterator j = i->second.begin() + 1; j != i->second.end(); ++j) {
-                myThreadPool.add(new RoutingTask(*j, removeLoops, myErrorHandler), workerIndex);
+            bool bulk = true;
+            for (RORoutable* const r : i->second) {
+                myThreadPool.add(new RoutingTask(r, removeLoops, myErrorHandler), workerIndex);
+                if (bulk) {
+                    myThreadPool.add(new BulkmodeTask(true), workerIndex);
+                    bulk = false;
+                }
             }
             myThreadPool.add(new BulkmodeTask(false), workerIndex);
             workerIndex++;
@@ -599,11 +602,11 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             continue;
         }
 #endif
-        for (std::vector<RORoutable*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
-            (*j)->computeRoute(provider, removeLoops, myErrorHandler);
-            provider.getVehicleRouter((*j)->getVClass()).setBulkMode(true);
+        for (RORoutable* const r : i->second) {
+            r->computeRoute(provider, removeLoops, myErrorHandler);
+            provider.setBulkMode(true);
         }
-        provider.getVehicleRouter(SVC_IGNORING).setBulkMode(false);
+        provider.setBulkMode(false);
     }
 }
 

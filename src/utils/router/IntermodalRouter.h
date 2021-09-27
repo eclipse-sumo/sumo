@@ -207,6 +207,13 @@ public:
         throw ProcessError("Do not use this method");
     }
 
+    inline void setBulkMode(const bool mode) {
+        SUMOAbstractRouter<E, _IntermodalTrip>::setBulkMode(mode);
+        if (myInternalRouter != nullptr) {
+            myInternalRouter->setBulkMode(mode);
+        }
+    }
+
     void prohibit(const std::vector<E*>& toProhibit) {
         createNet();
         std::vector<_IntermodalEdge*> toProhibitPE;

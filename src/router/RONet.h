@@ -450,7 +450,7 @@ public:
     public:
         BulkmodeTask(const bool value) : myValue(value) {}
         void run(FXWorkerThread* context) {
-            static_cast<WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING).setBulkMode(myValue);
+            static_cast<WorkerThread*>(context)->setBulkMode(myValue);
         }
     private:
         const bool myValue;
