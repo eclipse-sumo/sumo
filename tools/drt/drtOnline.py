@@ -244,7 +244,8 @@ def main():
     while rerouting:
         traci.simulationStep(step)
 
-        if not traci.vehicle.getTaxiFleet(-1):
+        # TODO ticket #8385
+        if not traci.vehicle.getTaxiFleet(-1) and step < options.end_time:
             step += options.sim_step
             continue
 
