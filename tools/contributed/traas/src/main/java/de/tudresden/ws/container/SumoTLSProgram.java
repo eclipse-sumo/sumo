@@ -26,7 +26,7 @@ package de.tudresden.ws.container;
 /**
  *
  * @author Mario Krumnow
- * @deprecated use package {@link #de.tudresden.sumo.objects} instead.
+ * @deprecated use package {@link de.tudresden.sumo.objects} instead.
  */
 
 public class SumoTLSProgram extends de.tudresden.sumo.objects.SumoTLSProgram {

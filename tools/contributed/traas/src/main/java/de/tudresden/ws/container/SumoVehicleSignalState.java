@@ -28,7 +28,7 @@ import de.tudresden.sumo.objects.SumoObject;
  *
  * @author Mario Krumnow
  * @author Anja Liebscher
- * @deprecated use package {@link #de.tudresden.sumo.objects} instead.
+ * @deprecated use package {@link de.tudresden.sumo.objects} instead.
  */
 
 public enum SumoVehicleSignalState implements SumoObject {

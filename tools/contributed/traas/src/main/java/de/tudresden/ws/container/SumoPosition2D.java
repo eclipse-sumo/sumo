@@ -25,7 +25,7 @@ package de.tudresden.ws.container;
 /**
  *
  * @author Mario Krumnow
- * @deprecated use package {@link #de.tudresden.sumo.objects} instead.
+ * @deprecated use package {@link de.tudresden.sumo.objects} instead.
  */
 
 public class SumoPosition2D extends de.tudresden.sumo.objects.SumoPosition2D {}

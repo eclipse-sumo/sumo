@@ -27,7 +27,7 @@ package de.tudresden.ws.container;
  *
  * @author Mario Krumnow
  * @author Anja Liebscher
- * @deprecated use package {@link #de.tudresden.sumo.objects} instead.
+ * @deprecated use package {@link de.tudresden.sumo.objects} instead.
  *
  */
 
