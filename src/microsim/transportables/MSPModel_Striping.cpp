@@ -1979,6 +1979,12 @@ MSPModel_Striping::PState::getEdgePos(const MSStageMoving&, SUMOTime) const {
 }
 
 
+int
+MSPModel_Striping::PState::getDirection(const MSStageMoving&, SUMOTime) const {
+    return myDir;
+}
+
+
 Position
 MSPModel_Striping::PState::getPosition(const MSStageMoving& stage, SUMOTime) const {
     if (myRemoteXYPos != Position::INVALID) {

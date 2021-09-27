@@ -161,6 +161,15 @@ MSPModel_NonInteracting::PState::getEdgePos(const MSStageMoving&, SUMOTime now) 
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
 }
 
+int
+MSPModel_NonInteracting::PState::getDirection(const MSStageMoving& /*stage*/, SUMOTime /*now*/) const {
+    if (myCurrentBeginPos == myCurrentEndPos) {
+        return UNDEFINED_DIRECTION;
+    } else {
+        return myCurrentBeginPos < myCurrentEndPos ? FORWARD : BACKWARD;
+    }
+}
+
 
 Position
 MSPModel_NonInteracting::PState::getPosition(const MSStageMoving& stage, SUMOTime now) const {

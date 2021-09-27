@@ -38,6 +38,7 @@
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/transportables/MSPModel.h>
 
 
 // ===========================================================================
@@ -107,6 +108,17 @@ MSStageDriving::getEdgePos(SUMOTime /* now */) const {
     }
 }
 
+int
+MSStageDriving::getDirection() const {
+    if (isWaiting4Vehicle()) {
+        return MSPModel::UNDEFINED_DIRECTION;
+    } else if (myArrived >= 0) {
+        return MSPModel::UNDEFINED_DIRECTION;
+    } else {
+        // vehicle may already have passed the lane (check whether this is correct)
+        return MSPModel::FORWARD;
+    }
+}
 
 Position
 MSStageDriving::getPosition(SUMOTime /* now */) const {

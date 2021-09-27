@@ -89,6 +89,11 @@ MSStage::getEdgePos(SUMOTime /* now */) const {
     return myArrivalPos;
 }
 
+int
+MSStage::getDirection() const {
+    return MSPModel::UNDEFINED_DIRECTION;
+}
+
 
 SUMOTime
 MSStage::getWaitingTime(SUMOTime /* now */) const {
@@ -572,6 +577,12 @@ double
 MSStageMoving::getEdgePos(SUMOTime now) const {
     return myState == nullptr ? 0. : myState->getEdgePos(*this, now);
 }
+
+int
+MSStageMoving::getDirection() const {
+    return myState == nullptr ? MSPModel::UNDEFINED_DIRECTION : myState->getDirection(*this, MSNet::getInstance()->getCurrentTimeStep());
+}
+
 
 Position
 MSStageMoving::getPosition(SUMOTime now) const {

@@ -119,6 +119,9 @@ public:
     /// @brief return the offset from the start of the current edge
     double getEdgePos() const override;
 
+    /// @brief Return the movement directon on the edge
+    int getDirection() const override;
+
     /// @brief return the Network coordinate of the person
     // @note overrides the base method and returns myPositionInVehicle while in driving stage
     Position getPosition() const override;

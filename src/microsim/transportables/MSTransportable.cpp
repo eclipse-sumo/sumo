@@ -139,6 +139,11 @@ MSTransportable::getEdgePos() const {
     return (*myStep)->getEdgePos(MSNet::getInstance()->getCurrentTimeStep());
 }
 
+int
+MSTransportable::getDirection() const {
+    return (*myStep)->getDirection();
+}
+
 Position
 MSTransportable::getPosition() const {
     return (*myStep)->getPosition(MSNet::getInstance()->getCurrentTimeStep());

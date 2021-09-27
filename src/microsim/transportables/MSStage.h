@@ -99,6 +99,9 @@ public:
     virtual const MSEdge* getFromEdge() const;
     virtual double getEdgePos(SUMOTime now) const;
 
+    /// @brief Return the movement directon on the edge
+    virtual int getDirection() const;
+
     /// returns the position of the transportable
     virtual Position getPosition(SUMOTime now) const = 0;
 
@@ -481,6 +484,9 @@ public:
 
     /// Returns the offset from the start of the current edge measured in its natural direction
     double getEdgePos(SUMOTime now) const;
+
+    /// @brief Return the movement directon on the edge
+    int getDirection() const;
 
     /// Returns the position of the container
     Position getPosition(SUMOTime now) const;

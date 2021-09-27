@@ -376,6 +376,12 @@ GUIContainer::getEdgePos() const {
     return MSTransportable::getEdgePos();
 }
 
+int
+GUIContainer::getDirection() const {
+    FXMutexLock locker(myLock);
+    return MSTransportable::getDirection();
+}
+
 
 Position
 GUIContainer::getPosition() const {

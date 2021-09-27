@@ -268,6 +268,7 @@ protected:
         /// @brief abstract methods inherited from PedestrianState
         /// @{
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
+        int getDirection(const MSStageMoving& stage, SUMOTime now) const;
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
         double getAngle(const MSStageMoving& stage, SUMOTime now) const;
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
