@@ -441,6 +441,10 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
         if (MSGlobals::gUseMesoSim || !veh.isVehicle()) {
             // not yet supported
             values.timeLoss = 0;
+            if (isBackward) {
+                // leaveFront may not have been called
+                values.frontLeaveTime = leaveTimestep;
+            }
         } else {
             // timeLoss was initialized when entering
             values.timeLoss = dynamic_cast<const MSVehicle&>(veh).getTimeLoss() - values.timeLoss;
