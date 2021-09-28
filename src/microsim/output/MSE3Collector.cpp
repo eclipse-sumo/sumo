@@ -296,8 +296,11 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold,
                              const std::string& vTypes,
+                             int detectPersons,
                              bool openEntry) :
-    MSDetectorFileOutput(id, vTypes), myEntries(entries), myExits(exits),
+    MSDetectorFileOutput(id, vTypes, detectPersons),
+    myEntries(entries),
+    myExits(exits),
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1),
     myOpenEntry(openEntry) {

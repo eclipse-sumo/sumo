@@ -46,7 +46,7 @@ public:
     GUIE3Collector(const std::string& id,
                    const CrossSectionVector& entries, const CrossSectionVector& exits,
                    double haltingSpeedThreshold,
-                   SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry);
+                   SUMOTime haltingTimeThreshold, const std::string& vTypes, int detectPersons, bool openEntry);
 
     /// @brief Destructor
     ~GUIE3Collector();
