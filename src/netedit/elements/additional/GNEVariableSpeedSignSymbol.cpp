@@ -59,8 +59,6 @@ GNEVariableSpeedSignSymbol::updateGeometry() {
     myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // grow
     myBoundary.grow(10);
-    // update connections
-    getParentAdditionals().front()->updateHierarchicalConnections();
 }
 
 

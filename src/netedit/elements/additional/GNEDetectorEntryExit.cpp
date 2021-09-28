@@ -99,8 +99,6 @@ GNEDetectorEntryExit::updateGeometry() {
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
-    // update E3 parent children
-    getParentAdditionals().at(0)->updateHierarchicalConnections();
 }
 
 

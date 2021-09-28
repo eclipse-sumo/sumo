@@ -67,8 +67,6 @@ GNERerouterSymbol::updateGeometry() {
     myBoundary = mySymbolGeometries.front().getShape().getBoxBoundary();
     // grow
     myBoundary.grow(10);
-    // update connections
-    getParentAdditionals().front()->updateHierarchicalConnections();
 }
 
 

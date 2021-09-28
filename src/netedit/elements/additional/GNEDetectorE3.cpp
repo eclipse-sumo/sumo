@@ -59,8 +59,6 @@ void
 GNEDetectorE3::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
-    // Update Hierarchical connections geometry
-    myHierarchicalConnections.update();
 }
 
 

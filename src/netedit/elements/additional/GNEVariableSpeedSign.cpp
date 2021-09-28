@@ -61,8 +61,6 @@ void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
-    // Update Hierarchical connections geometry
-    myHierarchicalConnections.update();
 }
 
 
@@ -94,8 +92,6 @@ GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
-    // Update Hierarchical connections geometry
-    myHierarchicalConnections.update();
 }
 
 

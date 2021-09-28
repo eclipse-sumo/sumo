@@ -164,12 +164,6 @@ public:
 
     /// @}
 
-    /// @brief update child connections
-    void updateHierarchicalConnections();
-
-    /// @brief Draw hierarchical connections between parent and children
-    void drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const;
-
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
 
@@ -206,9 +200,6 @@ protected:
             child->addChildElement(elementChild);
         }
     }
-
-    /// @brief hierarchical connections
-    GNEGeometry::HierarchicalConnections myHierarchicalConnections;
 
 private:
     /// @brief hierarchical container with parents and children

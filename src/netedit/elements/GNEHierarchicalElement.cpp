@@ -43,7 +43,6 @@ GNEHierarchicalElement::GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas) :
     GNEAttributeCarrier(tag, net),
-    myHierarchicalConnections(this),
     myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas) {
 }
 
@@ -244,8 +243,6 @@ template<> void
 GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
     // add parent element into container
     myHierarchicalContainer.addParentElement(this, element);
-    // update connections geometry
-    myHierarchicalConnections.update();
 }
 
 
@@ -302,8 +299,6 @@ template<> void
 GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
     // remove parent element from container
     myHierarchicalContainer.removeParentElement(this, element);
-    // update connections geometry
-    myHierarchicalConnections.update();
 }
 
 
@@ -360,10 +355,6 @@ template<> void
 GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
     // add child element into container
     myHierarchicalContainer.addChildElement(this, element);
-    // update connections geometry
-    if (element->getTagProperty().isSlave()) {
-        myHierarchicalConnections.update();
-    }
 }
 
 
@@ -420,10 +411,6 @@ template<> void
 GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
     // remove child element from container
     myHierarchicalContainer.removeChildElement(this, element);
-    // update connections geometry
-    if (element->getTagProperty().isSlave()) {
-        myHierarchicalConnections.update();
-    }
 }
 
 
@@ -487,29 +474,6 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
     solution.erase(std::unique(solution.begin(), solution.end()), solution.end());
     // return solution
     return toString(solution);
-}
-
-
-void
-GNEHierarchicalElement::updateHierarchicalConnections() {
-    myHierarchicalConnections.update();
-}
-
-
-void
-GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const {
-    // first check if connections can be drawn
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection && (exaggeration > 0)) {
-        myHierarchicalConnections.drawConnection(s, AC, exaggeration);
-        // check if we have to draw dotted inspect contour
-        if (s.drawDottedContour() || AC->getNet()->getViewNet()->isAttributeCarrierInspected(AC)) {
-            myHierarchicalConnections.drawDottedConnection(GNEGeometry::DottedContourType::INSPECT, s, exaggeration);
-        }
-        // check if we have to draw dotted fronto contour
-        if (s.drawDottedContour() || (AC->getNet()->getViewNet()->getFrontAttributeCarrier() == AC)) {
-            myHierarchicalConnections.drawDottedConnection(GNEGeometry::DottedContourType::FRONT, s, exaggeration);
-        }
-    }
 }
 
 
