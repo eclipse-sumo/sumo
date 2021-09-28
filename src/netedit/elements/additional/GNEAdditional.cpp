@@ -631,7 +631,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
-        // draw lines
+        // draw parent and child lines
         drawParentChildLines(s);
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
@@ -655,6 +655,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
+        // draw parent and child lines
+        drawParentChildLines(s);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, pos, exaggeration, 0.4, -0.5, -0.5);
         // Pop connection matrix

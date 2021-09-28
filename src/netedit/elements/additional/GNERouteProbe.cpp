@@ -116,6 +116,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ROUTEPROBE);
+        // draw parent and child lines
+        drawParentChildLines(s);
         // set base color
         GLHelper::setColor(routeProbeColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

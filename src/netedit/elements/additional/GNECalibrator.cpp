@@ -326,6 +326,8 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     GLHelper::pushMatrix();
     // translate to front
     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
+    // draw parent and child lines
+    drawParentChildLines(s);
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
     // rotate over lane
