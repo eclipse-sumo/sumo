@@ -159,7 +159,7 @@ PollutantsInterface::Helper::getWeight(const SUMOEmissionClass c) const {
 
 
 double
-PollutantsInterface::Helper::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
+PollutantsInterface::Helper::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
     UNUSED_PARAMETER(c);
     UNUSED_PARAMETER(e);
     UNUSED_PARAMETER(v);
@@ -320,13 +320,13 @@ PollutantsInterface::getWeight(const SUMOEmissionClass c) {
 
 
 double
-PollutantsInterface::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) {
+PollutantsInterface::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) {
     return myHelpers[c >> 16]->compute(c, e, v, a, slope, param);
 }
 
 
 PollutantsInterface::Emissions
-PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const std::map<int, double>* param) {
+PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) {
     const Helper* const h = myHelpers[c >> 16];
     return Emissions(h->compute(c, CO2, v, a, slope, param), h->compute(c, CO, v, a, slope, param), h->compute(c, HC, v, a, slope, param),
                      h->compute(c, FUEL, v, a, slope, param), h->compute(c, NO_X, v, a, slope, param), h->compute(c, PM_X, v, a, slope, param),
@@ -335,7 +335,7 @@ PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const
 
 
 double
-PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const std::map<int, double>* param) {
+PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param) {
     const Helper* const h = myHelpers[c >> 16];
     return (h->compute(c, e, v, 0, slope, param) + h->compute(c, e, v - a, a, slope, param)) * tt / 2.;
 }

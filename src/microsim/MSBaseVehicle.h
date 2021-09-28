@@ -110,7 +110,7 @@ public:
      *
      * @return The vehicle's emission parameters
      */
-    const std::map<int, double>* getEmissionParameters() const;
+    const EnergyParams* getEmissionParameters() const;
 
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);

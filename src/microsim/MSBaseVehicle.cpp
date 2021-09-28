@@ -169,7 +169,7 @@ MSBaseVehicle::getParameter() const {
     return *myParameter;
 }
 
-const std::map<int, double>*
+const EnergyParams*
 MSBaseVehicle::getEmissionParameters() const {
     MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
     if (batteryDevice != nullptr) {

@@ -28,6 +28,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "PollutantsInterface.h"
+#include "EnergyParams.h"
 
 
 // ===========================================================================
@@ -58,7 +59,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
+    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /** @brief Computes the achievable acceleration using the given speed and amount of consumed electric power
      *
@@ -69,14 +70,15 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const std::map<int, double>* param) const;
+    double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const EnergyParams* param) const;
 
-    double getDefaultParam(int paramKey) const {
-        return myDefaultParameter.find(paramKey)->second;
+    double getDefaultParam(SumoXMLAttr attr) const {
+        return myDefaultParameter.getDouble(attr);
     }
 
-
 private:
+    void initDefaultParameter() const;
+
     /// @brief The default parameter
-    std::map<int, double> myDefaultParameter;
+    EnergyParams myDefaultParameter;
 };
