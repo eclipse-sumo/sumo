@@ -126,7 +126,7 @@ void
 NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
                                    const std::string& device, SUMOTime frequency,
                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                   const std::string& vTypes, bool friendlyPos, bool showDetector,
+                                   const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                                    MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane) {
 
     bool tlsGiven = tlls != nullptr;
@@ -175,7 +175,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
     MSE2Collector* det = nullptr;
     if (tlsGiven) {
         // Detector connected to TLS
-        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
         // add the file output (XXX: Where's the corresponding delete?)
         if (toLaneGiven) {
@@ -195,7 +195,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
     } else {
         // User specified detector for xml-output
         checkSampleInterval(frequency, SUMO_TAG_E2DETECTOR, id);
-        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
     }
 
@@ -205,7 +205,7 @@ void
 NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
                                    const std::string& device, SUMOTime frequency,
                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                   const std::string& vTypes, bool friendlyPos, bool showDetector,
+                                   const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                                    MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane) {
 
     bool tlsGiven = tlls != nullptr;
@@ -252,7 +252,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
     MSE2Collector* det = nullptr;
     if (tlsGiven) {
         // Detector connected to TLS
-        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
         // add the file output (XXX: Where's the corresponding delete?)
         if (toLaneGiven) {
@@ -273,7 +273,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
         // User specified detector for xml-output
         checkSampleInterval(frequency, SUMO_TAG_E2DETECTOR, id);
 
-        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
     }
 
@@ -398,16 +398,16 @@ MSE2Collector*
 NLDetectorBuilder::createE2Detector(const std::string& id,
                                     DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                     SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                    const std::string& vTypes, bool /* showDetector */) {
-    return new MSE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+                                    const std::string& vTypes, int detectPersons, bool /* showDetector */) {
+    return new MSE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons);
 }
 
 MSE2Collector*
 NLDetectorBuilder::createE2Detector(const std::string& id,
                                     DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                     SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                    const std::string& vTypes, bool /* showDetector */) {
-    return new MSE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+                                    const std::string& vTypes, int detectPersons, bool /* showDetector */) {
+    return new MSE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons);
 }
 
 MSDetectorFileOutput*

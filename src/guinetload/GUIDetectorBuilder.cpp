@@ -69,16 +69,16 @@ MSE2Collector*
 GUIDetectorBuilder::createE2Detector(const std::string& id,
                                      DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                      SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                     const std::string& vTypes, bool showDetector) {
-    return new GUIE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+                                     const std::string& vTypes, int detectPersons, bool showDetector) {
+    return new GUIE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
 }
 
 MSE2Collector*
 GUIDetectorBuilder::createE2Detector(const std::string& id,
                                      DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                      SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                     const std::string& vTypes, bool showDetector) {
-    return new GUIE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+                                     const std::string& vTypes, int detectPersons, bool showDetector) {
+    return new GUIE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
 }
 
 MSDetectorFileOutput*

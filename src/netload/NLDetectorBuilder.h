@@ -129,13 +129,13 @@ public:
     void buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                         const std::string& vTypes, bool friendlyPos, bool showDetector,
+                         const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                          MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
     void buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                         const std::string& vTypes, bool friendlyPos, bool showDetector,
+                         const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                          MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
 
@@ -294,12 +294,12 @@ public:
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector = true);
+                                            const std::string& vTypes, int detectPersons, bool showDetector = true);
 
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector = true);
+                                            const std::string& vTypes, int detectPersons, bool showDetector = true);
 
     /** @brief Creates an instance of an e3 detector using the given values
      *

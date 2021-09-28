@@ -95,9 +95,7 @@ public:
         return getEdgePos();
     }
 
-    double getBackPositionOnLane(const MSLane* /*lane*/) const {
-        return getEdgePos();
-    }
+    double getBackPositionOnLane(const MSLane* lane) const;
 
     Position getPosition(const double /*offset*/) const {
         return getPosition();

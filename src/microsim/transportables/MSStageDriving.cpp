@@ -115,10 +115,15 @@ MSStageDriving::getDirection() const {
     } else if (myArrived >= 0) {
         return MSPModel::UNDEFINED_DIRECTION;
     } else {
-        // vehicle may already have passed the lane (check whether this is correct)
         return MSPModel::FORWARD;
     }
 }
+
+const MSLane*
+MSStageDriving::getLane() const {
+    return myVehicle != nullptr ? myVehicle->getLane() : nullptr;
+}
+
 
 Position
 MSStageDriving::getPosition(SUMOTime /* now */) const {

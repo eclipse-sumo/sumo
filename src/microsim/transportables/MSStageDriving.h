@@ -84,6 +84,8 @@ public:
     /// @brief Return the movement directon on the edge
     int getDirection() const; 
 
+    const MSLane* getLane() const; 
+
     MSStoppingPlace* getOriginStop() const {
         return myOriginStop;
     }

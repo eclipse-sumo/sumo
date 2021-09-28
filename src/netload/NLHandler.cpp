@@ -990,6 +990,16 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
 
     double endPosition = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, std::numeric_limits<double>::max());
     const std::string lanes = attrs.getOpt<std::string>(SUMO_ATTR_LANES, id.c_str(), ok, ""); // lanes has priority to lane
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            return;
+        }
+    }
     if (!ok) {
         return;
     }
@@ -1135,13 +1145,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         // specification by a lane sequence
         myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, frequency,
                                           haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                          vTypes, friendlyPos, showDetector,
+                                          vTypes, detectPersons, friendlyPos, showDetector,
                                           tlls, cToLane);
     } else {
         // specification by start or end lane
         myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, frequency,
                                           haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                          vTypes, friendlyPos, showDetector,
+                                          vTypes, detectPersons, friendlyPos, showDetector,
                                           tlls, cToLane);
     }
 

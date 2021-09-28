@@ -63,7 +63,7 @@ public:
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                    MSLane* lane, double startPos, double endPos, double detLength,
                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                   const std::string& vTypes, bool showDetector);
+                   const std::string& vTypes, int detectPersons, bool showDetector);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -83,7 +83,7 @@ public:
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                    std::vector<MSLane*> lanes, double startPos, double endPos,
                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                   const std::string& vTypes, bool showDetector);
+                   const std::string& vTypes, int detectPersons, bool showDetector);
 
 
     /// @brief Destructor

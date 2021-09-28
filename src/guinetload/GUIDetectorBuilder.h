@@ -97,12 +97,12 @@ public:
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector) override;
+                                            const std::string& vTypes, int detectPersons, bool showDetector) override;
 
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector) override;
+                                            const std::string& vTypes, int detectPersons, bool showDetector) override;
 
 
     /** @brief Creates an instance of an e3 detector using the given values
