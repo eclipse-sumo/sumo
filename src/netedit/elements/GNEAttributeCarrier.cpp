@@ -979,53 +979,48 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-
-/************************/
+    /* */
         
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ONEWAY,
                                               GNEAttributeProperties::BOOL,
-                                              "Whether one-way traffic is mostly common for this edgeType",
-                                              "false");
+                                              "Whether one-way traffic is mostly common for this edgeType");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DISCARD,
                                               GNEAttributeProperties::BOOL,
-                                              "Whether edges of this edgeType shall be discarded",
-                                              "false");
+                                              "Whether edges of this edgeType shall be discarded");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTHRESOLUTION,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The resolution for interpreting custom (noisy) lane widths of this edgeType [m]",
-                                              "-1");
+                                              GNEAttributeProperties::FLOAT,
+                                              "The resolution for interpreting custom (noisy) lane widths of this edgeType [m]");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_MAXWIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The maximum width for lanes of this edgeType [m]",
-                                              "0");
+                                              GNEAttributeProperties::FLOAT,
+                                              "The maximum width for lanes of this edgeType [m]");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_MINWIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The maximum width for lanes of this edgeType [m]",
-                                              "0");
+                                              GNEAttributeProperties::FLOAT,
+                                              "The maximum width for lanes of this edgeType [m]");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The width of the sidewalk that should be added as an additional lane",
-                                              "0");
+                                              GNEAttributeProperties::FLOAT,
+                                              "The width of the sidewalk that should be added as an additional lane");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The width of the bike lane that should be added as an additional lane",
-                                              "0");
+                                              GNEAttributeProperties::FLOAT,
+                                              "The width of the bike lane that should be added as an additional lane");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+    /* */
+
     }
     currentTag = SUMO_TAG_LANETYPE;
     {
