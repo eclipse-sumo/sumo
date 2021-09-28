@@ -346,6 +346,9 @@ protected:
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
+    /// @brief shift lane index
+    void shiftLaneIndex();
+
     /// @brief calculate perpendicular line between lane parents
     void calculatePerpendicularLine(const double endLaneposition);
 

@@ -584,6 +584,15 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
 }
 
 
+void 
+GNEAdditional::shiftLaneIndex() {
+    // get new lane parent vector
+    std::vector<GNELane*> newLane = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};
+    // replace parent elements
+    replaceParentElements(this, newLane);
+}
+
+
 void
 GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
     if (getParentEdges().empty()) {
