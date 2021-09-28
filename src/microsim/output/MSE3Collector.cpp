@@ -338,7 +338,6 @@ MSE3Collector::reset() {
 void
 MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder) {
     if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
-        bool keep = false;
         const MSBaseVehicle& v = dynamic_cast<const MSBaseVehicle&>(veh);
         for (MSTransportable* p : v.getPersons()) {
             enter(*p, entryTimestep, fractionTimeOnDet, entryReminder);
@@ -381,7 +380,6 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
 void
 MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimestep) {
     if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
-        bool keep = false;
         const MSBaseVehicle& v = dynamic_cast<const MSBaseVehicle&>(veh);
         for (MSTransportable* p : v.getPersons()) {
             leaveFront(*p, leaveTimestep);
@@ -404,7 +402,6 @@ MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimest
 void
 MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet) {
     if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
-        bool keep = false;
         const MSBaseVehicle& v = dynamic_cast<const MSBaseVehicle&>(veh);
         for (MSTransportable* p : v.getPersons()) {
             leave(*p, leaveTimestep, fractionTimeOnDet);
