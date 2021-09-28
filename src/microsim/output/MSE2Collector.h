@@ -624,7 +624,7 @@ private:
      * @param enteredLane The entry lane
      * @return A vehicle info which can be used to store information about the vehicle's stay on the detector
      */
-    VehicleInfo* makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const;
+    VehicleInfo* makeVehicleInfo(const SUMOTrafficObject& veh, const MSLane* enteredLane) const;
 
     /** @brief Calculates the time loss for a segment with constant vmax
      *

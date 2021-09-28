@@ -743,11 +743,10 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSM
 
 
 bool
-MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
-    if (!tObject.isVehicle()) {
+MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+    if (!veh.isVehicle()) {
         return false;
     }
-    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if (DEBUG_COND) {
         std::cout << std::endl << SIMTIME << " notifyEnter() (detID = " << myID << " on lane '" << myLane->getID() << "')"
@@ -833,7 +832,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
 
 
 MSE2Collector::VehicleInfo*
-MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const {
+MSE2Collector::makeVehicleInfo(const SUMOTrafficObject& veh, const MSLane* enteredLane) const {
     // The vehicle's distance to the detector end
     int j = (int)(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) - myLanes.begin());
     assert(j >= 0 && j < (int)myLanes.size());
