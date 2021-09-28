@@ -341,6 +341,15 @@ struct GUIVisualizationAdditionalSettings {
 
     /// @brief Vaporizer size
     static const double vaporizerSize;
+
+    /// @brief connection color
+    static const RGBColor connectionColor;
+
+    /// @brief arrow width
+    static const double arrowWidth;
+
+    /// @brief arrow length
+    static const double arrowLength;
 };
 
 

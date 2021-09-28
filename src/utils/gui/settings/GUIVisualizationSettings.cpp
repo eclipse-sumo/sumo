@@ -119,6 +119,9 @@ const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0);
 const double GUIVisualizationAdditionalSettings::routeProbeSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0);
 const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0);
+const double GUIVisualizationAdditionalSettings::arrowWidth(1);
+const double GUIVisualizationAdditionalSettings::arrowLength(0.25);
 
 // -------------------------------------------------------------------------
 // detector values
