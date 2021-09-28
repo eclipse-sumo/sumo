@@ -631,6 +631,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
+        // draw lines
+        drawParentChildLines(s);
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // scale
@@ -723,6 +725,20 @@ GNEAdditional::getPathElementArrivalPos() const {
 const std::map<std::string, std::string>&
 GNEAdditional::getACParametersMap() const {
     return getParametersMap();
+}
+
+
+void
+GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s) const {
+    // draw parent lines
+    for (const auto &parent : getParentAdditionals()) {
+        GNEGeometry::drawChildLine(s, getPositionInView(), parent->getPositionInView(), RGBColor::YELLOW, false);
+    }
+    // draw lines to children
+    for (const auto &child : getChildAdditionals()) {
+        GNEGeometry::drawParentLine(s, getPositionInView(), child->getPositionInView(), RGBColor::YELLOW, 
+        myNet->getViewNet()->isAttributeCarrierInspected(this));
+    }
 }
 
 
