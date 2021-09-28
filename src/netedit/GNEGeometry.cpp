@@ -17,7 +17,7 @@
 ///
 // File for geometry classes and functions
 /****************************************************************************/
-#include <netedit/elements/GNEHierarchicalElement.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
@@ -959,6 +959,77 @@ GNEGeometry::drawDottedSquaredShape(const DottedContourType type, const GUIVisua
     shape.add(pos);
     // draw using drawDottedContourClosedShape
     drawDottedContourClosedShape(type, s, shape, exaggeration);
+}
+
+
+void 
+GNEGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &parent, const Position& child, 
+    const RGBColor &color, const bool drawEntire) {
+    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
+        // calculate rotation
+        const double rot = RAD2DEG(parent.angleTo2D(child)) + 90;
+        // calculate distance between origin and destiny
+        const double distanceSquared = parent.distanceSquaredTo2D(child);
+        // Add a draw matrix for details
+        GLHelper::pushMatrix();
+        // move back
+        glTranslated(0, 0, -1);
+        // set color
+        GLHelper::setColor(color);
+        // draw box line
+        if (drawEntire) {
+            GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .05);
+        } else {
+            // continue depending of distanceSquared (5*5)
+            if (distanceSquared > 25) {
+                // draw box line with lenght 5
+                GLHelper::drawBoxLine(parent, rot, 5, .05);
+                // draw arrow depending of distanceSquared (10*10)
+                if (distanceSquared > 100) {
+                    // calculate positionVector between both points
+                    const PositionVector vector = {parent, child};
+                    // draw arrow at end
+                    GLHelper::drawTriangleAtEnd(parent, vector.positionAtOffset2D(5), (double) 1, (double) .25, 0.2);
+                }
+            }
+        }
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+
+void 
+GNEGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &child, const Position& parent, 
+    const RGBColor &color, const bool drawEntire) {
+    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
+        // calculate distance between origin and destiny
+        const double distanceSquared = child.distanceSquaredTo2D(parent);
+        // calculate rotation
+        const double rot = RAD2DEG(child.angleTo2D(parent)) + 90;
+        // Add a draw matrix for details
+        GLHelper::pushMatrix();
+        // move back
+        glTranslated(0, 0, -1);
+        // set color
+        GLHelper::setColor(color);
+        // draw box line
+        if (drawEntire) {
+            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .05);
+        } else {
+            GLHelper::drawBoxLine(child, rot, 5, .05);
+            // draw arrow depending of distanceSquared (10*10)
+            if (distanceSquared > 100) {
+                // calculate positionVector between both points
+                const PositionVector vector = {child, parent};
+                // draw arrow at end
+                GLHelper::drawTriangleAtEnd(child, vector.positionAtOffset2D(5), (double) 1, (double) .25, 0.2);
+            }
+        }
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
 }
 
 
