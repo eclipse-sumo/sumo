@@ -41,6 +41,7 @@
 // ===========================================================================
 class SUMOTrafficObject;
 class OutputDevice;
+class MSTransportable;
 
 
 // ===========================================================================
@@ -117,6 +118,10 @@ public:
         /// @}
 
 
+        double getPosition() const {
+            return myPosition;
+        }
+
     private:
         /// @brief The parent collector
         MSE3Collector& myCollector;
@@ -191,6 +196,10 @@ public:
         */
         bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
+
+        double getPosition() const {
+            return myPosition;
+        }
 
 
     private:
@@ -342,7 +351,9 @@ public:
     virtual void clearState();
 
 protected:
-    /// @brief The detector's entries
+    void notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos);
+
+protected:
     CrossSectionVector myEntries;
 
     /// @brief The detector's exits
