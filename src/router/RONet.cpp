@@ -585,7 +585,6 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
     for (std::map<const int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
-            RORoutable* const first = i->second.front();
             bool bulk = true;
             for (RORoutable* const r : i->second) {
                 myThreadPool.add(new RoutingTask(r, removeLoops, myErrorHandler), workerIndex);
