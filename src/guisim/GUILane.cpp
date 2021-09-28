@@ -165,7 +165,7 @@ GUILane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notif
 
 
 void
-GUILane::removeParking(MSVehicle* remVehicle) {
+GUILane::removeParking(MSBaseVehicle* remVehicle) {
     FXMutexLock locker(myLock);
     return MSLane::removeParking(remVehicle);
 }

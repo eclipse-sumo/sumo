@@ -47,7 +47,7 @@ GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, const std::string &desc
 
 
 GNEChangeGroup::~GNEChangeGroup() {
-    register GNEChange *change;
+    GNEChange* change;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
@@ -94,7 +94,7 @@ GNEChangeGroup::empty() const {
 
 void
 GNEChangeGroup::undo() {
-    register GNEChange *change;
+    GNEChange* change;
     while (undoList) {
         change = undoList;
         undoList = undoList->next;
@@ -106,7 +106,7 @@ GNEChangeGroup::undo() {
 
 
 void GNEChangeGroup::redo() {
-    register GNEChange *change;
+    GNEChange* change;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
@@ -119,8 +119,8 @@ void GNEChangeGroup::redo() {
 
 int
 GNEChangeGroup::size() const {
-    register FXuint result = sizeof(GNEChangeGroup);
-    register GNEChange *change;
+    FXuint result = sizeof(GNEChangeGroup);
+    GNEChange* change;
     for (change = undoList; change; change = change->next) {
         result += change->size();
     }

@@ -137,7 +137,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        crossing_by_junction_angle_sorter& operator=(const crossing_by_junction_angle_sorter& s);
+        crossing_by_junction_angle_sorter& operator=(const crossing_by_junction_angle_sorter& s) = delete;
 
     };
     /** @brief Assures correct order for same-angle opposite-direction edges

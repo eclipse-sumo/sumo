@@ -148,7 +148,7 @@ public:
     MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
 
     /// @brief remove parking vehicle
-    void removeParking(MSVehicle* veh);
+    void removeParking(MSBaseVehicle* veh);
 
     /** @brief Sets the information about a vehicle lapping into this lane
      *
