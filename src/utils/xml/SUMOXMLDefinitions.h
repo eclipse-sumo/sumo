@@ -1243,6 +1243,8 @@ enum SumoXMLAttr {
     GNE_ATTR_OPPOSITE,
     /// @brief center (used in stoppingPlaces)
     GNE_ATTR_CENTER,
+    /// @brief shift lane index (only used by elements over lanes)
+    GNE_ATTR_SHIFTLANEINDEX,
 
     // @}
 
