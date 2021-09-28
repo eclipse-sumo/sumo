@@ -131,7 +131,7 @@ GNEStoppingPlace::fixAdditionalProblem() {
 
 Position
 GNEStoppingPlace::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
@@ -144,18 +144,18 @@ GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
     // update geometry
     updateGeometry();
     // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // grow with "width"
     if (myTagProperty.hasAttribute(SUMO_ATTR_WIDTH)) {
         // we cannot use "getAttributeDouble(...)"
-        myBoundary.growWidth(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
+        myAdditionalBoundary.growWidth(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
     }
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
     // add parking spaces
     for (const auto& parkingSpace : getChildAdditionals()) {
         if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
-            myBoundary.add(parkingSpace->getCenteringBoundary());
+            myAdditionalBoundary.add(parkingSpace->getCenteringBoundary());
         }
     }
     // add additional into RTREE again

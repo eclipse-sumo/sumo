@@ -53,21 +53,19 @@ GNEClosingLaneReroute::getMoveOperation(const double /*shapeOffset*/) {
 
 void
 GNEClosingLaneReroute::updateGeometry() {
-    // use geometry of rerouter parent
-    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
+    // no update geometry
 }
 
 
 Position
 GNEClosingLaneReroute::getPositionInView() const {
-    return myBoundary.getCenter();
+    return getParentAdditionals().front()->getPositionInView();
 }
 
 
 void
 GNEClosingLaneReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
 }
 
 

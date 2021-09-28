@@ -396,7 +396,7 @@ GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBCol
             // get busStop center
             const Position busStopCenter = myAdditionalGeometry.getShape().getLineCenter();
             // get access center
-            const Position accessCenter = access->getAdditionalGeometry().getShape().front();
+            const Position accessCenter = access->getAdditionalGeometry().getShape().getPolygonCenter();
             GLHelper::drawBoxLine(accessCenter,
                                   RAD2DEG(busStopCenter.angleTo2D(accessCenter)) - 90,
                                   busStopCenter.distanceTo2D(accessCenter), .05);

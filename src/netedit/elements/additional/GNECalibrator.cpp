@@ -102,20 +102,17 @@ GNECalibrator::updateGeometry() {
 
 Position
 GNECalibrator::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNECalibrator::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // first reset boundary
-    myBoundary.reset();
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 

@@ -231,7 +231,7 @@ GNEAdditional::openAdditionalDialog() {
 
 Boundary
 GNEAdditional::getCenteringBoundary() const {
-    return myBoundary;
+    return myAdditionalBoundary;
 }
 
 

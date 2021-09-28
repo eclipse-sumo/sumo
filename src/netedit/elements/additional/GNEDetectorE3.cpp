@@ -77,13 +77,13 @@ GNEDetectorE3::updateCenteringBoundary(const bool updateGrid) {
     // now update geometry
     updateGeometry();
     // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // add positions of all childrens
     for (const auto& additionalChildren : getChildAdditionals()) {
-        myBoundary.add(additionalChildren->getPositionInView());
+        myAdditionalBoundary.add(additionalChildren->getPositionInView());
     }
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);

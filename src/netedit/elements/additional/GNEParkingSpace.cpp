@@ -75,17 +75,17 @@ GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
     const double width = myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
     const double length = myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
     // first reset boundary
-    myBoundary.reset();
+    myAdditionalBoundary.reset();
     // add position
-    myBoundary.add(myPosition);
+    myAdditionalBoundary.add(myPosition);
     // grow width and lenght
     if (myWidth > myLength) {
-        myBoundary.grow(width);
+        myAdditionalBoundary.grow(width);
     } else {
-        myBoundary.grow(length);
+        myAdditionalBoundary.grow(length);
     }
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
     // update centering boundary of parent
     getParentAdditionals().front()->updateCenteringBoundary(true);
 }

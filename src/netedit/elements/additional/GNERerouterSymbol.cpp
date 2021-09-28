@@ -63,23 +63,26 @@ GNERerouterSymbol::updateGeometry() {
         // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
     }
-    // add shape boundary
-    myBoundary = mySymbolGeometries.front().getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
 }
 
 
 Position
 GNERerouterSymbol::getPositionInView() const {
-    return mySymbolGeometries.front().getShape().getCentroid();
+    if (mySymbolGeometries.size() > 0) {
+        return mySymbolGeometries.front().getShape().getPolygonCenter();
+    } else {
+        return myAdditionalGeometry.getShape().getPolygonCenter();
+    }
 }
 
 
 void
 GNERerouterSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // just update geometry
-    updateGeometry();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
+    // grow
+    myAdditionalBoundary.grow(10);
 }
 
 

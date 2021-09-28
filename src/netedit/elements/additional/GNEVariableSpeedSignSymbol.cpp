@@ -54,18 +54,16 @@ void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), 1.5, 0);
-    // update boundary (needed for connections)
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
 }
 
 
 void
 GNEVariableSpeedSignSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // just update geometry
-    updateGeometry();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
+    // grow
+    myAdditionalBoundary.grow(10);
 }
 
 

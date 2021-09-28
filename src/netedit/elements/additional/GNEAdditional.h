@@ -300,7 +300,7 @@ public:
 
 protected:
     /// @brief Additional Boundary
-    Boundary myBoundary;
+    Boundary myAdditionalBoundary;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
     GNEGeometry::Geometry myAdditionalGeometry;
