@@ -253,7 +253,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
+    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder, bool isBackward = false);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -272,7 +272,7 @@ public:
     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
     */
-    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet);
+    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet, bool isBackward = false);
 
 
     /// @name Methods returning current values
