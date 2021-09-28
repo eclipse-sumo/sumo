@@ -125,7 +125,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
             // draw parent and child lines
-            drawParentChildLines(s);
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // translate to position
             glTranslated(myPosition.x(), myPosition.y(), 0);
             // rotate

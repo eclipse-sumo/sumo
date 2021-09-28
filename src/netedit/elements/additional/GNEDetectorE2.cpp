@@ -264,7 +264,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
             // draw parent and child lines
-            drawParentChildLines(s);
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // set color
             GLHelper::setColor(E2Color);
             // draw geometry

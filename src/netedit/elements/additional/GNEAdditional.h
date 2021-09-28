@@ -296,7 +296,7 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
     /// @brief draw parent and child lines
-    void drawParentChildLines(const GUIVisualizationSettings& s) const;
+    void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const;
 
 protected:
     /// @brief Additional Boundary

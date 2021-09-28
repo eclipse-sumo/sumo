@@ -115,7 +115,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
         // draw lines
-        drawParentChildLines(s);
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Set color
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);

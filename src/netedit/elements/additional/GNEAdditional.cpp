@@ -632,7 +632,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
         // draw parent and child lines
-        drawParentChildLines(s);
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // scale
@@ -656,7 +656,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
         // draw parent and child lines
-        drawParentChildLines(s);
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, pos, exaggeration, 0.4, -0.5, -0.5);
         // Pop connection matrix
@@ -731,14 +731,14 @@ GNEAdditional::getACParametersMap() const {
 
 
 void
-GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s) const {
+GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const {
     // draw parent lines
     for (const auto &parent : getParentAdditionals()) {
-        GNEGeometry::drawChildLine(s, getPositionInView(), parent->getPositionInView(), RGBColor::YELLOW, false);
+        GNEGeometry::drawChildLine(s, getPositionInView(), parent->getPositionInView(), color, false);
     }
     // draw lines to children
     for (const auto &child : getChildAdditionals()) {
-        GNEGeometry::drawParentLine(s, getPositionInView(), child->getPositionInView(), RGBColor::YELLOW, 
+        GNEGeometry::drawParentLine(s, getPositionInView(), child->getPositionInView(), color, 
         myNet->getViewNet()->isAttributeCarrierInspected(this));
     }
 }

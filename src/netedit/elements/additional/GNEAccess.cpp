@@ -164,7 +164,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
         // draw parent and child lines
-        drawParentChildLines(s);
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // set color depending of selection
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);

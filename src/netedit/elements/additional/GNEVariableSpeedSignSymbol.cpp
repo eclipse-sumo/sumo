@@ -101,7 +101,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
         // draw parent and child lines
-        drawParentChildLines(s);
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // translate to position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane

@@ -128,7 +128,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
             // draw parent and child lines
-            drawParentChildLines(s);
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw E1Instant shape
             drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
             // Check if the distance is enought to draw details

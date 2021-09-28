@@ -114,7 +114,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
         // draw parent and child lines
-        drawParentChildLines(s);
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw rerouter symbol over all lanes
         for (const auto& symbolGeometry : mySymbolGeometries) {
             // push symbol matrix
