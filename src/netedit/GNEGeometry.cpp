@@ -989,7 +989,11 @@ GNEGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &p
                     // calculate positionVector between both points
                     const PositionVector vector = {parent, child};
                     // draw arrow at end
-                    GLHelper::drawTriangleAtEnd(parent, vector.positionAtOffset2D(5), (double) 1, (double) .25, 0.2);
+                    GLHelper::drawTriangleAtEnd(parent, 
+                        vector.positionAtOffset2D(5), 
+                        s.additionalSettings.arrowWidth, 
+                        s.additionalSettings.arrowLength, 
+                        s.additionalSettings.arrowWidth);
                 }
             }
         }
@@ -1024,7 +1028,11 @@ GNEGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &ch
                 // calculate positionVector between both points
                 const PositionVector vector = {child, parent};
                 // draw arrow at end
-                GLHelper::drawTriangleAtEnd(child, vector.positionAtOffset2D(5), (double) 1, (double) .25, 0.2);
+                GLHelper::drawTriangleAtEnd(child, 
+                    vector.positionAtOffset2D(5), 
+                    s.additionalSettings.arrowWidth, 
+                    s.additionalSettings.arrowLength, 
+                    s.additionalSettings.arrowWidth);
             }
         }
         // pop draw matrix
