@@ -47,7 +47,8 @@ public:
     MEInductLoop(const std::string& id,
                  MESegment* s,
                  double positionInMeters,
-                 const std::string& vTypes);
+                 const std::string& vTypes,
+                 int detectPersons);
 
 
     ~MEInductLoop();

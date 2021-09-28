@@ -1122,8 +1122,13 @@ MSLCM_LC2013::_wantsChange(
         neigh = preb[preb.size() - 1];
         curr = neigh;
         best = neigh;
-        bestLaneOffset = -1;
-        curr.bestLaneOffset = -1;
+        if (myVehicle.hasStops() && myVehicle.getNextStop().isOpposite) {
+            bestLaneOffset = 0;
+            curr.bestLaneOffset = 0;
+        } else {
+            bestLaneOffset = -1;
+            curr.bestLaneOffset = -1;
+        }
         neighDist = neigh.length;
         currentDist = curr.length;
     }
@@ -1845,7 +1850,7 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
             //const bool blockedWantsUrgentRight = (((*blocked)->getLaneChangeModel().getOwnState() & LCA_RIGHT != 0)
             //    && ((*blocked)->getLaneChangeModel().getOwnState() & LCA_URGENT != 0));
 
-            if (myVehicle.getSpeed() < ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())
+            if (myVehicle.getSpeed() < myVehicle.getCarFollowModel().getMaxDecel()
                     //|| blockedWantsUrgentRight  // VARIANT_10 (helpblockedRight)
                ) {
                 if ((*blocked)->getSpeed() < SUMO_const_haltingSpeed) {

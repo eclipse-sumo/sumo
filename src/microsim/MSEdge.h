@@ -169,6 +169,10 @@ public:
         return *myLanes;
     }
 
+    inline int getNumLanes() const {
+        return (int)myLanes->size();
+    }
+
     /// @brief return total number of vehicles on this edges lanes or segments
     int getVehicleNumber() const;
 
@@ -542,6 +546,8 @@ public:
      */
     MSLane* getDepartLane(MSVehicle& veh) const;
 
+    /// @brief consider given departLane parameter (only for validating speeds)
+    MSLane* getDepartLaneMeso(SUMOVehicle& veh) const;
 
     /** @brief Returns the last time a vehicle could not be inserted
      * @return The current value

@@ -26,6 +26,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSQueueExport.h"
 #include <microsim/MSNet.h>
@@ -37,6 +38,11 @@
 // ===========================================================================
 void
 MSQueueExport::write(OutputDevice& of, SUMOTime timestep) {
+    const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    const SUMOTime period = string2time(OptionsCont::getOptions().getString("queue-output.period"));
+    if (period > 0 && (timestep - begin) % period != 0) {
+        return;
+    }
     of.openTag("data").writeAttr("timestep", time2string(timestep));
     writeEdge(of);
     of.closeTag();

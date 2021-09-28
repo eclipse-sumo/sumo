@@ -590,14 +590,16 @@ class PlatoonManager(traci.StepListener):
                             traci.vehicle.changeLane(veh.getID(), leaderLane, self._controlInterval)
                         except traci.exceptions.TraCIException as e:
                             if rp.VERBOSITY >= 1:
-                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
+                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" %
+                                     (veh.getID(), e.message))
                     else:
                         # leader is on another edge, just stay on the current and hope it is the right one
                         try:
                             traci.vehicle.changeLane(veh.getID(), leaderLane, self._controlInterval)
                         except traci.exceptions.TraCIException as e:
                             if rp.VERBOSITY >= 1:
-                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
+                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" %
+                                     (veh.getID(), e.message))
 
     def _isConnected(self, vehID):
         '''_isConnected(string) -> bool

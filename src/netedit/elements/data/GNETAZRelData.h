@@ -38,7 +38,7 @@
 class GNETAZRelData : public GNEGenericData {
 
 public:
-    /**@brief Constructor
+    /**@brief Constructor for two TAZs
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] fromTAZ pointer to from TAZ
      * @param[in] toTAZ pointer to to TAZ
@@ -47,11 +47,20 @@ public:
     GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
                   const std::map<std::string, std::string>& parameters);
 
+    /**@brief Constructor for one TAZ
+     * @param[in] dataIntervalParent pointer to data interval parent
+     * @param[in] TAZ pointer to TAZ
+     * @param[in] parameters parameters map
+     */
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
+                  const std::map<std::string, std::string>& parameters);
+
     /// @brief Destructor
     ~GNETAZRelData();
 
     /// @brief get TAZ rel data color
     const RGBColor& getColor() const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current TAZ rel data is visible
     bool isGenericDataVisible() const;
@@ -90,6 +99,7 @@ public:
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
+
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement
@@ -176,7 +186,17 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+protected:
+    /// @brief Geometry for TAZRel data
+    GNEGeometry::Geometry myTAZRelGeometry;
+
+    /// @brief Geometry for TAZRel (center)
+    GNEGeometry::Geometry myTAZRelGeometryCenter;
+
 private:
+    /// @brief check draw conditions
+    bool drawTAZRel() const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
@@ -188,6 +208,10 @@ private:
 
     /// @brief Invalidated assignment operator.
     GNETAZRelData& operator=(const GNETAZRelData&) = delete;
+
+    mutable RGBColor myColor;
+
+    mutable double myLastWidth;
 };
 
 /****************************************************************************/

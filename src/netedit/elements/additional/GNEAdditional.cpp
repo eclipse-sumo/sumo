@@ -43,13 +43,12 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
-    myAdditionalName(additionalName),
-    myBlockMovement(blockMovement) {
+    myAdditionalName(additionalName) {
 }
 
 
@@ -62,13 +61,12 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNETAZElement*>& TAZElementParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
-    myAdditionalName(additionalName),
-    myBlockMovement(blockMovement) {
+    myAdditionalName(additionalName) {
 }
 
 
@@ -237,12 +235,6 @@ GNEAdditional::getCenteringBoundary() const {
 }
 
 
-bool
-GNEAdditional::isAdditionalBlocked() const {
-    return myBlockMovement;
-}
-
-
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -400,14 +392,14 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // declare trim geometry to draw
-            const GNEGeometry::DottedGeometry pathDottedGeometry((segment->isFirstSegment() || segment->isLastSegment()) ? GNEGeometry::DottedGeometry(s, E2Geometry.getShape(), false) : lane->getDottedLaneGeometry());
+            const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : lane->getLaneShape();
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::FRONT, s, pathDottedGeometry, E2DetectorWidth, segment->isFirstSegment(), segment->isLastSegment());
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -463,7 +455,15 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourGeometry(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), E2DetectorWidth, false, false);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                                                    E2DetectorWidth, 1, false, false);
+            }
+        }
+            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            // draw lane2lane dotted geometry
+            if (fromLane->getLane2laneConnections().exist(toLane)) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                                                    E2DetectorWidth, 1, false, false);
             }
         }
     }
@@ -476,9 +476,9 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
-    for (const auto& i : myTagProperty) {
-        if (i.hasStaticDefaultValue()) {
-            setAttribute(i.getAttr(), i.getDefaultValue());
+    for (const auto& attr : myTagProperty) {
+        if (attr.hasStaticDefaultValue()) {
+            setAttribute(attr.getAttr(), attr.getDefaultValue());
         }
     }
 }
@@ -636,8 +636,6 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
         }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, exaggeration, -0.5, -0.5, false, 0.4);
         // Pop layer matrix
         GLHelper::popMatrix();
         // Pop name
@@ -646,6 +644,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, pos, exaggeration, 0.4, -0.5, -0.5);
         // Draw child connections
         drawHierarchicalConnections(s, this, exaggeration);
         // Pop connection matrix

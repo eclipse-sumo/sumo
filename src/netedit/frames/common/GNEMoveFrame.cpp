@@ -61,8 +61,7 @@ FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,   FXGroupBox, ShiftShapeGeometryMa
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::CommonModeOptions::CommonModeOptions(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Common move options", GUIDesignGroupBoxFrame),
-    myMoveFrameParent(moveFrameParent) {
+    FXGroupBox(moveFrameParent->myContentFrame, "Common move options", GUIDesignGroupBoxFrame) {
     // Create checkbox for enable/disable move whole polygons
     myAllowChangeLanes = new FXCheckButton(this, "Allow change Lane", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAllowChangeLanes->setCheck(FALSE);
@@ -208,7 +207,7 @@ GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, v
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
     // begin undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("shift edge geometries");
+    myMoveFrameParent->getViewNet()->getUndoList()->begin("shift edge geometries");
     // iterate over edges
     for (const auto& edge : edges) {
         // get edge geometry
@@ -230,7 +229,7 @@ GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, v
         edge->setAttribute(GNE_ATTR_SHAPE_END, toString(shapeEnd), undoList);
     }
     // end undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    myMoveFrameParent->getViewNet()->getUndoList()->end();
     return 1;
 }
 
@@ -313,7 +312,7 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
     // begin undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("change Z values in selection");
+    myMoveFrameParent->getViewNet()->getUndoList()->begin("change Z values in selection");
     // iterate over junctions
     for (const auto& junction : junctions) {
         if (junction->getNBNode()->hasCustomShape()) {
@@ -370,16 +369,16 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
         }
         // set new start and end positions
         if ((edge->getAttribute(GNE_ATTR_SHAPE_START).size() > 0) &&
-                (shapeStart.distanceSquaredTo2D(edge->getParentJunctions().front()->getNBNode()->getPosition()) < 2)) {
+                (shapeStart.distanceSquaredTo2D(edge->getFromJunction()->getNBNode()->getPosition()) < 2)) {
             edge->setAttribute(GNE_ATTR_SHAPE_START, toString(shapeStart), undoList);
         }
         if ((edge->getAttribute(GNE_ATTR_SHAPE_END).size() > 0) &&
-                (shapeEnd.distanceSquaredTo2D(edge->getParentJunctions().back()->getNBNode()->getPosition()) < 2)) {
+                (shapeEnd.distanceSquaredTo2D(edge->getToJunction()->getNBNode()->getPosition()) < 2)) {
             edge->setAttribute(GNE_ATTR_SHAPE_END, toString(shapeEnd), undoList);
         }
     }
     // end undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    myMoveFrameParent->getViewNet()->getUndoList()->end();
     // update info label
     updateInfoLabel();
     return 1;
@@ -558,7 +557,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const auto polygons = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
     const auto POIs = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true);
     // begin undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_begin("shift shape geometries");
+    myMoveFrameParent->getViewNet()->getUndoList()->begin("shift shape geometries");
     // iterate over shapes
     for (const auto& polygon : polygons) {
         // get shape geometry
@@ -581,7 +580,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
         }
     }
     // end undo-redo
-    myMoveFrameParent->getViewNet()->getUndoList()->p_end();
+    myMoveFrameParent->getViewNet()->getUndoList()->end();
     return 1;
 }
 

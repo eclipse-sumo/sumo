@@ -101,6 +101,10 @@ public:
         return myParameter.depart;
     }
 
+    /// @brief update depart time (for triggered persons)
+    inline void setDepart(SUMOTime t) {
+        myParameter.depart = t;
+    }
 
     inline SUMOVehicleClass getVClass() const {
         return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;

@@ -193,7 +193,7 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
     /// @brief overwrite all values of GNEVehicleType with a SUMOVTypeParameter
-    static void overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList);
+    static void overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList);
 
 protected:
     /// @brief flag to check if this GNEVehicleType is a default vehicle Type (For Vehicles, Pedestrians...)

@@ -244,14 +244,33 @@ TLS Link indices can be access using either
 In the sumo-gui you can right-click on a red/green stop bar and select *show
 phases*.
 
-## Actuated Traffic Lights
+## Interaction between signal plans and right-of-way rules
 
-Generally, actuated traffic lights switch in response to traffic (or lack thereof). The different controllers and their features are described below.
+Every traffic light intersection has the right-of-way rules of a
+priority intersection underneath of it. This becomes obvious when
+switching a traffic light off (either in [sumo-gui](../sumo-gui.md)
+with a right-click on the traffic light or by [loading the "off"
+program](#loading_a_new_program)).
 
+The right-of-way rules of this priority intersection come into play when
+defining signal plans with simultaneous conflicting green streams (by
+using *g* and *G* states). These signal plans only work correctly if the
+right-of-way rules force vehicles from the *g* stream to yield to the
+*G* stream. In most cases, this relationship was set correctly by the
+default signal plan.
+
+However, when introducing new *g*/*G* relationships, correctness is only
+ensured by loading the network and the new signal plan into
+[netconvert](../netconvert.md) and thus updating the right-of-way
+rules.
+
+# Traffic Lights that respond to traffic
+
+Generally, the designation "actuated" referse to traffic lights that switch in response to traffic (or lack thereof). The different controllers and their features are described below. SUMO supports several algorithms with this property and they are described below.
 !!! note
     [Mesoscopic simulation](Meso.md) does not support actuated traffic lights.
 
-### Based on Time Gaps
+## Based on Time Gaps
 
 SUMO supports *gap-based* actuated traffic control. This control scheme
 is common in Germany and works by prolonging traffic phases whenever a
@@ -267,17 +286,19 @@ values are equal or only `duration` is given, that phase will have constant
 duration). Additional parameters may be used to configure the control
 algorithm further. These may be given within the `<tlLogic>`-Element as follows:
 
-#### Detectors
+### Detectors
 The time gaps which determine the phase extensions are collected by induction loop detectors.
 These detectors are placed automatically at a configurable distance (see below). If the incoming lanes are too short and there is a sequence of unique predecessor lanes, the detector will be placed on a predecessor lane at the computed distance instead.
 
 Each lane incoming to the traffic light will receive a detector. However, not all detectors can be used in all phases.
-In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase.
-This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
-Sumo will issue a warning a phase or link index does not have usable detectors.
+In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
+A simple fix is often the provide dedicate left turn lanes.
+
+!!! note
+    Sumo will issue a warning of the form "... has no controlling detector" if a phase or link index does not have usable detectors.
 
 
-#### Example
+### Example
 
 ```
 <tlLogic id="0" programID="my_program" offset="0" type="actuated">
@@ -293,7 +314,7 @@ Sumo will issue a warning a phase or link index does not have usable detectors.
   ...
 </tlLogic>
 ```
-#### Parameters
+### Parameters
 Several optional parameters can be used to control the behavior of actuated traffic lights. The examples values in the previous section are the default values for these parameters and their meaning is given below:
 
 - **max-gap**: the maximum time gap between successive vehicles that will cause the current phase to be prolonged
@@ -312,7 +333,7 @@ Some parameters are only used when a signal plan with [dynamic phase selection](
 - **inactive-threshold** (default 180): The parameter sets the time in s after which an inactive phase will be entered preferentially.
 - **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals rather than phase duration
 
-#### Custom Detectors
+### Custom Detectors
 To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane).
 ```
    <param key="gneE42_2" value="customDetector1"/>
@@ -323,13 +344,13 @@ By assigning the special value `NO_DETECTOR`, the detector for a given lane key 
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
     
-#### Lane-specific max-gap
+### Lane-specific max-gap
 To define a max-gap value that differs from the default you can use a param with `key="max-gap:<LANE_ID>"` where LANE_ID is a lane incoming to the traffic light (the detector might lie further upstream).
 ```
    <param key="max-gap:gneE42_2" value="2"/>
 ```
 
-#### Dynamic Phase Selection (Phase Skipping)
+### Dynamic Phase Selection (Phase Skipping)
 When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
 
 - compute the priority for each phase given in 'next'. Priority is primarily given by the number of active detectors for that phase. Active means either of:
@@ -346,7 +367,7 @@ Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/su
 The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
 
 
-#### Visualization
+### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
 set. Also, in [sumo-gui](../sumo-gui.md) detectors can be
 shown/hidden by right-clicking on an actuated traffic light and
@@ -357,7 +378,9 @@ The detectors used by an actuated traffic light will be colored to indicate thei
 - white color indicates that the detector is not used in the current phase
 - red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
 
-### Based on Time Loss
+
+
+## Based on Time Loss
 
 Similar to the control by time gaps between vehicles, a phase
 prolongation can also be triggered by the presence of vehicles with time
@@ -391,34 +414,13 @@ the allowed maximal velocity. See \[Oertel, Robert, and Peter Wagner.
 intersection." Transportation Research Board 2011 (90th Annual Meeting).
 2011.\] for details.
 
-#### Custom Detectors
+### Custom Detectors
 To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined laneAreaDetector.
 ```
    <param key="gneE42_2" value="customDetector1"/>
 ```
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
-
-
-## Interaction between signal plans and right-of-way rules
-
-Every traffic light intersection has the right-of-way rules of a
-priority intersection underneath of it. This becomes obvious when
-switching a traffic light off (either in [sumo-gui](../sumo-gui.md)
-with a right-click on the traffic light or by [loading the "off"
-program](#loading_a_new_program)).
-
-The right-of-way rules of this priority intersection come into play when
-defining signal plans with simultaneous conflicting green streams (by
-using *g* and *G* states). These signal plans only work correctly if the
-right-of-way rules force vehicles from the *g* stream to yield to the
-*G* stream. In most cases, this relationship was set correctly by the
-default signal plan.
-
-However, when introducing new *g*/*G* relationships, correctness is only
-ensured by loading the network and the new signal plan into
-[netconvert](../netconvert.md) and thus updating the right-of-way
-rules.
 
 # Loading a new Program
 

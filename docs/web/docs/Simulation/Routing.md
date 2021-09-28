@@ -210,3 +210,8 @@ performed for time-slices of fixed size by setting the option **--weight-period*
   - When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.
 - *CHWrapper*: This works like *CH* but performs separate preprocessing for every vehicle class that is encountered, thereby
 enabling routing in multi modal scenarios
+
+# Further Options that affect routing
+
+- **--weights.minor-penalty FLOAT** : set a fixed time penalty for passing junctions without having right-of-way (default 1.5s)
+- **--persontrip.walk-opposite-factor FLOAT** : set penality speed factor for walking against the flow of vehicular traffic (see [pedestrian routing](Pedestrians.md#pedestrian_routing)) (default 1)

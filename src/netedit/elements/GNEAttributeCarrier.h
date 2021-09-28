@@ -278,25 +278,6 @@ public:
         } else {
             warningMessage = tagProperties.getTagStr();
         }
-        // check if we're parsing block movement
-        if (attribute == GNE_ATTR_BLOCK_MOVEMENT) {
-            // first check if we can parse
-            if (tagProperties.canBlockMovement()) {
-                // First check if attribute can be parsed to bool
-                parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
-                // check that sucesfully parsed attribute can be converted to type double
-                if (!canParse<bool>(parsedAttribute)) {
-                    abort = true;
-                    // return default value
-                    return parse<T>("0");
-                } else {
-                    // return readed value
-                    return parse<T>(parsedAttribute);
-                }
-            } else {
-                throw ProcessError("Trying to parsing block movement attribute in an AC that cannot be moved");
-            }
-        }
         // obtain attribute properties (Only for improving efficiency)
         const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
         // set a special default value for numerical and boolean attributes (To avoid errors parsing)

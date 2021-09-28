@@ -137,9 +137,9 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
     // set color depending if charging station is charging
     if (myChargingVehicle == true) {
-        GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColorCharge);
+        GLHelper::setColor(s.colorSettings.chargingStationColorCharge);
     } else {
-        GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
+        GLHelper::setColor(s.colorSettings.chargingStationColor);
     }
     const double exaggeration = s.addSize.getExaggeration(s, this);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
@@ -150,7 +150,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // push charging power matrix
         GLHelper::pushMatrix();
         // draw charging power
-        GLHelper::drawText((toString(myChargingPower) + " W").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, s.stoppingPlaceSettings.chargingStationColor, myFGSignRot, FONS_ALIGN_LEFT);
+        GLHelper::drawText((toString(myChargingPower) + " W").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStationColor, myFGSignRot, FONS_ALIGN_LEFT);
         // pop charging power matrix
         GLHelper::popMatrix();
 
@@ -166,11 +166,11 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
 
-        GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColorSign);
+        GLHelper::setColor(s.colorSettings.chargingStationColorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
 
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
-            GLHelper::drawText("C", Position(), .1, 1.6, s.stoppingPlaceSettings.chargingStationColor, myFGSignRot);
+            GLHelper::drawText("C", Position(), .1, 1.6, s.colorSettings.chargingStationColor, myFGSignRot);
         }
 
         glTranslated(5, 0, 0);

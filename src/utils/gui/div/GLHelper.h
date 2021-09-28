@@ -47,6 +47,12 @@ struct GUIVisualizationTextSettings;
 class GLHelper {
 
 public:
+    /// @brief Storage for precomputed sin/cos-values describing a circle
+    static const std::vector<std::pair<double, double> > &getCircleCoords();
+
+    /// @brief normalize angle for lookup in myCircleCoords
+    static int angleLookup(double angleDeg);
+
     /// @brief push matrix
     static void pushMatrix();
 
@@ -286,9 +292,10 @@ public:
      * @param[in] p2 The end of the line at which end the triangle shall be drawn
      * @param[in] tLength The length of the triangle
      * @param[in] tWidth The width of the triangle
+     * @param[in] extraOffset extra offset at end
      */
-    static void drawTriangleAtEnd(const Position& p1, const Position& p2,
-                                  double tLength, double tWidth);
+    static void drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength, 
+                                  double tWidth, const double extraOffset = 0);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
@@ -355,9 +362,6 @@ public:
                                      const double width, const double length, const bool vehicle);
 
 private:
-    /// @brief normalize angle for lookup in myCircleCoords
-    static int angleLookup(double angleDeg);
-
     /// @brief whether the road makes a right turn (or goes straight)
     static bool rightTurn(double angle1, double angle2);
 

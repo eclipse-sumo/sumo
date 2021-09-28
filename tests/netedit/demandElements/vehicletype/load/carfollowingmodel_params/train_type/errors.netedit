@@ -18,26 +18,18 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Invalid train type 'dummy_trainType' used in Car-Following-Attribute trainType
-Debug: Adding vType 'vType0' in GNEChange_DemandElement
-Error: Invalid train type '-3' used in Car-Following-Attribute trainType
-Debug: Adding vType 'vType1' in GNEChange_DemandElement
-Error: Attribute 'trainType' in definition of vType 'vType2' is empty.
-Error: Invalid train type '' used in Car-Following-Attribute trainType
 Error: Invalid parsing embedded VType
-Debug: Adding vType 'vType2' in GNEChange_DemandElement
+Error: Invalid train type '-3' used in Car-Following-Attribute trainType
+Error: Invalid parsing embedded VType
+Error: Attribute 'trainType' in definition of vType 'vType2' is empty.
+Error: Invalid parsing embedded VType
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun122115.5868\netedit.gui\demandElements\vehicletype\load\carfollowingmodel_params\train_type\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\carfollowingmodel_params\train_type\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vType 'vType4' in GNEChange_DemandElement
-Debug: Removing vType 'vType2' in GNEChange_DemandElement
-Debug: Removing vType 'vType1' in GNEChange_DemandElement
-Debug: Removing vType 'vType0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding vType 'vType0' in GNEChange_DemandElement
-Debug: Adding vType 'vType1' in GNEChange_DemandElement
-Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -88,9 +80,6 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced vType 'vType4'
-Debug: Deleting unreferenced vType 'vType2'
-Debug: Deleting unreferenced vType 'vType1'
-Debug: Deleting unreferenced vType 'vType0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

@@ -1,18 +1,18 @@
 Loading net-file from 'net2.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_9_2+0784-39d4ad0 started with time: 0.00
+Simulation version v1_10_0+0253-3244b09 started with time: 0.00
 Simulation ended at time: 1000.00
 Reason: The final simulation step has been reached.
 Performance: 
  Duration: 0.13s
- Real time factor: 7812.5
- UPS: 49171.875000
- UPS-Persons: 285093.750000
+ Real time factor: 7633.59
+ UPS: 48045.801527
+ UPS-Persons: 278564.885496
 Vehicles: 
  Inserted: 105
  Running: 8
  Waiting: 0
-Teleports: 6 (Collisions: 6)
+Teleports: 0 (Collisions: 6)
 Persons: 
  Inserted: 742
  Running: 42

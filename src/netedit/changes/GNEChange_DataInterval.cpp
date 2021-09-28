@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataInterval, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bool forward) :
-    GNEChange(forward, dataInterval->isAttributeCarrierSelected()),
+    GNEChange(Supermode::DATA, forward, dataInterval->isAttributeCarrierSelected()),
     myDataInterval(dataInterval),
     myDataSetParent(dataInterval->getDataSetParent()) {
     myDataInterval->incRef("GNEChange_DataInterval");
@@ -103,22 +103,22 @@ GNEChange_DataInterval::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_DataInterval::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataInterval->getTagStr()).c_str();
+        return ("Undo create " + myDataInterval->getTagStr());
     } else {
-        return ("Undo delete " + myDataInterval->getTagStr()).c_str();
+        return ("Undo delete " + myDataInterval->getTagStr());
     }
 }
 
 
-FXString
+std::string
 GNEChange_DataInterval::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataInterval->getTagStr()).c_str();
+        return ("Redo create " + myDataInterval->getTagStr());
     } else {
-        return ("Redo delete " + myDataInterval->getTagStr()).c_str();
+        return ("Redo delete " + myDataInterval->getTagStr());
     }
 }
 

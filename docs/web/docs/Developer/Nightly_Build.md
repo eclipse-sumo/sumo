@@ -49,7 +49,7 @@ for the build in question.
 The AppVeyor build also provides the binaries as download (currently
 for about six months after the commit). To download choose details 
 using the marker (as above) for the commit from 
-https://github.com/eclipse/sumo/commits/master and then choose the 
+https://github.com/eclipse/sumo/commits/main and then choose the 
 Visual Studio version in question (when in doubt use the latest version)
 and click on artifacts where a bin.zip should be available.
 

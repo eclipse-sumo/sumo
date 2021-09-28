@@ -43,6 +43,43 @@ class GNESelectorFrame : public GNEFrame {
 
 public:
     // ===========================================================================
+    // class SelectionInformation
+    // ===========================================================================
+
+    class SelectionInformation : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        SelectionInformation(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~SelectionInformation();
+
+        /// @brief update information label
+        void updateInformationLabel();
+
+    protected:
+        /// @brief update information label
+        void updateInformationLabel(const std::string &element, int number);
+
+    private:
+        /// @brief  string for keep information
+        std::string myInformation;
+
+        /// @brief information label
+        FXLabel *myInformationLabel;
+
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief Invalidated copy constructor.
+        SelectionInformation(const SelectionInformation&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SelectionInformation& operator=(const SelectionInformation&) = delete;
+    };
+
+    // ===========================================================================
     // class ModificationMode
     // ===========================================================================
 
@@ -194,6 +231,15 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
+        /// @brief process network element selection
+        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect);
+
+        /// @brief process demand element selection
+        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect);
+
+        /// @brief process data element selection
+        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect);
+
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
@@ -219,6 +265,9 @@ public:
 
     /// @brief hide Frame
     void hide();
+
+    /// @brief function called after undo/redo in the current frame
+    void updateFrameAfterUndoRedo();
 
     /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
@@ -248,7 +297,13 @@ public:
     /// @brief get modification mode modul
     ModificationMode* getModificationModeModul() const;
 
+    /// @brief getmodul for selection information
+    SelectionInformation* getSelectionInformation() const;
+
 private:
+    /// @brief modul for selection information
+    SelectionInformation* mySelectionInformation;
+
     /// @brief modul for change modification mode
     ModificationMode* myModificationMode;
 
@@ -266,9 +321,6 @@ private:
 
     /// @brief modul for selection operations
     SelectionOperation* mySelectionOperation;
-
-    /// @brief check if there is ACs to select/unselect
-    bool ACsToSelected() const;
 
     /// @brief Invalidated copy constructor.
     GNESelectorFrame(const GNESelectorFrame&) = delete;

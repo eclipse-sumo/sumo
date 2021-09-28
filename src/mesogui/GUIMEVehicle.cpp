@@ -265,7 +265,7 @@ GUIMEVehicle::selectBlockingFoes() const {
 
 Boundary
 GUIMEVehicle::getCenteringBoundary() const {
-    // getPosition returns the start of the first laneso we do not use it here
+    // getPosition returns the start of the first lane, so we do not use it here
     getEdge()->lock();
     const MSLane* const lane = getEdge()->getLanes()[getQueIndex()];
     double offset = 0;

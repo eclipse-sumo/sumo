@@ -101,6 +101,13 @@ ROMAFrame::addImportOptions() {
     oc.addSynonyme("od-amitran-files", "amitran");
     oc.addDescription("od-amitran-files", "Input", "Loads O/D-matrix in Amitran format from FILE(s)");
 
+    oc.doRegister("tazrelation-files", 'z', new Option_FileName());
+    oc.addDescription("tazrelation-files", "Input", "Loads O/D-matrix in tazRelation format from FILE(s)");
+
+    oc.doRegister("tazrelation-attribute", new Option_String("count"));
+    oc.addSynonyme("tazrelation-attribute", "attribute");
+    oc.addDescription("tazrelation-attribute", "Input", "Define data attribute for loading counts (default 'count')");
+
     oc.doRegister("route-files", 'r', new Option_FileName());
     oc.addSynonyme("route-files", "routes");
     oc.addSynonyme("route-files", "trips");

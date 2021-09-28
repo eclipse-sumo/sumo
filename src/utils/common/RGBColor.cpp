@@ -32,12 +32,14 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+
 #include "RGBColor.h"
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
 const RGBColor RGBColor::RED = RGBColor(255, 0, 0, 255);
 const RGBColor RGBColor::GREEN = RGBColor(0, 255, 0, 255);
 const RGBColor RGBColor::BLUE = RGBColor(0, 0, 255, 255);
@@ -59,12 +61,37 @@ SumoRNG RGBColor::myRNG;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RGBColor::RGBColor()
-    : myRed(0), myGreen(0), myBlue(0), myAlpha(0) {}
+
+RGBColor::RGBColor(bool valid)
+    : myRed(0), myGreen(0), myBlue(0), myAlpha(0), myValid(valid) {}
 
 
 RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
-    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha) {}
+    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha), myValid(true) {}
+
+
+unsigned char
+RGBColor::red() const {
+    return myRed;
+}
+
+
+unsigned char
+RGBColor::green() const {
+    return myGreen;
+}
+
+
+unsigned char 
+RGBColor::blue() const {
+    return myBlue;
+}
+
+
+unsigned char 
+RGBColor::alpha() const {
+    return myAlpha;
+}
 
 
 void
@@ -73,6 +100,25 @@ RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a
     myGreen = g;
     myBlue = b;
     myAlpha = a;
+    myValid = true;
+}
+
+
+void 
+RGBColor::setAlpha(unsigned char alpha) {
+    myAlpha = alpha;
+}
+
+
+void
+RGBColor::setValid(const bool value) {
+    myValid = value;
+}
+
+
+bool 
+RGBColor::isValid() const {
+    return myValid;
 }
 
 
@@ -120,13 +166,13 @@ operator<<(std::ostream& os, const RGBColor& col) {
 
 bool
 RGBColor::operator==(const RGBColor& c) const {
-    return myRed == c.myRed && myGreen == c.myGreen && myBlue == c.myBlue && myAlpha == c.myAlpha;
+    return (myRed == c.myRed) && (myGreen == c.myGreen) && (myBlue == c.myBlue) && (myAlpha == c.myAlpha) && (myValid == c.myValid);
 }
 
 
 bool
 RGBColor::operator!=(const RGBColor& c) const {
-    return myRed != c.myRed || myGreen != c.myGreen || myBlue != c.myBlue || myAlpha != c.myAlpha;
+    return (myRed != c.myRed) || (myGreen != c.myGreen) || (myBlue != c.myBlue) || (myAlpha != c.myAlpha) || (myValid != c.myValid);
 }
 
 
@@ -138,6 +184,12 @@ RGBColor::invertedColor() const {
     const unsigned char b = (unsigned char)(255  - (int)myBlue);
     // return inverted RBColor
     return RGBColor(r, g, b, myAlpha);
+}
+
+
+SumoRNG* 
+RGBColor::getColorRNG() {
+    return &myRNG;
 }
 
 

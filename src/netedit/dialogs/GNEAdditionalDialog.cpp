@@ -114,7 +114,7 @@ GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) 
 void
 GNEAdditionalDialog::initChanges() {
     // init commandGroup
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
     // save number of command group changes
     myNumberOfChanges = myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
@@ -124,24 +124,24 @@ void
 GNEAdditionalDialog::acceptChanges() {
     // commit changes or abort last command group depending of number of changes did
     if (myNumberOfChanges < myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
-        myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_end();
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->end();
     } else {
-        myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     }
 }
 
 
 void
 GNEAdditionalDialog::cancelChanges() {
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
 }
 
 
 void
 GNEAdditionalDialog::resetChanges() {
     // abort last command group an start editing again
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
 }
 
 

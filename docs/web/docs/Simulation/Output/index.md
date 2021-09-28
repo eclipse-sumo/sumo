@@ -23,9 +23,8 @@ can convert any of them to a flat-file (CSV) format which can be opened
 with most spread-sheet software. If you need a more compressed but still
 "standardized" binary version, you can use
 [xml2protobuf.py](../../Tools/Xml.md#xml2protobufpy). Furthermore all
-files can use a [custom binary
-format](Binary.md) which is triggered by the
-file extension .sbx.
+files can be written and read in compressed form (gzip) which is triggered by the
+file extension .gz.
 
 ## Separating outputs of repeated runs
 

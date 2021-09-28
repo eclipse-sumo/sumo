@@ -62,13 +62,15 @@ GNEEdgeData::getColor() const {
         const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
         // continue if there is a selected data interval and filtered attribute
         if (dataInterval && (filteredAttribute.size() > 0)) {
-            // obtain minimum and maximum value
-            const double minValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMinValue(filteredAttribute);
-            const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMaxValue(filteredAttribute);
-            // get value
-            const double value = parse<double>(getParameter(filteredAttribute, "0"));
-            // return color
-            return GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
+            if (dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).exist(filteredAttribute)) {
+                // obtain minimum and maximum value
+                const double minValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMinValue(filteredAttribute);
+                const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMaxValue(filteredAttribute);
+                // get value
+                const double value = parse<double>(getParameter(filteredAttribute, "0"));
+                // return color
+                return GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
+            }
         }
     }
     // return default color
@@ -192,6 +194,10 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         }
         // draw interne box lines
         GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
@@ -267,7 +273,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     switch (key) {
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

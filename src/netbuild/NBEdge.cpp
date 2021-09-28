@@ -497,8 +497,8 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     myFrom->addOutgoingEdge(this);
     myTo->addIncomingEdge(this);
     // prepare container
-    myLength = myFrom->getPosition().distanceTo(myTo->getPosition());
     assert(myGeom.size() >= 2);
+    myLength = myGeom.length();
     if ((int)myLanes.size() > noLanes) {
         // remove connections starting at the removed lanes
         for (int lane = noLanes; lane < (int)myLanes.size(); ++lane) {
@@ -3104,12 +3104,19 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
             return;
         }
     };
-    if (noGeometryLike && myTo->geometryLike() && !isDeadEnd) {
-        // make sure the turnDestination has other incoming edges
-        EdgeVector turnIncoming = myTurnDestination->getIncomingEdges();
-        if (turnIncoming.size() > 1) {
-            // this edge is always part of incoming
-            return;
+    if (noGeometryLike && !isDeadEnd) {
+        // ignore paths and service entrances if this edge is for passenger traffic
+        if (myTo->geometryLike() || ((getPermissions() & SVC_PASSENGER) != 0
+                    && !onlyTurnlane
+                    && myTo->geometryLike(
+                        NBEdge::filterByPermissions(myTo->getIncomingEdges(), ~(SVC_BICYCLE|SVC_PEDESTRIAN|SVC_DELIVERY)),
+                        NBEdge::filterByPermissions(myTo->getOutgoingEdges(), ~(SVC_BICYCLE|SVC_PEDESTRIAN|SVC_DELIVERY))))) {
+            // make sure the turnDestination has other incoming edges
+            EdgeVector turnIncoming = myTurnDestination->getIncomingEdges();
+            if (turnIncoming.size() > 1) {
+                // this edge is always part of incoming
+                return;
+            }
         }
     }
     setConnection(fromLane, myTurnDestination, toLane, Lane2LaneInfoType::VALIDATED);
@@ -3999,14 +4006,16 @@ NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
     // disallow pedestrians on all lanes to ensure that sidewalks are used and
     // crossings can be guessed
     disallowVehicleClass(-1, vclass);
+    // don't create a restricted vehicle lane to the right of a sidewalk
+    const int newIndex = (vclass != SVC_PEDESTRIAN && myLanes[0].permissions == SVC_PEDESTRIAN) ? 1 : 0;
     // add new lane
-    myLanes.insert(myLanes.begin(), Lane(this, myLanes[0].getParameter(SUMO_PARAM_ORIGID)));
-    myLanes[0].permissions = vclass;
-    myLanes[0].width = fabs(width);
+    myLanes.insert(myLanes.begin() + newIndex, Lane(this, myLanes[0].getParameter(SUMO_PARAM_ORIGID)));
+    myLanes[newIndex].permissions = vclass;
+    myLanes[newIndex].width = fabs(width);
     // shift outgoing connections to the left
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); ++it) {
         Connection& c = *it;
-        if (c.fromLane >= 0) {
+        if (c.fromLane >= newIndex) {
             c.fromLane += 1;
         }
     }

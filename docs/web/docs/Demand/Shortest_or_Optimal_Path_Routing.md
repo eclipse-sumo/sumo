@@ -66,7 +66,7 @@ By setting the option **--mapmatch.junctions**, positions are mapped to junction
 
 If any trips use the `type` attribute, the
 referenced `vType` element must be put into
-the *trip.xml* file or into an additionally loaded *rou.xml*-file or
+the input file containting the trips / flow  or into an additionally loaded *rou.xml*-file or
 into an {{AdditionalFile}}.
 
 !!! note
@@ -86,21 +86,26 @@ to) leave the tags `begin` and
 `end` out. So the following two snippets mean
 the same:
 
+
 ```
-<flows>
+<routes>
     <flow id="0" from="edge0" to="edge1" begin="0" end="3600" number="100"/>
-</flows>
+</routes>
 ```
 
 and
 
 ```
-<flows>
+<routes>
     <interval begin="0" end="3600">
         <flow id="0" from="edge0" to="edge1" number="100"/>
     </interval>
-</flows>
+</routes>
 ```
+
+!!! note
+    The input file always needs a root level element to enclose the trip/flow elements and this should be named `<routes>`.
+     
 
 Let's review flow parameter:
 
@@ -189,7 +194,7 @@ the file ''trips.xml '' given below must contain edges contained in the
 network file ''road.net.xml ''.
 
 ```
-<trips>
+<routes>
     <trip id="1625993_25" depart="25" from="-15229224#3" to="4474184"/>
     <trip id="1542480_35" depart="35" from="-46771582"   to="-24038909#1"/>
     <trip id="1544282_35" depart="35" from="20554351#2"  to="-4876083#5"/>
@@ -197,7 +202,7 @@ network file ''road.net.xml ''.
     <trip id="1620115_45" depart="45" from="11279351#3"  to="5198584#1"/>
     <trip id="1647560_45" depart="45" from="54048879#0"  to="-52105434#0"/>
     <trip id="3761248_45" depart="45" from="-31928311"   to="23792451#7"/>
-</trips>
+</routes>
 ```
 
 Trips may contain [source and destination

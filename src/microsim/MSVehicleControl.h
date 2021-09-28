@@ -297,6 +297,11 @@ public:
         return myCollisions;
     }
 
+    /// @brief return the number of collisions
+    int getTeleportsCollisions() const {
+        return myTeleportsCollision;
+    }
+
     /// @brief return the number of teleports due to jamming
     int getTeleportsJam() const {
         return myTeleportsJam;
@@ -439,8 +444,11 @@ public:
     }
 
     /// @brief registers one collision-related teleport
-    void registerCollision() {
+    void registerCollision(bool teleport) {
         myCollisions++;
+        if (teleport) {
+            myTeleportsCollision++;
+        }
     }
 
     /// @brief register one non-collision-related teleport
@@ -517,6 +525,11 @@ public:
         myScale = scale;
     }
 
+    /// @brief sets the demand scaling factor
+    double getScale() const {
+        return myScale;
+    }
+
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added
      *
@@ -550,6 +563,9 @@ private:
 
     /// @brief The number of collisions
     int myCollisions;
+
+    /// @brief The number of teleports due to collision
+    int myTeleportsCollision;
 
     /// @brief The number of teleports due to jam
     int myTeleportsJam;

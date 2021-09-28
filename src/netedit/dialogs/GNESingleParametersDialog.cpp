@@ -70,9 +70,8 @@ FXIMPLEMENT(GNESingleParametersDialog::ParametersOperations,    FXGroupBox,     
 // GNESingleParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent) :
-    FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill),
-    myParameterDialogParent(ParameterDialogParent) {
+GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame) :
+    FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThick100);
@@ -559,16 +558,6 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
                 return 1;
-            } else if (myParametersEditorCreator &&
-                       (myParametersEditorCreator->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) &&
-                       !GNEAttributeCarrier::canParse<double>(parameterRow->valueField->getText().text())) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                // open warning Box
-                FXMessageBox::warning(getApp(), MBOX_OK, "Invalid double Parameter value", "%s", "There are values that cannot be parsed to floats");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                return 1;
             }
             // insert in parameters
             parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
@@ -596,17 +585,17 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // get inspected AC
         GNEAttributeCarrier* AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
         // set parameter in AC using undoList
-        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
+        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->begin("change parameters");
         AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
-        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
+        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->end();
     } else if (VTypeAttributeRow) {
         // set parameter in VTypeAttributeRow
         VTypeAttributeRow->setParameters(parameters);
     } else if (myAttributeCarrier) {
         // set parameter in AC using undoList
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->p_begin("change parameters");
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin("change parameters");
         myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->p_end();
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
     }
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
@@ -648,7 +637,7 @@ GNESingleParametersDialog::constructor() {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameExtras, this);
+    myParametersValues = new ParametersValues(horizontalFrameExtras);
     // create parameters operations
     myParametersOperations = new ParametersOperations(horizontalFrameExtras, this);
     // add separator

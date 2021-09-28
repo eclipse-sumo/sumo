@@ -176,6 +176,11 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
 void
 RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
+    if (myActivePerson != nullptr && myActivePerson->getPlan().empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_RIDE) {
+        throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
+    } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_TRANSPORT) {
+        throw ProcessError("Triggered departure for container '" + myVehicleParameter->id + "' requires starting with a transport.");
+    }
     SUMORouteHandler::myStartElement(element, attrs);
     bool ok = true;
     switch (element) {
@@ -189,42 +194,8 @@ RORouteHandler::myStartElement(int element,
             myActivePerson = new ROPerson(*myVehicleParameter, type);
             break;
         }
-        case SUMO_TAG_RIDE: {
-            std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
-            const std::string pid = myVehicleParameter->id;
-            ROEdge* from = nullptr;
-            if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-                const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
-                from = myNet.getEdge(fromID);
-                if (from == nullptr) {
-                    throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
-                }
-            } else if (plan.empty()) {
-                throw ProcessError("The start edge for person '" + pid + "' is not known.");
-            }
-            ROEdge* to = nullptr;
-            std::string stoppingPlaceID;
-            const SUMOVehicleParameter::Stop* stop = retrieveStoppingPlace(attrs, " for ride of person '" + myVehicleParameter->id + "'", stoppingPlaceID);
-            if (stop != nullptr) {
-                to = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop->lane));
-            } else {
-                const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, pid.c_str(), ok, "");
-                if (toID != "") {
-                    to = myNet.getEdge(toID);
-                    if (to == nullptr) {
-                        throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
-                    }
-                } else {
-                    throw ProcessError("The to edge is missing within a ride of '" + myVehicleParameter->id + "'.");
-                }
-            }
-            double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-                                stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
-            const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
-            const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
-            myActivePerson->addRide(from, to, desc, arrivalPos, stoppingPlaceID, group);
-            break;
-        }
+        case SUMO_TAG_RIDE:
+            break; // handled in addRide, called from SUMORouteHandler::myStartElement
         case SUMO_TAG_CONTAINER:
         case SUMO_TAG_CONTAINERFLOW:
             myActiveContainerPlan = new OutputDevice_String(1);
@@ -234,6 +205,9 @@ RORouteHandler::myStartElement(int element,
             break;
         case SUMO_TAG_TRANSPORT:
         case SUMO_TAG_TRANSHIP:
+            if (myActiveContainerPlan == nullptr) {
+                throw ProcessError("Found " + toString((SumoXMLTag)element) + " outside container element");
+            }
             // copy container elements
             myActiveContainerPlan->openTag((SumoXMLTag)element);
             (*myActiveContainerPlan) << attrs;
@@ -820,7 +794,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.lane = stoppingPlace->lane;
         stop.endPos = stoppingPlace->endPos;
         stop.startPos = stoppingPlace->startPos;
-        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+        edge = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane));
     } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
@@ -832,7 +806,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 return;
             }
         } else if (ok && stop.lane != "") {
-            edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+            edge = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane));
             if (edge == nullptr) {
                 myErrorOutput->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                 return;
@@ -903,12 +877,81 @@ RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 
 
 void
-RORouteHandler::addRide(const SUMOSAXAttributes& /*attrs*/) {
+RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
+    const std::string pid = myVehicleParameter->id;
+
+    ROEdge* from = nullptr;
+    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+        const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
+        from = myNet.getEdge(fromID);
+        if (from == nullptr) {
+            throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
+        }
+    } else if (plan.empty()) {
+        throw ProcessError("The start edge for person '" + pid + "' is not known.");
+    }
+    ROEdge* to = nullptr;
+    std::string stoppingPlaceID;
+    const SUMOVehicleParameter::Stop* stop = retrieveStoppingPlace(attrs, " for ride of person '" + myVehicleParameter->id + "'", stoppingPlaceID);
+    if (stop != nullptr) {
+        to = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop->lane));
+    } else {
+        const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, pid.c_str(), ok, "");
+        if (toID != "") {
+            to = myNet.getEdge(toID);
+            if (to == nullptr) {
+                throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+            }
+        } else {
+            throw ProcessError("The to edge is missing within a ride of '" + myVehicleParameter->id + "'.");
+        }
+    }
+    double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
+            stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
+    const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
+    const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
+
+    if (plan.empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+        StringTokenizer st(desc);
+        if (st.size() != 1) {
+            throw ProcessError("Triggered departure for person '" + pid + "' requires a unique lines value.");
+        }
+        const std::string vehID = st.front();
+        if (!myNet.knowsVehicle(vehID)) {
+            throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
+        }
+        SUMOTime vehDepart = myNet.getDeparture(vehID);
+        if (vehDepart == -1) {
+            throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
+        }
+        myActivePerson->setDepart(vehDepart + 1); // write person after vehicle
+    }
+    myActivePerson->addRide(from, to, desc, arrivalPos, stoppingPlaceID, group);
 }
 
 
 void
-RORouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
+RORouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
+    if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+        bool ok = true;
+        const std::string pid = myVehicleParameter->id;
+        const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
+        StringTokenizer st(desc);
+        if (st.size() != 1) {
+            throw ProcessError("Triggered departure for container '" + pid + "' requires a unique lines value.");
+        }
+        const std::string vehID = st.front();
+        if (!myNet.knowsVehicle(vehID)) {
+            throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for container '" + pid + "'.");
+        }
+        SUMOTime vehDepart = myNet.getDeparture(vehID);
+        if (vehDepart == -1) {
+            throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for container '" + pid + "'.");
+        }
+        myVehicleParameter->depart = vehDepart + 1; // write container after vehicle
+    }
 }
 
 
@@ -1069,7 +1112,7 @@ RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
 
     const SUMOVehicleParameter::Stop* bs = retrieveStoppingPlace(attrs, description, busStopID);
     if (bs != nullptr) {
-        toEdge = myNet.getEdge(bs->lane.substr(0, bs->lane.rfind('_')));
+        toEdge = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(bs->lane));
         arrivalPos = (bs->startPos + bs->endPos) / 2;
     }
     if (toEdge != nullptr) {

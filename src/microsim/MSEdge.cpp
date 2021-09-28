@@ -502,6 +502,16 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
     return pos;
 }
 
+MSLane*
+MSEdge::getDepartLaneMeso(SUMOVehicle& veh) const {
+    if (veh.getParameter().departLaneProcedure == DepartLaneDefinition::GIVEN) {
+        if ((int) myLanes->size() <= veh.getParameter().departLane || !(*myLanes)[veh.getParameter().departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+            return nullptr;
+        }
+        return (*myLanes)[veh.getParameter().departLane];
+    }
+    return (*myLanes)[0];
+}
 
 MSLane*
 MSEdge::getDepartLane(MSVehicle& veh) const {
@@ -569,19 +579,33 @@ bool
 MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
-    if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
-        // check departLane (getVehicleMaxSpeed checks lane 0)
-        MSLane* departLane = MSGlobals::gMesoNet ? getLanes()[0] : getDepartLane(dynamic_cast<MSVehicle&>(v));
-        if (departLane != nullptr && pars.departSpeed > departLane->getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
-            const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
-            if (speedFactorParams[1] > 0.) {
-                v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
-                if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
-                    // only warn for significant deviation
-                    WRITE_WARNING("Choosing new speed factor " + toString(v.getChosenSpeedFactor()) + " for vehicle '" + pars.id + "' to match departure speed.");
+    if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN) {
+        // departSpeed could have been rounded down in the output
+        double vMax = getVehicleMaxSpeed(&v) + SPEED_EPS;
+        if (pars.departSpeed > vMax) {
+            // check departLane (getVehicleMaxSpeed checks lane 0)
+            MSLane* departLane = MSGlobals::gMesoNet ? getDepartLaneMeso(v) : getDepartLane(dynamic_cast<MSVehicle&>(v));
+            if (departLane != nullptr) {
+                vMax = departLane->getVehicleMaxSpeed(&v);
+                if (pars.wasSet(VEHPARS_SPEEDFACTOR_SET)) {
+                    // speedFactor could have been rounded down in the output
+                    vMax *= (1 + SPEED_EPS);
                 }
-            } else {
-                return false;
+                // additive term must come after multiplication!
+                vMax += SPEED_EPS;
+                if (pars.departSpeed > vMax) {
+                    const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
+                    if (speedFactorParams[1] > 0.) {
+                        v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
+                        if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
+                            // only warn for significant deviation
+                            WRITE_WARNINGF("Choosing new speed factor % for vehicle '%' to match departure speed % (max %).",
+                                    toString(v.getChosenSpeedFactor()), pars.id, pars.departSpeed, vMax);
+                        }
+                    } else {
+                        return false;
+                    }
+                }
             }
         }
     }
@@ -1266,6 +1290,9 @@ MSEdge::getWaitingSeconds() const {
 
 double
 MSEdge::getOccupancy() const {
+    if (myLanes->size() == 0) {
+        return 0;
+    }
     if (MSGlobals::gUseMesoSim) {
         /// @note MESegment only tracks brutto occupancy so we compute this from sratch
         double sum = 0;
@@ -1285,6 +1312,9 @@ MSEdge::getOccupancy() const {
 
 double
 MSEdge::getFlow() const {
+    if (myLanes->size() == 0) {
+        return 0;
+    }
     double flow = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
         flow += (double) segment->getCarNumber() * segment->getMeanSpeed();
@@ -1295,6 +1325,9 @@ MSEdge::getFlow() const {
 
 double
 MSEdge::getBruttoOccupancy() const {
+    if (myLanes->size() == 0) {
+        return 0;
+    }
     double occ = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != nullptr; segment = segment->getNextSegment()) {
         occ += segment->getBruttoOccupancy();

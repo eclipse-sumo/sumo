@@ -261,12 +261,13 @@ class Connection:
 
     def _addSubscriptionFilter(self, filterType, params=None):
         if filterType in (tc.FILTER_TYPE_NONE, tc.FILTER_TYPE_NOOPPOSITE,
-                          tc.FILTER_TYPE_TURN, tc.FILTER_TYPE_LEAD_FOLLOW):
+                          tc.FILTER_TYPE_LEAD_FOLLOW):
             # filter without parameter
             assert params is None
             self._sendCmd(tc.CMD_ADD_SUBSCRIPTION_FILTER, None, None, "u", filterType)
         elif filterType in (tc.FILTER_TYPE_DOWNSTREAM_DIST, tc.FILTER_TYPE_UPSTREAM_DIST,
-                            tc.FILTER_TYPE_FIELD_OF_VISION, tc.FILTER_TYPE_LATERAL_DIST):
+                            tc.FILTER_TYPE_TURN, tc.FILTER_TYPE_FIELD_OF_VISION,
+                            tc.FILTER_TYPE_LATERAL_DIST):
             # filter with float parameter
             self._sendCmd(tc.CMD_ADD_SUBSCRIPTION_FILTER, None, None, "ud", filterType, params)
         elif filterType in (tc.FILTER_TYPE_VCLASS, tc.FILTER_TYPE_VTYPE):

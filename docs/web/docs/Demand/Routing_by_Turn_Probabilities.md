@@ -14,7 +14,7 @@ parameter must be supplied:
 A call may look like this:
 
 ```
-jtrrouter --flow-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
+jtrrouter --route-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
   --output-file=MySUMORoutes.rou.xml --begin <UINT> --end <UINT>
 ```
 
@@ -109,7 +109,11 @@ network as the route it uses is randomly computed, the route must be
 specified using attribute *from* and attribute *to* must be omitted:
 
 ```
-<flow id="0" from="A" begin="0" end="3600" probability="0.5"/>
+<routes>
+   <flow id="example0" from="A" begin="0" end="3600" probability="0.5"/>
+   <flow id="example1" ... />
+   ....
+</routes>
 ```
 
 ### Random Flows

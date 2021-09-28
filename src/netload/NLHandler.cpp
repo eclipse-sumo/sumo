@@ -869,13 +869,23 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            return;
+        }
+    }
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          friendlyPos, vTypes);
+                                          friendlyPos, vTypes, detectPersons);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -1428,8 +1438,9 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
 
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
             PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentDistrictID.c_str(), ok);
+            const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, myCurrentDistrictID.c_str(), ok, false);
             if (shape.size() != 0) {
-                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, false, 1.0, false, name)) {
+                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, fill, 1.0, false, name)) {
                     WRITE_WARNING("Skipping visualization of taz '" + myCurrentDistrictID + "', polygon already exists.");
                 }
             }

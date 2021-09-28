@@ -53,7 +53,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
                                const std::vector<GNEDemandElement*>& demandElementParents,
                                const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, dataIntervalParent->getID()),
-    Parameterised(ParameterisedAttrType::DOUBLE, parameters),
+    Parameterised(parameters),
     GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
@@ -275,9 +275,15 @@ GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& 
 
 
 void
-GNEGenericData::replaceLastParentTAZElement(SumoXMLTag tag, const std::string& value) {
+GNEGenericData::replaceSecondParentTAZElement(SumoXMLTag tag, const std::string& value) {
     std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
-    parentTAZElements[(int)parentTAZElements.size() - 1] = myNet->retrieveTAZElement(tag, value);
+    if (value.empty()) {
+        parentTAZElements.pop_back();
+    } else if (parentTAZElements.size() == 1) {
+        parentTAZElements.push_back(myNet->retrieveTAZElement(tag, value));
+    } else {
+        parentTAZElements.at(1) = myNet->retrieveTAZElement(tag, value);
+    }
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);
 }

@@ -29,6 +29,10 @@ closing_and_dest_prob_unaffected
 # 
 routeProb_type
 
+# routeProbRreroute on a short edge cannot send the vehicle on a different route if it's already comitted to another one.
+# 
+routeProb_pastEdge
+
 # closing an edge with probability 0.5
 closing_with_prob
 
@@ -58,7 +62,7 @@ disallowed_while_on_internal
 terminateRoute_on_jumped_edge
 terminateRoute_on_depart
 
-# reroute vehicles that are already on the rerouter edge when the reouter becomse active
+# reroute vehicles that are already on the rerouter edge when the reouter becomes active
 on_edge_when_activated
 
 # vehicles that are equipped with a routing device should use the corresponding edge weights instead of empty-network weights.

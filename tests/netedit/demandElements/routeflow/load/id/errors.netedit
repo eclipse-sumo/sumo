@@ -19,12 +19,15 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Error: Attribute 'id' is missing in definition of flow
+Error: flow cannot be created
 Error: Attribute 'id' in definition of a flow is empty.
 Error: Invalid flow id ''.
+Error: flow cannot be created
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
+Error: flow cannot be created
 Debug: Adding flowRoute 'flow_valid' in GNEChange_DemandElement
 Error: There is another flowRoute with the same ID='flow_valid'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun122115.5868\netedit.gui\demandElements\routeflow\load\id\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\routeflow\load\id\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flowRoute 'flow_valid' in GNEChange_DemandElement

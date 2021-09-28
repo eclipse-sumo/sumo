@@ -182,7 +182,7 @@ ROMAAssignments::addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>&
 
 
 const ConstROEdgeVector
-ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
+ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router, bool setBulkMode) {
     const ROEdge* const from = myNet.getEdge(cell->origin + (cell->originIsEdge ? "" : "-source"));
     if (from == nullptr) {
         throw ProcessError("Unknown origin '" + cell->origin + "'.");
@@ -197,6 +197,9 @@ ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double pro
     }
     if (myMaxAlternatives > 0 && (int)cell->pathsVector.size() < myMaxAlternatives) {
         router->compute(from, to, myDefaultVehicle, time, edges);
+        if (setBulkMode) {
+            router->setBulkMode(true);
+        }
         if (addRoute(edges, cell->pathsVector, cell->origin + cell->destination + toString(cell->pathsVector.size()), probability)) {
             return edges;
         }
@@ -290,7 +293,6 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                         myNet.getThreadPool().add(new RONet::BulkmodeTask(false), workerIndex);
                         lastOrigin = c->origin;
                         myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
-                        myNet.getThreadPool().add(new RONet::BulkmodeTask(true), workerIndex);
                     } else {
                         myNet.getThreadPool().add(new RoutingTask(*this, c, begin, linkFlow), workerIndex);
                     }
@@ -301,8 +303,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     myRouter.setBulkMode(false);
                     lastOrigin = c->origin;
                 }
-                computePath(c, begin, linkFlow);
-                myRouter.setBulkMode(true);
+                computePath(c, begin, linkFlow, &myRouter, true);
             }
 #ifdef HAVE_FOX
             if (myNet.getThreadPool().size() > 0) {
@@ -465,6 +466,6 @@ ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, 
 // ---------------------------------------------------------------------------
 void
 ROMAAssignments::RoutingTask::run(FXWorkerThread* context) {
-    myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING));
+    myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING), mySetBulkMode);
 }
 #endif

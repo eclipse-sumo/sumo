@@ -37,15 +37,15 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag,
-{}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
-{}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+        {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -300,6 +300,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw subtitle depending of tag
                 GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
             // pop draw matrix
             GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
@@ -317,6 +319,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, exaggeration * 0.8);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
             // pop draw matrix
             GLHelper::popMatrix();
         }
@@ -438,6 +442,12 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(endPos);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(friendlyPos);
+        case SUMO_ATTR_POSITION_LAT:
+            if (posLat == INVALID_DOUBLE) {
+                return "";
+            } else {
+                return toString(posLat);
+            }
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -494,9 +504,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
+        case SUMO_ATTR_POSITION_LAT:
         //
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -570,6 +581,12 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
+        case SUMO_ATTR_POSITION_LAT:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         //
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -611,11 +628,11 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;
@@ -836,6 +853,15 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FRIENDLY_POS:
             friendlyPos = parse<bool>(value);
             break;
+        case SUMO_ATTR_POSITION_LAT:
+            if (value.empty()) {
+                posLat = INVALID_DOUBLE;
+                parametersSet &= ~ STOP_POSLAT_SET;
+            } else {
+                posLat = parse<double>(value);
+                parametersSet |= STOP_POSLAT_SET;
+            }
+            break;
         //
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -868,10 +894,10 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
-    undoList->p_end();
+    undoList->begin("position of " + getTagStr());
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+    undoList->end();
 }
 
 /****************************************************************************/

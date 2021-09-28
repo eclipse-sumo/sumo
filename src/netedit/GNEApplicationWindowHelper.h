@@ -537,6 +537,18 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to show Demand Elements
             FXMenuCheckIcon* menuCheckShowDemandElements;
 
+            /// @brief menu check to toogle TAZRel drawing mode
+            FXMenuCheckIcon* menuCheckToogleTAZRelDrawing;
+
+            /// @brief menu check to toogle TAZ draw fill
+            FXMenuCheckIcon* menuCheckToogleTAZDrawFill;
+
+            /// @brief menu check to toogle TAZRel only from
+            FXMenuCheckIcon* menuCheckToogleTAZRelOnlyFrom;
+
+            /// @brief menu check to toogle TAZRel only to
+            FXMenuCheckIcon* menuCheckToogleTAZRelOnlyTo;
+
             /// @brief separator
             FXMenuSeparator* separator;
 
@@ -619,6 +631,9 @@ struct GNEApplicationWindowHelper {
         /// @brief build menu commands
         void buildLockMenuCommands(FXMenuPane* editMenu);
 
+        /// @brief remove hotkeys
+        void removeHotkeys();
+
         /// @brief show network processing menu commands
         void showNetworkLockMenuCommands();
 
@@ -636,6 +651,12 @@ struct GNEApplicationWindowHelper {
 
         /// @brief show data processing menu commands
         void hideDataLockMenuCommands();
+
+        /// @brief lock all
+        void lockAll();
+
+        /// @brief unlock all
+        void unlockAll();
 
         /// @name Processing FXMenuCommands for Network mode
         /// @{
@@ -713,7 +734,17 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check to lock edgeTAZRels
         FXMenuCheckIcon* menuCheckLockEdgeTAZRels;
 
+        /// @brief FXMenuCommand for lock all elements
+        FXMenuCommand* lockAllElements;
+
+        /// @brief FXMenuCommand for unlock all elements
+        FXMenuCommand* unlockAllElements;
+
         /// @}
+
+    protected:
+        /// @brief Parse hot key from string
+        FXHotKey parseHotKey(const FXwchar character);
 
     private:
         /// @brief pointer to current GNEApplicationWindows

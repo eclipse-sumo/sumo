@@ -35,6 +35,7 @@ import zipfile
 import shutil
 import sys
 
+import filterDebugDLL
 import status
 import wix
 
@@ -74,7 +75,6 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
-    status.killall(debugSuffix, BINARIES)
     for name in BINARIES:
         binary = os.path.join(options.rootDir, options.binDir, name + debugSuffix + ".exe")
         if name == "sumo-gui":
@@ -95,7 +95,7 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
-    status.killall(debugSuffix, BINARIES)
+    status.killall((debugSuffix,), BINARIES)
 
 
 def generateCMake(generator, platform, log, checkOptionalLibs, python):
@@ -107,10 +107,13 @@ def generateCMake(generator, platform, log, checkOptionalLibs, python):
     if checkOptionalLibs:
         cmakeOpt += ["-DSUMO_UTILS=True"]
     # Create directory or clear it if already exists
-    if os.path.exists(buildDir):
-        status.printLog("Cleaning directory of %s." % generator, log)
-        shutil.rmtree(buildDir)
-    os.makedirs(buildDir)
+    try:
+        if os.path.exists(buildDir):
+            status.printLog("Cleaning directory of %s." % generator, log)
+            shutil.rmtree(buildDir)
+        os.makedirs(buildDir)
+    except Exception as e:
+        status.printLog("Error occured on build dir cleanup: %s." % e, log)
     status.printLog("Creating solution for %s." % generator, log)
     subprocess.call(["cmake", "../..", "-G", generator, "-A", platform] + cmakeOpt,
                     cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
@@ -162,10 +165,11 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
     statusLog = prefix + "status.log"
     binDir = "sumo-git/bin/"
 
+    status.killall(("", "D"), BINARIES)
     toClean = [makeLog, makeAllLog]
     toolsDir = os.path.join(options.rootDir, options.binDir.replace("bin", "tools"))
     shareDir = os.path.join(options.rootDir, options.binDir.replace("bin", "share"))
-    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar"):
+    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar", "*.manifest"):
         toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
     toClean += glob.glob(os.path.join(toolsDir, "lib*", "*lib*"))
     toClean += glob.glob(os.path.join(shareDir, "*", "*"))
@@ -208,18 +212,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                 for ext in ("*.exe", "*.dll", "*.lib", "*.exp", "*.jar"):
                     filelist = glob.glob(os.path.join(options.rootDir, options.binDir, ext))
                     if ext == "*.dll":
-                        # filter debug dlls
-                        baselist = [os.path.basename(d) for d in filelist]
-                        filtered = []
-                        for idx, dll in enumerate(baselist):
-                            keep = dll != "FOXDLLD-1.6.dll"
-                            for suffix in ("d.dll", "D.dll", "-d.dll", "-D.dll", "_d.dll", "_D.dll"):
-                                if dll.endswith(suffix) and dll[:-len(suffix)] + ".dll" in baselist:
-                                    keep = False
-                                    break
-                            if keep:
-                                filtered.append(filelist[idx])
-                        filelist = filtered
+                        filelist = filterDebugDLL.filterDLL(filelist)
                     for f in filelist:
                         if ext != "*.exe" or any([os.path.basename(f).startswith(b) for b in BINARIES]):
                             zipf.write(f, os.path.join(binDir, os.path.basename(f)))

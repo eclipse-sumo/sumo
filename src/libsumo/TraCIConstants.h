@@ -654,7 +654,7 @@ TRACI_CONST int FILTER_TYPE_UPSTREAM_DIST = 0x04;
 // Only return leader and follower on the specified lanes in context subscription result
 TRACI_CONST int FILTER_TYPE_LEAD_FOLLOW = 0x05;
 
-// Only return foes on upcoming junction in context subscription result
+// Only return foes on upcoming junctions in context subscription result
 TRACI_CONST int FILTER_TYPE_TURN = 0x07;
 
 // Only return vehicles of the given vClass in context subscription result

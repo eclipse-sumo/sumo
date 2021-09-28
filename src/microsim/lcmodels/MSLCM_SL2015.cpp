@@ -100,6 +100,7 @@
 //#define DEBUG_STRATEGIC_CHANGE
 //#define DEBUG_KEEP_LATGAP
 //#define DEBUG_EXPECTED_SLSPEED
+//#define DEBUG_SLIDING
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -1645,8 +1646,12 @@ MSLCM_SL2015::_wantsChangeSublane(
                                                      vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
-            const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
-            myKeepRightProbability += myVehicle.getActionStepLengthSecs() * deltaProb;
+            const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME) * myVehicle.getActionStepLengthSecs();
+            const bool isSlide = preventSliding(latLaneDist);
+            // stay below threshold
+            if (!isSlide || !wantsKeepRight(myKeepRightProbability + deltaProb)) {
+                myKeepRightProbability += deltaProb;
+            }
 
 #ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) {
@@ -1662,12 +1667,13 @@ MSLCM_SL2015::_wantsChangeSublane(
                           << " fullSpeedGap=" << fullSpeedGap
                           << " fullSpeedDrivingSeconds=" << fullSpeedDrivingSeconds
                           << " dProb=" << deltaProb
+                          << " isSlide=" << isSlide
                           << " keepRight=" << myKeepRightProbability
                           << " speedGainL=" << mySpeedGainProbabilityLeft
                           << "\n";
             }
 #endif
-            if (myKeepRightProbability * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
+            if (wantsKeepRight(myKeepRightProbability)
                     /*&& latLaneDist <= -NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()*/) {
                 ret |= LCA_KEEPRIGHT;
                 assert(myVehicle.getLane()->getIndex() > neighLane.getIndex() || isOpposite());
@@ -1969,7 +1975,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
             //const bool blockedWantsUrgentRight = (((*blocked)->getLaneChangeModel().getOwnState() & LCA_RIGHT != 0)
             //    && ((*blocked)->getLaneChangeModel().getOwnState() & LCA_URGENT != 0));
 
-            if (myVehicle.getSpeed() < ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())
+            if (myVehicle.getSpeed() < myVehicle.getCarFollowModel().getMaxDecel()
                     //|| blockedWantsUrgentRight  // VARIANT_10 (helpblockedRight)
                ) {
                 if ((*blocked)->getSpeed() < SUMO_const_haltingSpeed) {
@@ -2080,20 +2086,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                         std::cout << "   updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " leader=" << leader->getID() << " gap=" << gap << " vSafe=" << vSafe << "\n";
                     }
 #endif
-                    const double deltaV = vMax - leader->getSpeed();
-                    if (deltaV > 0 && gap / deltaV < mySpeedGainLookahead && mySpeedGainLookahead > 0) {
-                        // anticipate future braking by computing the average
-                        // speed over the next few seconds
-                        const double foreCastTime = mySpeedGainLookahead * 2;
-                        const double gapClosingTime = MAX2(0.0, gap / deltaV);
-                        const double vSafe2 = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * leader->getSpeed()) / foreCastTime;
-#ifdef DEBUG_EXPECTED_SLSPEED
-                        if (DEBUG_COND && vSafe2 != vSafe) {
-                            std::cout << "     foreCastTime=" << foreCastTime << " gapClosingTime=" << gapClosingTime << " extrapolated vSafe=" << vSafe2 << "\n";
-                        }
-#endif
-                        vSafe = vSafe2;
-                    }
+                    vSafe = forecastAverageSpeed(vSafe, vMax, gap, leader->getSpeed());
                 }
             }
             // take pedestrians into account
@@ -2118,6 +2111,26 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
         }
     }
     // XXX deal with leaders on subsequent lanes based on preb
+}
+
+
+double
+MSLCM_SL2015::forecastAverageSpeed(double vSafe, double vMax, double gap, double vLeader) const {
+    const double deltaV = vMax - vLeader;
+    if (deltaV > 0 && gap / deltaV < mySpeedGainLookahead && mySpeedGainLookahead > 0) {
+        // anticipate future braking by computing the average
+        // speed over the next few seconds
+        const double foreCastTime = mySpeedGainLookahead * 2;
+        const double gapClosingTime = MAX2(0.0, gap / deltaV);
+        const double vSafe2 = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * vLeader) / foreCastTime;
+#ifdef DEBUG_EXPECTED_SLSPEED
+        if (DEBUG_COND && vSafe2 != vSafe) {
+            std::cout << "     foreCastTime=" << foreCastTime << " gapClosingTime=" << gapClosingTime << " extrapolated vSafe=" << vSafe2 << "\n";
+        }
+#endif
+        vSafe = vSafe2;
+    }
+    return vSafe;
 }
 
 
@@ -3499,6 +3512,24 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         return toString(myCooperativeSpeed);
+    // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
+    } else if (key == "speedGainProbabilityRight") {
+        return toString(mySpeedGainProbabilityRight);
+    } else if (key == "speedGainProbabilityLeft") {
+        return toString(mySpeedGainProbabilityLeft);
+    } else if (key == "keepRightProbability") {
+        return toString(myKeepRightProbability);
+    } else if (key == "lookAheadSpeed") {
+        return toString(myLookAheadSpeed);
+    } else if (key == "sigmaState") {
+        return toString(mySigmaState);
+    // motivaiton relative to threshold
+    } else if (key == "speedGainRP") {
+        return toString(mySpeedGainProbabilityRight / myChangeProbThresholdRight);
+    } else if (key == "speedGainLP") {
+        return toString(mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
+    } else if (key == "keepRightP") {
+        return toString(myKeepRightProbability * myKeepRightParam / myChangeProbThresholdRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -3661,6 +3692,33 @@ MSLCM_SL2015::getNeighRight(const MSLane& neighLane) const {
         // the normal case
         return neighLane.getRightSideOnEdge();
     }
+}
+
+
+bool
+MSLCM_SL2015::preventSliding(double maneuverDist) const {
+    // prevent wide maneuvers with unsufficient forward space
+    if (fabs(maneuverDist) > myMaxDistLatStanding) {
+        // emergency vehicles should not be restricted (TODO solve this with LCA_URGENT)
+        if (myVehicle.getVehicleType().getVehicleClass() == SVC_EMERGENCY) {
+            return false;
+        }
+        const double brakeGap = myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed());
+        const bool isSlide = fabs(maneuverDist) > myMaxDistLatStanding + brakeGap * fabs(myMaxSpeedLatFactor);
+#ifdef DEBUG_SLIDING
+        if (gDebugFlag2) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " bgap=" << brakeGap << " maneuverDist=" << maneuverDist
+                << " mds=" << myMaxDistLatStanding << " isSlide=" << isSlide << "\n";
+        }
+#endif
+        return isSlide;
+    }
+    return false;
+}
+
+bool
+MSLCM_SL2015::wantsKeepRight(double keepRightProb) const {
+    return keepRightProb * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft);
 }
 
 /****************************************************************************/

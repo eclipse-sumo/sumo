@@ -35,8 +35,8 @@
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                    const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color,
-                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
+    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myContainerCapacity(containerCapacity),
     myParkingLength(parkingLength),
@@ -47,6 +47,13 @@ GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet*
 
 
 GNEContainerStop::~GNEContainerStop() {}
+
+
+void
+GNEContainerStop::writeAdditional(OutputDevice& device) const {
+    // use write additional of gneAdditional
+    GNEAdditional::writeAdditional(device);
+}
 
 
 void
@@ -85,9 +92,12 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (drawUsingSelectColor()) {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
-            } else {
+            } else if (myColor.isValid()) {
                 baseColor = myColor;
-                signColor = s.stoppingPlaceSettings.containerStopColorSign;
+                signColor = s.colorSettings.containerStopColorSign;
+            } else {
+                baseColor = s.colorSettings.containerStopColor;
+                signColor = s.colorSettings.containerStopColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
@@ -106,7 +116,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, containerStopExaggeration, 0, 0, true);
+                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), containerStopExaggeration);
             }
             // pop draw matrix
             GLHelper::popMatrix();
@@ -114,10 +124,12 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 
+                                                    containerStopExaggeration, 1, 1);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 
+                                                    containerStopExaggeration, 1, 1);
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
@@ -164,13 +176,11 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
         case SUMO_ATTR_COLOR:
-            if (myColor == myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.containerStopColor) {
+            if (!myColor.isValid()) {
                 return "";
             } else {
                 return toString(myColor);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -197,10 +207,9 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_CONTAINER_CAPACITY:
         case SUMO_ATTR_PARKING_LENGTH:
         case SUMO_ATTR_COLOR:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -251,8 +260,6 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<RGBColor>(value);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -306,13 +313,10 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
-                myColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor;
+                myColor.setValid(false);
             } else {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
             }
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

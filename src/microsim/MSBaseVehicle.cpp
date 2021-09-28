@@ -128,30 +128,10 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     myRoute->addReference();
     if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0) {
-        if (pars->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
-            const int routeEdges = (int)myRoute->getEdges().size();
-            if (pars->departEdgeProcedure == RouteIndexDefinition::RANDOM) {
-                // write specific edge in vehroute output for reproducibility
-                pars->departEdge = RandHelper::rand(0, routeEdges);
-                pars->departEdgeProcedure = RouteIndexDefinition::GIVEN;
-            }
-            assert(pars->departEdge >= 0);
-            assert(pars->departEdge < routeEdges);
-            myCurrEdge += pars->departEdge;
-        }
-        if (pars->arrivalEdgeProcedure == RouteIndexDefinition::RANDOM) {
-            const int routeEdges = (int)myRoute->getEdges().size();
-            const int begin = (int)(myCurrEdge - myRoute->begin());
-            // write specific edge in vehroute output for reproducibility
-            pars->arrivalEdge = RandHelper::rand(begin, routeEdges);
-            pars->arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
-            assert(pars->arrivalEdge >= begin);
-            assert(pars->arrivalEdge < routeEdges);
-        }
+        setDepartAndArrivalEdge();
     }
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
-        const MSEdge* arrivalEdge = pars->arrivalEdge >= 0 ? myRoute->getEdges()[pars->arrivalEdge] : myRoute->getLastEdge();
-        calculateArrivalParams(arrivalEdge);
+        calculateArrivalParams(true);
     }
     initJunctionModelParams();
 }
@@ -340,7 +320,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 return;
             }
         }
-        calculateArrivalParams();
+        setDepartAndArrivalEdge();
+        calculateArrivalParams(onInit);
     }
 }
 
@@ -413,9 +394,16 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
         if (newCurrEdge == edges.end()) {
             return false;
         }
-        if (getLane() != nullptr && getLane()->getEdge().isInternal() && (
-                    (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(getLane()->getOutgoingViaLanes().front().first->getEdge()))) {
-            return false;
+        if (getLane() != nullptr) {
+            if (getLane()->getEdge().isInternal() && (
+                        (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(getLane()->getOutgoingViaLanes().front().first->getEdge()))) {
+                return false;
+            } else if (getPositionOnLane() > getLane()->getLength()
+                    && (myCurrEdge + 1) != myRoute->end()
+                    && (newCurrEdge + 1) != edges.end()
+                    && *(myCurrEdge + 1) != *(newCurrEdge + 1)) {
+                return false;
+            }
         }
         myCurrEdge = newCurrEdge;
     }
@@ -426,7 +414,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
     // assign new route
     myRoute = newRoute;
     // update arrival definition
-    calculateArrivalParams();
+    calculateArrivalParams(onInit);
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     myStopUntilOffset += myRoute->getPeriod();
@@ -705,11 +693,12 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
 
 
 void
-MSBaseVehicle::calculateArrivalParams(const MSEdge* arrivalEdge) {
+MSBaseVehicle::calculateArrivalParams(bool onInit) {
     if (myRoute->getLastEdge()->isTazConnector()) {
         return;
     }
-    if (arrivalEdge == nullptr) {
+    const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[myParameter->arrivalEdge] : myRoute->getLastEdge();
+    if (!onInit) {
         arrivalEdge = myRoute->getLastEdge();
         // ingnore arrivalEdge parameter after rerouting
         const_cast<SUMOVehicleParameter*>(myParameter)->arrivalEdge = -1;
@@ -776,6 +765,34 @@ MSBaseVehicle::calculateArrivalParams(const MSEdge* arrivalEdge) {
             }
         }
         WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive with the given speed!");
+    }
+}
+
+void
+MSBaseVehicle::setDepartAndArrivalEdge() {
+    SUMOVehicleParameter* pars = const_cast<SUMOVehicleParameter*>(myParameter);
+    if (pars->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
+        const int routeEdges = (int)myRoute->getEdges().size();
+        if (pars->departEdgeProcedure == RouteIndexDefinition::RANDOM) {
+            // write specific edge in vehroute output for reproducibility
+            pars->departEdge = RandHelper::rand(0, routeEdges);
+            pars->departEdgeProcedure = RouteIndexDefinition::GIVEN;
+        }
+        assert(pars->departEdge >= 0);
+        if (pars->departEdge >= routeEdges) {
+            WRITE_WARNING("Ignoring departEdge " + toString(pars->departEdge) + " for vehicle '" + getID() + " with " + toString(routeEdges) + " route edges");
+        } else {
+            myCurrEdge += pars->departEdge;
+        }
+    }
+    if (pars->arrivalEdgeProcedure == RouteIndexDefinition::RANDOM) {
+        const int routeEdges = (int)myRoute->getEdges().size();
+        const int begin = (int)(myCurrEdge - myRoute->begin());
+        // write specific edge in vehroute output for reproducibility
+        pars->arrivalEdge = RandHelper::rand(begin, routeEdges);
+        pars->arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
+        assert(pars->arrivalEdge >= begin);
+        assert(pars->arrivalEdge < routeEdges);
     }
 }
 
@@ -874,6 +891,20 @@ MSBaseVehicle::basePos(const MSEdge* edge) const {
     return result;
 }
 
+MSLane*
+MSBaseVehicle::interpretOppositeStop(SUMOVehicleParameter::Stop& stop) {
+    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane);
+    const int laneIndex = SUMOXMLDefinitions::getIndexFromLane(stop.lane);
+    const MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge != nullptr && edge->getOppositeEdge() != nullptr
+            && laneIndex < (edge->getNumLanes() + edge->getOppositeEdge()->getNumLanes())) {
+        const int oppositeIndex = edge->getOppositeEdge()->getNumLanes() + edge->getNumLanes() - 1 - laneIndex;
+        stop.edge = edgeID;
+        return edge->getOppositeEdge()->getLanes()[oppositeIndex];
+    } else {
+        return nullptr;
+    }
+}
 
 bool
 MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
@@ -894,6 +925,12 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         }
     } else {
         stop.lane = MSLane::dictionary(stopPar.lane);
+        if (stop.lane == nullptr) {
+            // must be an opposite stop
+            SUMOVehicleParameter::Stop tmp = stopPar;
+            stop.lane = interpretOppositeStop(tmp);
+            assert(stop.lane != nullptr);
+        }
         if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
             errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
             return false;
@@ -943,8 +980,16 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
         errorMsg = errorMsgStart + " on lane '" + stop.lane->getID() + "' is too short for vehicle '" + myParameter->id + "'.";
     }
-    // if stop is on an internal edge the normal edge before the intersection is used
-    const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
+    const MSEdge* stopLaneEdge = &stop.lane->getEdge();
+    const MSEdge* stopEdge;
+    if (stopLaneEdge->getOppositeEdge() != nullptr && stopLaneEdge->getOppositeEdge()->getID() == stopPar.edge) {
+        // stop lane is on the opposite side
+        stopEdge = stopLaneEdge->getOppositeEdge();
+        stop.isOpposite = true;
+    } else {
+        // if stop is on an internal edge the normal edge before the intersection is used
+        stopEdge = stopLaneEdge->getNormalBefore();
+    }
     if (searchStart == nullptr) {
         searchStart = &myCurrEdge;
     }

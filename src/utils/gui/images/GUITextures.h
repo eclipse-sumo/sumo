@@ -31,10 +31,7 @@
 enum class GUITexture {
     E3 = 0,
     E3_SELECTED,
-    EMPTY,
-    EMPTY_SELECTED,
     LOCK,
-    LOCK_SELECTED,
     NOTMOVING,
     NOTMOVING_SELECTED,
     REROUTER,

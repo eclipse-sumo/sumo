@@ -4,6 +4,7 @@ add_executable(testgeom
         PositionVectorTest.cpp
         GeomHelperTest.cpp
         )
+add_dependencies(testgeom install_test_dll)
 set_property(TARGET testgeom PROPERTY FOLDER "test_exe")
 add_test(testgeom ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testgeom)
 

@@ -6,6 +6,8 @@ lateralCollision
 
 # tests for vehicle mapping
 moveToXY
+moveTo
+changeLane
 
 # Tests the openGap() method.
 openGap
@@ -47,21 +49,6 @@ getNeighborsSublane
 # Tests traci.vehicle.getNeighbors() method
 getNeighborsOpposite
 
-# use changeLaneRelative to change to the opposite side and back
-changeOpposite
-
-# test changeLane and changeLaneRelative
-changeLane
-
-# test relative lane changes
-changeRelative
-
-# test reaction to an invalid changeRelative command in a network that allows opposite direction driving (#6576)
-changeRelative_invalid
-
-# use changeLaneRelative to change to the opposite side and back using the default laneChangeMode
-changeOpposite_default
-
 # test estimated public transport stop delay
 stopDelay
 
@@ -73,9 +60,6 @@ stopDelay2
 
 # compare getFollowSpeed and actual speed
 getFollowSpeed
-
-# check whether vehicles moved with moveTo can register on a detector
-moveTo_detector
 
 # retrieve stops with limits
 getStops
@@ -92,6 +76,7 @@ slowDown
 # test timing of slowDown command
 slowDown_subsecond
 getFollower
+getLeader
 
 # test access to driverstate parameters
 driverstate

@@ -24,14 +24,14 @@ below.
 
 # Iterative Assignment (**D**ynamic **U**ser **E**quilibrium)
 
-The tool {{SUMO}}*/tools/assign/duaIterate.py* can be used to compute the
+The tool [duaIterate.py](../Tools/Assign.md#duaiteratepy) can be used to compute the
 (approximate) dynamic user equilibrium.
 
 !!! caution
     This script will require copious amounts of disk space
 
 ```
-python duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
+python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
 ```
 
 *duaIterate.py* supports many of the same options as
@@ -90,6 +90,22 @@ to compute these probabilities:
 - the travel time along the used route in the previous simulation step
 - the sum of edge travel times for a set of alternative routes
 - the previous probability of choosing a route
+
+#### Number of Routes in each traveller's route set
+
+The maximum number of routes can be defined by users, where 5 is the default value. In each iteration, the route usage probability is calculated for each route. When the number of routes is larger than the defined amount, routes with smallest probabilities are removed.
+
+#### Updates of Travel Time
+
+The update rule is explained with the following example. Driver d chooses Route r in Iteration i. The travel time Tau_d(r, i+1) is calculated according to the aggregated and averaged link travel times per defined interval (default: 900 s) in Iteration i. The travel time for Driver d's Route r in Iteration i+1 equals to Tau_d(r, i) as indicated in Formula (1). The travel times of the other routes in Driver d's route set are then updated with Formula (2) respectively, where Tau_d(s, i) is the travel time needed to travel on Route s in Iteration i and calculated with the same way used for calculating Tau_d(r, i) an T_d(s, i-1). The parameter beta is to prevent travellers from strongly "remembering" the latest trave time of each route in their route sets. The current default value for beta is 0.3.
+ 
+T_d(r, i+1) = Tau_d(r, i) ------------------------------------(1)
+  
+T_d(s, i+1) = beta * Tau_d(s, i) + (1 - beta) * T_d(s, i-1) ---(2)
+
+, where s is one of the routes, which are not selected to use in Iteration i, in Driver d's route set.
+
+The aforementioned update rules also apply when other travel cost units are used. The way to use simulated link costs for calcuating route costs may result in cost underestimation especially when significant congestion only on one of traffic movenents (e.g. left-turn or right-turn) exists. The existing ticket #2566 deals with this issue. In Formula (1), it is also possible to use Driver d's actual travel cost in Iteration i as Tau_d(r, i).
 
 ### Logit
 

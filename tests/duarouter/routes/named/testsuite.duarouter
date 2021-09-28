@@ -30,5 +30,8 @@ multiref2
 repeat_cycletime
 implicit_route_repeat
 
+# let flows sample from a route distribution
+routeDistribution_skipNew
+
 # Tests for false user input
 errors

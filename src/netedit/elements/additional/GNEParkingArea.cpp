@@ -35,8 +35,8 @@
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width,
-                               const double length, double angle, const std::map<std::string, std::string>& parameters, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+                               const double length, double angle, const std::map<std::string, std::string>& parameters) :
+    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
@@ -49,6 +49,13 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
 
 
 GNEParkingArea::~GNEParkingArea() {}
+
+
+void 
+GNEParkingArea::writeAdditional(OutputDevice& device) const {
+    // use write additional of gneAdditional
+    GNEAdditional::writeAdditional(device);
+}
 
 
 void
@@ -103,8 +110,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
             } else {
-                baseColor = s.stoppingPlaceSettings.parkingAreaColor;
-                signColor = s.stoppingPlaceSettings.parkingAreaColorSign;
+                baseColor = s.colorSettings.parkingAreaColor;
+                signColor = s.colorSettings.parkingAreaColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
@@ -121,7 +128,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, parkingAreaExaggeration, baseColor, signColor, "P");
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, true);
+                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), parkingAreaExaggeration);
                 // Traslate to front
                 glTranslated(0, 0, 0.1);
                 // draw lotSpaceDefinitions
@@ -135,10 +142,12 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, parkingAreaExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
+                                                    parkingAreaExaggeration, true, true);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, parkingAreaExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
+                                                    parkingAreaExaggeration, true, true);
             }
             // draw child spaces
             for (const auto& parkingSpace : getChildAdditionals()) {
@@ -194,8 +203,6 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(myLength);
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -256,10 +263,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -326,8 +332,6 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -425,9 +429,6 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = parse<double>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

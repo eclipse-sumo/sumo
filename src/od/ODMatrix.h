@@ -37,6 +37,7 @@
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/xml/SAXWeightsHandler.h>
 
 // ===========================================================================
 // class declarations
@@ -64,7 +65,8 @@ class SUMOSAXHandler;
  * In addition of being a storage, the matrix is also responsible for writing
  *  the results and contains methods for splitting the entries over time.
  */
-class ODMatrix {
+class ODMatrix : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
+
 public:
     /** @brief Constructor
      *
@@ -257,6 +259,9 @@ public:
         return myEnd;
     }
 
+    void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
+            double val, double beg, double end);
+
 protected:
     /**
      * @struct ODVehicle
@@ -373,6 +378,9 @@ private:
 
     /// @brief parsed time bounds
     SUMOTime myBegin, myEnd;
+
+    /// @brief user-defined vType
+    std::string myVType;
 
     /**
      * @class cell_by_begin_comparator

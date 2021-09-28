@@ -4,3 +4,9 @@ trigger_on_absence:1
 search_file:ps
 full_description:platform dependent screenshots
 brief_description:see #3449
+
+[Reported by erdm_ja at 25Aug07:51:05]
+search_string:png
+search_file:free_text
+full_description:platform dependent png
+brief_description:platform dependent png

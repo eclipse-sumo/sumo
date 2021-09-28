@@ -72,7 +72,8 @@ public:
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
-            MSLane* lane, double pos, const std::string& vTypes, bool show = true) override;
+            MSLane* lane, double pos, const std::string& vTypes, int detectPersons,
+            bool show = true) override;
 
 
     /** @brief Creates an instance of an e1 detector using the given values

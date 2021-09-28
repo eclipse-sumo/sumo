@@ -28,9 +28,6 @@ vclasses
 # testing some additional options
 function
 
-# testing error input
-errors
-
 # routing of pedestrians
 person
 
@@ -40,6 +37,9 @@ personFlow
 # test handling of container and containerFlow.
 # no routing should take place and the input is simply copied to the output.
 container
+
+# testing error input
+errors
 
 # Testing previously buggy behaviour
 bugs

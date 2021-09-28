@@ -69,6 +69,7 @@ const int VTYPEPARS_CARRIAGE_LENGTH_SET = 1 << 25;
 const int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
 const int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
 const int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
+const int VTYPEPARS_FRONT_SEAT_POS_SET = 1 << 29;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -335,6 +336,9 @@ public:
     double carriageLength;
     double locomotiveLength;
     double carriageGap;
+
+    /// @brief the offset of the first person seat from the front of the vehicle
+    double frontSeatPos;
 
     /// @brief Information for the router which parameter were set
     int parametersSet;

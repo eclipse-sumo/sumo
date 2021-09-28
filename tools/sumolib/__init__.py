@@ -31,7 +31,7 @@ from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
-from . import color, geomhelper, miscutils, options, route, version  # noqa
+from . import color, geomhelper, miscutils, options, route, vehicletype, version  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa
 # the visualization submodule is not imported to avoid an explicit matplotlib dependency
 

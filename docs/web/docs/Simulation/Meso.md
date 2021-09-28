@@ -97,7 +97,7 @@ meso-tauff is lower than meso-taujf.
 
 For each queue (also called segment in the GUI) an occupancy threshold
 value determines whether that queue is *jammed* or *free*. The following
-numerical values are supported for option **--meso-jam-treshold** {{DT_FLOAT}}:
+numerical values are supported for option **--meso-jam-threshold** {{DT_FLOAT}}:
 
 - value = -1: Threshold is computed so that vehicles driving at the
   speed limit do not jam. This is the default behavior which is

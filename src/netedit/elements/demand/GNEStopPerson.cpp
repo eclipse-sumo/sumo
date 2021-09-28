@@ -58,7 +58,7 @@ GNEMoveOperation*
 GNEStopPerson::getMoveOperation(const double /*shapeOffset*/) {
     if (myTagProperty.getTag() == GNE_TAG_STOPPERSON_EDGE) {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), {endPos},
+        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     } else {
         return nullptr;
@@ -243,16 +243,20 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             drawStopPersonOverLane(s, exaggeration, stopColor);
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, 
+                                                exaggeration, 1, 1);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, 
+                                                exaggeration, 1, 1);
         }
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
@@ -394,19 +398,19 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ACTTYPE:
         case GNE_ATTR_SELECTED:
         case SUMO_ATTR_FRIENDLY_POS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         case SUMO_ATTR_EDGE: {
             // get next personPlan
             GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
-                undoList->p_begin("Change from attribute of next personPlan");
+                undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -418,12 +422,12 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 // obtain busStop
                 const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
-                undoList->p_begin("Change from attribute of next personPlan");
+                undoList->begin("Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -434,12 +438,12 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeaveStopPersonsConnected() &&
                     previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 // change from attribute using edge ID
-                undoList->p_begin("Change arrivalPos attribute of previous personPlan");
+                undoList->begin("Change arrivalPos attribute of previous personPlan");
                 previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -507,11 +511,11 @@ GNEStopPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;
@@ -744,10 +748,10 @@ GNEStopPerson::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStopPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("endPos of " + getTagStr());
+    undoList->begin("endPos of " + getTagStr());
     // now adjust endPos position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

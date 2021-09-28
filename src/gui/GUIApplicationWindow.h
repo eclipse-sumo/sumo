@@ -452,4 +452,7 @@ protected:
     FXToolBarShell* myToolBarDrag6 = nullptr, *myToolBarDrag7 = nullptr, *myToolBarDrag9 = nullptr, *myToolBarDrag10 = nullptr;
     ////}
 
+    /// last time the simulation view was redrawn due to a simStep
+    long myLastStepEventMillis;
+
 };

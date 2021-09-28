@@ -122,6 +122,8 @@ A given bus stop may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
 
+The positions of persons in a vehicle depend on the 'guiShape' parameter of the vehicle as well as it's dimensions. The offset between the front of the vehicle and the first passenger placement can be configured by adding `<param key="frontSeatPos" value="3.14"/>`to the vType definition of the vehicle.
+
 ## Walks
 
 Walks define a [pedestrian movement](../Simulation/Pedestrians.md).
@@ -211,12 +213,12 @@ It is possible to start the person simulation simultaneously with the start of a
 ## Starting a person in a vehicle
 To start the simulation of a person while riding in a vehicle, the `depart` attribute of the person must be set to `triggered`.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
-The vehicle is indicated by using only the vehicle ID for the `lanes` attribute of the ride.
+The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
 
 ## Starting multiple persons in a vehicle
 To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This only works for the distribution attribute `number`, which defines the number of persons insterted into the vehicle, and the attribute `begin="triggered"`. The `end` attribute is ignored or can be left.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
-The vehicle is indicated by using only the vehicle ID for the `lanes` attribute of the ride.
+The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
 
 ## Examples
 Person `p0` starts within the vehicle defined by trip `v0` at edge `gneE0`. The ride ends at edge `gneE1`.

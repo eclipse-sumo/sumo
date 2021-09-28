@@ -41,7 +41,7 @@ netedit.supermodeDemand()
 netedit.selectMode()
 
 # select all using invert
-netedit.selectionInvertDemand()
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()

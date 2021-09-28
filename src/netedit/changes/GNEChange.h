@@ -21,7 +21,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
 #include <netedit/elements/GNEHierarchicalContainer.h>
@@ -33,7 +32,7 @@
 #include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <utils/foxtools/fxexdefs.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -62,42 +61,69 @@ class GNEViewNet;
  * @class GNEChange
  * @brief the function-object for an editing operation (abstract base)
  */
-class GNEChange : public FXCommand {
+class GNEChange : public FXObject {
     FXDECLARE_ABSTRACT(GNEChange)
 
 public:
+    /// @name friend class
+    friend class GNEChangeGroup;
+    friend class GNEUndoList;
+
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, bool forward, const bool selectedElement);
 
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] element hierarchical element
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(GNEHierarchicalElement* element, bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, GNEHierarchicalElement* element, bool forward, const bool selectedElement);
 
     /// @brief Destructor
     ~GNEChange();
 
-    /// @brief return actual size
-    virtual FXuint size() const;
-
-    /// @brief return undoName
-    virtual FXString undoName() const;
-
-    /// @brief return rendoName
-    virtual FXString redoName() const;
-
     /// @brief undo action/operation
-    virtual void undo();
+    virtual void undo() = 0;
 
     /// @brief redo action/operation
-    virtual void redo();
+    virtual void redo() = 0;
+
+     /// @brief return undoName
+    virtual std::string undoName() const = 0;
+
+    /// @brief return rendoName
+    virtual std::string redoName() const = 0;
+
+    /// @brief Return the size of the command group
+    virtual int size() const;
+
+    /// @brief get supermode
+    Supermode getSupermode() const;
+
+    /**
+     * @brief Return TRUE if this command can be merged with previous undo
+     * commands.  This is useful to combine e.g. multiple consecutive
+     * single-character text changes into a single block change.
+     * The default implementation returns FALSE.
+     */
+    bool canMerge() const;
+
+    /**
+     * @brief Called by the undo system to try and merge the new incoming command
+     * with this command; should return TRUE if merging was possible.
+     * The default implementation returns FALSE.
+     */
+    bool mergeWith(GNEChange* command);
 
 protected:
+    /// @brief FOX need this
+    GNEChange();
+
     /// @brief restore container (only use in undo() function)
     void restoreHierarchicalContainers();
 
@@ -211,6 +237,9 @@ protected:
         }
     }
 
+    /// @brief supermode related with this change
+    const Supermode mySupermode;
+
     /// @brief we group antagonistic commands (create junction/delete junction) and keep them apart by this flag
     bool myForward;
 
@@ -222,4 +251,14 @@ protected:
 
     /// @brief map with hierarchical container of all parent and children elements
     std::map<GNEHierarchicalElement*, GNEHierarchicalContainer> myHierarchicalContainers;
+
+private:
+    // @brief next GNEChange (can be access by GNEChangeGroup and GNEUndoList)
+    GNEChange *next;
+
+    /// @brief Invalidated copy constructor.
+    GNEChange(const GNEChange&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEChange& operator=(const GNEChange&) = delete;
 };

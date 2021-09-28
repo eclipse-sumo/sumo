@@ -85,7 +85,9 @@ GUILoadThread::run() {
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    if (!OptionsCont::getOptions().getBool("no-warnings")) {
+        MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    }
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
@@ -128,7 +130,7 @@ GUILoadThread::run() {
         GUIGlobals::gRunAfterLoad = oc.getBool("start");
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         GUIGlobals::gDemoAutoReload = oc.getBool("demo");
-        GUIGlobals::gTrackerInterval = oc.getFloat("tracker-interval");
+        GUIGlobals::gTrackerInterval = STEPS2TIME(string2time(oc.getString("tracker-interval")));
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());

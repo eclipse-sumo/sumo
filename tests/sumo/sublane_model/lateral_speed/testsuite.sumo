@@ -21,5 +21,14 @@ red_light_maxSpeedLatStanding_1
 # vehicles queue at a red light. Some have to change to a turn lane and others may change for strategic reasons (filling up all forrward lanes)
 red_light_maxSpeedLatStanding_0
 
+# a vehicles waits at the red light. 
+red_light_maxDistLatStanding_default
+
+# a bicycle waits at the red light. 
+red_light_maxDistLatStanding_default_bike
+
+# a vehicles waits at the red light. 
+red_light_maxDistLatStanding_3.2
+
 # avoid strong lateral acceleration due to random lateral movement
 lcSigma

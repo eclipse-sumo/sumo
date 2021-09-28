@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-19 13:48:39 by Eclipse SUMO marouter Version v1_9_2+0021-08879bef84
+<!-- generated on 2021-09-08 22:41:08 by Eclipse SUMO marouter Version v1_10_0+0595-3ff6633
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -18,6 +18,8 @@
         <additional-files value="" synonymes="additional d districts taz-files" type="FILE" help="Read additional network data (districts, bus stops) from FILE"/>
         <od-matrix-files value="" synonymes="m od-files" type="FILE" help="Loads O/D-files from FILE(s)"/>
         <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE" help="Loads O/D-matrix in Amitran format from FILE(s)"/>
+        <tazrelation-files value="" synonymes="z" type="FILE" help="Loads O/D-matrix in tazRelation format from FILE(s)"/>
+        <tazrelation-attribute value="count" synonymes="attribute" type="STR" help="Define data attribute for loading counts (default &apos;count&apos;)"/>
         <route-files value="" synonymes="r routes trip-files trips" type="FILE" help="Read sumo-routes or trips from FILE(s)"/>
         <weight-files value="" synonymes="w weights" type="FILE" help="Read network weights from FILE(s)"/>
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>

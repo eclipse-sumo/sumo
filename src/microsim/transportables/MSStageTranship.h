@@ -94,7 +94,7 @@ public:
     void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
     /// @brief move forward and return whether the container arrived
-    bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal = 0);
+    bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = 0);
 
 
     /// @brief the maximum speed of the transportable

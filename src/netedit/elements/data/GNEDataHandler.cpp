@@ -58,9 +58,9 @@ GNEDataHandler::buildDataSet(const std::string& dataSetID) {
     if (myNet->retrieveDataSet(dataSetID, false) == nullptr) {
         GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET));
+            myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_DATASET));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             dataSet->incRef("buildDataSet");
         }
@@ -77,23 +77,24 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
     GNEDataSet* dataSet = myNet->retrieveDataSet(dataSetID, false);
     // first check if dataSet exist
     if (dataSet == nullptr) {
+        // create dataset AND data interval
         dataSet = new GNEDataSet(myNet, dataSetID);
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET) + " and " + toString(SUMO_TAG_DATAINTERVAL));
+            myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_DATASET) + " and " + toString(SUMO_TAG_DATAINTERVAL));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
         }
-    } else {
+    } else if (dataSet->retrieveInterval(begin, end) == nullptr) {
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATAINTERVAL));
+            myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_DATAINTERVAL));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
@@ -118,9 +119,9 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
             if (edge) {
                 GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
+                    myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
-                    myNet->getViewNet()->getUndoList()->p_end();
+                    myNet->getViewNet()->getUndoList()->end();
                 } else {
                     dataInterval->addGenericDataChild(edgeData);
                     edge->addChildElement(edgeData);
@@ -155,9 +156,9 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
             if (fromEdge && toEdge) {
                 GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
+                    myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
-                    myNet->getViewNet()->getUndoList()->p_end();
+                    myNet->getViewNet()->getUndoList()->end();
                 } else {
                     dataInterval->addGenericDataChild(edgeData);
                     fromEdge->addChildElement(edgeData);
@@ -184,26 +185,43 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
-                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
-                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
-            // get data
+            // get from TAZs
             GNETAZElement* fromTAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZID, false);
             GNETAZElement* toTAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, toTAZID, false);
-            if (fromTAZ && toTAZ) {
+            if (fromTAZ == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
+            } else if (toTAZ == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
+            } else if ((fromTAZ != toTAZ) && dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
+                WRITE_ERROR("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between '" + toTAZID + "' and '" + toTAZID + "'.");
+            } else if ((fromTAZ == toTAZ) && dataInterval->TAZRelExists(fromTAZ)) {
+                WRITE_ERROR("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in '" + toTAZID + "'.");
+            } else if (fromTAZ == toTAZ) {
+                GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_TAZREL));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                    myNet->getViewNet()->getUndoList()->end();
+                } else {
+                    dataInterval->addGenericDataChild(edgeData);
+                    fromTAZ->addChildElement(edgeData);
+                    edgeData->incRef("buildEdgeData");
+                }
+            } else {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
+                    myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_TAZREL));
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
-                    myNet->getViewNet()->getUndoList()->p_end();
+                    myNet->getViewNet()->getUndoList()->end();
                 } else {
                     dataInterval->addGenericDataChild(edgeData);
                     fromTAZ->addChildElement(edgeData);
                     toTAZ->addChildElement(edgeData);
                     edgeData->incRef("buildEdgeData");
                 }
-            } else {
-                writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ);
             }
         } else {
             writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATAINTERVAL);
@@ -223,6 +241,12 @@ GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id
 void
 GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const {
     WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(parent) + " doesn't exist.");
+}
+
+
+void
+GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string & ID) const {
+    WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(parent) + " with ID '" + ID + "' doesn't exist.");
 }
 
 /****************************************************************************/

@@ -34,17 +34,18 @@
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-myEdgeTypeParent(edgeTypeParent) {
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-myEdgeTypeParent(edgeTypeParent) {
+    myEdgeTypeParent(edgeTypeParent) {
     // copy parameters
     speed = laneType.speed;
     permissions = laneType.permissions;
     width = laneType.width;
+    restrictions = laneType.restrictions;
     attrs = laneType.attrs;
 }
 
@@ -162,7 +163,7 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_WIDTH:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

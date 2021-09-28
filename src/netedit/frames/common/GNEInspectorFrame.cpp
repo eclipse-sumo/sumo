@@ -103,11 +103,6 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myLabelParentAdditional = new FXLabel(myHorizontalFrameParentAdditional, "Block move", nullptr, GUIDesignLabelAttribute);
     myTextFieldParentAdditional = new FXTextField(myHorizontalFrameParentAdditional, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
-    // Create elements for block movement
-    myHorizontalFrameBlockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", nullptr, GUIDesignLabelAttribute);
-    myCheckBoxBlockMovement = new FXCheckButton(myHorizontalFrameBlockMovement, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", nullptr, GUIDesignLabelAttribute);
@@ -127,7 +122,6 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
     if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // enable all editable elements
         myTextFieldParentAdditional->enable();
-        myCheckBoxBlockMovement->enable();
         myCheckBoxCloseShape->enable();
         // obtain tag property (only for improve code legibility)
         const auto& tagValue = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty();
@@ -142,28 +136,6 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
                 myMarkFrontElementButton->disable();
             } else {
                 myMarkFrontElementButton->enable();
-            }
-        }
-        // Check if item can be moved
-        if (tagValue.canBlockMovement()) {
-            // show NeteditAttributesEditor
-            show();
-            // Iterate over AC to obtain values
-            bool value = true;
-            for (const auto& i : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
-            }
-            // show block movement frame
-            myHorizontalFrameBlockMovement->show();
-            // show help button
-            myHelpButton->show();
-            // set check box value and update label
-            if (value) {
-                myCheckBoxBlockMovement->setCheck(true);
-                myCheckBoxBlockMovement->setText("true");
-            } else {
-                myCheckBoxBlockMovement->setCheck(false);
-                myCheckBoxBlockMovement->setText("false");
             }
         }
         // check if item can block their shape
@@ -208,7 +180,6 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
         if (GNEFrameAttributesModuls::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()) == false) {
             myTextFieldParentAdditional->disable();
-            myCheckBoxBlockMovement->disable();
             myCheckBoxCloseShape->disable();
         }
     }
@@ -219,7 +190,6 @@ void
 GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
     // hide all elements of GroupBox
     myHorizontalFrameParentAdditional->hide();
-    myHorizontalFrameBlockMovement->hide();
     myHorizontalFrameCloseShape->hide();
     myMarkFrontElementButton->hide();
     myHelpButton->hide();
@@ -236,22 +206,6 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
             myMarkFrontElementButton->disable();
         } else {
             myMarkFrontElementButton->enable();
-        }
-        // refresh block movement
-        if (myHorizontalFrameBlockMovement->shown()) {
-            // Iterate over AC to obtain values
-            bool value = true;
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
-            }
-            // set check box value and update label
-            if (value) {
-                myCheckBoxBlockMovement->setCheck(true);
-                myCheckBoxBlockMovement->setText("true");
-            } else {
-                myCheckBoxBlockMovement->setCheck(false);
-                myCheckBoxBlockMovement->setText("false");
-            }
         }
         // refresh close shape
         if (myHorizontalFrameCloseShape->shown()) {
@@ -285,20 +239,9 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
     if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // check if we're changing multiple attributes
         if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myInspectorFrameParent->myViewNet->getUndoList()->p_begin("Change multiple attributes");
+            myInspectorFrameParent->myViewNet->getUndoList()->begin("Change multiple attributes");
         }
-        if (obj == myCheckBoxBlockMovement) {
-            // set new values in all inspected Attribute Carriers
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                if (myCheckBoxBlockMovement->getCheck() == 1) {
-                    i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", myInspectorFrameParent->myViewNet->getUndoList());
-                    myCheckBoxBlockMovement->setText("true");
-                } else {
-                    i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", myInspectorFrameParent->myViewNet->getUndoList());
-                    myCheckBoxBlockMovement->setText("false");
-                }
-            }
-        } else if (obj == myCheckBoxCloseShape) {
+        if (obj == myCheckBoxCloseShape) {
             // set new values in all inspected Attribute Carriers
             for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
                 if (myCheckBoxCloseShape->getCheck() == 1) {
@@ -323,7 +266,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
         }
         // finish change multiple attributes
         if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+            myInspectorFrameParent->myViewNet->getUndoList()->end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
@@ -696,14 +639,14 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
     // first check
     if (myHasEdgeTemplate) {
         // begin copy template
-        myInspectorFrameParent->myViewNet->getUndoList()->p_begin("copy edge template");
+        myInspectorFrameParent->myViewNet->getUndoList()->begin("copy edge template");
         // iterate over inspected ACs
         for (const auto& inspectedAC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             // retrieve edge ID (and throw exception if edge doesn't exist)
             myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(inspectedAC->getID())->copyTemplate(myEdgeTemplate, myInspectorFrameParent->myViewNet->getUndoList());
         }
         // end copy template
-        myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+        myInspectorFrameParent->myViewNet->getUndoList()->end();
         // refresh inspector parent
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
         // update view (to see visual changes)
@@ -879,36 +822,28 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
     GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
-        // declare attribute type
-        Parameterised::ParameterisedAttrType attrType;
-        // update flag
-        if (frontAC->getTagProperty().hasDoubleParameters()) {
-            attrType = Parameterised::ParameterisedAttrType::DOUBLE;
-        } else {
-            attrType = Parameterised::ParameterisedAttrType::STRING;
-        }
         // check if current given string is valid
-        if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, attrType)) {
+        if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true)) {
             // parsed parameters ok, then set text field black and continue
             myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
             myTextFieldParameters->killFocus();
             // check inspected parameters
             if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
                 // begin undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_begin("change parameters");
+                myInspectorFrameParent->myViewNet->getUndoList()->begin("change parameters");
                 // set parameters
                 frontAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 // end undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+                myInspectorFrameParent->myViewNet->getUndoList()->end();
             } else if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
                 // begin undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_begin("change multiple parameters");
+                myInspectorFrameParent->myViewNet->getUndoList()->begin("change multiple parameters");
                 // set parameters in all ACs
                 for (const auto& inspectedAC : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
                     inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 // end undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->p_end();
+                myInspectorFrameParent->myViewNet->getUndoList()->end();
             }
             // update frame parent after attribute sucesfully set
             myInspectorFrameParent->attributeUpdated();
@@ -1384,7 +1319,9 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 
 void
 GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
-    if (objectsUnderCursor.getAttributeCarrierFront()) {
+    const auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    // check if selection is blocked
+    if (AC && !myViewNet->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType())) {
         // inspect front element
         inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
         // show Overlapped Inspection modul

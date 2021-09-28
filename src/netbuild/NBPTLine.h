@@ -40,7 +40,7 @@ class NBPTLine {
 public:
     NBPTLine(const std::string& id, const std::string& name,
              const std::string& type, const std::string& ref, int interval, const std::string& nightService,
-             SUMOVehicleClass vClass);
+             SUMOVehicleClass vClass, RGBColor color);
 
     void addPTStop(NBPTStop* pStop);
 
@@ -116,6 +116,8 @@ private:
     std::string myCurrentWay;
     std::string myPTLineId;
     std::string myRef;
+    // official line color
+    RGBColor myColor;
 
     // @brief the service interval in minutes
     int myInterval;

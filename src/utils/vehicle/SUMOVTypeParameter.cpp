@@ -267,6 +267,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       carriageLength(-1),
       locomotiveLength(-1),
       carriageGap(1),
+      frontSeatPos(1.7),
       parametersSet(0),
       saved(false),
       onlyReferenced(false) {
@@ -607,7 +608,7 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
     if (knowsParameter("carriageLength")) {
         carriageLength = StringUtils::toDouble(getParameter("carriageLength"));
         parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
-    } else if (wasSet(VTYPEPARS_SHAPE_SET)) {
+    } else {
         switch (shape) {
             case SVS_BUS_FLEXIBLE:
                 carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
@@ -645,6 +646,39 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
     if (knowsParameter("carriageGap")) {
         carriageGap = StringUtils::toDouble(getParameter("carriageGap"));
         parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
+    }
+    if (knowsParameter("frontSeatPos")) {
+        frontSeatPos = StringUtils::toDouble(getParameter("frontSeatPos"));
+        parametersSet |= VTYPEPARS_FRONT_SEAT_POS_SET;
+    } else {
+        switch (shape) {
+            case SVS_SHIP:
+                frontSeatPos = 5;
+                break;
+            case SVS_DELIVERY:
+                frontSeatPos = 1.2;
+                break;
+            case SVS_BICYCLE:
+                frontSeatPos = 0.6;
+                break;
+            case SVS_MOPED:
+            case SVS_MOTORCYCLE:
+                frontSeatPos = 0.9;
+                break;
+            case SVS_BUS:
+            case SVS_BUS_COACH:
+            case SVS_BUS_FLEXIBLE:
+            case SVS_BUS_TROLLEY:
+                frontSeatPos = 0.5;
+                break;
+            case SVS_TRUCK:
+            case SVS_TRUCK_1TRAILER:
+            case SVS_TRUCK_SEMITRAILER:
+                frontSeatPos = 0.8;
+                break;
+            default:
+                break;
+        }
     }
 }
 

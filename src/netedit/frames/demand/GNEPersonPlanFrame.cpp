@@ -35,7 +35,8 @@
 // ---------------------------------------------------------------------------
 
 GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "PersonPlans") {
+    GNEFrame(horizontalFrameParent, viewNet, "PersonPlans"),
+    myRouteHandler("", viewNet->getNet(), true) {
 
     // create person types selector modul
     myPersonSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
@@ -205,7 +206,7 @@ GNEPersonPlanFrame::createPath() {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
         // check if person plan can be created
-        if (GNERouteHandler::buildPersonPlan(
+        if (myRouteHandler.buildPersonPlan(
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
                     myPersonPlanAttributes,

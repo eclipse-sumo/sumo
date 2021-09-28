@@ -327,8 +327,9 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageLength = carriageLengthWithGap - carriageGap;
     }
     const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1 || (getVClass() & SVC_RAIL_CLASSES) == 0 ? 0 : 1;
+    const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SVS_TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER) ? 1 : 0;
     const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER ? 0 : 1;
-    const int seatsPerCarriage = (int)ceil(getVType().getPersonCapacity() / (numCarriages - firstPassengerCarriage));
+    const int seatsPerCarriage = (int)ceil(getVType().getPersonCapacity() / (numCarriages - firstPassengerCarriage - noPersonsBackCarriages));
     const int containersPerCarriage = (int)ceil(getVType().getContainerCapacity() / (numCarriages - firstContainerCarriage));
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
@@ -704,10 +705,16 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         } else {
             stopLanePos = stop.reached ? getPositionOnLane() : MAX2(0.0, stop.getEndPos(*this));
         }
+        if (stop.isOpposite && !stop.reached) {
+            stopLanePos = stop.lane->getLength() - stopLanePos;
+        }
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::setColor(col);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
         std::string label = stop.pars.speed > 0 ? "waypoint" : (stop.reached ? "stopped" : "stop " + toString(stopIndex));
+        if (stop.isOpposite) {
+            label += " (opposite)";
+        }
 #ifdef _DEBUG
         label += " (" + toString(stop.edge - myCurrEdge) + "e)";
 #endif
@@ -1023,7 +1030,7 @@ GUIVehicle::getManeuverDist() const {
 
 std::string
 GUIVehicle::getSpeedMode() const {
-    return std::bitset<5>(getInfluencer()->getSpeedMode()).to_string();
+    return std::bitset<6>(getInfluencer()->getSpeedMode()).to_string();
 }
 
 std::string

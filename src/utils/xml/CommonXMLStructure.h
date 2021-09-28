@@ -23,6 +23,8 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -43,6 +45,9 @@ public:
         /// @brief destructor
         ~SumoBaseObject();
 
+        /// @brief clear SumoBaseObject
+        void clear();
+
         /// @brief set SumoBaseObject tag
         void setTag(const SumoXMLTag tag);
 
@@ -53,6 +58,9 @@ public:
 
         /// @brief get pointer to mySumoBaseObjectParent SumoBaseObject (if is null, then is the root)
         SumoBaseObject* getParentSumoBaseObject() const;
+
+        /// @brief get all attributes in string format
+        std::map<std::string, std::string> getAllAttributes() const;
 
         /// @brief get string attribute
         const std::string& getStringAttribute(const SumoXMLAttr attr) const;
@@ -80,6 +88,18 @@ public:
 
         /// @brief get PositionVector attribute
         const PositionVector& getPositionVectorAttribute(const SumoXMLAttr attr) const;
+
+        /// @brief vehicle class
+        SUMOVehicleClass getVClass() const;
+
+        /// @brief get current vType
+        const SUMOVTypeParameter &getVehicleTypeParameter() const;
+
+        /// @brief get vehicle parameters
+        const SUMOVehicleParameter &getVehicleParameter() const;
+
+        /// @brief get stop parameters
+        const SUMOVehicleParameter::Stop &getStopParameter() const;
 
         /// @brief get parameters
         const std::map<std::string, std::string>& getParameters() const;
@@ -149,6 +169,18 @@ public:
         /// @brief add PositionVector attribute into current SumoBaseObject node
         void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
+        /// @brief set vehicle class
+        void setVClass(SUMOVehicleClass vClass);
+
+        /// @brief set vehicle type parameters
+        void setVehicleTypeParameter(const SUMOVTypeParameter* vehicleTypeParameter);
+
+        /// @brief set vehicle parameters
+        void setVehicleParameter(const SUMOVehicleParameter* vehicleParameter);
+
+        /// @brief add stop parameters
+        void setStopParameter(const SUMOVehicleParameter::Stop &stopParameter);
+
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string& key, const std::string& value);
         /// @}
@@ -193,6 +225,18 @@ public:
         /// @brief SumoBaseObject children
         std::vector<SumoBaseObject*> mySumoBaseObjectChildren;
 
+        /// @brief vehicle class
+        SUMOVehicleClass myVClass;
+
+        /// @brief vehicle type parameter
+        SUMOVTypeParameter myVehicleTypeParameter;
+
+        /// @brief vehicle parameter
+        SUMOVehicleParameter myVehicleParameter;
+
+        /// @brief stop parameter
+        SUMOVehicleParameter::Stop myStopParameter;
+
         /// @brief add SumoBaseObject child
         void addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);
 
@@ -200,6 +244,18 @@ public:
         void removeSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);
 
     private:
+        /// @brief flag for defined vehicle type parameter
+        bool myDefinedVehicleTypeParameter;
+
+        /// @brief @brief flag for defined vehicle parameter
+        bool myDefinedVehicleParameter;
+
+        /// @brief @brief flag for defined stop parameter
+        bool myDefinedStopParameter;
+
+        /// @brief handle attribute error
+        void handleAttributeError(const SumoXMLAttr attr, const std::string &type) const;
+
         /// @brief invalidate copy constructor
         SumoBaseObject(const SumoBaseObject& s) = delete;
 

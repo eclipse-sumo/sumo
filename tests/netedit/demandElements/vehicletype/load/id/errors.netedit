@@ -19,12 +19,14 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
 Error: Attribute 'id' is missing in definition of vType
+Error: VType cannot be created
 Error: Attribute 'id' in definition of a vType is empty.
 Error: Invalid vType id ''.
+Error: VType cannot be created
 Debug: Adding vType '$$·$·%%··$·' in GNEChange_DemandElement
 Error: There is another vType with the same ID='vType0'.
 Debug: Adding vType 'vType1' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun122115.5868\netedit.gui\demandElements\vehicletype\load\id\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep123546.5868\netedit.gui\demandElements\vehicletype\load\id\input_routes.rou.xml failed.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vType 'vType1' in GNEChange_DemandElement

@@ -37,7 +37,6 @@ class GNEVariableSpeedSignStep;
 class GNEVariableSpeedSign : public GNEAdditional {
 
 public:
-
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -45,11 +44,9 @@ public:
      * @param[in] name VSS name
      * @param[in] parameters generic parameters
      * @param[in] vTypes list of vehicle types to be affected
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-                         const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters,
-                         bool blockMovement);
+                         const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();

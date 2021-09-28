@@ -53,6 +53,13 @@ SUMOTime MSDevice_Tripinfo::myTotalTimeLoss(0);
 SUMOTime MSDevice_Tripinfo::myTotalDepartDelay(0);
 SUMOTime MSDevice_Tripinfo::myWaitingDepartDelay(-1);
 
+long MSDevice_Tripinfo::myBikeCount(0);
+double MSDevice_Tripinfo::myTotalBikeRouteLength(0);
+double MSDevice_Tripinfo::myTotalBikeSpeed(0);
+SUMOTime MSDevice_Tripinfo::myTotalBikeDuration(0);
+SUMOTime MSDevice_Tripinfo::myTotalBikeWaitingTime(0);
+SUMOTime MSDevice_Tripinfo::myTotalBikeTimeLoss(0);
+
 long MSDevice_Tripinfo::myWalkCount(0);
 double MSDevice_Tripinfo::myTotalWalkRouteLength(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkDuration(0);
@@ -131,6 +138,13 @@ MSDevice_Tripinfo::cleanup() {
     myTotalTimeLoss = 0;
     myTotalDepartDelay = 0;
     myWaitingDepartDelay = -1;
+
+    myBikeCount = 0;
+    myTotalBikeRouteLength = 0;
+    myTotalBikeSpeed = 0;
+    myTotalBikeDuration = 0;
+    myTotalBikeWaitingTime = 0;
+    myTotalBikeTimeLoss = 0;
 
     myWalkCount = 0;
     myTotalWalkRouteLength = 0;
@@ -270,12 +284,21 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     SUMOTime duration = 0;
     if (myHolder.hasDeparted()) {
         duration = (myArrivalTime == NOT_ARRIVED ? SIMSTEP : myArrivalTime) - myHolder.getDeparture();
-        myVehicleCount++;
-        myTotalRouteLength += routeLength;
-        myTotalSpeed += routeLength / STEPS2TIME(duration);
-        myTotalDuration += duration;
-        myTotalWaitingTime += myWaitingTime;
-        myTotalTimeLoss += timeLoss;
+        if (myHolder.getVClass() == SVC_BICYCLE) {
+            myBikeCount++;
+            myTotalBikeRouteLength += routeLength;
+            myTotalBikeSpeed += routeLength / STEPS2TIME(duration);
+            myTotalBikeDuration += duration;
+            myTotalBikeWaitingTime += myWaitingTime;
+            myTotalBikeTimeLoss += timeLoss;
+        } else {
+            myVehicleCount++;
+            myTotalRouteLength += routeLength;
+            myTotalSpeed += routeLength / STEPS2TIME(duration);
+            myTotalDuration += duration;
+            myTotalWaitingTime += myWaitingTime;
+            myTotalTimeLoss += timeLoss;
+        }
         myTotalDepartDelay += myHolder.getDepartDelay();
     }
 
@@ -294,9 +317,10 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     }
     os.writeAttr("departSpeed", myDepartSpeed);
     SUMOTime departDelay = myHolder.getDepartDelay();
+    const SUMOVehicleParameter& param = myHolder.getParameter();
     if (!myHolder.hasDeparted()) {
-        assert(myHolder.getParameter().depart <= SIMSTEP || myHolder.getParameter().departProcedure != DEPART_GIVEN);
-        departDelay = SIMSTEP - myHolder.getParameter().depart;
+        assert(param.depart <= SIMSTEP || param.departProcedure != DEPART_GIVEN);
+        departDelay = SIMSTEP - param.depart;
     }
     os.writeAttr("departDelay", time2string(departDelay));
     os.writeAttr("arrival", time2string(myArrivalTime));
@@ -337,8 +361,13 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
             vaporized = "teleport";
             break;
         default:
-            vaporized = (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "end");
-
+            if (myHolder.getEdge() == myHolder.getRoute().getLastEdge() ||
+                (param.arrivalEdge >= 0 && myHolder.getRoutePosition() >= param.arrivalEdge)) {
+                vaporized = "";
+            } else {
+                vaporized = "end";
+            }
+            break;
     }
     os.writeAttr("vaporized", vaporized);
     // cannot close tag because emission device output might follow
@@ -431,13 +460,30 @@ MSDevice_Tripinfo::printStatistics() {
     std::ostringstream msg;
     msg.setf(msg.fixed);
     msg.precision(gPrecision);
-    msg << "Statistics (avg):\n"
-        << " RouteLength: " << getAvgRouteLength() << "\n"
-        << " Speed: " << getAvgTripSpeed() << "\n"
-        << " Duration: " << getAvgDuration() << "\n"
-        << " WaitingTime: " << getAvgWaitingTime() << "\n"
-        << " TimeLoss: " << getAvgTimeLoss() << "\n"
-        << " DepartDelay: " << getAvgDepartDelay() << "\n";
+    if (myBikeCount == 0 || myVehicleCount > 0) {
+        if (myBikeCount > 0) {
+            msg << "Statistics (avg of " << myVehicleCount << "):\n";
+        } else {
+            msg << "Statistics (avg):\n";
+        }
+        msg << " RouteLength: " << getAvgRouteLength() << "\n"
+            << " Speed: " << getAvgTripSpeed() << "\n"
+            << " Duration: " << getAvgDuration() << "\n"
+            << " WaitingTime: " << getAvgWaitingTime() << "\n"
+            << " TimeLoss: " << getAvgTimeLoss() << "\n";
+    }
+    if (myBikeCount > 0) {
+        msg << "Bike Statistics (avg of " << myBikeCount << "):\n"
+            << " RouteLength: " << getAvgBikeRouteLength() << "\n"
+            << " Speed: " << getAvgBikeTripSpeed() << "\n"
+            << " Duration: " << getAvgBikeDuration() << "\n"
+            << " WaitingTime: " << getAvgBikeWaitingTime() << "\n"
+            << " TimeLoss: " << getAvgBikeTimeLoss() << "\n";
+        if (myVehicleCount > 0) {
+            msg << "Statistics (avg of " << (myVehicleCount + myBikeCount) << "):\n";
+        }
+    }
+    msg << " DepartDelay: " << getAvgDepartDelay() << "\n";
     if (myWaitingDepartDelay >= 0) {
         msg << " DepartDelayWaiting: " << STEPS2TIME(myWaitingDepartDelay / MAX2(1.0, (double)myUndepartedVehicleCount)) << "\n";
     }
@@ -494,6 +540,17 @@ MSDevice_Tripinfo::writeStatistics(OutputDevice& od) {
     SUMOTime totalDepartDelay = myTotalDepartDelay + MAX2((SUMOTime)0, myWaitingDepartDelay);
     od.writeAttr("totalDepartDelay", time2string(totalDepartDelay));
     od.closeTag();
+    if (myBikeCount > 0) {
+        od.openTag("bikeTripStatistics");
+        od.writeAttr("count", myBikeCount);
+        od.writeAttr("routeLength", getAvgBikeRouteLength());
+        od.writeAttr("speed", getAvgBikeTripSpeed());
+        od.writeAttr("duration", getAvgBikeDuration());
+        od.writeAttr("waitingTime", getAvgBikeWaitingTime());
+        od.writeAttr("timeLoss", getAvgBikeTimeLoss());
+        od.writeAttr("totalTravelTime", time2string(myTotalBikeDuration));
+        od.closeTag();
+    }
     od.openTag("pedestrianStatistics");
     od.writeAttr("number", myWalkCount);
     od.writeAttr("routeLength", getAvgWalkRouteLength());
@@ -577,6 +634,53 @@ MSDevice_Tripinfo::getAvgDepartDelay() {
         return 0;
     }
 }
+
+double
+MSDevice_Tripinfo::getAvgBikeRouteLength() {
+    if (myBikeCount > 0) {
+        return myTotalBikeRouteLength / myBikeCount;
+    } else {
+        return 0;
+    }
+}
+
+double
+MSDevice_Tripinfo::getAvgBikeTripSpeed() {
+    if (myBikeCount > 0) {
+        return myTotalBikeSpeed / myBikeCount;
+    } else {
+        return 0;
+    }
+}
+
+double
+MSDevice_Tripinfo::getAvgBikeDuration() {
+    if (myBikeCount > 0) {
+        return STEPS2TIME(myTotalBikeDuration / (double)myBikeCount);
+    } else {
+        return 0;
+    }
+}
+
+double
+MSDevice_Tripinfo::getAvgBikeWaitingTime() {
+    if (myBikeCount > 0) {
+        return STEPS2TIME(myTotalBikeWaitingTime / (double)myBikeCount);
+    } else {
+        return 0;
+    }
+}
+
+
+double
+MSDevice_Tripinfo::getAvgBikeTimeLoss() {
+    if (myBikeCount > 0) {
+        return STEPS2TIME(myTotalBikeTimeLoss / (double)myBikeCount);
+    } else {
+        return 0;
+    }
+}
+
 
 
 double

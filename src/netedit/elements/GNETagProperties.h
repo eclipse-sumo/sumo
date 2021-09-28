@@ -26,6 +26,7 @@
 // ===========================================================================
 
 #include <utils/gui/images/GUIIcons.h>
+#include <netedit/GNEViewNetHelper.h>
 
 #include "GNEAttributeProperties.h"
 
@@ -76,22 +77,20 @@ public:
 
     enum TagProperty {
         DRAWABLE =                  1 << 0,     // Element can be drawed in view
-        BLOCKMOVEMENT =             1 << 1,     // Element can block their movement
-        CLOSESHAPE =                1 << 2,     // Element can close their shape
-        GEOSHAPE =                  1 << 3,     // Element's shape acn be defined using a GEO Shape
-        DIALOG =                    1 << 4,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        SLAVE =                     1 << 5,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
-        MINIMUMCHILDREN =           1 << 6,     // Element will be only writed in XML if has a minimum number of children
-        REPARENT =                  1 << 7,     // Element can be reparent
-        SELECTABLE =                1 << 8,     // Element is selectable
-        MASKSTARTENDPOS =           1 << 9,    // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        MASKXYZPOSITION =           1 << 10,    // Element mask attributes X, Y and Z as "Position"
-        WRITECHILDRENSEPARATE =     1 << 11,    // Element writes their children in a separated filename
-        NOPARAMETERS =              1 << 12,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        PARAMETERSDOUBLE =          1 << 13,    // Element only accept double parameters "key1=double1|key2=double1|...|keyN=doubleN"
-        RTREE =                     1 << 14,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 15,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 16,    // Element has an embedded route
+        CLOSESHAPE =                1 << 1,     // Element can close their shape
+        GEOSHAPE =                  1 << 2,     // Element's shape acn be defined using a GEO Shape
+        DIALOG =                    1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        SLAVE =                     1 << 4,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
+        MINIMUMCHILDREN =           1 << 5,     // Element will be only writed in XML if has a minimum number of children
+        REPARENT =                  1 << 6,     // Element can be reparent
+        SELECTABLE =                1 << 7,     // Element is selectable
+        MASKSTARTENDPOS =           1 << 8,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        MASKXYZPOSITION =           1 << 9,     // Element mask attributes X, Y and Z as "Position"
+        WRITECHILDRENSEPARATE =     1 << 10,    // Element writes their children in a separated filename
+        NOPARAMETERS =              1 << 11,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                     1 << 12,    // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 13,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 14,    // Element has an embedded route
     };
 
     /// @brief default constructor
@@ -105,6 +104,9 @@ public:
 
     /// @brief get Tag vinculated with this attribute Property
     SumoXMLTag getTag() const;
+
+    /// @brief get supermode associated with this tag
+    Supermode getSupermode() const;
 
     /// @brief get Tag vinculated with this attribute Property in String Format (used to avoid multiple calls to toString(...)
     const std::string& getTagStr() const;
@@ -235,9 +237,6 @@ public:
     /// @brief return true if tag correspond to a selectable element
     bool isSelectable() const;
 
-    /// @brief return true if tag correspond to an element that can block their movement
-    bool canBlockMovement() const;
-
     /// @brief return true if tag correspond to an element that can close their shape
     bool canCloseShape() const;
 
@@ -252,9 +251,6 @@ public:
 
     /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
     bool hasParameters() const;
-
-    /// @brief return true if Tag correspond to an element that supports double parameters "key1=double1|key2=double2|...|keyN=doubleN"
-    bool hasDoubleParameters() const;
 
     /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
     bool isPlacedInRTree() const;

@@ -96,19 +96,15 @@ MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {
 // ---------------------------------------------------------------------------
 // MSPModel_NonInteracting::MoveToNextEdge method definitions
 // ---------------------------------------------------------------------------
-MSPModel_NonInteracting::MoveToNextEdge::~MoveToNextEdge() {
-    myModel->registerArrived();
-}
-
-
 SUMOTime
 MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     if (myTransportable == nullptr) {
         return 0; // descheduled
     }
     const MSEdge* old = myParent.getEdge();
-    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime);
+    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getState()->getDirection(myParent, currentTime));
     if (arrived) {
+        myModel->registerArrived();
         return 0;
     }
     return static_cast<PState*>(myParent.getState())->computeDuration(old, myParent, currentTime);
@@ -163,6 +159,15 @@ double
 MSPModel_NonInteracting::PState::getEdgePos(const MSStageMoving&, SUMOTime now) const {
     //std::cout << SIMTIME << " lastEntryTime=" << myLastEntryTime << " pos=" << (myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime)) << "\n";
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
+}
+
+int
+MSPModel_NonInteracting::PState::getDirection(const MSStageMoving& /*stage*/, SUMOTime /*now*/) const {
+    if (myCurrentBeginPos == myCurrentEndPos) {
+        return UNDEFINED_DIRECTION;
+    } else {
+        return myCurrentBeginPos < myCurrentEndPos ? FORWARD : BACKWARD;
+    }
 }
 
 
@@ -228,7 +233,7 @@ MSPModel_NonInteracting::CState::CState(MoveToNextEdge* cmd, std::istringstream*
 Position
 MSPModel_NonInteracting::CState::getPosition(const MSStageMoving& stage, SUMOTime now) const {
     const double dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
-    double pos = MIN2(STEPS2TIME(now - myLastEntryTime) * stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
+    double pos = MIN2(STEPS2TIME(now - myLastEntryTime) * stage.getMaxSpeed(), dist);    //the container shall not go beyond its end position
     return PositionVector::positionAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
 }
 

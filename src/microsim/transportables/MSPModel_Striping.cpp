@@ -1096,7 +1096,7 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
                 myActiveLanes[p->myLane].push_back(p);
             } else {
                 // end walking stage and destroy PState
-                p->myStage->moveToNextEdge(p->myPerson, currentTime);
+                p->myStage->moveToNextEdge(p->myPerson, currentTime, dir);
                 myNumActivePedestrians--;
             }
         }
@@ -1635,7 +1635,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
         if (myStage->getRouteStep() == myStage->getRoute().end() - 1) {
             myLane = nullptr;
         } else {
-            const bool arrived = myStage->moveToNextEdge(myPerson, currentTime, normalLane ? nullptr : &myLane->getEdge());
+            const bool arrived = myStage->moveToNextEdge(myPerson, currentTime, oldDir, normalLane ? nullptr : &myLane->getEdge());
             UNUSED_PARAMETER(arrived);
             assert(!arrived);
             assert(myDir != UNDEFINED_DIRECTION);
@@ -1664,7 +1664,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                                    || nextRouteEdge->getFromJunction() == currRouteEdge->getToJunction()) {
                             myDir = FORWARD;
                         }
-                        myStage->moveToNextEdge(myPerson, currentTime, nullptr);
+                        myStage->moveToNextEdge(myPerson, currentTime, oldDir, nullptr);
                         myLane = myNLI.lane;
                         assert(myLane != 0);
                         assert(myLane->getEdge().getFunction() == SumoXMLEdgeFunc::NORMAL);
@@ -1715,6 +1715,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                           << " offset=" << offset << "\n";
             }
         }
+        myAngle = std::numeric_limits<double>::max(); // see #9014
         return true;
     } else {
         return false;
@@ -1723,7 +1724,6 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
 
 void
 MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
-    myAngle = std::numeric_limits<double>::max(); // set on first access or via remote control
     const int stripes = (int)obs.size();
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
@@ -1962,6 +1962,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     } else {
         myWaitingTime += DELTA_T;
     }
+    myAngle = std::numeric_limits<double>::max(); // set on first access or via remote control
 }
 
 
@@ -1975,6 +1976,12 @@ MSPModel_Striping::PState::getImpatience(SUMOTime now) const {
 double
 MSPModel_Striping::PState::getEdgePos(const MSStageMoving&, SUMOTime) const {
     return myRelX;
+}
+
+
+int
+MSPModel_Striping::PState::getDirection(const MSStageMoving&, SUMOTime) const {
+    return myDir;
 }
 
 
@@ -2101,7 +2108,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
             myStage->replaceRoute(myPerson, edges, routeOffset);
         }
         if (!lane->getEdge().isNormal()) {
-            myStage->moveToNextEdge(myPerson, t, &lane->getEdge());
+            myStage->moveToNextEdge(myPerson, t, myDir, &lane->getEdge());
         }
 
         myLane = lane;

@@ -17,13 +17,11 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Format of optional optional SUMOTime attribute 'cycleTime' of route with ID 'route_0' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
-Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Format of optional optional SUMOTime attribute 'cycleTime' of route with ID 'route_1' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
-Debug: Adding route 'route_1' in GNEChange_DemandElement
-Debug: Format of optional optional SUMOTime attribute 'cycleTime' of route with ID 'route_2' is invalid; Cannot be parsed to SUMOTime; Default value will be used.
+Error: Attribute 'cycleTime' in definition of route 'route_0' is empty.
+Error: Attribute 'cycleTime' in definition of route 'route_1' is not a real number.
 Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\input_routes.rou.xml failed.
 Debug: Enabled toggle show grid throught alt + 1
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -112,8 +110,6 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Deleting unreferenced route 'route_3'
 Debug: Deleting unreferenced route 'route_2'
-Debug: Deleting unreferenced route 'route_1'
-Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

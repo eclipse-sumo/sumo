@@ -265,6 +265,9 @@ public:
     /// @brief gets the color value according to the current scheme index
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
+    /// @brief return color value based on cached settings
+    double getColorValueForTracker() const;
+
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const;
 
@@ -341,6 +344,8 @@ private:
 
     /// @brief the meso segment index for each geometry segment
     std::vector<int> myShapeSegments;
+    /// @brief the shape indices where the meso segment changes (for segmentsIndex > 0)
+    std::vector<int> mySegmentStartIndex;
 
     /// @brief Half of lane width, for speed-up
     double myHalfLaneWidth;
@@ -357,6 +362,9 @@ private:
 
     /// @brief state for dynamic lane closings
     bool myAmClosed;
+
+    /// @brief cached for tracking color value
+    static const GUIVisualizationSettings* myCachedGUISettings;
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

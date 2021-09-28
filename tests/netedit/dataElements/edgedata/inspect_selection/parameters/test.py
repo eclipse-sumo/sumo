@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, 450, 220)
 netedit.selectMode()
 
 # select all using invert
-netedit.selectionInvertData()
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()

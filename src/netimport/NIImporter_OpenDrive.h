@@ -582,7 +582,11 @@ private:
                  const std::string& contactPoint);
     void addGeometryShape(GeometryType type, const std::vector<double>& vals);
     static void setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string, OpenDriveEdge*>& edges);
-    static void buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into, std::set<Connection>& seen);
+    static void buildConnectionsToOuter(const Connection& c,
+            const std::map<std::string, OpenDriveEdge*>& innerEdges,
+            const std::map<std::string, OpenDriveEdge*>& edges,
+            const NBTypeCont& tc,
+            std::vector<Connection>& into, std::set<Connection>& seen);
     static bool laneSectionsConnected(OpenDriveEdge* edge, int in, int out);
     friend bool operator<(const Connection& c1, const Connection& c2);
     static std::string revertID(const std::string& id);

@@ -324,6 +324,11 @@ public:
     double getPreferredLateralAlignmentOffset() const {
         return myParameter.latAlignmentOffset;
     }
+
+    /// @brief Get offset of first seat from vehicle front
+    double getFrontSeatPos() const {
+        return myParameter.frontSeatPos;
+    }
     /// @}
 
 

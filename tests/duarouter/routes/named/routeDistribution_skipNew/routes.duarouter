@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-24 10:33:27 by Eclipse SUMO duarouter Version v1_10_0+0967-61f8e5f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <processing>
+        <skip-new-routes value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="00" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="01" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="02" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="03" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="04" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="05" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="06" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="07" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="08" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="09" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="10" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="11" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="12" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="13" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="14" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="15" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="16" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="17" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+    <vehicle id="18" depart="0.00">
+        <route edges="WC CS SC CE"/>
+    </vehicle>
+    <vehicle id="19" depart="0.00">
+        <route edges="SC CE EC CN"/>
+    </vehicle>
+</routes>

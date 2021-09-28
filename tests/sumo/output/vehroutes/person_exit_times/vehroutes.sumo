@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 16:00:16 by Eclipse SUMO sumo Version v1_9_1+0255-370802e
+<!-- generated on 2021-08-25 09:17:17 by Eclipse SUMO sumo Version v1_10_0+0203-1388c96
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,13 +37,13 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00" arrival="660.00">
-        <walk edges="beg" busStop="beg_0" exitTimes="201.00"/> <!-- blubber -->
-        <ride from="beg" to="end" busStop="end_0" lines="bus" intended="bus.1" depart="310.00" ended="459.00"/>
-        <walk edges="end" exitTimes="660.00"/>
+        <walk edges="beg" busStop="beg_0" exitTimes="201.00" started="0.00" ended="201.00"/> <!-- blubber -->
+        <ride from="beg" to="end" busStop="end_0" lines="bus" intended="bus.1" depart="310.00" started="331.00" ended="459.00"/>
+        <walk edges="end" exitTimes="660.00" started="459.00" ended="660.00"/>
     </person>
 
     <person id="p1" depart="0.00" arrival="999.00">
-        <walk edges="end middle beg" exitTimes="1.00 801.00 999.00"/>
+        <walk edges="end middle beg" exitTimes="1.00 801.00 999.00" started="0.00" ended="999.00"/>
     </person>
 
 </routes>

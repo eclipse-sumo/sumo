@@ -21,33 +21,26 @@
 #include <config.h>
 
 #include <utils/xml/CommonXMLStructure.h>
-#include <utils/xml/SUMOSAXHandler.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class AdditionalHandler
- * @brief The XML-Handler for network loading
- *
- * The SAX2-handler responsible for parsing networks and routes to load.
- * This is an extension of the MSRouteHandler as routes and vehicles may also
- *  be loaded from network descriptions.
- */
-class AdditionalHandler : private SUMOSAXHandler {
+
+class AdditionalHandler {
 
 public:
-    /** @brief Constructor
-     * @param[in] file Name of the parsed file
-     */
-    AdditionalHandler(const std::string& file);
+    /// @brief Constructor
+    AdditionalHandler();
 
     /// @brief Destructor
     ~AdditionalHandler();
 
-    /// @brief parse
-    bool parse();
+    /// @brief begin parse attributes
+    void beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
+    /// @brief end parse attributes
+    void endParseAttributes();
 
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
@@ -322,33 +315,9 @@ public:
 
     /**@brief builds a calibrator flow
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow.
-     * @param[in] routeID The id of the route the vehicle's flow shall drive along
-     * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability)
-     * @param[in] speed The speed with which the vehicles shall enter the network. NOTE: this attribute is exclusive of CalibratorFlows!
-     * @param[in] color This vehicle's flow's color
-     * @param[in] departLane The lane on which the vehicle's flow shall be inserted {} see #departLane. default: "first"
-     * @param[in] departPos The position at which the vehicle's flow shall enter the net {} see #departPos. default: "base"
-     * @param[in] departSpeed The speed with which the vehicle's flow shall enter the network {} see #departSpeed. default: 0
-     * @param[in] arrivalLane The lane at which the vehicle's flow shall leave the network {} see #arrivalLane. default: "current"
-     * @param[in] arrivalPos The position at which the vehicle's flow shall leave the network {} see #arrivalPos. default: "max"
-     * @param[in] arrivalSpeed The speed with which the vehicle's flow shall leave the network {} see #arrivalSpeed. default: "current"
-     * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
-     * @param[in] personNumber The number of occupied seats when the vehicle's flow is inserted. default: 0
-     * @param[in] containerNumber The number of occupied container places when the vehicle's flow is inserted. default: 0
-     * @param[in] reroute List of intermediate edges that shall be passed on rerouting.
-     * @param[in] via List of intermediate edges that shall be passed on rerouting.
-     * @param[in] departPosLat The lateral position on the departure lane at which the vehicle's flow shall enter the net {} see Simulation/SublaneModel. default: "center"
-     * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive {} see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position
-     * @param[in] begin first vehicle's flow departure time
-     * @param[in] end end of departure interval (if undefined, defaults to 24 hours)
-     * @param[in] parameters generic parameters
+     * @param[in] vehicleParameter calibratorFlow parameter
      */
-    virtual void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const std::string& routeID,
-                                     const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
-                                     const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
-                                     const std::string& line, const int personNumber, const int containerNumber, const bool reroute, const std::string& departPosLat,
-                                     const std::string& arrivalPosLat, const SUMOTime begin, const SUMOTime end, const std::map<std::string, std::string>& parameters) = 0;
+    virtual void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameter) = 0;
 
     /**@brief builds a rerouter
      * @param[in] sumoBaseObject sumo base object used for build
@@ -453,12 +422,14 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id TAZ ID
      * @param[in] shape TAZ shape
+     * @param[in] fill Whether the TAZ shall be filled
      * @param[in] edgeIDs list of edges (note: This will create GNETAZSourceSinks/Sinks with default values)
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    virtual void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, const RGBColor& color,
-                          const std::vector<std::string>& edgeIDs, const std::string& name, const std::map<std::string, std::string>& parameters) = 0;
+    virtual void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
+                          const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, 
+                          const std::map<std::string, std::string>& parameters) = 0;
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -567,32 +538,9 @@ public:
 private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
-
-    /// @name inherited from GenericSAXHandler
-    /// @{
-    /** @brief Called on the opening of a tag;
-     *
-     * @param[in] element ID of the currently opened element
-     * @param[in] attrs Attributes within the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myStartElement
-     * @todo Refactor/describe
-     */
-    virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
-
-    /** @brief Called when a closing tag occurs
-     *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     * @todo Refactor/describe
-     */
-    virtual void myEndElement(int element);
-    /// @}
-
+    
     /// @name parse additional attributes
     /// @{
-
     /// @brief parse busStop attributes
     void parseBusStopAttributes(const SUMOSAXAttributes& attrs);
 

@@ -37,7 +37,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_LaneType, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an laneType
 GNEChange_LaneType::GNEChange_LaneType(GNELaneType* laneType, const int position, bool forward):
-    GNEChange(laneType, forward, laneType->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, laneType, forward, laneType->isAttributeCarrierSelected()),
     myLaneType(laneType),
     myPosition(position) {
     laneType->incRef("GNEChange_LaneType");
@@ -97,7 +97,7 @@ GNEChange_LaneType::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_LaneType::undoName() const {
     if (myForward) {
         return "Undo create laneType";
@@ -107,7 +107,7 @@ GNEChange_LaneType::undoName() const {
 }
 
 
-FXString
+std::string
 GNEChange_LaneType::redoName() const {
     if (myForward) {
         return "Redo create laneType";

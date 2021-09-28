@@ -45,7 +45,6 @@ class MSStoppingPlace;
 class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
-class MSTransportableStateAdapter;
 class MSMoveReminder;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
@@ -119,7 +118,7 @@ public:
         virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
         /// @brief move forward and return whether the person arrived
-        bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
+        bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr);
 
         /// @brief accessors to be used by MSPModel
         //@{

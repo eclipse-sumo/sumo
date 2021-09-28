@@ -50,10 +50,12 @@
 // ===========================================================================
 GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
                            double& simDelay, FXSynchQue<GUIEvent*>& eq,
-                           FXEX::FXThreadEvent& ev)
-    : FXSingleEventThread(app, parent),
-      myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
-      mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
+                           FXEX::FXThreadEvent& ev) :
+    FXSingleEventThread(app, parent),
+    myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
+    mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev),
+    myLastBreakMillis(0)
+{
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
@@ -129,20 +131,32 @@ GUIRunThread::run() {
             myBreakpointLock.lock();
             const bool haltAfter = std::find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
             myBreakpointLock.unlock();
-            // do the step
-            makeStep();
-            waitForSnapshots(myNet->getCurrentTimeStep() - DELTA_T);
-            // stop if wished
+            // stop after this step if wished
             if (haltAfter) {
                 stop();
             }
+            // stop the execution when only a single step should have
+            //  been performed
+            if (mySingle) {
+                myHalting = true;
+            }
+            // do the step
+            makeStep();
+            waitForSnapshots(myNet->getCurrentTimeStep() - DELTA_T);
             // wait if wanted (delay is per simulated second)
             long wait = (long)(mySimDelay * TS);
             end = SysUtils::getCurrentMillis();
             getNet().setSimDuration((int)(end - beg));
             wait -= (end - beg);
             if (wait > 0) {
+                myLastBreakMillis = end;
                 sleep(wait);
+#ifndef WIN32
+            } else if (end - myLastBreakMillis > 1000) {
+                // ensure redraw event is successfull at least once per second (#9028)
+                sleep(100);
+                myLastBreakMillis = end;
+#endif
             }
         } else {
             // sleep if the simulation is not running
@@ -194,11 +208,6 @@ GUIRunThread::makeStep() {
         if (e != nullptr) {
             myEventQue.push_back(e);
             myEventThrow.signal();
-            myHalting = true;
-        }
-        // stop the execution when only a single step should have
-        //  been performed
-        if (mySingle) {
             myHalting = true;
         }
         // simulation step is over

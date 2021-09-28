@@ -274,7 +274,7 @@ public:
     }
 
     /// @brief return the number of controlled link indices
-    int getNumLinks() {
+    int getNumLinks() const {
         return myNumLinks;
     }
 
@@ -353,6 +353,9 @@ public:
     bool isActive() const {
         return myAmActive;
     }
+
+    /// @brief whether the given link index ever turns 'G'
+    virtual bool getsMajorGreen(int linkIndex) const;
 
     /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
     virtual VehicleVector getBlockingVehicles(int linkIndex) {

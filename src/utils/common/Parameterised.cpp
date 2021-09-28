@@ -30,41 +30,11 @@
 // method definitions
 // ===========================================================================
 
-Parameterised::Parameterised() :
-    myAttrType(ParameterisedAttrType::STRING) {
-}
-
-
-Parameterised::Parameterised(ParameterisedAttrType attrType) :
-    myAttrType(attrType) {
-}
+Parameterised::Parameterised() {}
 
 
 Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) :
-    myAttrType(ParameterisedAttrType::STRING),
     myMap(mapArg) {
-}
-
-
-Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) :
-    myAttrType(attrType) {
-    // check if map has to be cleaned
-    if (myAttrType == ParameterisedAttrType::DOUBLE) {
-        // iterate over map
-        for (const auto& keyValue : mapArg) {
-            try {
-                // try to parse to do double, and if fails, write warning
-                StringUtils::toDouble(keyValue.second);
-                // insert keyValue in map
-                myMap.insert(keyValue);
-            } catch (NumberFormatException&) {
-                WRITE_WARNING("Invalid conversion from string to double (" + keyValue.second + ")");
-            }
-        }
-    } else {
-        // just update myMap
-        myMap = mapArg;
-    }
 }
 
 
@@ -73,18 +43,7 @@ Parameterised::~Parameterised() {}
 
 void
 Parameterised::setParameter(const std::string& key, const std::string& value) {
-    if (myAttrType == ParameterisedAttrType::DOUBLE) {
-        try {
-            // try to parse to do double, and if fails, write warning
-            StringUtils::toDouble(value);
-            // insert in map
-            myMap[key] = value;
-        } catch (NumberFormatException&) {
-            WRITE_WARNING("Invalid conversion from string to double (" + value + ")");
-        }
-    } else {
-        myMap[key] = value;
-    }
+    myMap[key] = value;
 }
 
 
@@ -214,13 +173,12 @@ Parameterised::writeParams(OutputDevice& device) const {
 
 
 bool
-Parameterised::areParametersValid(const std::string& value, bool report,
-                                  const ParameterisedAttrType attrType, const std::string kvsep, const std::string sep) {
+Parameterised::areParametersValid(const std::string& value, bool report, const std::string kvsep, const std::string sep) {
     std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
     // first check if parsed parameters are valid
     for (const auto& keyValueStr : parameters) {
         // check if parameter is valid
-        if (!isParameterValid(keyValueStr, attrType, kvsep, sep)) {
+        if (!isParameterValid(keyValueStr, kvsep, sep)) {
             // report depending of flag
             if (report) {
                 WRITE_WARNING("Invalid format of parameter (" + keyValueStr + ")");
@@ -237,8 +195,7 @@ Parameterised::areParametersValid(const std::string& value, bool report,
 // ===========================================================================
 
 bool
-Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType attrType,
-                                const std::string& kvsep, const std::string& sep) {
+Parameterised::isParameterValid(const std::string& value, const std::string& kvsep, const std::string& sep) {
     if (value.find(sep) != std::string::npos || value.find(kvsep) == std::string::npos) {
         return false;
     }
@@ -249,18 +206,6 @@ Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType 
         // check if key and value contains valid characters
         if (SUMOXMLDefinitions::isValidParameterKey(keyValueStr.front()) == false) {
             return false;
-        } else if (attrType == ParameterisedAttrType::DOUBLE) {
-            // first check if value is empty
-            if (keyValueStr.back().empty()) {
-                return false;
-            }
-            // check if can be parsed to double
-            try {
-                StringUtils::toDouble(keyValueStr.back());
-                return true;
-            } catch (NumberFormatException&) {
-                return false;
-            }
         } else {
             // key=value valid, then return true
             return true;

@@ -19,6 +19,7 @@ set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
 set(default_build_type "Release")
 
+set(CMAKE_ORIGINAL_BUILD_TYPE "${CMAKE_BUILD_TYPE}")
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
   set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
@@ -193,146 +194,62 @@ if (SUMO_LIBRARIES AND WIN32)
     # set option for install debug and release runtime dlls
     option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" true)
     # Special option for MinGW32
-    if (GNU_COMPILER AND WIN32)
-        if (USE_MINGW_64BITS)
-            message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
-        else()
-            message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
-            # Use 32 bits libraries
-            set(LIB_VERSION "/32bits")
-            # disable optional libraries
-            set(CHECK_OPTIONAL_LIBS false)
-        endif ()
-    elseif ("${CMAKE_MODULE_LINKER_FLAGS}" STREQUAL "/machine:x64")
+    if ((GNU_COMPILER AND WIN32) OR "${CMAKE_MODULE_LINKER_FLAGS}" STREQUAL "/machine:x64")
         message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     else()
         message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
-        # Use 32 bits libraries
         set(LIB_VERSION "/32bits")
-        # disable optional libraries
         set(CHECK_OPTIONAL_LIBS false)
     endif ()
-    # set Xerces
-    if ("${MSVC_VERSION}" STREQUAL "1800")
-        # msvc2012 requieres a special version of xerces 
-        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/xerces-c-3.?.?")
-    else()
-        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/xerces-c-3.?.?")
-    endif ()
-    # set zlib
+    file(GLOB XERCES_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/xerces-c-3.?.?")
     file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??")
-    # set PROJ and GDAL
-    if (EXISTS "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
-        # "proj_gdal-1911" is used by old versions of SUMOLibraries
-        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
-        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj_gdal-1911")
-        set(PROJ_6 0)
-    elseif ("${MSVC_VERSION}" STREQUAL "1800")
-        # msvc2012 requieres a special version of proj_gdal 
-        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/proj_gdal-1911")
-        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/proj_gdal-1911")
-        set(PROJ_6 0)
-    elseif (EXISTS "${SUMO_LIBRARIES}${LIB_VERSION}/proj-6.1.1")
-        # use proj 6 and gdal 3 (for old SUMOLibraries)
-        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-6.1.1")
-        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gdal-?.?.?")
-        set(PROJ_6 1)
-    else()
-        # use proj 7 and gdal 3
-        file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-?.?.?")
-        file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gdal-?.?.?")
-        set(PROJ_7 1)
-    endif ()
-    # set fox
+    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/proj-?.?.?")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
-    # set freetype
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/freetype-2.??.?")
-    # set eigen3
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH};${FREETYPE_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
-                                 "${FOX_PATH}/lib/*.dll" # used by old SUMOLibraries versions
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
-                                 "${FREETYPE_PATH}/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/*.dll" # used by old versions of SUMOLibraries
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-?.?.??/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/curl-?.??.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libssh2-?.?.?/bin/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/openssl-?.?.?/*.dll")
-    # set MSVC dlls
-    if ("${MSVC_VERSION}" STREQUAL "1800")
-        file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll" "${SUMO_LIBRARIES}/msvc12${LIB_VERSION}/runtimes/*.dll")
-    else()
+#                                 "${FREETYPE_PATH}/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/curl-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libssh2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/openssl-*/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-*/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-*/bin/*.dll")
+    # check if MSVC dll runtimes have to be copied
+    if (INSTALL_DLL_RUNTIMES)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll")
-        file(GLOB MORE_SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/zlib-?.?.??/bin/*.dll"
-                                          "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-?.?.?/*.dll")
-        list(APPEND SUMO_LIBRARIES_DLL ${MORE_SUMO_LIBRARIES_DLL})
-    endif ()
+        list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
+    endif(INSTALL_DLL_RUNTIMES)
     # declare flag for use google test
     set(USE_GOOGLETEST true)
-    # set google test root depending of directory
-    if (EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
-        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
-    else ()
-        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.??.?")
-        if ("${MSVC_VERSION}" STREQUAL "1800")
-            set(USE_GOOGLETEST false)
-        endif ()
-    endif ()
     # check if use google test
     if (WIN32)
         if (GNU_COMPILER AND NOT USE_MINGW_64BITS)
-            # disable GoogleTest only if compiler isn't mingw32
             message(STATUS "Disabled Google Test in Mingw32")
             set(USE_GOOGLETEST false)
         elseif(CLANG_COMPILER)
-            # disable google test in clang for windows
             message(STATUS "Disabled Google Test in Clang (Windows)")
             set(USE_GOOGLETEST false)
         endif ()
     endif()
-    # set GoogleTest only if compiler isn't mingw32
     if (USE_GOOGLETEST)
-        #show info
+        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}${LIB_VERSION}/googletest-?.??.?")
         message(STATUS "Found Google test: " ${GTEST_ROOT})
-        #check if we're using google test 1.8
-        if (EXISTS "${SUMO_LIBRARIES}/googletest-1.8.0/googletest")
-            # Prevent GoogleTest from overriding our compiler/linker options
-            set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-            add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
-            include_directories("${GTEST_ROOT}/include")
-            set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-        else()
-            # include google test directory
-            include_directories("${GTEST_ROOT}/include")
-            # set both google test library
-            set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
-            # set google test DLLs
-            file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/*.dll")
-            list(APPEND SUMO_LIBRARIES_DLL ${GTEST_DLL})
-        endif()
-        # set gtest found
-        set(GTEST_FOUND true)   
+        include_directories("${GTEST_ROOT}/include")
+        # set both google test library
+        set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
+        # set google test DLLs
+        file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/gtest*.dll")
+        set(GTEST_FOUND true)
     endif ()
-    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
-    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
-    if ("${MSVC_VERSION}" STREQUAL "1800")
-        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/msvc12/gl2ps-?.?.?")
-    else()
-        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
-    endif ()
-    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release;${GL2PS_PATH}/lib") # "Release" used by old versions of SUMOLibraries
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll" "${GL2PS_PATH}/bin/*.dll")  # "Release" used by old versions of SUMOLibraries
-    # set SWIG
     file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/swig.exe")
-    # set apache maven
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
     file(GLOB TEXTTEST_EXECUTABLE "${SUMO_LIBRARIES}/TextTest-*/texttest.exe")
 else ()
@@ -395,6 +312,13 @@ if (TCMALLOC)
 endif ()
 
 if (CHECK_OPTIONAL_LIBS)
+    file(GLOB GDAL_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gdal-?.?.?")
+    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
+    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
+    file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll")
+
     # GDAL (for geopositioning)
     find_package(GDAL)
     if (GDAL_FOUND)
@@ -470,7 +394,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
-include(GNUInstallDirs)
+if (NOT MSVC)
+    include(GNUInstallDirs)
+endif ()
 if (SKBUILD)
     set(DATA_PATH "")
 else ()
@@ -481,9 +407,6 @@ install(DIRECTORY bin/ DESTINATION bin
         PATTERN "*d.dll" EXCLUDE
         PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data)
-if (PROJ_7)
-    install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
-endif ()
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
         PATTERN "build/sumo" EXCLUDE  # needed for the scikit build
@@ -508,46 +431,48 @@ if (NOT ${SETUPTOOLS_MISSING})
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
-    # check if MSVC dll runtimes have to be copied
-    if (INSTALL_DLL_RUNTIMES)
-        list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
-    endif(INSTALL_DLL_RUNTIMES)
+    if ("${CMAKE_ORIGINAL_BUILD_TYPE}" STREQUAL "Release")
+        execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_DLL)
+    endif ()
     # copy common dlls
-    foreach(DLL ${SUMO_LIBRARIES_DLL})
+    foreach(DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
+        message(STATUS "DLL ${DLL}")
         get_filename_component(DLL_BASENAME ${DLL} NAME)
         set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
         list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
+        list(FIND GTEST_DLL ${DLL} IS_TEST_DLL)
         if (DLL_KNOWN EQUAL -1)
             add_custom_command(OUTPUT ${TARGET_DLL}
                                COMMAND ${CMAKE_COMMAND} -E copy ${DLL} ${TARGET_DLL}
                                DEPENDS ${DLL})
-            list(APPEND TARGET_DLLS ${TARGET_DLL})
+            if (IS_TEST_DLL EQUAL -1)
+                list(APPEND TARGET_DLLS ${TARGET_DLL})
+            else ()
+                list(APPEND TARGET_TEST_DLLS ${TARGET_DLL})
+            endif ()
         endif()
     endforeach(DLL)
     # copy OSG dlls
     if (HAVE_OSG)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/osg.dll)
+        file(GLOB OSG_DLL "${OSG_PATH}/bin/*osg.dll")
+        get_filename_component(OSG_DLL_BASENAME ${OSG_DLL} NAME)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_DLL_BASENAME})
         add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
                            DEPENDS ${OSG_PATH})
     endif (HAVE_OSG)
-    # proj 6 needs to copy "share/proj" folder in SUMO_HOME/data
-    if (PROJ_6)
-        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/data/proj/proj.db)
-        add_custom_command(OUTPUT ${PROJ_DATA}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/data/proj
-                           DEPENDS ${PROJ_PATH})
-    endif (PROJ_6)
     # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
-    if (PROJ_7)
-        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
-        add_custom_command(OUTPUT ${PROJ_DATA}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
-                           DEPENDS ${PROJ_PATH})
-    endif (PROJ_7)
+    set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
+    add_custom_command(OUTPUT ${PROJ_DATA}
+                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
+                       DEPENDS ${PROJ_PATH})
+    install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
     # set install_dll target
     add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
+    add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
     set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+else ()
+    add_custom_target(install_test_dll)  # dummy target for non-Windows
 endif ()
 
 # java targets

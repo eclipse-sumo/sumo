@@ -675,6 +675,28 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
             PROGRESS_DONE_MESSAGE();
         }
     }
+    myVType = oc.getString("vtype");
+    for (std::string file : oc.getStringVector("tazrelation-files")) {
+        if (!FileHelpers::isReadable(file)) {
+            throw ProcessError("Could not access matrix file '" + file + "' to load.");
+        }
+        PROGRESS_BEGIN_MESSAGE("Loading matrix in tazRelation format from '" + file + "'");
+
+        std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
+        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(oc.getString("tazrelation-attribute"), true, *this));
+        SAXWeightsHandler handler(retrieverDefs, "");
+        if (!XMLSubSys::runParser(handler, file)) {
+            PROGRESS_FAILED_MESSAGE();
+        } else {
+            PROGRESS_DONE_MESSAGE();
+        }
+    }
+}
+
+void
+ODMatrix::addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
+        double val, double beg, double end) {
+    add(val, TIME2STEPS(beg), TIME2STEPS(end), from, to, myVType == "" ? intervalID : myVType);
 }
 
 

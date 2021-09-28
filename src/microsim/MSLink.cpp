@@ -1195,9 +1195,13 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " leaderLatOffset=" << leader->getLatOffset(foeLane)
                               << " latGap=" << latGap
                               << " maneuverDist=" << maneuverDist
+                              << " computeLC=" << MSGlobals::gComputeLC
+                              << " egoMaxSpeedLat=" << ego->getVehicleType().getMaxSpeedLat()
                               << "\n";
                 }
-                if (latGap > 0 && (latGap > maneuverDist || !sameTarget)) {
+                if (latGap > 0 && (latGap > maneuverDist || !sameTarget)
+                        // do not perform sublane changes that interfere with the leader vehicle
+                        && (!MSGlobals::gComputeLC || latGap > ego->getVehicleType().getMaxSpeedLat())) {
                     const MSLink* foeEntryLink = foeLane->getIncomingLanes().front().viaLink;
                     if (sameSource) {
                         // for lanes from the same edge, higer index implies a

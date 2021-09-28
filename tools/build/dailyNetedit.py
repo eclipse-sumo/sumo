@@ -63,7 +63,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
     for call in (cmd, [ttBin, "-b", env["FILEPREFIX"], "-coll"]):
         status.log_subprocess_output(subprocess.Popen(
             call, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True))
-    status.killall(debugSuffix, BINARIES)
+    status.killall((debugSuffix,), BINARIES)
 
 
 optParser = optparse.OptionParser()
@@ -85,7 +85,7 @@ if "SUMO_HOME" not in env:
         os.path.dirname(os.path.dirname(__file__)))
 env["PYTHON"] = "python"
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
-msvcVersion = "msvc12"
+msvcVersion = "msvc16"
 
 platform = "x64"
 env["FILEPREFIX"] = msvcVersion + options.suffix + platform
@@ -94,7 +94,10 @@ testLog = prefix + "NeteditTest.log"
 gitrev = sumolib.version.gitDescribe()
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-handler = logging.handlers.TimedRotatingFileHandler(testLog, when="d", interval=1, backupCount=5)
-logger.addHandler(handler)
+try:
+    handler = logging.handlers.TimedRotatingFileHandler(testLog, when="d", interval=1, backupCount=5)
+    logger.addHandler(handler)
+except Exception as e:
+    logger.error(e)
 logger.info(u"%s: %s" % (datetime.datetime.now(), "Running tests."))
 runTests(options, env, gitrev)

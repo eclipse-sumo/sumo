@@ -22,19 +22,19 @@ from __future__ import absolute_import
 import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import libsumo  # noqa
+import traci  # noqa
 import sumolib  # noqa
 
-cmd = [sumolib.checkBinary("sumo"), '-n', 'input_net2.net.xml']
+cmd = [sumolib.checkBinary("sumo"), '-n', 'input_net2.net.xml', '--no-step-log']
 
 print("start first")
-libsumo.start(cmd)
+traci.start(cmd)
 print("close first")
-libsumo.close()
+traci.close()
 
 print("start second")
-libsumo.start(cmd)
+traci.start(cmd)
 print("close second")
-libsumo.close()
+traci.close()
 
 print("done")

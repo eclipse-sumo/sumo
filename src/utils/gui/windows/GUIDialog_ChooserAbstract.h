@@ -161,4 +161,7 @@ private:
 
     /// @brief whether the list was filter by substring
     bool myHaveFilteredSubstring;
+
+    /// @brief label for declaring list size
+    FXLabel* myCountLabel;
 };

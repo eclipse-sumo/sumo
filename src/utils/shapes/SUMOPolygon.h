@@ -89,7 +89,7 @@ public:
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
      */
-    inline bool getFill() const {
+    virtual bool getFill() const {
         return myFill;
     }
 

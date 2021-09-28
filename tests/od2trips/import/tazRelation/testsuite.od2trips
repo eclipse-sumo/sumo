@@ -1,0 +1,8 @@
+# Spreads 100 vehicles over a day
+100vehs_day
+
+# Spreads 10 vehicles over an hour
+10vehs_hour_uniform
+
+# overide vType
+10vehs_type

@@ -33,10 +33,10 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos,
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
-                                 const std::string& name, const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                                 const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
 {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPosition(pos),
             myWidth(width),
             myLength(length),
@@ -52,13 +52,8 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 GNEMoveOperation*
 GNEParkingSpace::getMoveOperation(const double /*shapeOffset*/) {
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed in view
-        return new GNEMoveOperation(this, myPosition);
-    }
+    // return move operation for additional placed in view
+    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -139,7 +134,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
                 if (drawUsingSelectColor()) {
                     GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
                 } else {
-                    GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorContour);
+                    GLHelper::setColor(s.colorSettings.parkingSpaceColorContour);
                 }
                 GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
             }
@@ -149,13 +144,13 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
+                GLHelper::setColor(s.colorSettings.parkingSpaceColor);
             }
             GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
             // Traslate matrix and draw lock icon if isn't being drawn for selecting
             glTranslated(0, lengthExaggeration * 0.5, 0.1);
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, false);
+            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), parkingAreaExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // pop name
@@ -195,8 +190,6 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             return myAngle;
         case SUMO_ATTR_SLOPE:
             return toString(mySlope);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
@@ -227,11 +220,10 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_SLOPE:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -254,8 +246,6 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_SLOPE:
             return canParse<double>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
@@ -318,9 +308,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SLOPE:
             mySlope = parse<double>(value);
             break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
-            break;
         case GNE_ATTR_PARENT:
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 0);
             break;
@@ -351,9 +338,9 @@ GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-    undoList->p_end();
+    undoList->begin("position of " + getTagStr());
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+    undoList->end();
 }
 
 /****************************************************************************/

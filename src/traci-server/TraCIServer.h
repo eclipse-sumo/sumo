@@ -433,7 +433,7 @@ private:
     // TODO: for libsumo, implement convenience definitions present in python client:
     //    void addSubscriptionFilterCF();
     //    void addSubscriptionFilterLC(int direction);
-    void addSubscriptionFilterTurn();
+    void addSubscriptionFilterTurn(double dist);
     void addSubscriptionFilterVClass(SVCPermissions vClasses);
     void addSubscriptionFilterVType(std::set<std::string> vTypes);
     /** @brief Filter only vehicles within field of vision

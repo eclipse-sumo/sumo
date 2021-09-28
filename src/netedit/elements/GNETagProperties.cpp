@@ -65,6 +65,18 @@ GNETagProperties::getTag() const {
 }
 
 
+Supermode 
+GNETagProperties::getSupermode() const {
+    if (isDemandElement()) {
+        return Supermode::DEMAND;
+    } else if (isDataElement()) {
+        return Supermode::DATA;
+    } else {
+        return Supermode::NETWORK;
+    }
+}
+
+
 const std::string&
 GNETagProperties::getTagStr() const {
     return myTagStr;
@@ -399,12 +411,6 @@ GNETagProperties::isSelectable() const {
 
 
 bool
-GNETagProperties::canBlockMovement() const {
-    return (myTagProperty & BLOCKMOVEMENT) != 0;
-}
-
-
-bool
 GNETagProperties::canCloseShape() const {
     return (myTagProperty & CLOSESHAPE) != 0;
 }
@@ -432,12 +438,6 @@ bool
 GNETagProperties::hasParameters() const {
     // note: By default all Tags supports parameters, except Tags with "NOPARAMETERS"
     return (myTagProperty & NOPARAMETERS) == 0;
-}
-
-
-bool
-GNETagProperties::hasDoubleParameters() const {
-    return (myTagProperty & PARAMETERSDOUBLE) != 0;
 }
 
 

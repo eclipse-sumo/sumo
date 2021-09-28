@@ -167,10 +167,18 @@ writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const
         if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL) {
             dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
             const double traveltime = edge->getTravelTime(a.getDefaultVehicle(), STEPS2TIME(begin));
+            const double speed = edge->getLength() / traveltime;
             const double flow = edge->getFlow(STEPS2TIME(begin));
-            dev.writeAttr("traveltime", traveltime);
-            dev.writeAttr("speed", edge->getLength() / traveltime);
-            dev.writeAttr("entered", flow);
+            const double timeGap = STEPS2TIME(end - begin) / flow;
+            const double spaceGap = timeGap * speed;
+            const double density = 1000.0 / spaceGap;
+            const double laneDensity = density / edge->getNumLanes();
+            dev.writeAttr(SUMO_ATTR_TRAVELTIME, traveltime);
+            dev.writeAttr(SUMO_ATTR_SPEED, speed);
+            dev.writeAttr("speedRelative", speed / edge->getSpeedLimit());
+            dev.writeAttr(SUMO_ATTR_ENTERED, flow);
+            dev.writeAttr(SUMO_ATTR_DENSITY, density);
+            dev.writeAttr(SUMO_ATTR_LANEDENSITY, laneDensity);
             dev.writeAttr("flowCapacityRatio", 100. * flow / a.getCapacity(edge));
             dev.closeTag();
         }

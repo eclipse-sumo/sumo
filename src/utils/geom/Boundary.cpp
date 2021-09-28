@@ -374,4 +374,17 @@ Boundary::moveby(double x, double y, double z) {
 }
 
 
+PositionVector 
+Boundary::getShape(const bool closeShape) const {
+    PositionVector shape;
+    shape.push_back(Position(myXmin, myYmin));
+    shape.push_back(Position(myXmin, myYmax));
+    shape.push_back(Position(myXmax, myYmax));
+    shape.push_back(Position(myXmax, myYmin));
+    if (closeShape) {
+        shape.push_back(Position(myXmin, myYmin));
+    }
+    return shape;
+}
+
 /****************************************************************************/

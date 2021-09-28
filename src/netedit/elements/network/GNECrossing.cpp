@@ -126,9 +126,9 @@ GNECrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 // remove geometry point
                 shape.erase(shape.begin() + index);
                 // commit new shape
-                undoList->p_begin("remove geometry point of " + getTagStr());
-                undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
-                undoList->p_end();
+                undoList->begin("remove geometry point of " + getTagStr());
+                undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
+                undoList->end();
             }
         }
     }
@@ -236,6 +236,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     // pop draw matrix
                     GLHelper::popMatrix();
                 }
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
                 // pop rail matrix
                 GLHelper::popMatrix();
             }
@@ -259,11 +261,13 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn (not useful at high zoom)
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, selectionScale);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, 
+                                                selectionScale, true, true);
         }
         // check if dotted contour has to be drawn (not useful at high zoom)
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myCrossingGeometry.getShape(), halfWidth, selectionScale);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myCrossingGeometry.getShape(), halfWidth, 
+                                                selectionScale, true, true);
         }
     }
 }
@@ -574,9 +578,9 @@ GNECrossing::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNECrossing::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->p_end();
+    undoList->begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
+    undoList->end();
 }
 
 /****************************************************************************/

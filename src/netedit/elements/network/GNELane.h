@@ -104,9 +104,6 @@ public:
     /// @brief get lengths of the single shape parts
     const std::vector<double>& getShapeLengths() const;
 
-    /// @brief get dotted lane geometry
-    const GNEGeometry::DottedGeometry& getDottedLaneGeometry() const;
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -245,9 +242,6 @@ private:
     /// @brief lane geometry
     GNEGeometry::Geometry myLaneGeometry;
 
-    /// @brief dotted lane geometry
-    GNEGeometry::DottedGeometry myDottedLaneGeometry;
-
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
 
@@ -295,7 +289,7 @@ private:
     void drawLinkRules(const GUIVisualizationSettings& s) const;
 
     /// @brief draw arrows
-    void drawArrows(const GUIVisualizationSettings& s) const;
+    void drawArrows(const GUIVisualizationSettings& s, const bool spreadSuperposed) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;

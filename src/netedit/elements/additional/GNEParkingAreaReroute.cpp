@@ -31,10 +31,10 @@
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
-std::map<std::string, std::string>(), false),
+    {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myProbability(probability),
-myVisible(visible) {
+    myVisible(visible) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -125,7 +125,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_VISIBLE:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

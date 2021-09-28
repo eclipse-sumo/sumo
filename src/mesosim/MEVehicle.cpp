@@ -60,7 +60,7 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
         if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == nullptr) {
             throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of edge '" + (*myCurrEdge)->getID() + "'.");
         }
-        if (pars->departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars->departSpeed > type->getMaxSpeed()) {
+        if (pars->departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars->departSpeed > type->getMaxSpeed() + SPEED_EPS) {
             throw ProcessError("Departure speed for vehicle '" + pars->id +
                                "' is too high for the vehicle type '" + type->getID() + "'.");
         }
@@ -138,7 +138,7 @@ MEVehicle::getConservativeSpeed(SUMOTime& earliestArrival) const {
 bool
 MEVehicle::moveRoutePointer() {
     // vehicle has just entered a new edge. Position is 0
-    if (myCurrEdge == myRoute->end() - 1) { // may happen during teleport
+    if (myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge)) { // may happen during teleport
         return true;
     }
     ++myCurrEdge;
@@ -156,7 +156,7 @@ MEVehicle::moveRoutePointer() {
 bool
 MEVehicle::hasArrived() const {
     // mySegment may be 0 due to teleporting or arrival
-    return myCurrEdge == myRoute->end() - 1 && (
+    return (myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge)) && (
                (mySegment == nullptr)
                || myEventTime == SUMOTime_MIN
                || getPositionOnLane() > myArrivalPos - POSITION_EPS);
@@ -217,7 +217,9 @@ MEVehicle::checkStop(SUMOTime time) {
             return time;
         }
         const SUMOTime cur = time;
-        time += stop.duration;
+        if (stop.duration > 0) { // it might be a triggered stop with duration -1
+            time += stop.duration;
+        }
         if (stop.pars.until > time) {
             // @note: this assumes the stop is reached at time. With the way this is called in MESegment (time == entryTime),
             // travel time is overestimated of the stop is not at the start of the segment
@@ -237,7 +239,7 @@ MEVehicle::checkStop(SUMOTime time) {
                                getID(), mySegment->getID(), time2string(time));
             }
         }
-        if (stop.triggered || stop.containerTriggered) {
+        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             MSNet* const net = MSNet::getInstance();
             bool wait = true;
             SUMOTime dummy = -1; // boarding- and loading-time are not considered
@@ -249,7 +251,11 @@ MEVehicle::checkStop(SUMOTime time) {
             }
             if (wait) {
                 net->getVehicleControl().registerOneWaiting();
+            } else {
+                stop.triggered = false;
+                stop.containerTriggered = false;
             }
+            time = MAX2(time, cur + DELTA_T);
         }
         hadStop = true;
     }
@@ -271,10 +277,11 @@ MEVehicle::resumeFromStopping() {
         SUMOVehicleParameter::Stop pars = stop.pars;
 //        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
         myPastStops.emplace_back(pars);
-        myStops.pop_front();
-        if (stop.triggered || stop.containerTriggered) {
+        if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
         }
+        myStops.pop_front();
+        // TODO if this is an aborted stop we need to change the event time of the vehicle!
         return true;
     }
     return false;
@@ -336,17 +343,27 @@ MEVehicle::mayProceed() {
     }
     MSNet* const net = MSNet::getInstance();
     SUMOTime dummy = -1; // boarding- and loading-time are not considered
-    for (const MSStop& stop : myStops) {
+    for (MSStop& stop : myStops) {
         if (!stop.reached) {
             break;
         }
         if (stop.triggered) {
-            if (!net->hasPersons() || !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+            if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
+                // we could not check this on entering the segment because there may be persons who still want to leave
+                WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                stop.triggered = false;
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+            } else if (!net->hasPersons() || !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
                 return false;
             }
         }
         if (stop.containerTriggered) {
-            if (!net->hasContainers() || !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
+            if (getVehicleType().getContainerCapacity() == getContainerNumber()) {
+                // we could not check this on entering the segment because there may be containers who still want to leave
+                WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                stop.containerTriggered = false;
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+            } else if (!net->hasContainers() || !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
                 return false;
             }
         }
@@ -520,7 +537,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         }
         // see MSBaseVehicle constructor
         if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
-            calculateArrivalParams();
+            calculateArrivalParams(true);
         }
     }
     if (myBlockTime != SUMOTime_MAX) {

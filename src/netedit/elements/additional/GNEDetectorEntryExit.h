@@ -44,10 +44,9 @@ public:
      * @param[in] pos position of the detector on the lane
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
-                         const std::map<std::string, std::string>& parameters, bool blockMovement);
+                         const std::map<std::string, std::string>& parameters);
 
     /// @brief destructor
     ~GNEDetectorEntryExit();

@@ -103,7 +103,9 @@ enum SUMOVehicleShape {
     /// @brief render as a police car
     SVS_POLICE,
     /// @brief render as a rickshaw
-    SVS_RICKSHAW
+    SVS_RICKSHAW,
+    /// @brief render as a scooter
+    SVS_SCOOTER
 };
 
 
@@ -200,6 +202,8 @@ enum SUMOVehicleClass {
 
     /// @brief classes which drive on tracks
     SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    /// @brief public transport
+    SVC_PUBLIC_CLASSES = SVC_BUS | SVC_RAIL_CLASSES,
     /// @brief classes which drive on roads
     SVC_ROAD_CLASSES = (SVC_PEDESTRIAN | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY
                         | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE),

@@ -102,10 +102,10 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
             myNodeList.push_back(node);
             // create Links
             if (ix > 0) {
-                connect(node, findNode(ix - 1, iy));
+                connect(findNode(ix - 1, iy), node);
             }
             if (iy > 0) {
-                connect(node, findNode(ix, iy - 1));
+                connect(findNode(ix, iy - 1), node);
             }
         }
     }
@@ -123,7 +123,7 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
             myNodeList.push_back(topNode);
             myNodeList.push_back(bottomNode);
             // create links
-            connect(topNode, findNode(ix, numY - 1));
+            connect(findNode(ix, numY - 1), topNode);
             connect(bottomNode, findNode(ix, 0));
         }
     }
@@ -142,7 +142,7 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
             myNodeList.push_back(rightNode);
             // create links
             connect(leftNode, findNode(0, iy));
-            connect(rightNode, findNode(numX - 1, iy));
+            connect(findNode(numX - 1, iy), rightNode);
         }
     }
 }
@@ -171,7 +171,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
 
     int ir, ic;
     double angle = (double)(2 * M_PI / numRadDiv); // angle between radial divisions
-    NGNode* Node;
+    NGNode* node;
     for (ic = 1; ic < numCircles + 1; ic++) {
         const std::string nodeIDStart = alphabeticalCode(ic, numCircles);
         for (ir = 1; ir < numRadDiv + 1; ir++) {
@@ -179,31 +179,31 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
             const std::string nodeID = (myAlphaIDs ?
                                         nodeIDStart + toString<int>(ir) :
                                         toString<int>(ir) + "/" + toString<int>(ic));
-            Node = new NGNode(nodeID, ir, ic);
-            Node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
-            Node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
-            myNodeList.push_back(Node);
+            node = new NGNode(nodeID, ir, ic);
+            node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
+            node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
+            myNodeList.push_back(node);
             // create Links
             if (ir > 1) {
-                connect(Node, findNode(ir - 1, ic));
+                connect(findNode(ir - 1, ic), node);
             }
             if (ic > 1) {
-                connect(Node, findNode(ir, ic - 1));
+                connect(findNode(ir, ic - 1), node);
             }
             if (ir == numRadDiv) {
-                connect(Node, findNode(1, ic));
+                connect(node, findNode(1, ic));
             }
         }
     }
     if (hasCenter) {
         // node
-        Node = new NGNode(myAlphaIDs ? "A1" : "1", 0, 0, true);
-        Node->setX(0);
-        Node->setY(0);
-        myNodeList.push_back(Node);
+        node = new NGNode(myAlphaIDs ? "A1" : "1", 0, 0, true);
+        node->setX(0);
+        node->setY(0);
+        myNodeList.push_back(node);
         // links
         for (ir = 1; ir < numRadDiv + 1; ir++) {
-            connect(Node, findNode(ir, 1));
+            connect(node, findNode(ir, 1));
         }
     }
 }
@@ -213,10 +213,8 @@ void
 NGNet::connect(NGNode* node1, NGNode* node2) {
     std::string id1 = node1->getID() + (myAlphaIDs ? "" : "to") + node2->getID();
     std::string id2 = node2->getID() + (myAlphaIDs ? "" : "to") + node1->getID();
-    NGEdge* link1 = new NGEdge(id1, node1, node2);
-    NGEdge* link2 = new NGEdge(id2, node2, node1);
+    NGEdge* link1 = new NGEdge(id1, node1, node2, id2);
     myEdgeList.push_back(link1);
-    myEdgeList.push_back(link2);
 }
 
 Distribution_Parameterized

@@ -304,6 +304,16 @@ protected:
     FXColorWell* mySelectedPersonPlanColor;
     FXColorWell* mySelectedEdgeDataColor;
 
+    /// @brief additional colors
+    FXColorWell* myBusStopColor;
+    FXColorWell* myBusStopColorSign;
+    FXColorWell* myTrainStopColor;
+    FXColorWell* myTrainStopColorSign;
+    FXColorWell* myContainerStopColor;
+    FXColorWell* myContainerStopColorSign;
+    FXColorWell* myChargingStationColor;
+    FXColorWell* myChargingStationColorSign;
+
     /// @brief ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;
     FXVerticalFrame* myLaneColorSettingFrame;
@@ -374,6 +384,7 @@ protected:
     std::vector<FXButton*> myPOIButtons;
     FXCheckButton* myPOIColorInterpolation;
     FXComboBox* myPOITextParamKey;
+    FXSpinner* myPoiDetail;
 
     /// @brief Polygons
     MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail;
@@ -382,6 +393,20 @@ protected:
     std::vector<FXRealSpinner*> myPolyThresholds;
     std::vector<FXButton*> myPolyButtons;
     FXCheckButton* myPolyColorInterpolation;
+
+    /// @brief Data
+    MFXIconComboBox* myDataColorMode;
+    FXVerticalFrame* myDataColorSettingFrame;
+    std::vector<FXColorWell*> myDataColors;
+    std::vector<FXRealSpinner*> myDataThresholds;
+    std::vector<FXButton*> myDataButtons;
+    FXCheckButton* myDataColorInterpolation;
+    FXComboBox* myDataParamKey;
+    FXRealSpinner* myEdgeRelationUpscaleDialer;
+    FXRealSpinner* myTazRelationUpscaleDialer;
+    FXButton* myDataColorRainbow;
+    FXCheckButton* myDataColorRainbowCheck;
+    FXRealSpinner* myDataColorRainbowThreshold;
 
     /// @brief buttons
     FXCheckButton* myShowLane2Lane;
@@ -406,7 +431,8 @@ protected:
                *myContainerNamePanel,
                *myAddNamePanel, *myAddFullNamePanel,
                *myPOINamePanel, *myPOITypePanel, *myPOITextPanel,
-               *myPolyNamePanel, *myPolyTypePanel;
+               *myPolyNamePanel, *myPolyTypePanel,
+               *myDataValuePanel;
 
     /// @brief size panels
     SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;

@@ -112,16 +112,16 @@ Currently, the following context subscription filter types are implemented:
 
 | filter name | filter type |   parameter value   |     description     |       uses context range       |
 |  ---------  | :---------: | :-----------------: |  -----------------  | :----------------------------: |
-| lanes       | 0x01        |    list(byte)       | only return vehicles on list of lanes relative to ego vehicle | no |
-| no-opposite | 0x02        |    -                | exclude vehicles on opposite (and other) lanes | yes |
-| downstream distance | 0x03|    double           | only return vehicles within the given downstream distance | no |
-| upstream distance | 0x04  |    double           | only return vehicles within the given maximal upstream distance | no |
-| leader/follower   | 0x05  |    -                | only return leader and follower on the specified lanes (requires 'lanes' filter) | no |
-| turn        | 0x07        |    -                | only return foes on upcoming junction | no |
-| vClass      | 0x08        |    list(string)     | only return vehicles of the given vClass(es) | yes |
-| vType       | 0x09        |    list(string)     | only return vehicles of the given vType(s) | yes |
-| field of vision | 0x0A    |    double           | only return vehicles within field of vision (angle in degrees) | yes |
-| lateral distance| 0x0B    |    double           | only return vehicles within the given lateral distance | no |
+| [lanes](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterLanes)       | 0x01        |    list(byte)       | only return vehicles on list of lanes relative to ego vehicle | no |
+| [no-opposite](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterNoOpposite) | 0x02        |    -                | exclude vehicles on opposite (and other) lanes | yes |
+| [downstream distance](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterDownstreamDistance) | 0x03|    double           | only return vehicles within the given downstream distance | no |
+| [upstream distance](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterUpstreamDistance) | 0x04  |    double           | only return vehicles within the given maximal upstream distance | no |
+| [leader/follower](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterLeadFollow)   | 0x05  |    -                | only return leader and follower on the specified lanes (requires 'lanes' filter) | no |
+| [turn](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterTurn)        | 0x07        |    -                | only return foes on upcoming junctions | no |
+| [vClass](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterVClass)     | 0x08        |    list(string)      | only return vehicles of the given vClass(es) | yes |
+| [vType](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterVType)       | 0x09        |    list(string)     | only return vehicles of the given vType(s) | yes |
+| [field of vision](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterFieldOfVision) | 0x0A    |    double           | only return vehicles within field of vision (angle in degrees) | yes |
+| [lateral distance](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterLateralDistance) | 0x0B    |    double          | only return vehicles within the given lateral distance | no |
 
 ### Intercompatibility
 

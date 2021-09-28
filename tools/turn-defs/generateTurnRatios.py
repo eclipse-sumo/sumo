@@ -88,7 +88,7 @@ def main(options):
     edgePairFlowsMap, minDepart, maxDepart = getFlows(options.routefiles, options.verbose)
 
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "edgeRelations", "edgerelations_file.xsd")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd")  # noqa
         outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (options.id, minDepart, maxDepart))
         for from_edge in sorted(edgePairFlowsMap.keys()):
             if options.prob:

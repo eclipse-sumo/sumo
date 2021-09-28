@@ -58,7 +58,9 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(nullptr),
     myCurrentRouteDistribution(nullptr),
-    myAmLoadingState(false) {
+    myAmLoadingState(false),
+    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix"))
+{
     myActiveRoute.reserve(100);
 }
 
@@ -172,7 +174,7 @@ void
 MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     try {
         if (myActiveTransportablePlan != nullptr && myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED
-                && (element == SUMO_TAG_WALK || element == SUMO_TAG_PERSONTRIP || element == SUMO_TAG_STOP || element == SUMO_TAG_TRANSHIP)) {
+                && element != SUMO_TAG_RIDE && element != SUMO_TAG_TRANSPORT) {
             const std::string mode = myActiveType == ObjectTypeEnum::PERSON ? "ride" : "transport";
             throw ProcessError("Triggered departure for " + myActiveTypeName + " '" + myVehicleParameter->id + "' requires starting with a " + mode + ".");
         }
@@ -566,19 +568,17 @@ MSRouteHandler::closeVehicle() {
         }
     }
     if (myVehicleParameter->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
-        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
-            WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_DEPARTEDGE) + "' for vehicle '" + myVehicleParameter->id + "' because the route is computed dynamically.");
-        } else if (myVehicleParameter->departEdgeProcedure == RouteIndexDefinition::GIVEN &&
-                   myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
+        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) == 0 &&
+                myVehicleParameter->departEdgeProcedure == RouteIndexDefinition::GIVEN &&
+                myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
             throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has invalid departEdge index "
                                + toString(myVehicleParameter->departEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
         }
     }
     if (myVehicleParameter->arrivalEdgeProcedure != RouteIndexDefinition::DEFAULT) {
-        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
-            WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_ARRIVALEDGE) + "' for vehicle '" + myVehicleParameter->id + "' because the route is computed dynamically.");
-        } else if (myVehicleParameter->arrivalEdgeProcedure == RouteIndexDefinition::GIVEN &&
-                   myVehicleParameter->arrivalEdge >= (int)route->getEdges().size()) {
+        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) == 0 &&
+                myVehicleParameter->arrivalEdgeProcedure == RouteIndexDefinition::GIVEN &&
+                myVehicleParameter->arrivalEdge >= (int)route->getEdges().size()) {
             throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has invalid arrivalEdge index "
                                + toString(myVehicleParameter->arrivalEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
         }
@@ -607,12 +607,17 @@ MSRouteHandler::closeVehicle() {
             registerLastDepart();
             myVehicleParameter->depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
+            int offset = 0;
             for (int i = 1; i < quota; i++) {
                 if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                 }
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
-                newPars->id = myVehicleParameter->id + "." + toString(i);
+                newPars->id = myVehicleParameter->id + myScaleSuffix + toString(i + offset);
+                while (vehControl.getVehicle(newPars->id) != nullptr) {
+                    offset += 1;
+                    newPars->id = myVehicleParameter->id + myScaleSuffix + toString(i + offset);
+                }
                 newPars->depart = origDepart + MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
                 vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
                 vehControl.addVehicle(newPars->id, vehicle);
@@ -630,7 +635,11 @@ MSRouteHandler::closeVehicle() {
             // -> error
             std::string veh_id = myVehicleParameter->id;
             deleteActivePlanAndVehicleParameter();
-            throw ProcessError("Another vehicle with the id '" + veh_id + "' exists.");
+            std::string scaleWarning = "";
+            if (vehControl.getScale() > 0 && veh_id.find(myScaleSuffix) != std::string::npos) {
+                scaleWarning = "\n   (Possibly duplicate id due to using option --scale. Set option --scale-suffix to prevent this)";
+            }
+            throw ProcessError("Another vehicle with the id '" + veh_id + "' exists." + scaleWarning);
         } else {
             // ok, it seems to be loaded previously while loading a simulation state
             vehicle = nullptr;
@@ -890,21 +899,19 @@ MSRouteHandler::closeFlow() {
         }
     }
     if (myVehicleParameter->departEdgeProcedure != RouteIndexDefinition::DEFAULT) {
-        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
-            WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_DEPARTEDGE) + "' for flow '" + myVehicleParameter->id + "' because the route is computed dynamically.");
-        } else if (myVehicleParameter->departEdgeProcedure == RouteIndexDefinition::GIVEN &&
-                   myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
+        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) == 0 &&
+                myVehicleParameter->departEdgeProcedure == RouteIndexDefinition::GIVEN &&
+                myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
             throw ProcessError("Flow '" + myVehicleParameter->id + "' has invalid departEdge index "
                                + toString(myVehicleParameter->departEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
         }
     }
     if (myVehicleParameter->arrivalEdgeProcedure != RouteIndexDefinition::DEFAULT) {
-        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
-            WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_ARRIVALEDGE) + "' for flow '" + myVehicleParameter->id + "' because the route is computed dynamically.");
-        } else if (myVehicleParameter->arrivalEdgeProcedure == RouteIndexDefinition::GIVEN &&
-                   myVehicleParameter->arrivalEdge >= (int)route->getEdges().size()) {
+        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) == 0 &&
+                myVehicleParameter->arrivalEdgeProcedure == RouteIndexDefinition::GIVEN &&
+                myVehicleParameter->arrivalEdge >= (int)route->getEdges().size()) {
             throw ProcessError("Flow '" + myVehicleParameter->id + "' has invalid arrivalEdge index "
-                               + toString(myVehicleParameter->arrivalEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
+                    + toString(myVehicleParameter->arrivalEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
         }
     }
     myActiveRouteID = "";
@@ -1121,11 +1128,19 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 }
             } else if (ok && stop.lane != "") { // lane is given directly
                 MSLane* stopLane = MSLane::dictionary(stop.lane);
+                if (stopLane == nullptr) {
+                    // check for opposite-direction stop
+                    stopLane = MSBaseVehicle::interpretOppositeStop(stop);
+                    if (stopLane != nullptr) {
+                        edge = MSEdge::dictionary(stop.edge);
+                    }
+                } else {
+                    edge = &stopLane->getEdge();
+                }
                 if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
                     WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                     return;
                 }
-                edge = &stopLane->getEdge();
             } else {
                 if (myActiveTransportablePlan && !myActiveTransportablePlan->empty()) { // use end of movement before
                     toStop = myActiveTransportablePlan->back()->getDestinationStop();

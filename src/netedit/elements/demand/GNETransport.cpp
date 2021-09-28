@@ -352,7 +352,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
@@ -360,12 +360,12 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
             GNEDemandElement* nextContainerPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -377,12 +377,12 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
                 // obtain containerStop
                 const GNEAdditional* containerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -542,10 +542,10 @@ GNETransport::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("arrivalPos of " + getTagStr());
+    undoList->begin("arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

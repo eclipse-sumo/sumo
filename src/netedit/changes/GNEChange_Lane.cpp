@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
-    GNEChange(true, false),
+    GNEChange(Supermode::NETWORK, true, false),
     myEdge(edge),
     myLane(nullptr),
     myLaneAttrs(laneAttrs),
@@ -45,7 +45,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
 
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
-    GNEChange(lane, forward, lane->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, lane, forward, lane->isAttributeCarrierSelected()),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),
@@ -152,21 +152,21 @@ GNEChange_Lane::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Lane::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_LANE));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_LANE));
     }
 }
 
 
-FXString
+std::string
 GNEChange_Lane::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_LANE));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_LANE)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_LANE));
     }
 }

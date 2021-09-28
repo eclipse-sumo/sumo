@@ -689,7 +689,7 @@ driving dist -1073741824.0
 driving dist 2D -1073741824.0
 line 
 via ()
-dist 708.191018343
+dist 458.191018343
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False

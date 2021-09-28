@@ -49,6 +49,9 @@ bike_lane_starts
 3arm_bike_lane
 3arm_bike_lane2
 
+# edge with bicycle lane connects to a bike path
+bike_path_branches
+
 # special case a)
 case_a_with_sidewalk
 

@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, nullptr, 0)
 
 
 GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward) :
-    GNEChange(forward, selected),
+    GNEChange(Supermode::NETWORK, forward, selected),
     myEdge(edge),
     myNBEdgeConnection(nbCon) {
 }
@@ -90,21 +90,21 @@ GNEChange_Connection::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Connection::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_CONNECTION)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_CONNECTION));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_CONNECTION)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_CONNECTION));
     }
 }
 
 
-FXString
+std::string
 GNEChange_Connection::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_CONNECTION)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_CONNECTION));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_CONNECTION)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_CONNECTION));
     }
 }

@@ -336,7 +336,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                               oc.getFloat("bikelanes.guess.min-speed"),
                               oc.getFloat("bikelanes.guess.max-speed"),
                               oc.getBool("bikelanes.guess.from-permissions"),
-                              "bikelanes.guess.exclude");
+                              "bikelanes.guess.exclude",
+                              myTLLCont);
         WRITE_MESSAGE("Guessed " + toString(bikelanes) + " bike lanes.");
         addedLanes += bikelanes;
     }
@@ -347,7 +348,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                               oc.getFloat("sidewalks.guess.min-speed"),
                               oc.getFloat("sidewalks.guess.max-speed"),
                               oc.getBool("sidewalks.guess.from-permissions"),
-                              "sidewalks.guess.exclude");
+                              "sidewalks.guess.exclude",
+                              myTLLCont);
         WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
         addedLanes += sidewalks;
     }

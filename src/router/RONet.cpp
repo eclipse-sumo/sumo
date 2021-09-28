@@ -412,7 +412,8 @@ RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypePa
 bool
 RONet::addVehicle(const std::string& id, ROVehicle* veh) {
     if (myVehIDs.find(id) == myVehIDs.end()) {
-        myVehIDs.insert(id);
+        myVehIDs[id] = veh->getParameter().departProcedure == DEPART_TRIGGERED ? -1 : veh->getDepartureTime();
+
         if (veh->isPublicTransport()) {
             if (!veh->isPartOfFlow()) {
                 myPTVehicles.push_back(veh);
@@ -430,8 +431,18 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
 
 
 bool
-RONet::knowsVehicle(const std::string& id) {
+RONet::knowsVehicle(const std::string& id) const {
     return myVehIDs.find(id) != myVehIDs.end();
+}
+
+SUMOTime
+RONet::getDeparture(const std::string& vehID) const {
+    auto it = myVehIDs.find(vehID);
+    if (it != myVehIDs.end()) {
+        return it->second;
+    } else {
+        throw ProcessError("Requesting departure time for unknown vehicle '" + vehID + "'");
+    }
 }
 
 
@@ -445,7 +456,11 @@ RONet::addFlow(SUMOVehicleParameter* flow, const bool randomize) {
         std::sort(myDepartures[flow->id].begin(), myDepartures[flow->id].end());
         std::reverse(myDepartures[flow->id].begin(), myDepartures[flow->id].end());
     }
-    return myFlows.add(flow->id, flow);
+    const bool added = myFlows.add(flow->id, flow);
+    if (added) {
+        myHaveActiveFlows = true;
+    }
+    return added;
 }
 
 
@@ -571,10 +586,13 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
             RORoutable* const first = i->second.front();
-            myThreadPool.add(new RoutingTask(first, removeLoops, myErrorHandler), workerIndex);
-            myThreadPool.add(new BulkmodeTask(true), workerIndex);
-            for (std::vector<RORoutable*>::const_iterator j = i->second.begin() + 1; j != i->second.end(); ++j) {
-                myThreadPool.add(new RoutingTask(*j, removeLoops, myErrorHandler), workerIndex);
+            bool bulk = true;
+            for (RORoutable* const r : i->second) {
+                myThreadPool.add(new RoutingTask(r, removeLoops, myErrorHandler), workerIndex);
+                if (bulk) {
+                    myThreadPool.add(new BulkmodeTask(true), workerIndex);
+                    bulk = false;
+                }
             }
             myThreadPool.add(new BulkmodeTask(false), workerIndex);
             workerIndex++;
@@ -584,11 +602,11 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             continue;
         }
 #endif
-        for (std::vector<RORoutable*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
-            (*j)->computeRoute(provider, removeLoops, myErrorHandler);
-            provider.getVehicleRouter((*j)->getVClass()).setBulkMode(true);
+        for (RORoutable* const r : i->second) {
+            r->computeRoute(provider, removeLoops, myErrorHandler);
+            provider.setBulkMode(true);
         }
-        provider.getVehicleRouter(SVC_IGNORING).setBulkMode(false);
+        provider.setBulkMode(false);
     }
 }
 
@@ -718,9 +736,15 @@ RONet::getInternalEdgeNumber() const {
     return myNumInternalEdges;
 }
 
+
+ROEdge*
+RONet::getEdgeForLaneID(const std::string& laneID) const {
+    return getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(laneID));
+}
+
 ROLane*
 RONet::getLane(const std::string& laneID) const {
-    int laneIndex = StringUtils::toInt(laneID.substr(laneID.rfind("_") + 1));
+    int laneIndex = SUMOXMLDefinitions::getIndexFromLane(laneID);
     return getEdgeForLaneID(laneID)->getLanes()[laneIndex];
 }
 

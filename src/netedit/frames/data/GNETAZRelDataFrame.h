@@ -33,6 +33,30 @@
 class GNETAZRelDataFrame : public GNEGenericDataFrame {
 
 public:
+    // ===========================================================================
+    // class TAZRelLegend
+    // ===========================================================================
+
+    class TAZRelLegend : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TAZRelLegend(GNETAZRelDataFrame* TAZRelDataFrame);
+
+        /// @brief destructor
+        ~TAZRelLegend();
+
+        /// @brief set labels
+        void setLabels(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ);
+
+    private:
+        /// @brief from TAZ label
+        FXLabel* myFromTAZLabel;
+
+        /// @brief to TAZ Label
+        FXLabel* myToTAZLabel;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNETAZRelDataFrame
@@ -42,19 +66,30 @@ public:
     /// @brief Destructor
     ~GNETAZRelDataFrame();
 
-    /**@brief add additional element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @param mouseButtonKeyPressed key pressed during click
-     * @return true if additional was sucesfully added
-     */
-    bool addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    /// @brief set clicked TAZ
+    bool setTAZ(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /// @brief build TAZRelation data
+    void buildTAZRelationData();
+
+    /// @brief get first selected TAZ Element
+    GNETAZElement* getFirstTAZ() const;
+
+    /// @brief get first selected TAZ Element
+    GNETAZElement* getSecondTAZ() const;
 
     /// @brief clear TAZ selection
     void clearTAZSelection();
 
 protected:
     /// @brief first selected TAZ Element
-    GNETAZElement* myFirstTAZElement;
+    GNETAZElement* myFirstTAZ;
+
+    /// @brief first selected TAZ Element
+    GNETAZElement* mySecondTAZ;
+
+    /// @brief TAZRel legend
+    TAZRelLegend* myTAZRelLegend;
 
 private:
     /// @brief Invalidated copy constructor.

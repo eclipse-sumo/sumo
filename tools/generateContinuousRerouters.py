@@ -44,6 +44,8 @@ def get_options(args=None):
     parser.add_option("-l", "--long-routes", action="store_true", dest="longRoutes", default=False,
                       help="place rerouters further upstream (after the previous decision point) to increase " +
                            "overlap of routes when rerouting and thereby improve anticipation of intersections")
+    parser.add_option("--vclass",
+                      help="only create routes which permit the given vehicle class")
     parser.add_option("-b", "--begin",  default=0, help="begin time")
     parser.add_option("-e", "--end",  default=3600, help="end time (default 3600)")
     (options, args) = parser.parse_args(args=args)
@@ -60,11 +62,20 @@ def get_options(args=None):
     return options
 
 
-def getEdgesToIntersection(edge):
+def getEdgesToIntersection(edge, vclass):
     result = [edge]
+    seen = set()
+    seen.add(edge)
     while len(edge.getOutgoing().keys()) == 1:
         edge = list(edge.getOutgoing().keys())[0]
-        result.append(edge)
+        if edge in seen:
+            break
+        elif vclass is not None and not edge.allows(vclass):
+            break
+        else:
+            seen.add(edge)
+            result.append(edge)
+
     return result
 
 
@@ -92,7 +103,7 @@ def getNumAlternatives(edge, routes):
 
 def getNumSiblings(edge):
     """return number of outgoing edges at the fromNode of this edge that can be
-    reached from a common predecessor of the give nedge"""
+    reached from a common predecessor of the given edge"""
     siblings = set()
     for cons in edge.getIncoming().values():
         for con in cons:
@@ -112,7 +123,7 @@ def main(options):
             if len(junction.getOutgoing()) > 1 or isEntry:
                 for edge in junction.getOutgoing():
                     if isEntry or getNumSiblings(edge) > 1:
-                        edges = getEdgesToIntersection(edge)
+                        edges = getEdgesToIntersection(edge, options.vclass)
                         edgeIDs = tuple([e.getID() for e in edges])
                         incomingRoutes[edges[-1]].add(edgeIDs)
 
@@ -122,7 +133,8 @@ def main(options):
             if len(junction.getOutgoing()) > 1:
                 routes = []
                 for edge in junction.getOutgoing():
-                    routes.append(getEdgesToIntersection(edge))
+                    if options.vclass is None or edge.allows(options.vclass):
+                        routes.append(getEdgesToIntersection(edge, options.vclass))
 
                 for edge in junction.getIncoming():
                     if options.longRoutes:

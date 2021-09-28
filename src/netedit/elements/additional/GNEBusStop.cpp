@@ -35,8 +35,8 @@
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color,
-                       bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement) :
-    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters, blockMovement),
+                       bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
+    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength),
@@ -47,6 +47,45 @@ GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNE
 
 
 GNEBusStop::~GNEBusStop() {}
+
+
+void
+GNEBusStop::writeAdditional(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    if (myStartPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
+    }
+    if (myEndPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    }
+    if (myLines.size() > 0) {
+        device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
+    }
+    if (myPersonCapacity != 6) {
+        device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
+    }
+    if (myParkingLength > 0) {
+        device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
+    }
+    if (myColor.isValid()) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    }
+    // write all access
+    for (const auto &access : getChildAdditionals()) {
+        access->writeAdditional(device);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
 
 
 void
@@ -87,9 +126,15 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (drawUsingSelectColor()) {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
-            } else {
+            } else if (myColor.isValid()){
                 baseColor = myColor;
-                signColor = s.stoppingPlaceSettings.busStopColorSign;
+                signColor = s.colorSettings.busStopColorSign;
+            } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
+                baseColor = s.colorSettings.trainStopColor;
+                signColor = s.colorSettings.trainStopColorSign;
+            } else {
+                baseColor = s.colorSettings.busStopColor;
+                signColor = s.colorSettings.busStopColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
@@ -108,7 +153,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
+                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             }
             // pop draw matrix
             GLHelper::popMatrix();
@@ -118,10 +163,12 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             drawConnectionAccess(s, baseColor);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
+                                                    busStopExaggeration, true, true);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, 
+                                                    busStopExaggeration, true, true);
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
@@ -168,13 +215,11 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
         case SUMO_ATTR_COLOR:
-            if (myColor == myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor) {
+            if (!myColor.isValid()) {
                 return "";
             } else {
                 return toString(myColor);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -201,10 +246,9 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_PERSON_CAPACITY:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_PARKING_LENGTH:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -255,8 +299,6 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<RGBColor>(value);
             }
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -314,13 +356,10 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
-                myColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor;
+                myColor.setValid(false);
             } else {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
             }
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

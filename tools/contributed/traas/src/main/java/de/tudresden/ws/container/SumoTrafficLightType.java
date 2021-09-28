@@ -24,7 +24,7 @@ package de.tudresden.ws.container;
 
 /**
  * 
- * @deprecated use package {@link #de.tudresden.sumo.objects} instead.
+ * @deprecated use package {@link de.tudresden.sumo.objects} instead.
  */
 
 public enum SumoTrafficLightType {

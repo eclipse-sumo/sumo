@@ -85,6 +85,10 @@ static const double vehiclePoly_EmergencyLadder5[] =   { .05, .3, .0, .3, .0, -.
 static const double vehiclePoly_EmergencyLadder6[] =   { -.25, .3, -.2, .3, -.2, -.3, -.25, -.3, -10000 };
 static const double vehiclePoly_EmergencyLadder7[] =   { .25, .3, .2, .3, .2, -.3, .25, -.3, -10000 };
 
+static const double vehiclePoly_scooterBase[] = { -.17, .3, -.2, .3, -.2, -.3, -.17, -.3, -10000 };
+static const double vehiclePoly_scooterBase2[] = { .27, .03, .28, .03, .28, -.03, .27, -.03, -10000 };
+static const double vehiclePoly_scooterBase3[] = { -.5, .6, .5, .6, .5, -.6, -.5, -.6, -10000 };
+
 static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
 
 // ===========================================================================
@@ -426,6 +430,50 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawFilledCircle(.3, 6);
             GLHelper::popMatrix();
             break;
+        case SVS_SCOOTER: {
+            RGBColor darker2 = current.changedBrightness(-25);
+            GLHelper::pushMatrix();
+            // front small oval
+            GLHelper::setColor(darker);
+            glTranslated(-0.20, 0, 0.15);
+            glScaled(0.04, 0.06, 0.7);
+            GLHelper::drawFilledCircle(1, 20);
+            GLHelper::popMatrix();
+            // handlebar
+            GLHelper::pushMatrix();
+            glTranslated(0.0, 0, 0.1);
+            glColor3d(0.3, 0.3, 0.3);
+            drawPoly(vehiclePoly_scooterBase, 5);
+            GLHelper::popMatrix();
+            // front oval
+            GLHelper::pushMatrix();
+            GLHelper::setColor(darker2);
+            glTranslated(-0.21, 0, 0.1);
+            glScaled(0.07, 0.08, 0.9);
+            GLHelper::drawFilledCircle(1, 20);
+            GLHelper::popMatrix();
+            // tail rectangle
+            GLHelper::pushMatrix();
+            glColor3d(0.3, 0.3, 0.3);
+            drawPoly(vehiclePoly_scooterBase2, 5);
+            // tail oval
+            GLHelper::setColor(darker2);
+            glTranslated(0.21, 0, 0.1);
+            glScaled(0.07, 0.08, 0.9);
+            GLHelper::drawFilledCircle(1, 20);
+            GLHelper::popMatrix();
+            // base oval
+            GLHelper::pushMatrix();
+            GLHelper::setColor(lighter);
+            glScaled(0.28, 0.14, 0.9);
+            GLHelper::drawFilledCircle(1, 30);
+            // center rectangle
+            glTranslated(0, 0, 0.1);
+            GLHelper::setColor(current);
+            drawPoly(vehiclePoly_scooterBase3, 5);
+            GLHelper::popMatrix();
+            break;
+        }
         default: // same as passenger
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             glColor3d(1, 1, 1);
@@ -539,6 +587,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SVS_FIREBRIGADE:
         case SVS_POLICE:
         case SVS_RICKSHAW:
+        case SVS_SCOOTER:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);

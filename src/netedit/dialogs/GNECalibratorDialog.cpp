@@ -224,15 +224,18 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
+    // get routes and vTypes
+    const auto &routes = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
+    const auto &vTypes = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE);
     // only add flow if there is at least a GNERoute (There is always a Vehicle Type)
-    if (myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() > 0) {
+    if (routes.size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
-        GNECalibratorFlowDialog(new GNECalibratorFlow(myEditedAdditional), false);
+        GNECalibratorFlowDialog(new GNECalibratorFlow(myEditedAdditional, vTypes.at(DEFAULT_VTYPE_ID), routes.begin()->second), false);
         // update flows table
         updateFlowTable();
         return 1;
     } else {
-        throw ProcessError("myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE) cannot be empty");
+        throw ProcessError("routes cannot be empty");
     }
 }
 

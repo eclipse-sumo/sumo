@@ -362,6 +362,11 @@ public:
      */
     double getOdometer() const;
 
+    /// @brief Manipulate the odometer
+    void addToOdometer(double value) {
+        myOdometer += value;
+    }
+
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
@@ -814,7 +819,13 @@ public:
 
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
-    void calculateArrivalParams(const MSEdge* arrivalEdge = nullptr);
+    void calculateArrivalParams(bool onInit);
+
+    /// @brief apply departEdge and arrivalEdge attributes
+    void setDepartAndArrivalEdge();
+
+    /// @brief interpret stop lane on opposite side of the road
+    static MSLane* interpretOppositeStop(SUMOVehicleParameter::Stop& stop);
 
 protected:
     /// @brief This vehicle's parameter.

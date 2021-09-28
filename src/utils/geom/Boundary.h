@@ -26,7 +26,7 @@
 #include <utility>
 
 #include "AbstractPoly.h"
-#include "Position.h"
+#include "PositionVector.h"
 
 
 // ===========================================================================
@@ -135,6 +135,9 @@ public:
 
     /// @brief Moves the boundary by the given amount
     void moveby(double x, double y, double z = 0);
+
+    /// @brief get position vector (shape) based on this boundary
+    PositionVector getShape(const bool closeShape) const;
 
     /// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const Boundary& b);

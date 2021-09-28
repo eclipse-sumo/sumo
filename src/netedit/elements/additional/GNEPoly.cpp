@@ -40,12 +40,11 @@
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
-                 const std::map<std::string, std::string>& parameters, bool movementBlocked) :
+                 const std::map<std::string, std::string>& parameters) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY,
-{}, {}, {}, {}, {}, {}, {}, {},
-movementBlocked),
-mySimplifiedShape(false) {
+    {}, {}, {}, {}, {}, {}, {}, {}),
+    mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // check if imgFile is valid
@@ -68,10 +67,7 @@ GNEPoly::~GNEPoly() {}
 GNEMoveOperation*
 GNEPoly::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is blocked
-    if (myBlockMovement) {
-        // nothing to move
-        return nullptr;
-    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -121,9 +117,9 @@ GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             // remove geometry point
             shape.erase(shape.begin() + index);
             // commit new shape
-            undoList->p_begin("remove geometry point of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
-            undoList->p_end();
+            undoList->begin("remove geometry point of " + getTagStr());
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->end();
         }
     }
 }
@@ -146,6 +142,13 @@ GNEPoly::updateGeometry() {
     // just update geometry
     myPolygonGeometry.updateGeometry(myShape);
 }
+
+
+Position
+GNEPoly::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
 
 
 void
@@ -202,6 +205,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         GUIDesigns::buildFXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
     }
+    GUIDesigns::buildFXMenuCommand(ret, "Select elements within polygon\t\tSelect elements within polygon boundary", nullptr, &parent, MID_GNE_POLYGON_SELECT);
     // add separator
     new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
@@ -307,7 +311,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 // draw geometry points
                 GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myPolygonGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 // draw moving hint points
-                if (myBlockMovement == false) {
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON)) {
                     GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myPolygonGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
             }
@@ -318,7 +322,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                    polyExaggeration, 1, 1);
             }
         }
         // check if front dotted contour has to be drawn
@@ -327,9 +332,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                                                    polyExaggeration, 1, 1);
             }
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), polyExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
@@ -379,9 +387,9 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         }
         // set new shape depending of allowUndo
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
+            myNet->getViewNet()->getUndoList()->begin("delete geometry point");
             setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // first remove object from grid due shape is used for boundary
             myNet->removeGLObjectFromGrid(this);
@@ -409,9 +417,9 @@ GNEPoly::openPolygon(bool allowUndo) {
     // only open if shape is closed
     if (myShape.isClosed()) {
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->p_begin("open polygon");
+            myNet->getViewNet()->getUndoList()->begin("open polygon");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myShape.pop_back();
             // disable simplified shape flag
@@ -430,9 +438,9 @@ GNEPoly::closePolygon(bool allowUndo) {
     // only close if shape is opened
     if (myShape.isClosed() == false) {
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->p_begin("close shape");
+            myNet->getViewNet()->getUndoList()->begin("close shape");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             myShape.closePolygon();
             // disable simplified shape flag
@@ -471,9 +479,9 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
         }
         // set new rotated shape
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->p_begin("change first geometry point");
+            myNet->getViewNet()->getUndoList()->begin("change first geometry point");
             setAttribute(SUMO_ATTR_SHAPE, toString(newShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // set new shape
             myShape = newShape;
@@ -505,9 +513,9 @@ GNEPoly::simplifyShape(bool allowUndo) {
         }
         // set new shape depending of allowUndo
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->p_begin("simplify shape");
+            myNet->getViewNet()->getUndoList()->begin("simplify shape");
             setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // set new shape
             myShape = simplifiedShape;
@@ -555,8 +563,6 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return toString(myGEO);
         case SUMO_ATTR_NAME:
             return getShapeName();
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myShape.isClosed());
         case GNE_ATTR_SELECTED:
@@ -588,11 +594,10 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_NAME:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_CLOSE_SHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -642,8 +647,6 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return canParse<bool>(value);
         case GNE_ATTR_CLOSE_SHAPE:
             if (canParse<bool>(value)) {
                 bool closePolygon = parse<bool>(value);
@@ -768,9 +771,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             setShapeName(value);
             break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
-            break;
         case GNE_ATTR_CLOSE_SHAPE:
             if (parse<bool>(value)) {
                 myShape.closePolygon();
@@ -814,9 +814,9 @@ GNEPoly::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEPoly::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->p_end();
+    undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+    undoList->end();
 }
 
 /****************************************************************************/

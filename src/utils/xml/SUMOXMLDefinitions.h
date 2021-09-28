@@ -39,6 +39,8 @@
 enum SumoXMLTag {
     /// @brief invalid tag
     SUMO_TAG_NOTHING,
+    /// @brief root file
+    SUMO_TAG_ROOTFILE,
     /// @brief root element of a network file
     SUMO_TAG_NET,
     /// @brief begin/end of the description of an edge
@@ -1205,8 +1207,6 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_END,
     /// @brief whether an edge is part of a bidirectional railway
     GNE_ATTR_BIDIR,
-    /// @brief block movement of a graphic element
-    GNE_ATTR_BLOCK_MOVEMENT,
     /// @brief Close shape of a polygon (Used by GNEPolys)
     GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
@@ -1368,7 +1368,9 @@ enum class FringeType {
 /// @brief travel modes for persons
 enum class PersonMode {
     NONE = 0,
-    WALK = 1 << 1,
+    WALK_FORWARD = 1,
+    WALK_BACKWARD = 2,
+    WALK = 3,
     BICYCLE = 1 << 2,
     CAR = 1 << 3,
     PUBLIC = 1 << 4,
@@ -1689,6 +1691,9 @@ public:
 
     /// @brief return edge id when given the lane ID
     static std::string getEdgeIDFromLane(const std::string laneID);
+
+    /// @brief return lane index when given the lane ID
+    static int getIndexFromLane(const std::string laneID);
     /// @}
 
     /// @brief all allowed characters for phase state

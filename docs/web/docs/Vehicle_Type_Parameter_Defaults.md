@@ -100,13 +100,13 @@ vehicle types).
     <td class="tg-0lax" rowspan="5">passenger</td>
     <td class="tg-0lax"><img src="images/Wikicommons_passenger.jpg" title="wikicommons_passenger.jpg" width="200" alt="" /></td>
     <td class="tg-0lax">passenger</td>
-    <td class="tg-0lax">4.3m<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup></td>
+    <td class="tg-0lax">5<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup></td>
     <td class="tg-0lax">2.5m</td>
-    <td class="tg-0lax">2.9m/s<sup>2(29)</sup></td>
-    <td class="tg-0lax">7.5m/s<sup>2(27)</sup></td>
+    <td class="tg-0lax">2.6m/s<sup>2(29)</sup></td>
+    <td class="tg-0lax">4.5m/s<sup>2(27)</sup></td>
     <td class="tg-0lax">9m/s<sup>2</sup></td>
-    <td class="tg-0lax">180km/h<sup>(29)</sup></td>
-    <td class="tg-0lax">5</td>
+    <td class="tg-0lax">200km/h<sup>(29)</sup></td>
+    <td class="tg-0lax">4</td>
     <td class="tg-0lax">PC_G_EU4</td>
     <td class="tg-0lax">0.1</td>
   </tr>
@@ -449,9 +449,9 @@ vehicle types).
 - (32): <https://de.wikipedia.org/wiki/Zul%C3%A4ssige_H%C3%B6chstgeschwindigkeit_im_Stra%C3%9Fenverkehr_(Deutschland)>
 - (33): `http://www.ice-fansite.com/index.php?option=com_content&view=article&id=195:ice1-techdat&catid=50:icet&Itemid=69` (dead link)
 - (34): <https://en.wikipedia.org/wiki/Orders_of_magnitude_(acceleration)>
-- (35): <https://de.answers.yahoo.com/question/index?qid=20061122162708AAtzoPP>
+- (35): https://www.researchgate.net/publication/311633504_Improving_Road_Safety_of_Tank_Truck_in_Indonesia_by_Speed_Limiter_Installation
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
-- (37): <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
+- (37): https://www.rettungsdienst.brk.de/leichte-sprache/abteilung/beschaffung/rettungswagen-rtw/rtw-by-2010.html
 - (38): <https://www.berlin.de/binaries/asset/image_assets/5859948/source/1565347986/624x468/>
 - (39): <https://electric-scooter.guide/comparisons/electric-scooter-performance-tests/>
 - (40): <https://www.chip.de/artikel/E-Scooter-Test-Die-besten-Elektro-Scooter-mit-Strassenzulassung_165587317.html>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" lcMaxDistLatStanding="3.2"/>
+    <vehicle id="WE" depart="0.00" departLane="2" departSpeed="max">
+        <route edges="WC CE"/>
+    </vehicle>
+</routes>

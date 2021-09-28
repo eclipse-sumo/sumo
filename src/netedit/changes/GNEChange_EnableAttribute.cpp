@@ -33,7 +33,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_EnableAttribute, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes) :
-    GNEChange(true, false),
+    GNEChange(ac->getTagProperty().getSupermode(), true, false),
     myAC(ac),
     myOriginalAttributes(originalAttributes),
     myNewAttributes(newAttributes) {
@@ -88,15 +88,15 @@ GNEChange_EnableAttribute::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_EnableAttribute::undoName() const {
-    return ("Undo change " + myAC->getTagStr() + " attribute").c_str();
+    return ("Undo change " + myAC->getTagStr() + " attribute");
 }
 
 
-FXString
+std::string
 GNEChange_EnableAttribute::redoName() const {
-    return ("Redo change " + myAC->getTagStr() + " attribute").c_str();
+    return ("Redo change " + myAC->getTagStr() + " attribute");
 }
 
 

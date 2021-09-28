@@ -299,6 +299,7 @@ MSDevice_Vehroutes::generateOutput(OutputDevice* /*tripinfoOut*/) const {
 
 void
 MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
+    const OptionsCont& oc = OptionsCont::getOptions();
     OutputDevice& routeOut = OutputDevice::getDeviceByOption("vehroute-output");
     OutputDevice_String od(1);
     SUMOVehicleParameter tmp = myHolder.getParameter();
@@ -321,8 +322,14 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         tmp.departSpeedProcedure = DepartSpeedDefinition::GIVEN;
         tmp.departSpeed = myDepartSpeed;
     }
+    if (oc.getBool("vehroute-output.speedfactor") ||
+            (oc.isDefault("vehroute-output.speedfactor") && tmp.wasSet(VEHPARS_DEPARTSPEED_SET))) {
+        tmp.parametersSet |= VEHPARS_SPEEDFACTOR_SET;
+        tmp.speedFactor = myHolder.getChosenSpeedFactor();
+    }
+
     const std::string typeID = myHolder.getVehicleType().getID() != DEFAULT_VTYPE_ID ? myHolder.getVehicleType().getID() : "";
-    tmp.write(od, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, typeID);
+    tmp.write(od, oc, SUMO_TAG_VEHICLE, typeID);
     if (hasArrived) {
         od.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
         if (myRouteLength) {

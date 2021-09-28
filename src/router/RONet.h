@@ -164,9 +164,7 @@ public:
      * @param[in] laneID The name of the lane to retrieve the edge for
      * @return The edge of the named lane if known, otherwise 0
      */
-    ROEdge* getEdgeForLaneID(const std::string& laneID) const {
-        return getEdge(laneID.substr(0, laneID.rfind("_")));
-    }
+    ROEdge* getEdgeForLaneID(const std::string& laneID) const;
 
     /** @brief Retrieves a lane rom the network given it's id
      *
@@ -323,7 +321,10 @@ public:
     virtual bool addVehicle(const std::string& id, ROVehicle* veh);
 
     /// @brief returns whether a vehicle with the given id was already loaded
-    bool knowsVehicle(const std::string& id);
+    bool knowsVehicle(const std::string& id) const;
+
+    /// @brief returns departure time for the given vehicle id
+    SUMOTime getDeparture(const std::string& vehID) const;
 
     /* @brief Adds a flow of vehicles to the network
      *
@@ -449,7 +450,7 @@ public:
     public:
         BulkmodeTask(const bool value) : myValue(value) {}
         void run(FXWorkerThread* context) {
-            static_cast<WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING).setBulkMode(myValue);
+            static_cast<WorkerThread*>(context)->setBulkMode(myValue);
         }
     private:
         const bool myValue;
@@ -469,8 +470,8 @@ private:
     /// @brief Unique instance of RONet
     static RONet* myInstance;
 
-    /// @brief Known vehicle ids
-    std::set<std::string> myVehIDs;
+    /// @brief Known vehicle ids and their departure
+    std::map<std::string, SUMOTime> myVehIDs;
 
     /// @brief Known person ids
     std::set<std::string> myPersonIDs;

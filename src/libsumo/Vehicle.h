@@ -210,7 +210,7 @@ public:
 
     static void addSubscriptionFilterLeadFollow(const std::vector<int>& lanes);
 
-    static void addSubscriptionFilterTurn(double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
+    static void addSubscriptionFilterTurn(double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double foeDistToJunction = libsumo::INVALID_DOUBLE_VALUE);
 
     static void addSubscriptionFilterVClass(const std::vector<std::string>& vClasses);
 

@@ -197,9 +197,12 @@ MSLeaderInfo::hasStoppedVehicle() const {
 }
 
 void
-MSLeaderInfo::removeOpposite() {
+MSLeaderInfo::removeOpposite(const MSLane* lane) {
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
-        if (myVehicles[i] != 0 && myVehicles[i]->getLaneChangeModel().isOpposite()) {
+        const MSVehicle* veh = myVehicles[i];
+        if (veh != 0 &&
+                (veh->getLaneChangeModel().isOpposite()
+                || &lane->getEdge() != &veh->getLane()->getEdge())) {
             myVehicles[i] = nullptr;
         }
     }

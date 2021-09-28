@@ -58,7 +58,7 @@ GNEMoveOperation*
 GNEStopContainer::getMoveOperation(const double /*shapeOffset*/) {
     if (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE) {
         // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), {endPos},
+        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     } else {
         return nullptr;
@@ -243,16 +243,20 @@ GNEStopContainer::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             drawStopContainerOverLane(s, exaggeration, stopColor);
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, 
+                                                exaggeration, true, true);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, exaggeration);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, 
+                                                exaggeration, true, true);
         }
         // draw container parent if this stop if their first container plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
@@ -394,19 +398,19 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_ACTTYPE:
         case GNE_ATTR_SELECTED:
         case SUMO_ATTR_FRIENDLY_POS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         case SUMO_ATTR_EDGE: {
             // get next containerPlan
             GNEDemandElement* nextContainerPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -418,12 +422,12 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
                 // obtain stopContainer
                 const GNEAdditional* stopContainer = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
-                undoList->p_begin("Change from attribute of next containerPlan");
+                undoList->begin("Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, stopContainer->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -434,12 +438,12 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeaveStopPersonsConnected() &&
                     previousContainerPlan && previousContainerPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 // change from attribute using edge ID
-                undoList->p_begin("Change arrivalPos attribute of previous containerPlan");
+                undoList->begin("Change arrivalPos attribute of previous containerPlan");
                 previousContainerPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
-                undoList->p_end();
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->end();
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
         }
@@ -507,11 +511,11 @@ GNEStopContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;
@@ -744,10 +748,10 @@ GNEStopContainer::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStopContainer::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("endPos of " + getTagStr());
+    undoList->begin("endPos of " + getTagStr());
     // now adjust endPos position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

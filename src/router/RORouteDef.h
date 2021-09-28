@@ -102,6 +102,10 @@ public:
         return myAlternatives.front();
     }
 
+    const RORoute* getUsedRoute() const {
+        return myAlternatives[myLastUsed];
+    }
+
     /** @brief Saves the built route / route alternatives
      *
      * Writes the route into the given stream.
@@ -113,15 +117,6 @@ public:
     OutputDevice& writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                                      bool asAlternatives, bool withExitTimes) const;
 
-    /** @brief Returns a origin-destination copy of the route definition.
-     *
-     * The resulting route definition contains only a single route with
-     * origin and destination edge copied from this one
-     *
-     * @param[in] id The id for the new route definition
-     * @return the new route definition
-     */
-    RORouteDef* copyOrigDest(const std::string& id) const;
 
     /** @brief Returns a deep copy of the route definition.
      *

@@ -46,10 +46,10 @@ public:
     /// @name inherited from GNEChange
     /// @{
     /// @brief get undo Name
-    FXString undoName() const;
+    std::string undoName() const;
 
     /// @brief get Redo name
-    FXString redoName() const;
+    std::string redoName() const;
 
     /// @brief undo action
     void undo();

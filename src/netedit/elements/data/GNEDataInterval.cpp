@@ -162,9 +162,13 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         myGenericDataChildren.push_back(genericData);
         // update generic data IDs
         updateGenericDataIDs();
+        // check if add to boundary
+        if (genericData->getTagProperty().isPlacedInRTree()) {
+            myNet->getGrid().addAdditionalGLObject(genericData->getGUIGlObject());
+        }
         // update geometry after insertion if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
-            // update generic data geometry
+            // update generic data RTREE
             genericData->updateGeometry();
         }
         // update colors
@@ -189,6 +193,10 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
         // delete path element
         myNet->getPathManager()->removePath(genericData);
+        // check if remove from RTREE
+        if (genericData->getTagProperty().isPlacedInRTree()) {
+            myNet->getGrid().removeAdditionalGLObject(genericData->getGUIGlObject());
+        }
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }
@@ -204,6 +212,35 @@ GNEDataInterval::hasGenericDataChild(GNEGenericData* genericData) const {
 const std::vector<GNEGenericData*>&
 GNEDataInterval::getGenericDataChildren() const {
     return myGenericDataChildren;
+}
+
+
+bool
+GNEDataInterval::TAZRelExists(const GNETAZElement *TAZ) const {
+    // interate over all generic datas and check TAZ parents
+    for (const auto & genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+            (genericData->getParentTAZElements().size() == 1) &&
+            (genericData->getParentTAZElements().front() == TAZ)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNEDataInterval::TAZRelExists(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ) const {
+    // interate over all generic datas and check TAZ parents
+    for (const auto & genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
+            (genericData->getParentTAZElements().size() == 2) &&
+            (genericData->getParentTAZElements().front() == fromTAZ) && 
+            (genericData->getParentTAZElements().back() == toTAZ)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -240,7 +277,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     switch (key) {
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

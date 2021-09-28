@@ -44,7 +44,7 @@ private:
         const SUMOTime travelTime;
     private:
         /// @brief Invalidated assignment operator
-        Schedule& operator=(const Schedule& src);
+        Schedule& operator=(const Schedule& src) = delete;
     };
 
 public:

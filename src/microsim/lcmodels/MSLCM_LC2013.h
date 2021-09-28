@@ -50,14 +50,14 @@ public:
     virtual ~MSLCM_LC2013();
 
     /// @brief Returns the model's id
-    LaneChangeModel getModelID() const {
+    LaneChangeModel getModelID() const override {
         return LCM_LC2013;
     }
 
     /// @brief init cached parameters derived directly from model parameters
     void initDerivedParameters();
 
-    bool debugVehicle() const;
+    bool debugVehicle() const override;
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
@@ -77,9 +77,9 @@ public:
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
-        MSVehicle** firstBlocked);
+        MSVehicle** firstBlocked) override;
 
-    void* inform(void* info, MSVehicle* sender);
+    void* inform(void* info, MSVehicle* sender) override;
 
     /** @brief Called to adapt the speed in order to allow a lane change.
      *         It uses information on LC-related desired speed-changes from
@@ -92,33 +92,34 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     double patchSpeed(const double min, const double wanted, const double max,
-                      const MSCFModel& cfModel);
-    /** helper function which contains the actual logic */
-    double _patchSpeed(const double min, const double wanted, const double max,
-                       const MSCFModel& cfModel);
+                      const MSCFModel& cfModel) override;
 
-    void changed();
+    void changed() override;
 
-    double getSafetyFactor() const;
+    double getSafetyFactor() const override;
 
-    double getOppositeSafetyFactor() const;
+    double getOppositeSafetyFactor() const override;
 
-    void prepareStep();
+    void prepareStep() override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief decides the next lateral speed (for continuous lane changing)
     double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
-    double getAssumedDecelForLaneChangeDuration() const;
+    double getAssumedDecelForLaneChangeDuration() const override;
 
 protected:
+
+    /** helper function which contains the actual logic */
+    double _patchSpeed(const double min, const double wanted, const double max,
+                       const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
     int _wantsChange(
@@ -174,7 +175,7 @@ protected:
     void adaptSpeedToPedestrians(const MSLane* lane, double& v);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(double length) {
+    inline void saveBlockerLength(double length) override {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
     };
 

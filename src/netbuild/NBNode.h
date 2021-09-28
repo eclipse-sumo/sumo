@@ -93,7 +93,7 @@ public:
         /// @brief Destructor
         ~ApproachingDivider();
 
-        /// @ get number of avaliable lanes
+        /// @ get number of available lanes
         int numAvailableLanes() const {
             return (int)myAvailableLanes.size();
         }
@@ -410,10 +410,10 @@ public:
     NBEdge* getOppositeIncoming(NBEdge* e) const;
 
     /// @brief invalidate incoming connections
-    void invalidateIncomingConnections();
+    void invalidateIncomingConnections(bool reallowSetting = false);
 
     /// @brief invalidate outgoing connections
-    void invalidateOutgoingConnections();
+    void invalidateOutgoingConnections(bool reallowSetting = false);
 
     /// @brief remove duble edges
     void removeDoubleEdges();
@@ -776,10 +776,6 @@ public:
         NBNode* myNode;
 
     };
-
-    /// @brief returns the node id for internal lanes, crossings and walkingareas
-    static std::string getNodeIDFromInternalLane(const std::string id);
-
 
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);

@@ -35,7 +35,6 @@
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/router/SUMOAbstractRouter.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -71,7 +70,7 @@ class GNEViewNet;
 struct GNENetHelper {
 
     /// @brief struct used for saving all attribute carriers of net, in different formats
-    class AttributeCarriers : ShapeContainer {
+    class AttributeCarriers {
 
         /// @brief declare friend class
         //friend class GNEAdditionalHandler;
@@ -102,6 +101,9 @@ struct GNENetHelper {
         /// @brief remap junction and edge IDs
         void remapJunctionAndEdgeIds();
 
+        /// @brief check if shape of given AC (network element) is around the given shape
+        bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector &shape) const;
+
         /// @name function for junctions
         /// @{
         /// @brief registers a junction in GNENet containers
@@ -112,6 +114,9 @@ struct GNENetHelper {
 
         /// @brief clear junctions
         void clearJunctions();
+
+        /// @brief get number of selected junctions
+        int getNumberOfSelectedJunctions() const;
 
         /// @}
 
@@ -139,51 +144,19 @@ struct GNENetHelper {
         /// @brief clear edges
         void clearEdges();
 
-        /// @}
+        /// @brief get number of selected edges
+        int getNumberOfSelectedEdges() const;
 
-        /// @name inherited from ShapeHandler
-        /// @{
-        /**@brief Builds a polygon using the given values and adds it to the container
-        * @param[in] id The name of the polygon
-        * @param[in] type The (abstract) type of the polygon
-        * @param[in] color The color of the polygon
-        * @param[in] layer The layer of the polygon
-        * @param[in] angle The rotation of the polygon
-        * @param[in] imgFile The raster image of the polygon
-        * @param[in] relativePath set image file as relative path
-        * @param[in] shape The shape of the polygon
-        * @param[in] geo specify if shape was loaded as GEO coordinate
-        * @param[in] fill Whether the polygon shall be filled
-        * @param[in] lineWidth The widht for drawing unfiled polygon
-        * @return whether the polygon could be added
-        */
-        bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                        double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
-                        bool geo, bool fill, double lineWidth, bool ignorePruning = false);
-
-        /**@brief Builds a POI using the given values and adds it to the container
-        * @param[in] id The name of the POI
-        * @param[in] type The (abstract) type of the POI
-        * @param[in] color The color of the POI
-        * @param[in] pos The position of the POI
-        * @param[in[ geo use GEO coordinates (lon/lat)
-        * @param[in] lane The Lane in which this POI is placed
-        * @param[in] posOverLane The position over Lane
-        * @param[in] friendlyPos enable or disable friendlyPos over lane
-        * @param[in] posLat The position lateral over Lane
-        * @param[in] layer The layer of the POI
-        * @param[in] angle The rotation of the POI
-        * @param[in] imgFile The raster image of the POI
-        * @param[in] relativePath set image file as relative path
-        * @param[in] width The width of the POI image
-        * @param[in] height The height of the POI image
-        * @return whether the poi could be added
-        */
-        bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                    const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                    const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
+        /// @brief get number of selected lanes
+        int getNumberOfSelectedLanes() const;
 
         /// @}
+
+        /// @brief get number of selected connections
+        int getNumberOfSelectedConnections() const;
+
+        /// @brief get number of selected crossings
+        int getNumberOfSelectedCrossings() const;
 
         /// @name function for additionals
         /// @{
@@ -192,6 +165,9 @@ struct GNENetHelper {
 
         /// @brief clear additionals
         void clearAdditionals();
+
+        /// @brief get number of selected additionals
+        int getNumberOfSelectedAdditionals() const;
 
         /// @}
 
@@ -203,6 +179,12 @@ struct GNENetHelper {
         /// @brief clear shapes
         void clearShapes();
 
+        /// @brief get number of selected polygons
+        int getNumberOfSelectedPolygons() const;
+
+        /// @brief get number of selected POIs
+        int getNumberOfSelectedPOIs() const;
+
         /// @}
 
         /// @name function for TAZElements
@@ -212,6 +194,12 @@ struct GNENetHelper {
 
         /// @brief clear TAZElements
         void clearTAZElements();
+
+        /// @brief get number of selected TAZs
+        int getNumberOfSelectedTAZs() const;
+
+        /// @brief return true if given TAZElement exist
+        bool TAZElementExist(const GNETAZElement* TAZElement) const;
 
         /// @}
 
@@ -226,9 +214,39 @@ struct GNENetHelper {
         /// @brief add default VTypes
         void addDefaultVTypes();
 
+        /// @brief get number of selected routes
+        int getNumberOfSelectedRoutes() const;
+
+        /// @brief get number of selected vehicles
+        int getNumberOfSelectedVehicles() const;
+
+        /// @brief get number of selected persons
+        int getNumberOfSelectedPersons() const;
+
+        /// @brief get number of selected person trips
+        int getNumberOfSelectedPersonTrips() const;
+
+        /// @brief get number of selected walks
+        int getNumberOfSelectedWalks() const;
+
+        /// @brief get number of selected rides
+        int getNumberOfSelectedRides() const;
+
+        /// @brief get number of selected containers
+        int getNumberOfSelectedContainers() const;
+
+        /// @brief get number of selected transports
+        int getNumberOfSelectedTransport() const;
+
+        /// @brief get number of selected tranships
+        int getNumberOfSelectedTranships() const;
+
+        /// @brief get number of selected stops
+        int getNumberOfSelectedStops() const;
+
         /// @}
 
-        /// @name function for demand elements
+        /// @name function for data sets
         /// @{
         /// @brief get demand elements
         const std::map<std::string, GNEDataSet*>& getDataSets() const;
@@ -238,10 +256,19 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name function for data Sets
+        /// @name function for generic datas
         /// @{
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
+
+        /// @brief get number of selected edge datas
+        int getNumberOfSelectedEdgeDatas() const;
+
+        /// @brief get number of selected edge rel datas
+        int getNumberOfSelectedEdgeRelDatas() const;
+
+        /// @brief get number of selected edge TAZ Rels
+        int getNumberOfSelectedEdgeTAZRel() const;
 
         /// @}
 
@@ -331,9 +358,6 @@ struct GNENetHelper {
         /// @name Insertion and erasing of GNETAZElements items
         /// @{
 
-        /// @brief return true if given TAZElement exist
-        bool TAZElementExist(const GNETAZElement* TAZElement) const;
-
         /**@brief Insert a TAZElement element int GNENet container.
          * @throw processError if route was already inserted
          */
@@ -404,7 +428,7 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
 
-/// @brief map with the ID and pointer to shape elements of net
+        /// @brief map with the ID and pointer to shape elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEShape*> > myShapes;
 
         /// @brief map with the ID and pointer to TAZElement elements of net
@@ -440,17 +464,17 @@ struct GNENetHelper {
         /// @bief destructor
         ~GNEChange_ReplaceEdgeInTLS();
 
-        /// @brief undo name
-        FXString undoName() const;
-
-        /// @brief get Redo name
-        FXString redoName() const;
-
         /// @brief undo action
         void undo();
 
         /// @brief redo action
         void redo();
+
+        /// @brief undo name
+        std::string undoName() const;
+
+        /// @brief get Redo name
+        std::string redoName() const;
 
         /// @brief wether original and new value differ
         bool trueChange();

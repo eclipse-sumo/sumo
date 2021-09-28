@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -11,7 +10,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    darpSolver.py
+# @file    darpSolvers.py
 # @author  Giuliana Armellini
 # @date    2021-05-27
 

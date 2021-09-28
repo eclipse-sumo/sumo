@@ -94,6 +94,13 @@ The following table lists the different encounter types along with their codes, 
 !!! note
     When ego and foe vehicles are on subsequent lanes, the gaps are computed by adding the distances of the intermediate lanes
 
+## Conflict Types:    
+Basically, we distinguish between three types of encounters for two vehicles:
+
+- **Lead/follow situation:** vehicles are passing the same sequence of lanes before and after the conflict point
+- **Crossing situation:** vehicles are passing different sequences of lanes before and after the conflict point
+- **Merging Situation:** vehicles are passing different lanes before the conflict point but the same lane after the conflict point    
+    
 ## Conflict Definitions
 For each conflict there is an entry point. For merging and crossing conflicts there is also an exit point.
 The points may be slightly different for both ego and foe vehicle because the point is computed in reference to the vehicle front or rear bumper whereas a collision could happen with another part of the vehicle.
@@ -119,12 +126,6 @@ Further, the following additional safety-relevant output can be generated, which
 - [SGAP](#sgap) (spacing)
 - [TGAP](#tgap) (time headway)
 For the selection in the device's output, the abbreviations have to be used.
-
-Basically, we distinguish between three types of encounters for two vehicles:
-
-- Lead/follow situation
-- Crossing situation
-- Merging Situation
 
 Please note that some SSMs only apply to a specific encounter or are computed differently for different encounters.
 For crossing and merging situations, we consider "expected" entry and exit times with respect to the conflict zone. 

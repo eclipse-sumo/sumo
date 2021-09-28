@@ -232,6 +232,11 @@ public:
         return std::vector<std::string>();
     }
 
+    /// @brief return list of loaded edgeRelation and tazRelation attributes
+    virtual std::vector<std::string> getRelDataAttrs() const {
+        return std::vector<std::string>();
+    }
+
     /// @brief return list of available edge parameters
     virtual std::vector<std::string> getEdgeLaneParamKeys(bool /*edgeKeys*/) const {
         return std::vector<std::string>();

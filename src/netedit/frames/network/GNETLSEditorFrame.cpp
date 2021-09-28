@@ -244,7 +244,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
 long
 GNETLSEditorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
     if (myTLSJunction->getCurrentJunction() != nullptr) {
-        myViewNet->getUndoList()->p_abort();
+        myViewNet->getUndoList()->abortAllChangeGroups();
         cleanup();
         myViewNet->updateViewNet();
     }
@@ -264,7 +264,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
             myEditedDef = nullptr;
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             cleanup();
             myViewNet->updateViewNet();
         } else {
@@ -278,6 +278,8 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
     GNEJunction* junction = myTLSJunction->getCurrentJunction();
+    // get current TLS program id
+    const auto currentTLS = myTLSAttributes->getCurrentTLSProgramID();
     // abort because we onCmdOk assumes we wish to save an edited definition
     onCmdCancel(nullptr, 0, nullptr);
     // check that current junction has two or more edges
@@ -287,7 +289,15 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
         } else {
             if (junction->getNBNode()->isTLControlled()) {
                 // use existing traffic light as template for type, signal groups, controlled nodes etc
-                NBTrafficLightDefinition* tpl = *junction->getNBNode()->getControllingTLS().begin();
+                NBTrafficLightDefinition* tpl = nullptr;
+                for (const auto &TLS : junction->getNBNode()->getControllingTLS()) {
+                    if (TLS->getProgramID() == currentTLS) {
+                        tpl = TLS;
+                    }
+                }
+                if (tpl == nullptr) {
+                    tpl = *junction->getNBNode()->getControllingTLS().begin();
+                }
                 NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
                 NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tpl, *newLogic);
                 delete newLogic;
@@ -905,7 +915,7 @@ void
 GNETLSEditorFrame::editJunction(GNEJunction* junction) {
     if ((myTLSJunction->getCurrentJunction() == nullptr) || (!myTLSModifications->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
         onCmdCancel(nullptr, 0, nullptr);
-        myViewNet->getUndoList()->p_begin("modifying traffic light definition");
+        myViewNet->getUndoList()->begin("modifying traffic light definition");
         myTLSJunction->setCurrentJunction(junction);
         myTLSAttributes->initTLSAttributes(myTLSJunction->getCurrentJunction());
         myTLSJunction->updateJunctionDescription();
@@ -1003,6 +1013,16 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
 NBTrafficLightDefinition*
 GNETLSEditorFrame::TLSAttributes::getCurrentTLSDefinition() const {
     return myTLSDefinitions.at(myProgramComboBox->getCurrentItem());
+}
+
+
+const std::string
+GNETLSEditorFrame::TLSAttributes::getCurrentTLSProgramID() const {
+    if (myProgramComboBox->getNumItems() == 0) {
+        return "";
+    } else {
+        return myProgramComboBox->getText().text();
+    }
 }
 
 

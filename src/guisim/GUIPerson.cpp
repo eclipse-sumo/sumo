@@ -459,6 +459,15 @@ GUIPerson::getEdgePos() const {
     return MSPerson::getEdgePos();
 }
 
+int
+GUIPerson::getDirection() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return MSPModel::UNDEFINED_DIRECTION;
+    }
+    return MSPerson::getDirection();
+}
+
 
 Position
 GUIPerson::getPosition() const {

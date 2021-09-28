@@ -27,6 +27,7 @@
 #include <cassert>
 #include <utils/common/StringBijection.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 
 #include "SUMOXMLDefinitions.h"
 
@@ -272,6 +273,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE container Stops
     { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
+    // root file
+    { "rootFile",                       SUMO_TAG_ROOTFILE },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -849,7 +852,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shapeStart",                         GNE_ATTR_SHAPE_START },
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
     { "bidiRail",                           GNE_ATTR_BIDIR },
-    { "blockMovement",                      GNE_ATTR_BLOCK_MOVEMENT },
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
@@ -950,12 +952,14 @@ StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializ
 };
 
 StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializer[] = {
-    {"none",    PersonMode::NONE},
-    {"walk",    PersonMode::WALK},
-    {"bicycle", PersonMode::BICYCLE },
-    {"car",     PersonMode::CAR },
-    {"taxi",    PersonMode::TAXI },
-    {"public",  PersonMode::PUBLIC} // (must be the last one)
+    {"none",         PersonMode::NONE},
+    {"walkForward",  PersonMode::WALK_FORWARD},
+    {"walkBackward", PersonMode::WALK_BACKWARD},
+    {"walk",         PersonMode::WALK},
+    {"bicycle",      PersonMode::BICYCLE },
+    {"car",          PersonMode::CAR },
+    {"taxi",         PersonMode::TAXI },
+    {"public",       PersonMode::PUBLIC} // (must be the last one)
 };
 
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
@@ -1148,6 +1152,11 @@ SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge
 std::string
 SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
     return laneID.substr(0, laneID.rfind('_'));
+}
+
+int
+SUMOXMLDefinitions::getIndexFromLane(const std::string laneID) {
+    return StringUtils::toInt(laneID.substr(laneID.rfind('_') + 1));
 }
 
 

@@ -32,7 +32,6 @@
 class GNEContainerPlanFrame : public GNEFrame {
 
 public:
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -69,6 +68,9 @@ protected:
     void createPath();
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
     /// @brief Container selectors
     GNEFrameModuls::DemandElementSelector* myContainerSelector;
 

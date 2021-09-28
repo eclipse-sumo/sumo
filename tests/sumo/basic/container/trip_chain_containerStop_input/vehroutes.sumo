@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-23 14:43:19 by Eclipse SUMO sumo Version v1_10_0+0132-ed3dbcc
+<!-- generated on 2021-08-25 09:17:08 by Eclipse SUMO sumo Version v1_10_0+0203-1388c96
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
     </vehicle>
 
     <container id="container0" depart="0.00" arrival="289.00">
-        <tranship edges="2/3to1/3 1/3to0/3" speed="1.39"/>
+        <tranship edges="2/3to1/3 1/3to0/3" containerStop="containerStop0" speed="1.39"/>
         <transport from="1/3to0/3" to="0/4to1/4" containerStop="containerStop1" lines="train0"/>
         <tranship edges="0/4to1/4 1/4to2/4" speed="1.39"/>
         <stop lane="1/4to2/4_0" endPos="30.00" duration="20.00"/>

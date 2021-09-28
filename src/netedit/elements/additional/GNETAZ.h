@@ -40,15 +40,19 @@ public:
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] shape TAZ shape
+     * @param[in] fill flag for fill TAZ shape
+     * @param[in] color TAZ color
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
-    GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string& name,
-           const std::map<std::string, std::string>& parameters, bool blockMovement);
+    GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const bool fill, const RGBColor &color, 
+           const std::string& name, const std::map<std::string, std::string>& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
+
+    bool getFill() const;
 
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
@@ -148,8 +152,8 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
-    /// @brief update TAZ after add or remove a Source/sink, or change their weight
-    void updateParentAdditional();
+    /// @brief update TAZ Stadistic
+    void updateTAZStadistic();
 
 protected:
     /// @brief boundary used during moving of elements
@@ -182,6 +186,9 @@ private:
 
     /// @brief Average Sink weight
     double myAverageWeightSink;
+
+    /// @brief draw dotted contours
+    void drawDottedContours(const GUIVisualizationSettings& s, const double TAZExaggeration) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

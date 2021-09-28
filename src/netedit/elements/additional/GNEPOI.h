@@ -21,6 +21,7 @@
 #pragma once
 #include <config.h>
 #include <utils/shapes/PointOfInterest.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEShape.h"
 
@@ -61,12 +62,11 @@ public:
      * @param[in] height The height of the POI image
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable shape movement
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
            const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
            const bool relativePath, const double width, const double height, const std::string& name,
-           const std::map<std::string, std::string>& parameters, const bool blockMovement);
+           const std::map<std::string, std::string>& parameters);
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -84,11 +84,10 @@ public:
      * @param[in] height The height of the POI image
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
-     * @param[in] movementBlocked if movement of POI is blocked
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane, const bool friendlyPos,
            const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-           const double height, const std::string& name, const std::map<std::string, std::string>& parameters, const bool movementBlocked);
+           const double height, const std::string& name, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -110,10 +109,16 @@ public:
      */
     void setParameter(const std::string& key, const std::string& value);
 
+    /// @brief get SUMOBaseObject with all POIattributes
+    CommonXMLStructure::SumoBaseObject* getSumoBaseObject() const;
+
     /// @name inherited from GNEShape
     /// @{
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief Returns position of shape in view
+    Position getPositionInView() const;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);

@@ -64,6 +64,7 @@
 // static member declaration
 // ===========================================================================
 const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
+const GUIVisualizationSettings* GUILane::myCachedGUISettings(nullptr);
 
 
 // ===========================================================================
@@ -647,6 +648,17 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset * offsetSign);
                             }
                         }
+                        if (MSGlobals::gUseMesoSim && mySegmentStartIndex.size() > 0 && (myPermissions & ~SVC_PEDESTRIAN) != 0) {
+                            // draw segment borders
+                            GLHelper::setColor(color.changedBrightness(51));
+                            for (int i : mySegmentStartIndex) {
+                                if (myShapeColors.size() > 0) {
+                                    GLHelper::setColor(myShapeColors[i].changedBrightness(51));
+                                }
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] +90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] -90, myWidth / 3, 0.2, 0);
+                            }
+                        }
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                             drawArrows();
                         }
@@ -698,8 +710,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             } // else: this is the shadow during a continuous lane change
         }
         // draw parking vehicles
-        for (std::set<const MSVehicle*>::const_iterator v = myParkingVehicles.begin(); v != myParkingVehicles.end(); ++v) {
-            static_cast<const GUIVehicle*>(*v)->drawGL(s);
+        for (const MSBaseVehicle* const v : myParkingVehicles) {
+            dynamic_cast<const GUIBaseVehicle*>(v)->drawGL(s);
         }
         // allow lane simulation
         releaseVehicles();
@@ -949,7 +961,8 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 GUIParameterTableWindow*
-GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
+    myCachedGUISettings = &view.getVisualisationSettings();
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
@@ -969,6 +982,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);
+    ret->mkItem("color value", true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
     if (myEdge->getBidiEdge() != nullptr) {
         ret->mkItem("bidi-edge", false, myEdge->getBidiEdge()->getID());
     }
@@ -1139,6 +1153,17 @@ GUILane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, R
             return true;
         default:
             return false;
+    }
+}
+
+double
+GUILane::getColorValueForTracker() const {
+    if (myCachedGUISettings != nullptr) {
+        const GUIVisualizationSettings& s = *myCachedGUISettings;
+        const GUIColorer& c = s.laneColorer;
+        return getColorValue(s, c.getActive());
+    } else {
+        return 0;
     }
 }
 
@@ -1425,6 +1450,9 @@ GUILane::splitAtSegments(const PositionVector& shape) {
         int index = result.indexOfClosest(pos);
         if (pos.distanceTo(result[index]) > POSITION_EPS) {
             index = result.insertAtClosest(pos, false);
+        }
+        if (i != no - 1) {
+            mySegmentStartIndex.push_back(index);
         }
         while ((int)myShapeSegments.size() < index) {
             myShapeSegments.push_back(i);

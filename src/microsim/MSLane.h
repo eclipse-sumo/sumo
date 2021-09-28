@@ -939,11 +939,10 @@ public:
     /// @brief get all vehicles that are inlapping from consecutive edges
     MSLeaderInfo getPartialBeyond() const;
 
-    /// @brief Returns all vehicles closer than downstreamDist along the along the road network starting on the given
-    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance
+    /// @brief Returns all vehicles closer than downstreamDist along the road network starting on the given
+    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance.
     /// @note  Re-implementation of the corresponding method in MSDevice_SSM, which cannot be easily adapted, as it gathers
     ///        additional information for conflict lanes, etc.
-    /// @param[in] lanes - sequence of lanes to search along
     /// @param[in] startPos - start position of the search on the first lane
     /// @param[in] downstreamDist - distance to search downstream
     /// @param[in] upstreamDist - distance to search upstream
@@ -1146,13 +1145,13 @@ public:
 
 
     ///@brief add parking vehicle. This should only used during state loading
-    void addParking(MSVehicle* veh);
+    void addParking(MSBaseVehicle* veh);
 
     ///@brief remove parking vehicle. This must be syncrhonized when running with GUI
-    virtual void removeParking(MSVehicle* veh);
+    virtual void removeParking(MSBaseVehicle* veh);
 
     /// @brief retrieve the parking vehicles (see GUIParkingArea)
-    const std::set<const MSVehicle*>& getParkingVehicles() const {
+    const std::set<const MSBaseVehicle*>& getParkingVehicles() const {
         return myParkingVehicles;
     }
 
@@ -1244,10 +1243,6 @@ public:
     std::pair<const MSPerson*, double> nextBlocking(double minPos, double minRight, double maxLeft, double stopTime = 0) const;
 
     static void initCollisionOptions(const OptionsCont& oc);
-
-    static bool teleportOnCollision() {
-        return myCollisionAction == COLLISION_ACTION_TELEPORT;
-    }
 
     static CollisionAction getCollisionAction() {
         return myCollisionAction;
@@ -1369,7 +1364,7 @@ protected:
     /* @brief list of vehicles that are parking near this lane
      * (not necessarily on the road but having reached their stop on this lane)
      * */
-    std::set<const MSVehicle*> myParkingVehicles;
+    std::set<const MSBaseVehicle*> myParkingVehicles;
 
     /// Lane length [m]
     double myLength;
@@ -1547,7 +1542,7 @@ private:
         int operator()(const MSEdge* const e1, const MSEdge* const e2) const;
 
     private:
-        by_connections_to_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
+        by_connections_to_sorter& operator=(const by_connections_to_sorter&) = delete; // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
         double myLaneDir;
@@ -1568,7 +1563,7 @@ private:
         int operator()(const IncomingLaneInfo& lane1, const IncomingLaneInfo& lane2) const;
 
     private:
-        incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&); // just to avoid a compiler warning
+        incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&) = delete; // just to avoid a compiler warning
     private:
         const MSLane* const myLane;
         double myLaneDir;
@@ -1588,9 +1583,8 @@ private:
         int operator()(const MSLink* link1, const MSLink* link2) const;
 
     private:
-        outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&); // just to avoid a compiler warning
+        outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&) = delete; // just to avoid a compiler warning
     private:
-        const MSLane* const myLane;
         double myLaneDir;
     };
 
@@ -1604,7 +1598,7 @@ private:
             return &(ili.lane->getEdge()) == myEdge;
         }
     private:
-        edge_finder& operator=(const edge_finder&); // just to avoid a compiler warning
+        edge_finder& operator=(const edge_finder&) = delete; // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
     };
@@ -1653,10 +1647,10 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    MSLane(const MSLane&);
+    MSLane(const MSLane&) = delete;
 
     /// @brief invalidated assignment operator
-    MSLane& operator=(const MSLane&);
+    MSLane& operator=(const MSLane&) = delete;
 
 
 };

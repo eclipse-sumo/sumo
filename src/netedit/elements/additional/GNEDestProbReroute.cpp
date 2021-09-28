@@ -31,10 +31,10 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-std::map<std::string, std::string>(), false),
+    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myNewEdgeDestination(newEdgeDestination),
-myProbability(probability) {
+    myProbability(probability) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -122,7 +122,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_PROB:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

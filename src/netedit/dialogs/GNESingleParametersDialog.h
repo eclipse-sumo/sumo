@@ -60,7 +60,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersValues(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent);
+        ParametersValues(FXHorizontalFrame* frame);
 
         /// @brief destructor
         ~ParametersValues();
@@ -144,9 +144,6 @@ public:
 
         /// @brief vector with the ParameterRows
         std::vector<ParameterRow*> myParameterRows;
-
-        /// @brief pointer to ParameterDialog parent
-        GNESingleParametersDialog* myParameterDialogParent;
     };
 
     // ===========================================================================

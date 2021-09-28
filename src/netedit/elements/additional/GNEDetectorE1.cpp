@@ -33,10 +33,10 @@
 // ===========================================================================
 
 GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                             const std::string& name, bool friendlyPos, const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::string& name, bool friendlyPos, const std::map<std::string, std::string>& parameters) :
     GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, {
     lane
-}, filename, vehicleTypes, name, friendlyPos, parameters, blockMovement) {
+}, filename, vehicleTypes, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -134,7 +134,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
                 // draw E1 Logo
                 drawDetectorLogo(s, E1Exaggeration, "E1", textColor);
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E1Exaggeration, 1, 0, true);
+                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), E1Exaggeration);
             }
             // pop layer matrix
             GLHelper::popMatrix();
@@ -175,8 +175,6 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return toString(myVehicleTypes);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -212,10 +210,9 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_FRIENDLY_POS:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -250,8 +247,6 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -298,9 +293,6 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

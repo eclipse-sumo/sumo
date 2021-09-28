@@ -755,13 +755,13 @@ class Net:
                             via = ' via="%s"' % " ".join(viaEdges)
                     if options.pedestrians:
                         print('    <personFlow id="%s" %s number="%s" begin="%s" end="%s">' %
-                                (route.routeID, options.params, int(route.frequency), begin, end), file=emitOut)
+                              (route.routeID, options.params, int(route.frequency), begin, end), file=emitOut)
                         print('        <walk route="%s"/>' % route.routeID, file=emitOut)
                         print('    </personFlow>', file=emitOut)
                     else:
                         print('    <flow id="%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' %
-                                (route.routeID, options.params, route.routeID,
-                                    int(route.frequency), begin, end, via), file=emitOut)
+                              (route.routeID, options.params, route.routeID,
+                               int(route.frequency), begin, end, via), file=emitOut)
 
         if options.verbose:
             print("Writing %s vehicles from %s sources between time %s and %s (minutes)" % (
@@ -990,7 +990,7 @@ if options.pedestrians:
     # filtering out params that are not suitable for persons
     params = options.params.split()
     params = [p for p in params if "departSpeed" not in p and "departPos" not in
-            p and "departLane" not in p]
+              p and "departLane" not in p]
     options.params = ' '.join(params)
 
 DEBUG = options.debug

@@ -7,7 +7,7 @@ title: neteditUsageExamples
 ## Reducing the extent of the network
 
 1.  switch to [selection mode](editModesCommon.md#select)
-2.  enable the *auto-select junctions* checkbox in the top menu bar
+2.  enable the *auto-select junctions* checkbox in the top menu bar (enabled by default since version 1.9.0)
 3.  select the portion of the network you wish to keep (i.e. by holding *<SHIFT\>* and performing a rectangle-selection)
 4.  invert the selection with the *Invert* button
 5.  delete the inverted selection using the *<DELETE\>* key

@@ -92,16 +92,20 @@ NIXMLPTHandler::myStartElement(int element,
         case SUMO_TAG_TRIP:
             addPTLineFromFlow(attrs);
             break;
-        case SUMO_TAG_PARAM:
+        case SUMO_TAG_PARAM: {
+            bool ok = true;
+            const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
             if (myCurrentLine != nullptr) {
-                bool ok = true;
-                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
                 if (key == "completeness") {
                     myCurrentCompletion = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
                 } else if (key == "name") {
                     myCurrentLine->setName(attrs.get<std::string>(SUMO_ATTR_VALUE, nullptr, ok));
                 }
+            } else if (myCurrentStop != nullptr) {
+                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                myCurrentStop->setParameter(key, val);
             }
+        }
             break;
         default:
             break;
@@ -140,6 +144,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok);
     const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
+    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     //const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, id.c_str(), ok);
     const int laneIndex = NBEdge::getLaneIndexFromLaneID(laneID);
     const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
@@ -163,7 +168,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     }
     if (ok) {
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
-        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength);
+        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color);
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERROR("Could not add public transport stop '" + id + "' (already exists)");
         }
@@ -198,11 +203,15 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vClass = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, id.c_str(), ok));
     }
+    RGBColor color(false);
+    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+        color = attrs.getColor();
+    }
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
     myCurrentCompletion = StringUtils::toDouble(attrs.getStringSecure("completeness", "1"));
     if (ok) {
-        myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass);
+        myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass, color);
         myLineCont.insert(myCurrentLine);
     }
 }
@@ -217,8 +226,12 @@ NIXMLPTHandler::addPTLineFromFlow(const SUMOSAXAttributes& attrs) {
     const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, id.c_str(), ok);
     SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
+    RGBColor color(false);
+    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+        color = attrs.getColor();
+    }
     if (ok) {
-        myCurrentLine = new NBPTLine(id, "", type, line, intervalS / 60, "", vClass);
+        myCurrentLine = new NBPTLine(id, "", type, line, intervalS / 60, "", vClass, color);
         myCurrentLine->setEdges(myRouteEdges[route]);
         for (NBPTStop* stop : myRouteStops[route]) {
             myCurrentLine->addPTStop(stop);

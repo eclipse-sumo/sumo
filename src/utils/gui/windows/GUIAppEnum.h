@@ -684,6 +684,10 @@ enum {
     MID_GNE_REMOVESELECT_EDGE,
     /// @brief lock element
     MID_GNE_LOCKELEMENT,
+    /// @brief lock all element
+    MID_GNE_LOCKALLELEMENTS,
+    /// @brief unlock all element
+    MID_GNE_UNLOCKALLELEMENTS,
 
     /// @}
 
@@ -720,6 +724,14 @@ enum {
     MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,
     /// @brief show demand elements
     MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,
+    /// @brief toogle TAZRel drawing
+    MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,
+    /// @brief toogle draz TAZ fill
+    MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,
+    /// @brief toogle draz TAZRel only from
+    MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,
+    /// @brief toogle draz TAZRel only to
+    MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,
 
     /// @}
 
@@ -1072,6 +1084,8 @@ enum {
     MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief delete geometry point
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
+    /// @brief select elements within polygon boundary
+    MID_GNE_POLYGON_SELECT,
 
     /// @}
 

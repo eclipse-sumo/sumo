@@ -34,10 +34,10 @@
 
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
                          const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                         const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                         const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
 {}, {}, {}, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPosition(pos),
             myFilename(filename),
             myProbability(probability),
@@ -55,13 +55,8 @@ GNERerouter::~GNERerouter() {
 
 GNEMoveOperation*
 GNERerouter::getMoveOperation(const double /*shapeOffset*/) {
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed in view
-        return new GNEMoveOperation(this, myPosition);
-    }
+    // return move operation for additional placed in view
+    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -161,8 +156,6 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(myVTypes);
         case SUMO_ATTR_OFF:
             return toString(myOff);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -203,10 +196,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_OFF:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -238,8 +230,6 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_OFF:
-            return canParse<bool>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -303,9 +293,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);
             break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
-            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -333,15 +320,15 @@ GNERerouter::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNERerouter::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-    undoList->p_end();
+    undoList->begin("position of " + getTagStr());
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+    undoList->end();
 }
 
 
 void
 GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoList) {
-    undoList->p_begin(("change " + getTagStr() + " attribute").c_str());
+    undoList->begin(("change " + getTagStr() + " attribute").c_str());
     // drop all additional children
     while (getChildAdditionals().size() > 0) {
         undoList->add(new GNEChange_Additional(getChildAdditionals().front(), false), true);
@@ -355,7 +342,7 @@ GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoL
         // add it using GNEChange_Additional
         myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
     }
-    undoList->p_end();
+    undoList->end();
 }
 
 

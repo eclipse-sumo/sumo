@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-23 19:43:10 by Eclipse SUMO netgenerate Version v1_10_0+0148-5f48329
+<!-- generated on 2021-08-25 10:32:01 by Eclipse SUMO netgenerate Version v1_10_0+0213-4059ee3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -82,7 +82,7 @@
         <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT"/>
 
         <!-- Defines the probability to build a reverse edge -->
-        <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability" type="FLOAT"/>
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
 
         <!-- The maximum distance for each edge -->
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT"/>

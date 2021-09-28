@@ -41,19 +41,21 @@ class GNETAZFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class TAZCurrent
+    // class CurrentTAZ
     // ===========================================================================
 
-    class TAZCurrent : protected FXGroupBox {
+    class CurrentTAZ : protected FXGroupBox {
 
     public:
         /// @brief struct for edges and the source/sink colors
-        struct TAZEdge {
+        class TAZEdgeColor {
+
+        public:
             /// @brief constructor
-            TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNETAZSourceSink* _TAZSource, GNETAZSourceSink* _TAZSink);
+            TAZEdgeColor(CurrentTAZ* CurrentTAZParent, GNEEdge* _edge, GNETAZSourceSink* _source, GNETAZSourceSink* _sink);
 
             /// @brief destructor (needed because RGBColors has to be deleted)
-            ~TAZEdge();
+            ~TAZEdgeColor();
 
             /// @brief update colors
             void updateColors();
@@ -62,10 +64,10 @@ public:
             GNEEdge* edge;
 
             /// @brief source TAZ
-            GNETAZSourceSink* TAZSource;
+            GNETAZSourceSink* source;
 
             /// @brif sink TAZ
-            GNETAZSourceSink* TAZSink;
+            GNETAZSourceSink* sink;
 
             /// @brief color by source [0-9]
             int sourceColor;
@@ -80,15 +82,18 @@ public:
             int sourceMinusSinkColor;
 
         private:
-            /// @brief pointer to TAZCurrentParent
-            TAZCurrent* myTAZCurrentParent;
+            /// @brief pointer to CurrentTAZParent
+            CurrentTAZ* myCurrentTAZParent;
+
+            /// @brief default color
+            TAZEdgeColor();
         };
 
         /// @brief constructor
-        TAZCurrent(GNETAZFrame* TAZFrameParent);
+        CurrentTAZ(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~TAZCurrent();
+        ~CurrentTAZ();
 
         /// @brief set current TAZ
         void setTAZ(GNETAZ* editedTAZ);
@@ -106,7 +111,7 @@ public:
         const std::vector<GNEEdge*>& getSelectedEdges() const;
 
         /// @brief get TAZEdges
-        const std::vector<TAZCurrent::TAZEdge>& getTAZEdges() const;
+        const std::vector<CurrentTAZ::TAZEdgeColor>& getTAZEdges() const;
 
         /// @brief refresh TAZEdges
         void refreshTAZEdges();
@@ -129,10 +134,10 @@ public:
         std::vector<GNEEdge*> mySelectedEdges;
 
         /// @brief vector with TAZ's edges
-        std::vector<TAZEdge> myTAZEdges;
+        std::vector<TAZEdgeColor> myTAZEdgeColors;
 
         /// @brief Label for current TAZ
-        FXLabel* myTAZCurrentLabel;
+        FXLabel* myCurrentTAZLabel;
 
         /// @brief maximum source plus sink value of current TAZ Edges
         double myMaxSourcePlusSinkWeight;
@@ -166,7 +171,6 @@ public:
         /// @brief hide TAZ Common Statistics Modul
         void hideTAZCommonStatisticsModul();
 
-    protected:
         /// @brief update Statistics label
         void updateStatistics();
 
@@ -252,10 +256,10 @@ public:
         /// @brief update "select edges button"
         void updateSelectEdgesButton();
 
-        /// @brief get default TAZSource weight
+        /// @brief get default source weight
         double getDefaultTAZSourceWeight() const;
 
-        /// @brief default TAZSink weight
+        /// @brief default sink weight
         double getDefaultTAZSinkWeight() const;
 
         /// @brief check if toggle membership is enabled
@@ -298,10 +302,10 @@ public:
         /// @brief information label
         FXLabel* myInformationLabel;
 
-        /// @brief default TAZSource weight
+        /// @brief default source weight
         double myDefaultTAZSourceWeight;
 
-        /// @brief default TAZSink weight
+        /// @brief default sink weight
         double myDefaultTAZSinkWeight;
     };
 
@@ -327,7 +331,7 @@ public:
         void hideTAZSelectionStatisticsModul();
 
         /// @brief add an edge and their TAZ Children in the list of selected items
-        bool selectEdge(const TAZCurrent::TAZEdge& edge);
+        bool selectEdge(const CurrentTAZ::TAZEdgeColor& edge);
 
         /// @brief un select an edge (and their TAZ Children)
         bool unselectEdge(GNEEdge* edge);
@@ -339,7 +343,7 @@ public:
         void clearSelectedEdges();
 
         /// @brief get map with edge and TAZChildren
-        const std::vector<TAZCurrent::TAZEdge>& getEdgeAndTAZChildrenSelected() const;
+        const std::vector<CurrentTAZ::TAZEdgeColor>& getEdgeAndTAZChildrenSelected() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -376,7 +380,7 @@ public:
         FXLabel* myStatisticsLabel;
 
         /// @brief vector with the current selected edges and their associated children
-        std::vector<TAZCurrent::TAZEdge> myEdgeAndTAZChildrenSelected;
+        std::vector<CurrentTAZ::TAZEdgeColor> myEdgeAndTAZChildrenSelected;
     };
 
     // ===========================================================================
@@ -430,6 +434,9 @@ public:
 
         /// @brief Button for open color editor
         FXButton* myColorEditor;
+
+        /// @brief CheckButton to enable or disable fill
+        FXCheckButton* myCheckButtonFill;
 
         /// @brief textField to modify the default value of color parameter
         FXTextField* myTextFieldColor;
@@ -529,7 +536,7 @@ public:
     GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
 
     /// @brief get Current TAZ modul
-    TAZCurrent* getTAZCurrentModul() const;
+    CurrentTAZ* getCurrentTAZModul() const;
 
     /// @brief get TAZ Selection Statistics modul
     TAZSelectionStatistics* getTAZSelectionStatisticsModul() const;
@@ -547,7 +554,7 @@ protected:
      */
     bool shapeDrawed();
 
-    /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Children
+    /// @brief add or remove a source and a sink, or remove it if edge is in the list of TAZ Children
     bool addOrRemoveTAZMember(GNEEdge* edge);
 
     /// @brief drop all TAZSources and TAZ Sinks of current TAZ
@@ -555,7 +562,7 @@ protected:
 
 private:
     /// @brief current TAZ
-    TAZCurrent* myTAZCurrent;
+    CurrentTAZ* myCurrentTAZ;
 
     /// @brief TAZ Edges common parameters
     TAZCommonStatistics* myTAZCommonStatistics;

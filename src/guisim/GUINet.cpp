@@ -586,6 +586,8 @@ GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes&
         }
     } else if (element == SUMO_TAG_INTERVAL) {
         bool ok;
+        numIntervals++;
+        firstIntervalBegin = MIN2(firstIntervalBegin, attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok));
         lastIntervalEnd = MAX2(lastIntervalEnd, attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
     }
 }
@@ -635,9 +637,15 @@ GUINet::loadEdgeData(const std::string& file) {
     DiscoverAttributes discoveryHandler(file);
     XMLSubSys::runParser(discoveryHandler, file);
     std::vector<std::string> attrs = discoveryHandler.getEdgeAttrs();
-    WRITE_MESSAGE("Loading edgedata from '" + file
-                  + "' Found " + toString(attrs.size())
+    WRITE_MESSAGE("Loading edgedata from '" + file + "':"
+                  + "\n    " + toString(discoveryHandler.numIntervals) + " intervals between"
+                  + " " + time2string(discoveryHandler.firstIntervalBegin) + " and"
+                  + " " + time2string(discoveryHandler.lastIntervalEnd)
+                  + ".\n    Found " + toString(attrs.size())
                   + " attributes: " + toString(attrs));
+    if (discoveryHandler.lastIntervalEnd < string2time(OptionsCont::getOptions().getString("begin"))) {
+        WRITE_WARNING("No data defined after simulation begin time");
+    }
     myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
     // create a retriever for each attribute
     std::vector<EdgeFloatTimeLineRetriever_GUI> retrieverDefsInternal;

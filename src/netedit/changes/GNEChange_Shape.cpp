@@ -33,7 +33,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Shape::GNEChange_Shape(GNEShape* shape, bool forward) :
-    GNEChange(shape, forward, shape->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, shape, forward, shape->isAttributeCarrierSelected()),
     myShape(shape) {
     myShape->incRef("GNEChange_Shape");
 }
@@ -112,21 +112,21 @@ GNEChange_Shape::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Shape::undoName() const {
     if (myForward) {
-        return ("Undo create " + myShape->getTagStr()).c_str();
+        return ("Undo create " + myShape->getTagStr());
     } else {
-        return ("Undo delete " + myShape->getTagStr()).c_str();
+        return ("Undo delete " + myShape->getTagStr());
     }
 }
 
 
-FXString
+std::string
 GNEChange_Shape::redoName() const {
     if (myForward) {
-        return ("Redo create " + myShape->getTagStr()).c_str();
+        return ("Redo create " + myShape->getTagStr());
     } else {
-        return ("Redo delete " + myShape->getTagStr()).c_str();
+        return ("Redo delete " + myShape->getTagStr());
     }
 }

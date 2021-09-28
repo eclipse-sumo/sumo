@@ -171,6 +171,9 @@ public:
     /// @brief Return the position on the edge
     virtual double getEdgePos() const;
 
+    /// @brief Return the movement directon on the edge
+    virtual int getDirection() const;
+
     /// @brief Return the Network coordinate of the transportable
     virtual Position getPosition() const;
 

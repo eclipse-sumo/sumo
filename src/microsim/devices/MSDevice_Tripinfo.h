@@ -85,6 +85,12 @@ public:
     static double getAvgTimeLoss();
     static double getAvgDepartDelay();
 
+    static double getAvgBikeRouteLength();
+    static double getAvgBikeTripSpeed();
+    static double getAvgBikeDuration();
+    static double getAvgBikeWaitingTime();
+    static double getAvgBikeTimeLoss();
+
     static double getAvgWalkRouteLength();
     static double getAvgWalkDuration();
     static double getAvgWalkTimeLoss();
@@ -264,6 +270,14 @@ private:
     static SUMOTime myTotalTimeLoss;
     static SUMOTime myTotalDepartDelay;
     static SUMOTime myWaitingDepartDelay;
+
+    /// @brief separate values for bicycles
+    static long myBikeCount;
+    static double myTotalBikeRouteLength;
+    static double myTotalBikeSpeed;
+    static SUMOTime myTotalBikeDuration;
+    static SUMOTime myTotalBikeWaitingTime;
+    static SUMOTime myTotalBikeTimeLoss;
 
     static long myWalkCount;
     static double myTotalWalkRouteLength;

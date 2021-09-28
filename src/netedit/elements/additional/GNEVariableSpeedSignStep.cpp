@@ -31,10 +31,10 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "",
-{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
-std::map<std::string, std::string>(), false),
+    {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myTime(time),
-mySpeed(speed) {
+    mySpeed(speed) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -132,7 +132,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

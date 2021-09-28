@@ -12,6 +12,9 @@ Options:
                         define the parking duration (in seconds)
   -u UNTIL, --parking-until=UNTIL
                         define the parking until duration (in seconds)
+  -l UNTILEND, --parking-untilend=UNTILEND
+                        define the parking until end variable duration (in
+                        seconds)
   -b DURATIONBEGIN, --parking-duration-begin=DURATIONBEGIN
                         define the minimum parking duration (in seconds)
   -e DURATIONEND, --parking-duration-end=DURATIONEND

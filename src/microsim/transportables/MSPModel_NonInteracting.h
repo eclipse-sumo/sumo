@@ -83,7 +83,6 @@ private:
     public:
         MoveToNextEdge(MSTransportable* transportable, MSStageMoving& walk, MSPModel_NonInteracting* model) :
             myParent(walk), myTransportable(transportable), myModel(model) {}
-        virtual ~MoveToNextEdge();
         SUMOTime execute(SUMOTime currentTime);
         void abortWalk() {
             myTransportable = nullptr;
@@ -112,6 +111,7 @@ private:
         /// @{
         /// @brief return the offset from the start of the current edge measured in its natural direction
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
+        int getDirection(const MSStageMoving& stage, SUMOTime now) const;
         virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
         virtual double getAngle(const MSStageMoving& stage, SUMOTime now) const;
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;

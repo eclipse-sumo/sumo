@@ -154,6 +154,10 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         }
         // draw interne box lines
         GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
@@ -260,7 +264,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 // check if lane2lane connection exist
                 if (laneTopA->getLane2laneConnections().exist(laneTopB)) {
                     // obtain lane2lane top dotted geometry
-                    GNEGeometry::DottedGeometry lane2lane = laneTopA->getLane2laneConnections().getLane2laneDottedGeometry(laneTopB);
+                    GNEGeometry::DottedGeometry lane2lane(s, laneTopA->getLane2laneConnections().getLane2laneGeometry(laneTopB).getShape(), false);
                     // move shape to side
                     lane2lane.moveShapeToSide(laneDrawingConstantsTop.halfWidth);
                     // invert offset
@@ -268,7 +272,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    lane2lane.drawInspectedDottedGeometry(dottedGeometryColor);
+                    lane2lane.drawDottedGeometry(dottedGeometryColor, GNEGeometry::DottedContourType::INSPECT);
                 } else {
                     // create dotted geometry using lane extremes
                     GNEGeometry::DottedGeometry dottedGeometry(s, {laneTopA->getLaneShape().back(), laneTopB->getLaneShape().front()}, false);
@@ -279,18 +283,18 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
+                    dottedGeometry.drawDottedGeometry(dottedGeometryColor, GNEGeometry::DottedContourType::INSPECT);
                 }
                 // check if lane2lane bot connection exist
                 if (laneBotA->getLane2laneConnections().exist(laneBotB)) {
                     // obtain lane2lane dotted geometry
-                    GNEGeometry::DottedGeometry lane2lane = laneBotA->getLane2laneConnections().getLane2laneDottedGeometry(laneBotB);
+                    GNEGeometry::DottedGeometry lane2lane(s, laneBotA->getLane2laneConnections().getLane2laneGeometry(laneBotB).getShape(), false);
                     // move shape to side
                     lane2lane.moveShapeToSide(laneDrawingConstantsBot.halfWidth * -1);
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    lane2lane.drawInspectedDottedGeometry(dottedGeometryColor);
+                    lane2lane.drawDottedGeometry(dottedGeometryColor, GNEGeometry::DottedContourType::INSPECT);
                 } else {
                     // create dotted geometry using lane extremes
                     GNEGeometry::DottedGeometry dottedGeometry(s, {laneBotA->getLaneShape().back(), laneBotB->getLaneShape().front()}, false);
@@ -299,7 +303,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
+                    dottedGeometry.drawDottedGeometry(dottedGeometryColor, GNEGeometry::DottedContourType::INSPECT);
                 }
                 // pop matrix
                 GLHelper::popMatrix();
@@ -408,7 +412,7 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_TO:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

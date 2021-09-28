@@ -83,10 +83,7 @@ public:
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get stop parameters
-    static bool getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet,
-                                 GNEFrameAttributesModuls::AttributesCreator* stopAttributes,
-                                 const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
-                                 const GNELane* lane, const GNEAdditional* stoppingPlace);
+    bool getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, const GNEAdditional* stoppingPlace);
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -96,6 +93,12 @@ protected:
     void demandElementSelected();
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
+    /// @brief stop base object
+    CommonXMLStructure::SumoBaseObject* myStopBaseObject;
+
     /// @brief Stop parent selectors
     GNEFrameModuls::DemandElementSelector* myStopParentSelector;
 

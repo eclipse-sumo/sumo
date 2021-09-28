@@ -1249,13 +1249,12 @@ Vehicle::addSubscriptionFilterLeadFollow(const std::vector<int>& lanes) {
 
 
 void
-Vehicle::addSubscriptionFilterTurn(double downstreamDist, double upstreamDist) {
-    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_TURN);
+Vehicle::addSubscriptionFilterTurn(double downstreamDist, double foeDistToJunction) {
+    tcpip::Storage content;
+    StoHelp::writeTypedDouble(content, foeDistToJunction);
+    libtraci::Connection::getActive().addFilter(libsumo::FILTER_TYPE_TURN, &content);
     if (downstreamDist != libsumo::INVALID_DOUBLE_VALUE) {
         addSubscriptionFilterDownstreamDistance(downstreamDist);
-    }
-    if (upstreamDist != libsumo::INVALID_DOUBLE_VALUE) {
-        addSubscriptionFilterUpstreamDistance(upstreamDist);
     }
 }
 

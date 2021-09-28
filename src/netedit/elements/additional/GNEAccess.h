@@ -45,10 +45,9 @@ public:
      * @param[in] length The length of the Access in meters.
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length,
-              bool friendlyPos, const std::map<std::string, std::string>& parameters, bool blockMovement);
+              bool friendlyPos, const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -63,6 +62,11 @@ public:
 
     /// @brief get edge in which this Access is placed
     GNEEdge* getEdge() const;
+
+    /**@brief writte additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
 
     /// @name Functions related with geometry of element
     /// @{

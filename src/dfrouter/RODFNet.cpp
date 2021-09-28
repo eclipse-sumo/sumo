@@ -620,8 +620,7 @@ RODFNet::reportEmptyDetectors(RODFDetectorCon& detectors,
 
 ROEdge*
 RODFNet::getDetectorEdge(const RODFDetector& det) const {
-    std::string edgeName = det.getLaneID();
-    edgeName = edgeName.substr(0, edgeName.rfind('_'));
+    const std::string edgeName = SUMOXMLDefinitions::getEdgeIDFromLane(det.getLaneID());
     ROEdge* ret = getEdge(edgeName);
     if (ret == nullptr) {
         throw ProcessError("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");

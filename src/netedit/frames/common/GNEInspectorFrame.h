@@ -88,15 +88,6 @@ public:
         /// @brief pointer for replace the parent additional
         FXTextField* myTextFieldParentAdditional;
 
-        /// @frame horizontal frame for block movement
-        FXHorizontalFrame* myHorizontalFrameBlockMovement;
-
-        /// @brief Label for Check blocked movement
-        FXLabel* myLabelBlockMovement;
-
-        /// @brief pointer to check box "Block movement"
-        FXCheckButton* myCheckBoxBlockMovement;
-
         /// @frame horizontal frame for close shape
         FXHorizontalFrame* myHorizontalFrameCloseShape;
 

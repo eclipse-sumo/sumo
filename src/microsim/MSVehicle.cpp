@@ -815,8 +815,12 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool withinLane = myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth());
     const bool keepLane = wasOnRoad && v->getLane() == myRemoteLane;
     if (v->isOnRoad() && !(keepLane && withinLane)) {
+        if (myRemoteLane != nullptr && &v->getLane()->getEdge() == &myRemoteLane->getEdge()) {
+            // correct odometer which gets incremented via onRemovalFromNet->leaveLane
+            v->myOdometer -= v->getLane()->getLength();
+        }
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-        v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
+        v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT, false);
     }
     if (myRemoteRoute.size() != 0) {
         v->replaceRouteEdges(myRemoteRoute, -1, 0, "traci:moveToXY", true);
@@ -1013,7 +1017,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
                 return false;
             }
         }
-        if (myParameter->departSpeedProcedure == DepartSpeedDefinition::GIVEN && myParameter->departSpeed > myType->getMaxSpeed()) {
+        if (myParameter->departSpeedProcedure == DepartSpeedDefinition::GIVEN && myParameter->departSpeed > myType->getMaxSpeed() + SPEED_EPS) {
             msg = "Departure speed for vehicle '" + getID() + "' is too high for the vehicle type '" + myType->getID() + "'.";
             myRouteValidity |= ROUTE_START_INVALID_LANE;
             return false;
@@ -2131,7 +2135,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
                     if (myLaneChangeModel->isOpposite()) {
                         // ignore oncoming vehicles on the shadow lane
-                        shadowLeaders.removeOpposite();
+                        shadowLeaders.removeOpposite(shadowLane);
                     }
                     adaptToLeaders(shadowLeaders, latOffset, seen, lastLink, shadowLane, v, vLinkPass);
                 } else if (shadowLane == myLaneChangeModel->getShadowLane() && leaderLane == myLane) {
@@ -2177,7 +2181,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         // process stops
-        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()
+        if (!myStops.empty()
+                && ((&myStops.begin()->lane->getEdge() == &lane->getEdge())
+                    || (myStops.begin()->isOpposite && myStops.begin()->lane->getEdge().getOppositeEdge() == &lane->getEdge()))
                 && (!myStops.begin()->reached || (myStops.begin()->pars.speed > 0 && keepStopping()))
                 // ignore stops that occur later in a looped route
                 && myStops.front().edge == myCurrEdge + view) {
@@ -4560,7 +4566,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                     std::cout << " removalBegin=" << removalBegin << " brakeGap=" << brakeGap << " dist=" << dpi.myDistance << " speed=" << myState.mySpeed << " a2s=" << ACCEL2SPEED(getCarFollowModel().getMaxDecel()) << "\n";
                 }
 #endif
-                if (dpi.myDistance >= brakeGap || (dpi.myDistance > 0 && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
+                if (dpi.myDistance >= brakeGap + POSITION_EPS) {
                     // always leave junctions after requesting to enter
                     if (!dpi.myLink->isExitLink() || !lfLinks[removalBegin - 1].mySetRequest) {
                         dpi.mySetRequest = false;
@@ -5052,6 +5058,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     if (!myStops.empty()) {
         const MSStop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
+        if (nextStop.isOpposite) {
+            // target leftmost lane in forward direction
+            nextStopLane = nextStopLane->getEdge().getOppositeEdge()->getLanes().back();
+        }
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
         nextStopIsWaypoint = nextStop.pars.speed > 0;
@@ -5719,8 +5729,7 @@ MSVehicle::setEmergencyBlueLight(SUMOTime currentTime) {
 
 int
 MSVehicle::getLaneIndex() const {
-    std::vector<MSLane*>::const_iterator laneP = std::find(myLane->getEdge().getLanes().begin(), myLane->getEdge().getLanes().end(), myLane);
-    return (int) std::distance(myLane->getEdge().getLanes().begin(), laneP);
+    return myLane == nullptr ? -1 : myLane->getIndex();
 }
 
 
@@ -6202,6 +6211,10 @@ MSVehicle::resumeFromStopping() {
         if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
+        if (pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {
+            // reset lateral position to default
+            myState.myPosLat = 0;
+        }
         myPastStops.push_back(pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
@@ -6544,7 +6557,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         }
         // see MSBaseVehicle constructor
         if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
-            calculateArrivalParams();
+            calculateArrivalParams(true);
         }
     }
     std::istringstream pis(attrs.getString(SUMO_ATTR_POSITION));

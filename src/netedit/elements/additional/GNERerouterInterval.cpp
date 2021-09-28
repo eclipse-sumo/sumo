@@ -31,10 +31,10 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
-std::map<std::string, std::string>(), false),
+    {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myBegin(0),
-myEnd(0) {
+    myEnd(0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // fill reroute interval with default values
@@ -44,10 +44,10 @@ myEnd(0) {
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-{}, {}, {}, {rerouterParent}, {}, {}, {}, {},
-std::map<std::string, std::string>(), false),
-myBegin(begin),
-myEnd(end) {
+    {}, {}, {}, {rerouterParent}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myBegin(begin),
+    myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -141,7 +141,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

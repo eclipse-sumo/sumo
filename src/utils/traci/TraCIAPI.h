@@ -746,7 +746,7 @@ public:
         void addSubscriptionFilterFieldOfVision(double angle) const;
 
         /* @brief Restricts returned vehicles to the given lateral distance */
-        void addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist = -1, double upstreamDist = -1) const;
+        void addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist = -1, double foeDistToJunction = -1) const;
 
         /// @}
 

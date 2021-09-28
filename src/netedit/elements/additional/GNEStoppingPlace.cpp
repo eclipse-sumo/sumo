@@ -47,13 +47,13 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
                                    GNELane* lane, const double startPos, const double endPos, const std::string& name,
-                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                                   bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, type, tag, name,
-{}, {}, {lane}, {}, {}, {}, {}, {},
-parameters, blockMovement),
-            myStartPosition(startPos),
-            myEndPosition(endPos),
-myFriendlyPosition(friendlyPosition) {
+    {}, {}, {lane}, {}, {}, {}, {}, {},
+    parameters),
+    myStartPosition(startPos),
+    myEndPosition(endPos),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -65,9 +65,6 @@ GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
     // check conditions
     if ((myStartPosition == INVALID_DOUBLE) && (myEndPosition == INVALID_DOUBLE)) {
         // start and end positions undefined, then nothing to move
-        return nullptr;
-    } else if (myBlockMovement) {
-        // element blocked, then nothing to move
         return nullptr;
     } else {
         // return move operation for additional placed over shape
@@ -428,14 +425,14 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
     // only commit geometry moving if at leats start or end positions is defined
     if ((myStartPosition != INVALID_DOUBLE) || (myEndPosition != INVALID_DOUBLE)) {
         // begin change attribute
-        undoList->p_begin("position of " + getTagStr());
+        undoList->begin("position of " + getTagStr());
         // set startPos
         if (myStartPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
         }
         // set endPos
         if (myEndPosition != INVALID_DOUBLE) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
         }
         // check if lane has to be changed
         if (moveResult.newFirstLane) {
@@ -443,7 +440,7 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
             setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
         }
         // end change attribute
-        undoList->p_end();
+        undoList->end();
     }
 }
 

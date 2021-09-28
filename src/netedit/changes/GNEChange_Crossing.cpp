@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
                                        double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
-    GNEChange(junctionParent, forward, selected),
+    GNEChange(Supermode::NETWORK, junctionParent, forward, selected),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
@@ -50,7 +50,7 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
 
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const NBNode::Crossing& crossing, bool forward):
-    GNEChange(forward, false),
+    GNEChange(Supermode::NETWORK, forward, false),
     myJunctionParent(junctionParent),
     myEdges(crossing.edges),
     myWidth(crossing.width),
@@ -149,21 +149,21 @@ void GNEChange_Crossing::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_Crossing::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_CROSSING));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_CROSSING));
     }
 }
 
 
-FXString
+std::string
 GNEChange_Crossing::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_CROSSING));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_CROSSING)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_CROSSING));
     }
 }

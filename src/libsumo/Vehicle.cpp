@@ -287,9 +287,19 @@ Vehicle::getLeader(const std::string& vehID, double dist) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     if (veh->isOnRoad()) {
         std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(dist);
-        return std::make_pair(
-                   leaderInfo.first != nullptr ? leaderInfo.first->getID() : "",
-                   leaderInfo.second);
+        const std::string leaderID = leaderInfo.first != nullptr ? leaderInfo.first->getID() : "";
+        double gap = leaderInfo.second;
+        if (leaderInfo.first != nullptr
+                && leaderInfo.first->getLane() != nullptr
+                && leaderInfo.first->getLane()->isInternal()
+                && veh->getLane() != nullptr
+                && (!veh->getLane()->isInternal()
+                    || (veh->getLane()->getLinkCont().front()->getIndex() != leaderInfo.first->getLane()->getLinkCont().front()->getIndex()))) {
+            // leader is a linkLeader (see MSLink::getLeaderInfo)
+            // avoid internal gap values which may be negative (or -inf) 
+            gap = MAX2(0.0, gap);
+        }
+        return std::make_pair(leaderID, gap);
     } else {
         return std::make_pair("", -1);
     }
@@ -1601,6 +1611,10 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     if (l == nullptr) {
         throw TraCIException("Unknown lane '" + laneID + "'.");
     }
+    if (veh->getLane() == l) {
+        veh->setTentativeLaneAndPosition(l, position, veh->getLateralPositionOnLane());
+        return;
+    }
     MSEdge* destinationEdge = &l->getEdge();
     const MSEdge* destinationRouteEdge = destinationEdge->getNormalBefore();
     // find edge in the remaining route
@@ -1619,11 +1633,18 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     Position oldPos = vehicle->getPosition();
     veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
     if (veh->getLane() != nullptr) {
-        veh->getMutableLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT);
+        // correct odometer which gets incremented via onRemovalFromNet->leaveLane
+        veh->addToOdometer(-veh->getLane()->getLength());
+        veh->getMutableLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT, false);
     } else {
         veh->setTentativeLaneAndPosition(l, position);
     }
+    const int oldRouteIndex = veh->getRoutePosition();
     const int newRouteIndex = (int)(it - veh->getRoute().begin());
+    if (oldRouteIndex > newRouteIndex) {
+        // more odometer correction needed
+        veh->addToOdometer(-l->getLength());
+    }
     veh->resetRoutePosition(newRouteIndex, veh->getParameter().departLaneProcedure);
     if (!veh->isOnRoad()) {
         MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
@@ -1648,7 +1669,6 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     } else {
         moveReminderReason = MSMoveReminder::NOTIFICATION_DEPARTED;
     }
-
     l->forceVehicleInsertion(veh, position, moveReminderReason);
 }
 
@@ -2106,13 +2126,13 @@ Vehicle::addSubscriptionFilterLeadFollow(const std::vector<int>& lanes) {
 
 
 void
-Vehicle::addSubscriptionFilterTurn(double downstreamDist, double upstreamDist) {
-    Helper::addSubscriptionFilter(SUBS_FILTER_TURN);
+Vehicle::addSubscriptionFilterTurn(double downstreamDist, double foeDistToJunction) {
+    Subscription* s = Helper::addSubscriptionFilter(SUBS_FILTER_TURN);
     if (downstreamDist != INVALID_DOUBLE_VALUE) {
         addSubscriptionFilterDownstreamDistance(downstreamDist);
     }
-    if (upstreamDist != INVALID_DOUBLE_VALUE) {
-        addSubscriptionFilterUpstreamDistance(upstreamDist);
+    if (foeDistToJunction != INVALID_DOUBLE_VALUE) {
+        s->filterFoeDistToJunction = foeDistToJunction;
     }
 }
 

@@ -34,10 +34,10 @@
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
 {}, {edge}, {}, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPositionOverLane(pos),
             myFrequency(frequency),
             myOutput(output),
@@ -51,10 +51,10 @@ myVTypes(vTypes) {
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
-                             const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                             const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
 {}, {}, {lane}, {}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
 myPositionOverLane(pos),
 myFrequency(frequency),
 myOutput(output),
@@ -235,7 +235,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_VTYPES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

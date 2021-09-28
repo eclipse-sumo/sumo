@@ -186,7 +186,7 @@ GNEContainer::getMoveOperation(const double /*shapeOffset*/) {
             posOverLane = parse<double>(getDepartPos());
         }
         // return move operation
-        return new GNEMoveOperation(this, lane, {posOverLane}, false);
+        return new GNEMoveOperation(this, lane, posOverLane, false);
     }
 }
 
@@ -387,6 +387,8 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
             // pop matrix
             GLHelper::popMatrix();
             // pop name
@@ -563,7 +565,7 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         //
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -913,10 +915,10 @@ void GNEContainer::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEContainer::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->p_begin("departPos of " + getTagStr());
+    undoList->begin("departPos of " + getTagStr());
     // now set departPos
     setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->p_end();
+    undoList->end();
 }
 
 /****************************************************************************/

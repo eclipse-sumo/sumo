@@ -56,6 +56,9 @@ public:
         /// @brief update value for all attributes
         void updateAllValues(const AttributeColors& attributeColors);
 
+        /// @brief check if given attribute exist (needed for non-double attributes)
+        bool exist(const std::string& attribute) const;
+
         /// @brief get minimum value
         double getMinValue(const std::string& attribute) const;
 

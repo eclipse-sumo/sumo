@@ -46,6 +46,7 @@
             <xsd:element name="route" type="routeType" minOccurs="0"/>
             <xsd:element name="vehicle" type="vehicleType" minOccurs="0"/>
             <xsd:element name="flow" type="flowType" minOccurs="0"/>
+            <xsd:element name="trip" type="tripType" minOccurs="0"/>
             <xsd:element name="person" type="personType" minOccurs="0"/>
             <xsd:element name="personFlow" type="personFlowType" minOccurs="0"/>
             <xsd:element name="container" type="containerType" minOccurs="0"/>
@@ -123,6 +124,7 @@
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
         <!-- allow reading typed detectors (dfrouter/flowrouter) -->

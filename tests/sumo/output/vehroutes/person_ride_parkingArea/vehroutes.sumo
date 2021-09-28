@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 16:49:35 by Eclipse SUMO sumo Version v1_9_1+0260-d131a25
+<!-- generated on 2021-08-25 09:17:17 by Eclipse SUMO sumo Version v1_10_0+0203-1388c96
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00" arrival="159.00">
-        <ride from="beg" to="end" parkingArea="pEnd" lines="car" ended="159.00"/>
+        <ride from="beg" to="end" parkingArea="pEnd" lines="car" started="32.00" ended="159.00"/>
     </person>
 
     <vehicle id="car" depart="0.00" arrival="210.00">

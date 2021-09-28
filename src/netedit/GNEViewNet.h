@@ -97,6 +97,9 @@ public:
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;
 
+    /// @brief return list of loaded edgeRelation and tazRelation attributes
+    std::vector<std::string> getRelDataAttrs() const; 
+
     /// @brief open object dialog
     void openObjectDialogAtCursor();
 
@@ -202,6 +205,9 @@ public:
 
     /// @brief open closed polygon
     long onCmdOpenPolygon(FXObject*, FXSelector, void*);
+
+    /// @brief select elements within polygon boundary
+    long onCmdSelectPolygonElements(FXObject*, FXSelector, void*);
 
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
@@ -338,6 +344,18 @@ public:
     /// @brief toggle show demand elements (data)
     long onCmdToggleShowDemandElementsData(FXObject*, FXSelector, void*);
 
+    /// @brief toggle TAZRel drawing
+    long onCmdToggleTAZRelDrawing(FXObject*, FXSelector, void*);
+
+    /// @brief toggle TAZdrawFill
+    long onCmdToggleTAZDrawFill(FXObject*, FXSelector, void*);
+
+    /// @brief toggle TAZRez only from
+    long onCmdToggleTAZRelOnlyFrom(FXObject*, FXSelector, void*);
+
+    /// @brief toggle TAZRez only to
+    long onCmdToggleTAZRelOnlyTo(FXObject*, FXSelector, void*);
+
     /// @}
 
     //// @name interval bar functions
@@ -449,6 +467,9 @@ public:
 
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
+
+    /// @brief ask about change supermode
+    bool aksChangeSupermode(const std::string &operation, Supermode expectedSupermode);
 
 protected:
     /// @brief FOX needs this

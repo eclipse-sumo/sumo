@@ -39,7 +39,7 @@ class RGBColor {
 public:
     /** @brief Constructor
      */
-    RGBColor();
+    RGBColor(bool valid=true);
 
     /** @brief Constructor
      * @param[in] red The red component's value
@@ -51,30 +51,22 @@ public:
     /** @brief Returns the red-amount of the color
      * @return The red component's value
      */
-    unsigned char red() const {
-        return myRed;
-    }
+    unsigned char red() const;
 
     /** @brief Returns the green-amount of the color
      * @return The green component's value
      */
-    unsigned char green() const {
-        return myGreen;
-    }
+    unsigned char green() const;
 
     /** @brief Returns the blue-amount of the color
      * @return The blue component's value
      */
-    unsigned char blue() const {
-        return myBlue;
-    }
+    unsigned char blue() const;
 
     /** @brief Returns the alpha-amount of the color
      * @return The alpha component's value
      */
-    unsigned char alpha() const {
-        return myAlpha;
-    }
+    unsigned char alpha() const;
 
     /** @brief assigns new values
      * @param[in] r The red component's value
@@ -87,10 +79,13 @@ public:
     /** @brief Sets a new alpha value
      * @param[in] alpha The new value to use
      */
-    inline void setAlpha(unsigned char alpha) {
-        myAlpha = alpha;
-    }
+    void setAlpha(unsigned char alpha);
 
+    /// @brief set valid
+    void setValid(const bool value);
+
+    /// @brief check if RGBColor is valid
+    bool isValid() const;
 
     /** @brief Returns a new color with altered brightness
      * @param[in] change The absolute change applied to all channels (within bounds)
@@ -108,9 +103,8 @@ public:
     /// @brief obtain inverted of current RGBColor
     RGBColor invertedColor() const;
 
-    static SumoRNG* getColorRNG() {
-        return &myRNG;
-    }
+    /// @brief get color RNG
+    static SumoRNG* getColorRNG();
 
     /** @brief Parses a color information
      *
@@ -207,6 +201,9 @@ public:
 private:
     /// @brief The color amounts
     unsigned char myRed, myGreen, myBlue, myAlpha;
+
+    /// @brief flag to check if color is valid
+    bool myValid;
 
     /// @brief A random number generator to generate random colors independent of other randomness
     static SumoRNG myRNG;

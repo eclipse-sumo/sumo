@@ -99,11 +99,11 @@ def main(options):
                 if isParking:
                     flags += "p"
                 stopTimes[stop.busStop].append((arrival, until, vehicle.id,
-                    stop.getAttributeSecure("tripId", ""),
-                    stop.getAttributeSecure("started", ""),
-                    stop.getAttributeSecure("ended", ""),
-                    flags
-                    ))
+                                                stop.getAttributeSecure("tripId", ""),
+                                                stop.getAttributeSecure("started", ""),
+                                                stop.getAttributeSecure("ended", ""),
+                                                flags
+                                                ))
 
     for stop, times in stopTimes.items():
         times.sort()

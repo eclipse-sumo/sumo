@@ -489,5 +489,19 @@ MSTrafficLightLogic::deactivateProgram() {
     myAmActive = false;
 }
 
+bool
+MSTrafficLightLogic::getsMajorGreen(int linkIndex) const {
+    if (linkIndex >= 0 && linkIndex < getNumLinks()) {
+        for (const MSPhaseDefinition* p : getPhases()) {
+            const std::string& s = p->getState();
+            assert(linkIndex < (int)s.size());
+            if (s[linkIndex] == LINKSTATE_TL_GREEN_MAJOR) {
+                return true;
+            }
+        }
+    }
+    return false;
+
+}
 
 /****************************************************************************/

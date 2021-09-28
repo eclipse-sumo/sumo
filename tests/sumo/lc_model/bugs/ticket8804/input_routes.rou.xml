@@ -1,0 +1,27 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="long" length="5.0" laneChangeModel="LC2013" carFollowModel="IDM">
+		<param key="has.driverstate.device" value="true"/>
+	</vType>
+	<vType id="middle" length="4.5" laneChangeModel="LC2013" carFollowModel="IDM">
+		<param key="has.driverstate.device" value="true"/>
+	</vType>
+	<vType id="short" length="4.0" laneChangeModel="LC2013" carFollowModel="IDM">
+		<param key="has.driverstate.device" value="true"/>
+	</vType>
+	<route id="2" edges="end end2"/>
+	<vehicle id="flowing2" route="2" type="long" depart="3" departPos="50" departLane="0" departSpeed="max"/>
+    <vehicle id="ego" route="2" type="middle" depart="3" departPos="50" departLane="1" departSpeed="max"/>
+	<vehicle id="flowing4" route="2" type="short" depart="4" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing6" route="2" type="middle" depart="5" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing8" route="2" type="long" depart="6" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing10" route="2" type="short" depart="7" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing12" route="2" type="middle" depart="8" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing14" route="2" type="long" depart="9" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing16" route="2" type="short" depart="10" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing18" route="2" type="middle" depart="11" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing20" route="2" type="long" depart="12" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing22" route="2" type="short" depart="13" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing24" route="2" type="middle" depart="14" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing26" route="2" type="long" depart="15" departPos="50" departLane="0" departSpeed="max"/>
+	<vehicle id="flowing28" route="2" type="short" depart="16" departPos="50" departLane="0" departSpeed="max"/>
+</routes>

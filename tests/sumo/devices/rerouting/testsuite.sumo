@@ -28,6 +28,9 @@ reroute_congestions
 # handlng stops while rerouting
 stops
 
+# test routing if vehicle speeds on the same edge strongly differ by turning direction
+turn_specific_speeds
+
 # handle input errors
 invalid_adaptation_interval
 

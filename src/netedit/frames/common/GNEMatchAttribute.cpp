@@ -161,15 +161,6 @@ GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
                         GNEAttributeProperties::AttrProperty::STRING,
                         "Parameters");
     tagPropertiesCopy.addAttribute(extraAttrProperty);
-    // add extra attribute if item can block movement
-    if (tagValue.canBlockMovement()) {
-        // add an extra AttributeValues to allow select ACs using as criterium "block movement"
-        extraAttrProperty = GNEAttributeProperties(GNE_ATTR_BLOCK_MOVEMENT,
-                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
-                            "Block movement",
-                            "false");
-        tagPropertiesCopy.addAttribute(extraAttrProperty);
-    }
     // add extra attribute if item can close shape
     if (tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
@@ -368,13 +359,6 @@ GNEMatchAttribute::updateAttribute() {
         myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
         if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
             attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
-        }
-        // check if item can block movement
-        if (tagProperty.canBlockMovement()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
-            if (myCurrentAttribute == GNE_ATTR_BLOCK_MOVEMENT) {
-                attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
-            }
         }
         // check if item can close shape
         if (tagProperty.canCloseShape()) {

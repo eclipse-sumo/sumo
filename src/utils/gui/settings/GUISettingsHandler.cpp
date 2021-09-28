@@ -266,10 +266,39 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.addSize = parseSizeSettings("add", attrs, mySettings.addSize);
             mySettings.addName = parseTextSettings("addName", attrs, mySettings.addName);
             mySettings.addFullName = parseTextSettings("addFullName", attrs, mySettings.addFullName);
+            // color settings (temporal, will be integrated in a schema
+            mySettings.colorSettings.selectionColor = parseColor(attrs, "selectionColor", mySettings.colorSettings.selectionColor);
+            mySettings.colorSettings.selectedEdgeColor = parseColor(attrs, "selectedEdgeColor", mySettings.colorSettings.selectedEdgeColor);
+            mySettings.colorSettings.selectedLaneColor = parseColor(attrs, "selectedLaneColor", mySettings.colorSettings.selectedLaneColor);
+            mySettings.colorSettings.selectedConnectionColor = parseColor(attrs, "selectedConnectionColor", mySettings.colorSettings.selectedConnectionColor);
+            mySettings.colorSettings.selectedProhibitionColor = parseColor(attrs, "selectedProhibitionColor", mySettings.colorSettings.selectedProhibitionColor);
+            mySettings.colorSettings.selectedCrossingColor = parseColor(attrs, "selectedCrossingColor", mySettings.colorSettings.selectedCrossingColor);
+            mySettings.colorSettings.selectedAdditionalColor = parseColor(attrs, "selectedAdditionalColor", mySettings.colorSettings.selectedAdditionalColor);
+            mySettings.colorSettings.selectedRouteColor = parseColor(attrs, "selectedRouteColor", mySettings.colorSettings.selectedRouteColor);
+            mySettings.colorSettings.selectedVehicleColor = parseColor(attrs, "selectedVehicleColor", mySettings.colorSettings.selectedVehicleColor);
+            mySettings.colorSettings.selectedPersonColor = parseColor(attrs, "selectedPersonColor", mySettings.colorSettings.selectedPersonColor);
+            mySettings.colorSettings.selectedPersonPlanColor = parseColor(attrs, "selectedPersonPlanColor", mySettings.colorSettings.selectedPersonPlanColor);
+            mySettings.colorSettings.selectedContainerColor = parseColor(attrs, "selectedContainerColor", mySettings.colorSettings.selectedContainerColor);
+            mySettings.colorSettings.selectedContainerPlanColor = parseColor(attrs, "selectedContainerPlanColor", mySettings.colorSettings.selectedContainerPlanColor);
+            mySettings.colorSettings.selectedEdgeDataColor = parseColor(attrs, "selectedEdgeDataColor", mySettings.colorSettings.selectedEdgeDataColor);
+            mySettings.colorSettings.busStopColor = parseColor(attrs, "busStopColor", mySettings.colorSettings.busStopColor);
+            mySettings.colorSettings.busStopColorSign = parseColor(attrs, "busStopColorSign", mySettings.colorSettings.busStopColorSign);
+            mySettings.colorSettings.trainStopColor = parseColor(attrs, "trainStopColor", mySettings.colorSettings.trainStopColor);
+            mySettings.colorSettings.trainStopColorSign = parseColor(attrs, "trainStopColorSign", mySettings.colorSettings.trainStopColorSign);
+            mySettings.colorSettings.containerStopColor = parseColor(attrs, "containerStopColor", mySettings.colorSettings.containerStopColor);
+            mySettings.colorSettings.containerStopColorSign = parseColor(attrs, "containerStopColorSign", mySettings.colorSettings.containerStopColorSign);
+            mySettings.colorSettings.chargingStationColor = parseColor(attrs, "chargingStationColor", mySettings.colorSettings.chargingStationColor);
+            mySettings.colorSettings.chargingStationColorSign = parseColor(attrs, "chargingStationColorSign", mySettings.colorSettings.chargingStationColorSign);
+            mySettings.colorSettings.chargingStationColorCharge = parseColor(attrs, "chargingStationColorCharge", mySettings.colorSettings.chargingStationColorCharge);
+            mySettings.colorSettings.parkingAreaColor = parseColor(attrs, "parkingAreaColor", mySettings.colorSettings.parkingAreaColor);
+            mySettings.colorSettings.parkingAreaColorSign = parseColor(attrs, "parkingAreaColorSign", mySettings.colorSettings.parkingAreaColorSign);
+            mySettings.colorSettings.parkingSpaceColorContour = parseColor(attrs, "parkingSpaceColorContour", mySettings.colorSettings.parkingSpaceColorContour);
+            mySettings.colorSettings.parkingSpaceColor = parseColor(attrs, "parkingSpaceColor", mySettings.colorSettings.parkingSpaceColor);
             break;
         case SUMO_TAG_VIEWSETTINGS_POIS:
             mySettings.poiTextParam = attrs.getStringSecure("poiTextParam", mySettings.poiTextParam);
             mySettings.poiSize = parseSizeSettings("poi", attrs, mySettings.poiSize);
+            mySettings.poiDetail = StringUtils::toInt(attrs.getStringSecure("poiDetail", toString(mySettings.poiDetail)));
             mySettings.poiName = parseTextSettings("poiName", attrs, mySettings.poiName);
             mySettings.poiType = parseTextSettings("poiType", attrs, mySettings.poiType);
             mySettings.poiText = parseTextSettings("poiText", attrs, mySettings.poiText);
@@ -356,6 +385,13 @@ GUISettingsHandler::myEndElement(int element) {
             }
         }
     }
+}
+
+
+RGBColor 
+GUISettingsHandler::parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor &defaultValue) const {
+    bool ok = true;
+    return RGBColor::parseColorReporting(attrs.getStringSecure(attribute, toString(defaultValue)), attribute.c_str(), nullptr, true, ok);
 }
 
 

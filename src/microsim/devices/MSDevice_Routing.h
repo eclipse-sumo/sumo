@@ -224,6 +224,9 @@ private:
     /// @brief Whether the equipped vehicle may receive dispatch information at a rail signal
     bool myRerouteRailSignal;
 
+    /// @brief the previous time that a vehicle entered a lane
+    SUMOTime myLastLaneEntryTime;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_Routing(const MSDevice_Routing&);

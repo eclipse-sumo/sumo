@@ -186,16 +186,17 @@ class Builder(object):
             shutil.copy(data['osm'], self.files["osm"])
         else:
             self.report("Downloading map data")
-            osmGet.get(
-                ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp])
+            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp]
+            if 'osmMirror' in self.data:
+                osmArgs += ["-u", self.data["osmMirror"]]
+            osmGet.get(osmArgs)
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         self.additionalFiles = []
         self.routenames = []
 
         if self.data["poly"]:
-            # output name for the poly file, will be used by osmBuild and
-            # sumo-gui
+            # output name for the poly file, will be used by osmBuild and sumo-gui
             self.filename("poly", ".poly.xml")
             options += ["-m", typemaps["poly"]]
             self.additionalFiles.append(self.files["poly"])
@@ -205,7 +206,7 @@ class Builder(object):
         # misinterpreted as options
         netconvertOptions = " " + osmBuild.DEFAULT_NETCONVERT_OPTS
         netconvertOptions += ",--tls.default-type,actuated"
-        #netconvertOptions += ",--default.spreadtype,roadCenter"
+        # netconvertOptions += ",--default.spreadtype,roadCenter"
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
@@ -215,6 +216,7 @@ class Builder(object):
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
+            netconvertOptions += ",--osm.bike-access"
         # special treatment for public transport
         if self.data["publicTransport"]:
             self.filename("stops", "_stops.add.xml")
@@ -305,6 +307,7 @@ class Builder(object):
 
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
                     options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
+                    options += ["--persontrip.walk-opposite-factor", "0.8"]
 
                 randomTrips.main(randomTrips.get_options(options))
                 randomTripsCalls.append(options)

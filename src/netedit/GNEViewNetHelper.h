@@ -485,6 +485,9 @@ struct GNEViewNetHelper {
         /// @check if current supermode is Data
         bool isCurrentSupermodeData() const;
 
+        /// @brief the current supermode
+        Supermode currentSupermode;
+
         /// @brief the current Network edit mode
         NetworkEditMode networkEditMode;
 
@@ -506,9 +509,6 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
-
-        /// @brief the current supermode
-        Supermode myCurrentSupermode;
 
         /// @brief Invalidated copy constructor.
         EditModes(const EditModes&) = delete;
@@ -716,6 +716,18 @@ struct GNEViewNetHelper {
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
 
+        /// @brief check if toogle TAZRel drawing checkbox is enabled
+        bool TAZRelDrawing() const;
+
+        /// @brief check if toogle TAZ draw fill checkbox is enabled
+        bool TAZDrawFill() const;
+
+        /// @brief check if toogle TAZRel only from checkbox is enabled
+        bool TAZRelOnlyFrom() const;
+
+        /// @brief check if toogle TAZRel only to checkbox is enabled
+        bool TAZRelOnlyTo() const;
+
         /// @brief menu check to show Additionals
         MFXCheckableButton* menuCheckShowAdditionals;
 
@@ -724,6 +736,18 @@ struct GNEViewNetHelper {
 
         /// @brief menu check to show Demand Elements
         MFXCheckableButton* menuCheckShowDemandElements;
+
+        /// @brief menu check to toogle TAZ Rel drawing
+        MFXCheckableButton* menuCheckToogleTAZRelDrawing;
+
+        /// @brief menu check to toogle TAZ draw fill
+        MFXCheckableButton* menuCheckToogleTAZDrawFill;
+
+        /// @brief menu check to toogle TAZRel only from
+        MFXCheckableButton* menuCheckToogleTAZRelOnlyFrom;
+
+        /// @brief menu check to toogle TAZRel only to
+        MFXCheckableButton* menuCheckToogleTAZRelOnlyTo;
 
     private:
         /// @brief pointer to net
@@ -1265,19 +1289,16 @@ struct GNEViewNetHelper {
     /// @brief struct for pack all variables and functions related with Block Icon
     struct LockIcon {
         /// @brief draw lock icon
-        static void drawLockIcon(const GNEAttributeCarrier* AC, const GNEGeometry::Geometry& geometry,
-                                 const double exaggeration, const double offsetx, const double offsety,
-                                 const bool overlane, const double size = 0.5);
+        static void drawLockIcon(GUIGlObjectType type, const GNEAttributeCarrier* AC, const Position viewPosition,
+                                 const double exaggeration, const double size = 0.5, 
+                                 const double offsetx = 0, const double offsety = 0);
 
     private:
         /// @brief constructor
         LockIcon();
 
         /// @brief check drawing
-        static bool checkDrawing(const GNEAttributeCarrier* AC, const double exaggeration);
-
-        /// @brief get lock icon
-        static GUIGlID getLockIcon(const GNEAttributeCarrier* AC);
+        static bool checkDrawing(GUIGlObjectType type, const GNEAttributeCarrier* AC, const double exaggeration);
 
         /// @brief Invalidated assignment operator
         LockIcon& operator=(const LockIcon& other) = delete;
@@ -1320,7 +1341,7 @@ struct GNEViewNetHelper {
             Supermode getSupermode() const;
 
             /// @brief flag for lock/unlock
-            bool lock;
+            bool lock = false;
 
         private:
             /// @brief supermode associated with this operation locked

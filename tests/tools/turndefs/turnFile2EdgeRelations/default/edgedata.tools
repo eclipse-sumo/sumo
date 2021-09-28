@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-02-17 13:27:11.628169 by turnFile2EdgeRelations.py v1_5_0+0118-a6ba6eb
+<!-- generated on 2021-09-10 09:52:17.306848 by turnFile2EdgeRelations.py v1_10_0+0653-4e4f99fd879
   options: -t input_turns.xml -o edgedata.xml <doubleminus>turn-attribute count
 -->
-<edgeRelations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgerelations_file.xsd">
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval begin="0.0" end="99.0">
         <edgeRelation from="-58.121.42" to="64" count="1"/>
         <edgeRelation from="-58.121.42" to="-31" count="3"/>

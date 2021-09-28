@@ -37,7 +37,9 @@
 // ---------------------------------------------------------------------------
 
 GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Containers") {
+    GNEFrame(horizontalFrameParent, viewNet, "Containers"),
+    myRouteHandler("", viewNet->getNet(), true),
+    myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for containers
     myContainerTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINER);
@@ -68,7 +70,9 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
 }
 
 
-GNEContainerFrame::~GNEContainerFrame() {}
+GNEContainerFrame::~GNEContainerFrame() {
+    delete myContainerBaseObject;
+}
 
 
 void
@@ -251,8 +255,9 @@ GNEContainerFrame::createPath() {
     } else if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
+/*
         // begin undo-redo operation
-        myViewNet->getUndoList()->p_begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
+        myViewNet->getUndoList()->begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
         // create container
         GNEDemandElement* container = buildContainer();
         // check if container and container plan can be created
@@ -260,7 +265,7 @@ GNEContainerFrame::createPath() {
                     myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
                     container, myContainerPlanAttributes, myPathCreator)) {
             // end undo-redo operation
-            myViewNet->getUndoList()->p_end();
+            myViewNet->getUndoList()->end();
             // abort path creation
             myPathCreator->abortPathCreation();
             // refresh container and containerPlan attributes
@@ -272,6 +277,7 @@ GNEContainerFrame::createPath() {
             // abort container creation
             myViewNet->getUndoList()->p_abort();
         }
+*/
     }
 }
 
@@ -284,49 +290,57 @@ GNEContainerFrame::buildContainer() {
     // obtain container tag (only for improve code legibility)
     SumoXMLTag containerTag = myContainerTagSelector->getCurrentTagProperties().getTag();
     // Declare map to keep attributes from myContainerAttributes
-    std::map<SumoXMLAttr, std::string> valuesMap = myContainerAttributes->getAttributesAndValuesTemporal(false);
+    myContainerAttributes->getAttributesAndValues(myContainerBaseObject, false);
     // Check if ID has to be generated
-    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-        valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(containerTag);
+    if (!myContainerBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
+        myContainerBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(containerTag));
     }
     // add pType parameter
-    valuesMap[SUMO_ATTR_TYPE] = myPTypeSelector->getCurrentDemandElement()->getID();
+    myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myPTypeSelector->getCurrentDemandElement()->getID());
     // check if we're creating a container or containerFlow
     if (containerTag == SUMO_TAG_CONTAINER) {
         // Add parameter departure
-        if (valuesMap[SUMO_ATTR_DEPART].empty()) {
-            valuesMap[SUMO_ATTR_DEPART] = "0";
+        if (myContainerBaseObject->hasStringAttribute(SUMO_ATTR_DEPART) && myContainerBaseObject->getStringAttribute(SUMO_ATTR_DEPART).empty()) {
+            myContainerBaseObject->addStringAttribute(SUMO_ATTR_DEPART, "0");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(containerTag));
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));
         // obtain container parameters
         SUMOVehicleParameter* containerParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_CONTAINER, SUMOSAXAttrs, false, false, false);
-        // build container in GNERouteHandler
-        GNERouteHandler::buildContainer(myViewNet->getNet(), true, *containerParameters);
-        // delete containerParameters
-        delete containerParameters;
+        // check personParameters
+        if (containerParameters) {
+            myContainerBaseObject->setVehicleParameter(containerParameters);
+            // parse vehicle
+            myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
+            // delete personParameters
+            delete containerParameters;
+        }
     } else {
         // set begin and end attributes
-        if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
-            valuesMap[SUMO_ATTR_BEGIN] = "0";
+        if (myContainerBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myContainerBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+            myContainerBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
         }
-        if (valuesMap[SUMO_ATTR_END].empty()) {
-            valuesMap[SUMO_ATTR_END] = "3600";
+        if (myContainerBaseObject->hasStringAttribute(SUMO_ATTR_END) && myContainerBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
+            myContainerBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(containerTag));
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));
         // obtain containerFlow parameters
         SUMOVehicleParameter* containerFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
-        // build containerFlow in GNERouteHandler
-        GNERouteHandler::buildContainerFlow(myViewNet->getNet(), true, *containerFlowParameters);
-        // delete containerFlowParameters
-        delete containerFlowParameters;
+        // check personParameters
+        if (containerFlowParameters) {
+            myContainerBaseObject->setVehicleParameter(containerFlowParameters);
+            // parse vehicle
+            myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
+            // delete personParameters
+            delete containerFlowParameters;
+        }
     }
     // refresh container and containerPlan attributes
     myContainerAttributes->refreshRows();
     myContainerPlanAttributes->refreshRows();
     // return created container
-    return myViewNet->getNet()->retrieveDemandElement(containerTag, valuesMap[SUMO_ATTR_ID]);
+    return myViewNet->getNet()->retrieveDemandElement(containerTag, myContainerBaseObject->getStringAttribute(SUMO_ATTR_ID));
 }
 
 

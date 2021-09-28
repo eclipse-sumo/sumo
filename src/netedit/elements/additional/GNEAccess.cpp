@@ -38,10 +38,10 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
-                     const std::map<std::string, std::string>& parameters, bool blockMovement) :
+                     const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
 {}, {}, {lane}, {busStop}, {}, {}, {}, {},
-parameters, blockMovement),
+parameters),
             myPositionOverLane(pos),
             myLength(length),
 myFriendlyPosition(friendlyPos) {
@@ -56,15 +56,9 @@ GNEAccess::~GNEAccess() {
 
 GNEMoveOperation*
 GNEAccess::getMoveOperation(const double /*shapeOffset*/) {
-    // check conditions
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
-        return nullptr;
-    } else {
-        // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
-    }
+    // return move operation for additional placed over shape
+    return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
 }
 
 
@@ -129,6 +123,21 @@ GNEAccess::isAccessPositionFixed() const {
 }
 
 
+void 
+GNEAccess::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_ACCESS);
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    if (myLength != -1) {
+        device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    }
+    device.closeTag();
+}
+
+
 GNEEdge*
 GNEAccess::getEdge() const {
     return getParentLanes().front()->getParentEdge();
@@ -161,7 +170,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
             GLHelper::setColor(parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR)));
         } else {
-            GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
+            GLHelper::setColor(s.colorSettings.busStopColor);
         }
         // translate to geometry position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
@@ -172,7 +181,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
         }
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, accessExaggeration, 0, 0, true, 0.3);
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop gl identficador
@@ -201,8 +210,6 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return toString(myLength);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
@@ -231,10 +238,9 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_FRIENDLY_POS:
-        case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -271,8 +277,6 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
-        case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -320,9 +324,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
             break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
-            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -354,7 +355,7 @@ void
 GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
-    undoList->p_begin("position of " + getTagStr());
+    undoList->begin("position of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed
@@ -363,7 +364,7 @@ GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLis
         setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
-    undoList->p_end();
+    undoList->end();
 }
 
 

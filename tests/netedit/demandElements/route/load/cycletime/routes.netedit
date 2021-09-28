@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06.01.2021 14:59:47 by Eclipse SUMO netedit Version v1_8_0+0394-23c493d0d1
+<!-- generated on 2021-08-30 09:19:02 by Eclipse SUMO netedit Version v1_10_0+0369-f5f81e706f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,36 +30,34 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Jan145816.7212\netedit.gui\demandElements\route\load\cycletime\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug091525.4584\netedit.gui\demandElements\route\load\cycletime\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE2 gneE4 gneE5" color="red" id="route_0"/>
-    <route edges="gneE2 gneE4 gneE5" color="red" id="route_1"/>
-    <route edges="gneE2 gneE4 gneE5" color="red" id="route_2"/>
+    <route edges="gneE2 gneE4 gneE5" color="red" cycleTime="-12000" id="route_2"/>
     <route edges="gneE2 gneE4 gneE5" color="red" cycleTime="6800" id="route_3"/>
 </routes>

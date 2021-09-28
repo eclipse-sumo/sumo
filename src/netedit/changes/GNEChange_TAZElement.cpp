@@ -33,7 +33,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TAZElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_TAZElement::GNEChange_TAZElement(GNETAZElement* TAZElement, bool forward) :
-    GNEChange(TAZElement, forward, TAZElement->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, TAZElement, forward, TAZElement->isAttributeCarrierSelected()),
     myTAZElement(TAZElement) {
     myTAZElement->incRef("GNEChange_TAZElement");
 }
@@ -112,21 +112,21 @@ GNEChange_TAZElement::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_TAZElement::undoName() const {
     if (myForward) {
-        return ("Undo create " + myTAZElement->getTagStr()).c_str();
+        return ("Undo create " + myTAZElement->getTagStr());
     } else {
-        return ("Undo delete " + myTAZElement->getTagStr()).c_str();
+        return ("Undo delete " + myTAZElement->getTagStr());
     }
 }
 
 
-FXString
+std::string
 GNEChange_TAZElement::redoName() const {
     if (myForward) {
-        return ("Redo create " + myTAZElement->getTagStr()).c_str();
+        return ("Redo create " + myTAZElement->getTagStr());
     } else {
-        return ("Redo delete " + myTAZElement->getTagStr()).c_str();
+        return ("Redo delete " + myTAZElement->getTagStr());
     }
 }

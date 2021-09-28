@@ -30,6 +30,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNETAZRelData.h"
 #include "GNEDataInterval.h"
@@ -46,7 +48,22 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-{}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}) {
+        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+    myLastWidth(0)
+{
+    // update geometry
+    updateGeometry();
+}
+
+
+GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
+                             const std::map<std::string, std::string>& parameters) :
+    GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
+        {}, {}, {}, {}, {}, {TAZ}, {}, {}),
+    myLastWidth(0)
+{
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -55,16 +72,36 @@ GNETAZRelData::~GNETAZRelData() {}
 
 const RGBColor&
 GNETAZRelData::getColor() const {
-    return RGBColor::ORANGE;
+    return myColor;
+}
+
+double
+GNETAZRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 0:
+            return 0;
+        case 1:
+            return isAttributeCarrierSelected();
+        case 2:
+            return 0; // setfunctional color const GNETAZElement* TAZA = getParentTAZElements().front();
+        case 3:
+            return 0; // setfunctional color const GNETAZElement* TAZA = getParentTAZElements().back();
+        case 4:
+            // by numerical attribute value
+            try {
+                return StringUtils::toDouble(getParameter(s.relDataAttr, "-1"));
+            } catch (NumberFormatException&) {
+                return -1;
+            }
+
+    }
+    return 0;
+
 }
 
 
 bool
 GNETAZRelData::isGenericDataVisible() const {
-    // first check if we're in supermode data
-    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        return false;
-    }
     // obtain pointer to TAZ data frame (only for code legibly)
     const GNETAZRelDataFrame* TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
     // get current data edit mode
@@ -94,7 +131,65 @@ GNETAZRelData::isGenericDataVisible() const {
 
 void
 GNETAZRelData::updateGeometry() {
-    // nothing to update
+    // get both TAZs
+    const GNETAZElement* TAZA = getParentTAZElements().front();
+    const GNETAZElement* TAZB = getParentTAZElements().back();
+    // check if this is the same TAZ
+    if (TAZA == TAZB) {
+        // declare ring
+        PositionVector ring;
+        // declare first point
+        std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
+        // add 8 segments
+        for (int i = 0; i <= 8; ++i) {
+            const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * 45));
+            // make al line between 0,0 and p2
+            PositionVector line = {Position(), Position(p2.first, p2.second)};
+            // extrapolate
+            line.extrapolate(3, false, true);
+            // add line back to ring
+            ring.push_back(line.back());
+            // update p1
+            p1 = p2;
+        }
+        // make a copy of ring
+        PositionVector ringCenter = ring;
+        // move ring to first geometry point
+        ring.add(TAZA->getTAZElementShape().front());
+        myTAZRelGeometry.updateGeometry(ring);
+        // move ringCenter to center
+        ringCenter.add(TAZA->getPositionInView());
+        myTAZRelGeometryCenter.updateGeometry(ringCenter);
+    } else {
+        // calculate line betwen to TAZ centers
+        PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};
+        // check line
+        if (line.length() < 1) {
+            line = {TAZA->getPositionInView() - 0.5, TAZB->getPositionInView() + 0.5};
+        }
+        // add offset to line
+        line.move2side(1 + myLastWidth);
+        // calculate middle point
+        const Position middlePoint = line.getLineCenter();
+        // get closest points to middlePoint
+        Position posA = TAZA->getTAZElementShape().positionAtOffset2D(TAZA->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+        Position posB = TAZB->getTAZElementShape().positionAtOffset2D(TAZB->getTAZElementShape().nearest_offset_to_point2D(middlePoint));
+        // check positions
+        if (posA == Position::INVALID) {
+            posA = TAZA->getTAZElementShape().front();
+        }
+        if (posB == Position::INVALID) {
+            posB = TAZB->getTAZElementShape().front();
+        }
+        // update geometry
+        if (posA.distanceTo(posB) < 1) {
+            myTAZRelGeometry.updateGeometry({posA - 0.5, posB + 0.5});
+        } else {
+            myTAZRelGeometry.updateGeometry({posA, posB});
+        }
+        // update center geometry
+        myTAZRelGeometryCenter.updateGeometry(line);
+    }
 }
 
 
@@ -141,8 +236,71 @@ GNETAZRelData::fixGenericDataProblem() {
 
 
 void
-GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Nothing to draw
+GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
+    // draw TAZRels
+    if (drawTAZRel()) {
+        // get flag for only draw contour
+        const bool onlyDrawContour = !isGenericDataVisible();
+        // push name (needed for getGUIGlObjectsUnderCursor(...)
+        if (!onlyDrawContour) {
+            GLHelper::pushName(getGlID());
+        }
+        // push matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
+        // set color
+        double val = getColorValue(s, s.dataColorer.getActive());
+        myColor = s.dataColorer.getScheme().getColor(val);
+        GLHelper::setColor(myColor);
+
+
+        const double width = onlyDrawContour ? 0.1:  0.5 * s.tazRelWidthExaggeration;
+        if (width != myLastWidth) {
+            myLastWidth = width;
+            const_cast<GNETAZRelData*>(this)->updateGeometry();
+        }
+
+        // draw geometry
+        if (onlyDrawContour) {
+            // draw depending of TAZRelDrawing
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, width);
+            } else {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, width);
+            }
+        } else {
+            // draw depending of TAZRelDrawing
+            const GNEGeometry::Geometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
+                ? myTAZRelGeometryCenter : myTAZRelGeometry);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), geom, width);
+            GLHelper::drawTriangleAtEnd(
+                    *(geom.getShape().end() - 2),
+                    *(geom.getShape().end() - 1),
+                    1.5 + width, 1.5 + width, 0.5 + width);
+        }
+        // pop matrix
+        GLHelper::popMatrix();
+        // pop name
+        if (!onlyDrawContour) {
+            GLHelper::popName();
+        }
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
+            } else {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
+            }
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
+            } else {
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
+            }
+        }
+    }
 }
 
 
@@ -178,7 +336,12 @@ GNETAZRelData::getLastPathLane() const {
 
 Boundary
 GNETAZRelData::getCenteringBoundary() const {
-    return getParentTAZElements().front()->getCenteringBoundary();
+    Boundary b;
+    // add two shapes
+    b.add(myTAZRelGeometry.getShape().getBoxBoundary());
+    b.add(myTAZRelGeometryCenter.getShape().getBoxBoundary());
+    b.grow(20);
+    return b;
 }
 
 
@@ -219,7 +382,7 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_TO:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -277,17 +440,78 @@ GNETAZRelData::getHierarchyName() const {
 }
 
 
+bool
+GNETAZRelData::drawTAZRel() const {
+    // first check supermode
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        return false;
+    }
+    // check dataSet
+    const GNEDataSet* dataSet = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getDataSetSelector()->getDataSet();
+    if (dataSet && (myDataIntervalParent->getDataSetParent() != dataSet)) {
+        return false;
+    }
+    // check interval
+    const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getIntervalSelector()->getDataInterval();
+    if (dataInterval && (myDataIntervalParent != dataInterval)) {
+        return false;
+    }
+    // check if we're inspecting a TAZ
+    if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
+        (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
+        (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
+        // get TAZ
+        const auto TAZ = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // ignore TAZRels with one TAZParent
+        if (getParentTAZElements().size() == 2) {
+            if ((getParentTAZElements().front() == TAZ)  &&
+                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
+                return true;
+            } else if ((getParentTAZElements().back() == TAZ)  &&
+                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
 void
 GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
+            // remove from grid
+            myNet->removeGLObjectFromGrid(this);
+            // check number of parent TAZ elements
+            if ((getParentTAZElements().size() > 1) &&
+                (value == getParentTAZElements().at(1)->getID())) {
+                // reset second TAZ
+                replaceSecondParentTAZElement(SUMO_TAG_TAZ, "");
+            }
             // change first TAZ
             replaceFirstParentTAZElement(SUMO_TAG_TAZ, value);
+            // update geometry
+            updateGeometry();
+            // add into grid again
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case SUMO_ATTR_TO: {
-            // change last TAZ
-            replaceLastParentTAZElement(SUMO_TAG_TAZ, value);
+            // remove from grid
+            myNet->removeGLObjectFromGrid(this);
+            if (value == getParentTAZElements().front()->getID()) {
+                replaceSecondParentTAZElement(SUMO_TAG_TAZ, "");
+            } else {
+                // change second TAZ
+                replaceSecondParentTAZElement(SUMO_TAG_TAZ, value);
+            }
+            // update geometry
+            updateGeometry();
+            // add into grid again
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case GNE_ATTR_SELECTED:

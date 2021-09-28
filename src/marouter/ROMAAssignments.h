@@ -120,7 +120,7 @@ private:
     /// @brief add a route and check for duplicates
     bool addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
 
-    const ConstROEdgeVector computePath(ODCell* cell, const SUMOTime time = 0, const double probability = 0., SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr);
+    const ConstROEdgeVector computePath(ODCell* cell, const SUMOTime time = 0, const double probability = 0., SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr, bool setBulkMode = false);
 
     /// @brief get the k shortest paths
     void getKPaths(const int kPaths, const double penalty);
@@ -142,14 +142,15 @@ private:
 private:
     class RoutingTask : public FXWorkerThread::Task {
     public:
-        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow)
-            : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow) {}
+        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow, double setBulkMode = false)
+            : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow), mySetBulkMode(setBulkMode) {}
         void run(FXWorkerThread* context);
     private:
         ROMAAssignments& myAssign;
         ODCell* const myCell;
         const SUMOTime myBegin;
         const double myLinkFlow;
+        bool mySetBulkMode;
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&);

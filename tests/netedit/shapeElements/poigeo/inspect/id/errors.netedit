@@ -8,9 +8,9 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiGeo' in TagSelector
 Debug: Adding poiGeo 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Adding poiGeo 'poi_1' into viewNet
-GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary -5.00,7.00,17.00,29.00
+GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary -4.50,7.50,16.50,28.50
 Debug: Setting new attribute id 'POI_1' into poiGeo 'poi_0'
 Debug: Value '' for attribute id of poiGeo isn't valid
 Debug: Value 'ID with spaces' for attribute id of poiGeo isn't valid
@@ -24,11 +24,11 @@ Debug: Setting previous attribute id 'poi_0' into poiGeo 'POI_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiGeo 'poi_1' from viewNet
-GLDebug: 	Removed object poi:poi_1 from SUMORTree with boundary -5.00,7.00,17.00,29.00
+GLDebug: 	Removed object poi:poi_1 from SUMORTree with boundary -4.50,7.50,16.50,28.50
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poiGeo 'poi_1' into viewNet
-GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary -5.00,7.00,17.00,29.00
+GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary -4.50,7.50,16.50,28.50
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute id 'POI_1' into poiGeo 'poi_0'
@@ -51,10 +51,10 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poiGeo 'poi_1' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:poi_1 from SUMORTree with boundary -5.00,7.00,17.00,29.00
+GLDebug: 	Removed object poi:poi_1 from SUMORTree with boundary -4.50,7.50,16.50,28.50
 Debug: delete poiGeo 'poi_1' in ~GNEChange_Shape()
 Debug: Removing poiGeo 'newID' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:newID from SUMORTree with boundary -9.00,7.00,13.00,29.00
+GLDebug: 	Removed object poi:newID from SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: delete poiGeo 'newID' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

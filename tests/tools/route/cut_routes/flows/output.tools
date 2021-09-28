@@ -1,6 +1,6 @@
+Warning, the heterogeneous option is now enabled by default. Please do not use it any longer.
 Valid area contains 4 edges
 Parsing routes from input_routes.rou.xml
-Could not reconstruct new departure time for flow 'straight'. Using old departure time.
 Parsed 0 vehicles, 0 persons, 2 flows and kept 1 routes
 Number of disconnected routes: 1.
 Most frequent missing edges:

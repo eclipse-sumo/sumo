@@ -39,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an edge
 GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID):
-    GNEChange(forward, false),
+    GNEChange(Supermode::NETWORK, forward, false),
     myJunction(junction),
     myTlDef(tlDef),
     myForceInsert(forceInsert) {
@@ -103,21 +103,21 @@ GNEChange_TLS::redo() {
 }
 
 
-FXString
+std::string
 GNEChange_TLS::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_TRAFFIC_LIGHT));
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT));
     }
 }
 
 
-FXString
+std::string
 GNEChange_TLS::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_TRAFFIC_LIGHT));
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT));
     }
 }

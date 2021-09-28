@@ -36,9 +36,9 @@
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZParent, GNEEdge* edge, double departWeight) :
     GNETAZElement(TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag,
-{}, {edge}, {}, {}, {}, {TAZParent}, {}, {},
-std::map<std::string, std::string>(), false),
-myDepartWeight(departWeight) {
+    {}, {edge}, {}, {}, {}, {TAZParent}, {}, {},
+    std::map<std::string, std::string>()),
+    myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
         throw InvalidArgument("Invalid TAZ Child Tag");
@@ -190,7 +190,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             case SUMO_ATTR_ID:
             case SUMO_ATTR_WEIGHT:
             case GNE_ATTR_PARAMETERS:
-                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 break;
             default:
                 throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -249,8 +249,6 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
-            // update statictis of TAZ parent
-            getParentTAZElements().at(0)->updateParentAdditional();
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);

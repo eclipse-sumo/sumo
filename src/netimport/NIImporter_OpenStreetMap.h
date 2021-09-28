@@ -652,6 +652,9 @@ protected:
         /// @brief indicates whether current relation is a pt route
         std::string myPTRouteType;
 
+        /// @brief official route color
+        RGBColor myRouteColor;
+
         /// @brief name of the relation
         std::string myName;
 

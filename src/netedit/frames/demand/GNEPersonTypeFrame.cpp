@@ -239,9 +239,9 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType(FXObject*, FXSelecto
     // create new person type
     GNEDemandElement* personType = new GNEVehicleType(myPersonTypeFrameParent->myViewNet->getNet(), personTypeID, SUMO_TAG_PTYPE);
     // add it using undoList (to allow undo-redo)
-    myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("create person type");
+    myPersonTypeFrameParent->myViewNet->getUndoList()->begin("create person type");
     myPersonTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(personType, true), true);
-    myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
+    myPersonTypeFrameParent->myViewNet->getUndoList()->end();
     // set created person type in selector
     myPersonTypeFrameParent->myPersonTypeSelector->setCurrentPersonType(personType);
     // refresh PersonType Editor Modul
@@ -272,21 +272,21 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
             }
         } else {
             // begin undo list operation
-            myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
+            myPersonTypeFrameParent->myViewNet->getUndoList()->begin("delete person type");
             // remove person type (and all of their children)
             myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
                     myPersonTypeFrameParent->myViewNet->getUndoList());
             // end undo list operation
-            myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
+            myPersonTypeFrameParent->myViewNet->getUndoList()->end();
         }
     } else {
         // begin undo list operation
-        myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("delete person type");
+        myPersonTypeFrameParent->myViewNet->getUndoList()->begin("delete person type");
         // remove person type (and all of their children)
         myPersonTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType(),
                 myPersonTypeFrameParent->myViewNet->getUndoList());
         // end undo list operation
-        myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
+        myPersonTypeFrameParent->myViewNet->getUndoList()->end();
     }
     return 1;
 }
@@ -295,7 +295,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdDeletePersonType(FXObject*, FXSelecto
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType(FXObject*, FXSelector, void*) {
     // begin reset default person type values
-    myPersonTypeFrameParent->getViewNet()->getUndoList()->p_begin("reset default person type values");
+    myPersonTypeFrameParent->getViewNet()->getUndoList()->begin("reset default person type values");
     // reset all values of default person type
     for (const auto& i : GNEAttributeCarrier::getTagProperties(SUMO_TAG_PTYPE)) {
         // change all attributes with "" to reset it (except ID and vClass)
@@ -310,7 +310,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType(FXObject*, FXSelector
     // change special attribute GNE_ATTR_DEFAULT_VTYPE_MODIFIED
     myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType()->setAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "false", myPersonTypeFrameParent->myViewNet->getUndoList());
     // finish reset default person type values
-    myPersonTypeFrameParent->getViewNet()->getUndoList()->p_end();
+    myPersonTypeFrameParent->getViewNet()->getUndoList()->end();
     // refresh PersonTypeSelector
     myPersonTypeFrameParent->myPersonTypeSelector->refreshPersonTypeSelector();
     return 1;
@@ -328,11 +328,11 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCopyPersonType(FXObject*, FXSelector,
         // create a new person Type based on the current selected person type
         GNEDemandElement* personTypeCopy = new GNEVehicleType(myPersonTypeFrameParent->myViewNet->getNet(), personTypeID, vType);
         // begin undo list operation
-        myPersonTypeFrameParent->myViewNet->getUndoList()->p_begin("copy person type");
+        myPersonTypeFrameParent->myViewNet->getUndoList()->begin("copy person type");
         // add it using undoList (to allow undo-redo)
         myPersonTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(personTypeCopy, true), true);
         // end undo list operation
-        myPersonTypeFrameParent->myViewNet->getUndoList()->p_end();
+        myPersonTypeFrameParent->myViewNet->getUndoList()->end();
         // refresh Vehicle Type Selector (to show the new pType)
         myPersonTypeFrameParent->myPersonTypeSelector->refreshPersonTypeSelector();
         // set created person type in selector

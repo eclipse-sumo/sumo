@@ -67,7 +67,15 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
     priority = edgeType->priority;
     permissions = edgeType->permissions;
     spreadType = edgeType->spreadType;
+    oneWay = edgeType->oneWay;
+    discard = edgeType->discard;
     width = edgeType->width;
+    widthResolution = edgeType->widthResolution;
+    maxWidth = edgeType->maxWidth;
+    minWidth = edgeType->minWidth;
+    sidewalkWidth = edgeType->sidewalkWidth;
+    bikeLaneWidth = edgeType->bikeLaneWidth;
+    restrictions = edgeType->restrictions;
     attrs = edgeType->attrs;
     laneTypeDefinitions = edgeType->laneTypeDefinitions;
 }
@@ -124,7 +132,7 @@ GNEEdgeType::addLaneType(GNEUndoList* undoList) {
     // create new laneType
     GNELaneType* laneType = new GNELaneType(this);
     // begin undoList
-    undoList->p_begin("add laneType");
+    undoList->begin("add laneType");
     // add lane
     undoList->add(new GNEChange_LaneType(laneType, (int)myLaneTypes.size(), true), true);
     // set default parameters
@@ -133,7 +141,7 @@ GNEEdgeType::addLaneType(GNEUndoList* undoList) {
     laneType->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH), undoList);
     laneType->setAttribute(GNE_ATTR_PARAMETERS, "", undoList);
     // end undoList
-    undoList->p_end();
+    undoList->end();
 }
 
 
@@ -153,7 +161,7 @@ GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
     // first check if index is correct
     if ((myLaneTypes.size() > 1) && (index < (int)myLaneTypes.size())) {
         // begin undoList
-        undoList->p_begin("remove laneType");
+        undoList->begin("remove laneType");
         // copy laneType values
         for (int i = index; i < ((int)myLaneTypes.size() - 1); i++) {
             myLaneTypes.at(i)->copyLaneType(myLaneTypes.at(i + 1), undoList);
@@ -161,7 +169,7 @@ GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
         // remove last lane
         undoList->add(new GNEChange_LaneType(myLaneTypes.back(), ((int)myLaneTypes.size() - 1), false), true);
         // end undoList
-        undoList->p_end();
+        undoList->end();
     }
 }
 
@@ -249,6 +257,22 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(priority);
             }
+        // non editable attributes
+        case SUMO_ATTR_ONEWAY:
+            return toString(oneWay);
+        case SUMO_ATTR_DISCARD:
+            return toString(discard);
+        case SUMO_ATTR_WIDTHRESOLUTION:
+            return toString(widthResolution);
+        case SUMO_ATTR_MAXWIDTH:
+            return toString(maxWidth);
+        case SUMO_ATTR_MINWIDTH:
+            return toString(minWidth);
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            return toString(sidewalkWidth);
+        case SUMO_ATTR_BIKELANEWIDTH:
+            return toString(bikeLaneWidth);
+        // parameters
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -270,7 +294,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -317,8 +341,20 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEEdgeType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
+GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+    // non editable attributes
+    case SUMO_ATTR_ONEWAY:
+    case SUMO_ATTR_DISCARD:
+    case SUMO_ATTR_WIDTHRESOLUTION:
+    case SUMO_ATTR_MAXWIDTH:
+    case SUMO_ATTR_MINWIDTH:
+    case SUMO_ATTR_SIDEWALKWIDTH:
+    case SUMO_ATTR_BIKELANEWIDTH:
+        return false;
+    default:
+        return true;
+    }
 }
 
 

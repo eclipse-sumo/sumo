@@ -39,7 +39,7 @@ else:
 egoID = "ego"
 
 
-def runSingle(traciEndTime, downstreamDist, upstreamDist):
+def runSingle(traciEndTime, downstreamDist, foeDistToJunction):
     step = 0
     traci.start(sumoCall + ["-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
     subscribed = False
@@ -58,9 +58,9 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
             print("Subscribing to context of vehicle '%s'" % (egoID))
             traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
                                            [traci.constants.VAR_POSITION])
-            print("Adding turn filter ... \n(downstreamDist=%s, upstreamDist=%s)" % (downstreamDist, upstreamDist))
+            print("Adding turn filter ... \n(downstreamDist=%s, foeDistToJunction=%s)" % (downstreamDist, foeDistToJunction))
             sys.stdout.flush()
-            traci.vehicle.addSubscriptionFilterTurn(downstreamDist, upstreamDist)
+            traci.vehicle.addSubscriptionFilterTurn(downstreamDist, foeDistToJunction)
             subscribed = True
         step += 1
 
@@ -77,7 +77,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
 
 
 if len(sys.argv) < 4:
-    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist>")
+    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <foeDistToJunction>")
     sys.exit("")
 sys.stdout.flush()
 runSingle(100, float(sys.argv[2]), float(sys.argv[3]))

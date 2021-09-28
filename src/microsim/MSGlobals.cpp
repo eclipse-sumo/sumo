@@ -84,5 +84,7 @@ double MSGlobals::gTLSYellowMinDecel;
 
 bool MSGlobals::gLefthand(false);
 
+double MSGlobals::gWeightsSeparateTurns(0);
+
 
 /****************************************************************************/

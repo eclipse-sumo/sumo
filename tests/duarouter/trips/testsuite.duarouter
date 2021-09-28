@@ -103,6 +103,9 @@ write-trips.junctions2
 # test trip validation (trip input and trip output)
 write-trips.geo
 
+# write named routes
+named-routes
+
 # test trip with intermediate container stop
 containerStop
 

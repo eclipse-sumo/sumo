@@ -250,19 +250,24 @@ GUIPolygon::storeTesselation(const bool fill, const PositionVector& shape, doubl
 
 
 void
-GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor) {
+GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor, int alphaOverride) {
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
+    RGBColor color;
     if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, o->getGlID()) && disableSelectionColor) {
         // override with special selection colors (unless the color scheme is based on selection)
-        GLHelper::setColor(RGBColor(0, 0, 204));
+        color = RGBColor(0, 0, 204);
     } else if (active == 0) {
-        GLHelper::setColor(polygon->getShapeColor());
+        color = polygon->getShapeColor();
     } else if (active == 1) {
-        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, o->getGlID())));
+        color = c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, o->getGlID()));
     } else {
-        GLHelper::setColor(c.getScheme().getColor(0));
+        color = c.getScheme().getColor(0);
     }
+    if (alphaOverride >= 0 && alphaOverride <= 255 ) {
+        color.setAlpha((unsigned char)alphaOverride);
+    }
+    GLHelper::setColor(color);
 }
 
 
@@ -290,10 +295,10 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 
 void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
-                             const PositionVector shape, double layer, bool disableSelectionColor) {
+                             const PositionVector shape, double layer, bool disableSelectionColor, int alphaOverride) {
     GLHelper::pushMatrix();
     glTranslated(0, 0, layer);
-    setColor(s, polygon, o, disableSelectionColor);
+    setColor(s, polygon, o, disableSelectionColor, alphaOverride);
     int textureID = -1;
     if (polygon->getFill()) {
         const std::string& file = polygon->getShapeImgFile();

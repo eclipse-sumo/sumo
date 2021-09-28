@@ -18,9 +18,7 @@
 // Testing libsumo for C++
 /****************************************************************************/
 #include <iostream>
-#include <libsumo/Simulation.h>
-#include <utils/common/ToString.h>
-
+#include <libsumo/libsumo.h>
 
 
 // ===========================================================================

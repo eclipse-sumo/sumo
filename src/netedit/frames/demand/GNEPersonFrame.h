@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 
 
 // ===========================================================================
@@ -67,6 +68,12 @@ protected:
     void createPath();
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
+    /// @brief person base object
+    CommonXMLStructure::SumoBaseObject* myPersonBaseObject;
+
     /// @brief person tag selector (used to select diffent kind of persons)
     GNEFrameModuls::TagSelector* myPersonTagSelector;
 
@@ -88,6 +95,6 @@ private:
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModuls::PathCreator* myPathCreator;
 
-    /// @brief build person and return it (note: function includes a call to p_begin(...), but NOT a call to p_end(...))
+    /// @brief build person and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildPerson();
 };

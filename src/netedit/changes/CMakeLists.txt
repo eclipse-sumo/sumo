@@ -1,6 +1,8 @@
 set(netedit_changes_SRCS
    GNEChange.h
    GNEChange.cpp
+   GNEChangeGroup.h
+   GNEChangeGroup.cpp
    GNEChange_Junction.h
    GNEChange_Junction.cpp
    GNEChange_Edge.h

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 18 15:38:02 2020 by Eclipse SUMO netconvert Version v1_8_0+0332-d62ab2d821
+<!-- generated on 2021-09-16 21:09:16 by Eclipse SUMO netconvert Version v1_10_0+0751-9e8cba3d7fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <railway>
         <railway.topology.repair value="true"/>
-        <railway.topology.repair value="true"/>
+        <railway.topology.repair.minimal value="true"/>
         <railway.topology.repair.stop-turn value="true"/>
     </railway>
 
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="2161757200" name="Leisewitzstraße" lane="25290479_0" startPos="392.45" endPos="417.45" friendlyPos="true" lines="2"/>
-    <busStop id="302112841" name="Bürgerpark" lane="33289080_0" startPos="59.91" endPos="74.76" friendlyPos="true" lines="420"/>
+    <busStop id="302112841" name="Bürgerpark" lane="33289080_0" startPos="59.91" endPos="74.77" friendlyPos="true" lines="420"/>
     <busStop id="309922823" name="Bürgerpark" lane="320432219#0_0" startPos="22.49" endPos="37.49" friendlyPos="true" lines="420"/>
     <busStop id="3153581347" name="Heinrich-Büssing-Ring" lane="310144574_0" startPos="338.69" endPos="363.69" friendlyPos="true" lines="2 1">
         <access lane="320432221#0_0" pos="0.00" length="228.78" friendlyPos="1"/>

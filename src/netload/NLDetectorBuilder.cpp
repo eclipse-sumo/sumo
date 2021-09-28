@@ -93,14 +93,14 @@ void
 NLDetectorBuilder::buildInductLoop(const std::string& id,
                                    const std::string& lane, double pos, SUMOTime splInterval,
                                    const std::string& device, bool friendlyPos,
-                                   const std::string& vTypes) {
+                                   const std::string& vTypes, int detectPersons) {
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     // build the loop
-    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes);
+    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes, detectPersons);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
 }
@@ -376,11 +376,13 @@ NLDetectorBuilder::buildRouteProbe(const std::string& id, const std::string& edg
 MSDetectorFileOutput*
 NLDetectorBuilder::createInductLoop(const std::string& id,
                                     MSLane* lane, double pos,
-                                    const std::string& vTypes, bool) {
+                                    const std::string& vTypes,
+                                    int detectPersons,
+                                    bool /*show*/) {
     if (MSGlobals::gUseMesoSim) {
-        return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes);
+        return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes, detectPersons);
     }
-    return new MSInductLoop(id, lane, pos, vTypes, false);
+    return new MSInductLoop(id, lane, pos, vTypes, detectPersons, false);
 }
 
 

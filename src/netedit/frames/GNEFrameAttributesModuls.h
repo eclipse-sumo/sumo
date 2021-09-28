@@ -175,9 +175,6 @@ public:
         /// @brief get attributes and their values
         void getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const;
 
-        /// @brief get attributes and their values (temporal)
-        std::map<SumoXMLAttr, std::string> getAttributesAndValuesTemporal(bool includeAll) const;
-
         /// @brief get current edited Tag Properties
         GNETagProperties getCurrentTagProperties() const;
 
@@ -242,9 +239,6 @@ public:
 
         /// @brief set parameters
         void setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject);
-
-        /// @brief set parameters (temporal)
-        void setFlowParametersTemporal(std::map<SumoXMLAttr, std::string>& valuesMap) const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -589,9 +583,6 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* getFrameParent() const;
 
-        /// @brief get current parameter type
-        Parameterised::ParameterisedAttrType getAttrType() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user clicks over add parameter
@@ -607,9 +598,6 @@ public:
     private:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent = nullptr;
-
-        /// @brief flag for parameters type
-        Parameterised::ParameterisedAttrType myAttrType;
 
         /// @brief pointer to current map of parameters
         std::map<std::string, std::string> myParameters;
@@ -731,9 +719,6 @@ public:
         /// @brief fill valuesMap with netedit attributes
         bool getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const;
 
-        /// @brief fill valuesMap with netedit attributes (temporal)
-        bool getNeteditAttributesAndValuesTemporal(std::map<SumoXMLAttr, std::string>& valuesMap, const GNELane* lane) const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user changes some element of NeteditAttributes
@@ -772,12 +757,6 @@ public:
 
         /// @brief textField for length
         FXTextField* myLengthTextField;
-
-        /// @brief horizontal frame for block movement
-        FXHorizontalFrame* myBlockMovementFrame;
-
-        /// @brief checkBox for block movement
-        FXCheckButton* myBlockMovementCheckButton;
 
         /// @brief horizontal frame for close polygon
         FXHorizontalFrame* myCloseShapeFrame;

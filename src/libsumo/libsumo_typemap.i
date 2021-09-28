@@ -333,6 +333,8 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 #else
 // ignore unused parameter warnings for vector template code
 #pragma GCC diagnostic ignored "-Wunused-parameter"
+// ignore uninitialized fields for typeobject::tp_vectorcall and typeobject::tp_print
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
 
 #include <iostream>

@@ -63,7 +63,6 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
                   const std::vector<GNEJunction*>& junctionParents,
@@ -74,7 +73,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string>& parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters);
 
     /**@brief Constructor for additional with parents
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -90,7 +89,6 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
                   const std::vector<GNEJunction*>& junctionParents,
@@ -101,7 +99,7 @@ public:
                   const std::vector<GNETAZElement*>& TAZElementParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
                   const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::map<std::string, std::string>& parameters, bool blockMovement);
+                  const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -131,7 +129,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device) const;
+    virtual void writeAdditional(OutputDevice& device) const;
 
     /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in children)
     virtual bool isAdditionalValid() const;
@@ -164,9 +162,6 @@ public:
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
     /// @}
-
-    /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
-    bool isAdditionalBlocked() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -309,9 +304,6 @@ protected:
 
     /// @brief name of additional
     std::string myAdditionalName;
-
-    /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
-    bool myBlockMovement;
 
     /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
     const RGBColor* mySpecialColor = nullptr;

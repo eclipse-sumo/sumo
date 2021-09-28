@@ -72,8 +72,14 @@ def get_options(args=None):
     optParser.add_option("--bus.parking", default=False, action="store_true",
                          dest='busparking', help="let busses clear the road while stopping")
     optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
-    optParser.add_option("-d", "--stop-duration", default=30, type="float", dest='stopduration',
+    optParser.add_option("-d", "--stop-duration", default=20, type="float", dest='stopduration',
                          help="Configure the minimum stopping duration")
+    optParser.add_option("--stop-duration-slack", default=10, type="float", dest='stopdurationSlack',
+                         help="Stopping time reserve in the schedule")
+    optParser.add_option("--speedfactor.bus", default=0.95, type="float", dest='speedFactorBus',
+                         help="Assumed bus relative travel speed")
+    optParser.add_option("--speedfactor.tram", default=1.0, type="float", dest='speedFactorTram',
+                         help="Assumed tram relative travel speed")
     optParser.add_option("-H", "--human-readable-time", dest="hrtime", default=False,
                          action="store_true", help="write times as h:m:s")
     optParser.add_option("--night", action="store_true", default=False, help="Export night service lines")
@@ -96,16 +102,32 @@ def get_options(args=None):
     return options
 
 
-def writeTypes(fout, prefix):
-    print("""    <vType id="%sbus" vClass="bus"/>
-    <vType id="%stram" vClass="tram"/>
-    <vType id="%strain" vClass="rail"/>
-    <vType id="%ssubway" vClass="rail_urban"/>
-    <vType id="%slight_rail" vClass="rail_urban"/>
-    <vType id="%smonorail" vClass="rail"/>
-    <vType id="%strolleybus" vClass="bus"/>
-    <vType id="%saerialway" vClass="bus"/>
-    <vType id="%sferry" vClass="ship"/>""" % tuple([prefix] * 9), file=fout)
+class PTLine:
+    def __init__(self, ref, name, completeness, period, color):
+        self.ref = ref
+        self.name = name
+        self.completeness = completeness
+        self.period = period
+        self.color = color
+
+def writeTypes(fout, prefix, options):
+    # note: public transport vehicles have speedDev="0" by default
+    prefixes_and_sf = [prefix, ""] * 9
+    if options:
+        prefixes_and_sf[1] = ' speedFactor="%s"' % options.speedFactorBus
+        prefixes_and_sf[3] = ' speedFactor="%s"' % options.speedFactorTram
+        # trolleybus
+        prefixes_and_sf[13] = ' speedFactor="%s"' % options.speedFactorBus
+
+    print("""    <vType id="%sbus" vClass="bus"%s/>
+    <vType id="%stram" vClass="tram"%s/>
+    <vType id="%strain" vClass="rail"%s/>
+    <vType id="%ssubway" vClass="rail_urban"%s/>
+    <vType id="%slight_rail" vClass="rail_urban"%s/>
+    <vType id="%smonorail" vClass="rail"%s/>
+    <vType id="%strolleybus" vClass="bus"%s/>
+    <vType id="%saerialway" vClass="bus"%s/>
+    <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
 
 def getStopEdge(stopsLanes, stop):
@@ -126,7 +148,7 @@ def createTrips(options):
         sumolib.writeXMLHeader(
             fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes")
-        writeTypes(fouttrips, options.vtypeprefix)
+        writeTypes(fouttrips, options.vtypeprefix, options)
 
         departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
         if options.randomBegin:
@@ -239,9 +261,11 @@ def createTrips(options):
                      'to="%s">\n') % (
                         tripID, options.vtypeprefix, line.type, begin, fr, to))
 
-            trpMap[tripID] = (lineRef, line.attr_name, line.completeness, line.period)
+            trpMap[tripID] = PTLine(lineRef, line.attr_name, line.completeness,
+                    line.period, line.getAttributeSecure("color", None))
             for stop in stop_ids:
-                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopduration))
+                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop,
+                    options.stopduration + options.stopdurationSlack))
             fouttrips.write('    </trip>\n')
             typeCount[line.type] += 1
             numLines += 1
@@ -292,12 +316,12 @@ def createRoutes(options, trpMap, stopNames):
             foutflows, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes")
         if not options.novtypes:
-            writeTypes(foutflows, options.vtypeprefix)
+            writeTypes(foutflows, options.vtypeprefix, None)
         collections.defaultdict(int)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
-            lineRef, name, completeness, period = trpMap[id]
-            flowID = "%s_%s" % (vehicle.type, lineRef)
+            ptline = trpMap[id]
+            flowID = "%s_%s" % (vehicle.type, ptline.ref)
             try:
                 if vehicle.route is not None:
                     edges = vehicle.route[0].edges
@@ -309,11 +333,12 @@ def createRoutes(options, trpMap, stopNames):
                     continue
                 else:
                     sys.exit("Could not parse edges for vehicle '%s'\n" % id)
-            flows.append((id, flowID, lineRef, vehicle.type, float(vehicle.depart)))
+            flows.append((id, flowID, ptline.ref, vehicle.type, float(vehicle.depart)))
             actualDepart[id] = float(vehicle.depart)
             parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
             stops = vehicle.stop
-            foutflows.write('    <route id="%s" edges="%s" >\n' % (flowID, edges))
+            color = ' color="%s"' % ptline.color if ptline.color is not None else ""
+            foutflows.write('    <route id="%s"%s edges="%s" >\n' % (flowID, color, edges))
             if vehicle.stop is not None:
                 for stop in stops:
                     if (id, stop.busStop) in stopsUntil:
@@ -324,7 +349,7 @@ def createRoutes(options, trpMap, stopNames):
                             stopsUntil[(id, stop.busStop)] = until[1:]
                         foutflows.write(
                             '        <stop busStop="%s" duration="%s" until="%s"%s/>%s\n' % (
-                                stop.busStop, stop.duration, ft(untilZeroBased), parking, stopname))
+                                stop.busStop, options.stopduration, ft(untilZeroBased), parking, stopname))
                     else:
                         sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             else:
@@ -332,14 +357,14 @@ def createRoutes(options, trpMap, stopNames):
             foutflows.write('    </route>\n')
         flow_duration = options.end - options.begin
         for vehID, flowID, lineRef, type, begin in flows:
-            line, name, completeness, period = trpMap[vehID]
+            ptline = trpMap[vehID]
             foutflows.write('    <flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
                 flowID, type, flowID, ft(begin), ft(begin + flow_duration),
-                int(float(period)), lineRef, options.flowattrs))
-            if name is not None:
-                foutflows.write('        <param key="name" value=%s/>\n' % quoteattr(name))
-            if completeness is not None:
-                foutflows.write('        <param key="completeness" value=%s/>\n' % quoteattr(completeness))
+                int(float(ptline.period)), ptline.ref, options.flowattrs))
+            if ptline.name is not None:
+                foutflows.write('        <param key="name" value=%s/>\n' % quoteattr(ptline.name))
+            if ptline.completeness is not None:
+                foutflows.write('        <param key="completeness" value=%s/>\n' % quoteattr(ptline.completeness))
             foutflows.write('    </flow>\n')
         foutflows.write('</routes>\n')
 

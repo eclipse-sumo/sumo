@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-24 10:36:51 by Eclipse SUMO duarouter Version v1_10_0+0970-73dff38
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <processing>
+        <skip-new-routes value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0.0" depart="0.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.1" depart="2.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.2" depart="4.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.3" depart="6.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.4" depart="8.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.5" depart="10.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.6" depart="12.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.7" depart="14.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.8" depart="16.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.9" depart="18.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.10" depart="20.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.11" depart="22.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.12" depart="24.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.13" depart="26.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.14" depart="28.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.15" depart="30.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.16" depart="32.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.17" depart="34.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.18" depart="36.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.19" depart="38.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.20" depart="40.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.21" depart="42.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.22" depart="44.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.23" depart="46.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.24" depart="48.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.25" depart="50.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.26" depart="52.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.27" depart="54.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.28" depart="56.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.29" depart="58.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.30" depart="60.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.31" depart="62.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.32" depart="64.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.33" depart="66.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.34" depart="68.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.35" depart="70.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.36" depart="72.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.37" depart="74.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.38" depart="76.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.39" depart="78.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.40" depart="80.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.41" depart="82.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.42" depart="84.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.43" depart="86.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.44" depart="88.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.45" depart="90.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.46" depart="92.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.47" depart="94.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.48" depart="96.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.49" depart="98.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.50" depart="100.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.51" depart="102.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.52" depart="104.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.53" depart="106.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.54" depart="108.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.55" depart="110.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.56" depart="112.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.57" depart="114.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.58" depart="116.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.59" depart="118.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.60" depart="120.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.61" depart="122.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.62" depart="124.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.63" depart="126.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.64" depart="128.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.65" depart="130.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.66" depart="132.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.67" depart="134.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.68" depart="136.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.69" depart="138.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.70" depart="140.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.71" depart="142.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.72" depart="144.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.73" depart="146.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.74" depart="148.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.75" depart="150.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.76" depart="152.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.77" depart="154.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.78" depart="156.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.79" depart="158.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.80" depart="160.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.81" depart="162.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.82" depart="164.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.83" depart="166.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.84" depart="168.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.85" depart="170.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.86" depart="172.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.87" depart="174.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.88" depart="176.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.89" depart="178.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.90" depart="180.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.91" depart="182.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.92" depart="184.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.93" depart="186.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.94" depart="188.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.95" depart="190.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.96" depart="192.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.97" depart="194.00">
+        <routeDistribution last="1">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.98" depart="196.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.99" depart="198.00">
+        <routeDistribution last="0">
+            <route cost="27.55" probability="0.49468355" edges="WC CS SC CE"/>
+            <route cost="7.56" probability="0.50531645" edges="SC CE EC CN"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

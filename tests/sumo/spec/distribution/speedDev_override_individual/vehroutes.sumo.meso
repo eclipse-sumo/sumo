@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 27 09:34:46 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
+<!-- generated on 2021-09-21 12:51:51 by Eclipse SUMO sumo Version v1_10_0+0860-b8ef5ad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -37,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" type="v" depart="0.00" departSpeed="32.25" arrival="32.00">
+    <vehicle id="veh0" type="v" depart="0.00" departSpeed="32.25" speedFactor="1.16" arrival="32.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -45,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="trip0" type="v" depart="4.00" departSpeed="17.67" arrival="75.00">
+    <vehicle id="trip0" type="v" depart="4.00" departSpeed="17.67" speedFactor="1.11" arrival="75.00">
         <route edges="beg end"/>
     </vehicle>
 

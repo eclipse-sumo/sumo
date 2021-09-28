@@ -44,11 +44,10 @@ public:
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                const std::string& name, const bool friendlyPos, const std::map<std::string, std::string>& parameters, const bool blockMovement);
+                const std::string& name, const bool friendlyPos, const std::map<std::string, std::string>& parameters);
 
     /**@brief Constructor.
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
@@ -62,11 +61,10 @@ public:
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
     GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
-                const std::map<std::string, std::string>& parameters, bool blockMovement);
+                const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNEDetector();

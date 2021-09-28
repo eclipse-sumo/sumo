@@ -68,6 +68,8 @@ GUIBasePersonHelper::drawAction_drawAsPoly(const double angle, const double leng
     glScaled(length, width, 1);
     RGBColor lighter = GLHelper::getColor().changedBrightness(51);
     glTranslated(0, 0, .045);
+    // front is at the nose
+    glTranslated(-0.5, 0, 0);
     // head
     glScaled(1, 0.5, 1.);
     GLHelper::drawFilledCircle(0.5);

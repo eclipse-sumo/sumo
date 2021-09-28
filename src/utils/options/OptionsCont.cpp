@@ -605,7 +605,12 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         std::cout << "are made available under the terms of the Eclipse Public License v2.0\n";
         std::cout << "which accompanies this distribution, and is available at\n";
         std::cout << "http://www.eclipse.org/legal/epl-v20.html\n";
-        std::cout << "SPDX-License-Identifier: EPL-2.0" << std::endl;
+        std::cout << "This program may also be made available under the following Secondary\n";
+        std::cout << "Licenses when the conditions for such availability set forth in the Eclipse\n";
+        std::cout << "Public License 2.0 are satisfied: GNU General Public License, version 2\n";
+        std::cout << "or later which is available at\n";
+        std::cout << "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html\n";
+        std::cout << "SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later" << std::endl;
         return true;
     }
     // check whether the settings shall be printed
@@ -619,7 +624,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, true, false, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(getString("save-configuration").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-configuration")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save configuration to '" + getString("save-configuration") + "'");
         } else {
@@ -636,7 +641,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, false, true, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(getString("save-template").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-template")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save template to '" + getString("save-template") + "'");
         } else {
@@ -652,7 +657,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeSchema(std::cout);
             return true;
         }
-        std::ofstream out(getString("save-schema").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-schema")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
         } else {

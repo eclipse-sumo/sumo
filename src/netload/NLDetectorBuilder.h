@@ -89,7 +89,7 @@ public:
     void buildInductLoop(const std::string& id,
                          const std::string& lane, double pos, SUMOTime splInterval,
                          const std::string& device, bool friendlyPos,
-                         const std::string& vTypes);
+                         const std::string& vTypes, int detectPersons);
 
 
     /** @brief Builds an instantenous induction and adds it to the net
@@ -266,7 +266,9 @@ public:
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
             MSLane* lane, double pos,
-            const std::string& vTypes, bool show = true);
+            const std::string& vTypes,
+            int detectPersons,
+            bool show = true);
 
 
     /** @brief Creates an instance of an e1 detector using the given values
