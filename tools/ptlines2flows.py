@@ -110,6 +110,7 @@ class PTLine:
         self.period = period
         self.color = color
 
+
 def writeTypes(fout, prefix, options):
     # note: public transport vehicles have speedDev="0" by default
     prefixes_and_sf = [prefix, ""] * 9
@@ -262,10 +263,10 @@ def createTrips(options):
                         tripID, options.vtypeprefix, line.type, begin, fr, to))
 
             trpMap[tripID] = PTLine(lineRef, line.attr_name, line.completeness,
-                    line.period, line.getAttributeSecure("color", None))
+                                    line.period, line.getAttributeSecure("color", None))
             for stop in stop_ids:
-                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop,
-                    options.stopduration + options.stopdurationSlack))
+                dur = options.stopduration + options.stopdurationSlack
+                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, dur))
             fouttrips.write('    </trip>\n')
             typeCount[line.type] += 1
             numLines += 1
