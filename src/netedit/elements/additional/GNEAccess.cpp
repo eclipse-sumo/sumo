@@ -157,6 +157,15 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     const double radius = 0.5;
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get color
+        RGBColor color;
+        if (drawUsingSelectColor()) {
+            color = s.colorSettings.selectedAdditionalColor;
+        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
+            color = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+        } else {
+            color = s.colorSettings.busStopColor;
+        }
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // push layer matrix
@@ -164,15 +173,9 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
         // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // set color depending of selection
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
-            GLHelper::setColor(parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR)));
-        } else {
-            GLHelper::setColor(s.colorSettings.busStopColor);
-        }
+        drawParentChildLines(s, color);
+        // set color
+        GLHelper::setColor(color);
         // translate to geometry position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // draw circle

@@ -143,7 +143,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
             // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            drawParentChildLines(s, baseColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
@@ -161,8 +161,6 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
-            // draw connection betwen access
-            drawConnectionAccess(s, baseColor);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
@@ -378,31 +376,6 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-void
-GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor& color) const {
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
-        // Add a draw matrix for details
-        GLHelper::pushMatrix();
-        // move to GLO_BUS_STOP
-        glTranslated(0, 0, GLO_BUS_STOP);
-        // set color
-        GLHelper::setColor(color);
-        // draw lines between BusStops and Access
-        for (const auto& access : getChildAdditionals()) {
-            // get busStop center
-            const Position busStopCenter = myAdditionalGeometry.getShape().getLineCenter();
-            // get access center
-            const Position accessCenter = access->getAdditionalGeometry().getShape().getPolygonCenter();
-            GLHelper::drawBoxLine(accessCenter,
-                                  RAD2DEG(busStopCenter.angleTo2D(accessCenter)) - 90,
-                                  busStopCenter.distanceTo2D(accessCenter), .05);
-        }
-        // pop draw matrix
-        GLHelper::popMatrix();
     }
 }
 
