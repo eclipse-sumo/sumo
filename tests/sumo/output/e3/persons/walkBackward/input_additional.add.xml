@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <e3Detector id="det" freq="100" detectPersons="walkBackward" file="detector.xml">
+       <detEntry lane="SC_0" pos="50"/>
+       <detEntry lane="SC_3" pos="50"/>
+       <detExit lane="SC_0" pos="70"/>
+       <detExit lane="SC_3" pos="70"/>
+   </e3Detector>
+
+</additional>
