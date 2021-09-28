@@ -122,6 +122,7 @@ const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0);
 const double GUIVisualizationAdditionalSettings::arrowWidth(1);
 const double GUIVisualizationAdditionalSettings::arrowLength(0.25);
+const double GUIVisualizationAdditionalSettings::arrowOffset(0.1);
 
 // -------------------------------------------------------------------------
 // detector values

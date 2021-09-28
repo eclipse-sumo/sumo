@@ -350,6 +350,9 @@ struct GUIVisualizationAdditionalSettings {
 
     /// @brief arrow length
     static const double arrowLength;
+
+    /// @brief arrow offset
+    static const double arrowOffset;
 };
 
 

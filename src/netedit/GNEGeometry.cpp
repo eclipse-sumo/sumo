@@ -974,27 +974,44 @@ GNEGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &p
         GLHelper::pushMatrix();
         // move back
         glTranslated(0, 0, -1);
-        // set color
-        GLHelper::setColor(color);
         // draw box line
         if (drawEntire) {
+            // draw first box line
+            GLHelper::setColor(color.changedBrightness(-50));
             GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .05);
-        } else {
-            // continue depending of distanceSquared (5*5)
-            if (distanceSquared > 25) {
-                // draw box line with lenght 5
-                GLHelper::drawBoxLine(parent, rot, 5, .05);
-                // draw arrow depending of distanceSquared (10*10)
-                if (distanceSquared > 100) {
-                    // calculate positionVector between both points
-                    const PositionVector vector = {parent, child};
-                    // draw arrow at end
-                    GLHelper::drawTriangleAtEnd(parent, 
-                        vector.positionAtOffset2D(5), 
-                        s.additionalSettings.arrowWidth, 
-                        s.additionalSettings.arrowLength, 
-                        s.additionalSettings.arrowWidth);
-                }
+            // move front
+            glTranslated(0, 0, 0.1);
+            // draw second box line with lenght 5
+            GLHelper::setColor(color);
+            GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .04);
+        } else if (distanceSquared > 25) {
+            // draw first box line with lenght 5
+            GLHelper::setColor(color.changedBrightness(-50));
+            GLHelper::drawBoxLine(parent, rot, 5, .05);
+            glTranslated(0, 0, 0.1);
+            // draw second box line with lenght 5
+            GLHelper::setColor(color);
+            GLHelper::drawBoxLine(parent, rot, 5, .04);
+            // draw arrow depending of distanceSquared (10*10)
+            if (distanceSquared > 100) {
+                // calculate positionVector between both points
+                const PositionVector vector = {parent, child};
+                // draw first arrow at end
+                GLHelper::setColor(color.changedBrightness(-50));
+                GLHelper::drawTriangleAtEnd(parent, 
+                    vector.positionAtOffset2D(5), 
+                    s.additionalSettings.arrowWidth, 
+                    s.additionalSettings.arrowLength, 
+                    s.additionalSettings.arrowOffset);
+                // move front
+                glTranslated(0, 0, 0.1);
+                // draw second arrow at end
+                GLHelper::setColor(color);
+                GLHelper::drawTriangleAtEnd(parent, 
+                    vector.positionAtOffset2D(5), 
+                    s.additionalSettings.arrowWidth - 0.01, 
+                    s.additionalSettings.arrowLength - 0.01, 
+                    s.additionalSettings.arrowOffset - 0.01);
             }
         }
         // pop draw matrix
@@ -1019,20 +1036,45 @@ GNEGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &ch
         // set color
         GLHelper::setColor(color);
         // draw box line
-        if (drawEntire) {
+        if (drawEntire || (distanceSquared < 25)) {
+            // set color
+            GLHelper::setColor(color);
+            // draw first box line
+            GLHelper::setColor(color.changedBrightness(-50));
             GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .05);
+            // move front
+            glTranslated(0, 0, 0.1);
+            // draw second box line with lenght 5
+            GLHelper::setColor(color);
+            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .04);
         } else {
+            // draw first box line with lenght 5
+            GLHelper::setColor(color.changedBrightness(-50));
             GLHelper::drawBoxLine(child, rot, 5, .05);
+            glTranslated(0, 0, 0.1);
+            // draw second box line with lenght 5
+            GLHelper::setColor(color);
+            GLHelper::drawBoxLine(child, rot, 5, .04);
             // draw arrow depending of distanceSquared (10*10)
             if (distanceSquared > 100) {
                 // calculate positionVector between both points
                 const PositionVector vector = {child, parent};
-                // draw arrow at end
+                // draw first arrow at end
+                GLHelper::setColor(color.changedBrightness(-50));
                 GLHelper::drawTriangleAtEnd(child, 
                     vector.positionAtOffset2D(5), 
                     s.additionalSettings.arrowWidth, 
                     s.additionalSettings.arrowLength, 
-                    s.additionalSettings.arrowWidth);
+                    s.additionalSettings.arrowOffset);
+                // move front
+                glTranslated(0, 0, 0.1);
+                // draw second arrow at end
+                GLHelper::setColor(color);
+                GLHelper::drawTriangleAtEnd(child, 
+                    vector.positionAtOffset2D(5), 
+                    s.additionalSettings.arrowWidth - 0.01, 
+                    s.additionalSettings.arrowLength - 0.01, 
+                    s.additionalSettings.arrowOffset - 0.01);
             }
         }
         // pop draw matrix
