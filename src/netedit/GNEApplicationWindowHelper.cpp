@@ -1293,7 +1293,7 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
 
 FXHotKey 
 GNEApplicationWindowHelper::LockMenuCommands::parseHotKey(const FXwchar character) {
-    register FXuint code = 0, mods = 0;
+    FXuint code = 0, mods = 0;
     if (Unicode::isAlphaNumeric(character)) {
         mods = ALTMASK;
         code = fxucs2keysym(Unicode::toLower(character));

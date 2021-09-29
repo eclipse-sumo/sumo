@@ -356,7 +356,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
     int counter = 0;
-    for (const auto junction : myJunctions) {
+    for (const auto& junction : myJunctions) {
         for (const auto &crossing : junction.second->getGNECrossings()) {
             if (crossing->isAttributeCarrierSelected()) {
                 counter++;
