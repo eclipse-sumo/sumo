@@ -554,7 +554,7 @@ GNEVehicle::getParentName() const {
 
 
 double 
-GNEVehicle::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+GNEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.vehicleSize.getExaggeration(s, this);
 }
 
