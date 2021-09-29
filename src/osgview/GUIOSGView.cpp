@@ -181,6 +181,12 @@ GUIOSGView::~GUIOSGView() {
 
 
 void
+GUIOSGView::recalculateBoundaries() {
+    // nothing to recalculate
+}
+
+
+void
 GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
     {

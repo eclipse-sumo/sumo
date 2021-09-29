@@ -63,6 +63,9 @@ public:
     /// @brief destructor
     ~GNEViewNet();
 
+    /// @brief recalculate boundaries
+    void recalculateBoundaries();
+
     /// @brief builds the view toolbars
     void buildViewToolBars(GUIGlChildWindow* v);
 

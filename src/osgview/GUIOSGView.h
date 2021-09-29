@@ -122,6 +122,9 @@ public:
     /// @brief destructor
     virtual ~GUIOSGView();
 
+    /// @brief recalculate boundaries
+    void recalculateBoundaries();
+
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*);
 

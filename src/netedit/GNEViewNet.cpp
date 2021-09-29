@@ -255,6 +255,14 @@ GNEViewNet::~GNEViewNet() {}
 
 
 void
+GNEViewNet::recalculateBoundaries() {
+    if (myNet) {
+        myNet->getGrid().recalculateBoundaries();
+    }
+}
+
+
+void
 GNEViewNet::doInit() {}
 
 

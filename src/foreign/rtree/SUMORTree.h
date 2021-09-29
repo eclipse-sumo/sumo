@@ -181,6 +181,10 @@ public:
         Remove(cmin, cmax, o);
     }
 
+    void recalculateBoundaries() {
+
+    }
+
 protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
     mutable FXMutex myLock;

@@ -77,6 +77,9 @@ public:
     /// @brief destructor
     virtual ~GUISUMOAbstractView();
 
+    /// @brief recalculate boundaries
+    virtual void recalculateBoundaries() = 0;
+
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*) { }
 
