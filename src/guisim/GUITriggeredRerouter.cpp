@@ -336,6 +336,11 @@ GUITriggeredRerouter::getCenteringBoundary() const {
 }
 
 
+double
+GUITriggeredRerouter::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
 
 GUIManipulator*
 GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
@@ -416,7 +421,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::getParameterWindow(GUIMainWindow
 
 void
 GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSettings& s) const {
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     if (s.scale * exaggeration >= 3) {
         GLHelper::pushName(getGlID());
         const double prob = myParent->getProbability();
@@ -533,6 +538,12 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
         }
         GLHelper::popName();
     }
+}
+
+
+double 
+GUITriggeredRerouter::GUITriggeredRerouterEdge::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 

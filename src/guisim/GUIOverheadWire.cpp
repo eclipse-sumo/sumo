@@ -125,6 +125,13 @@ GUIOverheadWire::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return ret;
 }
 
+
+double
+GUIOverheadWire::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIOverheadWire::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
@@ -170,7 +177,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(green);
     }
 
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     //exaggeration - wide of line
 
 
@@ -341,6 +348,12 @@ GUIOverheadWireClamp::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& pare
 }
 
 
+double 
+GUIOverheadWireClamp::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIOverheadWireClamp::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
@@ -368,7 +381,7 @@ GUIOverheadWireClamp::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(redChargeOverheadWire);
 
 
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     //exaggeration - wide of line
 
 
