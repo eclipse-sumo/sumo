@@ -151,7 +151,7 @@ public:
 #endif
 
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
-        if (this->myBulkMode) {
+        if (this->myBulkMode && !myAmClean) {
             const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 this->buildPathFrom(&toInfo, into);
