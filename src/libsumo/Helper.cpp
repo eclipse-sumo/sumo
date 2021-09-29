@@ -936,6 +936,9 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                 if (s.activeFilters & SUBS_FILTER_LANES) {
                     applySubscriptionFilterLanes(s, vehs, filterLanes, downstreamDist, upstreamDist, disregardOppositeDirection);
                 }
+                if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
+                    applySubscriptionFilterLateralDistance(s, vehs, downstreamDist, upstreamDist, lateralDist);
+                }
             }
 #ifdef DEBUG_SURROUNDING
             std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
@@ -944,39 +947,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
 #endif
         } else if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
-            assert(vehs.size() == 0);
-            assert(objIDs.size() == 0);
-
-            // collect all vehicles within maximum range of interest to get an upper bound
-            PositionVector vehShape;
-            findObjectShape(s.commandId, s.id, vehShape);
-            double range = MAX3(downstreamDist, upstreamDist, lateralDist);
-            collectObjectIDsInRange(s.contextDomain, vehShape, range, objIDs);
-
-#ifdef DEBUG_SURROUNDING
-            std::cout << "FILTER_LATERAL_DIST: collected object IDs (range " << range << "):" << std::endl;
-            for (std::string i : objIDs) {
-                std::cout << i << std::endl;
-            }
-#endif
-
-#ifdef DEBUG_SURROUNDING
-            std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "', pos " << v->getPositionOnLane() << std::endl;
-            std::cout << "FILTER_LATERAL_DIST: opposite lane is '" << v->getLane()->getOpposite()->getID() << "'" << std::endl;
-#endif
-            double frontPosOnLane = v->getPositionOnLane();
-            if (v->getLaneChangeModel().isOpposite()) {
-                frontPosOnLane = v->getLane()->getOppositePos(frontPosOnLane);
-            }
-            // 1st pass: downstream (make sure that the whole length of the vehicle is included in the match)
-            const double backPosOnLane = MAX2(0.0, frontPosOnLane - v->getVehicleType().getLength());
-            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist),
-                    backPosOnLane, v->getLateralPositionOnLane(), true);
-            // 2nd pass: upstream
-            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist),
-                    frontPosOnLane, v->getLateralPositionOnLane(), false);
-
-            objIDs.clear();
+            applySubscriptionFilterLateralDistance(s, vehs, downstreamDist, upstreamDist, lateralDist);
         } else {
             // No maneuver or lateral distance filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
             applySubscriptionFilterLanes(s, vehs, filterLanes, downstreamDist, upstreamDist, disregardOppositeDirection);
@@ -1208,6 +1179,40 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
             ++i;
         }
     }
+}
+
+void
+Helper::applySubscriptionFilterLateralDistance(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, double downstreamDist, double upstreamDist,
+                                               double lateralDist) {
+    // collect all vehicles within maximum range of interest to get an upper bound
+    PositionVector vehShape;
+    findObjectShape(s.commandId, s.id, vehShape);
+    double range = MAX3(downstreamDist, upstreamDist, lateralDist);
+    std::set<std::string> objIDs;
+    collectObjectIDsInRange(s.contextDomain, vehShape, range, objIDs);
+
+#ifdef DEBUG_SURROUNDING
+    std::cout << "FILTER_LATERAL_DIST: collected object IDs (range " << range << "):" << std::endl;
+    for (std::string i : objIDs) {
+        std::cout << i << std::endl;
+    }
+#endif
+
+#ifdef DEBUG_SURROUNDING
+    std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "', pos " << v->getPositionOnLane() << std::endl;
+    std::cout << "FILTER_LATERAL_DIST: opposite lane is '" << v->getLane()->getOpposite()->getID() << "'" << std::endl;
+#endif
+    MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
+    double frontPosOnLane = v->getPositionOnLane();
+    if (v->getLaneChangeModel().isOpposite()) {
+        frontPosOnLane = v->getLane()->getOppositePos(frontPosOnLane);
+    }
+    // 1st pass: downstream (make sure that the whole length of the vehicle is included in the match)
+    const double backPosOnLane = MAX2(0.0, frontPosOnLane - v->getVehicleType().getLength());
+    applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist), backPosOnLane, v->getLateralPositionOnLane(),
+                                                     true);
+    // 2nd pass: upstream
+    applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist), frontPosOnLane, v->getLateralPositionOnLane(), false);
 }
 
 void
