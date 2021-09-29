@@ -24,7 +24,8 @@ title: ChangeLog
   - Fixed crash caused by rerouters on short edges. Issue #9186
   - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
   - Fixed invalid departSpeed error in meso #9201
-  - Fixed bug where simulation did not terminate after a departSpeed related error. Issue #9211  
+  - Fixed bug where simulation did not terminate after a departSpeed related error. Issue #9211
+  - Fixed invalid duplicate ids when using option **--scale**. Added option **--scale-suffix** to deal with unavoidable id collisions. Issue #9055
   
 - netedit
   - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
@@ -54,6 +55,7 @@ title: ChangeLog
   - Fixed slow operation when inspecting large objects. Issue #9106
   - Fixed slow loading of large networks. Issue #9207
   - Dotted contour now matches junction shape at reduced size. Issue #9204
+  - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -65,6 +67,9 @@ title: ChangeLog
   - Fixed invalid error when defining step-length with human readable time. Issue #9196
   - Coloring by edgedata is now working in meso. Issue #9215
   - Time range and intervals in loaded edgedata are now reported. Issue #9217
+  - Meso vehicles are now drawn with interpolate positions
+  - Segment boundaries are now drawn in meso simulation. Issue #9227
+  - Added support for custom coloring of busStops. Issue #8280
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
@@ -81,6 +86,7 @@ title: ChangeLog
   - Fixed endless loop related to triggered personFlow. Issue #8977
   - Persons and containers with depart=triggered are now written in the correct order: directly after their intended vehicle. Issue #9000
   - Fixed crash when loading transport outside a container #9008
+  - Fixed invalid treatment of loaded routeDistribution input. Issue #9229
 
 - marouter
   - Fixed invalid route-not-found error. Issue #9193
@@ -106,14 +112,19 @@ title: ChangeLog
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
   - generateContinousRerouters.py: fixed infinite loop. Issue #9167
+  - GTFS import no longer ignores trips with routes not starting in the simulation area. Issue #9224
+  - GTFS import now works when crossing day boundaries. Issue #9002
 
 - Miscellaneous
   - Xsd schema now permit trips in additional files. Issue #9110
   - Fixed invalid xsd for tazRelations. Issue #9124
+  - game runner is now compatible with python3. Issue #9223
+  - game '4-junctions' score is now meaningful. Issue #9222
 
 ### Enhancements
 
 - simulation
+  - Detectortype (E1, E2, E3) now support [attribute 'detectPersons'](Simulation/Pedestrians.md#detectors_for_pedestrians) to detect pedestrians and passengesr. Issue #5252
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
   - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
@@ -127,6 +138,7 @@ title: ChangeLog
   - Improve positioning of persons in vehicles. Issue #9159
   - Taz attribute 'fill' is now supported. Issue #9144
   - Drawing detail of POIs can now be configured. Issue #9203
+  - Improved visualization of teleporting vehicles when shown because of active route visualization. Issue #9174
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -135,6 +147,9 @@ title: ChangeLog
   - Saved busStop attributes now have the same order as netconvert. Issue #7624
   - Data mode now permits attributes with non-numeric values. Issue #9060
   - Drawing detail of POIs can now be configured. Issue #9203
+  - Objects witin a polygon boundary can now be selected by using the polygon context menu. Issue #9158
+  - Improved drawing style of connecting lines between dependent objects (i.e. busstop/access). Issue #8914
+  - Writing shortened xml header for demand and data output. Issue #9261
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
@@ -145,6 +160,9 @@ title: ChangeLog
 
 - od2trips
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
+
+- duarouter & jtrrouter
+  - Added option **--named-routes** which writes routes with an id and lets vehicles reference them. Can reduce output size if many vehicles using the same route. Issue #8643
 
 - marouter
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
