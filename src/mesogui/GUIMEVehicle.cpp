@@ -212,7 +212,7 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 
 void
 GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& /*col*/) const {
-    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     MSRouteIterator start = future ? myCurrEdge : r.begin();
     MSRouteIterator i = start;
     for (; i != r.end(); ++i) {
@@ -260,6 +260,12 @@ GUIMEVehicle::getSegmentIndex() const {
 void
 GUIMEVehicle::selectBlockingFoes() const {
     // @todo possibly we could compute something reasonable here
+}
+
+
+double 
+GUIMEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.vehicleSize.getExaggeration(s, this);
 }
 
 

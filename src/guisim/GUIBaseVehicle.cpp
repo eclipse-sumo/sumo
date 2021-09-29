@@ -372,10 +372,18 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     return ret;
 }
 
+
 void
 GUIBaseVehicle::removedPopupMenu() {
     myPopup = nullptr;
 }
+
+
+double 
+GUIBaseVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.vehicleSize.getExaggeration(s, this);
+}
+
 
 Boundary
 GUIBaseVehicle::getCenteringBoundary() const {
@@ -404,7 +412,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // set vehicle color
     RGBColor col = setColor(s);
     // scale
-    const double upscale = s.vehicleSize.getExaggeration(s, this);
+    const double upscale = getExaggeration(s);
     double upscaleLength = upscale;
     if (upscale > 1 && length > 5 && s.vehicleQuality != 4) {
         // reduce the length/width ratio because this is not usefull at high zoom
