@@ -39,6 +39,9 @@ ride_premature_end
 # busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
 boarding_duration_extension
 
+# many persons with sub-second boardingDuration should extend the stop
+boarding_duration_extension_small
+
 # busses have a small boarding duration such that the stop duration will not be extended by the boarding of the passengers
 boarding_duration_no_extension
 
