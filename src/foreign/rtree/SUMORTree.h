@@ -132,7 +132,7 @@ public:
         Boundary b = o->getCenteringBoundary();
         // grow using exaggeration
         if (exaggeration > 1) {
-            b.grow(exaggeration);
+            b.scale(exaggeration);
         }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
@@ -166,7 +166,7 @@ public:
         Boundary b = o->getCenteringBoundary();
         // grow using exaggeration
         if (exaggeration > 1) {
-            b.grow(exaggeration);
+            b.scale(exaggeration);
         }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {

@@ -121,6 +121,11 @@ public:
      */
     Boundary& grow(double by);
 
+    /**@brief scale the boundary by the given amount
+     * @return a reference to the instance for further use
+     */
+    Boundary& scale(double by);
+
     /// @brief Increases the width of the boundary (x-axis)
     void growWidth(double by);
 
