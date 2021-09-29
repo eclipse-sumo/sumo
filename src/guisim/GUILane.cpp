@@ -995,6 +995,12 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
 }
 
 
+double 
+GUILane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GUILane::getCenteringBoundary() const {
     Boundary b;

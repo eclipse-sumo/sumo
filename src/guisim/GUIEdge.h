@@ -83,8 +83,6 @@ public:
     /// returns the enumerated lane (!!! why not private with a friend?)
     MSLane& getLane(int laneNo);
 
-
-
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
         !!! should be within another class */
@@ -123,7 +121,10 @@ public:
      * @return The built parameter window
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
+    
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+    
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within

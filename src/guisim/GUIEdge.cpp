@@ -229,6 +229,12 @@ GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
+double
+GUIEdge::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GUIEdge::getCenteringBoundary() const {
     Boundary b = getBoundary();
