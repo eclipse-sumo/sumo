@@ -129,7 +129,7 @@ GNEVehicleType::getParentName() const {
 
 
 double 
-GNEVehicleType::getExaggeration(const GUIVisualizationSettings& s) const {
+GNEVehicleType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }
 

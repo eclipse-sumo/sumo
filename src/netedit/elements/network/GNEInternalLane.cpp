@@ -205,6 +205,12 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
+double 
+GNEInternalLane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 void
 GNEInternalLane::updateCenteringBoundary(const bool /*updateGrid*/) {
     myBoundary = myInternalLaneGeometry.getShape().getBoxBoundary();

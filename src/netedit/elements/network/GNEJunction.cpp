@@ -317,6 +317,12 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+double 
+GNEJunction::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.junctionSize.getExaggeration(s, this, 4);
+}
+
+
 void
 GNEJunction::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
@@ -349,7 +355,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     }
     // declare variables
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-    const double junctionExaggeration = s.junctionSize.getExaggeration(s, this, 4);
+    const double junctionExaggeration = getExaggeration(s);
     const double bubbleRadius = s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
     // declare draw shape flag
     const bool drawShape = (myNBNode->getShape().size() > 0) && s.drawJunctionShape;

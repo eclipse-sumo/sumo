@@ -319,6 +319,12 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+double 
+GNECrossing::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 void
 GNECrossing::updateCenteringBoundary(const bool /*updateGrid*/) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);

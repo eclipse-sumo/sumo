@@ -731,6 +731,12 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+double 
+GNELane::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 void
 GNELane::updateCenteringBoundary(const bool /*updateGrid*/) {
     if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
@@ -1429,7 +1435,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // obtain circle width and resolution
         double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
         // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         // obtain custom shape
         const PositionVector& customShape = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
         // draw s depending of detail

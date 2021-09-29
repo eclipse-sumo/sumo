@@ -204,6 +204,12 @@ GNEEdgeType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
+double
+GNEEdgeType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 void
 GNEEdgeType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do

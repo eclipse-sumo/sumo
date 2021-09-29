@@ -319,6 +319,12 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+double 
+GNEConnection::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 void
 GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
     // calculate boundary
@@ -345,7 +351,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     bool pushGLID = true;
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
         myNet->getViewNet()->getNetworkViewOptions().showConnections() &&
-        s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
+        s.drawDetail(s.detailSettings.connectionsDemandMode, getExaggeration(s))) {
         drawConnection = !myShapeDeprecated;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
