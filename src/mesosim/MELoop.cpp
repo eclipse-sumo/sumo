@@ -220,26 +220,29 @@ MELoop::clearState() {
     myLeaderCars.clear();
 }
 
-void
+
+bool
 MELoop::removeLeaderCar(MEVehicle* v) {
-    std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
-    auto it = find(cands.begin(), cands.end(), v);
-    if (it != cands.end()) {
-        cands.erase(it);
+    const auto candIt = myLeaderCars.find(v->getEventTime());
+    if (candIt != myLeaderCars.end()) {
+        std::vector<MEVehicle*>& cands = candIt->second;
+        auto it = find(cands.begin(), cands.end(), v);
+        if (it != cands.end()) {
+            cands.erase(it);
+            return true;
+        }
     }
+    return false;
 }
+
 
 void
 MELoop::vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason) {
     int qIdx = 0;
     v->getSegment()->send(v, nullptr, qIdx, MSNet::getInstance()->getCurrentTimeStep(), reason);
-    // try removeLeaderCar
-    std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
-    auto it = find(cands.begin(), cands.end(), v);
-    if (it != cands.end()) {
-        cands.erase(it);
-    }
+    removeLeaderCar(v);
 }
+
 
 MESegment*
 MELoop::nextSegment(MESegment* s, MEVehicle* v) {

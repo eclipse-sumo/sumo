@@ -69,7 +69,7 @@ public:
      *
      * @param[in] v the car which was a leading one
      */
-    void removeLeaderCar(MEVehicle* v);
+    bool removeLeaderCar(MEVehicle* v);
 
     /** @brief remove the given car and clean up the relevant data structures */
     void vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason);
