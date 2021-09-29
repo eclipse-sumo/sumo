@@ -236,12 +236,13 @@ OutputDevice::setPrecision(int precision) {
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement,
                              const std::string& schemaFile,
-                             std::map<SumoXMLAttr, std::string> attrs) {
+                             std::map<SumoXMLAttr, std::string> attrs,
+                             bool includeConfig) {
     if (schemaFile != "") {
         attrs[SUMO_ATTR_XMLNS] = "http://www.w3.org/2001/XMLSchema-instance";
         attrs[SUMO_ATTR_SCHEMA_LOCATION] = "http://sumo.dlr.de/xsd/" + schemaFile;
     }
-    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs);
+    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, includeConfig);
 }
 
 

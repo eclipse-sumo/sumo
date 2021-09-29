@@ -3029,7 +3029,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
 void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("routes", "routes_file.xsd");
+    device.writeXMLHeader("routes", "routes_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
     // first  write all vehicle types
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         vType.second->writeDemandElement(device);
@@ -3065,7 +3065,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 void
 GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("data", "datamode_file.xsd");
+    device.writeXMLHeader("data", "datamode_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         dataSet.second->writeDataSet(device);
