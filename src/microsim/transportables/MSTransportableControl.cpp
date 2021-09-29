@@ -228,7 +228,6 @@ MSTransportableControl::boardAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle
             //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
             //the duration by setting it to the boarding duration of the person
             stopDuration = MAX2(stopDuration, timeToBoardNextPerson - currentTime);
-            timeToBoardNextPerson -= DELTA_T;
         }
     }
     return ret;
@@ -278,7 +277,6 @@ MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle,
             //if the time a container needs to get loaded on the vehicle extends the duration of the stop of the vehicle extend
             //the duration by setting it to the loading duration of the container
             stopDuration = MAX2(stopDuration, timeToLoadNextContainer - currentTime);
-            timeToLoadNextContainer -= DELTA_T;
         }
     }
     return ret;
