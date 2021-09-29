@@ -257,7 +257,7 @@ GNEViewNet::~GNEViewNet() {}
 void
 GNEViewNet::recalculateBoundaries() {
     if (myNet) {
-        myNet->getGrid().recalculateBoundaries();
+        myNet->getGrid().recalculateBoundaries(myVisualizationSettings);
     }
 }
 

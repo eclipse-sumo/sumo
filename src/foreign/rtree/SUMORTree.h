@@ -121,7 +121,7 @@ public:
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
      * @param[in] o The object to add
      */
-    void addAdditionalGLObject(GUIGlObject *o) {
+    void addAdditionalGLObject(GUIGlObject *o, const double exaggeration = 1) {
         // check if lock is locked before insert objects
         if (myLock.locked()) {
             throw ProcessError("Mutex of SUMORTree is locked before object insertion");
@@ -130,6 +130,10 @@ public:
         FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
+        // grow using exaggeration
+        if (exaggeration > 1) {
+            b.grow(exaggeration);
+        }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
@@ -151,7 +155,7 @@ public:
     /** @brief Removes an additional object (detector/shape/trigger) from being visualised
      * @param[in] o The object to remove
      */
-    void removeAdditionalGLObject(GUIGlObject *o) {
+    void removeAdditionalGLObject(GUIGlObject *o, const double exaggeration = 1) {
         // check if lock is locked remove insert objects
         if (myLock.locked()) {
             throw ProcessError("Mutex of SUMORTree is locked before object remove");
@@ -160,6 +164,10 @@ public:
         FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
+        // grow using exaggeration
+        if (exaggeration > 1) {
+            b.grow(exaggeration);
+        }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
@@ -181,8 +189,23 @@ public:
         Remove(cmin, cmax, o);
     }
 
-    void recalculateBoundaries() {
-
+    /// @brief recalculate boundaries
+    void recalculateBoundaries(const GUIVisualizationSettings& s) {
+        std::vector<GUIGlObject*> objects;
+        GUI_RTREE_QUAL::Iterator it;
+        // extract all objects
+        GetFirst(it);
+        while (it.IsNotNull()) {
+            objects.push_back(*it);
+            ++it;
+        }
+        // clear tree and debug
+        GUI_RTREE_QUAL::RemoveAll();
+        myTreeDebug.clear();
+        // insert all again
+        for (const auto &object : objects) {
+            addAdditionalGLObject(object, object->getExaggeration(s));
+        }
     }
 
 protected:
