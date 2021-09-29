@@ -209,6 +209,9 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
+
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within
      */

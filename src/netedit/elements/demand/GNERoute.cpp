@@ -244,6 +244,12 @@ GNERoute::getParentName() const {
 }
 
 
+double 
+GNERoute::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.vehicleSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNERoute::getCenteringBoundary() const {
     Boundary routeBoundary;
@@ -324,7 +330,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
-        const double routeWidth = s.vehicleSize.getExaggeration(s, this) * (embedded ? s.widthSettings.embeddedRoute : s.widthSettings.route);
+        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRoute : s.widthSettings.route);
         // calculate startPos
         const double geometryDepartPos = embedded ? (getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH)) : -1;
         // get endPos
@@ -416,7 +422,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
-        const double routeWidth = s.vehicleSize.getExaggeration(s, this) * (embedded ? s.widthSettings.embeddedRoute : s.widthSettings.route);
+        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRoute : s.widthSettings.route);
         // obtain lane2lane geometry
         const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // obtain color
@@ -432,7 +438,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // draw lane2lane
         GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, routeWidth);
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), s.vehicleSize.getExaggeration(s, this));
+        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), getExaggeration(s));
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name

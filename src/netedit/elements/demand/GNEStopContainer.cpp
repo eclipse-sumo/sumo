@@ -203,6 +203,12 @@ GNEStopContainer::getParentName() const {
 }
 
 
+double 
+GNEStopContainer::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNEStopContainer::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
@@ -228,7 +234,7 @@ GNEStopContainer::drawGL(const GUIVisualizationSettings& s) const {
     // check if stop can be drawn
     if (drawPersonPlan()) {
         // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         // declare stop color
         const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedContainerPlanColor : s.colorSettings.stops;
         // Start drawing adding an gl identificator

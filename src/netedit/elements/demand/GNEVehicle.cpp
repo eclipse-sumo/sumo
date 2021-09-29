@@ -553,6 +553,12 @@ GNEVehicle::getParentName() const {
 }
 
 
+double 
+GNEVehicle::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return s.vehicleSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNEVehicle::getCenteringBoundary() const {
     Boundary vehicleBoundary;
@@ -576,7 +582,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // declare common attributes
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
-        const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);

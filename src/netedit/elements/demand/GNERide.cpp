@@ -201,6 +201,12 @@ GNERide::getParentName() const {
 }
 
 
+double
+GNERide::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GNERide::getCenteringBoundary() const {
     Boundary rideBoundary;

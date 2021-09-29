@@ -314,6 +314,12 @@ GNEPerson::getParentName() const {
 }
 
 
+double
+GNEPerson::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.personSize.getExaggeration(s, this, 80);
+}
+
+
 Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
@@ -354,7 +360,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // continue if person can be drawn
     if (drawPerson) {
         // obtain exaggeration (and add the special personExaggeration)
-        const double exaggeration = s.personSize.getExaggeration(s, this, 80) + s.detailSettings.personExaggeration;
+        const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
         // obtain width and length
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);

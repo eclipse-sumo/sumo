@@ -223,6 +223,12 @@ GNETranship::getParentName() const {
 }
 
 
+double 
+GNETranship::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GNETranship::getCenteringBoundary() const {
     Boundary transhipBoundary;
