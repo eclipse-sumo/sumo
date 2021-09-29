@@ -439,7 +439,7 @@ public:
     const GNEAttributeCarrier* getFrontAttributeCarrier() const;
 
     /// @brief set front attributeCarrier
-    void setFrontAttributeCarrier(const GNEAttributeCarrier* AC);
+    void setFrontAttributeCarrier(GNEAttributeCarrier* AC);
 
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
@@ -581,7 +581,7 @@ private:
     std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
 
     /// @brief front attribute carrier
-    const GNEAttributeCarrier* myFrontAttributeCarrier;
+    GNEAttributeCarrier* myFrontAttributeCarrier;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

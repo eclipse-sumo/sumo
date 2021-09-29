@@ -873,6 +873,21 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_POLYGON_OFFSET_LINE);
     // obtain objects included in minB and maxB
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
+    // force draw inspected and front elements (due parent/child lines)
+    if (!myVisualizationSettings->drawForPositionSelection && 
+        !myVisualizationSettings->drawForRectangleSelection) {
+        // iterate over all inspected ACs
+        for (const auto &inspectedAC : myInspectedAttributeCarriers) {
+            // check that inspected AC has an associated GUIGLObject
+            if (inspectedAC->getGUIGlObject()) {
+                inspectedAC->getGUIGlObject()->drawGL(myVisualizationSettings);
+            }
+        }
+        // draw front element
+        if (myFrontAttributeCarrier && myFrontAttributeCarrier->getGUIGlObject()) {
+            myFrontAttributeCarrier->getGUIGlObject()->drawGL(myVisualizationSettings);
+        }
+    }
     // pop draw matrix
     GLHelper::popMatrix();
     return hits2;
@@ -1334,7 +1349,7 @@ GNEViewNet::getFrontAttributeCarrier() const {
 
 
 void
-GNEViewNet::setFrontAttributeCarrier(const GNEAttributeCarrier* AC) {
+GNEViewNet::setFrontAttributeCarrier(GNEAttributeCarrier* AC) {
     myFrontAttributeCarrier = AC;
     // update view
     updateViewNet();
