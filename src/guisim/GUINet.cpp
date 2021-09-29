@@ -525,7 +525,7 @@ GUINet::getCenteringBoundary() const {
 
 
 double 
-GUINet::getExaggeration(const GUIVisualizationSettings& s) const {
+GUINet::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }
 
