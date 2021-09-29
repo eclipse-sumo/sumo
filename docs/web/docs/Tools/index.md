@@ -2,12 +2,49 @@
 title: Tools
 ---
 
+# Introduction
+
 Tools can be found in the SUMO-distribution under {{SUMO}}/tools. Most of
 them are tiny - they were written for a certain purpose and worked well
 under certain input, but may be not verified for other cases.
 
 All tools should work with Python 3.7 or later on Windows, Linux and MacOS.
 We try to keep them compatible with Python 3.5 and 2.7 as well.
+
+# How to use python tools
+
+Python tools must be called from the [command
+line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line)
+In the documentation linked below, the tools are described with a command like
+
+```
+python tools/xml/xml2csv.py input.xml
+```
+
+This works only, if the current working directory is {{SUMO}}.
+
+For the Windows OS, to run the tool from any directory, you can use use
+
+```
+python %SUMO_HOME%\tools\xml\xml2csv.py input.xml
+```
+
+The equivalent command For Linux is
+
+```
+$SUMO_HOME/tools/xml/xml2csv.py input.xml
+```
+
+If you have $SUMO_HOME/tools/xml on your PATH (see *[ConfigurePathSetting](../Basics/Basic_Computer_Skills.md#configuring_path_settings)*), you can simple type
+
+```
+xml2csv.py input.xml
+```
+
+For scripts in other subdirectories of tools you have to replace xml in this example by the name of the subdirectory
+
+
+# Tools by category
 
 The tools are divided into the following topics:
 
@@ -65,4 +102,4 @@ xml schema related utilities
 above categories
 
 !!! caution
-    Please always ensure that you have the environment variable SUMO_HOME properly set.
+    Please always ensure that you have the environment variable SUMO_HOME [properly set](../Basics/Basic_Computer_Skills.md#sumo_home).
