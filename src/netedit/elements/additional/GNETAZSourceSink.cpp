@@ -86,7 +86,7 @@ GNETAZSourceSink::getPositionInView() const {
 
 
 double
-GNETAZSourceSink::getExaggeration(const GUIVisualizationSettings& s) const {
+GNETAZSourceSink::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }
 
