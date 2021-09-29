@@ -229,6 +229,12 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
+double
+GNEAdditional::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNEAdditional::getCenteringBoundary() const {
     return myAdditionalBoundary;
@@ -618,7 +624,7 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 void
 GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
     // Obtain drawing exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn

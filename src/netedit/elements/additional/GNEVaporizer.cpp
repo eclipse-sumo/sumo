@@ -93,7 +93,7 @@ GNEVaporizer::getParentName() const {
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double vaporizerExaggeration = s.addSize.getExaggeration(s, this);
+    const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(vaporizerExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare colors

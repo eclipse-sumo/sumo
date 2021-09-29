@@ -150,6 +150,11 @@ GNEPoly::getPositionInView() const {
 }
 
 
+double
+GNEPoly::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.polySize.getExaggeration(s, this);
+}
+
 
 void
 GNEPoly::updateCenteringBoundary(const bool updateGrid) {
@@ -252,7 +257,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->getDataViewOptions().showShapes() &&
             GUIPolygon::checkDraw(s, this, this)) {
         // Obtain constants
-        const double polyExaggeration = s.polySize.getExaggeration(s, this);
+        const double polyExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // get colors
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();

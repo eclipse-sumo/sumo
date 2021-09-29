@@ -91,7 +91,7 @@ GNEParkingArea::updateGeometry() {
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
+    const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration

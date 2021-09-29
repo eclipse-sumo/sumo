@@ -128,6 +128,9 @@ public:
     /// @brief Returns position of TAZElement in view
     virtual Position getPositionInView() const = 0;
 
+    /// @brief return exaggeration asociated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
+
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
     /// @}

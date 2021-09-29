@@ -147,7 +147,7 @@ GNECalibrator::getParentName() const {
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         if (s.drawAdditionals(exaggeration)) {

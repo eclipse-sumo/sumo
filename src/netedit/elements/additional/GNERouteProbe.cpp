@@ -96,7 +96,7 @@ GNERouteProbe::getParentName() const {
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double routeProbeExaggeration = s.addSize.getExaggeration(s, this);
+    const double routeProbeExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(routeProbeExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare colors

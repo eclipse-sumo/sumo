@@ -156,6 +156,12 @@ GNEPOI::getPositionInView() const {
 }
 
 
+double
+GNEPOI::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.poiSize.getExaggeration(s, this);
+}
+
+
 void
 GNEPOI::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
@@ -235,7 +241,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         // check if POI can be drawn
         if (GUIPointOfInterest::checkDraw(s, this)) {
             // obtain POIExaggeration
-            const double POIExaggeration = s.poiSize.getExaggeration(s, this);
+            const double POIExaggeration = getExaggeration(s);
             // push name (needed for getGUIGlObjectsUnderCursor(...)
             GLHelper::pushName(getGlID());
             // draw inner polygon

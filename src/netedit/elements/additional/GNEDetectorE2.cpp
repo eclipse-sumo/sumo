@@ -242,7 +242,7 @@ GNEDetectorE2::getLength() const {
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double E2Exaggeration = s.addSize.getExaggeration(s, this);
+    const double E2Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration

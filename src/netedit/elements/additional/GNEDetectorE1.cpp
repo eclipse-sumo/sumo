@@ -102,7 +102,7 @@ GNEDetectorE1::updateGeometry() {
 void
 GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double E1Exaggeration = s.addSize.getExaggeration(s, this);
+    const double E1Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration

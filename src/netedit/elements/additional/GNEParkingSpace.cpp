@@ -106,7 +106,7 @@ GNEParkingSpace::getParentName() const {
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
-    const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
+    const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain double values

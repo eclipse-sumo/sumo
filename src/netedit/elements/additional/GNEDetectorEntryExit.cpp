@@ -105,7 +105,7 @@ GNEDetectorEntryExit::updateGeometry() {
 void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
-    const double entryExitExaggeration = s.addSize.getExaggeration(s, this);
+    const double entryExitExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding gl identificator

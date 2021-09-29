@@ -199,6 +199,12 @@ GNETAZ::getPositionInView() const {
 }
 
 
+double 
+GNETAZ::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.polySize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNETAZ::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
@@ -256,7 +262,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
         // Obtain constants
-        const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
+        const double TAZExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // get colors
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
