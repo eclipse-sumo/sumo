@@ -416,6 +416,10 @@ public:
         myState.myPosLat = posLat;
     }
 
+    void invalidateCachedPosition() {
+        myCachedPosition = Position::INVALID;
+    }
+
     /** @brief Get the vehicle's lateral position on the lane:
      * @return The lateral position of the vehicle (in m distance between right
      * side of vehicle and ride side of the lane it is on
