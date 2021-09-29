@@ -517,9 +517,16 @@ void
 GUINet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
+
 Boundary
 GUINet::getCenteringBoundary() const {
     return getBoundary();
+}
+
+
+double 
+GUINet::getExaggeration(const GUIVisualizationSettings& s) const {
+    return 1;
 }
 
 
