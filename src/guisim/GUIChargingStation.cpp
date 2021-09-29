@@ -118,6 +118,13 @@ GUIChargingStation::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent
     return ret;
 }
 
+
+double 
+GUIChargingStation::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIChargingStation::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
@@ -141,7 +148,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(s.colorSettings.chargingStationColor);
     }
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
 
     // draw details unless zoomed out to far

@@ -177,7 +177,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(color);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     const double offset = myWidth * 0.5 * MAX2(0.0, exaggeration - 1);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
     // draw details unless zoomed out to far
@@ -233,6 +233,12 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::popMatrix();
     GLHelper::popName();
     drawName(myFGSignPos, s.scale, s.addName, s.angle);
+}
+
+
+double
+GUIBusStop::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 

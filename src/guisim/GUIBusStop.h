@@ -96,7 +96,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * Bus stops have no parameter windows (yet).
@@ -109,6 +108,8 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
