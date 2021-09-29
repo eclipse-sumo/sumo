@@ -159,6 +159,12 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
+double 
+GNEEdgeData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 void
 GNEEdgeData::computePathElement() {
     // nothing to compute

@@ -86,6 +86,9 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 

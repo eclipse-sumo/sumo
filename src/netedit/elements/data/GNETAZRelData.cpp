@@ -334,6 +334,12 @@ GNETAZRelData::getLastPathLane() const {
 }
 
 
+double 
+GNETAZRelData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GNETAZRelData::getCenteringBoundary() const {
     Boundary b;
