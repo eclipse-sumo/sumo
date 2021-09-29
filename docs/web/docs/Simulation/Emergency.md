@@ -29,6 +29,15 @@ the future.
 - Overtaking on the right: This is always permitted for vehicles with `vClass="emergency"`
 - [Overtaking on the opposite side](OppositeDirectionDriving.md) on a multi-lane road is the exclusive privilege of vehicles with `vClass="emergency"`
 
+## Example configuration
+
+```
+<vType id="rescue" vClass="emergency" speedFactor="1.5" jmDriveAfterRedTime="1000">
+   <param key="has.bluelight.device value="true"/>
+</vType>
+
+```
+
 
 # Visualization
 
