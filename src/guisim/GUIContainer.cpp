@@ -197,6 +197,12 @@ GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
+double 
+GUIContainer::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.containerSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIContainer::getCenteringBoundary() const {
     Boundary b;
@@ -222,7 +228,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     // set container color
     setColor(s);
     // scale
-    const double upscale = s.containerSize.getExaggeration(s, this);
+    const double upscale = getExaggeration(s);
     glScaled(upscale, upscale, 1);
     switch (s.containerQuality) {
         case 0:

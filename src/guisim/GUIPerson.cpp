@@ -259,6 +259,12 @@ GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
+double
+GUIPerson::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.personSize.getExaggeration(s, this, 80);
+}
+
+
 Boundary
 GUIPerson::getCenteringBoundary() const {
     Boundary b;
@@ -279,7 +285,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     // set person color
     setColor(s);
     // scale
-    const double exaggeration = s.personSize.getExaggeration(s, this, 80);
+    const double exaggeration = getExaggeration(s);
     glScaled(exaggeration, exaggeration, 1);
     switch (s.personQuality) {
         case 0:
@@ -355,7 +361,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             GLHelper::setColor(darker);
             MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
             assert(stage != 0);
-            const double exaggeration = s.personSize.getExaggeration(s, this);
+            const double exaggeration = getExaggeration(s);
             const ConstMSEdgeVector& edges = stage->getRoute();
             for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
                 GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);

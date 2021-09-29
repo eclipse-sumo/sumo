@@ -53,10 +53,8 @@ public:
      */
     GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
 
-
     /// @brief destructor
     ~GUIContainer();
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -69,7 +67,6 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
-
 
     /** @brief Returns an own parameter window
      *
@@ -88,6 +85,9 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -95,14 +95,11 @@ public:
      */
     Boundary getCenteringBoundary() const override;
 
-
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const override;
-
-
 
     /** @brief Draws additionally triggered visualisations
      * @param[in] parent The view
