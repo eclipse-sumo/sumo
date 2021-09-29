@@ -95,8 +95,8 @@ install(DIRECTORY libsumo DESTINATION include
 
 configure_file(config.h.cmake config.h)
 
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
-    set(VERSION_DEP "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
+    set(VERSION_DEP "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
 endif()
 add_custom_command(OUTPUT version.h
                    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build/version.py ${CMAKE_CURRENT_BINARY_DIR}

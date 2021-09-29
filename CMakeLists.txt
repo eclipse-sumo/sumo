@@ -436,7 +436,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     # copy common dlls
     foreach(DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
-        message(STATUS "DLL ${DLL}")
+#        message(STATUS "DLL ${DLL}")
         get_filename_component(DLL_BASENAME ${DLL} NAME)
         set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
         list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
@@ -459,13 +459,13 @@ if (SUMO_LIBRARIES AND WIN32)
         set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_DLL_BASENAME})
         add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
-                           DEPENDS ${OSG_PATH})
+                           DEPENDS ${OSG_DLL})
     endif (HAVE_OSG)
     # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
     set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
     add_custom_command(OUTPUT ${PROJ_DATA}
                        COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
-                       DEPENDS ${PROJ_PATH})
+                       DEPENDS ${PROJ_PATH}/share/proj/proj.db)
     install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
     # set install_dll target
     add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
