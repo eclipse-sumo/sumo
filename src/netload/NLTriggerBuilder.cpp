@@ -503,7 +503,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
     int defaultCapacity;
     SumoXMLAttr capacityAttr;
-    if (element == SUMO_TAG_BUS_STOP) {
+    if (element != SUMO_TAG_CONTAINER_STOP) {
         defaultCapacity = MAX2(MSStoppingPlace::getTransportablesAbreast(topos - frompos, element) * 3, 6);
         capacityAttr = SUMO_ATTR_PERSON_CAPACITY;
     } else {
