@@ -73,6 +73,12 @@ GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
 GUIMEInductLoop::MyWrapper::~MyWrapper() {}
 
 
+double
+GUIMEInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIMEInductLoop::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -119,7 +125,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPolygonOffset(0, -2);
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 1, 0);
     GLHelper::pushMatrix();

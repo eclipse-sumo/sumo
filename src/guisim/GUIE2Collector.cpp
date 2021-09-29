@@ -97,6 +97,12 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
 GUIE2Collector::MyWrapper::~MyWrapper() {}
 
 
+double 
+GUIE2Collector::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIE2Collector::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -151,7 +157,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     double dwidth = 1;
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     if (exaggeration > 0) {
         if (myDetector.getUsageType() == DU_TL_CONTROL) {
             dwidth = (double) 0.3;

@@ -70,7 +70,6 @@ public:
         /// @brief Destructor
         ~MyWrapper();
 
-
         /// @name inherited from GUIGlObject
         //@{
 
@@ -84,6 +83,8 @@ public:
         GUIParameterTableWindow* getParameterWindow(
             GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+        /// @brief return exaggeration asociated with this GLObject
+        double getExaggeration(const GUIVisualizationSettings& s) const;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
@@ -92,7 +93,6 @@ public:
          */
         Boundary getCenteringBoundary() const;
 
-
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
@@ -100,10 +100,8 @@ public:
         void drawGL(const GUIVisualizationSettings& s) const;
         //@}
 
-
         /// @brief Returns the detector itself
         GUIInstantInductLoop& getLoop();
-
 
     private:
         /// @brief The wrapped detector
