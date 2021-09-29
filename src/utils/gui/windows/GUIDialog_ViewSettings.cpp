@@ -618,6 +618,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m86 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
         myForceDrawForRectangleSelection = new FXCheckButton(m86, "Force draw for rectangle selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
+        FXMatrix* m87 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
+        myRecalculateBoundaries = new FXButton(m87, "Recalcule boundaries", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                    (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     }
     FXHorizontalFrame* f2 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
     FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
@@ -1247,6 +1250,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         } else {
             doRebuildColorMatrices = true;
         }
+    }
+    // openGL
+    if (sender == myRecalculateBoundaries) {
+        myParent->recalculateBoundaries();
     }
 
     if (tmpSettings == *mySettings) {

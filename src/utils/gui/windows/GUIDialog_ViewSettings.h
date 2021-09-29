@@ -412,14 +412,17 @@ protected:
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
     FXCheckButton* myDrawCrossingsAndWalkingAreas;
+    FXCheckButton* myShowSizeLegend;
+    FXCheckButton* myShowColorLegend;
+    FXCheckButton* myShowVehicleColorLegend;
+
+    /// @brief openGL
     FXCheckButton* myDither;
     FXCheckButton* myFPS;
     FXCheckButton* myDrawBoundaries;
     FXCheckButton* myForceDrawForPositionSelection;
     FXCheckButton* myForceDrawForRectangleSelection;
-    FXCheckButton* myShowSizeLegend;
-    FXCheckButton* myShowColorLegend;
-    FXCheckButton* myShowVehicleColorLegend;
+    FXButton* myRecalculateBoundaries;
 
     /// @brief name panels
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
