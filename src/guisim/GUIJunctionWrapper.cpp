@@ -118,6 +118,12 @@ GUIJunctionWrapper::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
 }
 
 
+double
+GUIJunctionWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.junctionSize.getExaggeration(s, this, 4);
+}
+
+
 Boundary
 GUIJunctionWrapper::getCenteringBoundary() const {
     Boundary b = myBoundary;
@@ -134,7 +140,7 @@ void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (!myIsInternal && s.drawJunctionShape) {
         // check whether it is not too small
-        const double exaggeration = s.junctionSize.getExaggeration(s, this, 4);
+        const double exaggeration = getExaggeration(s);
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
             GLHelper::pushMatrix();
             GLHelper::pushName(getGlID());
