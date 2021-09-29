@@ -93,6 +93,7 @@ public:
     /// @brief Returns the numerical id of the object
     /// @return This object's gl-id
     GUIGlID getGlID() const;
+
     /// @}
 
     /// @name interfaces to be implemented by derived classes
@@ -137,6 +138,9 @@ public:
     /// @brief Returns the type of the object as coded in GUIGlObjectType
     /// @see GUIGlObjectType
     GUIGlObjectType getType() const;
+
+    /// @brief return exaggeration asociated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
