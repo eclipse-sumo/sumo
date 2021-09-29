@@ -108,18 +108,19 @@ const double GUIVisualizationConnectionSettings::connectionWidth(0.2);
 // additional values
 // -------------------------------------------------------------------------
 
-const RGBColor GUIVisualizationAdditionalSettings::rerouterColor(255, 0, 0);
+const RGBColor GUIVisualizationAdditionalSettings::rerouterColor(255, 0, 0, 255);
 const double GUIVisualizationAdditionalSettings::rerouterSize(1);
-const RGBColor GUIVisualizationAdditionalSettings::VSSColor(255, 255, 255);
+const RGBColor GUIVisualizationAdditionalSettings::VSSColor(255, 255, 255, 255);
 const double GUIVisualizationAdditionalSettings::VSSSize(1);
-const RGBColor GUIVisualizationAdditionalSettings::calibratorColor(255, 204, 0);
+const RGBColor GUIVisualizationAdditionalSettings::calibratorColor(255, 204, 0, 255);
 const double GUIVisualizationAdditionalSettings::calibratorWidth(1.4);
 const double GUIVisualizationAdditionalSettings::calibratorHeight(6);
-const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0);
+const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0, 255);
 const double GUIVisualizationAdditionalSettings::routeProbeSize(1);
-const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0);
+const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0, 255);
 const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
-const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0);
+const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0, 255);
+const RGBColor GUIVisualizationAdditionalSettings::connectionColorSelected(0, 0, 150, 255);
 const double GUIVisualizationAdditionalSettings::arrowWidth(1);
 const double GUIVisualizationAdditionalSettings::arrowLength(0.25);
 const double GUIVisualizationAdditionalSettings::arrowOffset(0.1);

@@ -345,6 +345,9 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief connection color
     static const RGBColor connectionColor;
 
+    /// @brief connection color selected
+    static const RGBColor connectionColorSelected;
+
     /// @brief arrow width
     static const double arrowWidth;
 

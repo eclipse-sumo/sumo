@@ -732,14 +732,29 @@ GNEAdditional::getACParametersMap() const {
 
 void
 GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const {
-    // draw parent lines
+    // check if current additional is inspected, front or selected
+    const bool currentDrawEntire = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+        (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
+
+    // iterate over parent additionals
     for (const auto &parent : getParentAdditionals()) {
-        GNEGeometry::drawChildLine(s, getPositionInView(), parent->getPositionInView(), color, false);
+        // get flags
+        const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parent);
+        const bool front = (myNet->getViewNet()->getFrontAttributeCarrier() == parent);
+        // draw parent lines
+        GNEGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(), 
+            (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
+            currentDrawEntire || inspected || parent->isAttributeCarrierSelected());
     }
-    // draw lines to children
+    // iterate over child additionals
     for (const auto &child : getChildAdditionals()) {
-        GNEGeometry::drawParentLine(s, getPositionInView(), child->getPositionInView(), color, 
-        myNet->getViewNet()->isAttributeCarrierInspected(this));
+        // get flags
+        const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(child);
+        const bool front = (myNet->getViewNet()->getFrontAttributeCarrier() == child);
+        // draw child line
+        GNEGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(), 
+            (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
+            currentDrawEntire || inspected || child->isAttributeCarrierSelected());
     }
 }
 
