@@ -746,7 +746,6 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
     for (const auto &parent : getParentAdditionals()) {
         // get flags
         const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parent);
-        const bool front = (myNet->getViewNet()->getFrontAttributeCarrier() == parent);
         // draw parent lines
         GNEGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(), 
             (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 

@@ -136,7 +136,7 @@ public:
     Boundary getCenteringBoundary() const override;
 
     /// @brief return exaggeration asociated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
