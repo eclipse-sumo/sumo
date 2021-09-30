@@ -101,3 +101,6 @@ remove_reinsert
 
 # add trip (ticket4307)
 addTrip
+
+# add trip with high insertion speed at edge end (ticket9257)
+addTrip2

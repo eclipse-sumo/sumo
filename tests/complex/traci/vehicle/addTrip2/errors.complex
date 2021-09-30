@@ -1,0 +1,4 @@
+Warning: Vehicle 'tripTest' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=0.00.
+Warning: Vehicle 'tripTest' performs emergency stop at the end of lane 'SC_1' because there is no connection to the next edge (decel=-14.72, offset=4.72), time=0.00.
+Warning: Teleporting vehicle 'tripTest'; waited too long (wrong lane), lane='SC_0', time=301.00.
+Warning: Vehicle 'tripTest' ends teleporting on edge 'NC', time 301.00.
