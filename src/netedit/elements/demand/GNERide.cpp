@@ -230,8 +230,9 @@ GNERide::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 
 void
-GNERide::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Rides are drawn in drawPartialGL
+GNERide::drawGL(const GUIVisualizationSettings& s) const {
+    // force draw path
+    myNet->getPathManager()->forceDrawPath(s, this);
 }
 
 

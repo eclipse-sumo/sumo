@@ -265,8 +265,9 @@ GNEWalk::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 
 void
-GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Walks are drawn in drawPartialGL
+GNEWalk::drawGL(const GUIVisualizationSettings& s) const {
+    // force draw path
+    myNet->getPathManager()->forceDrawPath(s, this);
 }
 
 

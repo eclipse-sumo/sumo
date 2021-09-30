@@ -236,8 +236,9 @@ GNEPersonTrip::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 
 void
-GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // PersonTrips are drawn in drawPartialGL
+GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
+    // force draw path
+    myNet->getPathManager()->forceDrawPath(s, this);
 }
 
 

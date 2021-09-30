@@ -321,6 +321,9 @@ public:
 
     /// @brief draw junction path elements
     void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction);
+    
+    /// @brief force draw path (used carefully, ONLY when we're inspecting a path element, due slowdowns)
+    void forceDrawPath(const GUIVisualizationSettings& s, const PathElement* pathElement) const;
 
     /// @brief invalidate lane path
     void invalidateLanePath(const GNELane* lane);
