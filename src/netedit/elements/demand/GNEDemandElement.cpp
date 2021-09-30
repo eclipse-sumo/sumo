@@ -544,22 +544,18 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
                 GLHelper::popMatrix();
             }
         }
-        // check if we have to draw a red line to the next segment
-        if (segment->getNextSegment()) {
+        // check if we have to draw an red arrow or line
+        if (segment->getNextSegment() && segment->getNextSegment()->getLane()) {
+            // get firstPosition (last position of current lane shape)
+            const Position from = lane->getLaneShape().back();
+            // get lastPosition (first position of next lane shape)
+            const Position to = segment->getNextSegment()->getLane()->getLaneShape().front();
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-            // Set red color
-            GLHelper::setColor(RGBColor::RED);
-            // get firstPosition (last position of current lane shape)
-            const Position firstPosition = lane->getLaneShape().back();
-            // get lastPosition (first position of next lane shape)
-            const Position arrivalPos = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
-            // draw box line
-            GLHelper::drawBoxLine(arrivalPos,
-                                  RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
-                                  firstPosition.distanceTo2D(arrivalPos), .05);
+            // draw child line
+            GNEGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || isAttributeCarrierSelected());
             // pop draw matrix
             GLHelper::popMatrix();
         }
