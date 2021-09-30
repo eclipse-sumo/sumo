@@ -47,6 +47,7 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myNextLane(nullptr),
     myJunction(nullptr),
     myNextSegment(nullptr),
+    myPreviousSegment(nullptr),
     myLabelSegment(false) {
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
@@ -64,6 +65,7 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myNextLane(nextLane),
     myJunction(junction),
     myNextSegment(nullptr),
+    myPreviousSegment(nullptr),
     myLabelSegment(false) {
     // add segment in junctionSegments
     myPathManager->addSegmentInJunctionSegments(this, junction);
@@ -146,6 +148,18 @@ GNEPathManager::Segment::setNextSegment(GNEPathManager::Segment* nextSegment) {
 }
 
 
+GNEPathManager::Segment*
+GNEPathManager::Segment::getPreviousSegment() const {
+    return myPreviousSegment;
+}
+
+
+void
+GNEPathManager::Segment::setPreviousSegment(GNEPathManager::Segment* previousSegment) {
+    myPreviousSegment = previousSegment;
+}
+
+
 bool
 GNEPathManager::Segment::isLabelSegment() const {
     return myLabelSegment;
@@ -167,7 +181,8 @@ GNEPathManager::Segment::Segment() :
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myJunction(nullptr),
-    myNextSegment(nullptr) {
+    myNextSegment(nullptr),
+    myPreviousSegment(nullptr) {
 }
 
 // ---------------------------------------------------------------------------
@@ -628,8 +643,9 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
             Segment* lastSegment = new Segment(this, pathElement, edges.back()->getLaneByAllowedVClass(vClass), false, true);
             // add to segments
             segments.push_back(lastSegment);
-            // set next segment for vinculating first and last segment with a red line
+            // set previous and next segment for vinculating first and last segment with a red line
             firstSegment->setNextSegment(lastSegment);
+            lastSegment->setPreviousSegment(firstSegment);
         }
         // add segment in path
         myPaths[pathElement] = segments;

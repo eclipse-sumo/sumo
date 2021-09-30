@@ -82,6 +82,12 @@ public:
         /// @brief set next segment
         void setNextSegment(Segment* nexSegment);
 
+        /// @brief get previous segment
+        Segment* getPreviousSegment() const;
+
+        /// @brief set previous segment
+        void setPreviousSegment(Segment* nexSegment);
+
         /// @brief check if segment is label segment
         bool isLabelSegment() const;
 
@@ -113,8 +119,11 @@ public:
         /// @brief junction associated with this segment
         const GNEJunction* myJunction;
 
-        /// @brief pointer to next segment (use for draw a red line)
+        /// @brief pointer to next segment (use for draw red line)
         Segment* myNextSegment;
+
+        /// @brief pointer to previous segment (use for draw red line)
+        Segment* myPreviousSegment;
 
         /// @brief flag for check if this segment is a label segment
         bool myLabelSegment;
