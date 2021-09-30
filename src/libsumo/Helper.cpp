@@ -677,6 +677,9 @@ Helper::cleanup() {
     POI::cleanup();
     InductionLoop::cleanup();
     Junction::cleanup();
+    Helper::clearVehicleStates();
+    Helper::clearTransportableStates();
+    Helper::clearSubscriptions();
     delete myLaneTree;
     myLaneTree = nullptr;
 }
