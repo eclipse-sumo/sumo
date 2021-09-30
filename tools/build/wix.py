@@ -30,12 +30,9 @@ import version
 SUMO_VERSION = version.get_pep440_version().replace("post", "")
 INPUT_DEFAULT = r"S:\daily\sumo-win64-git.zip"
 OUTPUT_DEFAULT = "sumo.msi"
-WIX_DEFAULT = "%sbin" % os.environ.get(
-    "WIX", r"D:\Programme\Windows Installer XML v3.5\\")
-WXS_DEFAULT = os.path.join(
-    os.path.dirname(__file__), "..", "..", "build", "wix", "*.wxs")
-LICENSE = os.path.join(
-    os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
+WIX_DEFAULT = os.path.join(os.environ.get("WIX", r"C:\Program Files (x86)\WiX Toolset v3.11"), "bin")
+WXS_DEFAULT = os.path.join(os.path.dirname(__file__), "..", "..", "build", "wix", "*.wxs")
+LICENSE = os.path.join(os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
 
 SKIP_FILES = ["osmWebWizard.py", "sumo-gui.exe",
               "netedit.exe", "start-command-line.bat"]
@@ -84,11 +81,10 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
                                                  dialogbg=os.path.join(dataDir, "dlgbmp.bmp"),
                                                  webwizico=os.path.join(dataDir, "webWizard.ico")))
         fragments.append(wxsOut.name)
-    subprocess.call([os.path.join(wixBin, "candle.exe"),
-                     "-o", tmpDir + "\\"] + fragments,
+    subprocess.call([os.path.join(wixBin, "candle.exe"), "-o", tmpDir + "\\"] + fragments,
                     stdout=log, stderr=log)
     wixObj = [f.replace(".wxs", ".wixobj") for f in fragments]
-    subprocess.call([os.path.join(wixBin, "light.exe"),
+    subprocess.call([os.path.join(wixBin, "light.exe"), "-sw1076",
                      "-ext", "WixUIExtension", "-o", outFile] + wixObj,
                     stdout=log, stderr=log)
     shutil.rmtree(tmpDir, True)  # comment this out when debugging
@@ -100,12 +96,9 @@ if __name__ == "__main__":
                          default=INPUT_DEFAULT, help="full path to nightly zip")
     optParser.add_option("-o", "--output", default=OUTPUT_DEFAULT,
                          help="full path to output file")
-    optParser.add_option(
-        "-w", "--wix", default=WIX_DEFAULT, help="path to the wix binaries")
-    optParser.add_option(
-        "-x", "--wxs", default=WXS_DEFAULT, help="pattern for wxs templates")
-    optParser.add_option(
-        "-l", "--license", default=LICENSE, help="path to the license")
+    optParser.add_option("-w", "--wix", default=WIX_DEFAULT, help="path to the wix binaries")
+    optParser.add_option("-x", "--wxs", default=WXS_DEFAULT, help="pattern for wxs templates")
+    optParser.add_option("-l", "--license", default=LICENSE, help="path to the license")
     (options, args) = optParser.parse_args()
     buildMSI(options.nightlyZip, options.output,
              options.wix, options.wxs, options.license)
