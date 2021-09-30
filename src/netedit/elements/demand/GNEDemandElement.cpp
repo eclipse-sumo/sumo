@@ -559,6 +559,21 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             // pop draw matrix
             GLHelper::popMatrix();
         }
+        // check if we have to draw an red arrow or line
+        if (segment->getPreviousSegment() && segment->getPreviousSegment()->getLane()) {
+            // get firstPosition (last position of current lane shape)
+            const Position from = lane->getLaneShape().front();
+            // get lastPosition (first position of next lane shape)
+            const Position to = segment->getPreviousSegment()->getLane()->getLaneShape().back();
+            // push draw matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+            // draw child line
+            GNEGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || isAttributeCarrierSelected());
+            // pop draw matrix
+            GLHelper::popMatrix();
+        }
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || dottedElement) {
             // declare trim geometry to draw
