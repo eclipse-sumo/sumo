@@ -307,10 +307,8 @@ Boundary::grow(double by) {
 
 Boundary&
 Boundary::scale(double by) {
-    myXmax += (myXmax * by);
-    myYmax += (myYmax * by);
-    myXmin -= (myXmin * by);
-    myYmin -= (myXmin * by);
+    growWidth (by * (myXmax - myXmin));
+    growHeight (by * (myYmax - myYmin));
     return *this;
 }
 
