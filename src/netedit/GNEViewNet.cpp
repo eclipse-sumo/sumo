@@ -256,8 +256,29 @@ GNEViewNet::~GNEViewNet() {}
 
 void
 GNEViewNet::recalculateBoundaries() {
-    if (myNet) {
-        myNet->getGrid().recalculateBoundaries(myVisualizationSettings);
+    if (myNet && makeCurrent()) {
+        // declare boundary
+        const Boundary maxBoundary(1000000000.0, 1000000000.0, -1000000000.0, -1000000000.0);
+        // get all objects in boundary
+        const std::vector<GUIGlID> GLIDs = getObjectsInBoundary(maxBoundary, false);
+        //  finish make OpenGL context current
+        makeNonCurrent();
+        // declare set
+        std::set<GNEAttributeCarrier*> ACs;
+        // iterate over GUIGlIDs
+        for (const auto& GLId : GLIDs) {
+            GNEAttributeCarrier* AC = myNet->retrieveAttributeCarrier(GLId);
+            // Make sure that object exists
+            if (AC && AC->getTagProperty().isPlacedInRTree()) {
+                ACs.insert(AC);
+            }
+        }
+        // interate over ACs
+        for (const auto &AC : ACs) {
+            // remove object and insert again with exaggeration
+            myNet->getGrid().removeAdditionalGLObject(AC->getGUIGlObject());
+            myNet->getGrid().addAdditionalGLObject(AC->getGUIGlObject(), AC->getGUIGlObject()->getExaggeration(*myVisualizationSettings));
+        }
     }
 }
 

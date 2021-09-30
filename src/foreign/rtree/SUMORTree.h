@@ -189,25 +189,6 @@ public:
         Remove(cmin, cmax, o);
     }
 
-    /// @brief recalculate boundaries
-    void recalculateBoundaries(const GUIVisualizationSettings& s) {
-        std::vector<GUIGlObject*> objects;
-        GUI_RTREE_QUAL::Iterator it;
-        // extract all objects
-        GetFirst(it);
-        while (it.IsNotNull()) {
-            objects.push_back(*it);
-            ++it;
-        }
-        // clear tree and debug
-        GUI_RTREE_QUAL::RemoveAll();
-        myTreeDebug.clear();
-        // insert all again
-        for (const auto &object : objects) {
-            addAdditionalGLObject(object, object->getExaggeration(s));
-        }
-    }
-
 protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
     mutable FXMutex myLock;
