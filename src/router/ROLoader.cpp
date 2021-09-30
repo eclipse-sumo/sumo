@@ -208,10 +208,10 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
             break;
         }
         lastStep = net.saveAndRemoveRoutesUntil(myOptions, provider, time);
-        if ((!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
+        if (time == end || (!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
             break;
         }
-        if (time < end && time + increment > end) {
+        if (time < end && time > end - increment) {
             time = end;
         } else {
             time += increment;
