@@ -201,8 +201,8 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
                            'stop_sequence', 'arrival_fixed', 'departure_fixed']]
 
     # replace characters
-    gtfs_data['stop_name'] = gtfs_data['stop_name'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ')  # noqa
-    gtfs_data['trip_headsign'] = gtfs_data['trip_headsign'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ')  # noqa
+    gtfs_data['stop_name'] = gtfs_data['stop_name'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ', regex=True)  # noqa
+    gtfs_data['trip_headsign'] = gtfs_data['trip_headsign'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ', regex=True)  # noqa
 
     # filter data inside SUMO net by stop location and shape
     gtfs_data = gtfs_data[(options.bbox[1] <= gtfs_data['stop_lat']) &
