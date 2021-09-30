@@ -1617,6 +1617,11 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     }
     MSEdge* destinationEdge = &l->getEdge();
     const MSEdge* destinationRouteEdge = destinationEdge->getNormalBefore();
+    if (!veh->isOnRoad() && veh->getParameter().wasSet(VEHPARS_FORCE_REROUTE) && veh->getRoute().getEdges().size() == 2) {
+        // it's a trip that wasn't routeted yet (likely because the vehicle was added in this step. Find a route now
+        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:moveTo-tripInsertion",
+                veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), true);
+    }
     // find edge in the remaining route
     MSRouteIterator it = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), destinationRouteEdge);
     if (it == veh->getRoute().end()) {
