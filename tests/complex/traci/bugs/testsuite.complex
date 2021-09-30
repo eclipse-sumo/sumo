@@ -103,6 +103,9 @@ ticket5932
 # use changeLaneRelative to change to the right
 ticket5990
 
+# reset object lists (doesn't happen with libsumo)
+ticket6239
+
 # handle invalid departSpeed without crashing
 ticket6626
 
