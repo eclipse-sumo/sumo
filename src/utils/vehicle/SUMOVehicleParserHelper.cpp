@@ -239,7 +239,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             } else {
                 flowParameter->repetitionEnd = flowParameter->depart;
             }
-        } else if ((endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0) && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) { // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
+        } else if ((endDefault == SUMOTime_MAX || endDefault < 0) && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
             WRITE_WARNING("Undefined end for " + toString(tag) + " '" + id + "', defaulting to 24hour duration.");
             flowParameter->repetitionEnd = flowParameter->depart + TIME2STEPS(24 * 3600);
         }

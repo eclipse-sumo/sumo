@@ -98,12 +98,6 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     ROMAEdgeBuilder builder;
     ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"));
     loader.loadNet(net, builder);
-    // initialize the travel times
-    /* const SUMOTime begin = string2time(oc.getString("begin"));
-    const SUMOTime end = string2time(oc.getString("end"));
-    for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
-        (*i).second->addTravelTime(STEPS2TIME(begin), STEPS2TIME(end), (*i).second->getLength() / (*i).second->getSpeedLimit());
-    }*/
     // load the weights when wished/available
     if (oc.isSet("weight-files")) {
         loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false, oc.getBool("weights.expand"));
@@ -202,8 +196,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     if (oc.isDefault("begin") && matrix.getBegin() >= 0) {
         begin = matrix.getBegin();
     }
-    if (oc.isDefault("end") && matrix.getEnd() >= 0) {
-        end = matrix.getEnd();
+    if (oc.isDefault("end")) {
+        end = matrix.getEnd() >= 0 ? matrix.getEnd() : SUMOTime_MAX;
     }
     DijkstraRouter<ROEdge, ROVehicle>::Operation ttOp = oc.getInt("paths") > 1 ? &ROMAAssignments::getPenalizedTT : &ROEdge::getTravelTimeStatic;
     if (measure == "traveltime" && priorityFactor == 0) {

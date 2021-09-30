@@ -32,7 +32,6 @@
 typedef long long int SUMOTime;
 #define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
 #define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
-#define SUMOTIME_MAXSTRING "9223372036854774" // SUMOTime_MAX / 1000 - 1 (because of rounding errors)
 
 // the step length in ms
 extern SUMOTime DELTA_T;
@@ -51,7 +50,7 @@ extern SUMOTime DELTA_T;
 // x*deltaT
 #define SPEED2ACCEL(x) ((x)/TS)
 
-#define STEPS2TIME(x) (static_cast<double>((x)/1000.))
+#define STEPS2TIME(x) (static_cast<double>(x)/1000.)
 // static cast to long long int truncates so we must pad away from 0 for correct rounding
 #define TIME2STEPS(x) (static_cast<SUMOTime>((x) * 1000. + ((x) >= 0 ? 0.5 : -0.5)))
 #define STEPFLOOR(x) (int(x/DELTA_T)*DELTA_T)
