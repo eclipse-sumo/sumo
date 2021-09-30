@@ -949,9 +949,12 @@ GNEVehicle::getFirstPathLane() const {
         if ((departEdge > 0) && (departEdge < (int)getChildDemandElements().front()->getParentEdges().size())) {
             // use depart edge
             firstEdge = getChildDemandElements().front()->getParentEdges().at(departEdge);
-        } else {
-            // use first embedded route edge
+        } else if (getChildDemandElements().front()->getParentEdges().size() > 0) {
             firstEdge = getChildDemandElements().front()->getParentEdges().front();
+        } else if (getChildDemandElements().front()->getParentLanes().size() > 0) {
+            firstEdge = getChildDemandElements().front()->getParentLanes().front()->getParentEdge();
+        } else {
+            return nullptr;
         }
     } else {
         // use first parent edge
@@ -992,9 +995,14 @@ GNEVehicle::getLastPathLane() const {
         if ((arrivalEdge > 0) && (arrivalEdge < (int)getChildDemandElements().front()->getParentEdges().size())) {
             // use arrival edge
             lastEdge = getChildDemandElements().front()->getParentEdges().at(arrivalEdge);
-        } else {
+        } else if (getChildDemandElements().front()->getParentEdges().size() > 0) {
             // use last route edge
             lastEdge = getChildDemandElements().front()->getParentEdges().back();
+        } else if (getChildDemandElements().front()->getParentLanes().size() > 0) {
+            // use lane
+            lastEdge = getChildDemandElements().front()->getParentLanes().back()->getParentEdge();
+        } else {
+            return nullptr;
         }
     } else {
         // use last parent edge
