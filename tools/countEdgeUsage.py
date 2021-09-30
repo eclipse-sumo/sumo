@@ -19,6 +19,7 @@ from __future__ import print_function
 import sys
 from optparse import OptionParser
 from collections import defaultdict
+import sumolib
 from sumolib.output import parse_fast, parse
 from sumolib.miscutils import Statistics, parseTime
 
@@ -46,6 +47,9 @@ def parse_args():
     optParser.add_option("-b", "--begin", default=0, help="collect departures after begin time")
     optParser.add_option("-e", "--end", help="collect departures up to end time (default unlimited)")
     optParser.add_option("--period", help="create data intervals of the given period duration")
+    optParser.add_option("-m", "--min-count", default=0, type=int, help="include only values above the minimum")
+    optParser.add_option("-n", "--net-file", help="parse net for geo locations of the edges")
+    optParser.add_option("-p", "--poi-file", help="write geo POIs")
     options, args = optParser.parse_args()
     try:
         options.routefile, = args
@@ -53,6 +57,8 @@ def parse_args():
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".departsAndArrivals.xml"
+    if options.net_file and not options.poi_file:
+        options.poi_file = options.net_file + "_count.poi.xml"
 
     options.subparts = []
     if options.subpart is not None:
@@ -98,7 +104,7 @@ def hasSubpart(edges, subparts):
     return False
 
 
-def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin=0, end="10000", prefix=""):
+def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts, begin=0, end="1000000", prefix=""):
     departStats = Statistics(prefix + "departEdges")
     arrivalStats = Statistics(prefix + "arrivalEdges")
     intermediateStats = Statistics(prefix + "intermediateEdges")
@@ -113,16 +119,17 @@ def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts
             intermediateStats.add(intermediateCounts[e], e)
         print(intermediateStats)
 
-    outf.write('   <interval begin="%s" end="%s" id="routeStats">\n' % (begin, end))
+    outf.write('    <interval begin="%s" end="%s" id="routeStats">\n' % (begin, end))
     allEdges = set(departCounts.keys())
     allEdges.update(arrivalCounts.keys())
     if options.intermediate:
         allEdges.update(intermediateCounts.keys())
     for e in sorted(allEdges):
         intermediate = ' intermediate="%s"' % intermediateCounts[e] if options.intermediate else ''
-        outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"%s/>\n' %
-                   (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e], intermediate))
-    outf.write("   </interval>\n")
+        if departCounts[e] > options.min_count or arrivalCounts[e] > options.min_count:
+            outf.write('        <edge id="%s" departed="%s" arrived="%s" delta="%s"%s/>\n' %
+                       (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e], intermediate))
+    outf.write("    </interval>\n")
     departCounts.clear()
     arrivalCounts.clear()
     intermediateCounts.clear()
@@ -161,6 +168,18 @@ def parseSimple(outf, options):
             departCounts[walk.attr_from] += 1
             arrivalCounts[walk.to] += 1
 
+    if options.net_file:
+        net = sumolib.net.readNet(options.net_file)
+        with open(options.poi_file, "w") as pois:
+            sumolib.xml.writeHeader(pois, root="additional")
+            allEdges = set(departCounts.keys())
+            allEdges.update(arrivalCounts.keys())
+            for e in sorted(allEdges):
+                if departCounts[e] > options.min_count or arrivalCounts[e] > options.min_count:
+                    lon, lat = net.convertXY2LonLat(*net.getEdge(e).getShape()[0])
+                    pois.write('    <poi id="%s" lon="%s" lat="%s"/> <!-- departed="%s" arrived="%s" -->\n' %
+                               (e, lon, lat, departCounts[e], arrivalCounts[e]))
+            pois.write("</additional>\n")
     writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts)
 
 
