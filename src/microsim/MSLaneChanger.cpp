@@ -369,8 +369,9 @@ MSLaneChanger::change() {
     vehicle->getLaneChangeModel().setOwnState(stateRight | stateLeft);
 
     // only emergency vehicles should change to the opposite side on a
-    // multi-lane road
-    if (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
+    // multi-lane road (or vehicles that need to stop on the opposite side)
+    if ((vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
+                || hasOppositeStop(vehicle))
             && changeOpposite(vehicle, leader)) {
         return true;
     }
@@ -1024,6 +1025,16 @@ MSLaneChanger::checkChange(
     return state;
 }
 
+bool
+MSLaneChanger::hasOppositeStop(MSVehicle* vehicle) {
+    if (vehicle->hasStops()) {
+        const MSStop& stop = vehicle->getNextStop();
+        if (stop.isOpposite && vehicle->nextStopDist() < OPPOSITE_OVERTAKING_MAX_LOOKAHEAD) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool
 MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader) {
@@ -1032,12 +1043,18 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         return false;
     }
     MSLane* source = vehicle->getMutableLane();
+    MSLane* opposite = source->getOpposite();
+
 #ifdef DEBUG_CHANGE_OPPOSITE
     gDebugFlag5 = DEBUG_COND;
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " considerChangeOpposite source=" << source->getID() << " opposite=" << Named::getIDSecure(source->getOpposite()) << " lead=" << Named::getIDSecure(leader.first) << "\n";
     }
 #endif
+    //There is no lane for opposite driving
+    if (opposite == nullptr) {
+        return false;
+    }
     if (vehicle->isStopped()) {
         // stopped vehicles obviously should not change lanes. Usually this is
         // prevent by appropriate bestLane distances
@@ -1065,22 +1082,22 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         return false;
     }
 
-    MSLane* opposite = source->getOpposite();
+    //lane for opposite driving is not permitted
+    if (!opposite->allowsVehicleClass(vehicle->getVClass())) {
+        return false;
+    }
 
     if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
         // check for opposite direction stop
-        if (vehicle->hasStops()) {
-            const MSStop& stop = vehicle->getNextStop();
-            if (stop.isOpposite && vehicle->nextStopDist() < OPPOSITE_OVERTAKING_MAX_LOOKAHEAD) {
-                std::pair<MSVehicle* const, double> neighLead = opposite->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
-                std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
-                std::vector<MSVehicle::LaneQ> preb = vehicle->getBestLanes();
-                MSVehicle::LaneQ leftmost = preb.back();
-                preb.back().bestLaneOffset += 1;
-                preb.back().length = vehicle->getPositionOnLane() + vehicle->nextStopDist();
-                preb.push_back(leftmost);
-                return checkChangeOpposite(vehicle, 1, opposite, leader, neighLead, neighFollow, preb);
-            }
+        if (hasOppositeStop(vehicle)) {
+            std::pair<MSVehicle* const, double> neighLead = opposite->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
+            std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
+            std::vector<MSVehicle::LaneQ> preb = vehicle->getBestLanes();
+            MSVehicle::LaneQ leftmost = preb.back();
+            preb.back().bestLaneOffset += 1;
+            preb.back().length = vehicle->getPositionOnLane() + vehicle->nextStopDist();
+            preb.push_back(leftmost);
+            return checkChangeOpposite(vehicle, 1, opposite, leader, neighLead, neighFollow, preb);
         }
 
         // no reason to change unless there is a leader
@@ -1113,10 +1130,6 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     }
 
 
-    //There is no lane for opposite driving
-    if (opposite == nullptr || !opposite->allowsVehicleClass(vehicle->getVClass())) {
-        return false;
-    }
     const MSLane* oncomingLane = isOpposite ? source : opposite;
     // changing into the opposite direction is always to the left (XXX except for left-hand networkds)
     int direction = isOpposite ? -1 : 1;

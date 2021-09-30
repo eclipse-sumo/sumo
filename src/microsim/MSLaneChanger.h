@@ -237,6 +237,9 @@ protected:
     /// @brief return the next lane in conts beyond lane or nullptr
     static MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts);
 
+    /// @brief whether vehicle has an opposite-direction stop within relevant range
+    static bool hasOppositeStop(MSVehicle* vehicle);
+
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.
     Changer   myChanger;
