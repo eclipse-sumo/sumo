@@ -268,6 +268,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                             planItem = None
                                         else:
                                             planItem.setAttribute("from", ptRoute[0])
+                                            planItem.lines = planItem.intended
                                             isDiscoBefore = True
                                     else:
                                         planItem = None
@@ -281,7 +282,6 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                             planItem = None
                         if planItem is not None and newDepart is None and planItem.depart is not None:
                             newDepart = parseTime(planItem.depart)
-                            planItem.lines = planItem.intended
                     if planItem is None:
                         isDiscoAfter = True
                     else:
@@ -331,15 +331,18 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                 moving.end = "%.2f" % (newDepart + parseTime(moving.end))
                             newDepart += oldDepart
                             moving.begin = "%.2f" % newDepart
-                        if collectPT and moving.line:
+                        if collectPT and moving.line and moving.line not in oldPTRoutes:
                             oldPTRoutes[moving.line] = standaloneRoutes[moving.route].edges.split()
+                        cut_stops(moving, busStopEdges, set(standaloneRoutes[moving.route].edges.split()))
+                        moving.departEdge = None  # the cut already removed the unused edges
+                        moving.arrivalEdge = None  # the cut already removed the unused edges
                         yield newDepart, moving
                         continue
                     else:
                         old_route = routeRef = standaloneRoutes[moving.route]
                 if options.discard_exit_times:
                     old_route.exitTimes = None
-                if collectPT and moving.line:
+                if collectPT and moving.line and moving.line not in oldPTRoutes:
                     oldPTRoutes[moving.line] = old_route.edges.split()
                 routeParts = _cutEdgeList(areaEdges, oldDepart, old_route.exitTimes,
                                           old_route.edges.split(), orig_net, options,
