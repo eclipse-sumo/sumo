@@ -46,7 +46,6 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myJunction(nullptr),
-    myValid(true),
     myNextSegment(nullptr),
     myLabelSegment(false) {
     // add segment in laneSegments
@@ -64,7 +63,6 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPreviousLane(previousLane),
     myNextLane(nextLane),
     myJunction(junction),
-    myValid(true),
     myNextSegment(nullptr),
     myLabelSegment(false) {
     // add segment in junctionSegments
@@ -136,18 +134,6 @@ GNEPathManager::Segment::getJunction() const {
 }
 
 
-bool
-GNEPathManager::Segment::isValid() const {
-    return myValid;
-}
-
-
-void
-GNEPathManager::Segment::markSegmentInvalid() {
-    myValid = false;
-}
-
-
 GNEPathManager::Segment*
 GNEPathManager::Segment::getNextSegment() const {
     return myNextSegment;
@@ -181,7 +167,6 @@ GNEPathManager::Segment::Segment() :
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myJunction(nullptr),
-    myValid(false),
     myNextSegment(nullptr) {
 }
 
@@ -641,8 +626,6 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
             segments.push_back(firstSegment);
             // create last segment
             Segment* lastSegment = new Segment(this, pathElement, edges.back()->getLaneByAllowedVClass(vClass), false, true);
-            // mark segment as invalid
-            lastSegment->markSegmentInvalid();
             // add to segments
             segments.push_back(lastSegment);
             // set next segment for vinculating first and last segment with a red line
@@ -720,10 +703,6 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const st
                 const GNELane* nextLane = lanes.at(i + 1);
                 // create junction segments
                 Segment* junctionSegment = new Segment(this, pathElement, lanes.at(i)->getParentEdge()->getParentJunctions().at(1), lanes.at(i), nextLane);
-                // check if both lanes are connected
-                if (!connectedLanes(lanes.at(i), nextLane)) {
-                    junctionSegment->markSegmentInvalid();
-                }
                 // add it into segment vector
                 segments.push_back(junctionSegment);
             }

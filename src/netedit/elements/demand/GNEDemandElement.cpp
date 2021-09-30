@@ -484,24 +484,21 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         const double pathWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth * (duplicateWidth ? 2 : 1);
         // declare path geometry
         GNEGeometry::Geometry personPlanGeometry;
-        // only calculate geometry if segment is valid
-        if (segment->isValid()) {
-            // update pathGeometry depending of first and last segment
-            if (segment->isFirstSegment() && segment->isLastSegment()) {
-                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                                  getPathElementDepartValue(), getPathElementArrivalValue(),    // extrem positions
-                                                  getPathElementDepartPos(), getPathElementArrivalPos());       // extra positions
-            } else if (segment->isFirstSegment()) {
-                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                                  getPathElementDepartValue(), -1,                 // extrem positions
-                                                  getPathElementDepartPos(), Position::INVALID);   // extra positions
-            } else if (segment->isLastSegment()) {
-                personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                                  -1, getPathElementArrivalValue(),                // extrem positions
-                                                  Position::INVALID, getPathElementArrivalPos());  // extra positions
-            } else {
-                personPlanGeometry = lane->getLaneGeometry();
-            }
+        // update pathGeometry depending of first and last segment
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
+            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                                getPathElementDepartValue(), getPathElementArrivalValue(),    // extrem positions
+                                                getPathElementDepartPos(), getPathElementArrivalPos());       // extra positions
+        } else if (segment->isFirstSegment()) {
+            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                                getPathElementDepartValue(), -1,                 // extrem positions
+                                                getPathElementDepartPos(), Position::INVALID);   // extra positions
+        } else if (segment->isLastSegment()) {
+            personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                                -1, getPathElementArrivalValue(),                // extrem positions
+                                                Position::INVALID, getPathElementArrivalPos());  // extra positions
+        } else {
+            personPlanGeometry = lane->getLaneGeometry();
         }
         // get color
         const RGBColor& pathColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
@@ -594,7 +591,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // check if draw person plan elements can be drawn
-    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
+    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(fromLane, toLane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get person parent

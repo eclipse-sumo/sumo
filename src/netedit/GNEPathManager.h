@@ -76,12 +76,6 @@ public:
         /// @brief get junction associated with this segment
         const GNEJunction* getJunction() const;
 
-        /// @brief check if segment is valid
-        bool isValid() const;
-
-        /// @brief mark segment as invalid
-        void markSegmentInvalid();
-
         /// @brief get next segment
         Segment* getNextSegment() const;
 
@@ -118,9 +112,6 @@ public:
 
         /// @brief junction associated with this segment
         const GNEJunction* myJunction;
-
-        /// @brief flag for check if segment is valid
-        bool myValid;
 
         /// @brief pointer to next segment (use for draw a red line)
         Segment* myNextSegment;

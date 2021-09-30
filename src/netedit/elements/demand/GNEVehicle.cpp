@@ -775,24 +775,21 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
         GNEGeometry::Geometry vehicleGeometry;
-        // check if segment is valid
-        if (segment->isValid()) {
-            // update pathGeometry depending of first and last segment
-            if (segment->isFirstSegment() && segment->isLastSegment()) {
-                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                               geometryDepartPos, geometryEndPos,      // extrem positions
-                                               Position::INVALID, Position::INVALID);  // extra positions
-            } else if (segment->isFirstSegment()) {
-                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                               geometryDepartPos, -1,                  // extrem positions
-                                               Position::INVALID, Position::INVALID);  // extra positions
-            } else if (segment->isLastSegment()) {
-                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                               -1, geometryEndPos,                     // extrem positions
-                                               Position::INVALID, Position::INVALID);  // extra positions
-            } else {
-                vehicleGeometry = lane->getLaneGeometry();
-            }
+        // update pathGeometry depending of first and last segment
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
+            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                            geometryDepartPos, geometryEndPos,      // extrem positions
+                                            Position::INVALID, Position::INVALID);  // extra positions
+        } else if (segment->isFirstSegment()) {
+            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                            geometryDepartPos, -1,                  // extrem positions
+                                            Position::INVALID, Position::INVALID);  // extra positions
+        } else if (segment->isLastSegment()) {
+            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                            -1, geometryEndPos,                     // extrem positions
+                                            Position::INVALID, Position::INVALID);  // extra positions
+        } else {
+            vehicleGeometry = lane->getLaneGeometry();
         }
         // obtain color
         const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTrips;
