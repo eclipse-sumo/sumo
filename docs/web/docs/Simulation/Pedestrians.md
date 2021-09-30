@@ -350,9 +350,9 @@ Pedestrians are included in the following outputs:
 
 The detector attribute 'detectPersons' for configuring output of pedestrians and riding persons can be used with the following detectors:
 
-- [Inductive loop detectors (E1)](Output/Induction_Loops_Detectors_(E1).md)
-- [Lane area detectors (E2)](Output/Lanearea_Detectors_(E2).md) (only single-lane detectors are supported)
-- [Multi-Entry-Exit detectors (E3)](Output/Multi-Entry-Exit_Detectors_(E3).md)
+- [Inductive loop detectors (E1)](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
+- [Lane area detectors (E2)](../Simulation/Output/Lanearea_Detectors_(E2).md) (only single-lane detectors are supported)
+- [Multi-Entry-Exit detectors (E3)](../Simulation/Output/Multi-Entry-Exit_Detectors_(E3).md)
 
 If the attribute 'detectPersons' is used, all detector output values will pertain to persons (i.e. 'nVehContrib').
 The attribute 'detectPersons' supports the following values:
