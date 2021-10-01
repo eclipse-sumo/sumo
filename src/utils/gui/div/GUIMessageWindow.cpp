@@ -35,6 +35,7 @@
 // static members
 // ===========================================================================
 bool GUIMessageWindow::myLocateLinks = true;
+SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
 
 
 // ===========================================================================
@@ -191,7 +192,7 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             if (t >= 0) {
                 std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
                 if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
-                    breakpoints.push_back(t);
+                    breakpoints.push_back(t + myBreakPointOffset);
                     std::sort(breakpoints.begin(), breakpoints.end());
                     myMainWindow->setBreakpoints(breakpoints);
                 }

@@ -519,6 +519,8 @@ enum {
     MID_ALLOWTEXTURES,
     /// @brief Locate links in messages - Option
     MID_LOCATELINKS,
+    /// @brief Set breakpionts from messages - Option
+    MID_TIMELINK_BREAKPOINT,
 
     /// @}
 

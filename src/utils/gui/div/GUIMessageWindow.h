@@ -95,6 +95,16 @@ public:
         return myLocateLinks;
     }
 
+    /// @brief switch locate links on and off
+    static void setBreakPointOffset(SUMOTime val) {
+        myBreakPointOffset = val;
+    }
+
+    /// @brief ask whether locate links is enabled
+    static SUMOTime getBreakPointOffset() {
+        return myBreakPointOffset;
+    }
+
 private:
     /// @brief class MsgOutputDevice
     class MsgOutputDevice : public OutputDevice {
@@ -138,6 +148,9 @@ private:
 
     /// @brief whether messages are linked to the GUI elements
     static bool myLocateLinks;
+
+    /// @brief Offset when creating breakpoint by clicking on time links
+    static SUMOTime myBreakPointOffset;
 
     /// @brief The text colors used
     FXHiliteStyle* myStyles;

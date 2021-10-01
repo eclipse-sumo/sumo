@@ -465,7 +465,7 @@ GUIApplicationWindow::fillMenuBar() {
     mySettingsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "&Settings", nullptr, mySettingsMenu);
     GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
-                                           "Application Settings...", "", "Open a Dialog for Application Settings editing.",
+                                           "Application Settings", "Ctrl+H", "Open a Dialog for Application Settings editing.",
                                            nullptr, this, MID_APPSETTINGS);
     myGamingModeCheckbox = new FXMenuCheck(mySettingsMenu,
                                            "Gaming Mode\tCtrl+G\tToggle gaming mode on/off.",
