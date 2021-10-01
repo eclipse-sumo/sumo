@@ -120,9 +120,18 @@ jobs:
         name: Py3-sumo-wheels
         path: sumo/dist
 
-    - name: Examples and tests
-      if: matrix.build-type != 'wheel' && matrix.python == '3.8'
+    - name: Plain examples and tests
+      if: matrix.build-type == 'plain' && matrix.python == '3.8'
       run: |
+        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,marouter,netconvert,netedit,netgen,od2trips,polyconvert,sumo"
+        cd sumo/build_msvc
+        cmake --build . --config Release --target examples
+        ctest --verbose
+
+    - name: Extra tests
+      if: matrix.build-type == 'extra' && matrix.python == '3.8'
+      run: |
+        $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
