@@ -851,39 +851,26 @@ GNEPathManager::addSegmentInJunctionSegments(Segment* segment, const GNEJunction
 
 void
 GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
-    // first declare vector with lanes to clear
-    std::vector<const GNELane*> lanesToClear;
-    // now iterate over laneSegments
-    for (auto& laneSegment : myLaneSegments) {
-        // remove segment from segment sets
-        if (laneSegment.second.find(segment) != laneSegment.second.end()) {
-            laneSegment.second.erase(segment);
+    // check if segment has a lane
+    if (segment->getLane()) {
+        // remove segment from segments associated with lane
+        if (myLaneSegments.at(segment->getLane()).find(segment) != myLaneSegments.at(segment->getLane()).end()) {
+            myLaneSegments.at(segment->getLane()).erase(segment);
         }
-        // now check if lane doesn't have segments
-        if (laneSegment.second.empty()) {
-            lanesToClear.push_back(laneSegment.first);
+        // clear lane if doesn't have more segments
+        if (myLaneSegments.at(segment->getLane()).empty()) {
+            myLaneSegments.erase(segment->getLane());
         }
     }
-    // finally clear empty lanes from myLaneSegments
-    for (const auto& laneToClear : lanesToClear) {
-        myLaneSegments.erase(laneToClear);
-    }
-    // first declare vector with junctions to clear
-    std::vector<const GNEJunction*> junctionsToClear;
-    // now iterate over junctionSegments
-    for (auto& junctionSegment : myJunctionSegments) {
-        // remove segment from segment sets
-        if (junctionSegment.second.find(segment) != junctionSegment.second.end()) {
-            junctionSegment.second.erase(segment);
+    if (segment->getJunction()) {
+        // remove segment from segments associated with junction
+        if (myJunctionSegments.at(segment->getJunction()).find(segment) != myJunctionSegments.at(segment->getJunction()).end()) {
+            myJunctionSegments.at(segment->getJunction()).erase(segment);
         }
-        // now check if junction doesn't have segments
-        if (junctionSegment.second.empty()) {
-            junctionsToClear.push_back(junctionSegment.first);
+        // clear junction if doesn't have more segments
+        if (myJunctionSegments.at(segment->getJunction()).empty()) {
+            myJunctionSegments.erase(segment->getJunction());
         }
-    }
-    // finally clear empty junctions from myJunctionSegments
-    for (const auto& junctionToClear : junctionsToClear) {
-        myJunctionSegments.erase(junctionToClear);
     }
 }
 
