@@ -6,3 +6,6 @@ turn_d250_u250
 
 # Combination of turn filter with lanes filter
 combined_with_lanes
+
+# Combination of turn filter with lateralDistance filter
+combined_with_lateralDistance
