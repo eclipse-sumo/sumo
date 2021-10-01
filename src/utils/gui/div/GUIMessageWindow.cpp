@@ -257,10 +257,13 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
             t = getTimeString(text, pos + 6, 0, text.length());
         }
         if (t >= 0) {
-            FXString insText = text.left(pos + 1);
+            FXString insText = text.left(pos + 6);
             FXText::appendStyledText(insText, style + 1);
-            text.erase(0, pos + 1);
+            text.erase(0, pos + 6);
             pos = text.find(" ");
+            if (pos < 0) {
+                pos = text.rfind(".");
+            }
             insText = text.left(pos);
             FXText::appendStyledText(insText, style + 4);
             text.erase(0, pos);
