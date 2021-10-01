@@ -82,6 +82,7 @@ FXDEFMAP(GUIBaseVehicle::GUIBaseVehiclePopupMenu) GUIBaseVehiclePopupMenuMap[] =
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_LFLINKITEMS, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowLFLinkItems),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideLFLinkItems),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_FOES, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes),
+    FXMAPFUNC(SEL_COMMAND, MID_SELECT_TRANSPORTED, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdSelectTransported),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVE_OBJECT, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject),
     FXMAPFUNC(SEL_COMMAND, MID_TOGGLE_STOP, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdToggleStop),
 };
@@ -232,6 +233,20 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, vo
 
 
 long
+GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdSelectTransported(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_VEHICLE);
+    const MSBaseVehicle& veh = static_cast<GUIBaseVehicle*>(myObject)->getVehicle();
+    for (const MSTransportable* t : veh.getPersons()) {
+        gSelected.select((static_cast<const GUIPerson*>(t))->getGlID());
+    }
+    for (MSTransportable* t : veh.getContainers()) {
+        gSelected.select((static_cast<const GUIContainer*>(t))->getGlID());
+    }
+    myParent->update();
+    return 1;
+}
+
+long
 GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
     GUIBaseVehicle* baseVeh = static_cast<GUIBaseVehicle*>(myObject);
     MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&baseVeh->myVehicle);
@@ -359,7 +374,9 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
         GUIDesigns::buildFXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
     GUIDesigns::buildFXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
-
+    if (myVehicle.getPersons().size() + myVehicle.getContainers().size() > 0) {
+        GUIDesigns::buildFXMenuCommand(ret, "Select transported", nullptr, ret, MID_SELECT_TRANSPORTED);
+    }
     GUIDesigns::buildFXMenuCommand(ret, myVehicle.isStopped() ? "Abort stop" : "Stop", nullptr, ret, MID_TOGGLE_STOP);
     GUIDesigns::buildFXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
 

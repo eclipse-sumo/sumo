@@ -284,8 +284,10 @@ public:
         long onCmdShowLFLinkItems(FXObject*, FXSelector, void*);
         /// @brief Called if all routes of the vehicle shall be hidden
         long onCmdHideLFLinkItems(FXObject*, FXSelector, void*);
-        /// @brief Called when show a vehicles foes
+        /// @brief Called to show (select) a vehicles foes
         long onCmdShowFoes(FXObject*, FXSelector, void*);
+        /// @brief Called to select all riding persons and continers
+        long onCmdSelectTransported(FXObject*, FXSelector, void*);
         /// @brief Called when removing the vehicle
         long onCmdRemoveObject(FXObject*, FXSelector, void*);
         /// @brief Called when toggling stop state
@@ -332,6 +334,10 @@ public:
 
 
     /// @}
+
+    const MSBaseVehicle& getVehicle() {
+        return myVehicle;
+    }
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, RGBColor& col);

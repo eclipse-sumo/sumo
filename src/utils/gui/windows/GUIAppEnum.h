@@ -469,6 +469,8 @@ enum {
     MID_SHOW_FOES,
     MID_SHOW_LFLINKITEMS,
     MID_HIDE_LFLINKITEMS,
+    /// @brief select transportables of a vehicle
+    MID_SELECT_TRANSPORTED,
     /// @brief toggle stop state of a vehice or person
     MID_TOGGLE_STOP,
     /// @brief remove a vehice or person
