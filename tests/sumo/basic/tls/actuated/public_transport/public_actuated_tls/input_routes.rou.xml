@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="pkw" vClass="passenger"/>
+
+    <!--<flow id="type1" color="1,1,0" begin="25" period="1" number="100">
+        <route edges="EC CW"/>
+    </flow>-->
+    <flow id="type2" color="1,1,0" begin="25" period="1" number="100">
+        <route edges="WC CE"/>
+    </flow>
+
+    <vehicle id="bus_2" type="bus" depart="50" departSpeed="max" number="1">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle id="bus_1" type="bus" depart="55" departSpeed="max" number="1">
+        <route edges="SC CN"/>
+    </vehicle>
+
+
+</routes>

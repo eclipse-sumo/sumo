@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Erik Tunsch
 /// @date    Sept 2002
 ///
 // An actuated (adaptive) traffic light logic
@@ -114,7 +115,7 @@ public:
 
 protected:
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap):
+        InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap) :
             loop(_loop),
             servedPhase(numPhases, false),
             maxGap(_maxGap)
@@ -173,7 +174,13 @@ protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
 
+    InductLoopMap myPublicInductLoopsForPhase;
+
     std::vector<InductLoopInfo> myInductLoops;
+
+    std::vector<InductLoopInfo> myPublicInductLoops;
+
+    std::map<std::string, double> myPublicWaitTime;
 
 
     /// The maximum gap to check in seconds
