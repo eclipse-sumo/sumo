@@ -1,0 +1,7 @@
+[Reported by Windows at 01Okt09:51:13]
+search_string:<vType id=
+use_regexp:0
+trigger_on_absence:1
+search_file:additional
+full_description:Keeping attribute order is a feature of Python 3.7 and later
+brief_description:attribute order
