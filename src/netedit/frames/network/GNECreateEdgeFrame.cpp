@@ -1344,6 +1344,8 @@ GNECreateEdgeFrame::EdgeTypeSelectorLegend::EdgeTypeSelectorLegend(GNECreateEdge
     std::ostringstream information;
     // add label for shift+click
     information
+            << "- ESC:" << "\n"
+            << "  Deselect origin" << "\n"
             << "- Control+Click:" << "\n"
             << "  Move view" << "\n"
             << "- Shift+Click:" << "\n"
