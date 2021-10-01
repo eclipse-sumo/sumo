@@ -85,8 +85,8 @@ jobs:
     - name: Building Examples and Tests
       if: matrix.build_type == 'full'
       run: |
-        sudo apt-get install python3-pyproj python3-rtree python3-pulp python3-pandas
-        sudo pip3 install ezdxf
+        sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8
+        sudo pip3 install ezdxf pulp
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
