@@ -4524,7 +4524,8 @@ GNEViewNet::drawTemporalJunction() const {
         // set color
         GLHelper::setColor(bubbleColor);
         // draw filled circle
-        GLHelper::drawFilledCircle(myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration, myVisualizationSettings->getCircleResolution());
+        const double circleWidth = myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
+        GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75,myVisualizationSettings->getCircleResolution());
         // pop junction matrix
         GLHelper::popMatrix();
         // draw temporal edge
