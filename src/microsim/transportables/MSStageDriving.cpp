@@ -489,9 +489,6 @@ MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh
                 canLeave = veh.isStoppedInRange(accessPos, tolerance);
             }
         }
-        if (canLeave) {
-            myDestinationStop->addTransportable(t);
-        }
     }
     return canLeave;
 }

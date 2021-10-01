@@ -173,7 +173,9 @@ private:
     /// @brief The passengers of the vehicle
     std::vector<MSTransportable*> myTransportables;
 
-    /// @brief Whether the vehicle is at a stop
+    /* @brief Whether the vehicle is at a stop and the stop is finished
+     * true means, all passengers that wish to debord at the current stop have left
+     */
     bool myStopped;
 
 

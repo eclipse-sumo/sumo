@@ -4135,6 +4135,13 @@ MSVehicle::updateState(double vNext) {
 void
 MSVehicle::updateParkingState() {
     updateState(0);
+    // deboard while parked
+    if (myPersonDevice != nullptr) {
+        myPersonDevice->notifyMove(*this, getPositionOnLane(), getPositionOnLane(), 0);
+    }
+    if (myContainerDevice != nullptr) {
+        myContainerDevice->notifyMove(*this, getPositionOnLane(), getPositionOnLane(), 0);
+    }
 }
 
 
