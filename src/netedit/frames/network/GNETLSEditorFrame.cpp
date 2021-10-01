@@ -1322,7 +1322,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Load TLS Program");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("*.xml");
+    opendialog.setPatternList("XML files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1389,8 +1389,9 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
     if (file == "") {
         return 1;
     }
+    // add xml extension
+    file = FileHelpers::addExtension(file.text(), ".xml").c_str();
     OutputDevice& device = OutputDevice::getDevice(file.text());
-
     // save program
     device.writeXMLHeader("additional", "additional_file.xsd");
     device.openTag(SUMO_TAG_TLLOGIC);
