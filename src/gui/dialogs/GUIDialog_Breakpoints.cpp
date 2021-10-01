@@ -206,15 +206,21 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
     // check whether the inserted value is empty
     const bool empty = value.find_first_not_of(" ") == std::string::npos;
     try {
+        SUMOTime t = -1;
+        if (!empty) {
+            t = string2time(value);
+            // round down to nearest reachable time step
+            t -= t % DELTA_T;
+        }
         if (i->row == (int)myBreakpoints->size()) {
             if (!empty) {
-                myBreakpoints->push_back(string2time(value));
+                myBreakpoints->push_back(t);
             }
         } else {
             if (empty) {
                 myBreakpoints->erase(myBreakpoints->begin() + i->row);
             } else {
-                (*myBreakpoints)[i->row] = string2time(value);
+                (*myBreakpoints)[i->row] = t;
             }
         }
     } catch (NumberFormatException&) {

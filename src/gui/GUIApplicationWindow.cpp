@@ -1521,16 +1521,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                         myRunThread->getBreakpoints().assign(settings.getBreakpoints().begin(), settings.getBreakpoints().end());
                         myRunThread->getBreakpointLock().unlock();
                     }
-                    if (!OptionsCont::getOptions().isDefault("breakpoints")) {
-                        std::vector<SUMOTime> breakpoints;
-                        for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {
-                            breakpoints.push_back(string2time(val));
-                        }
-                        std::sort(breakpoints.begin(), breakpoints.end());
-                        myRunThread->getBreakpointLock().lock();
-                        myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
-                        myRunThread->getBreakpointLock().unlock();
-                    }
                     myJamSounds = settings.getEventDistribution("jam");
                     myCollisionSounds = settings.getEventDistribution("collision");
                     if (settings.getJamSoundTime() > 0) {
@@ -1546,11 +1536,13 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 mySimDelaySlider->setValue((int)mySimDelay);
                 mySimDelaySpinner->setValue(mySimDelay);
             }
-
             if (!OptionsCont::getOptions().isDefault("breakpoints")) {
                 std::vector<SUMOTime> breakpoints;
                 for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {
-                    breakpoints.push_back(string2time(val));
+                    SUMOTime t = string2time(val);
+                    // round down to nearest reachable time step
+                    t -= t % DELTA_T;
+                    breakpoints.push_back(t);
                 }
                 std::sort(breakpoints.begin(), breakpoints.end());
                 myRunThread->getBreakpointLock().lock();
