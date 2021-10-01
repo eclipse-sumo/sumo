@@ -4,3 +4,7 @@ noconflict
 # stopping on the opposite side without other traffic,
 # forward edge has 2 lanes
 2lanes_forward
+
+# stopping on the opposite side without other traffic,
+# need to cross 2 opposite lanes.
+2lanes_opposite
