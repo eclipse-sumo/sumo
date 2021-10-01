@@ -33,7 +33,7 @@ The turn-count data must be provided in the format:
 
 # routeSampler.py
 The script generates routes from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
-the resulting routes fulfill the counting data
+the resulting routes fulfill the counting data.
 
 ## turn counts
 The turn-count data format is the same as as described [above](#turn_count_data_format).
@@ -75,6 +75,9 @@ Example:
 python tools/randomTrips.py -n <input-net-file> -r sampleRoutes.rou.xml
 python tools/routeSampler.py -r sampleRoutes.rou.xml --edgedata-files <edgedata-files> -o <output-file>
 ```
+
+!!! note
+    departure times in route files are ignored and only the `<route>`-elements are used. Route with named routes but without vehicles may also be used.
 
 ## Generalized route restrictions
 By default, the input options --edgedata-files and --turn-files allow restricting counts for single edges and pairs of consecutive edges. 
