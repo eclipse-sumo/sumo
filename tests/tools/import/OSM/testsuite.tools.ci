@@ -1,0 +1,8 @@
+# build a network for private passenger traffic
+build_passenger
+
+# test all modes on the default location of osmWebWizard.py
+#webWizard
+
+# test extraction of taxi stands as chargingStations
+taxiStop
