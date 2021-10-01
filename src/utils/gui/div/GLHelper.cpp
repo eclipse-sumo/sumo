@@ -460,12 +460,12 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps) {
 void
 GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
                             double beg, double end) {
+    const double inc = (end - beg) / (double)steps;
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    std::pair<double, double> p1 =
-        beg == 0 ? getCircleCoords().at(0) : getCircleCoords().at(((int) beg / 10) % 36);
-    for (int i = (int)(beg / 10); i < steps && (36.0 / (double) steps * (double) i) * 10 < end; i++) {
-        const std::pair<double, double>& p2 =
-            getCircleCoords().at((int)(36.0 / (double) steps * (double) i));
+    std::pair<double, double> p1 = getCircleCoords().at(angleLookup(beg));
+
+    for (int i = 0; i <= steps; ++i) {
+        const std::pair<double, double>& p2 = getCircleCoords().at(angleLookup(beg + i * inc));
         glBegin(GL_TRIANGLES);
         glVertex2d(p1.first * width, p1.second * width);
         glVertex2d(p2.first * width, p2.second * width);
@@ -474,20 +474,10 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
         glVertex2d(p2.first * iwidth, p2.second * iwidth);
         glVertex2d(p1.first * iwidth, p1.second * iwidth);
         glVertex2d(p1.first * width, p1.second * width);
+
         glEnd();
         p1 = p2;
     }
-    const std::pair<double, double>& p2 =
-        end == 360 ? getCircleCoords().at(0) : getCircleCoords().at(((int) end / 10) % 36);
-    glBegin(GL_TRIANGLES);
-    glVertex2d(p1.first * width, p1.second * width);
-    glVertex2d(p2.first * width, p2.second * width);
-    glVertex2d(p2.first * iwidth, p2.second * iwidth);
-
-    glVertex2d(p2.first * iwidth, p2.second * iwidth);
-    glVertex2d(p1.first * iwidth, p1.second * iwidth);
-    glVertex2d(p1.first * width, p1.second * width);
-    glEnd();
 }
 
 
