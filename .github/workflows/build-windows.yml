@@ -166,6 +166,7 @@ jobs:
   # PUBLISHING wheels
   ###################
   publish-wheels:
+    if: github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags')
     needs: [build]
     runs-on: ubuntu-latest
 
@@ -180,7 +181,6 @@ jobs:
         mv dist/eclipse_sumo-*cp38* `echo dist/eclipse_sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
 
     - name: Publish to Test PyPI
-      if: github.event_name == 'schedule'
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
