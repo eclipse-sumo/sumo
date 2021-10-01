@@ -229,6 +229,11 @@ GNECreateEdgeFrame::EdgeTypeSelector::clearEdgeTypeSelected() {
     myEdgeTypeSelected = nullptr;
 }
 
+void
+GNECreateEdgeFrame::EdgeTypeSelector::useTemplate() {
+    myUseCustomEdgeType->setCheck(TRUE, FALSE);
+    refreshEdgeTypeSelector();
+}
 
 long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
@@ -1492,6 +1497,11 @@ GNECreateEdgeFrame::hide() {
 GNECreateEdgeFrame::EdgeTypeSelector*
 GNECreateEdgeFrame::getEdgeTypeSelector() const {
     return myEdgeTypeSelector;
+}
+
+void
+GNECreateEdgeFrame::setUseEdgeTemplate() {
+    myEdgeTypeSelector->useTemplate();
 }
 
 /****************************************************************************/
