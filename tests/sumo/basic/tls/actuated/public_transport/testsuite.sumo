@@ -1,0 +1,5 @@
+# using only custom detectors for public transport controlling
+custom_detectors
+
+# using auto-generated public transport detectors
+public_actuated_tls

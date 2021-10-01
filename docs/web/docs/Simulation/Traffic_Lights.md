@@ -103,10 +103,10 @@ option **--tls.red.time**.
 ## Improving Generated programs with knowledge about traffic demand
 
 - To get traffic lights that adapt to demand dynamically, built the
-network with option **--tls.default-type actuated**. This will automatically generate [actuated
-traffic lights](#actuated_traffic_lights). To convert an
-existing .net.xml file so that all traffic lights are actuated,
-perform the following steps:
+  network with option **--tls.default-type actuated**. This will automatically generate [actuated
+  traffic lights](#actuated_traffic_lights). To convert an
+  existing .net.xml file so that all traffic lights are actuated,
+  perform the following steps:
   - netconvert -s orig.net.xml --plain-output-prefix plain
   - netconvert -e plain.edg.xml -n plain.nod.xml -x plain.con.xml -o
     updated.net.xml --ignore-errors.edge-type --tls.default-type
@@ -127,7 +127,7 @@ possible via WAUTs and/or TraCI. Also, one can switch between them using
 the GUI context menu. A definition of a traffic light program within an {{AdditionalFile}}
 looks like this:
 
-```
+```xml
 <additional>
   <tlLogic id="0" programID="my_program" offset="0" type="static">
     <phase duration="31" state="GGggrrrrGGggrrrr"/>
@@ -149,25 +149,25 @@ looks like this:
 
 The following attributes/elements are used within the tlLogic element:
 
-| Attribute Name | Value Type                            | Description      |
-| -------------- | ------------------------------------- | ---------------- |
-| **id**         | id (string)                           | The id of the traffic light. This must be an existing traffic light id in the .net.xml file. Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection. |
-| **type**       | enum (static, actuated, delay_based) | The type of the traffic light (fixed phase durations, phase prolongation based on time gaps between vehicles (actuated), or on accumulated time loss of queued vehicles (delay_based) )                                                                                  |
-| **programID**  | id (string)                           | The id of the traffic light program; This must be a new program name for the traffic light id. Please note that "off" is reserved, see below.                                                                                                                             |
-| **offset**     | int                                   | The initial time offset of the program |
+| Attribute Name | Value Type                           | Description                                                  |
+| -------------- | ------------------------------------ | ------------------------------------------------------------ |
+| **id**         | id (string)                          | The id of the traffic light. This must be an existing traffic light id in the .net.xml file. Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection. |
+| **type**       | enum (static, actuated, delay_based) | The type of the traffic light (fixed phase durations, phase prolongation based on time gaps between vehicles (actuated), or on accumulated time loss of queued vehicles (delay_based) ) |
+| **programID**  | id (string)                          | The id of the traffic light program; This must be a new program name for the traffic light id. Please note that "off" is reserved, see below. |
+| **offset**     | int                                  | The initial time offset of the program                       |
 
 ## <phase\> Attributes
 
 Each phase is defined using the following attributes:
 
-| Attribute Name | Value Type            | Description                |
-| -------------- | --------------------- | -------------------------- |
-| **duration**   | time (int)            | The duration of the phase                                                                                                                                    |
-| **state**      | list of signal states | The traffic light states for this phase, see below                                                                                                           |
-| minDur         | time (int)            | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
-| maxDur         | time (int)            | The maximum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
-| name           | string                | An optional description for the phase. This can be used to establish the correspondence between SUMO-phase-indexing and traffic engineering phase names.     |
-| next           | list of phase indices (int ...)           | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. Traffic lights of type 'actuated' can make use of a list of indices for selecting among alternative successor phases. |
+| Attribute Name | Value Type                      | Description                                                  |
+| -------------- | ------------------------------- | ------------------------------------------------------------ |
+| **duration**   | time (int)                      | The duration of the phase                                    |
+| **state**      | list of signal states           | The traffic light states for this phase, see below           |
+| minDur         | time (int)                      | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration. |
+| maxDur         | time (int)                      | The maximum duration of the phase when using type **actuated**. Optional, defaults to duration. |
+| name           | string                          | An optional description for the phase. This can be used to establish the correspondence between SUMO-phase-indexing and traffic engineering phase names. |
+| next           | list of phase indices (int ...) | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. Traffic lights of type 'actuated' can make use of a list of indices for selecting among alternative successor phases. |
 
 !!! caution
     In a SUMO-TLS definition, time is on the vertical axis and each phase describes all signal states that last for a fixed duration. This differs from typical traffic engineering diagrams where time is on the horizontal axis and each row describes the states for one signal. Another crucial difference is, that in SUMO a new phase is introduced whenever at least one signal changes its state. This means that transitions between green phases can be made up of multiple intermediate phases.
@@ -193,16 +193,16 @@ attribute of the `<connection>` elements in the *.net.xml* file.
 
 The following signal colors are used:
 
-| Character | GUI Color                                                  | Description          |
-| --------- | ---------------------------------------------------------- | -------------------- |
-| r         | <span style="color:#FF0000; background:#FF0000">FOO</span> | 'red light' for a signal - vehicles must stop     |
-| y         | <span style="color:#FFFF00; background:#FFFF00">FOO</span> | 'amber (yellow) light' for a signal - vehicles will start to decelerate if far away from the junction, otherwise they pass    |
+| Character | GUI Color                                                  | Description                                                  |
+| --------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| r         | <span style="color:#FF0000; background:#FF0000">FOO</span> | 'red light' for a signal - vehicles must stop                |
+| y         | <span style="color:#FFFF00; background:#FFFF00">FOO</span> | 'amber (yellow) light' for a signal - vehicles will start to decelerate if far away from the junction, otherwise they pass |
 | g         | <span style="color:#00B300; background:#00B300">FOO</span> | 'green light' for a signal, no priority - vehicles may pass the junction if no vehicle uses a higher priorised foe stream, otherwise they decelerate for letting it pass. They always decelerate on approach until they are within the configured [visibility distance](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which) |
-| G         | <span style="color:#00FF00; background:#00FF00">FOO</span> | 'green light' for a signal, priority - vehicles may pass the junction                                                                                                                                                                                                                                                                                                                                 |
-| s         | <span style="color:#800080; background:#800080">FOO</span> | 'green right-turn arrow' requires stopping - vehicles may pass the junction if no vehicle uses a higher priorised foe stream. They always stop before passing. This is only generated for junction type *traffic_light_right_on_red*.                                                                                                                                                             |
-| u         | <span style="color:#FF8000; background:#FF8000">FOO</span> | 'red+yellow light' for a signal, may be used to indicate upcoming green phase but vehicles may not drive yet (shown as orange in the gui)                                                                                                                                                                                                                                                             |
-| o         | <span style="color:#804000; background:#804000">FOO</span> | 'off - blinking' signal is switched off, blinking light indicates vehicles have to yield                                                                                                                                                                                                                                                                                                              |
-| O         | <span style="color:#00FFFF; background:#00FFFF">FOO</span> | 'off - no signal' signal is switched off, vehicles have the right of way|
+| G         | <span style="color:#00FF00; background:#00FF00">FOO</span> | 'green light' for a signal, priority - vehicles may pass the junction |
+| s         | <span style="color:#800080; background:#800080">FOO</span> | 'green right-turn arrow' requires stopping - vehicles may pass the junction if no vehicle uses a higher priorised foe stream. They always stop before passing. This is only generated for junction type *traffic_light_right_on_red*. |
+| u         | <span style="color:#FF8000; background:#FF8000">FOO</span> | 'red+yellow light' for a signal, may be used to indicate upcoming green phase but vehicles may not drive yet (shown as orange in the gui) |
+| o         | <span style="color:#804000; background:#804000">FOO</span> | 'off - blinking' signal is switched off, blinking light indicates vehicles have to yield |
+| O         | <span style="color:#00FFFF; background:#00FFFF">FOO</span> | 'off - no signal' signal is switched off, vehicles have the right of way |
 
 
 ![traci_tutorial_tls.png](../images/Traci_tutorial_tls.png
@@ -277,7 +277,9 @@ is common in Germany and works by prolonging traffic phases whenever a
 continuous stream of traffic is detected. It switches to the next phase
 after detecting a sufficient time gap between successive vehicles. This
 allows for better distribution of green-time among phases and also
-affects cycle duration in response to dynamic traffic conditions.
+affects cycle duration in response to dynamic traffic conditions. It may also 
+end a phase early, because a priority public transport vehicle has been
+detected. 
 
 To use this type of control, the `<tlLogic>`-element needs to receive the attribute
 `type="actuated"`. It also requires the usage of the `phase`-attributes `minDur` and `maxDur` instead of `duration` to
@@ -300,7 +302,7 @@ A simple fix is often the provide dedicate left turn lanes.
 
 ### Example
 
-```
+```xml
 <tlLogic id="0" programID="my_program" offset="0" type="actuated">
   <param key="max-gap" value="3.0"/>
   <param key="detector-gap" value="2.0"/>
@@ -318,15 +320,17 @@ A simple fix is often the provide dedicate left turn lanes.
 Several optional parameters can be used to control the behavior of actuated traffic lights. The examples values in the previous section are the default values for these parameters and their meaning is given below:
 
 - **max-gap**: the maximum time gap between successive vehicles that will cause the current phase to be prolonged
-(within maxDur limit)
+  (within maxDur limit)
 - **detector-gap**: determines the time distance between the (automatically generated) detector and the stop line in seconds (at
-each lanes maximum speed). 
+  each lanes maximum speed). 
 - **passing-time**: estimates the headway between vehicles when passing the stop line. This sets an upper bound on the distance between detector and stop line according to the formula `(minDur / passingTime + 0.5) / 7.5`. The intent of this bound is to allow all vehicles between the detector and the stop line to pass the intersection within the minDur time. A warning will be issued if the minDur gives insufficient clearing time.
 - **linkMaxDur:X** (where X is a traffic light index): This sets an additional maximum duration criterion based on individual signals green duration rather than phase duration.
 - **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals green duration rather than phase duration.
 - **show-detectors** controls whether generated detectors will be visible or hidden in [sumo-gui](../sumo-gui.md). The default for all traffic lights can be set with option **--tls.actuated.show-detectors**. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
 - parameters **vTypes**, **file** and **freq** have the same meaning as for [regular
-induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
+  induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
+- **public|<LANE_ID>|distance**: This sets the distance, that detectors, used for detection of public transport, should be away from the stop line. The default value is 200.
+- **public|<LANE_ID>|vTypes**: controls which vTypes should have an influence on the public transport priority switching. The default vTypes are: bus, tram, rail_electric, rail_fast and rail_urban.
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
 
@@ -334,9 +338,10 @@ Some parameters are only used when a signal plan with [dynamic phase selection](
 - **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals rather than phase duration
 
 ### Custom Detectors
-To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane).
-```
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane). This also applies for public transport detectors.
+```xml
    <param key="gneE42_2" value="customDetector1"/>
+   <param key="public|gneE42_2" value="publicCustomDetector1"/>
 ```
 
 By assigning the special value `NO_DETECTOR`, the detector for a given lane key can be completely disabled.
@@ -346,7 +351,7 @@ By assigning the special value `NO_DETECTOR`, the detector for a given lane key 
     
 ### Lane-specific max-gap
 To define a max-gap value that differs from the default you can use a param with `key="max-gap:<LANE_ID>"` where LANE_ID is a lane incoming to the traffic light (the detector might lie further upstream).
-```
+```xml
    <param key="max-gap:gneE42_2" value="2"/>
 ```
 
@@ -386,7 +391,7 @@ Similar to the control by time gaps between vehicles, a phase
 prolongation can also be triggered by the presence of vehicles with time
 loss. A TLS with this actuation type can be defined as follows:
 
-```
+```XML
 <tlLogic id="0" programID="my_program" offset="0" type="delay_based">
   <param key="detectorRange" value="100" />
   <param key="minTimeLoss" value="1" />
@@ -435,15 +440,15 @@ Assuming the program as defined above is put in a file called
 *tls.add.xml* it can be loaded in
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) like this
 
-```
-sumo -a tls.add.xml ...<other options for network and routes>
+```bash
+sumo -a tls.add.xml ...<other options for network and routes>
 ```
 
 It is also possible to load a program which switches the tls off by
 giving the `programID` the value
 "`off`".
 
-```
+```xml
 <tlLogic id="0" type="static" programID="off"/>
 ```
 
@@ -481,7 +486,7 @@ the special case that only the offset shall be modified it is also
 possible to specify a new offset for an existing traffic light id and
 programID:
 
-```
+```xml
 <additional>
   <tlLogic id="0" programID="0" offset="42"/>
 </additional>
@@ -550,7 +555,7 @@ describe the switch process, we have to describe the switch at first,
 assuming our simulation runs from monday 0.00 (second 0) to monday 0.00
 (second 604800):
 
-```
+```xml
 <WAUT refTime="0" id="myWAUT" startProg="weekday_night">
     <wautSwitch time="21600" to="weekday_day"/>    <!-- monday, 6.00 -->
     <wautSwitch time="79200" to="weekday_night"/>  <!-- monday, 22.00 -->
@@ -563,12 +568,12 @@ assuming our simulation runs from monday 0.00 (second 0) to monday 0.00
 
 The fields in WAUT have the following meanings:
 
-| Attribute Name | Value Type | Description                                                                                      |
-| -------------- | ---------- | ------------------------------------------------------------------------------------------------ |
-| **id**         | string id  | The name of the defined WAUT                                   |
-| **startProg**  | string id  | The program that will be used at the simulation's begin     |
-| refTime   | time   | A reference time which is used as offset to the switch times given later (in simulation seconds or D:H:M:S) |
-| period  | time  | The period for repeating switch times. Disabled when set to <= 0, default 0     |
+| Attribute Name | Value Type | Description                                                  |
+| -------------- | ---------- | ------------------------------------------------------------ |
+| **id**         | string id  | The name of the defined WAUT                                 |
+| **startProg**  | string id  | The program that will be used at the simulation's begin      |
+| refTime        | time       | A reference time which is used as offset to the switch times given later (in simulation seconds or D:H:M:S) |
+| period         | time       | The period for repeating switch times. Disabled when set to <= 0, default 0 |
 
 and the fields in wautSwitch:
 
@@ -590,12 +595,12 @@ must be given, as following:
 
 Here, the attributes have the following meaning:
 
-| Attribute Name | Value Type  | Description                                                                                                     |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
-| **wautID**     | string id   | The id of the WAUT the tls shall be switched by                                                                 |
-| **junctionID** | string id   | The name of the tls to assign to the WAUT                                                                       |
+| Attribute Name | Value Type  | Description                                                  |
+| -------------- | ----------- | ------------------------------------------------------------ |
+| **wautID**     | string id   | The id of the WAUT the tls shall be switched by              |
+| **junctionID** | string id   | The name of the tls to assign to the WAUT                    |
 | **procedure**  | string enum | The switching algorithm to use ("GSP" or "Stretch"). If not set, the programs will switch immediately (default) |
-| **synchron**   | bool        | Additional information whether the switch shall be done synchron (default: false)                               |
+| **synchron**   | bool        | Additional information whether the switch shall be done synchron (default: false) |
 
 It is possible to assign several tls to a single WAUT. It is also
 possible to assign several WAUTs to a single junction in theory, but
@@ -605,7 +610,7 @@ A complete definition within an {{AdditionalFile}} is shown below. It would trig
 switching between programs **S1** and **S2** for traffic light logic
 **X** with an initial program called **0**.
 
-```
+```xml
 <additional>
 
   <tlLogic id="X" type="static" programID="S1" offset="0">
