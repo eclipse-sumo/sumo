@@ -821,6 +821,8 @@ long
 GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges("close")) {
         closeAllWindows();
+        // add a separator to the log
+        myMessageWindow->addSeparator();
         // disable save additionals and TLS menu
         disableSaveAdditionalsMenu();
         myFileMenuCommands.saveTLSPrograms->disable();
@@ -1264,8 +1266,6 @@ GNEApplicationWindow::closeAllWindows() {
     myTrackerWindows.clear();
     // reset the caption
     setTitle(myTitlePrefix);
-    // add a separator to the log
-    myMessageWindow->addSeparator();
     // unlock tracker
     myTrackerLock.unlock();
     // remove coordinate information
