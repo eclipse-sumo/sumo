@@ -280,7 +280,7 @@ GUIApplicationWindow::dependentBuild() {
     new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
 
     // build the message window
-    myMessageWindow = new GUIMessageWindow(myMainSplitter);
+    myMessageWindow = new GUIMessageWindow(myMainSplitter, this);
     // fill menu and tool bar
     fillMenuBar();
     myToolBar6->hide();

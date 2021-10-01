@@ -439,7 +439,7 @@ GNEApplicationWindow::dependentBuild() {
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
     // build the message window
-    myMessageWindow = new GUIMessageWindow(myMainSplitter);
+    myMessageWindow = new GUIMessageWindow(myMainSplitter, this);
     myMainSplitter->setSplit(1, 65);
     // fill menu and tool bar
     fillMenuBar();
