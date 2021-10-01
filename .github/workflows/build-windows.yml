@@ -129,7 +129,7 @@ jobs:
     - name: Examples and tests
       if: matrix.build-type != 'wheel' && matrix.python == '3.8'
       run: |
-        python -m pip install pyproj Rtree ezdxf
+        python -m pip install pyproj Rtree ezdxf pulp
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
         ctest --verbose
