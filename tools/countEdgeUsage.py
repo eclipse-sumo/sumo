@@ -127,7 +127,7 @@ def writeInterval(outf, options, departCounts, arrivalCounts, intermediateCounts
     for e in sorted(allEdges):
         intermediate = ' intermediate="%s"' % intermediateCounts[e] if options.intermediate else ''
         if (departCounts[e] > options.min_count or arrivalCounts[e] > options.min_count or
-            intermediateCounts[e] > 0):
+                intermediateCounts[e] > 0):
             outf.write('        <edge id="%s" departed="%s" arrived="%s" delta="%s"%s/>\n' %
                        (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e], intermediate))
     outf.write("    </interval>\n")

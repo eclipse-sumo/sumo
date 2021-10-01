@@ -26,6 +26,7 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
+
 def run():
 
     sumoBinary = sumolib.checkBinary('sumo')
@@ -44,6 +45,7 @@ def run():
     print(traci.simulation.getTime(), "departed", traci.simulation.getDepartedIDList())
 
     traci.close()
+
 
 for i in range(3):
     print("run ", i)
