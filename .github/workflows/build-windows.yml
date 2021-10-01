@@ -45,12 +45,6 @@ jobs:
         repository: DLR-TS/SUMOLibraries 
         path: sumolibraries
 
-    - name: Cloning SUMO Libraries Submodules
-      run: |
-        cd sumolibraries
-        git submodule sync --recursive
-        git submodule update --init --force --recursive --depth=1
-
     - name: Configuring Python
       uses: actions/setup-python@v1
       with:
@@ -129,7 +123,7 @@ jobs:
     - name: Examples and tests
       if: matrix.build-type != 'wheel' && matrix.python == '3.8'
       run: |
-        python -m pip install pyproj Rtree ezdxf pulp
+        python -m pip install pyproj Rtree ezdxf pulp numpy
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
         ctest --verbose
