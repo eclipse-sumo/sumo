@@ -269,7 +269,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                                             planItem = None
                                         else:
                                             planItem.setAttribute("from", ptRoute[0])
-                                            planItem.lines = planItem.intended
+                                            if planItem.intended:
+                                                planItem.lines = planItem.intended
                                             isDiscoBefore = True
                                     else:
                                         planItem = None
