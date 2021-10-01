@@ -459,7 +459,7 @@ struct GNEViewNetHelper {
     struct EditModes {
 
         /// @brief default constructor
-        EditModes(GNEViewNet* viewNet);
+        EditModes(GNEViewNet* viewNet, const bool newNet);
 
         /// @brief build checkable buttons
         void buildSuperModeButtons();

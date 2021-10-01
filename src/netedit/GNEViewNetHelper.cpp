@@ -1708,9 +1708,9 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
 // GNEViewNetHelper::EditModes - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
+GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet, const bool newNet) :
     currentSupermode(Supermode::NETWORK),
-    networkEditMode(NetworkEditMode::NETWORK_INSPECT),
+    networkEditMode(newNet? NetworkEditMode::NETWORK_CREATE_EDGE : NetworkEditMode::NETWORK_INSPECT),
     demandEditMode(DemandEditMode::DEMAND_INSPECT),
     dataEditMode(DataEditMode::DATA_INSPECT),
     networkButton(nullptr),

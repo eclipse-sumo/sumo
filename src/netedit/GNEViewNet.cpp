@@ -209,10 +209,10 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // ===========================================================================
 
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
-                       GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
+                       GNEViewParent* viewParent, GNENet* net, const bool newNet, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share) :
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getGrid(), glVis, share),
-    myEditModes(this),
+    myEditModes(this, newNet),
     myTestingMode(this),
     myObjectsUnderCursor(this),
     myCommonCheckableButtons(this),
@@ -714,7 +714,7 @@ GNEViewNet::aksChangeSupermode(const std::string &operation, Supermode expectedS
 
 
 GNEViewNet::GNEViewNet() :
-    myEditModes(this),
+    myEditModes(this, false),
     myTestingMode(this),
     myObjectsUnderCursor(this),
     myCommonCheckableButtons(this),

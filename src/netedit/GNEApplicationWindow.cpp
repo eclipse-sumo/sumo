@@ -940,19 +940,19 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     myAmLoading = false;
     GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
     // check whether the loading was successfull
-    if (ec->myNet == nullptr) {
+    if (ec->getNet() == nullptr) {
         // report failure
-        setStatusBarText("Loading of '" + ec->myFile + "' failed!");
+        setStatusBarText("Loading of '" + ec->file + "' failed!");
     } else {
         // set new Net
-        myNet = ec->myNet;
+        myNet = ec->getNet();
         // report success
-        setStatusBarText("'" + ec->myFile + "' loaded.");
+        setStatusBarText("'" + ec->file + "' loaded.");
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
         // initialise NETEDIT View
-        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
+        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, ec->newNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
         viewParent->maximize();
         // mark it as Active child
@@ -960,20 +960,20 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // cast pointer myViewNet
         myViewNet = dynamic_cast<GNEViewNet*>(viewParent->getView());
         // set settings in view
-        if (viewParent->getView() && ec->mySettingsFile != "") {
-            GUISettingsHandler settings(ec->mySettingsFile, true, true);
+        if (viewParent->getView() && ec->settingsFile != "") {
+            GUISettingsHandler settings(ec->settingsFile, true, true);
             settings.addSettings(viewParent->getView());
             viewParent->getView()->addDecals(settings.getDecals());
             settings.applyViewport(viewParent->getView());
             settings.setSnapshots(viewParent->getView());
         }
         // set network name on the caption
-        setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
+        setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->file.c_str()));
         // force supermode network
         if (myViewNet) {
             myViewNet->forceSupermodeNetwork();
         }
-        if (myViewNet && ec->myViewportFromRegistry) {
+        if (myViewNet && ec->viewportFromRegistry) {
             Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
             Position p(off.x(), off.y(), 0);
