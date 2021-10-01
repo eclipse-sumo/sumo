@@ -49,3 +49,6 @@ uncontrolled_links
 
 # railway-specific bugs
 bugs
+
+# railway-crossings with trafficlights
+crossing

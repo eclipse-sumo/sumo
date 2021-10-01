@@ -144,6 +144,15 @@ The [node type](../Networks/PlainXML.md#node_descriptions)
 always have the right of way and road vehicles get a red light until
 there is a safe gap between approaching trains.
 
+| Parameter-Name | Default Value | Description                                                  |
+| -------------- | ------------- | ------------------------------------------------------------ |
+| time-gap       | 15            | Time, where crossing switches red, before train approaches   |
+| space-gap      | -1            | Distance, where crossing switched red, before train approaches |
+| min-green      | 5             | Minimal time, lights have to stay green                      |
+| opening-delay  | 5             | Time, where crossing should switch again green, after train is gone |
+| opening-time   | 5             | How long the traffic lights should indicate orange before green |
+| yellow-time    | 5             | How long the traffic lights should indicate yellow before red |
+
 When importing networks from
 [OpenStreetMap](../Networks/Import/OpenStreetMap.md), rail
 crossings will be imported automatically. For other input data sources
