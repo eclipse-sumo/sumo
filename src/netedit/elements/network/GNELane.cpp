@@ -692,9 +692,9 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
         // add separator
         new FXMenuSeparator(ret);
-
-        if (editMode != NetworkEditMode::NETWORK_CONNECT && editMode != NetworkEditMode::NETWORK_TLS && editMode != NetworkEditMode::NETWORK_CREATE_EDGE) {
-            // build edge oeprations
+        //build operations
+        if ((editMode != NetworkEditMode::NETWORK_CONNECT) && (editMode != NetworkEditMode::NETWORK_TLS)) {
+            // build edge operations
             buildEdgeOperations(parent, ret);
             // build lane operations
             buildLaneOperations(parent, ret);
