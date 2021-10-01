@@ -656,7 +656,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     const GUILane* prevLane = nullptr;
     int reversalIndex = 0;
     const int indexDigits = (int)toString(r.size()).size();
-    if (!isOnRoad()) {
+    if (!isOnRoad() && !isParking()) {
         // simulation time has already advanced so isRemoteControlled is always false
         const std::string offRoadLabel = hasInfluencer() && getInfluencer()->isRemoteAffected(SIMSTEP) ? "offRoad" : "teleporting";
         GLHelper::drawTextSettings(s.vehicleValue, offRoadLabel, getPosition(), s.scale, s.angle, 1.0);
