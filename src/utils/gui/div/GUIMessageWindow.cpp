@@ -181,20 +181,22 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             if (getApp()->getKeyState(KEY_Control_L)) {
                 gSelected.toggleSelection(glObj->getGlID());
             }
-        }
-        const int lookback = MIN2(pos, 20);
-        const int start = MAX2(lineStart(pos), pos - lookback);
-        const FXString candidate = text.mid(start, lineEnd(pos) - start);
-        FXint timePos = candidate.find(" time");
-        SUMOTime t = -1;
-        if (pos >= 0) {
-            t = getTimeString(candidate, timePos + 6, 0, candidate.length());
-            if (t >= 0) {
-                std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
-                if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
-                    breakpoints.push_back(t + myBreakPointOffset);
-                    std::sort(breakpoints.begin(), breakpoints.end());
-                    myMainWindow->setBreakpoints(breakpoints);
+        } else {
+            const int lookback = MIN2(pos, 10);
+            const int start = MAX2(lineStart(pos), pos - lookback);
+            const FXString candidate = text.mid(start, lineEnd(pos) - start);
+            FXint timePos = candidate.find(" time");
+            SUMOTime t = -1;
+            if (pos >= 0) {
+                t = getTimeString(candidate, timePos + 6, 0, candidate.length());
+                if (t >= 0) {
+                    t += myBreakPointOffset;
+                    std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
+                    if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
+                        breakpoints.push_back(t);
+                        std::sort(breakpoints.begin(), breakpoints.end());
+                        myMainWindow->setBreakpoints(breakpoints);
+                    }
                 }
             }
         }
