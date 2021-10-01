@@ -1561,6 +1561,11 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
     const int oldNumLanes = (int)myLanes.size();
+    std::string oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
+    if (oppositeID != "") {
+        // we'll have a different leftmost lane after adding/removing lanes
+        undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, ""));
+    }
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
         undoList->add(new GNEChange_Lane(this, myNBEdge->getLaneStruct(oldNumLanes - 1)), true);
@@ -1568,6 +1573,9 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     for (int i = (oldNumLanes - 1); i > (numLanes - 1); i--) {
         // delete leftmost lane
         undoList->add(new GNEChange_Lane(this, myLanes[i], myNBEdge->getLaneStruct(i), false), true);
+    }
+    if (oppositeID != "") {
+        undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, oppositeID));
     }
     // enable updateGeometry again
     myUpdateGeometry = true;
