@@ -51,6 +51,9 @@ boarding_duration_extension_limited
 # busses have a large boarding duration but the stop duration extension is limited
 boarding_duration_extension_limited_no_persons
 
+# busses have a large boarding duration such that the stop duration will be extended by the deboarding of the passengers
+deboarding_duration_extension
+
 # person with a single walk
 walk
 
