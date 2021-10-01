@@ -26,6 +26,8 @@ title: ChangeLog
   - Fixed invalid departSpeed error in meso #9201
   - Fixed bug where simulation did not terminate after a departSpeed related error. Issue #9211
   - Fixed invalid duplicate ids when using option **--scale**. Added option **--scale-suffix** to deal with unavoidable id collisions. Issue #9055
+  - Attribute personCapacity is no longer ignored for trainStop. Issue #9262
+  - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
   
 - netedit
   - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
@@ -56,6 +58,8 @@ title: ChangeLog
   - Fixed slow loading of large networks. Issue #9207
   - Dotted contour now matches junction shape at reduced size. Issue #9204
   - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
+  - Fixed invalid error when loading program in tls frame. Issue #9270
+  - Attribute 'opposite' is now updated when changing lane count. Issue #9283
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -78,6 +82,7 @@ title: ChangeLog
   - Guessed bicycle lanes are now always placed to the left of an existing sidewalk. Issue #9084
   - Fixed invalid connections after guessing bicycle lanes. Issue #9083
   - Option **--no-turnarounds.geometry** now ignores pedestrian paths and bike paths that attach to the main road. Issue #9068
+  - Fixed missing tlType in plain .nod.xml output. Issue #9281
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -103,6 +108,8 @@ title: ChangeLog
   - Fixed problems related to complex types returned from libsumo in java. Issue #7204
   - Fixed invalid result of vehicle.getDistance after vehicle.moveToXY, and vehicle.moveTo. Issue #9050, #8778
   - Fixed bug where intended teleport after replaceStop failed due to oncoming train. Issue #9175
+  - Fixed invalid route after adding vehicle with trip-route and forcing insertion with moveTo. Issue #9257
+  - Fixed invalid departedIDList after reloading a libsumo simulation. Issue #6239
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -139,6 +146,7 @@ title: ChangeLog
   - Taz attribute 'fill' is now supported. Issue #9144
   - Drawing detail of POIs can now be configured. Issue #9203
   - Improved visualization of teleporting vehicles when shown because of active route visualization. Issue #9174
+  - Added vehicle context menu function 'Select transported'. Issue #2241
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -148,7 +156,7 @@ title: ChangeLog
   - Data mode now permits attributes with non-numeric values. Issue #9060
   - Drawing detail of POIs can now be configured. Issue #9203
   - Objects witin a polygon boundary can now be selected by using the polygon context menu. Issue #9158
-  - Improved drawing style of connecting lines between dependent objects (i.e. busstop/access). Issue #8914
+  - Improved drawing style of connecting lines between dependent objects (i.e. busstop/access). Issue #8914, #9258
   - Writing shortened xml header for demand and data output. Issue #9261
 
 - netconvert
@@ -1108,7 +1116,7 @@ title: ChangeLog
 - sumo-gui
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
   - A color legend for vehicle colors can now be enabled via the 'Legend' tab. Issue #6930
-  - Vehicles can now be stopped and stops can be aborted via context menu.
+  - Vehicles can now be stopped and stops can be aborted via context menu.Issue #2755
   - The hiding-treshold for edge coloring can now also hide edge color value labels (to avoid clutter from irrelevant numbers). Issue #7140
   - Added locator menu entry for containers. Issue #7324
   
