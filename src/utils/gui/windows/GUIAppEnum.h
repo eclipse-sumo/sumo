@@ -557,6 +557,8 @@ enum {
     MID_CHOOSEN_DELETE,
     /// @brief Reset set
     MID_CHOOSEN_RESET,
+    /// @brief select all items
+    MID_CHOOSEN_SELECT,
     /// @brief Deselect selected items
     MID_CHOOSEN_DESELECT,
     /// @brief Deselect selected items
