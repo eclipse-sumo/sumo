@@ -51,13 +51,13 @@ def main(options):
     else:
         net = sumolib.net.readNet(options.net_file)
     count = 0
-    fleet_out = io.open(options.fleet_file, "w") if options.fleet_file else None
+    fleet_out = io.open(options.fleet_file, "w", encoding="UTF8") if options.fleet_file else None
     if fleet_out:
         sumolib.xml.writeHeader(fleet_out, root="additional")
         print("""     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
     </vType>""", file=fleet_out)
-    with io.open(options.output_file, "w") as output:
+    with io.open(options.output_file, "w", encoding="UTF8") as output:
         sumolib.xml.writeHeader(output, root="additional")
         for n in sumolib.xml.parse(options.osm_file, "node"):
             name = None
@@ -75,7 +75,8 @@ def main(options):
                         name = t.v
                     if t.k == "amenity" and t.v == "taxi":
                         point = net.convertLonLat2XY(float(n.lon), float(n.lat))
-                        for lane, _ in sorted(net.getNeighboringLanes(*point, r=options.radius), key=lambda i: i[1]):
+                        candidates = net.getNeighboringLanes(*point, r=options.radius, includeJunctions=False)
+                        for lane, _ in sorted(candidates, key=lambda i: i[1]):
                             if lane.getLength() > options.length and lane.allows(options.vclass):
                                 bestLane = lane
                                 break
