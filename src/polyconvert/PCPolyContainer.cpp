@@ -93,7 +93,7 @@ PCPolyContainer::add(PointOfInterest* poi, bool ignorePruning) {
 
 
 void
-PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, const double friendlyPos, double lanePosLat) {
+PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, const double lanePos, const bool friendlyPos, const double lanePosLat) {
     myLanePosPois[poiID] = LanePos(laneID, lanePos, friendlyPos, lanePosLat);
 }
 
