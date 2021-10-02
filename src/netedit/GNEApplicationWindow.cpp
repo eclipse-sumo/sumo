@@ -942,19 +942,19 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     myAmLoading = false;
     GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
     // check whether the loading was successfull
-    if (ec->getNet() == nullptr) {
+    if (ec->net == nullptr) {
         // report failure
         setStatusBarText("Loading of '" + ec->file + "' failed!");
     } else {
         // set new Net
-        myNet = ec->getNet();
+        myNet = ec->net;
         // report success
         setStatusBarText("'" + ec->file + "' loaded.");
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
         // initialise NETEDIT View
-        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, ec->newNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
+        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, ec->isNewNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
         viewParent->maximize();
         // mark it as Active child
