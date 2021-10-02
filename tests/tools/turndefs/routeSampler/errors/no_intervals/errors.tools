@@ -1,6 +1,1 @@
-Traceback (most recent call last):
-  File "/home/kobo/dlr/sumo/tests/../tools/routeSampler.py", line 820, in <module>
-    main(get_options())
-  File "/home/kobo/dlr/sumo/tests/../tools/routeSampler.py", line 485, in main
-    b = intervals[0][0]
-IndexError: list index out of range
+Error: no intervals loaded
