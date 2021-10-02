@@ -238,9 +238,21 @@ transport definition must be met.](../IntermodalRouting.md)
 
 # Importing Public Transport
 
+## OSM
+
 The [osmWebWizard tool](../Tutorials/OSMWebWizard.md) can be used
 to import public transport data from OpenStreetMap for a selected area.
 
-This import uses an intermediate data format to describe public
+This import uses an intermediate data format (*ptlines-file*) to describe public
 transport lines. The usage of this line data is explained at
 [Tutorials/PT_from_OpenStreetMap](../Tutorials/PT_from_OpenStreetMap.md).
+
+## GTFS
+
+The tool [gtfs2pt.py](../Tools/Import/GTFS.md) can be used to import public transport data for a geo-referenced network. 
+
+## Automatic Schedule Generation
+
+The tool [ptlines2flows.py](../Tools/Misc.md#ptlines2flowspy) can be used to generated a public transport schedule with 'until' and 'duration' values for a given sequence of stops. The schedule times are derived by running a simulation in the background.
+
+
