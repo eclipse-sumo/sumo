@@ -3594,30 +3594,30 @@ GNEViewNetHelper::LockManager::updateFlags() {
     // get lock menu commands
     GNEApplicationWindowHelper::LockMenuCommands& lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
     // network
-    myLockedElements[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunction->getCheck();
-    myLockedElements[GLO_EDGE].lock = lockMenuCommands.menuCheckLockEdges->getCheck();
-    myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck();
-    myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck();
-    myLockedElements[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck();
-    myLockedElements[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck();
-    myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck();
-    myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck();
-    myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck();
+    myLockedElements[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunction->getCheck() == TRUE;
+    myLockedElements[GLO_EDGE].lock = lockMenuCommands.menuCheckLockEdges->getCheck() == TRUE;
+    myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck() == TRUE;
+    myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck() == TRUE;
+    myLockedElements[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck() == TRUE;
+    myLockedElements[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck() == TRUE;
+    myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck() == TRUE;
+    myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
+    myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
     // demand
-    myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck();
-    myLockedElements[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck();
-    myLockedElements[GLO_PERSON].lock = lockMenuCommands.menuCheckLockPersons->getCheck();
-    myLockedElements[GLO_PERSONTRIP].lock = lockMenuCommands.menuCheckLockPersonTrip->getCheck();
-    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockWalk->getCheck();
-    myLockedElements[GLO_RIDE].lock = lockMenuCommands.menuCheckLockRides->getCheck();
-    myLockedElements[GLO_CONTAINER].lock = lockMenuCommands.menuCheckLockContainers->getCheck();
-    myLockedElements[GLO_TRANSPORT].lock = lockMenuCommands.menuCheckLockTransports->getCheck();
-    myLockedElements[GLO_TRANSHIP].lock = lockMenuCommands.menuCheckLockTranships->getCheck();
-    myLockedElements[GLO_STOP].lock = lockMenuCommands.menuCheckLockStops->getCheck();
+    myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck() == TRUE;
+    myLockedElements[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck() == TRUE;
+    myLockedElements[GLO_PERSON].lock = lockMenuCommands.menuCheckLockPersons->getCheck() == TRUE;
+    myLockedElements[GLO_PERSONTRIP].lock = lockMenuCommands.menuCheckLockPersonTrip->getCheck() == TRUE;
+    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockWalk->getCheck() == TRUE;
+    myLockedElements[GLO_RIDE].lock = lockMenuCommands.menuCheckLockRides->getCheck() == TRUE;
+    myLockedElements[GLO_CONTAINER].lock = lockMenuCommands.menuCheckLockContainers->getCheck() == TRUE;
+    myLockedElements[GLO_TRANSPORT].lock = lockMenuCommands.menuCheckLockTransports->getCheck() == TRUE;
+    myLockedElements[GLO_TRANSHIP].lock = lockMenuCommands.menuCheckLockTranships->getCheck() == TRUE;
+    myLockedElements[GLO_STOP].lock = lockMenuCommands.menuCheckLockStops->getCheck() == TRUE;
     // data
-    myLockedElements[GLO_EDGEDATA].lock = lockMenuCommands.menuCheckLockEdgeDatas->getCheck();
-    myLockedElements[GLO_EDGERELDATA].lock = lockMenuCommands.menuCheckLockEdgeRelDatas->getCheck();
-    myLockedElements[GLO_TAZRELDATA].lock = lockMenuCommands.menuCheckLockEdgeTAZRels->getCheck();
+    myLockedElements[GLO_EDGEDATA].lock = lockMenuCommands.menuCheckLockEdgeDatas->getCheck() == TRUE;
+    myLockedElements[GLO_EDGERELDATA].lock = lockMenuCommands.menuCheckLockEdgeRelDatas->getCheck() == TRUE;
+    myLockedElements[GLO_TAZRELDATA].lock = lockMenuCommands.menuCheckLockEdgeTAZRels->getCheck() == TRUE;
 }
 
 

@@ -909,12 +909,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         for (const auto &inspectedAC : myInspectedAttributeCarriers) {
             // check that inspected AC has an associated GUIGLObject
             if (inspectedAC->getGUIGlObject()) {
-                inspectedAC->getGUIGlObject()->drawGL(myVisualizationSettings);
+                inspectedAC->getGUIGlObject()->drawGL(*myVisualizationSettings);
             }
         }
         // draw front element
         if (myFrontAttributeCarrier && myFrontAttributeCarrier->getGUIGlObject()) {
-            myFrontAttributeCarrier->getGUIGlObject()->drawGL(myVisualizationSettings);
+            myFrontAttributeCarrier->getGUIGlObject()->drawGL(*myVisualizationSettings);
         }
     }
     // pop draw matrix
@@ -4508,7 +4508,7 @@ GNEViewNet::drawTemporalJunction() const {
         // get mouse position
         const Position mousePosition = snapToActiveGrid(getPositionInformation());
         // get junction exaggeration
-        const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(myVisualizationSettings, nullptr, 4);
+        const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(*myVisualizationSettings, nullptr, 4);
         // get buble color
         RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
         // change alpha
