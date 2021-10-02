@@ -480,6 +480,9 @@ def main(options):
     routes = Routes(options.routeFiles)
 
     intervals = getIntervals(options)
+    if len(intervals) == 0:
+        print("Error: no intervals loaded", file=sys.stderr)
+        sys.exit()
 
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
