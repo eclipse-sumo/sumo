@@ -124,15 +124,16 @@ jobs:
       if: matrix.build-type == 'plain' && matrix.python == '3.8'
       run: |
         cd sumo/build_msvc
-        cmake --build . --config Release --target examples
-        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,marouter,netedit,netgen,od2trips,polyconvert"
-        ctest --verbose
+        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
+        ctest -R texttest --verbose
+        $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert"
+        ctest -R texttest --verbose
         $env:TEXTTEST_CI_APPS = "-a netconvert"
-        ctest --verbose
+        ctest -R texttest --verbose
         $env:TEXTTEST_CI_APPS = "-a sumo"
-        ctest --verbose
+        ctest -R texttest --verbose
 
-    - name: Extra tests
+    - name: Examples and extra tests
       if: matrix.build-type == 'extra' && matrix.python == '3.8'
       run: |
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
