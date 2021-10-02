@@ -20,7 +20,8 @@ There are three basic styles of converting turn-counts to routes:
 The turn-count data must be provided in the format:
 
 ```xml
-<interval id="generated" begin="0.0" end="99.0">
+<data>
+  <interval id="generated" begin="0.0" end="99.0">
     <edgeRelation from="-58.121.42" to="64" count="1"/>
     <edgeRelation from="-58.121.42" to="-31" count="3"/>
     <edgeRelation from="45" to="-68" count="3"/>
@@ -28,7 +29,8 @@ The turn-count data must be provided in the format:
     <edgeRelation from="-31.80.00" to="37" count="1"/>
     <edgeRelation from="-31.80.00" to="-23" count="13"/>
     <edgeRelation from="-92.180.00" to="-60" count="1"/>
-</interval>
+  </interval>
+</data>
 ```
 
 # routeSampler.py
