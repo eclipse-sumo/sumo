@@ -136,7 +136,7 @@ jobs:
       if: matrix.build-type == 'extra' && matrix.python == '3.8'
       run: |
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
-        python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib
+        python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib scipy
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
         ctest --verbose
