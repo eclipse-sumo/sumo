@@ -57,7 +57,7 @@ install(TARGETS libtracicpp EXPORT SUMOConfig
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-export(TARGETS libtracicpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
+export(TARGETS libtracicpp NAMESPACE SUMO:: APPEND FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
 
 if (CLANG_COMPILER AND WIN32)
     target_link_libraries(libtracicpp PRIVATE -Wl,--whole-archive ${libtcpip} -Wl,--no-whole-archive)
