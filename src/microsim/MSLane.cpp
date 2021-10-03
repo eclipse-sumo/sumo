@@ -3814,7 +3814,21 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
         std::pair<MSVehicle* const, double> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, true);
         return result;
     } else {
-        std::pair<MSVehicle* const, double> result = getLeader(ego, getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength()), std::vector<MSLane*>());
+        double vehPos = getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength());
+        std::pair<MSVehicle*, double> result = getLeader(ego, vehPos, std::vector<MSLane*>());
+        double dist = getMaximumBrakeDist() + getOppositePos(ego->getPositionOnLane() - getLength());
+        MSLane* next = const_cast<MSLane*>(this);
+        while (result.first == nullptr && dist > 0) {
+            // cannot call getLeadersOnConsecutive because succLinkSec doesn't
+            // uses the vehicle's route and doesn't work on the opposite side
+            vehPos -= next->getLength();
+            next = next->getCanonicalSuccessorLane();
+            if (next == nullptr) {
+                break;
+            }
+            dist -= next->getLength();
+            result = next->getLeader(ego, vehPos, std::vector<MSLane*>());
+        }
         if (result.first != nullptr) {
             if (result.first->getLaneChangeModel().isOpposite()) {
                 result.second -= result.first->getVehicleType().getLength();
