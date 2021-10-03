@@ -529,6 +529,9 @@ public:
         return myAmOpposite;
     }
 
+    /// brief return lane index that treats opposite lanes like normal lanes to the left of the forward lanes
+    int getNormalizedLaneIndex();
+
     double getCommittedSpeed() const {
         return myCommittedSpeed;
     }

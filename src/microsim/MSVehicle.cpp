@@ -4968,7 +4968,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                                     ? & (startLane->getLinkCont()[0]->getLane()->getEdge()) != *(myCurrEdge + 1)
                                     : &startLane->getEdge() != *myCurrEdge);
         if (startLaneIsOpposite) {
-            startLane = startLane->getOpposite();
+            // use leftmost lane of forward edge
+            startLane = startLane->getEdge().getOppositeEdge()->getLanes().back();
             assert(startLane != 0);
         }
     }

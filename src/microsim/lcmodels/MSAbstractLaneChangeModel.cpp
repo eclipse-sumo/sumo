@@ -1031,3 +1031,14 @@ double
 MSAbstractLaneChangeModel::getForwardPos() const {
     return myAmOpposite ? myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() : myVehicle.getPositionOnLane();
 }
+
+
+int
+MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
+    const int i = myVehicle.getLane()->getIndex();
+    if (myAmOpposite) {
+        return myVehicle.getLane()->getOpposite()->getEdge().getNumLanes() + myVehicle.getLane()->getEdge().getNumLanes() - 1 - i;
+    } else {
+        return i;
+    }
+}

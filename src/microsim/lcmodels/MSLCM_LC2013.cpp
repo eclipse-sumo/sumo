@@ -1083,15 +1083,22 @@ MSLCM_LC2013::_wantsChange(
     double currentDist = 0;
     double neighDist = 0;
     int currIdx = 0;
+    const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
     const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
-        prebLane = prebLane->getLinkCont()[0]->getLane();
+        if (isOpposite()) {
+            prebLane = prebLane->getNormalPredecessorLane();
+        } else {
+            prebLane = prebLane->getLinkCont()[0]->getLane();
+        }
     }
     // special case: vehicle considers changing to the opposite direction edge
-    const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
-    const int prebOffset = (checkOpposite ? 0 : laneOffset);
+    const int prebOffset = laneOffset;
     for (int p = 0; p < (int) preb.size(); ++p) {
+        if (DEBUG_COND) {
+            std::cout << "  p=" << p << " prebLane=" << prebLane->getID() << " preb.p" << preb[p].lane->getID() << "\n";
+        }
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
             assert(p + prebOffset < (int)preb.size());
             curr = preb[p];
@@ -1099,7 +1106,7 @@ MSLCM_LC2013::_wantsChange(
             currentDist = curr.length;
             neighDist = neigh.length;
             bestLaneOffset = curr.bestLaneOffset;
-            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0) {
+            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0 && !checkOpposite) {
 #ifdef DEBUG_WANTS_CHANGE
                 if (DEBUG_COND) {
                     std::cout << STEPS2TIME(currentTime)
@@ -1118,20 +1125,6 @@ MSLCM_LC2013::_wantsChange(
     }
     // direction specific constants
     const bool right = (laneOffset == -1);
-    if (isOpposite() && right) {
-        neigh = preb[preb.size() - 1];
-        curr = neigh;
-        best = neigh;
-        if (myVehicle.hasStops() && myVehicle.getNextStop().isOpposite) {
-            bestLaneOffset = 0;
-            curr.bestLaneOffset = 0;
-        } else {
-            bestLaneOffset = -1;
-            curr.bestLaneOffset = -1;
-        }
-        neighDist = neigh.length;
-        currentDist = curr.length;
-    }
     double driveToNextStop = -std::numeric_limits<double>::max();
     if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
             && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {

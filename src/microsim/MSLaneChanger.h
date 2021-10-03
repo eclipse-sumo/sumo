@@ -240,6 +240,9 @@ protected:
     /// @brief whether vehicle has an opposite-direction stop within relevant range
     static bool hasOppositeStop(MSVehicle* vehicle);
 
+    /// @brief add LaneQ for opposite lanes
+    static std::vector<MSVehicle::LaneQ> getBestLanesOpposite(MSVehicle* vehicle, const MSLane* stopLane, double oppositeLength);
+
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.
     Changer   myChanger;
