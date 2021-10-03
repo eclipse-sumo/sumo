@@ -423,6 +423,11 @@ if (DATA_PATH)
     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
 endif ()
 
+install(EXPORT SUMOConfig
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/sumo/cmake"
+    NAMESPACE SUMO::
+)
+
 if (NOT ${SETUPTOOLS_MISSING})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
             COMPONENT pysumolib)

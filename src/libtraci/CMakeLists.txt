@@ -53,7 +53,12 @@ set_property(TARGET libtracicpp PROPERTY FOLDER "libtraci")
 set_target_properties(libtracicpp PROPERTIES PREFIX "")
 set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME libtracicpp${BINARY_SUFFIX})
 set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
-install(TARGETS libtracicpp DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS libtracicpp EXPORT SUMOConfig
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+export(TARGETS libtracicpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
+
 if (CLANG_COMPILER AND WIN32)
     target_link_libraries(libtracicpp PRIVATE -Wl,--whole-archive ${libtcpip} -Wl,--no-whole-archive)
 elseif (MSVC OR APPLE)

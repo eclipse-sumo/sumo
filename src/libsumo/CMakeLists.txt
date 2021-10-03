@@ -73,7 +73,12 @@ set_property(TARGET libsumocpp PROPERTY FOLDER "libsumo")
 set_target_properties(libsumocpp PROPERTIES PREFIX "")
 set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME libsumocpp${BINARY_SUFFIX})
 set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
-install(TARGETS libsumocpp DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS libsumocpp EXPORT SUMOConfig
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+export(TARGETS libsumocpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
+
 if (CLANG_COMPILER AND WIN32)
     target_link_libraries(libsumocpp PRIVATE -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
 elseif (MSVC OR APPLE)
