@@ -49,8 +49,7 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement*
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
         {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
-    myLastWidth(0)
-{
+    myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -60,8 +59,7 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement*
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
         {}, {}, {}, {}, {}, {TAZ}, {}, {}),
-    myLastWidth(0)
-{
+    myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -74,6 +72,7 @@ const RGBColor&
 GNETAZRelData::getColor() const {
     return myColor;
 }
+
 
 double
 GNETAZRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
@@ -168,7 +167,7 @@ GNETAZRelData::updateGeometry() {
             line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, TAZB->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
         }
         // add offset to line
-        line.move2side(1 + myLastWidth);
+        line.move2side(0.5 + myLastWidth);
         // calculate middle point
         const Position middlePoint = line.getLineCenter();
         // get closest points to middlePoint
@@ -253,14 +252,12 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         double val = getColorValue(s, s.dataColorer.getActive());
         myColor = s.dataColorer.getScheme().getColor(val);
         GLHelper::setColor(myColor);
-
-
+        // check if update lastWidth
         const double width = onlyDrawContour ? 0.1:  0.5 * s.tazRelWidthExaggeration;
         if (width != myLastWidth) {
             myLastWidth = width;
             const_cast<GNETAZRelData*>(this)->updateGeometry();
         }
-
         // draw geometry
         if (onlyDrawContour) {
             // draw depending of TAZRelDrawing

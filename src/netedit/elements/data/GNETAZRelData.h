@@ -193,8 +193,14 @@ protected:
     /// @brief Geometry for TAZRel data
     GNEGeometry::Geometry myTAZRelGeometry;
 
-    /// @brief Geometry for TAZRel (center)
+    /// @brief Geometry for TAZRel data (center)
     GNEGeometry::Geometry myTAZRelGeometryCenter;
+    
+    /// @brief TAZRel data color
+    mutable RGBColor myColor;
+
+    /// @brief TAZRel data width
+    mutable double myLastWidth;
 
 private:
     /// @brief check draw conditions
@@ -211,10 +217,6 @@ private:
 
     /// @brief Invalidated assignment operator.
     GNETAZRelData& operator=(const GNETAZRelData&) = delete;
-
-    mutable RGBColor myColor;
-
-    mutable double myLastWidth;
 };
 
 /****************************************************************************/
