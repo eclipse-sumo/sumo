@@ -738,12 +738,17 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-
 void
 GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
         // update new center
         myTAZCenter = moveResult.shapeToUpdate.front();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SHAPE) {
+        // update new shape and center
+        myTAZCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
+        myShape = moveResult.shapeToUpdate;
+        // update geometry
+        myTAZGeometry.updateGeometry(myShape);
     } else {
         // update new shape
         myShape = moveResult.shapeToUpdate;
@@ -756,9 +761,18 @@ GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
-        // commit new shape
+        // commit center
         undoList->begin("moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
         undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front())));
+        undoList->end();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SHAPE) {
+        // calculate offset between old and new shape
+        Position newCenter = myTAZCenter;
+        newCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
+        // commit new shape and center
+        undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(newCenter)));
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
         undoList->end();
     } else {
         // commit new shape
