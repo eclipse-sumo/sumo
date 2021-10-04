@@ -119,7 +119,7 @@ def import_gtfs(options, gtfsZip):
 
     # avoid trimming trips starting before midnight but ending after
     fix_trips = stop_times[(stop_times['arrival_fixed'] >= full_day) &
-                           (stop_times['stop_sequence'] == 0)].trip_id.to_list()
+                           (stop_times['stop_sequence'] == 0)].trip_id.values.tolist()
 
     stop_times.loc[stop_times.trip_id.isin(fix_trips), 'arrival_fixed'] = stop_times.loc[stop_times.trip_id.isin(
         fix_trips), 'arrival_fixed'] % full_day
@@ -129,7 +129,7 @@ def import_gtfs(options, gtfsZip):
     extra_stop_times = stop_times.loc[stop_times.arrival_fixed > full_day, ]
     extra_stop_times.loc[:, 'arrival_fixed'] = extra_stop_times.loc[:, 'arrival_fixed'] % full_day
     extra_stop_times.loc[:, 'departure_fixed'] = extra_stop_times.loc[:, 'departure_fixed'] % full_day
-    extra_trips_id = extra_stop_times.trip_id.to_list()
+    extra_trips_id = extra_stop_times.trip_id.values.tolist()
     extra_stop_times.loc[:, 'trip_id'] = extra_stop_times.loc[:, 'trip_id'] + ".trimmed"
     stop_times = stop_times.append(extra_stop_times)
 
