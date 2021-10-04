@@ -4094,10 +4094,12 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCommonCheckableButtons.inspectButton->setChecked(true);
             // show view option
             myDataViewOptions.menuCheckToogleTAZRelDrawing->show();
+            myDataViewOptions.menuCheckToogleTAZDrawFill->show();
             myDataViewOptions.menuCheckToogleTAZRelOnlyFrom->show();
             myDataViewOptions.menuCheckToogleTAZRelOnlyTo->show();
             // show menu check
             menuChecks.menuCheckToogleTAZRelDrawing->show();
+            menuChecks.menuCheckToogleTAZDrawFill->show();
             menuChecks.menuCheckToogleTAZRelOnlyFrom->show();
             menuChecks.menuCheckToogleTAZRelOnlyTo->show();
             // enable IntervalBar
