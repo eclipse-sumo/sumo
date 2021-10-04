@@ -55,6 +55,7 @@ public:
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
+     * @param[in] customCenter custom center (by default, shape centroid)
      * @param[in] geo specifiy if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth The line with for drawing an unfilled polygon
@@ -62,13 +63,13 @@ public:
      * @param[in] name Polygon name
      * @param[in] parameters generic parameters
      */
-    SUMOPolygon(const std::string& id, const std::string& type,
-                const RGBColor& color, const PositionVector& shape,
-                bool geo, bool fill, double lineWidth,
+    SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color, 
+                const PositionVector& shape, const Position &customCenter, bool geo, 
+                bool fill, double lineWidth, 
                 double layer = DEFAULT_LAYER,
-                double angle = DEFAULT_ANGLE,
+                double angle = DEFAULT_ANGLE, 
                 const std::string& imgFile = DEFAULT_IMG_FILE,
-                bool relativePath = DEFAULT_RELATIVEPATH,
+                bool relativePath = DEFAULT_RELATIVEPATH, 
                 const std::string& name = DEFAULT_NAME,
                 const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS);
 
@@ -85,6 +86,10 @@ public:
         return myShape;
     }
 
+    /// @brief get custom center
+    const Position getCustomCenter() const {
+        return myCustomCenter;
+    }
 
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
@@ -123,6 +128,11 @@ public:
     inline virtual void setShape(const PositionVector& shape) {
         myShape = shape;
     }
+
+    /// @brief set custom center
+    void setCustomCenter(const Position &customCenter) {
+        myCustomCenter = customCenter;
+    }
     /// @}
 
     /* @brief polygon definition to the given device
@@ -133,6 +143,9 @@ public:
 protected:
     /// @brief The positions of the polygon
     PositionVector myShape;
+
+    /// @brief custom center
+    Position myCustomCenter;
 
     /// @brief specify if shape is handled as GEO coordinate (Main used in netedit)
     bool myGEO;

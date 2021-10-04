@@ -92,12 +92,11 @@ static const GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 // method definitions
 // ===========================================================================
 
-GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
-                       const RGBColor& color, const PositionVector& shape, bool geo,
-                       bool fill, double lineWidth, double layer, double angle, const std::string& imgFile,
-                       bool relativePath,
-                       const std::string& name):
-    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
+GUIPolygon::GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, 
+        const PositionVector& shape, const Position &customCenter, bool geo, bool fill, 
+        double lineWidth, double layer, double angle, const std::string& imgFile,
+        bool relativePath, const std::string& name):
+    SUMOPolygon(id, type, color, shape, customCenter, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myDisplayList(0),
     myRotatedShape(nullptr) {

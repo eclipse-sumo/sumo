@@ -593,7 +593,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             GeoConvHelper::getLoaded().cartesian2geo(p);
                         }
                     }
-                    SUMOPolygon poly(o.id, o.type, RGBColor::YELLOW, shape, true, true, 1);
+                    SUMOPolygon poly(o.id, o.type, RGBColor::YELLOW, shape, shape.getCentroid(), true, true, 1);
                     poly.setParameter("name", o.name);
                     poly.writeXML(dev, writeGeo);
                 }

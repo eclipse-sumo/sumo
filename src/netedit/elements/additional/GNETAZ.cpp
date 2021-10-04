@@ -51,8 +51,7 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, 
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
         {}, {}, {}, {}, {}, {}, {}, {},
     parameters),
-    SUMOPolygon(id, name, color, shape, false, fill, 1),
-    myTAZCenter(center),
+    SUMOPolygon(id, name, color, shape, center, false, fill, 1),
     myMaxWeightSource(0),
     myMinWeightSource(0),
     myAverageWeightSource(0),
@@ -72,7 +71,7 @@ GNETAZ::getMoveOperation(const double shapeOffset) {
     // check if we're moving center or shape
     if (shapeOffset == -1) {
         // move entire shape
-        return new GNEMoveOperation(this, myTAZCenter);
+        return new GNEMoveOperation(this, getCustomCenter());
     } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
@@ -171,8 +170,8 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
     // write TAZ attributes
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_SHAPE, myShape);
-    if (myTAZCenter != myShape.getCentroid()) {
-        device.writeAttr(SUMO_ATTR_CENTER, myTAZCenter);
+    if (getCustomCenter() != myShape.getCentroid()) {
+        device.writeAttr(SUMO_ATTR_CENTER, getCustomCenter());
     }
     if (myFill) {
         device.writeAttr(SUMO_ATTR_FILL, true);
@@ -220,7 +219,7 @@ GNETAZ::getCenteringBoundary() const {
     } else if (myShape.size() > 0) {
         Boundary b = myShape.getBoxBoundary();
         // add center
-        b.add(myTAZCenter);
+        b.add(getCustomCenter());
         b.grow(40);
         return b;
     } else {
@@ -341,7 +340,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // push center matrix
         GLHelper::pushMatrix();
         // move to vertex
-        glTranslated(myTAZCenter.x(), myTAZCenter.y(), 0.3);
+        glTranslated(getCustomCenter().x(), getCustomCenter().y(), 0.3);
         // set color
         GLHelper::setColor(darkerColor);
         // draw circle
@@ -383,10 +382,10 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return toString(myShape);
         case SUMO_ATTR_CENTER:
-            if (myTAZCenter == myShape.getCentroid()) {
+            if (getCustomCenter() == myShape.getCentroid()) {
                 return "";
             } else {
-                return toString(myTAZCenter);
+                return toString(getCustomCenter());
             }
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
@@ -472,7 +471,7 @@ Position
 GNETAZ::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_CENTER:
-            return myTAZCenter;
+            return getCustomCenter();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -668,7 +667,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_SHAPE: {
-            const bool updateCenter = (myTAZCenter == myShape.getCentroid());
+            const bool updateCenter = (getCustomCenter() == myShape.getCentroid());
             // remove TAZ and TAZRelDatas
             myNet->removeGLObjectFromGrid(this);
             for (const auto &TAZRelData : getChildGenericDatas()) {
@@ -681,9 +680,9 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update center
             if (myShape.size() == 0) {
-                myTAZCenter.set(0, 0, 0);
+                setCustomCenter(Position(0, 0, 0));
             } else if (updateCenter) {
-                myTAZCenter = myShape.getCentroid();
+                setCustomCenter(myShape.getCentroid());
             }
             // add TAZ and TAZRelDatas
             myNet->addGLObjectIntoGrid(this);
@@ -700,9 +699,9 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myNet->removeGLObjectFromGrid(TAZRelData);
             }
             if (value.empty()) {
-                myTAZCenter = myShape.getCentroid();
+                setCustomCenter(myShape.getCentroid());
             } else {
-                myTAZCenter = parse<Position>(value);
+                setCustomCenter(parse<Position>(value));
             }
             // add TAZ and TAZRelDatas
             myNet->addGLObjectIntoGrid(this);
@@ -742,10 +741,10 @@ void
 GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
         // update new center
-        myTAZCenter = moveResult.shapeToUpdate.front();
+        setCustomCenter(moveResult.shapeToUpdate.front());
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::SHAPE) {
         // update new shape and center
-        myTAZCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
+        setCustomCenter(getCustomCenter() + (moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid()));
         myShape = moveResult.shapeToUpdate;
         // update geometry
         myTAZGeometry.updateGeometry(myShape);
@@ -767,7 +766,7 @@ GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::SHAPE) {
         // calculate offset between old and new shape
-        Position newCenter = myTAZCenter;
+        Position newCenter = getCustomCenter();
         newCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
         // commit new shape and center
         undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());

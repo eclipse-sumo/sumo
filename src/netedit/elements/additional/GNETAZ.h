@@ -166,9 +166,6 @@ public:
     void updateTAZStadistic();
 
 protected:
-    /// @brief TAZ center
-    Position myTAZCenter;
-
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 

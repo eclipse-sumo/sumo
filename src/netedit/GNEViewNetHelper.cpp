@@ -1019,7 +1019,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             // only move center
             myMoveOperations.push_back(myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(-1));
             return true;
-        } else if (distanceToShape <= snap_radius) {
+        } else if ((distanceToShape <= snap_radius) || myViewNet->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
             // move shape
             GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(TAZShapeOffset);
             // continue if move operation is valid
