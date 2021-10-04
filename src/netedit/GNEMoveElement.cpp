@@ -138,7 +138,8 @@ GNEMoveOffset::~GNEMoveOffset() {}
 // GNEMoveResult method definitions
 // ===========================================================================
 
-GNEMoveResult::GNEMoveResult() :
+GNEMoveResult::GNEMoveResult(const GNEMoveOperation* moveOperation) :
+    operationType(moveOperation->operationType),
     firstLaneOffset(0),
     newFirstLane(nullptr),
     newFirstPos(0),
@@ -170,7 +171,7 @@ GNEMoveElement::GNEMoveElement() :
 void
 GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // declare move result
-    GNEMoveResult moveResult;
+    GNEMoveResult moveResult(moveOperation);
     // set geometry points to move
     moveResult.geometryPointsToMove = moveOperation->geometryPointsToMove;
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
@@ -235,7 +236,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
 void
 GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset, GNEUndoList* undoList) {
     // declare move result
-    GNEMoveResult moveResult;
+    GNEMoveResult moveResult(moveOperation);
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
     if (moveOperation->firstLane) {
         // calculate original move result
@@ -402,14 +403,14 @@ void
 GNEMoveElement::calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // calculate movements over both lanes separately
     if (moveOperation->firstPosition != INVALID_DOUBLE) {
-        GNEMoveResult moveResultTemporal;
+        GNEMoveResult moveResultTemporal(moveOperation);
         calculateSingleMovementOverOneLane(moveResultTemporal, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
         moveResult.newFirstPos = moveResultTemporal.newFirstPos;
     } else {
         moveResult.newFirstPos = INVALID_DOUBLE;
     }
     if (moveOperation->secondPosition != INVALID_DOUBLE) {
-        GNEMoveResult moveResultTemporal;
+        GNEMoveResult moveResultTemporal(moveOperation);
         calculateSingleMovementOverOneLane(moveResultTemporal, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset);
         moveResult.newSecondPos = moveResultTemporal.newFirstPos;
     } else {

@@ -156,7 +156,7 @@ class GNEMoveResult {
 
 public:
     /// @brief constructor
-    GNEMoveResult();
+    GNEMoveResult(const GNEMoveOperation* moveOperation);
 
     /// @brief destructor
     ~GNEMoveResult();
@@ -169,6 +169,9 @@ public:
 
     /// @brief shape points to move (of shapeToMove)
     std::vector<int> geometryPointsToMove;
+
+    /// @brief move operation
+    const GNEMoveOperation::OperationType operationType;
 
     /// @brief lane offset
     double firstLaneOffset;
