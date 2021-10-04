@@ -1085,6 +1085,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (myNet) {
         myNet->requireSaveNet(false);
     }
+    // set focus
+    setFocus();
     // update app
     update();
 }
