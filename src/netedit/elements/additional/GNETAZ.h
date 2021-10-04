@@ -170,6 +170,9 @@ protected:
     /// @brief geometry for lenghts/rotations
     GNEGeometry::Geometry myTAZGeometry;
 
+    /// @brief TAZ center
+    Position myTAZCenter;
+
 private:
     /// @brief hint size of vertex
     static const double myHintSize;

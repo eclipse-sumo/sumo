@@ -70,7 +70,7 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
                               double angle, const std::string& imgFile, bool relativePath,
                               const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /* ignorePruning */,
                               const std::string& name) {
-    GUIPolygon* p = new GUIPolygon(id, type, color, shape, shape.getCentroid(), geo, fill, lineWidth, layer, angle, imgFile, relativePath, name);
+    GUIPolygon* p = new GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name);
     FXMutexLock locker(myLock);
     if (!myPolygons.add(id, p)) {
         if (myAllowReplacement) {

@@ -33,13 +33,12 @@
 // member definitions
 // ===========================================================================
 SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color,
-                         const PositionVector& shape, const Position &customCenter, bool geo, bool fill, 
+                         const PositionVector& shape, bool geo, bool fill, 
                          double lineWidth, double layer, double angle, const std::string& imgFile, bool relativePath,
                          const std::string& name, const std::map<std::string, std::string>& parameters) :
     Shape(id, type, color, layer, angle, imgFile, name, relativePath),
     Parameterised(parameters),
     myShape(shape),
-    myCustomCenter(customCenter),
     myGEO(geo),
     myFill(fill),
     myLineWidth(lineWidth) {
@@ -52,12 +51,6 @@ SUMOPolygon::~SUMOPolygon() {}
 const PositionVector& 
 SUMOPolygon::getShape() const {
     return myShape;
-}
-
-
-const Position&
-SUMOPolygon::getCustomCenter() const {
-    return myCustomCenter;
 }
 
 
@@ -88,12 +81,6 @@ SUMOPolygon::setLineWidth(double lineWidth) {
 void 
 SUMOPolygon::setShape(const PositionVector& shape) {
     myShape = shape;
-}
-
-
-void 
-SUMOPolygon::setCustomCenter(const Position &customCenter) {
-    myCustomCenter = customCenter;
 }
 
 

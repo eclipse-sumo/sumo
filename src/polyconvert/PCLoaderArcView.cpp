@@ -192,7 +192,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, shape.getCentroid(), false, fillType == 1, 1, layer, angle, imgFile);
+                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, fillType == 1, 1, layer, angle, imgFile);
                 if (toFill.add(poly)) {
                     parCont.push_back(poly);
                 }
@@ -209,7 +209,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, shape.getCentroid(), false, fill, 1, layer, angle, imgFile);
+                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, fill, 1, layer, angle, imgFile);
                 if (toFill.add(poly)) {
                     parCont.push_back(poly);
                 }
@@ -244,7 +244,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, shape.getCentroid(), false, fillType == 1, 1, layer, angle, imgFile);
+                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, false, fillType == 1, 1, layer, angle, imgFile);
                     if (toFill.add(poly)) {
                         parCont.push_back(poly);
                     }
@@ -265,7 +265,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, shape.getCentroid(), false, fill, 1, layer, angle, imgFile);
+                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, false, fill, 1, layer, angle, imgFile);
                     if (toFill.add(poly)) {
                         parCont.push_back(poly);
                     }

@@ -325,7 +325,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     while (toFill.getPolygons().get(id) != nullptr) {
                         id = origId + "#" + toString(index++);
                     }
-                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, vec, vec.getCentroid(), false, false, 1, layer);
+                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, vec, false, false, 1, layer);
                     toFill.add(poly);
                 }
                 vec.clear();
@@ -377,7 +377,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                         id = origId + "#" + toString(index++);
                     }
                     const auto shape = teilflaechen[flaechenelemente[area]];
-                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, shape.getCentroid(), false, false, 1, layer);
+                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, false, 1, layer);
                     toFill.add(poly);
                 } else {
                     Position pos(x, y);
