@@ -405,6 +405,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildTAZ(obj,
                      obj->getStringAttribute(SUMO_ATTR_ID),
                      obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                     obj->getPositionAttribute(SUMO_ATTR_CENTER),
                      obj->getBoolAttribute(SUMO_ATTR_FILL),
                      obj->getColorAttribute(SUMO_ATTR_COLOR),
                      obj->getStringListAttribute(SUMO_ATTR_EDGES),
@@ -1071,6 +1072,7 @@ AdditionalHandler::parseTAZAttributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
     const PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, PositionVector());
+    const Position center = attrs.getOpt<Position>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk, shape.getCentroid());
     const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), parsedOk, false);
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, std::vector<std::string>());
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
