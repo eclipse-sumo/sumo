@@ -183,6 +183,12 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Position&
+GNETAZSourceSink::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // this TAZElement is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)

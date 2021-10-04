@@ -435,6 +435,12 @@ GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Position&
+GNETAZ::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
