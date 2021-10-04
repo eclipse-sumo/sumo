@@ -1018,6 +1018,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             myRelativeClickedPosition.distanceTo2D(myViewNet->myObjectsUnderCursor.getTAZFront()->getAttributePosition(SUMO_ATTR_CENTER)) < centerRadius) {
             // only move center
             myMoveOperations.push_back(myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(-1));
+            return true;
         } else if (distanceToShape <= snap_radius) {
             // move shape
             GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(TAZShapeOffset);
