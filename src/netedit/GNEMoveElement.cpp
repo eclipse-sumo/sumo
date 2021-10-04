@@ -59,7 +59,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     shapeToMove(_shapeToMove),
     geometryPointsToMove(_geometryPointsToMove),
     allowChangeLane(false),
-    operationType(OperationType::SHAPE) {
+    operationType(OperationType::GEOMETRY_POINTS) {
 }
 
 
@@ -71,7 +71,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstLane(_lane),
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane),
-    operationType(OperationType::LANE) {
+    operationType(OperationType::ONE_LANE) {
 }
 
 
@@ -85,7 +85,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
     secondPosition(_secondPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane),
-    operationType(OperationType::LANE) {
+    operationType(OperationType::ONE_LANE) {
 }
 
 
@@ -101,7 +101,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     secondLane(_secondLane),
     secondPosition((_secondStartPos != INVALID_DOUBLE) ? _secondStartPos * _secondLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     allowChangeLane(_allowChangeLane),
-    operationType(OperationType::LANE) {
+    operationType(OperationType::TWO_LANES) {
 }
 
 

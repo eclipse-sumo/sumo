@@ -40,7 +40,9 @@ public:
     enum class OperationType {
         POSITION,
         SHAPE,
-        LANE
+        GEOMETRY_POINTS,
+        ONE_LANE,
+        TWO_LANES
     };
 
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
