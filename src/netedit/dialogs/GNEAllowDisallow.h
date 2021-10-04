@@ -65,6 +65,9 @@ public:
     /// @brief event when user press select only road button
     long onCmdSelectOnlyRoad(FXObject*, FXSelector, void*);
 
+    /// @brief event when user press select only rail button
+    long onCmdSelectOnlyRail(FXObject*, FXSelector, void*);
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -91,18 +94,11 @@ protected:
     /// @brief accept changes
     bool* myAcceptChanges;
 
+    /// @brief allow vehicles
     std::string* myAllow;
 
+    /// @brief disallow vehicles
     std::string* myDisAllow;
-
-    /// @brief select all VClass
-    FXButton* mySelectAllVClassButton;
-
-    /// @brief unselect all VCLass
-    FXButton* myUnselectAllVClassButton;
-
-    /// @brief select only road vehicles
-    FXButton* mySelectOnlyRoadVClassButton;
 
     /// @brief accept button
     FXButton* myAcceptButton;
