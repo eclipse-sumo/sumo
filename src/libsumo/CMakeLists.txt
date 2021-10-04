@@ -73,6 +73,7 @@ set_property(TARGET libsumocpp PROPERTY FOLDER "libsumo")
 set_target_properties(libsumocpp PROPERTIES PREFIX "")
 set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME libsumocpp${BINARY_SUFFIX})
 set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
+target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
 install(TARGETS libsumocpp EXPORT SUMOConfig
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}

@@ -53,6 +53,7 @@ set_property(TARGET libtracicpp PROPERTY FOLDER "libtraci")
 set_target_properties(libtracicpp PROPERTIES PREFIX "")
 set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME libtracicpp${BINARY_SUFFIX})
 set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
+target_include_directories(libtracicpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
 install(TARGETS libtracicpp EXPORT SUMOConfig
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
