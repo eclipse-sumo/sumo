@@ -168,6 +168,9 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
     // write TAZ attributes
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_SHAPE, myShape);
+    if (myTAZCenter != Position::INVALID) {
+        device.writeAttr(SUMO_ATTR_CENTER, myTAZCenter);
+    }
     if (myFill) {
         device.writeAttr(SUMO_ATTR_FILL, true);
     }
@@ -328,6 +331,27 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
+        // draw center
+        if (myTAZCenter != Position::INVALID) {
+            // get radius
+            const double centerRadius = s.neteditSizeSettings.polygonGeometryPointRadius * TAZExaggeration;
+            // push contour matrix
+            GLHelper::pushMatrix();
+            // move to vertex
+            glTranslated(myTAZCenter.x(), myTAZCenter.y(), 0.3);
+            // set color
+            GLHelper::setColor(darkerColor);
+            // draw circle
+            GLHelper::drawFilledCircle(centerRadius, s.getCircleResolution());
+            // move to front
+            glTranslated(0, 0, 0.1);
+            // set color
+            GLHelper::setColor(color);
+            // draw circle
+            GLHelper::drawFilledCircle(centerRadius * 0.8, s.getCircleResolution());
+            // pop contour matrix
+            GLHelper::popMatrix();
+        }
         // draw dotted contours
         drawDottedContours(s, TAZExaggeration);
         // draw lock icon
@@ -446,7 +470,11 @@ const Position&
 GNETAZ::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_CENTER:
-            return myTAZCenter;
+            if (myTAZCenter == Position::INVALID) {
+                return getPositionInView();
+            } else {
+                return myTAZCenter;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
