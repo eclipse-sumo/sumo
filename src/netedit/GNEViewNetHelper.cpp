@@ -2515,14 +2515,14 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\t\tToggle draw TAZRel only from"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM, GUIDesignMFXCheckableButton);
-    menuCheckToogleTAZRelOnlyFrom->setChecked(false);
+    menuCheckToogleTAZRelOnlyFrom->setChecked(true);
     menuCheckToogleTAZRelOnlyFrom->create();
 
     menuCheckToogleTAZRelOnlyTo = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tToggle draw TAZRel only to"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO, GUIDesignMFXCheckableButton);
-    menuCheckToogleTAZRelOnlyTo->setChecked(false);
+    menuCheckToogleTAZRelOnlyTo->setChecked(true);
     menuCheckToogleTAZRelOnlyTo->create();
 
     // always recalc after creating new elements
