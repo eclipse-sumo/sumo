@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-19 11:26:13 by Eclipse SUMO duarouter Version v1_10_0+0086-d9a23d2
+<!-- generated on 2021-10-04 19:43:27 by Eclipse SUMO duarouter Version v1_10_0+1247-de3015de74c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,13 +36,13 @@ SPDX-License-Identifier: EPL-2.0
         <tranship edges="beg middle end"/>
     </container>
     <container id="c1" depart="0">
-        <transport from="end" to="beg"/>
+        <transport from="end" to="beg" lines="1"/>
     </container>
     <container id="c2" depart="0">
         <stop edge="end" duration="20"/>
     </container>
     <container id="c3" depart="0">
-        <transport from="end" to="beg"/>
+        <transport from="end" to="beg" lines="1"/>
         <tranship from="end" to="beg"/>
         <stop edge="beg" duration="20"/>
     </container>
