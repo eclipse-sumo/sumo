@@ -70,10 +70,6 @@ title: ChangeLog
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
   - Fixed invalid error when defining step-length with human readable time. Issue #9196
   - Coloring by edgedata is now working in meso. Issue #9215
-  - Time range and intervals in loaded edgedata are now reported. Issue #9217
-  - Meso vehicles are now drawn with interpolate positions
-  - Segment boundaries are now drawn in meso simulation. Issue #9227
-  - Added support for custom coloring of busStops. Issue #8280
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
@@ -147,6 +143,10 @@ title: ChangeLog
   - Drawing detail of POIs can now be configured. Issue #9203
   - Improved visualization of teleporting vehicles when shown because of active route visualization. Issue #9174
   - Added vehicle context menu function 'Select transported'. Issue #2241
+  - Time range and intervals in loaded edgedata are now reported. Issue #9217
+  - Meso vehicles are now drawn with interpolate positions
+  - Segment boundaries are now drawn in meso simulation. Issue #9227
+  - Added support for custom coloring of busStops. Issue #8280
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
