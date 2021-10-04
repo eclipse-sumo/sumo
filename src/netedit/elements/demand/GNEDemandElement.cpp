@@ -266,7 +266,7 @@ GNEDemandElement::getPathElementDepartValue() const {
                 }
             } else {
                 // use busStop center
-                return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+                return previousPersonPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_CENTER);
             }
         } else {
             // use arrival pos
@@ -329,7 +329,7 @@ GNEDemandElement::getPathElementArrivalValue() const {
                 return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS) - 0.3;
             }
         } else {
-            return getParentAdditionals().front()->getAttributeDouble(GNE_ATTR_CENTER);
+            return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_CENTER);
         }
     } else {
         return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
