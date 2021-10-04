@@ -9,11 +9,11 @@
         <walk route="rSE"/>
     </personFlow>
 
-    <personFlow id="ESb" begin="0" end="200" from="CE" to="SC" period="5">
+    <personFlow id="ESb" begin="0" end="200" period="5">
         <walk route="rESb"/>
     </personFlow>
 
-    <personFlow id="SE_car" begin="0" end="200" from="CE" to="SC" period="20">
+    <personFlow id="SE_car" begin="0" end="200" period="20">
         <personTrip from="SC" to="CN" modes="car"/>
     </personFlow>
 </routes>
