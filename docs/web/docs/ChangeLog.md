@@ -20,7 +20,7 @@ title: ChangeLog
   - ArrivalEdge is no longer ignored in meso. Issue #8994
   - Fixed non-deterministic parkingReroute. Issue #9066
   - Fixed unsafe sublane changing on junction. Issue #9180
-  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185
+  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297  
   - Fixed crash caused by rerouters on short edges. Issue #9186
   - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
   - Fixed invalid departSpeed error in meso #9201
@@ -55,11 +55,13 @@ title: ChangeLog
   - Taz are now drawn below roads. Issue #9146
   - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
   - Fixed slow operation when inspecting large objects. Issue #9106
+  - Fixed slow loading of large traffic demand files. Issue #9191
   - Fixed slow loading of large networks. Issue #9207
   - Dotted contour now matches junction shape at reduced size. Issue #9204
   - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
   - Fixed invalid error when loading program in tls frame. Issue #9270
   - Attribute 'opposite' is now updated when changing lane count. Issue #9283
+  - Minor fixes to save-load tls-program dialog. Issue #9269
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -131,13 +133,15 @@ title: ChangeLog
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
   - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
-  - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199
+  - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199 
+  - BoardingDuration / loadingDuration are now also applied when exiting a vehicle. Issue #4216
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
   - All stopping places (busStop, parkingArea, ...) now support custom color. Issue #8280
   - The numerical value behind the current edge color can now be plotted in a tracker window. Issue #9049
   - Locator dialog now shows number of available objects. Issue #9075
+  - Locator dialog now allows selecting/deselecting all objects in (filtered) list. Issue #5426
   - Improve positioning of persons in vehicles. Issue #9159
   - Taz attribute 'fill' is now supported. Issue #9144
   - Drawing detail of POIs can now be configured. Issue #9203
@@ -147,6 +151,8 @@ title: ChangeLog
   - Meso vehicles are now drawn with interpolate positions
   - Segment boundaries are now drawn in meso simulation. Issue #9227
   - Added support for custom coloring of busStops. Issue #8280
+  - Breakpoints are now rounded down to reachable step value. Issue #6789
+  - Clicking on timestamps in message window now creates breakpoints with a conigurable offset. Issue #7617
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -158,6 +164,9 @@ title: ChangeLog
   - Objects witin a polygon boundary can now be selected by using the polygon context menu. Issue #9158
   - Improved drawing style of connecting lines between dependent objects (i.e. busstop/access). Issue #8914, #9258
   - Writing shortened xml header for demand and data output. Issue #9261
+  - New network is started in create-edge mode. Issue #9272
+  - After setting new edge template, the default in create-edge frame is 'use template'. Issue #9289
+  - Edge / lane context menu operations are now available in create-edge mode. Issue #9271
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
@@ -177,7 +186,8 @@ title: ChangeLog
   - **--netload-output** now includes 'density' and 'laneDensity' and 'speedRelative. Issue #9197
 
 - traci
-  - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764  
+  - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764
+  - addSubscriptionFilterTurn can now be combined (additively) with addSubscriptionFilterLateralDistance and with addSubscriptionFilterLanes. Issue #9177
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
@@ -192,6 +202,7 @@ title: ChangeLog
   - ptlines2flows.py: Added options **--speedfactor.bus** and **--speedfactor.tram** to allow for relaxed schedules of vehicles which may be affected by road congestion. Issue #9170
   - ptlines2flows.py: Line colors are now supported. Issue #7845
   - generateContinousRerouters.py: added option **--vlcass** to avoid errors in multi-modal networks. Issue #9188
+  - generateTurnRatios.py: Added option **--interval** to write time-dependent turn counts / ratios. Issue #9294
 
 ### Other
 
