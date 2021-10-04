@@ -181,7 +181,7 @@ public:
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    virtual const Position &getAttributePosition(SumoXMLAttr key) const = 0;
+    virtual Position getAttributePosition(SumoXMLAttr key) const = 0;
 
     /**@brief method for setting the attribute and letting the object perform TAZElement changes
      * @param[in] key The attribute key

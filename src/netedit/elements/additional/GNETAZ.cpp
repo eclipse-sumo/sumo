@@ -466,7 +466,7 @@ GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-const Position&
+Position
 GNETAZ::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_CENTER:
