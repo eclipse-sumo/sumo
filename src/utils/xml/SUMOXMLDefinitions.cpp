@@ -364,6 +364,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "idBefore",               SUMO_ATTR_ID_BEFORE },
     { "idAfter",                SUMO_ATTR_ID_AFTER },
     // Positions
+    { "center",                 SUMO_ATTR_CENTER },
     { "centerX",                SUMO_ATTR_CENTER_X },
     { "centerY",                SUMO_ATTR_CENTER_Y },
     { "centerZ",                SUMO_ATTR_CENTER_Z },
