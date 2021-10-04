@@ -41,13 +41,14 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] shape TAZ shape
+     * @param[in] center TAZ center
      * @param[in] fill flag for fill TAZ shape
      * @param[in] color TAZ color
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
      */
-    GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const bool fill, const RGBColor &color, 
-           const std::string& name, const std::map<std::string, std::string>& parameters);
+    GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const Position &TAZ, const bool fill, 
+           const RGBColor &color, const std::string& name, const std::map<std::string, std::string>& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
@@ -165,6 +166,9 @@ public:
     void updateTAZStadistic();
 
 protected:
+    /// @brief TAZ center
+    Position myTAZCenter;
+
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 

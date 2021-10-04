@@ -46,12 +46,13 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
-GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const bool fill, const RGBColor &color, 
-               const std::string& name, const std::map<std::string, std::string>& parameters) :
+GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const Position &center, const bool fill, 
+               const RGBColor &color, const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
         {}, {}, {}, {}, {}, {}, {}, {},
     parameters),
     SUMOPolygon(id, name, color, shape, false, fill, 1),
+    myTAZCenter(Position::INVALID),
     myMaxWeightSource(0),
     myMinWeightSource(0),
     myAverageWeightSource(0),
@@ -355,6 +356,12 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return getID();
         case SUMO_ATTR_SHAPE:
             return toString(myShape);
+        case SUMO_ATTR_CENTER:
+            if (myTAZCenter == Position::INVALID) {
+                return "";
+            } else {
+                return toString(myTAZCenter);
+            }
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
         case SUMO_ATTR_NAME:
@@ -437,7 +444,12 @@ GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
 
 const Position&
 GNETAZ::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_CENTER:
+            return myTAZCenter;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -449,6 +461,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CENTER:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILL:
@@ -473,6 +486,12 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             } else {
                 return canParse<PositionVector>(value);
+            }
+        case SUMO_ATTR_CENTER:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<Position>(value);
             }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
@@ -638,6 +657,13 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (const auto &TAZRelData : getChildGenericDatas()) {
                 TAZRelData->updateGeometry();
                 myNet->addGLObjectIntoGrid(TAZRelData);
+            }
+            break;
+        case SUMO_ATTR_CENTER:
+            if (value.empty()) {
+                myTAZCenter = Position::INVALID;
+            } else {
+                myTAZCenter = parse<Position>(value);
             }
             break;
         case SUMO_ATTR_COLOR:
