@@ -277,7 +277,8 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
     child_list = []
     if len(node) > 0:
         for c in node:
-            child = _get_compound_object(c, elementTypes, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
+            child = _get_compound_object(
+                c, elementTypes, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
             child_dict.setdefault(c.tag, []).append(child)
             child_list.append(child)
     attrnames = elementTypes[element_name]._original_fields
@@ -291,7 +292,8 @@ def create_document(root_element_name, attrs=None, schema=None):
         attrs = {}
     if schema is None:
         attrs["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
-        attrs["xsi:noNamespaceSchemaLocation"] = "http://sumo.dlr.de/xsd/" + root_element_name + "_file.xsd"
+        attrs["xsi:noNamespaceSchemaLocation"] = "http://sumo.dlr.de/xsd/" + \
+            root_element_name + "_file.xsd"
     clazz = compound_object(root_element_name, sorted(attrs.keys()))
     return clazz([attrs.get(a) for a in sorted(attrs.keys())], OrderedDict())
 
@@ -342,32 +344,25 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     the given order.
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
-    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    _tempfile_xml(xmlfile)
-    for line in _open("temp.xml", encoding):
+    Record, reprog = _createRecordAndPattern(
+        element_name, attrnames, warn, optional)
+    linebool=False
+    for line in _open(xmlfile, encoding):
+        if "<!--" in line or linebool:
+            warnings.warn("Multible comments found in file.", SyntaxWarning, stacklevel=2)
+            if "-->" in line:
+                if linebool:
+                    linebool=False
+                continue
+            else:
+                linebool = True
+                continue
         m = reprog.search(line)
         if m:
             if optional:
                 yield Record(**m.groupdict())
             else:
                 yield Record(*m.groups())
-    os.remove("temp.xml")
-
-def _tempfile_xml(xmlfile):
-    """
-    Creates new xml file 'temp.xml' with the input data stripped of all the comments
-    It returns a warning if there are multible comments present in the original file
-    Method only used by parse_fast_nested and parse_fast
-    """
-    with open(xmlfile, 'r') as file:
-        data = file.read()
-        count = str(data).count("<!--")
-        if count > 1:
-            warnings.warn("Multible comments found in file.", SyntaxWarning, stacklevel=2)
-        data = re.sub("(<!--.*?-->)", "", data, flags=re.DOTALL)
-        f = open("temp.xml", "w")
-        f.write(data)
-        f.close()
 
 def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2,
                       warn=False, optional=False, encoding="utf8"):
@@ -378,11 +373,22 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     the given order.
     @Example: parse_fast_nested('fcd.xml', 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
     """
-    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
+    Record, reprog = _createRecordAndPattern(
+        element_name, attrnames, warn, optional)
+    Record2, reprog2 = _createRecordAndPattern(
+        element_name2, attrnames2, warn, optional)
     record = None
-    _tempfile_xml(xmlfile)
-    for line in _open("temp.xml", encoding):
+    linebool=False
+    for line in _open(xmlfile, encoding):
+        if "<!--" in line or linebool:
+            warnings.warn("Multible comments found in file.", SyntaxWarning, stacklevel=2)
+            if "-->" in line:
+                if linebool:
+                    linebool=False
+                continue
+            else:
+                linebool = True
+                continue
         m2 = reprog2.search(line)
         if record and m2:
             if optional:
@@ -398,7 +404,6 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                     record = Record(*m.groups())
             elif element_name in line:
                 record = None
-    os.remove("temp.xml")
 
 
 def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
@@ -415,9 +420,11 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", opt
     if script is None:
         script = os.path.basename(sys.argv[0])
     if options is None:
-        optionString = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
+        optionString = "  options: %s" % (
+            ' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
     else:
-        optionString = options._parser.write_config_file(options, toString=True)
+        optionString = options._parser.write_config_file(
+            options, toString=True)
 
     outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s %s
