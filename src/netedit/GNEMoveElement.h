@@ -37,6 +37,12 @@ class GNEUndoList;
 class GNEMoveOperation {
 
 public:
+    enum class OperationType {
+        POSITION,
+        SHAPE,
+        LANE
+    };
+
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const Position originalPosition);
@@ -107,6 +113,9 @@ public:
 
     /// @brief allow change lane
     const bool allowChangeLane;
+
+    /// @brief operation type
+    const OperationType operationType;
 
 private:
     /// @brief Invalidated copy constructor.

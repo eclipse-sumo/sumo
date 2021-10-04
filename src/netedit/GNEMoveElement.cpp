@@ -32,8 +32,9 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const Position _originalPosition) :
     moveElement(_moveElement),
     originalShape({_originalPosition}),
-              shapeToMove({_originalPosition}),
-allowChangeLane(false) {
+    shapeToMove({_originalPosition}),
+    allowChangeLane(false),
+    operationType(OperationType::POSITION) {
 }
 
 
@@ -42,7 +43,8 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     moveElement(_moveElement),
     originalShape(_originalShape),
     shapeToMove(_originalShape),
-    allowChangeLane(false) {
+    allowChangeLane(false),
+    operationType(OperationType::SHAPE) {
 }
 
 
@@ -56,7 +58,8 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     originalGeometryPoints(_originalgeometryPoints),
     shapeToMove(_shapeToMove),
     geometryPointsToMove(_geometryPointsToMove),
-    allowChangeLane(false) {
+    allowChangeLane(false),
+    operationType(OperationType::SHAPE) {
 }
 
 
@@ -67,7 +70,8 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     moveElement(_moveElement),
     firstLane(_lane),
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
-    allowChangeLane(_allowChangeLane) {
+    allowChangeLane(_allowChangeLane),
+    operationType(OperationType::LANE) {
 }
 
 
@@ -80,7 +84,8 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstLane(_lane),
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
     secondPosition(_secondPosition * _lane->getLengthGeometryFactor()),
-    allowChangeLane(_allowChangeLane) {
+    allowChangeLane(_allowChangeLane),
+    operationType(OperationType::LANE) {
 }
 
 
@@ -95,7 +100,8 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstPosition((_firstStartPos != INVALID_DOUBLE) ? _firstStartPos * _firstLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     secondLane(_secondLane),
     secondPosition((_secondStartPos != INVALID_DOUBLE) ? _secondStartPos * _secondLane->getLengthGeometryFactor() : INVALID_DOUBLE),
-    allowChangeLane(_allowChangeLane) {
+    allowChangeLane(_allowChangeLane),
+    operationType(OperationType::LANE) {
 }
 
 
