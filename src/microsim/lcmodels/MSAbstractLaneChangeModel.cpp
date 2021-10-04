@@ -322,6 +322,14 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
 #endif
         myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()), -myVehicle.getLateralPositionOnLane());
         target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
+    } else if (myAmOpposite) {
+#ifdef DEBUG_OPPOSITE
+        if (debugVehicle()) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged stayOpposite\n";
+        }
+#endif
+        myVehicle.setTentativeLaneAndPosition(target, myVehicle.getPositionOnLane(), myVehicle.getLateralPositionOnLane());
+        target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
     } else {
         myVehicle.enterLaneAtLaneChange(target);
     }
@@ -1037,7 +1045,7 @@ int
 MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
     const int i = myVehicle.getLane()->getIndex();
     if (myAmOpposite) {
-        return myVehicle.getLane()->getOpposite()->getEdge().getNumLanes() + myVehicle.getLane()->getEdge().getNumLanes() - 1 - i;
+        return myVehicle.getLane()->getParallelOpposite()->getEdge().getNumLanes() + myVehicle.getLane()->getEdge().getNumLanes() - 1 - i;
     } else {
         return i;
     }

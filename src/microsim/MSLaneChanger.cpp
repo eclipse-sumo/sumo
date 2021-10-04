@@ -1082,8 +1082,9 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     if (!myChangeToOpposite) {
         return false;
     }
+    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     MSLane* source = vehicle->getMutableLane();
-    MSLane* opposite = source->getOpposite();
+    MSLane* opposite = isOpposite ? source->getParallelOpposite() : source->getOpposite();
 
 #ifdef DEBUG_CHANGE_OPPOSITE
     gDebugFlag5 = DEBUG_COND;
@@ -1100,7 +1101,6 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         // prevent by appropriate bestLane distances
         return false;
     }
-    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     int ret = 0;
     ret = vehicle->influenceChangeDecision(ret);
     bool oppositeChangeByTraci = false;
@@ -1132,11 +1132,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         const int laneIndex = vehicle->getLaneChangeModel().getNormalizedLaneIndex();
         const int bestOffset = preb[laneIndex].bestLaneOffset;
         MSLane* target = preb[laneIndex + 1].lane;
+        //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneIndex=" << laneIndex << " bestOffset=" << bestOffset << " target=" << target->getID() << "\n";
         if (bestOffset > 0) {
-            if (vehicle->getLaneChangeModel().isOpposite()) {
-                /// XXX lots of code in MSVehicle is not ready for this yet
-                return false;
-            }
             std::pair<MSVehicle* const, double> neighLead = target->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
             std::pair<MSVehicle* const, double> neighFollow = target->getOppositeFollower(vehicle);
             return checkChangeOpposite(vehicle, 1, target, leader, neighLead, neighFollow, preb);

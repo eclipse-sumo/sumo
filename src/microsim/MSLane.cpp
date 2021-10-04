@@ -3738,16 +3738,15 @@ MSLane::getOpposite() const {
 }
 
 
+MSLane*
+MSLane::getParallelOpposite() const {
+    return myEdge->getLanes().back()->getOpposite();
+}
+
+
 double
 MSLane::getOppositePos(double pos) const {
-    MSLane* opposite = getOpposite();
-    if (opposite == nullptr) {
-        assert(false);
-        throw ProcessError("Lane '" + getID() + "' cannot compute oppositePos as there is no opposite lane.");
-    }
-    // XXX transformations for curved geometries
-    return MAX2(0., opposite->getLength() - pos);
-
+    return MAX2(0., myLength - pos);
 }
 
 std::pair<MSVehicle* const, double>
@@ -3760,7 +3759,7 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
             std::cout << "   getFollower lane=" << getID() << " egoPos=" << egoPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << "\n";
         }
 #endif
-        if (pred->getPositionOnLane(this) < egoPos && pred != ego) {
+        if (pred != ego && pred->getPositionOnLane(this) < egoPos) {
             return std::pair<MSVehicle* const, double>(pred, egoPos - pred->getPositionOnLane(this) - ego->getVehicleType().getLength() - pred->getVehicleType().getMinGap());
         }
     }

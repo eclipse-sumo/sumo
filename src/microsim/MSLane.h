@@ -1113,8 +1113,11 @@ public:
     /// @brief sorts myManeuverReservations
     void sortManeuverReservations();
 
-    /// @brief return the opposite direction lane for lane changing or 0
+    /// @brief return the neighboring opposite direction lane for lane changing or nullptr
     MSLane* getOpposite() const;
+
+    /// @brief return the opposite direction lane of this lanes edge or nullptr
+    MSLane* getParallelOpposite() const;
 
     /// @brief return the corresponding position on the opposite lane
     double getOppositePos(double pos) const;

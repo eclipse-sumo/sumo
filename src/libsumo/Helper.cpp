@@ -1203,7 +1203,7 @@ Helper::applySubscriptionFilterLateralDistance(const Subscription& s, std::set<c
 
 #ifdef DEBUG_SURROUNDING
     std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "', pos " << v->getPositionOnLane() << std::endl;
-    std::cout << "FILTER_LATERAL_DIST: opposite lane is '" << v->getLane()->getOpposite()->getID() << "'" << std::endl;
+    std::cout << "FILTER_LATERAL_DIST: opposite lane is '" << v->getLane()->getParallelOpposite()->getID() << "'" << std::endl;
 #endif
     MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
     double frontPosOnLane = v->getPositionOnLane();
