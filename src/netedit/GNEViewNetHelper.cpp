@@ -1011,9 +1011,15 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         const double distanceToShape = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().distance2D(myViewNet->getPositionInformation());
         // get snap radius
         const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-        // check if we clicked over TAZ
-        if (distanceToShape <= snap_radius) {
-            // get move operation
+        // get center radius
+        const double centerRadius = snap_radius * myViewNet->myObjectsUnderCursor.getTAZFront()->getExaggeration(myViewNet->getVisualisationSettings());
+        // check if we clicked over TAZ or center
+        if (!myViewNet->myObjectsUnderCursor.getTAZFront()->getAttribute(SUMO_ATTR_CENTER).empty() && 
+            myRelativeClickedPosition.distanceTo2D(myViewNet->myObjectsUnderCursor.getTAZFront()->getAttributePosition(SUMO_ATTR_CENTER)) < centerRadius) {
+            // only move center
+            myMoveOperations.push_back(myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(-1));
+        } else if (distanceToShape <= snap_radius) {
+            // move shape
             GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(TAZShapeOffset);
             // continue if move operation is valid
             if (moveOperation) {

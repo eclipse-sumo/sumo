@@ -69,8 +69,11 @@ GNETAZ::~GNETAZ() {}
 
 GNEMoveOperation*
 GNETAZ::getMoveOperation(const double shapeOffset) {
-    // edit depending if shape is blocked
-    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+    // check if we're moving center or shape
+    if (shapeOffset == -1) {
+        // move entire shape
+        return new GNEMoveOperation(this, myTAZCenter);
+    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
@@ -216,6 +219,10 @@ GNETAZ::getCenteringBoundary() const {
         return myMovingGeometryBoundary;
     } else if (myShape.size() > 0) {
         Boundary b = myShape.getBoxBoundary();
+        // add center (if defined)
+        if (myTAZCenter != Position::INVALID) {
+            b.add(myTAZCenter);
+        }
         b.grow(40);
         return b;
     } else {
@@ -688,10 +695,21 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_CENTER:
+            // remove TAZ and TAZRelDatas
+            myNet->removeGLObjectFromGrid(this);
+            for (const auto &TAZRelData : getChildGenericDatas()) {
+                myNet->removeGLObjectFromGrid(TAZRelData);
+            }
             if (value.empty()) {
                 myTAZCenter = Position::INVALID;
             } else {
                 myTAZCenter = parse<Position>(value);
+            }
+            // add TAZ and TAZRelDatas
+            myNet->addGLObjectIntoGrid(this);
+            for (const auto &TAZRelData : getChildGenericDatas()) {
+                TAZRelData->updateGeometry();
+                myNet->addGLObjectIntoGrid(TAZRelData);
             }
             break;
         case SUMO_ATTR_COLOR:
@@ -724,19 +742,31 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
-    // update new shape
-    myShape = moveResult.shapeToUpdate;
-    // update geometry
-    myTAZGeometry.updateGeometry(myShape);
+    if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
+        // update new center
+        myTAZCenter = moveResult.shapeToUpdate.front();
+    } else {
+        // update new shape
+        myShape = moveResult.shapeToUpdate;
+        // update geometry
+        myTAZGeometry.updateGeometry(myShape);
+    }
 }
 
 
 void
 GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // commit new shape
-    undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->end();
+    if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
+        // commit new shape
+        undoList->begin("moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front())));
+        undoList->end();
+    } else {
+        // commit new shape
+        undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+        undoList->end();
+    }
 }
 
 /****************************************************************************/
