@@ -49,6 +49,54 @@ SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const R
 SUMOPolygon::~SUMOPolygon() {}
 
 
+const PositionVector& 
+SUMOPolygon::getShape() const {
+    return myShape;
+}
+
+
+const Position&
+SUMOPolygon::getCustomCenter() const {
+    return myCustomCenter;
+}
+
+
+bool 
+SUMOPolygon::getFill() const {
+    return myFill;
+}
+
+
+double 
+SUMOPolygon::getLineWidth() const {
+    return myLineWidth;
+}
+
+
+void 
+SUMOPolygon::setFill(bool fill) {
+    myFill = fill;
+}
+
+
+void 
+SUMOPolygon::setLineWidth(double lineWidth) {
+    myLineWidth = lineWidth;
+}
+
+
+void 
+SUMOPolygon::setShape(const PositionVector& shape) {
+    myShape = shape;
+}
+
+
+void 
+SUMOPolygon::setCustomCenter(const Position &customCenter) {
+    myCustomCenter = customCenter;
+}
+
+
 void
 SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
     out.openTag(SUMO_TAG_POLY);

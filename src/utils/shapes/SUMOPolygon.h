@@ -74,7 +74,7 @@ public:
                 const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS);
 
     /// @brief Destructor
-    virtual ~SUMOPolygon();
+    ~SUMOPolygon();
 
     /// @name Getter
     /// @{
@@ -82,30 +82,21 @@ public:
     /** @brief Returns whether the shape of the polygon
      * @return The shape of the polygon
      */
-    inline const PositionVector& getShape() const {
-        return myShape;
-    }
+    const PositionVector& getShape() const;
 
     /// @brief get custom center
-    const Position getCustomCenter() const {
-        return myCustomCenter;
-    }
+    const Position &getCustomCenter() const;
 
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
      */
-    virtual bool getFill() const {
-        return myFill;
-    }
+    bool getFill() const;
 
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
      */
-    inline double getLineWidth() const {
-        return myLineWidth;
-    }
+    double getLineWidth() const;
     /// @}
-
 
     /// @name Setter
     /// @{
@@ -113,26 +104,19 @@ public:
     /** @brief Sets whether the polygon shall be filled
      * @param[in] fill Whether the polygon shall be filled
      */
-    inline void setFill(bool fill) {
-        myFill = fill;
-    }
+    void setFill(bool fill);
 
-    inline void setLineWidth(double lineWidth) {
-        myLineWidth = lineWidth;
-    }
-
+    /// @brief set line width
+    void setLineWidth(double lineWidth);
 
     /** @brief Sets the shape of the polygon
      * @param[in] shape  The new shape of the polygon
      */
-    inline virtual void setShape(const PositionVector& shape) {
-        myShape = shape;
-    }
+    void setShape(const PositionVector& shape);
 
     /// @brief set custom center
-    void setCustomCenter(const Position &customCenter) {
-        myCustomCenter = customCenter;
-    }
+    void setCustomCenter(const Position &customCenter);
+
     /// @}
 
     /* @brief polygon definition to the given device
