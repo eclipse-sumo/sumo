@@ -246,7 +246,7 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
             }
-        case GNE_ATTR_CENTER:
+        case SUMO_ATTR_CENTER:
             return ((getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getAttributeDouble(SUMO_ATTR_STARTPOS);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");

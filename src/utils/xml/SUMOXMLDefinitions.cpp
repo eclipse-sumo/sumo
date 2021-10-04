@@ -862,7 +862,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
     { "toContainerStop",                    GNE_ATTR_TO_CONTAINERSTOP },
     { "opposite",                           GNE_ATTR_OPPOSITE },
-    { "center",                             GNE_ATTR_CENTER },
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },

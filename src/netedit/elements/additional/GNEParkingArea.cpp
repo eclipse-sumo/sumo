@@ -232,7 +232,7 @@ GNEParkingArea::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
             }
-        case GNE_ATTR_CENTER:
+        case SUMO_ATTR_CENTER:
             return ((getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getAttributeDouble(SUMO_ATTR_STARTPOS);
         case SUMO_ATTR_WIDTH:
             return myWidth;
