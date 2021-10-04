@@ -1096,9 +1096,9 @@ MSLCM_LC2013::_wantsChange(
     // special case: vehicle considers changing to the opposite direction edge
     const int prebOffset = laneOffset;
     for (int p = 0; p < (int) preb.size(); ++p) {
-        if (DEBUG_COND) {
-            std::cout << "  p=" << p << " prebLane=" << prebLane->getID() << " preb.p" << preb[p].lane->getID() << "\n";
-        }
+        //if (DEBUG_COND) {
+        //    std::cout << "  p=" << p << " prebLane=" << prebLane->getID() << " preb.p=" << preb[p].lane->getID() << "\n";
+        //}
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
             assert(p + prebOffset < (int)preb.size());
             curr = preb[p];

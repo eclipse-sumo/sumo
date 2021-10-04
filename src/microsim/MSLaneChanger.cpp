@@ -1084,7 +1084,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     }
     const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     MSLane* source = vehicle->getMutableLane();
-    MSLane* opposite = isOpposite ? source->getParallelOpposite() : source->getOpposite();
+    MSLane* opposite = isOpposite ? source->getParallelLane(1) : source->getOpposite();
 
 #ifdef DEBUG_CHANGE_OPPOSITE
     gDebugFlag5 = DEBUG_COND;

@@ -31,6 +31,7 @@
 //#define DEBUG_OPPOSITE
 //#define DEBUG_MANEUVER
 #define DEBUG_COND (myVehicle.isSelected())
+
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
@@ -317,7 +318,7 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         changedToOpposite();
 #ifdef DEBUG_OPPOSITE
         if (debugVehicle()) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged nowOpposite=" << myAmOpposite << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged source=" << source->getID() << " target=" << target->getID() << " nowOpposite=" << myAmOpposite << "\n";
         }
 #endif
         myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()), -myVehicle.getLateralPositionOnLane());
@@ -325,7 +326,7 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
     } else if (myAmOpposite) {
 #ifdef DEBUG_OPPOSITE
         if (debugVehicle()) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged stayOpposite\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged source=" << source->getID() << " target=" << target->getID() << " stayOpposite\n";
         }
 #endif
         myVehicle.setTentativeLaneAndPosition(target, myVehicle.getPositionOnLane(), myVehicle.getLateralPositionOnLane());
