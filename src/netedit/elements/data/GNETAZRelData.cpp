@@ -158,14 +158,14 @@ GNETAZRelData::updateGeometry() {
         ring.add(TAZA->getTAZElementShape().front());
         myTAZRelGeometry.updateGeometry(ring);
         // move ringCenter to center
-        ringCenter.add(TAZA->getPositionInView());
+        ringCenter.add(TAZA->getAttributePosition(SUMO_ATTR_CENTER));
         myTAZRelGeometryCenter.updateGeometry(ringCenter);
     } else {
         // calculate line betwen to TAZ centers
-        PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};
+        PositionVector line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER), TAZB->getAttributePosition(SUMO_ATTR_CENTER)};
         // check line
         if (line.length() < 1) {
-            line = {TAZA->getPositionInView() - 0.5, TAZB->getPositionInView() + 0.5};
+            line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, TAZB->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
         }
         // add offset to line
         line.move2side(1 + myLastWidth);
@@ -195,7 +195,7 @@ GNETAZRelData::updateGeometry() {
 
 Position
 GNETAZRelData::getPositionInView() const {
-    return getParentTAZElements().front()->getPositionInView();
+    return getParentTAZElements().front()->getAttributePosition(SUMO_ATTR_CENTER);
 }
 
 
