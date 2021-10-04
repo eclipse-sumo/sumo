@@ -39,6 +39,7 @@ SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const R
     Shape(id, type, color, layer, angle, imgFile, name, relativePath),
     Parameterised(parameters),
     myShape(shape),
+    myCustomCenter(customCenter),
     myGEO(geo),
     myFill(fill),
     myLineWidth(lineWidth) {
