@@ -435,14 +435,14 @@ public:
         /// @brief Button for open color editor
         FXButton* myColorEditor;
 
+        /// @brief text field center
+        FXTextField* myTextFieldCenter;
+
         /// @brief CheckButton to enable or disable fill
         FXCheckButton* myCheckButtonFill;
 
         /// @brief textField to modify the default value of color parameter
         FXTextField* myTextFieldColor;
-
-        /// @brief Button for open name editor
-        FXLabel* myNameEditor;
 
         /// @brief textField to modify the default value of name parameter
         FXTextField* myTextFieldName;
