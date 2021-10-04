@@ -53,8 +53,6 @@ public:
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
-    bool getFill() const;
-
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
     */
