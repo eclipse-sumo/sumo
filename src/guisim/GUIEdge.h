@@ -226,6 +226,8 @@ public:
     /// @brief whether to highlight this edge as a dead-end edge
     bool myShowDeadEnd;
 
+    /// @brief get number of vehicles waiting for departure on this edge
+    double getPendingEmits() const;
 
 private:
     /// @brief invalidated copy constructor
