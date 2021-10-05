@@ -161,9 +161,11 @@ packages can be obtained:
 </ul>
 
 The nightly builds are also available from the [Python packaging index test instance](https://test.pypi.org/project/eclipse-sumo/).
-To install the latest nightly version use `pip install -i https://test.pypi.org/simple/ eclipse-sumo`.
+To install the latest nightly version use `pip install -i https://test.pypi.org/simple/ eclipse-sumo`. Although this is a python
+package it contains the all compiled SUMO binaries adn should be fully functional for Windows and recent Linux.
 
-The Linux [repositories](#repositories) contain a nightly build as well.
+The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
+This is unfortunately not the case for the Debian, Ubuntu and Arch versions.
 
 [The corresponding documentation](https://sumo.dlr.de/daily/userdoc) is
 also visible live including [Doxygen
