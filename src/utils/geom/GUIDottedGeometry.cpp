@@ -226,7 +226,8 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 
 void
-GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GUIDottedGeometry::DottedContourType type, const double customWidth) const {
+GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, 
+        GUIDottedGeometry::DottedContourType type, const double customWidth) const {
     // get width
     const double width = (customWidth > 0)? customWidth : myWidth;
     // iterate over all segments
@@ -273,8 +274,8 @@ GUIDottedGeometry::invertOffset() {
 
 
 void
-GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
-                                          const double exaggeration, const double lineWidth) {
+GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, 
+        const PositionVector& shape, const double exaggeration, const double lineWidth) {
     if (exaggeration > 0) {
         // declare DottedGeometryColor
         DottedGeometryColor dottedGeometryColor(s);
@@ -303,9 +304,9 @@ GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, co
 
 
 void
-GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
-                                       const double width, const double exaggeration, const bool drawFirstExtrem, const bool drawLastExtrem, 
-                                       const double lineWidth) {
+GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, 
+        const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem, 
+        const bool drawLastExtrem, const double lineWidth) {
     // declare DottedGeometryColor
     DottedGeometryColor dottedGeometryColor(s);
     // calculate center dotted geometry
@@ -346,19 +347,20 @@ GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GU
 
 
 void
-GUIDottedGeometry::drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos, const double radius, const double exaggeration) {
+GUIDottedGeometry::drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, 
+        const Position& pos, const double radius, const double exaggeration) {
     // continue depending of exaggeratedRadio
     if ((radius * exaggeration) < 2) {
-        drawDottedContourClosedShape(type, s, GNEGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
+        drawDottedContourClosedShape(type, s, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
     } else {
-        drawDottedContourClosedShape(type, s, GNEGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
+        drawDottedContourClosedShape(type, s, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
     }
 }
 
 
 void
 GUIDottedGeometry::drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
-                                    const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration) {
+        const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration) {
     // create shape
     PositionVector shape;
     // make rectangle
@@ -390,8 +392,8 @@ GUIDottedGeometry::calculateShapeRotationsAndLengths() {
             segment.lengths.reserve(numberOfSegments);
             // Calculate lengths and rotations for every shape
             for (int i = 0; i < numberOfSegments; i++) {
-                segment.rotations.push_back(GNEGeometry::calculateRotation(segment.shape[i], segment.shape[i + 1]));
-                segment.lengths.push_back(GNEGeometry::calculateLength(segment.shape[i], segment.shape[i + 1]));
+                segment.rotations.push_back(GUIGeometry::calculateRotation(segment.shape[i], segment.shape[i + 1]));
+                segment.lengths.push_back(GUIGeometry::calculateLength(segment.shape[i], segment.shape[i + 1]));
             }
         }
     }
