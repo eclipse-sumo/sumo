@@ -2223,6 +2223,7 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
     menuCheckShowAllContainerPlans(nullptr),
     menuCheckLockContainer(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
+    menuCheckShowOverlappedRoutes(nullptr),
     myViewNet(viewNet),
     myLockedPerson(nullptr),
     myLockedContainer(nullptr) {
@@ -2295,6 +2296,13 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideNonInspectedDemandElements->setChecked(false);
     menuCheckHideNonInspectedDemandElements->create();
 
+    menuCheckShowOverlappedRoutes = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle show overlapped routes."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES, GUIDesignMFXCheckableButton);
+    menuCheckShowOverlappedRoutes->setChecked(false);
+    menuCheckShowOverlappedRoutes->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2311,6 +2319,7 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
     menuCheckShowAllContainerPlans->hide();
     menuCheckLockContainer->hide();
     menuCheckHideNonInspectedDemandElements->hide();
+    menuCheckShowOverlappedRoutes->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
 }
@@ -2345,6 +2354,9 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MF
     }
     if (menuCheckHideNonInspectedDemandElements->shown()) {
         commands.push_back(menuCheckHideNonInspectedDemandElements);
+    }
+    if (menuCheckShowOverlappedRoutes->shown()) {
+        commands.push_back(menuCheckShowOverlappedRoutes);
     }
 }
 

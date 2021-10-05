@@ -675,6 +675,9 @@ struct GNEViewNetHelper {
         /// @brief Hide non inspected demand elements
         MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
 
+        /// @brief show overlapped routes
+        MFXCheckableButton* menuCheckShowOverlappedRoutes;
+
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;

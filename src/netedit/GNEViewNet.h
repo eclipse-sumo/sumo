@@ -318,6 +318,9 @@ public:
     /// @brief toggle hide non inspected demand elements
     long onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief toggle hide non inspected demand elements
+    long onCmdToggleShowOverlappedRoutes(FXObject*, FXSelector, void*);
+
     /// @brief toggle hide shapes in super mode demand
     long onCmdToggleHideShapes(FXObject*, FXSelector, void*);
 

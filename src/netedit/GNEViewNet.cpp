@@ -121,6 +121,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON,            GNEViewNet::onCmdToggleLockPerson),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GNEViewNet::onCmdToggleShowAllContainerPlans),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,         GNEViewNet::onCmdToggleLockContainer),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES,  GNEViewNet::onCmdToggleShowOverlappedRoutes),
     // Data view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToggleShowAdditionals),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToggleShowShapes),
@@ -3259,6 +3260,25 @@ GNEViewNet::onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector sel, 
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED)) {
         myDemandViewOptions.menuCheckHideNonInspectedDemandElements->setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToggleShowOverlappedRoutes(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowOverlappedRoutes
+    if (myDemandViewOptions.menuCheckShowOverlappedRoutes->amChecked() == TRUE) {
+        myDemandViewOptions.menuCheckShowOverlappedRoutes->setChecked(FALSE);
+    } else {
+        myDemandViewOptions.menuCheckShowOverlappedRoutes->setChecked(TRUE);
+    }
+    myDemandViewOptions.menuCheckShowOverlappedRoutes->update();
+    // Only update view
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES)) {
+        myDemandViewOptions.menuCheckShowOverlappedRoutes->setFocus();
     }
     return 1;
 }
