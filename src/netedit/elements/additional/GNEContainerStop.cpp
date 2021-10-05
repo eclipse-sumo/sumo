@@ -110,7 +110,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * containerStopExaggeration);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * containerStopExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, containerStopExaggeration)) {
                 // draw lines

@@ -268,7 +268,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(E2Color);
             // draw geometry
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
             // Check if the distance is enought to draw details
             if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
                 // draw E2 Logo

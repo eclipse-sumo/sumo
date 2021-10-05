@@ -295,7 +295,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(color);
             // draw geometry (polyline)
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
             // pop matrix
             GLHelper::popMatrix();
         }
@@ -308,16 +308,20 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw polygon contour
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
             // pop contour matrix
             GLHelper::popMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myPolygonGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor, 
+                                                s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration,
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON)) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myPolygonGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON) && 
+                    (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor, 
+                                                s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
             }
         }

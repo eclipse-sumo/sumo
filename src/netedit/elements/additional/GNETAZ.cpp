@@ -304,7 +304,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(color);
             // draw geometry (polyline)
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
             // pop matrix
             GLHelper::popMatrix();
         }
@@ -317,16 +317,20 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw polygon contour
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
             // pop contour matrix
             GLHelper::popMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(TAZExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myTAZGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), darkerColor, invertedColor, 
+                                                s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration,
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ)) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myTAZGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ) && 
+                    (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), invertedColor, 
+                                                s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 }
             }
         }

@@ -120,13 +120,13 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // set base color
         GLHelper::setColor(routeProbeColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.3 * routeProbeExaggeration);
+        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * routeProbeExaggeration);
         // move to front
         glTranslated(0, 0, .1);
         // set central color
         GLHelper::setColor(centralLineColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.05 * routeProbeExaggeration);
+        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * routeProbeExaggeration);
         // move to icon position and front
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
         // rotate over lane

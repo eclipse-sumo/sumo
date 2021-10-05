@@ -19,14 +19,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNELane2laneConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAdditional.h"
 
@@ -363,7 +364,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // Set color
         GLHelper::setColor(E2Color);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), E2Geometry, E2DetectorWidth);
+        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
@@ -438,7 +439,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
             if (onlyContour) {
                 GNEGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
             } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+                GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
             }
         } else {
             // Set invalid person plan color
@@ -450,7 +451,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
                 GNEGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
             } else {
                 // draw invalid geometry
-                GNEGeometry::drawGeometry(myNet->getViewNet(), invalidGeometry, (0.5 * E2DetectorWidth));
+                GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
             }
         }
         // Pop last matrix

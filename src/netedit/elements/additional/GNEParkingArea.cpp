@@ -124,7 +124,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, myWidth * 0.5 * parkingAreaExaggeration);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, myWidth * 0.5 * parkingAreaExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, parkingAreaExaggeration)) {
                 // draw sign
