@@ -58,7 +58,6 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
@@ -4570,7 +4569,7 @@ GNEViewNet::drawTemporalJunction() const {
             // set color
             GLHelper::setColor(temporalEdgeColor);
             // draw temporal edge
-            GNEGeometry::drawGeometry(this, temporalEdgeGeometery, 0.75);
+            GNEGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
             // check if we have to draw opposite edge
             if (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE) {
                 // move temporal edge to opposite edge
@@ -4578,7 +4577,7 @@ GNEViewNet::drawTemporalJunction() const {
                 // update geometry
                 temporalEdgeGeometery.updateGeometry(temporalEdge);
                 // draw temporal edge
-                GNEGeometry::drawGeometry(this, temporalEdgeGeometery, 0.75);
+                GNEGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
             }
             // pop temporal edge matrix
             GLHelper::popMatrix();

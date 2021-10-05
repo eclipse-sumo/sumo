@@ -19,17 +19,19 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+
 #include "GNEViewNetHelper.h"
 
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/settings/GUIPropertyScheme.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+class GNEFrame;
+class GNENet;
+class GNEUndoList;
+class GNEViewParent;
 
 // ===========================================================================
 // class definitions
