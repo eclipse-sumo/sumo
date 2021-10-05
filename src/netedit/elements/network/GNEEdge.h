@@ -24,8 +24,8 @@
 #include <netbuild/NBEdge.h>
 #include <netedit/elements/GNECandidateElement.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <utils/geom/GUIGeometry.h>
-#include <utils/geom/GUIDottedGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
+#include <utils/gui/div/GUIDottedGeometry.h>
 
 #include "GNENetworkElement.h"
 

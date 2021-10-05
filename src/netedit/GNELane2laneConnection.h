@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/geom/GUIGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 
 
 // ===========================================================================
