@@ -246,9 +246,14 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // color
                 const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, darkerColor, 
+                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale, 
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint
-                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor,
+                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                }
             }
             // pop layer matrix
             GLHelper::popMatrix();

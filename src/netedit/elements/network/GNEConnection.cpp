@@ -422,9 +422,14 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // color
                 const RGBColor darkerColor = connectionColor.changedBrightness(-32);
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, darkerColor, 
+                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1, 
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint
-                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
+                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, 
+                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1);
+                }
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 0.1);

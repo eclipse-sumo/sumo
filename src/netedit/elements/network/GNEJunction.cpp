@@ -447,11 +447,16 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // set color
                         GLHelper::setColor(darkerColor);
                         // draw shape
-                        GNEGeometry::drawGeometry(myNet->getViewNet(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
+                        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
                         // draw geometry points
-                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionOpenShape, darkerColor, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, darkerColor, 
+                                                        s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration,
+                                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                         // draw moving hint
-                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), junctionOpenShape, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                            GNEGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, 
+                                                        s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        }
                     }
                 }
             }

@@ -503,7 +503,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawLaneAsRailway(s, laneDrawingConstants);
             } else {
                 // draw as box lines
-                GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
+                GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
             }
             if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
                 // Push matrix
@@ -513,7 +513,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 // set selected edge color
                 GLHelper::setColor(s.colorSettings.selectedEdgeColor);
                 // draw again to show the selected edge
-                GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
+                GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
                 // Pop matrix
                 GLHelper::popMatrix();
             }
@@ -637,7 +637,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
         // draw white boundings and white markings
         GLHelper::setColor(RGBColor::WHITE);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
+        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
         // pop background matrix
         GLHelper::popMatrix();
     }
@@ -788,7 +788,7 @@ GNELane::isRestricted(SUMOVehicleClass vclass) const {
 }
 
 
-const GNEGeometry::Lane2laneConnection&
+const GNELane2laneConnection&
 GNELane::getLane2laneConnections() const {
     return myLane2laneConnections;
 }
@@ -1377,7 +1377,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     const double halfRailWidth = halfInnerFeetWidth + 0.15 * laneDrawingConstants.exaggeration;
     const double halfCrossTieWidth = halfGauge * 1.81;
     // Draw lane geometry
-    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
+    GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
     // Save current color
     RGBColor current = GLHelper::getColor();
     // Draw gray on top with reduced width (the area between the two tracks)
@@ -1385,7 +1385,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     // move
     glTranslated(0, 0, 0.1);
     // draw lane geometry again
-    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
+    GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
     // Set current color back
     GLHelper::setColor(current);
     // Draw crossties
