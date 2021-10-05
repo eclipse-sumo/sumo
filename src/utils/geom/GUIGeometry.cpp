@@ -20,7 +20,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
 
 #include "GUIGeometry.h"
 
