@@ -119,7 +119,7 @@ GNELane::allowPedestrians() const {
 }
 
 
-const GNEGeometry::Geometry&
+const GUIGeometry&
 GNELane::getLaneGeometry() const {
     return myLaneGeometry;
 }
@@ -336,7 +336,7 @@ GNELane::drawArrows(const GUIVisualizationSettings& s, const bool spreadSuperpos
         // calculate begin, end and rotation
         const Position& begin = myLaneGeometry.getShape()[-2];
         const Position& end = myLaneGeometry.getShape().back();
-        const double rot = GNEGeometry::calculateRotation(begin, end);
+        const double rot = GUIGeometry::calculateRotation(begin, end);
         // push arrow matrix
         GLHelper::pushMatrix();
         // move front (note: must draw on top of junction shape?
@@ -503,7 +503,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawLaneAsRailway(s, laneDrawingConstants);
             } else {
                 // draw as box lines
-                GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
+                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
             }
             if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
                 // Push matrix
@@ -513,7 +513,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 // set selected edge color
                 GLHelper::setColor(s.colorSettings.selectedEdgeColor);
                 // draw again to show the selected edge
-                GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
+                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
                 // Pop matrix
                 GLHelper::popMatrix();
             }
@@ -637,7 +637,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
         // draw white boundings and white markings
         GLHelper::setColor(RGBColor::WHITE);
         // draw geometry
-        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
         // pop background matrix
         GLHelper::popMatrix();
     }
@@ -1377,7 +1377,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     const double halfRailWidth = halfInnerFeetWidth + 0.15 * laneDrawingConstants.exaggeration;
     const double halfCrossTieWidth = halfGauge * 1.81;
     // Draw lane geometry
-    GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
+    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
     // Save current color
     RGBColor current = GLHelper::getColor();
     // Draw gray on top with reduced width (the area between the two tracks)
@@ -1385,7 +1385,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     // move
     glTranslated(0, 0, 0.1);
     // draw lane geometry again
-    GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
+    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
     // Set current color back
     GLHelper::setColor(current);
     // Draw crossties

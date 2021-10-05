@@ -164,7 +164,7 @@ private:
     const GNEJunction* myJunctionParent;
 
     /// @brief internal lane geometry
-    GNEGeometry::Geometry myInternalLaneGeometry;
+    GUIGeometry myInternalLaneGeometry;
 
     /// @brief the state of the link (used for visualization)
     FXuint myState;

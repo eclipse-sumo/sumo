@@ -46,14 +46,14 @@ public:
     bool exist(const GNELane* toLane) const;
 
     /// @brief get lane2lane geometry
-    const GNEGeometry::Geometry& getLane2laneGeometry(const GNELane* toLane) const;
+    const GUIGeometry& getLane2laneGeometry(const GNELane* toLane) const;
 
 protected:
     /// @brief from lane
     const GNELane* myFromLane;
 
     /// @brief connection shape
-    std::map<const GNELane*, GNEGeometry::Geometry> myConnectionsMap;
+    std::map<const GNELane*, GUIGeometry> myConnectionsMap;
 
 private:
     /// @brief constructor

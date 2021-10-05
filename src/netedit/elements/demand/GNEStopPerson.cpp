@@ -605,17 +605,17 @@ GNEStopPerson::drawStopPersonOverLane(const GUIVisualizationSettings& s, const d
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
+    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
     // move to front
     glTranslated(0, 0, .1);
     // set central color
     GLHelper::setColor(centralLineColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
+    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
     // move to icon position and front
     glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
     // rotate over lane
-    GNEGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+    GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
     // move again
     glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
     // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
@@ -648,11 +648,11 @@ GNEStopPerson::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, cons
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
+    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
     // move to icon position and front
     glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
     // rotate over lane
-    GNEGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+    GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
     // move again
     glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
     // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting

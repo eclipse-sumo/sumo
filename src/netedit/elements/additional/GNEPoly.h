@@ -206,7 +206,7 @@ protected:
     bool mySimplifiedShape;
 
     /// @brief geometry for lenghts/rotations
-    GNEGeometry::Geometry myPolygonGeometry;
+    GUIGeometry myPolygonGeometry;
 
 private:
     /// @brief set attribute after validation

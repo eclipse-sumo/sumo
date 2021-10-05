@@ -94,7 +94,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get lane geometry
-    const GNEGeometry::Geometry& getLaneGeometry() const;
+    const GUIGeometry& getLaneGeometry() const;
 
     /// @brief get elements shape
     const PositionVector& getLaneShape() const;
@@ -247,7 +247,7 @@ private:
     int myIndex;
 
     /// @brief lane geometry
-    GNEGeometry::Geometry myLaneGeometry;
+    GUIGeometry myLaneGeometry;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

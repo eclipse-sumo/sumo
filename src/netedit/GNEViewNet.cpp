@@ -4456,8 +4456,8 @@ GNEViewNet::drawLaneCandidates() const {
                     shapeRotations.reserve(segments);
                     shapeLengths.reserve(segments);
                     for (int j = 0; j < segments; j++) {
-                        shapeLengths.push_back(GNEGeometry::calculateLength(shape[j], shape[j + 1]));
-                        shapeRotations.push_back(GNEGeometry::calculateRotation(shape[j], shape[j + 1]));
+                        shapeLengths.push_back(GUIGeometry::calculateLength(shape[j], shape[j + 1]));
+                        shapeRotations.push_back(GUIGeometry::calculateRotation(shape[j], shape[j + 1]));
                     }
                 }
                 // draw a list of lines
@@ -4557,7 +4557,7 @@ GNEViewNet::drawTemporalJunction() const {
             RGBColor temporalEdgeColor = RGBColor::BLACK;
             temporalEdgeColor.setAlpha(200);
             // declare temporal edge geometry
-            GNEGeometry::Geometry temporalEdgeGeometery;
+            GUIGeometry temporalEdgeGeometery;
             // calculate geometry between source junction and mouse position
             PositionVector temporalEdge = {mousePosition, myViewParent->getCreateEdgeFrame()->getJunctionSource()->getPositionInView()};
             // move temporal edge 2 side
@@ -4569,7 +4569,7 @@ GNEViewNet::drawTemporalJunction() const {
             // set color
             GLHelper::setColor(temporalEdgeColor);
             // draw temporal edge
-            GNEGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
+            GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
             // check if we have to draw opposite edge
             if (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE) {
                 // move temporal edge to opposite edge
@@ -4577,7 +4577,7 @@ GNEViewNet::drawTemporalJunction() const {
                 // update geometry
                 temporalEdgeGeometery.updateGeometry(temporalEdge);
                 // draw temporal edge
-                GNEGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
+                GUIGeometry::drawGeometry(myVisualizationSettings, getPositionInformation(), temporalEdgeGeometery, 0.75);
             }
             // pop temporal edge matrix
             GLHelper::popMatrix();

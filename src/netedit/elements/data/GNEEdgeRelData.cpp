@@ -149,7 +149,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         // Set orange color
         GLHelper::setColor(RGBColor::BLACK);
         // draw box lines
-        GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
         // translate to top
         glTranslated(0, 0, 0.01);
         // Set color
@@ -159,7 +159,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             GLHelper::setColor(getColor());
         }
         // draw interne box lines
-        GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // draw lock icon
@@ -217,7 +217,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 GLHelper::setColor(RGBColor::BLACK);
                 if (from->getLane2laneConnections().exist(to)) {
                     // draw box lines
-                    GNEGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
+                    GUIGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
                     // translate to top
                     glTranslated(0, 0, 0.01);
                     // Set color
@@ -227,7 +227,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                         GLHelper::setColor(getColor());
                     }
                     // draw interne box lines
-                    GNEGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
+                    GUIGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
                 } else {
                     // draw line between end of first shape and first position of second shape
                     GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);

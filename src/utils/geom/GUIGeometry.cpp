@@ -29,28 +29,25 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-PositionVector GNEGeometry::myCircleCoords;
+PositionVector GUIGeometry::myCircleCoords;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEGeometry::Geometry - methods
-// ---------------------------------------------------------------------------
-
-GNEGeometry::Geometry::Geometry() {
+GUIGeometry::GUIGeometry() {
 }
 
 
-GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
+GUIGeometry::GUIGeometry(const PositionVector& shape) :
     myShape(shape) {
     // calculate shape rotation and lenghts
     calculateShapeRotationsAndLengths();
 }
 
 
-GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) :
+GUIGeometry::GUIGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations, 
+        const std::vector<double>& shapeLengths) :
     myShape(shape),
     myShapeRotations(shapeRotations),
     myShapeLengths(shapeLengths) {
@@ -58,7 +55,7 @@ GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<d
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const PositionVector& shape) {
+GUIGeometry::updateGeometry(const PositionVector& shape) {
     // clear geometry
     clearGeometry();
     // update shape
@@ -69,7 +66,8 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape) {
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const double posOverShape, const double lateralOffset) {
+GUIGeometry::updateGeometry(const PositionVector& shape, const double posOverShape, 
+        const double lateralOffset) {
     // first clear geometry
     clearGeometry();
     // get shape length
@@ -89,7 +87,8 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, const double 
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double starPosOverShape, double endPosOverShape, const double lateralOffset) {
+GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape, 
+        double endPosOverShape, const double lateralOffset) {
     // first clear geometry
     clearGeometry();
     // set new shape
@@ -126,8 +125,8 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double starPo
 
 
 void
-GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
-                                      const Position& extraFirstPosition, const Position& extraLastPosition) {
+GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
+        const Position& extraFirstPosition, const Position& extraLastPosition) {
     // first clear geometry
     clearGeometry();
     // set new shape
@@ -172,7 +171,7 @@ GNEGeometry::Geometry::updateGeometry(const PositionVector& shape, double beginT
 
 
 void
-GNEGeometry::Geometry::updateSinglePosGeometry(const Position& position, const double rotation) {
+GUIGeometry::updateSinglePosGeometry(const Position& position, const double rotation) {
     // first clear geometry
     clearGeometry();
     // set position and rotation
@@ -182,7 +181,7 @@ GNEGeometry::Geometry::updateSinglePosGeometry(const Position& position, const d
 
 
 void
-GNEGeometry::Geometry::scaleGeometry(const double scale) {
+GUIGeometry::scaleGeometry(const double scale) {
     // scale shape and lenghts
     myShape.scaleRelative(scale);
     // scale lenghts
@@ -193,73 +192,46 @@ GNEGeometry::Geometry::scaleGeometry(const double scale) {
 
 
 const PositionVector&
-GNEGeometry::Geometry::getShape() const {
+GUIGeometry::getShape() const {
     return myShape;
 }
 
 
 const std::vector<double>&
-GNEGeometry::Geometry::getShapeRotations() const {
+GUIGeometry::getShapeRotations() const {
     return myShapeRotations;
 }
 
 
 const std::vector<double>&
-GNEGeometry::Geometry::getShapeLengths() const {
+GUIGeometry::getShapeLengths() const {
     return myShapeLengths;
 }
 
 
-void GNEGeometry::Geometry::clearGeometry() {
-    // clear geometry containers
-    myShape.clear();
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-}
-
-
-void
-GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
-    // clear rotations and lengths
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-    // Get number of parts of the shape
-    int numberOfSegments = (int)myShape.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        myShapeRotations.reserve(numberOfSegments);
-        myShapeLengths.reserve(numberOfSegments);
-        // Calculate lengths and rotations for every shape
-        for (int i = 0; i < numberOfSegments; i++) {
-            myShapeRotations.push_back(calculateRotation(myShape[i], myShape[i + 1]));
-            myShapeLengths.push_back(calculateLength(myShape[i], myShape[i + 1]));
-        }
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GNEGeometry - methods
-// ---------------------------------------------------------------------------
-
 double
-GNEGeometry::calculateRotation(const Position& first, const Position& second) {
+GUIGeometry::calculateRotation(const Position& first, const Position& second) {
     // return rotation (angle) of the vector constructed by points first and second
     return ((double)atan2((second.x() - first.x()), (first.y() - second.y())) * (double) 180.0 / (double)M_PI);
 }
 
 
 double
-GNEGeometry::calculateLength(const Position& first, const Position& second) {
+GUIGeometry::calculateLength(const Position& first, const Position& second) {
     // return 2D distance between two points
     return first.distanceTo2D(second);
 }
 
 
 void
-GNEGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector &startLaneShape, double& endPos, const PositionVector &endLaneShape) {
+GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector &startLaneShape, 
+        double& endPos, const PositionVector &endLaneShape) {
     // adjust both, if start and end lane are the same
-    if ((startLaneShape.size() > 0) && (endLaneShape.size() > 0) && (startLaneShape == endLaneShape) && (startPos != -1) && (endPos != -1)) {
+    if ((startLaneShape.size() > 0) && 
+        (endLaneShape.size() > 0) && 
+        (startLaneShape == endLaneShape) &&
+        (startPos != -1) && 
+        (endPos != -1)) {
         if (startPos >= endPos) {
             endPos = (startPos + POSITION_EPS);
         }
@@ -286,7 +258,8 @@ GNEGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector 
 
 
 void
-GNEGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const Geometry& geometry, const double width) {
+GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position &mousePos, 
+        const GUIGeometry& geometry, const double width) {
     // continue depending of draw for position selection
     if (s.drawForPositionSelection) {
         // obtain position over lane relative to mouse position
@@ -312,7 +285,7 @@ GNEGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position &mou
 
 
 void
-GNEGeometry::drawContourGeometry(const Geometry& geometry, const double width, const bool drawExtremes) {
+GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width, const bool drawExtremes) {
     // get shapes
     PositionVector shapeA = geometry.getShape();
     PositionVector shapeB = geometry.getShape();
@@ -339,9 +312,9 @@ GNEGeometry::drawContourGeometry(const Geometry& geometry, const double width, c
 
 
 void
-GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
-                                const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, 
-                                const double exaggeration, const bool editingElevation) {
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
+        const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration, 
+        const bool editingElevation) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // get radius squared
@@ -394,8 +367,8 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Positio
 
 
 void
-GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
-                            const RGBColor& hintColor, const double radius, const double exaggeration) {
+GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
+        const RGBColor& hintColor, const double radius, const double exaggeration) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // obtain distance to shape
@@ -432,8 +405,9 @@ GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position &m
 
 
 void
-GNEGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape, const std::vector<double>& rotations,
-                              const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour) {
+GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape, 
+        const std::vector<double>& rotations, const std::vector<double>& lengths, const std::vector<RGBColor>& colors, 
+        double width, const bool onlyContour) {
     // first check if we're in draw a contour or for selecting cliking mode
     if (onlyContour) {
         // get shapes
@@ -475,8 +449,8 @@ GNEGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position 
 
 
 void 
-GNEGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &parent, const Position& child, 
-    const RGBColor &color, const bool drawEntire) {
+GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &parent, const Position& child, 
+        const RGBColor &color, const bool drawEntire) {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // calculate rotation
         const double rot = RAD2DEG(parent.angleTo2D(child)) + 90;
@@ -532,10 +506,9 @@ GNEGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &p
 }
 
 
-
 void 
-GNEGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &child, const Position& parent, 
-    const RGBColor &color, const bool drawEntire) {
+GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &child, const Position& parent, 
+        const RGBColor &color, const bool drawEntire) {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // calculate distance between origin and destiny
         const double distanceSquared = child.distanceSquaredTo2D(parent);
@@ -596,7 +569,7 @@ GNEGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &ch
 
 
 PositionVector
-GNEGeometry::getVertexCircleAroundPosition(const Position& pos, const double width, const int steps) {
+GUIGeometry::getVertexCircleAroundPosition(const Position& pos, const double width, const int steps) {
     // first check if we have to fill myCircleCoords (only once)
     if (myCircleCoords.size() == 0) {
         for (int i = 0; i <= (int)(360 * CIRCLE_RESOLUTION); ++i) {
@@ -609,7 +582,7 @@ GNEGeometry::getVertexCircleAroundPosition(const Position& pos, const double wid
     const double inc = 360 / (double)steps;
     // obtain all vertices
     for (int i = 0; i <= steps; ++i) {
-        const Position& vertex = myCircleCoords[GNEGeometry::angleLookup(i * inc)];
+        const Position& vertex = myCircleCoords[GUIGeometry::angleLookup(i * inc)];
         vertexCircle.push_back(Position(vertex.x() * width, vertex.y() * width));
     }
     // move result using position
@@ -619,14 +592,14 @@ GNEGeometry::getVertexCircleAroundPosition(const Position& pos, const double wid
 
 
 void
-GNEGeometry::rotateOverLane(const double rot) {
+GUIGeometry::rotateOverLane(const double rot) {
     // rotate using rotation calculated in PositionVector
     glRotated((rot * -1) + 90, 0, 0, 1);
 }
 
 
 int
-GNEGeometry::angleLookup(const double angleDeg) {
+GUIGeometry::angleLookup(const double angleDeg) {
     const int numCoords = (int)myCircleCoords.size() - 1;
     int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
     if (index < 0) {
@@ -636,5 +609,33 @@ GNEGeometry::angleLookup(const double angleDeg) {
     return (int)index;
 }
 
+
+void GUIGeometry::clearGeometry() {
+    // clear geometry containers
+    myShape.clear();
+    myShapeRotations.clear();
+    myShapeLengths.clear();
+}
+
+
+void
+GUIGeometry::calculateShapeRotationsAndLengths() {
+    // clear rotations and lengths
+    myShapeRotations.clear();
+    myShapeLengths.clear();
+    // Get number of parts of the shape
+    int numberOfSegments = (int)myShape.size() - 1;
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+        // Reserve memory (To improve efficiency)
+        myShapeRotations.reserve(numberOfSegments);
+        myShapeLengths.reserve(numberOfSegments);
+        // Calculate lengths and rotations for every shape
+        for (int i = 0; i < numberOfSegments; i++) {
+            myShapeRotations.push_back(calculateRotation(myShape[i], myShape[i + 1]));
+            myShapeLengths.push_back(calculateLength(myShape[i], myShape[i + 1]));
+        }
+    }
+}
 
 /****************************************************************************/

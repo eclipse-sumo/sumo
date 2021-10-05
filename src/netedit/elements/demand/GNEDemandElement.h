@@ -120,7 +120,7 @@ public:
     GUIGlObject* getGUIGlObject();
 
     /// @brief get demand element geometry (stacked)
-    const GNEGeometry::Geometry& getDemandElementGeometry();
+    const GUIGeometry& getDemandElementGeometry();
 
     /// @brief get previous child demand element to the given demand element
     GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
@@ -337,10 +337,10 @@ public:
 
 protected:
     /// @brief demand element geometry (also called "stacked geometry")
-    GNEGeometry::Geometry myDemandElementGeometry;
+    GUIGeometry myDemandElementGeometry;
 
     /// @brief demand element spread geometry (Only used by vehicles and pedestrians)
-    GNEGeometry::Geometry mySpreadGeometry;
+    GUIGeometry mySpreadGeometry;
 
     /// @brief stacked label number
     int myStackedLabelNumber;

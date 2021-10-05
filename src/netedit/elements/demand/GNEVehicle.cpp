@@ -774,7 +774,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // get endPos
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
-        GNEGeometry::Geometry vehicleGeometry;
+        GUIGeometry vehicleGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
@@ -802,7 +802,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // Set color
         GLHelper::setColor(pathColor);
         // draw geometry
-        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), vehicleGeometry, width);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), vehicleGeometry, width);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -884,7 +884,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
         // Add a draw matrix
@@ -898,7 +898,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             GLHelper::setColor(s.colorSettings.vehicleTrips);
         }
         // draw lane2lane
-        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, width);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, width);
         // Pop last matrix
         GLHelper::popMatrix();
         // check if shape dotted contour has to be drawn

@@ -119,7 +119,7 @@ public:
     GUIGlObject* getGUIGlObject();
 
     /// @brief obtain additional geometry
-    const GNEGeometry::Geometry& getAdditionalGeometry() const;
+    const GUIGeometry& getAdditionalGeometry() const;
 
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
@@ -306,7 +306,7 @@ protected:
     Boundary myAdditionalBoundary;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
-    GNEGeometry::Geometry myAdditionalGeometry;
+    GUIGeometry myAdditionalGeometry;
 
     /// @brief name of additional
     std::string myAdditionalName;

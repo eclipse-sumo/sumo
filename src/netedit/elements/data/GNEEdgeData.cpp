@@ -189,7 +189,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         // Set orange color
         GLHelper::setColor(RGBColor::BLACK);
         // draw box lines
-        GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
         // translate to top
         glTranslated(0, 0, 0.01);
         // Set color
@@ -199,7 +199,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             GLHelper::setColor(getColor());
         }
         // draw interne box lines
-        GNEGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // draw lock icon

@@ -168,7 +168,7 @@ protected:
     Boundary myMovingGeometryBoundary;
 
     /// @brief geometry for lenghts/rotations
-    GNEGeometry::Geometry myTAZGeometry;
+    GUIGeometry myTAZGeometry;
 
     /// @brief TAZ center
     Position myTAZCenter;

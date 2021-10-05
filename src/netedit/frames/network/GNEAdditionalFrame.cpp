@@ -811,7 +811,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
         const Position firstPosition = myLanePath.front().first->getLaneShape().positionAtOffset2D(myLanePath.front().second);
         const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
         // draw geometry points
-        GNEGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition}, 
+        GUIGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition}, 
                                         pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, 
                                         myAdditionalFrameParent->getViewNet()->getNetworkViewOptions().editingElevation());
         // Pop last matrix

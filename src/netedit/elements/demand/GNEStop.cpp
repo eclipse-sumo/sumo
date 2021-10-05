@@ -324,7 +324,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, exaggeration * 0.8);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, exaggeration * 0.8);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
             // pop draw matrix

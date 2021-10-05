@@ -121,7 +121,7 @@ public:
 
 protected:
     /// @brief symbols geometries
-    std::vector<GNEGeometry::Geometry> mySymbolGeometries;
+    std::vector<GUIGeometry> mySymbolGeometries;
 
 private:
     /// @brief set attribute after validation

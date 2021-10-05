@@ -57,7 +57,7 @@ GNERerouterSymbol::updateGeometry() {
     // iterate over all lanes
     for (const auto& lane : getParentEdges().front()->getLanes()) {
         // declare geometry
-        GNEGeometry::Geometry symbolGeometry;
+        GUIGeometry symbolGeometry;
         // update it with lane and pos over lane
         symbolGeometry.updateGeometry(lane->getLaneShape(), lane->getLaneShape().length2D() - 6, 0);
         // add in mySymbolGeometries
@@ -122,7 +122,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // translate to position
             glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
             // rotate over lane
-            GNEGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
+            GUIGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
             // scale
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // set color

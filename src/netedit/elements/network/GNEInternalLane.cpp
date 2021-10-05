@@ -150,7 +150,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale < 1.) {
         GLHelper::drawLine(myInternalLaneGeometry.getShape());
     } else {
-        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
     }
     // pop layer matrix
     GLHelper::popMatrix();

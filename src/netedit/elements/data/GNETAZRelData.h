@@ -191,10 +191,10 @@ public:
 
 protected:
     /// @brief Geometry for TAZRel data
-    GNEGeometry::Geometry myTAZRelGeometry;
+    GUIGeometry myTAZRelGeometry;
 
     /// @brief Geometry for TAZRel data (center)
-    GNEGeometry::Geometry myTAZRelGeometryCenter;
+    GUIGeometry myTAZRelGeometryCenter;
     
     /// @brief TAZRel data color
     mutable RGBColor myColor;

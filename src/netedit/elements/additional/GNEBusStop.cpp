@@ -147,7 +147,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * busStopExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * busStopExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
                 // draw lines

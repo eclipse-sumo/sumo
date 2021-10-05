@@ -105,7 +105,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // translate to position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
         // scale
         glScaled(VSSExaggeration, VSSExaggeration, 1);
         // set color

@@ -176,7 +176,7 @@ protected:
     const RGBColor* mySpecialColor;
 
     /// @brief connection geometry
-    GNEGeometry::Geometry myConnectionGeometry;
+    GUIGeometry myConnectionGeometry;
 
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;

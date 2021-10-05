@@ -129,7 +129,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
         // scale
         glScaled(entryExitExaggeration, entryExitExaggeration, 1);
         // draw details if isn't being drawn for selecting
@@ -171,7 +171,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // Traslate to center of detector
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
             // rotate over lane
-            GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+            GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
             //move to logo position
             glTranslated(1.9, 0, 0);
             // scale
@@ -217,7 +217,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
+            // GUIGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator
         GLHelper::popName();

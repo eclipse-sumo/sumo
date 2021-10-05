@@ -150,7 +150,7 @@ protected:
     std::vector<NBEdge*> myCrossingEdges;
 
     /// @brief crossing geometry
-    GNEGeometry::Geometry myCrossingGeometry;
+    GUIGeometry myCrossingGeometry;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

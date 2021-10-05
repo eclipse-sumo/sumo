@@ -340,7 +340,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // get endPos
         const double geometryEndPos = embedded ? getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_ARRIVALPOS) : -1;
         // declare path geometry
-        GNEGeometry::Geometry routeGeometry;
+        GUIGeometry routeGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             routeGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
@@ -368,7 +368,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // Set color
         GLHelper::setColor(routeColor);
         // draw route geometry
-        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), routeGeometry, routeWidth);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), routeGeometry, routeWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -428,7 +428,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // get route width
         const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRoute : s.widthSettings.route);
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
@@ -440,7 +440,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // Set color
         GLHelper::setColor(routeColor);
         // draw lane2lane
-        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, routeWidth);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, routeWidth);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), getExaggeration(s));
         // Pop last matrix

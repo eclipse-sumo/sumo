@@ -96,7 +96,7 @@ GNEDemandElement::getGUIGlObject() {
 }
 
 
-const GNEGeometry::Geometry&
+const GUIGeometry&
 GNEDemandElement::getDemandElementGeometry() {
     return myDemandElementGeometry;
 }
@@ -483,7 +483,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // calculate path width
         const double pathWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth * (duplicateWidth ? 2 : 1);
         // declare path geometry
-        GNEGeometry::Geometry personPlanGeometry;
+        GUIGeometry personPlanGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
@@ -511,7 +511,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // Set color
         GLHelper::setColor(pathColor);
         // draw geometry
-        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), personPlanGeometry, pathWidth);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), personPlanGeometry, pathWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -555,7 +555,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // draw child line
-            GNEGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || isAttributeCarrierSelected());
+            GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || isAttributeCarrierSelected());
             // pop draw matrix
             GLHelper::popMatrix();
         }
@@ -570,7 +570,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // draw child line
-            GNEGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || isAttributeCarrierSelected());
+            GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || isAttributeCarrierSelected());
             // pop draw matrix
             GLHelper::popMatrix();
         }
@@ -624,11 +624,11 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // check if draw lane2lane connection or a red line
         if (fromLane->getLane2laneConnections().exist(toLane)) {
             // obtain lane2lane geometry
-            const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+            const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
             // Set person plan color
             GLHelper::setColor(color);
             // draw lane2lane
-            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, pathWidth);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, pathWidth);
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);

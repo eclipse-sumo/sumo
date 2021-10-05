@@ -76,7 +76,7 @@ GNELane2laneConnection::exist(const GNELane* toLane) const {
 }
 
 
-const GNEGeometry::Geometry&
+const GUIGeometry&
 GNELane2laneConnection::getLane2laneGeometry(const GNELane* toLane) const {
     return myConnectionsMap.at(toLane);
 }

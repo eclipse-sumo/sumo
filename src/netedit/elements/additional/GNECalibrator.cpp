@@ -90,7 +90,7 @@ GNECalibrator::updateGeometry() {
         // iterate over every lane and get point
         for (int i = 1; i < (int)getParentEdges().front()->getLanes().size(); i++) {
             // add new calibrator geometry
-            GNEGeometry::Geometry calibratorGeometry;
+            GUIGeometry calibratorGeometry;
             calibratorGeometry.updateGeometry(getParentEdges().front()->getLanes().at(i)->getLaneShape(), myPositionOverLane, 0);
             myEdgeCalibratorGeometries.push_back(calibratorGeometry);
         }
@@ -328,7 +328,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
     // rotate over lane
-    GNEGeometry::rotateOverLane(rot - 90);
+    GUIGeometry::rotateOverLane(rot - 90);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set drawing mode
