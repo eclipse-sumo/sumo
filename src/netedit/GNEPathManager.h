@@ -143,15 +143,16 @@ public:
     class PathElement {
 
     public:
-        enum class Options {
-            NETWORK_ELEMENT,    // Network element
-            ADDITIONAL_ELEMENT, // Additional element
-            DEMAND_ELEMENT,     // Demand element
-            DATA_ELEMENT        //Data element
+        enum Options {
+            NETWORK_ELEMENT =       1 << 0, // Network element
+            ADDITIONAL_ELEMENT =    1 << 1, // Additional element
+            DEMAND_ELEMENT =        1 << 2, // Demand element
+            DATA_ELEMENT =          1 << 3, // Data element
+            ROUTE =                 1 << 4, // Route (needed for overlapping labels)
         };
 
         /// @brief constructor
-        PathElement(const Options option);
+        PathElement(const int options);
 
         /// @brief destructor
         ~PathElement();
@@ -167,6 +168,9 @@ public:
 
         /// @brief check if pathElement is a data element
         bool isDataElement() const;
+        
+        /// @brief check if pathElement is a route
+        bool isRoute() const;
 
         /// @brief compute pathElement
         virtual void computePathElement() = 0;
@@ -211,7 +215,7 @@ public:
         PathElement();
 
         /// @brief pathElement option
-        const Options myOption;
+        const int myOption;
     };
 
     /// @brief class used to calculate paths in nets

@@ -189,8 +189,8 @@ GNEPathManager::Segment::Segment() :
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement(const Options option) :
-    myOption(option) {
+GNEPathManager::PathElement::PathElement(const int options) :
+    myOption(options) {
 }
 
 
@@ -199,25 +199,31 @@ GNEPathManager::PathElement::~PathElement() {}
 
 bool
 GNEPathManager::PathElement::isNetworkElement() const {
-    return (myOption == PathElement::Options::NETWORK_ELEMENT);
+    return (myOption & PathElement::Options::NETWORK_ELEMENT) != 0;
 }
 
 
 bool
 GNEPathManager::PathElement::isAdditionalElement() const {
-    return (myOption == PathElement::Options::ADDITIONAL_ELEMENT);
+    return (myOption & PathElement::Options::ADDITIONAL_ELEMENT) != 0;
 }
 
 
 bool
 GNEPathManager::PathElement::isDemandElement() const {
-    return (myOption == PathElement::Options::DEMAND_ELEMENT);
+    return (myOption & PathElement::Options::DEMAND_ELEMENT) != 0;
 }
 
 
 bool
 GNEPathManager::PathElement::isDataElement() const {
-    return (myOption == PathElement::Options::DATA_ELEMENT);
+    return (myOption & PathElement::Options::DATA_ELEMENT) != 0;
+}
+
+
+bool
+GNEPathManager::PathElement::isRoute() const {
+    return (myOption & PathElement::Options::ROUTE) != 0;
 }
 
 
@@ -750,10 +756,16 @@ GNEPathManager::removePath(PathElement* pathElement) {
 void
 GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
+        int numRoutes = 0;
         for (const auto& segment : myLaneSegments.at(lane)) {
             // draw segment
             segment->getPathElement()->drawPartialGL(s, lane, segment, 0);
+            // check if path element is a route
+            if (segment->getPathElement()->isRoute()) {
+                numRoutes++;
+            }
         }
+        std::cout << numRoutes << std::endl;
     }
 }
 
