@@ -1,1 +1,2 @@
 Warning: Value of key 'tracks' is not numeric ('1; 2') in edge '10860201'.
+Warning: Speed of turning connection '-10860203_0->-10860201_1' reduced by 22.22 due to turning radius of 5.63 (length=9.25, angle=124.76).
