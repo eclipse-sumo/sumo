@@ -1285,6 +1285,23 @@ GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNELane::drawOverlappedRoutes(const int numRoutes) const {
+    // get middle point and angle
+    const Position center = myLaneGeometry.getShape().positionAtOffset2D(myLaneGeometry.getShape().length2D() * 0.5);
+    const double angle = myLaneGeometry.getShape().rotationDegreeAtOffset(myLaneGeometry.getShape().length2D() * 0.5);
+    // Push route matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    glTranslated(0, 0, GLO_ROUTE + 1);
+    // get middle
+    GLHelper::drawText(toString(numRoutes) + " routes", center, 0, 1.8, RGBColor::BLACK, angle + 90);
+    // pop route matrix
+    GLHelper::popMatrix();
+
+}
+
+
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting

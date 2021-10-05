@@ -765,7 +765,10 @@ GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GN
                 numRoutes++;
             }
         }
-        std::cout << numRoutes << std::endl;
+        // check if draw overlapped routes
+        if ((numRoutes > 1) && lane->getNet()->getViewNet()->getDemandViewOptions().showOverlappedRoutes()) {
+            lane->drawOverlappedRoutes(numRoutes);
+        }
     }
 }
 

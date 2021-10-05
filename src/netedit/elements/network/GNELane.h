@@ -231,6 +231,9 @@ public:
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw overlapped routes
+    void drawOverlappedRoutes(const int numRoutes) const;
+
 protected:
     /// @brief FOX needs this
     GNELane();
