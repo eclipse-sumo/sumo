@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNECandidateElement.h>
+#include <netedit/GNELane2laneConnection.h>
 
 #include "GNENetworkElement.h"
 
@@ -186,7 +187,7 @@ public:
     bool isRestricted(SUMOVehicleClass vclass) const;
 
     /// @brief get Lane2laneConnection struct
-    const GNEGeometry::Lane2laneConnection& getLane2laneConnections() const;
+    const GNELane2laneConnection& getLane2laneConnections() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -268,7 +269,7 @@ private:
     mutable std::vector<RGBColor> myShapeColors;
 
     /// @brief lane2lane connections
-    GNEGeometry::Lane2laneConnection myLane2laneConnections;
+    GNELane2laneConnection myLane2laneConnections;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

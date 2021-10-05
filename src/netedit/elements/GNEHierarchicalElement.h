@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEGeometry.h>
+#include <utils/geom/GUIGeometry.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 
 #include "GNEHierarchicalContainer.h"

@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/GNEGeometry.h>
+#include <utils/geom/GUIGeometry.h>
 #include <netedit/GNEMoveElement.h>
 #include <netedit/GNEPathManager.h>
 #include <utils/common/Parameterised.h>

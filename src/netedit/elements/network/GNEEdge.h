@@ -23,8 +23,9 @@
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBEdge.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/elements/GNECandidateElement.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/geom/GUIGeometry.h>
 
 
 // ===========================================================================
@@ -286,6 +287,10 @@ public:
 
     /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
     void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
+
+    /// @brief draw dotted contour for the given dottedGeometries
+    static void drawDottedContourEdge(const GNEGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
+                                      const bool drawFrontExtreme, const bool drawBackExtreme);
 
 protected:
     /// @brief the underlying NBEdge
