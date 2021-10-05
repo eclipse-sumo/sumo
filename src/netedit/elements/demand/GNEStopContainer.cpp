@@ -605,13 +605,13 @@ GNEStopContainer::drawStopContainerOverLane(const GUIVisualizationSettings& s, c
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.3 * exaggeration);
+    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
     // move to front
     glTranslated(0, 0, .1);
     // set central color
     GLHelper::setColor(centralLineColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.05 * exaggeration);
+    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
     // move to icon position and front
     glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
     // rotate over lane
@@ -648,7 +648,7 @@ GNEStopContainer::drawStopContainerOverStopContainer(const GUIVisualizationSetti
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, s.stoppingPlaceSettings.containerStopWidth * exaggeration);
+    GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.containerStopWidth * exaggeration);
     // move to icon position and front
     glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
     // rotate over lane

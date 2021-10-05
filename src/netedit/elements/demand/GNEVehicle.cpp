@@ -802,7 +802,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // Set color
         GLHelper::setColor(pathColor);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), vehicleGeometry, width);
+        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), vehicleGeometry, width);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -898,7 +898,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             GLHelper::setColor(s.colorSettings.vehicleTrips);
         }
         // draw lane2lane
-        GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, width);
         // Pop last matrix
         GLHelper::popMatrix();
         // check if shape dotted contour has to be drawn

@@ -511,7 +511,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // Set color
         GLHelper::setColor(pathColor);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), personPlanGeometry, pathWidth);
+        GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), personPlanGeometry, pathWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -628,7 +628,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             // Set person plan color
             GLHelper::setColor(color);
             // draw lane2lane
-            GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, pathWidth);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, pathWidth);
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
