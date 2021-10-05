@@ -22,9 +22,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNEGeometry.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
+#include "GUIGeometry.h"
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
 #define MAXIMUM_DOTTEDGEOMETRYLENGTH 500.0
@@ -389,14 +387,14 @@ GNEGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings& s,
 
 
 void
-GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const GNELane* lane) {
+GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape) {
     // update settings and width
     myWidth = s.dottedContourSettings.segmentWidth;
     // reset segments
     myDottedGeometrySegments.clear();
     // get shape
-    for (int i = 1; i < (int)lane->getLaneShape().size(); i++) {
-        myDottedGeometrySegments.push_back(Segment({lane->getLaneShape()[i - 1], lane->getLaneShape()[i]}));
+    for (int i = 1; i < (int)laneShape.size(); i++) {
+        myDottedGeometrySegments.push_back(Segment({laneShape[i - 1], laneShape[i]}));
     }
     // resample
     for (auto& segment : myDottedGeometrySegments) {
@@ -500,66 +498,6 @@ GNEGeometry::DottedGeometry::calculateShapeRotationsAndLengths() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEGeometry::Lane2laneConnection - methods
-// ---------------------------------------------------------------------------
-
-GNEGeometry::Lane2laneConnection::Lane2laneConnection(const GNELane* fromLane) :
-    myFromLane(fromLane) {
-}
-
-
-void
-GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
-    // declare numPoints
-    const int numPoints = 5;
-    const int maximumLanes = 10;
-    // clear connectionsMap
-    myConnectionsMap.clear();
-    // iterate over outgoingEdge's lanes
-    for (const auto& outgoingEdge : myFromLane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
-        for (const auto& outgoingLane : outgoingEdge->getLanes()) {
-            // get NBEdges from and to
-            const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();
-            const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();
-            // declare shape
-            PositionVector shape;
-            // only create smooth shapes if Edge From has as maximum 10 lanes
-            if ((NBEdgeFrom->getNumLanes() <= maximumLanes) && (NBEdgeFrom->getToNode()->getShape().area() > 4)) {
-                // calculate smoot shape
-                shape = NBEdgeFrom->getToNode()->computeSmoothShape(
-                            NBEdgeFrom->getLaneShape(myFromLane->getIndex()),
-                            NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
-                            numPoints, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
-                            (double) numPoints * (double) NBEdgeFrom->getNumLanes(),
-                            (double) numPoints * (double) NBEdgeTo->getNumLanes());
-            } else {
-                // create a shape using lane shape extremes
-                shape = {myFromLane->getLaneShape().back(), outgoingLane->getLaneShape().front()};
-            }
-            // update connection map
-            myConnectionsMap[outgoingLane].updateGeometry(shape);
-        }
-    }
-}
-
-
-bool
-GNEGeometry::Lane2laneConnection::exist(const GNELane* toLane) const {
-    return (myConnectionsMap.count(toLane) > 0);
-}
-
-
-const GNEGeometry::Geometry&
-GNEGeometry::Lane2laneConnection::getLane2laneGeometry(const GNELane* toLane) const {
-    return myConnectionsMap.at(toLane);
-}
-
-
-GNEGeometry::Lane2laneConnection::Lane2laneConnection() :
-    myFromLane(nullptr) {
-}
-
-// ---------------------------------------------------------------------------
 // GNEGeometry - methods
 // ---------------------------------------------------------------------------
 
@@ -578,54 +516,52 @@ GNEGeometry::calculateLength(const Position& first, const Position& second) {
 
 
 void
-GNEGeometry::adjustStartPosGeometricPath(double& startPos, const GNELane* startLane, double& endPos, const GNELane* endLane) {
+GNEGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector &startLaneShape, double& endPos, const PositionVector &endLaneShape) {
     // adjust both, if start and end lane are the same
-    if (startLane && endLane && (startLane == endLane) && (startPos != -1) && (endPos != -1)) {
+    if ((startLaneShape.size() > 0) && (endLaneShape.size() > 0) && (startLaneShape == endLaneShape) && (startPos != -1) && (endPos != -1)) {
         if (startPos >= endPos) {
             endPos = (startPos + POSITION_EPS);
         }
     }
     // adjust startPos
-    if ((startPos != -1) && startLane) {
+    if ((startPos != -1) && (startLaneShape.size() > 0)) {
         if (startPos < POSITION_EPS) {
             startPos = POSITION_EPS;
         }
-        if (startPos > (startLane->getLaneShape().length() - POSITION_EPS)) {
-            startPos = (startLane->getLaneShape().length() - POSITION_EPS);
+        if (startPos > (startLaneShape.length() - POSITION_EPS)) {
+            startPos = (startLaneShape.length() - POSITION_EPS);
         }
     }
     // adjust endPos
-    if ((endPos != -1) && endLane) {
+    if ((endPos != -1) && (endLaneShape.size() > 0)) {
         if (endPos < POSITION_EPS) {
             endPos = POSITION_EPS;
         }
-        if (endPos > (endLane->getLaneShape().length() - POSITION_EPS)) {
-            endPos = (endLane->getLaneShape().length() - POSITION_EPS);
+        if (endPos > (endLaneShape.length() - POSITION_EPS)) {
+            endPos = (endLaneShape.length() - POSITION_EPS);
         }
     }
 }
 
 
 void
-GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width) {
+GNEGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const Geometry& geometry, const double width) {
     // continue depending of draw for position selection
-    if (viewNet->getVisualisationSettings().drawForPositionSelection) {
-        // obtain mouse Position
-        const Position mousePosition = viewNet->getPositionInformation();
+    if (s.drawForPositionSelection) {
         // obtain position over lane relative to mouse position
-        const Position posOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePosition));
+        const Position posOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePos));
         // if mouse is over segment
-        if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width * width)) {
+        if (posOverLane.distanceSquaredTo2D(mousePos) <= (width * width)) {
             // push matrix
             GLHelper::pushMatrix();
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
-            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings().getCircleResolution());
+            GLHelper::drawFilledCircle(width, s.getCircleResolution());
             // pop draw matrix
             GLHelper::popMatrix();
         }
-    } else if (viewNet->getVisualisationSettings().scale * width < 1) {
+    } else if (s.scale * width < 1) {
         // draw line (needed for zoom out)
         GLHelper::drawLine(geometry.getShape());
     } else {
@@ -662,10 +598,9 @@ GNEGeometry::drawContourGeometry(const Geometry& geometry, const double width, c
 
 
 void
-GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
-                                const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration) {
-    // get mouse position
-    const Position mousePosition = viewNet->getPositionInformation();
+GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
+                                const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, 
+                                const double exaggeration, const bool editingElevation) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // get radius squared
@@ -673,7 +608,7 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
     // iterate over shape
     for (const auto& vertex : shape) {
         // if drawForPositionSelection is enabled, check distance between mouse and vertex
-        if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(vertex) <= exaggeratedRadioSquared)) {
+        if (!s.drawForPositionSelection || (mousePos.distanceSquaredTo2D(vertex) <= exaggeratedRadioSquared)) {
             // push geometry point matrix
             GLHelper::pushMatrix();
             // move to vertex
@@ -689,7 +624,7 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
                 // get draw detail
                 const bool drawDetail = s.drawDetail(s.detailSettings.geometryPointsText, exaggeration);
                 // draw text
-                if (viewNet->getNetworkViewOptions().editingElevation()) {
+                if (editingElevation) {
                     // Push Z matrix
                     GLHelper::pushMatrix();
                     // draw Z (elevation)
@@ -718,50 +653,45 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
 
 
 void
-GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
+GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
                             const RGBColor& hintColor, const double radius, const double exaggeration) {
-    // first NetworkEditMode
-    if (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-        // get mouse position
-        const Position mousePosition = viewNet->getPositionInformation();
-        // get exaggeratedRadio
-        const double exaggeratedRadio = (radius * exaggeration);
-        // obtain distance to shape
-        const double distanceToShape = shape.distance2D(mousePosition);
-        // obtain squared radius
-        const double squaredRadius = (radius * radius * exaggeration);
-        // declare index
-        int index = -1;
-        // iterate over shape
-        for (int i = 0; i < (int)shape.size(); i++) {
-            // check distance
-            if (shape[i].distanceSquaredTo2D(mousePosition) <= squaredRadius) {
-                index = i;
-            }
+    // get exaggeratedRadio
+    const double exaggeratedRadio = (radius * exaggeration);
+    // obtain distance to shape
+    const double distanceToShape = shape.distance2D(mousePos);
+    // obtain squared radius
+    const double squaredRadius = (radius * radius * exaggeration);
+    // declare index
+    int index = -1;
+    // iterate over shape
+    for (int i = 0; i < (int)shape.size(); i++) {
+        // check distance
+        if (shape[i].distanceSquaredTo2D(mousePos) <= squaredRadius) {
+            index = i;
         }
-        // continue depending of distance to shape
-        if ((distanceToShape < exaggeratedRadio) && (index == -1)) {
-            // obtain position over lane
-            const Position positionOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePosition));
-            // calculate hintPos
-            const Position hintPos = shape.size() > 1 ? positionOverLane : shape[0];
-            // push hintPos matrix
-            GLHelper::pushMatrix();
-            // translate to hintPos
-            glTranslated(hintPos.x(), hintPos.y(), 0.2);
-            // set color
-            GLHelper::setColor(hintColor);
-            // draw filled circle
-            GLHelper:: drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
-            // pop hintPos matrix
-            GLHelper::popMatrix();
-        }
+    }
+    // continue depending of distance to shape
+    if ((distanceToShape < exaggeratedRadio) && (index == -1)) {
+        // obtain position over lane
+        const Position positionOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos));
+        // calculate hintPos
+        const Position hintPos = shape.size() > 1 ? positionOverLane : shape[0];
+        // push hintPos matrix
+        GLHelper::pushMatrix();
+        // translate to hintPos
+        glTranslated(hintPos.x(), hintPos.y(), 0.2);
+        // set color
+        GLHelper::setColor(hintColor);
+        // draw filled circle
+        GLHelper:: drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
+        // pop hintPos matrix
+        GLHelper::popMatrix();
     }
 }
 
 
 void
-GNEGeometry::drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& shape, const std::vector<double>& rotations,
+GNEGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape, const std::vector<double>& rotations,
                               const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour) {
     // first check if we're in draw a contour or for selecting cliking mode
     if (onlyContour) {
@@ -779,19 +709,17 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& s
         shapeA.closePolygon();
         // draw box lines using shapeA
         GLHelper::drawBoxLines(shapeA, 0.1);
-    } else if (viewNet->getVisualisationSettings().drawForPositionSelection) {
-        // obtain mouse Position
-        const Position mousePosition = viewNet->getPositionInformation();
+    } else if (s.drawForPositionSelection) {
         // obtain position over lane relative to mouse position
-        const Position posOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePosition));
+        const Position posOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos));
         // if mouse is over segment
-        if (posOverLane.distanceSquaredTo2D(mousePosition) <= (width * width)) {
+        if (posOverLane.distanceSquaredTo2D(mousePos) <= (width * width)) {
             // push matrix
             GLHelper::pushMatrix();
             // translate to position over lane
             glTranslated(posOverLane.x(), posOverLane.y(), 0);
             // Draw circle
-            GLHelper::drawFilledCircle(width, viewNet->getVisualisationSettings().getCircleResolution());
+            GLHelper::drawFilledCircle(width, s.getCircleResolution());
             // pop draw matrix
             GLHelper::popMatrix();
         }
@@ -801,58 +729,6 @@ GNEGeometry::drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& s
     } else {
         // draw box lines with current color
         GLHelper::drawBoxLines(shape, rotations, lengths, width);
-    }
-}
-
-
-void
-GNEGeometry::drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
-    if (edge->getLanes().size() == 1) {
-        GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
-        GNEGeometry::drawDottedContourShape(type, s, edge->getLanes().front()->getLaneShape(), laneDrawingConstants.halfWidth, 1, drawFrontExtreme, drawBackExtreme);
-    } else {
-        // set left hand flag
-        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-        // obtain lanes
-        const GNELane* topLane =  lefthand ? edge->getLanes().back() : edge->getLanes().front();
-        const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
-        // obtain a copy of both geometries
-        GNEGeometry::DottedGeometry dottedGeometryTop(s, topLane->getLaneShape(), false);
-        GNEGeometry::DottedGeometry dottedGeometryBot(s, botLane->getLaneShape(), false);
-        // obtain both LaneDrawingConstants
-        GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, topLane);
-        GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, botLane);
-        // move shapes to side
-        dottedGeometryTop.moveShapeToSide(laneDrawingConstantsFront.halfWidth);
-        dottedGeometryBot.moveShapeToSide(laneDrawingConstantsBack.halfWidth * -1);
-        // invert offset of top dotted geometry
-        dottedGeometryTop.invertOffset();
-        // declare DottedGeometryColor
-        DottedGeometryColor dottedGeometryColor(s);
-        // calculate extremes
-        DottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
-        // Push draw matrix
-        GLHelper::pushMatrix();
-        // draw inspect or front dotted contour
-        if (type == DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
-        // draw top dotted geometry
-        dottedGeometryTop.drawDottedGeometry(dottedGeometryColor, type);
-        // reset color
-        dottedGeometryColor.reset();
-        // draw top dotted geometry
-        dottedGeometryBot.drawDottedGeometry(dottedGeometryColor, type);
-        // change color
-        dottedGeometryColor.changeColor();
-        // draw extrem dotted geometry
-        extremes.drawDottedGeometry(dottedGeometryColor, type);
-        // pop matrix
-        GLHelper::popMatrix();
     }
 }
 

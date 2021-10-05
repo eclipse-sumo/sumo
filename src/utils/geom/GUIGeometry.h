@@ -31,21 +31,6 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
-#include "GNEReferenceCounter.h"
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
-class GNELane;
-class GNEEdge;
-class GNEAdditional;
-class GNEDemandElement;
-class GNEJunction;
-class GNEViewNet;
-class GNEHierarchicalElement;
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -185,7 +170,7 @@ struct GNEGeometry {
                        const DottedGeometry& botDottedGeometry, const bool drawLastExtrem);
 
         /// @brief update DottedGeometry (using lane shape)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, const GNELane* lane);
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape);
 
         /// @brief update DottedGeometry (using shape)
         void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
@@ -219,37 +204,6 @@ struct GNEGeometry {
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
     };
 
-    /// @brief class lane2lane connection geometry
-    class Lane2laneConnection {
-
-    public:
-        /// @brief constructor
-        Lane2laneConnection(const GNELane* fromLane);
-
-        /// @brief update
-        void updateLane2laneConnection();
-
-        /// @brief check if exist a lane2lane geometry for the given tolane
-        bool exist(const GNELane* toLane) const;
-
-        /// @brief get lane2lane geometry
-        const GNEGeometry::Geometry& getLane2laneGeometry(const GNELane* toLane) const;
-
-    protected:
-        /// @brief from lane
-        const GNELane* myFromLane;
-
-        /// @brief connection shape
-        std::map<const GNELane*, GNEGeometry::Geometry> myConnectionsMap;
-
-    private:
-        /// @brief constructor
-        Lane2laneConnection();
-
-        /// @brief Invalidated assignment operator
-        Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
-    };
-
     /// @brief return angle between two points (used in geometric calculations)
     static double calculateRotation(const Position& first, const Position& second);
 
@@ -257,29 +211,26 @@ struct GNEGeometry {
     static double calculateLength(const Position& first, const Position& second);
 
     /// @brief adjust start and end positions in geometric path
-    static void adjustStartPosGeometricPath(double& startPos, const GNELane* startLane, double& endPos, const GNELane* endLane);
+    static void adjustStartPosGeometricPath(double& startPos, const PositionVector &startLaneShape, double& endPos, const PositionVector &endLaneShape);
 
     /// @brief draw lane geometry (use their own function due colors)
-    static void drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& shape, const std::vector<double>& rotations,
+    static void drawLaneGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape, const std::vector<double>& rotations,
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
+    static void drawGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const Geometry& geometry, const double width);
 
     /// @brief draw contour geometry
     static void drawContourGeometry(const Geometry& geometry, const double width, const bool drawExtremes = false);
 
     /// @brief draw geometry points
-    static void drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
-                                   const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration);
+    static void drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
+                                   const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, 
+                                   const double exaggeration, const bool editingElevation);
 
     /// @brief draw moving hint
-    static void drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape,
+    static void drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
-
-    /// @brief draw dotted contour for the given dottedGeometries (used by edges)
-    static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
-                                      const bool drawFrontExtreme, const bool drawBackExtreme);
 
     /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
     static void drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
