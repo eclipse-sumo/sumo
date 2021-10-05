@@ -40,6 +40,7 @@ else:
 
 from sumolib.miscutils import parseTime  # noqa
 
+
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-o", "--output-file", dest="outfile",
