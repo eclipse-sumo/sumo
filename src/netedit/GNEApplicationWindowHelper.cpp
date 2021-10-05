@@ -679,6 +679,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::DemandViewOptio
     menuCheckHideShapes(nullptr),
     menuCheckShowAllTrips(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
+    menuCheckShowOverlappedRoutes(nullptr),
     menuCheckShowAllPersonPlans(nullptr),
     menuCheckLockPerson(nullptr),
     menuCheckShowAllContainerPlans(nullptr),
@@ -732,9 +733,14 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                              myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-            "Toggle show non-inspected demand elements", "Alt+7", "",
-            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
-            myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
+                                              "Toggle show non-inspected demand elements", "Alt+7", "",
+                                              GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
+                                              myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
+
+    menuCheckShowOverlappedRoutes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                    "Toggle show number of overlapped routes", "Alt+8", "",
+                                    GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES),
+                                    myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES);
 
     // build separator
     separator = new FXMenuSeparator(editMenu);
@@ -748,6 +754,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewO
     menuCheckHideShapes->hide();
     menuCheckShowAllTrips->hide();
     menuCheckHideNonInspectedDemandElements->hide();
+    menuCheckShowOverlappedRoutes->hide();
     menuCheckShowAllPersonPlans->hide();
     menuCheckLockPerson->hide();
     menuCheckShowAllContainerPlans->hide();
@@ -1809,6 +1816,18 @@ GNEApplicationWindowHelper::toggleEditOptionsDemand(GNEViewNet* viewNet, const M
         }
         // Call manually onCmdToggleHideNonInspecteDemandElements
         viewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, nullptr);
+
+    } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckShowOverlappedRoutes) {
+        // Toggle menuCheckShowOverlappedRoutes
+        if (viewNet->getDemandViewOptions().menuCheckShowOverlappedRoutes->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled show overlapped routes throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled show overlapped routes throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleHideNonInspecteDemandElements
+        viewNet->onCmdToggleShowOverlappedRoutes(obj, sel, nullptr);
     } else {
         return false;
     }

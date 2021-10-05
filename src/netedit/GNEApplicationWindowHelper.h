@@ -490,6 +490,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check for hide non inspected demand elements
             FXMenuCheckIcon* menuCheckHideNonInspectedDemandElements;
 
+            /// @brief menu check for show overlapped routes
+            FXMenuCheckIcon* menuCheckShowOverlappedRoutes;
+
             /// @brief menu check for show all person plans
             FXMenuCheckIcon* menuCheckShowAllPersonPlans;
 
