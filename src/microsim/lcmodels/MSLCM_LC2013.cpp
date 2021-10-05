@@ -1125,6 +1125,7 @@ MSLCM_LC2013::_wantsChange(
     }
     // direction specific constants
     const bool right = (laneOffset == -1);
+    const double posOnLane = getForwardPos();
     double driveToNextStop = -std::numeric_limits<double>::max();
     if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
             && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
@@ -1132,7 +1133,7 @@ MSLCM_LC2013::_wantsChange(
         // @note this information is dynamic and thus not available in updateBestLanes()
         // @note: nextStopDist was compute before the vehicle moved
         driveToNextStop = myVehicle.nextStopDist();
-        const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
+        const double stopPos = posOnLane + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
 #ifdef DEBUG_WANTS_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
@@ -1147,7 +1148,6 @@ MSLCM_LC2013::_wantsChange(
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
     }
-    const double posOnLane = getForwardPos();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);

@@ -457,7 +457,7 @@ MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
 bool
 MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     MSAbstractLaneChangeModel& lcm = vehicle->getLaneChangeModel();
-    const int direction = lcm.isOpposite() ? 1 : lcm.getLaneChangeDirection();
+    const int direction = lcm.isOpposite() ? -lcm.getLaneChangeDirection() : lcm.getLaneChangeDirection();
     const bool pastMidpoint = lcm.updateCompletion(); // computes lcm.mySpeedLat as a side effect
     const double speedLat = lcm.isOpposite() ? -lcm.getSpeedLat() : lcm.getSpeedLat();
     vehicle->myState.myPosLat += SPEED2DIST(speedLat);
@@ -502,7 +502,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
                   << " speedLat=" << speedLat
                   << " pastMidpoint=" << pastMidpoint
                   << " posLat=" << vehicle->getLateralPositionOnLane()
-                  //<< " completion=" << lcm.getLaneChangeCompletion()
+                  << " completion=" << lcm.getLaneChangeCompletion()
                   << " shadowLane=" << Named::getIDSecure(lcm.getShadowLane())
                   //<< " shadowHopped=" << Named::getIDSecure(shadow->lane)
                   << "\n";
@@ -1060,8 +1060,8 @@ MSLaneChanger::getBestLanesOpposite(MSVehicle* vehicle, const MSLane* stopLane, 
         const int stopIndex = numForward + numOpposite - stopLane->getIndex() - 1;
         for (int i = 0; i < (int)preb.size(); i++) {
             preb[i].bestLaneOffset = stopIndex - i;
-            preb[i].length = vehicle->getPositionOnLane() + vehicle->nextStopDist();
-            //std::cout << "  oi2=" << i << " stopIndex=" << stopIndex << " bestOffset =" << preb[i].bestLaneOffset << "\n";
+            preb[i].length = vehicle->getLaneChangeModel().getForwardPos() + vehicle->nextStopDist();
+            //std::cout << "  oi2=" << i << " stopIndex=" << stopIndex << " bestOffset =" << preb[i].bestLaneOffset << " stopDist=" << vehicle->nextStopDist() << " length=" << preb[i].length << "\n";
         }
     }
 #ifdef DEBUG_CHANGE_OPPOSITE
