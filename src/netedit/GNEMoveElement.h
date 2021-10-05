@@ -20,14 +20,16 @@
 #pragma once
 #include <config.h>
 
-#include "GNEGeometry.h"
+#include <utils/geom/GUIGeometry.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
+class GNELane;
 class GNEMoveElement;
 class GNEUndoList;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
