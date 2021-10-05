@@ -116,16 +116,6 @@ GNETAZElement::getACParametersMap() const {
 // GNETAZElement - protected methods
 // ---------------------------------------------------------------------------
 
-bool
-GNETAZElement::isValidTAZElementID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->retrieveTAZElement(myTagProperty.getTag(), newID, false) == nullptr)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 void
 GNETAZElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //

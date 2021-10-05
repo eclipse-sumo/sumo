@@ -3111,11 +3111,20 @@ GNENet::retrieveShapes(bool onlySelected) const {
 std::string
 GNENet::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;
-    // generate tag depending of shape type
-    while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
-        counter++;
+    // generate tag depending of shape tag
+    if (tag == SUMO_TAG_POLY) {
+        // Polys and TAZs share namespace
+        while ((myAttributeCarriers->getShapes().at(SUMO_TAG_POLY).count(toString(tag) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ).count(toString(tag) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
+    } else {
+        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
     }
-    return (toString(tag) + "_" + toString(counter));
 }
 
 
@@ -3161,10 +3170,20 @@ GNENet::retrieveTAZElements(bool onlySelected) const {
 std::string
 GNENet::generateTAZElementID(SumoXMLTag tag) const {
     int counter = 0;
-    while (myAttributeCarriers->getTAZElements().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
-        counter++;
+    // generate tag depending of shape tag
+    if (tag == SUMO_TAG_TAZ) {
+        // Polys and TAZs share namespace
+        while ((myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ).count(toString(tag) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers->getShapes().at(SUMO_TAG_POLY).count(toString(tag) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
+    } else {
+        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
     }
-    return (toString(tag) + "_" + toString(counter));
 }
 
 

@@ -226,10 +226,6 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-protected:
-    /// @brief check if a new TAZElement ID is valid
-    bool isValidTAZElementID(const std::string& newID) const;
-
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class

@@ -1262,6 +1262,8 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         writeInvalidID(SUMO_TAG_TAZ, id);
     } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAG, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAG, id);
     } else if (TAZShape.size() == 0) {
         WRITE_ERROR("Could not build " + toString(SUMO_TAG_TAZ) + " with ID '" + id + "' in netedit; Invalid Shape.");
     } else {
@@ -1453,11 +1455,13 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAG, id);
+    } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAG, id);
     } else if (lineWidth < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
-    } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
-        writeErrorInvalidFilename(SUMO_TAG_POLY, id);
-    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
+    } else {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create poly
@@ -1472,8 +1476,6 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
             myNet->getAttributeCarriers()->insertShape(poly);
             poly->incRef("addPolygon");
         }
-    } else {
-        writeErrorDuplicated(SUMO_TAG_POLY, id);
     }
 }
 

@@ -649,9 +649,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserPolygon->restore();
                     myACChoosers.ACChooserPolygon->setFocus();
                 } else {
-                    // fill ACsToLocate with polys
+                    // fill ACsToLocate with polys and TAZs (because share namespae)
                     for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
                         ACsToLocate.push_back(polygon.second);
+                    }
+                    for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getTAZElements().at(SUMO_TAG_TAZ)) {
+                        ACsToLocate.push_back(taz.second);
                     }
                     myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);
                 }

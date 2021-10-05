@@ -614,7 +614,9 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveShape(SUMO_TAG_POLY, value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidAdditionalID(value) &&
+                   (myNet->retrieveTAZElement(SUMO_TAG_TAZ, value, false) == nullptr) &&
+                   (myNet->retrieveShape(SUMO_TAG_POLY, value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE:
             // empty shapes AREN'T allowed
