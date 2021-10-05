@@ -266,15 +266,15 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         if (onlyDrawContour) {
             // draw depending of TAZRelDrawing
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, width);
+                GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometryCenter, width);
             } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, width);
+                GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometry, width);
             }
         } else {
             // draw depending of TAZRelDrawing
             const GNEGeometry::Geometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
                 ? myTAZRelGeometryCenter : myTAZRelGeometry);
-            GNEGeometry::drawGeometry(myNet->getViewNet(), geom, width);
+            GNEGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geom, width);
             GLHelper::drawTriangleAtEnd(
                     *(geom.getShape().end() - 2),
                     *(geom.getShape().end() - 1),
