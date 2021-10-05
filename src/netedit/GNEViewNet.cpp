@@ -3937,7 +3937,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions.hideNetworkViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions.hideDemandViewOptionsMenuChecks();
     myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions.hideDataViewOptionsMenuChecks();
-    // always show "hide shapes", "show grid", "draw spread vehicles" and show/lock persons and containers
+    // always show "hide shapes", "show grid", "draw spread vehicles", "show overlapped routes" and show/lock persons and containers
     myDemandViewOptions.menuCheckToggleGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
@@ -3946,6 +3946,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myDemandViewOptions.menuCheckLockPerson->show();
     myDemandViewOptions.menuCheckShowAllContainerPlans->show();
     myDemandViewOptions.menuCheckLockContainer->show();
+    myDemandViewOptions.menuCheckShowOverlappedRoutes->show();
     menuChecks.menuCheckToggleGrid->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckHideShapes->show();
@@ -3954,6 +3955,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     menuChecks.menuCheckLockPerson->show();
     menuChecks.menuCheckShowAllContainerPlans->show();
     menuChecks.menuCheckLockContainer->show();
+    menuChecks.menuCheckShowOverlappedRoutes->show();
     // show separator
     menuChecks.separator->show();
     // enable selected controls

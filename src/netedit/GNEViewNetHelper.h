@@ -645,6 +645,9 @@ struct GNEViewNetHelper {
         /// @brief unlock container
         void unlockContainer();
 
+        /// @brief show overlapped routes
+        bool showOverlappedRoutes() const;
+
         /// @brief get locked container
         const GNEDemandElement* getLockedContainer() const;
 

@@ -2471,6 +2471,16 @@ GNEViewNetHelper::DemandViewOptions::unlockContainer() {
 }
 
 
+bool 
+GNEViewNetHelper::DemandViewOptions::showOverlappedRoutes() const {
+    if (menuCheckShowOverlappedRoutes->isEnabled()) {
+        return (menuCheckShowOverlappedRoutes->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
 const GNEDemandElement*
 GNEViewNetHelper::DemandViewOptions::getLockedContainer() const {
     return myLockedContainer;
