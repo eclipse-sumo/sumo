@@ -2974,6 +2974,12 @@ void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("additional", "additional_file.xsd");
+    // first write routes with additional children (due route prob reroutes)
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (route.second->getChildAdditionals().size() > 0) {
+            route.second->writeDemandElement(device);
+        }
+    }
     // now write all route probes (see Ticket #4058)
     for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
         if (additionalPair.first == SUMO_TAG_ROUTEPROBE) {
@@ -3044,9 +3050,11 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     for (const auto& pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
         pType.second->writeDemandElement(device);
     }
-    // now write all routes (and their associated stops)
+    // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        route.second->writeDemandElement(device);
+        if (route.second->getChildAdditionals().empty()) {
+            route.second->writeDemandElement(device);
+        }
     }
     // sort vehicles/persons by depart
     std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
