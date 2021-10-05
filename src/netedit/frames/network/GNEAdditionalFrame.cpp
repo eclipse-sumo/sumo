@@ -19,17 +19,18 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNELane2laneConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEAdditionalFrame.h"
 
@@ -810,7 +811,9 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
         const Position firstPosition = myLanePath.front().first->getLaneShape().positionAtOffset2D(myLanePath.front().second);
         const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
         // draw geometry points
-        GNEGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet(), {firstPosition, secondPosition}, pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1);
+        GNEGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition}, 
+                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, 
+                                        myAdditionalFrameParent->getViewNet()->getNetworkViewOptions().editingElevation());
         // Pop last matrix
         GLHelper::popMatrix();
     }
