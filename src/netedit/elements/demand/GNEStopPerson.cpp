@@ -38,16 +38,16 @@
 // ===========================================================================
 
 GNEStopPerson::GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_BUSSTOP,
-{}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStopPerson::GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_EDGE,
-{}, {edge}, {}, {}, {}, {}, {personParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {edge}, {}, {}, {}, {}, {personParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 

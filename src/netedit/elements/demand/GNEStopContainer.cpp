@@ -38,16 +38,16 @@
 // ===========================================================================
 
 GNEStopContainer::GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
-{}, {}, {}, {stoppingPlace}, {}, {}, {containerParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_CONTAINERSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {}, {}, {stoppingPlace}, {}, {}, {containerParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStopContainer::GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_EDGE,
-{}, {edge}, {}, {}, {}, {}, {containerParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+    GNEDemandElement(containerParent, net, GLO_STOP_CONTAINER, GNE_TAG_STOPCONTAINER_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {edge}, {}, {}, {}, {}, {containerParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 

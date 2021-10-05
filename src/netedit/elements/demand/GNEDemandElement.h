@@ -57,6 +57,7 @@ public:
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
+     * @param[in] pathOptions path options
      * @param[in] junctionParents vector of junction parents
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
@@ -66,7 +67,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions,
                      const std::vector<GNEJunction*>& junctionParents,
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,
@@ -81,6 +82,7 @@ public:
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
+     * @param[in] pathOptions path options
      * @param[in] junctionParents vector of junction parents
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
@@ -90,7 +92,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions,
                      const std::vector<GNEJunction*>& junctionParents,
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,

@@ -72,7 +72,8 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-    {}, {}, {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+        {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
     myRepeat(0),
@@ -84,7 +85,8 @@ GNERoute::GNERoute(GNENet* net) :
 GNERoute::GNERoute(GNENet* net, const std::string &id, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges, 
     const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE,
-    {}, edges, {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+        {}, edges, {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),
@@ -96,7 +98,8 @@ GNERoute::GNERoute(GNENet* net, const std::string &id, SUMOVehicleClass vClass, 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*> &edges, 
     const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
-    {}, edges, {}, {}, {}, {}, {vehicleParent}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+        {}, edges, {}, {}, {}, {}, {vehicleParent}, {}),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),
@@ -107,7 +110,8 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
-    {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
+        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+        {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(route->getColor()),
     myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),

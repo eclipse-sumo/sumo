@@ -35,30 +35,30 @@
 // ===========================================================================
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP,
-{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES,
-{}, {edges}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {edges}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE,
-{}, {}, {}, {}, {}, {}, {personParent, route}, {}),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {}, {}, {}, {}, {}, {personParent, route}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 

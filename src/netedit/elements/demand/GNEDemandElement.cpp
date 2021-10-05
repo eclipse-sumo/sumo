@@ -43,7 +43,7 @@ const double GNEDemandElement::myPersonPlanArrivalPositionDiameter = SUMO_const_
 // GNEDemandElement - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int options,
                                    const std::vector<GNEJunction*>& junctionParents,
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
@@ -54,12 +54,12 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DEMAND_ELEMENT),
+    GNEPathManager::PathElement(options),
     myStackedLabelNumber(0) {
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int options,
                                    const std::vector<GNEJunction*>& junctionParents,
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
@@ -70,7 +70,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, demandElementParent->getID()),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DEMAND_ELEMENT),
+    GNEPathManager::PathElement(options),
     myStackedLabelNumber(0) {
 }
 

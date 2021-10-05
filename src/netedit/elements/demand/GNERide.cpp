@@ -35,19 +35,19 @@
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP,
-{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 
