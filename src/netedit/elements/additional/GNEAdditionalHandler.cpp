@@ -1048,12 +1048,16 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
     GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
+    // get route parent
+    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, newRouteID, false);
     // check parents
     if (rerouterInterval == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_TAG_INTERVAL);
+    } else if (route == nullptr) {
+        writeErrorInvalidParent(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_TAG_ROUTE);
     } else {
         // create rout prob reroute
-        GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterInterval, newRouteID, probability);
+        GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterInterval, route, probability);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + routeProbReroute->getTagStr());
