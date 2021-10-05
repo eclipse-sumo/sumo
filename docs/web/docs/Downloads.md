@@ -117,9 +117,20 @@ These launchers allow you to select **sumo-gui** as the default application to o
 !!! caution "Important notice"
     In order to use the launchers, make sure you have installed SUMO beforehand (any version) and have set the [SUMO_HOME](Basics/Basic_Computer_Skills.md#sumo_home) environment variable.
 
-## Python packages
+## Python packages / Virtual environments
 
-Starting with SUMO 1.8.0 the installation is also possible from the [Python packaging index](https://pypi.org/project/eclipse-sumo/). You can install either the applications: `pip install eclipse-sumo` or only traci, libsumo or sumolib, e.g. `pip install libsumo`. This should work for Windows and all Linux versions which are more recent than 2014 but currently not for macOS. The applications are available for Python 2 and Python 3, libsumo only for Python 3.5 and above.
+Starting with SUMO 1.8.0 the installation is also possible from the [Python packaging index](https://pypi.org/project/eclipse-sumo/).
+You can install either the applications: `pip install eclipse-sumo` or only traci, libsumo or sumolib, e.g. `pip install libsumo`.
+This should work for Windows and all Linux versions which are more recent than 2014 but currently not for macOS.
+The applications are available for Python 2 and Python 3, libsumo only for Python 3.5 and above. This gives an easy way to test
+a new SUMO version via [virtual environments](https://docs.python.org/3/library/venv.html) 
+ or a nightly build using the following commands (on Linux):
+```
+python -m venv sumo_test
+cd sumo_test
+. bin/activate
+pip install eclipse-sumo
+```
 
 ## SUMO - Alternative download and older releases
 
@@ -162,7 +173,7 @@ packages can be obtained:
 
 The nightly builds are also available from the [Python packaging index test instance](https://test.pypi.org/project/eclipse-sumo/).
 To install the latest nightly version use `pip install -i https://test.pypi.org/simple/ eclipse-sumo`. Although this is a python
-package it contains the all compiled SUMO binaries adn should be fully functional for Windows and recent Linux.
+package it contains all compiled SUMO binaries and should be fully functional for Windows and recent Linux.
 
 The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
 This is unfortunately not the case for the Debian, Ubuntu and Arch versions.
