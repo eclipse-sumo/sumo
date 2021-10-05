@@ -693,11 +693,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // check if dotted contours has to be drawn
                 if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     // draw using drawDottedContourClosedShape
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
                 if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                     // draw using drawDottedContourClosedShape
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
             }
             // pop name
@@ -856,11 +856,11 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? vehicleGeometry.getShape() : lane->getLaneShape());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
         }
     }
@@ -907,12 +907,12 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             if (fromLane->getLane2laneConnections().exist(toLane)) {
                 // draw inspected dotted contour
                 if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                         width, 1, false, false, 0.1);
                 }
                 // draw front dotted contour
                 if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                    GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                         width, 1, false, false, 0.1);
                 }
             }

@@ -16,6 +16,8 @@ set(utils_geom_STAT_SRCS
    PositionVector.h
    GUIGeometry.h
    GUIGeometry.cpp
+   GUIDottedGeometry.h
+   GUIDottedGeometry.cpp
 )
 
 add_library(utils_geom STATIC ${utils_geom_STAT_SRCS})

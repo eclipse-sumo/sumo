@@ -171,13 +171,13 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
     }

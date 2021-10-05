@@ -409,11 +409,11 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
     }

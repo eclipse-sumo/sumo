@@ -268,17 +268,17 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (getShapeImgFile().empty()) {
-                    GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, *this, 1.3, POIExaggeration);
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // check if front dotted contour has to be drawn
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 if (getShapeImgFile().empty()) {
-                    GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // pop name

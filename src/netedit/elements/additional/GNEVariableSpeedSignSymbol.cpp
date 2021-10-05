@@ -145,10 +145,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
     }
 }

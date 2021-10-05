@@ -192,10 +192,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }

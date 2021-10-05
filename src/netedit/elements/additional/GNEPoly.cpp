@@ -329,9 +329,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                     polyExaggeration, 1, 1);
             }
         }
@@ -339,9 +339,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                     polyExaggeration, 1, 1);
             }
         }

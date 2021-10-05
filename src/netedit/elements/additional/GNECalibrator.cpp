@@ -367,10 +367,10 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     GLHelper::popMatrix();
     // check if dotted contours has to be drawn
     if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, pos, 2, 1, 2, 0, rot, exaggeration);
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, 2, 1, 2, 0, rot, exaggeration);
     }
     if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, pos, 2, 1, 2, 0, rot, exaggeration);
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, 2, 1, 2, 0, rot, exaggeration);
     }
 }
 

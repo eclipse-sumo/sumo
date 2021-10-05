@@ -216,7 +216,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         }
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEEdge::drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, lane->getParentEdge(), true, true);
+            GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, lane->getParentEdge(), true, true);
         }
     }
 }

@@ -160,11 +160,11 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedContourClosedShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedContourClosedShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
             }
         }
         // Draw additional ID

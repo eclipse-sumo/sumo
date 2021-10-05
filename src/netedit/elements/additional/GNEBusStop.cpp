@@ -163,11 +163,11 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
                                                     busStopExaggeration, true, true);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, 
                                                     busStopExaggeration, true, true);
             }
             // draw child demand elements

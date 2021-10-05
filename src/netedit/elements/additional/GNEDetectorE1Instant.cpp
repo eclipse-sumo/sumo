@@ -144,10 +144,10 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
         }
         // Draw additional ID

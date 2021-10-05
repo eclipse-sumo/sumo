@@ -436,10 +436,10 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw dotted contours
     if (myLanes.size() > 1) {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, this, true, true);
+            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            drawDottedContourEdge(GNEGeometry::DottedContourType::FRONT, s, this, true, true);
+            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
         }
     }
 }
@@ -1322,10 +1322,10 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
 
 
 void
-GNEEdge::drawDottedContourEdge(const GNEGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
+GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
     if (edge->getLanes().size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
-        GNEGeometry::drawDottedContourShape(type, s, edge->getLanes().front()->getLaneShape(), laneDrawingConstants.halfWidth, 1, drawFrontExtreme, drawBackExtreme);
+        GUIDottedGeometry::drawDottedContourShape(type, s, edge->getLanes().front()->getLaneShape(), laneDrawingConstants.halfWidth, 1, drawFrontExtreme, drawBackExtreme);
     } else {
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -1333,8 +1333,8 @@ GNEEdge::drawDottedContourEdge(const GNEGeometry::DottedContourType type, const 
         const GNELane* topLane =  lefthand ? edge->getLanes().back() : edge->getLanes().front();
         const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
         // obtain a copy of both geometries
-        GNEGeometry::DottedGeometry dottedGeometryTop(s, topLane->getLaneShape(), false);
-        GNEGeometry::DottedGeometry dottedGeometryBot(s, botLane->getLaneShape(), false);
+        GUIDottedGeometry::DottedGeometry dottedGeometryTop(s, topLane->getLaneShape(), false);
+        GUIDottedGeometry::DottedGeometry dottedGeometryBot(s, botLane->getLaneShape(), false);
         // obtain both LaneDrawingConstants
         GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, topLane);
         GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, botLane);
@@ -1344,13 +1344,13 @@ GNEEdge::drawDottedContourEdge(const GNEGeometry::DottedContourType type, const 
         // invert offset of top dotted geometry
         dottedGeometryTop.invertOffset();
         // declare DottedGeometryColor
-        GNEGeometry::DottedGeometryColor dottedGeometryColor(s);
+        GUIDottedGeometry::DottedGeometryColor dottedGeometryColor(s);
         // calculate extremes
-        GNEGeometry::DottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
+        GUIDottedGeometry::DottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
         // Push draw matrix
         GLHelper::pushMatrix();
         // draw inspect or front dotted contour
-        if (type == GNEGeometry::DottedContourType::FRONT) {
+        if (type == GUIDottedGeometry::DottedContourType::FRONT) {
             // translate to front
             glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
         } else {

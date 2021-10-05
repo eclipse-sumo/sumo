@@ -580,11 +580,11 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? personPlanGeometry.getShape() : lane->getLaneShape());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -645,12 +645,12 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         if (fromLane->getLane2laneConnections().exist(toLane) && (s.drawDottedContour() || dottedElement)) {
             // draw lane2lane inspected dotted geometry
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                                                     pathWidth, 1, false, false);
             }
             // draw lane2lane front dotted geometry
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                     pathWidth, 1, false, false);
             }
         }

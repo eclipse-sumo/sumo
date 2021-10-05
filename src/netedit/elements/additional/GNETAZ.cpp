@@ -624,9 +624,9 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         // draw depending if is closed
         if (drawFill) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                 TAZExaggeration, 1, 1);
         }
     }
@@ -634,9 +634,9 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
         // draw depending if is closed
         if (drawFill) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                 TAZExaggeration, 1, 1);
         }
     }
@@ -644,9 +644,9 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
         // draw depending if is closed
         if (drawFill) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                 TAZExaggeration, 1, 1);
         }
     }
@@ -654,9 +654,9 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
         // draw depending if is closed
         if (drawFill) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                 TAZExaggeration, 1, 1);
         }
     }

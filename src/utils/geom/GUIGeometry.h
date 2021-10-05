@@ -11,9 +11,9 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEGeometry.h
+/// @file    GUIGeometry.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 2019
+/// @date    Oct 2020
 ///
 // File for geometry classes and functions
 /****************************************************************************/
@@ -89,113 +89,6 @@ struct GNEGeometry {
         std::vector<double> myShapeLengths;
     };
 
-    /// @enum for dotted cotour type
-    enum class DottedContourType {
-        INSPECT,
-        FRONT,
-        MOVE,
-        GREEN,
-        MAGENTA
-    };
-
-    /// @brief class for pack all variables related with DottedGeometry color
-    class DottedGeometryColor {
-
-    public:
-        /// @brief constructor
-        DottedGeometryColor(const GUIVisualizationSettings& settings);
-
-        /// @brief get inspected color (and change flag)
-        const RGBColor getColor(DottedContourType type);
-
-        /// @brief change color
-        void changeColor();
-
-        /// @brief rest Dotted Geometry Color
-        void reset();
-
-    private:
-        /// @brief pointer to GUIVisualizationSettings
-        const GUIVisualizationSettings& mySettings;
-
-        /// @brief flag to get color
-        bool myColorFlag;
-
-        /// @brief Invalidated assignment operator
-        DottedGeometryColor& operator=(const DottedGeometryColor& other) = delete;
-    };
-
-    /// @brief class for pack all variables related with DottedGeometry
-    class DottedGeometry {
-
-    public:
-        /// @brief dotted geometry segment
-        struct Segment {
-            /// @brief default constructor
-            Segment();
-
-            /// @brief constructor for a given shape
-            Segment(PositionVector newShape);
-
-            /// @brief shape
-            PositionVector shape;
-
-            /// @brief rotations
-            std::vector<double> rotations;
-
-            /// @brief lengths
-            std::vector<double> lengths;
-
-            /// @brief drawing offset (-1 or 1 only)
-            double offset;
-        };
-
-        /// @brief constructor
-        DottedGeometry();
-
-        /// @brief constructor for shapes
-        DottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
-
-        /// @brief constructor for extremes
-        DottedGeometry(const GUIVisualizationSettings& s,
-                       const DottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-                       const DottedGeometry& botDottedGeometry, const bool drawLastExtrem);
-
-        /// @brief update DottedGeometry (using lane shape)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape);
-
-        /// @brief update DottedGeometry (using shape)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
-
-        /// @brief draw inspected dottedShape
-        void drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GNEGeometry::DottedContourType type, const double customWidth = -1) const;
-
-        /// @brief move shape to side
-        void moveShapeToSide(const double value);
-
-        /// @brief get width
-        double getWidth() const;
-
-        /// @brief change default width
-        void setWidth(const double width);
-
-        /// @brief invert offset of all segments
-        void invertOffset();
-
-    private:
-        /// @brief calculate shape rotations and lengths
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief geometry width
-        double myWidth;
-
-        /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
-        std::vector<DottedGeometry::Segment> myDottedGeometrySegments;
-
-        /// @brief Invalidated assignment operator
-        DottedGeometry& operator=(const DottedGeometry& other) = delete;
-    };
-
     /// @brief return angle between two points (used in geometric calculations)
     static double calculateRotation(const Position& first, const Position& second);
 
@@ -223,24 +116,6 @@ struct GNEGeometry {
     /// @brief draw moving hint
     static void drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
-
-    /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
-                                             const double exaggeration, const double lineWidth = -1);
-
-    /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
-                                       const double width, const double exaggeration, const bool drawFirstExtrem, const bool drawLastExtrem, 
-                                       const double lineWidth = -1);
-
-    /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos, 
-                                        const double radius, const double exaggeration);
-
-    /// @brief draw dotted squared contour (used by additionals and demand elements)
-    static void drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
-                                       const double width, const double height, const double offsetX, const double offsetY, 
-                                       const double rot, const double exaggeration);
 
     /// @brief draw line between parent and children (used in NETEDIT)
     static void drawParentLine(const GUIVisualizationSettings& s, const Position &parent, const Position& child, const RGBColor &color, const bool drawEntire);
