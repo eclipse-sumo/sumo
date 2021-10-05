@@ -1085,10 +1085,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (myNet) {
         myNet->requireSaveNet(false);
     }
-    // set focus
-    setFocus();
     // update app
     update();
+    // restore focus
+    setFocus();
 }
 
 
@@ -1394,6 +1394,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // end saving additionals
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
+            // restore focus
+        setFocus();
         } else {
             // clear additional path
             additionalsSavePath = "";
@@ -1454,6 +1456,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // end saving demand elements
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
+            // restore focus
+        setFocus();
         } else {
             // clear demand element path
             demandElementsSavePath = "";
@@ -1514,6 +1518,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // end saving data elements
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
+            // restore focus
+        setFocus();
         } else {
             // clear data element path
             dataElementsSavePath = "";
@@ -2283,6 +2289,8 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
             oc.unSet("plain-output-prefix");
         }
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
     }
     return 1;
 }
@@ -2332,6 +2340,8 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
             oc.unSet("junctions.join-output");
         }
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
     }
     return 1;
 }
@@ -2790,6 +2800,8 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     }
 }
@@ -2844,6 +2856,8 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -2899,6 +2913,8 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -3093,6 +3109,8 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -3260,6 +3278,8 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -3445,6 +3465,8 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
