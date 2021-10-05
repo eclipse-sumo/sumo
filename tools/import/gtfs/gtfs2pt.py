@@ -219,7 +219,7 @@ def map_stops(options, net, routes, rout):
     stops = defaultdict(list)
     stopDef = set()
     rid = None
-    for inp in glob.glob(os.path.join(options.fcd, "*.fcd.xml")):
+    for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         railType = os.path.basename(inp)[:-8]
         typedNetFile = os.path.join(options.network_split, railType + ".net.xml")
         if not os.path.exists(typedNetFile):

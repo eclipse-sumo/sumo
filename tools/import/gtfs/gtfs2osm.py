@@ -278,9 +278,9 @@ def repair_routes(options, net):
     osm_routes = {}
     # write dua input file
     with io.open("dua_input.xml", 'w+', encoding="utf8") as dua_file:
-        dua_file.write("<routes>\n")
+        dua_file.write(u"<routes>\n")
         for key, value in OSM2SUMO_MODES.items():
-            dua_file.write('    <vType id="%s" vClass="%s"/>\n' % (key, value))
+            dua_file.write(u'    <vType id="%s" vClass="%s"/>\n' % (key, value))
         num_read = discard_type = discard_net = 0
         sumo_edges = set([sumo_edge.getID() for sumo_edge in net.getEdges()])
         for ptline, ptline_route in parse_fast_nested(options.osm_routes,
