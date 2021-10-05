@@ -154,12 +154,13 @@
 #include "checkbox_showconnections.xpm"
 #include "checkbox_showcontainerplans.xpm"
 #include "checkbox_showdemandelements.xpm"
+#include "checkbox_showoverlappedroutes.xpm"
 #include "checkbox_showpersonplans.xpm"
 #include "checkbox_showshapes.xpm"
 #include "checkbox_showtrips.xpm"
 #include "checkbox_spreadvehicle.xpm"
-#include "checkbox_tazreldrawing.xpm"
 #include "checkbox_tazdrawfill.xpm"
+#include "checkbox_tazreldrawing.xpm"
 #include "checkbox_tazrelonlyfrom.xpm"
 #include "checkbox_tazrelonlyto.xpm"
 #include "checkbox_twoway.xpm"
@@ -505,6 +506,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON] = new FXXPMIcon(a, checkbox_lockperson_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWCONTAINERPLANS] = new FXXPMIcon(a, checkbox_showcontainerplans_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKCONTAINER] = new FXXPMIcon(a, checkbox_lockcontainer_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES] = new FXXPMIcon(a, checkbox_showoverlappedroutes_xpm);
 
     myIcons[GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS] = new FXXPMIcon(a, checkbox_showadditionals_xpm);
     myIcons[GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES] = new FXXPMIcon(a, checkbox_showshapes_xpm);
