@@ -20,20 +20,11 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/settings/GUIPropertyScheme.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 
-#include "GNEGeometry.h"
 #include "GNEMoveElement.h"
-
 // ===========================================================================
 // enum
 // ===========================================================================
@@ -134,13 +125,7 @@ enum class DataEditMode {
 
 // main elements
 class GNEAttributeCarrier;
-class GNEFrame;
-class GNENet;
-class GNEUndoList;
 class GNEViewNet;
-class GNEViewParent;
-class GNEMoveElement;
-class GNEMoveOperation;
 // network elements
 class GNENetworkElement;
 class GNEJunction;
@@ -155,18 +140,10 @@ class GNETAZElement;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
-class GNETAZElement;
 class GNETAZ;
-class GNETAZSourceSink;
 // demand elements
 class GNEDemandElement;
-class GNEVehicleType;
-class GNEFlow;
-class GNEVehicle;
-class GNEtrip;
 // data elements
-class GNEDataSet;
-class GNEDataInterval;
 class GNEGenericData;
 class GNEEdgeData;
 class GNEEdgeRelData;
