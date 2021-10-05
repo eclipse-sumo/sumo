@@ -97,27 +97,29 @@ GUIDottedGeometry::DottedGeometryColor::reset() {
 }
 
 // ---------------------------------------------------------------------------
-// GUIDottedGeometry::DottedGeometry - methods
+// GUIDottedGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 
-
-GUIDottedGeometry::DottedGeometry::Segment::Segment() :
+GUIDottedGeometry::Segment::Segment() :
     offset(-1) {
 }
 
 
-GUIDottedGeometry::DottedGeometry::Segment::Segment(PositionVector newShape) :
+GUIDottedGeometry::Segment::Segment(PositionVector newShape) :
     shape(newShape),
     offset(-1) {
 }
 
+// ---------------------------------------------------------------------------
+// GUIDottedGeometry - methods
+// ---------------------------------------------------------------------------
 
-GUIDottedGeometry::DottedGeometry::DottedGeometry() :
+GUIDottedGeometry::GUIDottedGeometry() :
     myWidth(0) {
 }
 
 
-GUIDottedGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) :
+GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) :
     myWidth(s.dottedContourSettings.segmentWidth) {
     // check if shape has to be closed
     if (closeShape && (shape.size() > 2)) {
@@ -143,9 +145,9 @@ GUIDottedGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings
 }
 
 
-GUIDottedGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings& s,
-        const DottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-        const DottedGeometry& botDottedGeometry, const bool drawLastExtrem) :
+GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
+        const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
+        const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem) :
     myWidth(s.dottedContourSettings.segmentWidth) {
     // check size of both geometries
     if ((topDottedGeometry.myDottedGeometrySegments.size() > 0) &&
@@ -180,7 +182,7 @@ GUIDottedGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings
 
 
 void
-GUIDottedGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape) {
+GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape) {
     // update settings and width
     myWidth = s.dottedContourSettings.segmentWidth;
     // reset segments
@@ -199,7 +201,7 @@ GUIDottedGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSe
 
 
 void
-GUIDottedGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) {
+GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) {
     // update settings and width
     myWidth = s.dottedContourSettings.segmentWidth;
     // reset segments
@@ -224,7 +226,7 @@ GUIDottedGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSe
 
 
 void
-GUIDottedGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GUIDottedGeometry::DottedContourType type, const double customWidth) const {
+GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GUIDottedGeometry::DottedContourType type, const double customWidth) const {
     // get width
     const double width = (customWidth > 0)? customWidth : myWidth;
     // iterate over all segments
@@ -241,7 +243,7 @@ GUIDottedGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor& dotte
 
 
 void
-GUIDottedGeometry::DottedGeometry::moveShapeToSide(const double value) {
+GUIDottedGeometry::moveShapeToSide(const double value) {
     // move 2 side
     for (auto& segment : myDottedGeometrySegments) {
         segment.shape.move2side(value);
@@ -250,49 +252,25 @@ GUIDottedGeometry::DottedGeometry::moveShapeToSide(const double value) {
 
 
 double
-GUIDottedGeometry::DottedGeometry::getWidth() const {
+GUIDottedGeometry::getWidth() const {
     return myWidth;
 }
 
 
 void
-GUIDottedGeometry::DottedGeometry::setWidth(const double width) {
+GUIDottedGeometry::setWidth(const double width) {
     myWidth = width;
 }
 
 
 void
-GUIDottedGeometry::DottedGeometry::invertOffset() {
+GUIDottedGeometry::invertOffset() {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         segment.offset *= -1;
     }
 }
 
-
-void
-GUIDottedGeometry::DottedGeometry::calculateShapeRotationsAndLengths() {
-    // iterate over all segments
-    for (auto& segment : myDottedGeometrySegments) {
-        // Get number of parts of the shape
-        int numberOfSegments = (int)segment.shape.size() - 1;
-        // If number of segments is more than 0
-        if (numberOfSegments >= 0) {
-            // Reserve memory (To improve efficiency)
-            segment.rotations.reserve(numberOfSegments);
-            segment.lengths.reserve(numberOfSegments);
-            // Calculate lengths and rotations for every shape
-            for (int i = 0; i < numberOfSegments; i++) {
-                segment.rotations.push_back(GNEGeometry::calculateRotation(segment.shape[i], segment.shape[i + 1]));
-                segment.lengths.push_back(GNEGeometry::calculateLength(segment.shape[i], segment.shape[i + 1]));
-            }
-        }
-    }
-}
-
-// ---------------------------------------------------------------------------
-// GUIDottedGeometry - methods
-// ---------------------------------------------------------------------------
 
 void
 GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, 
@@ -305,7 +283,7 @@ GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, co
         // scale exaggeration
         scaledShape.scaleRelative(exaggeration);
         // calculate dotted geometry
-        GUIDottedGeometry::DottedGeometry dottedGeometry(s, scaledShape, true);
+        GUIDottedGeometry dottedGeometry(s, scaledShape, true);
         // Push draw matrix
         GLHelper::pushMatrix();
         // draw inspect or front dotted contour
@@ -331,17 +309,17 @@ GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GU
     // declare DottedGeometryColor
     DottedGeometryColor dottedGeometryColor(s);
     // calculate center dotted geometry
-    GUIDottedGeometry::DottedGeometry dottedGeometry(s, shape, false);
+    GUIDottedGeometry dottedGeometry(s, shape, false);
     // make a copy of dotted geometry
-    DottedGeometry topDottedGeometry = dottedGeometry;
-    DottedGeometry botDottedGeometry = dottedGeometry;
+    GUIDottedGeometry topDottedGeometry = dottedGeometry;
+    GUIDottedGeometry botDottedGeometry = dottedGeometry;
     // move geometries top and bot
     topDottedGeometry.moveShapeToSide(width * exaggeration);
     botDottedGeometry.moveShapeToSide(width * exaggeration* -1);
     // invert offset of top dotted geometry
     topDottedGeometry.invertOffset();
     // calculate extremes
-    DottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
+    GUIDottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
     // Push draw matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -397,4 +375,26 @@ GUIDottedGeometry::drawDottedSquaredShape(const DottedContourType type, const GU
     // draw using drawDottedContourClosedShape
     drawDottedContourClosedShape(type, s, shape, exaggeration);
 }
+
+
+void
+GUIDottedGeometry::calculateShapeRotationsAndLengths() {
+    // iterate over all segments
+    for (auto& segment : myDottedGeometrySegments) {
+        // Get number of parts of the shape
+        int numberOfSegments = (int)segment.shape.size() - 1;
+        // If number of segments is more than 0
+        if (numberOfSegments >= 0) {
+            // Reserve memory (To improve efficiency)
+            segment.rotations.reserve(numberOfSegments);
+            segment.lengths.reserve(numberOfSegments);
+            // Calculate lengths and rotations for every shape
+            for (int i = 0; i < numberOfSegments; i++) {
+                segment.rotations.push_back(GNEGeometry::calculateRotation(segment.shape[i], segment.shape[i + 1]));
+                segment.lengths.push_back(GNEGeometry::calculateLength(segment.shape[i], segment.shape[i + 1]));
+            }
+        }
+    }
+}
+
 /****************************************************************************/

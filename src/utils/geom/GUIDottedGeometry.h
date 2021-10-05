@@ -27,8 +27,9 @@
 // class definitions
 // ===========================================================================
 
-struct GUIDottedGeometry {
+class GUIDottedGeometry {
 
+public:
     /// @enum for dotted cotour type
     enum class DottedContourType {
         INSPECT,
@@ -38,7 +39,7 @@ struct GUIDottedGeometry {
         MAGENTA
     };
 
-    /// @brief class for pack all variables related with DottedGeometry color
+    /// @brief class for pack all variables related with GUIDottedGeometry color
     class DottedGeometryColor {
 
     public:
@@ -65,76 +66,61 @@ struct GUIDottedGeometry {
         DottedGeometryColor& operator=(const DottedGeometryColor& other) = delete;
     };
 
-    /// @brief class for pack all variables related with DottedGeometry
-    class DottedGeometry {
+    /// @brief dotted geometry segment
+    struct Segment {
+        /// @brief default constructor
+        Segment();
 
-    public:
-        /// @brief dotted geometry segment
-        struct Segment {
-            /// @brief default constructor
-            Segment();
+        /// @brief constructor for a given shape
+        Segment(PositionVector newShape);
 
-            /// @brief constructor for a given shape
-            Segment(PositionVector newShape);
+        /// @brief shape
+        PositionVector shape;
 
-            /// @brief shape
-            PositionVector shape;
+        /// @brief rotations
+        std::vector<double> rotations;
 
-            /// @brief rotations
-            std::vector<double> rotations;
+        /// @brief lengths
+        std::vector<double> lengths;
 
-            /// @brief lengths
-            std::vector<double> lengths;
-
-            /// @brief drawing offset (-1 or 1 only)
-            double offset;
-        };
-
-        /// @brief constructor
-        DottedGeometry();
-
-        /// @brief constructor for shapes
-        DottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
-
-        /// @brief constructor for extremes
-        DottedGeometry(const GUIVisualizationSettings& s,
-                       const DottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-                       const DottedGeometry& botDottedGeometry, const bool drawLastExtrem);
-
-        /// @brief update DottedGeometry (using lane shape)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape);
-
-        /// @brief update DottedGeometry (using shape)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
-
-        /// @brief draw inspected dottedShape
-        void drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GUIDottedGeometry::DottedContourType type, const double customWidth = -1) const;
-
-        /// @brief move shape to side
-        void moveShapeToSide(const double value);
-
-        /// @brief get width
-        double getWidth() const;
-
-        /// @brief change default width
-        void setWidth(const double width);
-
-        /// @brief invert offset of all segments
-        void invertOffset();
-
-    private:
-        /// @brief calculate shape rotations and lengths
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief geometry width
-        double myWidth;
-
-        /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
-        std::vector<DottedGeometry::Segment> myDottedGeometrySegments;
-
-        /// @brief Invalidated assignment operator
-        DottedGeometry& operator=(const DottedGeometry& other) = delete;
+        /// @brief drawing offset (-1 or 1 only)
+        double offset;
     };
+
+    /// @brief constructor
+    GUIDottedGeometry();
+
+    /// @brief constructor for shapes
+    GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
+
+    /// @brief constructor for extremes
+    GUIDottedGeometry(const GUIVisualizationSettings& s,
+                    const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
+                    const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem);
+
+    /// @brief update GUIDottedGeometry (using lane shape)
+    void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape);
+
+    /// @brief update GUIDottedGeometry (using shape)
+    void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
+
+    /// @brief draw inspected dottedShape
+    void drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, GUIDottedGeometry::DottedContourType type, const double customWidth = -1) const;
+
+    /// @brief move shape to side
+    void moveShapeToSide(const double value);
+
+    /// @brief get width
+    double getWidth() const;
+
+    /// @brief change default width
+    void setWidth(const double width);
+
+    /// @brief invert offset of all segments
+    void invertOffset();
+
+    /// @name draw functions
+    /// @{
 
     /// @brief draw moving hint
     static void drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
@@ -157,4 +143,18 @@ struct GUIDottedGeometry {
     static void drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
                                        const double width, const double height, const double offsetX, const double offsetY, 
                                        const double rot, const double exaggeration);
+    /// @}
+
+private:
+    /// @brief calculate shape rotations and lengths
+    void calculateShapeRotationsAndLengths();
+
+    /// @brief geometry width
+    double myWidth;
+
+    /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
+    std::vector<GUIDottedGeometry::Segment> myDottedGeometrySegments;
+
+    /// @brief Invalidated assignment operator
+    GUIDottedGeometry& operator=(const GUIDottedGeometry& other) = delete;
 };

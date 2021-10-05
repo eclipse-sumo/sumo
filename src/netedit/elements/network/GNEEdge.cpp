@@ -1333,8 +1333,8 @@ GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, 
         const GNELane* topLane =  lefthand ? edge->getLanes().back() : edge->getLanes().front();
         const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
         // obtain a copy of both geometries
-        GUIDottedGeometry::DottedGeometry dottedGeometryTop(s, topLane->getLaneShape(), false);
-        GUIDottedGeometry::DottedGeometry dottedGeometryBot(s, botLane->getLaneShape(), false);
+        GUIDottedGeometry dottedGeometryTop(s, topLane->getLaneShape(), false);
+        GUIDottedGeometry dottedGeometryBot(s, botLane->getLaneShape(), false);
         // obtain both LaneDrawingConstants
         GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, topLane);
         GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, botLane);
@@ -1346,7 +1346,7 @@ GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, 
         // declare DottedGeometryColor
         GUIDottedGeometry::DottedGeometryColor dottedGeometryColor(s);
         // calculate extremes
-        GUIDottedGeometry::DottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
+        GUIDottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
         // Push draw matrix
         GLHelper::pushMatrix();
         // draw inspect or front dotted contour
