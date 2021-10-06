@@ -1244,6 +1244,10 @@ enum SumoXMLAttr {
     GNE_ATTR_OPPOSITE,
     /// @brief shift lane index (only used by elements over lanes)
     GNE_ATTR_SHIFTLANEINDEX,
+    /// @brief stop offset (virtual, used by edge and lanes)
+    GNE_ATTR_STOPOFFSET,
+    /// @brief stop exceptions (virtual, used by edge and lanes)
+    GNE_ATTR_STOPOEXCEPTION,
 
     // @}
 
