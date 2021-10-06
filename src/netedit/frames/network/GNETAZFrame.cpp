@@ -1540,6 +1540,10 @@ GNETAZFrame::shapeDrawed() {
         PositionVector shape = myDrawingShape->getTemporalShape();
         shape.closePolygon();
         myBaseTAZ->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shape);
+        // set center if is invalid
+        if (myBaseTAZ->getPositionAttribute(SUMO_ATTR_CENTER) == Position::INVALID) {
+            myBaseTAZ->addPositionAttribute(SUMO_ATTR_CENTER, shape.getCentroid());
+        }
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
             std::vector<std::string> edgeIDs;

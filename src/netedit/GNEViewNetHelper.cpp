@@ -1013,8 +1013,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         // get center radius
         const double centerRadius = snap_radius * myViewNet->myObjectsUnderCursor.getTAZFront()->getExaggeration(myViewNet->getVisualisationSettings());
         // check if we clicked over TAZ or center
-        if (!myViewNet->myObjectsUnderCursor.getTAZFront()->getAttribute(SUMO_ATTR_CENTER).empty() && 
-            myRelativeClickedPosition.distanceTo2D(myViewNet->myObjectsUnderCursor.getTAZFront()->getAttributePosition(SUMO_ATTR_CENTER)) < centerRadius) {
+        if (myRelativeClickedPosition.distanceTo2D(myViewNet->myObjectsUnderCursor.getTAZFront()->getAttributePosition(SUMO_ATTR_CENTER)) < centerRadius) {
             // only move center
             myMoveOperations.push_back(myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(-1));
             return true;
