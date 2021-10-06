@@ -575,8 +575,16 @@ GNEAdditional::replaceAdditionalChildLanes(const std::string& value) {
 
 void
 GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
-    std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
-    parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
+    std::vector<GNEAdditional*> parentAdditionals;
+    // special case for calibrators and routeprobes
+    if (value.size() > 0) {
+        parentAdditionals = getParentAdditionals();
+        if ((parentAdditionals.size() == 0) && (parentIndex == 0)) {
+            parentAdditionals.push_back(myNet->retrieveAdditional(tag, value));
+        } else {
+            parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
+        }
+    }
     // replace parent additionals
     replaceParentElements(this, parentAdditionals);
 }
