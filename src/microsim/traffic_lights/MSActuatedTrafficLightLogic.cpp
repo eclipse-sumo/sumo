@@ -113,7 +113,6 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     // build the induct loops
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
     std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
-    double maxDetectorGap = 0;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {
             if (noVehicles(lane->getPermissions())) {
@@ -152,7 +151,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 }
                 // Build the induct loop and set it into the container
                 std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
-                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, myShowDetectors));
+                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, (int)PersonMode::NONE, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
                 continue;
@@ -169,7 +168,6 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             inductLoopLaneMap[loop] = lane;
             const double maxGap = getDouble("max-gap:" + lane->getID(), myMaxGap);
             myInductLoops.push_back(InductLoopInfo(loop, (int)myPhases.size(), maxGap));
-            maxDetectorGap = MAX2(maxDetectorGap, length - ilpos);
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector

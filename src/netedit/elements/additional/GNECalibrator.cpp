@@ -90,7 +90,7 @@ GNECalibrator::updateGeometry() {
         // iterate over every lane and get point
         for (int i = 1; i < (int)getParentEdges().front()->getLanes().size(); i++) {
             // add new calibrator geometry
-            GNEGeometry::Geometry calibratorGeometry;
+            GUIGeometry calibratorGeometry;
             calibratorGeometry.updateGeometry(getParentEdges().front()->getLanes().at(i)->getLaneShape(), myPositionOverLane, 0);
             myEdgeCalibratorGeometries.push_back(calibratorGeometry);
         }
@@ -102,20 +102,17 @@ GNECalibrator::updateGeometry() {
 
 Position
 GNECalibrator::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNECalibrator::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // first reset boundary
-    myBoundary.reset();
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -150,7 +147,7 @@ GNECalibrator::getParentName() const {
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         if (s.drawAdditionals(exaggeration)) {
@@ -205,6 +202,8 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -219,9 +218,6 @@ GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
@@ -235,6 +231,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_VTYPES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -326,10 +323,12 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     GLHelper::pushMatrix();
     // translate to front
     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
+    // draw parent and child lines
+    drawParentChildLines(s, s.additionalSettings.connectionColor);
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
     // rotate over lane
-    GNEGeometry::rotateOverLane(rot - 90);
+    GUIGeometry::rotateOverLane(rot - 90);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set drawing mode
@@ -368,10 +367,10 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     GLHelper::popMatrix();
     // check if dotted contours has to be drawn
     if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, pos, 2, 1, 2, 0, rot, exaggeration);
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, 2, 1, 2, 0, rot, exaggeration);
     }
     if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, pos, 2, 1, 2, 0, rot, exaggeration);
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, 2, 1, 2, 0, rot, exaggeration);
     }
 }
 
@@ -417,6 +416,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

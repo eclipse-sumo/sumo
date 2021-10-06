@@ -38,16 +38,16 @@
 // ===========================================================================
 
 GNEStopPerson::GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_BUSSTOP,
-{}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStopPerson::GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_EDGE,
-{}, {edge}, {}, {}, {}, {}, {personParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter) {
+    GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {edge}, {}, {}, {}, {}, {personParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -203,6 +203,12 @@ GNEStopPerson::getParentName() const {
 }
 
 
+double 
+GNEStopPerson::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNEStopPerson::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
@@ -228,7 +234,7 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
     // check if stop can be drawn
     if (drawPersonPlan()) {
         // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         // declare stop color
         const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
         // Start drawing adding an gl identificator
@@ -251,11 +257,11 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, 
                                                 exaggeration, 1, 1);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, 
                                                 exaggeration, 1, 1);
         }
         // draw person parent if this stop if their first person plan child
@@ -599,17 +605,17 @@ GNEStopPerson::drawStopPersonOverLane(const GUIVisualizationSettings& s, const d
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.3 * exaggeration);
+    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
     // move to front
     glTranslated(0, 0, .1);
     // set central color
     GLHelper::setColor(centralLineColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, 0.05 * exaggeration);
+    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
     // move to icon position and front
     glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
     // rotate over lane
-    GNEGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+    GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
     // move again
     glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
     // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
@@ -642,11 +648,11 @@ GNEStopPerson::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, cons
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
+    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
     // move to icon position and front
     glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
     // rotate over lane
-    GNEGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+    GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
     // move again
     glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
     // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting

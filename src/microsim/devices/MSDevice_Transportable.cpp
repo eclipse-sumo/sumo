@@ -28,6 +28,8 @@
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageDriving.h>
@@ -52,9 +54,12 @@ MSDevice_Transportable::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 // MSDevice_Transportable-methods
 // ---------------------------------------------------------------------------
-MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::string& id, const bool isContainer)
-    : MSVehicleDevice(holder, id), myAmContainer(isContainer), myTransportables(), myStopped(holder.isStopped()) {
-}
+MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::string& id, const bool isContainer) :
+    MSVehicleDevice(holder, id),
+    myAmContainer(isContainer),
+    myTransportables(),
+    myStopped(holder.isStopped())
+{ }
 
 
 MSDevice_Transportable::~MSDevice_Transportable() {
@@ -90,7 +95,8 @@ MSDevice_Transportable::notifyMoveInternal(const SUMOTrafficObject& veh,
 
 
 bool
-MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
+MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
+    SUMOVehicle& veh = myHolder;
     if (myStopped) {
         if (!veh.isStopped()) {
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
@@ -100,10 +106,31 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
         }
     } else {
         if (veh.isStopped()) {
+            myStopped = true;
+            SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
+            MSStop& stop = veh.getNextStop();
+            const SUMOTime boardingDuration = myAmContainer ? veh.getVehicleType().getLoadingDuration() : veh.getVehicleType().getBoardingDuration();
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
                 if (stage->canLeaveVehicle(transportable, myHolder)) {
+                    if (stop.timeToBoardNextPerson - DELTA_T > currentTime) {
+                        // try debording again in the next step;
+                        myStopped = false;
+                        break;
+                    }
+                    if (stage->getDestinationStop() != nullptr) {
+                        stage->getDestinationStop()->addTransportable(transportable);
+                    }
+
+                    if (stop.timeToBoardNextPerson > currentTime - DELTA_T) {
+                        stop.timeToBoardNextPerson += boardingDuration;
+                    } else {
+                        stop.timeToBoardNextPerson = currentTime + boardingDuration;
+                    }
+                    //ensure that vehicle stops long enough for debording
+                    stop.duration = MAX2(stop.duration, stop.timeToBoardNextPerson - currentTime);
+
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
                     if (taxiDevice != nullptr) {
@@ -128,7 +155,6 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                 }
                 ++i;
             }
-            myStopped = true;
         }
     }
     return true;

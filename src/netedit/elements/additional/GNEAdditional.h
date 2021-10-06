@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/GNEGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEPathManager.h>
 #include <netedit/GNEMoveElement.h>
 #include <utils/common/Parameterised.h>
@@ -119,7 +119,7 @@ public:
     GUIGlObject* getGUIGlObject();
 
     /// @brief obtain additional geometry
-    const GNEGeometry::Geometry& getAdditionalGeometry() const;
+    const GUIGeometry& getAdditionalGeometry() const;
 
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
@@ -152,6 +152,9 @@ public:
 
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
+
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
@@ -295,12 +298,15 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
+    /// @brief draw parent and child lines
+    void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const;
+
 protected:
     /// @brief Additional Boundary
-    Boundary myBoundary;
+    Boundary myAdditionalBoundary;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
-    GNEGeometry::Geometry myAdditionalGeometry;
+    GUIGeometry myAdditionalGeometry;
 
     /// @brief name of additional
     std::string myAdditionalName;
@@ -345,6 +351,9 @@ protected:
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
+
+    /// @brief shift lane index
+    void shiftLaneIndex();
 
     /// @brief calculate perpendicular line between lane parents
     void calculatePerpendicularLine(const double endLaneposition);

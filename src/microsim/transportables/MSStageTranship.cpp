@@ -132,7 +132,7 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
 
 
 bool
-MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* /* nextInternal */) {
+MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int /*prevDir*/, MSEdge* /* nextInternal */) {
     if (transportable->isPerson()) {
         getEdge()->removePerson(transportable);
     } else {

@@ -36,14 +36,14 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag,
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
+    GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
@@ -199,6 +199,12 @@ GNEStop::getParentName() const {
 }
 
 
+double
+GNEStop::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNEStop::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
@@ -244,7 +250,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     // check if stop can be drawn
     if (drawPersonPlan) {
         // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         // declare value to save stop color
         RGBColor stopColor;
         // Set color
@@ -318,7 +324,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, exaggeration * 0.8);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, exaggeration * 0.8);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
             // pop draw matrix

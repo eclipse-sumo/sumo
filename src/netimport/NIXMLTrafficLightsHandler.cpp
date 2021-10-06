@@ -206,6 +206,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     }
     if (ok) {
         myResetPhases = true;
+        mySeenIDs.insert(id);
         return loadedDef;
     } else {
         return nullptr;

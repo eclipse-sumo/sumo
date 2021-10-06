@@ -72,6 +72,7 @@ private:
         PState(MSPerson* person, MSStageMoving* stage);
         ~PState() override;
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const override;
+        int getDirection(const MSStageMoving& stage, SUMOTime now) const override;
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
         double getAngle(const MSStageMoving& stage, SUMOTime now) const override;
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;

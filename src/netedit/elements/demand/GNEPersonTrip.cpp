@@ -37,21 +37,21 @@
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP,
-{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
 }
 
 
@@ -207,6 +207,12 @@ GNEPersonTrip::getParentName() const {
 }
 
 
+double
+GNEPersonTrip::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GNEPersonTrip::getCenteringBoundary() const {
     Boundary personTripBoundary;
@@ -230,8 +236,9 @@ GNEPersonTrip::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 
 void
-GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // PersonTrips are drawn in drawPartialGL
+GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
+    // force draw path
+    myNet->getPathManager()->forceDrawPath(s, this);
 }
 
 

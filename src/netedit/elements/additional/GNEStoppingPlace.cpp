@@ -131,7 +131,7 @@ GNEStoppingPlace::fixAdditionalProblem() {
 
 Position
 GNEStoppingPlace::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
@@ -144,18 +144,18 @@ GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
     // update geometry
     updateGeometry();
     // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // grow with "width"
     if (myTagProperty.hasAttribute(SUMO_ATTR_WIDTH)) {
         // we cannot use "getAttributeDouble(...)"
-        myBoundary.growWidth(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
+        myAdditionalBoundary.growWidth(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
     }
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
     // add parking spaces
     for (const auto& parkingSpace : getChildAdditionals()) {
         if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
-            myBoundary.add(parkingSpace->getCenteringBoundary());
+            myAdditionalBoundary.add(parkingSpace->getCenteringBoundary());
         }
     }
     // add additional into RTREE again
@@ -246,7 +246,7 @@ GNEStoppingPlace::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
             }
-        case GNE_ATTR_CENTER:
+        case SUMO_ATTR_CENTER:
             return ((getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getAttributeDouble(SUMO_ATTR_STARTPOS);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
@@ -287,7 +287,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
             // translate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // rotate over lane
-            GNEGeometry::rotateOverLane(rot);
+            GUIGeometry::rotateOverLane(rot);
             // draw line with a color depending of the selection status
             if (drawUsingSelectColor()) {
                 GLHelper::drawText(lines[i].c_str(), Position(1.2, (double)i), .1, 1.f, color, 0, FONS_ALIGN_LEFT);
@@ -316,7 +316,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
             // Start drawing sign traslating matrix to signal position
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // rotate over lane
-            GNEGeometry::rotateOverLane(rot);
+            GUIGeometry::rotateOverLane(rot);
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
@@ -332,7 +332,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
         // rotate over lane
-        GNEGeometry::rotateOverLane(rot);
+        GUIGeometry::rotateOverLane(rot);
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
         // set color

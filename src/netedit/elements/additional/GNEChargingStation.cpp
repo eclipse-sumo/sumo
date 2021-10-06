@@ -78,7 +78,7 @@ GNEChargingStation::updateGeometry() {
 void
 GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double chargingStationExaggeration = s.addSize.getExaggeration(s, this);
+    const double chargingStationExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
@@ -93,8 +93,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
             } else {
-                baseColor = s.stoppingPlaceSettings.chargingStationColor;
-                signColor = s.stoppingPlaceSettings.chargingStationColorSign;
+                baseColor = s.colorSettings.chargingStationColor;
+                signColor = s.colorSettings.chargingStationColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
@@ -102,10 +102,12 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
                 // draw charging power and efficiency
@@ -121,11 +123,11 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 
                                                     chargingStationExaggeration, true, true);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 
                                                     chargingStationExaggeration, true, true);
             }
             // draw child demand elements
@@ -178,6 +180,8 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -186,9 +190,6 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
 
 void
 GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -202,6 +203,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_CHARGEDELAY:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -312,6 +314,9 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + "attribute '" + toString(key) + "' not allowed");

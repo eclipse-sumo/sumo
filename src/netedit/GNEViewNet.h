@@ -19,17 +19,19 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+
 #include "GNEViewNetHelper.h"
 
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/settings/GUIPropertyScheme.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+class GNEFrame;
+class GNENet;
+class GNEUndoList;
+class GNEViewParent;
 
 // ===========================================================================
 // class definitions
@@ -52,16 +54,20 @@ public:
      * @param[in] app main windows
      * @param[in] viewParent viewParent of this viewNet
      * @param[in] net traffic net
+     * @param[in] newNet check if we're creating a new net, or loading an existent
      * @param[in] undoList pointer to UndoList modul
      * @param[in] glVis a reference to GLVisuals
      * @param[in] share a reference to FXCanvas
      */
     GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
-               GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
+               GNEViewParent* viewParent, GNENet* net, const bool newNet, GNEUndoList* undoList,
                FXGLVisual* glVis, FXGLCanvas* share);
 
     /// @brief destructor
     ~GNEViewNet();
+
+    /// @brief recalculate boundaries
+    void recalculateBoundaries();
 
     /// @brief builds the view toolbars
     void buildViewToolBars(GUIGlChildWindow* v);
@@ -96,6 +102,9 @@ public:
 
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;
+
+    /// @brief return list of loaded edgeRelation and tazRelation attributes
+    std::vector<std::string> getRelDataAttrs() const; 
 
     /// @brief open object dialog
     void openObjectDialogAtCursor();
@@ -203,6 +212,9 @@ public:
     /// @brief open closed polygon
     long onCmdOpenPolygon(FXObject*, FXSelector, void*);
 
+    /// @brief select elements within polygon boundary
+    long onCmdSelectPolygonElements(FXObject*, FXSelector, void*);
+
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
@@ -307,6 +319,9 @@ public:
 
     /// @brief toggle hide non inspected demand elements
     long onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief toggle hide non inspected demand elements
+    long onCmdToggleShowOverlappedRoutes(FXObject*, FXSelector, void*);
 
     /// @brief toggle hide shapes in super mode demand
     long onCmdToggleHideShapes(FXObject*, FXSelector, void*);
@@ -433,7 +448,7 @@ public:
     const GNEAttributeCarrier* getFrontAttributeCarrier() const;
 
     /// @brief set front attributeCarrier
-    void setFrontAttributeCarrier(const GNEAttributeCarrier* AC);
+    void setFrontAttributeCarrier(GNEAttributeCarrier* AC);
 
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
@@ -575,7 +590,7 @@ private:
     std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
 
     /// @brief front attribute carrier
-    const GNEAttributeCarrier* myFrontAttributeCarrier;
+    GNEAttributeCarrier* myFrontAttributeCarrier;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

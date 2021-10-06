@@ -119,7 +119,6 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -129,7 +128,6 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -137,6 +135,8 @@ public:
      */
     Boundary getCenteringBoundary() const override;
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

@@ -58,6 +58,7 @@ public:
 
     /// @brief Called on button change
     long onCmdSelect(FXObject*, FXSelector sel, void*);
+
     /// @}
 
 
@@ -77,6 +78,8 @@ private:
     /// @brief Information whether locate links appear in messages
     bool myLocateLinks;
 
+    /// @brief Offset when adding breakpoints
+    FXRealSpinner* myBreakPointOffset;
 
 protected:
     FOX_CONSTRUCTOR(GUIDialog_AppSettings)

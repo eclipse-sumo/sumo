@@ -41,7 +41,7 @@ class GNERouteProbReroute : public GNEAdditional {
 
 public:
     /// @brief constructor
-    GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability);
+    GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement *route, double probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();
@@ -121,9 +121,6 @@ public:
     /// @}
 
 protected:
-    /// @brief id of new route
-    std::string myNewRouteId;
-
     /// @brief probability with which a vehicle will use the given edge as destination
     double myProbability;
 

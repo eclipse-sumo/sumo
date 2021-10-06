@@ -98,8 +98,10 @@ public:
     /// @brief Callback: Hides unmatched items if pressed
     long onCmdFilterSubstr(FXObject*, FXSelector, void*);
 
-    /// @brief Callback: Toggle selection status of current object
+    /// @brief Callback: Toggle selection status of current object / list
     long onCmdToggleSelection(FXObject*, FXSelector, void*);
+    long onCmdAddListSelection(FXObject*, FXSelector, void*);
+    long onCmdClearListSelection(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Toggle locator by name
     long onCmdLocateByName(FXObject*, FXSelector, void*);

@@ -77,6 +77,9 @@ public:
     /// @brief destructor
     virtual ~GUISUMOAbstractView();
 
+    /// @brief recalculate boundaries
+    virtual void recalculateBoundaries() = 0;
+
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*) { }
 
@@ -229,6 +232,11 @@ public:
 
     /// @brief return list of loaded edgeData attributes
     virtual std::vector<std::string> getEdgeDataAttrs() const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return list of loaded edgeRelation and tazRelation attributes
+    virtual std::vector<std::string> getRelDataAttrs() const {
         return std::vector<std::string>();
     }
 

@@ -85,6 +85,12 @@ GNETAZSourceSink::getPositionInView() const {
 }
 
 
+double
+GNETAZSourceSink::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GNETAZSourceSink::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();
@@ -177,6 +183,12 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNETAZSourceSink::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // this TAZElement is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)
@@ -203,7 +215,8 @@ bool
 GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidTAZElementID(value);
+            return SUMOXMLDefinitions::isValidAdditionalID(value) &&
+                   (myNet->retrieveTAZElement(myTagProperty.getTag(), value, false) == nullptr);
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_PARAMETERS:

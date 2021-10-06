@@ -219,7 +219,7 @@ def map_stops(options, net, routes, rout):
     stops = defaultdict(list)
     stopDef = set()
     rid = None
-    for inp in glob.glob(os.path.join(options.fcd, "*.fcd.xml")):
+    for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         railType = os.path.basename(inp)[:-8]
         typedNetFile = os.path.join(options.network_split, railType + ".net.xml")
         if not os.path.exists(typedNetFile):
@@ -336,6 +336,9 @@ def filter_trips(options, routes, stops, outfile, begin, end):
                     for d in range(numDays):
                         depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
                         if begin <= depart < end:
+                            if d != 0 and veh.id.endswith(".trimmed"):
+                                # only add trimmed trips the first day
+                                continue
                             outf.write('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
                                        (veh.id, d, veh.route, veh.type, depart, veh.line))
         outf.write('</routes>\n')

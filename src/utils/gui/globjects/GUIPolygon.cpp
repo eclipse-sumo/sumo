@@ -92,11 +92,10 @@ static const GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 // method definitions
 // ===========================================================================
 
-GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
-                       const RGBColor& color, const PositionVector& shape, bool geo,
-                       bool fill, double lineWidth, double layer, double angle, const std::string& imgFile,
-                       bool relativePath,
-                       const std::string& name):
+GUIPolygon::GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, 
+        const PositionVector& shape, bool geo, bool fill, 
+        double lineWidth, double layer, double angle, const std::string& imgFile,
+        bool relativePath, const std::string& name):
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myDisplayList(0),
@@ -141,6 +140,12 @@ GUIPolygon::getParameterWindow(GUIMainWindow& app,
 }
 
 
+double 
+GUIPolygon::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.polySize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIPolygon::getCenteringBoundary() const {
     const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
@@ -156,8 +161,8 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
     if (checkDraw(s, this, this)) {
         FXMutexLock locker(myLock);
-        //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
-        //    storeTesselation(s.polySize.getExaggeration(s));
+        //if (myDisplayList == 0 || (!getFill() && myLineWidth != getExaggeration(s))) {
+        //    storeTesselation(getExaggeration(s));
         //}
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());
@@ -273,7 +278,7 @@ GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polyg
 
 bool
 GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o) {
-    if (s.polySize.getExaggeration(s, o) == 0) {
+    if (o->getExaggeration(s) == 0) {
         return false;
     }
     Boundary boundary = polygon->getShape().getBoxBoundary();
@@ -331,7 +336,7 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
     }
     // recall tesselation
     //glCallList(myDisplayList);
-    performTesselation(polygon->getFill(), shape, polygon->getLineWidth() * s.polySize.getExaggeration(s, o));
+    performTesselation(polygon->getFill(), shape, polygon->getLineWidth() * o->getExaggeration(s));
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);

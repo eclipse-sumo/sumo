@@ -56,9 +56,7 @@ void
 MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     // Check if vehicle should get a battery
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
-        const HelpersEnergy& e = PollutantsInterface::getEnergyHelper();
         const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
-        std::map<int, double> param;
         // obtain maximumBatteryCapacity
         const double maximumBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), DEFAULT_MAX_CAPACITY);
 
@@ -73,22 +71,11 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 
         const double powerMax = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100.);
         const double stoppingTreshold = typeParams.getDouble(toString(SUMO_ATTR_STOPPINGTRESHOLD), 0.1);
-
-        param[SUMO_ATTR_VEHICLEMASS] = typeParams.getDouble(toString(SUMO_ATTR_VEHICLEMASS), e.getDefaultParam(SUMO_ATTR_VEHICLEMASS));
-        param[SUMO_ATTR_FRONTSURFACEAREA] = typeParams.getDouble(toString(SUMO_ATTR_FRONTSURFACEAREA), e.getDefaultParam(SUMO_ATTR_FRONTSURFACEAREA));
-        param[SUMO_ATTR_AIRDRAGCOEFFICIENT] = typeParams.getDouble(toString(SUMO_ATTR_AIRDRAGCOEFFICIENT), e.getDefaultParam(SUMO_ATTR_AIRDRAGCOEFFICIENT));
-        param[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = typeParams.getDouble(toString(SUMO_ATTR_INTERNALMOMENTOFINERTIA), e.getDefaultParam(SUMO_ATTR_INTERNALMOMENTOFINERTIA));
-        param[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = typeParams.getDouble(toString(SUMO_ATTR_RADIALDRAGCOEFFICIENT), e.getDefaultParam(SUMO_ATTR_RADIALDRAGCOEFFICIENT));
-        param[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = typeParams.getDouble(toString(SUMO_ATTR_ROLLDRAGCOEFFICIENT), e.getDefaultParam(SUMO_ATTR_ROLLDRAGCOEFFICIENT));
-        param[SUMO_ATTR_CONSTANTPOWERINTAKE] = typeParams.getDouble(toString(SUMO_ATTR_CONSTANTPOWERINTAKE), e.getDefaultParam(SUMO_ATTR_CONSTANTPOWERINTAKE));
-        param[SUMO_ATTR_PROPULSIONEFFICIENCY] = typeParams.getDouble(toString(SUMO_ATTR_PROPULSIONEFFICIENCY), e.getDefaultParam(SUMO_ATTR_PROPULSIONEFFICIENCY));
-        param[SUMO_ATTR_RECUPERATIONEFFICIENCY] = typeParams.getDouble(toString(SUMO_ATTR_RECUPERATIONEFFICIENCY), e.getDefaultParam(SUMO_ATTR_RECUPERATIONEFFICIENCY));
-        param[SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION] = typeParams.getDouble(toString(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION), e.getDefaultParam(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION));
-        param[SUMO_ATTR_ANGLE] = 0;
+        EnergyParams params(&v.getVehicleType().getParameter());
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
-                actualBatteryCapacity, maximumBatteryCapacity, powerMax, stoppingTreshold, param);
+                actualBatteryCapacity, maximumBatteryCapacity, powerMax, stoppingTreshold, params);
 
         // Add device to vehicle
         into.push_back(device);
@@ -112,7 +99,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
 
     // Update Energy from the battery
     if (getMaximumBatteryCapacity() != 0) {
-        myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
+        myParam.setDouble(SUMO_ATTR_ANGLE, myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
         if (myTrackFuel) {
             // [ml]
             myConsum = PollutantsInterface::compute(veh.getVehicleType().getEmissionClass(), PollutantsInterface::FUEL, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam) * TS;
@@ -238,7 +225,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
 // MSDevice_Battery-methods
 // ---------------------------------------------------------------------------
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                                   const double powerMax, const double stoppingTreshold, const std::map<int, double>& param) :
+                                   const double powerMax, const double stoppingTreshold, const EnergyParams& param) :
     MSVehicleDevice(holder, id),
     myActualBatteryCapacity(0),         // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
@@ -303,9 +290,11 @@ MSDevice_Battery::~MSDevice_Battery() {
 
 void
 MSDevice_Battery::checkParam(const SumoXMLAttr paramKey, const double lower, const double upper) {
-    if (myParam.find(paramKey) == myParam.end() || myParam.find(paramKey)->second < lower || myParam.find(paramKey)->second > upper) {
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(paramKey) + " (" + toString(myParam[paramKey]) + ").");
-        myParam[paramKey] = PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey);
+    if (!myParam.knowsParameter(paramKey)
+            || myParam.getDouble(paramKey) < lower
+            || myParam.getDouble(paramKey) > upper) {
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(paramKey) + " (" + toString(myParam.getDouble(paramKey)) + ").");
+        myParam.setDouble(paramKey, PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey));
     }
 }
 
@@ -473,7 +462,7 @@ MSDevice_Battery::getParameter(const std::string& key) const {
     } else if (key == toString(SUMO_ATTR_CHARGINGSTATIONID)) {
         return getChargingStationID();
     } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        return toString(myParam.find(SUMO_ATTR_VEHICLEMASS)->second);
+        return toString(myParam.getDouble(SUMO_ATTR_VEHICLEMASS));
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -492,7 +481,7 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
     } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
         setMaximumBatteryCapacity(doubleValue);
     } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        myParam[SUMO_ATTR_VEHICLEMASS] = doubleValue;
+        myParam.setDouble(SUMO_ATTR_VEHICLEMASS, doubleValue);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

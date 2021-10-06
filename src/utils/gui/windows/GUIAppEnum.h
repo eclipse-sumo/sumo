@@ -469,6 +469,8 @@ enum {
     MID_SHOW_FOES,
     MID_SHOW_LFLINKITEMS,
     MID_HIDE_LFLINKITEMS,
+    /// @brief select transportables of a vehicle
+    MID_SELECT_TRANSPORTED,
     /// @brief toggle stop state of a vehice or person
     MID_TOGGLE_STOP,
     /// @brief remove a vehice or person
@@ -517,6 +519,8 @@ enum {
     MID_ALLOWTEXTURES,
     /// @brief Locate links in messages - Option
     MID_LOCATELINKS,
+    /// @brief Set breakpionts from messages - Option
+    MID_TIMELINK_BREAKPOINT,
 
     /// @}
 
@@ -555,6 +559,8 @@ enum {
     MID_CHOOSEN_DELETE,
     /// @brief Reset set
     MID_CHOOSEN_RESET,
+    /// @brief select all items
+    MID_CHOOSEN_SELECT,
     /// @brief Deselect selected items
     MID_CHOOSEN_DESELECT,
     /// @brief Deselect selected items
@@ -712,6 +718,8 @@ enum {
     MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS,
     /// @brief lock container
     MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,
+    /// @brief show overlapped routes
+    MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES,
 
     /// @}
 
@@ -1084,6 +1092,8 @@ enum {
     MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief delete geometry point
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
+    /// @brief select elements within polygon boundary
+    MID_GNE_POLYGON_SELECT,
 
     /// @}
 
@@ -1239,7 +1249,9 @@ enum {
     /// @brief unselect all vehicles
     MID_GNE_ALLOWDISALLOW_UNSELECTALL,
     /// @brief select only non road vehicles
-    MID_GNE_ALLOWDISALLOW_SELECTONLYROAD,
+    MID_GNE_ALLOWDISALLOW_ONLY_ROAD,
+    /// @brief select only rail vehicles
+    MID_GNE_ALLOWDISALLOW_ONLY_RAIL,
 
     /// @}
 

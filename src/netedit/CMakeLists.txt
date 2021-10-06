@@ -23,14 +23,14 @@ set(netedit_SRCS
    GNEViewParent.cpp
    GNEUndoList.h
    GNEUndoList.cpp
-   GNEGeometry.h
-   GNEGeometry.cpp
    GNEMoveElement.h
    GNEMoveElement.cpp
    GNEPathManager.h
    GNEPathManager.cpp
    GNEReferenceCounter.h
    GNEEvent_NetworkLoaded.h
+   GNELane2laneConnection.h
+   GNELane2laneConnection.cpp
 )
 
 add_executable(netedit ${netedit_SRCS} netedit.rc)

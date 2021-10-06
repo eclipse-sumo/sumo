@@ -33,6 +33,7 @@
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -672,6 +673,8 @@ GNEInspectorFrame::TemplateEditor::setEdgeTemplate(GNEEdge* edgeTemplate) {
     myHasEdgeTemplate = true;
     // set edge template
     myEdgeTemplate = GNEInspectorFrame::TemplateEditor::EdgeTemplate(edgeTemplate);
+    // use template by default
+    myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getCreateEdgeFrame()->setUseEdgeTemplate();
 }
 
 

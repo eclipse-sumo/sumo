@@ -174,6 +174,12 @@ GNENet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
+double
+GNENet::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GNENet::getCenteringBoundary() const {
     return getBoundary();
@@ -2968,6 +2974,12 @@ void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("additional", "additional_file.xsd");
+    // first write routes with additional children (due route prob reroutes)
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (route.second->getChildAdditionals().size() > 0) {
+            route.second->writeDemandElement(device);
+        }
+    }
     // now write all route probes (see Ticket #4058)
     for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
         if (additionalPair.first == SUMO_TAG_ROUTEPROBE) {
@@ -3029,7 +3041,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
 void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("routes", "routes_file.xsd");
+    device.writeXMLHeader("routes", "routes_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
     // first  write all vehicle types
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         vType.second->writeDemandElement(device);
@@ -3038,9 +3050,11 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     for (const auto& pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
         pType.second->writeDemandElement(device);
     }
-    // now write all routes (and their associated stops)
+    // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        route.second->writeDemandElement(device);
+        if (route.second->getChildAdditionals().empty()) {
+            route.second->writeDemandElement(device);
+        }
     }
     // sort vehicles/persons by depart
     std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
@@ -3065,7 +3079,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
 void
 GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("data", "datamode_file.xsd");
+    device.writeXMLHeader("data", "datamode_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         dataSet.second->writeDataSet(device);
@@ -3105,11 +3119,20 @@ GNENet::retrieveShapes(bool onlySelected) const {
 std::string
 GNENet::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;
-    // generate tag depending of shape type
-    while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
-        counter++;
+    // generate tag depending of shape tag
+    if (tag == SUMO_TAG_POLY) {
+        // Polys and TAZs share namespace
+        while ((myAttributeCarriers->getShapes().at(SUMO_TAG_POLY).count(toString(tag) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ).count(toString(tag) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
+    } else {
+        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
     }
-    return (toString(tag) + "_" + toString(counter));
 }
 
 
@@ -3155,10 +3178,20 @@ GNENet::retrieveTAZElements(bool onlySelected) const {
 std::string
 GNENet::generateTAZElementID(SumoXMLTag tag) const {
     int counter = 0;
-    while (myAttributeCarriers->getTAZElements().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
-        counter++;
+    // generate tag depending of shape tag
+    if (tag == SUMO_TAG_TAZ) {
+        // Polys and TAZs share namespace
+        while ((myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ).count(toString(tag) + "_" + toString(counter)) != 0) ||
+               (myAttributeCarriers->getShapes().at(SUMO_TAG_POLY).count(toString(tag) + "_" + toString(counter)) != 0)) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
+    } else {
+        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+            counter++;
+        }
+        return (toString(tag) + "_" + toString(counter));
     }
-    return (toString(tag) + "_" + toString(counter));
 }
 
 

@@ -340,6 +340,7 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
 
 void
 GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
+    const double exaggeration = getExaggeration(s);
     GLHelper::pushName(getGlID());
     std::string flow = "-";
     std::string speed = "-";
@@ -352,7 +353,6 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
             flow = toString((int)myCurrentStateInterval->q) + "v/h";
         }
     }
-    const double exaggeration = s.addSize.getExaggeration(s, this);
     for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         double rot = myFGRotations[i];
@@ -385,6 +385,12 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
     }
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     GLHelper::popName();
+}
+
+
+double 
+GUICalibrator::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 

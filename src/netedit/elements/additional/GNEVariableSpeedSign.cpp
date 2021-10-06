@@ -61,8 +61,6 @@ void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
-    // Update Hierarchical connections geometry
-    myHierarchicalConnections.update();
 }
 
 
@@ -81,21 +79,19 @@ GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
     // update geometry
     updateGeometry();
     // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
     // add positions of all childrens
     for (const auto& additionalChildren : getChildAdditionals()) {
         if (additionalChildren->getTagProperty().isSymbol()) {
-            myBoundary.add(additionalChildren->getPositionInView());
+            myAdditionalBoundary.add(additionalChildren->getPositionInView());
         }
     }
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
-    // Update Hierarchical connections geometry
-    myHierarchicalConnections.update();
 }
 
 

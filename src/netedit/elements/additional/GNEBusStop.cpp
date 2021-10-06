@@ -110,7 +110,7 @@ GNEBusStop::updateGeometry() {
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double busStopExaggeration = s.addSize.getExaggeration(s, this);
+    const double busStopExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
@@ -128,10 +128,13 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 signColor = baseColor.changedBrightness(-32);
             } else if (myColor.isValid()){
                 baseColor = myColor;
-                signColor = s.stoppingPlaceSettings.busStopColorSign;
+                signColor = s.colorSettings.busStopColorSign;
+            } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
+                baseColor = s.colorSettings.trainStopColor;
+                signColor = s.colorSettings.trainStopColorSign;
             } else {
-                baseColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopColor;
-                signColor = s.stoppingPlaceSettings.busStopColorSign;
+                baseColor = s.colorSettings.busStopColor;
+                signColor = s.colorSettings.busStopColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
@@ -139,10 +142,12 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
+            // draw parent and child lines
+            drawParentChildLines(s, baseColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, stopWidth * busStopExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * busStopExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
                 // draw lines
@@ -156,15 +161,13 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
-            // draw connection betwen access
-            drawConnectionAccess(s, baseColor);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
                                                     busStopExaggeration, true, true);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, 
                                                     busStopExaggeration, true, true);
             }
             // draw child demand elements
@@ -221,6 +224,8 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -229,9 +234,6 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
 
 void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -245,6 +247,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_PARKING_LENGTH:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -368,33 +371,11 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-void
-GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor& color) const {
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
-        // Add a draw matrix for details
-        GLHelper::pushMatrix();
-        // move to GLO_BUS_STOP
-        glTranslated(0, 0, GLO_BUS_STOP);
-        // set color
-        GLHelper::setColor(color);
-        // draw lines between BusStops and Access
-        for (const auto& access : getChildAdditionals()) {
-            // get busStop center
-            const Position busStopCenter = myAdditionalGeometry.getShape().getLineCenter();
-            // get access center
-            const Position accessCenter = access->getAdditionalGeometry().getShape().front();
-            GLHelper::drawBoxLine(accessCenter,
-                                  RAD2DEG(busStopCenter.angleTo2D(accessCenter)) - 90,
-                                  busStopCenter.distanceTo2D(accessCenter), .05);
-        }
-        // pop draw matrix
-        GLHelper::popMatrix();
     }
 }
 

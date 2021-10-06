@@ -5,6 +5,8 @@ set(utils_handlers_STAT_SRCS
    DataHandler.cpp
    RouteHandler.h
    RouteHandler.cpp
+   GeneralHandler.h
+   GeneralHandler.cpp
 )
 
 add_library(utils_handlers STATIC ${utils_handlers_STAT_SRCS})

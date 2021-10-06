@@ -21,3 +21,6 @@ walkRoute_busStop_walk
 
 # ride from one station to another	
 busStop_ride_busStop
+
+# large personFlow starting at a busStop with insufficient capacity
+busStop_ride_busStop_capacity

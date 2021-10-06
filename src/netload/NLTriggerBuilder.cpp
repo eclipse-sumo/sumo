@@ -490,8 +490,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
 
     //get the color, use default if not given
     // default color, copy from GUIVisualizationStoppingPlaceSettings::busStopColor / containerStopColor
-    const RGBColor defaultColor = element == SUMO_TAG_CONTAINER_STOP ? RGBColor(83, 89, 172) : RGBColor(76, 170, 50);
-    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, defaultColor);
+    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor::INVISIBLE);
 
     MSLane* lane = getLane(attrs, toString(element), id);
     // get the positions
@@ -504,7 +503,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
     int defaultCapacity;
     SumoXMLAttr capacityAttr;
-    if (element == SUMO_TAG_BUS_STOP) {
+    if (element != SUMO_TAG_CONTAINER_STOP) {
         defaultCapacity = MAX2(MSStoppingPlace::getTransportablesAbreast(topos - frompos, element) * 3, 6);
         capacityAttr = SUMO_ATTR_PERSON_CAPACITY;
     } else {

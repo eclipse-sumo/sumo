@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/GNEGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -128,6 +128,9 @@ public:
     /// @brief Returns position of TAZElement in view
     virtual Position getPositionInView() const = 0;
 
+    /// @brief return exaggeration asociated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
+
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
     /// @}
@@ -174,6 +177,12 @@ public:
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
+    /* @brief method for getting the Attribute of an XML key in position format (to avoid unnecessary parse<position>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    virtual Position getAttributePosition(SumoXMLAttr key) const = 0;
+
     /**@brief method for setting the attribute and letting the object perform TAZElement changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -216,10 +225,6 @@ public:
 
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
-
-protected:
-    /// @brief check if a new TAZElement ID is valid
-    bool isValidTAZElementID(const std::string& newID) const;
 
 private:
     /**@brief check restriction with the number of children

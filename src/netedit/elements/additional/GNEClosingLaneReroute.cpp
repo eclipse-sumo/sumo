@@ -53,21 +53,19 @@ GNEClosingLaneReroute::getMoveOperation(const double /*shapeOffset*/) {
 
 void
 GNEClosingLaneReroute::updateGeometry() {
-    // use geometry of rerouter parent
-    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
+    // no update geometry
 }
 
 
 Position
 GNEClosingLaneReroute::getPositionInView() const {
-    return myBoundary.getCenter();
+    return getParentAdditionals().front()->getPositionInView();
 }
 
 
 void
 GNEClosingLaneReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
 }
 
 
@@ -104,6 +102,8 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -118,15 +118,13 @@ GNEClosingLaneReroute::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -191,6 +189,9 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -790,14 +790,11 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
 
 
 void
-GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const std::string& routeID,
-        const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed,
-        const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, const int personNumber, const int containerNumber,
-        const bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, const SUMOTime begin, const SUMOTime end, const std::map<std::string, std::string>& parameters) {
+GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameter) {
     // get vType
-    GNEDemandElement* vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID, false);
+    GNEDemandElement* vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid, false);
     // get route
-    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, routeID, false);
+    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.routeid, false);
     // get calibrator parent
     GNEAdditional* calibrator = myNet->retrieveAdditional(sumoBaseObject->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
     // check parents
@@ -807,25 +804,9 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
         writeErrorInvalidParent(SUMO_TAG_FLOW, SUMO_TAG_ROUTE);
     } else if (calibrator == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_FLOW, SUMO_TAG_CALIBRATOR);
-
-        /*
-        } else if (freq < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_FREQUENCY);
-        } else if (timeThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-        } else if (speedThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-        } else if (jamThreshold < 0) {
-            writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
-        } else if (!SUMOXMLDefinitions::isValidFilename(filename)) {
-            writeErrorInvalidFilename(SUMO_TAG_E2DETECTOR, id);
-        } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
-            writeErrorInvalidVTypes(SUMO_TAG_E2DETECTOR, id);
-        */
     } else {
         // create calibrator flow
-        GNEAdditional* flow = new GNECalibratorFlow(calibrator, vType, route, vehsPerHour, speed, color, departLane, departPos, departSpeed,
-                arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end, parameters);
+        GNEAdditional* flow = new GNECalibratorFlow(calibrator, vType, route, vehicleParameter);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + flow->getTagStr());
@@ -1067,12 +1048,16 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
     GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
+    // get route parent
+    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, newRouteID, false);
     // check parents
     if (rerouterInterval == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_TAG_INTERVAL);
+    } else if (route == nullptr) {
+        writeErrorInvalidParent(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_TAG_ROUTE);
     } else {
         // create rout prob reroute
-        GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterInterval, newRouteID, probability);
+        GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterInterval, route, probability);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin("add " + routeProbReroute->getTagStr());
@@ -1254,8 +1239,8 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
 
 void
 GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                               const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, 
-                               const std::map<std::string, std::string>& parameters) {
+                               const Position &center, const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, 
+                               const std::string& name, const std::map<std::string, std::string>& parameters) {
     // parse edges
     const std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_TAZ, edgeIDs);
     // check TAZShape
@@ -1281,13 +1266,15 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         writeInvalidID(SUMO_TAG_TAZ, id);
     } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
         writeErrorDuplicated(SUMO_TAG_TAG, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAG, id);
     } else if (TAZShape.size() == 0) {
         WRITE_ERROR("Could not build " + toString(SUMO_TAG_TAZ) + " with ID '" + id + "' in netedit; Invalid Shape.");
     } else {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build TAZ with the given shape
-        GNETAZElement* TAZ = new GNETAZ(id, myNet, TAZShape, fill, color, name, parameters);
+        GNETAZElement* TAZ = new GNETAZ(id, myNet, TAZShape, center, fill, color, name, parameters);
         // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
         myNet->disableUpdateGeometry();
         // add it depending of allow undoRed
@@ -1472,11 +1459,13 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
+    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAG, id);
+    } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAG, id);
     } else if (lineWidth < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
-    } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
-        writeErrorInvalidFilename(SUMO_TAG_POLY, id);
-    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) == nullptr) {
+    } else {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create poly
@@ -1491,8 +1480,6 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
             myNet->getAttributeCarriers()->insertShape(poly);
             poly->incRef("addPolygon");
         }
-    } else {
-        writeErrorDuplicated(SUMO_TAG_POLY, id);
     }
 }
 

@@ -52,14 +52,12 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      */
-    GUIPolygon(const std::string& id, const std::string& type,
-               const RGBColor& color, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-               double layer = 0, double angle = 0, const std::string& imgFile = "", bool relativePath = false,
-               const std::string& name = DEFAULT_NAME);
+    GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape, 
+               bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "", 
+               bool relativePath = false, const std::string& name = DEFAULT_NAME);
 
     /// @brief Destructor
     ~GUIPolygon();
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -74,7 +72,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -85,6 +82,8 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -93,14 +92,12 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
-
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const;
     //@}
-
 
     /// @brief set a new shape and update the tesselation
     virtual void setShape(const PositionVector& shape);

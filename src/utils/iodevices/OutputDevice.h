@@ -178,7 +178,8 @@ public:
      */
     bool writeXMLHeader(const std::string& rootElement,
                         const std::string& schemaFile,
-                        std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>());
+                        std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>(),
+                        bool includeConfig = true);
 
 
     template <typename E>

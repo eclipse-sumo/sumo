@@ -184,6 +184,8 @@ private:
     double myJamSoundTime;
 
 private:
+    /// @brief parse color attribute
+    RGBColor parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor &defaultValue) const;
 
     /// @brief parse attributes for textSettings
     GUIVisualizationTextSettings parseTextSettings(
@@ -194,5 +196,4 @@ private:
     GUIVisualizationSizeSettings parseSizeSettings(
         const std::string& prefix, const SUMOSAXAttributes& attrs,
         GUIVisualizationSizeSettings defaults);
-
 };

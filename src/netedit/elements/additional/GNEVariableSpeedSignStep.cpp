@@ -64,14 +64,13 @@ GNEVariableSpeedSignStep::updateGeometry() {
 
 Position
 GNEVariableSpeedSignStep::getPositionInView() const {
-    return myBoundary.getCenter();
+    return getParentAdditionals().front()->getPositionInView();
 }
 
 
 void
 GNEVariableSpeedSignStep::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
 }
 
 

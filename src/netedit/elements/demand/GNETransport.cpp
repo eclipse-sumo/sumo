@@ -35,18 +35,18 @@
 // ===========================================================================
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
-myLines(lines),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
+    myLines(lines),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_CONTAINERSTOP,
-{}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
-myLines(lines),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_CONTAINERSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
+    myLines(lines),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -201,6 +201,12 @@ GNETransport::getPositionInView() const {
 std::string
 GNETransport::getParentName() const {
     return getParentDemandElements().front()->getID();
+}
+
+
+double 
+GNETransport::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
 }
 
 

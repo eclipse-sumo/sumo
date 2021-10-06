@@ -330,16 +330,16 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             delete *i;
         }
         myAlternatives.erase(myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(), myAlternatives.end());
-        // rescale probabilities
-        double newSum = 0.;
-        for (const RORoute* const alt : myAlternatives) {
-            newSum += alt->getProbability();
-        }
-        assert(newSum > 0);
-        // @note newSum may be larger than 1 for numerical reasons
-        for (RORoute* const alt : myAlternatives) {
-            alt->setProbability(alt->getProbability() / newSum);
-        }
+    }
+    // rescale probabilities
+    double newSum = 0.;
+    for (const RORoute* const alt : myAlternatives) {
+        newSum += alt->getProbability();
+    }
+    assert(newSum > 0);
+    // @note newSum may be larger than 1 for numerical reasons
+    for (RORoute* const alt : myAlternatives) {
+        alt->setProbability(alt->getProbability() / newSum);
     }
 
     // find the route to use
@@ -380,25 +380,12 @@ RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
 
 
 RORouteDef*
-RORouteDef::copyOrigDest(const std::string& id) const {
-    RORouteDef* result = new RORouteDef(id, 0, true, true);
-    RORoute* route = myAlternatives[0];
-    RGBColor* col = route->getColor() != nullptr ? new RGBColor(*route->getColor()) : nullptr;
-    ConstROEdgeVector edges;
-    edges.push_back(route->getFirst());
-    edges.push_back(route->getLast());
-    result->addLoadedAlternative(new RORoute(id, 0, 1, edges, col, route->getStops()));
-    return result;
-}
-
-
-RORouteDef*
 RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
     RORouteDef* result = new RORouteDef(id, 0, myTryRepair, myMayBeDisconnected);
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         RORoute* route = *i;
         RGBColor* col = route->getColor() != nullptr ? new RGBColor(*route->getColor()) : nullptr;
-        RORoute* newRoute = new RORoute(id, 0, 1, route->getEdgeVector(), col, route->getStops());
+        RORoute* newRoute = new RORoute(id, route->getCosts(), route->getProbability(), route->getEdgeVector(), col, route->getStops());
         newRoute->addStopOffset(stopOffset);
         result->addLoadedAlternative(newRoute);
     }

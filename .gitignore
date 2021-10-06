@@ -65,7 +65,8 @@
 /bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib
 /bin/libtracicpp.dll.manifest
-bin/testlibtraci
+/bin/testlibtraci
+/bin/testlibtraci.exe.manifest
 # data dir
 /data/proj
 # docs dir, make artifacts
@@ -117,6 +118,7 @@ bin/testlibtraci
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
+/tools/game/scores.pkl
 /tools/contributed/lisum/lisum-core/target/
 /tools/contributed/lisum/lisum-gui/target/
 /tools/contributed/lisum/lisumgui/target/

@@ -45,7 +45,8 @@ class GUIMEInductLoop : public MEInductLoop {
 public:
     /// Construtor
     GUIMEInductLoop(const std::string& id, MESegment* s,
-                    double position, const std::string& vTypes);
+                    double position, const std::string& vTypes,
+                    int detectPersons, bool show);
 
     /// Destructor
     ~GUIMEInductLoop();
@@ -70,7 +71,6 @@ public:
         /// Destructor
         ~MyWrapper();
 
-
         /// @name inherited from GUIGlObject
         //@{
 
@@ -84,7 +84,6 @@ public:
         GUIParameterTableWindow* getParameterWindow(
             GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-
         /** @brief Draws the object
          *
          * @param[in] s Current visualization settings
@@ -92,6 +91,8 @@ public:
          */
         void drawGL(const GUIVisualizationSettings& s) const;
 
+        /// @brief return exaggeration asociated with this GLObject
+        double getExaggeration(const GUIVisualizationSettings& s) const;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
@@ -100,7 +101,6 @@ public:
          */
         Boundary getCenteringBoundary() const;
         //@}
-
 
         /// Returns the detector itself
         GUIMEInductLoop& getLoop();

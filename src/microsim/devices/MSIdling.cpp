@@ -58,7 +58,11 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         }
         if (stopPos.first != nullptr) {
             SUMOVehicleParameter::Stop stop;
-            stop.lane = stopPos.first->getID();
+            if (MSGlobals::gUseMesoSim) {
+                stop.edge = stopPos.first->getEdge().getID();
+            } else {
+                stop.lane = stopPos.first->getID();
+            }
             stop.startPos = stopPos.second;
             stop.endPos = stopPos.second + POSITION_EPS;
             if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {

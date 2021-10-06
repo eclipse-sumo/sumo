@@ -24,3 +24,6 @@ multiple_sinks_in_defs__single
 
 # empty flows in input
 flow0
+
+# write named routes
+named-routes

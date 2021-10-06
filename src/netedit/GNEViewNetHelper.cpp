@@ -22,19 +22,18 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEInternalLane.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/foxtools/FXMenuCheckIcon.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
@@ -1011,9 +1010,16 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         const double distanceToShape = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().distance2D(myViewNet->getPositionInformation());
         // get snap radius
         const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-        // check if we clicked over TAZ
-        if (distanceToShape <= snap_radius) {
-            // get move operation
+        // get center radius
+        const double centerRadius = snap_radius * myViewNet->myObjectsUnderCursor.getTAZFront()->getExaggeration(myViewNet->getVisualisationSettings());
+        // check if we clicked over TAZ or center
+        if (!myViewNet->myObjectsUnderCursor.getTAZFront()->getAttribute(SUMO_ATTR_CENTER).empty() && 
+            myRelativeClickedPosition.distanceTo2D(myViewNet->myObjectsUnderCursor.getTAZFront()->getAttributePosition(SUMO_ATTR_CENTER)) < centerRadius) {
+            // only move center
+            myMoveOperations.push_back(myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(-1));
+            return true;
+        } else if ((distanceToShape <= snap_radius) || myViewNet->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+            // move shape
             GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(TAZShapeOffset);
             // continue if move operation is valid
             if (moveOperation) {
@@ -1708,9 +1714,9 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
 // GNEViewNetHelper::EditModes - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
+GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet, const bool newNet) :
     currentSupermode(Supermode::NETWORK),
-    networkEditMode(NetworkEditMode::NETWORK_INSPECT),
+    networkEditMode(newNet? NetworkEditMode::NETWORK_CREATE_EDGE : NetworkEditMode::NETWORK_INSPECT),
     demandEditMode(DemandEditMode::DEMAND_INSPECT),
     dataEditMode(DataEditMode::DATA_INSPECT),
     networkButton(nullptr),
@@ -2216,6 +2222,7 @@ GNEViewNetHelper::DemandViewOptions::DemandViewOptions(GNEViewNet* viewNet) :
     menuCheckShowAllContainerPlans(nullptr),
     menuCheckLockContainer(nullptr),
     menuCheckHideNonInspectedDemandElements(nullptr),
+    menuCheckShowOverlappedRoutes(nullptr),
     myViewNet(viewNet),
     myLockedPerson(nullptr),
     myLockedContainer(nullptr) {
@@ -2288,6 +2295,13 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideNonInspectedDemandElements->setChecked(false);
     menuCheckHideNonInspectedDemandElements->create();
 
+    menuCheckShowOverlappedRoutes = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+            ("\t\tToggle show overlapped routes."),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES, GUIDesignMFXCheckableButton);
+    menuCheckShowOverlappedRoutes->setChecked(false);
+    menuCheckShowOverlappedRoutes->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2304,6 +2318,7 @@ GNEViewNetHelper::DemandViewOptions::hideDemandViewOptionsMenuChecks() {
     menuCheckShowAllContainerPlans->hide();
     menuCheckLockContainer->hide();
     menuCheckHideNonInspectedDemandElements->hide();
+    menuCheckShowOverlappedRoutes->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->show();
 }
@@ -2338,6 +2353,9 @@ GNEViewNetHelper::DemandViewOptions::getVisibleDemandMenuCommands(std::vector<MF
     }
     if (menuCheckHideNonInspectedDemandElements->shown()) {
         commands.push_back(menuCheckHideNonInspectedDemandElements);
+    }
+    if (menuCheckShowOverlappedRoutes->shown()) {
+        commands.push_back(menuCheckShowOverlappedRoutes);
     }
 }
 
@@ -2452,6 +2470,16 @@ GNEViewNetHelper::DemandViewOptions::unlockContainer() {
 }
 
 
+bool 
+GNEViewNetHelper::DemandViewOptions::showOverlappedRoutes() const {
+    if (menuCheckShowOverlappedRoutes->isEnabled()) {
+        return (menuCheckShowOverlappedRoutes->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
 const GNEDemandElement*
 GNEViewNetHelper::DemandViewOptions::getLockedContainer() const {
     return myLockedContainer;
@@ -2515,14 +2543,14 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\t\tToggle draw TAZRel only from"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM, GUIDesignMFXCheckableButton);
-    menuCheckToogleTAZRelOnlyFrom->setChecked(false);
+    menuCheckToogleTAZRelOnlyFrom->setChecked(true);
     menuCheckToogleTAZRelOnlyFrom->create();
 
     menuCheckToogleTAZRelOnlyTo = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             ("\t\tToggle draw TAZRel only to"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO, GUIDesignMFXCheckableButton);
-    menuCheckToogleTAZRelOnlyTo->setChecked(false);
+    menuCheckToogleTAZRelOnlyTo->setChecked(true);
     menuCheckToogleTAZRelOnlyTo->create();
 
     // always recalc after creating new elements
@@ -3594,30 +3622,30 @@ GNEViewNetHelper::LockManager::updateFlags() {
     // get lock menu commands
     GNEApplicationWindowHelper::LockMenuCommands& lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
     // network
-    myLockedElements[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunction->getCheck();
-    myLockedElements[GLO_EDGE].lock = lockMenuCommands.menuCheckLockEdges->getCheck();
-    myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck();
-    myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck();
-    myLockedElements[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck();
-    myLockedElements[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck();
-    myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck();
-    myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck();
-    myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck();
+    myLockedElements[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunction->getCheck() == TRUE;
+    myLockedElements[GLO_EDGE].lock = lockMenuCommands.menuCheckLockEdges->getCheck() == TRUE;
+    myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck() == TRUE;
+    myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck() == TRUE;
+    myLockedElements[GLO_CROSSING].lock = lockMenuCommands.menuCheckLockCrossings->getCheck() == TRUE;
+    myLockedElements[GLO_ADDITIONALELEMENT].lock = lockMenuCommands.menuCheckLockAdditionals->getCheck() == TRUE;
+    myLockedElements[GLO_TAZ].lock = lockMenuCommands.menuCheckLockTAZs->getCheck() == TRUE;
+    myLockedElements[GLO_POLYGON].lock = lockMenuCommands.menuCheckLockPolygons->getCheck() == TRUE;
+    myLockedElements[GLO_POI].lock = lockMenuCommands.menuCheckLockPOIs->getCheck() == TRUE;
     // demand
-    myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck();
-    myLockedElements[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck();
-    myLockedElements[GLO_PERSON].lock = lockMenuCommands.menuCheckLockPersons->getCheck();
-    myLockedElements[GLO_PERSONTRIP].lock = lockMenuCommands.menuCheckLockPersonTrip->getCheck();
-    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockWalk->getCheck();
-    myLockedElements[GLO_RIDE].lock = lockMenuCommands.menuCheckLockRides->getCheck();
-    myLockedElements[GLO_CONTAINER].lock = lockMenuCommands.menuCheckLockContainers->getCheck();
-    myLockedElements[GLO_TRANSPORT].lock = lockMenuCommands.menuCheckLockTransports->getCheck();
-    myLockedElements[GLO_TRANSHIP].lock = lockMenuCommands.menuCheckLockTranships->getCheck();
-    myLockedElements[GLO_STOP].lock = lockMenuCommands.menuCheckLockStops->getCheck();
+    myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck() == TRUE;
+    myLockedElements[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck() == TRUE;
+    myLockedElements[GLO_PERSON].lock = lockMenuCommands.menuCheckLockPersons->getCheck() == TRUE;
+    myLockedElements[GLO_PERSONTRIP].lock = lockMenuCommands.menuCheckLockPersonTrip->getCheck() == TRUE;
+    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockWalk->getCheck() == TRUE;
+    myLockedElements[GLO_RIDE].lock = lockMenuCommands.menuCheckLockRides->getCheck() == TRUE;
+    myLockedElements[GLO_CONTAINER].lock = lockMenuCommands.menuCheckLockContainers->getCheck() == TRUE;
+    myLockedElements[GLO_TRANSPORT].lock = lockMenuCommands.menuCheckLockTransports->getCheck() == TRUE;
+    myLockedElements[GLO_TRANSHIP].lock = lockMenuCommands.menuCheckLockTranships->getCheck() == TRUE;
+    myLockedElements[GLO_STOP].lock = lockMenuCommands.menuCheckLockStops->getCheck() == TRUE;
     // data
-    myLockedElements[GLO_EDGEDATA].lock = lockMenuCommands.menuCheckLockEdgeDatas->getCheck();
-    myLockedElements[GLO_EDGERELDATA].lock = lockMenuCommands.menuCheckLockEdgeRelDatas->getCheck();
-    myLockedElements[GLO_TAZRELDATA].lock = lockMenuCommands.menuCheckLockEdgeTAZRels->getCheck();
+    myLockedElements[GLO_EDGEDATA].lock = lockMenuCommands.menuCheckLockEdgeDatas->getCheck() == TRUE;
+    myLockedElements[GLO_EDGERELDATA].lock = lockMenuCommands.menuCheckLockEdgeRelDatas->getCheck() == TRUE;
+    myLockedElements[GLO_TAZRELDATA].lock = lockMenuCommands.menuCheckLockEdgeTAZRels->getCheck() == TRUE;
 }
 
 

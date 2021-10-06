@@ -3100,7 +3100,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
                 // Upcoming junction
                 const MSJunction* junction;
                 if (isOpposite) {
-                    junction = lane->getOpposite()->getEdge().getToJunction();
+                    junction = lane->getParallelOpposite()->getEdge().getToJunction();
                 } else {
                     junction = lane->getEdge().getToJunction();
                 }
@@ -3112,7 +3112,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
                 if (isOpposite && link == nullptr) {
                     link = nextNonInternalLane->getLinkTo(lane);
                     if (link == nullptr) {
-                        link = lane->getOpposite()->getLinkTo(nextNonInternalLane);
+                        link = lane->getParallelOpposite()->getLinkTo(nextNonInternalLane);
                     }
                 }
                 if (link == nullptr) {

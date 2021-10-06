@@ -83,11 +83,27 @@ RORoute::addProbability(double prob) {
 }
 
 
+ConstROEdgeVector
+RORoute::getNormalEdges() const {
+    ConstROEdgeVector tempRoute;
+    for (const ROEdge* roe : myRoute) {
+        if (!roe->isInternal() && !roe->isTazConnector()) {
+            tempRoute.push_back(roe);
+        }
+    }
+    return tempRoute;
+}
+
+
 OutputDevice&
 RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                             const bool withCosts,
-                            const bool withExitTimes) const {
+                            const bool withExitTimes,
+                            const std::string& id) const {
     dev.openTag(SUMO_TAG_ROUTE);
+    if (id != "") {
+        dev.writeAttr(SUMO_ATTR_ID, id);
+    }
     if (withCosts) {
         dev.writeAttr(SUMO_ATTR_COST, myCosts);
         dev.setPrecision(8);
@@ -97,13 +113,7 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (myColor != nullptr) {
         dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
     }
-    ConstROEdgeVector tempRoute;
-    for (const ROEdge* roe : myRoute) {
-        if (!roe->isInternal() && !roe->isTazConnector()) {
-            tempRoute.push_back(roe);
-        }
-    }
-    dev.writeAttr(SUMO_ATTR_EDGES, tempRoute);
+    dev.writeAttr(SUMO_ATTR_EDGES, getNormalEdges());
     if (withExitTimes) {
         std::vector<double> exitTimes;
         double time = STEPS2TIME(veh->getDepartureTime());

@@ -61,12 +61,6 @@ GNEShape::getGUIGlObject() {
 }
 
 
-Position
-GNEShape::getPositionInView() const {
-    return myBoundary.getCenter();
-}
-
-
 Boundary
 GNEShape::getCenteringBoundary() const {
     return myBoundary;
@@ -100,6 +94,15 @@ GNEShape::getHierarchyName() const {
 void
 GNEShape::replaceShapeParentLanes(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
+}
+
+
+void 
+GNEShape::shiftLaneIndex() {
+    // get new lane parent vector
+    std::vector<GNELane*> newLane = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};
+    // replace parent elements
+    replaceParentElements(this, newLane);
 }
 
 

@@ -45,6 +45,10 @@ class OutputDevice;
  * @brief A single mesoscopic segment (cell)
  */
 class MESegment : public Named {
+public:
+    static const double DO_NOT_PATCH_JAM_THRESHOLD;
+    static const int PARKING_QUEUE = -1;
+
 private:
     class Queue {
     public:
@@ -431,8 +435,6 @@ public:
     inline SUMOTime getMinimumHeadwayTime() const {
         return myTau_ff;
     }
-
-    static const double DO_NOT_PATCH_JAM_THRESHOLD;
 
     /// @brief add this lanes MoveReminders to the given vehicle
     void addReminders(MEVehicle* veh) const;

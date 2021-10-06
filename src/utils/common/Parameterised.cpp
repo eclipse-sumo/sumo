@@ -95,6 +95,27 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
 }
 
 
+std::vector<double>
+Parameterised::getDoubles(const std::string& key, std::vector<double> defaultValue) const {
+    const auto i = myMap.find(key);
+    if (i != myMap.end()) {
+        try {
+            std::vector<double> result;
+            for (const std::string& s : StringTokenizer(i->second).getVector()) {
+                result.push_back(StringUtils::toDouble(s));
+            }
+            return result;
+        } catch (NumberFormatException&) {
+            WRITE_WARNING("Invalid conversion from string to doubles (" + i->second + ")");
+            return defaultValue;
+        } catch (EmptyData&) {
+            WRITE_WARNING("Invalid conversion from string to doubles (empty value)");
+            return defaultValue;
+        }
+    }
+    return defaultValue;
+}
+
 void
 Parameterised::clearParameter() {
     myMap.clear();

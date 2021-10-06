@@ -172,7 +172,7 @@ protected:
     std::vector<std::string> myVTypes;
 
     /// @brief extra calibrator geometries
-    std::vector<GNEGeometry::Geometry> myEdgeCalibratorGeometries;
+    std::vector<GUIGeometry> myEdgeCalibratorGeometries;
 
 private:
     /// @brief draw calibrator symbol

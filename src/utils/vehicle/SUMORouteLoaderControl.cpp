@@ -75,6 +75,9 @@ SUMORouteLoaderControl::loadNext(SUMOTime step) {
         }
         furtherAvailable |= loader->moreAvailable();
     }
+    if (myFirstLoadTime == SUMOTime_MAX) {
+        myFirstLoadTime = 0;
+    }
     myAllLoaded = !furtherAvailable;
 }
 

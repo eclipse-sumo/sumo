@@ -210,7 +210,7 @@ class CreateVehTypeDistribution:
         """
         if seed:
             random.seed(seed)
-        
+
         self.size = size
         self.name = name
         self.resampling = resampling

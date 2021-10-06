@@ -176,7 +176,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = nullptr;
     if (func == SumoXMLEdgeFunc::INTERNAL || func == SumoXMLEdgeFunc::CROSSING || func == SumoXMLEdgeFunc::WALKINGAREA) {
         assert(myCurrentName[0] == ':');
-        const std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
+        const std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentName);
         from = junctionID;
         to = junctionID;
         priority = 0;
@@ -311,7 +311,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
         from->addSuccessor(to, nullptr, dir);
     }  else {
-        ROEdge* const via = myNet.getEdge(viaID.substr(0, viaID.rfind('_')));
+        ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {
             throw ProcessError("unknown via-edge '" + viaID + "' in connection");
         }

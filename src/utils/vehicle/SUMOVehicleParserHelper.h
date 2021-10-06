@@ -179,7 +179,7 @@ private:
      * @param[in] element The name of the element (vehicle or flow)
      * @exception ProcessError If an attribute's value is invalid
      */
-    static void parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, std::string element);
+    static void parseCommonAttributes(const SUMOSAXAttributes& attrs, SUMOVehicleParameter* ret, SumoXMLTag tag);
 
     /// @brief handle error loading SUMOVehicleParameter
     static SUMOVehicleParameter* handleVehicleError(const bool hardFail, SUMOVehicleParameter* vehicleParameter, const std::string message = "");

@@ -59,6 +59,9 @@ public:
     /// @brief destructor
     virtual ~GUIViewTraffic();
 
+    /// @brief recalculate boundaries
+    void recalculateBoundaries();
+
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*);
 

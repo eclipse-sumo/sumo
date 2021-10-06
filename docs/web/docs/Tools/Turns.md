@@ -20,7 +20,8 @@ There are three basic styles of converting turn-counts to routes:
 The turn-count data must be provided in the format:
 
 ```xml
-<interval id="generated" begin="0.0" end="99.0">
+<data>
+  <interval id="generated" begin="0.0" end="99.0">
     <edgeRelation from="-58.121.42" to="64" count="1"/>
     <edgeRelation from="-58.121.42" to="-31" count="3"/>
     <edgeRelation from="45" to="-68" count="3"/>
@@ -28,12 +29,13 @@ The turn-count data must be provided in the format:
     <edgeRelation from="-31.80.00" to="37" count="1"/>
     <edgeRelation from="-31.80.00" to="-23" count="13"/>
     <edgeRelation from="-92.180.00" to="-60" count="1"/>
-</interval>
+  </interval>
+</data>
 ```
 
 # routeSampler.py
 The script generates routes from *any combination* of turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
-the resulting routes fulfill the counting data
+the resulting routes fulfill the counting data.
 
 ## turn counts
 The turn-count data format is the same as as described [above](#turn_count_data_format).
@@ -75,6 +77,9 @@ Example:
 python tools/randomTrips.py -n <input-net-file> -r sampleRoutes.rou.xml
 python tools/routeSampler.py -r sampleRoutes.rou.xml --edgedata-files <edgedata-files> -o <output-file>
 ```
+
+!!! note
+    departure times in route files are ignored and only the `<route>`-elements are used. Route with named routes but without vehicles may also be used.
 
 ## Generalized route restrictions
 By default, the input options --edgedata-files and --turn-files allow restricting counts for single edges and pairs of consecutive edges. 

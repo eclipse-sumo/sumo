@@ -51,13 +51,13 @@ def main(options):
     else:
         net = sumolib.net.readNet(options.net_file)
     count = 0
-    fleet_out = io.open(options.fleet_file, "w") if options.fleet_file else None
+    fleet_out = io.open(options.fleet_file, "w", encoding="UTF8") if options.fleet_file else None
     if fleet_out:
         sumolib.xml.writeHeader(fleet_out, root="additional")
-        print("""     <vType id="taxi" vClass="taxi">
+        print(u"""     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
     </vType>""", file=fleet_out)
-    with io.open(options.output_file, "w") as output:
+    with io.open(options.output_file, "w", encoding="UTF8") as output:
         sumolib.xml.writeHeader(output, root="additional")
         for n in sumolib.xml.parse(options.osm_file, "node"):
             name = None
@@ -75,7 +75,8 @@ def main(options):
                         name = t.v
                     if t.k == "amenity" and t.v == "taxi":
                         point = net.convertLonLat2XY(float(n.lon), float(n.lat))
-                        for lane, _ in sorted(net.getNeighboringLanes(*point, r=options.radius), key=lambda i: i[1]):
+                        candidates = net.getNeighboringLanes(*point, r=options.radius, includeJunctions=False)
+                        for lane, _ in sorted(candidates, key=lambda i: i[1]):
                             if lane.getLength() > options.length and lane.allows(options.vclass):
                                 bestLane = lane
                                 break
@@ -84,12 +85,12 @@ def main(options):
                     endPos = min(lane.getLength(), max(length, pos + length / 2))
                     nameAttr = 'name="%s" ' % name if name else ""
                     stopID = "%s_%s" % (options.type, count)
-                    print('    <%s id="%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
+                    print(u'    <%s id="%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
                           (options.type, stopID, nameAttr, bestLane.getID(), endPos - length, endPos),
                           file=output)
                     if fleet_out:
                         for idx in range(int(length / VEHICLE_LENGTH)):
-                            print('    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %  # noqa
+                            print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %  # noqa
                                   (stopID, idx, stopID), file=fleet_out)
                     count += 1
         print(u"</additional>", file=output)

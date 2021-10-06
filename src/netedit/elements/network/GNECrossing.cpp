@@ -246,9 +246,14 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // color
                 const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, darkerColor, 
+                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale, 
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint
-                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor,
+                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                }
             }
             // pop layer matrix
             GLHelper::popMatrix();
@@ -261,12 +266,12 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn (not useful at high zoom)
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, 
                                                 selectionScale, true, true);
         }
         // check if dotted contour has to be drawn (not useful at high zoom)
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myCrossingGeometry.getShape(), halfWidth, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myCrossingGeometry.getShape(), halfWidth, 
                                                 selectionScale, true, true);
         }
     }
@@ -316,6 +321,12 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     }
     return ret;
+}
+
+
+double 
+GNECrossing::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
 }
 
 

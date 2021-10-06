@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-10-01 10:19:25.875483 by osmTaxiStop.py v1_10_0+1144-5decb889d5b
+  options: -f out.rou.xml -s osm_bbox.osm.xml -o out.add.xml
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+     <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <trip id="taxi_chargingStation_0_0" type="taxi" depart="0.00"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_0_1" type="taxi" depart="0.00"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_1_0" type="taxi" depart="0.00"><stop busStop="chargingStation_1" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_1_1" type="taxi" depart="0.00"><stop busStop="chargingStation_1" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_1_2" type="taxi" depart="0.00"><stop busStop="chargingStation_1" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_1_3" type="taxi" depart="0.00"><stop busStop="chargingStation_1" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_1_4" type="taxi" depart="0.00"><stop busStop="chargingStation_1" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_1_5" type="taxi" depart="0.00"><stop busStop="chargingStation_1" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_2_0" type="taxi" depart="0.00"><stop busStop="chargingStation_2" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_2_1" type="taxi" depart="0.00"><stop busStop="chargingStation_2" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_2_2" type="taxi" depart="0.00"><stop busStop="chargingStation_2" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_2_3" type="taxi" depart="0.00"><stop busStop="chargingStation_2" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_2_4" type="taxi" depart="0.00"><stop busStop="chargingStation_2" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_3_0" type="taxi" depart="0.00"><stop busStop="chargingStation_3" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_3_1" type="taxi" depart="0.00"><stop busStop="chargingStation_3" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_3_2" type="taxi" depart="0.00"><stop busStop="chargingStation_3" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_3_3" type="taxi" depart="0.00"><stop busStop="chargingStation_3" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_3_4" type="taxi" depart="0.00"><stop busStop="chargingStation_3" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_3_5" type="taxi" depart="0.00"><stop busStop="chargingStation_3" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_3_6" type="taxi" depart="0.00"><stop busStop="chargingStation_3" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_4_0" type="taxi" depart="0.00"><stop busStop="chargingStation_4" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_4_1" type="taxi" depart="0.00"><stop busStop="chargingStation_4" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_4_2" type="taxi" depart="0.00"><stop busStop="chargingStation_4" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_4_3" type="taxi" depart="0.00"><stop busStop="chargingStation_4" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_4_4" type="taxi" depart="0.00"><stop busStop="chargingStation_4" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_4_5" type="taxi" depart="0.00"><stop busStop="chargingStation_4" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_4_6" type="taxi" depart="0.00"><stop busStop="chargingStation_4" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_5_0" type="taxi" depart="0.00"><stop busStop="chargingStation_5" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_5_1" type="taxi" depart="0.00"><stop busStop="chargingStation_5" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_6_0" type="taxi" depart="0.00"><stop busStop="chargingStation_6" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_6_1" type="taxi" depart="0.00"><stop busStop="chargingStation_6" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_7_0" type="taxi" depart="0.00"><stop busStop="chargingStation_7" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_7_1" type="taxi" depart="0.00"><stop busStop="chargingStation_7" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_7_2" type="taxi" depart="0.00"><stop busStop="chargingStation_7" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_7_3" type="taxi" depart="0.00"><stop busStop="chargingStation_7" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_0" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_1" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_2" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_3" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_4" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_5" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_6" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_7" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_8" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_9" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_10" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_11" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_12" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_8_13" type="taxi" depart="0.00"><stop busStop="chargingStation_8" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_9_0" type="taxi" depart="0.00"><stop busStop="chargingStation_9" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_9_1" type="taxi" depart="0.00"><stop busStop="chargingStation_9" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_10_0" type="taxi" depart="0.00"><stop busStop="chargingStation_10" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_10_1" type="taxi" depart="0.00"><stop busStop="chargingStation_10" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_10_2" type="taxi" depart="0.00"><stop busStop="chargingStation_10" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_10_3" type="taxi" depart="0.00"><stop busStop="chargingStation_10" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_11_0" type="taxi" depart="0.00"><stop busStop="chargingStation_11" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_11_1" type="taxi" depart="0.00"><stop busStop="chargingStation_11" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_11_2" type="taxi" depart="0.00"><stop busStop="chargingStation_11" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_11_3" type="taxi" depart="0.00"><stop busStop="chargingStation_11" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_11_4" type="taxi" depart="0.00"><stop busStop="chargingStation_11" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_11_5" type="taxi" depart="0.00"><stop busStop="chargingStation_11" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_12_0" type="taxi" depart="0.00"><stop busStop="chargingStation_12" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_12_1" type="taxi" depart="0.00"><stop busStop="chargingStation_12" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_13_0" type="taxi" depart="0.00"><stop busStop="chargingStation_13" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_13_1" type="taxi" depart="0.00"><stop busStop="chargingStation_13" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_14_0" type="taxi" depart="0.00"><stop busStop="chargingStation_14" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_14_1" type="taxi" depart="0.00"><stop busStop="chargingStation_14" triggered="person"/></trip>
+</additional>

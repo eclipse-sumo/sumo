@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 11:38:57 by Eclipse SUMO sumo Version v1_9_1+0238-52dca0e
+<!-- generated on 2021-10-01 21:41:29 by Eclipse SUMO sumo Version v1_10_0+1164-7d4c2ab
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,10 +39,10 @@ SPDX-License-Identifier: EPL-2.0
         <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
         <transport waitingTime="100.00" vehicle="truck0" depart="154.00" arrival="173.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
     </containerinfo>
-    <tripinfo id="truck0" depart="50.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="0.00" arrival="194.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="144.00" routeLength="447.98" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="11.14" rerouteNo="0" devices="vehroute_truck0 tripinfo_truck0 container_truck0" vType="truck" speedFactor="1.00" vaporized=""/>
     <containerinfo id="container1" depart="0.00" type="DEFAULT_CONTAINERTYPE">
         <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
-        <transport waitingTime="196.00" vehicle="truck1" depart="250.00" arrival="269.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
+        <transport waitingTime="196.00" vehicle="truck1" depart="250.00" arrival="270.00" arrivalPos="60.00" duration="20.00" routeLength="190.08" timeLoss="6.33"/>
     </containerinfo>
-    <tripinfo id="truck1" depart="55.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="5.00" arrival="290.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="235.00" routeLength="447.98" waitingTime="88.00" waitingCount="1" stopTime="100.00" timeLoss="102.14" rerouteNo="0" devices="vehroute_truck1 tripinfo_truck1 container_truck1" vType="truck" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="truck0" depart="50.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="0.00" arrival="274.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="224.00" routeLength="447.98" waitingTime="0.00" waitingCount="0" stopTime="180.00" timeLoss="11.14" rerouteNo="0" devices="vehroute_truck0 tripinfo_truck0 container_truck0" vType="truck" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="truck1" depart="55.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="5.00" arrival="371.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="316.00" routeLength="447.98" waitingTime="88.00" waitingCount="1" stopTime="180.00" timeLoss="103.14" rerouteNo="0" devices="vehroute_truck1 tripinfo_truck1 container_truck1" vType="truck" speedFactor="1.00" vaporized=""/>
 </tripinfos>

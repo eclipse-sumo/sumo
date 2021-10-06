@@ -91,7 +91,7 @@ GNEParkingArea::updateGeometry() {
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
+    const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
@@ -110,8 +110,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
             } else {
-                baseColor = s.stoppingPlaceSettings.parkingAreaColor;
-                signColor = s.stoppingPlaceSettings.parkingAreaColorSign;
+                baseColor = s.colorSettings.parkingAreaColor;
+                signColor = s.colorSettings.parkingAreaColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
@@ -119,10 +119,12 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_AREA);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, myWidth * 0.5 * parkingAreaExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, myWidth * 0.5 * parkingAreaExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, parkingAreaExaggeration)) {
                 // draw sign
@@ -142,11 +144,11 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
                                                     parkingAreaExaggeration, true, true);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
                                                     parkingAreaExaggeration, true, true);
             }
             // draw child spaces
@@ -207,6 +209,8 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -228,7 +232,7 @@ GNEParkingArea::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
             }
-        case GNE_ATTR_CENTER:
+        case SUMO_ATTR_CENTER:
             return ((getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getAttributeDouble(SUMO_ATTR_STARTPOS);
         case SUMO_ATTR_WIDTH:
             return myWidth;
@@ -247,9 +251,6 @@ GNEParkingArea::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -265,6 +266,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ANGLE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -439,6 +441,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

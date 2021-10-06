@@ -419,19 +419,31 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXTabItem(tabbook, "Additional", nullptr, GUIDesignViewSettingsTabItemBook1);
         FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
         FXVerticalFrame* frame5 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m51 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddNamePanel = new NamePanel(m51, this, "Show object id", mySettings->addName);
-        myAddFullNamePanel = new NamePanel(m51, this, "Show full name", mySettings->addFullName);
+        // IDs
+        FXMatrix* additionalMatrix = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
+        myAddNamePanel = new NamePanel(additionalMatrix, this, "Show object id", mySettings->addName);
+        myAddFullNamePanel = new NamePanel(additionalMatrix, this, "Show full name", mySettings->addFullName);
         new FXHorizontalSeparator(frame5, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m52 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddSizePanel = new SizePanel(m52, this, mySettings->addSize);
-
-        /*
-        new FXLabel(m522, "Color", 0, GUIDesignViewSettingsLabel1);
-        myDetectorNameColor = new FXColorWell(m522, MFXUtils::getFXColor(settings->addNameColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell3);
-        */
+        //Sizes
+        additionalMatrix = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
+        myAddSizePanel = new SizePanel(additionalMatrix, this, mySettings->addSize);
+        // color
+        additionalMatrix = new FXMatrix(frame5, 3, GUIDesignMatrixViewSettings);
+        new FXLabel(additionalMatrix, "StoppingPlace", nullptr, GUIDesignViewSettingsLabel1);
+        new FXLabel(additionalMatrix, "body", nullptr, GUIDesignViewSettingsLabel1);
+        new FXLabel(additionalMatrix, "sign", nullptr, GUIDesignViewSettingsLabel1);
+        new FXLabel(additionalMatrix, "busStops", nullptr, GUIDesignViewSettingsLabel1);
+        myBusStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.busStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        myBusStopColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.busStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(additionalMatrix, "trainStops", nullptr, GUIDesignViewSettingsLabel1);
+        myTrainStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.trainStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        myTrainStopColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.trainStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(additionalMatrix, "containerStops", nullptr, GUIDesignViewSettingsLabel1);
+        myContainerStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.containerStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        myContainerStopColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.containerStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(additionalMatrix, "chargingStations", nullptr, GUIDesignViewSettingsLabel1);
+        myChargingStationColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.chargingStationColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        myChargingStationColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(settings->colorSettings.chargingStationColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     }
     {
         // POIs
@@ -541,17 +553,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myDataParamKey->disable();
         myDataParamKey->setEditable(true);
-
         mySettings->dataColorer.fill(*myDataColorMode);
         myDataColorMode->setNumVisible((int)mySettings->dataColorer.size());
 
         // rainbow settings
-        //FXMatrix* m114 = new FXMatrix(frame112, 3, GUIDesignViewSettingsMatrix3);
-        //myLaneColorRainbow = new FXButton(m114, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-        //                                  (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-        //myLaneColorRainbowCheck = new FXCheckButton(m114, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        //myLaneColorRainbowThreshold = new FXRealSpinner(m114, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-        //myLaneColorRainbowThreshold->setRange(-100000, 100000);
+        FXMatrix* m113 = new FXMatrix(frame112, 3, GUIDesignViewSettingsMatrix3);
+        myDataColorRainbow = new FXButton(m113, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+        myDataColorRainbowCheck = new FXCheckButton(m113, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+        myDataColorRainbowThreshold = new FXRealSpinner(m113, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+        myDataColorRainbowThreshold->setRange(-100000000, 100000000);
 
         new FXHorizontalSeparator(frame11, GUIDesignHorizontalSeparator);
         FXMatrix* m112 = new FXMatrix(frame11, 2, GUIDesignViewSettingsMatrix1);
@@ -607,6 +618,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m86 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
         myForceDrawForRectangleSelection = new FXCheckButton(m86, "Force draw for rectangle selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
+        FXMatrix* m87 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
+        myRecalculateBoundaries = new FXButton(m87, "Recalcule boundaries", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                    (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     }
     FXHorizontalFrame* f2 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
     FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
@@ -708,6 +722,16 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     rebuildColorMatrices(true);
 
     myBackgroundColor->setRGBA(MFXUtils::getFXColor(mySettings->backgroundColor));
+
+    myBusStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.busStopColor));
+    myBusStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.busStopColorSign));
+    myTrainStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.trainStopColor));
+    myTrainStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.trainStopColorSign));
+    myContainerStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.containerStopColor));
+    myContainerStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.containerStopColorSign));
+    myChargingStationColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColor));
+    myChargingStationColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign));
+
     if (mySettings->netedit) {
         mySelectionColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectionColor));
         mySelectedEdgeColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeColor));
@@ -726,6 +750,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
         myDataColorMode->setCurrentItem((FXint) mySettings->dataColorer.getActive());
         myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
         myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
+        myDataColorRainbowCheck->setCheck(mySettings->dataValueHideCheck);
+        myDataColorRainbowThreshold->setValue(mySettings->dataValueHideThreshold);
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -929,6 +955,17 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     tmpSettings.name = mySettings->name;
     tmpSettings.backgroundColor = MFXUtils::getRGBColor(myBackgroundColor->getRGBA());
+
+    // additionals
+    tmpSettings.colorSettings.busStopColor = MFXUtils::getRGBColor(myBusStopColor->getRGBA());
+    tmpSettings.colorSettings.busStopColorSign = MFXUtils::getRGBColor(myBusStopColorSign->getRGBA());
+    tmpSettings.colorSettings.trainStopColor = MFXUtils::getRGBColor(myTrainStopColor->getRGBA());
+    tmpSettings.colorSettings.trainStopColorSign = MFXUtils::getRGBColor(myTrainStopColorSign->getRGBA());
+    tmpSettings.colorSettings.containerStopColor = MFXUtils::getRGBColor(myContainerStopColor->getRGBA());
+    tmpSettings.colorSettings.containerStopColorSign = MFXUtils::getRGBColor(myContainerStopColorSign->getRGBA());
+    tmpSettings.colorSettings.chargingStationColor = MFXUtils::getRGBColor(myChargingStationColor->getRGBA());
+    tmpSettings.colorSettings.chargingStationColorSign = MFXUtils::getRGBColor(myChargingStationColorSign->getRGBA());
+    
     if (mySettings->netedit) {
         tmpSettings.colorSettings.selectionColor = MFXUtils::getRGBColor(mySelectionColor->getRGBA());
         tmpSettings.colorSettings.selectedEdgeColor = MFXUtils::getRGBColor(mySelectedEdgeColor->getRGBA());
@@ -1058,6 +1095,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.dataValue = myDataValuePanel->getSettings();
         tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
         tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
+        tmpSettings.dataValueHideCheck = (myDataColorRainbowCheck->getCheck() != FALSE);
+        tmpSettings.dataValueHideThreshold = myDataColorRainbowThreshold->getValue();
     }
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
@@ -1077,9 +1116,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
                                     myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
-    }
-    if (sender == myJunctionColorRainbow) {
+    } else if (sender == myJunctionColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
+        doRebuildColorMatrices = true;
+    } else if (sender == myDataColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
+                                    myDataColorRainbowCheck->getCheck() != FALSE, myDataColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
@@ -1208,6 +1250,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         } else {
             doRebuildColorMatrices = true;
         }
+    }
+    // openGL
+    if (sender == myRecalculateBoundaries) {
+        myParent->recalculateBoundaries();
     }
 
     if (tmpSettings == *mySettings) {
@@ -1799,6 +1845,11 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             myDataParamKey->clearItems();
             myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
+            for (const std::string& attr : myParent->getRelDataAttrs()) {
+                if (attr != mySettings->relDataAttr) {
+                    myDataParamKey->appendItem(attr.c_str());
+                }
+            }
             myDataParamKey->enable();
         } else {
             myDataParamKey->disable();

@@ -92,6 +92,9 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -147,7 +150,7 @@ protected:
     std::vector<NBEdge*> myCrossingEdges;
 
     /// @brief crossing geometry
-    GNEGeometry::Geometry myCrossingGeometry;
+    GUIGeometry myCrossingGeometry;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

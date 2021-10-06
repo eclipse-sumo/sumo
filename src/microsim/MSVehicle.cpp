@@ -1175,7 +1175,7 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
     auto nextBestLane = bestLanes.begin();
     const bool opposite = myLaneChangeModel->isOpposite();
     double pos = opposite ? myLane->getLength() - myState.myPos : myState.myPos;
-    const MSLane* lane = opposite ? myLane->getOpposite() : getLane();
+    const MSLane* lane = opposite ? myLane->getParallelOpposite() : getLane();
     assert(lane != 0);
     bool success = true;
 
@@ -2058,7 +2058,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     bool slowedDownForMinor = false; // whether the vehicle already had to slow down on approach to a minor link
     double mustSeeBeforeReversal = 0;
     // iterator over subsequent lanes and fill lfLinks until stopping distance or stopped
-    const MSLane* lane = opposite ? myLane->getOpposite() : myLane;
+    const MSLane* lane = opposite ? myLane->getParallelOpposite() : myLane;
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
 #ifdef PARALLEL_STOPWATCH
@@ -2181,7 +2181,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         // process stops
-        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()
+        if (!myStops.empty()
+                && ((&myStops.begin()->lane->getEdge() == &lane->getEdge())
+                    || (myStops.begin()->isOpposite && myStops.begin()->lane->getEdge().getOppositeEdge() == &lane->getEdge()))
                 && (!myStops.begin()->reached || (myStops.begin()->pars.speed > 0 && keepStopping()))
                 // ignore stops that occur later in a looped route
                 && myStops.front().edge == myCurrEdge + view) {
@@ -2298,7 +2300,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     && (myLaneChangeModel->getShadowLane() == nullptr
                         || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
                         || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane()))
-                || (opposite && (*link)->getViaLaneOrLane()->getOpposite() == nullptr)) {
+                || (opposite && (*link)->getViaLaneOrLane()->getParallelOpposite() == nullptr)) {
             double va = cfModel.stopSpeed(this, getSpeed(), seen);
             if (lastLink != nullptr) {
                 lastLink->adaptLeaveSpeed(va);
@@ -2614,7 +2616,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             seenNonInternal += lane->getLength();
         }
         // do not restrict results to the current vehicle to allow caching for the current time step
-        leaderLane = opposite ? lane->getOpposite() : lane;
+        leaderLane = opposite ? lane->getParallelOpposite() : lane;
         if (leaderLane == nullptr) {
 
             break;
@@ -3938,6 +3940,13 @@ MSVehicle::executeMove() {
     updateWaitingTime(vNext);
 
     // update position and speed
+    int oldLaneIndex = myLane->getIndex();
+    const MSLane* oldLaneMaybeOpposite = myLane;
+    if (myLaneChangeModel->isOpposite()) {
+        // transform to the forward-direction lane, move and then transform back
+        myState.myPos = myLane->getOppositePos(myState.myPos);
+        myLane = myLane->getParallelOpposite();
+    }
     updateState(vNext);
 
     // Lanes, which the vehicle touched at some moment of the executed simstep
@@ -4014,14 +4023,20 @@ MSVehicle::executeMove() {
 #endif
     if (myLaneChangeModel->isOpposite()) {
         // transform back to the opposite-direction lane
-        if (myLane->getOpposite() == nullptr) {
+        MSLane* newOpposite = nullptr;
+        const MSEdge* newOppositeEdge = myLane->getEdge().getOppositeEdge();
+        if (newOppositeEdge != nullptr && oldLaneIndex < newOppositeEdge->getNumLanes()) {
+            newOpposite = newOppositeEdge->getLanes()[oldLaneIndex];
+        }
+        if (newOpposite == nullptr) {
             WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             myLaneChangeModel->changedToOpposite();
         } else {
             myState.myPos = myLane->getOppositePos(myState.myPos);
-            myLane = myLane->getOpposite();
-            oldLane = oldLane->getOpposite();
+            myLane = newOpposite;
+            oldLane = oldLaneMaybeOpposite;
+            //std::cout << SIMTIME << " updated myLane=" << Named::getIDSecure(myLane) << " oldLane=" << oldLane->getID() << "\n";
             myCachedPosition = Position::INVALID;
             myLaneChangeModel->updateShadowLane();
         }
@@ -4118,11 +4133,6 @@ MSVehicle::updateState(double vNext) {
         deltaPos = myInfluencer->implicitDeltaPosRemote(this);
     }
 
-    if (myLaneChangeModel->isOpposite()) {
-        // transform to the forward-direction lane, move and then transform back
-        myState.myPos = myLane->getOppositePos(myState.myPos);
-        myLane = myLane->getOpposite();
-    }
     myState.myPos += deltaPos;
     myState.myLastCoveredDist = deltaPos;
     myNextTurn.first -= deltaPos;
@@ -4133,6 +4143,13 @@ MSVehicle::updateState(double vNext) {
 void
 MSVehicle::updateParkingState() {
     updateState(0);
+    // deboard while parked
+    if (myPersonDevice != nullptr) {
+        myPersonDevice->notifyMove(*this, getPositionOnLane(), getPositionOnLane(), 0);
+    }
+    if (myContainerDevice != nullptr) {
+        myContainerDevice->notifyMove(*this, getPositionOnLane(), getPositionOnLane(), 0);
+    }
 }
 
 
@@ -4959,7 +4976,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                                     ? & (startLane->getLinkCont()[0]->getLane()->getEdge()) != *(myCurrEdge + 1)
                                     : &startLane->getEdge() != *myCurrEdge);
         if (startLaneIsOpposite) {
-            startLane = startLane->getOpposite();
+            // use leftmost lane of forward edge
+            startLane = startLane->getEdge().getOppositeEdge()->getLanes().back();
             assert(startLane != 0);
         }
     }
@@ -5056,6 +5074,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     if (!myStops.empty()) {
         const MSStop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
+        if (nextStop.isOpposite) {
+            // target leftmost lane in forward direction
+            nextStopLane = nextStopLane->getEdge().getOppositeEdge()->getLanes().back();
+        }
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
         nextStopIsWaypoint = nextStop.pars.speed > 0;
@@ -5396,7 +5418,7 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
     std::vector<const MSLane*> lanes;
 
     if (distance <= 0.) {
-        WRITE_WARNINGF("MSVehicle::getUpcomingLanesUntil(): distance ('%') should be greater than 0.", distance);
+        // WRITE_WARNINGF("MSVehicle::getUpcomingLanesUntil(): distance ('%') should be greater than 0.", distance);
         return lanes;
     }
 
@@ -5405,7 +5427,7 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
     } else {
         distance += myLane->getOppositePos(getPositionOnLane());
     }
-    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getOpposite() : myLane;
+    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getParallelOpposite() : myLane;
     while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();
@@ -5465,7 +5487,7 @@ MSVehicle::getPastLanesUntil(double distance) const {
     std::vector<const MSLane*> lanes;
 
     if (distance <= 0.) {
-        WRITE_WARNINGF("MSVehicle::getPastLanesUntil(): distance ('%') should be greater than 0.", distance);
+        // WRITE_WARNINGF("MSVehicle::getPastLanesUntil(): distance ('%') should be greater than 0.", distance);
         return lanes;
     }
 
@@ -5473,9 +5495,9 @@ MSVehicle::getPastLanesUntil(double distance) const {
     if (!myLaneChangeModel->isOpposite()) {
         distance += myLane->getLength() - getPositionOnLane();
     } else {
-        distance += myLane->getOpposite()->getLength() - myLane->getOppositePos(getPositionOnLane());
+        distance += myLane->getParallelOpposite()->getLength() - myLane->getOppositePos(getPositionOnLane());
     }
-    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getOpposite() : myLane;
+    MSLane* lane = myLaneChangeModel->isOpposite() ? myLane->getParallelOpposite() : myLane;
     while (lane->isInternal() && (distance > 0.)) {  // include initial internal lanes
         lanes.insert(lanes.end(), lane);
         distance -= lane->getLength();
@@ -5792,7 +5814,7 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
     assert(lane != 0);
     if (&lane->getEdge() == &myLane->getEdge()) {
         return myLane->getRightSideOnEdge() - lane->getRightSideOnEdge();
-    } else if (myLane->getOpposite() == lane) {
+    } else if (myLane->getParallelOpposite() == lane) {
         return (myLane->getWidth() + lane->getWidth()) * 0.5 - 2 * getLateralPositionOnLane();
     } else {
         // Check whether the lane is a further lane for the vehicle
@@ -5864,7 +5886,7 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
     // (ensure we do not lap into the line behind neighLane since there might be unseen blockers)
     assert(offset == 0 || offset == 1 || offset == -1);
     assert(myLane != nullptr);
-    assert(myLane->getParallelLane(offset) != nullptr || myLane->getOpposite() != nullptr);
+    assert(myLane->getParallelLane(offset) != nullptr || myLane->getParallelOpposite() != nullptr);
     const double halfCurrentLaneWidth = 0.5 * myLane->getWidth();
     const double halfVehWidth = 0.5 * (getWidth() + NUMERICAL_EPS);
     const double latPos = getLateralPositionOnLane();

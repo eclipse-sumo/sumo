@@ -102,7 +102,7 @@ GNEDetectorE1Instant::updateGeometry() {
 void
 GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double E1InstantExaggeration = s.addSize.getExaggeration(s, this);
+    const double E1InstantExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
@@ -127,6 +127,8 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw E1Instant shape
             drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
             // Check if the distance is enought to draw details
@@ -142,10 +144,10 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
         }
         // Draw additional ID
@@ -177,6 +179,8 @@ GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -196,9 +200,6 @@ GNEDetectorE1Instant::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -209,6 +210,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -295,6 +297,9 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

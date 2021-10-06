@@ -27,6 +27,7 @@
 #include <cassert>
 #include <utils/common/StringBijection.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 
 #include "SUMOXMLDefinitions.h"
 
@@ -363,6 +364,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "idBefore",               SUMO_ATTR_ID_BEFORE },
     { "idAfter",                SUMO_ATTR_ID_AFTER },
     // Positions
+    { "center",                 SUMO_ATTR_CENTER },
     { "centerX",                SUMO_ATTR_CENTER_X },
     { "centerY",                SUMO_ATTR_CENTER_Y },
     { "centerZ",                SUMO_ATTR_CENTER_Z },
@@ -860,7 +862,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
     { "toContainerStop",                    GNE_ATTR_TO_CONTAINERSTOP },
     { "opposite",                           GNE_ATTR_OPPOSITE },
-    { "center",                             GNE_ATTR_CENTER },
+    { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
@@ -951,12 +953,14 @@ StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializ
 };
 
 StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializer[] = {
-    {"none",    PersonMode::NONE},
-    {"walk",    PersonMode::WALK},
-    {"bicycle", PersonMode::BICYCLE },
-    {"car",     PersonMode::CAR },
-    {"taxi",    PersonMode::TAXI },
-    {"public",  PersonMode::PUBLIC} // (must be the last one)
+    {"none",         PersonMode::NONE},
+    {"walkForward",  PersonMode::WALK_FORWARD},
+    {"walkBackward", PersonMode::WALK_BACKWARD},
+    {"walk",         PersonMode::WALK},
+    {"bicycle",      PersonMode::BICYCLE },
+    {"car",          PersonMode::CAR },
+    {"taxi",         PersonMode::TAXI },
+    {"public",       PersonMode::PUBLIC} // (must be the last one)
 };
 
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
@@ -1149,6 +1153,11 @@ SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge
 std::string
 SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
     return laneID.substr(0, laneID.rfind('_'));
+}
+
+int
+SUMOXMLDefinitions::getIndexFromLane(const std::string laneID) {
+    return StringUtils::toInt(laneID.substr(laneID.rfind('_') + 1));
 }
 
 

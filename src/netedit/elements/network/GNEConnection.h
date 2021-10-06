@@ -113,6 +113,9 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -173,7 +176,7 @@ protected:
     const RGBColor* mySpecialColor;
 
     /// @brief connection geometry
-    GNEGeometry::Geometry myConnectionGeometry;
+    GUIGeometry myConnectionGeometry;
 
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;

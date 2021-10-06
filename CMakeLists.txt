@@ -423,6 +423,8 @@ if (DATA_PATH)
     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
 endif ()
 
+install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
+
 if (NOT ${SETUPTOOLS_MISSING})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
             COMPONENT pysumolib)
@@ -436,7 +438,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     # copy common dlls
     foreach(DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
-        message(STATUS "DLL ${DLL}")
+#        message(STATUS "DLL ${DLL}")
         get_filename_component(DLL_BASENAME ${DLL} NAME)
         set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
         list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
@@ -459,13 +461,13 @@ if (SUMO_LIBRARIES AND WIN32)
         set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_DLL_BASENAME})
         add_custom_command(OUTPUT ${OSG_TARGET}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
-                           DEPENDS ${OSG_PATH})
+                           DEPENDS ${OSG_DLL})
     endif (HAVE_OSG)
     # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
     set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
     add_custom_command(OUTPUT ${PROJ_DATA}
                        COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
-                       DEPENDS ${PROJ_PATH})
+                       DEPENDS ${PROJ_PATH}/share/proj/proj.db)
     install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
     # set install_dll target
     add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
@@ -642,7 +644,7 @@ if (GIT_FOUND)
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         COMMAND unzip -q sumo-src-${PACKAGE_VERSION}.zip
         COMMAND cd sumo-${PACKAGE_VERSION} && mkdir _cmake_build _cmake_install && cd _cmake_build
-                && cmake -DCMAKE_INSTALL_PREFIX=../_cmake_install .. || (echo "ERROR: the cmake configuration failed." && false)
+                && cmake -DCMAKE_INSTALL_PREFIX=../_cmake_install -DCHECK_OPTIONAL_LIBS=${CHECK_OPTIONAL_LIBS} .. || (echo "ERROR: the cmake configuration failed." && false)
                 && make -j8 || (echo "ERROR: the compilation failed." && false)
                 && make test || (echo "ERROR: the test suite failed." && false)
                 && make install || (echo "ERROR: the install target failed." && false)

@@ -169,7 +169,7 @@ MSBaseVehicle::getParameter() const {
     return *myParameter;
 }
 
-const std::map<int, double>*
+const EnergyParams*
 MSBaseVehicle::getEmissionParameters() const {
     MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
     if (batteryDevice != nullptr) {
@@ -891,6 +891,20 @@ MSBaseVehicle::basePos(const MSEdge* edge) const {
     return result;
 }
 
+MSLane*
+MSBaseVehicle::interpretOppositeStop(SUMOVehicleParameter::Stop& stop) {
+    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane);
+    const int laneIndex = SUMOXMLDefinitions::getIndexFromLane(stop.lane);
+    const MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge != nullptr && edge->getOppositeEdge() != nullptr
+            && laneIndex < (edge->getNumLanes() + edge->getOppositeEdge()->getNumLanes())) {
+        const int oppositeIndex = edge->getOppositeEdge()->getNumLanes() + edge->getNumLanes() - 1 - laneIndex;
+        stop.edge = edgeID;
+        return edge->getOppositeEdge()->getLanes()[oppositeIndex];
+    } else {
+        return nullptr;
+    }
+}
 
 bool
 MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
@@ -911,6 +925,12 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         }
     } else {
         stop.lane = MSLane::dictionary(stopPar.lane);
+        if (stop.lane == nullptr) {
+            // must be an opposite stop
+            SUMOVehicleParameter::Stop tmp = stopPar;
+            stop.lane = interpretOppositeStop(tmp);
+            assert(stop.lane != nullptr);
+        }
         if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
             errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
             return false;
@@ -960,8 +980,16 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
         errorMsg = errorMsgStart + " on lane '" + stop.lane->getID() + "' is too short for vehicle '" + myParameter->id + "'.";
     }
-    // if stop is on an internal edge the normal edge before the intersection is used
-    const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
+    const MSEdge* stopLaneEdge = &stop.lane->getEdge();
+    const MSEdge* stopEdge;
+    if (stopLaneEdge->getOppositeEdge() != nullptr && stopLaneEdge->getOppositeEdge()->getID() == stopPar.edge) {
+        // stop lane is on the opposite side
+        stopEdge = stopLaneEdge->getOppositeEdge();
+        stop.isOpposite = true;
+    } else {
+        // if stop is on an internal edge the normal edge before the intersection is used
+        stopEdge = stopLaneEdge->getNormalBefore();
+    }
     if (searchStart == nullptr) {
         searchStart = &myCurrEdge;
     }

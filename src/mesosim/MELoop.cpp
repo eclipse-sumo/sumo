@@ -96,8 +96,11 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     const SUMOTime entry = toSegment->hasSpaceFor(veh, leaveTime, qIdx);
     if (entry == leaveTime && (ignoreLink || veh->mayProceed())) {
         if (onSegment != nullptr) {
-            if (onSegment == toSegment) { // parking
-                veh->processStop();
+            if (veh->getQueIndex() == MESegment::PARKING_QUEUE) { // parking or just aborted parking
+                if (veh->isParking()) {
+                    veh->processStop();
+                }
+                veh->getEdge()->getLanes()[0]->removeParking(veh);  // TODO for GUI only
             } else {
                 onSegment->send(veh, toSegment, qIdx, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
             }
@@ -126,7 +129,7 @@ void
 MELoop::checkCar(MEVehicle* veh) {
     const SUMOTime leaveTime = veh->getEventTime();
     MESegment* const onSegment = veh->getSegment();
-    MESegment* const toSegment = veh->isParking() ? onSegment : nextSegment(onSegment, veh);
+    MESegment* const toSegment = veh->getQueIndex() == MESegment::PARKING_QUEUE ? onSegment : nextSegment(onSegment, veh);
     const bool teleporting = (onSegment == nullptr); // is the vehicle currently teleporting?
     // @note reason is only evaluated if toSegment == nullptr
     const SUMOTime nextEntry = changeSegment(veh, leaveTime, toSegment, MSMoveReminder::NOTIFICATION_ARRIVED, teleporting);
@@ -137,7 +140,7 @@ MELoop::checkCar(MEVehicle* veh) {
         teleportVehicle(veh, toSegment);
         return;
     }
-    if (veh->getBlockTime() == SUMOTime_MAX) {
+    if (veh->getBlockTime() == SUMOTime_MAX && !veh->isStopped()) {
         veh->setBlockTime(leaveTime);
     }
     if (nextEntry == SUMOTime_MAX) {
@@ -217,26 +220,29 @@ MELoop::clearState() {
     myLeaderCars.clear();
 }
 
-void
+
+bool
 MELoop::removeLeaderCar(MEVehicle* v) {
-    std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
-    auto it = find(cands.begin(), cands.end(), v);
-    if (it != cands.end()) {
-        cands.erase(it);
+    const auto candIt = myLeaderCars.find(v->getEventTime());
+    if (candIt != myLeaderCars.end()) {
+        std::vector<MEVehicle*>& cands = candIt->second;
+        auto it = find(cands.begin(), cands.end(), v);
+        if (it != cands.end()) {
+            cands.erase(it);
+            return true;
+        }
     }
+    return false;
 }
+
 
 void
 MELoop::vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason) {
     int qIdx = 0;
     v->getSegment()->send(v, nullptr, qIdx, MSNet::getInstance()->getCurrentTimeStep(), reason);
-    // try removeLeaderCar
-    std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
-    auto it = find(cands.begin(), cands.end(), v);
-    if (it != cands.end()) {
-        cands.erase(it);
-    }
+    removeLeaderCar(v);
 }
+
 
 MESegment*
 MELoop::nextSegment(MESegment* s, MEVehicle* v) {

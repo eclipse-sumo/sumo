@@ -171,14 +171,14 @@ GNELoadThread::run() {
         }
     }
     // only a single setting file is supported
-    submitEndAndCleanup(net, oc.getString("gui-settings-file"), oc.getBool("registry-viewport"));
+    submitEndAndCleanup(net, myNewNet, oc.getString("gui-settings-file"), oc.getBool("registry-viewport"));
     return 0;
 }
 
 
 
 void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+GNELoadThread::submitEndAndCleanup(GNENet* net, const bool newNet, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -186,7 +186,7 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFi
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GNEEvent_NetworkLoaded(net, myFile, guiSettingsFile, viewportFromRegistry);
+    GUIEvent* e = new GNEEvent_NetworkLoaded(net, newNet, myFile, guiSettingsFile, viewportFromRegistry);
     myEventQue.push_back(e);
     myEventThrow.signal();
 }

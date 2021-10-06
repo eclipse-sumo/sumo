@@ -82,18 +82,17 @@ GNEAccess::updateGeometry() {
 
 Position
 GNEAccess::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNEAccess::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -153,25 +152,30 @@ GNEAccess::getParentName() const {
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration
-    const double accessExaggeration = s.addSize.getExaggeration(s, this);
+    const double accessExaggeration = getExaggeration(s);
     // declare width
     const double radius = 0.5;
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get color
+        RGBColor color;
+        if (drawUsingSelectColor()) {
+            color = s.colorSettings.selectedAdditionalColor;
+        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
+            color = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+        } else {
+            color = s.colorSettings.busStopColor;
+        }
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
-        // set color depending of selection
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
-            GLHelper::setColor(parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR)));
-        } else {
-            GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
-        }
+        // draw parent and child lines
+        drawParentChildLines(s, color);
+        // set color
+        GLHelper::setColor(color);
         // translate to geometry position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // draw circle
@@ -188,10 +192,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }
@@ -216,6 +220,8 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -230,9 +236,6 @@ GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
@@ -240,6 +243,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -333,6 +337,9 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

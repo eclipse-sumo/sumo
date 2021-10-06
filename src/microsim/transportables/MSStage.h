@@ -99,6 +99,9 @@ public:
     virtual const MSEdge* getFromEdge() const;
     virtual double getEdgePos(SUMOTime now) const;
 
+    /// @brief Return the movement directon on the edge
+    virtual int getDirection() const;
+
     /// returns the position of the transportable
     virtual Position getPosition(SUMOTime now) const = 0;
 
@@ -482,6 +485,9 @@ public:
     /// Returns the offset from the start of the current edge measured in its natural direction
     double getEdgePos(SUMOTime now) const;
 
+    /// @brief Return the movement directon on the edge
+    int getDirection() const;
+
     /// Returns the position of the container
     Position getPosition(SUMOTime now) const;
 
@@ -498,7 +504,7 @@ public:
     virtual double getMaxSpeed(const MSTransportable* const transportable = nullptr) const = 0;
 
     /// @brief move forward and return whether the transportable arrived
-    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* nextInternal = 0) = 0;
+    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = 0) = 0;
 
     /// @brief place transportable on a previously passed edge
     virtual void setRouteIndex(MSTransportable* const transportable, int routeOffset);

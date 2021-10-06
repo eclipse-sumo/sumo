@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNECandidateElement.h>
+#include <netedit/GNELane2laneConnection.h>
 
 #include "GNENetworkElement.h"
 
@@ -93,7 +94,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get lane geometry
-    const GNEGeometry::Geometry& getLaneGeometry() const;
+    const GUIGeometry& getLaneGeometry() const;
 
     /// @brief get elements shape
     const PositionVector& getLaneShape() const;
@@ -150,6 +151,9 @@ public:
     /// @brief multiplexes message to two targets
     long onDefault(FXObject*, FXSelector, void*);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -183,7 +187,7 @@ public:
     bool isRestricted(SUMOVehicleClass vclass) const;
 
     /// @brief get Lane2laneConnection struct
-    const GNEGeometry::Lane2laneConnection& getLane2laneConnections() const;
+    const GNELane2laneConnection& getLane2laneConnections() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -228,6 +232,9 @@ public:
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw overlapped routes
+    void drawOverlappedRoutes(const int numRoutes) const;
+
 protected:
     /// @brief FOX needs this
     GNELane();
@@ -240,7 +247,7 @@ private:
     int myIndex;
 
     /// @brief lane geometry
-    GNEGeometry::Geometry myLaneGeometry;
+    GUIGeometry myLaneGeometry;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
@@ -262,7 +269,7 @@ private:
     mutable std::vector<RGBColor> myShapeColors;
 
     /// @brief lane2lane connections
-    GNEGeometry::Lane2laneConnection myLane2laneConnections;
+    GNELane2laneConnection myLane2laneConnections;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

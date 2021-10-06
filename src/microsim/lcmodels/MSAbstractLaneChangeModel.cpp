@@ -31,6 +31,7 @@
 //#define DEBUG_OPPOSITE
 //#define DEBUG_MANEUVER
 #define DEBUG_COND (myVehicle.isSelected())
+
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
@@ -317,11 +318,23 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         changedToOpposite();
 #ifdef DEBUG_OPPOSITE
         if (debugVehicle()) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged nowOpposite=" << myAmOpposite << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged source=" << source->getID() << " target=" << target->getID() << " nowOpposite=" << myAmOpposite << "\n";
         }
 #endif
         myVehicle.setTentativeLaneAndPosition(target, source->getOppositePos(myVehicle.getPositionOnLane()), -myVehicle.getLateralPositionOnLane());
         target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
+    } else if (myAmOpposite) {
+#ifdef DEBUG_OPPOSITE
+        if (debugVehicle()) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " primaryLaneChanged source=" << source->getID() << " target=" << target->getID() << " stayOpposite\n";
+        }
+#endif
+        myAlreadyChanged = true;
+        myVehicle.setTentativeLaneAndPosition(target, myVehicle.getPositionOnLane(), myVehicle.getLateralPositionOnLane());
+        if (MSGlobals::gLaneChangeDuration <= DELTA_T) {
+            // in the continous case, the vehicle is added to the target lane via MSLaneChanger::continueChange
+            target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
+        }
     } else {
         myVehicle.enterLaneAtLaneChange(target);
     }
@@ -1030,4 +1043,15 @@ MSAbstractLaneChangeModel::isStrategicBlocked() const {
 double
 MSAbstractLaneChangeModel::getForwardPos() const {
     return myAmOpposite ? myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() : myVehicle.getPositionOnLane();
+}
+
+
+int
+MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
+    const int i = myVehicle.getLane()->getIndex();
+    if (myAmOpposite) {
+        return myVehicle.getLane()->getParallelOpposite()->getEdge().getNumLanes() + myVehicle.getLane()->getEdge().getNumLanes() - 1 - i;
+    } else {
+        return i;
+    }
 }

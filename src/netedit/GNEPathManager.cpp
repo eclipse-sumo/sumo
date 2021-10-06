@@ -46,8 +46,8 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myJunction(nullptr),
-    myValid(true),
     myNextSegment(nullptr),
+    myPreviousSegment(nullptr),
     myLabelSegment(false) {
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
@@ -64,8 +64,8 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myPreviousLane(previousLane),
     myNextLane(nextLane),
     myJunction(junction),
-    myValid(true),
     myNextSegment(nullptr),
+    myPreviousSegment(nullptr),
     myLabelSegment(false) {
     // add segment in junctionSegments
     myPathManager->addSegmentInJunctionSegments(this, junction);
@@ -136,18 +136,6 @@ GNEPathManager::Segment::getJunction() const {
 }
 
 
-bool
-GNEPathManager::Segment::isValid() const {
-    return myValid;
-}
-
-
-void
-GNEPathManager::Segment::markSegmentInvalid() {
-    myValid = false;
-}
-
-
 GNEPathManager::Segment*
 GNEPathManager::Segment::getNextSegment() const {
     return myNextSegment;
@@ -157,6 +145,18 @@ GNEPathManager::Segment::getNextSegment() const {
 void
 GNEPathManager::Segment::setNextSegment(GNEPathManager::Segment* nextSegment) {
     myNextSegment = nextSegment;
+}
+
+
+GNEPathManager::Segment*
+GNEPathManager::Segment::getPreviousSegment() const {
+    return myPreviousSegment;
+}
+
+
+void
+GNEPathManager::Segment::setPreviousSegment(GNEPathManager::Segment* previousSegment) {
+    myPreviousSegment = previousSegment;
 }
 
 
@@ -181,16 +181,16 @@ GNEPathManager::Segment::Segment() :
     myPreviousLane(nullptr),
     myNextLane(nullptr),
     myJunction(nullptr),
-    myValid(false),
-    myNextSegment(nullptr) {
+    myNextSegment(nullptr),
+    myPreviousSegment(nullptr) {
 }
 
 // ---------------------------------------------------------------------------
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement(const Options option) :
-    myOption(option) {
+GNEPathManager::PathElement::PathElement(const int options) :
+    myOption(options) {
 }
 
 
@@ -199,25 +199,31 @@ GNEPathManager::PathElement::~PathElement() {}
 
 bool
 GNEPathManager::PathElement::isNetworkElement() const {
-    return (myOption == PathElement::Options::NETWORK_ELEMENT);
+    return (myOption & PathElement::Options::NETWORK_ELEMENT) != 0;
 }
 
 
 bool
 GNEPathManager::PathElement::isAdditionalElement() const {
-    return (myOption == PathElement::Options::ADDITIONAL_ELEMENT);
+    return (myOption & PathElement::Options::ADDITIONAL_ELEMENT) != 0;
 }
 
 
 bool
 GNEPathManager::PathElement::isDemandElement() const {
-    return (myOption == PathElement::Options::DEMAND_ELEMENT);
+    return (myOption & PathElement::Options::DEMAND_ELEMENT) != 0;
 }
 
 
 bool
 GNEPathManager::PathElement::isDataElement() const {
-    return (myOption == PathElement::Options::DATA_ELEMENT);
+    return (myOption & PathElement::Options::DATA_ELEMENT) != 0;
+}
+
+
+bool
+GNEPathManager::PathElement::isRoute() const {
+    return (myOption & PathElement::Options::ROUTE) != 0;
 }
 
 
@@ -641,12 +647,11 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
             segments.push_back(firstSegment);
             // create last segment
             Segment* lastSegment = new Segment(this, pathElement, edges.back()->getLaneByAllowedVClass(vClass), false, true);
-            // mark segment as invalid
-            lastSegment->markSegmentInvalid();
             // add to segments
             segments.push_back(lastSegment);
-            // set next segment for vinculating first and last segment with a red line
+            // set previous and next segment for vinculating first and last segment with a red line
             firstSegment->setNextSegment(lastSegment);
+            lastSegment->setPreviousSegment(firstSegment);
         }
         // add segment in path
         myPaths[pathElement] = segments;
@@ -720,10 +725,6 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const st
                 const GNELane* nextLane = lanes.at(i + 1);
                 // create junction segments
                 Segment* junctionSegment = new Segment(this, pathElement, lanes.at(i)->getParentEdge()->getParentJunctions().at(1), lanes.at(i), nextLane);
-                // check if both lanes are connected
-                if (!connectedLanes(lanes.at(i), nextLane)) {
-                    junctionSegment->markSegmentInvalid();
-                }
                 // add it into segment vector
                 segments.push_back(junctionSegment);
             }
@@ -755,9 +756,18 @@ GNEPathManager::removePath(PathElement* pathElement) {
 void
 GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
+        int numRoutes = 0;
         for (const auto& segment : myLaneSegments.at(lane)) {
             // draw segment
             segment->getPathElement()->drawPartialGL(s, lane, segment, 0);
+            // check if path element is a route
+            if (segment->getPathElement()->isRoute()) {
+                numRoutes++;
+            }
+        }
+        // check if draw overlapped routes
+        if ((numRoutes > 1) && lane->getNet()->getViewNet()->getDemandViewOptions().showOverlappedRoutes()) {
+            lane->drawOverlappedRoutes(numRoutes);
         }
     }
 }
@@ -768,6 +778,19 @@ GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, cons
     if (myJunctionSegments.count(junction) > 0) {
         for (const auto& segment : myJunctionSegments.at(junction)) {
             segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+        }
+    }
+}
+
+
+void
+GNEPathManager::forceDrawPath(const GUIVisualizationSettings& s, const PathElement* pathElement) const {
+    // draw all lane segments
+    for (const auto &laneSegment : myLaneSegments) {
+        for (const auto &segment : laneSegment.second) {
+            if (segment->getPathElement() == pathElement) {
+                pathElement->drawPartialGL(s, laneSegment.first, segment, 0);
+            }   
         }
     }
 }
@@ -843,39 +866,26 @@ GNEPathManager::addSegmentInJunctionSegments(Segment* segment, const GNEJunction
 
 void
 GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
-    // first declare vector with lanes to clear
-    std::vector<const GNELane*> lanesToClear;
-    // now iterate over laneSegments
-    for (auto& laneSegment : myLaneSegments) {
-        // remove segment from segment sets
-        if (laneSegment.second.find(segment) != laneSegment.second.end()) {
-            laneSegment.second.erase(segment);
+    // check if segment has a lane
+    if (segment->getLane()) {
+        // remove segment from segments associated with lane
+        if (myLaneSegments.at(segment->getLane()).find(segment) != myLaneSegments.at(segment->getLane()).end()) {
+            myLaneSegments.at(segment->getLane()).erase(segment);
         }
-        // now check if lane doesn't have segments
-        if (laneSegment.second.empty()) {
-            lanesToClear.push_back(laneSegment.first);
+        // clear lane if doesn't have more segments
+        if (myLaneSegments.at(segment->getLane()).empty()) {
+            myLaneSegments.erase(segment->getLane());
         }
     }
-    // finally clear empty lanes from myLaneSegments
-    for (const auto& laneToClear : lanesToClear) {
-        myLaneSegments.erase(laneToClear);
-    }
-    // first declare vector with junctions to clear
-    std::vector<const GNEJunction*> junctionsToClear;
-    // now iterate over junctionSegments
-    for (auto& junctionSegment : myJunctionSegments) {
-        // remove segment from segment sets
-        if (junctionSegment.second.find(segment) != junctionSegment.second.end()) {
-            junctionSegment.second.erase(segment);
+    if (segment->getJunction()) {
+        // remove segment from segments associated with junction
+        if (myJunctionSegments.at(segment->getJunction()).find(segment) != myJunctionSegments.at(segment->getJunction()).end()) {
+            myJunctionSegments.at(segment->getJunction()).erase(segment);
         }
-        // now check if junction doesn't have segments
-        if (junctionSegment.second.empty()) {
-            junctionsToClear.push_back(junctionSegment.first);
+        // clear junction if doesn't have more segments
+        if (myJunctionSegments.at(segment->getJunction()).empty()) {
+            myJunctionSegments.erase(segment->getJunction());
         }
-    }
-    // finally clear empty junctions from myJunctionSegments
-    for (const auto& junctionToClear : junctionsToClear) {
-        myJunctionSegments.erase(junctionToClear);
     }
 }
 

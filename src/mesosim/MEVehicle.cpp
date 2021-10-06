@@ -212,6 +212,8 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool 
 SUMOTime
 MEVehicle::checkStop(SUMOTime time) {
     bool hadStop = false;
+    MSNet* const net = MSNet::getInstance();
+    SUMOTime dummy = -1; // boarding- and loading-time are not considered
     for (MSStop& stop : myStops) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             return time;
@@ -228,21 +230,21 @@ MEVehicle::checkStop(SUMOTime time) {
         if (MSGlobals::gUseStopEnded && stop.pars.ended >= 0) {
             time = MAX2(cur, stop.pars.ended);
         }
-        stop.reached = true;
-        stop.pars.started = myLastEntryTime;
+        if (!stop.reached) {
+            stop.reached = true;
+            stop.pars.started = myLastEntryTime;
 
-        if (MSStopOut::active()) {
-            if (!hadStop) {
-                MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
-            } else {
-                WRITE_WARNINGF("Vehicle '%' has multiple stops on segment '%', time % (stop-output will be merged).",
-                               getID(), mySegment->getID(), time2string(time));
+            if (MSStopOut::active()) {
+                if (!hadStop) {
+                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+                } else {
+                    WRITE_WARNINGF("Vehicle '%' has multiple stops on segment '%', time % (stop-output will be merged).",
+                        getID(), mySegment->getID(), time2string(time));
+                }
             }
         }
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
-            MSNet* const net = MSNet::getInstance();
             bool wait = true;
-            SUMOTime dummy = -1; // boarding- and loading-time are not considered
             if (net->hasPersons()) {
                 wait = !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
             }
@@ -255,6 +257,7 @@ MEVehicle::checkStop(SUMOTime time) {
                 stop.triggered = false;
                 stop.containerTriggered = false;
             }
+            time = MAX2(time, cur + DELTA_T);
         }
         hadStop = true;
     }
@@ -280,6 +283,13 @@ MEVehicle::resumeFromStopping() {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
         }
         myStops.pop_front();
+        if (myEventTime > SIMSTEP) {
+            // if this is an aborted stop we need to change the event time of the vehicle
+            if (MSGlobals::gMesoNet->removeLeaderCar(this)) {
+                myEventTime = SIMSTEP;
+                MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
+            }
+        }
         return true;
     }
     return false;
@@ -339,6 +349,10 @@ MEVehicle::mayProceed() {
     if (mySegment == nullptr) {
         return true;
     }
+    /*if (checkStop(myLastEntryTime) > myEventTime) {
+        // TODO refactor function to return expected time of continuation
+        return false;
+    }*/
     MSNet* const net = MSNet::getInstance();
     SUMOTime dummy = -1; // boarding- and loading-time are not considered
     for (MSStop& stop : myStops) {
@@ -350,7 +364,7 @@ MEVehicle::mayProceed() {
                 // we could not check this on entering the segment because there may be persons who still want to leave
                 WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
                 stop.triggered = false;
-                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+                net->getVehicleControl().unregisterOneWaiting();
             } else if (!net->hasPersons() || !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
                 return false;
             }
@@ -360,7 +374,7 @@ MEVehicle::mayProceed() {
                 // we could not check this on entering the segment because there may be containers who still want to leave
                 WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
                 stop.containerTriggered = false;
-                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+                net->getVehicleControl().unregisterOneWaiting();
             } else if (!net->hasContainers() || !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy)) {
                 return false;
             }

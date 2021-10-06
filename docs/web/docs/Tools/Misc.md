@@ -159,7 +159,7 @@ random seed generation of 42. These values can be changed with the options
 
 This script determines feasible stop-to-stop travel times and creates a public
 transport schedule (regular interval timetable) for all lines. The stop-to-stop 
-travel times are determined on an empty network. Example:
+travel times are determined by running a background simulation on an empty network using either a given route or shortest paths between stops. Example:
 
 ```
 python tools/ptlines2flows.py -n <net-file> -s <ptstops-file> -l <ptlines-file> -o <output-file>
@@ -171,6 +171,37 @@ changed with the **-p** option.
 
 With the option **--use-osm-routes**, public transport routes from the given osm
 ptlines-file will be used, rather than creating new shortest path routes between stops.
+
+A *ptlines-file* is typically created by [netconvert](../netconvert.md) option **--ptlines-output** when importing OSM data.
+However it can also be customized or created from scratch for a non OSM network.
+
+A minimal description for a bus line looks like this:
+
+```
+<additional>
+    <ptLine id="0" line="123" type="bus">
+        <busStop id="stopA"/>
+        <busStop id="stopB"/>
+        <busStop id="stopC"/>
+    </ptLine>
+</additional>
+```
+
+The used busStops must be defined in an additional file and passed with option **-s** when running the tool.
+The resulting bus definition may look like this:
+
+```
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <route id="bus_123:0"" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
+        <stop busStop="stopA" duration="20" until="35.0"/> 
+        <stop busStop="stopB" duration="20" until="101.0"/> 
+        <stop busStop="stopC" duration="20" until="221.0"/>
+    </route>
+    <flow id="bus_123:0" type="bus" route="bus_123:0" begin="0.0" end="3600.0" period="600" line="123:0" /> 
+</routes>
+```
+
 
 # tileGet.py
 

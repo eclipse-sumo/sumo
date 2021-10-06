@@ -317,6 +317,12 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+double 
+GNEJunction::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.junctionSize.getExaggeration(s, this, 4);
+}
+
+
 void
 GNEJunction::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
@@ -349,7 +355,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     }
     // declare variables
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-    const double junctionExaggeration = s.junctionSize.getExaggeration(s, this, 4);
+    const double junctionExaggeration = getExaggeration(s);
     const double bubbleRadius = s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
     // declare draw shape flag
     const bool drawShape = (myNBNode->getShape().size() > 0) && s.drawJunctionShape;
@@ -429,7 +435,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // set color
                         const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
                         // calculate geometry
-                        GNEGeometry::Geometry junctionGeometry;
+                        GUIGeometry junctionGeometry;
                         // obtain junction Shape
                         PositionVector junctionOpenShape = myNBNode->getShape();
                         // adjust shape to exaggeration
@@ -441,11 +447,16 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // set color
                         GLHelper::setColor(darkerColor);
                         // draw shape
-                        GNEGeometry::drawGeometry(myNet->getViewNet(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
+                        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
                         // draw geometry points
-                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionOpenShape, darkerColor, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, darkerColor, 
+                                                        s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration,
+                                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                         // draw moving hint
-                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), junctionOpenShape, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                            GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, 
+                                                        s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        }
                     }
                 }
             }
@@ -503,22 +514,22 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (drawShape) {
-                    GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myNBNode->getShape(), 
+                    GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getShape(), 
                                                               (junctionExaggeration >= 1)? junctionExaggeration : 1);
                 }
                 if (drawBubble) {
-                    GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, 
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, 
                                                          (junctionExaggeration >= 1)? junctionExaggeration : 1);
                 }
             }
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 if (drawShape) {
-                    GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myNBNode->getShape(), 
+                    GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getShape(), 
                                                               (junctionExaggeration >= 1)? junctionExaggeration : 1);
                 }
                 if (drawBubble) {
-                    GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, 
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, 
                                                          (junctionExaggeration >= 1)? junctionExaggeration : 1);
                 }
             }

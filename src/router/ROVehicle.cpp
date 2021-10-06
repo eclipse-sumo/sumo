@@ -38,6 +38,10 @@
 #include "ROLane.h"
 #include "ROVehicle.h"
 
+// ===========================================================================
+// static members
+// ===========================================================================
+std::map<ConstROEdgeVector, std::string> ROVehicle::mySavedRoutes;
 
 // ===========================================================================
 // method definitions
@@ -206,6 +210,20 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     const bool writeGeoTrip = writeTrip && options.getBool("write-trips.geo");
     const bool writeJunctions = writeTrip && options.getBool("write-trips.junctions");
+    const bool writeNamedRoute = !asAlternatives && options.getBool("named-routes");
+
+    std::string routeID;
+    if (writeNamedRoute) {
+        ConstROEdgeVector edges = myRoute->getUsedRoute()->getNormalEdges();
+        auto it = mySavedRoutes.find(edges);
+        if (it == mySavedRoutes.end()) {
+            routeID = "r" + toString(mySavedRoutes.size());
+            myRoute->getUsedRoute()->writeXMLDefinition(os, this, false, options.getBool("exit-times"), routeID);
+            mySavedRoutes[edges] = routeID;
+        } else {
+            routeID = it->second;
+        }
+    }
     // write the vehicle (new style, with included routes)
     getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
 
@@ -303,6 +321,8 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
             }
             os.writeAttr(viaAttr, viaOut);
         }
+    } else if (writeNamedRoute) {
+        os.writeAttr(SUMO_ATTR_ROUTE, routeID);
     } else {
         myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
     }

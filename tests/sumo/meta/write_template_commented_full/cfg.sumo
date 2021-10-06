@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-21 09:17:51 by Eclipse SUMO sumo Version v1_10_0+0847-ef64dc0
+<!-- generated on 2021-09-24 12:59:30 by Eclipse SUMO sumo Version v1_10_0+0979-9637fe4
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -146,6 +146,9 @@
 
         <!-- Save the vehicle queues at the junctions (experimental) -->
         <queue-output value="" type="FILE"/>
+
+        <!-- Save vehicle queues with the given period -->
+        <queue-output.period value="-1" type="TIME"/>
 
         <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
         <vtk-output value="" type="FILE"/>
@@ -335,6 +338,9 @@
 
         <!-- Scale demand by the given factor (by discarding or duplicating vehicles) -->
         <scale value="1" type="FLOAT"/>
+
+        <!-- Suffix to be added when creating ids for cloned vehicles -->
+        <scale-suffix value="." type="STR"/>
 
         <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting -->
         <time-to-teleport value="300" type="TIME"/>

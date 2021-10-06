@@ -93,6 +93,9 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -161,7 +164,7 @@ private:
     const GNEJunction* myJunctionParent;
 
     /// @brief internal lane geometry
-    GNEGeometry::Geometry myInternalLaneGeometry;
+    GUIGeometry myInternalLaneGeometry;
 
     /// @brief the state of the link (used for visualization)
     FXuint myState;

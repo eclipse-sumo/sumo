@@ -33,8 +33,8 @@
 // member definitions
 // ===========================================================================
 SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color,
-                         const PositionVector& shape, bool geo, bool fill, double lineWidth,
-                         double layer, double angle, const std::string& imgFile, bool relativePath,
+                         const PositionVector& shape, bool geo, bool fill, 
+                         double lineWidth, double layer, double angle, const std::string& imgFile, bool relativePath,
                          const std::string& name, const std::map<std::string, std::string>& parameters) :
     Shape(id, type, color, layer, angle, imgFile, name, relativePath),
     Parameterised(parameters),
@@ -46,6 +46,42 @@ SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const R
 
 
 SUMOPolygon::~SUMOPolygon() {}
+
+
+const PositionVector& 
+SUMOPolygon::getShape() const {
+    return myShape;
+}
+
+
+bool 
+SUMOPolygon::getFill() const {
+    return myFill;
+}
+
+
+double 
+SUMOPolygon::getLineWidth() const {
+    return myLineWidth;
+}
+
+
+void 
+SUMOPolygon::setFill(bool fill) {
+    myFill = fill;
+}
+
+
+void 
+SUMOPolygon::setLineWidth(double lineWidth) {
+    myLineWidth = lineWidth;
+}
+
+
+void 
+SUMOPolygon::setShape(const PositionVector& shape) {
+    myShape = shape;
+}
 
 
 void

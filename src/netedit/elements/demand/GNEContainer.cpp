@@ -161,11 +161,11 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 // ===========================================================================
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
-    GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
-{}, {}, {}, {}, {}, {}, {pType}, {}),
-SUMOVehicleParameter(containerparameters) {
-    // set manually vtypeID (needed for saving)
-    vtypeid = pType->getID();
+    GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {}, {}, {}, {}, {}, {pType}, {}),
+    SUMOVehicleParameter(containerparameters) {
+        // set manually vtypeID (needed for saving)
+        vtypeid = pType->getID();
 }
 
 
@@ -314,6 +314,12 @@ GNEContainer::getParentName() const {
 }
 
 
+double 
+GNEContainer::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.containerSize.getExaggeration(s, this, 80);
+}
+
+
 Boundary
 GNEContainer::getCenteringBoundary() const {
     Boundary containerBoundary;
@@ -354,7 +360,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
     // continue if container can be drawn
     if (drawContainer) {
         // obtain exaggeration (and add the special containerExaggeration)
-        const double exaggeration = s.containerSize.getExaggeration(s, this, 80) + s.detailSettings.personExaggeration;
+        const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
         // obtain width and length
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
@@ -403,11 +409,11 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
     }

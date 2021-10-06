@@ -37,13 +37,16 @@ The action step length works similar to a reaction time (vehicle will not react 
 
 ### tau
 
-This parameter is intended to model a drivers desired time headway (in
+This parameter is intended to model a drivers desired minimum time headway (in
 seconds). It is used by all models. Drivers attempt to maintain a
 minimum time gap of tau between the rear bumper of their leader and
-their own front-bumper + minGap to assure the possibility to brake in
+their own (front-bumper + minGap) to assure the possibility to brake in
 time when their leader starts braking and they need tau seconds reaction
-time to start breaking as well. The real reaction time is fundamentally
-limited by the simulation step size ([sumo](sumo.md) option **--step-length** {{DT_FLOAT}}),
+time to start breaking as well.
+
+The use of minGap with respect to the desired (minimum) time headway varies by model. I.e. the Krauss model selects a speed that ensures minGap can always be maintaned whereas other models may not do this.
+
+The real reaction time is fundamentallylimited by the simulation step size ([sumo](sumo.md) option **--step-length** {{DT_FLOAT}}),
 resp. the action step length (option **--default.action-step-length** {{DT_FLOAT}}, parameter ). For that reason a
 value of tau below this step-size may lead to collisions if the leader
 suddenly starts braking hard. If tau is larger than step-size the

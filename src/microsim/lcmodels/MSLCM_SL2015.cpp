@@ -1413,7 +1413,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     //}
 
     // iterate over all possible combinations of sublanes this vehicle might cover and check the potential speed
-    const MSEdge& edge = (isOpposite() ? myVehicle.getLane()->getOpposite() : myVehicle.getLane())->getEdge();
+    const MSEdge& edge = (isOpposite() ? myVehicle.getLane()->getParallelOpposite() : myVehicle.getLane())->getEdge();
     const std::vector<double>& sublaneSides = edge.getSubLaneSides();
     assert(sublaneSides.size() == myExpectedSublaneSpeeds.size());
     const double vehWidth = getWidth();
@@ -2048,7 +2048,7 @@ void
 MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) {
     const std::vector<MSLane*>& lanes = myVehicle.getLane()->getEdge().getLanes();
     const std::vector<MSVehicle::LaneQ>& preb = myVehicle.getBestLanes();
-    const MSLane* lane = isOpposite() ? myVehicle.getLane()->getOpposite() : lanes[laneIndex];
+    const MSLane* lane = isOpposite() ? myVehicle.getLane()->getParallelOpposite() : lanes[laneIndex];
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
     assert(preb.size() == lanes.size() || isOpposite());
 #ifdef DEBUG_EXPECTED_SLSPEED
@@ -3670,7 +3670,7 @@ MSLCM_SL2015::wantsChange(
 double
 MSLCM_SL2015::getLeftBorder(bool checkOpposite) const {
     return (myVehicle.getLane()->getEdge().getWidth()
-            + ((myVehicle.getLane()->getOpposite() != nullptr && checkOpposite) ? myVehicle.getLane()->getOpposite()->getWidth() : 0));
+            + ((myVehicle.getLane()->getParallelOpposite() != nullptr && checkOpposite) ? myVehicle.getLane()->getParallelOpposite()->getWidth() : 0));
 }
 
 double

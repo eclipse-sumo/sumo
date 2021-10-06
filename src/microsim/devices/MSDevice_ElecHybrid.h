@@ -25,6 +25,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/emissions/EnergyParams.h>
 
 // ===========================================================================
 // class declarations
@@ -202,7 +203,7 @@ private:
     * @param[in] id The ID of the device
     */
     MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
-                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const std::map<int, double>& param);
+                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const EnergyParams& param);
 
     void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
 
@@ -217,7 +218,7 @@ protected:
     double myOverheadWireChargingPower;
 
     /// @brief Parameter collection
-    std::map<int, double> myParam;
+    EnergyParams myParam;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;

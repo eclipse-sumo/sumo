@@ -97,6 +97,9 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
@@ -188,10 +191,16 @@ public:
 
 protected:
     /// @brief Geometry for TAZRel data
-    GNEGeometry::Geometry myTAZRelGeometry;
+    GUIGeometry myTAZRelGeometry;
 
-    /// @brief Geometry for TAZRel (center)
-    GNEGeometry::Geometry myTAZRelGeometryCenter;
+    /// @brief Geometry for TAZRel data (center)
+    GUIGeometry myTAZRelGeometryCenter;
+    
+    /// @brief TAZRel data color
+    mutable RGBColor myColor;
+
+    /// @brief TAZRel data width
+    mutable double myLastWidth;
 
 private:
     /// @brief check draw conditions
@@ -208,8 +217,6 @@ private:
 
     /// @brief Invalidated assignment operator.
     GNETAZRelData& operator=(const GNETAZRelData&) = delete;
-
-    mutable RGBColor myColor;
 };
 
 /****************************************************************************/

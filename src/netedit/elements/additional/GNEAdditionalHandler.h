@@ -316,33 +316,9 @@ public:
 
     /**@brief builds a calibrator flow
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow.
-     * @param[in] routeID The id of the route the vehicle's flow shall drive along
-     * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability)
-     * @param[in] speed The speed with which the vehicles shall enter the network. NOTE: this attribute is exclusive of CalibratorFlows!
-     * @param[in] color This vehicle's flow's color
-     * @param[in] departLane The lane on which the vehicle's flow shall be inserted {} see #departLane. default: "first"
-     * @param[in] departPos The position at which the vehicle's flow shall enter the net {} see #departPos. default: "base"
-     * @param[in] departSpeed The speed with which the vehicle's flow shall enter the network {} see #departSpeed. default: 0
-     * @param[in] arrivalLane The lane at which the vehicle's flow shall leave the network {} see #arrivalLane. default: "current"
-     * @param[in] arrivalPos The position at which the vehicle's flow shall leave the network {} see #arrivalPos. default: "max"
-     * @param[in] arrivalSpeed The speed with which the vehicle's flow shall leave the network {} see #arrivalSpeed. default: "current"
-     * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
-     * @param[in] personNumber The number of occupied seats when the vehicle's flow is inserted. default: 0
-     * @param[in] containerNumber The number of occupied container places when the vehicle's flow is inserted. default: 0
-     * @param[in] reroute List of intermediate edges that shall be passed on rerouting.
-     * @param[in] via List of intermediate edges that shall be passed on rerouting.
-     * @param[in] departPosLat The lateral position on the departure lane at which the vehicle's flow shall enter the net {} see Simulation/SublaneModel. default: "center"
-     * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive {} see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position
-     * @param[in] begin first vehicle's flow departure time
-     * @param[in] end end of departure interval (if undefined, defaults to 24 hours)
-     * @param[in] parameters generic parameters
+     * @param[in] vehicleParameter calibratorFlow parameter
      */
-    void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const std::string& routeID,
-                             const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
-                             const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
-                             const std::string& line, const int personNumber, const int containerNumber, const bool reroute, const std::string& departPosLat,
-                             const std::string& arrivalPosLat, const SUMOTime begin, const SUMOTime end, const std::map<std::string, std::string>& parameters);
+    void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameter) ;
 
     /**@brief builds a rerouter
      * @param[in] sumoBaseObject sumo base object used for build
@@ -447,14 +423,15 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id TAZ ID
      * @param[in] shape TAZ shape
+     * @param[in] center shape center
      * @param[in] fill Whether the TAZ shall be filled
      * @param[in] edgeIDs list of edges (note: This will create GNETAZSourceSinks/Sinks with default values)
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
     void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
-                  const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, const std::string& name, 
-                  const std::map<std::string, std::string>& parameters);
+                  const Position &center, const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, 
+                  const std::string& name, const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] sumoBaseObject sumo base object used for build

@@ -75,6 +75,7 @@ public:
     MSInductLoop(const std::string& id, MSLane* const lane,
                  double positionInMeters,
                  const std::string& vTypes,
+                 int detectPersons,
                  const bool needLocking);
 
 
@@ -237,6 +238,13 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLDetectorProlog(OutputDevice& dev) const;
+
+    /** @brief Updates the detector (computes values)
+     * only used when detecting persons
+     *
+     * @param[in] step The current time step
+     */
+    void detectorUpdate(const SUMOTime step);
     /// @}
 
 
@@ -307,6 +315,8 @@ protected:
     }
     ///@}
 
+    /// @brief helper function for mapping person movement
+    void notifyMovePerson(MSTransportable* p, int dir, double pos);
 
 protected:
     /// @brief Detector's position on lane [m]

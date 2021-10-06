@@ -345,3 +345,24 @@ Pedestrians are included in the following outputs:
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
 - [aggregated simulation statistics](../Simulation/Output/index.md#aggregated_traffic_measures)
+
+## Detectors for Pedestrians
+
+The detector attribute 'detectPersons' for configuring output of pedestrians and riding persons can be used with the following detectors:
+
+- [Inductive loop detectors (E1)](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
+- [Lane area detectors (E2)](../Simulation/Output/Lanearea_Detectors_(E2).md) (only single-lane detectors are supported)
+- [Multi-Entry-Exit detectors (E3)](../Simulation/Output/Multi-Entry-Exit_Detectors_(E3).md)
+
+If the attribute 'detectPersons' is used, all detector output values will pertain to persons (i.e. 'nVehContrib').
+The attribute 'detectPersons' supports the following values:
+
+- walk : detect pedestrians in any direction
+- walkForward : detect pedestrians walking in edge direction
+- walkBackward : detect pedestrians walking against edge direction
+- bicycle : detect persons riding a bicycle
+- public : detect persons riding public transport (bus or any rail vehicle)
+- taxi : detect persons riding taxi
+- car : detect persons riding any other vehicle
+
+

@@ -20,9 +20,14 @@ title: ChangeLog
   - ArrivalEdge is no longer ignored in meso. Issue #8994
   - Fixed non-deterministic parkingReroute. Issue #9066
   - Fixed unsafe sublane changing on junction. Issue #9180
-  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185
+  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297  
   - Fixed crash caused by rerouters on short edges. Issue #9186
   - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
+  - Fixed invalid departSpeed error in meso #9201
+  - Fixed bug where simulation did not terminate after a departSpeed related error. Issue #9211
+  - Fixed invalid duplicate ids when using option **--scale**. Added option **--scale-suffix** to deal with unavoidable id collisions. Issue #9055
+  - Attribute personCapacity is no longer ignored for trainStop. Issue #9262
+  - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
   
 - netedit
   - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
@@ -50,7 +55,13 @@ title: ChangeLog
   - Taz are now drawn below roads. Issue #9146
   - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
   - Fixed slow operation when inspecting large objects. Issue #9106
+  - Fixed slow loading of large traffic demand files. Issue #9191
   - Fixed slow loading of large networks. Issue #9207
+  - Dotted contour now matches junction shape at reduced size. Issue #9204
+  - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
+  - Fixed invalid error when loading program in tls frame. Issue #9270
+  - Attribute 'opposite' is now updated when changing lane count. Issue #9283
+  - Minor fixes to save-load tls-program dialog. Issue #9269
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -59,7 +70,8 @@ title: ChangeLog
   - Speed mode in vehicle parametr dialog now shows all 6 bits. Issue #9078
   - Option **--no-warnings** now supresses warnings from actuated tls. Issue #9104
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
-  - Fixed invalid error when defining step-length with human readable time. Issue #9196  
+  - Fixed invalid error when defining step-length with human readable time. Issue #9196
+  - Coloring by edgedata is now working in meso. Issue #9215
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
@@ -68,6 +80,7 @@ title: ChangeLog
   - Guessed bicycle lanes are now always placed to the left of an existing sidewalk. Issue #9084
   - Fixed invalid connections after guessing bicycle lanes. Issue #9083
   - Option **--no-turnarounds.geometry** now ignores pedestrian paths and bike paths that attach to the main road. Issue #9068
+  - Fixed missing tlType in plain .nod.xml output. Issue #9281
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -76,6 +89,7 @@ title: ChangeLog
   - Fixed endless loop related to triggered personFlow. Issue #8977
   - Persons and containers with depart=triggered are now written in the correct order: directly after their intended vehicle. Issue #9000
   - Fixed crash when loading transport outside a container #9008
+  - Fixed invalid treatment of loaded routeDistribution input. Issue #9229
 
 - marouter
   - Fixed invalid route-not-found error. Issue #9193
@@ -92,6 +106,8 @@ title: ChangeLog
   - Fixed problems related to complex types returned from libsumo in java. Issue #7204
   - Fixed invalid result of vehicle.getDistance after vehicle.moveToXY, and vehicle.moveTo. Issue #9050, #8778
   - Fixed bug where intended teleport after replaceStop failed due to oncoming train. Issue #9175
+  - Fixed invalid route after adding vehicle with trip-route and forcing insertion with moveTo. Issue #9257
+  - Fixed invalid departedIDList after reloading a libsumo simulation. Issue #6239
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -101,26 +117,42 @@ title: ChangeLog
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
   - generateContinousRerouters.py: fixed infinite loop. Issue #9167
+  - GTFS import no longer ignores trips with routes not starting in the simulation area. Issue #9224
+  - GTFS import now works when crossing day boundaries. Issue #9002
 
 - Miscellaneous
   - Xsd schema now permit trips in additional files. Issue #9110
   - Fixed invalid xsd for tazRelations. Issue #9124
+  - game runner is now compatible with python3. Issue #9223
+  - game '4-junctions' score is now meaningful. Issue #9222
 
 ### Enhancements
 
 - simulation
+  - Detectortype (E1, E2, E3) now support [attribute 'detectPersons'](Simulation/Pedestrians.md#detectors_for_pedestrians) to detect pedestrians and passengesr. Issue #5252
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
   - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
+  - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199 
+  - BoardingDuration / loadingDuration are now also applied when exiting a vehicle. Issue #4216
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
   - All stopping places (busStop, parkingArea, ...) now support custom color. Issue #8280
   - The numerical value behind the current edge color can now be plotted in a tracker window. Issue #9049
   - Locator dialog now shows number of available objects. Issue #9075
+  - Locator dialog now allows selecting/deselecting all objects in (filtered) list. Issue #5426
   - Improve positioning of persons in vehicles. Issue #9159
   - Taz attribute 'fill' is now supported. Issue #9144
   - Drawing detail of POIs can now be configured. Issue #9203
+  - Improved visualization of teleporting vehicles when shown because of active route visualization. Issue #9174
+  - Added vehicle context menu function 'Select transported'. Issue #2241
+  - Time range and intervals in loaded edgedata are now reported. Issue #9217
+  - Meso vehicles are now drawn with interpolate positions
+  - Segment boundaries are now drawn in meso simulation. Issue #9227
+  - Added support for custom coloring of busStops. Issue #8280
+  - Breakpoints are now rounded down to reachable step value. Issue #6789
+  - Clicking on timestamps in message window now creates breakpoints with a conigurable offset. Issue #7617
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -129,6 +161,12 @@ title: ChangeLog
   - Saved busStop attributes now have the same order as netconvert. Issue #7624
   - Data mode now permits attributes with non-numeric values. Issue #9060
   - Drawing detail of POIs can now be configured. Issue #9203
+  - Objects witin a polygon boundary can now be selected by using the polygon context menu. Issue #9158
+  - Improved drawing style of connecting lines between dependent objects (i.e. busstop/access). Issue #8914, #9258
+  - Writing shortened xml header for demand and data output. Issue #9261
+  - New network is started in create-edge mode. Issue #9272
+  - After setting new edge template, the default in create-edge frame is 'use template'. Issue #9289
+  - Edge / lane context menu operations are now available in create-edge mode. Issue #9271
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
@@ -140,12 +178,16 @@ title: ChangeLog
 - od2trips
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
 
+- duarouter & jtrrouter
+  - Added option **--named-routes** which writes routes with an id and lets vehicles reference them. Can reduce output size if many vehicles using the same route. Issue #8643
+
 - marouter
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
   - **--netload-output** now includes 'density' and 'laneDensity' and 'speedRelative. Issue #9197
 
 - traci
-  - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764  
+  - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764
+  - addSubscriptionFilterTurn can now be combined (additively) with addSubscriptionFilterLateralDistance and with addSubscriptionFilterLanes. Issue #9177
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
@@ -160,6 +202,7 @@ title: ChangeLog
   - ptlines2flows.py: Added options **--speedfactor.bus** and **--speedfactor.tram** to allow for relaxed schedules of vehicles which may be affected by road congestion. Issue #9170
   - ptlines2flows.py: Line colors are now supported. Issue #7845
   - generateContinousRerouters.py: added option **--vlcass** to avoid errors in multi-modal networks. Issue #9188
+  - generateTurnRatios.py: Added option **--interval** to write time-dependent turn counts / ratios. Issue #9294
 
 ### Other
 
@@ -1084,7 +1127,7 @@ title: ChangeLog
 - sumo-gui
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
   - A color legend for vehicle colors can now be enabled via the 'Legend' tab. Issue #6930
-  - Vehicles can now be stopped and stops can be aborted via context menu.
+  - Vehicles can now be stopped and stops can be aborted via context menu.Issue #2755
   - The hiding-treshold for edge coloring can now also hide edge color value labels (to avoid clutter from irrelevant numbers). Issue #7140
   - Added locator menu entry for containers. Issue #7324
   

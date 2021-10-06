@@ -229,6 +229,11 @@ GNECreateEdgeFrame::EdgeTypeSelector::clearEdgeTypeSelected() {
     myEdgeTypeSelected = nullptr;
 }
 
+void
+GNECreateEdgeFrame::EdgeTypeSelector::useTemplate() {
+    myUseCustomEdgeType->setCheck(TRUE, FALSE);
+    refreshEdgeTypeSelector();
+}
 
 long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
@@ -1339,6 +1344,8 @@ GNECreateEdgeFrame::EdgeTypeSelectorLegend::EdgeTypeSelectorLegend(GNECreateEdge
     std::ostringstream information;
     // add label for shift+click
     information
+            << "- ESC:" << "\n"
+            << "  Deselect origin" << "\n"
             << "- Control+Click:" << "\n"
             << "  Move view" << "\n"
             << "- Shift+Click:" << "\n"
@@ -1492,6 +1499,11 @@ GNECreateEdgeFrame::hide() {
 GNECreateEdgeFrame::EdgeTypeSelector*
 GNECreateEdgeFrame::getEdgeTypeSelector() const {
     return myEdgeTypeSelector;
+}
+
+void
+GNECreateEdgeFrame::setUseEdgeTemplate() {
+    myEdgeTypeSelector->useTemplate();
 }
 
 /****************************************************************************/

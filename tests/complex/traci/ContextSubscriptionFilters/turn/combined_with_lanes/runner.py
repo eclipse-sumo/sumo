@@ -58,7 +58,8 @@ def runSingle(traciEndTime, downstreamDist, foeDistToJunction):
             print("Subscribing to context of vehicle '%s'" % (egoID))
             traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
                                            [traci.constants.VAR_POSITION])
-            print("Adding turn filter ... \n(downstreamDist=%s, foeDistToJunction=%s)" % (downstreamDist, foeDistToJunction))
+            print("Adding turn filter ... \n(downstreamDist=%s, foeDistToJunction=%s)" %
+                  (downstreamDist, foeDistToJunction))
             sys.stdout.flush()
             traci.vehicle.addSubscriptionFilterTurn(downstreamDist, foeDistToJunction)
             laneList = list(map(int, sys.argv[4].strip('[]').split(',')))

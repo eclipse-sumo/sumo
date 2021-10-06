@@ -365,12 +365,17 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
 
 long
 GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*) {
-    // create route Prob Reroute
-    GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(myEditedAdditional, "route_id", 1);
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
-    myRouteProbReroutesEdited.push_back(routeProbReroute);
-    // update route prob reroutes table
-    updateRouteProbReroutesTable();
+    // get routes
+    const auto &routes = myEditedAdditional->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
+    // check if there is at least one route
+    if (routes.size() > 0) {
+        // create route Prob Reroute
+        GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(myEditedAdditional, routes.begin()->second, 1);
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
+        myRouteProbReroutesEdited.push_back(routeProbReroute);
+        // update route prob reroutes table
+        updateRouteProbReroutesTable();
+    }
     return 1;
 }
 

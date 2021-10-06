@@ -96,7 +96,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     GLHelper::setColor(s.detectorSettings.E3EntryColor);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
@@ -139,6 +139,12 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
 }
 
 
+double
+GUIE3Collector::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIE3Collector::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -159,8 +165,9 @@ GUIE3Collector::MyWrapper::getDetector() {
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                double haltingSpeedThreshold,
-                               SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry)
-    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry) {}
+                               SUMOTime haltingTimeThreshold, const std::string& vTypes, int detectPersons, bool openEntry):
+    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry)
+{}
 
 
 GUIE3Collector::~GUIE3Collector() {}

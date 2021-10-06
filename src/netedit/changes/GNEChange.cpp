@@ -43,8 +43,9 @@ GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalEl
     mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement),
-    next(nullptr),
-    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()) {
+    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()), 
+    next(nullptr)
+{
     // get all hierarchical elements (Parents and children)
     const auto hierarchicalElements = hierarchicalElement->getAllHierarchicalElements();
     // save all hierarchical containers

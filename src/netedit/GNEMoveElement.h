@@ -20,14 +20,16 @@
 #pragma once
 #include <config.h>
 
-#include "GNEGeometry.h"
+#include <utils/gui/div/GUIGeometry.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
+class GNELane;
 class GNEMoveElement;
 class GNEUndoList;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
@@ -37,6 +39,14 @@ class GNEUndoList;
 class GNEMoveOperation {
 
 public:
+    enum class OperationType {
+        POSITION,
+        SHAPE,
+        GEOMETRY_POINTS,
+        ONE_LANE,
+        TWO_LANES
+    };
+
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const Position originalPosition);
@@ -108,6 +118,9 @@ public:
     /// @brief allow change lane
     const bool allowChangeLane;
 
+    /// @brief operation type
+    const OperationType operationType;
+
 private:
     /// @brief Invalidated copy constructor.
     GNEMoveOperation(const GNEMoveOperation&) = delete;
@@ -147,7 +160,7 @@ class GNEMoveResult {
 
 public:
     /// @brief constructor
-    GNEMoveResult();
+    GNEMoveResult(const GNEMoveOperation* moveOperation);
 
     /// @brief destructor
     ~GNEMoveResult();
@@ -160,6 +173,9 @@ public:
 
     /// @brief shape points to move (of shapeToMove)
     std::vector<int> geometryPointsToMove;
+
+    /// @brief move operation
+    const GNEMoveOperation::OperationType operationType;
 
     /// @brief lane offset
     double firstLaneOffset;

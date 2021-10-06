@@ -159,6 +159,12 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
+double 
+GNEEdgeData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 void
 GNEEdgeData::computePathElement() {
     // nothing to compute
@@ -183,7 +189,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         // Set orange color
         GLHelper::setColor(RGBColor::BLACK);
         // draw box lines
-        GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
         // translate to top
         glTranslated(0, 0, 0.01);
         // Set color
@@ -193,7 +199,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             GLHelper::setColor(getColor());
         }
         // draw interne box lines
-        GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // draw lock icon
@@ -210,7 +216,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         }
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, lane->getParentEdge(), true, true);
+            GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, lane->getParentEdge(), true, true);
         }
     }
 }

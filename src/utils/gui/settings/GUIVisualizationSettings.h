@@ -165,6 +165,45 @@ struct GUIVisualizationColorSettings {
     /// @brief edge data selection color
     RGBColor selectedEdgeDataColor;
 
+    /// @brief color for busStops
+    RGBColor busStopColor;
+
+    /// @brief color for busStops signs
+    RGBColor busStopColorSign;
+
+    /// @brief color for trainStops
+    RGBColor trainStopColor;
+
+    /// @brief color for trainStops signs
+    RGBColor trainStopColorSign;
+
+    /// @brief color for containerStops
+    RGBColor containerStopColor;
+
+    /// @brief color for containerStop signs
+    RGBColor containerStopColorSign;
+
+    /// @brief color for chargingStations
+    RGBColor chargingStationColor;
+
+    /// @brief color for chargingStation sign
+    RGBColor chargingStationColorSign;
+
+    /// @brief color for chargingStation during charging
+    RGBColor chargingStationColorCharge;
+
+    /// @brief color for parkingAreas
+    RGBColor parkingAreaColor;
+
+    /// @brief color for parkingArea sign
+    RGBColor parkingAreaColorSign;
+
+    /// @brief color for parkingSpace contour
+    RGBColor parkingSpaceColorContour;
+
+    /// @brief color for parkingSpace innen
+    RGBColor parkingSpaceColor;
+
     /// @brief color for highlighthing deadends
     static const RGBColor SUMO_color_DEADEND_SHOW;
 
@@ -302,6 +341,21 @@ struct GUIVisualizationAdditionalSettings {
 
     /// @brief Vaporizer size
     static const double vaporizerSize;
+
+    /// @brief connection color
+    static const RGBColor connectionColor;
+
+    /// @brief connection color selected
+    static const RGBColor connectionColorSelected;
+
+    /// @brief arrow width
+    static const double arrowWidth;
+
+    /// @brief arrow length
+    static const double arrowLength;
+
+    /// @brief arrow offset
+    static const double arrowOffset;
 };
 
 
@@ -351,18 +405,11 @@ struct GUIVisualizationDetectorSettings {
 
 /// @brief struct for stoppingPlace settings
 struct GUIVisualizationStoppingPlaceSettings {
-
     /// @brief busStop offset
     static const double stoppingPlaceSignOffset;
 
     /// @brief busStop width
     static const double busStopWidth;
-
-    /// @brief color for busStops
-    static const RGBColor busStopColor;
-
-    /// @brief color for busStops signs
-    static const RGBColor busStopColorSign;
 
     /// @brief trainStop width
     static const double trainStopWidth;
@@ -370,35 +417,8 @@ struct GUIVisualizationStoppingPlaceSettings {
     /// @brief containerStop width
     static const double containerStopWidth;
 
-    /// @brief color for containerStops
-    static const RGBColor containerStopColor;
-
-    /// @brief color for containerStop signs
-    static const RGBColor containerStopColorSign;
-
     /// @brief chargingStation width
     static const double chargingStationWidth;
-
-    /// @brief color for chargingStations
-    static const RGBColor chargingStationColor;
-
-    /// @brief color for chargingStation sign
-    static const RGBColor chargingStationColorSign;
-
-    /// @brief color for chargingStation during charging
-    static const RGBColor chargingStationColorCharge;
-
-    /// @brief color for parkingAreas
-    static const RGBColor parkingAreaColor;
-
-    /// @brief color for parkingArea sign
-    static const RGBColor parkingAreaColorSign;
-
-    /// @brief color for parkingSpace contour
-    static const RGBColor parkingSpaceColorContour;
-
-    /// @brief color for parkingSpace innen
-    static const RGBColor parkingSpaceColor;
 };
 
 
@@ -845,8 +865,8 @@ public:
     std::string relDataAttr;
 
     /// @brief value below which relation data value should not be rendered
-    //bool relValueHideCheck;
-    //double relValueHideThreshold;
+    bool dataValueHideCheck;
+    double dataValueHideThreshold;
     /// @}
 
 

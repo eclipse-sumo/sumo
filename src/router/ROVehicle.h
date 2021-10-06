@@ -152,6 +152,8 @@ private:
     /// @brief The edges where the vehicle stops
     ConstROEdgeVector myStopEdges;
 
+    /// @brief map of all routes that were already saved with a name
+    static std::map<ConstROEdgeVector, std::string> mySavedRoutes;
 
 private:
     /// @brief Invalidated copy constructor

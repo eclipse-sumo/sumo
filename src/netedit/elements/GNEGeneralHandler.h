@@ -25,7 +25,7 @@
 // included modules
 // ===========================================================================
 
-#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/handlers/GeneralHandler.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 
@@ -38,7 +38,7 @@ class GNENet;
 // class definitions
 // ===========================================================================
 
-class GNEGeneralHandler : private SUMOSAXHandler {
+class GNEGeneralHandler : public GeneralHandler {
 
 public:
     /**@brief Constructor
@@ -51,38 +51,18 @@ public:
     /// @brief Destructor
     ~GNEGeneralHandler();
 
-    /// @brief parse
-    bool parse();
-
-protected:
+private:
     /// @brief additional handler
     GNEAdditionalHandler myAdditionalHandler;
 
     /// @brief demand handler
     GNERouteHandler myDemandHandler;
 
-private:
-    /// @name inherited from SUMOSAXHandler
-    /// @{
-    /** @brief Called on the opening of a tag;
-     *
-     * @param[in] element ID of the currently opened element
-     * @param[in] attrs Attributes within the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myStartElement
-     * @todo Refactor/describe
-     */
-    void myStartElement(int element, const SUMOSAXAttributes& attrs);
+    /// @brief start element
+    void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
-    /** @brief Called when a closing tag occurs
-     *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     * @todo Refactor/describe
-     */
-    void myEndElement(int element);
-    /// @}
+    /// @brief end element
+    void endTag();
 
     /// @brief invalidate copy constructor
     GNEGeneralHandler(const GNEGeneralHandler& s) = delete;

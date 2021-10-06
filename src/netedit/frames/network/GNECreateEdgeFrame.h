@@ -92,6 +92,8 @@ public:
 
         /// @}
 
+        void useTemplate();
+
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(EdgeTypeSelector);
@@ -382,6 +384,9 @@ public:
 
     /// @brief getcustom edge selector
     EdgeTypeSelector* getEdgeTypeSelector() const;
+
+    /// @brief set default to using edge template
+    void setUseEdgeTemplate();
 
 protected:
     /// @brief edge parameters

@@ -253,7 +253,6 @@ GNEUndoList::abortLastChangeGroup() {
 void 
 GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
     GNEChangeGroup* changeGroup = this;
-    int size = 0;
     // Must pass a change
     if (!change) { 
         throw ProcessError("GNEChangeGroup::add: nullptr change argument");
@@ -272,10 +271,6 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
     // Hunt for end of group chain
     while (changeGroup->group) { 
         changeGroup = changeGroup->group; 
-    }
-    // Old size of previous record
-    if (changeGroup->undoList) {
-        size = changeGroup->undoList->size();
     }
     // Try to merge commands when desired and possible
     if (merge && changeGroup->undoList && (group != nullptr) && change->canMerge() && changeGroup->undoList->mergeWith(change)) {

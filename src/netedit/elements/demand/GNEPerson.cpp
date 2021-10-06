@@ -161,9 +161,9 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 // ===========================================================================
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
-    GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-{}, {}, {}, {}, {}, {}, {pType}, {}),
-SUMOVehicleParameter(personparameters) {
+    GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {}, {}, {}, {}, {}, {pType}, {}),
+    SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -314,6 +314,12 @@ GNEPerson::getParentName() const {
 }
 
 
+double
+GNEPerson::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.personSize.getExaggeration(s, this, 80);
+}
+
+
 Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
@@ -354,7 +360,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // continue if person can be drawn
     if (drawPerson) {
         // obtain exaggeration (and add the special personExaggeration)
-        const double exaggeration = s.personSize.getExaggeration(s, this, 80) + s.detailSettings.personExaggeration;
+        const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
         // obtain width and length
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
@@ -403,11 +409,11 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
     }

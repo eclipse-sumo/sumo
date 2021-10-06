@@ -57,6 +57,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");
 
+    oc.doRegister("named-routes", new Option_Bool(false));
+    oc.addDescription("named-routes", "Output", "Write vehicles that reference routes by their id");
+
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "d", true);
     oc.addSynonyme("additional-files", "additional");
@@ -84,7 +87,7 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_String(SUMOTIME_MAXSTRING, "TIME"));
+    oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
 
     // register the processing options

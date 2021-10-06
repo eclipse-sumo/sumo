@@ -24,7 +24,7 @@ package de.tudresden.ws.container;
 /**
  *
  * @author Jakob Erdmann
- * @deprecated use package {@link #de.tudresden.sumo.objects} instead.
+ * @deprecated use package {@link de.tudresden.sumo.objects} instead.
  */
 
 public class SumoStage extends de.tudresden.sumo.objects.SumoStage {}

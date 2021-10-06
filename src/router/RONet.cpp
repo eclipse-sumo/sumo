@@ -585,11 +585,13 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
     for (std::map<const int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
-            RORoutable* const first = i->second.front();
-            myThreadPool.add(new RoutingTask(first, removeLoops, myErrorHandler), workerIndex);
-            myThreadPool.add(new BulkmodeTask(true), workerIndex);
-            for (std::vector<RORoutable*>::const_iterator j = i->second.begin() + 1; j != i->second.end(); ++j) {
-                myThreadPool.add(new RoutingTask(*j, removeLoops, myErrorHandler), workerIndex);
+            bool bulk = true;
+            for (RORoutable* const r : i->second) {
+                myThreadPool.add(new RoutingTask(r, removeLoops, myErrorHandler), workerIndex);
+                if (bulk) {
+                    myThreadPool.add(new BulkmodeTask(true), workerIndex);
+                    bulk = false;
+                }
             }
             myThreadPool.add(new BulkmodeTask(false), workerIndex);
             workerIndex++;
@@ -599,11 +601,11 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             continue;
         }
 #endif
-        for (std::vector<RORoutable*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
-            (*j)->computeRoute(provider, removeLoops, myErrorHandler);
-            provider.getVehicleRouter((*j)->getVClass()).setBulkMode(true);
+        for (RORoutable* const r : i->second) {
+            r->computeRoute(provider, removeLoops, myErrorHandler);
+            provider.setBulkMode(true);
         }
-        provider.getVehicleRouter(SVC_IGNORING).setBulkMode(false);
+        provider.setBulkMode(false);
     }
 }
 
@@ -733,9 +735,15 @@ RONet::getInternalEdgeNumber() const {
     return myNumInternalEdges;
 }
 
+
+ROEdge*
+RONet::getEdgeForLaneID(const std::string& laneID) const {
+    return getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(laneID));
+}
+
 ROLane*
 RONet::getLane(const std::string& laneID) const {
-    int laneIndex = StringUtils::toInt(laneID.substr(laneID.rfind("_") + 1));
+    int laneIndex = SUMOXMLDefinitions::getIndexFromLane(laneID);
     return getEdgeForLaneID(laneID)->getLanes()[laneIndex];
 }
 

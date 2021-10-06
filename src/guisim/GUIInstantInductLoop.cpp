@@ -70,6 +70,12 @@ GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, doubl
 GUIInstantInductLoop::MyWrapper::~MyWrapper() {}
 
 
+double
+GUIInstantInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIInstantInductLoop::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -99,7 +105,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     GLHelper::pushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 0, 1);
     GLHelper::pushMatrix();

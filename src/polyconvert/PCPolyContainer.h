@@ -92,7 +92,7 @@ public:
     bool add(PointOfInterest* poi, bool ignorePruning = false);
 
     /// @brief add lane pos
-    void addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, const double friendlyPos, double lanePosLat);
+    void addLanePos(const std::string& poiID, const std::string& laneID, const double lanePos, const bool friendlyPos, const double lanePosLat);
 
     /** @brief Saves the stored polygons and pois into the given file
      * @param[in] file The name of the file to write stored objects' definitions into

@@ -108,17 +108,22 @@ const double GUIVisualizationConnectionSettings::connectionWidth(0.2);
 // additional values
 // -------------------------------------------------------------------------
 
-const RGBColor GUIVisualizationAdditionalSettings::rerouterColor(255, 0, 0);
+const RGBColor GUIVisualizationAdditionalSettings::rerouterColor(255, 0, 0, 255);
 const double GUIVisualizationAdditionalSettings::rerouterSize(1);
-const RGBColor GUIVisualizationAdditionalSettings::VSSColor(255, 255, 255);
+const RGBColor GUIVisualizationAdditionalSettings::VSSColor(255, 255, 255, 255);
 const double GUIVisualizationAdditionalSettings::VSSSize(1);
-const RGBColor GUIVisualizationAdditionalSettings::calibratorColor(255, 204, 0);
+const RGBColor GUIVisualizationAdditionalSettings::calibratorColor(255, 204, 0, 255);
 const double GUIVisualizationAdditionalSettings::calibratorWidth(1.4);
 const double GUIVisualizationAdditionalSettings::calibratorHeight(6);
-const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0);
+const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0, 255);
 const double GUIVisualizationAdditionalSettings::routeProbeSize(1);
-const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0);
+const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0, 255);
 const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
+const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0, 255);
+const RGBColor GUIVisualizationAdditionalSettings::connectionColorSelected(0, 0, 150, 255);
+const double GUIVisualizationAdditionalSettings::arrowWidth(1);
+const double GUIVisualizationAdditionalSettings::arrowLength(0.25);
+const double GUIVisualizationAdditionalSettings::arrowOffset(0.1);
 
 // -------------------------------------------------------------------------
 // detector values
@@ -144,20 +149,9 @@ const double GUIVisualizationDetectorSettings::E3EntryExitHeight(0.5);
 
 const double GUIVisualizationStoppingPlaceSettings::stoppingPlaceSignOffset(1.5);
 const double GUIVisualizationStoppingPlaceSettings::busStopWidth(1);
-const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColor(76, 170, 50);
-const RGBColor GUIVisualizationStoppingPlaceSettings::busStopColorSign(255, 235, 0);
 const double GUIVisualizationStoppingPlaceSettings::trainStopWidth(0.5);
 const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(1);
-const RGBColor GUIVisualizationStoppingPlaceSettings::containerStopColor(83, 89, 172);
-const RGBColor GUIVisualizationStoppingPlaceSettings::containerStopColorSign(177, 184, 186, 171);
 const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
-const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColor(114, 210, 252);
-const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColorSign(255, 235, 0);
-const RGBColor GUIVisualizationStoppingPlaceSettings::chargingStationColorCharge(255, 180, 0);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingAreaColor(83, 89, 172);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingAreaColorSign(177, 184, 186);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColorContour(0, 255, 0);
-const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColor(255, 200, 200);
 
 // -------------------------------------------------------------------------
 // Dotted contour values
@@ -358,7 +352,20 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     selectedPersonPlanColor(0, 0, 130, 255),
     selectedContainerColor(0, 0, 120, 255),
     selectedContainerPlanColor(0, 0, 130, 255),
-    selectedEdgeDataColor(0, 0, 150, 255) {
+    selectedEdgeDataColor(0, 0, 150, 255),
+    busStopColor(76, 170, 50),
+    busStopColorSign(255, 235, 0),
+    trainStopColor(76, 170, 50),
+    trainStopColorSign(255, 235, 0),
+    containerStopColor(83, 89, 172),
+    containerStopColorSign(177, 184, 186, 171),
+    chargingStationColor(114, 210, 252),
+    chargingStationColorSign(255, 235, 0),
+    chargingStationColorCharge(255, 180, 0),
+    parkingAreaColor(83, 89, 172),
+    parkingAreaColorSign(177, 184, 186),
+    parkingSpaceColorContour(0, 255, 0),
+    parkingSpaceColor(255, 200, 200) {
 }
 
 
@@ -376,7 +383,20 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (selectedPersonColor == v2.selectedPersonColor) &&
            (selectedContainerColor == v2.selectedContainerColor) &&
            (selectedPersonPlanColor == v2.selectedPersonPlanColor) &&
-           (selectedEdgeDataColor == v2.selectedEdgeDataColor);
+           (selectedEdgeDataColor == v2.selectedEdgeDataColor) &&
+           (busStopColor == v2.busStopColor) &&
+           (busStopColorSign == v2.busStopColorSign) &&
+           (trainStopColor == v2.trainStopColor) &&
+           (trainStopColorSign == v2.trainStopColorSign) &&
+           (containerStopColor == v2.containerStopColor) &&
+           (containerStopColorSign == v2.containerStopColorSign) &&
+           (chargingStationColor == v2.chargingStationColor) &&
+           (chargingStationColorSign == v2.chargingStationColorSign) &&
+           (chargingStationColorCharge == v2.chargingStationColorCharge) &&
+           (parkingAreaColor == v2.parkingAreaColor) &&
+           (parkingAreaColorSign == v2.parkingAreaColorSign) &&
+           (parkingSpaceColorContour == v2.parkingSpaceColorContour) &&
+           (parkingSpaceColor == v2.parkingSpaceColor);
 }
 
 
@@ -394,7 +414,20 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (selectedPersonColor != v2.selectedPersonColor) ||
            (selectedContainerColor != v2.selectedContainerColor) ||
            (selectedPersonPlanColor != v2.selectedPersonPlanColor) ||
-           (selectedEdgeDataColor != v2.selectedEdgeDataColor);
+           (selectedEdgeDataColor != v2.selectedEdgeDataColor) ||
+           (busStopColor != v2.busStopColor) ||
+           (busStopColorSign != v2.busStopColorSign) ||
+           (trainStopColor != v2.trainStopColor) ||
+           (trainStopColorSign != v2.trainStopColorSign) ||
+           (containerStopColor != v2.containerStopColor) ||
+           (containerStopColorSign != v2.containerStopColorSign) ||
+           (chargingStationColor != v2.chargingStationColor) ||
+           (chargingStationColorSign != v2.chargingStationColorSign) ||
+           (chargingStationColorCharge != v2.chargingStationColorCharge) ||
+           (parkingAreaColor != v2.parkingAreaColor) ||
+           (parkingAreaColorSign != v2.parkingAreaColorSign) ||
+           (parkingSpaceColorContour != v2.parkingSpaceColorContour) ||
+           (parkingSpaceColor != v2.parkingSpaceColor);
 }
 
 // ---------------------------------------------------------------------------
@@ -474,6 +507,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     tazRelWidthExaggeration(1),
     edgeRelWidthExaggeration(1),
     relDataAttr("count"),
+    dataValueHideCheck(false),
+    dataValueHideThreshold(0),
     showSizeLegend(true),
     showColorLegend(false),
     showVehicleColorLegend(false),
@@ -1584,6 +1619,34 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     addSize.print(dev, "add");
     addName.print(dev, "addName");
     addFullName.print(dev, "addFullName");
+    // temporal (will be integrated in a schema)
+    dev.writeAttr("selectionColor", colorSettings.selectionColor);
+    dev.writeAttr("selectedEdgeColor", colorSettings.selectedEdgeColor);
+    dev.writeAttr("selectedLaneColor", colorSettings.selectedLaneColor);
+    dev.writeAttr("selectedConnectionColor", colorSettings.selectedConnectionColor);
+    dev.writeAttr("selectedProhibitionColor", colorSettings.selectedProhibitionColor);
+    dev.writeAttr("selectedCrossingColor", colorSettings.selectedCrossingColor);
+    dev.writeAttr("selectedAdditionalColor", colorSettings.selectedAdditionalColor);
+    dev.writeAttr("selectedRouteColor", colorSettings.selectedRouteColor);
+    dev.writeAttr("selectedVehicleColor", colorSettings.selectedVehicleColor);
+    dev.writeAttr("selectedPersonColor", colorSettings.selectedPersonColor);
+    dev.writeAttr("selectedPersonPlanColor", colorSettings.selectedPersonPlanColor);
+    dev.writeAttr("selectedContainerColor", colorSettings.selectedContainerColor);
+    dev.writeAttr("selectedContainerPlanColor", colorSettings.selectedContainerPlanColor);
+    dev.writeAttr("selectedEdgeDataColor", colorSettings.selectedEdgeDataColor);
+    dev.writeAttr("busStopColor", colorSettings.busStopColor);
+    dev.writeAttr("busStopColorSign", colorSettings.busStopColorSign);
+    dev.writeAttr("trainStopColor", colorSettings.trainStopColor);
+    dev.writeAttr("trainStopColorSign", colorSettings.trainStopColorSign);
+    dev.writeAttr("containerStopColor", colorSettings.containerStopColor);
+    dev.writeAttr("containerStopColorSign", colorSettings.containerStopColorSign);
+    dev.writeAttr("chargingStationColor", colorSettings.chargingStationColor);
+    dev.writeAttr("chargingStationColorSign", colorSettings.chargingStationColorSign);
+    dev.writeAttr("chargingStationColorCharge", colorSettings.chargingStationColorCharge);
+    dev.writeAttr("parkingAreaColor", colorSettings.parkingAreaColor);
+    dev.writeAttr("parkingAreaColorSign", colorSettings.parkingAreaColorSign);
+    dev.writeAttr("parkingSpaceColorContour", colorSettings.parkingSpaceColorContour);
+    dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
     dev.closeTag();
     // pois
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);
@@ -1904,6 +1967,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (!(relDataAttr == v2.relDataAttr)) {
+        return false;
+    }
+    if (!(dataValueHideCheck == v2.dataValueHideCheck)) {
+        return false;
+    }
+    if (!(dataValueHideThreshold == v2.dataValueHideThreshold)) {
         return false;
     }
 

@@ -71,6 +71,12 @@ GUIPointOfInterest::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
 }
 
 
+double 
+GUIPointOfInterest::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.poiSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIPointOfInterest::getCenteringBoundary() const {
     Boundary b;
@@ -102,7 +108,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
 bool
 GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s, const GUIGlObject* o) {
     // only continue if scale is valid
-    if (s.scale * (1.3 / 3.0) *s.poiSize.getExaggeration(s, o) < s.poiSize.minSize) {
+    if (s.scale * (1.3 / 3.0) * o->getExaggeration(s) < s.poiSize.minSize) {
         return false;
     }
     return true;
@@ -129,7 +135,7 @@ GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInt
 void
 GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o,
                                  const bool disableSelectionColor, const double layer) {
-    const double exaggeration = s.poiSize.getExaggeration(s, o);
+    const double exaggeration = o->getExaggeration(s);
     GLHelper::pushMatrix();
     setColor(s, POI, o, disableSelectionColor);
     glTranslated(POI->x(), POI->y(), layer);

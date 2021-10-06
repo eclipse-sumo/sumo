@@ -35,19 +35,19 @@
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE,
-{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP,
-{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 
@@ -201,6 +201,12 @@ GNERide::getParentName() const {
 }
 
 
+double
+GNERide::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
+
 Boundary
 GNERide::getCenteringBoundary() const {
     Boundary rideBoundary;
@@ -224,8 +230,9 @@ GNERide::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 
 void
-GNERide::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Rides are drawn in drawPartialGL
+GNERide::drawGL(const GUIVisualizationSettings& s) const {
+    // force draw path
+    myNet->getPathManager()->forceDrawPath(s, this);
 }
 
 

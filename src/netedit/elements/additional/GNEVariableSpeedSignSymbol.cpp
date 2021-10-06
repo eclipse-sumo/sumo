@@ -54,20 +54,16 @@ void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), 1.5, 0);
-    // update boundary (needed for connections)
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
-    // update connections
-    getParentAdditionals().front()->updateHierarchicalConnections();
 }
 
 
 void
 GNEVariableSpeedSignSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // just update geometry
-    updateGeometry();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
+    // grow
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -104,10 +100,12 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // translate to position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
         // scale
         glScaled(VSSExaggeration, VSSExaggeration, 1);
         // set color
@@ -147,10 +145,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
     }
 }

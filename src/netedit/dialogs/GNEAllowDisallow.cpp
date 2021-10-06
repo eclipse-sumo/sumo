@@ -34,13 +34,14 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAllowDisallow) GNEAllowDisallowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_CHANGE,           GNEAllowDisallow::onCmdValueChanged),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTALL,        GNEAllowDisallow::onCmdSelectAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_UNSELECTALL,      GNEAllowDisallow::onCmdUnselectAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTONLYROAD,   GNEAllowDisallow::onCmdSelectOnlyRoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,                  GNEAllowDisallow::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,                  GNEAllowDisallow::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,                   GNEAllowDisallow::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_CHANGE,       GNEAllowDisallow::onCmdValueChanged),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTALL,    GNEAllowDisallow::onCmdSelectAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_UNSELECTALL,  GNEAllowDisallow::onCmdUnselectAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_ROAD,    GNEAllowDisallow::onCmdSelectOnlyRoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_RAIL,    GNEAllowDisallow::onCmdSelectOnlyRail),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,              GNEAllowDisallow::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,              GNEAllowDisallow::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,               GNEAllowDisallow::onCmdReset),
 };
 
 // Object implementation
@@ -133,6 +134,20 @@ GNEAllowDisallow::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
 
 
 long
+GNEAllowDisallow::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
+    // change all non-road icons to disallow, and allow for the rest
+    for (const auto& vClass : myVClassMap) {
+        if ((vClass.first & (SVC_TRAM | SVC_RAIL_URBAN | SVC_RAIL | SVC_RAIL_ELECTRIC | SVC_RAIL_FAST)) != 0) {
+            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+        } else {
+            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+        }
+    }
+    return 1;
+}
+
+
+long
 GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
     // clear allow and disallow VClasses
     std::vector<std::string> allowedVehicles, disallowedVehicles;
@@ -211,11 +226,17 @@ GNEAllowDisallow::constructor() {
     // create groupbox for options
     FXGroupBox* myGroupBoxOptions = new FXGroupBox(mainFrame, "Selection options", GUIDesignGroupBoxFrame);
     FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
-    mySelectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_SELECTALL, GUIDesignButtonIcon);
+    // allow all
+    new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_SELECTALL, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, "Allow all vehicles", nullptr, GUIDesignLabelLeftThick);
-    mySelectOnlyRoadVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_SELECTONLYROAD, GUIDesignButtonIcon);
+    // only road
+    new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_ONLY_ROAD, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, "Allow only road vehicles", nullptr, GUIDesignLabelLeftThick);
-    myUnselectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
+    // only rail
+    new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_ONLY_RAIL, GUIDesignButtonIcon);
+    new FXLabel(myOptionsFrame, "Allow only rail vehicles", nullptr, GUIDesignLabelLeftThick);
+    // disallow all
+    new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, "Disallow all vehicles", nullptr, GUIDesignLabelLeftThick);
     // create groupbox for vehicles
     FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(mainFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
@@ -238,9 +259,9 @@ GNEAllowDisallow::constructor() {
     buildVClass(myContentCenterFrame, SVC_MOPED, GUIIcon::VCLASS_MOPED, "Motorcycle not allowed in motorways");
     buildVClass(myContentCenterFrame, SVC_BICYCLE, GUIIcon::VCLASS_BICYCLE, "Human-powered, pedal-driven vehicle");
     buildVClass(myContentCenterFrame, SVC_PEDESTRIAN, GUIIcon::VCLASS_PEDESTRIAN, "Person traveling on foot");
-    buildVClass(myContentCenterFrame, SVC_TRAM, GUIIcon::VCLASS_TRAM, "Rail vehicle which runs on tracks");
-    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, GUIIcon::VCLASS_RAIL_ELECTRIC, "Rail electric vehicle");
-    buildVClass(myContentCenterFrame, SVC_RAIL_FAST, GUIIcon::VCLASS_RAIL_ELECTRIC, "High-speed rail vehicle");
+    buildVClass(myContentCenterFrame, SVC_TRAM, GUIIcon::VCLASS_RAIL_ELECTRIC, "Rail vehicle which runs on tracks");
+    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, GUIIcon::VCLASS_RAIL_URBAN, "Rail electric vehicle");
+    buildVClass(myContentCenterFrame, SVC_RAIL_FAST, GUIIcon::VCLASS_RAIL_URBAN, "High-speed rail vehicle");
     buildVClass(myContentCenterFrame, SVC_RAIL_URBAN, GUIIcon::VCLASS_RAIL_URBAN, "Heavier than tram");
     buildVClass(myContentCenterFrame, SVC_RAIL, GUIIcon::VCLASS_RAIL, "Heavy rail vehicle");
     // create right frame and fill it  (8 vehicles)

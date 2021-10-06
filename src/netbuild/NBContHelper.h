@@ -273,7 +273,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        node_with_incoming_finder& operator=(const node_with_incoming_finder& s);
+        node_with_incoming_finder& operator=(const node_with_incoming_finder& s) = delete;
 
     };
 
@@ -293,7 +293,7 @@ public:
 
     private:
         /// @brief invalidated assignment operator
-        node_with_outgoing_finder& operator=(const node_with_outgoing_finder& s);
+        node_with_outgoing_finder& operator=(const node_with_outgoing_finder& s) = delete;
 
     };
 

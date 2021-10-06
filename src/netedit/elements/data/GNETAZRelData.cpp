@@ -48,7 +48,8 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}) {
+        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+    myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -57,7 +58,8 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement*
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {}, {}, {TAZ}, {}, {}) {
+        {}, {}, {}, {}, {}, {TAZ}, {}, {}),
+    myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -70,6 +72,7 @@ const RGBColor&
 GNETAZRelData::getColor() const {
     return myColor;
 }
+
 
 double
 GNETAZRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
@@ -154,17 +157,17 @@ GNETAZRelData::updateGeometry() {
         ring.add(TAZA->getTAZElementShape().front());
         myTAZRelGeometry.updateGeometry(ring);
         // move ringCenter to center
-        ringCenter.add(TAZA->getPositionInView());
+        ringCenter.add(TAZA->getAttributePosition(SUMO_ATTR_CENTER));
         myTAZRelGeometryCenter.updateGeometry(ringCenter);
     } else {
         // calculate line betwen to TAZ centers
-        PositionVector line = {TAZA->getPositionInView(), TAZB->getPositionInView()};
+        PositionVector line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER), TAZB->getAttributePosition(SUMO_ATTR_CENTER)};
         // check line
         if (line.length() < 1) {
-            line = {TAZA->getPositionInView() - 0.5, TAZB->getPositionInView() + 0.5};
+            line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, TAZB->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
         }
         // add offset to line
-        line.move2side(1);
+        line.move2side(0.5 + myLastWidth);
         // calculate middle point
         const Position middlePoint = line.getLineCenter();
         // get closest points to middlePoint
@@ -191,7 +194,7 @@ GNETAZRelData::updateGeometry() {
 
 Position
 GNETAZRelData::getPositionInView() const {
-    return getParentTAZElements().front()->getPositionInView();
+    return getParentTAZElements().front()->getAttributePosition(SUMO_ATTR_CENTER);
 }
 
 
@@ -249,31 +252,33 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         double val = getColorValue(s, s.dataColorer.getActive());
         myColor = s.dataColorer.getScheme().getColor(val);
         GLHelper::setColor(myColor);
-
+        // check if update lastWidth
+        const double width = onlyDrawContour ? 0.1:  0.5 * s.tazRelWidthExaggeration;
+        if (width != myLastWidth) {
+            myLastWidth = width;
+            // cast object (check this, is ugly)
+            GNETAZRelData *TAZRelData = const_cast<GNETAZRelData*>(this);
+            myNet->removeGLObjectFromGrid(TAZRelData);
+            TAZRelData->updateGeometry();
+            myNet->addGLObjectIntoGrid(TAZRelData);
+        }
         // draw geometry
         if (onlyDrawContour) {
             // draw depending of TAZRelDrawing
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, 0.1);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometryCenter, width);
             } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, 0.1);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometry, width);
             }
         } else {
-            const double width = 0.5 * s.tazRelWidthExaggeration;
             // draw depending of TAZRelDrawing
-            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometryCenter, width);
-                GLHelper::drawTriangleAtEnd(
-                    *(myTAZRelGeometryCenter.getShape().end() - 2),
-                    *(myTAZRelGeometryCenter.getShape().end() - 1),
-                    1.5, 1.5, 0.5);
-            } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZRelGeometry, width);
-                GLHelper::drawTriangleAtEnd(
-                    *(myTAZRelGeometry.getShape().end() - 2),
-                    *(myTAZRelGeometry.getShape().end() - 1),
-                    1.5, 1.5, 0.5);
-            }
+            const GUIGeometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
+                ? myTAZRelGeometryCenter : myTAZRelGeometry);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geom, width);
+            GLHelper::drawTriangleAtEnd(
+                    *(geom.getShape().end() - 2),
+                    *(geom.getShape().end() - 1),
+                    1.5 + width, 1.5 + width, 0.5 + width);
         }
         // pop matrix
         GLHelper::popMatrix();
@@ -284,16 +289,16 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
             }
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
             }
         }
     }
@@ -327,6 +332,12 @@ GNETAZRelData::getFirstPathLane() const {
 GNELane*
 GNETAZRelData::getLastPathLane() const {
     return nullptr;
+}
+
+
+double 
+GNETAZRelData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
 }
 
 

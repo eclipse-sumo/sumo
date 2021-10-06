@@ -20,6 +20,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNECalibratorFlow.h"
 
@@ -29,51 +30,54 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-    {}, {}, {}, {calibratorParent}, {}, {}, {}, {},
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
     std::map<std::string, std::string>()),
-    myVehicleType(calibratorParent->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
-    myRoute(calibratorParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second) {
+    SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
-    // fill calibrator flows with default values
-    setDefaultValues();
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour,
-                                     const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed,
-                                     const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber,
-                                     bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end, const std::map<std::string, std::string>& parameters) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-    {}, {}, {}, {calibratorParent}, {}, {}, {}, {},
-    parameters),
-    myVehicleType(vehicleType),
-    myRoute(route),
-    myVehsPerHour(vehsPerHour),
-    mySpeed(speed),
-    myColor(color),
-    myDepartLane(departLane),
-    myDepartPos(departPos),
-    myDepartSpeed(departSpeed),
-    myArrivalLane(arrivalLane),
-    myArrivalPos(arrivalPos),
-    myArrivalSpeed(arrivalSpeed),
-    myLine(line),
-    myPersonNumber(personNumber),
-    myContainerNumber(containerNumber),
-    myReroute(reroute),
-    myDepartPosLat(departPosLat),
-    myArrivalPosLat(arrivalPosLat),
-    myBegin(begin),
-    myEnd(end) {
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+    std::map<std::string, std::string>()),
+    SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNECalibratorFlow::~GNECalibratorFlow() {}
+
+
+void 
+GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
+    // attribute VType musn't be written if is DEFAULT_VTYPE_ID
+    if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
+        // unset VType parameter
+        parametersSet &= ~VEHPARS_VTYPE_SET;
+        // write vehicle attributes (VType will not be written)
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag());
+        // set VType parameter again
+        parametersSet |= VEHPARS_VTYPE_SET;
+    } else {
+        // write vehicle attributes, including VType
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
+    }
+    // write route
+    device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
+    // VPH
+    if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
+        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
+    }
+    // write parameters
+    SUMOVehicleParameter::writeParams(device);
+    // close vehicle tag
+    device.closeTag();
+}
 
 
 GNEMoveOperation*
@@ -92,14 +96,13 @@ GNECalibratorFlow::updateGeometry() {
 
 Position
 GNECalibratorFlow::getPositionInView() const {
-    return myBoundary.getCenter();
+    return getParentAdditionals().front()->getPositionInView();
 }
 
 
 void
 GNECalibratorFlow::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
 }
 
 
@@ -127,47 +130,107 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_TYPE:
-            return myVehicleType->getID();
+            return getParentDemandElements().at(0)->getID();
         case SUMO_ATTR_ROUTE:
-            return myRoute->getID();
+            return getParentDemandElements().at(1)->getID();
         case SUMO_ATTR_VEHSPERHOUR:
-            return myVehsPerHour;
+            if (wasSet(VEHPARS_VPH_SET)) {
+                return toString(3600 / STEPS2TIME(repetitionOffset));
+            } else {
+                return "";
+            }
         case SUMO_ATTR_SPEED:
-            return mySpeed;
+            if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
+                return toString(calibratorSpeed);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_COLOR:
-            return toString(myColor);
+            if (wasSet(VEHPARS_COLOR_SET)) {
+                return toString(color);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_COLOR);
+            }
         case SUMO_ATTR_BEGIN:
-            return time2string(myBegin);
+            return time2string(depart);
         case SUMO_ATTR_END:
-            return time2string(myEnd);
+            return time2string(repetitionEnd);
         case SUMO_ATTR_DEPARTLANE:
-            return myDepartLane;
+            if (wasSet(VEHPARS_DEPARTLANE_SET)) {
+                return getDepartLane();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTLANE);
+            }
         case SUMO_ATTR_DEPARTPOS:
-            return myDepartPos;
+            if (wasSet(VEHPARS_DEPARTPOS_SET)) {
+                return getDepartPos();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS);
+            }
         case SUMO_ATTR_DEPARTSPEED:
-            return myDepartSpeed;
+            if (wasSet(VEHPARS_DEPARTSPEED_SET)) {
+                return getDepartSpeed();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTSPEED);
+            }
         case SUMO_ATTR_ARRIVALLANE:
-            return myArrivalLane;
+            if (wasSet(VEHPARS_ARRIVALLANE_SET)) {
+                return getArrivalLane();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALLANE);
+            }
         case SUMO_ATTR_ARRIVALPOS:
-            return myArrivalPos;
+            if (wasSet(VEHPARS_ARRIVALPOS_SET)) {
+                return getArrivalPos();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS);
+            }
         case SUMO_ATTR_ARRIVALSPEED:
-            return myArrivalSpeed;
+            if (wasSet(VEHPARS_ARRIVALSPEED_SET)) {
+                return getArrivalSpeed();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALSPEED);
+            }
         case SUMO_ATTR_LINE:
-            return myLine;
+            if (wasSet(VEHPARS_LINE_SET)) {
+                return line;
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_LINE);
+            }
         case SUMO_ATTR_PERSON_NUMBER:
-            return toString(myPersonNumber);
+            if (wasSet(VEHPARS_PERSON_NUMBER_SET)) {
+                return toString(personNumber);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_PERSON_NUMBER);
+            }
         case SUMO_ATTR_CONTAINER_NUMBER:
-            return toString(myContainerNumber);
+            if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
+                return toString(containerNumber);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_CONTAINER_NUMBER);
+            }
         case SUMO_ATTR_REROUTE:
-            return toString(myReroute);
+            if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
+                return "true";
+            } else {
+                return "false";
+            }
         case SUMO_ATTR_DEPARTPOS_LAT:
-            return myDepartPosLat;
+            if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
+                return getDepartPosLat();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS_LAT);
+            }
         case SUMO_ATTR_ARRIVALPOS_LAT:
-            return myArrivalPosLat;
+            if (wasSet(VEHPARS_ARRIVALPOSLAT_SET)) {
+                return getArrivalPosLat();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
+            }
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+            return SUMOVehicleParameter::getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -177,10 +240,28 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
 double
 GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
-            return STEPS2TIME(myBegin);
         case SUMO_ATTR_END:
-            return STEPS2TIME(myEnd);
+            return STEPS2TIME(depart);
+        case SUMO_ATTR_DEPARTPOS:
+            // only return departPos it if is given
+            if (departPosProcedure == DepartPosDefinition::GIVEN) {
+                return departPos;
+            } else {
+                return 0;
+            }
+        case SUMO_ATTR_ARRIVALPOS:
+            // only return departPos it if is given
+            if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
+                return arrivalPos;
+            } else {
+                return -1;
+            }
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_LENGTH:
+        case SUMO_ATTR_MINGAP:
+            return getParentDemandElements().at(0)->getAttributeDouble(key);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -230,11 +311,11 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
-                if (mySpeed.empty()) {
+                if (!isAttributeEnabled(SUMO_ATTR_SPEED)) {
                     return false;
                 } else {
                     return true;
@@ -247,7 +328,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
-                if (myVehsPerHour.empty()) {
+                if (!isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
                     return false;
                 } else {
                     return true;
@@ -328,8 +409,21 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNECalibratorFlow::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
+GNECalibratorFlow::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_END:
+            return (parametersSet & VEHPARS_END_SET) != 0;
+        case SUMO_ATTR_NUMBER:
+            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
+        case SUMO_ATTR_VEHSPERHOUR:
+            return (parametersSet & VEHPARS_VPH_SET) != 0;
+        case SUMO_ATTR_PERIOD:
+            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        case SUMO_ATTR_PROB:
+            return (parametersSet & VEHPARS_PROB_SET) != 0;
+        default:
+            return true;
+    }
 }
 
 
@@ -350,69 +444,199 @@ GNECalibratorFlow::getHierarchyName() const {
 
 void
 GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
+    // declare string error
+    std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_TYPE:
-            myVehicleType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value);
+            replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
+            // set manually vtypeID (needed for saving)
+            vtypeid = value;
             break;
         case SUMO_ATTR_ROUTE:
-            myRoute = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value);
+            if (getParentDemandElements().size() == 2) {
+                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
+            }
+            updateGeometry();
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            myVehsPerHour = value;
+            repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
+            // set parameters
+            parametersSet &= ~VEHPARS_CALIBRATORSPEED_SET;
+            parametersSet |= VEHPARS_VPH_SET;
             break;
         case SUMO_ATTR_SPEED:
-            mySpeed = value;
+            calibratorSpeed = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
+            parametersSet &= ~VEHPARS_VPH_SET;
             break;
         case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                color = parse<RGBColor>(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_COLOR_SET;
+            } else {
+                // set default value
+                color = parse<RGBColor>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VEHPARS_COLOR_SET;
+            }
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<SUMOTime>(value);
+            depart = string2time(value);
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<SUMOTime>(value);
+            repetitionEnd = string2time(value);
             break;
         case SUMO_ATTR_DEPARTLANE:
-            myDepartLane = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTLANE_SET;
+            } else {
+                // set default value
+                parseDepartLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTLANE_SET;
+            }
             break;
         case SUMO_ATTR_DEPARTPOS:
-            myDepartPos = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTPOS_SET;
+            } else {
+                // set default value
+                parseDepartPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTPOS_SET;
+            }
+            updateGeometry();
             break;
         case SUMO_ATTR_DEPARTSPEED:
-            myDepartSpeed = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTSPEED_SET;
+            } else {
+                // set default value
+                parseDepartSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTSPEED_SET;
+            }
             break;
         case SUMO_ATTR_ARRIVALLANE:
-            myArrivalLane = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALLANE_SET;
+            } else {
+                // set default value
+                parseArrivalLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALLANE_SET;
+            }
             break;
         case SUMO_ATTR_ARRIVALPOS:
-            myArrivalPos = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALPOS_SET;
+            } else {
+                // set default value
+                parseArrivalPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
+            }
+            updateGeometry();
             break;
         case SUMO_ATTR_ARRIVALSPEED:
-            myArrivalSpeed = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALSPEED_SET;
+            } else {
+                // set default value
+                parseArrivalSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALSPEED_SET;
+            }
             break;
         case SUMO_ATTR_LINE:
-            myLine = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                line = value;
+                // mark parameter as set
+                parametersSet |= VEHPARS_LINE_SET;
+            } else {
+                // set default value
+                line = myTagProperty.getDefaultValue(key);
+                // unset parameter
+                parametersSet &= ~VEHPARS_LINE_SET;
+            }
             break;
         case SUMO_ATTR_PERSON_NUMBER:
-            myPersonNumber = parse<int>(value);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                personNumber = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_PERSON_NUMBER_SET;
+            } else {
+                // set default value
+                personNumber = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VEHPARS_PERSON_NUMBER_SET;
+            }
             break;
         case SUMO_ATTR_CONTAINER_NUMBER:
-            myContainerNumber = parse<int>(value);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                containerNumber = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
+            } else {
+                // set default value
+                containerNumber = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VEHPARS_CONTAINER_NUMBER_SET;
+            }
             break;
         case SUMO_ATTR_REROUTE:
-            myReroute = parse<bool>(value);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                // mark parameter as set
+                parametersSet |= VEHPARS_ROUTE_SET;
+            } else {
+                // unset parameter
+                parametersSet &= ~VEHPARS_ROUTE_SET;
+            }
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
-            myDepartPosLat = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
+            } else {
+                // set default value
+                parseDepartPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTPOSLAT_SET;
+            }
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
-            myArrivalPosLat = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
+            } else {
+                // set default value
+                parseArrivalPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
+            }
+            parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+            SUMOVehicleParameter::setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -41,18 +41,17 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] shape TAZ shape
+     * @param[in] center TAZ center
      * @param[in] fill flag for fill TAZ shape
      * @param[in] color TAZ color
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
      */
-    GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const bool fill, const RGBColor &color, 
-           const std::string& name, const std::map<std::string, std::string>& parameters);
+    GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const Position &TAZ, const bool fill, 
+           const RGBColor &color, const std::string& name, const std::map<std::string, std::string>& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
-
-    bool getFill() const;
 
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
@@ -84,6 +83,9 @@ public:
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
+    
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
@@ -126,6 +128,12 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in position format (to avoid unnecessary parse<position>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -160,7 +168,10 @@ protected:
     Boundary myMovingGeometryBoundary;
 
     /// @brief geometry for lenghts/rotations
-    GNEGeometry::Geometry myTAZGeometry;
+    GUIGeometry myTAZGeometry;
+
+    /// @brief TAZ center
+    Position myTAZCenter;
 
 private:
     /// @brief hint size of vertex

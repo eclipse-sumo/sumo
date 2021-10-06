@@ -965,7 +965,6 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)",
                                               SUMOXMLDefinitions::LaneSpreadFunctions.getString(LaneSpreadFunction::RIGHT));
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
-
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PRIORITY,
@@ -979,6 +978,49 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "Lane width for all lanes of this edge in meters (used for visualization)",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+    /* */
+        
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ONEWAY,
+                                              GNEAttributeProperties::BOOL,
+                                              "Whether one-way traffic is mostly common for this edgeType");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DISCARD,
+                                              GNEAttributeProperties::BOOL,
+                                              "Whether edges of this edgeType shall be discarded");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTHRESOLUTION,
+                                              GNEAttributeProperties::FLOAT,
+                                              "The resolution for interpreting custom (noisy) lane widths of this edgeType [m]");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_MAXWIDTH,
+                                              GNEAttributeProperties::FLOAT,
+                                              "The maximum width for lanes of this edgeType [m]");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_MINWIDTH,
+                                              GNEAttributeProperties::FLOAT,
+                                              "The maximum width for lanes of this edgeType [m]");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
+                                              GNEAttributeProperties::FLOAT,
+                                              "The width of the sidewalk that should be added as an additional lane");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
+                                              GNEAttributeProperties::FLOAT,
+                                              "The width of the bike lane that should be added as an additional lane");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+    /* */
+
     }
     currentTag = SUMO_TAG_LANETYPE;
     {
@@ -2992,6 +3034,11 @@ GNEAttributeCarrier::fillTAZElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The shape of the TAZ");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CENTER,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "TAZ center");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FILL,

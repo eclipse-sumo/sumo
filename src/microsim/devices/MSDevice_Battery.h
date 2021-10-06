@@ -25,6 +25,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/emissions/EnergyParams.h>
 
 
 // ===========================================================================
@@ -100,7 +101,7 @@ private:
     * @param[in] preInsertionPeriod The route search period before insertion
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                     const double powerMax, const double stoppingTreshold, const std::map<int, double>& param);
+                     const double powerMax, const double stoppingTreshold, const EnergyParams& param);
 
     void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
 
@@ -169,7 +170,7 @@ public:
     void increaseVehicleStoppedTimer();
 
     /// @brief retrieve parameters for the energy consumption model
-    const std::map<int, double>& getEnergyParams() const {
+    const EnergyParams& getEnergyParams() const {
         return myParam;
     }
 
@@ -187,7 +188,7 @@ protected:
     double myStoppingTreshold;
 
     /// @brief Parameter collection
-    std::map<int, double> myParam;
+    EnergyParams myParam;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;

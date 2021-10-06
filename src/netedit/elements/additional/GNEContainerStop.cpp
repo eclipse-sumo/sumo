@@ -78,7 +78,7 @@ GNEContainerStop::updateGeometry() {
 void
 GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double containerStopExaggeration = s.addSize.getExaggeration(s, this);
+    const double containerStopExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
@@ -94,10 +94,10 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 signColor = baseColor.changedBrightness(-32);
             } else if (myColor.isValid()) {
                 baseColor = myColor;
-                signColor = s.stoppingPlaceSettings.containerStopColorSign;
+                signColor = s.colorSettings.containerStopColorSign;
             } else {
-                baseColor = myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.containerStopColor;
-                signColor = s.stoppingPlaceSettings.containerStopColorSign;
+                baseColor = s.colorSettings.containerStopColor;
+                signColor = s.colorSettings.containerStopColorSign;
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
@@ -105,10 +105,12 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * containerStopExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * containerStopExaggeration);
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, containerStopExaggeration)) {
                 // draw lines
@@ -124,11 +126,11 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 
                                                     containerStopExaggeration, 1, 1);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 
                                                     containerStopExaggeration, 1, 1);
             }
             // draw child demand elements
@@ -185,6 +187,8 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -193,9 +197,6 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
 
 void
 GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -209,6 +210,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_COLOR:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -327,6 +329,9 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -1,0 +1,6 @@
+# test bad input
+no_routes
+
+# invalid options
+invalid_options
+no_intervals

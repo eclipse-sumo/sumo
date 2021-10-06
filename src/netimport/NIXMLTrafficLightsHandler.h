@@ -55,6 +55,10 @@ public:
     /// @brief Destructor
     ~NIXMLTrafficLightsHandler();
 
+    const std::set<std::string>& getSeenIDs() {
+        return mySeenIDs;
+    }
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -115,6 +119,8 @@ private:
     /// @brief whether definitions for unknown traffic lights shall be silently ignored
     bool myIgnoreUnknown;
 
+    /// @brief list of traffic light logics that were found
+    std::set<std::string> mySeenIDs;
 
 private:
     /// @brief invalidated copy constructor

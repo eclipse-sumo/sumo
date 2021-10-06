@@ -29,11 +29,10 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) :
+GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement *route, double probability) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "",
-    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {route}, {},
     std::map<std::string, std::string>()),
-    myNewRouteId(newRouteId),
     myProbability(probability) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -58,14 +57,13 @@ GNERouteProbReroute::updateGeometry() {
 
 void
 GNERouteProbReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
 }
 
 
 Position
 GNERouteProbReroute::getPositionInView() const {
-    return myBoundary.getCenter();
+    return getParentAdditionals().front()->getPositionInView();
 }
 
 
@@ -93,7 +91,7 @@ GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_ROUTE:
-            return myNewRouteId;
+            return getParentDemandElements().front()->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case GNE_ATTR_PARENT:
@@ -136,7 +134,7 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value);
+            return (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
         case GNE_ATTR_PARAMETERS:
@@ -161,7 +159,7 @@ GNERouteProbReroute::getPopUpID() const {
 
 std::string
 GNERouteProbReroute::getHierarchyName() const {
-    return getTagStr() + ": " + myNewRouteId;
+    return getTagStr() + ": " + getParentDemandElements().front()->getID();
 }
 
 // ===========================================================================
@@ -175,7 +173,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_ROUTE:
-            myNewRouteId = value;
+            replaceDemandElementParent(SUMO_TAG_ROUTE, value, 0);
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);

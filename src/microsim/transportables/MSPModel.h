@@ -137,6 +137,9 @@ public:
     /// @brief return the offset from the start of the current edge measured in its natural direction
     virtual double getEdgePos(const MSStageMoving& stage, SUMOTime now) const = 0;
 
+    /// @brief return the walking direction (FORWARD, BACKWARD)
+    virtual int getDirection(const MSStageMoving& stage, SUMOTime now) const = 0;
+
     /// @brief return the network coordinate of the transportable
     virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const = 0;
 

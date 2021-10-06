@@ -72,7 +72,8 @@ public:
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
-            MSLane* lane, double pos, const std::string& vTypes, bool show = true) override;
+            MSLane* lane, double pos, const std::string& vTypes, int detectPersons,
+            bool show = true) override;
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -96,12 +97,12 @@ public:
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector) override;
+                                            const std::string& vTypes, int detectPersons, bool showDetector) override;
 
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector) override;
+                                            const std::string& vTypes, int detectPersons, bool showDetector) override;
 
 
     /** @brief Creates an instance of an e3 detector using the given values
@@ -118,7 +119,7 @@ public:
             const CrossSectionVector& entries,
             const CrossSectionVector& exits,
             double haltingSpeedThreshold,
-            SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry) override;
+            SUMOTime haltingTimeThreshold, const std::string& vTypes, int detectPersons, bool openEntry) override;
     /// @}
 
 

@@ -41,8 +41,9 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes, bool show) :
-    MSInductLoop(id, lane, position, vTypes, true),
+                             double position, const std::string& vTypes,
+                             int detectPersons, bool show) :
+    MSInductLoop(id, lane, position, vTypes, detectPersons, true),
     myWrapper(nullptr),
     myShow(show)
 {}
@@ -83,6 +84,12 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
 
 
 GUIInductLoop::MyWrapper::~MyWrapper() {}
+
+
+double 
+GUIInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
 
 
 Boundary
@@ -127,7 +134,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 1, 0);
     GLHelper::pushMatrix();

@@ -1152,7 +1152,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
     FXString ext = FXPath::extension(destFile.c_str());
     const bool useGL2PS = ext == "ps" || ext == "eps" || ext == "pdf" || ext == "svg" || ext == "tex" || ext == "pgf";
 #ifdef HAVE_FFMPEG
-    const bool useVideo = destFile == "" || ext == "h264" || ext == "hevc";
+    const bool useVideo = destFile == "" || ext == "h264" || ext == "hevc" || ext == "mp4";
 #endif
     for (int i = 0; i < 10 && !makeCurrent(); ++i) {
         FXSingleEventThread::sleep(100);

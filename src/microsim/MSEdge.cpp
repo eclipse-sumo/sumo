@@ -370,8 +370,12 @@ MSEdge::rightLane(const MSLane* const lane) const {
 MSLane*
 MSEdge::parallelLane(const MSLane* const lane, int offset, bool includeOpposite) const {
     const int resultIndex = lane->getIndex() + offset;
-    if (resultIndex == (int)myLanes->size() && includeOpposite) {
-        return lane->getOpposite();
+    if (resultIndex >= getNumLanes() && includeOpposite) {
+        const MSEdge* opposite = getOppositeEdge();
+        if (opposite != nullptr && resultIndex < getNumLanes() + opposite->getNumLanes()) {
+            return opposite->getLanes()[opposite->getNumLanes() + getNumLanes() - resultIndex - 1];
+        }
+        return nullptr;
     } else if (resultIndex >= (int)myLanes->size() || resultIndex < 0) {
         return nullptr;
     } else {

@@ -86,6 +86,9 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
+
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -118,6 +121,9 @@ public:
     /// @{
     /// @brief return the offset from the start of the current edge
     double getEdgePos() const override;
+
+    /// @brief Return the movement directon on the edge
+    int getDirection() const override;
 
     /// @brief return the Network coordinate of the person
     // @note overrides the base method and returns myPositionInVehicle while in driving stage

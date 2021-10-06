@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-08 22:41:08 by Eclipse SUMO marouter Version v1_10_0+0595-3ff6633
+<!-- generated on 2021-09-30 11:26:30 by Eclipse SUMO marouter Version v1_10_0+1103-00b9b6a4ecb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -91,7 +91,7 @@
 
     <time>
         <begin value="0" synonymes="b" type="TIME" help="Defines the begin time; Previous trips will be discarded"/>
-        <end value="9223372036854774" synonymes="e" type="TIME" help="Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"/>
+        <end value="-1" synonymes="e" type="TIME" help="Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"/>
     </time>
 
     <report>

@@ -89,7 +89,7 @@ public:
     void buildInductLoop(const std::string& id,
                          const std::string& lane, double pos, SUMOTime splInterval,
                          const std::string& device, bool friendlyPos,
-                         const std::string& vTypes);
+                         const std::string& vTypes, int detectPersons);
 
 
     /** @brief Builds an instantenous induction and adds it to the net
@@ -129,13 +129,13 @@ public:
     void buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                         const std::string& vTypes, bool friendlyPos, bool showDetector,
+                         const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                          MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
     void buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                         const std::string& vTypes, bool friendlyPos, bool showDetector,
+                         const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                          MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
 
@@ -154,7 +154,7 @@ public:
      */
     void beginE3Detector(const std::string& id, const std::string& device, SUMOTime splInterval,
                          double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
-                         const std::string& vTypes, bool openEntry);
+                         const std::string& vTypes, int detectPersons, bool openEntry);
 
 
     /** @brief Builds an entry point of an e3 detector
@@ -266,7 +266,9 @@ public:
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
             MSLane* lane, double pos,
-            const std::string& vTypes, bool show = true);
+            const std::string& vTypes,
+            int detectPersons,
+            bool show = true);
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -292,12 +294,12 @@ public:
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector = true);
+                                            const std::string& vTypes, int detectPersons, bool showDetector = true);
 
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes, bool showDetector = true);
+                                            const std::string& vTypes, int detectPersons, bool showDetector = true);
 
     /** @brief Creates an instance of an e3 detector using the given values
      *
@@ -312,7 +314,7 @@ public:
     virtual MSDetectorFileOutput* createE3Detector(const std::string& id,
             const CrossSectionVector& entries, const CrossSectionVector& exits,
             double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
-            const std::string& vTypes, bool openEntry);
+            const std::string& vTypes, int detectPersons, bool openEntry);
 
 
     /** @brief Creates edge based mean data collector using the given specification
@@ -381,7 +383,7 @@ protected:
         E3DetectorDefinition(const std::string& id,
                              const std::string& device, double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold, SUMOTime splInterval,
-                             const std::string& vTypes, bool openEntry);
+                             const std::string& vTypes, int detectPersons, bool openEntry);
 
         /// @brief Destructor
         ~E3DetectorDefinition();
@@ -402,6 +404,8 @@ protected:
         SUMOTime mySampleInterval;
         /// @brief The device the detector shall use
         const std::string myVehicleTypes;
+        /// @brief person detection mode
+        int myDetectPersons;
         /// @brief Whether the detector is declared as having incomplete entry detectors
         bool myOpenEntry;
         //@}

@@ -240,6 +240,11 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
     return ret;
 }
 
+double 
+GUITrafficLightLogicWrapper::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
+}
+
 
 Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const {

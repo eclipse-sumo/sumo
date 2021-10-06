@@ -148,7 +148,7 @@ public:
     MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
 
     /// @brief remove parking vehicle
-    void removeParking(MSVehicle* veh);
+    void removeParking(MSBaseVehicle* veh);
 
     /** @brief Sets the information about a vehicle lapping into this lane
      *
@@ -188,6 +188,10 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
+
+    
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -344,6 +348,8 @@ private:
 
     /// @brief the meso segment index for each geometry segment
     std::vector<int> myShapeSegments;
+    /// @brief the shape indices where the meso segment changes (for segmentsIndex > 0)
+    std::vector<int> mySegmentStartIndex;
 
     /// @brief Half of lane width, for speed-up
     double myHalfLaneWidth;

@@ -250,3 +250,13 @@ not already there).
 
 # Running tests outside TextTest
 Different methods to extract TextTest tests (offline and online) are explained [here](../Tutorials/index.md#using_examples_from_the_test_suite).
+
+## Developing for Python2 and Python3
+
+Sumo is downwards compatible, hence contributed code should be able to 
+compile both in Python2 and Python3. You can either use python launcher
+to have access to both Python versions, or use converters from 2 to 3.
+Another option is using free online compilers to check for compatibility
+like paiza.io.
+
+- (1): <https://paiza.io/en/languages/python> 

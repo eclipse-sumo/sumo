@@ -41,6 +41,7 @@
 // ===========================================================================
 class SUMOTrafficObject;
 class OutputDevice;
+class MSTransportable;
 
 
 // ===========================================================================
@@ -117,6 +118,10 @@ public:
         /// @}
 
 
+        double getPosition() const {
+            return myPosition;
+        }
+
     private:
         /// @brief The parent collector
         MSE3Collector& myCollector;
@@ -192,6 +197,10 @@ public:
         bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
+        double getPosition() const {
+            return myPosition;
+        }
+
 
     private:
         /// @brief The parent collector
@@ -224,7 +233,7 @@ public:
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   double haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold,
-                  const std::string& vTypes, bool openEntry);
+                  const std::string& vTypes, int detectPersons, bool openEntry);
 
 
     /// @brief Destructor
@@ -244,7 +253,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
+    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder, bool isBackward = false);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -263,7 +272,7 @@ public:
     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
     */
-    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet);
+    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet, bool isBackward = false);
 
 
     /// @name Methods returning current values
@@ -342,7 +351,9 @@ public:
     virtual void clearState();
 
 protected:
-    /// @brief The detector's entries
+    void notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos);
+
+protected:
     CrossSectionVector myEntries;
 
     /// @brief The detector's exits

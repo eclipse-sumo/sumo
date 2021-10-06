@@ -1082,6 +1082,10 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, "TAZ parameters", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
+    // create Button and string textField for center (by default, empty)
+    FXHorizontalFrame* centerParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelAttribute);
+    myTextFieldCenter = new FXTextField(centerParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* fillParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelAttribute);
@@ -1094,7 +1098,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myTextFieldColor->setText("blue");
     // create Button and string textField for name and set blue as default name
     FXHorizontalFrame* nameParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myNameEditor = new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelAttribute);
     myTextFieldName = new FXTextField(nameParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Label and CheckButton for use innen edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -1123,7 +1127,10 @@ GNETAZFrame::TAZParameters::hideTAZParametersModul() {
 
 bool
 GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
-    return GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
+    const bool validColor = GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
+    const bool validCenter = myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<Position>(myTextFieldCenter->getText().text());
+    const bool validName = SUMOXMLDefinitions::isValidAttribute(myTextFieldName->getText().text());
+    return (validColor && validCenter && validName);
 }
 
 
@@ -1145,9 +1152,10 @@ GNETAZFrame::TAZParameters::getAttributesAndValues() const {
     // set tag
     myTAZFrameParent->myBaseTAZ->setTag(SUMO_TAG_TAZ);
     // get attributes
+    myTAZFrameParent->myBaseTAZ->addPositionAttribute(SUMO_ATTR_CENTER, myTextFieldCenter->getText().empty()? Position::INVALID : GNEAttributeCarrier::parse<Position>(myTextFieldCenter->getText().text()));
     myTAZFrameParent->myBaseTAZ->addBoolAttribute(SUMO_ATTR_FILL, (myCheckButtonFill->getCheck() == TRUE));
     myTAZFrameParent->myBaseTAZ->addColorAttribute(SUMO_ATTR_COLOR, GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text()));
-    myTAZFrameParent->myBaseTAZ->addStringAttribute(SUMO_ATTR_NAME, myTextFieldColor->getText().text());
+    myTAZFrameParent->myBaseTAZ->addStringAttribute(SUMO_ATTR_NAME, myTextFieldName->getText().text());
 }
 
 
@@ -1173,18 +1181,31 @@ GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*)
 
 long
 GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-
     if (obj == myTextFieldColor) {
-        // only COLOR text field has to be checked
-        bool currentParametersValid = GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
-        // change color of textfield dependig of myCurrentParametersValid
-        if (currentParametersValid) {
+        // check color
+        if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
             myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
             myTextFieldColor->killFocus();
         } else {
             myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
-            currentParametersValid = false;
         }
+    } else if (obj == myTextFieldCenter) {
+        // check center
+        if (myTextFieldCenter->getText().empty() || GNEAttributeCarrier::canParse<RGBColor>(myTextFieldCenter->getText().text())) {
+            myTextFieldCenter->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldCenter->killFocus();
+        } else {
+            myTextFieldCenter->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myTextFieldName) {
+        // check name
+        if (SUMOXMLDefinitions::isValidAttribute(myTextFieldName->getText().text())) {
+            myTextFieldName->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldName->killFocus();
+        } else {
+            myTextFieldName->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myAddEdgesWithinCheckButton) {
         // change useInnenEdgesCheckButton text
         if (myAddEdgesWithinCheckButton->getCheck() == TRUE) {
             myAddEdgesWithinCheckButton->setText("use");
@@ -1192,6 +1213,7 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) 
             myAddEdgesWithinCheckButton->setText("not use");
         }
     } else if (obj == myCheckButtonFill) {
+        // change myCheckButtonFill text
         if (myCheckButtonFill->getCheck() == TRUE) {
             myCheckButtonFill->setText("true");
         } else {
@@ -1521,9 +1543,11 @@ GNETAZFrame::shapeDrawed() {
         // check if TAZ has to be created with edges
         if (myTAZParameters->isAddEdgesWithinEnabled()) {
             std::vector<std::string> edgeIDs;
-            auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
+            const auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
+            // get only edges with geometry around shape
             for (const auto& AC : ACsInBoundary) {
-                if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                if ((AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
+                    myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, shape)) {
                     edgeIDs.push_back(AC.first);
                 }
             }

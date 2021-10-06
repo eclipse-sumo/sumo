@@ -344,6 +344,12 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
 }
 
 
+double 
+GNEEdge::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 void
 GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
@@ -430,10 +436,10 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw dotted contours
     if (myLanes.size() > 1) {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourEdge(GNEGeometry::DottedContourType::INSPECT, s, this, true, true);
+            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedContourEdge(GNEGeometry::DottedContourType::FRONT, s, this, true, true);
+            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
         }
     }
 }
@@ -1208,7 +1214,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
     // first check conditions
     if (lastLane && (validScale || elevationMode) && !myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         // get circle width
         bool drawBigGeometryPoints = false;
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
@@ -1311,6 +1317,58 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
             // pop edge layer matrix
             GLHelper::popMatrix();
         }
+    }
+}
+
+
+void
+GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
+    if (edge->getLanes().size() == 1) {
+        GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
+        GUIDottedGeometry::drawDottedContourShape(type, s, edge->getLanes().front()->getLaneShape(), laneDrawingConstants.halfWidth, 1, drawFrontExtreme, drawBackExtreme);
+    } else {
+        // set left hand flag
+        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+        // obtain lanes
+        const GNELane* topLane =  lefthand ? edge->getLanes().back() : edge->getLanes().front();
+        const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
+        // obtain a copy of both geometries
+        GUIDottedGeometry dottedGeometryTop(s, topLane->getLaneShape(), false);
+        GUIDottedGeometry dottedGeometryBot(s, botLane->getLaneShape(), false);
+        // obtain both LaneDrawingConstants
+        GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, topLane);
+        GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, botLane);
+        // move shapes to side
+        dottedGeometryTop.moveShapeToSide(laneDrawingConstantsFront.halfWidth);
+        dottedGeometryBot.moveShapeToSide(laneDrawingConstantsBack.halfWidth * -1);
+        // invert offset of top dotted geometry
+        dottedGeometryTop.invertOffset();
+        // declare DottedGeometryColor
+        GUIDottedGeometry::DottedGeometryColor dottedGeometryColor(s);
+        // calculate extremes
+        GUIDottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
+        // Push draw matrix
+        GLHelper::pushMatrix();
+        // draw inspect or front dotted contour
+        if (type == GUIDottedGeometry::DottedContourType::FRONT) {
+            // translate to front
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+        } else {
+            // translate to front
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+        }
+        // draw top dotted geometry
+        dottedGeometryTop.drawDottedGeometry(dottedGeometryColor, type);
+        // reset color
+        dottedGeometryColor.reset();
+        // draw top dotted geometry
+        dottedGeometryBot.drawDottedGeometry(dottedGeometryColor, type);
+        // change color
+        dottedGeometryColor.changeColor();
+        // draw extrem dotted geometry
+        extremes.drawDottedGeometry(dottedGeometryColor, type);
+        // pop matrix
+        GLHelper::popMatrix();
     }
 }
 
@@ -1555,6 +1613,11 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
     const int oldNumLanes = (int)myLanes.size();
+    std::string oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
+    if (oppositeID != "") {
+        // we'll have a different leftmost lane after adding/removing lanes
+        undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, ""));
+    }
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
         undoList->add(new GNEChange_Lane(this, myNBEdge->getLaneStruct(oldNumLanes - 1)), true);
@@ -1562,6 +1625,9 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     for (int i = (oldNumLanes - 1); i > (numLanes - 1); i--) {
         // delete leftmost lane
         undoList->add(new GNEChange_Lane(this, myLanes[i], myNBEdge->getLaneStruct(i), false), true);
+    }
+    if (oppositeID != "") {
+        undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, oppositeID));
     }
     // enable updateGeometry again
     myUpdateGeometry = true;

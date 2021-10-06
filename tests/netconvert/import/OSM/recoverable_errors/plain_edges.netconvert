@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:40 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-10-05 11:43:08 by Eclipse SUMO netconvert Version v1_10_0+1263-edb8ddf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <write-license value="true"/>
-        <output-file value="ignore.net.xml"/>
+        <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
         <output.street-names value="true"/>
     </output>
@@ -36,8 +36,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
     </edge>
+    <edge id="-10860203" from="3" to="2" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="10860201" from="1" to="2" priority="17" type="highway.secondary|railway.tram" numLanes="2" speed="27.78">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
     </edge>
+    <edge id="10860203" from="2" to="3" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
 </edges>

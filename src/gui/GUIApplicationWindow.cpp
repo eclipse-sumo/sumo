@@ -280,7 +280,7 @@ GUIApplicationWindow::dependentBuild() {
     new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
 
     // build the message window
-    myMessageWindow = new GUIMessageWindow(myMainSplitter);
+    myMessageWindow = new GUIMessageWindow(myMainSplitter, this);
     // fill menu and tool bar
     fillMenuBar();
     myToolBar6->hide();
@@ -465,7 +465,7 @@ GUIApplicationWindow::fillMenuBar() {
     mySettingsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "&Settings", nullptr, mySettingsMenu);
     GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
-                                           "Application Settings...", "", "Open a Dialog for Application Settings editing.",
+                                           "Application Settings", "Ctrl+H", "Open a Dialog for Application Settings editing.",
                                            nullptr, this, MID_APPSETTINGS);
     myGamingModeCheckbox = new FXMenuCheck(mySettingsMenu,
                                            "Gaming Mode\tCtrl+G\tToggle gaming mode on/off.",
@@ -1521,16 +1521,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                         myRunThread->getBreakpoints().assign(settings.getBreakpoints().begin(), settings.getBreakpoints().end());
                         myRunThread->getBreakpointLock().unlock();
                     }
-                    if (!OptionsCont::getOptions().isDefault("breakpoints")) {
-                        std::vector<SUMOTime> breakpoints;
-                        for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {
-                            breakpoints.push_back(string2time(val));
-                        }
-                        std::sort(breakpoints.begin(), breakpoints.end());
-                        myRunThread->getBreakpointLock().lock();
-                        myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
-                        myRunThread->getBreakpointLock().unlock();
-                    }
                     myJamSounds = settings.getEventDistribution("jam");
                     myCollisionSounds = settings.getEventDistribution("collision");
                     if (settings.getJamSoundTime() > 0) {
@@ -1546,11 +1536,13 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 mySimDelaySlider->setValue((int)mySimDelay);
                 mySimDelaySpinner->setValue(mySimDelay);
             }
-
             if (!OptionsCont::getOptions().isDefault("breakpoints")) {
                 std::vector<SUMOTime> breakpoints;
                 for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {
-                    breakpoints.push_back(string2time(val));
+                    SUMOTime t = string2time(val);
+                    // round down to nearest reachable time step
+                    t -= t % DELTA_T;
+                    breakpoints.push_back(t);
                 }
                 std::sort(breakpoints.begin(), breakpoints.end());
                 myRunThread->getBreakpointLock().lock();

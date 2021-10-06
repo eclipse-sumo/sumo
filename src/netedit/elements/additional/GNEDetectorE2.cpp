@@ -242,7 +242,7 @@ GNEDetectorE2::getLength() const {
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double E2Exaggeration = s.addSize.getExaggeration(s, this);
+    const double E2Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
@@ -263,10 +263,12 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // set color
             GLHelper::setColor(E2Color);
             // draw geometry
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
             // Check if the distance is enought to draw details
             if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
                 // draw E2 Logo
@@ -280,11 +282,11 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, 
                                                     E2Exaggeration, true, true);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, 
                                                     E2Exaggeration, true, true);
             }
         }
@@ -332,6 +334,8 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -353,9 +357,6 @@ GNEDetectorE2::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -374,6 +375,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -513,6 +515,9 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

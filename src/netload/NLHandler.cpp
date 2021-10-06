@@ -869,13 +869,23 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            return;
+        }
+    }
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          friendlyPos, vTypes);
+                                          friendlyPos, vTypes, detectPersons);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -980,6 +990,16 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
 
     double endPosition = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, std::numeric_limits<double>::max());
     const std::string lanes = attrs.getOpt<std::string>(SUMO_ATTR_LANES, id.c_str(), ok, ""); // lanes has priority to lane
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            return;
+        }
+    }
     if (!ok) {
         return;
     }
@@ -1125,13 +1145,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         // specification by a lane sequence
         myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, frequency,
                                           haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                          vTypes, friendlyPos, showDetector,
+                                          vTypes, detectPersons, friendlyPos, showDetector,
                                           tlls, cToLane);
     } else {
         // specification by start or end lane
         myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, frequency,
                                           haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                          vTypes, friendlyPos, showDetector,
+                                          vTypes, detectPersons, friendlyPos, showDetector,
                                           tlls, cToLane);
     }
 
@@ -1148,13 +1168,23 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const bool openEntry = attrs.getOpt<bool>(SUMO_ATTR_OPEN_ENTRY, id.c_str(), ok, false);
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            return;
+        }
+    }
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry);
+                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {

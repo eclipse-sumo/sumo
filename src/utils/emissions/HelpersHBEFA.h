@@ -64,7 +64,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
+    inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
         UNUSED_PARAMETER(slope);
         UNUSED_PARAMETER(param);
         if (e == PollutantsInterface::ELEC) {

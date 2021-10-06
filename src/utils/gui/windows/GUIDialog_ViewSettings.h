@@ -304,6 +304,16 @@ protected:
     FXColorWell* mySelectedPersonPlanColor;
     FXColorWell* mySelectedEdgeDataColor;
 
+    /// @brief additional colors
+    FXColorWell* myBusStopColor;
+    FXColorWell* myBusStopColorSign;
+    FXColorWell* myTrainStopColor;
+    FXColorWell* myTrainStopColorSign;
+    FXColorWell* myContainerStopColor;
+    FXColorWell* myContainerStopColorSign;
+    FXColorWell* myChargingStationColor;
+    FXColorWell* myChargingStationColorSign;
+
     /// @brief ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;
     FXVerticalFrame* myLaneColorSettingFrame;
@@ -394,19 +404,25 @@ protected:
     FXComboBox* myDataParamKey;
     FXRealSpinner* myEdgeRelationUpscaleDialer;
     FXRealSpinner* myTazRelationUpscaleDialer;
+    FXButton* myDataColorRainbow;
+    FXCheckButton* myDataColorRainbowCheck;
+    FXRealSpinner* myDataColorRainbowThreshold;
 
     /// @brief buttons
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
     FXCheckButton* myDrawCrossingsAndWalkingAreas;
+    FXCheckButton* myShowSizeLegend;
+    FXCheckButton* myShowColorLegend;
+    FXCheckButton* myShowVehicleColorLegend;
+
+    /// @brief openGL
     FXCheckButton* myDither;
     FXCheckButton* myFPS;
     FXCheckButton* myDrawBoundaries;
     FXCheckButton* myForceDrawForPositionSelection;
     FXCheckButton* myForceDrawForRectangleSelection;
-    FXCheckButton* myShowSizeLegend;
-    FXCheckButton* myShowColorLegend;
-    FXCheckButton* myShowVehicleColorLegend;
+    FXButton* myRecalculateBoundaries;
 
     /// @brief name panels
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,

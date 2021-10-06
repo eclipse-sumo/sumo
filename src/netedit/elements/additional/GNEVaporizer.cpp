@@ -64,18 +64,17 @@ GNEVaporizer::updateGeometry() {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNEVaporizer::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -94,7 +93,7 @@ GNEVaporizer::getParentName() const {
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double vaporizerExaggeration = s.addSize.getExaggeration(s, this);
+    const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(vaporizerExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare colors
@@ -113,20 +112,22 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VAPORIZER);
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // set base color
         GLHelper::setColor(vaporizerColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
         // move to front
         glTranslated(0, 0, .1);
         // set central color
         GLHelper::setColor(centralLineColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
         // move to icon position and front
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, vaporizerExaggeration)) {
             // set color
@@ -153,10 +154,10 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, 1, 1);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, 1, 1);
         }
     }
 }

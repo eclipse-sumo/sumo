@@ -1,0 +1,27 @@
+<routes>
+    <routeDistribution id="rDist">
+        <route probability="0.5" edges="WC CS SC CE"/>
+        <route probability="0.5" edges="SC CE EC CN"/>
+    </routeDistribution>
+    <vehicle id="00" depart="0" route="rDist"/>
+    <vehicle id="01" depart="0" route="rDist"/>
+    <vehicle id="02" depart="0" route="rDist"/>
+    <vehicle id="03" depart="0" route="rDist"/>
+    <vehicle id="04" depart="0" route="rDist"/>
+    <vehicle id="05" depart="0" route="rDist"/>
+    <vehicle id="06" depart="0" route="rDist"/>
+    <vehicle id="07" depart="0" route="rDist"/>
+    <vehicle id="08" depart="0" route="rDist"/>
+    <vehicle id="09" depart="0" route="rDist"/>
+    <vehicle id="10" depart="0" route="rDist"/>
+    <vehicle id="11" depart="0" route="rDist"/>
+    <vehicle id="12" depart="0" route="rDist"/>
+    <vehicle id="13" depart="0" route="rDist"/>
+    <vehicle id="14" depart="0" route="rDist"/>
+    <vehicle id="15" depart="0" route="rDist"/>
+    <vehicle id="16" depart="0" route="rDist"/>
+    <vehicle id="17" depart="0" route="rDist"/>
+    <vehicle id="18" depart="0" route="rDist"/>
+    <vehicle id="19" depart="0" route="rDist"/>
+
+</routes>

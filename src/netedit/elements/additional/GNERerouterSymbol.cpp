@@ -57,31 +57,32 @@ GNERerouterSymbol::updateGeometry() {
     // iterate over all lanes
     for (const auto& lane : getParentEdges().front()->getLanes()) {
         // declare geometry
-        GNEGeometry::Geometry symbolGeometry;
+        GUIGeometry symbolGeometry;
         // update it with lane and pos over lane
         symbolGeometry.updateGeometry(lane->getLaneShape(), lane->getLaneShape().length2D() - 6, 0);
         // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
     }
-    // add shape boundary
-    myBoundary = mySymbolGeometries.front().getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
-    // update connections
-    getParentAdditionals().front()->updateHierarchicalConnections();
 }
 
 
 Position
 GNERerouterSymbol::getPositionInView() const {
-    return mySymbolGeometries.front().getShape().getCentroid();
+    if (mySymbolGeometries.size() > 0) {
+        return mySymbolGeometries.front().getShape().getPolygonCenter();
+    } else {
+        return myAdditionalGeometry.getShape().getPolygonCenter();
+    }
 }
 
 
 void
 GNERerouterSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // just update geometry
-    updateGeometry();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
+    // grow
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -112,6 +113,8 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw rerouter symbol over all lanes
         for (const auto& symbolGeometry : mySymbolGeometries) {
             // push symbol matrix
@@ -119,7 +122,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // translate to position
             glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
             // rotate over lane
-            GNEGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
+            GUIGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
             // scale
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // set color
@@ -168,13 +171,13 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
     }

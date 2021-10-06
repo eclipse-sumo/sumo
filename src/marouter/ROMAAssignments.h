@@ -142,7 +142,7 @@ private:
 private:
     class RoutingTask : public FXWorkerThread::Task {
     public:
-        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow, double setBulkMode = false)
+        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow, const bool setBulkMode = false)
             : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow), mySetBulkMode(setBulkMode) {}
         void run(FXWorkerThread* context);
     private:
@@ -150,17 +150,17 @@ private:
         ODCell* const myCell;
         const SUMOTime myBegin;
         const double myLinkFlow;
-        bool mySetBulkMode;
+        const bool mySetBulkMode;
     private:
         /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&);
+        RoutingTask& operator=(const RoutingTask&) = delete;
     };
 #endif
 
 
 private:
     /// @brief Invalidated assignment operator
-    ROMAAssignments& operator=(const ROMAAssignments& src);
+    ROMAAssignments& operator=(const ROMAAssignments& src) = delete;
 
 };
 

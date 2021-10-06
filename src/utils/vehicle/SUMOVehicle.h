@@ -45,6 +45,7 @@ class MSParkingArea;
 class MSStoppingPlace;
 class MSVehicleDevice;
 class SUMOSAXAttributes;
+class EnergyParams;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -141,7 +142,7 @@ public:
      *
      * @return The vehicle's emission parameters
      */
-    virtual const std::map<int, double>* getEmissionParameters() const = 0;
+    virtual const EnergyParams* getEmissionParameters() const = 0;
 
     /** @brief Replaces the vehicle's parameter
      */

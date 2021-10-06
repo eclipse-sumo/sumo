@@ -212,7 +212,7 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 
 void
 GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& /*col*/) const {
-    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     MSRouteIterator start = future ? myCurrEdge : r.begin();
     MSRouteIterator i = start;
     for (; i != r.end(); ++i) {
@@ -263,9 +263,15 @@ GUIMEVehicle::selectBlockingFoes() const {
 }
 
 
+double 
+GUIMEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.vehicleSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIMEVehicle::getCenteringBoundary() const {
-    // getPosition returns the start of the first laneso we do not use it here
+    // getPosition returns the start of the first lane, so we do not use it here
     getEdge()->lock();
     const MSLane* const lane = getEdge()->getLanes()[getQueIndex()];
     double offset = 0;

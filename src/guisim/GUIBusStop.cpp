@@ -156,12 +156,28 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
+    // get colors
+    RGBColor color, colorSign;
+    if (myElement == SUMO_TAG_CONTAINER_STOP) {
+        color = s.colorSettings.containerStopColor;
+        colorSign = s.colorSettings.containerStopColorSign;
+    } else if (myElement == SUMO_TAG_TRAIN_STOP) {
+        color = s.colorSettings.trainStopColor;
+        colorSign = s.colorSettings.trainStopColorSign;
+    } else {
+        color = s.colorSettings.busStopColor;
+        colorSign = s.colorSettings.busStopColorSign;
+    }
+    // set color
+    if (getColor() != RGBColor::INVISIBLE) {
+        color = getColor();
+    }
     GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
     // draw the area
     glTranslated(0, 0, getType());
-    GLHelper::setColor(getColor());
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    GLHelper::setColor(color);
+    const double exaggeration = getExaggeration(s);
     const double offset = myWidth * 0.5 * MAX2(0.0, exaggeration - 1);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
     // draw details unless zoomed out to far
@@ -171,7 +187,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         // Iterate over every line
         const double lineAngle = s.getTextAngle(rotSign * myFGSignRot);
-        RGBColor lineColor = s.stoppingPlaceSettings.busStopColor.changedBrightness(-51);
+        RGBColor lineColor = color.changedBrightness(-51);
         const double textOffset = s.flippedTextAngle(rotSign * myFGSignRot) ? -1 : 1;
         const double textOffset2 = s.flippedTextAngle(rotSign * myFGSignRot) ? -1 : 0.3;
         for (int i = 0; i < (int)myLines.size(); ++i) {
@@ -185,7 +201,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix for every line
             GLHelper::popMatrix();
         }
-        GLHelper::setColor(getColor());
+        GLHelper::setColor(color);
         for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
             GLHelper::drawBoxLine(*i, RAD2DEG(myFGSignPos.angleTo2D(*i)) - 90, myFGSignPos.distanceTo2D(*i), .05);
         }
@@ -198,15 +214,15 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
-        GLHelper::setColor(myElement == SUMO_TAG_CONTAINER_STOP
-                           ? s.stoppingPlaceSettings.containerStopColorSign
-                           : s.stoppingPlaceSettings.busStopColorSign);
+        GLHelper::setColor(colorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (myElement == SUMO_TAG_CONTAINER_STOP) {
-                GLHelper::drawText("C", Position(), .1, 1.6, s.stoppingPlaceSettings.containerStopColor, myFGSignRot);
+                GLHelper::drawText("C", Position(), .1, 1.6, color, myFGSignRot);
+            } else if (myElement == SUMO_TAG_TRAIN_STOP) {
+                GLHelper::drawText("T", Position(), .1, 1.6, color, myFGSignRot);
             } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, s.stoppingPlaceSettings.busStopColor, myFGSignRot);
+                GLHelper::drawText("H", Position(), .1, 1.6, color, myFGSignRot);
             }
         }
         GLHelper::popMatrix();
@@ -217,6 +233,12 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::popMatrix();
     GLHelper::popName();
     drawName(myFGSignPos, s.scale, s.addName, s.angle);
+}
+
+
+double
+GUIBusStop::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 

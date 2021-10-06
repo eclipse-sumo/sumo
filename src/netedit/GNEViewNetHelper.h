@@ -20,20 +20,11 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/settings/GUIPropertyScheme.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 
-#include "GNEGeometry.h"
 #include "GNEMoveElement.h"
-
 // ===========================================================================
 // enum
 // ===========================================================================
@@ -134,13 +125,7 @@ enum class DataEditMode {
 
 // main elements
 class GNEAttributeCarrier;
-class GNEFrame;
-class GNENet;
-class GNEUndoList;
 class GNEViewNet;
-class GNEViewParent;
-class GNEMoveElement;
-class GNEMoveOperation;
 // network elements
 class GNENetworkElement;
 class GNEJunction;
@@ -155,18 +140,10 @@ class GNETAZElement;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
-class GNETAZElement;
 class GNETAZ;
-class GNETAZSourceSink;
 // demand elements
 class GNEDemandElement;
-class GNEVehicleType;
-class GNEFlow;
-class GNEVehicle;
-class GNEtrip;
 // data elements
-class GNEDataSet;
-class GNEDataInterval;
 class GNEGenericData;
 class GNEEdgeData;
 class GNEEdgeRelData;
@@ -459,7 +436,7 @@ struct GNEViewNetHelper {
     struct EditModes {
 
         /// @brief default constructor
-        EditModes(GNEViewNet* viewNet);
+        EditModes(GNEViewNet* viewNet, const bool newNet);
 
         /// @brief build checkable buttons
         void buildSuperModeButtons();
@@ -645,6 +622,9 @@ struct GNEViewNetHelper {
         /// @brief unlock container
         void unlockContainer();
 
+        /// @brief show overlapped routes
+        bool showOverlappedRoutes() const;
+
         /// @brief get locked container
         const GNEDemandElement* getLockedContainer() const;
 
@@ -674,6 +654,9 @@ struct GNEViewNetHelper {
 
         /// @brief Hide non inspected demand elements
         MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
+
+        /// @brief show overlapped routes
+        MFXCheckableButton* menuCheckShowOverlappedRoutes;
 
     private:
         /// @brief pointer to net

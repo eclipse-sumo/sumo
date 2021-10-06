@@ -525,6 +525,11 @@ public:
         myScale = scale;
     }
 
+    /// @brief sets the demand scaling factor
+    double getScale() const {
+        return myScale;
+    }
+
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added
      *

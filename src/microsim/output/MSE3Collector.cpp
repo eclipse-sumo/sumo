@@ -26,8 +26,11 @@
 #include <algorithm>
 
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSPModel.h>
 #include "MSE3Collector.h"
 
 //#define DEBUG_E3_NOTIFY_MOVE
@@ -106,7 +109,9 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOTrafficObject& veh, double oldP
 #ifdef HAVE_FOX
     FXConditionalLock lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
-    if (myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() && newPos > myPosition) {
+    if ((myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() || 
+                (veh.isPerson() && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD))
+            && newPos > myPosition) {
         if (oldPos > myPosition) {
             // was behind the detector already in the last step
 #ifdef DEBUG_E3_NOTIFY_MOVE
@@ -296,8 +301,11 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold,
                              const std::string& vTypes,
+                             int detectPersons,
                              bool openEntry) :
-    MSDetectorFileOutput(id, vTypes), myEntries(entries), myExits(exits),
+    MSDetectorFileOutput(id, vTypes, detectPersons),
+    myEntries(entries),
+    myExits(exits),
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1),
     myOpenEntry(openEntry) {
@@ -330,14 +338,30 @@ MSE3Collector::reset() {
 
 
 void
-MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder) {
+MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder, bool isBackward) {
+    if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
+        const MSBaseVehicle& v = dynamic_cast<const MSBaseVehicle&>(veh);
+        for (MSTransportable* p : v.getPersons()) {
+            enter(*p, entryTimestep, fractionTimeOnDet, entryReminder);
+        }
+        return;
+    }
     if (!vehicleApplies(veh)) {
+        return;
+    }
+    if (veh.isPerson() && !isBackward && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD) {
+        // walking backward over an entry detector means "leaving"
+        // std::cout << veh.getID() << " leave at entryDetector\n";
+        leave(veh, entryTimestep, fractionTimeOnDet, true);
         return;
     }
     if (myEnteredContainer.find(&veh) != myEnteredContainer.end()) {
         WRITE_WARNING("Vehicle '" + veh.getID() + "' reentered " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "'.");
         return;
     }
+#ifdef DEBUG_E3_NOTIFY_ENTER
+    std::cout << veh.getID() << " enters\n";
+#endif
     const double speedFraction = veh.getSpeed() * fractionTimeOnDet;
     E3Values v;
     v.entryTime = entryTimestep;
@@ -355,8 +379,8 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
         }
     }
     v.hadUpdate = false;
-    if (!MSGlobals::gUseMesoSim) {
-        v.timeLoss = static_cast<const MSVehicle&>(veh).getTimeLoss();
+    if (!MSGlobals::gUseMesoSim && veh.isVehicle()) {
+        v.timeLoss = dynamic_cast<const MSVehicle&>(veh).getTimeLoss();
         v.intervalTimeLoss = v.timeLoss;
     }
     v.entryReminder = entryReminder;
@@ -366,11 +390,18 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
 
 void
 MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimestep) {
+    if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
+        const MSBaseVehicle& v = dynamic_cast<const MSBaseVehicle&>(veh);
+        for (MSTransportable* p : v.getPersons()) {
+            leaveFront(*p, leaveTimestep);
+        }
+        return;
+    }
     if (!vehicleApplies(veh)) {
         return;
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
-        if (!myOpenEntry) {
+        if (!myOpenEntry && veh.isVehicle()) {
             WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
         }
     } else {
@@ -380,12 +411,25 @@ MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimest
 
 
 void
-MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet) {
+MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet, bool isBackward) {
+    if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
+        const MSBaseVehicle& v = dynamic_cast<const MSBaseVehicle&>(veh);
+        for (MSTransportable* p : v.getPersons()) {
+            leave(*p, leaveTimestep, fractionTimeOnDet);
+        }
+        return;
+    }
     if (!vehicleApplies(veh)) {
         return;
     }
+    if (veh.isPerson() && !isBackward && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD) {
+        // walking backward over an exit detector means "entering"
+        // std::cout << veh.getID() << " enter at exitDetector\n";
+        enter(veh, leaveTimestep, fractionTimeOnDet, nullptr, true);
+        return;
+    }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
-        if (!myOpenEntry) {
+        if (!myOpenEntry && veh.isVehicle()) {
             WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
         }
     } else {
@@ -394,12 +438,16 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
         const double speedFraction = veh.getSpeed() * (TS - fractionTimeOnDet);
         values.speedSum -= speedFraction;
         values.intervalSpeedSum -= speedFraction;
-        if (MSGlobals::gUseMesoSim) {
+        if (MSGlobals::gUseMesoSim || !veh.isVehicle()) {
             // not yet supported
             values.timeLoss = 0;
+            if (isBackward) {
+                // leaveFront may not have been called
+                values.frontLeaveTime = leaveTimestep;
+            }
         } else {
             // timeLoss was initialized when entering
-            values.timeLoss = static_cast<const MSVehicle&>(veh).getTimeLoss() - values.timeLoss;
+            values.timeLoss = dynamic_cast<const MSVehicle&>(veh).getTimeLoss() - values.timeLoss;
         }
         myEnteredContainer.erase(&veh);
         myLeftContainer.push_back(values);
@@ -461,8 +509,8 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
         (*i).second.intervalHaltings = 0;
         (*i).second.intervalSpeedSum = 0;
 
-        if (!MSGlobals::gUseMesoSim) {
-            const SUMOTime currentTimeLoss = static_cast<const MSVehicle*>(i->first)->getTimeLoss();
+        if (!MSGlobals::gUseMesoSim && i->first->isVehicle()) {
+            const SUMOTime currentTimeLoss = dynamic_cast<const MSVehicle*>(i->first)->getTimeLoss();
             meanTimeLossWithin += STEPS2TIME(currentTimeLoss - (*i).second.intervalTimeLoss);
             (*i).second.intervalTimeLoss = currentTimeLoss;
         }
@@ -502,7 +550,47 @@ MSE3Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 
 void
+MSE3Collector::notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos) {
+    if (personApplies(*p, dir)) {
+        const double newSpeed = p->getSpeed();
+        const double newPos = (dir == MSPModel::FORWARD
+                ? pos
+                // position relative to detector end position
+                : detPos - (pos - detPos));
+        const double oldPos = newPos - SPEED2DIST(newSpeed);
+        if (oldPos - p->getVehicleType().getLength() <= detPos) {
+            rem->notifyMove(*p, oldPos, newPos, newSpeed);
+        }
+    }
+}
+
+
+void
 MSE3Collector::detectorUpdate(const SUMOTime step) {
+
+    if (myDetectPersons != (int)PersonMode::NONE) {
+        for (auto rem : myEntryReminders) {
+            const MSLane* lane = rem->getLane();
+            if (lane->hasPedestrians()) {
+                for (MSTransportable* p : lane->getEdge().getPersons()) {
+                    if (p->getLane() == lane) {
+                        notifyMovePerson(p, rem, rem->getPosition(), p->getDirection(), p->getPositionOnLane());
+                    }
+                }
+            }
+        }
+        for (auto rem : myLeaveReminders) {
+            const MSLane* lane = rem->getLane();
+            if (lane->hasPedestrians()) {
+                for (MSTransportable* p : lane->getEdge().getPersons()) {
+                    if (p->getLane() == lane) {
+                        notifyMovePerson(p, rem, rem->getPosition(), p->getDirection(), p->getPositionOnLane());
+                    }
+                }
+            }
+        }
+    }
+
     myCurrentMeanSpeed = 0;
     myCurrentHaltingsNumber = 0;
     for (std::map<const SUMOTrafficObject*, E3Values>::iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {

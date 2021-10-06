@@ -62,6 +62,9 @@ public:
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
@@ -105,6 +108,12 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in position format (to avoid unnecessary parse<position>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

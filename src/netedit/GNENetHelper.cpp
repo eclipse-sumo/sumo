@@ -30,6 +30,7 @@
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
 #include <netedit/elements/network/GNEEdgeType.h>
@@ -167,6 +168,60 @@ GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
 }
 
 
+bool 
+GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector &shape) const {
+    // check what tipe of AC
+    if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+        // Junction
+        const GNEJunction *junction = myJunctions.at(AC->getID());
+        if (junction->getNBNode()->getShape().size() == 0) {
+            return shape.around(junction->getNBNode()->getCenter());
+        } else {
+            return (shape.overlapsWith(junction->getNBNode()->getShape()));
+        }
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        // Edge
+        for (const auto &lane : myEdges.at(AC->getID())->getLanes()) {
+            if (shape.overlapsWith(lane->getLaneShape())) {
+                return true;
+            }
+        }
+        return false;
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+        // Lane
+        return shape.overlapsWith(myNet->retrieveLane(AC->getID())->getLaneShape());
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        // connection
+        return shape.overlapsWith(dynamic_cast<GNEConnection*>(AC)->getConnectionShape());
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+        // crossing
+        return shape.overlapsWith(dynamic_cast<GNECrossing*>(AC)->getCrossingShape());
+    } else if (AC->getTagProperty().isAdditionalElement()) {
+        // Additional
+        const GNEAdditional *additional = dynamic_cast<GNEAdditional*>(AC);
+        if (additional->getAdditionalGeometry().getShape().size() <= 1) {
+            return shape.around(additional->getPositionInView());
+        } else {
+            return shape.overlapsWith(additional->getAdditionalGeometry().getShape());
+        }
+    } else if (AC->getTagProperty().isShape()) {
+        // shapes (Polys and POIs)
+        if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
+            // Polygon
+            return shape.overlapsWith(dynamic_cast<GNEPoly*>(AC)->getShape());
+        } else {
+            // POI
+            return shape.around(myShapes.at(SUMO_TAG_POI).at(AC->getID())->getPositionInView());
+        }
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+        // TAZ
+        return shape.overlapsWith(dynamic_cast<GNETAZ*>(AC)->getTAZElementShape());
+    } else {
+        return false;
+    }
+}
+
+
 GNEJunction*
 GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     // increase reference
@@ -301,7 +356,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
     int counter = 0;
-    for (const auto junction : myJunctions) {
+    for (const auto& junction : myJunctions) {
         for (const auto &crossing : junction.second->getGNECrossings()) {
             if (crossing->isAttributeCarrierSelected()) {
                 counter++;

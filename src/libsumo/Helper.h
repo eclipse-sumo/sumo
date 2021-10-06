@@ -181,6 +181,19 @@ public:
 
     static void applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs);
 
+    /**
+     * @brief Apply the subscription filter "lateral distance": Only return vehicles within the given lateral distance.
+     *        Search myRoute (right-most lane) upstream and bestLanesCont downstream up until upstreamDist and
+     *        downstreamDist, respectively.
+     * @param[in] s Subscription which holds the filter specification to be applied.
+     * @param[in/out] vehs Set of SUMO traffic objects into which the result is inserted.
+     * @param[in] downstreamDist Downstream distance.
+     * @param[in] upstreamDist Upstream distance.
+     * @param[in] lateralDist Lateral distance.
+     */
+    static void applySubscriptionFilterLateralDistance(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, double downstreamDist,
+                                                       double upstreamDist, double lateralDist);
+
     static void applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s,
             std::set<std::string>& objIDs,
             std::set<const SUMOTrafficObject*>& vehs,

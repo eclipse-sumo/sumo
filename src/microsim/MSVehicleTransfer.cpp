@@ -157,6 +157,10 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::ENDING_TELEPORT);
                 i = vehInfos.erase(i);
             } else {
+                // vehicle is visible while show-route is active. Make it's state more obvious
+                desc.myVeh->computeAngle();
+                desc.myVeh->setLateralPositionOnLane(-desc.myVeh->getLane()->getWidth() / 2);
+                desc.myVeh->invalidateCachedPosition();
                 // could not insert. maybe we should proceed in virtual space
                 if (desc.myProceedTime < 0) {
                     // initialize proceed time (delayed to avoid lane-order dependency in executeMove)

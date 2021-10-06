@@ -99,7 +99,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     const double priorityFactor = oc.getFloat("weights.priority-factor");
     const SUMOTime begin = string2time(oc.getString("begin"));
-    const SUMOTime end = string2time(oc.getString("end"));
+    const SUMOTime end = oc.isDefault("end") ? SUMOTime_MAX : string2time(oc.getString("end"));
     DijkstraRouter<ROEdge, ROVehicle>::Operation op = &ROEdge::getTravelTimeStatic;
 
     if (oc.isSet("restriction-params") &&

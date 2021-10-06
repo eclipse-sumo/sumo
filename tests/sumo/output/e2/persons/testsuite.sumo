@@ -1,0 +1,14 @@
+# default detector settings
+default
+
+# detect all walking persons on lane
+walk
+
+# detect persons walking in edge direction
+walkForward
+
+# detect persons walking against edge direction
+walkBackward
+
+# detect persons riding in car
+car

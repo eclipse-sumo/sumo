@@ -255,7 +255,7 @@ HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, co
 
 
 double
-HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* /* param */) const {
+HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
     const double corrSpeed = MAX2(0.0, v);
     double power = 0.;
 #ifdef INTERNAL_PHEM

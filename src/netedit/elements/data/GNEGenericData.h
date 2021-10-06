@@ -27,7 +27,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/GNEGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEPathManager.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
@@ -148,6 +148,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /// @brief return exaggeration asociated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;

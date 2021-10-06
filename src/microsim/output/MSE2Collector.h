@@ -232,7 +232,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes);
+                  const std::string& vTypes, int detectPersons);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -250,7 +250,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes);
+                  const std::string& vTypes, int detectPersons);
 
 
     /// @brief Destructor
@@ -554,7 +554,7 @@ private:
      * @param[in/out] timeOnDetector Total time spent on the detector during the last step
      * @param[in/out] timeLoss Total time loss suffered during the last integration step
      */
-    void calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, double oldPos, double newPos, const VehicleInfo& vi, double& timeOnDetector, double& timeLoss) const;
+    void calculateTimeLossAndTimeOnDetector(const SUMOTrafficObject& veh, double oldPos, double newPos, const VehicleInfo& vi, double& timeOnDetector, double& timeLoss) const;
 
     /** @brief Checks integrity of myLanes, adds internal-lane information, inits myLength, myFirstLane, myLastLane, myOffsets
      *         Called once at construction.
@@ -616,7 +616,7 @@ private:
      * @param vehInfo Info on the detector's memory of the vehicle
      * @return A MoveNotificationInfo containing quantities of interest for the detector
      */
-    MoveNotificationInfo* makeMoveNotification(const SUMOVehicle& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const;
+    MoveNotificationInfo* makeMoveNotification(const SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const;
 
     /** @brief Creates and returns a VehicleInfo (called at the vehicle's entry)
      *
@@ -624,7 +624,7 @@ private:
      * @param enteredLane The entry lane
      * @return A vehicle info which can be used to store information about the vehicle's stay on the detector
      */
-    VehicleInfo* makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const;
+    VehicleInfo* makeVehicleInfo(const SUMOTrafficObject& veh, const MSLane* enteredLane) const;
 
     /** @brief Calculates the time loss for a segment with constant vmax
      *
@@ -642,6 +642,7 @@ private:
         return mni1->distToDetectorEnd < mni2->distToDetectorEnd;
     }
 
+    void notifyMovePerson(MSTransportable* p, int dir, double pos);
 
 private:
 

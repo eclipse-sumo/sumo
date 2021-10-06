@@ -1,0 +1,2 @@
+# <sumo/sumo-gui> <lateralDistance> <downstreamDistance> <upstreamDistance> <foeDistToJunction>
+sumo 50 50 50 50 tests/complex/traci/ContextSubscriptionFilters/turn/combined_with_lateralDistance/runner.py

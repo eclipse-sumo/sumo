@@ -19,14 +19,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNELane2laneConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAdditional.h"
 
@@ -91,7 +92,7 @@ GNEAdditional::getGUIGlObject() {
 }
 
 
-const GNEGeometry::Geometry&
+const GUIGeometry&
 GNEAdditional::getAdditionalGeometry() const {
     return myAdditionalGeometry;
 }
@@ -229,9 +230,15 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
+double
+GNEAdditional::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNEAdditional::getCenteringBoundary() const {
-    return myBoundary;
+    return myAdditionalBoundary;
 }
 
 
@@ -329,7 +336,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // get endPos
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
         // declare path geometry
-        GNEGeometry::Geometry E2Geometry;
+        GUIGeometry E2Geometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
@@ -357,7 +364,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // Set color
         GLHelper::setColor(E2Color);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), E2Geometry, E2DetectorWidth);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
@@ -378,7 +385,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
                 // Traslate to position
                 glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
                 // rotate over lane
-                GNEGeometry::rotateOverLane(rot);
+                GUIGeometry::rotateOverLane(rot);
                 // move
                 glTranslated(-1, 0, 0);
                 // scale text
@@ -395,11 +402,11 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
             const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : lane->getLaneShape();
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -430,21 +437,21 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         if (fromLane->getLane2laneConnections().exist(toLane)) {
             // check if draw only contour
             if (onlyContour) {
-                GNEGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+                GUIGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
             } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
             }
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
             // calculate invalid geometry
-            const GNEGeometry::Geometry invalidGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
+            const GUIGeometry invalidGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
             // check if draw only contour
             if (onlyContour) {
-                GNEGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
+                GUIGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
             } else {
                 // draw invalid geometry
-                GNEGeometry::drawGeometry(myNet->getViewNet(), invalidGeometry, (0.5 * E2DetectorWidth));
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
             }
         }
         // Pop last matrix
@@ -455,14 +462,14 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                     E2DetectorWidth, 1, false, false);
             }
         }
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                     E2DetectorWidth, 1, false, false);
             }
         }
@@ -476,9 +483,9 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
-    for (const auto& i : myTagProperty) {
-        if (i.hasStaticDefaultValue()) {
-            setAttribute(i.getAttr(), i.getDefaultValue());
+    for (const auto& attr : myTagProperty) {
+        if (attr.hasStaticDefaultValue()) {
+            setAttribute(attr.getAttr(), attr.getDefaultValue());
         }
     }
 }
@@ -584,6 +591,15 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
 }
 
 
+void 
+GNEAdditional::shiftLaneIndex() {
+    // get new lane parent vector
+    std::vector<GNELane*> newLane = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};
+    // replace parent elements
+    replaceParentElements(this, newLane);
+}
+
+
 void
 GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
     if (getParentEdges().empty()) {
@@ -609,7 +625,7 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 void
 GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
     // Obtain drawing exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
@@ -622,6 +638,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // scale
@@ -644,18 +662,18 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, pos, exaggeration, 0.4, -0.5, -0.5);
-        // Draw child connections
-        drawHierarchicalConnections(s, this, exaggeration);
         // Pop connection matrix
         GLHelper::popMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, pos, size, size, 0, 0, 0, exaggeration);
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, size, size, 0, 0, 0, exaggeration);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, pos, size, size, 0, 0, 0, exaggeration);
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, size, size, 0, 0, 0, exaggeration);
         }
         // Draw additional ID
         drawAdditionalID(s);
@@ -716,6 +734,33 @@ GNEAdditional::getPathElementArrivalPos() const {
 const std::map<std::string, std::string>&
 GNEAdditional::getACParametersMap() const {
     return getParametersMap();
+}
+
+
+void
+GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const {
+    // check if current additional is inspected, front or selected
+    const bool currentDrawEntire = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+        (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
+
+    // iterate over parent additionals
+    for (const auto &parent : getParentAdditionals()) {
+        // get flags
+        const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parent);
+        // draw parent lines
+        GUIGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(), 
+            (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
+            currentDrawEntire || inspected || parent->isAttributeCarrierSelected());
+    }
+    // iterate over child additionals
+    for (const auto &child : getChildAdditionals()) {
+        // get flags
+        const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(child);
+        // draw child line
+        GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(), 
+            (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
+            currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+    }
 }
 
 

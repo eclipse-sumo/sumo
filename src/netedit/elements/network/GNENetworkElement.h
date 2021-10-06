@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/GNEGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include <netedit/GNEMoveElement.h>
@@ -114,6 +114,9 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
+
+    /// @brief return exaggeration asociated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;

@@ -63,7 +63,7 @@ public:
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                    MSLane* lane, double startPos, double endPos, double detLength,
                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                   const std::string& vTypes, bool showDetector);
+                   const std::string& vTypes, int detectPersons, bool showDetector);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -83,7 +83,7 @@ public:
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                    std::vector<MSLane*> lanes, double startPos, double endPos,
                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                   const std::string& vTypes, bool showDetector);
+                   const std::string& vTypes, int detectPersons, bool showDetector);
 
 
     /// @brief Destructor
@@ -124,7 +124,6 @@ public:
         /// @brief Destrutor
         ~MyWrapper();
 
-
         /// @name inherited from GUIGlObject
         //@{
 
@@ -138,6 +137,8 @@ public:
         GUIParameterTableWindow* getParameterWindow(
             GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+        /// @brief return exaggeration asociated with this GLObject
+        double getExaggeration(const GUIVisualizationSettings& s) const;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
@@ -145,7 +146,6 @@ public:
          * @see GUIGlObject::getCenteringBoundary
          */
         Boundary getCenteringBoundary() const;
-
 
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)

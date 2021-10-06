@@ -152,8 +152,8 @@ every a given vehicle type as follows:
 </data>
 ```
 
-Files in tazRelation format can be created and modified with [netedit](../../netedit.md).
-They can also be created from route and taz files with [route2OD.py](../../Tools/Routes.html#route2odpy) (reversing the action of [od2trips](../../od2trips.md)).
+Files in tazRelation format can be created and modified with [netedit](../../Netedit/index.md).
+They can also be created from route and taz files with [route2OD.py](../../Tools/Routes.md#route2odpy) (reversing the action of [od2trips](../../od2trips.md)).
 
 For details on the types and units see the schema at
 <https://sumo.dlr.de/xsd/datamode_file.xsd>

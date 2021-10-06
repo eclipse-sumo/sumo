@@ -89,16 +89,17 @@ GNEDetector::getLane() const {
 
 Position
 GNEDetector::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNEDetector::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 void
@@ -159,7 +160,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     // translate to center geometry
     glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
     // rotate over lane
-    GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set main color
@@ -234,7 +235,7 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // rotate over lane
-        GNEGeometry::rotateOverLane(rot);
+        GUIGeometry::rotateOverLane(rot);
         // move
         glTranslated(-1, 0, 0);
         // scale text

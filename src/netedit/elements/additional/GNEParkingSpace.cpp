@@ -75,17 +75,17 @@ GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
     const double width = myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
     const double length = myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
     // first reset boundary
-    myBoundary.reset();
+    myAdditionalBoundary.reset();
     // add position
-    myBoundary.add(myPosition);
+    myAdditionalBoundary.add(myPosition);
     // grow width and lenght
     if (myWidth > myLength) {
-        myBoundary.grow(width);
+        myAdditionalBoundary.grow(width);
     } else {
-        myBoundary.grow(length);
+        myAdditionalBoundary.grow(length);
     }
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
     // update centering boundary of parent
     getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -106,7 +106,7 @@ GNEParkingSpace::getParentName() const {
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
-    const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
+    const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain double values
@@ -124,6 +124,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // translate to position
             glTranslated(myPosition.x(), myPosition.y(), 0);
             // rotate
@@ -134,7 +136,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
                 if (drawUsingSelectColor()) {
                     GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
                 } else {
-                    GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorContour);
+                    GLHelper::setColor(s.colorSettings.parkingSpaceColorContour);
                 }
                 GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
             }
@@ -144,7 +146,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
+                GLHelper::setColor(s.colorSettings.parkingSpaceColor);
             }
             GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
             // Traslate matrix and draw lock icon if isn't being drawn for selecting
@@ -158,11 +160,11 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedContourClosedShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
             }
             if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedContourClosedShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
             }
         }
         // Draw additional ID

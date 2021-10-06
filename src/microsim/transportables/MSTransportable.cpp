@@ -139,6 +139,16 @@ MSTransportable::getEdgePos() const {
     return (*myStep)->getEdgePos(MSNet::getInstance()->getCurrentTimeStep());
 }
 
+double
+MSTransportable::getBackPositionOnLane(const MSLane* /*lane*/) const {
+    return getEdgePos() - getVehicleType().getLength();
+}
+
+int
+MSTransportable::getDirection() const {
+    return (*myStep)->getDirection();
+}
+
 Position
 MSTransportable::getPosition() const {
     return (*myStep)->getPosition(MSNet::getInstance()->getCurrentTimeStep());

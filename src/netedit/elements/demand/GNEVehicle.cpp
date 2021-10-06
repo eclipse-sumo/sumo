@@ -253,7 +253,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 // ===========================================================================
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
+    GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
     SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
@@ -264,7 +264,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
+    GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
@@ -275,7 +275,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag,
+    GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {vehicleType}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
@@ -289,7 +289,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
                        const std::vector<GNEEdge*>& via) :
-    GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
+    GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
     SUMOVehicleParameter() {
     // set via parameter without updating references
@@ -299,7 +299,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
                        const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
+    GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // set via parameter without updating references
@@ -553,6 +553,12 @@ GNEVehicle::getParentName() const {
 }
 
 
+double 
+GNEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.vehicleSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GNEVehicle::getCenteringBoundary() const {
     Boundary vehicleBoundary;
@@ -576,7 +582,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // declare common attributes
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
-        const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
@@ -687,11 +693,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // check if dotted contours has to be drawn
                 if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     // draw using drawDottedContourClosedShape
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
                 if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                     // draw using drawDottedContourClosedShape
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
             }
             // pop name
@@ -768,25 +774,22 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // get endPos
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
-        GNEGeometry::Geometry vehicleGeometry;
-        // check if segment is valid
-        if (segment->isValid()) {
-            // update pathGeometry depending of first and last segment
-            if (segment->isFirstSegment() && segment->isLastSegment()) {
-                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                               geometryDepartPos, geometryEndPos,      // extrem positions
-                                               Position::INVALID, Position::INVALID);  // extra positions
-            } else if (segment->isFirstSegment()) {
-                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                               geometryDepartPos, -1,                  // extrem positions
-                                               Position::INVALID, Position::INVALID);  // extra positions
-            } else if (segment->isLastSegment()) {
-                vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                               -1, geometryEndPos,                     // extrem positions
-                                               Position::INVALID, Position::INVALID);  // extra positions
-            } else {
-                vehicleGeometry = lane->getLaneGeometry();
-            }
+        GUIGeometry vehicleGeometry;
+        // update pathGeometry depending of first and last segment
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
+            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                            geometryDepartPos, geometryEndPos,      // extrem positions
+                                            Position::INVALID, Position::INVALID);  // extra positions
+        } else if (segment->isFirstSegment()) {
+            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                            geometryDepartPos, -1,                  // extrem positions
+                                            Position::INVALID, Position::INVALID);  // extra positions
+        } else if (segment->isLastSegment()) {
+            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+                                            -1, geometryEndPos,                     // extrem positions
+                                            Position::INVALID, Position::INVALID);  // extra positions
+        } else {
+            vehicleGeometry = lane->getLaneGeometry();
         }
         // obtain color
         const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTrips;
@@ -799,7 +802,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // Set color
         GLHelper::setColor(pathColor);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), vehicleGeometry, width);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), vehicleGeometry, width);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -853,11 +856,11 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? vehicleGeometry.getShape() : lane->getLaneShape());
             // draw inspected dotted contour
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
             // draw front dotted contour
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
         }
     }
@@ -881,7 +884,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
         // Add a draw matrix
@@ -895,7 +898,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             GLHelper::setColor(s.colorSettings.vehicleTrips);
         }
         // draw lane2lane
-        GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, width);
         // Pop last matrix
         GLHelper::popMatrix();
         // check if shape dotted contour has to be drawn
@@ -904,12 +907,12 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             if (fromLane->getLane2laneConnections().exist(toLane)) {
                 // draw inspected dotted contour
                 if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                         width, 1, false, false, 0.1);
                 }
                 // draw front dotted contour
                 if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                    GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                         width, 1, false, false, 0.1);
                 }
             }
@@ -943,9 +946,12 @@ GNEVehicle::getFirstPathLane() const {
         if ((departEdge > 0) && (departEdge < (int)getChildDemandElements().front()->getParentEdges().size())) {
             // use depart edge
             firstEdge = getChildDemandElements().front()->getParentEdges().at(departEdge);
-        } else {
-            // use first embedded route edge
+        } else if (getChildDemandElements().front()->getParentEdges().size() > 0) {
             firstEdge = getChildDemandElements().front()->getParentEdges().front();
+        } else if (getChildDemandElements().front()->getParentLanes().size() > 0) {
+            firstEdge = getChildDemandElements().front()->getParentLanes().front()->getParentEdge();
+        } else {
+            return nullptr;
         }
     } else {
         // use first parent edge
@@ -986,9 +992,14 @@ GNEVehicle::getLastPathLane() const {
         if ((arrivalEdge > 0) && (arrivalEdge < (int)getChildDemandElements().front()->getParentEdges().size())) {
             // use arrival edge
             lastEdge = getChildDemandElements().front()->getParentEdges().at(arrivalEdge);
-        } else {
+        } else if (getChildDemandElements().front()->getParentEdges().size() > 0) {
             // use last route edge
             lastEdge = getChildDemandElements().front()->getParentEdges().back();
+        } else if (getChildDemandElements().front()->getParentLanes().size() > 0) {
+            // use lane
+            lastEdge = getChildDemandElements().front()->getParentLanes().back()->getParentEdge();
+        } else {
+            return nullptr;
         }
     } else {
         // use last parent edge

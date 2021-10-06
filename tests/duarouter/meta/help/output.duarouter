@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_9_2+0769-54ef62a
+Eclipse SUMO duarouter Version v1_10_0+0951-b6eb60e
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -36,6 +36,8 @@ Output Options:
                                        FILE
   --keep-vtype-distributions          Keep vTypeDistribution ids when writing
                                        vehicles and their types
+  --named-routes                      Write vehicles that reference routes by
+                                       their id
   --write-license                     Include license info into every output
                                        file
   --output-prefix STR                 Prefix which is applied to all output

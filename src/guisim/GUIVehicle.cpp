@@ -656,6 +656,11 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     const GUILane* prevLane = nullptr;
     int reversalIndex = 0;
     const int indexDigits = (int)toString(r.size()).size();
+    if (!isOnRoad() && !isParking()) {
+        // simulation time has already advanced so isRemoteControlled is always false
+        const std::string offRoadLabel = hasInfluencer() && getInfluencer()->isRemoteAffected(SIMSTEP) ? "offRoad" : "teleporting";
+        GLHelper::drawTextSettings(s.vehicleValue, offRoadLabel, getPosition(), s.scale, s.angle, 1.0);
+    }
     for (; i != r.end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
@@ -705,10 +710,16 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         } else {
             stopLanePos = stop.reached ? getPositionOnLane() : MAX2(0.0, stop.getEndPos(*this));
         }
+        if (stop.isOpposite && !stop.reached) {
+            stopLanePos = stop.lane->getLength() - stopLanePos;
+        }
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::setColor(col);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
         std::string label = stop.pars.speed > 0 ? "waypoint" : (stop.reached ? "stopped" : "stop " + toString(stopIndex));
+        if (stop.isOpposite) {
+            label += " (opposite)";
+        }
 #ifdef _DEBUG
         label += " (" + toString(stop.edge - myCurrEdge) + "e)";
 #endif

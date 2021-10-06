@@ -915,21 +915,6 @@ NIImporter_SUMO::addProhibition(const SUMOSAXAttributes& attrs) {
 }
 
 
-NIImporter_SUMO::LaneAttrs*
-NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
-    std::string edge_id;
-    int index;
-    NBHelpers::interpretLaneID(lane_id, edge_id, index);
-    assert(edge->id == edge_id);
-    if ((int)edge->lanes.size() <= index) {
-        WRITE_ERROR("Unknown lane '" + lane_id + "' given in succedge.");
-        return nullptr;
-    } else {
-        return edge->lanes[index];
-    }
-}
-
-
 NBLoadedSUMOTLDef*
 NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (currentTL) {

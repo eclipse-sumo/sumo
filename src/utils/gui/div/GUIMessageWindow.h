@@ -24,6 +24,7 @@
 #include <string>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/events/GUIEvent.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/iodevices/OutputDevice.h>
 
 
@@ -54,7 +55,7 @@ public:
      *
      * @param[in] parent The parent window
      */
-    GUIMessageWindow(FXComposite* parent);
+    GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindow);
 
     /// @brief Destructor
     ~GUIMessageWindow();
@@ -94,6 +95,16 @@ public:
         return myLocateLinks;
     }
 
+    /// @brief switch locate links on and off
+    static void setBreakPointOffset(SUMOTime val) {
+        myBreakPointOffset = val;
+    }
+
+    /// @brief ask whether locate links is enabled
+    static SUMOTime getBreakPointOffset() {
+        return myBreakPointOffset;
+    }
+
 private:
     /// @brief class MsgOutputDevice
     class MsgOutputDevice : public OutputDevice {
@@ -130,10 +141,16 @@ private:
 
     /// @brief get active string object
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
+    SUMOTime getTimeString(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 
 private:
+    GUIMainWindow* myMainWindow;
+
     /// @brief whether messages are linked to the GUI elements
     static bool myLocateLinks;
+
+    /// @brief Offset when creating breakpoint by clicking on time links
+    static SUMOTime myBreakPointOffset;
 
     /// @brief The text colors used
     FXHiliteStyle* myStyles;

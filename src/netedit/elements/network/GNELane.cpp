@@ -119,7 +119,7 @@ GNELane::allowPedestrians() const {
 }
 
 
-const GNEGeometry::Geometry&
+const GUIGeometry&
 GNELane::getLaneGeometry() const {
     return myLaneGeometry;
 }
@@ -336,7 +336,7 @@ GNELane::drawArrows(const GUIVisualizationSettings& s, const bool spreadSuperpos
         // calculate begin, end and rotation
         const Position& begin = myLaneGeometry.getShape()[-2];
         const Position& end = myLaneGeometry.getShape().back();
-        const double rot = GNEGeometry::calculateRotation(begin, end);
+        const double rot = GUIGeometry::calculateRotation(begin, end);
         // push arrow matrix
         GLHelper::pushMatrix();
         // move front (note: must draw on top of junction shape?
@@ -503,7 +503,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawLaneAsRailway(s, laneDrawingConstants);
             } else {
                 // draw as box lines
-                GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
+                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
             }
             if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
                 // Push matrix
@@ -513,7 +513,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 // set selected edge color
                 GLHelper::setColor(s.colorSettings.selectedEdgeColor);
                 // draw again to show the selected edge
-                GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
+                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
                 // Pop matrix
                 GLHelper::popMatrix();
             }
@@ -552,11 +552,11 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         if (!drawRailway) {
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                     (myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                     ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
         }
         // draw children
@@ -637,7 +637,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
         // draw white boundings and white markings
         GLHelper::setColor(RGBColor::WHITE);
         // draw geometry
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
         // pop background matrix
         GLHelper::popMatrix();
     }
@@ -692,9 +692,9 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
         // add separator
         new FXMenuSeparator(ret);
-
-        if (editMode != NetworkEditMode::NETWORK_CONNECT && editMode != NetworkEditMode::NETWORK_TLS && editMode != NetworkEditMode::NETWORK_CREATE_EDGE) {
-            // build edge oeprations
+        //build operations
+        if ((editMode != NetworkEditMode::NETWORK_CONNECT) && (editMode != NetworkEditMode::NETWORK_TLS)) {
+            // build edge operations
             buildEdgeOperations(parent, ret);
             // build lane operations
             buildLaneOperations(parent, ret);
@@ -728,6 +728,12 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     }
     return ret;
+}
+
+
+double 
+GNELane::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 
@@ -782,7 +788,7 @@ GNELane::isRestricted(SUMOVehicleClass vclass) const {
 }
 
 
-const GNEGeometry::Lane2laneConnection&
+const GNELane2laneConnection&
 GNELane::getLane2laneConnections() const {
     return myLane2laneConnections;
 }
@@ -1279,6 +1285,23 @@ GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNELane::drawOverlappedRoutes(const int numRoutes) const {
+    // get middle point and angle
+    const Position center = myLaneGeometry.getShape().positionAtOffset2D(myLaneGeometry.getShape().length2D() * 0.5);
+    const double angle = myLaneGeometry.getShape().rotationDegreeAtOffset(myLaneGeometry.getShape().length2D() * 0.5);
+    // Push route matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    glTranslated(0, 0, GLO_ROUTE + 1);
+    // get middle
+    GLHelper::drawText(toString(numRoutes) + " routes", center, 0, 1.8, RGBColor::BLACK, angle + 90);
+    // pop route matrix
+    GLHelper::popMatrix();
+
+}
+
+
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
@@ -1354,7 +1377,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     const double halfRailWidth = halfInnerFeetWidth + 0.15 * laneDrawingConstants.exaggeration;
     const double halfCrossTieWidth = halfGauge * 1.81;
     // Draw lane geometry
-    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
+    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
     // Save current color
     RGBColor current = GLHelper::getColor();
     // Draw gray on top with reduced width (the area between the two tracks)
@@ -1362,7 +1385,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     // move
     glTranslated(0, 0, 0.1);
     // draw lane geometry again
-    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
+    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
     // Set current color back
     GLHelper::setColor(current);
     // Draw crossties
@@ -1370,11 +1393,11 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     // check if dotted contours has to be drawn
     if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
             (myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-        GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shape, halfGauge, 1, true, true);
+        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, halfGauge, 1, true, true);
     }
     if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
             ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-        GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shape, halfGauge, 1, true, true);
+        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, halfGauge, 1, true, true);
     }
 }
 
@@ -1429,7 +1452,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // obtain circle width and resolution
         double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
         // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
+        const double exaggeration = getExaggeration(s);
         // obtain custom shape
         const PositionVector& customShape = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
         // draw s depending of detail

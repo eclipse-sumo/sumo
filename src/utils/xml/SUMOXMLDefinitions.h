@@ -528,6 +528,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_BIDI,
     SUMO_ATTR_ID_BEFORE,
     SUMO_ATTR_ID_AFTER,
+    SUMO_ATTR_CENTER,
     SUMO_ATTR_CENTER_X,
     SUMO_ATTR_CENTER_Y,
     SUMO_ATTR_CENTER_Z,
@@ -1241,8 +1242,8 @@ enum SumoXMLAttr {
     GNE_ATTR_TO_CONTAINERSTOP,
     /// @brief neighboring lane, simplified lane attr instead of child element
     GNE_ATTR_OPPOSITE,
-    /// @brief center (used in stoppingPlaces)
-    GNE_ATTR_CENTER,
+    /// @brief shift lane index (only used by elements over lanes)
+    GNE_ATTR_SHIFTLANEINDEX,
 
     // @}
 
@@ -1368,7 +1369,9 @@ enum class FringeType {
 /// @brief travel modes for persons
 enum class PersonMode {
     NONE = 0,
-    WALK = 1 << 1,
+    WALK_FORWARD = 1,
+    WALK_BACKWARD = 2,
+    WALK = 3,
     BICYCLE = 1 << 2,
     CAR = 1 << 3,
     PUBLIC = 1 << 4,
@@ -1689,6 +1692,9 @@ public:
 
     /// @brief return edge id when given the lane ID
     static std::string getEdgeIDFromLane(const std::string laneID);
+
+    /// @brief return lane index when given the lane ID
+    static int getIndexFromLane(const std::string laneID);
     /// @}
 
     /// @brief all allowed characters for phase state

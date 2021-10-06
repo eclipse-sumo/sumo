@@ -178,12 +178,14 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = nullptr;
     ret = new GUIParameterTableWindow(app, *this);
     // add edge items
+    ret->mkItem("maxspeed [m/s]", false, getAllowedSpeed());
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
-    ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
-    ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
+    ret->mkItem("street name", false, getStreetName());
+    ret->mkItem("pending insertions [#]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getPendingEmits));
     ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getMeanSpeed));
-    ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
     ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
+    ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
+    ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
     ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, int, int>(this, &MSEdge::getVehicleNumber));
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
@@ -199,7 +201,12 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment leader leave time", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
     ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
     ret->mkItem("segment entry blocktime [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEntryBlockTimeSeconds));
-
+    // lane params
+    for (MSLane* lane : *myLanes) {
+        for (const auto& kv : lane->getParametersMap()) {
+            ret->mkItem(("laneParam " + toString(lane->getIndex()) + ":" + kv.first).c_str(), false, kv.second);
+        }
+    }
     // close building
     ret->closeBuilding();
     return ret;
@@ -226,6 +233,12 @@ GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
     // close building
     ret->closeBuilding();
     return ret;
+}
+
+
+double
+GUIEdge::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
 }
 
 
@@ -345,6 +358,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     GUIMEVehicleControl* vehicleControl = GUINet::getGUIInstance()->getGUIMEVehicleControl();
+    const double now = SIMTIME;
     if (vehicleControl != nullptr) {
         // draw the meso vehicles
         vehicleControl->secureVehicles();
@@ -363,21 +377,26 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                     const int queueSize = (int)queue.size();
                     double vehiclePosition = segmentOffset + length;
                     // draw vehicles beginning with the leader at the end of the segment
-                    double xOff = 0;
+                    double latOff = 0.;
                     for (int i = 0; i < queueSize; ++i) {
-                        GUIMEVehicle* veh = static_cast<GUIMEVehicle*>(queue[queueSize - i - 1]);
-                        const double vehLength = veh->getVehicleType().getLengthWithGap();
+                        const GUIMEVehicle* const veh = static_cast<GUIMEVehicle*>(queue[queueSize - i - 1]);
+                        const double intendedLeave = MIN2(veh->getEventTimeSeconds(), veh->getBlockTimeSeconds());
+                        const double entry = veh->getLastEntryTimeSeconds();
+                        const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+                        if (relPos < vehiclePosition) {
+                            vehiclePosition = relPos;
+                        }
                         while (vehiclePosition < segmentOffset) {
                             // if there is only a single queue for a
                             // multi-lane edge shift vehicles and start
                             // drawing again from the end of the segment
                             vehiclePosition += length;
-                            xOff += 2;
+                            latOff += 0.2;
                         }
-                        const Position p = l->geometryPositionAtOffset(vehiclePosition);
+                        const Position p = l->geometryPositionAtOffset(vehiclePosition, latOff);
                         const double angle = l->getShape().rotationAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
                         veh->drawOnPos(s, p, angle);
-                        vehiclePosition -= vehLength;
+                        vehiclePosition -= veh->getVehicleType().getLengthWithGap();
                     }
                 }
                 segmentOffset += length;
@@ -504,7 +523,7 @@ GUIEdge::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         case 8:
             return getRoutingSpeed();
         case 16:
-            return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
+            return getPendingEmits();
         case 18:
             // by numerical edge param value
             try {
@@ -540,7 +559,7 @@ GUIEdge::getScaleValue(int activeScheme) const {
         case 6:
             return getRelativeSpeed();
         case 7:
-            return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
+            return getPendingEmits();
     }
     return 0;
 }
@@ -601,5 +620,9 @@ GUIEdge::isSelected() const {
     return gSelected.isSelected(GLO_EDGE, getGlID());
 }
 
+double
+GUIEdge::getPendingEmits() const {
+    return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
+}
 
 /****************************************************************************/

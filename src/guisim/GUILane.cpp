@@ -165,7 +165,7 @@ GUILane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notif
 
 
 void
-GUILane::removeParking(MSVehicle* remVehicle) {
+GUILane::removeParking(MSBaseVehicle* remVehicle) {
     FXMutexLock locker(myLock);
     return MSLane::removeParking(remVehicle);
 }
@@ -648,6 +648,17 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset * offsetSign);
                             }
                         }
+                        if (MSGlobals::gUseMesoSim && mySegmentStartIndex.size() > 0 && (myPermissions & ~SVC_PEDESTRIAN) != 0) {
+                            // draw segment borders
+                            GLHelper::setColor(color.changedBrightness(51));
+                            for (int i : mySegmentStartIndex) {
+                                if (myShapeColors.size() > 0) {
+                                    GLHelper::setColor(myShapeColors[i].changedBrightness(51));
+                                }
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] +90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] -90, myWidth / 3, 0.2, 0);
+                            }
+                        }
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                             drawArrows();
                         }
@@ -699,8 +710,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             } // else: this is the shadow during a continuous lane change
         }
         // draw parking vehicles
-        for (std::set<const MSVehicle*>::const_iterator v = myParkingVehicles.begin(); v != myParkingVehicles.end(); ++v) {
-            static_cast<const GUIVehicle*>(*v)->drawGL(s);
+        for (const MSBaseVehicle* const v : myParkingVehicles) {
+            dynamic_cast<const GUIBaseVehicle*>(v)->drawGL(s);
         }
         // allow lane simulation
         releaseVehicles();
@@ -981,6 +992,12 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->checkFont(myEdge->getStreetName());
     ret->closeBuilding();
     return ret;
+}
+
+
+double 
+GUILane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
 }
 
 
@@ -1439,6 +1456,9 @@ GUILane::splitAtSegments(const PositionVector& shape) {
         int index = result.indexOfClosest(pos);
         if (pos.distanceTo(result[index]) > POSITION_EPS) {
             index = result.insertAtClosest(pos, false);
+        }
+        if (i != no - 1) {
+            mySegmentStartIndex.push_back(index);
         }
         while ((int)myShapeSegments.size() < index) {
             myShapeSegments.push_back(i);

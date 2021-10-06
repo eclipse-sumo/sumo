@@ -66,6 +66,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
     {}, {}, {lane}, {}, {}, {}, {}, {}
     ) {
+    // update geometry (needed for POILanes)
+    updateGeometry();
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -148,6 +150,18 @@ GNEPOI::updateGeometry() {
 }
 
 
+Position 
+GNEPOI::getPositionInView() const {
+    return *this;
+}
+
+
+double
+GNEPOI::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.poiSize.getExaggeration(s, this);
+}
+
+
 void
 GNEPOI::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
@@ -227,7 +241,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         // check if POI can be drawn
         if (GUIPointOfInterest::checkDraw(s, this)) {
             // obtain POIExaggeration
-            const double POIExaggeration = s.poiSize.getExaggeration(s, this);
+            const double POIExaggeration = getExaggeration(s);
             // push name (needed for getGUIGlObjectsUnderCursor(...)
             GLHelper::pushName(getGlID());
             // draw inner polygon
@@ -254,17 +268,17 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (getShapeImgFile().empty()) {
-                    GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, *this, 1.3, POIExaggeration);
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // check if front dotted contour has to be drawn
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 if (getShapeImgFile().empty()) {
-                    GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // pop name
@@ -331,6 +345,8 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
@@ -339,9 +355,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
 
 void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_COLOR:
@@ -361,6 +374,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -555,6 +569,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");

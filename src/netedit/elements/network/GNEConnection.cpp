@@ -319,6 +319,12 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+double 
+GNEConnection::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 void
 GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
     // calculate boundary
@@ -345,7 +351,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     bool pushGLID = true;
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
         myNet->getViewNet()->getNetworkViewOptions().showConnections() &&
-        s.drawDetail(s.detailSettings.connectionsDemandMode, s.addSize.getExaggeration(s, this))) {
+        s.drawDetail(s.detailSettings.connectionsDemandMode, getExaggeration(s))) {
         drawConnection = !myShapeDeprecated;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
@@ -416,9 +422,14 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // color
                 const RGBColor darkerColor = connectionColor.changedBrightness(-32);
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, darkerColor, 
+                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1, 
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint
-                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
+                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, 
+                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1);
+                }
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 0.1);
@@ -443,12 +454,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // use drawDottedContourGeometry to draw it
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
             // check if front contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 // use drawDottedContourGeometry to draw it
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
         }
     }

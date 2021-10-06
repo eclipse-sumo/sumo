@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
@@ -149,7 +150,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale < 1.) {
         GLHelper::drawLine(myInternalLaneGeometry.getShape());
     } else {
-        GNEGeometry::drawGeometry(myEditor->getViewNet(), myInternalLaneGeometry, 0.2);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
     }
     // pop layer matrix
     GLHelper::popMatrix();
@@ -202,6 +203,12 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // close building
     ret->closeBuilding();
     return ret;
+}
+
+
+double 
+GNEInternalLane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
 }
 
 

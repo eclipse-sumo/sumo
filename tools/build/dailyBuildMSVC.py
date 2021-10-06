@@ -102,6 +102,8 @@ def generateCMake(generator, platform, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + platform)
     cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER",
                 "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    if platform == "Win32":
+        cmakeOpt += ["-DENABLE_PYTHON_BINDINGS=false"]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
     if checkOptionalLibs:

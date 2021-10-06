@@ -114,8 +114,28 @@ def import_gtfs(options, gtfsZip):
     # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
     full_day = pd.to_timedelta("24:00:00")
 
-    stop_times['arrival_fixed'] = pd.to_timedelta(stop_times.arrival_time) % full_day
-    stop_times['departure_fixed'] = pd.to_timedelta(stop_times.departure_time) % full_day
+    stop_times['arrival_fixed'] = pd.to_timedelta(stop_times.arrival_time)
+    stop_times['departure_fixed'] = pd.to_timedelta(stop_times.departure_time)
+
+    # avoid trimming trips starting before midnight but ending after
+    fix_trips = stop_times[(stop_times['arrival_fixed'] >= full_day) &
+                           (stop_times['stop_sequence'] == 0)].trip_id.values.tolist()
+
+    stop_times.loc[stop_times.trip_id.isin(fix_trips), 'arrival_fixed'] = stop_times.loc[stop_times.trip_id.isin(
+        fix_trips), 'arrival_fixed'] % full_day
+    stop_times.loc[stop_times.trip_id.isin(fix_trips), 'departure_fixed'] = stop_times.loc[stop_times.trip_id.isin(
+        fix_trips), 'departure_fixed'] % full_day
+
+    extra_stop_times = stop_times.loc[stop_times.arrival_fixed > full_day, ]
+    extra_stop_times.loc[:, 'arrival_fixed'] = extra_stop_times.loc[:, 'arrival_fixed'] % full_day
+    extra_stop_times.loc[:, 'departure_fixed'] = extra_stop_times.loc[:, 'departure_fixed'] % full_day
+    extra_trips_id = extra_stop_times.trip_id.values.tolist()
+    extra_stop_times.loc[:, 'trip_id'] = extra_stop_times.loc[:, 'trip_id'] + ".trimmed"
+    stop_times = stop_times.append(extra_stop_times)
+
+    extra_trips = trips.loc[trips.trip_id.isin(extra_trips_id), :]
+    extra_trips.loc[:, 'trip_id'] = extra_trips.loc[:, 'trip_id'] + ".trimmed"
+    trips = trips.append(extra_trips)
 
     time_interval = options.end - options.begin
     start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
@@ -181,8 +201,8 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
                            'stop_sequence', 'arrival_fixed', 'departure_fixed']]
 
     # replace characters
-    gtfs_data['stop_name'] = gtfs_data['stop_name'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ')  # noqa
-    gtfs_data['trip_headsign'] = gtfs_data['trip_headsign'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ')  # noqa
+    gtfs_data['stop_name'] = gtfs_data['stop_name'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ', regex=True)  # noqa
+    gtfs_data['trip_headsign'] = gtfs_data['trip_headsign'].str.replace('[/|\'\";,!<>&*?\t\n\r]', ' ', regex=True)  # noqa
 
     # filter data inside SUMO net by stop location and shape
     gtfs_data = gtfs_data[(options.bbox[1] <= gtfs_data['stop_lat']) &
@@ -195,7 +215,7 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
                     (shapes['shape_pt_lon'] <= options.bbox[2])]
 
     # get list of trips with departure time to allow a sorted output
-    trip_list = gtfs_data[gtfs_data["stop_sequence"] == 0]
+    trip_list = gtfs_data.loc[gtfs_data.groupby('trip_id').stop_sequence.idxmin()]
 
     # add new column for unambiguous stop_id and edge in sumo
     gtfs_data["stop_item_id"] = None
@@ -258,9 +278,9 @@ def repair_routes(options, net):
     osm_routes = {}
     # write dua input file
     with io.open("dua_input.xml", 'w+', encoding="utf8") as dua_file:
-        dua_file.write("<routes>\n")
+        dua_file.write(u"<routes>\n")
         for key, value in OSM2SUMO_MODES.items():
-            dua_file.write('    <vType id="%s" vClass="%s"/>\n' % (key, value))
+            dua_file.write(u'    <vType id="%s" vClass="%s"/>\n' % (key, value))
         num_read = discard_type = discard_net = 0
         sumo_edges = set([sumo_edge.getID() for sumo_edge in net.getEdges()])
         for ptline, ptline_route in parse_fast_nested(options.osm_routes,
@@ -546,6 +566,10 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
             seqs = {}
             for row in trip_list.sort_values("arrival_fixed").itertuples():
 
+                if day != 0 and row.trip_id.endswith(".trimmed"):
+                    # only add trimmed trips the first day
+                    continue
+
                 if day == 0 and row.arrival_fixed < start_time:
                     # avoid writing first day trips that not applied
                     continue
@@ -575,7 +599,8 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     seqs[stopSeq] = row.trip_id
                 veh_attr = (row.route_short_name, row.trip_id, day,
                             main_shape, row.route_id, seqs[stopSeq],
-                            day, str(row.arrival_fixed).split(' ')[2],
+                            row.arrival_fixed.days + day,
+                            str(row.arrival_fixed).split(' ')[2],
                             min(stop_index), max(stop_index), pt_type,
                             row.route_short_name,
                             row.trip_headsign)
@@ -590,9 +615,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     if stop_index >= check_seq:
                         check_seq = stop_index
                         # TODO check stop position if we are on the same edge as before
-                        stop_attr = (stop.stop_item_id, day,
+                        stop_attr = (stop.stop_item_id, stop.arrival_fixed.days + day,
                                      str(stop.arrival_fixed).split(' ')[2],
-                                     options.duration, day,
+                                     options.duration, stop.departure_fixed.days + day,
                                      str(stop.departure_fixed).split(' ')[2],
                                      stop.stop_name)
                         output_file.write('        <stop busStop="%s" arrival="%s:%s" duration="%s" until="%s:%s"/><!--%s-->\n' % stop_attr)  # noqa

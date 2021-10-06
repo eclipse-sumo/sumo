@@ -74,7 +74,7 @@ public:
                     const std::string name = "",
                     int capacity = 0,
                     double parkingLength = 0,
-                    const RGBColor& color = RGBColor::WHITE);
+                    const RGBColor& color = RGBColor::INVISIBLE);
 
 
 

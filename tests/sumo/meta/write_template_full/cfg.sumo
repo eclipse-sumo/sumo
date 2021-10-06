@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-21 09:17:50 by Eclipse SUMO sumo Version v1_10_0+0847-ef64dc0
+<!-- generated on 2021-09-24 12:59:29 by Eclipse SUMO sumo Version v1_10_0+0979-9637fe4
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -57,6 +57,7 @@
         <device.ssm.filter-edges.input-file value="" type="FILE" help="Restrict SSM device output to the edge selection from the given input file"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
+        <queue-output.period value="-1" type="TIME" help="Save vehicle queues with the given period"/>
         <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
         <amitran-output value="" type="FILE" help="Save the vehicle trajectories in the Amitran format"/>
         <summary-output value="" synonymes="summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
@@ -124,6 +125,7 @@
         <max-num-vehicles value="-1" type="INT" help="Delay vehicle insertion to stay within the given maximum number"/>
         <max-num-teleports value="-1" type="INT" help="Abort the simulation if the given maximum number of teleports is exceeded"/>
         <scale value="1" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
+        <scale-suffix value="." type="STR" help="Suffix to be added when creating ids for cloned vehicles"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
         <time-to-teleport.highways value="0" type="TIME" help="The waiting time after which vehicles on a fast road (speed &gt; 69km/h) are teleported if they are on a non-continuing lane"/>
         <time-to-teleport.disconnected value="-1" type="TIME" help="The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting"/>

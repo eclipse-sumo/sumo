@@ -47,10 +47,17 @@ public:
 
     RouterProvider(const RouterProvider& original) :
         myVehRouter(original.myVehRouter->clone()),
-        myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.myPedRouter->clone())),
-        myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.myInterRouter->clone())),
-        myRailRouter(static_cast<RailwayRouter<E, V>*>(original.myRailRouter == 0 ? 0 : original.myRailRouter->clone()))
+        myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == nullptr ? nullptr : original.myPedRouter->clone())),
+        myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == nullptr ? nullptr : original.myInterRouter->clone())),
+        myRailRouter(static_cast<RailwayRouter<E, V>*>(original.myRailRouter == nullptr ? nullptr : original.myRailRouter->clone()))
     {}
+
+    virtual ~RouterProvider() {
+        delete myVehRouter;
+        delete myPedRouter;
+        delete myInterRouter;
+        delete myRailRouter;
+    }
 
     RouterProvider* clone() {
         return new RouterProvider(*this);
@@ -76,11 +83,17 @@ public:
         return *myRailRouter;
     }
 
-    virtual ~RouterProvider() {
-        delete myVehRouter;
-        delete myPedRouter;
-        delete myInterRouter;
-        delete myRailRouter;
+    inline void setBulkMode(const bool mode) const {
+        myVehRouter->setBulkMode(mode);
+        if (myPedRouter != nullptr) {
+            myPedRouter->setBulkMode(mode);
+        }
+        if (myInterRouter != nullptr) {
+            myInterRouter->setBulkMode(mode);
+        }
+        if (myRailRouter != nullptr) {
+            myRailRouter->setBulkMode(mode);
+        }
     }
 
 

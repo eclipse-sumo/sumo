@@ -91,6 +91,12 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
+    /// @brief Returns position of shape in view
+    Position getPositionInView() const;
+
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -200,7 +206,7 @@ protected:
     bool mySimplifiedShape;
 
     /// @brief geometry for lenghts/rotations
-    GNEGeometry::Geometry myPolygonGeometry;
+    GUIGeometry myPolygonGeometry;
 
 private:
     /// @brief set attribute after validation

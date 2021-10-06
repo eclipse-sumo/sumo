@@ -102,7 +102,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
         return 0; // descheduled
     }
     const MSEdge* old = myParent.getEdge();
-    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime);
+    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getState()->getDirection(myParent, currentTime));
     if (arrived) {
         myModel->registerArrived();
         return 0;
@@ -159,6 +159,15 @@ double
 MSPModel_NonInteracting::PState::getEdgePos(const MSStageMoving&, SUMOTime now) const {
     //std::cout << SIMTIME << " lastEntryTime=" << myLastEntryTime << " pos=" << (myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime)) << "\n";
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
+}
+
+int
+MSPModel_NonInteracting::PState::getDirection(const MSStageMoving& /*stage*/, SUMOTime /*now*/) const {
+    if (myCurrentBeginPos == myCurrentEndPos) {
+        return UNDEFINED_DIRECTION;
+    } else {
+        return myCurrentBeginPos < myCurrentEndPos ? FORWARD : BACKWARD;
+    }
 }
 
 

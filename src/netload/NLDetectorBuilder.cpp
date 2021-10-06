@@ -64,12 +64,13 @@
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string& id,
         const std::string& device, double haltingSpeedThreshold,
         SUMOTime haltingTimeThreshold, SUMOTime splInterval,
-        const std::string& vTypes, bool openEntry) :
+        const std::string& vTypes, int detectPersons, bool openEntry) :
     myID(id), myDevice(device),
     myHaltingSpeedThreshold(haltingSpeedThreshold),
     myHaltingTimeThreshold(haltingTimeThreshold),
     mySampleInterval(splInterval),
     myVehicleTypes(vTypes),
+    myDetectPersons(detectPersons),
     myOpenEntry(openEntry) {
 }
 
@@ -93,14 +94,14 @@ void
 NLDetectorBuilder::buildInductLoop(const std::string& id,
                                    const std::string& lane, double pos, SUMOTime splInterval,
                                    const std::string& device, bool friendlyPos,
-                                   const std::string& vTypes) {
+                                   const std::string& vTypes, int detectPersons) {
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     // build the loop
-    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes);
+    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes, detectPersons);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
 }
@@ -126,7 +127,7 @@ void
 NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
                                    const std::string& device, SUMOTime frequency,
                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                   const std::string& vTypes, bool friendlyPos, bool showDetector,
+                                   const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                                    MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane) {
 
     bool tlsGiven = tlls != nullptr;
@@ -175,7 +176,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
     MSE2Collector* det = nullptr;
     if (tlsGiven) {
         // Detector connected to TLS
-        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
         // add the file output (XXX: Where's the corresponding delete?)
         if (toLaneGiven) {
@@ -195,7 +196,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
     } else {
         // User specified detector for xml-output
         checkSampleInterval(frequency, SUMO_TAG_E2DETECTOR, id);
-        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
     }
 
@@ -205,7 +206,7 @@ void
 NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
                                    const std::string& device, SUMOTime frequency,
                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                   const std::string& vTypes, bool friendlyPos, bool showDetector,
+                                   const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                                    MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane) {
 
     bool tlsGiven = tlls != nullptr;
@@ -252,7 +253,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
     MSE2Collector* det = nullptr;
     if (tlsGiven) {
         // Detector connected to TLS
-        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
         // add the file output (XXX: Where's the corresponding delete?)
         if (toLaneGiven) {
@@ -273,7 +274,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
         // User specified detector for xml-output
         checkSampleInterval(frequency, SUMO_TAG_E2DETECTOR, id);
 
-        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+        det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
     }
 
@@ -286,9 +287,9 @@ NLDetectorBuilder::beginE3Detector(const std::string& id,
                                    const std::string& device, SUMOTime splInterval,
                                    double haltingSpeedThreshold,
                                    SUMOTime haltingTimeThreshold,
-                                   const std::string& vTypes, bool openEntry) {
+                                   const std::string& vTypes, int detectPersons, bool openEntry) {
     checkSampleInterval(splInterval, SUMO_TAG_E3DETECTOR, id);
-    myE3Definition = new E3DetectorDefinition(id, device, haltingSpeedThreshold, haltingTimeThreshold, splInterval, vTypes, openEntry);
+    myE3Definition = new E3DetectorDefinition(id, device, haltingSpeedThreshold, haltingTimeThreshold, splInterval, vTypes, detectPersons, openEntry);
 }
 
 
@@ -339,7 +340,8 @@ NLDetectorBuilder::endE3Detector() {
         // create E3 detector
         MSDetectorFileOutput* det = createE3Detector(myE3Definition->myID,
                                     myE3Definition->myEntries, myE3Definition->myExits,
-                                    myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold, myE3Definition->myVehicleTypes,
+                                    myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold,
+                                    myE3Definition->myVehicleTypes, myE3Definition->myDetectPersons,
                                     myE3Definition->myOpenEntry);
         // add to net
         myNet.getDetectorControl().add(SUMO_TAG_ENTRY_EXIT_DETECTOR, det, myE3Definition->myDevice, myE3Definition->mySampleInterval);
@@ -376,11 +378,13 @@ NLDetectorBuilder::buildRouteProbe(const std::string& id, const std::string& edg
 MSDetectorFileOutput*
 NLDetectorBuilder::createInductLoop(const std::string& id,
                                     MSLane* lane, double pos,
-                                    const std::string& vTypes, bool) {
+                                    const std::string& vTypes,
+                                    int detectPersons,
+                                    bool /*show*/) {
     if (MSGlobals::gUseMesoSim) {
-        return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes);
+        return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes, detectPersons);
     }
-    return new MSInductLoop(id, lane, pos, vTypes, false);
+    return new MSInductLoop(id, lane, pos, vTypes, detectPersons, false);
 }
 
 
@@ -396,16 +400,16 @@ MSE2Collector*
 NLDetectorBuilder::createE2Detector(const std::string& id,
                                     DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                     SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                    const std::string& vTypes, bool /* showDetector */) {
-    return new MSE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+                                    const std::string& vTypes, int detectPersons, bool /* showDetector */) {
+    return new MSE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons);
 }
 
 MSE2Collector*
 NLDetectorBuilder::createE2Detector(const std::string& id,
                                     DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                     SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                    const std::string& vTypes, bool /* showDetector */) {
-    return new MSE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+                                    const std::string& vTypes, int detectPersons, bool /* showDetector */) {
+    return new MSE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons);
 }
 
 MSDetectorFileOutput*
@@ -415,8 +419,9 @@ NLDetectorBuilder::createE3Detector(const std::string& id,
                                     double haltingSpeedThreshold,
                                     SUMOTime haltingTimeThreshold,
                                     const std::string& vTypes,
+                                    int detectPersons,
                                     bool openEntry) {
-    return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry);
+    return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
 }
 
 

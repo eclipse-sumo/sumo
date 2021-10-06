@@ -60,18 +60,17 @@ GNERouteProbe::updateGeometry() {
 
 Position
 GNERouteProbe::getPositionInView() const {
-    return myBoundary.getCenter();
+    return getAdditionalGeometry().getShape().getPolygonCenter();
 }
 
 
 void
 GNERouteProbe::updateCenteringBoundary(const bool /*pdateGrid*/) {
-    // update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -97,7 +96,7 @@ GNERouteProbe::getParentName() const {
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double routeProbeExaggeration = s.addSize.getExaggeration(s, this);
+    const double routeProbeExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(routeProbeExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare colors
@@ -116,20 +115,22 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ROUTEPROBE);
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // set base color
         GLHelper::setColor(routeProbeColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.3 * routeProbeExaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * routeProbeExaggeration);
         // move to front
         glTranslated(0, 0, .1);
         // set central color
         GLHelper::setColor(centralLineColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.05 * routeProbeExaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * routeProbeExaggeration);
         // move to icon position and front
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, routeProbeExaggeration)) {
             // set color
@@ -156,11 +157,11 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.3, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.3, 
                                                 routeProbeExaggeration, true, true);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.3, 
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.3, 
                                                 routeProbeExaggeration, true, true);
         }
     }

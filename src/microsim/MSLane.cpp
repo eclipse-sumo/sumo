@@ -3115,13 +3115,13 @@ MSLane::outgoing_lane_priority_sorter::operator()(const MSLink* link1, const MSL
 }
 
 void
-MSLane::addParking(MSVehicle* veh) {
+MSLane::addParking(MSBaseVehicle* veh) {
     myParkingVehicles.insert(veh);
 }
 
 
 void
-MSLane::removeParking(MSVehicle* veh) {
+MSLane::removeParking(MSBaseVehicle* veh) {
     myParkingVehicles.erase(veh);
 }
 
@@ -3738,16 +3738,15 @@ MSLane::getOpposite() const {
 }
 
 
+MSLane*
+MSLane::getParallelOpposite() const {
+    return myEdge->getLanes().back()->getOpposite();
+}
+
+
 double
 MSLane::getOppositePos(double pos) const {
-    MSLane* opposite = getOpposite();
-    if (opposite == nullptr) {
-        assert(false);
-        throw ProcessError("Lane '" + getID() + "' cannot compute oppositePos as there is no opposite lane.");
-    }
-    // XXX transformations for curved geometries
-    return MAX2(0., opposite->getLength() - pos);
-
+    return MAX2(0., myLength - pos);
 }
 
 std::pair<MSVehicle* const, double>
@@ -3760,7 +3759,7 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
             std::cout << "   getFollower lane=" << getID() << " egoPos=" << egoPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << "\n";
         }
 #endif
-        if (pred->getPositionOnLane(this) < egoPos && pred != ego) {
+        if (pred != ego && pred->getPositionOnLane(this) < egoPos) {
             return std::pair<MSVehicle* const, double>(pred, egoPos - pred->getPositionOnLane(this) - ego->getVehicleType().getLength() - pred->getVehicleType().getMinGap());
         }
     }
@@ -3814,7 +3813,21 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
         std::pair<MSVehicle* const, double> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, true);
         return result;
     } else {
-        std::pair<MSVehicle* const, double> result = getLeader(ego, getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength()), std::vector<MSLane*>());
+        double vehPos = getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength());
+        std::pair<MSVehicle*, double> result = getLeader(ego, vehPos, std::vector<MSLane*>());
+        double dist = getMaximumBrakeDist() + getOppositePos(ego->getPositionOnLane() - getLength());
+        MSLane* next = const_cast<MSLane*>(this);
+        while (result.first == nullptr && dist > 0) {
+            // cannot call getLeadersOnConsecutive because succLinkSec doesn't
+            // uses the vehicle's route and doesn't work on the opposite side
+            vehPos -= next->getLength();
+            next = next->getCanonicalSuccessorLane();
+            if (next == nullptr) {
+                break;
+            }
+            dist -= next->getLength();
+            result = next->getLeader(ego, vehPos, std::vector<MSLane*>());
+        }
         if (result.first != nullptr) {
             if (result.first->getLaneChangeModel().isOpposite()) {
                 result.second -= result.first->getVehicleType().getLength();

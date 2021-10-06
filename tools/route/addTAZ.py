@@ -85,6 +85,7 @@ def main(options):
               (ambiguousSink[:5], len(ambiguousSink)))
 
     inputRoutes = ET.parse(options.routefile)
+
     class nl:  # nonlocal integral variables
         numFromNotFound = 0
         numToNotFound = 0

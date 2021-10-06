@@ -219,6 +219,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS, GNEApplicationWindow::onUpdToggleViewOption),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,         GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,         GNEApplicationWindow::onUpdToggleViewOption),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES,  GNEApplicationWindow::onCmdToggleViewOption),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES,  GNEApplicationWindow::onUpdToggleViewOption),
     // Data view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEApplicationWindow::onCmdToggleViewOption),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEApplicationWindow::onUpdToggleViewOption),
@@ -439,7 +441,7 @@ GNEApplicationWindow::dependentBuild() {
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
     // build the message window
-    myMessageWindow = new GUIMessageWindow(myMainSplitter);
+    myMessageWindow = new GUIMessageWindow(myMainSplitter, this);
     myMainSplitter->setSplit(1, 65);
     // fill menu and tool bar
     fillMenuBar();
@@ -821,6 +823,8 @@ long
 GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges("close")) {
         closeAllWindows();
+        // add a separator to the log
+        myMessageWindow->addSeparator();
         // disable save additionals and TLS menu
         disableSaveAdditionalsMenu();
         myFileMenuCommands.saveTLSPrograms->disable();
@@ -940,19 +944,19 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     myAmLoading = false;
     GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
     // check whether the loading was successfull
-    if (ec->myNet == nullptr) {
+    if (ec->net == nullptr) {
         // report failure
-        setStatusBarText("Loading of '" + ec->myFile + "' failed!");
+        setStatusBarText("Loading of '" + ec->file + "' failed!");
     } else {
         // set new Net
-        myNet = ec->myNet;
+        myNet = ec->net;
         // report success
-        setStatusBarText("'" + ec->myFile + "' loaded.");
+        setStatusBarText("'" + ec->file + "' loaded.");
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
         // initialise NETEDIT View
-        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
+        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, ec->isNewNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
         viewParent->maximize();
         // mark it as Active child
@@ -960,20 +964,20 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // cast pointer myViewNet
         myViewNet = dynamic_cast<GNEViewNet*>(viewParent->getView());
         // set settings in view
-        if (viewParent->getView() && ec->mySettingsFile != "") {
-            GUISettingsHandler settings(ec->mySettingsFile, true, true);
+        if (viewParent->getView() && ec->settingsFile != "") {
+            GUISettingsHandler settings(ec->settingsFile, true, true);
             settings.addSettings(viewParent->getView());
             viewParent->getView()->addDecals(settings.getDecals());
             settings.applyViewport(viewParent->getView());
             settings.setSnapshots(viewParent->getView());
         }
         // set network name on the caption
-        setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
+        setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->file.c_str()));
         // force supermode network
         if (myViewNet) {
             myViewNet->forceSupermodeNetwork();
         }
-        if (myViewNet && ec->myViewportFromRegistry) {
+        if (myViewNet && ec->viewportFromRegistry) {
             Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
             Position p(off.x(), off.y(), 0);
@@ -1085,6 +1089,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // update app
     update();
+    // restore focus
+    setFocus();
 }
 
 
@@ -1264,8 +1270,6 @@ GNEApplicationWindow::closeAllWindows() {
     myTrackerWindows.clear();
     // reset the caption
     setTitle(myTitlePrefix);
-    // add a separator to the log
-    myMessageWindow->addSeparator();
     // unlock tracker
     myTrackerLock.unlock();
     // remove coordinate information
@@ -1392,6 +1396,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // end saving additionals
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
+            // restore focus
+        setFocus();
         } else {
             // clear additional path
             additionalsSavePath = "";
@@ -1452,6 +1458,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // end saving demand elements
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
+            // restore focus
+        setFocus();
         } else {
             // clear demand element path
             demandElementsSavePath = "";
@@ -1512,6 +1520,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             // end saving data elements
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
+            // restore focus
+        setFocus();
         } else {
             // clear data element path
             dataElementsSavePath = "";
@@ -2001,7 +2011,7 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject* /*obj*/, FXSelector /*sel*/
     if (myViewNet) {
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             // get inspected AC
-            const GNEAttributeCarrier* inspectedAC = (myViewNet->getInspectedAttributeCarriers().size() == 1) ? myViewNet->getInspectedAttributeCarriers().front() : nullptr;
+            GNEAttributeCarrier* inspectedAC = (myViewNet->getInspectedAttributeCarriers().size() == 1) ? myViewNet->getInspectedAttributeCarriers().front() : nullptr;
             // set or clear front attribute
             if (myViewNet->getFrontAttributeCarrier() == inspectedAC) {
                 myViewNet->setFrontAttributeCarrier(nullptr);
@@ -2281,6 +2291,8 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
             oc.unSet("plain-output-prefix");
         }
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
     }
     return 1;
 }
@@ -2330,6 +2342,8 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
             oc.unSet("junctions.join-output");
         }
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
     }
     return 1;
 }
@@ -2498,6 +2512,8 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 return myViewNet->onCmdToggleShowAllContainerPlans(obj, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER:
                 return myViewNet->onCmdToggleLockContainer(obj, sel, ptr);
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES:
+                return myViewNet->onCmdToggleShowOverlappedRoutes(obj, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
                 return myViewNet->onCmdToggleShowAdditionals(obj, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES:
@@ -2688,6 +2704,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
                     menuCheck->setCheck(FALSE);
                 }
                 break;
+            case MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES:
+                if (myViewNet->getDemandViewOptions().menuCheckShowOverlappedRoutes->amChecked()) {
+                    menuCheck->setCheck(TRUE);
+                } else {
+                    menuCheck->setCheck(FALSE);
+                }
+                break;
             case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
                 if (myViewNet->getDataViewOptions().menuCheckShowAdditionals->amChecked()) {
                     menuCheck->setCheck(TRUE);
@@ -2788,6 +2811,8 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     }
 }
@@ -2842,6 +2867,8 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -2897,6 +2924,8 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -3091,6 +3120,8 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -3258,6 +3289,8 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;
@@ -3443,6 +3476,8 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
         return 1;
     } else {
         return 0;

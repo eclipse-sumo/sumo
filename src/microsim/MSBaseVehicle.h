@@ -110,7 +110,7 @@ public:
      *
      * @return The vehicle's emission parameters
      */
-    const std::map<int, double>* getEmissionParameters() const;
+    const EnergyParams* getEmissionParameters() const;
 
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
@@ -823,6 +823,9 @@ public:
 
     /// @brief apply departEdge and arrivalEdge attributes
     void setDepartAndArrivalEdge();
+
+    /// @brief interpret stop lane on opposite side of the road
+    static MSLane* interpretOppositeStop(SUMOVehicleParameter::Stop& stop);
 
 protected:
     /// @brief This vehicle's parameter.

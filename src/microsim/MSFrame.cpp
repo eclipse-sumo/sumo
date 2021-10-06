@@ -177,8 +177,12 @@ MSFrame::fillOptions() {
 
     oc.doRegister("full-output", new Option_FileName());
     oc.addDescription("full-output", "Output", "Save a lot of information for each timestep (very redundant)");
+
     oc.doRegister("queue-output", new Option_FileName());
     oc.addDescription("queue-output", "Output", "Save the vehicle queues at the junctions (experimental)");
+    oc.doRegister("queue-output.period", new Option_String("-1", "TIME"));
+    oc.addDescription("queue-output.period", "Output", "Save vehicle queues with the given period");
+
     oc.doRegister("vtk-output", new Option_FileName());
     oc.addDescription("vtk-output", "Output", "Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)");
     oc.doRegister("amitran-output", new Option_FileName());
@@ -370,6 +374,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("scale", new Option_Float(1.));
     oc.addDescription("scale", "Processing", "Scale demand by the given factor (by discarding or duplicating vehicles)");
+
+    oc.doRegister("scale-suffix", new Option_String("."));
+    oc.addDescription("scale-suffix", "Processing", "Suffix to be added when creating ids for cloned vehicles");
 
     oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting");

@@ -3,6 +3,7 @@ set(microsim_output_STAT_SRCS
    MSDetectorControl.cpp
    MSDetectorControl.h
    MSDetectorFileOutput.h
+   MSDetectorFileOutput.cpp
    MSE2Collector.cpp
    MSE2Collector.h
    MSE3Collector.cpp

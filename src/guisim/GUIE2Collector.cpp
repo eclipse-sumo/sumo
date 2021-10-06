@@ -42,17 +42,17 @@
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                MSLane* lane, double startPos, double endPos, double detLength,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, bool showDetector)
+                               double jamDistThreshold, const std::string& vTypes, int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes),
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                std::vector<MSLane*> lanes, double startPos, double endPos,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, bool showDetector)
+                               double jamDistThreshold, const std::string& vTypes, int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes),
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::~GUIE2Collector() {}
@@ -95,6 +95,12 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
 
 
 GUIE2Collector::MyWrapper::~MyWrapper() {}
+
+
+double 
+GUIE2Collector::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
 
 
 Boundary
@@ -151,7 +157,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     double dwidth = 1;
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     if (exaggeration > 0) {
         if (myDetector.getUsageType() == DU_TL_CONTROL) {
             dwidth = (double) 0.3;

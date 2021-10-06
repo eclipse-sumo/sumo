@@ -115,22 +115,9 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
             WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter '" + attrName + "'. Using the default of " + std::to_string(overheadWireChargingPower));
         }
 
-        // get custom vType parameter using SUMOXMLDefinitions.cpp/.h
-        const HelpersEnergy& e = PollutantsInterface::getEnergyHelper();
-        // const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
-        std::map<int, double> param;
-        param[SUMO_ATTR_VEHICLEMASS] = typeParams.getDouble(toString(SUMO_ATTR_VEHICLEMASS), e.getDefaultParam(SUMO_ATTR_VEHICLEMASS));
-        param[SUMO_ATTR_FRONTSURFACEAREA] = typeParams.getDouble(toString(SUMO_ATTR_FRONTSURFACEAREA), e.getDefaultParam(SUMO_ATTR_FRONTSURFACEAREA));
-        param[SUMO_ATTR_AIRDRAGCOEFFICIENT] = typeParams.getDouble(toString(SUMO_ATTR_AIRDRAGCOEFFICIENT), e.getDefaultParam(SUMO_ATTR_AIRDRAGCOEFFICIENT));
-        param[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = typeParams.getDouble(toString(SUMO_ATTR_INTERNALMOMENTOFINERTIA), e.getDefaultParam(SUMO_ATTR_INTERNALMOMENTOFINERTIA));
-        param[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = typeParams.getDouble(toString(SUMO_ATTR_RADIALDRAGCOEFFICIENT), e.getDefaultParam(SUMO_ATTR_RADIALDRAGCOEFFICIENT));
-        param[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = typeParams.getDouble(toString(SUMO_ATTR_ROLLDRAGCOEFFICIENT), e.getDefaultParam(SUMO_ATTR_ROLLDRAGCOEFFICIENT));
-        param[SUMO_ATTR_CONSTANTPOWERINTAKE] = typeParams.getDouble(toString(SUMO_ATTR_CONSTANTPOWERINTAKE), e.getDefaultParam(SUMO_ATTR_CONSTANTPOWERINTAKE));
-        param[SUMO_ATTR_PROPULSIONEFFICIENCY] = typeParams.getDouble(toString(SUMO_ATTR_PROPULSIONEFFICIENCY), e.getDefaultParam(SUMO_ATTR_PROPULSIONEFFICIENCY));
-        param[SUMO_ATTR_RECUPERATIONEFFICIENCY] = typeParams.getDouble(toString(SUMO_ATTR_RECUPERATIONEFFICIENCY), e.getDefaultParam(SUMO_ATTR_RECUPERATIONEFFICIENCY));
-        param[SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION] = typeParams.getDouble(toString(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION), e.getDefaultParam(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION));
+        EnergyParams param(&typeParams);
 
-        param[SUMO_ATTR_MAXIMUMPOWER] = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100000.);
+        param.setDouble(SUMO_ATTR_MAXIMUMPOWER, typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100000.));
 
         // elecHybrid constructor
         MSDevice_ElecHybrid* device = new MSDevice_ElecHybrid(v, "elecHybrid_" + v.getID(),
@@ -146,7 +133,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
 // MSDevice_ElecHybrid-methods
 // ---------------------------------------------------------------------------
 MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
-        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const std::map<int, double>& param) :
+        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const EnergyParams& param) :
     MSVehicleDevice(holder, id),
     myActualBatteryCapacity(0),   // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),  // [maximumBatteryCapacity >= 0]t
@@ -710,11 +697,11 @@ MSDevice_ElecHybrid::checkParam(
     const SumoXMLAttr paramKey,
     const double lower,
     const double upper) {
-    if (myParam.find(paramKey) == myParam.end() ||
-            myParam.find(paramKey)->second < lower ||
-            myParam.find(paramKey)->second > upper) {
-        WRITE_WARNING("ElecHybrid builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(paramKey) + " (" + toString(myParam[paramKey]) + ").");
-        myParam[paramKey] = PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey);
+    if (!myParam.knowsParameter(paramKey)
+            || myParam.getDouble(paramKey) < lower
+            || myParam.getDouble(paramKey) > upper) {
+        WRITE_WARNING("ElecHybrid builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(paramKey) + " (" + toString(myParam.getDouble(paramKey)) + ").");
+        myParam.setDouble(paramKey, PollutantsInterface::getEnergyHelper().getDefaultParam(paramKey));
     }
 }
 
@@ -760,7 +747,7 @@ MSDevice_ElecHybrid::getParameter(const std::string& key) const {
     } else if (key == toString(SUMO_ATTR_SUBSTATIONID)) {
         return getTractionSubstationID();
     } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        return toString(myParam.find(SUMO_ATTR_VEHICLEMASS)->second);
+        return toString(myParam.getDouble(SUMO_ATTR_VEHICLEMASS));
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -769,7 +756,7 @@ MSDevice_ElecHybrid::getParameter(const std::string& key) const {
 double
 MSDevice_ElecHybrid::getParameterDouble(const std::string& key) const {
     if (key == toString(SUMO_ATTR_MAXIMUMPOWER)) {
-        return (myParam.find(SUMO_ATTR_MAXIMUMPOWER)->second);
+        return myParam.getDouble(SUMO_ATTR_MAXIMUMPOWER);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -889,7 +876,7 @@ MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& val
     } else if (key == toString(SUMO_ATTR_OVERHEADWIRECHARGINGPOWER)) {
         myOverheadWireChargingPower = doubleValue;
     } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
-        myParam[SUMO_ATTR_VEHICLEMASS] = doubleValue;
+        myParam.setDouble(SUMO_ATTR_VEHICLEMASS, doubleValue);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
@@ -897,13 +884,13 @@ MSDevice_ElecHybrid::setParameter(const std::string& key, const std::string& val
 
 double
 MSDevice_ElecHybrid::acceleration(SUMOVehicle& veh, double power, double oldSpeed) {
-    myParam[SUMO_ATTR_ANGLE] = ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
+    myParam.setDouble(SUMO_ATTR_ANGLE, ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
     return PollutantsInterface::getEnergyHelper().acceleration(0, PollutantsInterface::ELEC, oldSpeed, power, veh.getSlope(), &myParam);
 }
 
 double
 MSDevice_ElecHybrid::consumption(SUMOVehicle& veh, double a, double newSpeed) {
-    myParam[SUMO_ATTR_ANGLE] =  ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
+    myParam.setDouble(SUMO_ATTR_ANGLE, ISNAN(myLastAngle) ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
     return PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, newSpeed, a, veh.getSlope(), &myParam) * TS;
 }
 

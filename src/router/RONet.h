@@ -164,9 +164,7 @@ public:
      * @param[in] laneID The name of the lane to retrieve the edge for
      * @return The edge of the named lane if known, otherwise 0
      */
-    ROEdge* getEdgeForLaneID(const std::string& laneID) const {
-        return getEdge(laneID.substr(0, laneID.rfind("_")));
-    }
+    ROEdge* getEdgeForLaneID(const std::string& laneID) const;
 
     /** @brief Retrieves a lane rom the network given it's id
      *
@@ -452,7 +450,7 @@ public:
     public:
         BulkmodeTask(const bool value) : myValue(value) {}
         void run(FXWorkerThread* context) {
-            static_cast<WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING).setBulkMode(myValue);
+            static_cast<WorkerThread*>(context)->setBulkMode(myValue);
         }
     private:
         const bool myValue;

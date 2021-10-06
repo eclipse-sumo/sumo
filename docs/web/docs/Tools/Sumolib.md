@@ -81,7 +81,7 @@ avgSpeed = edgeStats.median()
     Attribute *speed* is optional in user-generated *.edg.xml* files but will always be included if that file was written by [netconvert](../netconvert.md) or [netedit](../Netedit/index.md).
 
 ## locate nearby edges based on the geo-coordinate
-This requires the module [pyproj](https://code.google.com/p/pyproj/) to be installed.
+This requires the module [pyproj](https://github.com/pyproj4/pyproj) to be installed.
 For larger networks [rtree](https://pypi.org/project/Rtree/) is also strongly recommended.
 
 ```

@@ -144,6 +144,18 @@ GNEPoly::updateGeometry() {
 }
 
 
+Position
+GNEPoly::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
+double
+GNEPoly::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.polySize.getExaggeration(s, this);
+}
+
+
 void
 GNEPoly::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
@@ -198,6 +210,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         GUIDesigns::buildFXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
     }
+    GUIDesigns::buildFXMenuCommand(ret, "Select elements within polygon\t\tSelect elements within polygon boundary", nullptr, &parent, MID_GNE_POLYGON_SELECT);
     // add separator
     new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
@@ -244,7 +257,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->getDataViewOptions().showShapes() &&
             GUIPolygon::checkDraw(s, this, this)) {
         // Obtain constants
-        const double polyExaggeration = s.polySize.getExaggeration(s, this);
+        const double polyExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // get colors
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
@@ -282,7 +295,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(color);
             // draw geometry (polyline)
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
             // pop matrix
             GLHelper::popMatrix();
         }
@@ -295,16 +308,20 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw polygon contour
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
             // pop contour matrix
             GLHelper::popMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myPolygonGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor, 
+                                                s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration,
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON)) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myPolygonGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON) && 
+                    (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor, 
+                                                s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
             }
         }
@@ -312,9 +329,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                     polyExaggeration, 1, 1);
             }
         }
@@ -322,9 +339,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
                                                     polyExaggeration, 1, 1);
             }
         }
@@ -601,7 +618,9 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveShape(SUMO_TAG_POLY, value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidAdditionalID(value) &&
+                   (myNet->retrieveTAZElement(SUMO_TAG_TAZ, value, false) == nullptr) &&
+                   (myNet->retrieveShape(SUMO_TAG_POLY, value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE:
             // empty shapes AREN'T allowed

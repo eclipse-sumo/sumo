@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 13:28:02 2020 by Eclipse SUMO jtrrouter Version v1_6_0+2015-336b3d6f93
+<!-- generated on 2021-09-30 11:26:29 by Eclipse SUMO jtrrouter Version v1_10_0+1103-00b9b6a4ecb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -53,6 +53,9 @@
 
         <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
         <keep-vtype-distributions value="false" type="BOOL"/>
+
+        <!-- Write vehicles that reference routes by their id -->
+        <named-routes value="false" type="BOOL"/>
 
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
@@ -181,7 +184,7 @@
         <begin value="0" synonymes="b" type="TIME"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="9223372036854774" synonymes="e" type="TIME"/>
+        <end value="-1" synonymes="e" type="TIME"/>
 
     </time>
 
