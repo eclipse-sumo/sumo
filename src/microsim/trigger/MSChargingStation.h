@@ -69,18 +69,6 @@ public:
     /// @brief Get Charge Delay
     SUMOTime getChargeDelay() const;
 
-    /// @brief Set charging station's charging power
-    void setChargingPower(double chargingPower);
-
-    /// @brief Set efficiency of the charging station
-    void setEfficency(double efficency);
-
-    /// @brief Set charge in transit of the charging station
-    void setChargeInTransit(bool chargeInTransit);
-
-    /// @brief Set charge delay of the charging station
-    void setChargeDelay(SUMOTime chargeDelay);
-
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
 

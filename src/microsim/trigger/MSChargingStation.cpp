@@ -104,42 +104,6 @@ MSChargingStation::getChargeDelay() const {
 
 
 void
-MSChargingStation::setChargingPower(double chargingPower) {
-    if (chargingPower < 0) {
-        WRITE_WARNING("New " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(chargingPower) + ").")
-    } else {
-        myChargingPower = chargingPower;
-    }
-}
-
-
-void
-MSChargingStation::setEfficency(double efficency) {
-    if (efficency < 0 || efficency > 1) {
-        WRITE_WARNING("New " + toString(SUMO_ATTR_EFFICIENCY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(efficency) + ").")
-    } else {
-        myEfficiency = efficency;
-    }
-}
-
-
-void
-MSChargingStation::setChargeInTransit(bool chargeInTransit) {
-    myChargeInTransit = chargeInTransit;
-}
-
-
-void
-MSChargingStation::setChargeDelay(SUMOTime chargeDelay) {
-    if (chargeDelay < 0) {
-        WRITE_WARNING("New " + toString(SUMO_ATTR_CHARGEDELAY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(chargeDelay) + ").")
-    } else {
-        myChargeDelay = chargeDelay;
-    }
-}
-
-
-void
 MSChargingStation::setChargingVehicle(bool value) {
     myChargingVehicle = value;
 }
