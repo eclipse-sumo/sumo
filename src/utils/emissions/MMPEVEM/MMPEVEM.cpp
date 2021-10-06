@@ -1,12 +1,16 @@
 /**
- * \file vka/SimpleEvPowertrain.cpp
- * \author Lucas Koch (koch_luc@vka.rwth-aachen.de)
- * \author Marius Wegener (wegener_ma@vka.rwth-aachen.de)
- * \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
+ * \file utils/emissions/MMPEVEM/MMPEVEM.cpp
+ * \author Lucas Koch (koch_luc@mmp.rwth-aachen.de)
+ *         Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
+ *         RWTH Aachen University
+ * \author Marius Wegener
+ * \author Kevin Badalian (badalian_k@mmp.rwth-aachen.de)
+ *         Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
+ *         RWTH Aachen University
  * \copyright Eclipse Public License v2.0
  *            (https://www.eclipse.org/legal/epl-2.0/)
  * \date 2021-02
- * \brief This file contains a simple model of an EV powertrain.
+ * \brief This file contains MMP's emission model for electric vehicles.
  */
 
 
@@ -15,7 +19,7 @@
 #endif
 #include <cmath>
 
-#include <vka/SimpleEvPowertrain.h>
+#include <utils/emissions/MMPEVEM/MMPEVEM.h>
 #include <utils/geom/GeomHelper.h>
 
 
@@ -51,10 +55,10 @@ const double RHO_AIR = 1.204;
  * \param[in] ref_powerLossMapString String representation of the power
  *            loss map of the EM + inverter
  */
-SimpleEvPowertrain::SimpleEvPowertrain(double m, double r_wheel, double Theta,
-    double c_rr, double c_d, double A_front, double i_gear, double eta_gear,
-    double M_max, double P_max, double M_recup_max, double P_recup_max,
-    double R_battery, double U_battery_0, double P_const,
+MMPEVEM::MMPEVEM(double m, double r_wheel, double Theta, double c_rr,
+    double c_d, double A_front, double i_gear, double eta_gear, double M_max,
+    double P_max, double M_recup_max, double P_recup_max, double R_battery,
+    double U_battery_0, double P_const,
     const std::string& ref_powerLossMapString)
  : m(m),
    r_wheel(r_wheel),
@@ -82,7 +86,7 @@ SimpleEvPowertrain::SimpleEvPowertrain(double m, double r_wheel, double Theta,
  *
  * \returns Vehicle mass [kg]
  */
-double SimpleEvPowertrain::get_m() const
+double MMPEVEM::get_m() const
 {
   return m;
 }
@@ -97,7 +101,7 @@ double SimpleEvPowertrain::get_m() const
  * cargo area.
  * \param[in] m The new weight of the vehicle [kg]
  */
-void SimpleEvPowertrain::set_m(double m)
+void MMPEVEM::set_m(double m)
 {
   if(m != 0)
   {
@@ -113,7 +117,7 @@ void SimpleEvPowertrain::set_m(double m)
  *
  * \returns Wheel radius [m]
  */
-double SimpleEvPowertrain::get_r_wheel() const
+double MMPEVEM::get_r_wheel() const
 {
   return r_wheel;
 }
@@ -125,7 +129,7 @@ double SimpleEvPowertrain::get_r_wheel() const
  *
  * \returns Moment of inertia [kg*m^2]
  */
-double SimpleEvPowertrain::get_Theta() const
+double MMPEVEM::get_Theta() const
 {
   return Theta;
 }
@@ -137,7 +141,7 @@ double SimpleEvPowertrain::get_Theta() const
  *
  * \returns Mass factor [1]
  */
-double SimpleEvPowertrain::get_e_i() const
+double MMPEVEM::get_e_i() const
 {
   return e_i;
 }
@@ -149,7 +153,7 @@ double SimpleEvPowertrain::get_e_i() const
  *
  * \returns Rolling resistance coefficient [1]
  */
-double SimpleEvPowertrain::get_c_rr() const
+double MMPEVEM::get_c_rr() const
 {
   return c_rr;
 }
@@ -161,7 +165,7 @@ double SimpleEvPowertrain::get_c_rr() const
  *
  * \returns Drag coefficient [1]
  */
-double SimpleEvPowertrain::get_c_d() const
+double MMPEVEM::get_c_d() const
 {
   return c_d;
 }
@@ -173,7 +177,7 @@ double SimpleEvPowertrain::get_c_d() const
  *
  * \returns Cross-sectional area of the front of the car [m^2]
  */
-double SimpleEvPowertrain::get_A_front() const
+double MMPEVEM::get_A_front() const
 {
   return A_front;
 }
@@ -185,7 +189,7 @@ double SimpleEvPowertrain::get_A_front() const
  *
  * \returns Gear ratio [1]
  */
-double SimpleEvPowertrain::get_i_gear() const
+double MMPEVEM::get_i_gear() const
 {
   return i_gear;
 }
@@ -197,7 +201,7 @@ double SimpleEvPowertrain::get_i_gear() const
  *
  * \returns Transmission efficiency [1]
  */
-double SimpleEvPowertrain::get_eta_gear() const
+double MMPEVEM::get_eta_gear() const
 {
   return eta_gear;
 }
@@ -209,7 +213,7 @@ double SimpleEvPowertrain::get_eta_gear() const
  *
  * \returns Maximum torque [Nm]
  */
-double SimpleEvPowertrain::get_M_max() const
+double MMPEVEM::get_M_max() const
 {
   return M_max;
 }
@@ -221,7 +225,7 @@ double SimpleEvPowertrain::get_M_max() const
  *
  * \returns Maximum power [W]
  */
-double SimpleEvPowertrain::get_P_max() const
+double MMPEVEM::get_P_max() const
 {
   return P_max;
 }
@@ -233,7 +237,7 @@ double SimpleEvPowertrain::get_P_max() const
  *
  * \returns Maximum recuperation torque [Nm]
  */
-double SimpleEvPowertrain::get_M_recup_max() const
+double MMPEVEM::get_M_recup_max() const
 {
   return M_recup_max;
 }
@@ -245,7 +249,7 @@ double SimpleEvPowertrain::get_M_recup_max() const
  *
  * \returns Maximum recuperation power [W]
  */
-double SimpleEvPowertrain::get_P_recup_max() const
+double MMPEVEM::get_P_recup_max() const
 {
   return P_recup_max;
 }
@@ -257,7 +261,7 @@ double SimpleEvPowertrain::get_P_recup_max() const
  *
  * \returns Internal battery resistance [Ohm]
  */
-double SimpleEvPowertrain::get_R_battery() const
+double MMPEVEM::get_R_battery() const
 {
   return R_battery;
 }
@@ -269,7 +273,7 @@ double SimpleEvPowertrain::get_R_battery() const
  *
  * \returns Nominal battery voltage [V]
  */
-double SimpleEvPowertrain::get_U_battery_0() const
+double MMPEVEM::get_U_battery_0() const
 {
   return U_battery_0;
 }
@@ -282,7 +286,7 @@ double SimpleEvPowertrain::get_U_battery_0() const
  *
  * \returns The constant power consumption of ancillary devices [W]
  */
-double SimpleEvPowertrain::get_P_const() const
+double MMPEVEM::get_P_const() const
 {
   return P_const;
 }
@@ -296,7 +300,7 @@ double SimpleEvPowertrain::get_P_const() const
  * on/off the air conditioning system or the stereo.
  * \param[in] P_const The new constant power consumption [W]
  */
-void SimpleEvPowertrain::set_P_const(double P_const)
+void MMPEVEM::set_P_const(double P_const)
 {
   this->P_const = std::abs(P_const);
 }
@@ -308,7 +312,7 @@ void SimpleEvPowertrain::set_P_const(double P_const)
  *
  * \returns The EM's power loss map
  */
-const CharacteristicMap& SimpleEvPowertrain::get_powerLossMap() const
+const CharacteristicMap& MMPEVEM::get_powerLossMap() const
 {
   return powerLossMap;
 }
@@ -333,8 +337,8 @@ const CharacteristicMap& SimpleEvPowertrain::get_powerLossMap() const
  *             [W]
  * \returns true if the new state is valid, else false
  */
-bool SimpleEvPowertrain::calcPowerConsumption(double dt, double v, double a,
-    double alpha, double& ref_powerConsumption) const
+bool MMPEVEM::calcPowerConsumption(double dt, double v, double a, double alpha,
+    double& ref_powerConsumption) const
 {
   bool b_stateValid = true;
 

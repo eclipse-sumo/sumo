@@ -45,7 +45,6 @@
 #include "MSTransportableDevice_Routing.h"
 #include "MSTransportableDevice_FCD.h"
 #include "MSRoutingEngine.h"
-#include "MSDevice_EVPowertrain.h"
 
 
 // ===========================================================================
@@ -84,7 +83,6 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_GLOSA::insertOptions(oc);
     MSDevice_Tripinfo::insertOptions(oc);
     MSDevice_Vehroutes::insertOptions(oc);
-    MSDevice_EVPowertrain::insertOptions(oc);
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);
@@ -117,7 +115,6 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_ElecHybrid::buildVehicleDevices(v, into);
     MSDevice_Taxi::buildVehicleDevices(v, into);
     MSDevice_GLOSA::buildVehicleDevices(v, into);
-    MSDevice_EVPowertrain::buildVehicleDevices(v, into);
 }
 
 

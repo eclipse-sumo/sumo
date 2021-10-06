@@ -1,6 +1,8 @@
 /**
- * \file vka/CharacteristicMap.h
- * \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
+ * \file utils/emissions/MMPEVEM/CharacteristicMap.h
+ * \author Kevin Badalian (badalian_k@mmp.rwth-aachen.de)
+ *         Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
+ *         RWTH Aachen University
  * \copyright Eclipse Public License v2.0
  *            (https://www.eclipse.org/legal/epl-2.0/)
  * \date 2021-02
@@ -37,13 +39,13 @@
  *      std::vector<double> flattenedMap{1, 3, 1, -2, std::nan(""),           *
  *          1, -2, -3, 7, 5, -2, -1, 0, 1, 3, std::nan(""), 0, 8, 4, 4};      *
  *                                                                            *
- *      vka::CharacteristicMap map1(2,              // Mapping from R^2...    *
- *                                  1,              // ... to R^1             *
- *                                  axes,                                     *
- *                                  flattenedMap);                            *
+ *      CharacteristicMap map1(2,              // Mapping from R^2...         *
+ *                             1,              // ... to R^1                  *
+ *                             axes,                                          *
+ *                             flattenedMap);                                 *
  *                                                                            *
  * 2) Using a string-encoding of the map:                                     *
- *      vka::CharacteristicMap map2("2,1|0,1,2,3,4;-1,1,3,5|1,3,1,-2,nan,"    *
+ *      CharacteristicMap map2("2,1|0,1,2,3,4;-1,1,3,5|1,3,1,-2,nan,"         *
  *          "1,-2,-3,7,5,-2,-1,0,1,3,nan,0,8,4,4");                           *
  *                                                                            *
  *    See below for an in-depth explanation of the format.                    *

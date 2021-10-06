@@ -1,3 +1,5 @@
+add_subdirectory(MMPEVEM)
+
 set(utils_emissions_STAT_SRCS
    EnergyParams.cpp
    EnergyParams.h
@@ -9,6 +11,8 @@ set(utils_emissions_STAT_SRCS
    HelpersHBEFA.h
    HelpersHBEFA3.cpp
    HelpersHBEFA3.h
+   HelpersMMPEVEM.cpp
+   HelpersMMPEVEM.h
    HelpersPHEMlight.cpp
    HelpersPHEMlight.h
    PHEMCEP.h
@@ -21,4 +25,5 @@ set(utils_emissions_STAT_SRCS
 )
 
 add_library(utils_emissions STATIC ${utils_emissions_STAT_SRCS})
+target_link_libraries(utils_emissions mmpevem)
 set_property(TARGET utils_emissions PROPERTY PROJECT_LABEL "z_utils_emissions")

@@ -1,19 +1,23 @@
 /**
- * \file vka/SimpleEvPowertrain.h
- * \author Lucas Koch (koch_luc@vka.rwth-aachen.de)
- * \author Marius Wegener (wegener_ma@vka.rwth-aachen.de)
- * \author Kevin Badalian (badalian_k@vka.rwth-aachen.de)
+ * \file utils/emissions/MMPEVEM/MMPEVEM.h
+ * \author Lucas Koch (koch_luc@mmp.rwth-aachen.de)
+ *         Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
+ *         RWTH Aachen University
+ * \author Marius Wegener
+ * \author Kevin Badalian (badalian_k@mmp.rwth-aachen.de)
+ *         Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
+ *         RWTH Aachen University
  * \copyright Eclipse Public License v2.0
  *            (https://www.eclipse.org/legal/epl-2.0/)
  * \date 2021-02
- * \brief This file contains a simple model of an EV powertrain.
+ * \brief This file contains MMP's emission model for electric vehicles.
  */
 
 
 #pragma once
 
 
-#include <vka/CharacteristicMap.h>
+#include <utils/emissions/MMPEVEM/CharacteristicMap.h>
 
 #include <string>
 
@@ -21,10 +25,10 @@
 
 
 /**
- * \class SimpleEvPowertrain
+ * \class MMPEVEM
  * \brief This class models the powertrain of an electric vehicle.
  */
-class SimpleEvPowertrain
+class MMPEVEM
 {
 private:
   /// Vehicle mass [kg]
@@ -102,8 +106,8 @@ public:
    * \param[in] ref_powerLossMapString String representation of the power loss
    *            map of the EM + inverter
    */
-  SimpleEvPowertrain(double m, double r_wheel, double Theta, double c_rr,
-      double c_d, double A_front, double i_gear, double eta_gear, double M_max,
+  MMPEVEM(double m, double r_wheel, double Theta, double c_rr, double c_d,
+      double A_front, double i_gear, double eta_gear, double M_max,
       double P_max, double M_recup_max, double P_recup_max, double R_battery,
       double U_battery_0, double P_const,
       const std::string& ref_powerLossMapString);
