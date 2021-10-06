@@ -683,7 +683,6 @@ NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
     if (!ok) {
         return;
     }
-    assert(offsets.size() == 1);
     // Admissibility of value will be checked in _loadNetwork(), when lengths are known
     if (myCurrentLane == nullptr) {
         if (myCurrentEdge->edgeStopOffset.first != SVC_IGNORING) {

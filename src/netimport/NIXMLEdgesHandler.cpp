@@ -110,7 +110,6 @@ NIXMLEdgesHandler::myStartElement(int element,
         case SUMO_TAG_STOPOFFSET: {
             bool ok = true;
             std::pair<SVCPermissions, double> stopOffset = parseStopOffsets(attrs, ok);
-            assert(stopOffsets.size() == 1);
             if (!ok) {
                 std::stringstream ss;
                 ss << "(Error encountered at lane " << myCurrentLaneIndex << " of edge '" << myCurrentID << "' while parsing stopOffsets.)";
