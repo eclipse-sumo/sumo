@@ -168,7 +168,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         }
         ed->builtEdge = myNetBuilder.getEdgeCont().retrieve(ed->id);
         if (ed->builtEdge != nullptr) {
-            ed->builtEdge->setStopOffsets(-1, ed->stopOffsets);
+            ed->builtEdge->setEdgeStopOffset(-1, ed->edgeStopOffset);
         }
     }
     // assign further lane attributes (edges are built)
@@ -250,13 +250,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             }
             // stop offset for lane
             bool stopOffsetSet = false;
-            if (lane->stopOffsets.size() != 0 || nbe->getStopOffsets().size() == 0) {
+            if ((lane->laneStopOffset.first != SVC_IGNORING) || (nbe->getEdgeStopOffset().first == SVC_IGNORING)) {
                 // apply lane-specific stopOffset (might be none as well)
-                stopOffsetSet = nbe->setStopOffsets(fromLaneIndex, lane->stopOffsets);
+                stopOffsetSet = nbe->setEdgeStopOffset(fromLaneIndex, lane->laneStopOffset);
             }
             if (!stopOffsetSet) {
                 // apply default stop offset to lane
-                nbe->setStopOffsets(fromLaneIndex, nbe->getStopOffsets());
+                nbe->setEdgeStopOffset(fromLaneIndex, nbe->getEdgeStopOffset());
             }
         }
         nbe->declareConnectionsAsLoaded();
@@ -266,8 +266,8 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         if (!nbe->hasLaneSpecificEndOffset() && nbe->getEndOffset(0) != NBEdge::UNSPECIFIED_OFFSET) {
             nbe->setEndOffset(-1, nbe->getEndOffset(0));
         }
-        if (!nbe->hasLaneSpecificStopOffsets() && nbe->getStopOffsets().size() != 0) {
-            nbe->setStopOffsets(-1, nbe->getStopOffsets());
+        if (!nbe->hasLaneSpecificStopOffsets() && (nbe->getEdgeStopOffset().first != SVC_IGNORING)) {
+            nbe->setEdgeStopOffset(-1, nbe->getEdgeStopOffset());
         }
         // check again after permissions are set
         if (myNetBuilder.getEdgeCont().ignoreFilterMatch(nbe)) {
@@ -679,29 +679,29 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
 
 void
 NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    std::map<SVCPermissions, double> offsets = parseStopOffsets(attrs, ok);
+    const std::pair<SVCPermissions, double> offset = parseStopOffsets(attrs, ok);
     if (!ok) {
         return;
     }
     assert(offsets.size() == 1);
     // Admissibility of value will be checked in _loadNetwork(), when lengths are known
     if (myCurrentLane == nullptr) {
-        if (myCurrentEdge->stopOffsets.size() != 0) {
+        if (myCurrentEdge->edgeStopOffset.first != SVC_IGNORING) {
             std::stringstream ss;
             ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specification.";
             WRITE_WARNING(ss.str());
             return;
         } else {
-            myCurrentEdge->stopOffsets = offsets;
+            myCurrentEdge->edgeStopOffset = offset;
         }
     } else {
-        if (myCurrentLane->stopOffsets.size() != 0) {
+        if (myCurrentLane->laneStopOffset.first != SVC_IGNORING) {
             std::stringstream ss;
             ss << "Duplicate definition of lane's stopOffset on edge " << myCurrentEdge->id << ".\nIgnoring duplicate specifications.";
             WRITE_WARNING(ss.str());
             return;
         } else {
-            myCurrentLane->stopOffsets = offsets;
+            myCurrentLane->laneStopOffset = offset;
         }
     }
 }

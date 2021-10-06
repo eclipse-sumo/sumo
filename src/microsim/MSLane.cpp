@@ -187,8 +187,8 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
                const std::string& type) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
-    myVehicles(), myLength(length), myWidth(width), myStopOffsets(),
-    myEdge(edge), myMaxSpeed(maxSpeed),
+    myVehicles(), myLength(length), myWidth(width), 
+    myLaneStopOffset(0, 0), myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
     myChangeRight(changeRight),
@@ -785,7 +785,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 // traffic light never turns 'G'?
                 errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' link " + toString((*link)->getTLIndex()) + " never switches to 'G'";
             }
-            const double remaining = seen - currentLane->getStopOffset(aVehicle);
+            const double remaining = seen - currentLane->getVehicleStopOffset(aVehicle);
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
                              patchSpeed, errorMsg)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
@@ -3211,17 +3211,28 @@ MSLane::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc) 
 
 
 double
-MSLane::getStopOffset(const MSVehicle* veh) const {
-    if (myStopOffsets.size() == 0) {
-        return 0.;
+MSLane::getVehicleStopOffset(const MSVehicle* veh) const {
+    if (myLaneStopOffset.first == 0) {
+        return 0;
     }
-    if ((myStopOffsets.begin()->first & veh->getVClass()) != 0) {
-        return myStopOffsets.begin()->second;
+    if ((myLaneStopOffset.first & veh->getVClass()) != 0) {
+        return myLaneStopOffset.second;
     } else {
-        return 0.;
+        return 0;
     }
 }
 
+
+const std::pair<SVCPermissions, double>& 
+MSLane::getLaneStopOffsets() const {
+    return myLaneStopOffset;
+}
+
+
+void 
+MSLane::setLaneStopOffset(const std::pair<SVCPermissions, double> &stopOffset) {
+    myLaneStopOffset = stopOffset;
+}
 
 
 MSLeaderDistanceInfo

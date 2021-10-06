@@ -359,7 +359,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                           permissions, successor.preferred,
                           changeLeft, changeRight,
                           NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                          std::map<int, double>(), width, k.shape, &k,
+                          std::pair<int, double>(0, 0), width, k.shape, &k,
                           k.length, k.internalLaneIndex, oppositeLaneID[k.getInternalLaneID()], "");
                 haveVia = haveVia || k.haveVia;
             }
@@ -384,7 +384,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
                               SVCAll, SVCAll, // #XXX todo
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                              std::map<int, double>(), successor.width, k.viaShape, &k,
+                              std::pair<SVCPermissions, double>(0, 0), successor.width, k.viaShape, &k,
                               MAX2(k.viaLength, POSITION_EPS), // microsim needs positive length
                               0, "", "");
                     into.closeTag();
@@ -400,7 +400,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                  std::map<int, double>(), c->width, c->shape, nullptr,
+                  std::pair<SVCPermissions, double>(0, 0), c->width, c->shape, nullptr,
                   MAX2(c->shape.length(), POSITION_EPS), 0, "", "", false, c->customShape.size() != 0);
         into.closeTag();
     }
@@ -413,7 +413,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::WALKINGAREA);
         writeLane(into, wa.id + "_0", 1, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                  std::map<int, double>(), wa.width, wa.shape, nullptr, wa.length, 0, "", "", false, wa.hasCustomShape);
+                  std::pair<SVCPermissions, double>(0, 0), wa.width, wa.shape, nullptr, wa.length, 0, "", "", false, wa.hasCustomShape);
         into.closeTag();
     }
     return ret;
@@ -446,8 +446,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (!e.hasDefaultGeometry()) {
         into.writeAttr(SUMO_ATTR_SHAPE, e.getGeometry());
     }
-    if (e.getStopOffsets().size() != 0) {
-        writeStopOffsets(into, e.getStopOffsets());
+    if (e.getEdgeStopOffset().first != SVC_IGNORING) {
+        writeStopOffsets(into, e.getEdgeStopOffset());
     }
     if (e.isBidiRail()) {
         into.writeAttr(SUMO_ATTR_BIDI, e.getTurnDestination(true)->getID());
@@ -463,15 +463,15 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     double startOffset = e.isBidiRail() ? e.getTurnDestination(true)->getEndOffset() : 0;
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
-        std::map<int, double> stopOffsets;
-        if (l.stopOffsets != e.getStopOffsets()) {
-            stopOffsets = l.stopOffsets;
+        std::pair<int, double> stopOffset;
+        if (l.laneStopOffset != e.getEdgeStopOffset()) {
+            stopOffset = l.laneStopOffset;
         }
         writeLane(into, e.getLaneID(i), l.speed,
                   l.permissions, l.preferred,
                   l.changeLeft, l.changeRight,
                   startOffset, l.endOffset,
-                  stopOffsets, l.width, l.shape, &l,
+                  stopOffset, l.width, l.shape, &l,
                   length, i, l.oppositeID, l.type, l.accelRamp, l.customShape.size() > 0);
     }
     // close the edge
@@ -485,7 +485,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double speed, SVCPermissions permissions, SVCPermissions preferred,
                          SVCPermissions changeLeft, SVCPermissions changeRight,
                          double startOffset, double endOffset,
-                         std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
+                         std::pair<SVCPermissions, double> stopOffset, double width, PositionVector shape,
                          const Parameterised* params, double length, int index,
                          const std::string& oppositeID,
                          const std::string& type,
@@ -540,8 +540,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (changeRight != SVC_UNSPECIFIED && changeRight != SVCAll && changeRight != SVC_IGNORING) {
         into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(changeRight));
     }
-    if (stopOffsets.size() != 0) {
-        writeStopOffsets(into, stopOffsets);
+    if (stopOffset.first != SVC_IGNORING) {
+        writeStopOffsets(into, stopOffset);
     }
 
     if (oppositeID != "" && oppositeID != "-") {
@@ -1012,19 +1012,17 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
 
 
 void
-NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets) {
-    if (stopOffsets.size() == 0) {
+NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::pair<SVCPermissions, double>& stopOffset) {
+    if (stopOffset.first == SVC_IGNORING) {
         return;
     }
-    assert(stopOffsets.size() == 1);
-    std::pair<int, double> offset = *stopOffsets.begin();
-    std::string ss_vclasses = getVehicleClassNames(offset.first);
+    std::string ss_vclasses = getVehicleClassNames(stopOffset.first);
     if (ss_vclasses.length() == 0) {
         // This stopOffset would have no effect...
         return;
     }
     into.openTag(SUMO_TAG_STOPOFFSET);
-    std::string ss_exceptions = getVehicleClassNames(~offset.first);
+    std::string ss_exceptions = getVehicleClassNames(~stopOffset.first);
     if (ss_vclasses.length() <= ss_exceptions.length()) {
         into.writeAttr(SUMO_ATTR_VCLASSES, ss_vclasses);
     } else {
@@ -1034,7 +1032,7 @@ NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::map<SVCPermission
             into.writeAttr(SUMO_ATTR_EXCEPTIONS, ss_exceptions);
         }
     }
-    into.writeAttr(SUMO_ATTR_VALUE, offset.second);
+    into.writeAttr(SUMO_ATTR_VALUE, stopOffset.second);
     into.closeTag();
 }
 

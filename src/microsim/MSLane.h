@@ -846,17 +846,13 @@ public:
     bool isApproachedFrom(MSEdge* const edge, MSLane* const lane);
 
     /// @brief Returns vehicle class specific stopOffset for the vehicle
-    double getStopOffset(const MSVehicle* veh) const;
+    double getVehicleStopOffset(const MSVehicle* veh) const;
 
     /// @brief Returns vehicle class specific stopOffsets
-    const std::map<SVCPermissions, double>& getStopOffsets() const {
-        return myStopOffsets;
-    };
+    const std::pair<SVCPermissions, double>& getLaneStopOffsets() const;
 
     /// @brief Set vehicle class specific stopOffsets
-    void setStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
-        myStopOffsets = stopOffsets;
-    };
+    void setLaneStopOffset(const std::pair<SVCPermissions, double> &stopOffset);
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
@@ -1378,7 +1374,7 @@ protected:
     /// Lane's vClass specific stop offset [m]. The map is either of length 0, which means no
     /// special stopOffset was set, or of length 1, where the key is a bitset representing a subset
     /// of the SUMOVehicleClass Enum and the value is the offset in meters.
-    std::map<SVCPermissions, double> myStopOffsets;
+    std::pair<SVCPermissions, double> myLaneStopOffset;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;

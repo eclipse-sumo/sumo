@@ -166,7 +166,7 @@ public:
 
         /// @brief stopOffsets.second - The stop offset for vehicles stopping at the lane's end.
         ///        Applies if vClass is in in stopOffset.first bitset
-        std::map<SVCPermissions, double> stopOffsets;
+        std::pair<SVCPermissions, double> laneStopOffset;
 
         /// @brief This lane's width
         double width;
@@ -655,8 +655,8 @@ public:
     /** @brief Returns the stopOffset to the end of the edge
      * @return The offset to the end of the edge
      */
-    const std::map<SVCPermissions, double>& getStopOffsets() const {
-        return myStopOffsets;
+    const std::pair<SVCPermissions, double>& getEdgeStopOffset() const {
+        return myEdgeStopOffset;
     }
 
     /** @brief Returns the offset to the destination node a the specified lane
@@ -667,7 +667,7 @@ public:
     /** @brief Returns the stop offset to the specified lane's end
      * @return The stop offset to the specified lane's end
      */
-    const std::map<SVCPermissions, double>& getStopOffsets(int lane) const;
+    const std::pair<SVCPermissions, double>& getStopOffset(int lane) const;
 
     /// @brief Returns the offset of a traffic signal from the end of this edge
     double getSignalOffset() const;
@@ -1321,7 +1321,7 @@ public:
 
     /// @brief set lane and vehicle class specific stopOffset (negative lane implies set for all lanes)
     /// @return Whether given stop offset was applied.
-    bool setStopOffsets(int lane, std::map<SVCPermissions, double> offsets, bool overwrite = false);
+    bool setEdgeStopOffset(int lane, std::pair<SVCPermissions, double> offset, bool overwrite = false);
 
     /// @brief marks one lane as acceleration lane
     void setAcceleration(int lane, bool accelRamp);
@@ -1690,7 +1690,7 @@ private:
     ///        For the latter case the int is a bit set specifying the vClasses,
     ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
     ///        stopping offset in meters from the lane end
-    std::map<SVCPermissions, double> myStopOffsets;
+    std::pair<SVCPermissions, double> myEdgeStopOffset;
 
     /// @brief This width of this edge's lanes
     double myLaneWidth;

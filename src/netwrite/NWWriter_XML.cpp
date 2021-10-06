@@ -237,8 +237,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (!e->hasLaneSpecificPermissions()) {
             writePermissions(edevice, e->getPermissions(0));
         }
-        if (!e->hasLaneSpecificStopOffsets() && e->getStopOffsets().size() != 0) {
-            NWWriter_SUMO::writeStopOffsets(edevice, e->getStopOffsets());
+        if (!e->hasLaneSpecificStopOffsets() && e->getEdgeStopOffset().first != SVC_IGNORING) {
+            NWWriter_SUMO::writeStopOffsets(edevice, e->getEdgeStopOffset());
         }
         if (e->getDistance() != 0) {
             edevice.writeAttr(SUMO_ATTR_DISTANCE, e->getDistance());
@@ -284,7 +284,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                     edevice.closeTag();
                 }
                 lane.writeParams(edevice);
-                NWWriter_SUMO::writeStopOffsets(edevice, lane.stopOffsets);
+                NWWriter_SUMO::writeStopOffsets(edevice, lane.laneStopOffset);
                 edevice.closeTag();
             }
         }

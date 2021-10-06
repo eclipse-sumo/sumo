@@ -302,8 +302,8 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         x1 = x2;
     }
     // draw stopOffset for passenger cars
-    if (myStopOffsets.size() != 0 && (myStopOffsets.begin()->first & SVC_PASSENGER) != 0) {
-        const double stopOffsetPassenger = myStopOffsets.begin()->second;
+    if ((myLaneStopOffset.first != SVC_IGNORING) && (myLaneStopOffset.first & SVC_PASSENGER) != 0) {
+        const double stopOffsetPassenger = myLaneStopOffset.second;
         const Position& end = myShape.back();
         const Position& f = myShape[-2];
         const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));

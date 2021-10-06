@@ -250,11 +250,11 @@ NLHandler::myStartElement(int element,
             }
             case SUMO_TAG_STOPOFFSET: {
                 bool ok = true;
-                std::map<SVCPermissions, double> stopOffsets = parseStopOffsets(attrs, ok);
+                std::pair<SVCPermissions, double> stopOffset = parseStopOffsets(attrs, ok);
                 if (!ok) {
                     WRITE_ERROR(myEdgeControlBuilder.reportCurrentEdgeOrLane());
                 } else {
-                    myEdgeControlBuilder.addStopOffsets(stopOffsets);
+                    myEdgeControlBuilder.addStopOffsets(stopOffset);
                 }
                 break;
             }

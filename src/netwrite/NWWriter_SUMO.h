@@ -96,10 +96,9 @@ public:
     static void writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& roundabouts,
                                  const NBEdgeCont& ec);
 
-
     /** @brief Write a stopOffset element into output device
      */
-    static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets);
+    static void writeStopOffsets(OutputDevice& into, const std::pair<SVCPermissions, double>& stopOffset);
 
     /** @brief Writes a district
      * @param[in] into The device to write the edge into
@@ -143,7 +142,7 @@ private:
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
                           SVCPermissions changeLeft, SVCPermissions changeRight,
                           double startOffset, double endOffset,
-                          std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
+                          std::pair<SVCPermissions, double> stopOffset, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, const std::string& type,
                           bool accelRamp = false,

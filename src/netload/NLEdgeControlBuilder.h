@@ -105,13 +105,11 @@ public:
 
     /** @brief process a stopOffset element (originates either from the active edge or lane).
      */
-    void addStopOffsets(const std::map<SVCPermissions, double>& stopOffsets);
-
+    void addStopOffsets(const std::pair<SVCPermissions, double>& stopOffsets);
 
     /** @brief Return info about currently processed edge or lane
      */
     std::string reportCurrentEdgeOrLane() const;
-
 
     /** @brief Adds a neighbor to the current lane
      *
@@ -119,7 +117,6 @@ public:
      * @see MSLane
      */
     virtual void addNeigh(const std::string id);
-
 
     /** @brief Closes the building of an edge;
         The edge is completely described by now and may not be opened again */
@@ -165,7 +162,7 @@ protected:
     MSEdge* myActiveEdge;
 
     /// @brief The default stop offset for all lanes belonging to the active edge (this is set if the edge was given a stopOffset child)
-    std::map<SVCPermissions, double> myCurrentDefaultStopOffsets;
+    std::pair<SVCPermissions, double> myCurrentDefaultStopOffset;
 
     /// @brief The index of the currently active lane (-1 if none is active)
     int myCurrentLaneIndex;
@@ -176,14 +173,13 @@ protected:
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
     std::map<MSEdge*, std::string> myBidiEdges;
 
+    /** @brief set the stopOffset for the last added lane.
+     */
+    void updateCurrentLaneStopOffset(const std::pair<SVCPermissions, double>& stopOffset);
 
     /** @brief set the stopOffset for the last added lane.
      */
-    void updateCurrentLaneStopOffsets(const std::map<SVCPermissions, double>& stopOffsets);
-
-    /** @brief set the stopOffset for the last added lane.
-     */
-    void setDefaultStopOffsets(std::map<SVCPermissions, double> stopOffsets);
+    void setDefaultStopOffset(const std::pair<SVCPermissions, double> &stopOffset);
 
     /** @brief
      */

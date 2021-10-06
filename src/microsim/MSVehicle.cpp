@@ -2335,13 +2335,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //   the next step, new foes may appear and cause a collision (see #1096)
         // - major links: stopping point is irrelevant
         double laneStopOffset;
-        const double majorStopOffset = MAX2(getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, DIST_TO_STOPLINE_EXPECT_PRIORITY), lane->getStopOffset(this));
-        const double minorStopOffset = lane->getStopOffset(this);
+        const double majorStopOffset = MAX2(getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, DIST_TO_STOPLINE_EXPECT_PRIORITY), lane->getVehicleStopOffset(this));
+        const double minorStopOffset = lane->getVehicleStopOffset(this);
         // override low desired decel at yellow and red
         const double stopDecel = yellowOrRed && !isRailway(getVClass()) ? MAX2(MIN2(MSGlobals::gTLSYellowMinDecel, cfModel.getEmergencyDecel()), cfModel.getMaxDecel()) : cfModel.getMaxDecel();
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, stopDecel, 0);
         const bool canBrakeBeforeLaneEnd = seen >= brakeDist;
-        const bool canBrakeBeforeStopLine = seen - lane->getStopOffset(this) >= brakeDist;
+        const bool canBrakeBeforeStopLine = seen - lane->getVehicleStopOffset(this) >= brakeDist;
         if (yellowOrRed) {
             // Wait at red traffic light with full distance if possible
             laneStopOffset = majorStopOffset;
@@ -3036,7 +3036,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             const bool canBrake = (dpi.myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
                                    || (MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
             assert(link->getLaneBefore() != nullptr);
-            const bool beyondStopLine = dpi.myDistance < link->getLaneBefore()->getStopOffset(this);
+            const bool beyondStopLine = dpi.myDistance < link->getLaneBefore()->getVehicleStopOffset(this);
             const bool ignoreRedLink = ignoreRed(link, canBrake) || beyondStopLine;
             if (yellow && canBrake && !ignoreRedLink) {
                 vSafe = dpi.myVLinkWait;
@@ -3734,7 +3734,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                     }
                     approachedLane = link->getViaLaneOrLane();
                     if (myInfluencer == nullptr || myInfluencer->getEmergencyBrakeRedLight()) {
-                        bool beyondStopLine = linkDist < link->getLaneBefore()->getStopOffset(this);
+                        bool beyondStopLine = linkDist < link->getLaneBefore()->getVehicleStopOffset(this);
                         if (link->haveRed() && !ignoreRed(link, false) && !beyondStopLine && !reverseTrain) {
                             emergencyReason = " because of a red traffic light";
                             break;

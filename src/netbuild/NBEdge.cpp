@@ -151,7 +151,7 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     changeLeft(SVCAll),
     changeRight(SVCAll),
     endOffset(e->getEndOffset()),
-    stopOffsets(e->getStopOffsets()),
+    laneStopOffset(e->getEdgeStopOffset()),
     width(e->getLaneWidth()),
     accelRamp(false),
     connectionsDone(false) {
@@ -294,7 +294,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPossibleTurnDestination(nullptr),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(spread), myEndOffset(endOffset),
-    myStopOffsets(),
+    myEdgeStopOffset(0, 0),
     myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInTLS(false), myAmMacroscopicConnector(false),
@@ -326,7 +326,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPossibleTurnDestination(nullptr),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(endOffset),
-    myStopOffsets(),
+    myEdgeStopOffset(0, 0),
     myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInTLS(false), myAmMacroscopicConnector(false),
@@ -353,7 +353,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myGeom(geom),
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()),
     myEndOffset(tpl->getEndOffset()),
-    myStopOffsets(tpl->getStopOffsets()),
+    myEdgeStopOffset(tpl->getEdgeStopOffset()),
     myLaneWidth(tpl->getLaneWidth()),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInTLS(false),
@@ -370,7 +370,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
         myLanes[i].updateParameters(tpl->myLanes[tplIndex].getParametersMap());
         if (to == tpl->myTo) {
             setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
-            setStopOffsets(i, tpl->myLanes[tplIndex].stopOffsets);
+            setEdgeStopOffset(i, tpl->myLanes[tplIndex].laneStopOffset);
         }
     }
     if (tpl->myLoadedLength > 0 && to == tpl->getFromNode() && from == tpl->getToNode() && geom == tpl->getGeometry().reverse()) {
@@ -2314,9 +2314,8 @@ NBEdge::hasLaneSpecificEndOffset() const {
 bool
 NBEdge::hasLaneSpecificStopOffsets() const {
     for (const auto &lane : myLanes) {
-        if (!lane.stopOffsets.empty()) {
-            const auto &offsets = lane.stopOffsets.begin();
-            if (myStopOffsets.empty() || (offsets != myStopOffsets.begin())) {
+        if (lane.laneStopOffset.first != 0) {
+            if ((myEdgeStopOffset.first != 0) || (myEdgeStopOffset != lane.laneStopOffset)) {
                 return true;
             }
         }
@@ -3660,14 +3659,15 @@ NBEdge::getEndOffset(int lane) const {
 }
 
 
-const std::map<SVCPermissions, double>&
-NBEdge::getStopOffsets(int lane) const {
+const std::pair<SVCPermissions, double>&
+NBEdge::getStopOffset(int lane) const {
     if (lane == -1) {
-        return myStopOffsets;
+        return myEdgeStopOffset;
     } else {
-        return myLanes[lane].stopOffsets;
+        return myLanes[lane].laneStopOffset;
     }
 }
+
 
 void
 NBEdge::setEndOffset(int lane, double offset) {
@@ -3686,29 +3686,30 @@ NBEdge::setEndOffset(int lane, double offset) {
 
 
 bool
-NBEdge::setStopOffsets(int lane, std::map<SVCPermissions, double> offsets, bool overwrite) {
+NBEdge::setEdgeStopOffset(int lane, std::pair<SVCPermissions, double> offset, bool overwrite) {
     if (lane < 0) {
-        if (!overwrite && myStopOffsets.size() != 0) {
+        if (!overwrite && (myEdgeStopOffset.first != 0)) {
             return false;
         }
         // all lanes are meant...
-        if (offsets.size() != 0 && 0 > offsets.begin()->second) {
+        if (offset.second < 0) {
             // Edge length unknown at parsing time, thus check here.
             WRITE_WARNINGF("Ignoring invalid stopOffset for edge '%' (negative offset).", getID());
             return false;
         } else {
-            myStopOffsets = offsets;
+            myEdgeStopOffset = offset;
         }
-    } else {
-        assert(lane < (int)myLanes.size());
-        if (myLanes[lane].stopOffsets.size() == 0 || overwrite) {
-            if (offsets.size() != 0 && 0 > offsets.begin()->second) {
+    } else if (lane < (int)myLanes.size()) {
+        if ((myLanes[lane].laneStopOffset.first == 0) || overwrite) {
+            if (offset.second < 0) {
                 // Edge length unknown at parsing time, thus check here.
                 WRITE_WARNINGF("Ignoring invalid stopOffset for lane '%' (negative offset).", getLaneID(lane));
             } else {
-                myLanes[lane].stopOffsets = offsets;
+                myLanes[lane].laneStopOffset = offset;
             }
         }
+    } else {
+        WRITE_WARNINGF("Ignoring invalid stopOffset for lane '%' (invalid lane index).", toString(lane));
     }
     return true;
 }
@@ -3729,12 +3730,14 @@ NBEdge::setSpeed(int lane, double speed) {
     myLanes[lane].speed = speed;
 }
 
+
 void
 NBEdge::setAcceleration(int lane, bool accelRamp) {
     assert(lane >= 0);
     assert(lane < (int)myLanes.size());
     myLanes[lane].accelRamp = accelRamp;
 }
+
 
 void
 NBEdge::setLaneShape(int lane, const PositionVector& shape) {
@@ -3827,6 +3830,7 @@ NBEdge::connections_sorter(const Connection& c1, const Connection& c2) {
     return c1.toLane < c2.toLane;
 }
 
+
 double
 NBEdge::getSignalOffset() const {
     if (mySignalPosition == Position::INVALID) {
@@ -3838,6 +3842,7 @@ NBEdge::getSignalOffset() const {
         return mySignalPosition.distanceTo2D(laneEnd);
     }
 }
+
 
 int
 NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
