@@ -641,6 +641,11 @@ public:
         myStreetName = name;
     }
 
+    /// @brief get distance
+    double getDistance() const {
+        return myDistance;
+    }
+
     /** @brief Returns the offset to the destination node
      * @return The offset to the destination node
      */
@@ -648,26 +653,20 @@ public:
         return myEndOffset;
     }
 
-    double getDistance() const {
-        return myDistance;
-    }
-
-    /** @brief Returns the stopOffset to the end of the edge
-     * @return The offset to the end of the edge
-     */
-    const std::pair<SVCPermissions, double>& getEdgeStopOffset() const {
-        return myEdgeStopOffset;
-    }
-
     /** @brief Returns the offset to the destination node a the specified lane
      * @return The offset to the destination node
      */
     double getEndOffset(int lane) const;
 
+    /** @brief Returns the stopOffset to the end of the edge
+     * @return The offset to the end of the edge
+     */
+    const std::pair<SVCPermissions, double>& getEdgeStopOffset() const;
+
     /** @brief Returns the stop offset to the specified lane's end
      * @return The stop offset to the specified lane's end
      */
-    const std::pair<SVCPermissions, double>& getStopOffset(int lane) const;
+    const std::pair<SVCPermissions, double>& getLaneStopOffset(int lane) const;
 
     /// @brief Returns the offset of a traffic signal from the end of this edge
     double getSignalOffset() const;

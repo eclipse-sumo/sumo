@@ -3659,13 +3659,15 @@ NBEdge::getEndOffset(int lane) const {
 }
 
 
+const std::pair<SVCPermissions, double>& 
+NBEdge::getEdgeStopOffset() const {
+    return myEdgeStopOffset;
+}
+
+
 const std::pair<SVCPermissions, double>&
-NBEdge::getStopOffset(int lane) const {
-    if (lane == -1) {
-        return myEdgeStopOffset;
-    } else {
-        return myLanes[lane].laneStopOffset;
-    }
+NBEdge::getLaneStopOffset(int lane) const {
+    return myLanes[lane].laneStopOffset;
 }
 
 
