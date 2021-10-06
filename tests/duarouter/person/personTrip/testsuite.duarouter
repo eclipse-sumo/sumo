@@ -19,6 +19,9 @@ car_type
 # car and walk possible
 car_walk
 
+# car and walk possible detailed output
+car_walk_detail
+
 # like car_walk but the network has sidewalks
 car_walk_sidewalk
 
