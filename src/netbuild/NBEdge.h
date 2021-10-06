@@ -166,7 +166,7 @@ public:
 
         /// @brief stopOffsets.second - The stop offset for vehicles stopping at the lane's end.
         ///        Applies if vClass is in in stopOffset.first bitset
-        std::map<int, double> stopOffsets;
+        std::map<SVCPermissions, double> stopOffsets;
 
         /// @brief This lane's width
         double width;
@@ -655,7 +655,7 @@ public:
     /** @brief Returns the stopOffset to the end of the edge
      * @return The offset to the end of the edge
      */
-    const std::map<int, double>& getStopOffsets() const {
+    const std::map<SVCPermissions, double>& getStopOffsets() const {
         return myStopOffsets;
     }
 
@@ -667,7 +667,7 @@ public:
     /** @brief Returns the stop offset to the specified lane's end
      * @return The stop offset to the specified lane's end
      */
-    const std::map<int, double>& getStopOffsets(int lane) const;
+    const std::map<SVCPermissions, double>& getStopOffsets(int lane) const;
 
     /// @brief Returns the offset of a traffic signal from the end of this edge
     double getSignalOffset() const;
@@ -1321,7 +1321,7 @@ public:
 
     /// @brief set lane and vehicle class specific stopOffset (negative lane implies set for all lanes)
     /// @return Whether given stop offset was applied.
-    bool setStopOffsets(int lane, std::map<int, double> offsets, bool overwrite = false);
+    bool setStopOffsets(int lane, std::map<SVCPermissions, double> offsets, bool overwrite = false);
 
     /// @brief marks one lane as acceleration lane
     void setAcceleration(int lane, bool accelRamp);
@@ -1690,7 +1690,7 @@ private:
     ///        For the latter case the int is a bit set specifying the vClasses,
     ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
     ///        stopping offset in meters from the lane end
-    std::map<int, double> myStopOffsets;
+    std::map<SVCPermissions, double> myStopOffsets;
 
     /// @brief This width of this edge's lanes
     double myLaneWidth;

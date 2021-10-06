@@ -2313,10 +2313,10 @@ NBEdge::hasLaneSpecificEndOffset() const {
 
 bool
 NBEdge::hasLaneSpecificStopOffsets() const {
-    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if (!i->stopOffsets.empty()) {
-            const std::pair<const int, double>& offsets = *(i->stopOffsets.begin());
-            if (myStopOffsets.empty() || offsets != *(myStopOffsets.begin())) {
+    for (const auto &lane : myLanes) {
+        if (!lane.stopOffsets.empty()) {
+            const auto &offsets = lane.stopOffsets.begin();
+            if (myStopOffsets.empty() || (offsets != myStopOffsets.begin())) {
                 return true;
             }
         }
@@ -3686,7 +3686,7 @@ NBEdge::setEndOffset(int lane, double offset) {
 
 
 bool
-NBEdge::setStopOffsets(int lane, std::map<int, double> offsets, bool overwrite) {
+NBEdge::setStopOffsets(int lane, std::map<SVCPermissions, double> offsets, bool overwrite) {
     if (lane < 0) {
         if (!overwrite && myStopOffsets.size() != 0) {
             return false;
