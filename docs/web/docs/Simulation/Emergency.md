@@ -13,10 +13,10 @@ If a vehicle is assigned a vType with vClass="emergency", the following features
 - the vehicle will receive default shape and size for a rescue vehicle
 - the vehicle may drive on lanes that allow "emergency" (but which might disallow normal passenger traffic)
 - the vehicle may overtake on the right in all traffic situations
-- the vehicle may drive through the [opposite direction edge](OppositeDirectionDrivingmd) even when it's own edge has multiple usable lanes
-- the vehicle may overtake through the [opposite direction edge](OppositeDirectionDrivingmd) even when it's leader vehicle also wants to change left
-- the vehicle may overtake through the [opposite direction edge](OppositeDirectionDrivingmd) even when it's approaching an intersection without priority
-- the vehicle may overtake through the [opposite direction edge](OppositeDirectionDrivingmd) even when it must overtake a long column of vehicles (up to 1000m)
+- the vehicle may drive through the [opposite direction edge](OppositeDirectionDriving.md) even when it's own edge has multiple usable lanes
+- the vehicle may overtake through the [opposite direction edge](OppositeDirectionDriving.md) even when it's leader vehicle also wants to change left
+- the vehicle may overtake through the [opposite direction edge](OppositeDirectionDrivin.gmd) even when it's approaching an intersection without priority
+- the vehicle may overtake through the [opposite direction edge](OppositeDirectionDriving.md) even when it must overtake a long column of vehicles (up to 1000m)
 
 ## Blue Light Device
 
