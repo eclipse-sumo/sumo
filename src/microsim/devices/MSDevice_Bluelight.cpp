@@ -135,7 +135,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         influencedVehicles.erase(elem);
         std::map<std::string, std::string>::iterator it = influencedTypes.find(elem);
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vc.getVehicle(elem));
-        if (it != influencedTypes.end()) {
+        if (veh2 != nullptr && it != influencedTypes.end()) {
             // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
             MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
             //targetType is nullptr if the vehicle type has already changed to its old vehicleType
