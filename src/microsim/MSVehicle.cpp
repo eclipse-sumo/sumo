@@ -5776,6 +5776,9 @@ MSVehicle::getCenterOnEdge(const MSLane* lane) const {
     if (lane == nullptr || &lane->getEdge() == &myLane->getEdge()) {
         return myLane->getRightSideOnEdge() + myState.myPosLat + 0.5 * myLane->getWidth();
     } else if (lane == myLaneChangeModel->getShadowLane()) {
+        if (myLaneChangeModel->isOpposite() && &lane->getEdge() != &myLane->getEdge()) {
+            return lane->getRightSideOnEdge() + lane->getWidth() - myState.myPosLat + 0.5 * myLane->getWidth();
+        }
         if (myLaneChangeModel->getShadowDirection() == -1) {
             return lane->getRightSideOnEdge() + lane->getWidth() + myState.myPosLat + 0.5 * myLane->getWidth();
         } else {
