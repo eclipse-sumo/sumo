@@ -168,9 +168,9 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushName(getGlID());
         // draw inner polygon
         if (myRotatedShape) {
-            drawInnerPolygon(s, this, this, *myRotatedShape, getShapeLayer(), false);
+            drawInnerPolygon(s, this, this, *myRotatedShape, getFill(), getShapeLayer(), false);
         } else {
-            drawInnerPolygon(s, this, this, myShape, getShapeLayer(), false);
+            drawInnerPolygon(s, this, this, myShape, getFill(), getShapeLayer(), false);
         }
         // pop name
         GLHelper::popName();
@@ -300,12 +300,12 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 
 void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
-                             const PositionVector shape, double layer, bool disableSelectionColor, int alphaOverride) {
+                             const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride) {
     GLHelper::pushMatrix();
     glTranslated(0, 0, layer);
     setColor(s, polygon, o, disableSelectionColor, alphaOverride);
     int textureID = -1;
-    if (polygon->getFill()) {
+    if (drawFill) {
         const std::string& file = polygon->getShapeImgFile();
         if (file != "") {
             textureID = GUITexturesHelper::getTextureID(file, true);
@@ -336,7 +336,7 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
     }
     // recall tesselation
     //glCallList(myDisplayList);
-    performTesselation(polygon->getFill(), shape, polygon->getLineWidth() * o->getExaggeration(s));
+    performTesselation(drawFill, shape, polygon->getLineWidth() * o->getExaggeration(s));
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);

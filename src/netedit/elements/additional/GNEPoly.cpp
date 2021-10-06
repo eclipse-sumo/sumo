@@ -287,7 +287,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 // draw inner polygon
-                GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, drawUsingSelectColor());
+                GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), getFill(), 0, drawUsingSelectColor());
             }
         } else {
             // push matrix
