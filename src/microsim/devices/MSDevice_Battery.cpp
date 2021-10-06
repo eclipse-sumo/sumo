@@ -349,7 +349,7 @@ MSDevice_Battery::resetChargingStartTime() {
 
 void
 MSDevice_Battery::increaseChargingStartTime() {
-    myChargingStartTime += TS;
+    myChargingStartTime += DELTA_T;
 }
 
 
@@ -412,7 +412,7 @@ MSDevice_Battery::isChargingInTransit() const {
 }
 
 
-double
+SUMOTime
 MSDevice_Battery::getChargingStartTime() const {
     return myChargingStartTime;
 }

@@ -51,8 +51,8 @@ public:
 
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                      const std::string& name,
-                      double chargingPower, double efficency, bool chargeInTransit, double chargeDelay);
+                      const std::string& name, double chargingPower, double efficency, bool chargeInTransit, 
+                      SUMOTime chargeDelay);
 
     /// @brief destructor
     ~MSChargingStation();
@@ -67,7 +67,7 @@ public:
     bool getChargeInTransit() const;
 
     /// @brief Get Charge Delay
-    double getChargeDelay() const;
+    SUMOTime getChargeDelay() const;
 
     /// @brief Set charging station's charging power
     void setChargingPower(double chargingPower);
@@ -79,7 +79,7 @@ public:
     void setChargeInTransit(bool chargeInTransit);
 
     /// @brief Set charge delay of the charging station
-    void setChargeDelay(double chargeDelay);
+    void setChargeDelay(SUMOTime chargeDelay);
 
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
@@ -156,7 +156,7 @@ protected:
     bool myChargeInTransit;
 
     /// @brief Charge Delay
-    double myChargeDelay;
+    SUMOTime myChargeDelay;
 
     /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
     bool myChargingVehicle;
@@ -171,9 +171,9 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    MSChargingStation(const MSChargingStation&);
+    MSChargingStation(const MSChargingStation&) = delete;
 
     /// @brief Invalidated assignment operator.
-    MSChargingStation& operator=(const MSChargingStation&);
+    MSChargingStation& operator=(const MSChargingStation&) = delete;
 };
 

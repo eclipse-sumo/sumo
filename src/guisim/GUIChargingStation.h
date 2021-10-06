@@ -74,7 +74,7 @@ public:
      */
     GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
                        const std::string& name,
-                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
+                       double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay);
 
     /// @brief Destructor
     ~GUIChargingStation();

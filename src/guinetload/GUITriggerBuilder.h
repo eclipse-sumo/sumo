@@ -157,7 +157,7 @@ protected:
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
                                       double frompos, double topos, const std::string& name,
                                       double chargingPower, double efficiency,
-                                      bool chargeInTransit, double chargeDelay) override;
+                                      bool chargeInTransit, SUMOTime chargeDelay) override;
 
     /** @brief Builds an overhead wire segment
     *

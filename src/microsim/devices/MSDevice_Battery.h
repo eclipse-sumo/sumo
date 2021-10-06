@@ -122,7 +122,7 @@ public:
     bool isChargingInTransit() const;
 
     /// @brief Get charging start time.
-    double getChargingStartTime() const;
+    SUMOTime getChargingStartTime() const;
 
     /// @brief Get consum
     double getConsum() const;
@@ -200,7 +200,7 @@ protected:
     bool myChargingInTransit;
 
     /// @brief Parameter, Moment, wich the vehicle has beging to charging
-    double myChargingStartTime;
+    SUMOTime myChargingStartTime;
 
     /// @brief Parameter, Vehicle consum during a time step (by default is 0.)
     double myConsum;
