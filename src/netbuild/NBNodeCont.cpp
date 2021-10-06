@@ -1877,7 +1877,12 @@ bool
 NBNodeCont::customTLID(const NodeSet& c) const {
     for (NBNode* node : c) {
         if (node->isTLControlled()) {
-            const std::string tlID = (*node->getControllingTLS().begin())->getID();
+            NBTrafficLightDefinition* tl = (*node->getControllingTLS().begin());
+            if (tl->getNodes().size() > 1) {
+                // joined tls also imply a customID
+                return true;
+            }
+            const std::string tlID = tl->getID();
             if (tlID != node->getID()
                     && !StringUtils::startsWith(tlID, "joinedS_")
                     && !StringUtils::startsWith(tlID, "joinedG_")
@@ -2181,7 +2186,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         }
         // figure out type of the joined TLS
         Position dummyPos;
-        bool dummySetTL;
+        bool dummySetTL = false;
         std::string id = "joined"; // prefix (see #3871)
         TrafficLightType type;
         SumoXMLNodeType nodeType = SumoXMLNodeType::UNKNOWN;
@@ -2189,8 +2194,8 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         for (NBNode* j : c) {
             std::set<NBTrafficLightDefinition*> tls = j->getControllingTLS();
             j->removeTrafficLights();
-            for (std::set<NBTrafficLightDefinition*>::iterator k = tls.begin(); k != tls.end(); ++k) {
-                tlc.removeFully(j->getID());
+            for (NBTrafficLightDefinition* k : tls) {
+                tlc.removeFully(k->getID());
             }
         }
         std::vector<NBNode*> nodes;
