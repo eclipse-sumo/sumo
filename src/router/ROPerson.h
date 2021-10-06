@@ -90,7 +90,7 @@ public:
         virtual const ROEdge* getDestination() const = 0;
         virtual double getDestinationPos() const = 0;
         virtual void saveVehicles(OutputDevice& /* os */, OutputDevice* const /* typeos */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
-        virtual void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const = 0;
+        virtual void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const = 0;
         virtual bool isStop() const {
             return false;
         }
@@ -123,7 +123,7 @@ public:
         double getDestinationPos() const {
             return (stopDesc.startPos + stopDesc.endPos) / 2;
         }
-        void saveAsXML(OutputDevice& os, const bool /* extended */, const bool /*asTrip*/, const bool /*writeGeoTrip*/) const {
+        void saveAsXML(OutputDevice& os, const bool /* extended */, const bool /*asTrip*/, OptionsCont& /* options */) const {
             stopDesc.write(os);
         }
         bool isStop() const {
@@ -160,7 +160,7 @@ public:
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
         virtual double getDestinationPos() const = 0;
-        virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
+        virtual void saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const = 0;
         SUMOTime getDuration() const {
             return TIME2STEPS(cost);
         }
@@ -204,7 +204,7 @@ public:
         double getDestinationPos() const {
             return arr == std::numeric_limits<double>::infinity() ? -NUMERICAL_EPS : arr;
         }
-        void saveAsXML(OutputDevice& os, const bool extended) const;
+        void saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const;
 
     private:
         const ROEdge* const from;
@@ -228,17 +228,17 @@ public:
      */
     class Walk : public TripItem {
     public:
-        Walk(const ConstROEdgeVector& _edges, const double _cost,
+        Walk(const ConstROEdgeVector& _edges, const double _cost, const double speed,
              double departPos = std::numeric_limits<double>::infinity(),
              double arrivalPos = std::numeric_limits<double>::infinity(),
              const std::string& _destStop = "")
-            : TripItem(_cost), edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+            : TripItem(_cost), edges(_edges), dur(-1), v(-1), rv(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         Walk(const ConstROEdgeVector& edges, const double _cost, const double duration, const double speed,
              const double departPos, const double arrivalPos, const std::string& _destStop)
-            : TripItem(_cost), edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+            : TripItem(_cost), edges(edges), dur(duration), v(speed), rv(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
 
         TripItem* clone() const {
-            return new Walk(edges, cost, dep, arr, destStop);
+            return new Walk(edges, cost, v, dep, arr, destStop);
         }
 
         const ROEdge* getOrigin() const {
@@ -250,11 +250,11 @@ public:
         double getDestinationPos() const {
             return arr == std::numeric_limits<double>::infinity() ? 0 : arr;
         }
-        void saveAsXML(OutputDevice& os, const bool extended) const;
+        void saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const;
 
     private:
         const ConstROEdgeVector edges;
-        const double dur, v, dep, arr;
+        const double dur, v, dep, arr, rv;
         const std::string destStop;
 
     private:
@@ -333,7 +333,7 @@ public:
             return myTripItems.empty();
         }
         void saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
-        void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const;
+        void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const;
 
         double getWalkFactor() const {
             return walkFactor;

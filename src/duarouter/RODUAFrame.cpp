@@ -141,6 +141,12 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("exit-times", new Option_Bool(false));
     oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
 
+    oc.doRegister("intended-depart", new Option_Bool(false));
+    oc.addDescription("intended-depart", "Output", "Write the person output with departure time per plan item");
+
+    oc.doRegister("route-length", new Option_Bool(false));
+    oc.addDescription("route-length", "Output", "Include total route length in the output");
+
     oc.doRegister("keep-all-routes", new Option_Bool(false));
     oc.addDescription("keep-all-routes", "Processing", "Save routes with near zero probability");
 

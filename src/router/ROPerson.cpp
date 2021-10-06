@@ -134,7 +134,7 @@ ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const
 
 
 void
-ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
+ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
     os.openTag(SUMO_TAG_RIDE);
     std::string comment = "";
     if (extended && cost >= 0.) {
@@ -171,11 +171,14 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
 
 
 void
-ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
+ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
     os.openTag(SUMO_TAG_WALK);
     std::string comment = "";
     if (extended && cost >= 0.) {
         os.writeAttr(SUMO_ATTR_COST, cost);
+    }
+    if (options.getBool("intended-depart")) {
+        os.writeAttr("depart", dep);
     }
     if (dur > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, dur);
@@ -184,6 +187,24 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
         os.writeAttr(SUMO_ATTR_SPEED, v);
     }
     os.writeAttr(SUMO_ATTR_EDGES, edges);
+    if (options.getBool("exit-times")) {
+        std::vector<double> exitTimes;
+        double time = dep;
+        for (const ROEdge* roe : edges) {
+            time += roe->getLength() / rv;
+            if (!roe->isInternal() && !roe->isTazConnector()) {
+                exitTimes.push_back(time);
+            }
+        }
+        os.writeAttr("exitTimes", exitTimes);
+    }
+    if (options.getBool("route-length")) {
+        double length = 0;
+        for (const ROEdge* roe : edges) {
+            length += roe->getLength();
+        }
+        os.writeAttr("routeLength", length);
+    }
     if (destStop != "") {
         const std::string element = RONet::getInstance()->getStoppingPlaceElement(destStop);
         os.writeAttr(element, destStop);
@@ -216,8 +237,9 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos,
 }
 
 void
-ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const {
+ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const {
     if ((asTrip || extended) && from != nullptr) {
+        const bool writeGeoTrip = asTrip && options.getBool("write-trips.geo");
         os.openTag(SUMO_TAG_PERSONTRIP);
         if (writeGeoTrip) {
             Position fromPos = from->getLanes()[0]->getShape().positionAtOffset2D(getDepartPos());
@@ -277,15 +299,15 @@ ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const boo
         }
         if (extended && myTripItems.size() != 0) {
             std::vector<double> costs;
-            for (TripItem* tripItem : myTripItems) {
+            for (const TripItem* const tripItem : myTripItems) {
                 costs.push_back(tripItem->getCost());
             }
             os.writeAttr(SUMO_ATTR_COSTS, costs);
         }
         os.closeTag();
     } else {
-        for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
-            (*it)->saveAsXML(os, extended);
+        for (const TripItem* const it : myTripItems) {
+            it->saveAsXML(os, extended, options);
         }
     }
 }
@@ -302,9 +324,10 @@ ROPerson::PersonTrip::getDuration() const {
 bool
 ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                             PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
+    const double speed = getType()->maxSpeed * trip->getWalkFactor();
     std::vector<ROIntermodalRouter::TripItem> result;
     provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(), trip->getStopDest(),
-                                           getType()->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), time, result);
+                                           speed, veh, trip->getModes(), time, result);
     bool carUsed = false;
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         const auto& item = *it;
@@ -331,9 +354,9 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     }
                 }
                 if (it + 1 == result.end() && trip->getStopDest() == "") {
-                    trip->addTripItem(new Walk(item.edges, item.cost, depPos, arrPos));
+                    trip->addTripItem(new Walk(item.edges, item.cost, speed, depPos, arrPos));
                 } else {
-                    trip->addTripItem(new Walk(item.edges, item.cost, depPos, arrPos, item.destStop));
+                    trip->addTripItem(new Walk(item.edges, item.cost, speed, depPos, arrPos, item.destStop));
                 }
             } else if (veh != nullptr && item.line == veh->getID()) {
                 trip->addTripItem(new Ride(item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, item.arrivalPos, item.destStop));
@@ -386,10 +409,9 @@ void
 ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     // write the person's vehicles
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
-    const bool writeGeoTrip = writeTrip && options.getBool("write-trips.geo");
     if (!writeTrip) {
-        for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-            (*it)->saveVehicles(os, typeos, asAlternatives, options);
+        for (const PlanItem* const it : myPlan) {
+            it->saveVehicles(os, typeos, asAlternatives, options);
         }
     }
 
@@ -405,8 +427,8 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     // write the person
     getParameter().write(os, options, SUMO_TAG_PERSON);
 
-    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveAsXML(os, asAlternatives, writeTrip, writeGeoTrip);
+    for (const PlanItem* const it : myPlan) {
+        it->saveAsXML(os, asAlternatives, writeTrip, options);
     }
 
     // write params
