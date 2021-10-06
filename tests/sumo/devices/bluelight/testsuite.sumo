@@ -17,3 +17,6 @@ override_strategic
 
 # rescue lane on three-lane road, rescue vehicle must turn right
 3lanes_left
+
+# multiple equipped vehicle in network with opposite direction driving (#9310)
+multiple_opposite

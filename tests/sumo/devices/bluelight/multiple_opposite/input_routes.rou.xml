@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Define other vehicle type -->
+    <vType id="car" vClass="passenger"/>
+    <!-- Define emergency vehicle types -->
+    <!-- https://sumo.dlr.de/docs/Simulation/Emergency.html -->
+    <!-- https://sumo.dlr.de/docs/Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#lane-changing_models -->
+    <!-- https://sumo.dlr.de/docs/Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#junction_model_parameters -->
+    <!-- LHF -->
+    <vType id="engine" accel="1.3" decel="4" emergencyDecel="7.0" sigma="0.5" length="8" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="1" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreKeepClearTime="1">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+    <!-- DLK -->
+    <vType id="ladder" accel="1.0" decel="4" emergencyDecel="7.0" sigma="0.5" length="10" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="1" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreKeepClearTime="1">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+    <!-- RTW -->
+    <vType id="ambulance" accel="2.5" decel="4.5" emergencyDecel="9.0" sigma="0.5" length="6" width="2.7" maxSpeed="28" vClass="emergency" guiShape="emergency" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/LDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="1" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreKeepClearTime="1">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+    <!-- NEF -->
+    <vType id="ems" accel="2.5" decel="4.5" emergencyDecel="9.0" sigma="0.5" length="5" width="2" maxSpeed="42" vClass="emergency" guiShape="emergency" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/PC_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="1" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreKeepClearTime="1">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+    <!-- EWA -->
+    <vType id="police" accel="2.5" decel="4.5" emergencyDecel="9.0" sigma="0.5" length="5" width="2" maxSpeed="42" vClass="emergency" guiShape="police" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/PC_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="1" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreKeepClearTime="1">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+
+    <!--
+        Edges in network:
+            1   0
+        4           6
+        5           7
+            3   2
+    -->
+
+    <!-- Define other traffic -->
+    <routeDistribution id="from_north">
+        <route edges="edge_1 edge_3" probability="0.6"/><!-- SOUTH -->
+        <route edges="edge_1 edge_4" probability="0.2"/><!-- WEST -->
+        <route edges="edge_1 edge_7" probability="0.2"/><!-- EAST -->
+    </routeDistribution>
+
+    <routeDistribution id="from_south">
+        <route edges="edge_2 edge_0" probability="0.6"/><!-- NORTH -->
+        <route edges="edge_2 edge_4" probability="0.2"/><!-- WEST -->
+        <route edges="edge_2 edge_7" probability="0.2"/><!-- EAST -->
+    </routeDistribution>
+
+    <routeDistribution id="from_west">
+        <route edges="edge_5 edge_0" probability="0.2"/><!-- NORTH -->
+        <route edges="edge_5 edge_3" probability="0.2"/><!-- SOUTH -->
+        <route edges="edge_5 edge_7" probability="0.6"/><!-- EAST -->
+    </routeDistribution>
+
+    <routeDistribution id="from_east">
+        <route edges="edge_6 edge_0" probability="0.2"/><!-- NORTH -->
+        <route edges="edge_6 edge_3" probability="0.2"/><!-- SOUTH -->
+        <route edges="edge_6 edge_4" probability="0.6"/><!-- WEST -->
+    </routeDistribution>
+
+    <!--    <flow id="from_north" route="from_north" color="1,0,0" begin="0" probability="0.15" departSpeed="14" type="car" />
+    <flow id="from_south" route="from_south" color="0,1,0" begin="0" probability="0.15" departSpeed="14" type="car" />
+    <flow id="from_west"  route="from_west"  color="0,1,1" begin="0" probability="0.15" departSpeed="14" type="car" />
+    <flow id="from_east"  route="from_east"  color="1,1,0" begin="0" probability="0.15" departSpeed="14" type="car" />-->
+
+    <vehicle id="0" type="car" depart="0" color="1,0,0">
+      <route edges="edge_5 edge_0"/>
+    </vehicle>
+
+    <vehicle id="1" type="car" depart="1" color="1,0,0">
+      <route edges="edge_5 edge_0"/>
+    </vehicle>
+    <vehicle id="2" type="car" depart="2" color="1,0,0">
+      <route edges="edge_5 edge_3"/>
+    </vehicle>
+    <vehicle id="3" type="car" depart="3" color="1,0,0">
+      <route edges="edge_5 edge_3"/>
+    </vehicle>
+    <vehicle type="engine" id="case_1_engine" depart="100">
+        <route edges="edge_5 edge_0"/>
+    </vehicle>
+    <vehicle type="ladder" id="case_1_ladder" depart="100">
+        <route edges="edge_5 edge_0"/>
+    </vehicle>
+
+</routes>
