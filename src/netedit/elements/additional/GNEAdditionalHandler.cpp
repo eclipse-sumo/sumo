@@ -699,21 +699,27 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
 
 void
 GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID, const double pos,
-        const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
+        const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
         const std::map<std::string, std::string>& parameters) {
+    // get lane
+    GNELane* lane = myNet->retrieveLane(laneID, false);
+    // get routeProbe
+    GNEAdditional* routeProbe = myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CALIBRATOR, id);
-    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) &&
-               (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) == nullptr)) {
+    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) != nullptr) ||
+               (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) != nullptr)) {
+        writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
+    } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
+        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_ROUTEPROBE);
+    } else if (lane == nullptr) {
+        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_LANE);
+    } else {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
-        // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
         // check lane
-        if (lane == nullptr) {
-            writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_LANE);
-        } else if (!checkSinglePositionOverLane(pos, lane->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
+        if (!checkSinglePositionOverLane(pos, lane->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
         } else if (freq < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_FREQUENCY);
@@ -721,7 +727,9 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
         } else {
             // build Calibrator
-            GNEAdditional* calibrator = new GNECalibrator(id, myNet, lane, pos, freq, name, outfile, routeprobe, jamThreshold, vTypes, parameters);
+            GNEAdditional* calibrator = (routeProbe == nullptr)?
+                new GNECalibrator(id, myNet, lane, pos, freq, name, outfile, jamThreshold, vTypes, parameters) :
+                new GNECalibrator(id, myNet, lane, pos, freq, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_CALIBRATOR));
@@ -734,32 +742,38 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(calibrator);
                 lane->addChildElement(calibrator);
+                if (routeProbe) {
+                    routeProbe->addChildElement(calibrator);
+                }
                 calibrator->incRef("buildCalibrator");
             }
         }
-    } else {
-        writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     }
 }
 
 
 void
 GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const double pos,
-        const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
+        const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
         const std::map<std::string, std::string>& parameters) {
+    // get edge
+    GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+    // get routeProbe
+    GNEAdditional* routeProbe = myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CALIBRATOR, id);
-    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) &&
-               (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) == nullptr)) {
+    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) != nullptr) ||
+               (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) != nullptr)) {
+        writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
+    } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
+        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_ROUTEPROBE);
+    } else if (edge == nullptr) {
+        writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_EDGE);
+    } else {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
-        // get edge
-        GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
-        // check lane
-        if (edge == nullptr) {
-            writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_EDGE);
-        } else if (!checkSinglePositionOverLane(pos, edge->getLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
+        if (!checkSinglePositionOverLane(pos, edge->getLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
         } else if (freq < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_FREQUENCY);
@@ -767,7 +781,9 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
         } else {
             // build Calibrator
-            GNEAdditional* calibrator = new GNECalibrator(id, myNet, edge, pos, freq, name, outfile, routeprobe, jamThreshold, vTypes, parameters);
+            GNEAdditional* calibrator = (routeProbe == nullptr)? 
+                new GNECalibrator(id, myNet, edge, pos, freq, name, outfile, jamThreshold, vTypes, parameters) :
+                new GNECalibrator(id, myNet, edge, pos, freq, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin("add " + toString(SUMO_TAG_CALIBRATOR));
@@ -780,11 +796,12 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(calibrator);
                 edge->addChildElement(calibrator);
+                if (routeProbe) {
+                    routeProbe->addChildElement(calibrator);
+                }
                 calibrator->incRef("buildCalibrator");
             }
         }
-    } else {
-        writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     }
 }
 
