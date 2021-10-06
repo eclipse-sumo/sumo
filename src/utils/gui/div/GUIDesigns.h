@@ -546,7 +546,7 @@ class FXMenuCheckIcon;
 /// @name design for Chooser (locator) and breakpoint dialogs
 /// @{
 /// @brief design for Chooser dialog specifying size
-#define GUIDesignChooserDialog                  (DECOR_ALL), 20, 20, 300, 300
+#define GUIDesignChooserDialog                  (DECOR_ALL), 20, 20, 300, 350
 
 /// @brief design for Chooser buttons
 #define GUIDesignChooserButtons                 (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
