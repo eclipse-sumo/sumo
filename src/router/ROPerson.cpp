@@ -178,7 +178,7 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
         os.writeAttr(SUMO_ATTR_COST, cost);
     }
     if (options.getBool("intended-depart")) {
-        os.writeAttr("depart", dep);
+        os.writeAttr("started", dep);
     }
     if (dur > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, dur);
