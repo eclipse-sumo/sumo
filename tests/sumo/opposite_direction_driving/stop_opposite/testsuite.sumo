@@ -15,4 +15,8 @@ noconflict
 
 # stopping on the opposite side without other traffic,
 # need to cross 3 opposite lanes.
+2edges
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
 2lanes_3opposite_continuous
