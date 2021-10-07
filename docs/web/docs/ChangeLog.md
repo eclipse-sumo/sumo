@@ -62,6 +62,7 @@ title: ChangeLog
   - Fixed invalid error when loading program in tls frame. Issue #9270
   - Attribute 'opposite' is now updated when changing lane count. Issue #9283
   - Minor fixes to save-load tls-program dialog. Issue #9269
+  - Fixed lost window focus. Issue #9274, #9275
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -81,6 +82,8 @@ title: ChangeLog
   - Fixed invalid connections after guessing bicycle lanes. Issue #9083
   - Option **--no-turnarounds.geometry** now ignores pedestrian paths and bike paths that attach to the main road. Issue #9068
   - Fixed missing tlType in plain .nod.xml output. Issue #9281
+  - Fixed invalid network when importing OSM with 'nan' values for maxspeed. Issue #9302
+  - Fixed crash when loading joined traffic lights togher with option **tls.join**. Issue #9299
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -153,6 +156,7 @@ title: ChangeLog
   - Added support for custom coloring of busStops. Issue #8280
   - Breakpoints are now rounded down to reachable step value. Issue #6789
   - Clicking on timestamps in message window now creates breakpoints with a conigurable offset. Issue #7617
+  - Lane params and street names are now shown in meso edge parameter dialog. Issue #9300
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -167,6 +171,9 @@ title: ChangeLog
   - New network is started in create-edge mode. Issue #9272
   - After setting new edge template, the default in create-edge frame is 'use template'. Issue #9289
   - Edge / lane context menu operations are now available in create-edge mode. Issue #9271
+  - The number of routes passing an edge can now optionally be drawn. Issue #8584
+  - Routes referenced in routeProbReroute are now  written in additional files. Issue #8547
+  - TAZ now support a custom center point for showing their ID and attaching tazRelations. Issue #9298
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
@@ -203,13 +210,17 @@ title: ChangeLog
   - ptlines2flows.py: Line colors are now supported. Issue #7845
   - generateContinousRerouters.py: added option **--vlcass** to avoid errors in multi-modal networks. Issue #9188
   - generateTurnRatios.py: Added option **--interval** to write time-dependent turn counts / ratios. Issue #9294
+  - duaIterate.py: Now supports options **--save-configuration** (**-C**) and **--configuration-file** (**-c**) to save and load configurations. Issue #9314
 
 ### Other
 
 - Miscellaneous: Renamed the "master" branch in git to "main". Issue #8591  
 - Traci: Parameter 'upstreamDist' of function 'traci.vehicle.addSubscriptionFilterTurn' was renamed to upstreamDist. Issue #9141
-- Netedit: Some Undo-Redo operations are now restricted to the supermode of the operation. Issue #9097
+- Netedit
+  - Some Undo-Redo operations are now restricted to the supermode of the operation. Issue #9097
+  - TAZ and Polygons can now longer have the same id. Issue #9165
 - polyconvert: When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
+- duaIterate.py option **-C** is no longer a synonym for **--continue-on-unbuild**. Instead, it is a shortcut for **--save-configurtion**. Issue #9314
 
 ## Version 1.10.0 (17.08.2021)
 
