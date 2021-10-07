@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-09 08:45:01 by Eclipse SUMO sumo Version v1_9_2+1005-096107e
+<!-- generated on 2021-10-07 18:03:26 by Eclipse SUMO sumo Version v1_10_0+1355-b56cfe8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -224,7 +224,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.9" x="22.96" y="0.00" angle="90.00" type="flow" speed="7.78" pos="22.96" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="first" x="287.23" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="7.99" pos="287.23" lane="0_0" slope="0.00"/>
+        <vehicle id="first" x="287.23" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="8.00" pos="287.23" lane="0_0" slope="0.00"/>
         <vehicle id="flow.0" x="271.92" y="0.00" angle="90.00" type="flow" speed="11.41" pos="271.92" lane="0_0" slope="0.00"/>
         <vehicle id="flow.1" x="239.37" y="0.00" angle="90.00" type="flow" speed="13.24" pos="239.37" lane="0_0" slope="0.00"/>
         <vehicle id="flow.2" x="219.74" y="0.00" angle="90.00" type="flow" speed="13.23" pos="219.74" lane="0_0" slope="0.00"/>
@@ -238,7 +238,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="22.00">
         <vehicle id="first" x="292.61" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="5.38" pos="292.61" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.0" x="279.83" y="0.00" angle="90.00" type="flow" speed="7.91" pos="279.83" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.0" x="279.84" y="0.00" angle="90.00" type="flow" speed="7.92" pos="279.84" lane="0_0" slope="0.00"/>
         <vehicle id="flow.1" x="252.67" y="0.00" angle="90.00" type="flow" speed="13.30" pos="252.67" lane="0_0" slope="0.00"/>
         <vehicle id="flow.2" x="233.05" y="0.00" angle="90.00" type="flow" speed="13.31" pos="233.05" lane="0_0" slope="0.00"/>
         <vehicle id="flow.3" x="211.91" y="0.00" angle="90.00" type="flow" speed="12.91" pos="211.91" lane="0_0" slope="0.00"/>
@@ -250,8 +250,8 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.9" x="42.87" y="0.00" angle="90.00" type="flow" speed="10.50" pos="42.87" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <vehicle id="first" x="295.91" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="3.30" pos="295.91" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.0" x="285.03" y="0.00" angle="90.00" type="flow" speed="5.20" pos="285.03" lane="0_0" slope="0.00"/>
+        <vehicle id="first" x="295.92" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="3.31" pos="295.92" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.0" x="285.04" y="0.00" angle="90.00" type="flow" speed="5.20" pos="285.04" lane="0_0" slope="0.00"/>
         <vehicle id="flow.1" x="264.98" y="0.00" angle="90.00" type="flow" speed="12.31" pos="264.98" lane="0_0" slope="0.00"/>
         <vehicle id="flow.2" x="246.43" y="0.00" angle="90.00" type="flow" speed="13.38" pos="246.43" lane="0_0" slope="0.00"/>
         <vehicle id="flow.3" x="224.88" y="0.00" angle="90.00" type="flow" speed="12.97" pos="224.88" lane="0_0" slope="0.00"/>
@@ -263,10 +263,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.9" x="54.04" y="0.00" angle="90.00" type="flow" speed="11.17" pos="54.04" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="24.00">
-        <vehicle id="first" x="297.74" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="1.83" pos="297.74" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.0" x="288.15" y="0.00" angle="90.00" type="flow" speed="3.12" pos="288.15" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.1" x="273.46" y="0.00" angle="90.00" type="flow" speed="8.48" pos="273.46" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.2" x="258.99" y="0.00" angle="90.00" type="flow" speed="12.55" pos="258.99" lane="0_0" slope="0.00"/>
+        <vehicle id="first" x="297.75" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="1.83" pos="297.75" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.0" x="288.16" y="0.00" angle="90.00" type="flow" speed="3.12" pos="288.16" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.1" x="273.47" y="0.00" angle="90.00" type="flow" speed="8.49" pos="273.47" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.2" x="258.99" y="0.00" angle="90.00" type="flow" speed="12.56" pos="258.99" lane="0_0" slope="0.00"/>
         <vehicle id="flow.3" x="238.21" y="0.00" angle="90.00" type="flow" speed="13.33" pos="238.21" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="215.59" y="0.00" angle="90.00" type="flow" speed="13.59" pos="215.59" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="163.77" y="0.00" angle="90.00" type="flow" speed="11.75" pos="163.77" lane="0_0" slope="0.00"/>
@@ -276,10 +276,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.9" x="65.57" y="0.00" angle="90.00" type="flow" speed="11.53" pos="65.57" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
-        <vehicle id="first" x="298.75" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="1.01" pos="298.75" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.0" x="289.77" y="0.00" angle="90.00" type="flow" speed="1.61" pos="289.77" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.1" x="278.51" y="0.00" angle="90.00" type="flow" speed="5.05" pos="278.51" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.2" x="267.40" y="0.00" angle="90.00" type="flow" speed="8.42" pos="267.40" lane="0_0" slope="0.00"/>
+        <vehicle id="first" x="298.76" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="1.00" pos="298.76" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.0" x="289.78" y="0.00" angle="90.00" type="flow" speed="1.62" pos="289.78" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.1" x="278.52" y="0.00" angle="90.00" type="flow" speed="5.05" pos="278.52" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.2" x="267.41" y="0.00" angle="90.00" type="flow" speed="8.42" pos="267.41" lane="0_0" slope="0.00"/>
         <vehicle id="flow.3" x="251.08" y="0.00" angle="90.00" type="flow" speed="12.87" pos="251.08" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="229.32" y="0.00" angle="90.00" type="flow" speed="13.73" pos="229.32" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="175.48" y="0.00" angle="90.00" type="flow" speed="11.71" pos="175.48" lane="0_0" slope="0.00"/>
@@ -289,11 +289,11 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.9" x="77.23" y="0.00" angle="90.00" type="flow" speed="11.66" pos="77.23" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="first" x="299.27" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.52" pos="299.27" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.0" x="290.72" y="0.00" angle="90.00" type="flow" speed="0.95" pos="290.72" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.1" x="281.00" y="0.00" angle="90.00" type="flow" speed="2.49" pos="281.00" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.2" x="272.05" y="0.00" angle="90.00" type="flow" speed="4.65" pos="272.05" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.3" x="259.77" y="0.00" angle="90.00" type="flow" speed="8.69" pos="259.77" lane="0_0" slope="0.00"/>
+        <vehicle id="first" x="299.28" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.52" pos="299.28" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.0" x="290.72" y="0.00" angle="90.00" type="flow" speed="0.94" pos="290.72" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.1" x="281.01" y="0.00" angle="90.00" type="flow" speed="2.49" pos="281.01" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.2" x="272.06" y="0.00" angle="90.00" type="flow" speed="4.65" pos="272.06" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.3" x="259.78" y="0.00" angle="90.00" type="flow" speed="8.69" pos="259.78" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="242.78" y="0.00" angle="90.00" type="flow" speed="13.46" pos="242.78" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="187.08" y="0.00" angle="90.00" type="flow" speed="11.60" pos="187.08" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="167.61" y="0.00" angle="90.00" type="flow" speed="11.61" pos="167.61" lane="0_0" slope="0.00"/>
@@ -302,12 +302,12 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.9" x="88.98" y="0.00" angle="90.00" type="flow" speed="11.74" pos="88.98" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="first" x="299.54" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.27" pos="299.54" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.0" x="291.23" y="0.00" angle="90.00" type="flow" speed="0.52" pos="291.23" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.1" x="282.43" y="0.00" angle="90.00" type="flow" speed="1.43" pos="282.43" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.2" x="273.86" y="0.00" angle="90.00" type="flow" speed="1.81" pos="273.86" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.3" x="264.35" y="0.00" angle="90.00" type="flow" speed="4.58" pos="264.35" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.4" x="252.34" y="0.00" angle="90.00" type="flow" speed="9.56" pos="252.34" lane="0_0" slope="0.00"/>
+        <vehicle id="first" x="299.54" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.26" pos="299.54" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.0" x="291.24" y="0.00" angle="90.00" type="flow" speed="0.52" pos="291.24" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.1" x="282.44" y="0.00" angle="90.00" type="flow" speed="1.43" pos="282.44" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.2" x="273.87" y="0.00" angle="90.00" type="flow" speed="1.81" pos="273.87" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.3" x="264.36" y="0.00" angle="90.00" type="flow" speed="4.58" pos="264.36" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.4" x="252.35" y="0.00" angle="90.00" type="flow" speed="9.56" pos="252.35" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="198.62" y="0.00" angle="90.00" type="flow" speed="11.54" pos="198.62" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="179.19" y="0.00" angle="90.00" type="flow" speed="11.59" pos="179.19" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="160.01" y="0.00" angle="90.00" type="flow" speed="12.06" pos="160.01" lane="0_0" slope="0.00"/>
@@ -318,9 +318,9 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="first" x="299.67" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.13" pos="299.67" lane="0_0" slope="0.00"/>
         <vehicle id="flow.0" x="291.52" y="0.00" angle="90.00" type="flow" speed="0.28" pos="291.52" lane="0_0" slope="0.00"/>
         <vehicle id="flow.1" x="283.20" y="0.00" angle="90.00" type="flow" speed="0.76" pos="283.20" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.2" x="275.07" y="0.00" angle="90.00" type="flow" speed="1.21" pos="275.07" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.3" x="265.99" y="0.00" angle="90.00" type="flow" speed="1.64" pos="265.99" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.4" x="257.00" y="0.00" angle="90.00" type="flow" speed="4.66" pos="257.00" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.2" x="275.08" y="0.00" angle="90.00" type="flow" speed="1.21" pos="275.08" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.3" x="266.00" y="0.00" angle="90.00" type="flow" speed="1.64" pos="266.00" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.4" x="257.01" y="0.00" angle="90.00" type="flow" speed="4.66" pos="257.01" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="210.12" y="0.00" angle="90.00" type="flow" speed="11.51" pos="210.12" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="190.58" y="0.00" angle="90.00" type="flow" speed="11.39" pos="190.58" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="171.89" y="0.00" angle="90.00" type="flow" speed="11.87" pos="171.89" lane="0_0" slope="0.00"/>
@@ -330,10 +330,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="29.00">
         <vehicle id="first" x="299.74" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.07" pos="299.74" lane="0_0" slope="0.00"/>
         <vehicle id="flow.0" x="291.67" y="0.00" angle="90.00" type="flow" speed="0.15" pos="291.67" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.1" x="283.61" y="0.00" angle="90.00" type="flow" speed="0.42" pos="283.61" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.2" x="275.72" y="0.00" angle="90.00" type="flow" speed="0.65" pos="275.72" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.3" x="267.23" y="0.00" angle="90.00" type="flow" speed="1.25" pos="267.23" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.4" x="258.43" y="0.00" angle="90.00" type="flow" speed="1.43" pos="258.43" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.1" x="283.62" y="0.00" angle="90.00" type="flow" speed="0.42" pos="283.62" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.2" x="275.73" y="0.00" angle="90.00" type="flow" speed="0.65" pos="275.73" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.3" x="267.24" y="0.00" angle="90.00" type="flow" speed="1.24" pos="267.24" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.4" x="258.44" y="0.00" angle="90.00" type="flow" speed="1.43" pos="258.44" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="221.71" y="0.00" angle="90.00" type="flow" speed="11.59" pos="221.71" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="202.01" y="0.00" angle="90.00" type="flow" speed="11.43" pos="202.01" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="183.57" y="0.00" angle="90.00" type="flow" speed="11.68" pos="183.57" lane="0_0" slope="0.00"/>
@@ -347,7 +347,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.2" x="276.10" y="0.00" angle="90.00" type="flow" speed="0.37" pos="276.10" lane="0_0" slope="0.00"/>
         <vehicle id="flow.3" x="267.88" y="0.00" angle="90.00" type="flow" speed="0.65" pos="267.88" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="259.75" y="0.00" angle="90.00" type="flow" speed="1.32" pos="259.75" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.5" x="232.36" y="0.00" angle="90.00" type="flow" speed="10.66" pos="232.36" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.5" x="232.37" y="0.00" angle="90.00" type="flow" speed="10.66" pos="232.37" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="213.67" y="0.00" angle="90.00" type="flow" speed="11.66" pos="213.67" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="195.19" y="0.00" angle="90.00" type="flow" speed="11.62" pos="195.19" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="176.37" y="0.00" angle="90.00" type="flow" speed="11.79" pos="176.37" lane="0_0" slope="0.00"/>
@@ -357,7 +357,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="first" x="299.79" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.02" pos="299.79" lane="0_0" slope="0.00"/>
         <vehicle id="flow.0" x="291.80" y="0.00" angle="90.00" type="flow" speed="0.04" pos="291.80" lane="0_0" slope="0.00"/>
         <vehicle id="flow.1" x="283.96" y="0.00" angle="90.00" type="flow" speed="0.12" pos="283.96" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.2" x="276.30" y="0.00" angle="90.00" type="flow" speed="0.21" pos="276.30" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.2" x="276.30" y="0.00" angle="90.00" type="flow" speed="0.20" pos="276.30" lane="0_0" slope="0.00"/>
         <vehicle id="flow.3" x="268.27" y="0.00" angle="90.00" type="flow" speed="0.39" pos="268.27" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="260.36" y="0.00" angle="90.00" type="flow" speed="0.61" pos="260.36" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="240.81" y="0.00" angle="90.00" type="flow" speed="8.44" pos="240.81" lane="0_0" slope="0.00"/>
@@ -384,11 +384,11 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.0" x="291.84" y="0.00" angle="90.00" type="flow" speed="0.01" pos="291.84" lane="0_0" slope="0.00"/>
         <vehicle id="flow.1" x="284.06" y="0.00" angle="90.00" type="flow" speed="0.03" pos="284.06" lane="0_0" slope="0.00"/>
         <vehicle id="flow.2" x="276.48" y="0.00" angle="90.00" type="flow" speed="0.06" pos="276.48" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.3" x="268.61" y="0.00" angle="90.00" type="flow" speed="0.13" pos="268.61" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.4" x="260.96" y="0.00" angle="90.00" type="flow" speed="0.21" pos="260.96" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.3" x="268.62" y="0.00" angle="90.00" type="flow" speed="0.13" pos="268.62" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.4" x="260.97" y="0.00" angle="90.00" type="flow" speed="0.21" pos="260.97" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="249.44" y="0.00" angle="90.00" type="flow" speed="3.21" pos="249.44" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="238.51" y="0.00" angle="90.00" type="flow" speed="5.54" pos="238.51" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.7" x="226.55" y="0.00" angle="90.00" type="flow" speed="8.62" pos="226.55" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.7" x="226.55" y="0.00" angle="90.00" type="flow" speed="8.61" pos="226.55" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="210.76" y="0.00" angle="90.00" type="flow" speed="11.20" pos="210.76" lane="0_0" slope="0.00"/>
         <vehicle id="flow.9" x="172.38" y="0.00" angle="90.00" type="flow" speed="12.01" pos="172.38" lane="0_0" slope="0.00"/>
     </timestep>
@@ -397,11 +397,11 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.0" x="291.84" y="0.00" angle="90.00" type="flow" speed="0.01" pos="291.84" lane="0_0" slope="0.00"/>
         <vehicle id="flow.1" x="284.07" y="0.00" angle="90.00" type="flow" speed="0.02" pos="284.07" lane="0_0" slope="0.00"/>
         <vehicle id="flow.2" x="276.51" y="0.00" angle="90.00" type="flow" speed="0.03" pos="276.51" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.3" x="268.68" y="0.00" angle="90.00" type="flow" speed="0.07" pos="268.68" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.3" x="268.69" y="0.00" angle="90.00" type="flow" speed="0.07" pos="268.69" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="261.09" y="0.00" angle="90.00" type="flow" speed="0.13" pos="261.09" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="251.40" y="0.00" angle="90.00" type="flow" speed="1.95" pos="251.40" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="241.66" y="0.00" angle="90.00" type="flow" speed="3.14" pos="241.66" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.7" x="231.76" y="0.00" angle="90.00" type="flow" speed="5.21" pos="231.76" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.7" x="231.77" y="0.00" angle="90.00" type="flow" speed="5.21" pos="231.77" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="219.75" y="0.00" angle="90.00" type="flow" speed="8.99" pos="219.75" lane="0_0" slope="0.00"/>
         <vehicle id="flow.9" x="184.30" y="0.00" angle="90.00" type="flow" speed="11.92" pos="184.30" lane="0_0" slope="0.00"/>
     </timestep>
@@ -413,7 +413,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.3" x="268.72" y="0.00" angle="90.00" type="flow" speed="0.04" pos="268.72" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="261.16" y="0.00" angle="90.00" type="flow" speed="0.07" pos="261.16" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="252.42" y="0.00" angle="90.00" type="flow" speed="1.02" pos="252.42" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.6" x="243.52" y="0.00" angle="90.00" type="flow" speed="1.86" pos="243.52" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.6" x="243.52" y="0.00" angle="90.00" type="flow" speed="1.87" pos="243.52" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="234.46" y="0.00" angle="90.00" type="flow" speed="2.70" pos="234.46" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="224.89" y="0.00" angle="90.00" type="flow" speed="5.14" pos="224.89" lane="0_0" slope="0.00"/>
         <vehicle id="flow.9" x="196.25" y="0.00" angle="90.00" type="flow" speed="11.94" pos="196.25" lane="0_0" slope="0.00"/>
@@ -426,10 +426,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.3" x="268.75" y="0.00" angle="90.00" type="flow" speed="0.02" pos="268.75" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="261.20" y="0.00" angle="90.00" type="flow" speed="0.04" pos="261.20" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="252.95" y="0.00" angle="90.00" type="flow" speed="0.53" pos="252.95" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.6" x="244.51" y="0.00" angle="90.00" type="flow" speed="0.99" pos="244.51" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.6" x="244.51" y="0.00" angle="90.00" type="flow" speed="0.98" pos="244.51" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="236.07" y="0.00" angle="90.00" type="flow" speed="1.61" pos="236.07" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="227.21" y="0.00" angle="90.00" type="flow" speed="2.32" pos="227.21" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="207.36" y="0.00" angle="90.00" type="flow" speed="11.12" pos="207.36" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="207.37" y="0.00" angle="90.00" type="flow" speed="11.12" pos="207.37" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="37.00">
         <vehicle id="first" x="299.80" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="299.80" lane="0_0" slope="0.00"/>
@@ -437,11 +437,11 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.1" x="284.09" y="0.00" angle="90.00" type="flow" speed="0.00" pos="284.09" lane="0_0" slope="0.00"/>
         <vehicle id="flow.2" x="276.55" y="0.00" angle="90.00" type="flow" speed="0.01" pos="276.55" lane="0_0" slope="0.00"/>
         <vehicle id="flow.3" x="268.76" y="0.00" angle="90.00" type="flow" speed="0.01" pos="268.76" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.4" x="261.22" y="0.00" angle="90.00" type="flow" speed="0.02" pos="261.22" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.4" x="261.23" y="0.00" angle="90.00" type="flow" speed="0.02" pos="261.23" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="253.22" y="0.00" angle="90.00" type="flow" speed="0.27" pos="253.22" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="245.05" y="0.00" angle="90.00" type="flow" speed="0.54" pos="245.05" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="236.92" y="0.00" angle="90.00" type="flow" speed="0.85" pos="236.92" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.8" x="228.65" y="0.00" angle="90.00" type="flow" speed="1.44" pos="228.65" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.8" x="228.65" y="0.00" angle="90.00" type="flow" speed="1.45" pos="228.65" lane="0_0" slope="0.00"/>
         <vehicle id="flow.9" x="214.14" y="0.00" angle="90.00" type="flow" speed="6.77" pos="214.14" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="38.00">
@@ -455,7 +455,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.6" x="245.33" y="0.00" angle="90.00" type="flow" speed="0.29" pos="245.33" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="237.41" y="0.00" angle="90.00" type="flow" speed="0.49" pos="237.41" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="229.39" y="0.00" angle="90.00" type="flow" speed="0.74" pos="229.39" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="218.21" y="0.00" angle="90.00" type="flow" speed="4.08" pos="218.21" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="218.22" y="0.00" angle="90.00" type="flow" speed="4.08" pos="218.22" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="39.00">
         <vehicle id="first" x="299.80" y="0.00" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="299.80" lane="0_0" slope="0.00"/>
@@ -480,7 +480,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.5" x="253.46" y="0.00" angle="90.00" type="flow" speed="0.03" pos="253.46" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="245.57" y="0.00" angle="90.00" type="flow" speed="0.08" pos="245.57" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="237.83" y="0.00" angle="90.00" type="flow" speed="0.15" pos="237.83" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.8" x="230.10" y="0.00" angle="90.00" type="flow" speed="0.26" pos="230.10" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.8" x="230.10" y="0.00" angle="90.00" type="flow" speed="0.25" pos="230.10" lane="0_0" slope="0.00"/>
         <vehicle id="flow.9" x="221.60" y="0.00" angle="90.00" type="flow" speed="1.20" pos="221.60" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
@@ -1459,7 +1459,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.9" x="294.13" y="0.00" angle="90.00" type="flow" speed="11.83" pos="294.13" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="117.00">
-        <vehicle id="flow.3" x="479.45" y="0.00" angle="90.00" type="flow" speed="13.08" pos="479.45" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.3" x="479.46" y="0.00" angle="90.00" type="flow" speed="13.08" pos="479.46" lane="0_0" slope="0.00"/>
         <vehicle id="flow.4" x="452.63" y="0.00" angle="90.00" type="flow" speed="14.22" pos="452.63" lane="0_0" slope="0.00"/>
         <vehicle id="flow.5" x="399.84" y="0.00" angle="90.00" type="flow" speed="11.48" pos="399.84" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="380.50" y="0.00" angle="90.00" type="flow" speed="11.63" pos="380.50" lane="0_0" slope="0.00"/>
@@ -1518,49 +1518,49 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="flow.6" x="461.38" y="0.00" angle="90.00" type="flow" speed="11.09" pos="461.38" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="440.23" y="0.00" angle="90.00" type="flow" speed="12.18" pos="440.23" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="421.70" y="0.00" angle="90.00" type="flow" speed="12.17" pos="421.70" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="388.86" y="0.00" angle="90.00" type="flow" speed="11.71" pos="388.86" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="388.86" y="0.00" angle="90.00" type="flow" speed="11.72" pos="388.86" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="125.00">
         <vehicle id="flow.5" x="491.16" y="0.00" angle="90.00" type="flow" speed="11.26" pos="491.16" lane="0_0" slope="0.00"/>
         <vehicle id="flow.6" x="472.44" y="0.00" angle="90.00" type="flow" speed="11.07" pos="472.44" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="452.09" y="0.00" angle="90.00" type="flow" speed="11.86" pos="452.09" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="433.88" y="0.00" angle="90.00" type="flow" speed="12.17" pos="433.88" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="400.44" y="0.00" angle="90.00" type="flow" speed="11.58" pos="400.44" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="400.45" y="0.00" angle="90.00" type="flow" speed="11.59" pos="400.45" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="126.00">
         <vehicle id="flow.6" x="483.59" y="0.00" angle="90.00" type="flow" speed="11.15" pos="483.59" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="463.66" y="0.00" angle="90.00" type="flow" speed="11.57" pos="463.66" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="445.78" y="0.00" angle="90.00" type="flow" speed="11.90" pos="445.78" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="412.01" y="0.00" angle="90.00" type="flow" speed="11.57" pos="412.01" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="412.03" y="0.00" angle="90.00" type="flow" speed="11.58" pos="412.03" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="127.00">
         <vehicle id="flow.6" x="496.21" y="0.00" angle="90.00" type="flow" speed="12.62" pos="496.21" lane="0_0" slope="0.00"/>
         <vehicle id="flow.7" x="475.00" y="0.00" angle="90.00" type="flow" speed="11.34" pos="475.00" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="457.07" y="0.00" angle="90.00" type="flow" speed="11.29" pos="457.07" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="423.59" y="0.00" angle="90.00" type="flow" speed="11.58" pos="423.59" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="423.61" y="0.00" angle="90.00" type="flow" speed="11.58" pos="423.61" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="128.00">
         <vehicle id="flow.7" x="486.98" y="0.00" angle="90.00" type="flow" speed="11.99" pos="486.98" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="467.98" y="0.00" angle="90.00" type="flow" speed="10.91" pos="467.98" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="435.27" y="0.00" angle="90.00" type="flow" speed="11.69" pos="435.27" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="435.30" y="0.00" angle="90.00" type="flow" speed="11.69" pos="435.30" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="129.00">
         <vehicle id="flow.7" x="499.22" y="0.00" angle="90.00" type="flow" speed="12.24" pos="499.22" lane="0_0" slope="0.00"/>
         <vehicle id="flow.8" x="479.26" y="0.00" angle="90.00" type="flow" speed="11.28" pos="479.26" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="447.09" y="0.00" angle="90.00" type="flow" speed="11.82" pos="447.09" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="447.11" y="0.00" angle="90.00" type="flow" speed="11.82" pos="447.11" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="130.00">
         <vehicle id="flow.8" x="490.83" y="0.00" angle="90.00" type="flow" speed="11.57" pos="490.83" lane="0_0" slope="0.00"/>
-        <vehicle id="flow.9" x="458.96" y="0.00" angle="90.00" type="flow" speed="11.87" pos="458.96" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="458.98" y="0.00" angle="90.00" type="flow" speed="11.87" pos="458.98" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="131.00">
-        <vehicle id="flow.9" x="470.86" y="0.00" angle="90.00" type="flow" speed="11.90" pos="470.86" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="470.88" y="0.00" angle="90.00" type="flow" speed="11.90" pos="470.88" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="132.00">
-        <vehicle id="flow.9" x="482.71" y="0.00" angle="90.00" type="flow" speed="11.85" pos="482.71" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="482.73" y="0.00" angle="90.00" type="flow" speed="11.85" pos="482.73" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="133.00">
-        <vehicle id="flow.9" x="494.38" y="0.00" angle="90.00" type="flow" speed="11.66" pos="494.38" lane="0_0" slope="0.00"/>
+        <vehicle id="flow.9" x="494.40" y="0.00" angle="90.00" type="flow" speed="11.66" pos="494.40" lane="0_0" slope="0.00"/>
     </timestep>
     <timestep time="134.00"/>
 </fcd-export>
