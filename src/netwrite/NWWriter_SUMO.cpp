@@ -446,7 +446,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (!e.hasDefaultGeometry()) {
         into.writeAttr(SUMO_ATTR_SHAPE, e.getGeometry());
     }
-    if (e.getEdgeStopOffset().first != SVC_IGNORING) {
+    if (e.getEdgeStopOffset().isDefined()) {
         writeStopOffsets(into, e.getEdgeStopOffset());
     }
     if (e.isBidiRail()) {
@@ -540,7 +540,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (changeRight != SVC_UNSPECIFIED && changeRight != SVCAll && changeRight != SVC_IGNORING) {
         into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(changeRight));
     }
-    if (stopOffset.first != SVC_IGNORING) {
+    if (stopOffset.isDefined()) {
         writeStopOffsets(into, stopOffset);
     }
 
@@ -1013,27 +1013,26 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
 
 void
 NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const StopOffset& stopOffset) {
-    if (stopOffset.first == SVC_IGNORING) {
-        return;
-    }
-    std::string ss_vclasses = getVehicleClassNames(stopOffset.first);
-    if (ss_vclasses.length() == 0) {
-        // This stopOffset would have no effect...
-        return;
-    }
-    into.openTag(SUMO_TAG_STOPOFFSET);
-    std::string ss_exceptions = getVehicleClassNames(~stopOffset.first);
-    if (ss_vclasses.length() <= ss_exceptions.length()) {
-        into.writeAttr(SUMO_ATTR_VCLASSES, ss_vclasses);
-    } else {
-        if (ss_exceptions.length() == 0) {
-            into.writeAttr(SUMO_ATTR_VCLASSES, "all");
-        } else {
-            into.writeAttr(SUMO_ATTR_EXCEPTIONS, ss_exceptions);
+    if (stopOffset.isDefined()) {
+        const std::string ss_vclasses = getVehicleClassNames(stopOffset.getPermissions());
+        if (ss_vclasses.length() == 0) {
+            // This stopOffset would have no effect...
+            return;
         }
+        into.openTag(SUMO_TAG_STOPOFFSET);
+        const std::string ss_exceptions = getVehicleClassNames(~stopOffset.getPermissions());
+        if (ss_vclasses.length() <= ss_exceptions.length()) {
+            into.writeAttr(SUMO_ATTR_VCLASSES, ss_vclasses);
+        } else {
+            if (ss_exceptions.length() == 0) {
+                into.writeAttr(SUMO_ATTR_VCLASSES, "all");
+            } else {
+                into.writeAttr(SUMO_ATTR_EXCEPTIONS, ss_exceptions);
+            }
+        }
+        into.writeAttr(SUMO_ATTR_VALUE, stopOffset.getOffset());
+        into.closeTag();
     }
-    into.writeAttr(SUMO_ATTR_VALUE, stopOffset.second);
-    into.closeTag();
 }
 
 

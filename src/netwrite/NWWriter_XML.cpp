@@ -237,7 +237,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (!e->hasLaneSpecificPermissions()) {
             writePermissions(edevice, e->getPermissions(0));
         }
-        if (!e->hasLaneSpecificStopOffsets() && e->getEdgeStopOffset().first != SVC_IGNORING) {
+        if (!e->hasLaneSpecificStopOffsets() && e->getEdgeStopOffset().isDefined()) {
             NWWriter_SUMO::writeStopOffsets(edevice, e->getEdgeStopOffset());
         }
         if (e->getDistance() != 0) {

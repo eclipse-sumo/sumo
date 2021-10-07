@@ -3212,11 +3212,11 @@ MSLane::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc) 
 
 double
 MSLane::getVehicleStopOffset(const MSVehicle* veh) const {
-    if (myLaneStopOffset.first == 0) {
+    if (!myLaneStopOffset.isDefined()) {
         return 0;
     }
-    if ((myLaneStopOffset.first & veh->getVClass()) != 0) {
-        return myLaneStopOffset.second;
+    if ((myLaneStopOffset.getPermissions() & veh->getVClass()) != 0) {
+        return myLaneStopOffset.getOffset();
     } else {
         return 0;
     }

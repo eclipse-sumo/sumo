@@ -237,13 +237,45 @@ typedef int SUMOEmissionClass;
 // ===========================================================================
 
 /// @brief stop offset
-class StopOffset : public std::pair<SVCPermissions, double> {
+class StopOffset {
+
 public:
     /// @brief constructor
     StopOffset();
 
     /// @brief constructor (parser)
     StopOffset(const SUMOSAXAttributes& attrs, bool& ok);
+
+    /// @brief check if stopOffset was defined
+    bool isDefined() const;
+
+    /// @brief reset stopOffset
+    void reset();
+
+    /// @brief get permissions
+    SVCPermissions getPermissions() const;
+
+    /// @brief get offset
+    double getOffset() const;
+
+    /// @brief update permissions
+    void setPermissions(const SVCPermissions permissions);
+
+    /// @brief set offset 
+    void setOffset(const double offset);
+
+    /// @brief comparator
+    bool operator==(StopOffset const& other) const;
+
+    /// @brief comparator
+    bool operator!=(StopOffset const& other) const;
+
+private:
+    /// @brief permissions (allowed)
+    SVCPermissions myPermissions;
+
+    /// @brief offset
+    double myOffset;
 };
 
 // ===========================================================================

@@ -170,28 +170,93 @@ const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 
 // Stop Offset
 
-StopOffset::StopOffset() {
-    first = SVC_IGNORING;
-    second = 0;
+StopOffset::StopOffset() :
+    myPermissions(SVC_IGNORING),
+    myOffset(0) {
 }
 
-StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) {
-    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
-    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
+
+StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
+    myPermissions(SVC_IGNORING),
+    myOffset(0) {
+    // first check conditions
     if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed!");
+        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed");
         ok = false;
     }
-
+    if (!attrs.hasAttribute(SUMO_ATTR_VCLASSES) && !attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        WRITE_ERROR("StopOffset requires either vClasses or exceptions");
+        ok = false;
+    }
+    if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
+        WRITE_ERROR("StopOffset requires a offset value");
+        ok = false;
+    }
+    // parse elements
+    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
+    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
+    // parse permissions
     if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
-        first = parseVehicleClasses(vClasses);
+        myPermissions = parseVehicleClasses(vClasses);
     } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        first = ~parseVehicleClasses(exceptions);
+        myPermissions = ~parseVehicleClasses(exceptions);
     } else {
         // no vClasses specified, thus apply to all
-        first = parseVehicleClasses("all");
+        myPermissions = parseVehicleClasses("all");
     }
-    second = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
+    // parse offset
+    myOffset = attrs.getOpt<double>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, 0);
+}
+
+
+bool 
+StopOffset::isDefined() const {
+    return myPermissions != SVC_IGNORING;
+}
+
+
+void 
+StopOffset::reset() {
+    myPermissions = SVC_IGNORING;
+    myOffset = 0;
+}
+
+
+SVCPermissions 
+StopOffset::getPermissions() const {
+    return myPermissions;
+}
+
+
+double 
+StopOffset::getOffset() const {
+    return myOffset;
+}
+
+
+void
+StopOffset::setPermissions(const SVCPermissions permissions) {
+    myPermissions = permissions;
+}
+
+
+void 
+StopOffset::setOffset(const double offset) {
+    myOffset = offset;
+}
+
+
+bool 
+StopOffset::operator==(StopOffset const& other) const {
+    return ((myPermissions == other.myPermissions) && 
+            (myOffset == other.myOffset));
+}
+
+
+bool 
+StopOffset::operator!=(StopOffset const& other) const {
+    return ((myPermissions != other.myPermissions) || 
+            (myOffset != other.myOffset));
 }
 
 // Conversion of SUMOVehicleClass

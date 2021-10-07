@@ -250,7 +250,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             }
             // stop offset for lane
             bool stopOffsetSet = false;
-            if ((lane->laneStopOffset.first != SVC_IGNORING) || (nbe->getEdgeStopOffset().first == SVC_IGNORING)) {
+            if (lane->laneStopOffset.isDefined() || nbe->getEdgeStopOffset().isDefined()) {
                 // apply lane-specific stopOffset (might be none as well)
                 stopOffsetSet = nbe->setEdgeStopOffset(fromLaneIndex, lane->laneStopOffset);
             }
@@ -266,7 +266,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         if (!nbe->hasLaneSpecificEndOffset() && nbe->getEndOffset(0) != NBEdge::UNSPECIFIED_OFFSET) {
             nbe->setEndOffset(-1, nbe->getEndOffset(0));
         }
-        if (!nbe->hasLaneSpecificStopOffsets() && (nbe->getEdgeStopOffset().first != SVC_IGNORING)) {
+        if (!nbe->hasLaneSpecificStopOffsets() && nbe->getEdgeStopOffset().isDefined()) {
             nbe->setEdgeStopOffset(-1, nbe->getEdgeStopOffset());
         }
         // check again after permissions are set
@@ -685,20 +685,14 @@ NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
     }
     // Admissibility of value will be checked in _loadNetwork(), when lengths are known
     if (myCurrentLane == nullptr) {
-        if (myCurrentEdge->edgeStopOffset.first != SVC_IGNORING) {
-            std::stringstream ss;
-            ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specification.";
-            WRITE_WARNING(ss.str());
-            return;
+        if (myCurrentEdge->edgeStopOffset.isDefined()) {
+            WRITE_WARNING("Duplicate definition of stopOffset for edge " + myCurrentEdge->id + ".\nIgnoring duplicate specification.");
         } else {
             myCurrentEdge->edgeStopOffset = offset;
         }
     } else {
-        if (myCurrentLane->laneStopOffset.first != SVC_IGNORING) {
-            std::stringstream ss;
-            ss << "Duplicate definition of lane's stopOffset on edge " << myCurrentEdge->id << ".\nIgnoring duplicate specifications.";
-            WRITE_WARNING(ss.str());
-            return;
+        if (myCurrentLane->laneStopOffset.isDefined()) {
+            WRITE_WARNING("Duplicate definition of lane's stopOffset on edge " + myCurrentEdge->id + ".\nIgnoring duplicate specifications.");
         } else {
             myCurrentLane->laneStopOffset = offset;
         }

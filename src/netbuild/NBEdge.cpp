@@ -2312,8 +2312,8 @@ NBEdge::hasLaneSpecificEndOffset() const {
 bool
 NBEdge::hasLaneSpecificStopOffsets() const {
     for (const auto &lane : myLanes) {
-        if (lane.laneStopOffset.first != 0) {
-            if ((myEdgeStopOffset.first != 0) || (myEdgeStopOffset != lane.laneStopOffset)) {
+        if (lane.laneStopOffset.isDefined()) {
+            if (myEdgeStopOffset.isDefined() || (myEdgeStopOffset != lane.laneStopOffset)) {
                 return true;
             }
         }
@@ -3688,11 +3688,11 @@ NBEdge::setEndOffset(int lane, double offset) {
 bool
 NBEdge::setEdgeStopOffset(int lane, const StopOffset &offset, bool overwrite) {
     if (lane < 0) {
-        if (!overwrite && (myEdgeStopOffset.first != 0)) {
+        if (!overwrite && myEdgeStopOffset.isDefined()) {
             return false;
         }
         // all lanes are meant...
-        if (offset.second < 0) {
+        if (offset.getOffset() < 0) {
             // Edge length unknown at parsing time, thus check here.
             WRITE_WARNINGF("Ignoring invalid stopOffset for edge '%' (negative offset).", getID());
             return false;
@@ -3700,8 +3700,8 @@ NBEdge::setEdgeStopOffset(int lane, const StopOffset &offset, bool overwrite) {
             myEdgeStopOffset = offset;
         }
     } else if (lane < (int)myLanes.size()) {
-        if ((myLanes[lane].laneStopOffset.first == 0) || overwrite) {
-            if (offset.second < 0) {
+        if (!myLanes[lane].laneStopOffset.isDefined() || overwrite) {
+            if (offset.getOffset() < 0) {
                 // Edge length unknown at parsing time, thus check here.
                 WRITE_WARNINGF("Ignoring invalid stopOffset for lane '%' (negative offset).", getLaneID(lane));
             } else {

@@ -112,26 +112,24 @@ NLEdgeControlBuilder::reportCurrentEdgeOrLane() const {
 
 void
 NLEdgeControlBuilder::updateCurrentLaneStopOffset(const StopOffset& stopOffset) {
-    assert(myLaneStorage->size() != 0);
-    if (stopOffset.first == 0) {
-        return;
+    if(myLaneStorage->size() == 0) {
+        throw ProcessError("myLaneStorage cannot be empty");
     }
-    if (myLaneStorage->back()->getLaneStopOffsets().first != SVC_IGNORING) {
-        std::stringstream ss;
-        ss << "Duplicate stopOffset definition for lane " << myLaneStorage->back()->getIndex() << " on edge " << myActiveEdge->getID() << "!";
-        WRITE_WARNING(ss.str())
-    } else {
-        myLaneStorage->back()->setLaneStopOffset(stopOffset);
+    if (stopOffset.isDefined()) {
+        if (myLaneStorage->back()->getLaneStopOffsets().isDefined()) {
+            WRITE_WARNING("Duplicate stopOffset definition for lane " + toString(myLaneStorage->back()->getIndex()) + 
+                          " on edge " + myActiveEdge->getID() + "!")
+        } else {
+            myLaneStorage->back()->setLaneStopOffset(stopOffset);
+        }
     }
 }
 
 
 void
 NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset &stopOffsets) {
-    if (myCurrentDefaultStopOffset.first != 0) {
-        std::stringstream ss;
-        ss << "Duplicate stopOffset definition for edge " << myActiveEdge->getID() << ". Ignoring duplicate specification.";
-        WRITE_WARNING(ss.str())
+    if (myCurrentDefaultStopOffset.isDefined()) {
+        WRITE_WARNING("Duplicate stopOffset definition for edge " + myActiveEdge->getID() + ". Ignoring duplicate specification.")
     } else {
         myCurrentDefaultStopOffset = stopOffsets;
     }
@@ -140,13 +138,14 @@ NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset &stopOffsets) {
 
 void
 NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
-    assert(myActiveEdge != 0);
-    if (myCurrentDefaultStopOffset.first == 0) {
-        return;
+    if (myActiveEdge == nullptr) {
+        throw ProcessError("myActiveEdge cannot be nullptr");
     }
-    for (const auto &l : *myLaneStorage) {
-        if (l->getLaneStopOffsets().first == SVC_IGNORING) {
-            l->setLaneStopOffset(myCurrentDefaultStopOffset);
+    if (myCurrentDefaultStopOffset.isDefined()) {
+        for (const auto &l : *myLaneStorage) {
+            if (!l->getLaneStopOffsets().isDefined()) {
+                l->setLaneStopOffset(myCurrentDefaultStopOffset);
+            }
         }
     }
 }
@@ -166,7 +165,7 @@ NLEdgeControlBuilder::closeEdge() {
     copy(myLaneStorage->begin(), myLaneStorage->end(), back_inserter(*lanes));
     myLaneStorage->clear();
     myActiveEdge->initialize(lanes);
-    myCurrentDefaultStopOffset.first = SVC_IGNORING;
+    myCurrentDefaultStopOffset.reset();
     return myActiveEdge;
 }
 
