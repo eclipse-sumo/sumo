@@ -950,6 +950,9 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
 
     }
 
+    // The "real" acceleration after iterations
+    acc = SPEED2ACCEL(MIN2(newSpeed, maxNextSpeed(egoSpeed, veh)) - veh->getSpeed());
+
     // wantedacc is already calculated at this point. acc may still change (because of coolness and drive off), but the ratio should stay the same!
     // this means when vars->minaccel > wantedacc stands, so should vars->minaccel > acc!
     // When updating at an Action Point, store the observed variables for the next time steps until the next Action Point.
@@ -967,10 +970,19 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         vars->wouldacc = wouldacc;
     }
 
+    // It can happen that wantedacc ist higher than previous calculated wantedacc, BUT acc is lower than prev calculated values!
+    // This often occurs because of "coolness"+Iteration and in this case "acc" is set to the previous (higher) calculated value!
+    if (vars->realacc > acc && vars->minaccel <= wantedacc - NUMERICAL_EPS && update != 0) {
+        acc = vars->realacc;
+        newSpeed = MAX2(0.0, egoSpeed + ACCEL2SPEED(acc));
+    }
+
     // Capture the relevant variables, because it was determined, that this call will result in the acceleration update (vars->minaccel > wantedacc)
     if (vars->minaccel > wantedacc - NUMERICAL_EPS && update != 0) {
         vars->minaccel = wantedacc;
-        vars->realacc = acc;
+        if (vars->realacc > acc) {
+            vars->realacc = acc;
+        }
         vars->realleaderacc = a_leader;
     }
 
