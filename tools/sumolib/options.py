@@ -193,10 +193,17 @@ class ArgumentParser(argparse.ArgumentParser):
                         if value == "True":
                             config_args += ["--" + option.name]
                         elif value != "False":
-                            if option.name in multi_value:
+                            if option.name == 'remaining_args':
+                                # special case: magic option name to collect remaining arguments
+                                config_args += value.split()
+                            elif option.name in multi_value:
                                 config_args += ["--" + option.name] + value.split()
+                            elif value:
+                                # permit negative values in cfg files
+                                config_args += ["--" + option.name + "=" + value]
                             else:
-                                config_args += ["--" + option.name, value]
+                                config_args += ["--" + option.name]
+        #print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
         self.write_config_file(namespace)

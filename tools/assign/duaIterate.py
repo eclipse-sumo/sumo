@@ -92,14 +92,14 @@ def addGenericOptions(argParser):
 
 
 def initOptions():
-    argParser = argparse.ArgumentParser(
+    argParser = sumolib.options.ArgumentParser(
         description=""" Any options of the form sumo--long-option-name will be passed to sumo.
         These must be given after all the other options
         example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     addGenericOptions(argParser)
 
-    argParser.add_argument("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
+    argParser.add_argument("--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                            default=False, help="continues on unbuild routes")
     argParser.add_argument("-t", "--trips",
                            help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
