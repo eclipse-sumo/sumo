@@ -58,7 +58,7 @@ MSRailCrossing::init(NLDetectorBuilder&) {
     //use time-gap by default
     mySpaceGap = StringUtils::toDouble(getParameter("space-gap", "-1"));
     myMinGreenTime = string2time(getParameter("min-green", "5"));
-    myOpeningDelay = string2time(getParameter("opening-delay", "5"));
+    myOpeningDelay = string2time(getParameter("opening-delay", "3"));
     myOpeningTime = string2time(getParameter("opening-time", "5")); // red-yellow while opening
     /// XXX compute reasonable time depending on link length
     myYellowTime = string2time(getParameter("yellow-time", "5"));
@@ -155,19 +155,20 @@ MSRailCrossing::updateCurrentPhase() {
         myStep++;
         return MAX2(DELTA_T, wait);
     } else if (myStep == 2) {
-        // 'y': yellow time is over. switch to red
+        // 'r': check whether we may open again
         if (wait == 0) {
             myStep++;
             return myOpeningTime;
         } else {
             return wait;
         }
-    } else if (myStep == 3) {
-        // 'r': check whether we may open again
+    } else { // (myStep == 3)
+        // 'u': opening time is over, switch to green
         if (wait == 0) {
             myStep = 0;
             return myMinGreenTime;
         } else {
+            // train approached during opening sequence, close again
             myStep = 2;
             return wait;
         }
