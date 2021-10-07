@@ -893,8 +893,10 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
     if (edge->getLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
         // restore opposit lane information
         for (NBEdge* nbEdge : newJunction->getNBNode()->getEdges()) {
+            GNEEdge* e = retrieveEdge(nbEdge->getID());
+            // store old attribute before it's changed by guess opposite
+            e->getLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, "", undoList);
             if (nbEdge->guessOpposite(true)) {
-                GNEEdge* e = retrieveEdge(nbEdge->getID());
                 e->getLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, nbEdge->getLanes().back().oppositeID, undoList);
             }
         }
