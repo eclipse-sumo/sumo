@@ -484,8 +484,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     lcm.updateShadowLane();
     if (lcm.getShadowLane() != nullptr && &lcm.getShadowLane()->getEdge() == &vehicle->getLane()->getEdge()) {
         // set as hoppedVeh on the shadow lane so it is found as leader on both lanes
-        ChangerIt shadow = pastMidpoint ? from : from + lcm.getShadowDirection();
-        shadow->hoppedVeh = vehicle;
+        myChanger[lcm.getShadowLane()->getIndex()].hoppedVeh = vehicle;
         lcm.getShadowLane()->requireCollisionCheck();
     }
     vehicle->myAngle = vehicle->computeAngle();
