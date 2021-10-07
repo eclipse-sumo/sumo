@@ -134,7 +134,7 @@ ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const
 
 
 void
-ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
+ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& /*options*/) const {
     os.openTag(SUMO_TAG_RIDE);
     std::string comment = "";
     if (extended && cost >= 0.) {
