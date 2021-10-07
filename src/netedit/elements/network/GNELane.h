@@ -316,6 +316,9 @@ private:
     /// @brief draw lane as railway
     void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
 
+    /// @brief draw laneStopOffset
+    void drawLaneStopOffset(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
+
     /// @brief draw lane textures
     void drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
 
