@@ -60,3 +60,9 @@ disable_teleport
 
 # pass negative argument
 disable_teleport_cfg
+
+# pass negative sumo--argument
+apparg_negative
+
+# pass negative sumo--argument via config
+apparg_negative_config

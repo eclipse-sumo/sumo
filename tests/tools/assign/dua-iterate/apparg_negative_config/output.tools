@@ -1,0 +1,71 @@
+> Executing step 0
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2020-08-20 11:13:00.623768
+>>> End time: 2020-08-20 11:13:00.754519
+>>> Duration: 0:00:00.130751
+<<
+>> Running simulation
+>>> Begin time: 2020-08-20 11:13:00.754625
+>>> End time: 2020-08-20 11:13:00.905198
+>>> Duration: 0:00:00.150573
+<<
+< Step 0 ended (duration: 0:00:00.281579)
+------------------
+
+> Executing step 1
+>> Running router on 0/input_trips_000.rou.alt.xml
+>>> Begin time: 2020-08-20 11:13:00.909449
+>>> End time: 2020-08-20 11:13:01.045828
+>>> Duration: 0:00:00.136379
+<<
+>> Running simulation
+>>> Begin time: 2020-08-20 11:13:01.045922
+>>> End time: 2020-08-20 11:13:01.198314
+>>> Duration: 0:00:00.152392
+<<
+< Step 1 ended (duration: 0:00:00.289037)
+------------------
+
+> Executing step 2
+>> Running router on 1/input_trips_001.rou.alt.xml
+>>> Begin time: 2020-08-20 11:13:01.201603
+>>> End time: 2020-08-20 11:13:01.325690
+>>> Duration: 0:00:00.124087
+<<
+>> Running simulation
+>>> Begin time: 2020-08-20 11:13:01.325795
+>>> End time: 2020-08-20 11:13:01.478153
+>>> Duration: 0:00:00.152358
+<<
+< Step 2 ended (duration: 0:00:00.276703)
+------------------
+
+> Executing step 3
+>> Running router on 2/input_trips_002.rou.alt.xml
+>>> Begin time: 2020-08-20 11:13:01.481414
+>>> End time: 2020-08-20 11:13:01.613483
+>>> Duration: 0:00:00.132069
+<<
+>> Running simulation
+>>> Begin time: 2020-08-20 11:13:01.613587
+>>> End time: 2020-08-20 11:13:01.759212
+>>> Duration: 0:00:00.145625
+<<
+< Step 3 ended (duration: 0:00:00.277970)
+------------------
+
+> Executing step 4
+>> Running router on 3/input_trips_003.rou.alt.xml
+>>> Begin time: 2020-08-20 11:13:01.762491
+>>> End time: 2020-08-20 11:13:01.891309
+>>> Duration: 0:00:00.128818
+<<
+>> Running simulation
+>>> Begin time: 2020-08-20 11:13:01.891415
+>>> End time: 2020-08-20 11:13:02.047682
+>>> Duration: 0:00:00.156267
+<<
+< Step 4 ended (duration: 0:00:00.285348)
+------------------
+
+dua-iterate ended (duration: 0:00:01.427812)
