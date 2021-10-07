@@ -149,8 +149,8 @@ public:
      */
     class TripItem {
     public:
-        TripItem(const double _cost)
-            : cost(_cost) {}
+        TripItem(const SUMOTime start, const double cost)
+            : myStart(start), myCost(cost) {}
 
         /// @brief Destructor
         virtual ~TripItem() {}
@@ -161,15 +161,21 @@ public:
         virtual const ROEdge* getDestination() const = 0;
         virtual double getDestinationPos() const = 0;
         virtual void saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const = 0;
-        SUMOTime getDuration() const {
-            return TIME2STEPS(cost);
+
+        inline SUMOTime getStart() const {
+            return myStart;
         }
 
-        double getCost() const {
-            return cost;
+        inline SUMOTime getDuration() const {
+            return TIME2STEPS(myCost);
+        }
+
+        inline double getCost() const {
+            return myCost;
         }
     protected:
-        double cost;
+        const SUMOTime myStart;
+        const double myCost;
     };
 
     /**
@@ -178,31 +184,31 @@ public:
      */
     class Ride : public TripItem {
     public:
-        Ride(const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const std::string& _group, const double _cost, const double arrivalPos,
+        Ride(const SUMOTime start, const ROEdge* const _from, const ROEdge* const _to,
+             const std::string& _lines, const std::string& _group, const double cost, const double arrivalPos,
              const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) :
-            TripItem(_cost),
+            TripItem(start, cost),
             from(_from), to(_to),
             lines(_lines),
             group(_group),
             destStop(_destStop),
             intended(_intended),
             depart(_depart),
-            arr(arrivalPos) {
+            arrPos(arrivalPos) {
         }
 
         TripItem* clone() const {
-            return new Ride(from, to, lines, group, cost, arr, destStop, intended, depart);
+            return new Ride(myStart, from, to, lines, group, myCost, arrPos, destStop, intended, depart);
         }
 
-        const ROEdge* getOrigin() const {
+        inline const ROEdge* getOrigin() const {
             return from;
         }
-        const ROEdge* getDestination() const {
+        inline const ROEdge* getDestination() const {
             return to;
         }
-        double getDestinationPos() const {
-            return arr == std::numeric_limits<double>::infinity() ? -NUMERICAL_EPS : arr;
+        inline double getDestinationPos() const {
+            return arrPos == std::numeric_limits<double>::infinity() ? -NUMERICAL_EPS : arrPos;
         }
         void saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const;
 
@@ -214,7 +220,7 @@ public:
         const std::string destStop;
         const std::string intended;
         const SUMOTime depart;
-        const double arr;
+        const double arrPos;
 
     private:
         /// @brief Invalidated assignment operator
@@ -228,33 +234,33 @@ public:
      */
     class Walk : public TripItem {
     public:
-        Walk(const ConstROEdgeVector& _edges, const double _cost, const double speed,
+        Walk(const SUMOTime start, const ConstROEdgeVector& _edges, const double cost,
              double departPos = std::numeric_limits<double>::infinity(),
              double arrivalPos = std::numeric_limits<double>::infinity(),
              const std::string& _destStop = "")
-            : TripItem(_cost), edges(_edges), dur(-1), v(-1), rv(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
-        Walk(const ConstROEdgeVector& edges, const double _cost, const double duration, const double speed,
+            : TripItem(start, cost), edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+        Walk(const SUMOTime start, const ConstROEdgeVector& edges, const double cost, const double duration, const double speed,
              const double departPos, const double arrivalPos, const std::string& _destStop)
-            : TripItem(_cost), edges(edges), dur(duration), v(speed), rv(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+            : TripItem(start, cost), edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
 
         TripItem* clone() const {
-            return new Walk(edges, cost, v, dep, arr, destStop);
+            return new Walk(myStart, edges, myCost, dep, arr, destStop);
         }
 
-        const ROEdge* getOrigin() const {
+        inline const ROEdge* getOrigin() const {
             return edges.front();
         }
-        const ROEdge* getDestination() const {
+        inline const ROEdge* getDestination() const {
             return edges.back();
         }
-        double getDestinationPos() const {
+        inline double getDestinationPos() const {
             return arr == std::numeric_limits<double>::infinity() ? 0 : arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const;
 
     private:
         const ConstROEdgeVector edges;
-        const double dur, v, dep, arr, rv;
+        const double dur, v, dep, arr;
         const std::string destStop;
 
     private:

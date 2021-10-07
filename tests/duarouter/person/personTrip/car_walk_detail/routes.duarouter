@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-07 08:59:42 by Eclipse SUMO duarouter Version v1_10_0+1322-d8ad03c
+<!-- generated on 2021-10-07 12:24:50 by Eclipse SUMO duarouter Version v1_10_0+1333-7b2672baa88
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <alternatives-output value="routes.rou.alt.xml"/>
         <exit-times value="true"/>
-        <intended-depart value="true"/>
         <route-length value="true"/>
     </output>
 
@@ -36,9 +35,9 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end" exitTimes="17.99 89.93 107.91"/>
     </vehicle>
     <person id="p0" depart="0.00">
-        <ride from="beg" to="end" lines="p0_0"/>
+        <ride from="beg" to="end" lines="p0_0" exitTimes="89.93"/>
     </person>
     <person id="p1" depart="0.00">
-        <walk started="0.00" edges="end middle beg" exitTimes="480.00 1440.00 1920.00" routeLength="2000.00"/>
+        <walk edges="end middle beg" exitTimes="1440.00" routeLength="2000.00"/>
     </person>
 </routes>
