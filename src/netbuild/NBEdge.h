@@ -1467,6 +1467,9 @@ public:
     /// @note: this method is called before connections are built and simply goes by node graph topology
     NBEdge* getStraightPredecessor(SVCPermissions permissions) const;
 
+    /// @brief set oppositeID and return opposite edge if found
+    NBEdge* guessOpposite(double threshold);
+
     /// @brief return only those edges that permit at least one of the give permissions
     static EdgeVector filterByPermissions(const EdgeVector& edges, SVCPermissions permissions);
 

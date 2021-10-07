@@ -1052,26 +1052,7 @@ NBEdgeCont::guessOpposites() {
     const double distanceThreshold = 7;
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* edge = i->second;
-        const int numLanes = edge->getNumLanes();
-        if (numLanes > 0) {
-            NBEdge::Lane& lastLane = edge->getLaneStruct(numLanes - 1);
-            if (lastLane.oppositeID == "") {
-                NBEdge* opposite = nullptr;
-                //double minOppositeDist = std::numeric_limits<double>::max();
-                for (EdgeVector::const_iterator j = edge->getToNode()->getOutgoingEdges().begin(); j != edge->getToNode()->getOutgoingEdges().end(); ++j) {
-                    if ((*j)->getToNode() == edge->getFromNode() && !(*j)->getLanes().empty()) {
-                        const double distance = VectorHelper<double>::maxValue(lastLane.shape.distances((*j)->getLanes().back().shape));
-                        if (distance < distanceThreshold) {
-                            //minOppositeDist = distance;
-                            opposite = *j;
-                        }
-                    }
-                }
-                if (opposite != nullptr) {
-                    lastLane.oppositeID = opposite->getLaneID(opposite->getNumLanes() - 1);
-                }
-            }
-        }
+        edge->guessOpposite(distanceThreshold);
     }
 }
 
