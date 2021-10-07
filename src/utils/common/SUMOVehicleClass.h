@@ -232,6 +232,19 @@ extern const SVCPermissions SVC_UNSPECIFIED;
  */
 typedef int SUMOEmissionClass;
 
+// ===========================================================================
+// Stop Offsets
+// ===========================================================================
+
+/// @brief stop offset
+class StopOffset : public std::pair<SVCPermissions, double> {
+public:
+    /// @brief constructor
+    StopOffset();
+
+    /// @brief constructor (parser)
+    StopOffset(const SUMOSAXAttributes& attrs, bool& ok);
+};
 
 // ===========================================================================
 // method declarations
@@ -240,6 +253,7 @@ typedef int SUMOEmissionClass;
 // ---------------------------------------------------------------------------
 // abstract vehicle class / purpose
 // ---------------------------------------------------------------------------
+
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
  * @param[in] expand whether 'all' should be used
@@ -299,12 +313,10 @@ extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
 /// @brief writes allowed disallowed attributes if needed;
 extern void writePreferences(OutputDevice& into, SVCPermissions preferred);
 
-/// @brief Extract stopOffsets from attributes of stopOffset element
-extern std::pair<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
-
 // ---------------------------------------------------------------------------
 // vehicle shape class
 // ---------------------------------------------------------------------------
+
 /** @brief Returns the class name of the shape class given by its id
  * @param[in] id The id of the shape class
  * @return The string representation of this class

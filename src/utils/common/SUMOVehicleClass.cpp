@@ -167,7 +167,34 @@ const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-// ------------ Conversion of SUMOVehicleClass
+
+// Stop Offset
+
+StopOffset::StopOffset() {
+    first = SVC_IGNORING;
+    second = 0;
+}
+
+StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) {
+    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
+    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed!");
+        ok = false;
+    }
+
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
+        first = parseVehicleClasses(vClasses);
+    } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        first = ~parseVehicleClasses(exceptions);
+    } else {
+        // no vClasses specified, thus apply to all
+        first = parseVehicleClasses("all");
+    }
+    second = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
+}
+
+// Conversion of SUMOVehicleClass
 
 const std::string&
 getVehicleClassNames(SVCPermissions permissions, bool expand) {
