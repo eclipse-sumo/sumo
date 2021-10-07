@@ -224,6 +224,12 @@ StopOffset::getPermissions() const {
 }
 
 
+std::string
+StopOffset::getExceptions() const {
+    return getVehicleClassNames(~myPermissions);
+}
+
+
 double 
 StopOffset::getOffset() const {
     return myOffset;
@@ -233,6 +239,12 @@ StopOffset::getOffset() const {
 void
 StopOffset::setPermissions(const SVCPermissions permissions) {
     myPermissions = permissions;
+}
+
+
+void 
+StopOffset::setExceptions(const std::string permissions) {
+    myPermissions = ~parseVehicleClasses(permissions);
 }
 
 

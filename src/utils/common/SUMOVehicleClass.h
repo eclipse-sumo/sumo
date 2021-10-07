@@ -255,11 +255,17 @@ public:
     /// @brief get permissions
     SVCPermissions getPermissions() const;
 
+    /// @brief get exceptions (used in NETEDIT)
+    std::string getExceptions() const;
+
     /// @brief get offset
     double getOffset() const;
 
     /// @brief update permissions
     void setPermissions(const SVCPermissions permissions);
+
+    /// @brief set exceptions (used in NETEDIT)
+    void setExceptions(const std::string permissions);
 
     /// @brief set offset 
     void setOffset(const double offset);
