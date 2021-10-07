@@ -412,7 +412,10 @@ def assign_remaining_args(application, prefix, args):
         if "--" in arg:
             if item is not None:
                 items.append(item)
-            item = [arg]
+            if "=" in arg:
+                item = arg.split("=")
+            else:
+                item = [arg]
         else:
             if item is None:
                 sys.exit(
