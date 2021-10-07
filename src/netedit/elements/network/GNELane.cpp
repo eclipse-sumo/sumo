@@ -824,6 +824,14 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return edge->getLaneStruct(myIndex).type;
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
+        case GNE_ATTR_STOPOFFSET:
+            return toString(edge->getLaneStruct(myIndex).laneStopOffset.getOffset());
+        case GNE_ATTR_STOPOEXCEPTION:
+            if (edge->getLaneStruct(myIndex).laneStopOffset.isDefined()) {
+                return toString(edge->getLaneStruct(myIndex).laneStopOffset.getExceptions());
+            } else {
+                return "";
+            }
         case GNE_ATTR_PARENT:
             return myParentEdge->getID();
         case GNE_ATTR_SELECTED:
@@ -862,6 +870,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_OPPOSITE:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_INDEX:
+        case GNE_ATTR_STOPOFFSET:
+        case GNE_ATTR_STOPOEXCEPTION:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             // no special handling
@@ -919,6 +929,10 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TYPE:
             return true;
+        case GNE_ATTR_STOPOFFSET:
+            return canParse<int>(value) && (parse<double>(value) >= 0);
+        case GNE_ATTR_STOPOEXCEPTION:
+            return canParseVehicleClasses(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -1014,6 +1028,16 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TYPE:
             edge->getLaneStruct(myIndex).type = value;
+            break;
+        case GNE_ATTR_STOPOFFSET:
+            edge->getLaneStruct(myIndex).laneStopOffset.setOffset(parse<double>(value));
+            break;
+        case GNE_ATTR_STOPOEXCEPTION:
+            if (value.empty()) {
+                edge->getLaneStruct(myIndex).laneStopOffset.reset();
+            } else {
+                edge->getLaneStruct(myIndex).laneStopOffset.setExceptions(value);
+            }
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

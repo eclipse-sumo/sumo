@@ -110,8 +110,9 @@ GNETagProperties::checkTagIntegrity() const {
         attributeProperty.checkAttributeIntegrity();
         // check that if attribute is vehicle classes, own a combination of Allow/disallow attibute
         if (attributeProperty.isVClasses()) {
-            if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW)
-                    && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT)) {
+            if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW) && 
+                (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT) && 
+                (attributeProperty.getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
                 throw ProcessError("Attributes aren't combinables");
             } else if ((attributeProperty.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("allow need a disallow attribute in the same tag");

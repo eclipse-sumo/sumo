@@ -703,26 +703,30 @@ GNEEdge::getGNECrossings() {
 void
 GNEEdge::copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undoList) {
     // copy edge-specific attributes
-    setAttribute(SUMO_ATTR_NUMLANES,   edgeTemplate.edgeParameters.at(SUMO_ATTR_NUMLANES), undoList);
-    setAttribute(SUMO_ATTR_TYPE,       edgeTemplate.edgeParameters.at(SUMO_ATTR_TYPE), undoList);
-    setAttribute(SUMO_ATTR_PRIORITY,   edgeTemplate.edgeParameters.at(SUMO_ATTR_PRIORITY), undoList);
-    setAttribute(SUMO_ATTR_SPREADTYPE, edgeTemplate.edgeParameters.at(SUMO_ATTR_SPREADTYPE), undoList);
+    setAttribute(SUMO_ATTR_NUMLANES,         edgeTemplate.edgeParameters.at(SUMO_ATTR_NUMLANES),        undoList);
+    setAttribute(SUMO_ATTR_TYPE,            edgeTemplate.edgeParameters.at(SUMO_ATTR_TYPE),             undoList);
+    setAttribute(SUMO_ATTR_PRIORITY,        edgeTemplate.edgeParameters.at(SUMO_ATTR_PRIORITY),         undoList);
+    setAttribute(SUMO_ATTR_SPREADTYPE,      edgeTemplate.edgeParameters.at(SUMO_ATTR_SPREADTYPE),       undoList);
+    setAttribute(GNE_ATTR_STOPOFFSET,       edgeTemplate.edgeParameters.at(GNE_ATTR_STOPOFFSET),        undoList);
+    setAttribute(GNE_ATTR_STOPOEXCEPTION,   edgeTemplate.edgeParameters.at(GNE_ATTR_STOPOEXCEPTION),    undoList);
     // copy raw values for lane-specific attributes
     if (isValid(SUMO_ATTR_SPEED, edgeTemplate.edgeParameters.at(SUMO_ATTR_SPEED))) {
-        setAttribute(SUMO_ATTR_SPEED,      edgeTemplate.edgeParameters.at(SUMO_ATTR_SPEED), undoList);
+        setAttribute(SUMO_ATTR_SPEED,       edgeTemplate.edgeParameters.at(SUMO_ATTR_SPEED),            undoList);
     }
     if (isValid(SUMO_ATTR_WIDTH, edgeTemplate.edgeParameters.at(SUMO_ATTR_WIDTH))) {
-        setAttribute(SUMO_ATTR_WIDTH,      edgeTemplate.edgeParameters.at(SUMO_ATTR_WIDTH), undoList);
+        setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate.edgeParameters.at(SUMO_ATTR_WIDTH),            undoList);
     }
     if (isValid(SUMO_ATTR_ENDOFFSET, edgeTemplate.edgeParameters.at(SUMO_ATTR_ENDOFFSET))) {
-        setAttribute(SUMO_ATTR_ENDOFFSET,  edgeTemplate.edgeParameters.at(SUMO_ATTR_ENDOFFSET), undoList);
+        setAttribute(SUMO_ATTR_ENDOFFSET,   edgeTemplate.edgeParameters.at(SUMO_ATTR_ENDOFFSET),        undoList);
     }
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ALLOW),      undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_SPEED),      undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_WIDTH),      undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,   edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ENDOFFSET),  undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,           edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ALLOW),          undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,           edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_SPEED),          undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,           edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_WIDTH),          undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ENDOFFSET),      undoList);
+        myLanes[i]->setAttribute(GNE_ATTR_STOPOFFSET,       edgeTemplate.laneParameters.at(i).at(GNE_ATTR_STOPOFFSET),      undoList);
+        myLanes[i]->setAttribute(GNE_ATTR_STOPOEXCEPTION,   edgeTemplate.laneParameters.at(i).at(GNE_ATTR_STOPOEXCEPTION),  undoList);
     }
 }
 
@@ -855,6 +859,14 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_BIDIR:
             return toString(myNBEdge->isBidiRail());
+        case GNE_ATTR_STOPOFFSET:
+            return toString(myNBEdge->myEdgeStopOffset.getOffset());
+        case GNE_ATTR_STOPOEXCEPTION:
+            if (myNBEdge->myEdgeStopOffset.isDefined()) {
+                return toString(myNBEdge->myEdgeStopOffset.getExceptions());
+            } else {
+                return "";
+            }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -942,6 +954,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_SHAPE_START:
         case GNE_ATTR_SHAPE_END:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_STOPOFFSET:
+        case GNE_ATTR_STOPOEXCEPTION:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
@@ -1053,6 +1067,10 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case GNE_ATTR_BIDIR:
             return false;
+        case GNE_ATTR_STOPOFFSET:
+            return canParse<int>(value) && (parse<double>(value) >= 0);
+        case GNE_ATTR_STOPOEXCEPTION:
+            return canParseVehicleClasses(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -1537,6 +1555,16 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
+            }
+            break;
+        case GNE_ATTR_STOPOFFSET:
+            myNBEdge->myEdgeStopOffset.setOffset(parse<double>(value));
+            break;
+        case GNE_ATTR_STOPOEXCEPTION:
+            if (value.empty()) {
+                myNBEdge->myEdgeStopOffset.reset();
+            } else {
+                myNBEdge->myEdgeStopOffset.setExceptions(value);
             }
             break;
         case GNE_ATTR_PARAMETERS:
