@@ -167,7 +167,8 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
         os.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
     }
     if (options.getBool("exit-times")) {
-        os.writeAttr("exitTimes", time2string(getStart() + getDuration()));
+        os.writeAttr("started", time2string(getStart()));
+        os.writeAttr("ended", time2string(getStart() + getDuration()));
     }
     os.closeTag(comment);
 }
@@ -188,7 +189,11 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
     }
     os.writeAttr(SUMO_ATTR_EDGES, edges);
     if (options.getBool("exit-times")) {
-        os.writeAttr("exitTimes", time2string(getStart() + getDuration()));
+        os.writeAttr("started", time2string(getStart()));
+        os.writeAttr("ended", time2string(getStart() + getDuration()));
+        if (!exitTimes.empty()) {
+            os.writeAttr("exitTimes", exitTimes);
+        }
     }
     if (options.getBool("route-length")) {
         double length = 0;
@@ -346,9 +351,9 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     }
                 }
                 if (&item == &result.back() && trip->getStopDest() == "") {
-                    trip->addTripItem(new Walk(start, item.edges, item.cost, depPos, arrPos));
+                    trip->addTripItem(new Walk(start, item.edges, item.cost, item.exitTimes, depPos, arrPos));
                 } else {
-                    trip->addTripItem(new Walk(start, item.edges, item.cost, depPos, arrPos, item.destStop));
+                    trip->addTripItem(new Walk(start, item.edges, item.cost, item.exitTimes, depPos, arrPos, item.destStop));
                 }
             } else if (veh != nullptr && item.line == veh->getID()) {
                 trip->addTripItem(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, item.arrivalPos, item.destStop));

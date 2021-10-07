@@ -235,16 +235,17 @@ public:
     class Walk : public TripItem {
     public:
         Walk(const SUMOTime start, const ConstROEdgeVector& _edges, const double cost,
+             const std::vector<double>& _exitTimes,
              double departPos = std::numeric_limits<double>::infinity(),
              double arrivalPos = std::numeric_limits<double>::infinity(),
              const std::string& _destStop = "")
-            : TripItem(start, cost), edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+            : TripItem(start, cost), edges(_edges), exitTimes(_exitTimes), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         Walk(const SUMOTime start, const ConstROEdgeVector& edges, const double cost, const double duration, const double speed,
              const double departPos, const double arrivalPos, const std::string& _destStop)
             : TripItem(start, cost), edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
 
         TripItem* clone() const {
-            return new Walk(myStart, edges, myCost, dep, arr, destStop);
+            return new Walk(myStart, edges, myCost, exitTimes, dep, arr, destStop);
         }
 
         inline const ROEdge* getOrigin() const {
@@ -260,6 +261,7 @@ public:
 
     private:
         const ConstROEdgeVector edges;
+        const std::vector<double> exitTimes;
         const double dur, v, dep, arr;
         const std::string destStop;
 

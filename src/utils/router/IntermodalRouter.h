@@ -77,6 +77,7 @@ public:
         double departPos = INVALID_DOUBLE;
         double arrivalPos = INVALID_DOUBLE;
         std::string description = "";
+        std::vector<double> exitTimes;
     };
 
     /// Constructor
@@ -126,6 +127,7 @@ public:
             double length = 0.;
             const _IntermodalEdge* prev = nullptr;
             for (const _IntermodalEdge* iEdge : intoEdges) {
+                bool addedEdge = false;
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
                         if (into.size() > 0) {
@@ -160,6 +162,7 @@ public:
                         if (into.back().edges.empty() || into.back().edges.back() != iEdge->getEdge()) {
                             into.back().edges.push_back(iEdge->getEdge());
                             into.back().arrivalPos = iEdge->getEndPos();
+                            addedEdge = true;
                         }
                     }
                 }
@@ -174,6 +177,9 @@ public:
                     into.back().length += length - prevLength;
                     if (into.back().depart < 0) {
                         into.back().depart = prevTime;
+                    }
+                    if (addedEdge) {
+                        into.back().exitTimes.push_back(time);
                     }
                 }
             }
