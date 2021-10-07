@@ -123,7 +123,6 @@ NIXMLEdgesHandler::myStartElement(int element,
                     }
                     ss << "edge " << myCurrentEdge->getID() << ". Ignoring duplicate specification.";
                     WRITE_WARNING(ss.str());
-                    return;
                 } else if ((stopOffset.getOffset() > myCurrentEdge->getLength()) || (stopOffset.getOffset() < 0)) {
                     std::stringstream ss;
                     ss << "Ignoring invalid stopOffset for ";

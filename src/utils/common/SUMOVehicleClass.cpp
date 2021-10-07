@@ -184,12 +184,8 @@ StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
         WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed");
         ok = false;
     }
-    if (!attrs.hasAttribute(SUMO_ATTR_VCLASSES) && !attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        WRITE_ERROR("StopOffset requires either vClasses or exceptions");
-        ok = false;
-    }
     if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-        WRITE_ERROR("StopOffset requires a offset value");
+        WRITE_ERROR("StopOffset requires an offset value");
         ok = false;
     }
     // parse elements
@@ -205,7 +201,7 @@ StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
         myPermissions = parseVehicleClasses("all");
     }
     // parse offset
-    myOffset = attrs.getOpt<double>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, 0);
+    myOffset = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, 0);
 }
 
 

@@ -3665,7 +3665,11 @@ NBEdge::getEdgeStopOffset() const {
 
 const StopOffset&
 NBEdge::getLaneStopOffset(int lane) const {
-    return myLanes[lane].laneStopOffset;
+    if (lane == -1) {
+        return myEdgeStopOffset;
+    } else {
+        return myLanes[lane].laneStopOffset;
+    }
 }
 
 
