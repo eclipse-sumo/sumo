@@ -428,6 +428,13 @@ NBEdgeCont::rename(NBEdge* edge, const std::string& newID) {
     myEdges.erase(edge->getID());
     edge->setID(newID);
     myEdges[newID] = edge;
+    // update oppositeID
+    if (edge->getLanes().back().oppositeID != "") {
+        NBEdge* oppo = retrieve(SUMOXMLDefinitions::getEdgeIDFromLane(edge->getLanes().back().oppositeID));
+        if (oppo != nullptr) {
+            oppo->getLaneStruct(oppo->getNumLanes() - 1).oppositeID = edge->getLaneID(edge->getNumLanes() - 1);
+        }
+    }
 }
 
 
