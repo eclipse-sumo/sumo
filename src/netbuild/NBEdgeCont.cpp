@@ -1049,10 +1049,9 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
 void
 NBEdgeCont::guessOpposites() {
     //@todo magic values
-    const double distanceThreshold = 7;
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* edge = i->second;
-        edge->guessOpposite(distanceThreshold);
+        edge->guessOpposite();
     }
 }
 

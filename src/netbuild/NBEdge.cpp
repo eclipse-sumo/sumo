@@ -4272,17 +4272,21 @@ NBEdge::getStraightPredecessor(SVCPermissions permissions) const {
 
 
 NBEdge*
-NBEdge::guessOpposite(double threshold) {
+NBEdge::guessOpposite() {
     NBEdge* opposite = nullptr;
     if (getNumLanes() > 0) {
         NBEdge::Lane& lastLane = myLanes.back();
+        const double lastWidth = getLaneWidth(getNumLanes() - 1);
         if (lastLane.oppositeID == "") {
-            //double minOppositeDist = std::numeric_limits<double>::max();
             for (NBEdge* cand : getToNode()->getOutgoingEdges()) {
                 if (cand->getToNode() == getFromNode() && !cand->getLanes().empty()) {
+                    const double lastWidthCand = cand->getLaneWidth(cand->getNumLanes() - 1);
+                    // in sharp corners, the difference may be higher
+                    // factor (sqrt(2) for 90 degree corners
+                    const double threshold = 1.42 * 0.5 * (lastWidth + lastWidthCand) + 0.5;
                     const double distance = VectorHelper<double>::maxValue(lastLane.shape.distances(cand->getLanes().back().shape));
+                    //std::cout << " distance=" << distance << " threshold=" << threshold << " distances=" << toString(lastLane.shape.distances(cand->getLanes().back().shape)) << "\n";
                     if (distance < threshold) {
-                        //minOppositeDist = distance;
                         opposite = cand;
                     }
                 }
