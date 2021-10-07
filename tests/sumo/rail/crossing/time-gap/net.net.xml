@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-30 11:19:16 by Eclipse SUMO netedit Version 1.10.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <output-file value="G:\Projects\SUMO\DLR\Testing%204\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-1000.00,0.00,1000.00,2000.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id=":cluster_gneJ5_gneJ6_0" function="internal">
+        <lane id=":cluster_gneJ5_gneJ6_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast" speed="13.89" length="6.22" shape="-2.95,1001.72 3.27,1001.70"/>
+    </edge>
+    <edge id=":cluster_gneJ5_gneJ6_1" function="internal">
+        <lane id=":cluster_gneJ5_gneJ6_1_0" index="0" allow="rail" speed="13.89" length="8.14" shape="0.14,1004.82 0.16,996.68"/>
+    </edge>
+
+    <edge id="E" from="cluster_gneJ5_gneJ6" to="gneJ1" priority="-1" shape="-1.76,1003.32 1000.00,1000.00">
+        <lane id="E_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast" speed="13.89" length="996.73" shape="3.27,1001.70 999.99,998.40"/>
+    </edge>
+    <edge id="N" from="gneJ2" to="cluster_gneJ5_gneJ6" priority="-1" shape="0.00,2000.00 1.76,996.68">
+        <lane id="N_0" index="0" allow="rail" speed="13.89" length="995.18" shape="-1.60,2000.00 0.14,1004.82"/>
+    </edge>
+    <edge id="S" from="cluster_gneJ5_gneJ6" to="gneJ3" priority="-1" shape="1.76,996.68 0.00,0.00">
+        <lane id="S_0" index="0" allow="rail" speed="13.89" length="996.68" shape="0.16,996.68 -1.60,0.00"/>
+    </edge>
+    <edge id="W" from="gneJ0" to="cluster_gneJ5_gneJ6" priority="-1" shape="-1000.00,1000.00 -1.76,1003.32">
+        <lane id="W_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast" speed="13.89" length="997.05" shape="-999.99,998.40 -2.95,1001.72"/>
+    </edge>
+
+    <junction id="cluster_gneJ5_gneJ6" type="rail_crossing" x="0.00" y="1000.00" incLanes="W_0 N_0" intLanes=":cluster_gneJ5_gneJ6_0_0 :cluster_gneJ5_gneJ6_1_0" shape="3.27,1003.30 3.26,1000.10 2.43,999.72 2.13,999.25 1.93,998.58 1.80,997.73 1.76,996.68 -1.44,996.69 -1.61,998.59 -1.82,999.26 -2.11,999.74 -2.49,1000.02 -2.95,1000.12 -2.96,1003.32 -2.12,1003.48 -1.83,1003.69 -1.62,1003.99 -1.50,1004.36 -1.46,1004.82 1.74,1004.83 1.91,1003.98 2.12,1003.69 2.42,1003.47 2.80,1003.35">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="time-gap" value="45"/>
+    </junction>
+    <junction id="gneJ0" type="dead_end" x="-1000.00" y="1000.00" incLanes="" intLanes="" shape="-1000.00,1000.00 -999.99,996.80"/>
+    <junction id="gneJ1" type="dead_end" x="1000.00" y="1000.00" incLanes="E_0" intLanes="" shape="999.99,996.80 1000.00,1000.00"/>
+    <junction id="gneJ2" type="dead_end" x="0.00" y="2000.00" incLanes="" intLanes="" shape="-0.00,2000.00 -3.20,1999.99"/>
+    <junction id="gneJ3" type="dead_end" x="0.00" y="0.00" incLanes="S_0" intLanes="" shape="-3.20,0.01 0.00,0.00"/>
+
+    <connection from="N" to="S" fromLane="0" toLane="0" via=":cluster_gneJ5_gneJ6_1_0" tl="cluster_gneJ5_gneJ6" linkIndex="-1" dir="s" state="M"/>
+    <connection from="W" to="E" fromLane="0" toLane="0" via=":cluster_gneJ5_gneJ6_0_0" tl="cluster_gneJ5_gneJ6" linkIndex="0" dir="s" state="O"/>
+
+    <connection from=":cluster_gneJ5_gneJ6_0" to="E" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_gneJ5_gneJ6_1" to="S" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
