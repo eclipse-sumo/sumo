@@ -1468,7 +1468,7 @@ public:
     NBEdge* getStraightPredecessor(SVCPermissions permissions) const;
 
     /// @brief set oppositeID and return opposite edge if found
-    NBEdge* guessOpposite();
+    NBEdge* guessOpposite(bool reguess = false);
 
     /// @brief return only those edges that permit at least one of the give permissions
     static EdgeVector filterByPermissions(const EdgeVector& edges, SVCPermissions permissions);

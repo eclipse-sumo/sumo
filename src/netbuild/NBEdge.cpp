@@ -4272,12 +4272,12 @@ NBEdge::getStraightPredecessor(SVCPermissions permissions) const {
 
 
 NBEdge*
-NBEdge::guessOpposite() {
+NBEdge::guessOpposite(bool reguess) {
     NBEdge* opposite = nullptr;
     if (getNumLanes() > 0) {
         NBEdge::Lane& lastLane = myLanes.back();
         const double lastWidth = getLaneWidth(getNumLanes() - 1);
-        if (lastLane.oppositeID == "") {
+        if (lastLane.oppositeID == "" || reguess) {
             for (NBEdge* cand : getToNode()->getOutgoingEdges()) {
                 if (cand->getToNode() == getFromNode() && !cand->getLanes().empty()) {
                     const double lastWidthCand = cand->getLaneWidth(cand->getNumLanes() - 1);

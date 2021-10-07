@@ -890,6 +890,15 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
     newJunction = splitEdge(edge, pos, undoList, newJunction);
     // split second edge
     splitEdge(oppositeEdge, pos, undoList, newJunction);
+    if (edge->getLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
+        // restore opposit lane information
+        for (NBEdge* nbEdge : newJunction->getNBNode()->getEdges()) {
+            if (nbEdge->guessOpposite(true)) {
+                GNEEdge* e = retrieveEdge(nbEdge->getID());
+                e->getLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, nbEdge->getLanes().back().oppositeID, undoList);
+            }
+        }
+    }
     undoList->end();
 }
 
