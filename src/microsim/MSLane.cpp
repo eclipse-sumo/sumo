@@ -188,7 +188,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width), 
-    myLaneStopOffset(0, 0), myEdge(edge), myMaxSpeed(maxSpeed),
+    myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
     myChangeRight(changeRight),
@@ -3223,14 +3223,14 @@ MSLane::getVehicleStopOffset(const MSVehicle* veh) const {
 }
 
 
-const std::pair<SVCPermissions, double>& 
+const StopOffset& 
 MSLane::getLaneStopOffsets() const {
     return myLaneStopOffset;
 }
 
 
 void 
-MSLane::setLaneStopOffset(const std::pair<SVCPermissions, double> &stopOffset) {
+MSLane::setLaneStopOffset(const StopOffset &stopOffset) {
     myLaneStopOffset = stopOffset;
 }
 

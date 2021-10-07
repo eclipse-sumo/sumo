@@ -359,7 +359,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                           permissions, successor.preferred,
                           changeLeft, changeRight,
                           NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                          std::pair<int, double>(0, 0), width, k.shape, &k,
+                          StopOffset(), width, k.shape, &k,
                           k.length, k.internalLaneIndex, oppositeLaneID[k.getInternalLaneID()], "");
                 haveVia = haveVia || k.haveVia;
             }
@@ -384,7 +384,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
                               SVCAll, SVCAll, // #XXX todo
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                              std::pair<SVCPermissions, double>(0, 0), successor.width, k.viaShape, &k,
+                              StopOffset(), successor.width, k.viaShape, &k,
                               MAX2(k.viaLength, POSITION_EPS), // microsim needs positive length
                               0, "", "");
                     into.closeTag();
@@ -400,7 +400,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                  std::pair<SVCPermissions, double>(0, 0), c->width, c->shape, nullptr,
+                  StopOffset(), c->width, c->shape, nullptr,
                   MAX2(c->shape.length(), POSITION_EPS), 0, "", "", false, c->customShape.size() != 0);
         into.closeTag();
     }
@@ -413,7 +413,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::WALKINGAREA);
         writeLane(into, wa.id + "_0", 1, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                  std::pair<SVCPermissions, double>(0, 0), wa.width, wa.shape, nullptr, wa.length, 0, "", "", false, wa.hasCustomShape);
+                  StopOffset(), wa.width, wa.shape, nullptr, wa.length, 0, "", "", false, wa.hasCustomShape);
         into.closeTag();
     }
     return ret;
@@ -463,7 +463,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     double startOffset = e.isBidiRail() ? e.getTurnDestination(true)->getEndOffset() : 0;
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
-        std::pair<int, double> stopOffset;
+        StopOffset stopOffset;
         if (l.laneStopOffset != e.getEdgeStopOffset()) {
             stopOffset = l.laneStopOffset;
         }
@@ -485,7 +485,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double speed, SVCPermissions permissions, SVCPermissions preferred,
                          SVCPermissions changeLeft, SVCPermissions changeRight,
                          double startOffset, double endOffset,
-                         std::pair<SVCPermissions, double> stopOffset, double width, PositionVector shape,
+                         const StopOffset &stopOffset, double width, PositionVector shape,
                          const Parameterised* params, double length, int index,
                          const std::string& oppositeID,
                          const std::string& type,
@@ -1012,7 +1012,7 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
 
 
 void
-NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::pair<SVCPermissions, double>& stopOffset) {
+NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const StopOffset& stopOffset) {
     if (stopOffset.first == SVC_IGNORING) {
         return;
     }

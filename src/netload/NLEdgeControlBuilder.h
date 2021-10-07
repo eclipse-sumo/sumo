@@ -105,7 +105,7 @@ public:
 
     /** @brief process a stopOffset element (originates either from the active edge or lane).
      */
-    void addStopOffsets(const std::pair<SVCPermissions, double>& stopOffsets);
+    void addStopOffsets(const StopOffset& stopOffsets);
 
     /** @brief Return info about currently processed edge or lane
      */
@@ -162,7 +162,7 @@ protected:
     MSEdge* myActiveEdge;
 
     /// @brief The default stop offset for all lanes belonging to the active edge (this is set if the edge was given a stopOffset child)
-    std::pair<SVCPermissions, double> myCurrentDefaultStopOffset;
+    StopOffset myCurrentDefaultStopOffset;
 
     /// @brief The index of the currently active lane (-1 if none is active)
     int myCurrentLaneIndex;
@@ -175,11 +175,11 @@ protected:
 
     /** @brief set the stopOffset for the last added lane.
      */
-    void updateCurrentLaneStopOffset(const std::pair<SVCPermissions, double>& stopOffset);
+    void updateCurrentLaneStopOffset(const StopOffset& stopOffset);
 
     /** @brief set the stopOffset for the last added lane.
      */
-    void setDefaultStopOffset(const std::pair<SVCPermissions, double> &stopOffset);
+    void setDefaultStopOffset(const StopOffset &stopOffset);
 
     /** @brief
      */

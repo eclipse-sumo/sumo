@@ -90,7 +90,7 @@ NLEdgeControlBuilder::addLane(const std::string& id,
 
 
 void
-NLEdgeControlBuilder::addStopOffsets(const std::pair<SVCPermissions, double>& stopOffset) {
+NLEdgeControlBuilder::addStopOffsets(const StopOffset& stopOffset) {
     if (myCurrentLaneIndex == -1) {
         setDefaultStopOffset(stopOffset);
     } else {
@@ -111,7 +111,7 @@ NLEdgeControlBuilder::reportCurrentEdgeOrLane() const {
 
 
 void
-NLEdgeControlBuilder::updateCurrentLaneStopOffset(const std::pair<SVCPermissions, double>& stopOffset) {
+NLEdgeControlBuilder::updateCurrentLaneStopOffset(const StopOffset& stopOffset) {
     assert(myLaneStorage->size() != 0);
     if (stopOffset.first == 0) {
         return;
@@ -127,7 +127,7 @@ NLEdgeControlBuilder::updateCurrentLaneStopOffset(const std::pair<SVCPermissions
 
 
 void
-NLEdgeControlBuilder::setDefaultStopOffset(const std::pair<SVCPermissions, double> &stopOffsets) {
+NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset &stopOffsets) {
     if (myCurrentDefaultStopOffset.first != 0) {
         std::stringstream ss;
         ss << "Duplicate stopOffset definition for edge " << myActiveEdge->getID() << ". Ignoring duplicate specification.";

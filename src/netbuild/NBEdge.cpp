@@ -294,7 +294,6 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPossibleTurnDestination(nullptr),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(spread), myEndOffset(endOffset),
-    myEdgeStopOffset(0, 0),
     myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInTLS(false), myAmMacroscopicConnector(false),
@@ -326,7 +325,6 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myPossibleTurnDestination(nullptr),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(endOffset),
-    myEdgeStopOffset(0, 0),
     myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInTLS(false), myAmMacroscopicConnector(false),
@@ -3659,13 +3657,13 @@ NBEdge::getEndOffset(int lane) const {
 }
 
 
-const std::pair<SVCPermissions, double>& 
+const StopOffset& 
 NBEdge::getEdgeStopOffset() const {
     return myEdgeStopOffset;
 }
 
 
-const std::pair<SVCPermissions, double>&
+const StopOffset&
 NBEdge::getLaneStopOffset(int lane) const {
     return myLanes[lane].laneStopOffset;
 }
@@ -3688,7 +3686,7 @@ NBEdge::setEndOffset(int lane, double offset) {
 
 
 bool
-NBEdge::setEdgeStopOffset(int lane, std::pair<SVCPermissions, double> offset, bool overwrite) {
+NBEdge::setEdgeStopOffset(int lane, const StopOffset &offset, bool overwrite) {
     if (lane < 0) {
         if (!overwrite && (myEdgeStopOffset.first != 0)) {
             return false;

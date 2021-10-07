@@ -109,7 +109,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_STOPOFFSET: {
             bool ok = true;
-            std::pair<SVCPermissions, double> stopOffset = parseStopOffsets(attrs, ok);
+            const StopOffset stopOffset(attrs, ok);
             if (!ok) {
                 std::stringstream ss;
                 ss << "(Error encountered at lane " << myCurrentLaneIndex << " of edge '" << myCurrentID << "' while parsing stopOffsets.)";
@@ -624,7 +624,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
             myCurrentEdge->addSidewalk(mySidewalkWidth);
         }
         // apply default stopOffsets of edge to all lanes without specified stopOffset.
-        std::pair<SVCPermissions, double> stopOffsets = myCurrentEdge->getEdgeStopOffset();
+        const StopOffset stopOffsets = myCurrentEdge->getEdgeStopOffset();
         if (stopOffsets.first != SVC_IGNORING) {
             for (int i = 0; i < (int)myCurrentEdge->getLanes().size(); i++) {
                 myCurrentEdge->setEdgeStopOffset(i, stopOffsets, false);

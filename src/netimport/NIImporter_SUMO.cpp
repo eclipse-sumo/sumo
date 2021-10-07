@@ -679,7 +679,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
 
 void
 NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    const std::pair<SVCPermissions, double> offset = parseStopOffsets(attrs, ok);
+    const StopOffset offset(attrs, ok);
     if (!ok) {
         return;
     }

@@ -429,34 +429,6 @@ noVehicles(SVCPermissions permissions) {
 }
 
 
-std::pair<SVCPermissions, double> 
-parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
-    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed!");
-        ok = false;
-        return std::pair<SVCPermissions, double>(0, 0);
-    }
-    const double value = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
-
-    int vClassBitset;
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
-        vClassBitset = parseVehicleClasses(vClasses);
-    } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        vClassBitset = ~parseVehicleClasses(exceptions);
-    } else {
-        // no vClasses specified, thus apply to all
-        vClassBitset = parseVehicleClasses("all");
-    }
-
-    std::pair<SVCPermissions, double> offset;
-    offset.first = vClassBitset;
-    offset.second = value;
-    return offset;
-}
-
-
 double
 getDefaultVehicleLength(const SUMOVehicleClass vc) {
     switch (vc) {

@@ -98,7 +98,7 @@ public:
 
     /** @brief Write a stopOffset element into output device
      */
-    static void writeStopOffsets(OutputDevice& into, const std::pair<SVCPermissions, double>& stopOffset);
+    static void writeStopOffsets(OutputDevice& into, const StopOffset& stopOffset);
 
     /** @brief Writes a district
      * @param[in] into The device to write the edge into
@@ -142,7 +142,7 @@ private:
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
                           SVCPermissions changeLeft, SVCPermissions changeRight,
                           double startOffset, double endOffset,
-                          std::pair<SVCPermissions, double> stopOffset, double width, PositionVector shape,
+                          const StopOffset &stopOffset, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, const std::string& type,
                           bool accelRamp = false,

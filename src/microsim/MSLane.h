@@ -849,10 +849,10 @@ public:
     double getVehicleStopOffset(const MSVehicle* veh) const;
 
     /// @brief Returns vehicle class specific stopOffsets
-    const std::pair<SVCPermissions, double>& getLaneStopOffsets() const;
+    const StopOffset& getLaneStopOffsets() const;
 
     /// @brief Set vehicle class specific stopOffsets
-    void setLaneStopOffset(const std::pair<SVCPermissions, double> &stopOffset);
+    void setLaneStopOffset(const StopOffset &stopOffset);
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
@@ -1374,7 +1374,7 @@ protected:
     /// Lane's vClass specific stop offset [m]. The map is either of length 0, which means no
     /// special stopOffset was set, or of length 1, where the key is a bitset representing a subset
     /// of the SUMOVehicleClass Enum and the value is the offset in meters.
-    std::pair<SVCPermissions, double> myLaneStopOffset;
+    StopOffset myLaneStopOffset;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;
