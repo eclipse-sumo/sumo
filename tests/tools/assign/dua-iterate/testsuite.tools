@@ -9,6 +9,12 @@ optimum
 # straight call of the script
 simple
 
+# straight call of the script
+save_config
+
+# save configuration with application option prefix
+save_config_appargs
+
 # call with 2 trip files
 multipe_inputs
 
@@ -48,3 +54,9 @@ mapmatchJunctions
 
 # using marginal costs
 marginal_cost
+
+# pass negative argument
+disable_teleport
+
+# pass negative argument
+disable_teleport_cfg
