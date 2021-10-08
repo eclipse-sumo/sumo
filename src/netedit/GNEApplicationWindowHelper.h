@@ -43,6 +43,7 @@ class GNENet;
 class GNEViewNet;
 class GUIEvent;
 class FXMenuCheckIcon;
+class GNETagProperties;
 
 
 // ===========================================================================
@@ -661,6 +662,9 @@ struct GNEApplicationWindowHelper {
         /// @brief unlock all
         void unlockAll();
 
+        /// @brief lock or unlock object based in a tag property
+        void editLocking(const GNETagProperties &tagProperty, const FXbool value);
+
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief menu check to lock junction
@@ -736,12 +740,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu check to lock edgeTAZRels
         FXMenuCheckIcon* menuCheckLockEdgeTAZRels;
-
-        /// @brief FXMenuCommand for lock all elements
-        FXMenuCommand* lockAllElements;
-
-        /// @brief FXMenuCommand for unlock all elements
-        FXMenuCommand* unlockAllElements;
 
         /// @}
 
