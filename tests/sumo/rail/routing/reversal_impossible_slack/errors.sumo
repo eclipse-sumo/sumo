@@ -1,3 +1,5 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 't0'; waited too long (jam), lane='f_0', time=352.00.
-Warning: Vehicle 't0' ends teleporting on edge '-f', time 352.00.
+Warning: No connection between edge 'a' and edge '-a3' found.
+Warning: No route for vehicle 't0' found.
+Error: Vehicle 't0' has no valid route.
+Quitting (on error).
