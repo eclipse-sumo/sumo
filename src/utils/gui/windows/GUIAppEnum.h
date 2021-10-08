@@ -689,11 +689,15 @@ enum {
     /// @brief Remove edge from selected items - Menu Etry
     MID_GNE_REMOVESELECT_EDGE,
     /// @brief lock element
-    MID_GNE_LOCKELEMENT,
+    MID_GNE_LOCK_ELEMENT,
     /// @brief lock all element
-    MID_GNE_LOCKALLELEMENTS,
+    MID_GNE_LOCK_ALLELEMENTS,
     /// @brief unlock all element
-    MID_GNE_UNLOCKALLELEMENTS,
+    MID_GNE_UNLOCK_ALLELEMENTS,
+    /// @brief lock selected element
+    MID_GNE_LOCK_SELECTEDELEMENTS,
+    /// @brief unlock selected element
+    MID_GNE_UNLOCK_SELECTEDELEMENTS,
 
     /// @}
 
@@ -1269,8 +1273,8 @@ enum {
     /// @brief selector for ModesMenuTitle
     MID_GNE_MODESMENUTITLE,
 
-    /// @brief selector for LOckMenuTitle
-    MID_GNE_LOCKMENUTITLE,
+    /// @brief selector for LockMenuTitle
+    MID_GNE_LOCK_MENUTITLE,
 
     /// @}
 
