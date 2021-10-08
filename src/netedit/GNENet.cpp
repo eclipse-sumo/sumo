@@ -1635,6 +1635,90 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
 }
 
 
+
+std::vector<GNEAttributeCarrier*>
+GNENet::retrieveAttributeCarriers(Supermode supermode, const bool onlySelected) {
+    std::vector<GNEAttributeCarrier*> result;
+    // continue depending of supermode
+    if (supermode == Supermode::NETWORK) {
+        // network
+        for (const auto& junction : myAttributeCarriers->getJunctions()) {
+            if (!onlySelected || junction.second->isAttributeCarrierSelected()) {
+                result.push_back(junction.second);
+            }
+            for (const auto& crossing : junction.second->getGNECrossings()) {
+                if (!onlySelected || crossing->isAttributeCarrierSelected()) {
+                    result.push_back(crossing);
+                }
+            }
+        }
+        for (const auto& edge : myAttributeCarriers->getEdges()) {
+            if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+                result.push_back(edge.second);
+            }
+            for (const auto& lane : edge.second->getLanes()) {
+                if (!onlySelected || lane->isAttributeCarrierSelected()) {
+                    result.push_back(lane);
+                }
+            }
+            for (const auto& connection : edge.second->getGNEConnections()) {
+                if (!onlySelected || connection->isAttributeCarrierSelected()) {
+                    result.push_back(connection);
+                }
+            }
+        }
+        for (const auto& additionalSet : myAttributeCarriers->getAdditionals()) {
+            for (const auto& additional : additionalSet.second) {
+                if (!onlySelected || additional.second->isAttributeCarrierSelected()) {
+                    result.push_back(additional.second);
+                }
+            }
+        }
+        for (const auto& shapeSet : myAttributeCarriers->getShapes()) {
+            for (const auto& shape : shapeSet.second) {
+                if (!onlySelected || shape.second->isAttributeCarrierSelected()) {
+                    result.push_back(shape.second);
+                }
+            }
+        }
+        for (const auto& TAZSet : myAttributeCarriers->getTAZElements()) {
+            for (const auto& TAZElement : TAZSet.second) {
+                if (!onlySelected || TAZElement.second->isAttributeCarrierSelected()) {
+                    result.push_back(TAZElement.second);
+                }
+            }
+        }
+    } else if (supermode == Supermode::DEMAND) {
+        // demand
+        for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
+            for (const auto& demandElement : demandElementSet.second) {
+                if (!onlySelected || demandElement.second->isAttributeCarrierSelected()) {
+                    result.push_back(demandElement.second);
+                }
+            }
+        }
+    } else if (supermode == Supermode::DATA) {
+        // data
+        for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+            if (!onlySelected || dataSet.second->isAttributeCarrierSelected()) {
+                result.push_back(dataSet.second);
+            }
+            for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+                if (!onlySelected || dataInterval.second->isAttributeCarrierSelected()) {
+                    result.push_back(dataInterval.second);
+                }
+                for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                    if (!onlySelected || genericData->isAttributeCarrierSelected()) {
+                        result.push_back(genericData);
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+
+
 void
 GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string demandPath, std::string dataPath) {
     if (!myNeedRecompute) {

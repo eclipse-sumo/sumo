@@ -352,6 +352,9 @@ public:
      */
     std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(SumoXMLTag type = SUMO_TAG_NOTHING);
 
+    /// @brief get the attribute carriers based on supermode
+    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(Supermode supermode, const bool onlySelected);
+
     /**@brief return all edges
      * @param[in] onlySelected Whether to return only selected edges
      */
