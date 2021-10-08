@@ -3593,6 +3593,59 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
 GNEViewNetHelper::LockManager::~LockManager() {}
 
 
+void 
+GNEViewNetHelper::LockManager::editLocking(const GNETagProperties &tagProperty, const bool value) {
+    // check elements
+    if (tagProperty.getTag() == SUMO_TAG_JUNCTION) {
+        myLockedElements[GLO_JUNCTION].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_EDGE) {
+        myLockedElements[GLO_EDGE].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_LANE) {
+        myLockedElements[GLO_LANE].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_CONNECTION) {
+        myLockedElements[GLO_CONNECTION].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_CROSSING) {
+        myLockedElements[GLO_CROSSING].lock = value;
+    } else if (tagProperty.isAdditionalElement()) {
+        myLockedElements[GLO_ADDITIONALELEMENT].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_TAZ) {
+        myLockedElements[GLO_TAZ].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_POLY) {
+        myLockedElements[GLO_POLYGON].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_POI) {
+        myLockedElements[GLO_POI].lock = value;
+    } else if (tagProperty.isRoute()) {
+        myLockedElements[GLO_ROUTE].lock = value;
+    } else if (tagProperty.isVehicle()) {
+        myLockedElements[GLO_VEHICLE].lock = value;
+    } else if (tagProperty.isPerson()) {
+        myLockedElements[GLO_PERSON].lock = value;
+    } else if (tagProperty.isPersonTrip()) {
+        myLockedElements[GLO_PERSONTRIP].lock = value;
+    } else if (tagProperty.isWalk()) {
+        myLockedElements[GLO_WALK].lock = value;
+    } else if (tagProperty.isRide()) {
+        myLockedElements[GLO_RIDE].lock = value;
+    } else if (tagProperty.isContainer()) {
+        myLockedElements[GLO_CONTAINER].lock = value;
+    } else if (tagProperty.isTransportPlan()) {
+        myLockedElements[GLO_TRANSPORT].lock = value;
+    } else if (tagProperty.isTranshipPlan()) {
+        myLockedElements[GLO_TRANSHIP].lock = value;
+    } else if (tagProperty.isStop() || tagProperty.isStopPerson()) {
+        myLockedElements[GLO_STOP].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
+        myLockedElements[GLO_EDGEDATA].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_EDGEREL) {
+        myLockedElements[GLO_EDGERELDATA].lock = value;
+    } else if (tagProperty.getTag() == SUMO_TAG_TAZREL) {
+        myLockedElements[GLO_TAZRELDATA].lock = value;
+    }
+    // update lock menu bar
+    updateLockMenuBar();
+}
+
+
 bool
 GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType) const {
     if ((objectType >= GLO_ADDITIONALELEMENT) && (objectType <= GLO_ACCESS)) {

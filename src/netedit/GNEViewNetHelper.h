@@ -147,6 +147,8 @@ class GNEDemandElement;
 class GNEGenericData;
 class GNEEdgeData;
 class GNEEdgeRelData;
+// other
+class GNETagProperties;
 
 // ===========================================================================
 // classes and structs definitions
@@ -1296,6 +1298,9 @@ struct GNEViewNetHelper {
 
         /// @brief destructor
         ~LockManager();
+
+        /// @brief lock or unlock object based in a tag property
+        void editLocking(const GNETagProperties &tagProperty, const bool value);
 
         /// @brief check if given GLObject is locked for inspect, select, delete and move
         bool isObjectLocked(GUIGlObjectType objectType) const;
