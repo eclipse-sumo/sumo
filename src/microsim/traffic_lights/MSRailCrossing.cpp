@@ -59,7 +59,7 @@ MSRailCrossing::init(NLDetectorBuilder&) {
     mySpaceGap = StringUtils::toDouble(getParameter("space-gap", "-1"));
     myMinGreenTime = string2time(getParameter("min-green", "5"));
     myOpeningDelay = string2time(getParameter("opening-delay", "3"));
-    myOpeningTime = string2time(getParameter("opening-time", "5")); // red-yellow while opening
+    myOpeningTime = string2time(getParameter("opening-time", "3")); // red-yellow while opening
     /// XXX compute reasonable time depending on link length
     myYellowTime = string2time(getParameter("yellow-time", "5"));
     delete myPhases.front();
