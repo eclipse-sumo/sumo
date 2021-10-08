@@ -123,6 +123,8 @@
 #include "netedit_icon16.xpm"
 #include "lock.xpm"
 #include "unlock.xpm"
+#include "lock_selected.xpm"
+#include "unlock_selected.xpm"
 #include "add.xpm"
 #include "remove.xpm"
 
@@ -477,6 +479,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
     myIcons[GUIIcon::LOCK] = new FXXPMIcon(a, lock_xpm);
     myIcons[GUIIcon::UNLOCK] = new FXXPMIcon(a, unlock_xpm);
+    myIcons[GUIIcon::LOCK_SELECTED] = new FXXPMIcon(a, lockselected_xpm);
+    myIcons[GUIIcon::UNLOCK_SELECTED] = new FXXPMIcon(a, unlockselected_xpm);
     myIcons[GUIIcon::ADD] = new FXXPMIcon(a, add_xpm);
     myIcons[GUIIcon::REMOVE] = new FXXPMIcon(a, remove_xpm);
     myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xpm);

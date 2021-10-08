@@ -187,6 +187,8 @@ enum class GUIIcon {
     NETEDIT_MINI,
     LOCK,
     UNLOCK,
+    LOCK_SELECTED,
+    UNLOCK_SELECTED,
     ADD,
     REMOVE,
     BIGARROWLEFT,
