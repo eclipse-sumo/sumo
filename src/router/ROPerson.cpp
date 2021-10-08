@@ -57,7 +57,8 @@ ROPerson::~ROPerson() {
 
 
 void
-ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
+ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
+                  const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
                   const std::string& vTypes, const double departPos, const double arrivalPos,
                   const std::string& busStop, double walkFactor, const std::string& group) {
     PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, arrivalPos, busStop, walkFactor, group);
@@ -75,9 +76,9 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
         SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
         if (type == nullptr) {
             delete trip;
-            throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + getID() + "' is not known.");
+            throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + id + "' is not known.");
         }
-        pars.id = getID() + "_" + toString(trip->getVehicles().size());
+        pars.id = id + "_" + toString(trip->getVehicles().size());
         trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
         // update modeset with routing-category vClass
         if (type->vehicleClass == SVC_BICYCLE) {
@@ -88,11 +89,11 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
     }
     if (trip->getVehicles().empty()) {
         if ((modeSet & SVC_PASSENGER) != 0) {
-            pars.id = getID() + "_0";
+            pars.id = id + "_0";
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
         }
         if ((modeSet & SVC_BICYCLE) != 0) {
-            pars.id = getID() + "_b0";
+            pars.id = id + "_b0";
             pars.vtypeid = DEFAULT_BIKETYPE_ID;
             pars.parametersSet |= VEHPARS_VTYPE_SET;
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_BIKETYPE_ID), net));
@@ -104,32 +105,32 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_TAXITYPE_ID), net));
         }
     }
-    myPlan.push_back(trip);
+    plan.push_back(trip);
 }
 
 
 void
-ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines,
+ROPerson::addRide(std::vector<PlanItem*>& plan, const ROEdge* const from, const ROEdge* const to, const std::string& lines,
                   double arrivalPos, const std::string& destStop, const std::string& group) {
-    if (myPlan.empty() || myPlan.back()->isStop()) {
-        myPlan.push_back(new PersonTrip());
+    if (plan.empty() || plan.back()->isStop()) {
+        plan.push_back(new PersonTrip());
     }
-    myPlan.back()->addTripItem(new Ride(-1, from, to, lines, group, -1., arrivalPos, destStop));
+    plan.back()->addTripItem(new Ride(-1, from, to, lines, group, -1., arrivalPos, destStop));
 }
 
 
 void
-ROPerson::addWalk(const ConstROEdgeVector& edges, const double duration, const double speed, const double departPos, const double arrivalPos, const std::string& busStop) {
-    if (myPlan.empty() || myPlan.back()->isStop()) {
-        myPlan.push_back(new PersonTrip());
+ROPerson::addWalk(std::vector<PlanItem*>& plan, const ConstROEdgeVector& edges, const double duration, const double speed, const double departPos, const double arrivalPos, const std::string& busStop) {
+    if (plan.empty() || plan.back()->isStop()) {
+        plan.push_back(new PersonTrip());
     }
-    myPlan.back()->addTripItem(new Walk(-1, edges, -1., duration, speed, departPos, arrivalPos, busStop));
+    plan.back()->addTripItem(new Walk(-1, edges, -1., duration, speed, departPos, arrivalPos, busStop));
 }
 
 
 void
-ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge) {
-    myPlan.push_back(new Stop(stopPar, stopEdge));
+ROPerson::addStop(std::vector<PlanItem*>& plan, const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge) {
+    plan.push_back(new Stop(stopPar, stopEdge));
 }
 
 

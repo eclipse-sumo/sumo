@@ -155,7 +155,7 @@ protected:
     void addPerson(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person from a personFlow
-    void addFlowPerson(SUMOTime depart, const std::string& baseID, int i);
+    void addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const std::string& baseID, int i);
 
     /// @brief Processing of a container
     void addContainer(const SUMOSAXAttributes& attrs);
@@ -210,7 +210,7 @@ protected:
     SUMOTime myActiveRoutePeriod;
 
     /// @brief The plan of the current person
-    ROPerson* myActivePerson;
+    std::vector<ROPerson::PlanItem*>* myActivePlan;
 
     /// @brief The plan of the current container
     OutputDevice_String* myActiveContainerPlan;

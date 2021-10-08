@@ -59,7 +59,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myNet(net),
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
-    myActivePerson(nullptr),
+    myActivePlan(nullptr),
     myActiveContainerPlan(nullptr),
     myActiveContainerPlanSize(0),
     myTryRepair(tryRepair),
@@ -176,7 +176,7 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
 void
 RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
-    if (myActivePerson != nullptr && myActivePerson->getPlan().empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_RIDE) {
+    if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_RIDE) {
         throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
     } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_TRANSPORT) {
         throw ProcessError("Triggered departure for container '" + myVehicleParameter->id + "' requires starting with a transport.");
@@ -186,12 +186,7 @@ RORouteHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_PERSON:
         case SUMO_TAG_PERSONFLOW: {
-            SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
-            if (type == nullptr) {
-                myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
-                type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
-            }
-            myActivePerson = new ROPerson(*myVehicleParameter, type);
+            myActivePlan = new std::vector<ROPerson::PlanItem*>();
             break;
         }
         case SUMO_TAG_RIDE:
@@ -560,23 +555,38 @@ RORouteHandler::closeVType() {
 
 void
 RORouteHandler::closePerson() {
-    if (myActivePerson->getPlan().empty()) {
+    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    if (type == nullptr) {
+        myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
+        type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
+    }
+    if (myActivePlan == nullptr || myActivePlan->empty()) {
         WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
     } else {
-        if (myNet.addPerson(myActivePerson)) {
+        ROPerson* person = new ROPerson(*myVehicleParameter, type);
+        for (ROPerson::PlanItem* item : *myActivePlan) {
+            person->getPlan().push_back(item);
+        }
+        if (myNet.addPerson(person)) {
             registerLastDepart();
         }
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
-    myActivePerson = nullptr;
+    delete myActivePlan;
+    myActivePlan = nullptr;
 }
 
 
 void
 RORouteHandler::closePersonFlow() {
-    if (myActivePerson->getPlan().empty()) {
-        WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
+    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    if (type == nullptr) {
+        myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for personFlow '" + myVehicleParameter->id + "' is not known.");
+        type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
+    }
+    if (myActivePlan == nullptr || myActivePlan->empty()) {
+        WRITE_WARNING("Discarding personFlow '" + myVehicleParameter->id + "' because it's plan is empty");
     } else {
         // instantiate all persons of this flow
         int i = 0;
@@ -587,38 +597,35 @@ RORouteHandler::closePersonFlow() {
             } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand() < myVehicleParameter->repetitionProbability) {
-                        addFlowPerson(t, baseID, i++);
+                        addFlowPerson(type, t, baseID, i++);
                     }
                 }
             }
         } else {
             SUMOTime depart = myVehicleParameter->depart;
             for (; i < myVehicleParameter->repetitionNumber; i++) {
-                addFlowPerson(depart, baseID, i);
+                addFlowPerson(type, depart, baseID, i);
                 depart += myVehicleParameter->repetitionOffset;
             }
         }
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
-    myActivePerson = nullptr;
+    delete myActivePlan;
+    myActivePlan = nullptr;
 }
 
 
 void
-RORouteHandler::addFlowPerson(SUMOTime depart, const std::string& baseID, int i) {
-    SUMOVehicleParameter pars = myActivePerson->getParameter();
+RORouteHandler::addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const std::string& baseID, int i) {
+    SUMOVehicleParameter pars = *myVehicleParameter;
     pars.id = baseID + "." + toString(i);
     pars.depart = depart;
-    ROPerson* copyPerson = new ROPerson(pars, myActivePerson->getType());
-    for (ROPerson::PlanItem* item : myActivePerson->getPlan()) {
-        copyPerson->getPlan().push_back(item->clone());
+    ROPerson* person = new ROPerson(pars, type);
+    for (ROPerson::PlanItem* item : *myActivePlan) {
+        person->getPlan().push_back(item->clone());
     }
-    if (i == 0) {
-        delete myActivePerson;
-    }
-    myActivePerson = copyPerson;
-    if (myNet.addPerson(myActivePerson)) {
+    if (myNet.addPerson(person)) {
         if (i == 0) {
             registerLastDepart();
         }
@@ -771,7 +778,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     std::string errorSuffix;
-    if (myActivePerson != nullptr) {
+    if (myActivePlan != nullptr) {
         errorSuffix = " in person '" + myVehicleParameter->id + "'.";
     } else if (myActiveContainerPlan != nullptr) {
         errorSuffix = " in container '" + myVehicleParameter->id + "'.";
@@ -852,8 +859,8 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         }
     }
     stop.edge = edge->getID();
-    if (myActivePerson != nullptr) {
-        myActivePerson->addStop(stop, edge);
+    if (myActivePlan != nullptr) {
+        ROPerson::addStop(*myActivePlan, stop, edge);
     } else if (myVehicleParameter != nullptr) {
         myVehicleParameter->stops.push_back(stop);
     } else {
@@ -879,7 +886,7 @@ RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 void
 RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
+    std::vector<ROPerson::PlanItem*>& plan = *myActivePlan;
     const std::string pid = myVehicleParameter->id;
 
     ROEdge* from = nullptr;
@@ -926,9 +933,9 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         if (vehDepart == -1) {
             throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
         }
-        myActivePerson->setDepart(vehDepart + 1); // write person after vehicle
+        myVehicleParameter->depart = vehDepart + 1; // write person after vehicle
     }
-    myActivePerson->addRide(from, to, desc, arrivalPos, stoppingPlaceID, group);
+    ROPerson::addRide(plan, from, to, desc, arrivalPos, stoppingPlaceID, group);
 }
 
 
@@ -1103,7 +1110,7 @@ RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
-    departPos = myActivePerson->getParameter().departPos;
+    departPos = myVehicleParameter->departPos;
     if (lastStage != nullptr) {
         departPos = lastStage->getDestinationPos();
     }
@@ -1141,10 +1148,10 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         if (ok) {
             from = myActiveRoute.front();
         }
-    } else if (myActivePerson->getPlan().empty()) {
+    } else if (myActivePlan->empty()) {
         throw ProcessError("Start edge not defined for person '" + myVehicleParameter->id + "'.");
     } else {
-        from = myActivePerson->getPlan().back()->getDestination();
+        from = myActivePlan->back()->getDestination();
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
             || attrs.hasAttribute(SUMO_ATTR_TOLONLAT) || attrs.hasAttribute(SUMO_ATTR_TOXY)) {
@@ -1159,7 +1166,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     double departPos = 0;
     double arrivalPos = std::numeric_limits<double>::infinity();
     std::string busStopID;
-    const ROPerson::PlanItem* const lastStage = myActivePerson->getPlan().empty() ? nullptr : myActivePerson->getPlan().back();
+    const ROPerson::PlanItem* const lastStage = myActivePlan->empty() ? nullptr : myActivePlan->back();
     parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, busStopID, lastStage, ok);
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
@@ -1182,7 +1189,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     if (ok) {
-        myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStopID, walkFactor, group);
+        ROPerson::addTrip(*myActivePlan, myVehicleParameter->id, from, to, modeSet, types, departPos, arrivalPos, busStopID, walkFactor, group);
     }
 }
 
@@ -1226,7 +1233,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         const std::string errorSuffix = " for walk of person '" + myVehicleParameter->id + "'";
         retrieveStoppingPlace(attrs, errorSuffix, stoppingPlaceID);
         if (ok) {
-            myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, stoppingPlaceID);
+            ROPerson::addWalk(*myActivePlan, myActiveRoute, duration, speed, departPos, arrivalPos, stoppingPlaceID);
         }
     } else {
         addPersonTrip(attrs);

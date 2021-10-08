@@ -49,6 +49,7 @@ class ROEdge;
 class ROPerson : public RORoutable {
 
 public:
+    class PlanItem;
     /** @brief Constructor
      *
      * @param[in] pars Parameter of this person
@@ -59,17 +60,18 @@ public:
     /// @brief Destructor
     virtual ~ROPerson();
 
-    void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                 const std::string& vTypes, const double departPos, const double arrivalPos,
-                 const std::string& busStop, double walkFactor, const std::string& group);
+    static void addTrip(std::vector<PlanItem*>& plan, const std::string& id,
+                        const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
+                        const std::string& vTypes, const double departPos, const double arrivalPos,
+                        const std::string& busStop, double walkFactor, const std::string& group);
 
-    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines,
-                 double arrivalPos, const std::string& destStop, const std::string& group);
+    static void addRide(std::vector<PlanItem*>& plan, const ROEdge* const from, const ROEdge* const to, const std::string& lines,
+                        double arrivalPos, const std::string& destStop, const std::string& group);
 
-    void addWalk(const ConstROEdgeVector& edges, const double duration, const double speed,
-                 const double departPos, const double arrivalPos, const std::string& busStop);
+    static void addWalk(std::vector<PlanItem*>& plan, const ConstROEdgeVector& edges, const double duration, const double speed,
+                        const double departPos, const double arrivalPos, const std::string& busStop);
 
-    void addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge);
+    static void addStop(std::vector<PlanItem*>& plan, const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge);
 
     class TripItem;
     /**
