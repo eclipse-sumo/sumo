@@ -203,7 +203,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 config_args += ["--" + option.name + "=" + value]
                             else:
                                 config_args += ["--" + option.name]
-        #print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
+        # print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
         self.write_config_file(namespace)
