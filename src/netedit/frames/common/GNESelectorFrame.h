@@ -232,13 +232,16 @@ public:
         FOX_CONSTRUCTOR(SelectionOperation)
 
         /// @brief process network element selection
-        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect);
+        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking);
 
         /// @brief process demand element selection
-        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect);
+        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking);
 
         /// @brief process data element selection
-        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect);
+        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking);
+
+        /// @brief ask if continue due locking
+        bool askContinueIfLock() const;
 
     private:
         /// @brief pointer to Selector Frame Parent

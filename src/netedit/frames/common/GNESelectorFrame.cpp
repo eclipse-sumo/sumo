@@ -340,17 +340,20 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
+    bool ignoreLocking = false;
     // only continue if there is element for selecting
-    if (processNetworkElementSelection(true, false) || processDemandElementSelection(true, false) || processDataElementSelection(true, false)) {
+    if ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork() && processNetworkElementSelection(true, false, ignoreLocking)) ||
+        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) || 
+        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         mySelectorFrameParent->myViewNet->getUndoList()->begin("invert selection");
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-            processNetworkElementSelection(false, true);
+            processNetworkElementSelection(false, true, ignoreLocking);
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-            processDemandElementSelection(false, true);
+            processDemandElementSelection(false, true, ignoreLocking);
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-            processDataElementSelection(false, true);
+            processDataElementSelection(false, true, ignoreLocking);
         }
         // finish selection operation
         mySelectorFrameParent->myViewNet->getUndoList()->end();
@@ -368,20 +371,23 @@ GNESelectorFrame::SelectionOperation::onCmdDelete(FXObject*, FXSelector, void*) 
 
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
+    bool ignoreLocking = false;
     // only continue if there is element for selecting
-    if (processNetworkElementSelection(true, false) || processDemandElementSelection(true, false) || processDataElementSelection(true, false)) {
+    if ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork() && processNetworkElementSelection(true, false, ignoreLocking)) ||
+        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) || 
+        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         mySelectorFrameParent->myViewNet->getUndoList()->begin("invert selection");
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // invert network elements
-            processNetworkElementSelection(false, false);
+            processNetworkElementSelection(false, false, ignoreLocking);
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // invert demand elements
-            processDemandElementSelection(false, false);
+            processDemandElementSelection(false, false, ignoreLocking);
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
             // invert data elements
-            processDataElementSelection(false, false);
+            processDataElementSelection(false, false, ignoreLocking);
         }
         // finish selection operation
         mySelectorFrameParent->myViewNet->getUndoList()->end();
@@ -391,7 +397,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
 
 
 bool 
-GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect) {
+GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking) {
     // obtan locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
     // get attribute carriers (only for improve code legibly)
@@ -401,7 +407,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     // iterate over junctions
     for (const auto& junction : ACs->getJunctions()) {
         // check if junction selection is locked
-        if (!locks.isObjectLocked(GLO_JUNCTION)) {
+        if (ignoreLocking || !locks.isObjectLocked(GLO_JUNCTION)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || junction.second->isAttributeCarrierSelected()) {
@@ -409,21 +415,27 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
             } else {
                 junction.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
+        } else if (onlyCount) {
+            ignoreLocking = askContinueIfLock();
+            return true;
         }
         // due we iterate over all junctions, only it's neccesary iterate over incoming edges
         for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
             // special case for clear
             if (onlyUnselect) {
                 // check if edge selection is locked
-                if (!locks.isObjectLocked(GLO_EDGE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_EDGE)) {
                     if (onlyCount) {
                         return true;
                     } else {
                         incomingEdge->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     }
+                } else if (onlyCount) {
+                    ignoreLocking = askContinueIfLock();
+                    return true;
                 }
                 // check if lane selection is locked
-                if (!locks.isObjectLocked(GLO_LANE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_LANE)) {
                     for (const auto& lane : incomingEdge->getLanes()) {
                         if (onlyCount) {
                             return true;
@@ -431,10 +443,13 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                             lane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                         }
                     }
+                } else if (onlyCount) {
+                    ignoreLocking = askContinueIfLock();
+                    return true;
                 }
             } else if (mySelectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
                 // check if edge selection is locked
-                if (!locks.isObjectLocked(GLO_EDGE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_EDGE)) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || incomingEdge->isAttributeCarrierSelected()) {
@@ -442,10 +457,13 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                     } else {
                         incomingEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
+                } else if (onlyCount) {
+                    ignoreLocking = askContinueIfLock();
+                    return true;
                 }
             } else {
                 // check if lane selection is locked
-                if (!locks.isObjectLocked(GLO_LANE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_LANE)) {
                     for (const auto& lane : incomingEdge->getLanes()) {
                         if (onlyCount) {
                             return true;
@@ -455,10 +473,13 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                             lane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                         }
                     }
+                } else if (onlyCount) {
+                    ignoreLocking = askContinueIfLock();
+                    return true;
                 }
             }
             // check if connection selection is locked
-            if (!locks.isObjectLocked(GLO_CONNECTION)) {
+            if (ignoreLocking || !locks.isObjectLocked(GLO_CONNECTION)) {
                 for (const auto& connection : incomingEdge->getGNEConnections()) {
                     if (onlyCount) {
                         return true;
@@ -468,10 +489,13 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                         connection->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
+            } else if (onlyCount) {
+                ignoreLocking = askContinueIfLock();
+                return true;
             }
         }
         // check if crossing selection is locked
-        if (!locks.isObjectLocked(GLO_CROSSING)) {
+        if (ignoreLocking || !locks.isObjectLocked(GLO_CROSSING)) {
             for (const auto& crossing : junction.second->getGNECrossings()) {
                 if (onlyCount) {
                     return true;
@@ -481,10 +505,13 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                     crossing->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 }
             }
+        } else if (onlyCount) {
+            ignoreLocking = askContinueIfLock();
+            return true;
         }
     }
     // check if additionals selection is locked
-    if (!locks.isObjectLocked(GLO_ADDITIONALELEMENT)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT)) {
         for (const auto& additionals : ACs->getAdditionals()) {
             // first check if additional is selectable
             if (GNEAttributeCarrier::getTagProperties(additionals.first).isSelectable()) {
@@ -512,9 +539,12 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 }
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert polygons
-    if (!locks.isObjectLocked(GLO_POLYGON)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_POLYGON)) {
         for (const auto& polygon : ACs->getShapes().at(SUMO_TAG_POLY)) {
             if (onlyCount) {
                 return true;
@@ -524,9 +554,12 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert TAZs
-    if (!locks.isObjectLocked(GLO_TAZ)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_TAZ)) {
         for (const auto& polygon : ACs->getTAZElements().at(SUMO_TAG_TAZ)) {
             if (onlyCount) {
                 return true;
@@ -536,9 +569,12 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert POIs and POILanes
-    if (!locks.isObjectLocked(GLO_POI)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_POI)) {
         for (const auto& POI : ACs->getShapes().at(SUMO_TAG_POI)) {
             if (onlyCount) {
                 return true;
@@ -548,13 +584,16 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 POI.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     return false;
 }
 
 
 bool 
-GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool onlyCount, const bool onlyUnselect) {
+GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking) {
     // obtan locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
     // obtain undoList (only for improve code legibly)
@@ -562,7 +601,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     // get demand elements
     const auto &demandElements = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
     // invert routes
-    if (!locks.isObjectLocked(GLO_ROUTE)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_ROUTE)) {
         for (const auto& route : demandElements.at(SUMO_TAG_ROUTE)) {
             if (onlyCount) {
                 return true;
@@ -591,9 +630,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 routeFlow.second->getChildDemandElements().front()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert vehicles
-    if (!locks.isObjectLocked(GLO_VEHICLE)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_VEHICLE)) {
         for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
             if (onlyCount) {
                 return true;
@@ -648,9 +690,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert persons
-    if (!locks.isObjectLocked(GLO_PERSON)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSON)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             if (onlyCount) {
                 return true;
@@ -669,9 +714,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 personFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert person trip
-    if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto &personPlan : person.second->getChildDemandElements()) {
                 if (onlyCount) {
@@ -698,9 +746,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 }
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert ride
-    if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto &personPlan : person.second->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isRide()) {
@@ -727,9 +778,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 }
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert walks
-    if (!locks.isObjectLocked(GLO_PERSONTRIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto &personPlan : person.second->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isWalk()) {
@@ -756,9 +810,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 }
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert containers
-    if (!locks.isObjectLocked(GLO_CONTAINER)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_CONTAINER)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
             if (onlyCount) {
                 return true;
@@ -777,9 +834,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 containerFlow.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert container
-    if (!locks.isObjectLocked(GLO_TRANSPORT)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSPORT)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
             for (const auto &containerPlan : container.second->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTransportPlan()) {
@@ -806,9 +866,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 }
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert ride
-    if (!locks.isObjectLocked(GLO_TRANSHIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSHIP)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
             for (const auto &containerPlan : container.second->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTranshipPlan()) {
@@ -835,9 +898,12 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 }
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     // invert stops
-    if (!locks.isObjectLocked(GLO_STOP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_STOP)) {
         for (const auto& demandElementTag : demandElements) {
             for (const auto& demandElement : demandElementTag.second) {
                 // avoid vTypes
@@ -872,22 +938,28 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 }
             }
         }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     return false;
 }
 
 
 bool 
-GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onlyCount, const bool onlyUnselect) {
+GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking) {
     // obtan locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
     // invert dataSets
     for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
         for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
             for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                if ((!locks.isObjectLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                    (!locks.isObjectLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA)) ||
-                    (!locks.isObjectLocked(GLO_TAZRELDATA) && (genericData->getType() == GLO_TAZRELDATA))) {
+                if (onlyCount && locks.isObjectLocked(genericData->getType())) {
+                    ignoreLocking = askContinueIfLock();
+                    return true;
+                } else if ((ignoreLocking || !locks.isObjectLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
+                    (ignoreLocking || !locks.isObjectLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA)) ||
+                    (ignoreLocking || !locks.isObjectLocked(GLO_TAZRELDATA) && (genericData->getType() == GLO_TAZRELDATA))) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {
@@ -900,6 +972,28 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
         }
     }
     return false;
+}
+
+
+bool 
+GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
+    WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
+    // open question box
+    const FXuint answer = FXMessageBox::question(mySelectorFrameParent->getViewNet()->getApp(), 
+        MBOX_YES_NO, "Confirm selection operation", "There are locked elements in currentselection.\nApply operation to locked elements?");
+    if (answer != 1) { //1:yes, 2:no, 4:esc
+        // write warning if netedit is running in testing mode
+        if (answer == 2) {
+            WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'No'");
+        } else if (answer == 4) {
+            WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'ESC'");
+        }
+        return false;
+    } else {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'Yes'");
+        return true;
+    }
 }
 
 // ---------------------------------------------------------------------------
