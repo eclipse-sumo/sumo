@@ -151,6 +151,33 @@ the crossings may have to be specified [via additional xml
 files](../Tutorials/ScenarioGuide.md#modifying_an_imported_network_via_plainxml)
 or set via [netedit](../Netedit/index.md) after importing.
 
+### Rail Crossing Parameters
+
+The following parameters may be defined in an additional file to configure timing and behavior of a rail crossing (example below).
+Time values are in seconds.
+
+- time-gap : time headway of approaching train that triggers closing the crossing (default 15)
+- space-gap : space headway of approaching train that triggers closing the crossing (default -1, which disables this check)
+- min-green-time : minimum green time for opening the crossing when another train is approaching (default 5)
+- opening-delay : time after train has passed the crossing before the opening sequence starts (default 3)
+- opening-time : time for opening the crossing (indicated by red-yellow state 'u') (default 3)
+- yellow-time : time for closing the crossing (default 3)
+
+When setting parameters, 'id' indicates the id of the rail-crossing junction and programID is always '0'.
+
+```
+additional_file.xsd">
+    <tlLogic id="C" programID="0">
+        <param key="time-gap" value="15.0"
+        <param key="space-gap" value="-1.0"
+        <param key="min-green-time" value="5.0"
+        <param key="opening-delay" value="3.0"/>
+        <param key="opening-time" value="3.0"/>
+        <param key="yellow-time" value="3.0"/>
+    </tlLogic>
+</additional>
+```
+
 ## Kilometrage (Mileage, Chainage)
 
 Edges support the attribute *distance* to denote the distance at the
