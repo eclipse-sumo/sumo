@@ -18,7 +18,7 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
-#include <netedit/elements/GNETagProperties.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
@@ -1311,51 +1311,51 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
 
 
 void 
-GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNETagProperties &tagProperty, const FXbool value) {
+GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarrier *AC, const FXbool value) {
     // check elements
-    if (tagProperty.getTag() == SUMO_TAG_JUNCTION) {
+    if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         menuCheckLockJunction->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_EDGE) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         menuCheckLockEdges->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_LANE) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
         menuCheckLockLanes->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_CONNECTION) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
         menuCheckLockConnections->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_CROSSING) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
         menuCheckLockCrossings->setCheck(value);
-    } else if (tagProperty.isAdditionalElement()) {
+    } else if (AC->getTagProperty().isAdditionalElement()) {
         menuCheckLockAdditionals->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_TAZ) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
         menuCheckLockTAZs->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_POLY) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
         menuCheckLockPolygons->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_POI) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_POI) {
         menuCheckLockPOIs->setCheck(value);
-    } else if (tagProperty.isRoute()) {
+    } else if (AC->getTagProperty().isRoute()) {
         menuCheckLockRoutes->setCheck(value);
-    } else if (tagProperty.isVehicle()) {
+    } else if (AC->getTagProperty().isVehicle()) {
         menuCheckLockVehicles->setCheck(value);
-    } else if (tagProperty.isPerson()) {
+    } else if (AC->getTagProperty().isPerson()) {
         menuCheckLockPersons->setCheck(value);
-    } else if (tagProperty.isPersonTrip()) {
+    } else if (AC->getTagProperty().isPersonTrip()) {
         menuCheckLockPersonTrip->setCheck(value);
-    } else if (tagProperty.isWalk()) {
+    } else if (AC->getTagProperty().isWalk()) {
         menuCheckLockWalk->setCheck(value);
-    } else if (tagProperty.isRide()) {
+    } else if (AC->getTagProperty().isRide()) {
         menuCheckLockRides->setCheck(value);
-    } else if (tagProperty.isContainer()) {
+    } else if (AC->getTagProperty().isContainer()) {
         menuCheckLockContainers->setCheck(value);
-    } else if (tagProperty.isTransportPlan()) {
+    } else if (AC->getTagProperty().isTransportPlan()) {
         menuCheckLockTransports->setCheck(value);
-    } else if (tagProperty.isTranshipPlan()) {
+    } else if (AC->getTagProperty().isTranshipPlan()) {
         menuCheckLockTranships->setCheck(value);
-    } else if (tagProperty.isStop() || tagProperty.isStopPerson()) {
+    } else if (AC->getTagProperty().isStop() || AC->getTagProperty().isStopPerson()) {
         menuCheckLockStops->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
         menuCheckLockEdgeDatas->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_EDGEREL) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
         menuCheckLockEdgeRelDatas->setCheck(value);
-    } else if (tagProperty.getTag() == SUMO_TAG_TAZREL) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
         menuCheckLockEdgeTAZRels->setCheck(value);
     }
 }

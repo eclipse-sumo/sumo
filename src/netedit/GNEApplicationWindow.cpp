@@ -1637,7 +1637,7 @@ GNEApplicationWindow::onCmdLockSelectElements(FXObject*, FXSelector, void*) {
     const auto selectedACs = myViewNet->getNet()->retrieveAttributeCarriers(myViewNet->getEditModes().currentSupermode, true);
     // lock
     for (const auto &AC : selectedACs) {
-        myLockMenuCommands.editLocking(AC->getTagProperty(), TRUE);
+        myLockMenuCommands.editLocking(AC, TRUE);
     }
     myViewNet->getLockManager().updateFlags();
     return 1;
@@ -1650,7 +1650,7 @@ GNEApplicationWindow::onCmdUnlockSelectElements(FXObject*, FXSelector, void*) {
     const auto selectedACs = myViewNet->getNet()->retrieveAttributeCarriers(myViewNet->getEditModes().currentSupermode, true);
     // unlock
     for (const auto &AC : selectedACs) {
-        myLockMenuCommands.editLocking(AC->getTagProperty(), FALSE);
+        myLockMenuCommands.editLocking(AC, FALSE);
     }
     myViewNet->getLockManager().updateFlags();
     return 1;
