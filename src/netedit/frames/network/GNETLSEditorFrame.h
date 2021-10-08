@@ -123,17 +123,23 @@ public:
         /// @brief get current program ID
         const std::string getCurrentTLSProgramID() const;
 
-        /// @brief get current offset in SUMOTIme
+        /// @brief get current offset in string format
         SUMOTime getOffset() const;
 
         /// @brief set new offset
-        void setOffset(SUMOTime offset);
+        void setOffset(const SUMOTime &offset);
+
+        /// @brief is current offset valid
+        bool isValidOffset();
 
         /// @brief get current parameters in string format
         std::string getParameters() const;
 
         /// @brief set new parameters
         void setParameters(const std::string &parameters);
+
+        /// @brief are current parameter valid
+        bool isValidParameters();
 
         /// @brief get number of definitions
         int getNumberOfTLSDefinitions() const;
@@ -339,10 +345,10 @@ public:
     long onCmdDefDelete(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user changes the offset of a TLS
-    long onCmdDefOffset(FXObject*, FXSelector, void*);
+    long onCmdSetOffset(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user changes parameters of a TLS
-    long onCmdChangeParameters(FXObject*, FXSelector, void*);
+    long onCmdSetParameters(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user switchs a TLS
     long onCmdDefSwitch(FXObject*, FXSelector, void*);

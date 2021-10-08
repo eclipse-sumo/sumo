@@ -48,9 +48,9 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onUpdDefSwitch),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onCmdDefSwitch),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onUpdDefSwitch),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onCmdDefOffset),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onCmdSetOffset),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::onCmdChangeParameters),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::onCmdSetParameters),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_RENAME,          GNETLSEditorFrame::onCmdDefRename),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::onCmdDefSubRename),
@@ -355,6 +355,7 @@ GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
         delete myEditedDef;
         myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
         myTLSAttributes->setOffset(myEditedDef->getLogic()->getOffset());
+        myTLSAttributes->setParameters(myEditedDef->getLogic()->getParametersStr());
         myTLSPhases->initPhaseTable();
         myTLSPhases->updateCycleDuration();
         myTLSPhases->showCycleDuration();
@@ -413,17 +414,21 @@ GNETLSEditorFrame::onUpdModified(FXObject* o, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::onCmdDefOffset(FXObject*, FXSelector, void*) {
-    myTLSModifications->setHaveModifications(true);
-    myEditedDef->setOffset(myTLSAttributes->getOffset());
+GNETLSEditorFrame::onCmdSetOffset(FXObject*, FXSelector, void*) {
+    if (myTLSAttributes->isValidOffset()) {
+        myTLSModifications->setHaveModifications(true);
+        myEditedDef->setOffset(myTLSAttributes->getOffset());
+    }
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::onCmdChangeParameters(FXObject*, FXSelector, void*) {
-    myTLSModifications->setHaveModifications(true);
-    myEditedDef->setParametersStr(myTLSAttributes->getParameters());
+GNETLSEditorFrame::onCmdSetParameters(FXObject*, FXSelector, void*) {
+    if (myTLSAttributes->isValidParameters()) {
+        myTLSModifications->setHaveModifications(true);
+        myEditedDef->setParametersStr(myTLSAttributes->getParameters());
+    }
     return 1;
 }
 
@@ -994,8 +999,10 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
     myNameTextField->enable();
     // enable Offset
     myOffsetTextField->enable();
+    myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // enable parameters
     myParametersTextField->enable();
+    myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // obtain TLSs
     for (auto it : junction->getNBNode()->getControllingTLS()) {
         myTLSDefinitions.push_back(it);
@@ -1025,9 +1032,11 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     // clear and disable Offset TextField
     myOffsetTextField->setText("");
     myOffsetTextField->disable();
+    myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // clear and disable parameters TextField
     myParametersTextField->setText("");
     myParametersTextField->disable();
+    myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
 }
 
 
@@ -1061,13 +1070,26 @@ GNETLSEditorFrame::TLSAttributes::getNumberOfPrograms() const {
 
 SUMOTime
 GNETLSEditorFrame::TLSAttributes::getOffset() const {
-    return getSUMOTime(myOffsetTextField->getText());
+    return getSUMOTime(myOffsetTextField->getText().text());
 }
 
 
 void
-GNETLSEditorFrame::TLSAttributes::setOffset(SUMOTime offset) {
+GNETLSEditorFrame::TLSAttributes::setOffset(const SUMOTime &offset) {
     myOffsetTextField->setText(toString(STEPS2TIME(offset)).c_str());
+    myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+}
+
+
+bool
+GNETLSEditorFrame::TLSAttributes::isValidOffset() {
+    if (GNEAttributeCarrier::canParse<SUMOTime>(myOffsetTextField->getText().text())) {
+        myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+        return true;
+    } else {
+        myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::RED));
+        return false;
+    }
 }
 
 
@@ -1080,6 +1102,19 @@ GNETLSEditorFrame::TLSAttributes::getParameters() const {
 void
 GNETLSEditorFrame::TLSAttributes::setParameters(const std::string &parameters) {
     myParametersTextField->setText(parameters.c_str());
+    myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+}
+
+
+bool
+GNETLSEditorFrame::TLSAttributes::isValidParameters() {
+    if (Parameterised::areParametersValid(myParametersTextField->getText().text())) {
+        myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+        return true;
+    } else {
+        myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::RED));
+        return false;
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1432,6 +1467,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
     device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
     device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
     device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
+    myTLSEditorParent->myEditedDef->writeParams(device);
     // write the phases
     const bool varPhaseLength = myTLSEditorParent->myEditedDef->getLogic()->getType() != TrafficLightType::STATIC;
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
