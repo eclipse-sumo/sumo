@@ -301,6 +301,12 @@ public:
     /// @brief called when user press unlock all elements button
     long onCmdUnlockAllElements(FXObject*, FXSelector sel, void*);
 
+    /// @brief called when user press lock select elements button
+    long onCmdLockSelectElements(FXObject*, FXSelector sel, void*);
+
+    /// @brief called when user press unlock select elements button
+    long onCmdUnlockSelectElements(FXObject*, FXSelector sel, void*);
+
     /// @brief enable or disable lock menu title
     long onUpdLockMenuTitle(FXObject*, FXSelector sel, void*);
 

@@ -258,10 +258,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     */
 
     // toolbar lock
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCKELEMENT,                            GNEApplicationWindow::onCmdLockElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCKALLELEMENTS,                        GNEApplicationWindow::onCmdLockAllElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNLOCKALLELEMENTS,                      GNEApplicationWindow::onCmdUnlockAllElements),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_LOCKMENUTITLE,                          GNEApplicationWindow::onUpdLockMenuTitle),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_ELEMENT,                           GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_ALLELEMENTS,                       GNEApplicationWindow::onCmdLockAllElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNLOCK_ALLELEMENTS,                     GNEApplicationWindow::onCmdUnlockAllElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_SELECTEDELEMENTS,                  GNEApplicationWindow::onCmdLockSelectElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNLOCK_SELECTEDELEMENTS,                GNEApplicationWindow::onCmdUnlockSelectElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_LOCK_MENUTITLE,                         GNEApplicationWindow::onUpdLockMenuTitle),
 
     // Toolbar processing
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,                   GNEApplicationWindow::onCmdProcessButton),
@@ -1162,7 +1164,7 @@ GNEApplicationWindow::fillMenuBar() {
     myLockMenu = new FXMenuPane(this);
     myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "L&ock", nullptr, myLockMenu);
     myLockMenuTitle->setTarget(this);
-    myLockMenuTitle->setSelector(MID_GNE_LOCKMENUTITLE);
+    myLockMenuTitle->setSelector(MID_GNE_LOCK_MENUTITLE);
     // build lock menu commmands
     myLockMenuCommands.buildLockMenuCommands(myLockMenu);
     // build processing menu (trigger netbuild computations)
@@ -1624,6 +1626,32 @@ long
 GNEApplicationWindow::onCmdUnlockAllElements(FXObject*, FXSelector, void*) {
     // unlock all
     myLockMenuCommands.unlockAll();
+    myViewNet->getLockManager().updateFlags();
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdLockSelectElements(FXObject*, FXSelector, void*) {
+    // set get selected ACs
+    const auto selectedACs = myViewNet->getNet()->retrieveAttributeCarriers(myViewNet->getEditModes().currentSupermode, true);
+    // lock
+    for (const auto &AC : selectedACs) {
+        myLockMenuCommands.editLocking(AC->getTagProperty(), TRUE);
+    }
+    myViewNet->getLockManager().updateFlags();
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdUnlockSelectElements(FXObject*, FXSelector, void*) {
+    // set get selected ACs
+    const auto selectedACs = myViewNet->getNet()->retrieveAttributeCarriers(myViewNet->getEditModes().currentSupermode, true);
+    // unlock
+    for (const auto &AC : selectedACs) {
+        myLockMenuCommands.editLocking(AC->getTagProperty(), FALSE);
+    }
     myViewNet->getLockManager().updateFlags();
     return 1;
 }
