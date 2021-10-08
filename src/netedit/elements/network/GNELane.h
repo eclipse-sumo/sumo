@@ -235,6 +235,9 @@ public:
     /// @brief draw overlapped routes
     void drawOverlappedRoutes(const int numRoutes) const;
 
+    /// @brief draw laneStopOffset
+    void drawLaneStopOffset(const GUIVisualizationSettings& s, const double offset) const;
+
 protected:
     /// @brief FOX needs this
     GNELane();
@@ -315,9 +318,6 @@ private:
 
     /// @brief draw lane as railway
     void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
-
-    /// @brief draw laneStopOffset
-    void drawLaneStopOffset(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw lane textures
     void drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;

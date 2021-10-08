@@ -534,7 +534,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             myParentEdge->drawEdgeGeometryPoints(s, this);
         }
         // draw stopOffsets
-        drawLaneStopOffset(s, laneDrawingConstants);
+        const auto &laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
+        if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
+            drawLaneStopOffset(s, laneStopOffset.getOffset());
+        }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // Pop layer matrix
@@ -1328,6 +1331,27 @@ GNELane::drawOverlappedRoutes(const int numRoutes) const {
 }
 
 
+void 
+GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s, const double offset) const {
+    GNELane::LaneDrawingConstants laneDrawingConstants(s, this);
+    const Position& end = getLaneShape().back();
+    const Position& f = getLaneShape()[-2];
+    const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
+    GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
+    GLHelper::pushMatrix();
+    glTranslated(end.x(), end.y(), 1);
+    glRotated(rot, 0, 0, 1);
+    glTranslated(0, offset, 0);
+    glBegin(GL_QUADS);
+    glVertex2d(-laneDrawingConstants.halfWidth, 0.0);
+    glVertex2d(-laneDrawingConstants.halfWidth, 0.2);
+    glVertex2d(laneDrawingConstants.halfWidth, 0.2);
+    glVertex2d(laneDrawingConstants.halfWidth, 0.0);
+    glEnd();
+    GLHelper::popMatrix();
+}
+
+
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myParentEdge->getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
@@ -1424,32 +1448,6 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
             ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, halfGauge, 1, true, true);
-    }
-}
-
-
-void 
-GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const {
-    // get stop offset
-    const auto laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
-    // draw stopOffset for passenger cars
-    if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
-        const double stopOffsetPassenger = laneStopOffset.getOffset();
-        const Position& end = getLaneShape().back();
-        const Position& f = getLaneShape()[-2];
-        const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-        GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
-        GLHelper::pushMatrix();
-        glTranslated(end.x(), end.y(), 1);
-        glRotated(rot, 0, 0, 1);
-        glTranslated(0, stopOffsetPassenger, 0);
-        glBegin(GL_QUADS);
-        glVertex2d(-laneDrawingConstants.halfWidth, 0.0);
-        glVertex2d(-laneDrawingConstants.halfWidth, 0.2);
-        glVertex2d(laneDrawingConstants.halfWidth, 0.2);
-        glVertex2d(laneDrawingConstants.halfWidth, 0.0);
-        glEnd();
-        GLHelper::popMatrix();
     }
 }
 

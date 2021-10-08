@@ -431,6 +431,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             vehicle->drawGL(s);
         }
     }
+    // draw edge stopOffset
+    drawLaneStopOffset(s);
     // draw name if isn't being drawn for selecting
     drawEdgeName(s);
     // draw dotted contours
@@ -2145,6 +2147,26 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
             }
         }
     }
+}
+
+
+void
+GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
+    // Push stopOffset matrix
+    GLHelper::pushMatrix();
+    // translate to front (note: Special case)
+    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+    } else {
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
+    }
+    if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
+        for (const auto &lane : getLanes()) {
+            lane->drawLaneStopOffset(s, myNBEdge->myEdgeStopOffset.getOffset());
+        }
+    }
+    // Push stopOffset matrix
+    GLHelper::popMatrix();
 }
 
 

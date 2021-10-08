@@ -401,6 +401,9 @@ private:
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw edgeStopOffset
+    void drawLaneStopOffset(const GUIVisualizationSettings& s) const;
+
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
 
