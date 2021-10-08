@@ -928,8 +928,10 @@ enum {
     MID_GNE_TLSFRAME_UPDATE_STATUS,
     /// @brief replace program with a newly guessed program
     MID_GNE_TLSFRAME_GUESSPROGRAM,
-    /// @brief definition related controls
+    /// @brief TLS offset
     MID_GNE_TLSFRAME_OFFSET,
+    /// @brief TLS parameters
+    MID_GNE_TLSFRAME_PARAMETERS,
     /// @brief switch between programs
     MID_GNE_TLSFRAME_SWITCH,
     /// @brief Create TLS

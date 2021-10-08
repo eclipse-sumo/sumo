@@ -129,6 +129,12 @@ public:
         /// @brief set new offset
         void setOffset(SUMOTime offset);
 
+        /// @brief get current parameters in string format
+        std::string getParameters() const;
+
+        /// @brief set new parameters
+        void setParameters(const std::string &parameters);
+
         /// @brief get number of definitions
         int getNumberOfTLSDefinitions() const;
 
@@ -142,23 +148,17 @@ public:
         /// @brief the list of Definitions for the current junction
         std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
 
-        /// @brief name label
-        FXLabel* myNameLabel;
-
         /// @brief name text field
         FXTextField* myNameTextField;
-
-        /// @brief program label
-        FXLabel* myProgramLabel;
 
         /// @brief the comboBox for selecting the tl-definition to edit
         FXComboBox* myProgramComboBox;
 
-        /// @brief offset label
-        FXLabel* myOffsetLabel;
-
-        /// @brief the control for modifying offset
+        /// @brief the TextField for modifying offset
         FXTextField* myOffsetTextField;
+
+        /// @brief the TextField for modifying parameters
+        FXTextField* myParametersTextField;
     };
 
     // ===========================================================================
@@ -340,6 +340,9 @@ public:
 
     /// @brief Called when the user changes the offset of a TLS
     long onCmdDefOffset(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user changes parameters of a TLS
+    long onCmdChangeParameters(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user switchs a TLS
     long onCmdDefSwitch(FXObject*, FXSelector, void*);

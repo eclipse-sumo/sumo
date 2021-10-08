@@ -50,6 +50,8 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onUpdDefSwitch),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onCmdDefOffset),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::onCmdChangeParameters),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_RENAME,          GNETLSEditorFrame::onCmdDefRename),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::onCmdDefSubRename),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDOFF,          GNETLSEditorFrame::onCmdDefAddOff),
@@ -414,6 +416,14 @@ long
 GNETLSEditorFrame::onCmdDefOffset(FXObject*, FXSelector, void*) {
     myTLSModifications->setHaveModifications(true);
     myEditedDef->setOffset(myTLSAttributes->getOffset());
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::onCmdChangeParameters(FXObject*, FXSelector, void*) {
+    myTLSModifications->setHaveModifications(true);
+    myEditedDef->setParametersStr(myTLSAttributes->getParameters());
     return 1;
 }
 
@@ -949,21 +959,27 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
 
     // create frame, label and textfield for name (By default disabled)
     FXHorizontalFrame* nameFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myNameLabel = new FXLabel(nameFrame, "ID", nullptr, GUIDesignLabelAttribute);
+    new FXLabel(nameFrame, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
     myNameTextField = new FXTextField(nameFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
     myNameTextField->disable();
 
     // create frame, label and comboBox for Program (By default hidden)
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myProgramLabel = new FXLabel(programFrame, "Program", nullptr, GUIDesignLabelAttribute);
+    new FXLabel(programFrame, "program", nullptr, GUIDesignLabelAttribute);
     myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignComboBoxAttribute);
     myProgramComboBox->disable();
 
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myOffsetLabel = new FXLabel(offsetFrame, "Offset", nullptr, GUIDesignLabelAttribute);
+    new FXLabel(offsetFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
     myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_OFFSET, GUIDesignTextField);
     myOffsetTextField->disable();
+
+    // create frame, label and TextField for Offset (By default disabled)
+    FXHorizontalFrame* parametersFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(parametersFrame, "parameters", nullptr, GUIDesignLabelAttribute);
+    myParametersTextField = new FXTextField(parametersFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_PARAMETERS, GUIDesignTextField);
+    myParametersTextField->disable();
 }
 
 
@@ -978,6 +994,8 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
     myNameTextField->enable();
     // enable Offset
     myOffsetTextField->enable();
+    // enable parameters
+    myParametersTextField->enable();
     // obtain TLSs
     for (auto it : junction->getNBNode()->getControllingTLS()) {
         myTLSDefinitions.push_back(it);
@@ -1007,6 +1025,9 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     // clear and disable Offset TextField
     myOffsetTextField->setText("");
     myOffsetTextField->disable();
+    // clear and disable parameters TextField
+    myParametersTextField->setText("");
+    myParametersTextField->disable();
 }
 
 
@@ -1047,6 +1068,18 @@ GNETLSEditorFrame::TLSAttributes::getOffset() const {
 void
 GNETLSEditorFrame::TLSAttributes::setOffset(SUMOTime offset) {
     myOffsetTextField->setText(toString(STEPS2TIME(offset)).c_str());
+}
+
+
+std::string
+GNETLSEditorFrame::TLSAttributes::getParameters() const {
+    return myParametersTextField->getText().text();
+}
+
+
+void
+GNETLSEditorFrame::TLSAttributes::setParameters(const std::string &parameters) {
+    myParametersTextField->setText(parameters.c_str());
 }
 
 // ---------------------------------------------------------------------------
