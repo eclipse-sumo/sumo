@@ -957,9 +957,9 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
                 if (onlyCount && locks.isObjectLocked(genericData->getType())) {
                     ignoreLocking = askContinueIfLock();
                     return true;
-                } else if ((ignoreLocking || !locks.isObjectLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                    (ignoreLocking || !locks.isObjectLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA)) ||
-                    (ignoreLocking || !locks.isObjectLocked(GLO_TAZRELDATA) && (genericData->getType() == GLO_TAZRELDATA))) {
+                } else if ((ignoreLocking || (!locks.isObjectLocked(GLO_EDGEDATA) && genericData->getType() == GLO_EDGEDATA)) ||
+                    (ignoreLocking || (!locks.isObjectLocked(GLO_EDGERELDATA) && genericData->getType() == GLO_EDGERELDATA)) ||
+                    (ignoreLocking || (!locks.isObjectLocked(GLO_TAZRELDATA) && genericData->getType() == GLO_TAZRELDATA))) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {
