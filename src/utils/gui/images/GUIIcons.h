@@ -86,6 +86,11 @@ enum class GUIIcon {
     LOCATEPOLY,
     /// @}
 
+    /// @name locate objects icons
+    /// @{
+    TOOL_NETDIFF,    
+    /// @}
+
     /// @name green and yellow objects icons
     /// @{
     GREENCONTAINER,
