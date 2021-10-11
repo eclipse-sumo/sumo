@@ -859,6 +859,26 @@ struct GNEApplicationWindowHelper {
         LocateMenuCommands& operator=(const LocateMenuCommands&) = delete;
     };
 
+    /// @brief struct for locate menu commands
+    struct ToolsMenuCommands {
+
+        /// @brief constructor
+        ToolsMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildToolsMenuCommands(FXMenuPane* locateMenu);
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+
+        /// @brief Invalidated copy constructor.
+        ToolsMenuCommands(const ToolsMenuCommands&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ToolsMenuCommands& operator=(const ToolsMenuCommands&) = delete;
+    };
+
     /// @brief struct for windows menu commands
     struct WindowsMenuCommands {
 

@@ -460,6 +460,7 @@ protected:
                 *myLockMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
+                *myToolsMenu,
                 *myWindowsMenu,
                 *myHelpMenu;
 
@@ -520,6 +521,9 @@ private:
 
     /// @brief Locate Menu Commands
     GNEApplicationWindowHelper::LocateMenuCommands myLocateMenuCommands;
+
+    /// @brief Tools Menu Commands
+    GNEApplicationWindowHelper::ToolsMenuCommands myToolsMenuCommands;
 
     /// @brief Windows Menu Commands
     GNEApplicationWindowHelper::WindowsMenuCommands myWindowsMenuCommands;

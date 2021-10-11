@@ -399,6 +399,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myLockMenuCommands(this),
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
+    myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
     mySupermodeCommands(this),
     myViewNet(nullptr),
@@ -512,6 +513,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myEditMenu;
     delete myLockMenu;
     delete myProcessingMenu;
+    delete myLocatorMenu;
     delete myLocatorMenu;
     delete myWindowsMenu;
     delete myHelpMenu;
@@ -1175,6 +1177,10 @@ GNEApplicationWindow::fillMenuBar() {
     myLocatorMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu);
     myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
+    // build tools menu
+    myToolsMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Tools", nullptr, myToolsMenu);
+    myToolsMenuCommands.buildToolsMenuCommands(myToolsMenu);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu);
@@ -3893,6 +3899,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myLockMenu(nullptr),
     myProcessingMenu(nullptr),
     myLocatorMenu(nullptr),
+    myToolsMenu(nullptr),
     myWindowsMenu(nullptr),
     myHelpMenu(nullptr),
     myModesMenuTitle(nullptr),
@@ -3910,6 +3917,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myLockMenuCommands(nullptr),
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
+    myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
     mySupermodeCommands(this),
     myViewNet(nullptr),
