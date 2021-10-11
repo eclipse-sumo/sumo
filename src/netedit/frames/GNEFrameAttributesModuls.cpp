@@ -1557,23 +1557,25 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
             row = nullptr;
         }
     }
+    // get inspected ACs
+    const auto &ACs = myFrameParent->getViewNet()->getInspectedAttributeCarriers();
     // declare flag to check if flow editor has to be shown
     bool showFlowEditor = false;
-    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+    if (ACs.size() > 0) {
         // Iterate over attributes
-        for (const auto &tagProperty : myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty()) {
+        for (const auto &attrProperty : ACs.front()->getTagProperty()) {
             // declare flag to show/hidde atribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
-            if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) && tagProperty.isUnique()) {
+            if ((ACs.size() > 1) && attrProperty.isUnique()) {
                 editAttribute = false;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
-            if (tagProperty.isExtended() && !includeExtended) {
+            if (attrProperty.isExtended() && !includeExtended) {
                 editAttribute = false;
             }
             // disable editing of flow definition attributes, but enable flow editor
-            if (tagProperty.isFlowDefinition()) {
+            if (attrProperty.isFlowDefinition()) {
                 editAttribute = false;
                 showFlowEditor = true;
             }
@@ -1582,8 +1584,8 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
                 // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occuringValues;
                 // iterate over edited attributes
-                for (const auto &inspectedAC : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                    occuringValues.insert(inspectedAC->getAttribute(tagProperty.getAttr()));
+                for (const auto &inspectedAC : ACs) {
+                    occuringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
                 std::ostringstream oss;
@@ -1596,26 +1598,25 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
                 // obtain value to be shown in row
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
-                bool attributeEnabled = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(tagProperty.getAttr());
+                bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
                 // overwritte value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
-                    value = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
+                    value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() ||
-                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStopPerson()) {
-                    if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                if (ACs.front()->getTagProperty().isStop() || ACs.front()->getTagProperty().isStopPerson()) {
+                    if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
-                    } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     }
                 }
                 // if forceEnablellAttribute is enable, force attributeEnabled (except for ID)
-                if (forceAttributeEnabled && (tagProperty.getAttr() != SUMO_ATTR_ID)) {
+                if (forceAttributeEnabled && (attrProperty.getAttr() != SUMO_ATTR_ID)) {
                     attributeEnabled = true;
                 }
                 // create attribute editor row
-                myAttributesEditorRows[tagProperty.getPositionListed()] = new AttributesEditorRow(this, tagProperty, value, attributeEnabled);
+                myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled);
             }
         }
         // check if Flow editor has to be shown
