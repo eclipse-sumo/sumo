@@ -90,7 +90,7 @@ public:
 
     /// @}
 
-    /// @name Function related with get/set attributes (must be implemented in all childs)
+    /// @name Functions related with attributes (must be implemented in all children)
     /// @{
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
@@ -135,6 +135,18 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
+    
+    /// @}
+
+    /// @name Optional functions related with attributes (can implemented in children, by default return false)
+    /// @{
+
+    /* @brief method for check if the value for certain attribute is automatic (for example, due a network recomputing)
+     * @param[in] key The attribute key
+     */
+    virtual bool isAttributeAutomatic(SumoXMLAttr key) const;
+
+    /// @}
 
     /// @name Function related with parameters
     /// @{
