@@ -348,8 +348,8 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 
 
 bool 
-GNEAttributeCarrier::isAttributeAutomatic(SumoXMLAttr /*key*/) const {
-    // we assume that all attributes aren't automatic
+GNEAttributeCarrier::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    // we assume that all attributes aren't computed. Exceptions will be implemented
     return false;
 }
 

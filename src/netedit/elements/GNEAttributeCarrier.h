@@ -141,10 +141,10 @@ public:
     /// @name Optional functions related with attributes (can implemented in children, by default return false)
     /// @{
 
-    /* @brief method for check if the value for certain attribute is automatic (for example, due a network recomputing)
+    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */
-    virtual bool isAttributeAutomatic(SumoXMLAttr key) const;
+    virtual bool isAttributeComputed(SumoXMLAttr key) const;
 
     /// @}
 
