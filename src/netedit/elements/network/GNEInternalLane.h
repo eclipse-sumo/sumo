@@ -42,7 +42,6 @@ class GNEInternalLane : public GNENetworkElement, public FXDelegator {
     FXDECLARE(GNEInternalLane)
 
 public:
-
     /**@brief Constructor
      * @param[in] editor The editor to notify about changes
      * @param[in] junctionParent junction parent
@@ -150,6 +149,12 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const;
+
+    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
+     * @param[in] key The attribute key
+     */
+    bool isAttributeComputed(SumoXMLAttr key) const;
+
     /// @}
 
     /// @brief get parameters map

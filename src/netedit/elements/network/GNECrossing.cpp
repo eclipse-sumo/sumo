@@ -422,6 +422,12 @@ GNECrossing::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+bool 
+GNECrossing::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    return false;
+}
+
+
 bool
 GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);

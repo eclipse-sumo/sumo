@@ -129,6 +129,12 @@ GNETAZElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 
 
 bool
+GNETAZElement::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    return false;
+}
+
+
+bool
 GNETAZElement::checkChildTAZElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkChildTAZElementRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");

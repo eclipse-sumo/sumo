@@ -259,6 +259,12 @@ GNEInternalLane::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+bool
+GNEInternalLane::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    return false;
+}
+
+
 const std::map<std::string, std::string>&
 GNEInternalLane::getACParametersMap() const {
     throw InvalidArgument(getTagStr() + " doesn't have parameters");

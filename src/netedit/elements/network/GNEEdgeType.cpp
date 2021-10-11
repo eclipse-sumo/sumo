@@ -364,6 +364,12 @@ GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+bool 
+GNEEdgeType::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    return false;
+}
+
+
 const std::map<std::string, std::string>&
 GNEEdgeType::getACParametersMap() const {
     return getParametersMap();

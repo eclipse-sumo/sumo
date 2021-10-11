@@ -193,6 +193,12 @@ GNEGenericData::getPathElementArrivalPos() const {
 }
 
 
+bool 
+GNEGenericData::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    return false;
+}
+
+
 const std::map<std::string, std::string>&
 GNEGenericData::getACParametersMap() const {
     return getParametersMap();

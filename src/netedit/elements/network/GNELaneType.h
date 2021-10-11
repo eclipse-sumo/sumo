@@ -122,6 +122,12 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const;
+
+    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
+     * @param[in] key The attribute key
+     */
+    bool isAttributeComputed(SumoXMLAttr key) const;
+
     /// @}
 
     /// @brief get parameters map

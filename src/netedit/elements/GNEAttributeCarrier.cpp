@@ -347,13 +347,6 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
-bool 
-GNEAttributeCarrier::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    // we assume that all attributes aren't computed. Exceptions will be implemented
-    return false;
-}
-
-
 template<> std::string
 GNEAttributeCarrier::getACParameters() const {
     std::string result;
