@@ -47,6 +47,7 @@ public:
     // ===========================================================================
     // Option input classes
     // ===========================================================================
+
     class InputString : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputString)
@@ -60,6 +61,28 @@ public:
 
     protected:
         FOX_CONSTRUCTOR(InputString)
+
+    private:
+        /// @brief name
+        std::string myName;
+
+        /// @brief text field
+        FXTextField* myTextField;
+    };
+
+    class InputStringVector : public FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(GUIDialog_Options::InputStringVector)
+
+    public:
+        /// @brief constructor
+        InputStringVector(FXComposite* parent, const std::string& name);
+
+        /// @brief try to set new attribute value
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+
+    protected:
+        FOX_CONSTRUCTOR(InputStringVector)
 
     private:
         /// @brief name
@@ -114,6 +137,28 @@ public:
         FXTextField* myTextField;
     };
 
+    class InputIntVector : public FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(GUIDialog_Options::InputIntVector)
+
+    public:
+        /// @brief
+        InputIntVector(FXComposite* parent, const std::string& name);
+
+        /// @brief try to set new attribute value
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+
+    protected:
+        FOX_CONSTRUCTOR(InputIntVector)
+
+    private:
+        /// @brief name
+        std::string myName;
+
+        /// @brief text field
+        FXTextField* myTextField;
+    };
+
     class InputFloat : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputFloat)
@@ -127,6 +172,28 @@ public:
 
     protected:
         FOX_CONSTRUCTOR(InputFloat)
+
+    private:
+        /// @brief name
+        std::string myName;
+
+        /// @brief text field
+        FXTextField* myTextField;
+    };
+
+    class InputFilename : public FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(GUIDialog_Options::InputFilename)
+
+    public:
+        /// @brief constructor
+        InputFilename(FXComposite* parent, const std::string& name);
+
+        /// @brief try to set new attribute value
+        long onCmdSetOption(FXObject*, FXSelector, void*);
+
+    protected:
+        FOX_CONSTRUCTOR(InputFilename)
 
     private:
         /// @brief name
