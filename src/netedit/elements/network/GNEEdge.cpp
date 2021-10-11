@@ -834,6 +834,8 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WIDTH:
             if (myNBEdge->hasLaneSpecificWidth()) {
                 return "lane specific";
+            } else if (myNBEdge->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH) {
+                return "default";
             } else {
                 return toString(myNBEdge->getLaneWidth());
             }
@@ -1028,7 +1030,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PRIORITY:
             return canParse<int>(value);
         case SUMO_ATTR_LENGTH:
-            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH));
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH));
+            }
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
@@ -1042,7 +1048,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             return true;
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
+            if (value.empty() || (value == "default")) {
+                return true;
+            } else {
+                return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
+            }
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < myNBEdge->getLoadedLength();
         case SUMO_ATTR_DISTANCE:
@@ -1090,6 +1100,19 @@ GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
             return false;
         default:
             return true;
+    }
+}
+
+
+bool
+GNEEdge::isAttributeComputed(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_LENGTH:
+            return (myNBEdge->hasLoadedLength() == false);
+        case SUMO_ATTR_WIDTH:
+            return (myNBEdge->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH);
+        default:
+            return false;
     }
 }
 
@@ -1478,7 +1501,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge->myPriority = parse<int>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myNBEdge->setLoadedLength(parse<double>(value));
+            if (value.empty()) {
+                myNBEdge->setLoadedLength(NBEdge::UNSPECIFIED_LOADED_LENGTH);
+            } else {
+                myNBEdge->setLoadedLength(parse<double>(value));
+            }
             break;
         case SUMO_ATTR_TYPE:
             myNBEdge->myType = value;
@@ -1499,7 +1526,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge->setSpeed(-1, parse<double>(value));
             break;
         case SUMO_ATTR_WIDTH:
-            myNBEdge->setLaneWidth(-1, parse<double>(value));
+            if (value.empty() || (value == "default")) {
+                myNBEdge->setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);
+            } else {
+                myNBEdge->setLaneWidth(-1, parse<double>(value));
+            }
             break;
         case SUMO_ATTR_ENDOFFSET:
             myNBEdge->setEndOffset(-1, parse<double>(value));
