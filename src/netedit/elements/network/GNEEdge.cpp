@@ -1110,7 +1110,11 @@ GNEEdge::isAttributeComputed(SumoXMLAttr key) const {
         case SUMO_ATTR_LENGTH:
             return (myNBEdge->hasLoadedLength() == false);
         case SUMO_ATTR_WIDTH:
-            return (myNBEdge->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH);
+            if (myNBEdge->hasLaneSpecificWidth()) {
+                return false;
+            } else {
+                return (myNBEdge->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH);
+            }
         default:
             return false;
     }
