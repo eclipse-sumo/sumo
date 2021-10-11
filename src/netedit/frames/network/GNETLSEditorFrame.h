@@ -163,6 +163,9 @@ public:
         /// @brief the TextField for modifying offset
         FXTextField* myOffsetTextField;
 
+        /// @brief button for edit parameters
+        FXButton* myButtonEditParameters;
+
         /// @brief the TextField for modifying parameters
         FXTextField* myParametersTextField;
     };
@@ -388,6 +391,9 @@ public:
 
     /// @brief Called when the user edits a Phase
     long onCmdPhaseEdit(FXObject*, FXSelector, void*);
+
+    /// @brief Called when user press edit parameters button
+    long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
 
     /// @brief Called when the user makes RILSA
     long onCmdMakeRILSAConforming(FXObject*, FXSelector, void*);

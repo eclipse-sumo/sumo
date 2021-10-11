@@ -19,17 +19,18 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
-#include <utils/xml/XMLSubSys.h>
-#include <netimport/NIXMLTrafficLightsHandler.h>
-#include <netedit/changes/GNEChange_TLS.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEInternalLane.h>
+#include <netimport/NIXMLTrafficLightsHandler.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "GNETLSEditorFrame.h"
 
@@ -72,6 +73,7 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_CHANGED,    MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_REPLACED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseEdit),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_OPEN_PARAMETERS_DIALOG,   GNETLSEditorFrame::onCmdEditParameters),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
@@ -638,12 +640,14 @@ GNETLSEditorFrame::onUpdNeedsSingleDef(FXObject* o, FXSelector, void*) {
     return 1;
 }
 
+
 long
 GNETLSEditorFrame::onUpdUngroupStates(FXObject* o, FXSelector, void*) {
     const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() == 1 && myEditedDef != nullptr && myEditedDef->usingSignalGroups();
     o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
     return 1;
 }
+
 
 long
 GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
@@ -658,7 +662,6 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     const int colState = fixedDuration() ? 1 : 3;
     const int colNext = fixedDuration() ? 2 : 4;
     const int colName = fixedDuration() ? 3 : 5;
-
     if (tp->col == colDuration) {
         // duration edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
@@ -741,6 +744,26 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         myEditedDef->getLogic()->setPhaseName(tp->row, value.text());
         myTLSModifications->setHaveModifications(true);
         return 1;
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::onCmdEditParameters(FXObject*, FXSelector, void*) {
+    // continue depending of myEditedDef
+    if (myEditedDef) {
+        // write debug information
+        WRITE_DEBUG("Open single parameters dialog");
+        if (GNESingleParametersDialog(myViewNet->getApp(), myEditedDef).execute()) {
+            // write debug information
+            WRITE_DEBUG("Close single parameters dialog");
+            // set parameters in textfield
+            myTLSAttributes->setParameters(myEditedDef->getParametersStr());
+        } else {
+            // write debug information
+            WRITE_DEBUG("Cancel single parameters dialog");
+        }
     }
     return 1;
 }
@@ -982,8 +1005,9 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
 
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* parametersFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(parametersFrame, "parameters", nullptr, GUIDesignLabelAttribute);
+    myButtonEditParameters = new FXButton(parametersFrame, "parameters", nullptr, myTLSEditorParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonAttribute);
     myParametersTextField = new FXTextField(parametersFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_PARAMETERS, GUIDesignTextField);
+    myButtonEditParameters->disable();
     myParametersTextField->disable();
 }
 
@@ -1001,6 +1025,7 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
     myOffsetTextField->enable();
     myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // enable parameters
+    myButtonEditParameters->enable();
     myParametersTextField->enable();
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // obtain TLSs
@@ -1034,6 +1059,7 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     myOffsetTextField->disable();
     myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // clear and disable parameters TextField
+    myButtonEditParameters->disable();
     myParametersTextField->setText("");
     myParametersTextField->disable();
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
