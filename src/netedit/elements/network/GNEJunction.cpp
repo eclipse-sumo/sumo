@@ -972,7 +972,11 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return toString(myNBNode->getShape());
         case SUMO_ATTR_RADIUS:
-            return toString(myNBNode->getRadius());
+            if (myNBNode->getRadius() < 0) {
+                return "default";
+            } else {
+                return toString(myNBNode->getRadius());
+            }
         case SUMO_ATTR_TLTYPE:
             if (isAttributeEnabled(SUMO_ATTR_TLTYPE)) {
                 // @todo this causes problems if the node were to have multiple programs of different type (plausible)
@@ -1205,7 +1209,11 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             // empty shapes are allowed
             return canParse<PositionVector>(value);
         case SUMO_ATTR_RADIUS:
-            return canParse<double>(value) && (parse<double>(value) >= -1);
+            if (value.empty() || (value == "default")) {
+                return true;
+            } else {
+                return canParse<double>(value) && ((parse<double>(value) >= 0) || (parse<double>(value) == -1));
+            }
         case SUMO_ATTR_TLTYPE:
             return myNBNode->isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
         case SUMO_ATTR_TLLAYOUT:
@@ -1239,8 +1247,8 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
             return myNBNode->isTLControlled();
         case SUMO_ATTR_KEEP_CLEAR: {
             // check if at least there is an incoming connection
-            for (const auto& i : myGNEIncomingEdges) {
-                if (i->getGNEConnections().size() > 0) {
+            for (const auto& incomingEdge : myGNEIncomingEdges) {
+                if (incomingEdge->getGNEConnections().size() > 0) {
                     return true;
                 }
             }
@@ -1248,6 +1256,17 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
         }
         default:
             return true;
+    }
+}
+
+
+bool 
+GNEJunction::isAttributeComputed(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+            return !myNBNode->hasCustomShape();
+        default:
+            return false;
     }
 }
 
@@ -1353,7 +1372,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_RADIUS: {
-            myNBNode->setRadius(parse<double>(value));
+            if (value.empty() || (value == "default")) {
+                myNBNode->setRadius(-1);
+            } else {
+                myNBNode->setRadius(parse<double>(value));
+            }
             break;
         }
         case SUMO_ATTR_TLTYPE: {
