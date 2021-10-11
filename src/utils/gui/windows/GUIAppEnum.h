@@ -635,6 +635,14 @@ enum {
 
     /// @}
 
+    /// @name Toolbar file messages
+    /// @{
+
+    /// @brief call tool netdiff
+    MID_GNE_TOOLBARTOOLS_NETDIFF,
+
+    /// @}
+
     /// @name Toolbar windows messages
     /// @{
 

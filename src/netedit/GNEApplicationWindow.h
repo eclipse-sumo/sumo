@@ -140,6 +140,9 @@ public:
     /// @brief called when the command/FXCall locate is executed
     long onCmdLocate(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall run NetDiff is executed
+    long onCmdRunNetDiff(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save all elements is executed
     long onCmdSaveAllElements(FXObject*, FXSelector, void*);
 

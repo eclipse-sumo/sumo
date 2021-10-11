@@ -302,8 +302,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,         GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,         GNEApplicationWindow::onUpdNeedsNetwork),
 
+    // toolbar tools
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onCmdRunNetDiff),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onUpdNeedsNetwork),
+
     // toolbar windows
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                     GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
 
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
@@ -856,6 +860,52 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
     }
     return 1;
 }
+
+
+long
+GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector sel, void*) {
+    // check that currently there is a View
+    if (myViewNet) {
+        // first check if network is saved
+        if (!myViewNet->getNet()->isNetSaved()) {
+            // save network
+            onCmdSaveNetwork(nullptr, 0, nullptr);
+            if (!myViewNet->getNet()->isNetSaved()) {
+                return 0;
+            }
+        }
+        
+        // obtain viewport
+        FXRegistry reg("SUMO GUI", "sumo-gui");
+        reg.read();
+        reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
+        reg.writeRealEntry("viewport", "y", myViewNet->getChanger().getYPos());
+        reg.writeRealEntry("viewport", "z", myViewNet->getChanger().getZPos());
+        reg.write();
+        std::string sumogui = "sumo-gui";
+        const char* sumoPath = getenv("SUMO_HOME");
+        if (sumoPath != nullptr) {
+            std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
+            if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+                sumogui = "\"" + newPath + "\"";
+            }
+        }
+        std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + OptionsCont::getOptions().getString("output-file") + "\"";
+
+        // start in background
+#ifndef WIN32
+        cmd = cmd + " &";
+#else
+        // see "help start" for the parameters
+        cmd = "start /B \"\" " + cmd;
+#endif
+        WRITE_MESSAGE("Running " + cmd + ".");
+        // yay! fun with dangerous commands... Never use this over the internet
+        SysUtils::runHiddenCommand(cmd);
+    }
+    return 1;
+}
+
 
 long
 GNEApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void*) {

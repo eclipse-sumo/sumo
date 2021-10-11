@@ -1567,39 +1567,10 @@ GNEApplicationWindowHelper::ToolsMenuCommands::ToolsMenuCommands(GNEApplicationW
 
 void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane* locateMenu) {
-/*
     // build locate menu commands
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &Junctions", "Shift+J", "Open a dialog for locating a Junction.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), myGNEApp, MID_LOCATEJUNCTION);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &Edges", "Shift+E", "Open a dialog for locating an Edge.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), myGNEApp, MID_LOCATEEDGE);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &Vehicles", "Shift+V", "Open a dialog for locating a Vehicle.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &Persons", "Shift+P", "Open a dialog for locating a Person.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_LOCATEPERSON);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &Route", "Shift+R", "Open a dialog for locating a Route.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &Stops", "Shift+S", "Open a dialog for locating a Stop.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), myGNEApp, MID_LOCATESTOP);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &TLS", "Shift+T", "Open a dialog for locating a Traffic Light.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), myGNEApp, MID_LOCATETLS);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools &Additional", "Shift+A", "Open a dialog for locating an Additional Structure.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), myGNEApp, MID_LOCATEADD);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools P&oI", "Shift+O", "Open a dialog for locating a Point of Interest.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), myGNEApp, MID_LOCATEPOI);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Tools Po&lygon", "Shift+L", "Open a dialog for locating a Polygon.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), myGNEApp, MID_LOCATEPOLY);
-*/
+                                           "&NetDiff", "", "Execute NETEDIFF",
+                                           GUIIconSubSys::getIcon(GUIIcon::TOOL_NETDIFF), myGNEApp, MID_GNE_TOOLBARTOOLS_NETDIFF);
 }
 
 // ---------------------------------------------------------------------------
