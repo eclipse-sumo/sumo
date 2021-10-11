@@ -31,6 +31,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
+class NBLoadedSUMOTLDef;
 class GNEViewNet;
 
 // ===========================================================================
@@ -241,6 +242,9 @@ public:
     /// @brief Constructor for attribute carriers (used in GNECreateEdgeFrame)
     GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier);
 
+    /// @brief Constructor for attribute carriers (used in GNETLSEditorFrame)
+    GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef);
+
     /// @brief destructor
     ~GNESingleParametersDialog();
 
@@ -271,6 +275,9 @@ protected:
 
     /// @brief pointer to GNEAttributeCarrier
     GNEAttributeCarrier* myAttributeCarrier;
+
+    /// @brief pointer to TLDef
+    NBLoadedSUMOTLDef* myTLDef;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;

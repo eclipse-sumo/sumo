@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -481,7 +482,8 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::P
     myParametersEditorCreator(parametersEditorCreator),
     myParametersEditorInspector(nullptr),
     VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr) {
+    myAttributeCarrier(nullptr),
+    myTLDef(nullptr) {
     // call auxiliar constructor for elements
     constructor();
     // fill myParametersValues
@@ -494,7 +496,8 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::Paramete
     myParametersEditorCreator(nullptr),
     myParametersEditorInspector(parametersEditorInspector),
     VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr) {
+    myAttributeCarrier(nullptr),
+    myTLDef(nullptr) {
     // call auxiliar constructor
     constructor();
     // get AC Front
@@ -510,7 +513,8 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VType
     myParametersEditorCreator(nullptr),
     myParametersEditorInspector(nullptr),
     VTypeAttributeRow(VTypeAttributeRow),
-    myAttributeCarrier(nullptr) {
+    myAttributeCarrier(nullptr),
+    myTLDef(nullptr) {
     // call auxiliar constructor
     constructor();
     // fill myEditedParameters
@@ -523,11 +527,32 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attrib
     myParametersEditorCreator(nullptr),
     myParametersEditorInspector(nullptr),
     VTypeAttributeRow(nullptr),
-    myAttributeCarrier(attributeCarrier) {
+    myAttributeCarrier(attributeCarrier),
+    myTLDef(nullptr) {
     // call auxiliar constructor
     constructor();
     // fill myEditedParameters
     myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+}
+
+
+GNESingleParametersDialog::GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef) :
+    FXDialogBox(app, "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myParametersEditorCreator(nullptr),
+    myParametersEditorInspector(nullptr),
+    VTypeAttributeRow(nullptr),
+    myAttributeCarrier(nullptr),
+    myTLDef(TLDef) {
+    // call auxiliar constructor
+    constructor();
+    // transform parameters to a=b|c=d... format
+    std::vector<std::pair<std::string, std::string> > parametersStr;
+    // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
+    for (const auto& parameter : TLDef->getParametersMap()) {
+        parametersStr.push_back(std::make_pair(parameter.first, parameter.second));
+    }
+    // set parameters
+    myParametersValues->setParameters(parametersStr);
 }
 
 
@@ -596,6 +621,15 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin("change parameters");
         myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
+    } else if (myTLDef) {
+        // declare parametersMap
+        std::map<std::string, std::string> parametersMap;
+        // Generate an string using the following structure: "key1=value1|key2=value2|...
+        for (const auto& parameter : parameters) {
+            parametersMap[parameter.first] = parameter.second;
+        }
+        // set setACParameters map
+        myTLDef->setParametersMap(parametersMap);
     }
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
@@ -621,8 +655,17 @@ GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
         myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     } else if (VTypeAttributeRow) {
         myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
-    } else {
+    } else if (myAttributeCarrier) {
         myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+    } else if (myTLDef) {
+        // transform parameters to a=b|c=d... format
+        std::vector<std::pair<std::string, std::string> > parametersStr;
+        // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
+        for (const auto& parameter : myTLDef->getParametersMap()) {
+            parametersStr.push_back(std::make_pair(parameter.first, parameter.second));
+        }
+        // set parameters
+        myParametersValues->setParameters(parametersStr);
     }
     return 1;
 }
