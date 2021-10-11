@@ -306,13 +306,14 @@ public:
 
     public:
         /// @brief constructor
-        AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value, bool attributeEnabled);
+        AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value, 
+                            const bool attributeEnabled, const bool computed);
 
         /// @brief destroy AttributesCreatorRow (but don't delete)
         void destroy();
 
         /// @brief refresh current row
-        void refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool attributeEnabled);
+        void refreshAttributesEditorRow(const std::string& value, const bool forceRefresh, const bool attributeEnabled, const bool computed);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isAttributesEditorRowValid() const;

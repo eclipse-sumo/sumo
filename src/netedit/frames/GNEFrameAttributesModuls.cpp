@@ -1051,7 +1051,8 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
 // GNEFrameAttributesModuls::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
+GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, 
+        const std::string& value, const bool attributeEnabled, const bool computed) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr),
@@ -1108,13 +1109,21 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // set left column
         if (myACAttr.isColor()) {
-            // show color button
-            myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+            // show color button and set color text depending of computed
+            if (computed) {
+                myAttributeColorButton->setTextColor(FXRGB(0, 0, 255));
+            } else {
+                myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+            }
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeColorButton->show();
         } else if (myACAttr.isActivatable()) {
-            // show checkbox button
-            myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
+            // show checkbox button and set color text depending of computed
+            if (computed) {
+                myAttributeCheckButton->setTextColor(FXRGB(0, 0, 255));
+            } else {
+                myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
+            }
             myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
             myAttributeCheckButton->show();
             // check or uncheck depending of attributeEnabled
@@ -1159,7 +1168,12 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             } else {
                 // show list of bools (0 1)
                 myValueTextField->setText(value.c_str());
-                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                // set text depending of computed
+                if (computed) {
+                    myValueTextField->setTextColor(FXRGB(0, 0, 255));
+                } else {
+                    myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                }
                 myValueTextField->show();
             }
         } else if (myACAttr.isDiscrete()) {
@@ -1172,7 +1186,12 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeButtonCombinableChoices->show();
                 // Show string with the values
                 myValueTextField->setText(value.c_str());
-                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                // set color depending of computed
+                if (computed) {
+                    myValueTextField->setTextColor(FXRGB(0, 0, 255));
+                } else {
+                    myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                }
                 myValueTextField->show();
             } else if (!myMultiple) {
                 // fill comboBox
@@ -1183,18 +1202,33 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 // show combo box with values
                 myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
                 myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
-                myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+                // set color depending of computed
+                if (computed) {
+                    myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 255));
+                } else {
+                    myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+                }
                 myValueComboBoxChoices->show();
             } else {
                 // represent combinable choices in multiple selections always with a textfield instead with a comboBox
                 myValueTextField->setText(value.c_str());
-                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                // set color depending of computed
+                if (computed) {
+                    myValueTextField->setTextColor(FXRGB(0, 0, 255));
+                } else {
+                    myValueTextField->setTextColor(FXRGB(0, 0, 0));
+                }
                 myValueTextField->show();
             }
         } else {
             // In any other case (String, list, etc.), show value as String
             myValueTextField->setText(value.c_str());
-            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            // set color depending of computed
+            if (computed) {
+                myValueTextField->setTextColor(FXRGB(0, 0, 255));
+            } else {
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            }
             myValueTextField->show();
         }
         // Show AttributesEditorRow
@@ -1213,7 +1247,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool attributeEnabled) {
+GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, 
+        const bool forceRefresh, const bool attributeEnabled, const bool computed) {
     // start enabling all elements, depending if attribute is enabled
     if (attributeEnabled == false) {
         myValueTextField->disable();
@@ -1245,9 +1280,14 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
     }
     if (myValueTextField->shown()) {
         // set last valid value and restore color if onlyValid is disabled
-        if (myValueTextField->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
+        if (myValueTextField->getTextColor() == FXRGB(0, 0, 0) || myValueTextField->getTextColor() == FXRGB(0, 0, 255) || forceRefresh) {
             myValueTextField->setText(value.c_str());
-            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            // set blue color if is an computed value
+            if (computed) {
+                myValueTextField->setTextColor(FXRGB(0, 0, 255));
+            } else {
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            }
         }
     } else if (myValueComboBoxChoices->shown()) {
         // fill comboBox again
@@ -1258,7 +1298,12 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
         // show combo box with values
         myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
         myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
-        myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+        // set blue color if is an computed value
+        if (computed) {
+            myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 255));
+        } else {
+            myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+        }
         myValueComboBoxChoices->show();
     } else if (myValueCheckButton->shown()) {
         if (GNEAttributeCarrier::canParse<bool>(value)) {
@@ -1272,7 +1317,8 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
 
 bool
 GNEFrameAttributesModuls::AttributesEditorRow::isAttributesEditorRowValid() const {
-    return ((myValueTextField->getTextColor() == FXRGB(0, 0, 0)) && (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)));
+    return ((myValueTextField->getTextColor() == FXRGB(0, 0, 0)) || (myValueTextField->getTextColor() == FXRGB(0, 0, 255))) && 
+           ((myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)) || (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 255)));
 }
 
 
@@ -1615,8 +1661,10 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
                 if (forceAttributeEnabled && (attrProperty.getAttr() != SUMO_ATTR_ID)) {
                     attributeEnabled = true;
                 }
+                // check if this attribute is computed
+                const bool computed = (ACs.size() > 1)? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
                 // create attribute editor row
-                myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled);
+                myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled, computed);
             }
         }
         // check if Flow editor has to be shown
@@ -1646,22 +1694,24 @@ GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
 
 void
 GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
+    // get inspected ACs
+    const auto &ACs = myFrameParent->getViewNet()->getInspectedAttributeCarriers();
     // first check if there is inspected attribute carriers
-    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+    if (ACs.size() > 0) {
         // Iterate over inspected attribute carriers
-        for (const auto &tagProperty : myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty()) {
+        for (const auto &attrProperty : ACs.front()->getTagProperty()) {
             // declare flag to show/hidde atribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
-            if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) && tagProperty.isUnique()) {
+            if ((ACs.size() > 1) && attrProperty.isUnique()) {
                 editAttribute = false;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
-            if (tagProperty.isExtended() && !myIncludeExtended) {
+            if (attrProperty.isExtended() && !myIncludeExtended) {
                 editAttribute = false;
             }
             // disable editing of flow definition attributes, but enable flow editor
-            if (tagProperty.isFlowDefinition()) {
+            if (attrProperty.isFlowDefinition()) {
                 editAttribute = false;
             }
             // continue if attribute is editable
@@ -1669,8 +1719,8 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occuringValues;
                 // iterate over edited attributes
-                for (const auto &inspectedAC : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                    occuringValues.insert(inspectedAC->getAttribute(tagProperty.getAttr()));
+                for (const auto &inspectedAC : ACs) {
+                    occuringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
                 std::ostringstream oss;
@@ -1683,35 +1733,30 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 // obtain value to be shown in row
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
-                bool attributeEnabled = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(tagProperty.getAttr());
+                bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
                 // overwritte value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
-                    value = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
+                    value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() ||
-                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStopPerson()) {
-                    if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                if (ACs.front()->getTagProperty().isStop() || ACs.front()->getTagProperty().isStopPerson()) {
+                    if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
-                    } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     }
                 }
-                /*
-                // if forceEnablellAttribute is enable, force attributeEnabled (except for ID)
-                if (myForceAttributeEnabled && (tagProperty.getAttr() != SUMO_ATTR_ID)) {
-                    attributeEnabled = true;
-                }
-                */
+                // check if this attribute is computed
+                const bool computed = (ACs.size() > 1)? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
                 // Check if Position or Shape refresh has to be forced
-                if ((tagProperty.getAttr() == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                    myAttributesEditorRows[tagProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
-                } else if ((tagProperty.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                if ((attrProperty.getAttr() == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed);
+                } else if ((attrProperty.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                     // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[tagProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed);
                 } else {
                     // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[tagProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed);
                 }
             }
         }
