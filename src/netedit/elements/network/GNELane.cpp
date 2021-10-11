@@ -973,7 +973,7 @@ GNELane::isAttributeComputed(SumoXMLAttr key) const {
     const NBEdge* edge = myParentEdge->getNBEdge();
     switch (key) {
         case SUMO_ATTR_WIDTH:
-            return (edge->getLaneStruct(myIndex).width != NBEdge::UNSPECIFIED_WIDTH);
+            return (edge->getLaneStruct(myIndex).width == NBEdge::UNSPECIFIED_WIDTH);
         default:
             return false;
     }
