@@ -518,7 +518,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myLockMenu;
     delete myProcessingMenu;
     delete myLocatorMenu;
-    delete myLocatorMenu;
+    delete myToolsMenu;
     delete myWindowsMenu;
     delete myHelpMenu;
     // Delete load thread
@@ -605,7 +605,6 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
-
     // get the new file name
     FXFileDialog opendialog(this, "Open Network");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
@@ -863,35 +862,61 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector, void*) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // check that currently there is a View
-    if (myViewNet) {
-        // first check if network is saved
+    if (myViewNet == nullptr) {
+        return 0;
+    }
+    // check that python folder is defined in PATH
+    const char* path = getenv("PATH");
+    if((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
+        WRITE_ERROR("Python folder must be defined in PATH");
+        return 0;
+    }
+    // check that SUMO_HOME is defined
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath == nullptr) {
+        WRITE_ERROR("Enviroment variable SUMO_HOME must be defined");
+        return 0;
+    }
+    // get netdiff path
+    const std::string netDiff = std::string(sumoPath) + "/tools/net/netdiff.py";
+    if (!FileHelpers::isReadable(netDiff)) {
+        WRITE_ERROR("netdiff.py cannot be found in path '" + netDiff + "'");
+        return 0;
+    }
+    // check if network is saved
+    if (!myViewNet->getNet()->isNetSaved()) {
+        // save network
+        onCmdSaveNetwork(nullptr, 0, nullptr);
         if (!myViewNet->getNet()->isNetSaved()) {
-            // save network
-            onCmdSaveNetwork(nullptr, 0, nullptr);
-            if (!myViewNet->getNet()->isNetSaved()) {
-                return 0;
-            }
+            return 0;
         }
-        
-        // obtain viewport
-        FXRegistry reg("SUMO GUI", "sumo-gui");
-        reg.read();
-        reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
-        reg.writeRealEntry("viewport", "y", myViewNet->getChanger().getYPos());
-        reg.writeRealEntry("viewport", "z", myViewNet->getChanger().getZPos());
-        reg.write();
-        std::string sumogui = "sumo-gui";
-        const char* sumoPath = getenv("SUMO_HOME");
-        if (sumoPath != nullptr) {
-            std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
-            if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-                sumogui = "\"" + newPath + "\"";
-            }
+    }
+    // get the second network to ddiff
+    FXFileDialog opendialog(this, "Open diff Network");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // get file
+        const std::string secondNet = opendialog.getFilename().text();
+        // check if secondNet isn't empty
+        if (secondNet.empty()) {
+            return 0;
         }
-        std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + OptionsCont::getOptions().getString("output-file") + "\"";
-
+        // extract folder
+        const std::string secondNetFolder = getFolder(secondNet).text();
+        // declare python command
+        std::string cmd = "cd " + secondNetFolder + "&" +  // folder to save diff files (the same of second net)
+            "python " + netDiff +                           // netdiff.py
+            " " + oc.getString("output-file") +             // netA (current)
+            " " + secondNet +                               // net B
+            " diff";                                        // netdiff options
         // start in background
 #ifndef WIN32
         cmd = cmd + " &";
@@ -3806,7 +3831,8 @@ GNEApplicationWindow::getFolder(const std::string& folder) const {
         if (newFolder.empty()) {
             // new folder empty, then stop
             stop = true;
-        } else if ((newFolder.back() == '\'') || (newFolder.back() == '/')) {
+        } else if ((newFolder.back() == '\'') || (newFolder.back() == '\\') || 
+                   (newFolder.back() == '/') || (newFolder.back() == '//')) {
             // removed file, then stop
             stop = true;
         } else {
