@@ -816,7 +816,11 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CHANGE_RIGHT:
             return getVehicleClassNames(edge->getLaneStruct(myIndex).changeRight);
         case SUMO_ATTR_WIDTH:
-            return toString(edge->getLaneStruct(myIndex).width);
+            if (edge->getLaneStruct(myIndex).width == NBEdge::UNSPECIFIED_WIDTH) {
+                return "default";
+            } else {
+                return toString(edge->getLaneStruct(myIndex).width);
+            }
         case SUMO_ATTR_ENDOFFSET:
             return toString(edge->getLaneStruct(myIndex).endOffset);
         case SUMO_ATTR_ACCELERATION:
@@ -902,7 +906,11 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHANGE_RIGHT:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
+            if (value.empty() || (value == "default")) {
+                return true;
+            } else {
+                return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
+            }
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_ACCELERATION:
@@ -960,6 +968,18 @@ GNELane::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+bool
+GNELane::isAttributeComputed(SumoXMLAttr key) const {
+    const NBEdge* edge = myParentEdge->getNBEdge();
+    switch (key) {
+        case SUMO_ATTR_WIDTH:
+            return (edge->getLaneStruct(myIndex).width != NBEdge::UNSPECIFIED_WIDTH);
+        default:
+            return false;
+    }
+}
+
+
 const std::map<std::string, std::string>&
 GNELane::getACParametersMap() const {
     return myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParametersMap();
@@ -999,7 +1019,11 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setPermittedChanging(myIndex, edge->getLaneStruct(myIndex).changeLeft, parseVehicleClasses(value));
             break;
         case SUMO_ATTR_WIDTH:
-            edge->setLaneWidth(myIndex, parse<double>(value));
+            if (value.empty() || (value == "default")) {
+                edge->setLaneWidth(myIndex, NBEdge::UNSPECIFIED_WIDTH);
+            } else {
+                edge->setLaneWidth(myIndex, parse<double>(value));
+            }
             // update edge parent boundary
             myParentEdge->updateCenteringBoundary(true);
             break;
