@@ -530,7 +530,11 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
                 return getVehicleClassNames(nbCon.changeRight);
             }
         case SUMO_ATTR_SPEED:
-            return toString(nbCon.speed);
+            if (nbCon.speed == NBEdge::UNSPECIFIED_SPEED) {
+                return "default";
+            } else {
+                return toString(nbCon.speed);
+            }
         case SUMO_ATTR_LENGTH:
             return toString(nbCon.customLength);
         case SUMO_ATTR_DIR:
@@ -690,7 +694,11 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHANGE_RIGHT:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && (parse<double>(value) >= -1);
+            if (value.empty() || value == "default") {
+                return true;
+            } else {
+                return canParse<double>(value) && ((parse<double>(value) >= 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_SPEED));
+            }
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CUSTOMSHAPE: {
@@ -742,6 +750,17 @@ GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+bool
+GNEConnection::isAttributeComputed(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return (getNBEdgeConnection().speed == NBEdge::UNSPECIFIED_SPEED);
+        default:
+            return false;
+    }
+}
+
+
 const std::map<std::string, std::string>&
 GNEConnection::getACParametersMap() const {
     return getNBEdgeConnection().getParametersMap();
@@ -774,7 +793,11 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             nbCon.visibility = parse<double>(value);
             break;
         case SUMO_ATTR_SPEED:
-            nbCon.speed = parse<double>(value);
+            if (value.empty() || (value == "default")) {
+                nbCon.speed = NBEdge::UNSPECIFIED_SPEED;
+            } else {
+                nbCon.speed = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_LENGTH:
             nbCon.customLength = parse<double>(value);
