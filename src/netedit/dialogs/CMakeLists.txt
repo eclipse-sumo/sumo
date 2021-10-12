@@ -33,6 +33,8 @@ set(netedit_dialogs_SRCS
    GNEDialogACChooser.cpp
    GNEGeometryPointDialog.h
    GNEGeometryPointDialog.cpp
+   GNEUndoListDialog.h
+   GNEUndoListDialog.cpp
    )
 
 add_library(netedit_dialogs STATIC ${netedit_dialogs_SRCS})
