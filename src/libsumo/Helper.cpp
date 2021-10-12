@@ -1126,21 +1126,42 @@ Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTr
         std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
 #endif
         for (auto& foeLane : l->getFoeLanes()) {
+#ifdef DEBUG_SURROUNDING
+            std::cout << "   foeLane '" << foeLane->getID() << "'" << std::endl;
+#endif
             // Check vehicles approaching the entry link corresponding to this lane
             const MSLink* foeLink = foeLane->getEntryLink();
             for (auto& vi : foeLink->getApproaching()) {
                 if (vi.second.dist <= s.filterFoeDistToJunction) {
 #ifdef DEBUG_SURROUNDING
-                    std::cout << "    Approaching from foe-lane '" << vi.first->getID() << "'" << std::endl;
+                    std::cout << "    Approaching foeLane entry link '" << vi.first->getID() << "'" << std::endl;
 #endif
                     vehs.insert(vehs.end(), dynamic_cast<const MSVehicle*>(vi.first));
                 }
             }
             // add vehicles currently on the junction
             for (const MSVehicle* foe : foeLane->getVehiclesSecure()) {
+#ifdef DEBUG_SURROUNDING
+                std::cout << "    On foeLane '" << foe->getID() << "'" << std::endl;
+#endif
                 vehs.insert(vehs.end(), foe);
             }
             foeLane->releaseVehicles();
+            for (auto& laneInfo : foeLane->getIncomingLanes()) {
+                const MSLane* foeLanePred = laneInfo.lane;
+                if (foeLanePred->isInternal()) {
+#ifdef DEBUG_SURROUNDING
+                    std::cout << "     foeLanePred '" << foeLanePred->getID() << "'" << std::endl;
+#endif
+                    for (const MSVehicle* foe : foeLanePred->getVehiclesSecure()) {
+#ifdef DEBUG_SURROUNDING
+                        std::cout << "      On foeLanePred '" << foe->getID() << "'" << std::endl;
+#endif
+                        vehs.insert(vehs.end(), foe);
+                    }
+                    foeLanePred->releaseVehicles();
+                }
+            }
         }
     }
 }
