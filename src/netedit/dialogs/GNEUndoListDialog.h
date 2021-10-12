@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNEAdditionalDialog.h"
+#include <utils/foxtools/FXTreeListDinamic.h>
 
 
 // ===========================================================================
@@ -28,7 +28,7 @@
 // ===========================================================================
 
 class GNEUndoList;
-class GNEViewNet;
+class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
@@ -38,16 +38,22 @@ class GNEViewNet;
  * @class GNEUndoListDialog
  * @brief Dialog for edit rerouters
  */
-class GNEUndoListDialog : protected FXTopWindow {
+class GNEUndoListDialog : public FXTopWindow {
     /// @brief FOX-declaration
     FXDECLARE(GNEUndoListDialog)
 
 public:
     /// @brief Constructor
-    GNEUndoListDialog(GNEViewNet* viewNet);
+    GNEUndoListDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
     ~GNEUndoListDialog();
+
+    /// @brief open dialog
+    void open();
+
+    /// @brief close dialog
+    void close();
 
     /// @name FOX-callbacks
     /// @{
@@ -64,8 +70,11 @@ public:
 protected:
     FOX_CONSTRUCTOR(GNEUndoListDialog)
 
-    /// @brief pointer to viewNet
-    GNEViewNet* myViewNet;
+    /// @brief pointer to GNEApplicationWindow
+    GNEApplicationWindow* myGNEApp;
+
+    /// @brief tree list dinamic to show the elements to erase
+    FXTreeListDinamic* myTreeListDinamic;
 
 private:
     /// @brief update data table

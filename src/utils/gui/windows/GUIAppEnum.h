@@ -1282,12 +1282,12 @@ enum {
 
     /// @brief selector for ModesMenuTitle
     MID_GNE_MODESMENUTITLE,
-
     /// @brief selector for LockMenuTitle
     MID_GNE_LOCK_MENUTITLE,
-
     /// @brief open undo list dialog
     MID_GNE_UNDOLISTDIALOG,
+    /// @brief update undolist
+    MID_GNE_UNDOLIST_UPDATE,
 
     /// @}
 

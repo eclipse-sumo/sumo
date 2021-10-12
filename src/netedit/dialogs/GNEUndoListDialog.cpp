@@ -24,11 +24,11 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEUndoListDialog.h"
-#include "GNERerouterIntervalDialog.h"
 
 
 // ===========================================================================
@@ -49,38 +49,37 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 // member method definitions
 // ===========================================================================
 
-GNEUndoListDialog::GNEUndoListDialog(GNEViewNet* viewNet) :
-    FXTopWindow(viewNet, "Undo-Redo list", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(320, 240)),
-    myViewNet(viewNet) {
-/*
-    // create Horizontal frame for row elements
-    FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create Button and Label for adding new Wors
-    myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick);
-    // create Button and Label for sort intervals
-    mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick);
+GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
+    FXTopWindow(GNEApp->getApp(), "Undo-Redo list", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(300, 400)),
+    myGNEApp(GNEApp) {
+    // create main frame
+    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // create treelist dinamic 
+    myTreeListDinamic = new FXTreeListDinamic(mainFrame, this, MID_GNE_UNDOLIST_UPDATE, GUIDesignTreeListDinamicExpandHeight);
+    // create buttons centered
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 
-    // Create table
-    myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
-    myIntervalTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myIntervalTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myIntervalTable->setEditable(false);
-
-    // update intervals
-    updateIntervalTable();
-
-    // start a undo list for editing local to this additional
-    initChanges();
-
-    // Open dialog as modal
-    openAsModalDialog();
-*/
 }
 
 
 GNEUndoListDialog::~GNEUndoListDialog() {}
+
+
+void 
+GNEUndoListDialog::open() {
+    // show
+    show(PLACEMENT_SCREEN);
+}
+
+
+void 
+GNEUndoListDialog::close() {
+    hide();
+}
 
 
 long
@@ -107,12 +106,7 @@ GNEUndoListDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNEUndoListDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-/*
-    // cancel changes
-    cancelChanges();
-    // Stop Modal
-    getApp()->stopModal(this, FALSE);
-*/
+    close();
     return 1;
 }
 
