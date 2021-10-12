@@ -121,6 +121,7 @@
 
 #include "undo.xpm"
 #include "redo.xpm"
+#include "undolist.xpm"
 #include "netedit_icon64.xpm"
 #include "netedit_icon16.xpm"
 #include "lock.xpm"
@@ -479,6 +480,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[GUIIcon::UNDO] = new FXXPMIcon(a, undo_xpm);
     myIcons[GUIIcon::REDO] = new FXXPMIcon(a, redo_xpm);
+    myIcons[GUIIcon::UNDOLIST] = new FXXPMIcon(a, undolist_xpm);
     myIcons[GUIIcon::NETEDIT] = new FXXPMIcon(a, netedit_icon64_xpm);
     myIcons[GUIIcon::NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
     myIcons[GUIIcon::LOCK] = new FXXPMIcon(a, lock_xpm);

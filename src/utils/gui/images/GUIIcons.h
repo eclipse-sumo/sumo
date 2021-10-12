@@ -188,6 +188,7 @@ enum class GUIIcon {
     /// @{
     UNDO,
     REDO,
+    UNDOLIST,
     NETEDIT,
     NETEDIT_MINI,
     LOCK,
