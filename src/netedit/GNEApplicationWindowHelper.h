@@ -39,6 +39,7 @@
 class GNEApplicationWindow;
 class GNELoadThread;
 class GNEUndoList;
+class GNEUndoListDialog;
 class GNENet;
 class GNEViewNet;
 class GUIEvent;

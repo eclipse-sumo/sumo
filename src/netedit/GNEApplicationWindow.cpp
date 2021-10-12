@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
 #include <netedit/dialogs/GNEAbout.h>
+#include <netedit/dialogs/GNEUndoListDialog.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -174,7 +175,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNDOLISTDIALOG,                         GNEApplicationWindow::onCmdOpenUndoListDialog),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_UNDOLISTDIALOG,                         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_UNDOLISTDIALOG,                         GNEApplicationWindow::onUpdOpenUndoListDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onCmdComputePathManager),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onUpdComputePathManager),
     // Network view options
@@ -384,6 +385,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myFileMenuDataElements(nullptr),
     myModesMenu(nullptr),
     myEditMenu(nullptr),
+    myToolsMenu(nullptr),
     myLockMenu(nullptr),
     myProcessingMenu(nullptr),
     myLocatorMenu(nullptr),
@@ -396,6 +398,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
+    myUndoListDialog(nullptr),
     myConfigPattern(configPattern),
     myToolbarsGrip(this),
     myMenuBarFile(this),
@@ -417,6 +420,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUITextureSubSys::initTextures(a);
     // init cursors
     GUICursorSubSys::initCursors(a);
+    // create undoList dialog (after initCursors)
+    myUndoListDialog = new GNEUndoListDialog(this);
 }
 
 
@@ -532,8 +537,9 @@ GNEApplicationWindow::~GNEApplicationWindow() {
         myEvents.pop();
         delete e;
     }
-    // delte undo list
+    // delete undoList and dialog
     delete myUndoList;
+    delete myUndoListDialog;
 }
 
 
@@ -2262,6 +2268,27 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
+    // avoid open two dialogs
+    if (myUndoListDialog->shown()) {
+        myUndoListDialog->setFocus();
+    } else {
+        myUndoListDialog->open();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdOpenUndoListDialog(FXObject* sender, FXSelector, void*) {
+    // check if net exist
+    if (myNet) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        if (myUndoListDialog->shown()) {
+            myUndoListDialog->close();
+        }
+    }
     return 1;
 }
 
@@ -3993,6 +4020,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(nullptr),
+    myUndoListDialog(nullptr),
     myToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),

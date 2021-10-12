@@ -373,6 +373,9 @@ public:
     // @brief called when user press open undoList dialog
     long onCmdOpenUndoListDialog(FXObject*, FXSelector, void*);
 
+    // @brief called when openUndoList is updated
+    long onUpdOpenUndoListDialog(FXObject*, FXSelector, void*);
+
     // @brief called when user press compute path manager
     long onCmdComputePathManager(FXObject*, FXSelector, void*);
 
@@ -496,6 +499,9 @@ protected:
 
     /// @brief the one and only undo list
     GNEUndoList* myUndoList;
+
+    /// @brief undoList dialog
+    GNEUndoListDialog* myUndoListDialog;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
