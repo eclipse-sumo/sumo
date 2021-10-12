@@ -246,15 +246,24 @@ protected:
     FXColorWell* myContainerStopColorSign;
     FXColorWell* myChargingStationColor;
     FXColorWell* myChargingStationColorSign;
-    FXColorWell* myStops;
-    FXColorWell* myVehicleTrips;
-    FXColorWell* myStopPersons;
-    FXColorWell* myPersonTrip;
-    FXColorWell* myWalk;
-    FXColorWell* myRide;
-    FXColorWell* myStopContainers;
-    FXColorWell* myTransport;
-    FXColorWell* myTranship;
+    FXColorWell* myStopsColor;
+    FXColorWell* myVehicleTripsColor;
+    FXColorWell* myStopPersonsColor;
+    FXColorWell* myPersonTripColor;
+    FXColorWell* myWalkColor;
+    FXColorWell* myRideColor;
+    FXColorWell* myStopContainersColor;
+    FXColorWell* myTransportColor;
+    FXColorWell* myTranshipColor;
+
+    /// @brief demand widths
+
+    FXRealSpinner* myTripWidth;
+    FXRealSpinner* myPersonTripWidth;
+    FXRealSpinner* myWalkWidth;
+    FXRealSpinner* myRideWidth;
+    FXRealSpinner* myTransportWidth;
+    FXRealSpinner* myTranshipWidth;
 
     /// @brief ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;
