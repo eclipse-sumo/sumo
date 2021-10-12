@@ -246,6 +246,15 @@ protected:
     FXColorWell* myContainerStopColorSign;
     FXColorWell* myChargingStationColor;
     FXColorWell* myChargingStationColorSign;
+    FXColorWell* myStops;
+    FXColorWell* myVehicleTrips;
+    FXColorWell* myStopPersons;
+    FXColorWell* myPersonTrip;
+    FXColorWell* myWalk;
+    FXColorWell* myRide;
+    FXColorWell* myStopContainers;
+    FXColorWell* myTransport;
+    FXColorWell* myTranship;
 
     /// @brief ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;
