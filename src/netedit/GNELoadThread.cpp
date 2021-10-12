@@ -254,7 +254,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("edge-prefix", new Option_String("gneE"));
     oc.addDescription("edge-prefix", "Netedit", "prefix for edge naming naming");
 
-    oc.doRegister("edge-infix", new Option_Bool(false));
+    oc.doRegister("edge-infix", new Option_String(""));
     oc.addDescription("edge-infix", "Netedit", "enable edge-infix (<fromNodeID><infix><toNodeID>)");
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));

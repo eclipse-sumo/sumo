@@ -794,10 +794,10 @@ protected:
     /// @brief Path manager
     GNEPathManager* myPathManager;
 
-    /// @name ID Suppliers for newly created edges and junctions
+    /// @name counters for junction/edge IDs
     // @{
-    IDSupplier myEdgeIDSupplier;
-    IDSupplier myJunctionIDSupplier;
+    unsigned int myJunctionIDCounter;
+    unsigned int myEdgeIDCounter;
     // @}
 
     /// @brief list of edge ids for which turn-arounds must be added explicitly
@@ -830,12 +830,6 @@ protected:
 private:
     /// @brief Init Junctions and edges
     void initJunctionsAndEdges();
-
-    /// @brief reserve edge ID (To avoid duplicates)
-    void reserveEdgeID(const std::string& id);
-
-    /// @brief reserve junction ID (To avoid duplicates)
-    void reserveJunctionID(const std::string& id);
 
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position& pos);

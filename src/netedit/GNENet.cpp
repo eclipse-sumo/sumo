@@ -88,8 +88,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
     myPathManager(new GNEPathManager(this)),
-    myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
-    myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
+    myJunctionIDCounter(0),
+    myEdgeIDCounter(0),
     myNeedRecompute(true),
     myNetSaved(true),
     myAdditionalsSaved(true),
@@ -209,9 +209,14 @@ GNENet::addZValueInBoundary(const double z) {
 
 GNEJunction*
 GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
-    std::string id = myJunctionIDSupplier.getNext();
+    // get junction prefix
+    const std::string junctionPrefix = OptionsCont::getOptions().getString("node-prefix");
+    // generate new ID
+    while (myAttributeCarriers->getJunctions().count(junctionPrefix + toString(myJunctionIDCounter)) != 0) {
+        myJunctionIDCounter++;
+    }
     // create new NBNode
-    NBNode* nbn = new NBNode(id, pos);
+    NBNode* nbn = new NBNode(junctionPrefix + toString(myJunctionIDCounter), pos);
     GNEJunction* junction = new GNEJunction(this, nbn);
     undoList->add(new GNEChange_Junction(junction, true), true);
     return junction;
@@ -221,6 +226,10 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
 GNEEdge*
 GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
                    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
+    // get edge prefix
+    const std::string edgePrefix = OptionsCont::getOptions().getString("edge-prefix");
+    // get edge infix
+    const std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // prevent duplicate edge (same geometry)
     for (const auto& outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
         if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
@@ -232,9 +241,24 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
     std::string id;
     if (suggestedName != "" && !retrieveEdge(suggestedName, false)) {
         id = suggestedName;
-        reserveEdgeID(id);
+    } else if (edgeInfix.size() > 0) {
+        // check if exist edge with id <fromNodeID><infix><toNodeID>
+        if (myAttributeCarriers->getEdges().count(src->getID() + edgeInfix + dest->getID()) == 0) {
+            id = src->getID() + edgeInfix + dest->getID();
+        } else {
+            int counter = 0;
+            // generate new ID using edgeInfix and counter
+            while (myAttributeCarriers->getEdges().count(src->getID() + edgeInfix + toString(counter) + dest->getID()) != 0) {
+                myEdgeIDCounter++;
+            }
+        id = src->getID() + edgeInfix + toString(counter) + dest->getID();
+        }
     } else {
-        id = myEdgeIDSupplier.getNext();
+        // generate new ID
+        while (myAttributeCarriers->getEdges().count(edgePrefix + toString(myEdgeIDCounter)) != 0) {
+            myEdgeIDCounter++;
+        }
+        id = edgePrefix + toString(myEdgeIDCounter);
     }
     GNEEdge* edge;
     // check if there is a template edge
@@ -3445,18 +3469,6 @@ GNENet::initJunctionsAndEdges() {
     }
     // sort nodes edges so that arrows can be drawn correctly
     NBNodesEdgesSorter::sortNodesEdges(myNetBuilder->getNodeCont());
-}
-
-
-void
-GNENet::reserveEdgeID(const std::string& id) {
-    myEdgeIDSupplier.avoid(id);
-}
-
-
-void
-GNENet::reserveJunctionID(const std::string& id) {
-    myJunctionIDSupplier.avoid(id);
 }
 
 
