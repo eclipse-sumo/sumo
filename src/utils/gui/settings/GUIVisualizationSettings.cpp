@@ -161,12 +161,6 @@ const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0
 
 const double GUIVisualizationWidthSettings::route(0.66);
 const double GUIVisualizationWidthSettings::embeddedRoute(0.55);
-const double GUIVisualizationWidthSettings::trip(0.2);
-const double GUIVisualizationWidthSettings::personTrip(0.25);
-const double GUIVisualizationWidthSettings::walk(0.25);
-const double GUIVisualizationWidthSettings::ride(0.25);
-const double GUIVisualizationWidthSettings::transport(0.25);
-const double GUIVisualizationWidthSettings::tranship(0.25);
 
 // -------------------------------------------------------------------------
 // details of certain NETEDIT objects (0 = drawn always)
@@ -437,7 +431,6 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (parkingAreaColorSign != v2.parkingAreaColorSign) ||
            (parkingSpaceColorContour != v2.parkingSpaceColorContour) ||
            (parkingSpaceColor != v2.parkingSpaceColor) ||
-           (trips != v2.trips) ||
            (stops != v2.stops) ||
            (vehicleTrips != v2.vehicleTrips) ||
            (stopPersons != v2.stopPersons) ||
@@ -450,7 +443,42 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
 }
 
 // ---------------------------------------------------------------------------
-// GUIVisualizationSettings - methods
+// GUIVisualizationWidthSettings - methods
+// ---------------------------------------------------------------------------
+
+GUIVisualizationWidthSettings::GUIVisualizationWidthSettings() :
+    trip(0.2),
+    personTrip(0.25),
+    walk(0.25),
+    ride(0.25),
+    transport(0.25),
+    tranship(0.25) {
+}
+
+
+bool
+GUIVisualizationWidthSettings::operator==(const GUIVisualizationWidthSettings& v2) {
+    return (trip == v2.trip) &&
+           (personTrip == v2.personTrip) &&
+           (walk == v2.walk) &&
+           (ride == v2.ride) &&
+           (transport == v2.transport) &&
+           (tranship == v2.tranship);
+}
+
+
+bool
+GUIVisualizationWidthSettings::operator!=(const GUIVisualizationWidthSettings& v2) {
+    return (trip != v2.trip) ||
+           (personTrip != v2.personTrip) ||
+           (walk != v2.walk) ||
+           (ride != v2.ride) ||
+           (transport != v2.transport) ||
+           (tranship != v2.tranship);
+}
+
+// ---------------------------------------------------------------------------
+// GUIVisualizationWidthSettings - methods
 // ---------------------------------------------------------------------------
 
 GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :

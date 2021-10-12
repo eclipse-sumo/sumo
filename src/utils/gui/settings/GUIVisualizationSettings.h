@@ -231,7 +231,6 @@ struct GUIVisualizationColorSettings {
     /// @brief color for tranships
     RGBColor tranship;
 
-    
     /// @brief color for highlighthing deadends
     static const RGBColor SUMO_color_DEADEND_SHOW;
 
@@ -450,29 +449,38 @@ struct GUIVisualizationDottedContourSettings {
 /// @brief struct for width settings
 struct GUIVisualizationWidthSettings {
 
+    /// @brief constructor
+    GUIVisualizationWidthSettings();
+
+    /// @brief equality comparator
+    bool operator==(const GUIVisualizationWidthSettings& other);
+
+    /// @brief inequality comparator
+    bool operator!=(const GUIVisualizationWidthSettings& other);
+
+    /// @brief width for trips
+    double trip;
+
+    /// @brief width for person trips
+    double personTrip;
+
+    /// @brief width for walks
+    double walk;
+
+    /// @brief width for rides
+    double ride;
+
+    /// @brief width for rides
+    double transport;
+
+    /// @brief width for rides
+    double tranship;
+
     /// @brief width for routes
     static const double route;
 
     /// @brief width for embeddedroutes
     static const double embeddedRoute;
-
-    /// @brief width for trips
-    static const double trip;
-
-    /// @brief width for person trips
-    static const double personTrip;
-
-    /// @brief width for walks
-    static const double walk;
-
-    /// @brief width for rides
-    static const double ride;
-
-    /// @brief width for rides
-    static const double transport;
-
-    /// @brief width for rides
-    static const double tranship;
 };
 
 
@@ -634,7 +642,6 @@ public:
     /// @brief Information about the grid spacings
     double gridXSize, gridYSize;
     /// @}
-
 
     /// @name lane visualization settings
     /// @{
