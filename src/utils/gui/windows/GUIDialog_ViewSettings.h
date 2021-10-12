@@ -458,6 +458,7 @@ protected:
     void buildContainersFrame(FXTabBook* tabbook);
     void buildJunctionsFrame(FXTabBook* tabbook);
     void buildAdditionalsFrame(FXTabBook* tabbook);
+    void buildDemandFrame(FXTabBook* tabbook);
     void buildPOIsFrame(FXTabBook* tabbook);
     void buildPolygonsFrame(FXTabBook* tabbook);
     void buildSelectionFrame(FXTabBook* tabbook);

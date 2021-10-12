@@ -102,6 +102,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     buildJunctionsFrame(tabbook);
     // build additionals frame
     buildAdditionalsFrame(tabbook);
+    // build demand frame
+    if (mySettings->netedit) {
+        buildDemandFrame(tabbook);
+    }
     // build POIs frame
     buildPOIsFrame(tabbook);
     // build polygons frame
@@ -1956,30 +1960,47 @@ GUIDialog_ViewSettings::buildAdditionalsFrame(FXTabBook* tabbook) {
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
     FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
     // IDs
-    FXMatrix* additionalMatrix = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
-    myAddNamePanel = new NamePanel(additionalMatrix, this, "Show object id", mySettings->addName);
-    myAddFullNamePanel = new NamePanel(additionalMatrix, this, "Show full name", mySettings->addFullName);
+    FXMatrix* matrixIDs = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myAddNamePanel = new NamePanel(matrixIDs, this, "Show object id", mySettings->addName);
+    myAddFullNamePanel = new NamePanel(matrixIDs, this, "Show full name", mySettings->addFullName);
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     //Sizes
-    additionalMatrix = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
-    myAddSizePanel = new SizePanel(additionalMatrix, this, mySettings->addSize);
+    FXMatrix* matrixSizes = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myAddSizePanel = new SizePanel(matrixSizes, this, mySettings->addSize);
     // color
-    additionalMatrix = new FXMatrix(verticalFrame, 3, GUIDesignMatrixViewSettings);
-    new FXLabel(additionalMatrix, "StoppingPlace", nullptr, GUIDesignViewSettingsLabel1);
-    new FXLabel(additionalMatrix, "body", nullptr, GUIDesignViewSettingsLabel1);
-    new FXLabel(additionalMatrix, "sign", nullptr, GUIDesignViewSettingsLabel1);
-    new FXLabel(additionalMatrix, "busStops", nullptr, GUIDesignViewSettingsLabel1);
-    myBusStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.busStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    myBusStopColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.busStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    new FXLabel(additionalMatrix, "trainStops", nullptr, GUIDesignViewSettingsLabel1);
-    myTrainStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.trainStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    myTrainStopColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.trainStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    new FXLabel(additionalMatrix, "containerStops", nullptr, GUIDesignViewSettingsLabel1);
-    myContainerStopColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.containerStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    myContainerStopColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.containerStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    new FXLabel(additionalMatrix, "chargingStations", nullptr, GUIDesignViewSettingsLabel1);
-    myChargingStationColor = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    myChargingStationColorSign = new FXColorWell(additionalMatrix, MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    FXMatrix* matrixColor = new FXMatrix(verticalFrame, 3, GUIDesignMatrixViewSettings);
+    new FXLabel(matrixColor, "StoppingPlace", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(matrixColor, "body", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(matrixColor, "sign", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(matrixColor, "busStops", nullptr, GUIDesignViewSettingsLabel1);
+    myBusStopColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.busStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myBusStopColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.busStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(matrixColor, "trainStops", nullptr, GUIDesignViewSettingsLabel1);
+    myTrainStopColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.trainStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myTrainStopColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.trainStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(matrixColor, "containerStops", nullptr, GUIDesignViewSettingsLabel1);
+    myContainerStopColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.containerStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myContainerStopColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.containerStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(matrixColor, "chargingStations", nullptr, GUIDesignViewSettingsLabel1);
+    myChargingStationColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myChargingStationColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildDemandFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Demand", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+    // color
+    FXMatrix* demandMatrix = new FXMatrix(verticalFrame, 3, GUIDesignMatrixViewSettings);
+    new FXLabel(demandMatrix, "element", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(demandMatrix, "color", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(demandMatrix, "width", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(demandMatrix, "trip", nullptr, GUIDesignViewSettingsLabel1);
+    myBusStopColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.busStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    FXRealSpinner* widthDial = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    //widthDial->setValue(settings.minSize);
 }
 
 
