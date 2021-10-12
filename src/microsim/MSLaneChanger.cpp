@@ -1127,12 +1127,12 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     }
     // check for opposite direction stop
     if (!oppositeChangeByTraci && hasOppositeStop(vehicle)) {
-        std::vector<MSVehicle::LaneQ> preb = getBestLanesOpposite(vehicle, vehicle->getNextStop().lane, -1);
+        const std::vector<MSVehicle::LaneQ> preb = getBestLanesOpposite(vehicle, vehicle->getNextStop().lane, -1);
         const int laneIndex = vehicle->getLaneChangeModel().getNormalizedLaneIndex();
         const int bestOffset = preb[laneIndex].bestLaneOffset;
-        MSLane* target = preb[laneIndex + 1].lane;
         //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneIndex=" << laneIndex << " bestOffset=" << bestOffset << " target=" << target->getID() << "\n";
         if (bestOffset > 0) {
+            MSLane* const target = preb[laneIndex + 1].lane;
             std::pair<MSVehicle* const, double> neighLead = target->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
             std::pair<MSVehicle* const, double> neighFollow = target->getOppositeFollower(vehicle);
             return checkChangeOpposite(vehicle, 1, target, leader, neighLead, neighFollow, preb);

@@ -4701,7 +4701,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     // internal edges are not a part of the route...
     if (!enteredLane->getEdge().isInternal()) {
         ++myCurrEdge;
-        assert(haveValidStopEdges());
+        assert(myLaneChangeModel->isOpposite() || haveValidStopEdges());
     }
     if (myInfluencer != nullptr) {
         myInfluencer->adaptLaneTimeLine(myLane->getIndex() - oldLane->getIndex());
