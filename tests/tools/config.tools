@@ -243,6 +243,7 @@ errors:/home/
 errors:C:
 errors:D:
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
+errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
