@@ -136,7 +136,7 @@ GNEStopContainer::getVClass() const {
 
 const RGBColor&
 GNEStopContainer::getColor() const {
-    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopContainers;
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopContainerColor;
 }
 
 
@@ -236,7 +236,7 @@ GNEStopContainer::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // declare stop color
-        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedContainerPlanColor : s.colorSettings.stops;
+        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedContainerPlanColor : s.colorSettings.stopColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add layer matrix matrix

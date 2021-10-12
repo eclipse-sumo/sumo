@@ -334,7 +334,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
-        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRoute : s.widthSettings.route);
+        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth);
         // calculate startPos
         const double geometryDepartPos = embedded ? (getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH)) : -1;
         // get endPos
@@ -426,7 +426,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
-        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRoute : s.widthSettings.route);
+        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth);
         // obtain lane2lane geometry
         const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // obtain color

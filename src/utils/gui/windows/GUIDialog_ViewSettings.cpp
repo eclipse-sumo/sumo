@@ -229,22 +229,22 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myContainerStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.containerStopColorSign));
     myChargingStationColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColor));
     myChargingStationColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign));
-    myStopsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stops));
-    myVehicleTripsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.vehicleTrips));
-    myStopPersonsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopPersons));
-    myPersonTripColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.personTrip));
-    myWalkColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.walk));
-    myRideColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.ride));
-    myStopContainersColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopContainers));
-    myTransportColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transport));
-    myTranshipColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.tranship));
+    myStopsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopColor));
+    myVehicleTripsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.vehicleTripColor));
+    myStopPersonsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor));
+    myPersonTripColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.personTripColor));
+    myWalkColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.walkColor));
+    myRideColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.rideColor));
+    myStopContainersColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopContainerColor));
+    myTransportColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transportColor));
+    myTranshipColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transhipColor));
 
-    myTripWidth->setValue(mySettings->widthSettings.trip);
-    myPersonTripWidth->setValue(mySettings->widthSettings.personTrip);
-    myWalkWidth->setValue(mySettings->widthSettings.walk);
-    myRideWidth->setValue(mySettings->widthSettings.ride);
-    myTransportWidth->setValue(mySettings->widthSettings.transport);
-    myTranshipWidth->setValue(mySettings->widthSettings.tranship);
+    myTripWidth->setValue(mySettings->widthSettings.tripWidth);
+    myPersonTripWidth->setValue(mySettings->widthSettings.personTripWidth);
+    myWalkWidth->setValue(mySettings->widthSettings.walkWidth);
+    myRideWidth->setValue(mySettings->widthSettings.rideWidth);
+    myTransportWidth->setValue(mySettings->widthSettings.transportWidth);
+    myTranshipWidth->setValue(mySettings->widthSettings.transhipWidth);
 
     if (mySettings->netedit) {
         mySelectionColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectionColor));
@@ -479,22 +479,22 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.colorSettings.containerStopColorSign = MFXUtils::getRGBColor(myContainerStopColorSign->getRGBA());
     tmpSettings.colorSettings.chargingStationColor = MFXUtils::getRGBColor(myChargingStationColor->getRGBA());
     tmpSettings.colorSettings.chargingStationColorSign = MFXUtils::getRGBColor(myChargingStationColorSign->getRGBA());
-    tmpSettings.colorSettings.stops = MFXUtils::getRGBColor(myStopsColor->getRGBA());
-    tmpSettings.colorSettings.vehicleTrips = MFXUtils::getRGBColor(myVehicleTripsColor->getRGBA());
-    tmpSettings.colorSettings.stopPersons = MFXUtils::getRGBColor(myStopPersonsColor->getRGBA());
-    tmpSettings.colorSettings.personTrip = MFXUtils::getRGBColor(myPersonTripColor->getRGBA());
-    tmpSettings.colorSettings.walk = MFXUtils::getRGBColor(myWalkColor->getRGBA());
-    tmpSettings.colorSettings.ride = MFXUtils::getRGBColor(myRideColor->getRGBA());
-    tmpSettings.colorSettings.stopContainers = MFXUtils::getRGBColor(myStopContainersColor->getRGBA());
-    tmpSettings.colorSettings.transport = MFXUtils::getRGBColor(myTransportColor->getRGBA());
-    tmpSettings.colorSettings.tranship = MFXUtils::getRGBColor(myTranshipColor->getRGBA());
+    tmpSettings.colorSettings.stopColor = MFXUtils::getRGBColor(myStopsColor->getRGBA());
+    tmpSettings.colorSettings.vehicleTripColor = MFXUtils::getRGBColor(myVehicleTripsColor->getRGBA());
+    tmpSettings.colorSettings.stopPersonColor = MFXUtils::getRGBColor(myStopPersonsColor->getRGBA());
+    tmpSettings.colorSettings.personTripColor = MFXUtils::getRGBColor(myPersonTripColor->getRGBA());
+    tmpSettings.colorSettings.walkColor = MFXUtils::getRGBColor(myWalkColor->getRGBA());
+    tmpSettings.colorSettings.rideColor = MFXUtils::getRGBColor(myRideColor->getRGBA());
+    tmpSettings.colorSettings.stopContainerColor = MFXUtils::getRGBColor(myStopContainersColor->getRGBA());
+    tmpSettings.colorSettings.transportColor = MFXUtils::getRGBColor(myTransportColor->getRGBA());
+    tmpSettings.colorSettings.transhipColor = MFXUtils::getRGBColor(myTranshipColor->getRGBA());
 
-    tmpSettings.widthSettings.trip = myTripWidth->getValue();
-    tmpSettings.widthSettings.personTrip = myPersonTripWidth->getValue();
-    tmpSettings.widthSettings.walk = myWalkWidth->getValue();
-    tmpSettings.widthSettings.ride = myRideWidth->getValue();
-    tmpSettings.widthSettings.transport = myTransportWidth->getValue();
-    tmpSettings.widthSettings.tranship = myTranshipWidth->getValue();
+    tmpSettings.widthSettings.tripWidth = myTripWidth->getValue();
+    tmpSettings.widthSettings.personTripWidth = myPersonTripWidth->getValue();
+    tmpSettings.widthSettings.walkWidth = myWalkWidth->getValue();
+    tmpSettings.widthSettings.rideWidth = myRideWidth->getValue();
+    tmpSettings.widthSettings.transportWidth = myTransportWidth->getValue();
+    tmpSettings.widthSettings.transhipWidth = myTranshipWidth->getValue();
 
     if (mySettings->netedit) {
         tmpSettings.colorSettings.selectionColor = MFXUtils::getRGBColor(mySelectionColor->getRGBA());
@@ -2030,39 +2030,39 @@ GUIDialog_ViewSettings::buildDemandFrame(FXTabBook* tabbook) {
     new FXLabel(demandMatrix, "color", nullptr, GUIDesignViewSettingsLabel1);
     new FXLabel(demandMatrix, "width", nullptr, GUIDesignViewSettingsLabel1);
     new FXLabel(demandMatrix, "trips", nullptr, GUIDesignViewSettingsLabel1);
-    myVehicleTripsColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.vehicleTrips), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myVehicleTripsColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.vehicleTripColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     myTripWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    myTripWidth->setValue(mySettings->widthSettings.personTrip);
+    myTripWidth->setValue(mySettings->widthSettings.personTripWidth);
     new FXLabel(demandMatrix, "personTrips", nullptr, GUIDesignViewSettingsLabel1);
-    myPersonTripColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.personTrip), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myPersonTripColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.personTripColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     myPersonTripWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    myPersonTripWidth->setValue(mySettings->widthSettings.personTrip);
+    myPersonTripWidth->setValue(mySettings->widthSettings.personTripWidth);
     new FXLabel(demandMatrix, "walks", nullptr, GUIDesignViewSettingsLabel1);
-    myWalkColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.walk), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myWalkColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.walkColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     myWalkWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    myWalkWidth->setValue(mySettings->widthSettings.walk);
+    myWalkWidth->setValue(mySettings->widthSettings.walkWidth);
     new FXLabel(demandMatrix, "rides", nullptr, GUIDesignViewSettingsLabel1);
-    myRideColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.ride), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myRideColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.rideColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     myRideWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    myRideWidth->setValue(mySettings->widthSettings.ride);
+    myRideWidth->setValue(mySettings->widthSettings.rideWidth);
     new FXLabel(demandMatrix, "transport", nullptr, GUIDesignViewSettingsLabel1);
-    myTransportColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.transport), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myTransportColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.transportColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     myTransportWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    myTransportWidth->setValue(mySettings->widthSettings.transport);
+    myTransportWidth->setValue(mySettings->widthSettings.transportWidth);
     new FXLabel(demandMatrix, "tranship", nullptr, GUIDesignViewSettingsLabel1);
-    myTranshipColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.tranship), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myTranshipColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.transhipColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     myTranshipWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    myTranshipWidth->setValue(mySettings->widthSettings.tranship);
+    myTranshipWidth->setValue(mySettings->widthSettings.transhipWidth);
     // stops
     FXMatrix* stopMatrix = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
     new FXLabel(stopMatrix, "stop", nullptr, GUIDesignViewSettingsLabel1);
     new FXLabel(stopMatrix, "color", nullptr, GUIDesignViewSettingsLabel1);
     new FXLabel(stopMatrix, "vehicles", nullptr, GUIDesignViewSettingsLabel1);
-    myStopsColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stops), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myStopsColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     new FXLabel(stopMatrix, "persons", nullptr, GUIDesignViewSettingsLabel1);
-    myStopPersonsColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopPersons), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myStopPersonsColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     new FXLabel(stopMatrix, "containers", nullptr, GUIDesignViewSettingsLabel1);
-    myStopContainersColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopContainers), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myStopContainersColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopContainerColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
 }
 
 

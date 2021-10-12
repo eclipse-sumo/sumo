@@ -187,17 +187,17 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         RGBColor crossingColor;
         // first check if we're editing shape
         if (myShapeEdited) {
-            crossingColor = s.colorSettings.editShape;
+            crossingColor = s.colorSettings.editShapeColor;
         } else if (drawUsingSelectColor()) {
             crossingColor = s.colorSettings.selectedCrossingColor;
         } else if (!NBCrossing->valid) {
-            crossingColor = s.colorSettings.crossingInvalid;
+            crossingColor = s.colorSettings.crossingInvalidColor;
         } else if (NBCrossing->priority) {
-            crossingColor = s.colorSettings.crossingPriority;
+            crossingColor = s.colorSettings.crossingPriorityColor;
         } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
             crossingColor = s.laneColorer.getSchemes()[0].getColor(8);
         } else {
-            crossingColor = s.colorSettings.crossing;
+            crossingColor = s.colorSettings.crossingColor;
         }
         // check that current mode isn't TLS
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {

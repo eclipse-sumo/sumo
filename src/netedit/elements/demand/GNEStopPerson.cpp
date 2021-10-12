@@ -136,7 +136,7 @@ GNEStopPerson::getVClass() const {
 
 const RGBColor&
 GNEStopPerson::getColor() const {
-    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopPersons;
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopPersonColor;
 }
 
 
@@ -236,7 +236,7 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // declare stop color
-        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stops;
+        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add layer matrix matrix

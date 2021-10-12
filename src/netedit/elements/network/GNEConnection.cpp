@@ -376,7 +376,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         RGBColor connectionColor;
         // first check if we're editing shape
         if (myShapeEdited) {
-            connectionColor = s.colorSettings.editShape;
+            connectionColor = s.colorSettings.editShapeColor;
         } else if (drawUsingSelectColor()) {
             // override with special colors (unless the color scheme is based on selection)
             connectionColor = s.colorSettings.selectedConnectionColor;

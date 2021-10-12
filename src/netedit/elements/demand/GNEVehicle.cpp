@@ -768,7 +768,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             (drawNetworkMode || drawDemandMode || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // calculate width
-        const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.trip;
+        const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.tripWidth;
         // calculate startPos
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         // get endPos
@@ -792,7 +792,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             vehicleGeometry = lane->getLaneGeometry();
         }
         // obtain color
-        const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTrips;
+        const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTripColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add a draw matrix
@@ -886,7 +886,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // obtain lane2lane geometry
         const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
-        const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
+        const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.tripWidth;
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -895,7 +895,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedVehicleColor);
         } else {
-            GLHelper::setColor(s.colorSettings.vehicleTrips);
+            GLHelper::setColor(s.colorSettings.vehicleTripColor);
         }
         // draw lane2lane
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, width);

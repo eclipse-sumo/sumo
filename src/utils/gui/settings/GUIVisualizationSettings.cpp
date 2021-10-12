@@ -59,11 +59,11 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 // -------------------------------------------------------------------------
 
 const RGBColor GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW(255, 0, 255);
-const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
-const RGBColor GUIVisualizationColorSettings::editShape(0, 200, 0);
-const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
-const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
-const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
+const RGBColor GUIVisualizationColorSettings::childConnectionColor(255, 235, 0);
+const RGBColor GUIVisualizationColorSettings::editShapeColor(0, 200, 0);
+const RGBColor GUIVisualizationColorSettings::crossingColor(25, 25, 25);
+const RGBColor GUIVisualizationColorSettings::crossingPriorityColor(229, 229, 229);
+const RGBColor GUIVisualizationColorSettings::crossingInvalidColor(255, 25, 25);
 
 
 // -------------------------------------------------------------------------
@@ -159,8 +159,8 @@ const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0
 // widths of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationWidthSettings::route(0.66);
-const double GUIVisualizationWidthSettings::embeddedRoute(0.55);
+const double GUIVisualizationWidthSettings::routeWidth(0.66);
+const double GUIVisualizationWidthSettings::embeddedRouteWidth(0.55);
 
 // -------------------------------------------------------------------------
 // details of certain NETEDIT objects (0 = drawn always)
@@ -351,15 +351,15 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     parkingAreaColorSign(177, 184, 186),
     parkingSpaceColorContour(0, 255, 0),
     parkingSpaceColor(255, 200, 200),
-    stops(220, 20, 30),
-    vehicleTrips(255, 128, 0),
-    stopPersons(255, 0, 0),
-    personTrip(200, 0, 255),
-    walk(0, 255, 0),
-    ride(0, 0, 255),
-    stopContainers(255, 0, 0),
-    transport(100, 200, 0),
-    tranship(100, 0, 200) {
+    stopColor(220, 20, 30),
+    vehicleTripColor(255, 128, 0),
+    stopPersonColor(255, 0, 0),
+    personTripColor(200, 0, 255),
+    walkColor(0, 255, 0),
+    rideColor(0, 0, 255),
+    stopContainerColor(255, 0, 0),
+    transportColor(100, 200, 0),
+    transhipColor(100, 0, 200) {
 }
 
 
@@ -391,15 +391,15 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (parkingAreaColorSign == v2.parkingAreaColorSign) &&
            (parkingSpaceColorContour == v2.parkingSpaceColorContour) &&
            (parkingSpaceColor == v2.parkingSpaceColor) &&
-           (stops == v2.stops) &&
-           (vehicleTrips == v2.vehicleTrips) &&
-           (stopPersons == v2.stopPersons) &&
-           (personTrip == v2.personTrip) &&
-           (walk == v2.walk) &&
-           (ride == v2.ride) &&
-           (stopContainers == v2.stopContainers) &&
-           (transport == v2.transport) &&
-           (tranship == v2.tranship);
+           (stopColor == v2.stopColor) &&
+           (vehicleTripColor == v2.vehicleTripColor) &&
+           (stopPersonColor == v2.stopPersonColor) &&
+           (personTripColor == v2.personTripColor) &&
+           (walkColor == v2.walkColor) &&
+           (rideColor == v2.rideColor) &&
+           (stopContainerColor == v2.stopContainerColor) &&
+           (transportColor == v2.transportColor) &&
+           (transhipColor == v2.transhipColor);
 }
 
 
@@ -431,15 +431,15 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (parkingAreaColorSign != v2.parkingAreaColorSign) ||
            (parkingSpaceColorContour != v2.parkingSpaceColorContour) ||
            (parkingSpaceColor != v2.parkingSpaceColor) ||
-           (stops != v2.stops) ||
-           (vehicleTrips != v2.vehicleTrips) ||
-           (stopPersons != v2.stopPersons) ||
-           (personTrip != v2.personTrip) ||
-           (walk != v2.walk) ||
-           (ride != v2.ride) ||
-           (stopContainers != v2.stopContainers) ||
-           (transport != v2.transport) ||
-           (tranship != v2.tranship);
+           (stopColor != v2.stopColor) ||
+           (vehicleTripColor != v2.vehicleTripColor) ||
+           (stopPersonColor != v2.stopPersonColor) ||
+           (personTripColor != v2.personTripColor) ||
+           (walkColor != v2.walkColor) ||
+           (rideColor != v2.rideColor) ||
+           (stopContainerColor != v2.stopContainerColor) ||
+           (transportColor != v2.transportColor) ||
+           (transhipColor != v2.transhipColor);
 }
 
 // ---------------------------------------------------------------------------
@@ -447,34 +447,34 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
 // ---------------------------------------------------------------------------
 
 GUIVisualizationWidthSettings::GUIVisualizationWidthSettings() :
-    trip(0.2),
-    personTrip(0.25),
-    walk(0.25),
-    ride(0.25),
-    transport(0.25),
-    tranship(0.25) {
+    tripWidth(0.2),
+    personTripWidth(0.25),
+    walkWidth(0.25),
+    rideWidth(0.25),
+    transportWidth(0.25),
+    transhipWidth(0.25) {
 }
 
 
 bool
 GUIVisualizationWidthSettings::operator==(const GUIVisualizationWidthSettings& v2) {
-    return (trip == v2.trip) &&
-           (personTrip == v2.personTrip) &&
-           (walk == v2.walk) &&
-           (ride == v2.ride) &&
-           (transport == v2.transport) &&
-           (tranship == v2.tranship);
+    return (tripWidth == v2.tripWidth) &&
+           (personTripWidth == v2.personTripWidth) &&
+           (walkWidth == v2.walkWidth) &&
+           (rideWidth == v2.rideWidth) &&
+           (transportWidth == v2.transportWidth) &&
+           (transhipWidth == v2.transhipWidth);
 }
 
 
 bool
 GUIVisualizationWidthSettings::operator!=(const GUIVisualizationWidthSettings& v2) {
-    return (trip != v2.trip) ||
-           (personTrip != v2.personTrip) ||
-           (walk != v2.walk) ||
-           (ride != v2.ride) ||
-           (transport != v2.transport) ||
-           (tranship != v2.tranship);
+    return (tripWidth != v2.tripWidth) ||
+           (personTripWidth != v2.personTripWidth) ||
+           (walkWidth != v2.walkWidth) ||
+           (rideWidth != v2.rideWidth) ||
+           (transportWidth != v2.transportWidth) ||
+           (transhipWidth != v2.transhipWidth);
 }
 
 // ---------------------------------------------------------------------------
@@ -1694,24 +1694,23 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("parkingAreaColorSign", colorSettings.parkingAreaColorSign);
     dev.writeAttr("parkingSpaceColorContour", colorSettings.parkingSpaceColorContour);
     dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
-
-    dev.writeAttr("stopColor", colorSettings.stops);
-    dev.writeAttr("vehicleTripColor", colorSettings.vehicleTrips);
-    dev.writeAttr("stopPersonColor", colorSettings.stopPersons);
-    dev.writeAttr("personTripColor", colorSettings.personTrip);
-    dev.writeAttr("walkColor", colorSettings.walk);
-    dev.writeAttr("rideColor", colorSettings.ride);
-    dev.writeAttr("stopContainerColor", colorSettings.stopContainers);
-    dev.writeAttr("transportColor", colorSettings.transport);
-    dev.writeAttr("transhipColor", colorSettings.tranship);
+    dev.writeAttr("stopColor", colorSettings.stopColor);
+    dev.writeAttr("vehicleTripColor", colorSettings.personTripColor);
+    dev.writeAttr("stopPersonColor", colorSettings.stopPersonColor);
+    dev.writeAttr("personTripColor", colorSettings.personTripColor);
+    dev.writeAttr("walkColor", colorSettings.walkColor);
+    dev.writeAttr("rideColor", colorSettings.rideColor);
+    dev.writeAttr("stopContainerColor", colorSettings.stopContainerColor);
+    dev.writeAttr("transportColor", colorSettings.transportColor);
+    dev.writeAttr("transhipColor", colorSettings.transhipColor);
     dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
     dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
-    dev.writeAttr("tripWidth", widthSettings.trip);
-    dev.writeAttr("personTripWidth", widthSettings.personTrip);
-    dev.writeAttr("walkWidth", widthSettings.walk);
-    dev.writeAttr("rideWidth", widthSettings.ride);
-    dev.writeAttr("transportWidth", widthSettings.transport);
-    dev.writeAttr("transhipWidth", widthSettings.tranship);
+    dev.writeAttr("tripWidth", widthSettings.tripWidth);
+    dev.writeAttr("personTripWidth", widthSettings.personTripWidth);
+    dev.writeAttr("walkWidth", widthSettings.walkWidth);
+    dev.writeAttr("rideWidth", widthSettings.rideWidth);
+    dev.writeAttr("transportWidth", widthSettings.transportWidth);
+    dev.writeAttr("transhipWidth", widthSettings.transhipWidth);
     dev.closeTag();
     // pois
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);

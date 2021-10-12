@@ -152,7 +152,7 @@ GNEStop::getVClass() const {
 
 const RGBColor&
 GNEStop::getColor() const {
-    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stops;
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
 }
 
 
@@ -257,7 +257,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         if (drawUsingSelectColor()) {
             stopColor = s.colorSettings.selectedRouteColor;
         } else {
-            stopColor = s.colorSettings.stops;
+            stopColor = s.colorSettings.stopColor;
         }
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());

@@ -205,49 +205,49 @@ struct GUIVisualizationColorSettings {
     RGBColor parkingSpaceColor;
 
     /// @brief color for Stops
-    RGBColor stops;
+    RGBColor stopColor;
 
     /// @brief color for vehicle trips
-    RGBColor vehicleTrips;
+    RGBColor vehicleTripColor;
 
     /// @brief color for stopPersons
-    RGBColor stopPersons;
+    RGBColor stopPersonColor;
 
     /// @brief color for stopPersons
-    RGBColor personTrip;
+    RGBColor personTripColor;
 
     /// @brief color for walks
-    RGBColor walk;
+    RGBColor walkColor;
 
     /// @brief color for rides
-    RGBColor ride;
+    RGBColor rideColor;
 
     /// @brief color for containerStops
-    RGBColor stopContainers;
+    RGBColor stopContainerColor;
 
     /// @brief color for transport
-    RGBColor transport;
+    RGBColor transportColor;
 
     /// @brief color for tranships
-    RGBColor tranship;
+    RGBColor transhipColor;
 
     /// @brief color for highlighthing deadends
     static const RGBColor SUMO_color_DEADEND_SHOW;
 
     /// @brief color for child connections between parents and child elements
-    static const RGBColor childConnections;
+    static const RGBColor childConnectionColor;
 
     /// @brief color for edited shapes (Junctions, crossings and connections)
-    static const RGBColor editShape;
+    static const RGBColor editShapeColor;
 
     /// @brief color for crossings
-    static const RGBColor crossing;
+    static const RGBColor crossingColor;
 
     /// @brief color for priority crossing
-    static const RGBColor crossingPriority;
+    static const RGBColor crossingPriorityColor;
 
     /// @brief color for invalid crossing
-    static const RGBColor crossingInvalid;
+    static const RGBColor crossingInvalidColor;
 
 };
 
@@ -459,28 +459,28 @@ struct GUIVisualizationWidthSettings {
     bool operator!=(const GUIVisualizationWidthSettings& other);
 
     /// @brief width for trips
-    double trip;
+    double tripWidth;
 
     /// @brief width for person trips
-    double personTrip;
+    double personTripWidth;
 
     /// @brief width for walks
-    double walk;
+    double walkWidth;
 
     /// @brief width for rides
-    double ride;
+    double rideWidth;
 
     /// @brief width for rides
-    double transport;
+    double transportWidth;
 
     /// @brief width for rides
-    double tranship;
+    double transhipWidth;
 
     /// @brief width for routes
-    static const double route;
+    static const double routeWidth;
 
     /// @brief width for embeddedroutes
-    static const double embeddedRoute;
+    static const double embeddedRouteWidth;
 };
 
 
