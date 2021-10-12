@@ -370,6 +370,9 @@ public:
     // @brief called when user press Ctrl+Y
     long onCmdRedo(FXObject*, FXSelector, void*);
 
+    // @brief called when user press open undoList dialog
+    long onCmdOpenUndoListDialog(FXObject*, FXSelector, void*);
+
     // @brief called when user press compute path manager
     long onCmdComputePathManager(FXObject*, FXSelector, void*);
 

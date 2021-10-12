@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEUndoListDialog::GNEUndoListDialog(GNEViewNet* viewNet) :
-    FXTopWindow(viewNet, "Undo-Redo list", GUIIconSubSys::getIcon(GUIIcon::UNDO), GUIIconSubSys::getIcon(GUIIcon::UNDO), GUIDesignDialogBoxExplicit(320, 240)),
+    FXTopWindow(viewNet, "Undo-Redo list", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(320, 240)),
     myViewNet(viewNet) {
 /*
     // create Horizontal frame for row elements

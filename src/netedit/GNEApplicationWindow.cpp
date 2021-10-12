@@ -173,6 +173,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Z_UNDO,                         GNEApplicationWindow::onUpdUndo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNDOLISTDIALOG,                         GNEApplicationWindow::onCmdOpenUndoListDialog),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_UNDOLISTDIALOG,                         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onCmdComputePathManager),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,         GNEApplicationWindow::onUpdComputePathManager),
     // Network view options
@@ -2255,6 +2257,12 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
         myViewNet->getViewParent()->updateUndoRedoButtons();
         return 1;
     }
+}
+
+
+long 
+GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 

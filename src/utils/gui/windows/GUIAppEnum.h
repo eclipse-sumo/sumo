@@ -1286,6 +1286,9 @@ enum {
     /// @brief selector for LockMenuTitle
     MID_GNE_LOCK_MENUTITLE,
 
+    /// @brief open undo list dialog
+    MID_GNE_UNDOLISTDIALOG,
+
     /// @}
 
     /// @brief last element of enum (not used)

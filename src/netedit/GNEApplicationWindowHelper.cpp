@@ -841,6 +841,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
 GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWindow* GNEApp) :
     undoLastChange(nullptr),
     redoLastChange(nullptr),
+    openUndolistDialog(nullptr),
     networkViewOptions(GNEApp),
     demandViewOptions(GNEApp),
     dataViewOptions(GNEApp),
@@ -858,11 +859,14 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::buildUndoRedoMenuCommands(FXMenuPane* editMenu) {
     // build undo/redo command
     undoLastChange = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                     "&Undo", "Ctrl+Z", "Undo the last change.",
+                     "Undo", "Ctrl+Z", "Undo the last change.",
                      GUIIconSubSys::getIcon(GUIIcon::UNDO), myGNEApp, MID_HOTKEY_CTRL_Z_UNDO);
     redoLastChange = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                     "&Redo", "Ctrl+Y", "Redo the last change.",
+                     "Redo", "Ctrl+Y", "Redo the last change.",
                      GUIIconSubSys::getIcon(GUIIcon::REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
+    openUndolistDialog = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
+                         "Open undo list", "", "Open undo list dialog.",
+                         GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_UNDOLISTDIALOG);
 }
 
 
@@ -884,7 +888,6 @@ GNEApplicationWindowHelper::EditMenuCommands::buildFrontElementMenuCommand(FXMen
     clearFrontElement = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
                         "Clear front element", "F11", "Clear current front element",
                         GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myGNEApp, MID_HOTKEY_F11_FRONTELEMENT);
-
 }
 
 
