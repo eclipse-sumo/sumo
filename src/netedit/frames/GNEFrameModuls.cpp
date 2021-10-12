@@ -620,7 +620,7 @@ GNEFrameModuls::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* frame
     myClickedDataInterval(nullptr),
     myClickedGenericData(nullptr) {
     // Create three list
-    myTreeListDinamic = new FXTreeListDinamic(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU);
+    myTreeListDinamic = new FXTreeListDinamic(this, this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
     hide();
 }
 

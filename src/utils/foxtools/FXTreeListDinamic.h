@@ -30,8 +30,8 @@ class FXTreeListDinamic : public FXTreeList {
     FXDECLARE(FXTreeListDinamic)
 
 public:
-    /// @brief Construct a menu check
-    FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector sel);
+    /// @brief Constructor
+    FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts);
 
     /// @brief Show FXTreeListDinamic
     void show();

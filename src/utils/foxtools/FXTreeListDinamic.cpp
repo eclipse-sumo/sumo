@@ -18,7 +18,6 @@
 //
 /****************************************************************************/
 
-
 #include "FXTreeListDinamic.h"
 
 // ===========================================================================
@@ -36,8 +35,8 @@ FXIMPLEMENT(FXTreeListDinamic, FXTreeList, FXTreeListDinamicMap, ARRAYNUMBER(FXT
 // member method definitions
 // ===========================================================================
 
-FXTreeListDinamic::FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector sel) :
-    FXTreeList(p, tgt, sel, (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200) {
+FXTreeListDinamic::FXTreeListDinamic(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts) :
+    FXTreeList(p, tgt, sel, opts, 0, 0, 0, 200) {
 }
 
 
