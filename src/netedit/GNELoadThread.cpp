@@ -248,6 +248,15 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("edgeTypes-output", new Option_String());
     oc.addDescription("edgeTypes-output", "Netedit", "file in which edgeTypes must be saved");
 
+    oc.doRegister("node-prefix", new Option_String("gneJ"));
+    oc.addDescription("node-prefix", "Netedit", "prefix for node naming");
+
+    oc.doRegister("edge-prefix", new Option_String("gneE"));
+    oc.addDescription("edge-prefix", "Netedit", "prefix for edge naming naming");
+
+    oc.doRegister("edge-infix", new Option_Bool(false));
+    oc.addDescription("edge-infix", "Netedit", "enable edge-infix (<fromNodeID><infix><toNodeID>)");
+
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
 
