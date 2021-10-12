@@ -445,6 +445,33 @@ protected:
 
     /// @}
 
+protected:
+    void buildBackgroundFrame(FXTabBook* tabbook);
+
+    void buildStreetsFrame(FXTabBook* tabbook);
+
+    void buildVehiclesFrame(FXTabBook* tabbook);
+
+    void buildPersonsFrame(FXTabBook* tabbook);
+
+    void buildContainersFrame(FXTabBook* tabbook);
+
+    void buildJunctionsFrame(FXTabBook* tabbook);
+
+    void buildAdditionalsFrame(FXTabBook* tabbook);
+
+    void buildPOIsFrame(FXTabBook* tabbook);
+
+    void buildPolygonsFrame(FXTabBook* tabbook);
+
+    void buildSelectionFrame(FXTabBook* tabbook);
+
+    void buildDataFrame(FXTabBook* tabbook);
+
+    void buildLegendFrame(FXTabBook* tabbook);
+
+    void buildOpenGLFrame(FXTabBook* tabbook);
+
 private:
     /// @brief invalidated copy constructor
     GUIDialog_ViewSettings(const GUIDialog_ViewSettings& s) = delete;
