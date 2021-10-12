@@ -198,73 +198,6 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIDialog_ViewSettings)
 
-    /// @brief update color ranges
-    bool updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
-                           std::vector<FXColorWell*>::const_iterator colEnd,
-                           std::vector<FXRealSpinner*>::const_iterator threshIt,
-                           std::vector<FXRealSpinner*>::const_iterator threshEnd,
-                           std::vector<FXButton*>::const_iterator buttonIt,
-                           GUIColorScheme& scheme);
-
-    /// @brief update scale ranges
-    bool updateScaleRanges(FXObject* sender, std::vector<FXRealSpinner*>::const_iterator colIt,
-                           std::vector<FXRealSpinner*>::const_iterator colEnd,
-                           std::vector<FXRealSpinner*>::const_iterator threshIt,
-                           std::vector<FXRealSpinner*>::const_iterator threshEnd,
-                           std::vector<FXButton*>::const_iterator buttonIt,
-                           GUIScaleScheme& scheme);
-
-    /// @brief Rebuilds manipulators for the current coloring scheme
-    FXMatrix* rebuildColorMatrix(FXVerticalFrame* frame,
-                                 std::vector<FXColorWell*>& colors,
-                                 std::vector<FXRealSpinner*>& thresholds,
-                                 std::vector<FXButton*>& buttons,
-                                 FXCheckButton* interpolation,
-                                 GUIColorScheme& scheme);
-
-    /// @brief Rebuilds manipulators for the current scaling scheme
-    FXMatrix* rebuildScaleMatrix(FXVerticalFrame* frame,
-                                 std::vector<FXRealSpinner*>& scales,
-                                 std::vector<FXRealSpinner*>& thresholds,
-                                 std::vector<FXButton*>& buttons,
-                                 FXCheckButton* interpolation,
-                                 GUIScaleScheme& scheme);
-
-    /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
-     * @param[in] doCreate Whether "create" shall be called (only if built the first time)
-     */
-    void rebuildColorMatrices(bool doCreate = false);
-
-    /// @brief Rebuilds the decals table
-    void rebuildDecalsTable();
-
-    /** @brief Loads a scheme from a file
-     * @param[in] file The name of the file to read the settings from
-     */
-    void loadSettings(const std::string& file);
-
-    /** @brief Writes the currently used decals into a file
-     * @param[in] file The name of the file to write the decals into
-     */
-    void saveDecals(OutputDevice& dev) const;
-
-    /** @brief Loads decals from a file
-     * @param[in] file The name of the file to read the decals from
-     */
-    void loadDecals(const std::string& file);
-
-    /// @brief save window position and size to the registry
-    void saveWindowSize();
-
-    /// @brief load window position and size from the registry
-    void loadWindowSize();
-
-    /// @brief reload known vehicle parameters
-    void updateVehicleParams();
-
-    /// @brief reload known POI parameters
-    void updatePOIParams();
-
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView* myParent;
 
@@ -445,32 +378,97 @@ protected:
 
     /// @}
 
-protected:
+    /// @brief update color ranges
+    bool updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
+                           std::vector<FXColorWell*>::const_iterator colEnd,
+                           std::vector<FXRealSpinner*>::const_iterator threshIt,
+                           std::vector<FXRealSpinner*>::const_iterator threshEnd,
+                           std::vector<FXButton*>::const_iterator buttonIt,
+                           GUIColorScheme& scheme);
+
+    /// @brief update scale ranges
+    bool updateScaleRanges(FXObject* sender, std::vector<FXRealSpinner*>::const_iterator colIt,
+                           std::vector<FXRealSpinner*>::const_iterator colEnd,
+                           std::vector<FXRealSpinner*>::const_iterator threshIt,
+                           std::vector<FXRealSpinner*>::const_iterator threshEnd,
+                           std::vector<FXButton*>::const_iterator buttonIt,
+                           GUIScaleScheme& scheme);
+
+    /// @brief Rebuilds manipulators for the current coloring scheme
+    FXMatrix* rebuildColorMatrix(FXVerticalFrame* frame,
+                                 std::vector<FXColorWell*>& colors,
+                                 std::vector<FXRealSpinner*>& thresholds,
+                                 std::vector<FXButton*>& buttons,
+                                 FXCheckButton* interpolation,
+                                 GUIColorScheme& scheme);
+
+    /// @brief Rebuilds manipulators for the current scaling scheme
+    FXMatrix* rebuildScaleMatrix(FXVerticalFrame* frame,
+                                 std::vector<FXRealSpinner*>& scales,
+                                 std::vector<FXRealSpinner*>& thresholds,
+                                 std::vector<FXButton*>& buttons,
+                                 FXCheckButton* interpolation,
+                                 GUIScaleScheme& scheme);
+
+    /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
+     * @param[in] doCreate Whether "create" shall be called (only if built the first time)
+     */
+    void rebuildColorMatrices(bool doCreate = false);
+
+    /// @brief Rebuilds the decals table
+    void rebuildDecalsTable();
+
+    /** @brief Loads a scheme from a file
+     * @param[in] file The name of the file to read the settings from
+     */
+    void loadSettings(const std::string& file);
+
+    /** @brief Writes the currently used decals into a file
+     * @param[in] file The name of the file to write the decals into
+     */
+    void saveDecals(OutputDevice& dev) const;
+
+    /** @brief Loads decals from a file
+     * @param[in] file The name of the file to read the decals from
+     */
+    void loadDecals(const std::string& file);
+
+    /// @brief save window position and size to the registry
+    void saveWindowSize();
+
+    /// @brief load window position and size from the registry
+    void loadWindowSize();
+
+    /// @brief reload known vehicle parameters
+    void updateVehicleParams();
+
+    /// @brief reload known POI parameters
+    void updatePOIParams();
+
+    /// @brief build header
+    void buildHeader(FXVerticalFrame* contentFrame);
+
+    /// @brief build frames
+    /// @{
+
     void buildBackgroundFrame(FXTabBook* tabbook);
-
     void buildStreetsFrame(FXTabBook* tabbook);
-
     void buildVehiclesFrame(FXTabBook* tabbook);
-
     void buildPersonsFrame(FXTabBook* tabbook);
-
     void buildContainersFrame(FXTabBook* tabbook);
-
     void buildJunctionsFrame(FXTabBook* tabbook);
-
     void buildAdditionalsFrame(FXTabBook* tabbook);
-
     void buildPOIsFrame(FXTabBook* tabbook);
-
     void buildPolygonsFrame(FXTabBook* tabbook);
-
     void buildSelectionFrame(FXTabBook* tabbook);
-
     void buildDataFrame(FXTabBook* tabbook);
-
     void buildLegendFrame(FXTabBook* tabbook);
-
     void buildOpenGLFrame(FXTabBook* tabbook);
+
+    ///@}
+
+    /// @brief build buttons
+    void buildButtons(FXVerticalFrame* contentFrame);
 
 private:
     /// @brief invalidated copy constructor
