@@ -294,6 +294,21 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.colorSettings.parkingAreaColorSign = parseColor(attrs, "parkingAreaColorSign", mySettings.colorSettings.parkingAreaColorSign);
             mySettings.colorSettings.parkingSpaceColorContour = parseColor(attrs, "parkingSpaceColorContour", mySettings.colorSettings.parkingSpaceColorContour);
             mySettings.colorSettings.parkingSpaceColor = parseColor(attrs, "parkingSpaceColor", mySettings.colorSettings.parkingSpaceColor);
+            mySettings.colorSettings.stops = parseColor(attrs, "stopColor", mySettings.colorSettings.stops);
+            mySettings.colorSettings.vehicleTrips = parseColor(attrs, "vehicleTripColor", mySettings.colorSettings.vehicleTrips);
+            mySettings.colorSettings.stopPersons = parseColor(attrs, "stopPersonColor", mySettings.colorSettings.stopPersons);
+            mySettings.colorSettings.personTrip = parseColor(attrs, "personTripColor", mySettings.colorSettings.personTrip);
+            mySettings.colorSettings.walk = parseColor(attrs, "walkColor", mySettings.colorSettings.walk);
+            mySettings.colorSettings.ride = parseColor(attrs, "rideColor", mySettings.colorSettings.ride);
+            mySettings.colorSettings.stopContainers = parseColor(attrs, "stopContainerColor", mySettings.colorSettings.stopContainers);
+            mySettings.colorSettings.transport = parseColor(attrs, "transportColor", mySettings.colorSettings.transport);
+            mySettings.colorSettings.tranship = parseColor(attrs, "transhipColor", mySettings.colorSettings.tranship);
+            mySettings.widthSettings.trip = StringUtils::toDouble(attrs.getStringSecure("tripWidth", toString(mySettings.widthSettings.trip)));
+            mySettings.widthSettings.personTrip = StringUtils::toDouble(attrs.getStringSecure("personTripWidth", toString(mySettings.widthSettings.personTrip)));
+            mySettings.widthSettings.walk = StringUtils::toDouble(attrs.getStringSecure("walkWidth", toString(mySettings.widthSettings.walk)));
+            mySettings.widthSettings.ride = StringUtils::toDouble(attrs.getStringSecure("rideWidth", toString(mySettings.widthSettings.ride)));
+            mySettings.widthSettings.transport = StringUtils::toDouble(attrs.getStringSecure("transportWidth", toString(mySettings.widthSettings.transport)));
+            mySettings.widthSettings.tranship = StringUtils::toDouble(attrs.getStringSecure("transhipWidth", toString(mySettings.widthSettings.tranship)));
             break;
         case SUMO_TAG_VIEWSETTINGS_POIS:
             mySettings.poiTextParam = attrs.getStringSecure("poiTextParam", mySettings.poiTextParam);

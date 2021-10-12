@@ -1694,6 +1694,24 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("parkingAreaColorSign", colorSettings.parkingAreaColorSign);
     dev.writeAttr("parkingSpaceColorContour", colorSettings.parkingSpaceColorContour);
     dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
+
+    dev.writeAttr("stopColor", colorSettings.stops);
+    dev.writeAttr("vehicleTripColor", colorSettings.vehicleTrips);
+    dev.writeAttr("stopPersonColor", colorSettings.stopPersons);
+    dev.writeAttr("personTripColor", colorSettings.personTrip);
+    dev.writeAttr("walkColor", colorSettings.walk);
+    dev.writeAttr("rideColor", colorSettings.ride);
+    dev.writeAttr("stopContainerColor", colorSettings.stopContainers);
+    dev.writeAttr("transportColor", colorSettings.transport);
+    dev.writeAttr("transhipColor", colorSettings.tranship);
+    dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
+    dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
+    dev.writeAttr("tripWidth", widthSettings.trip);
+    dev.writeAttr("personTripWidth", widthSettings.personTrip);
+    dev.writeAttr("walkWidth", widthSettings.walk);
+    dev.writeAttr("rideWidth", widthSettings.ride);
+    dev.writeAttr("transportWidth", widthSettings.transport);
+    dev.writeAttr("transhipWidth", widthSettings.tranship);
     dev.closeTag();
     // pois
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);
