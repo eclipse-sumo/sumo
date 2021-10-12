@@ -1,6 +1,9 @@
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 basic
 
+# additional geo poi output
+poi
+
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 taz
 
