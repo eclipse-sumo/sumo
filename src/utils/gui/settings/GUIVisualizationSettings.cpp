@@ -64,15 +64,6 @@ const RGBColor GUIVisualizationColorSettings::editShape(0, 200, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
 const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
-const RGBColor GUIVisualizationColorSettings::stops(220, 20, 30);
-const RGBColor GUIVisualizationColorSettings::vehicleTrips(255, 128, 0);
-const RGBColor GUIVisualizationColorSettings::stopPersons(255, 0, 0);
-const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
-const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
-const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
-const RGBColor GUIVisualizationColorSettings::stopContainers(255, 0, 0);
-const RGBColor GUIVisualizationColorSettings::transport(100, 200, 0);
-const RGBColor GUIVisualizationColorSettings::tranship(100, 0, 200);
 
 
 // -------------------------------------------------------------------------
@@ -365,7 +356,16 @@ GUIVisualizationColorSettings::GUIVisualizationColorSettings() :
     parkingAreaColor(83, 89, 172),
     parkingAreaColorSign(177, 184, 186),
     parkingSpaceColorContour(0, 255, 0),
-    parkingSpaceColor(255, 200, 200) {
+    parkingSpaceColor(255, 200, 200),
+    stops(220, 20, 30),
+    vehicleTrips(255, 128, 0),
+    stopPersons(255, 0, 0),
+    personTrip(200, 0, 255),
+    walk(0, 255, 0),
+    ride(0, 0, 255),
+    stopContainers(255, 0, 0),
+    transport(100, 200, 0),
+    tranship(100, 0, 200) {
 }
 
 
@@ -396,7 +396,16 @@ GUIVisualizationColorSettings::operator==(const GUIVisualizationColorSettings& v
            (parkingAreaColor == v2.parkingAreaColor) &&
            (parkingAreaColorSign == v2.parkingAreaColorSign) &&
            (parkingSpaceColorContour == v2.parkingSpaceColorContour) &&
-           (parkingSpaceColor == v2.parkingSpaceColor);
+           (parkingSpaceColor == v2.parkingSpaceColor) &&
+           (stops == v2.stops) &&
+           (vehicleTrips == v2.vehicleTrips) &&
+           (stopPersons == v2.stopPersons) &&
+           (personTrip == v2.personTrip) &&
+           (walk == v2.walk) &&
+           (ride == v2.ride) &&
+           (stopContainers == v2.stopContainers) &&
+           (transport == v2.transport) &&
+           (tranship == v2.tranship);
 }
 
 
@@ -427,7 +436,17 @@ GUIVisualizationColorSettings::operator!=(const GUIVisualizationColorSettings& v
            (parkingAreaColor != v2.parkingAreaColor) ||
            (parkingAreaColorSign != v2.parkingAreaColorSign) ||
            (parkingSpaceColorContour != v2.parkingSpaceColorContour) ||
-           (parkingSpaceColor != v2.parkingSpaceColor);
+           (parkingSpaceColor != v2.parkingSpaceColor) ||
+           (trips != v2.trips) ||
+           (stops != v2.stops) ||
+           (vehicleTrips != v2.vehicleTrips) ||
+           (stopPersons != v2.stopPersons) ||
+           (personTrip != v2.personTrip) ||
+           (walk != v2.walk) ||
+           (ride != v2.ride) ||
+           (stopContainers != v2.stopContainers) ||
+           (transport != v2.transport) ||
+           (tranship != v2.tranship);
 }
 
 // ---------------------------------------------------------------------------

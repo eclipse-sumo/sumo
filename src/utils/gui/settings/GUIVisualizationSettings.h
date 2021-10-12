@@ -204,6 +204,34 @@ struct GUIVisualizationColorSettings {
     /// @brief color for parkingSpace innen
     RGBColor parkingSpaceColor;
 
+    /// @brief color for Stops
+    RGBColor stops;
+
+    /// @brief color for vehicle trips
+    RGBColor vehicleTrips;
+
+    /// @brief color for stopPersons
+    RGBColor stopPersons;
+
+    /// @brief color for stopPersons
+    RGBColor personTrip;
+
+    /// @brief color for walks
+    RGBColor walk;
+
+    /// @brief color for rides
+    RGBColor ride;
+
+    /// @brief color for containerStops
+    RGBColor stopContainers;
+
+    /// @brief color for transport
+    RGBColor transport;
+
+    /// @brief color for tranships
+    RGBColor tranship;
+
+    
     /// @brief color for highlighthing deadends
     static const RGBColor SUMO_color_DEADEND_SHOW;
 
@@ -222,32 +250,6 @@ struct GUIVisualizationColorSettings {
     /// @brief color for invalid crossing
     static const RGBColor crossingInvalid;
 
-    /// @brief color for Stops
-    static const RGBColor stops;
-
-    /// @brief color for vehicle trips
-    static const RGBColor vehicleTrips;
-
-    /// @brief color for stopPersons
-    static const RGBColor stopPersons;
-
-    /// @brief color for stopPersons
-    static const RGBColor personTrip;
-
-    /// @brief color for walks
-    static const RGBColor walk;
-
-    /// @brief color for rides
-    static const RGBColor ride;
-
-    /// @brief color for containerStops
-    static const RGBColor stopContainers;
-
-    /// @brief color for transport
-    static const RGBColor transport;
-
-    /// @brief color for tranships
-    static const RGBColor tranship;
 };
 
 
