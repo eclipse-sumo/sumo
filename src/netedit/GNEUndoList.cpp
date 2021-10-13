@@ -48,6 +48,56 @@ FXIMPLEMENT_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GN
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNEUndoList::Iterator
+// ---------------------------------------------------------------------------
+
+GNEUndoList::Iterator::Iterator(const GNEUndoList* undoList) :
+    myCurrentChange(undoList->undoList),
+    myIndex(0) {
+}
+
+
+GNEUndoList::Iterator::~Iterator() {}
+
+
+bool 
+GNEUndoList::Iterator::end() const {
+    return myCurrentChange == nullptr;
+}
+
+
+int 
+GNEUndoList::Iterator::getIndex() const {
+    return myIndex;
+}
+
+
+const std::string 
+GNEUndoList::Iterator::getDescription() const {
+    std::string redoName = myCurrentChange->redoName();
+    // remove "redo "
+    if (redoName.size() >= 5) {
+        redoName.erase(0, 5);
+
+    }
+    return redoName;
+}
+
+
+GNEUndoList::Iterator& 
+GNEUndoList::Iterator::operator++(int) {
+    // move current change to next element
+    myCurrentChange = myCurrentChange->next;
+    // update index
+    myIndex++;
+    return *this;
+}
+
+// ---------------------------------------------------------------------------
+// GNEUndoList
+// ---------------------------------------------------------------------------
+
 GNEUndoList::GNEUndoList(GNEApplicationWindow* parent) :
     myWorking(false),
     myGNEApplicationWindowParent(parent) {

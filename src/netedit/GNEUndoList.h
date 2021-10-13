@@ -44,6 +44,37 @@ class GNEUndoList : public GNEChangeGroup {
     FXDECLARE_ABSTRACT(GNEUndoList)
 
 public:
+    /// @brief iterator
+    class Iterator {
+
+    public:
+        /// @brief constructor for GNEUndoList
+        Iterator(const GNEUndoList* undoList);
+
+        /// @brief destructor
+        ~Iterator();
+
+        /// @brief check if iterator is at the end
+        bool end() const;
+
+        /// @brief get index
+        int getIndex() const;
+
+        /// @brief get description
+        const std::string getDescription() const;
+
+        /// @brief increment operator
+        Iterator& operator++(int);
+
+    private:
+        /// @brief current change
+        GNEChange* myCurrentChange;
+
+        /// @brief counter
+        int myIndex;
+    };
+
+
     /// @brief constructor
     GNEUndoList(GNEApplicationWindow* parent);
 
