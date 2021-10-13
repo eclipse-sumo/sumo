@@ -132,7 +132,7 @@ GNEEdgeType::addLaneType(GNEUndoList* undoList) {
     // create new laneType
     GNELaneType* laneType = new GNELaneType(this);
     // begin undoList
-    undoList->begin("add laneType");
+    undoList->begin(GUIIcon::EDGE, "add laneType");
     // add lane
     undoList->add(new GNEChange_LaneType(laneType, (int)myLaneTypes.size(), true), true);
     // set default parameters
@@ -161,7 +161,7 @@ GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
     // first check if index is correct
     if ((myLaneTypes.size() > 1) && (index < (int)myLaneTypes.size())) {
         // begin undoList
-        undoList->begin("remove laneType");
+        undoList->begin(GUIIcon::EDGE, "remove laneType");
         // copy laneType values
         for (int i = index; i < ((int)myLaneTypes.size() - 1); i++) {
             myLaneTypes.at(i)->copyLaneType(myLaneTypes.at(i + 1), undoList);
