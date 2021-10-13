@@ -1218,7 +1218,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
         }
     } else if (myMoveOperations.size() > 0) {
         // begin undo list
-        myViewNet->getUndoList()->begin("moving selection");
+        myViewNet->getUndoList()->begin(GUIIcon::MODEMOVE, "moving selection");
         // iterate over all operations
         for (const auto& moveOperation : myMoveOperations) {
             // commit move
@@ -1239,7 +1239,7 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     // calculate moveOffset
     const GNEMoveOffset moveOffset = calculateMoveOffset();
     // begin undo list
-    myViewNet->getUndoList()->begin("moving selection");
+    myViewNet->getUndoList()->begin(GUIIcon::MODEMOVE, "moving selection");
     // finish all move operations
     for (const auto& moveOperation : myMoveOperations) {
         GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
@@ -1581,7 +1581,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         // only continue if there is ACs to select or unselect
         if ((ACToSelect.size() + ACToUnselect.size()) > 0) {
             // first unselect AC of ACToUnselect and then selects AC of ACToSelect
-            myViewNet->myUndoList->begin("selection using rectangle");
+            myViewNet->myUndoList->begin(GUIIcon::MODESELECT,"selection using rectangle");
             for (const auto &AC : ACToUnselect) {
                 AC->setAttribute(GNE_ATTR_SELECTED, "0", myViewNet->myUndoList);
             }
