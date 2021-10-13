@@ -42,12 +42,12 @@ GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, const std::string &desc
     myGroupSupermode(groupSupermode),
     undoList(nullptr), 
     redoList(nullptr), 
-    group(nullptr)
-{ }
+    group(nullptr) { 
+}
 
 
 GNEChangeGroup::~GNEChangeGroup() {
-    GNEChange* change;
+    GNEChange* change = nullptr;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
@@ -94,7 +94,7 @@ GNEChangeGroup::empty() const {
 
 void
 GNEChangeGroup::undo() {
-    GNEChange* change;
+    GNEChange* change = nullptr;
     while (undoList) {
         change = undoList;
         undoList = undoList->next;
@@ -105,8 +105,9 @@ GNEChangeGroup::undo() {
 }
 
 
-void GNEChangeGroup::redo() {
-    GNEChange* change;
+void 
+GNEChangeGroup::redo() {
+    GNEChange* change = nullptr;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
