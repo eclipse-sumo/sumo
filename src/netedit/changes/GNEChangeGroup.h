@@ -36,7 +36,7 @@ public:
     friend class GNEUndoList;
 
     /// @brief Construct initially empty undo command group
-    GNEChangeGroup(Supermode groupSupermode, const std::string &description);
+    GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std::string &description);
 
     /// @brief Delete undo command and sub-commands
     ~GNEChangeGroup();
@@ -62,6 +62,9 @@ public:
     /// @brief get supermode associated with this ChangeGroup
     Supermode getGroupSupermode() const;
 
+    /// @brief get icon associated with this ChangeGroup
+    GUIIcon getGroupIcon() const;
+
     /// @brief Return TRUE if empty
     bool empty() const;
 
@@ -74,6 +77,9 @@ protected:
 
     /// @brief supermode associated with this ChangeGroup
     const Supermode myGroupSupermode;
+
+    /// @brief icon associated with this ChangeGroup
+    GUIIcon myIcon;
 
 private:
     /// @brief undo list command (can be access by GNEUndoList)

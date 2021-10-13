@@ -37,9 +37,10 @@ FXIMPLEMENT(GNEChangeGroup, GNEChange, nullptr, 0)
 // GNEChangeGroup - methods
 // ---------------------------------------------------------------------------
 
-GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, const std::string &description) :
+GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std::string &description) :
     myDescription(description),
     myGroupSupermode(groupSupermode),
+    myIcon(icon),
     undoList(nullptr), 
     redoList(nullptr), 
     group(nullptr) { 
@@ -71,6 +72,12 @@ GNEChangeGroup::getDescription() {
 Supermode 
 GNEChangeGroup::getGroupSupermode() const {
     return myGroupSupermode;
+}
+
+
+GUIIcon
+GNEChangeGroup::getGroupIcon() const {
+    return myIcon;
 }
 
 
