@@ -716,7 +716,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // Run parser
-        myUndoList->begin(Supermode::NETWORK, "Loading TLS Programs from '" + file + "'");
+        myUndoList->begin(Supermode::NETWORK, "loading TLS Programs from '" + file + "'");
         myNet->computeNetwork(this);
         if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
             // Abort undo/redo
@@ -1078,10 +1078,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // obtain vector of additional files
         std::vector<std::string> additionalFiles = oc.getStringVector("additional-files");
         // begin undolist
-        myUndoList->begin(Supermode::NETWORK, "Loading additionals and shapes from '" + toString(additionalFiles) + "'");
+        myUndoList->begin(Supermode::NETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
-            WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
+            WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
             // declare general handler
             GNEGeneralHandler generalHandler(myNet, additionalFile, true);
             // disable validation for additionals
@@ -1103,7 +1103,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // obtain vector of route files
         std::vector<std::string> demandElementsFiles = oc.getStringVector("route-files");
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, "Loading demand elements from '" + toString(demandElementsFiles) + "'");
+        myUndoList->begin(Supermode::DEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
         // iterate over every route file
         for (const auto& demandElementsFile : demandElementsFiles) {
             WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
@@ -1130,7 +1130,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
-        myUndoList->begin(Supermode::DATA, "Loading data elements from '" + toString(dataElementsFiles) + "'");
+        myUndoList->begin(Supermode::DATA, "loading data elements from '" + toString(dataElementsFiles) + "'");
         // iterate over every data file
         for (const auto& dataElementsFile : dataElementsFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
@@ -3161,7 +3161,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEGeneralHandler generalHandler(myNet, file, true);
         // begin undoList operation
-        myUndoList->begin(Supermode::NETWORK, "Loading additionals from '" + file + "'");
+        myUndoList->begin(Supermode::NETWORK, "roading additionals from '" + file + "'");
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
@@ -3188,7 +3188,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
     // Create general handler
     GNEGeneralHandler generalHandler(myNet, file, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, "Reloading additionals from '" + file + "'");
+    myUndoList->begin(Supermode::DEMAND, "reloading additionals from '" + file + "'");
     // clear additionals
     myNet->clearAdditionalElements(myUndoList);
     // Run parser
@@ -3330,7 +3330,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // Create generic handler
         GNEGeneralHandler handler(myNet, file, true);
         // begin undoList operation
-        myUndoList->begin(Supermode::DEMAND, "Loading demand elements from '" + file + "'");
+        myUndoList->begin(Supermode::DEMAND, "loading demand elements from '" + file + "'");
         // Run parser for additionals
         if (!handler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
@@ -3357,7 +3357,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // Create handler
     GNEGeneralHandler handler(myNet, file, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, "Reloading demand elements from '" + file + "'");
+    myUndoList->begin(Supermode::DEMAND, "reloading demand elements from '" + file + "'");
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // Run parser for additionals
@@ -3503,7 +3503,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // Create data handler
         GNEDataHandler dataHandler(myNet, file, true);
         // begin undoList operation
-        myUndoList->begin(Supermode::DATA, "Loading data elements from '" + file + "'");
+        myUndoList->begin(Supermode::DATA, "loading data elements from '" + file + "'");
         // Run data parser
         if (!dataHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
@@ -3539,7 +3539,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // Create additional handler
     GNEDataHandler dataHandler(myNet, file, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DATA, "Reloading data elements from '" + file + "'");
+    myUndoList->begin(Supermode::DATA, "reloading data elements from '" + file + "'");
     // clear data elements
     myNet->clearDemandElements(myUndoList);
     // Run data parser
