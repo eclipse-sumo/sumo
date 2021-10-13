@@ -179,7 +179,7 @@ def parseSimple(outf, options):
             for e in sorted(allEdges):
                 if departCounts[e] > options.min_count or arrivalCounts[e] > options.min_count:
                     lon, lat = net.convertXY2LonLat(*net.getEdge(e).getShape()[0])
-                    pois.write('    <poi id="%s" lon="%s" lat="%s">\n' % (e, lon, lat))
+                    pois.write('    <poi id="%s" lon="%.6f" lat="%.6f">\n' % (e, lon, lat))
                     pois.write('        <param key="departed" value="%s"/>\n' % departCounts[e])
                     pois.write('        <param key="arrived" value="%s"/>\n    </poi>\n' % arrivalCounts[e])
             pois.write("</additional>\n")
