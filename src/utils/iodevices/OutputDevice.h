@@ -154,12 +154,12 @@ public:
     void close();
 
 
-    /** @brief Sets the precison or resets it to default
+    /** @brief Sets the precision or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
     void setPrecision(int precision = gPrecision);
 
-    /** @brief Returns the precison of the underlying stream
+    /** @brief Returns the precision of the underlying stream
      */
     int getPrecision() {
         return (int)getOStream().precision();
