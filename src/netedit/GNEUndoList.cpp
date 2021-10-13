@@ -17,12 +17,13 @@
 /// @date    Mar 2011
 ///
 /****************************************************************************/
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/dialogs/GNEUndoListDialog.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"
@@ -219,6 +220,7 @@ GNEUndoList::end() {
     myChangeGroups.pop();
     // check if net has to be updated
     if (myChangeGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
+        // update view
         myGNEApplicationWindowParent->getViewNet()->updateViewNet();
         // check if we have to update selector frame
         const auto &editModes = myGNEApplicationWindowParent->getViewNet()->getEditModes();
@@ -254,6 +256,13 @@ GNEUndoList::end() {
     } else {
         // Delete bottom group
         delete change;
+    }
+    // check if update undoRedo dialog
+    if (myGNEApplicationWindowParent->getViewNet()) {
+        const auto &undoRedoDialog = myGNEApplicationWindowParent->getViewNet()->getViewParent()->getGNEAppWindows()->getUndoListDialog();
+        if (undoRedoDialog->shown()) {
+            undoRedoDialog->updateList();
+        }
     }
 }
 

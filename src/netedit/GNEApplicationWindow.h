@@ -417,6 +417,9 @@ public:
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
+    /// @brief get pointer to undoList dialog
+    GNEUndoListDialog* getUndoListDialog();
+
     /// @brief get pointer to viewNet
     GNEViewNet* getViewNet();
 

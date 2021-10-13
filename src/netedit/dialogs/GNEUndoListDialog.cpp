@@ -36,9 +36,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,        0,                                      GNEUndoListDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,                  GNEUndoListDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_CANCEL,                  GNEUndoListDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,        0,                                      GNEUndoListDialog::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,                  GNEUndoListDialog::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,      MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNEUndoListDialog::onCmdSelectElement),
 };
 
@@ -59,10 +58,8 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXButton(buttonsFrame, "ok\tclose dialog",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-
 }
 
 
@@ -72,7 +69,7 @@ GNEUndoListDialog::~GNEUndoListDialog() {}
 void 
 GNEUndoListDialog::open() {
     // update table
-    updateTable();
+    updateList();
     // show
     show(PLACEMENT_SCREEN);
 }
@@ -84,30 +81,21 @@ GNEUndoListDialog::close() {
 }
 
 
-long
-GNEUndoListDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-/*
-    // Check if there is overlapping between Intervals
-    if (!myEditedAdditional->checkChildAdditionalsOverlapping()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, "Overlapping detected", "%s", ("Values of '" + myEditedAdditional->getID() + "' cannot be saved. There are intervals overlapped.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-        return 0;
-    } else {
-        // accept changes before closing dialog
-        acceptChanges();
-        // Stop Modal
-        getApp()->stopModal(this, TRUE);
-*/
-        return 1;
+bool 
+GNEUndoListDialog::shown() const {
+    return FXWindow::shown();
+}
+
+
+void
+GNEUndoListDialog::setFocus() {
+    FXWindow::setFocus();
 }
 
 
 long
-GNEUndoListDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
+    // just close dialog
     close();
     return 1;
 }
@@ -115,12 +103,13 @@ GNEUndoListDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEUndoListDialog::onCmdSelectElement(FXObject*, FXSelector, void*) {
+    // currently unused
     return 1;
 }
 
 
 void
-GNEUndoListDialog::updateTable() {
+GNEUndoListDialog::updateList() {
     // first clear myTreeListDinamic
     myTreeListDinamic->clearItems();
     // declare iterator over UndoList
