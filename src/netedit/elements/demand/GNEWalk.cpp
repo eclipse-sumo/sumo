@@ -218,7 +218,11 @@ GNEWalk::updateGeometry() {
 
 Position
 GNEWalk::getPositionInView() const {
-    return Position();
+    if (getParentEdges().size() > 0) {
+        return getParentEdges().front()->getPositionInView();
+    } else {
+        return getParentDemandElements().at(1)->getPositionInView();
+    }
 }
 
 

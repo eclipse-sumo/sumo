@@ -211,10 +211,10 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix
             GLHelper::popMatrix();
         }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         // Pop layer matrix
         GLHelper::popMatrix();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // GUIGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);

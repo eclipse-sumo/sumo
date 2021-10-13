@@ -236,8 +236,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     // pop draw matrix
                     GLHelper::popMatrix();
                 }
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
                 // pop rail matrix
                 GLHelper::popMatrix();
             }
@@ -264,6 +262,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawLinkTLIndex.show && !s.drawForRectangleSelection) {
             drawTLSLinkNo(s, NBCrossing);
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // check if dotted contour has to be drawn (not useful at high zoom)
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, 

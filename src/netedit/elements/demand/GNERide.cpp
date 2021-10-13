@@ -191,7 +191,7 @@ GNERide::updateGeometry() {
 
 Position
 GNERide::getPositionInView() const {
-    return Position();
+    return getParentEdges().front()->getPositionInView();
 }
 
 

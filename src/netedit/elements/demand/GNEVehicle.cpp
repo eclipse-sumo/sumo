@@ -678,8 +678,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                         GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
                     }
                 }
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(GLO_VEHICLE, this, vehiclePosition, exaggeration);
                 // pop draw matrix
                 GLHelper::popMatrix();
                 // draw stack label
@@ -690,6 +688,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), vehiclePosition, exaggeration);
                 // check if dotted contours has to be drawn
                 if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     // draw using drawDottedContourClosedShape

@@ -194,7 +194,7 @@ GNETransport::updateGeometry() {
 
 Position
 GNETransport::getPositionInView() const {
-    return Position();
+    return getParentEdges().front()->getPositionInView();
 }
 
 

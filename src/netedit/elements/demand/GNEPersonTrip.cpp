@@ -197,7 +197,7 @@ GNEPersonTrip::updateGeometry() {
 
 Position
 GNEPersonTrip::getPositionInView() const {
-    return Position();
+    return getParentEdges().front()->getPositionInView();
 }
 
 

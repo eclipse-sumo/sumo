@@ -114,6 +114,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"person",              GLO_PERSON},
     {"personFlow",          GLO_PERSONFLOW},
     //
+    {"lockIcon",            GLO_LOCKICON},
     {"textName",            GLO_TEXTNAME},
     {"frontElement",        GLO_DOTTEDCONTOUR_FRONT},
     {"dottedContour",       GLO_DOTTEDCONTOUR_INSPECTED},

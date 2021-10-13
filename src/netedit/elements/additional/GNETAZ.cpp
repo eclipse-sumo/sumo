@@ -354,12 +354,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // draw dotted contours
         drawDottedContours(s, TAZExaggeration);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), TAZExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), TAZExaggeration);
         // get name position
         const Position& namePos = myTAZGeometry.getShape().getPolygonCenter();
         // draw name

@@ -151,12 +151,12 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
             // Traslate matrix and draw lock icon if isn't being drawn for selecting
             glTranslated(0, lengthExaggeration * 0.5, 0.1);
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), parkingAreaExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // pop name
             GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), parkingAreaExaggeration);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedContourClosedShape

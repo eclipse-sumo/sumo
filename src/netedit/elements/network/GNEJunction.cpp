@@ -494,8 +494,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
                 GLHelper::popMatrix();
             }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
             // pop layer Matrix
             GLHelper::popMatrix();
             // pop junction name
@@ -511,6 +509,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawJunctionChildren(s);
             // draw path additional elements
             myNet->getPathManager()->drawJunctionPathElements(s, this);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (drawShape) {

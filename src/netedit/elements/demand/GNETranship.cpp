@@ -213,7 +213,7 @@ GNETranship::updateGeometry() {
 
 Position
 GNETranship::getPositionInView() const {
-    return Position();
+    return getParentEdges().front()->getPositionInView();
 }
 
 

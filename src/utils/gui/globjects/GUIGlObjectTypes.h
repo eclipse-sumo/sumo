@@ -218,23 +218,26 @@ enum GUIGlObjectType {
     /// @name other
     /// @{
 
+    /// @brief Lock icon (used in NETEDIT)
+    GLO_LOCKICON = 1000,
+
     /// @brief text element (used in NETEDIT)
-    GLO_TEXTNAME = 1000,
+    GLO_TEXTNAME = 1010,
 
     /// @brief dotted contour front element (used in NETEDIT)
-    GLO_DOTTEDCONTOUR_FRONT = 1010,
+    GLO_DOTTEDCONTOUR_FRONT = 1020,
 
     /// @brief dotted contour inspected element (used in NETEDIT)
-    GLO_DOTTEDCONTOUR_INSPECTED = 1020,
+    GLO_DOTTEDCONTOUR_INSPECTED = 1030,
 
     /// @brief temporal shape (used in NETEDIT)
-    GLO_TEMPORALSHAPE = 1030,
+    GLO_TEMPORALSHAPE = 1040,
 
     /// @brief rectangle selection shape (used in NETEDIT)
-    GLO_RECTANGLESELECTION = 1040,
+    GLO_RECTANGLESELECTION = 1050,
 
     /// @brief test element (used in NETEDIT)
-    GLO_TESTELEMENT = 1050,
+    GLO_TESTELEMENT = 1060,
 
     /// @}
 

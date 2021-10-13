@@ -114,13 +114,13 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 drawLines(s, {toString(myChargingPower)}, baseColor);
                 // draw sign
                 drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
             }
             // pop draw matrix
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 

@@ -431,8 +431,6 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                                                 s.neteditSizeSettings.connectionGeometryPointRadius, 1);
                 }
             }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 0.1);
             // Pop layer matrix
             GLHelper::popMatrix();
             // check if edge value has to be shown
@@ -451,6 +449,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             if (pushGLID) {
                 GLHelper::popName();
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // use drawDottedContourGeometry to draw it

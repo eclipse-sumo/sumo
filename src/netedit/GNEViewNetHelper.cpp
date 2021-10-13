@@ -3487,21 +3487,21 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNetHelper::LockIcon::drawLockIcon(GUIGlObjectType type, const GNEAttributeCarrier* AC, 
+GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, GUIGlObjectType type,
         const Position viewPosition, const double exaggeration, const double size, 
         const double offsetx, const double offsety) {
     // first check if icon can be drawn
-    if (checkDrawing(type, AC, exaggeration)) {
+    if (checkDrawing(AC, type, exaggeration)) {
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
-        glTranslated(viewPosition.x(), viewPosition.y(), 2);
-        // rotate toavoid draw invert
+        glTranslated(viewPosition.x(), viewPosition.y(), GLO_LOCKICON);
+        // Traslate depending of the offset
+        glTranslated(offsetx, offsety, 0);
+        // rotate to avoid draw invert
         glRotated(180, 0, 0, 1);
         // Set draw color
         glColor3d(1, 1, 1);
-        // Traslate depending of the offset
-        glTranslated(offsetx, offsety, 0);
         // Draw lock icon
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::LOCK), size);
         // Pop matrix
@@ -3514,11 +3514,11 @@ GNEViewNetHelper::LockIcon::LockIcon() {}
 
 
 bool
-GNEViewNetHelper::LockIcon::checkDrawing(GUIGlObjectType type, const GNEAttributeCarrier* AC, const double exaggeration) {
-    // get visualization settings
-    const auto s = AC->getNet()->getViewNet()->getVisualisationSettings();
+GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration) {
     // get view net
     const auto viewNet = AC->getNet()->getViewNet();
+    // get visualization settings
+    const auto s = viewNet->getVisualisationSettings();
     // check exaggeration
     if (exaggeration == 0) {
         return false;
@@ -3553,6 +3553,7 @@ GNEViewNetHelper::LockIcon::checkDrawing(GUIGlObjectType type, const GNEAttribut
     if (!viewNet->showLockIcon()) {
         return false;
     }
+    // all ok, then draw
     return true;
 }
 

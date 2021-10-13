@@ -152,8 +152,7 @@ GNEEdge::updateGeometry() {
 
 Position
 GNEEdge::getPositionInView() const {
-    // currently unused
-    return Position(0, 0);
+    return myLanes.front()->getPositionInView();
 }
 
 
@@ -1359,10 +1358,10 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                     }
                 }
             }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
             // pop edge layer matrix
             GLHelper::popMatrix();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
     }
 }

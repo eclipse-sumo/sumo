@@ -273,13 +273,13 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
                 // draw E2 Logo
                 drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             }
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, 

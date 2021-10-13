@@ -233,8 +233,7 @@ GNELane::updateGeometry() {
 
 Position
 GNELane::getPositionInView() const {
-    // currently unused
-    return Position(0, 0);
+    return getLaneShape().positionAtOffset2D(getLaneShape().length2D() * 0.5);
 }
 
 
@@ -538,8 +537,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             drawLaneStopOffset(s, laneStopOffset.getOffset());
         }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), 1);
         // Pop layer matrix
         GLHelper::popMatrix();
         // Pop lane Name
@@ -553,6 +550,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // draw TLS link number
             drawTLSLinkNo(s);
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // check if dotted contours has to be drawn
         if (!drawRailway) {
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||

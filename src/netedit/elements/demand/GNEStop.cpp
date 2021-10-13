@@ -261,7 +261,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
-        // Add a draw matrix
+        // Add a layer matrix
         GLHelper::pushMatrix();
         // set Color
         GLHelper::setColor(stopColor);
@@ -272,14 +272,10 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
                                    getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), myDemandElementGeometry.getShapeRotations(), myDemandElementGeometry.getShapeLengths(), exaggeration * 0.1, 0,
-                                   getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * -0.5);
-            // pop draw matrix
-            GLHelper::popMatrix();
-            // Add a draw matrix
+            // Add a detail matrix
             GLHelper::pushMatrix();
             // move to geometry front
-            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), getType());
+            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
             if (myDemandElementGeometry.getShapeRotations().size() > 0) {
                 glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
             }
@@ -293,7 +289,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, exaggeration);
             }
             // move to "S" position
-            glTranslated(0, 1, 0);
+            glTranslated(0, 1, 0.1);
             // only draw text if isn't being drawn for selecting
             if (s.drawForRectangleSelection) {
                 GLHelper::setColor(stopColor);
@@ -306,32 +302,28 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw subtitle depending of tag
                 GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
             }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
-            // pop draw matrix
-            GLHelper::popMatrix();
-            // Draw name if isn't being drawn for selecting
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-            // check if dotted contour has to be drawn
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
-                if (getParentLanes().size() > 0) {
-                    // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),
-                    //        getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
-                } else {
-                    // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), exaggeration);
-                }
-            }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, exaggeration * 0.8);
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
-            // pop draw matrix
-            GLHelper::popMatrix();
         }
+        // pop layer matrix
+        GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
+        // Draw name if isn't being drawn for selecting
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
+            if (getParentLanes().size() > 0) {
+                // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),
+                //        getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
+            } else {
+                // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), exaggeration);
+            }
+        }
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
             getParentDemandElements().front()->drawGL(s);

@@ -129,8 +129,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, parkingAreaExaggeration)) {
                 // draw sign
                 drawSign(s, parkingAreaExaggeration, baseColor, signColor, "P");
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), parkingAreaExaggeration);
                 // Traslate to front
                 glTranslated(0, 0, 0.1);
                 // draw lotSpaceDefinitions
@@ -142,6 +140,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), parkingAreaExaggeration);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 

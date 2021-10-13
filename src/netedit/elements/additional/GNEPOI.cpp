@@ -259,12 +259,10 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 GLHelper::popMatrix();
             }
-            // draw lock
-            GLHelper::pushMatrix();
-            glTranslated(x(), y(), getType() + 1);
+            // pop name
+            GLHelper::popName();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), POIExaggeration);
-            GLHelper::popMatrix();
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (getShapeImgFile().empty()) {
@@ -281,8 +279,6 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
-            // pop name
-            GLHelper::popName();
         }
     }
 }

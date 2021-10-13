@@ -393,8 +393,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(GLO_PERSON, this, personPosition, exaggeration);
             // pop matrix
             GLHelper::popMatrix();
             // pop name
@@ -406,6 +404,8 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 const double value = getColorValue(s, s.personColorer.getActive());
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration);
             // check if dotted contours has to be drawn
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape

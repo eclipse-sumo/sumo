@@ -238,7 +238,7 @@ GNERoute::updateGeometry() {
 
 Position
 GNERoute::getPositionInView() const {
-    return Position();
+    return getFirstPathLane()->getPositionInView();
 }
 
 
@@ -441,12 +441,12 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         GLHelper::setColor(routeColor);
         // draw lane2lane
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, routeWidth);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), getExaggeration(s));
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), getExaggeration(s));
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || dottedElement) {
             // check if exist lane2lane connection

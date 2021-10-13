@@ -249,12 +249,12 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             drawStopPersonOverLane(s, exaggeration, stopColor);
         }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), exaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, 
