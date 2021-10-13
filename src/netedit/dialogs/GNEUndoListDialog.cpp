@@ -121,11 +121,13 @@ GNEUndoListDialog::onCmdSelectElement(FXObject*, FXSelector, void*) {
 
 void
 GNEUndoListDialog::updateTable() {
+    // first clear myTreeListDinamic
+    myTreeListDinamic->clearItems();
     // declare iterator over UndoList
     GNEUndoList::Iterator it(myGNEApp->getUndoList());
     // fill myTreeListDinamic
     while (!it.end()) {
-        myTreeListDinamic->insertItem(nullptr, nullptr, it.getDescription().c_str(), nullptr, nullptr);
+        myTreeListDinamic->insertItem(nullptr, nullptr, it.getDescription().c_str(), it.getIcon(), it.getIcon());
         it++;
     }
 }
