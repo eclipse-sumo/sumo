@@ -209,6 +209,7 @@ MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const
         stage->routeOutput(myAmPerson, os, withRouteLength, previous);
         previous = stage;
     }
+    myParameter->writeParams(os);
     os.closeTag();
     os.lf();
 }
