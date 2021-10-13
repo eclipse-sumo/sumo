@@ -63,6 +63,9 @@ public:
         /// @brief get description
         const std::string getDescription() const;
 
+        /// @brief get icon
+        FXIcon* getIcon() const;
+
         /// @brief increment operator
         Iterator& operator++(int);
 

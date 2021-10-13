@@ -22,6 +22,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"
@@ -79,9 +80,19 @@ GNEUndoList::Iterator::getDescription() const {
     // remove "redo "
     if (redoName.size() >= 5) {
         redoName.erase(0, 5);
-
     }
     return redoName;
+}
+
+
+FXIcon* 
+GNEUndoList::Iterator::getIcon() const {
+    const GNEChangeGroup* changeGroup = dynamic_cast<GNEChangeGroup*>(myCurrentChange);
+    if (changeGroup) {
+        return GUIIconSubSys::getIcon(changeGroup->getGroupIcon());
+    } else {
+        return nullptr;
+    }
 }
 
 
