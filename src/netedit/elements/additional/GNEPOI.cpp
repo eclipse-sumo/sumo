@@ -593,7 +593,7 @@ GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(GUIIcon::POI, "position of " + getTagStr());
     if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos)));
     } else {

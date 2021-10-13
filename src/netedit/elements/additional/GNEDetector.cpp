@@ -264,7 +264,7 @@ GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     // reset lateral offset
     myMoveElementLateralOffset = 0;
     // begin change attribute
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed

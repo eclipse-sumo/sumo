@@ -362,7 +362,7 @@ void
 GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(GUIIcon::ACCESS, "position of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed

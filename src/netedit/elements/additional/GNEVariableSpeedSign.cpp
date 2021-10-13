@@ -276,7 +276,7 @@ GNEVariableSpeedSign::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEVariableSpeedSign::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(GUIIcon::VARIABLESPEEDSIGN, "position of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->end();
 }
@@ -284,7 +284,7 @@ GNEVariableSpeedSign::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoLi
 
 void
 GNEVariableSpeedSign::rebuildVSSSymbols(const std::string& value, GNEUndoList* undoList) {
-    undoList->begin(("change " + getTagStr() + " attribute").c_str());
+    undoList->begin(GUIIcon::VARIABLESPEEDSIGN, ("change " + getTagStr() + " attribute").c_str());
     // drop all additional children
     while (getChildAdditionals().size() > 0) {
         undoList->add(new GNEChange_Additional(getChildAdditionals().front(), false), true);

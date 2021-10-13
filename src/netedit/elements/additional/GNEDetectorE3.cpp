@@ -307,7 +307,7 @@ GNEDetectorE3::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEDetectorE3::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(GUIIcon::E3, "position of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->end();
 }
