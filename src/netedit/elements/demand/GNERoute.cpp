@@ -56,7 +56,7 @@ long
 GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNERoute* route = static_cast<GNERoute*>(myObject);
     GNEUndoList* undoList = route->myNet->getViewNet()->getUndoList();
-    undoList->begin("apply distance along route");
+    undoList->begin(GUIIcon::ROUTE, "apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
         undoList->changeAttribute(new GNEChange_Attribute(edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE)));
@@ -561,7 +561,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             }
             // check vehicles
             if (vehicles.size() > 0) {
-                undoList->begin("reset start and end edges");
+                undoList->begin(GUIIcon::ROUTE, "reset start and end edges");
                 for (const auto& vehicle : vehicles) {
                     undoList->changeAttribute(new GNEChange_Attribute(vehicle, SUMO_ATTR_DEPARTEDGE, ""));
                     undoList->changeAttribute(new GNEChange_Attribute(vehicle, SUMO_ATTR_ARRIVALEDGE, ""));
@@ -569,7 +569,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
             } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-                undoList->begin("reset start and end edges");
+                undoList->begin(GUIIcon::ROUTE, "reset start and end edges");
                 undoList->changeAttribute(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, ""));
                 undoList->changeAttribute(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, ""));
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));

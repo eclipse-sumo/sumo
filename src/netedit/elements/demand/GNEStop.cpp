@@ -900,7 +900,7 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
     undoList->end();

@@ -1995,7 +1995,7 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     // check departPos
     if (moveResult.newFirstPos != INVALID_DOUBLE) {
         // begin change attribute
-        undoList->begin("departPos of " + getTagStr());
+        undoList->begin(myTagProperty.getGUIIcon(), "departPos of " + getTagStr());
         // now set departPos
         setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
         // check if depart lane has to be changed
@@ -2007,7 +2007,7 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     // check arrivalPos
     if (moveResult.newSecondPos != INVALID_DOUBLE) {
         // begin change attribute
-        undoList->begin("arrivalPos of " + getTagStr());
+        undoList->begin(myTagProperty.getGUIIcon(), "arrivalPos of " + getTagStr());
         // now set arrivalPos
         setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newSecondPos), undoList);
         // check if arrival lane has to be changed

@@ -421,7 +421,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
-                undoList->begin("Change from attribute of next personPlan");
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
@@ -438,7 +438,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // obtain busStop
                 const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
-                undoList->begin("Change from attribute of next personPlan");
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
@@ -455,7 +455,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // obtain edges
                 const std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
                 // change from attribute using edge ID
-                undoList->begin("Change from attribute of next personPlan");
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, edges.back()->getID(), undoList);
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
@@ -472,7 +472,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // obtain route
                 const GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value);
                 // change from attribute using edge ID
-                undoList->begin("Change from attribute of next personPlan");
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, route->getParentEdges().back()->getID(), undoList);
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
@@ -655,7 +655,7 @@ GNEWalk::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("arrivalPos of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();

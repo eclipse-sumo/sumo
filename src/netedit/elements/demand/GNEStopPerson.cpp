@@ -411,7 +411,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
-                undoList->begin("Change from attribute of next personPlan");
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
@@ -428,7 +428,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 // obtain busStop
                 const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
-                undoList->begin("Change from attribute of next personPlan");
+                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
@@ -444,7 +444,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeaveStopPersonsConnected() &&
                     previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 // change from attribute using edge ID
-                undoList->begin("Change arrivalPos attribute of previous personPlan");
+                undoList->begin(myTagProperty.getGUIIcon(), "Change arrivalPos attribute of previous personPlan");
                 previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
                 undoList->end();
@@ -754,7 +754,7 @@ GNEStopPerson::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStopPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("endPos of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "endPos of " + getTagStr());
     // now adjust endPos position
     setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
