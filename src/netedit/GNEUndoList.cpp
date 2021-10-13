@@ -174,18 +174,18 @@ GNEUndoList::redoName() const {
 
 
 void
-GNEUndoList::begin(const std::string& description) {
+GNEUndoList::begin(GUIIcon icon, const std::string& description) {
     if (myGNEApplicationWindowParent->getViewNet()) {
-        begin(myGNEApplicationWindowParent->getViewNet()->getEditModes().currentSupermode, description);
+        begin(myGNEApplicationWindowParent->getViewNet()->getEditModes().currentSupermode, icon, description);
     } else {
-        begin(Supermode::NETWORK, description);
+        begin(Supermode::NETWORK, icon, description);
     }
 }
 
 
 void
-GNEUndoList::begin(Supermode supermode, const std::string& description) {
-    myChangeGroups.push(new GNEChangeGroup(supermode, description));
+GNEUndoList::begin(Supermode supermode, GUIIcon icon, const std::string& description) {
+    myChangeGroups.push(new GNEChangeGroup(supermode, icon, description));
     // get this reference
     GNEChangeGroup* changeGroup = this;
     // Calling begin while in the middle of doing something!
