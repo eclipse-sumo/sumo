@@ -441,7 +441,7 @@ GNETAZFrame::TAZSaveChanges::enableButtonsAndBeginUndoList() {
         mySaveChangesButton->enable();
         myCancelChangesButton->enable();
         // start undo list set
-        myTAZFrameParent->myViewNet->getUndoList()->begin("TAZ changes");
+        myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, "TAZ changes");
     }
 }
 

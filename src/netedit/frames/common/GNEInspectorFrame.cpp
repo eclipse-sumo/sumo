@@ -236,28 +236,29 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
 
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
+    const auto &ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // make sure that ACs has elements
-    if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+    if (ACs.size() > 0) {
         // check if we're changing multiple attributes
-        if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
-            myInspectorFrameParent->myViewNet->getUndoList()->begin("Change multiple attributes");
+        if (ACs.size() > 1) {
+            myInspectorFrameParent->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
         }
         if (obj == myCheckBoxCloseShape) {
             // set new values in all inspected Attribute Carriers
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+            for (const auto& AC : ACs) {
                 if (myCheckBoxCloseShape->getCheck() == 1) {
-                    i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myInspectorFrameParent->myViewNet->getUndoList());
+                    AC->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxCloseShape->setText("true");
                 } else {
-                    i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myInspectorFrameParent->myViewNet->getUndoList());
+                    AC->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myInspectorFrameParent->myViewNet->getUndoList());
                     myCheckBoxCloseShape->setText("false");
                 }
             }
         } else if (obj == myTextFieldParentAdditional) {
-            if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(GNE_ATTR_PARENT, myTextFieldParentAdditional->getText().text())) {
+            if (ACs.front()->isValid(GNE_ATTR_PARENT, myTextFieldParentAdditional->getText().text())) {
                 // replace the parent of all inspected elements
-                for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                    i->setAttribute(GNE_ATTR_PARENT, myTextFieldParentAdditional->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
+                for (const auto& AC : ACs) {
+                    AC->setAttribute(GNE_ATTR_PARENT, myTextFieldParentAdditional->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 myTextFieldParentAdditional->setTextColor(FXRGB(0, 0, 0));
                 myTextFieldParentAdditional->killFocus();
@@ -266,7 +267,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             }
         }
         // finish change multiple attributes
-        if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
+        if (ACs.size() > 1) {
             myInspectorFrameParent->myViewNet->getUndoList()->end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
@@ -640,7 +641,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
     // first check
     if (myHasEdgeTemplate) {
         // begin copy template
-        myInspectorFrameParent->myViewNet->getUndoList()->begin("copy edge template");
+        myInspectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::EDGE, "copy edge template");
         // iterate over inspected ACs
         for (const auto& inspectedAC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             // retrieve edge ID (and throw exception if edge doesn't exist)
@@ -821,8 +822,9 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXS
 
 long
 GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSelector, void*) {
+    const auto &ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // get front AC
-    GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
+    GNEAttributeCarrier* frontAC = ACs.size() > 0 ? ACs.front() : nullptr;
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
         // check if current given string is valid
@@ -831,18 +833,18 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
             myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
             myTextFieldParameters->killFocus();
             // check inspected parameters
-            if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            if (ACs.size() == 1) {
                 // begin undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->begin("change parameters");
+                myInspectorFrameParent->myViewNet->getUndoList()->begin(frontAC->getTagProperty().getGUIIcon(), "change parameters");
                 // set parameters
                 frontAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 // end undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->end();
-            } else if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+            } else if (ACs.size() > 0) {
                 // begin undo list
-                myInspectorFrameParent->myViewNet->getUndoList()->begin("change multiple parameters");
+                myInspectorFrameParent->myViewNet->getUndoList()->begin(frontAC->getTagProperty().getGUIIcon(), "change multiple parameters");
                 // set parameters in all ACs
-                for (const auto& inspectedAC : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                for (const auto& inspectedAC : ACs) {
                     inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 // end undo list

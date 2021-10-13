@@ -953,7 +953,7 @@ void
 GNETLSEditorFrame::editJunction(GNEJunction* junction) {
     if ((myTLSJunction->getCurrentJunction() == nullptr) || (!myTLSModifications->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
         onCmdCancel(nullptr, 0, nullptr);
-        myViewNet->getUndoList()->begin("modifying traffic light definition");
+        myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "modifying traffic light definition");
         myTLSJunction->setCurrentJunction(junction);
         myTLSAttributes->initTLSAttributes(myTLSJunction->getCurrentJunction());
         myTLSJunction->updateJunctionDescription();

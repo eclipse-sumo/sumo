@@ -160,7 +160,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
     // first check if there is additional to remove
     if (selectedACsToDelete()) {
         // remove all selected attribute carrier susing the following parent-child sequence
-        myViewNet->getUndoList()->begin("remove selected items");
+        myViewNet->getUndoList()->begin(GUIIcon::MODEDELETE, "remove selected items");
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
         // delete selected attribute carriers depending of current supermode

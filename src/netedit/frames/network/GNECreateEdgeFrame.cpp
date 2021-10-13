@@ -260,7 +260,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType(FXObject*, FXSelector, vo
     // also create a new laneType
     GNELaneType* laneType = new GNELaneType(edgeType);
     // add it using undoList
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin("create new edge type");
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "create new edge type");
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, 0, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
@@ -281,7 +281,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
     // get edgeType to remove
     GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
     // remove it using undoList
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin("create new edge type");
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "create new edge type");
     // iterate over all laneType
     for (int i = 0; i < (int)edgeType->getLaneTypes().size(); i++) {
         myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(edgeType->getLaneTypes().at(i), i, false), true);
@@ -318,7 +318,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType(FXObject*, FXSelector, 
         myDefaultEdgeType->setAttribute(GNE_ATTR_PARAMETERS, "");
     } else if (myEdgeTypeSelected) {
         // begin undoList
-        undoList->begin("reset edgeType '" + myDefaultEdgeType->getID() + "'");
+        undoList->begin(GUIIcon::EDGE, "reset edgeType '" + myDefaultEdgeType->getID() + "'");
         // reset lanes
         while (myEdgeTypeSelected->getLaneTypes().size() > 1) {
             myEdgeTypeSelected->removeLaneType((int)myEdgeTypeSelected->getLaneTypes().size() - 1, undoList);
@@ -1391,7 +1391,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
     }
     // begin undo list
     if (!myViewNet->getUndoList()->hasCommandGroup()) {
-        myViewNet->getUndoList()->begin("create new " + toString(SUMO_TAG_EDGE));
+        myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
     }
     // if we didn't clicked over another junction, then create a new
     if (junction == nullptr) {
@@ -1442,7 +1442,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                 if (chainEdge) {
                     myCreateEdgeSource = junction;
                     myCreateEdgeSource->markAsCreateEdgeSource();
-                    myViewNet->getUndoList()->begin("create new " + toString(SUMO_TAG_EDGE));
+                    myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
                 } else {
                     myCreateEdgeSource = nullptr;
                 }
