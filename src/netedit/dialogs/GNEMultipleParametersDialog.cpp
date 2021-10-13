@@ -507,73 +507,76 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 
 long
 GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // get undo list
-    GNEUndoList* undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();
-    // declare vector for parameters in stringvector format
-    std::vector<std::pair<std::string, std::string> > parametersChanged;
-    // declare keep keys vector
-    std::vector<std::string> keepKeys;
-    // check if all edited parameters are valid
-    for (const auto& parameterRow : myParametersValues->getParameterRows()) {
-        // ignore last row
-        if (parameterRow != myParametersValues->getParameterRows().back()) {
-            // insert in keepKeys
-            keepKeys.push_back(parameterRow->keyField->getText().text());
-            // continue if we're going to modify key
-            if (parameterRow->valueChanged) {
-                if (parameterRow->keyField->getText().empty()) {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                    // open warning Box
-                    FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                    return 1;
-                } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                    // open warning Box
-                    FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                    return 1;
+    const auto &ACs = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    if (ACs.size() > 0) {
+        // get undo list
+        GNEUndoList* undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();
+        // declare vector for parameters in stringvector format
+        std::vector<std::pair<std::string, std::string> > parametersChanged;
+        // declare keep keys vector
+        std::vector<std::string> keepKeys;
+        // check if all edited parameters are valid
+        for (const auto& parameterRow : myParametersValues->getParameterRows()) {
+            // ignore last row
+            if (parameterRow != myParametersValues->getParameterRows().back()) {
+                // insert in keepKeys
+                keepKeys.push_back(parameterRow->keyField->getText().text());
+                // continue if we're going to modify key
+                if (parameterRow->valueChanged) {
+                    if (parameterRow->keyField->getText().empty()) {
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                        // open warning Box
+                        FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                        return 1;
+                    } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                        // open warning Box
+                        FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                        return 1;
+                    }
+                    // insert in parameters
+                    parametersChanged.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
                 }
-                // insert in parameters
-                parametersChanged.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
             }
         }
-    }
-    // sort sortedParameters
-    std::sort(parametersChanged.begin(), parametersChanged.end());
-    // check if there is duplicated keys
-    for (auto i = parametersChanged.begin(); i != parametersChanged.end(); i++) {
-        if (((i + 1) != parametersChanged.end()) && (i->first) == (i + 1)->first) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-            // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-            return 1;
-        }
-    }
-    // begin change
-    undoList->begin("change parameters");
-    // iterate over ACs
-    for (const auto& AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        // remove keys
-        AC->removeACParametersKeys(keepKeys, undoList);
-        // update parameters
-        for (const auto& parameter : parametersChanged) {
-            if (myParametersOptions->onlyForExistentKeys() && (AC->getACParametersMap().count(parameter.first) == 0)) {
-                continue;
-            } else {
-                AC->addACParameters(parameter.first, parameter.second, undoList);
+        // sort sortedParameters
+        std::sort(parametersChanged.begin(), parametersChanged.end());
+        // check if there is duplicated keys
+        for (auto i = parametersChanged.begin(); i != parametersChanged.end(); i++) {
+            if (((i + 1) != parametersChanged.end()) && (i->first) == (i + 1)->first) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                // open warning Box
+                FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                return 1;
             }
         }
+        // begin change
+        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "change parameters");
+        // iterate over ACs
+        for (const auto& AC : ACs) {
+            // remove keys
+            AC->removeACParametersKeys(keepKeys, undoList);
+            // update parameters
+            for (const auto& parameter : parametersChanged) {
+                if (myParametersOptions->onlyForExistentKeys() && (AC->getACParametersMap().count(parameter.first) == 0)) {
+                    continue;
+                } else {
+                    AC->addACParameters(parameter.first, parameter.second, undoList);
+                }
+            }
+        }
+        // end change
+        undoList->end();
     }
-    // end change
-    undoList->end();
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
     return 1;

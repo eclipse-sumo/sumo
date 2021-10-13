@@ -71,6 +71,8 @@ GNEUndoListDialog::~GNEUndoListDialog() {}
 
 void 
 GNEUndoListDialog::open() {
+    // update table
+    updateTable();
     // show
     show(PLACEMENT_SCREEN);
 }
@@ -119,7 +121,13 @@ GNEUndoListDialog::onCmdSelectElement(FXObject*, FXSelector, void*) {
 
 void
 GNEUndoListDialog::updateTable() {
-
+    // declare iterator over UndoList
+    GNEUndoList::Iterator it(myGNEApp->getUndoList());
+    // fill myTreeListDinamic
+    while (!it.end()) {
+        myTreeListDinamic->insertItem(nullptr, nullptr, it.getDescription().c_str(), nullptr, nullptr);
+        it++;
+    }
 }
 
 /****************************************************************************/

@@ -610,7 +610,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // get inspected AC
         GNEAttributeCarrier* AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
         // set parameter in AC using undoList
-        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->begin("change parameters");
+        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->begin(AC->getTagProperty().getGUIIcon(), "change parameters");
         AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->end();
     } else if (VTypeAttributeRow) {
@@ -618,7 +618,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         VTypeAttributeRow->setParameters(parameters);
     } else if (myAttributeCarrier) {
         // set parameter in AC using undoList
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin("change parameters");
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin(myAttributeCarrier->getTagProperty().getGUIIcon(), "change parameters");
         myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
     } else if (myTLDef) {

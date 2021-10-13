@@ -110,7 +110,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myDemandList->myInvalidRoutes.size() > 0) {
         if (myFixRouteOptions->removeInvalidRoutes->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin("delete invalid routes");
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
             // iterate over invalid routes to delete it
             for (auto i : myDemandList->myInvalidRoutes) {
                 myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
@@ -119,7 +119,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
             myViewNet->getUndoList()->end();
         } else if (myFixRouteOptions->selectInvalidRoutesAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin("select invalid routes");
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myDemandList->myInvalidRoutes) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -134,7 +134,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myDemandList->myInvalidVehicles.size() > 0) {
         if (myFixVehicleOptions->removeInvalidVehicles->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin("delete invalid vehicles");
+            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
             // iterate over invalid stops to delete it
             for (auto i : myDemandList->myInvalidVehicles) {
                 myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
@@ -143,7 +143,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
             myViewNet->getUndoList()->end();
         } else if (myFixVehicleOptions->selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin("select invalid vehicles");
+            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "select invalid vehicles");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myDemandList->myInvalidVehicles) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -158,21 +158,21 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myDemandList->myInvalidStops.size() > 0) {
         if (myFixStopOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
             // iterate over invalid stops to enable friendly position
             for (auto i : myDemandList->myInvalidStops) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->end();
         } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin("fix positions of invalid stops");
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
             // iterate over invalid stops to fix positions
             for (auto i : myDemandList->myInvalidStops) {
                 i->fixDemandElementProblem();
             }
             myViewNet->getUndoList()->end();
         } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin("select invalid stops");
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "select invalid stops");
             // iterate over invalid stops to select all elements
             for (auto i : myDemandList->myInvalidStops) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -196,7 +196,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
             myViewNet->getUndoList()->end();
             */
         } else if (myFixPersonPlanOptions->selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin("select invalid person plans");
+            myViewNet->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "select invalid person plans");
             // iterate over invalid person plans to select all elements
             for (auto i : myDemandList->myInvalidPersonPlans) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
