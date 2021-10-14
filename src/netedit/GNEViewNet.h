@@ -84,6 +84,9 @@ public:
     /// @brief get objects under cursor
     const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
 
+    /// @brief get move multiple element values
+    const GNEViewNetHelper::MoveMultipleElementValues &getMoveMultipleElementValues() const;
+
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
      * @param AC AttributeCarrier that will be select/unselected

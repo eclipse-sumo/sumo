@@ -418,6 +418,12 @@ GNEViewNet::getObjectsUnderCursor() const {
 }
 
 
+ const GNEViewNetHelper::MoveMultipleElementValues&
+ GNEViewNet::getMoveMultipleElementValues() const {
+    return myMoveMultipleElementValues;
+ }
+
+
 void
 GNEViewNet::buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC) {
     if (AC->isAttributeCarrierSelected()) {
@@ -4590,6 +4596,8 @@ GNEViewNet::drawTemporalJunction() const {
 
 void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
+    // reset moving selected edge
+    myMoveMultipleElementValues.resetMovingSelectedEdge();
     // get front AC
     auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
     // decide what to do based on mode
