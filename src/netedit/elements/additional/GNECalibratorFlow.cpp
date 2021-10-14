@@ -81,7 +81,7 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
 
 
 GNEMoveOperation*
-GNECalibratorFlow::getMoveOperation(const double /*shapeOffset*/) {
+GNECalibratorFlow::getMoveOperation() {
     // calibrators flow cannot be moved
     return nullptr;
 }

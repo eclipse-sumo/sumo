@@ -44,7 +44,7 @@ GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
 GNEMoveOperation*
-GNEParkingAreaReroute::getMoveOperation(const double /*shapeOffset*/) {
+GNEParkingAreaReroute::getMoveOperation() {
     // GNEParkingAreaReroutes cannot be moved
     return nullptr;
 }

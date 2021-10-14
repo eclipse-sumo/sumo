@@ -54,7 +54,7 @@ GNERerouter::~GNERerouter() {
 
 
 GNEMoveOperation*
-GNERerouter::getMoveOperation(const double /*shapeOffset*/) {
+GNERerouter::getMoveOperation() {
     // return move operation for additional placed in view
     return new GNEMoveOperation(this, myPosition);
 }

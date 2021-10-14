@@ -44,7 +44,7 @@ GNEVariableSpeedSignSymbol::~GNEVariableSpeedSignSymbol() {
 
 
 GNEMoveOperation*
-GNEVariableSpeedSignSymbol::getMoveOperation(const double /*shapeOffset*/) {
+GNEVariableSpeedSignSymbol::getMoveOperation() {
     // GNEVariableSpeedSignSymbols cannot be moved
     return nullptr;
 }

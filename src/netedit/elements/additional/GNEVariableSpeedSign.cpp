@@ -51,7 +51,7 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 
 
 GNEMoveOperation*
-GNEVariableSpeedSign::getMoveOperation(const double /*shapeOffset*/) {
+GNEVariableSpeedSign::getMoveOperation() {
     // return move operation for additional placed in view
     return new GNEMoveOperation(this, myPosition);
 }

@@ -68,7 +68,7 @@ GNEDetector::~GNEDetector() {}
 
 
 GNEMoveOperation*
-GNEDetector::getMoveOperation(const double /*shapeOffset*/) {
+GNEDetector::getMoveOperation() {
     // return move operation for additional placed over shape
     return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
                                 myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());

@@ -51,10 +51,10 @@ public:
     /// @brief Destructor
     ~GNEVariableSpeedSign();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();

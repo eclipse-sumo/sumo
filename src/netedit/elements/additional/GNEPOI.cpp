@@ -77,7 +77,7 @@ GNEPOI::~GNEPOI() {}
 
 
 GNEMoveOperation*
-GNEPOI::getMoveOperation(const double /* shapeOffset */) {
+GNEPOI::getMoveOperation() {
     if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,

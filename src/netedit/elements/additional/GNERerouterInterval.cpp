@@ -57,7 +57,7 @@ GNERerouterInterval::~GNERerouterInterval() {}
 
 
 GNEMoveOperation*
-GNERerouterInterval::getMoveOperation(const double /*shapeOffset*/) {
+GNERerouterInterval::getMoveOperation() {
     // rerouter intervals cannot be moved
     return nullptr;
 }

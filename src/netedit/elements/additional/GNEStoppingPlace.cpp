@@ -61,7 +61,7 @@ GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
 GNEMoveOperation*
-GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
+GNEStoppingPlace::getMoveOperation() {
     // check conditions
     if ((myStartPosition == INVALID_DOUBLE) && (myEndPosition == INVALID_DOUBLE)) {
         // start and end positions undefined, then nothing to move

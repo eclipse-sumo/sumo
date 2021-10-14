@@ -49,7 +49,7 @@ GNEVaporizer::~GNEVaporizer() {
 
 
 GNEMoveOperation*
-GNEVaporizer::getMoveOperation(const double /*shapeOffset*/) {
+GNEVaporizer::getMoveOperation() {
     // vaporizers cannot be moved
     return nullptr;
 }

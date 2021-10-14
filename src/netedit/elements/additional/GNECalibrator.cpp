@@ -98,7 +98,7 @@ GNECalibrator::~GNECalibrator() {}
 
 
 GNEMoveOperation*
-GNECalibrator::getMoveOperation(const double /*shapeOffset*/) {
+GNECalibrator::getMoveOperation() {
     // calibrators cannot be moved
     return nullptr;
 }

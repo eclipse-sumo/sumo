@@ -44,7 +44,7 @@ GNERerouterSymbol::~GNERerouterSymbol() {
 
 
 GNEMoveOperation*
-GNERerouterSymbol::getMoveOperation(const double /*shapeOffset*/) {
+GNERerouterSymbol::getMoveOperation() {
     // GNERerouterSymbols cannot be moved
     return nullptr;
 }

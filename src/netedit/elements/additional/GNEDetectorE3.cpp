@@ -49,7 +49,7 @@ GNEDetectorE3::~GNEDetectorE3() {}
 
 
 GNEMoveOperation*
-GNEDetectorE3::getMoveOperation(const double /*shapeOffset*/) {
+GNEDetectorE3::getMoveOperation() {
     // return move operation for additional placed in view
     return new GNEMoveOperation(this, myPosition);
 }

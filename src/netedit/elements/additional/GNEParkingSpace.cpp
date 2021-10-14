@@ -51,7 +51,7 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 
 GNEMoveOperation*
-GNEParkingSpace::getMoveOperation(const double /*shapeOffset*/) {
+GNEParkingSpace::getMoveOperation() {
     // return move operation for additional placed in view
     return new GNEMoveOperation(this, myPosition);
 }

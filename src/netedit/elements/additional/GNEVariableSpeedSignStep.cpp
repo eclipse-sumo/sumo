@@ -44,7 +44,7 @@ GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
 
 
 GNEMoveOperation*
-GNEVariableSpeedSignStep::getMoveOperation(const double /*shapeOffset*/) {
+GNEVariableSpeedSignStep::getMoveOperation() {
     // VSS Steps cannot be moved
     return nullptr;
 }

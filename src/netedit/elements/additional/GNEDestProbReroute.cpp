@@ -44,7 +44,7 @@ GNEDestProbReroute::~GNEDestProbReroute() {}
 
 
 GNEMoveOperation*
-GNEDestProbReroute::getMoveOperation(const double /*shapeOffset*/) {
+GNEDestProbReroute::getMoveOperation() {
     // GNEDestProbReroutes cannot be moved
     return nullptr;
 }

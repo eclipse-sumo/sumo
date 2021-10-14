@@ -68,42 +68,19 @@ GNETAZ::~GNETAZ() {}
 
 
 GNEMoveOperation*
-GNETAZ::getMoveOperation(const double shapeOffset) {
+GNETAZ::getMoveOperation() {
+    // get snap radius
+    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
     // check if we're moving center or shape
-    if (shapeOffset == -1) {
+    if (myTAZCenter.distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation()) < (snap_radius*snap_radius)) {
         // move entire shape
         return new GNEMoveOperation(this, myTAZCenter);
     } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
-        // declare shape to move
-        PositionVector shapeToMove = myShape;
-        // first check if in the given shapeOffset there is a geometry point
-        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
-        // check if position is valid
-        if (positionAtOffset == Position::INVALID) {
-            return nullptr;
-        } else {
-            // obtain index
-            const int index = myShape.indexOfClosest(positionAtOffset);
-            // declare new index
-            int newIndex = index;
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-            // check if we have to create a new index
-            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
-                newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
-            }
-            // get last index
-            const int lastIndex = ((int)shapeToMove.size() - 1);
-            // return move operation for edit shape
-            if (myShape.isClosed() && ((index == 0) || (index == lastIndex))) {
-                return new GNEMoveOperation(this, myShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
-            } else {
-                return new GNEMoveOperation(this, myShape, {index}, shapeToMove, {newIndex});
-            }
-        }
+        // calculate move shape operation
+        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius);
     }
 }
 

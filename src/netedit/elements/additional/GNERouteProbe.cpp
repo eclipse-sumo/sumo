@@ -81,7 +81,7 @@ GNERouteProbe::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 
 GNEMoveOperation*
-GNERouteProbe::getMoveOperation(const double /*shapeOffset*/) {
+GNERouteProbe::getMoveOperation() {
     // routeprobes cannot be moved
     return nullptr;
 }

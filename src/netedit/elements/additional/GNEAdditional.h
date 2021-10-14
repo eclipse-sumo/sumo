@@ -104,10 +104,10 @@ public:
     /// @brief Destructor
     ~GNEAdditional();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
+    virtual GNEMoveOperation* getMoveOperation() = 0;
 
     /// @brief remove geometry point in the clicked position (Currently unused in shapes)
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);

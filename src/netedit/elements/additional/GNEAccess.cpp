@@ -55,7 +55,7 @@ GNEAccess::~GNEAccess() {
 
 
 GNEMoveOperation*
-GNEAccess::getMoveOperation(const double /*shapeOffset*/) {
+GNEAccess::getMoveOperation() {
     // return move operation for additional placed over shape
     return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
                                 myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
