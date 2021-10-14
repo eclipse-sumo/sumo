@@ -217,7 +217,14 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // GUIGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, 
+                                                      myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0, 
+                                                      myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, 
+                                                      myAdditionalGeometry.getShape().front(), 3.4, 4.3, 0, 0, 
+                                                      myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }
         // pop gl identificator
         GLHelper::popName();
