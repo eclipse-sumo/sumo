@@ -729,8 +729,17 @@ GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
         // update geometry
         myTAZGeometry.updateGeometry(myShape);
     } else {
+        // get lastIndex
+        const int lastIndex = (int)moveResult.shapeToUpdate.size() - 1;
         // update new shape
         myShape = moveResult.shapeToUpdate;
+        // adjust first and last position
+        if (moveResult.geometryPointsToMove.front() == 0) {
+            myShape[lastIndex] = moveResult.shapeToUpdate[0];
+        } else if (moveResult.geometryPointsToMove.front() == lastIndex) {
+            myShape[0] = moveResult.shapeToUpdate[lastIndex];
+        }
+        myShape.closePolygon();
         // update geometry
         myTAZGeometry.updateGeometry(myShape);
     }
@@ -754,9 +763,19 @@ GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
         undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
         undoList->end();
     } else {
+        // get lastIndex
+        const int lastIndex = (int)moveResult.shapeToUpdate.size() - 1;
+        // close shapeToUpdate
+        auto closedShape = moveResult.shapeToUpdate;
+        // adjust first and last position
+        if (moveResult.geometryPointsToMove.front() == 0) {
+            closedShape[lastIndex] = moveResult.shapeToUpdate[0];
+        } else if (moveResult.geometryPointsToMove.front() == lastIndex) {
+            closedShape[0] = moveResult.shapeToUpdate[lastIndex];
+        }
         // commit new shape
         undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(closedShape)));
         undoList->end();
     }
 }
