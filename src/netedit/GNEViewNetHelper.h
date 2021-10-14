@@ -896,9 +896,6 @@ struct GNEViewNetHelper {
         /// @brief calculate offset
         const GNEMoveOffset calculateMoveOffset() const;
 
-        /// @brief calculate move operation for shape
-        bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector& shape, const double radius);
-
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;

@@ -939,17 +939,35 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
     const GNENetworkElement* editedElement = myViewNet->myEditNetworkElementShapes.getEditedNetworkElement();
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
-        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getJunctionFront(),
-                                           myViewNet->myObjectsUnderCursor.getJunctionFront()->getNBNode()->getShape(),
-                                           myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else if (myViewNet->myObjectsUnderCursor.getCrossingFront() && (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
-        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getCrossingFront(),
-                                           myViewNet->myObjectsUnderCursor.getCrossingFront()->getCrossingShape(),
-                                           myViewNet->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getCrossingFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() && (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
-        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getConnectionFront(),
-                                           myViewNet->myObjectsUnderCursor.getConnectionFront()->getConnectionShape(),
-                                           myViewNet->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius);
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getConnectionFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else {
         // there isn't moved items, then return false
         return false;
@@ -965,27 +983,18 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getPolyFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPolyFront())) {
-        // calculate polygonShapeOffset
-        const double polygonShapeOffset = myViewNet->myObjectsUnderCursor.getPolyFront()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-        // calculate distance to shape
-        const double distanceToShape = myViewNet->myObjectsUnderCursor.getPolyFront()->getShape().distance2D(myViewNet->getPositionInformation());
-        // get snap radius
-        const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-        // check if we clicked over shape
-        if ((distanceToShape <= snap_radius) || myViewNet->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
-            // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPolyFront()->getMoveOperation(polygonShapeOffset);
-            // continue if move operation is valid
-            if (moveOperation) {
-                myMoveOperations.push_back(moveOperation);
-                return true;
-            }
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPolyFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
         }
-        // shape operation value wasn't calculated, then return false
-        return false;
     } else if (myViewNet->myObjectsUnderCursor.getPOIFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPOIFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPOIFront()->getMoveOperation(0);
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPOIFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -995,7 +1004,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         }
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getAdditionalFront()->getMoveOperation(0);
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getAdditionalFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1004,43 +1013,24 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             return false;
         }
     } else if (myViewNet->myObjectsUnderCursor.getTAZFront() && (frontAC == myViewNet->myObjectsUnderCursor.getTAZFront())) {
-        // calculate TAZShapeOffset
-        const double TAZShapeOffset = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-        // calculate distance to TAZ
-        const double distanceToShape = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().distance2D(myViewNet->getPositionInformation());
-        // get snap radius
-        const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-        // get center radius
-        const double centerRadius = snap_radius * myViewNet->myObjectsUnderCursor.getTAZFront()->getExaggeration(myViewNet->getVisualisationSettings());
-        // check if we clicked over TAZ or center
-        if (myRelativeClickedPosition.distanceTo2D(myViewNet->myObjectsUnderCursor.getTAZFront()->getAttributePosition(SUMO_ATTR_CENTER)) < centerRadius) {
-            // only move center
-            myMoveOperations.push_back(myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(-1));
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
             return true;
-        } else if ((distanceToShape <= snap_radius) || myViewNet->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
-            // move shape
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(TAZShapeOffset);
-            // continue if move operation is valid
-            if (moveOperation) {
-                myMoveOperations.push_back(moveOperation);
-                return true;
-            }
-        }
-        // TAZ operation value wasn't calculated, then return false
-        return false;
-    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (frontAC == myViewNet->myObjectsUnderCursor.getJunctionFront())) {
-        if (myViewNet->myObjectsUnderCursor.getJunctionFront()->isShapeEdited()) {
-            return false;
         } else {
-            // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation(0);
-            // continue if move operation is valid
-            if (moveOperation) {
-                myMoveOperations.push_back(moveOperation);
-                return true;
-            } else {
-                return false;
-            }
+            return false;
+        }
+    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (frontAC == myViewNet->myObjectsUnderCursor.getJunctionFront())) {
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
         }
     } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) ||
                (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront()))) {
@@ -1051,19 +1041,8 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             // edge values wasn't calculated, then return false
             return false;
         } else {
-            double shapeOffset = -1;
-            if (myViewNet->myObjectsUnderCursor.getEdgeFront()->clickedOverShapeStart(myViewNet->getPositionInformation())) {
-                // move shape start
-                shapeOffset = 0;
-            } else if (myViewNet->myObjectsUnderCursor.getEdgeFront()->clickedOverShapeEnd(myViewNet->getPositionInformation())) {
-                // move shape end
-                shapeOffset = myViewNet->myObjectsUnderCursor.getEdgeFront()->getNBEdge()->getGeometry().length2D();
-            } else {
-                // calculate shape offset
-                shapeOffset = myViewNet->myObjectsUnderCursor.getEdgeFront()->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-            }
             // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation(shapeOffset);
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
                 myMoveOperations.push_back(moveOperation);
@@ -1088,7 +1067,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
     // check demand element
     if (myViewNet->myObjectsUnderCursor.getDemandElementFront() && (frontAC == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getDemandElementFront()->getMoveOperation(0);
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getDemandElementFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1157,27 +1136,6 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
         // return X-Y move offset
         return GNEMoveOffset(moveOffset.x(), moveOffset.y());
     }
-}
-
-
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector& shape, const double radius) {
-    // calculate junctionShapeOffset
-    const double junctionShapeOffset = shape.nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-    // calculate distance to shape
-    const double distanceToShape = shape.distance2D(myViewNet->getPositionInformation());
-    // check if we clicked over shape
-    if (distanceToShape <= radius) {
-        // get move operation
-        GNEMoveOperation* moveOperation = moveElement->getMoveOperation(junctionShapeOffset);
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
-        }
-    }
-    // shape operation value wasn't calculated, then return false
-    return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -1283,7 +1241,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
     const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
     // iterate over selected junctions
     for (const auto& junction : selectedJunctions) {
-        moveOperation = junction->getMoveOperation(0);
+        moveOperation = junction->getMoveOperation();
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
         }
@@ -1292,7 +1250,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
     const auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
     // iterate over selected edges
     for (const auto& edge : selectedEdges) {
-        moveOperation = edge->getMoveOperation(0);
+        moveOperation = edge->getMoveOperation();
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
         }
@@ -1308,7 +1266,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
     const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
     // iterate over selected junctions
     for (const auto& junction : selectedJunctions) {
-        moveOperation = junction->getMoveOperation(0);
+        moveOperation = junction->getMoveOperation();
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
         }
@@ -1324,9 +1282,9 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
     for (const auto& edge : selectedEdges000180) {
         // get move operation depending of useInverseOffset
         if (useInverseOffset) {
-            moveOperation = edge->getMoveOperation(shapeOffset);
+            moveOperation = edge->getMoveOperation();
         } else {
-            moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
+            moveOperation = edge->getMoveOperation(/*edge->getNBEdge()->getGeometry().length2D() - shapeOffset*/);
         }
         // continue if move operation is valid
         if (moveOperation) {
@@ -1337,9 +1295,9 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
     for (const auto& edge : selectedEdges180360) {
         // get move operation depending of useInverseOffset
         if (useInverseOffset) {
-            moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
+            moveOperation = edge->getMoveOperation(/*edge->getNBEdge()->getGeometry().length2D() - shapeOffset*/);
         } else {
-            moveOperation = edge->getMoveOperation(shapeOffset);
+            moveOperation = edge->getMoveOperation();
         }
         // continue if move operation is valid
         if (moveOperation) {
