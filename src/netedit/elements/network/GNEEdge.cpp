@@ -164,9 +164,13 @@ GNEEdge::getMoveOperation() {
     if (isAttributeCarrierSelected()) {
         // check if both junctions are selected
         if (getFromJunction()->isAttributeCarrierSelected() && getToJunction()->isAttributeCarrierSelected()) {
-            return processMoveEntireSelectedEdge();
+            return processMoveBothJunctionSelected();
+        } else if (getFromJunction()->isAttributeCarrierSelected()) {
+            return processMoveFromJunctionSelected();
+        } else if (getToJunction()->isAttributeCarrierSelected()) {
+            return processMoveToJunctionSelected();
         } else if (myNet->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
-            return processMoveSelectedEdges(snapRadius);
+            return processNoneJunctionSelected(snapRadius);
         } else {
             // calculate move shape operation (because there are only an edge selected)
             return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
@@ -2202,7 +2206,19 @@ GNEEdge::areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, cons
 
 
 GNEMoveOperation* 
-GNEEdge::processMoveEntireSelectedEdge() {
+GNEEdge::processMoveFromJunctionSelected() {
+    return nullptr;
+}
+
+
+GNEMoveOperation*
+GNEEdge::processMoveToJunctionSelected() {
+    return nullptr;
+}
+
+
+GNEMoveOperation* 
+GNEEdge::processMoveBothJunctionSelected() {
     // declare a vector for saving geometry points to move (all except extremes)
     std::vector<int> geometryPointsToMove;
     for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
@@ -2214,7 +2230,7 @@ GNEEdge::processMoveEntireSelectedEdge() {
 
 
 GNEMoveOperation* 
-GNEEdge::processMoveSelectedEdges(const double snapRadius) {
+GNEEdge::processNoneJunctionSelected(const double snapRadius) {
     // get move multiple element values
     const auto &moveMultipleElementValues = myNet->getViewNet()->getMoveMultipleElementValues();
     // declare shape to move
@@ -2223,19 +2239,13 @@ GNEEdge::processMoveSelectedEdges(const double snapRadius) {
     if (shapeToMove.length2D() < moveMultipleElementValues.getEdgeOffset()) {
         return nullptr;
     }
-    // declare flag for angle
-    const double convexAngle = isConvexAngle();
     // declare offset
     double offset = 0;
-    // set offset depending of convex angles
-    if (moveMultipleElementValues.getEdgeConvexAngle() && convexAngle) {
+    // set offset depending of convex angle
+    if (isConvexAngle()) {
         offset = moveMultipleElementValues.getEdgeOffset();
-    } else if (moveMultipleElementValues.getEdgeConvexAngle() && !convexAngle) {
-        offset = shapeToMove.length2D() - moveMultipleElementValues.getEdgeOffset();
-    } else if (!moveMultipleElementValues.getEdgeConvexAngle() && convexAngle) {
-        offset = shapeToMove.length2D() - moveMultipleElementValues.getEdgeOffset();
     } else {
-        offset = moveMultipleElementValues.getEdgeOffset();
+        offset = shapeToMove.length2D() - moveMultipleElementValues.getEdgeOffset();
     }
     // obtain offset position
     const Position offsetPosition = myNBEdge->getGeometry().positionAtOffset2D(offset);
