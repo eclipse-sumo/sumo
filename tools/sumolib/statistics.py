@@ -21,6 +21,10 @@ from __future__ import division
 import math
 import warnings
 from collections import defaultdict
+try:
+    from numpy import sqrt, all
+except ImportError:
+    from math import sqrt
 
 
 def round(value):  # to round in Python 3 like in Python 2
@@ -89,10 +93,12 @@ class Statistics:
 
     def add(self, v, label=None):
         self.values.append(v)
-        if v < self.min:
+        isMin = v < self.min
+        if (type(isMin) is bool and isMin) or all(isMin):
             self.min = v
             self.min_label = label
-        if v > self.max:
+        isMax = v > self.max
+        if (type(isMax) is bool and isMax) or all(isMax):
             self.max = v
             self.max_label = label
         if self.counts is not None:
@@ -139,7 +145,7 @@ class Statistics:
             sumSq = 0.
             for v in self.values[-limit:]:
                 sumSq += (v - mean) * (v - mean)
-            return mean, math.sqrt(sumSq / limit)
+            return mean, sqrt(sumSq / limit)
         else:
             return None
 
