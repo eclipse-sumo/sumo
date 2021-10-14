@@ -168,6 +168,29 @@ GNEMoveElement::GNEMoveElement() :
 }
 
 
+GNEMoveOperation* 
+GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius) {
+    // declare shape to move
+    PositionVector shapeToMove = originalShape;
+    // obtain nearest index
+    const int nearestIndex = originalShape.indexOfClosest(mousePosition);
+    // obtain nearest position
+    const Position nearestPosition = originalShape.positionAtOffset2D(originalShape.nearest_offset_to_point2D(mousePosition));
+    // check if we have to create a new index
+    if ((nearestPosition == Position::INVALID) || (nearestIndex == -1)) {
+        return nullptr;
+    } else if (nearestPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) > (snapRadius * snapRadius)) {
+        // create new geometry point and keep new index
+        const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
+        // move after setting new geometry point in shapeToMove
+        return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {newIndex});
+    } else {
+        // move without creating new positionVector
+        return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
+    }
+}
+
+
 void
 GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
     // declare move result
