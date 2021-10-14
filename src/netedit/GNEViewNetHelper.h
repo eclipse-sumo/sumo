@@ -931,9 +931,6 @@ struct GNEViewNetHelper {
         /// @brief reset flag for moving edge
         void resetMovingSelectedEdge();
 
-        /// @brief get edge convex angle
-        bool getEdgeConvexAngle() const;
-
         /// @brief edge offset
         double getEdgeOffset() const;
 
@@ -957,10 +954,7 @@ struct GNEViewNetHelper {
         /// @brief flag for enable moving edge
         bool myMovingSelectedEdge;
 
-        /// @brief edge convex angle
-        bool myEdgeConvexAngle;
-
-        /// @brief edge offset
+        /// @brief offset of moved edge
         double myEdgeOffset;
 
         /// @brief move operations

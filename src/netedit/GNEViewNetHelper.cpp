@@ -1145,7 +1145,6 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
 GNEViewNetHelper::MoveMultipleElementValues::MoveMultipleElementValues(GNEViewNet* viewNet) :
     myViewNet(viewNet),
     myMovingSelectedEdge(false),
-    myEdgeConvexAngle(false),
     myEdgeOffset(0) {
 }
 
@@ -1232,12 +1231,6 @@ GNEViewNetHelper::MoveMultipleElementValues::resetMovingSelectedEdge() {
 }
 
 
-bool
-GNEViewNetHelper::MoveMultipleElementValues::getEdgeConvexAngle() const {
-    return myEdgeConvexAngle;
-}
-
-
 double
 GNEViewNetHelper::MoveMultipleElementValues::getEdgeOffset() const {
     return myEdgeOffset;
@@ -1298,10 +1291,14 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
     }
     // enable moving selected edge flag
     myMovingSelectedEdge = true;
-    // calculate offset based on the clicked edge shape
-    myEdgeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-    // get convex angle
-    myEdgeConvexAngle = clickedEdge->isConvexAngle();
+    // get edge shape
+    const auto &shape = clickedEdge->getNBEdge()->getGeometry();
+    // calculate offset based on the clicked edge shape and convex angle
+    if (clickedEdge->isConvexAngle()) {
+        myEdgeOffset = shape.nearest_offset_to_point2D(myViewNet->getPositionInformation());
+    } else {
+        myEdgeOffset = shape.length2D() - shape.nearest_offset_to_point2D(myViewNet->getPositionInformation());
+    }
     // now move all selected edges
     const auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
     // iterate over edges betwen 0 and 180 degrees
