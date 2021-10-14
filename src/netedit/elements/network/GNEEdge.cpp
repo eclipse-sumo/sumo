@@ -365,6 +365,9 @@ GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     for (const Position& pos : myNBEdge->getGeometry()) {
         myBoundary.add(pos);
     }
+    // add junction positions
+    myBoundary.add(getFromJunction()->getPositionInView());
+    myBoundary.add(getToJunction()->getPositionInView());
     // grow boundary
     myBoundary.grow(10);
     // add object into net
