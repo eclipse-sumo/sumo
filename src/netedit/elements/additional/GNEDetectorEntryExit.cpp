@@ -223,7 +223,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, 
-                                                      myAdditionalGeometry.getShape().front(), 3.4, 4.3, 0, 0, 
+                                                      myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0, 
                                                       myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }
         // pop gl identificator
