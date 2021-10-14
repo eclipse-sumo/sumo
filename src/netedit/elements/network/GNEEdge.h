@@ -300,6 +300,9 @@ public:
     static void drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
                                       const bool drawFrontExtreme, const bool drawBackExtreme);
 
+    /// @brief check if edge makes a convex angle [0º - 180º)
+    bool isConvexAngle() const;
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;

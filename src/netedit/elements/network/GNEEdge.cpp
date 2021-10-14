@@ -55,16 +55,16 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
-    net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())
-},
-{}, {}, {}, {}, {}, {}, {}),
-myNBEdge(nbe),
-myLanes(0),
-myAmResponsible(false),
-myWasSplit(wasSplit),
-myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myUpdateGeometry(true) {
+    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, 
+        {net->retrieveJunction(nbe->getFromNode()->getID()), 
+         net->retrieveJunction(nbe->getToNode()->getID())},
+    {}, {}, {}, {}, {}, {}, {}),
+    myNBEdge(nbe),
+    myLanes(0),
+    myAmResponsible(false),
+    myWasSplit(wasSplit),
+    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -158,23 +158,51 @@ GNEEdge::getPositionInView() const {
 
 GNEMoveOperation*
 GNEEdge::getMoveOperation() {
-    if (isAttributeCarrierSelected() && 
-        getFromJunction()->isAttributeCarrierSelected() && 
-        getToJunction()->isAttributeCarrierSelected()) {
-        // declare a vector for saving geometry points to move
-        std::vector<int> geometryPointsToMove;
-        // if edge is selected, check conditions
-        if (getFromJunction()->isAttributeCarrierSelected()) {
+    // get snapRadius
+    const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius;
+    // get move multiple element values
+    const auto &moveMultipleElementValues = myNet->getViewNet()->getMoveMultipleElementValues();
+    // chec if edge is selected
+    if (isAttributeCarrierSelected()) {
+        // check if both junctions are selected
+        if (getFromJunction()->isAttributeCarrierSelected() && getToJunction()->isAttributeCarrierSelected()) {
+            // declare a vector for saving geometry points to move (all except extremes)
+            std::vector<int> geometryPointsToMove;
             for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
                 geometryPointsToMove.push_back(i);
             }
+            // move entire shape (except extremes)
+            return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, myNBEdge->getGeometry(), geometryPointsToMove);
+        } else if (moveMultipleElementValues.isMovingSelectedEdge()) {
+            // declare shape to move
+            PositionVector shapeToMove = myNBEdge->getGeometry();
+            // first check if keeped offset is larger than geometry
+            if (shapeToMove.length2D() < moveMultipleElementValues.getEdgeOffset()) {
+                return nullptr;
+            }
+            // obtain offset position
+            const Position offsetPosition = myNBEdge->getGeometry().positionAtOffset2D(moveMultipleElementValues.getEdgeOffset());
+            // obtain nearest index to offset position
+            const int nearestIndex = myNBEdge->getGeometry().indexOfClosest(offsetPosition);
+            // check conditions
+            if ((nearestIndex == -1) || (offsetPosition == Position::INVALID)) {
+                return nullptr;
+            } else if (offsetPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= (snapRadius * snapRadius)) {
+                // move geometry point without creating new geometry point
+                return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {nearestIndex});
+            } else  {
+                // create new geometry point and keep new index (if we clicked near of shape)
+                const int newIndex = shapeToMove.insertAtClosest(offsetPosition, true);
+                // move after setting new geometry point in shapeToMove
+                return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {newIndex});
+            }
+        } else {
+            // calculate move shape operation (because there are only an edge selected)
+            return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
         }
-        // move entire shape (except extremes)
-        return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, myNBEdge->getGeometry(), geometryPointsToMove);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), 
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius);
+        return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
     }
 }
 
@@ -1381,6 +1409,25 @@ GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, 
     }
 }
 
+
+bool 
+GNEEdge::isConvexAngle() const {
+    // calculate angle between both junction positions
+    double edgeAngle = RAD2DEG(getFromJunction()->getPositionInView().angleTo2D(getToJunction()->getPositionInView()));
+    // adjust to 360 degrees
+    while (edgeAngle < 0) {
+        edgeAngle += 360;
+    }
+    // fmod round towards zero which is not want we want for negative numbers
+    edgeAngle = fmod(edgeAngle, 360);
+    // check angle
+    if ((edgeAngle >= 0) && (edgeAngle < 180)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -2181,6 +2228,5 @@ GNEEdge::areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, cons
         return false;
     }
 }
-
 
 /****************************************************************************/
