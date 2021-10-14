@@ -416,6 +416,12 @@ private:
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
 
+    /// @brief process move selected edges when both junctions are selected
+    GNEMoveOperation* processMoveEntireSelectedEdge();
+
+    /// @brief process move selected edges
+    GNEMoveOperation* processMoveSelectedEdges(const double snapRadius);
+
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
 

@@ -160,42 +160,13 @@ GNEMoveOperation*
 GNEEdge::getMoveOperation() {
     // get snapRadius
     const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius;
-    // get move multiple element values
-    const auto &moveMultipleElementValues = myNet->getViewNet()->getMoveMultipleElementValues();
     // chec if edge is selected
     if (isAttributeCarrierSelected()) {
         // check if both junctions are selected
         if (getFromJunction()->isAttributeCarrierSelected() && getToJunction()->isAttributeCarrierSelected()) {
-            // declare a vector for saving geometry points to move (all except extremes)
-            std::vector<int> geometryPointsToMove;
-            for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
-                geometryPointsToMove.push_back(i);
-            }
-            // move entire shape (except extremes)
-            return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, myNBEdge->getGeometry(), geometryPointsToMove);
-        } else if (moveMultipleElementValues.isMovingSelectedEdge()) {
-            // declare shape to move
-            PositionVector shapeToMove = myNBEdge->getGeometry();
-            // first check if keeped offset is larger than geometry
-            if (shapeToMove.length2D() < moveMultipleElementValues.getEdgeOffset()) {
-                return nullptr;
-            }
-            // obtain offset position
-            const Position offsetPosition = myNBEdge->getGeometry().positionAtOffset2D(moveMultipleElementValues.getEdgeOffset());
-            // obtain nearest index to offset position
-            const int nearestIndex = myNBEdge->getGeometry().indexOfClosest(offsetPosition);
-            // check conditions
-            if ((nearestIndex == -1) || (offsetPosition == Position::INVALID)) {
-                return nullptr;
-            } else if (offsetPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= (snapRadius * snapRadius)) {
-                // move geometry point without creating new geometry point
-                return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {nearestIndex});
-            } else  {
-                // create new geometry point and keep new index (if we clicked near of shape)
-                const int newIndex = shapeToMove.insertAtClosest(offsetPosition, true);
-                // move after setting new geometry point in shapeToMove
-                return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {newIndex});
-            }
+            return processMoveEntireSelectedEdge();
+        } else if (myNet->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
+            return processMoveSelectedEdges(snapRadius);
         } else {
             // calculate move shape operation (because there are only an edge selected)
             return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
@@ -2226,6 +2197,61 @@ GNEEdge::areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, cons
         return true;
     } else {
         return false;
+    }
+}
+
+
+GNEMoveOperation* 
+GNEEdge::processMoveEntireSelectedEdge() {
+    // declare a vector for saving geometry points to move (all except extremes)
+    std::vector<int> geometryPointsToMove;
+    for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
+        geometryPointsToMove.push_back(i);
+    }
+    // move entire shape (except extremes)
+    return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, myNBEdge->getGeometry(), geometryPointsToMove);
+}
+
+
+GNEMoveOperation* 
+GNEEdge::processMoveSelectedEdges(const double snapRadius) {
+    // get move multiple element values
+    const auto &moveMultipleElementValues = myNet->getViewNet()->getMoveMultipleElementValues();
+    // declare shape to move
+    PositionVector shapeToMove = myNBEdge->getGeometry();
+    // first check if keeped offset is larger than geometry
+    if (shapeToMove.length2D() < moveMultipleElementValues.getEdgeOffset()) {
+        return nullptr;
+    }
+    // declare flag for angle
+    const double convexAngle = isConvexAngle();
+    // declare offset
+    double offset = 0;
+    // set offset depending of convex angles
+    if (moveMultipleElementValues.getEdgeConvexAngle() && convexAngle) {
+        offset = moveMultipleElementValues.getEdgeOffset();
+    } else if (moveMultipleElementValues.getEdgeConvexAngle() && !convexAngle) {
+        offset = shapeToMove.length2D() - moveMultipleElementValues.getEdgeOffset();
+    } else if (!moveMultipleElementValues.getEdgeConvexAngle() && convexAngle) {
+        offset = shapeToMove.length2D() - moveMultipleElementValues.getEdgeOffset();
+    } else {
+        offset = moveMultipleElementValues.getEdgeOffset();
+    }
+    // obtain offset position
+    const Position offsetPosition = myNBEdge->getGeometry().positionAtOffset2D(offset);
+    // obtain nearest index to offset position
+    const int nearestIndex = myNBEdge->getGeometry().indexOfClosest(offsetPosition);
+    // check conditions
+    if ((nearestIndex == -1) || (offsetPosition == Position::INVALID)) {
+        return nullptr;
+    } else if (offsetPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= (snapRadius * snapRadius)) {
+        // move geometry point without creating new geometry point
+        return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {nearestIndex});
+    } else  {
+        // create new geometry point and keep new index (if we clicked near of shape)
+        const int newIndex = shapeToMove.insertAtClosest(offsetPosition, true);
+        // move after setting new geometry point in shapeToMove
+        return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {newIndex});
     }
 }
 
