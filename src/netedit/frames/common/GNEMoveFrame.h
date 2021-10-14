@@ -115,25 +115,25 @@ public:
     };
 
     // ===========================================================================
-    // class ShiftEdgeGeometry
+    // class ShiftEdgeSelectedGeometry
     // ===========================================================================
 
-    class ShiftEdgeGeometry : protected FXGroupBox {
+    class ShiftEdgeSelectedGeometry : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEMoveFrame::ShiftEdgeGeometry)
+        FXDECLARE(GNEMoveFrame::ShiftEdgeSelectedGeometry)
 
     public:
         /// @brief constructor
-        ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent);
+        ShiftEdgeSelectedGeometry(GNEMoveFrame* moveFrameParent);
 
         /// @brief destructor
-        ~ShiftEdgeGeometry();
+        ~ShiftEdgeSelectedGeometry();
 
-        /// @brief show shift edge geometry
-        void showShiftEdgeGeometry();
+        /// @brief enable shift edge geometry
+        void enableShiftEdgeGeometry();
 
-        /// @brief hide change Z in selection
-        void hideShiftEdgeGeometry();
+        /// @brief disable change Z in selection
+        void disableShiftEdgeGeometry();
 
         /// @name FOX-callbacks
         /// @{
@@ -147,7 +147,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(ShiftEdgeGeometry)
+        FOX_CONSTRUCTOR(ShiftEdgeSelectedGeometry)
 
     private:
         /// @brief pointer to move frame parent
@@ -155,6 +155,9 @@ public:
 
         /// @brief textField for shift value
         FXTextField* myShiftValueTextField = nullptr;
+
+        /// @brief button for apply Z value
+        FXButton* myApplyZValue = nullptr;
     };
 
     // ===========================================================================
@@ -172,11 +175,11 @@ public:
         /// @brief destructor
         ~ChangeZInSelection();
 
-        /// @brief show change Z in selection
-        void showChangeZInSelection();
+        /// @brief enabale change Z in selection
+        void enableChangeZInSelection();
 
-        /// @brief hide change Z in selection
-        void hideChangeZInSelection();
+        /// @brief disable change Z in selection
+        void disableChangeZInSelection();
 
         /// @name FOX-callbacks
         /// @{
@@ -207,6 +210,9 @@ public:
 
         /// @brief radio button for absolute value
         FXRadioButton* myAbsoluteValue = nullptr;
+
+        /// @brief apply button
+        FXButton* myApplyButton = nullptr;
 
         /// @brief radio button for relative value
         FXRadioButton* myRelativeValue = nullptr;
@@ -304,8 +310,8 @@ private:
     /// @brief modul for DemandMode Options
     DemandModeOptions* myDemandModeOptions = nullptr;
 
-    /// @brief modul for shift edge geometry
-    ShiftEdgeGeometry* myShiftEdgeGeometry = nullptr;
+    /// @brief modul for shift edge selected geometry
+    ShiftEdgeSelectedGeometry* myShiftEdgeSelectedGeometry = nullptr;
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;

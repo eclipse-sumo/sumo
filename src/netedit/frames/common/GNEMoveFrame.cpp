@@ -36,9 +36,9 @@ FXDEFMAP(GNEMoveFrame::ChangeZInSelection) ChangeZInSelectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ChangeZInSelection::onCmdApplyZ),
 };
 
-FXDEFMAP(GNEMoveFrame::ShiftEdgeGeometry) ShiftEdgeGeometryMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ShiftEdgeGeometry::onCmdChangeShiftValue),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry),
+FXDEFMAP(GNEMoveFrame::ShiftEdgeSelectedGeometry) ShiftEdgeGeometryMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdChangeShiftValue),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_APPLY,          GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry),
 };
 
 FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
@@ -48,9 +48,9 @@ FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,   FXGroupBox, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftEdgeGeometry,    FXGroupBox, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,   FXGroupBox, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           FXGroupBox, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    FXGroupBox, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           FXGroupBox, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
 
 // ===========================================================================
 // method definitions
@@ -155,11 +155,11 @@ GNEMoveFrame::DemandModeOptions::getLeaveStopPersonsConnected() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEMoveFrame::ShiftEdgeGeometry - methods
+// GNEMoveFrame::ShiftEdgeSelectedGeometry - methods
 // ---------------------------------------------------------------------------
 
-GNEMoveFrame::ShiftEdgeGeometry::ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Shift edge geometry", GUIDesignGroupBoxFrame),
+GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame* moveFrameParent) :
+    FXGroupBox(moveFrameParent->myContentFrame, "Shift edge selected geometry", GUIDesignGroupBoxFrame),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -168,38 +168,39 @@ GNEMoveFrame::ShiftEdgeGeometry::ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent
     myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myShiftValueTextField->setText("0");
     // create apply button
-    new FXButton(this,
-                 "Shift edge geometry\t\tShift edge geometry orthogonally to driving direction for all selected edges",
-                 GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
+    myApplyZValue = new FXButton(this, "Shift edge geometry\t\tShift edge geometry orthogonally to driving direction for all selected edges",
+                                GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
 
-GNEMoveFrame::ShiftEdgeGeometry::~ShiftEdgeGeometry() {}
+GNEMoveFrame::ShiftEdgeSelectedGeometry::~ShiftEdgeSelectedGeometry() {}
 
 
 void
-GNEMoveFrame::ShiftEdgeGeometry::showShiftEdgeGeometry() {
-    // show modul
-    show();
+GNEMoveFrame::ShiftEdgeSelectedGeometry::enableShiftEdgeGeometry() {
+    // enable elements
+    myShiftValueTextField->enable();
+    myApplyZValue->enable();
 }
 
 
 void
-GNEMoveFrame::ShiftEdgeGeometry::hideShiftEdgeGeometry() {
-    // hide modul
-    hide();
+GNEMoveFrame::ShiftEdgeSelectedGeometry::disableShiftEdgeGeometry() {
+    // enable elements
+    myShiftValueTextField->disable();
+    myApplyZValue->disable();
 }
 
 
 long
-GNEMoveFrame::ShiftEdgeGeometry::onCmdChangeShiftValue(FXObject*, FXSelector, void*) {
+GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdChangeShiftValue(FXObject*, FXSelector, void*) {
     // just call onCmdShiftEdgeGeometry
     return onCmdShiftEdgeGeometry(nullptr, 0, nullptr);
 }
 
 
 long
-GNEMoveFrame::ShiftEdgeGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, void*) {
+GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSelector, void*) {
     // get undo-list
     auto undoList = myMoveFrameParent->getViewNet()->getUndoList();
     // get value
@@ -252,9 +253,8 @@ GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFramePare
     myRelativeValue = new FXRadioButton(this, "Relative value\t\tSet Z value as relative",
                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create apply button
-    new FXButton(this,
-                 "Apply Z value\t\tApply Z value to all selected junctions",
-                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
+    myApplyButton = new FXButton(this, "Apply Z value\t\tApply Z value to all selected junctions",
+                                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
     // set absolute value as default
     myAbsoluteValue->setCheck(true);
     // set info label
@@ -266,18 +266,24 @@ GNEMoveFrame::ChangeZInSelection::~ChangeZInSelection() {}
 
 
 void
-GNEMoveFrame::ChangeZInSelection::showChangeZInSelection() {
+GNEMoveFrame::ChangeZInSelection::enableChangeZInSelection() {
+    // enable elements
+    myZValueTextField->enable();
+    myAbsoluteValue->enable();
+    myRelativeValue->enable();
+    myApplyButton->enable();
     // update info label
     updateInfoLabel();
-    // show modul
-    show();
 }
 
 
 void
-GNEMoveFrame::ChangeZInSelection::hideChangeZInSelection() {
-    // hide modul
-    hide();
+GNEMoveFrame::ChangeZInSelection::disableChangeZInSelection() {
+    // disable elements
+    myZValueTextField->disable();
+    myAbsoluteValue->disable();
+    myRelativeValue->disable();
+    myApplyButton->disable();
 }
 
 
@@ -597,7 +603,7 @@ GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     // create demand mode options
     myDemandModeOptions = new DemandModeOptions(this);
     // create shift edge geometry modul
-    myShiftEdgeGeometry = new ShiftEdgeGeometry(this);
+    myShiftEdgeSelectedGeometry = new ShiftEdgeSelectedGeometry(this);
     // create change z selection
     myChangeZInSelection = new ChangeZInSelection(this);
     // create shift shape geometry modul
@@ -639,15 +645,15 @@ GNEMoveFrame::show() {
     const auto POIs = myViewNet->getNet()->retrieveShapes(SUMO_TAG_POI, true);
     // check if there are junctions and edge selected
     if ((junctions.size() > 0) || (edges.size() > 0)) {
-        myChangeZInSelection->showChangeZInSelection();
+        myChangeZInSelection->enableChangeZInSelection();
     } else {
-        myChangeZInSelection->hideChangeZInSelection();
+        myChangeZInSelection->disableChangeZInSelection();
     }
     // check if there are edges selected
     if (edges.size() > 0) {
-        myShiftEdgeGeometry->showShiftEdgeGeometry();
+        myShiftEdgeSelectedGeometry->enableShiftEdgeGeometry();
     } else {
-        myShiftEdgeGeometry->hideShiftEdgeGeometry();
+        myShiftEdgeSelectedGeometry->disableShiftEdgeGeometry();
     }
     // check if there are polygons and POIs selected
     if ((polygons.size() + POIs.size()) > 0) {
