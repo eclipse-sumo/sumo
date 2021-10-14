@@ -925,6 +925,18 @@ struct GNEViewNetHelper {
         /// @brief check if currently there is element being moved
         bool isMovingSelection() const;
 
+        /// @brief flag for moving edge
+        bool isMovingSelectedEdge() const;
+
+        /// @brief reset flag for moving edge
+        void resetMovingSelectedEdge();
+
+        /// @brief get edge convex angle
+        bool getEdgeConvexAngle() const;
+
+        /// @brief edge offset
+        double getEdgeOffset() const;
+
     protected:
         /// @brief calculate move offset
         const GNEMoveOffset calculateMoveOffset() const;
@@ -941,6 +953,15 @@ struct GNEViewNetHelper {
 
         /// @brief original clicked position when moveSelection is called (used for calculate offset during moveSelection())
         Position myClickedPosition;
+
+        /// @brief flag for enable moving edge
+        bool myMovingSelectedEdge;
+
+        /// @brief edge convex angle
+        bool myEdgeConvexAngle;
+
+        /// @brief edge offset
+        double myEdgeOffset;
 
         /// @brief move operations
         std::vector<GNEMoveOperation*> myMoveOperations;

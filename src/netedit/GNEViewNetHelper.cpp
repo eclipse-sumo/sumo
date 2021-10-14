@@ -1143,7 +1143,10 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::MoveMultipleElementValues::MoveMultipleElementValues(GNEViewNet* viewNet) :
-    myViewNet(viewNet) {
+    myViewNet(viewNet),
+    myMovingSelectedEdge(false),
+    myEdgeConvexAngle(false),
+    myEdgeOffset(0) {
 }
 
 
@@ -1217,6 +1220,30 @@ GNEViewNetHelper::MoveMultipleElementValues::isMovingSelection() const {
 }
 
 
+bool
+GNEViewNetHelper::MoveMultipleElementValues::isMovingSelectedEdge() const {
+    return myMovingSelectedEdge;
+}
+
+
+void
+GNEViewNetHelper::MoveMultipleElementValues::resetMovingSelectedEdge() {
+    myMovingSelectedEdge = false;
+}
+
+
+bool
+GNEViewNetHelper::MoveMultipleElementValues::getEdgeConvexAngle() const {
+    return myEdgeConvexAngle;
+}
+
+
+double
+GNEViewNetHelper::MoveMultipleElementValues::getEdgeOffset() const {
+    return myEdgeOffset;
+}
+
+
 const GNEMoveOffset
 GNEViewNetHelper::MoveMultipleElementValues::calculateMoveOffset() const {
     // calculate moveOffset depending of current mouse position and relative clicked position
@@ -1260,45 +1287,26 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
 
 void
 GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdge* clickedEdge) {
-    // declare move operation
-    GNEMoveOperation* moveOperation = nullptr;
     // first move all selected junctions
     const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
     // iterate over selected junctions
     for (const auto& junction : selectedJunctions) {
-        moveOperation = junction->getMoveOperation();
+        GNEMoveOperation* moveOperation = junction->getMoveOperation();
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
         }
     }
-    // obtain selected edges in two groups (depending of angle)
-    const auto selectedEdges000180 = myViewNet->getNet()->retrieve000180AngleEdges(true);
-    const auto selectedEdges180360 = myViewNet->getNet()->retrieve180360AngleEdges(true);
-    // calculate shape offset for clicked edge
-    const double shapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-    // get flag for inverse offset
-    const bool useInverseOffset = (std::find(selectedEdges000180.begin(), selectedEdges000180.end(), clickedEdge) != selectedEdges000180.end());
+    // enable moving selected edge flag
+    myMovingSelectedEdge = true;
+    // calculate offset based on the clicked edge shape
+    myEdgeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+    // get convex angle
+    myEdgeConvexAngle = clickedEdge->isConvexAngle();
+    // now move all selected edges
+    const auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
     // iterate over edges betwen 0 and 180 degrees
-    for (const auto& edge : selectedEdges000180) {
-        // get move operation depending of useInverseOffset
-        if (useInverseOffset) {
-            moveOperation = edge->getMoveOperation();
-        } else {
-            moveOperation = edge->getMoveOperation(/*edge->getNBEdge()->getGeometry().length2D() - shapeOffset*/);
-        }
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-        }
-    }
-    // iterate over edges betwen 180 and 360 degrees
-    for (const auto& edge : selectedEdges180360) {
-        // get move operation depending of useInverseOffset
-        if (useInverseOffset) {
-            moveOperation = edge->getMoveOperation(/*edge->getNBEdge()->getGeometry().length2D() - shapeOffset*/);
-        } else {
-            moveOperation = edge->getMoveOperation();
-        }
+    for (const auto& edge : selectedEdges) {
+        GNEMoveOperation* moveOperation = edge->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
