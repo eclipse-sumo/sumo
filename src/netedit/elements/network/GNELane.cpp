@@ -238,7 +238,7 @@ GNELane::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNELane::getMoveOperation(const double /*shapeOffset*/) {
+GNELane::getMoveOperation() {
     // currently Lane shapes cannot be edited
     return nullptr;
 }

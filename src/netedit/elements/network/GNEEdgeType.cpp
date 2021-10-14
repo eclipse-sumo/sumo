@@ -187,7 +187,7 @@ GNEEdgeType::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNEEdgeType::getMoveOperation(const double /*shapeOffset*/) {
+GNEEdgeType::getMoveOperation() {
     return nullptr;
 }
 

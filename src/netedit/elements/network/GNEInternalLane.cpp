@@ -102,7 +102,7 @@ GNEInternalLane::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNEInternalLane::getMoveOperation(const double /*shapeOffset*/) {
+GNEInternalLane::getMoveOperation() {
     // internal lanes cannot be moved
     return nullptr;
 }

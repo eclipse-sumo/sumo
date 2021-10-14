@@ -87,7 +87,7 @@ GNELaneType::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNELaneType::getMoveOperation(const double /*shapeOffset*/) {
+GNELaneType::getMoveOperation() {
     return nullptr;
 }
 

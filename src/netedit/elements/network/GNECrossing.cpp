@@ -77,32 +77,12 @@ GNECrossing::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNECrossing::getMoveOperation(const double shapeOffset) {
+GNECrossing::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
-        // get original shape
-        const PositionVector originalShape = getCrossingShape();
-        // declare shape to move
-        PositionVector shapeToMove = originalShape;
-        // first check if in the given shapeOffset there is a geometry point
-        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
-        // check if position is valid
-        if (positionAtOffset == Position::INVALID) {
-            return nullptr;
-        } else {
-            // obtain index
-            const int index = originalShape.indexOfClosest(positionAtOffset);
-            // declare new index
-            int newIndex = index;
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius;
-            // check if we have to create a new index
-            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
-                newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
-            }
-            // return move operation for edit shape
-            return new GNEMoveOperation(this, originalShape, {index}, shapeToMove, {newIndex});
-        }
+        // calculate move shape operation
+        return calculateMoveShapeOperation(getCrossingShape(), myNet->getViewNet()->getPositionInformation(), 
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
     } else {
         return nullptr;
     }

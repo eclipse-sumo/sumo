@@ -110,32 +110,14 @@ GNEJunction::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNEJunction::getMoveOperation(const double shapeOffset) {
+GNEJunction::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
-        // declare shape to move
-        PositionVector shapeToMove = myNBNode->getShape();
-        // first check if in the given shapeOffset there is a geometry point
-        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
-        // check if position is valid
-        if (positionAtOffset == Position::INVALID) {
-            return nullptr;
-        } else {
-            // obtain index
-            const int index = myNBNode->getShape().indexOfClosest(positionAtOffset);
-            // declare new index
-            int newIndex = index;
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
-            // check if we have to create a new index
-            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
-                newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
-            }
-            // return move operation for edit shape
-            return new GNEMoveOperation(this, myNBNode->getShape(), {index}, shapeToMove, {newIndex});
-        }
+        // calculate move shape operation
+        return calculateMoveShapeOperation(myNBNode->getShape(), myNet->getViewNet()->getPositionInformation(), 
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
     } else {
-        // return junction position
+        // return move junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());
     }
 }

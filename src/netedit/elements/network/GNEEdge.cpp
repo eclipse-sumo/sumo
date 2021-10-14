@@ -157,10 +157,10 @@ GNEEdge::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNEEdge::getMoveOperation(const double shapeOffset) {
-    if (isAttributeCarrierSelected() &&
-            getFromJunction()->isAttributeCarrierSelected() &&
-            getToJunction()->isAttributeCarrierSelected()) {
+GNEEdge::getMoveOperation() {
+    if (isAttributeCarrierSelected() && 
+        getFromJunction()->isAttributeCarrierSelected() && 
+        getToJunction()->isAttributeCarrierSelected()) {
         // declare a vector for saving geometry points to move
         std::vector<int> geometryPointsToMove;
         // if edge is selected, check conditions
@@ -170,51 +170,11 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
             }
         }
         // move entire shape (except extremes)
-        return new GNEMoveOperation(this, myNBEdge->getGeometry());
+        return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, myNBEdge->getGeometry(), geometryPointsToMove);
     } else {
-        // declare shape to move
-        PositionVector shapeToMove = myNBEdge->getGeometry();
-        // first check if in the given shapeOffset there is a geometry point
-        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
-        // check if position is valid
-        if (positionAtOffset == Position::INVALID) {
-            return nullptr;
-        } else {
-            // obtain index
-            const int index = myNBEdge->getGeometry().indexOfClosest(positionAtOffset);
-            // declare new index
-            int newIndex = index;
-            // check if we have to create a new index
-            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > SNAP_RADIUS_SQUARED) {
-                newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
-            }
-            // check if attribute carrier is selected
-            if (isAttributeCarrierSelected()) {
-                // declare a vector for saving geometry points original and to move
-                std::vector<int> geometryPointsToMove;
-                // if edge is selected, check conditions
-                if (getFromJunction()->isAttributeCarrierSelected()) {
-                    // fill geometry points
-                    for (int i = 1; i <= newIndex; i++) {
-                        geometryPointsToMove.push_back(i);
-                    }
-                    // move only a part of edge geometry
-                    return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, shapeToMove, geometryPointsToMove);
-                } else if (getToJunction()->isAttributeCarrierSelected()) {
-                    for (int i = index; i < (int)shapeToMove.size() - 1; i++) {
-                        geometryPointsToMove.push_back(i);
-                    }
-                    // move only a part of edge geometry
-                    return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, shapeToMove, geometryPointsToMove);
-                } else {
-                    // move as a non-selected edge
-                    return new GNEMoveOperation(this, myNBEdge->getGeometry(), {index}, shapeToMove, {newIndex});
-                }
-            } else {
-                // only move clicked edge
-                return new GNEMoveOperation(this, myNBEdge->getGeometry(), {index}, shapeToMove, {newIndex});
-            }
-        }
+        // calculate move shape operation
+        return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), 
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius);
     }
 }
 
