@@ -173,7 +173,7 @@ GNEContainer::~GNEContainer() {}
 
 
 GNEMoveOperation*
-GNEContainer::getMoveOperation(const double /*shapeOffset*/) {
+GNEContainer::getMoveOperation() {
     // check first container plan
     if (getChildDemandElements().front()->getTagProperty().isStopContainer()) {
         return nullptr;

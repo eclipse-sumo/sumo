@@ -66,7 +66,7 @@ GNEWalk::~GNEWalk() {}
 
 
 GNEMoveOperation*
-GNEWalk::getMoveOperation(const double /*shapeOffset*/) {
+GNEWalk::getMoveOperation() {
     // avoid move person plan that ends in busStop
     if (getParentAdditionals().size() > 0) {
         return nullptr;

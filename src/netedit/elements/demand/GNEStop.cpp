@@ -53,7 +53,7 @@ GNEStop::~GNEStop() {}
 
 
 GNEMoveOperation*
-GNEStop::getMoveOperation(const double /*shapeOffset*/) {
+GNEStop::getMoveOperation() {
     if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,

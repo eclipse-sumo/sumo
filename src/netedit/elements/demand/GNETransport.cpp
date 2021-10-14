@@ -54,7 +54,7 @@ GNETransport::~GNETransport() {}
 
 
 GNEMoveOperation*
-GNETransport::getMoveOperation(const double /*shapeOffset*/) {
+GNETransport::getMoveOperation() {
     // avoid move container plan that ends in containerStop
     if (getParentAdditionals().size() > 0) {
         return nullptr;

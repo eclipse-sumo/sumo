@@ -173,7 +173,7 @@ GNEPerson::~GNEPerson() {}
 
 
 GNEMoveOperation*
-GNEPerson::getMoveOperation(const double /*shapeOffset*/) {
+GNEPerson::getMoveOperation() {
     // check first person plan
     if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
         return nullptr;

@@ -124,7 +124,7 @@ GNERoute::~GNERoute() {}
 
 
 GNEMoveOperation*
-GNERoute::getMoveOperation(const double /*shapeOffset*/) {
+GNERoute::getMoveOperation() {
     return nullptr;
 }
 

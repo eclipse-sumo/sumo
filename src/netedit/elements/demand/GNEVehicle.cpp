@@ -311,7 +311,7 @@ GNEVehicle::~GNEVehicle() {}
 
 
 GNEMoveOperation*
-GNEVehicle::getMoveOperation(const double /*shapeOffset*/) {
+GNEVehicle::getMoveOperation() {
     // get first and last lanes
     const GNELane* firstLane = getFirstPathLane();
     const GNELane* lastLane = getLastPathLane();

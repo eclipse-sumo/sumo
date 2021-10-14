@@ -55,7 +55,7 @@ GNEStopContainer::~GNEStopContainer() {}
 
 
 GNEMoveOperation*
-GNEStopContainer::getMoveOperation(const double /*shapeOffset*/) {
+GNEStopContainer::getMoveOperation() {
     if (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos,

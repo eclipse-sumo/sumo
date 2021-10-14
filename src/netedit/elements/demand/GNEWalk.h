@@ -73,10 +73,10 @@ public:
     /// @brief destructor
     ~GNEWalk();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

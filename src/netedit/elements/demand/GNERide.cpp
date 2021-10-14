@@ -55,7 +55,7 @@ GNERide::~GNERide() {}
 
 
 GNEMoveOperation*
-GNERide::getMoveOperation(const double /*shapeOffset*/) {
+GNERide::getMoveOperation() {
     // avoid move person plan that ends in busStop
     if (getParentAdditionals().size() > 0) {
         return nullptr;

@@ -77,7 +77,7 @@ GNEVehicleType::~GNEVehicleType() {}
 
 
 GNEMoveOperation*
-GNEVehicleType::getMoveOperation(const double /*shapeOffset*/) {
+GNEVehicleType::getMoveOperation() {
     return nullptr;
 }
 
