@@ -187,7 +187,8 @@ public:
     class Ride : public TripItem {
     public:
         Ride(const SUMOTime start, const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const std::string& _group, const double cost, const double arrivalPos,
+             const std::string& _lines, const std::string& _group, const double cost,
+             const double arrivalPos, const double _length,
              const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) :
             TripItem(start, cost),
             from(_from), to(_to),
@@ -196,11 +197,12 @@ public:
             destStop(_destStop),
             intended(_intended),
             depart(_depart),
-            arrPos(arrivalPos) {
+            arrPos(arrivalPos),
+            length(_length) {
         }
 
         TripItem* clone() const {
-            return new Ride(myStart, from, to, lines, group, myCost, arrPos, destStop, intended, depart);
+            return new Ride(myStart, from, to, lines, group, myCost, arrPos, length, destStop, intended, depart);
         }
 
         inline const ROEdge* getOrigin() const {
@@ -223,6 +225,7 @@ public:
         const std::string intended;
         const SUMOTime depart;
         const double arrPos;
+        const double length;
 
     private:
         /// @brief Invalidated assignment operator
