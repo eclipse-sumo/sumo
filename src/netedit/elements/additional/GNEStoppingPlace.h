@@ -174,6 +174,9 @@ protected:
     void drawSign(const GUIVisualizationSettings& s, const double exaggeration,
                   const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const;
 
+    /// @brief draw geometry points
+    void drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

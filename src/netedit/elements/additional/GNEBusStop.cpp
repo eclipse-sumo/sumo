@@ -138,7 +138,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
-            // Add a draw matrix
+            // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
@@ -155,7 +155,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             }
-            // pop draw matrix
+            // draw geometry points
+            drawGeometryPoints(s, baseColor);
+            // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();

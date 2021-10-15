@@ -98,7 +98,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
-            // Add a draw matrix
+            // Add a layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
@@ -115,7 +115,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
             }
-            // pop draw matrix
+            // draw geometry points
+            drawGeometryPoints(s, baseColor);
+            // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();

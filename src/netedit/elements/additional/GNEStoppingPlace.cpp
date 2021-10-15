@@ -356,6 +356,45 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 }
 
 
+void
+GNEStoppingPlace::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
+    // first check that we're in move mode and shift key is pressed
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // calculate new color
+        const RGBColor color = baseColor.changedBrightness(-50);
+        // push matrix
+        GLHelper::pushMatrix();
+        // translated to front
+        glTranslated(0, 0, 0.1);
+        // set color
+        GLHelper::setColor(color);
+        // draw points
+        if (myStartPosition != INVALID_DOUBLE) {
+            // push geometry point matrix
+            GLHelper::pushMatrix();
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0.1);
+            // draw geometry point
+            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
+            // pop geometry point matrix
+            GLHelper::popMatrix();
+        }
+        if (myEndPosition != INVALID_DOUBLE) {
+        // push geometry point matrix
+        GLHelper::pushMatrix();
+            glTranslated(myAdditionalGeometry.getShape().back().x(), myAdditionalGeometry.getShape().back().y(), 0.1);
+            // draw geometry point
+            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
+            // pop geometry point matrix
+            GLHelper::popMatrix();
+        }
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
 double
 GNEStoppingPlace::getStartGeometryPositionOverLane() const {
     if (myStartPosition != INVALID_DOUBLE) {

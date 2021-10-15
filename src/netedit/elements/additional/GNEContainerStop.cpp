@@ -101,7 +101,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
-            // Add a draw matrix
+            // Add a layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
@@ -118,7 +118,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw sign
                 drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
             }
-            // pop draw matrix
+            // draw geometry points
+            drawGeometryPoints(s, baseColor);
+            // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
