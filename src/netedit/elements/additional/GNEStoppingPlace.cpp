@@ -72,17 +72,17 @@ GNEStoppingPlace::getMoveOperation() {
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // obtain nearest index
-        const int nearestIndex = myAdditionalGeometry.getShape().indexOfClosest(mousePosition);
-        if ((nearestIndex == 0) && !getAttribute(SUMO_ATTR_STARTPOS).empty() &&
-            (myAdditionalGeometry.getShape()[nearestIndex].distanceSquaredTo(mousePosition) <= (snap_radius * snap_radius))) {
-            // move both start and end positions
-            return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, myEndPosition, 
-                                        false, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
-        } else if ((nearestIndex == 0) && !getAttribute(SUMO_ATTR_STARTPOS).empty() &&
-            (myAdditionalGeometry.getShape()[nearestIndex].distanceSquaredTo(mousePosition) <= (snap_radius * snap_radius))) {
-        } else if (false) {
-
+        // check if we clicked over start or end position
+        if ((myStartPosition != INVALID_DOUBLE) && (myAdditionalGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
+            // move only start position
+            return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+        } else if ((myEndPosition != INVALID_DOUBLE) && (myAdditionalGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
+            // move only end position
+            return new GNEMoveOperation(this, getParentLanes().front(), 0, myEndPosition,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+        } else {
+            return nullptr;
         }
     } else if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
         // move both start and end positions
@@ -410,8 +410,8 @@ GNEStoppingPlace::drawGeometryPoints(const GUIVisualizationSettings& s, const RG
             GLHelper::popMatrix();
         }
         if (myEndPosition != INVALID_DOUBLE) {
-        // push geometry point matrix
-        GLHelper::pushMatrix();
+            // push geometry point matrix
+            GLHelper::pushMatrix();
             glTranslated(myAdditionalGeometry.getShape().back().x(), myAdditionalGeometry.getShape().back().y(), 0.1);
             // draw geometry point
             GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
@@ -498,30 +498,27 @@ GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // only commit geometry moving if at leats start or end positions is defined
-    if ((myStartPosition != INVALID_DOUBLE) || (myEndPosition != INVALID_DOUBLE)) {
-        // begin change attribute
-        undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
-        // set attributes depending of operation type
-        if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
-            // set only start position
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
-        } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
-            // set only end position
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos)));
-        } else {
-            // set both
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
-            // check if lane has to be changed
-            if (moveResult.newFirstLane) {
-                // set new lane
-                setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
-            }
+    // begin change attribute
+    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
+    // set attributes depending of operation type
+    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+        // set only start position
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+        // set only end position
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos)));
+    } else {
+        // set both
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+        // check if lane has to be changed
+        if (moveResult.newFirstLane) {
+            // set new lane
+            setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
         }
-        // end change attribute
-        undoList->end();
     }
+    // end change attribute
+    undoList->end();
 }
 
 /****************************************************************************/
