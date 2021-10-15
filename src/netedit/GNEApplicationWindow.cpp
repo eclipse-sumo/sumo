@@ -375,30 +375,7 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
-    myLoadThread(nullptr),
-    myAmLoading(false),
-    myFileMenu(nullptr),
-    myFileMenuTLS(nullptr),
-    myFileMenuEdgeTypes(nullptr),
-    myFileMenuAdditionals(nullptr),
-    myFileMenuDemandElements(nullptr),
-    myFileMenuDataElements(nullptr),
-    myModesMenu(nullptr),
-    myEditMenu(nullptr),
-    myToolsMenu(nullptr),
-    myLockMenu(nullptr),
-    myProcessingMenu(nullptr),
-    myLocatorMenu(nullptr),
-    myWindowsMenu(nullptr),
-    myHelpMenu(nullptr),
-    myModesMenuTitle(nullptr),
-    myLockMenuTitle(nullptr),
-    myMessageWindow(nullptr),
-    myMainSplitter(nullptr),
-    hadDependentBuild(false),
-    myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
-    myUndoListDialog(nullptr),
     myConfigPattern(configPattern),
     myToolbarsGrip(this),
     myMenuBarFile(this),
@@ -411,9 +388,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
     mySupermodeCommands(this),
-    myViewNet(nullptr),
-    myTitlePrefix("NETEDIT " VERSION_STRING),
-    myMDIMenu(nullptr) {
+    myTitlePrefix("NETEDIT " VERSION_STRING) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
@@ -428,11 +403,11 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
 void
 GNEApplicationWindow::dependentBuild() {
     // do this not twice
-    if (hadDependentBuild) {
+    if (myHadDependentBuild) {
         WRITE_ERROR("DEBUG: GNEApplicationWindow::dependentBuild called twice");
         return;
     }
-    hadDependentBuild = true;
+    myHadDependentBuild = true;
     setTarget(this);
     setSelector(MID_WINDOW);
     // build toolbar menu
@@ -4011,30 +3986,6 @@ GNEApplicationWindow::clearUndoList() {
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::GNEApplicationWindow() :
-    myLoadThread(nullptr),
-    myAmLoading(false),
-    myFileMenu(nullptr),
-    myFileMenuTLS(nullptr),
-    myFileMenuEdgeTypes(nullptr),
-    myFileMenuAdditionals(nullptr),
-    myFileMenuDemandElements(nullptr),
-    myFileMenuDataElements(nullptr),
-    myModesMenu(nullptr),
-    myEditMenu(nullptr),
-    myLockMenu(nullptr),
-    myProcessingMenu(nullptr),
-    myLocatorMenu(nullptr),
-    myToolsMenu(nullptr),
-    myWindowsMenu(nullptr),
-    myHelpMenu(nullptr),
-    myModesMenuTitle(nullptr),
-    myLockMenuTitle(nullptr),
-    myMessageWindow(nullptr),
-    myMainSplitter(nullptr),
-    hadDependentBuild(false),
-    myNet(nullptr),
-    myUndoList(nullptr),
-    myUndoListDialog(nullptr),
     myToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
@@ -4045,9 +3996,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
-    mySupermodeCommands(this),
-    myViewNet(nullptr),
-    myMDIMenu(nullptr) {
+    mySupermodeCommands(this) {
 }
 
 

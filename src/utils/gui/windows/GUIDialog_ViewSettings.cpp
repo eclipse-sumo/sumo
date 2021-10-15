@@ -77,11 +77,9 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", GUIDesignViewSettingsMainDialog),
-    myParent(parent), mySettings(settings),
-    myDecals(decals), myDecalsLock(decalsLock),
-    myDecalsTable(nullptr),
-    myDataValuePanel(nullptr),
-    myBackup(*settings) {
+    myParent(parent), mySettings(settings), myBackup(*settings),
+    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(nullptr),
+    myDataValuePanel(nullptr) {
     // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignViewSettingsVerticalFrame1);
     // build header

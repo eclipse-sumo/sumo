@@ -199,7 +199,7 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-    /// @brief set responsibility for deleting internal strctures
+    /// @brief set responsibility for deleting internal structures
     void setResponsible(bool newVal);
 
     /**@brief update edge geometry and inform the lanes
@@ -300,7 +300,7 @@ public:
     static void drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
                                       const bool drawFrontExtreme, const bool drawBackExtreme);
 
-    /// @brief check if edge makes a convex angle [0º - 180º)
+    /// @brief check if edge makes a convex angle [0 - 180) degrees
     bool isConvexAngle() const;
 
 protected:

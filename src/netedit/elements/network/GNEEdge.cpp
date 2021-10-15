@@ -1396,11 +1396,7 @@ GNEEdge::isConvexAngle() const {
     // fmod round towards zero which is not want we want for negative numbers
     edgeAngle = fmod(edgeAngle, 360);
     // check angle
-    if ((edgeAngle >= 0) && (edgeAngle < 180)) {
-        return true;
-    } else {
-        return false;
-    }
+    return edgeAngle >= 0 && edgeAngle < 180;
 }
 
 // ===========================================================================

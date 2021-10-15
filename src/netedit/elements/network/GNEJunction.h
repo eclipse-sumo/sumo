@@ -184,7 +184,7 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-    /// @brief set responsibility for deleting internal strctures
+    /// @brief set responsibility for deleting internal structures
     void setResponsible(bool newVal);
 
     /* @brief notify junction that one of its edges has changed its shape, and

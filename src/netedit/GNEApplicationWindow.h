@@ -455,38 +455,38 @@ protected:
     GNEApplicationWindow();
 
     /// @brief the thread that loads the network
-    GNELoadThread* myLoadThread;
+    GNELoadThread* myLoadThread = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
-    bool myAmLoading;
+    bool myAmLoading = false;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu,
-                *myFileMenuTLS,
-                *myFileMenuEdgeTypes,
-                *myFileMenuAdditionals,
-                *myFileMenuDemandElements,
-                *myFileMenuDataElements,
-                *myModesMenu,
-                *myEditMenu,
-                *myLockMenu,
-                *myProcessingMenu,
-                *myLocatorMenu,
-                *myToolsMenu,
-                *myWindowsMenu,
-                *myHelpMenu;
+    FXMenuPane* myFileMenu = nullptr,
+                *myFileMenuTLS = nullptr,
+                *myFileMenuEdgeTypes = nullptr,
+                *myFileMenuAdditionals = nullptr,
+                *myFileMenuDemandElements = nullptr,
+                *myFileMenuDataElements = nullptr,
+                *myModesMenu = nullptr,
+                *myEditMenu = nullptr,
+                *myLockMenu = nullptr,
+                *myProcessingMenu = nullptr,
+                *myLocatorMenu = nullptr,
+                *myToolsMenu = nullptr,
+                *myWindowsMenu = nullptr,
+                *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
-    FXMenuTitle* myModesMenuTitle;
+    FXMenuTitle* myModesMenuTitle = nullptr;
 
     /// @brief menu title for lock
-    FXMenuTitle* myLockMenuTitle;
+    FXMenuTitle* myLockMenuTitle = nullptr;
 
     /// @brief A window to display messages, warnings and error in
-    GUIMessageWindow* myMessageWindow;
+    GUIMessageWindow* myMessageWindow = nullptr;
 
     /// @brief The splitter that divides the main window into view and the log window
-    FXSplitter* myMainSplitter;
+    FXSplitter* myMainSplitter = nullptr;
 
     /// @brief List of got requests
     FXSynchQue<GUIEvent*> myEvents;
@@ -495,16 +495,16 @@ protected:
     FXEX::FXThreadEvent myLoadThreadEvent;
 
     /// @brief check if had dependent build
-    bool hadDependentBuild;
+    bool myHadDependentBuild = false;
 
     /// @brief we are responsible for the net
-    GNENet* myNet;
+    GNENet* myNet = nullptr;
 
     /// @brief the one and only undo list
-    GNEUndoList* myUndoList;
+    GNEUndoList* myUndoList = nullptr;
 
     /// @brief undoList dialog
-    GNEUndoListDialog* myUndoListDialog;
+    GNEUndoListDialog* myUndoListDialog = nullptr;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
@@ -547,13 +547,13 @@ private:
     GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;
 
     /// @brief pointer to current view net
-    GNEViewNet* myViewNet;
+    GNEViewNet* myViewNet = nullptr;
 
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;
 
     /// @brief The menu used for the MDI-windows
-    FXMDIMenu* myMDIMenu;
+    FXMDIMenu* myMDIMenu = nullptr;
 
     /// @brief Builds the menu bar
     void fillMenuBar();
