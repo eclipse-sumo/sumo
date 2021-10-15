@@ -227,24 +227,24 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myContainerStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.containerStopColorSign));
     myChargingStationColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColor));
     myChargingStationColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign));
-    myStopsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopColor));
-    myVehicleTripsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.vehicleTripColor));
-    myStopPersonsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor));
-    myPersonTripColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.personTripColor));
-    myWalkColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.walkColor));
-    myRideColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.rideColor));
-    myStopContainersColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopContainerColor));
-    myTransportColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transportColor));
-    myTranshipColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transhipColor));
-
-    myTripWidth->setValue(mySettings->widthSettings.tripWidth);
-    myPersonTripWidth->setValue(mySettings->widthSettings.personTripWidth);
-    myWalkWidth->setValue(mySettings->widthSettings.walkWidth);
-    myRideWidth->setValue(mySettings->widthSettings.rideWidth);
-    myTransportWidth->setValue(mySettings->widthSettings.transportWidth);
-    myTranshipWidth->setValue(mySettings->widthSettings.transhipWidth);
-
     if (mySettings->netedit) {
+        myStopsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopColor));
+        myVehicleTripsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.vehicleTripColor));
+        myStopPersonsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor));
+        myPersonTripColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.personTripColor));
+        myWalkColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.walkColor));
+        myRideColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.rideColor));
+        myStopContainersColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopContainerColor));
+        myTransportColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transportColor));
+        myTranshipColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transhipColor));
+
+        myTripWidth->setValue(mySettings->widthSettings.tripWidth);
+        myPersonTripWidth->setValue(mySettings->widthSettings.personTripWidth);
+        myWalkWidth->setValue(mySettings->widthSettings.walkWidth);
+        myRideWidth->setValue(mySettings->widthSettings.rideWidth);
+        myTransportWidth->setValue(mySettings->widthSettings.transportWidth);
+        myTranshipWidth->setValue(mySettings->widthSettings.transhipWidth);
+
         mySelectionColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectionColor));
         mySelectedEdgeColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeColor));
         mySelectedLaneColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedLaneColor));
