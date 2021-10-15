@@ -55,9 +55,44 @@ GNEStop::~GNEStop() {}
 GNEMoveOperation*
 GNEStop::getMoveOperation() {
     if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
-        // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+        // get allow change lane
+        const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
+        // fist check if we're moving only extremes
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+            (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
+            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+            // get mouse position
+            const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+            // check if we clicked over start or end position
+            if ((startPos != INVALID_DOUBLE) && (myDemandElementGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
+                // move only start position
+                return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
+                                            allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+            } else if ((endPos != INVALID_DOUBLE) && (myDemandElementGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
+                // move only end position
+                return new GNEMoveOperation(this, getParentLanes().front(), 0, endPos,
+                                            allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+            } else {
+                return nullptr;
+            }
+        } else if ((startPos != INVALID_DOUBLE) && (endPos != INVALID_DOUBLE)) {
+            // move both start and end positions
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEBOTH);
+        } else if (startPos != INVALID_DOUBLE) {
+            // move only start position
+            return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+        } else if (startPos != INVALID_DOUBLE) {
+            // move only end position
+            return new GNEMoveOperation(this, getParentLanes().front(), 0, endPos,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+        } else {
+            // start and end positions undefined, then nothing to move
+            return nullptr;
+        }
     } else {
         return nullptr;
     }
@@ -308,6 +343,10 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
                 // draw subtitle depending of tag
                 GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
             }
+            // pop detail matrix
+            GLHelper::popMatrix();
+            // draw geometry points
+            drawGeometryPoints(s, stopColor);
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
@@ -887,9 +926,19 @@ GNEStop::setEnabledAttribute(const int enabledAttributes) {
 
 void
 GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    startPos = moveResult.newFirstPos;
-    endPos = moveResult.newSecondPos;
+    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+        // change only start position
+        startPos = moveResult.newFirstPos;
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+        // change only end position
+        endPos = moveResult.newFirstPos;
+    } else {
+        // change both position
+        startPos = moveResult.newFirstPos;
+        endPos = moveResult.newSecondPos;
+        // set lateral offset
+        myMoveElementLateralOffset = moveResult.firstLaneOffset;
+    }
     // update geometry
     updateGeometry();
 }
@@ -897,10 +946,66 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // begin change attribute
     undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+    // set attributes depending of operation type
+    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+        // set only start position
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+        // set only end position
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos)));
+    } else {
+        // set both
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+        // check if lane has to be changed
+        if (moveResult.newFirstLane) {
+            // set new lane
+            setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+        }
+    }
+    // end change attribute
     undoList->end();
+}
+
+
+void
+GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
+    // first check that we're in move mode and shift key is pressed
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+        (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
+        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // calculate new color
+        const RGBColor color = baseColor.changedBrightness(-50);
+        // push matrix
+        GLHelper::pushMatrix();
+        // translated to front
+        glTranslated(0, 0, 0.1);
+        // set color
+        GLHelper::setColor(color);
+        // draw points
+        if (startPos != INVALID_DOUBLE) {
+            // push geometry point matrix
+            GLHelper::pushMatrix();
+            glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), 0.1);
+            // draw geometry point
+            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
+            // pop geometry point matrix
+            GLHelper::popMatrix();
+        }
+        if (endPos != INVALID_DOUBLE) {
+            // push geometry point matrix
+            GLHelper::pushMatrix();
+            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
+            // draw geometry point
+            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
+            // pop geometry point matrix
+            GLHelper::popMatrix();
+        }
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
 }
 
 /****************************************************************************/

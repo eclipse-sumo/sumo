@@ -237,6 +237,9 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
+    /// @brief draw geometry points
+    void drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
+
     /// @brief Invalidated copy constructor.
     GNEStop(const GNEStop&) = delete;
 
