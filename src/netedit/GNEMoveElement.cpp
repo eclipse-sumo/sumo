@@ -79,13 +79,14 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const GNELane* _lane,
                                    const double _firstPosition,
                                    const double _secondPosition,
-                                   const bool _allowChangeLane) :
+                                   const bool _allowChangeLane,
+                                   const OperationType _operationType) :
     moveElement(_moveElement),
     firstLane(_lane),
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
     secondPosition(_secondPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane),
-    operationType(OperationType::ONE_LANE) {
+    operationType(_operationType) {
 }
 
 
@@ -222,10 +223,21 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 moveResult.clearLanes();
             }
         } else {
-            if (moveOperation->secondPosition != INVALID_DOUBLE) {
-                calculateDoubleMovementOverOneLane(moveResult, viewNet, moveOperation, offset);
+            if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE) {
+                // move first position around the entire lane
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
+                                                   0, moveOperation->firstLane->getLaneShapeLength());
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+                // move first position around [0, secondPosition]
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
+                                                   0, moveOperation->secondPosition);
+                } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+                // move first position around [firstPosition, laneLenght]
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->secondPosition, offset,
+                                                   moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
             } else {
-                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
+                // move both first and second positions
+                calculateDoubleMovementOverOneLane(moveResult, viewNet, moveOperation, offset);
             }
             // calculate new lane
             if (moveOperation->allowChangeLane) {
@@ -292,10 +304,27 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                 moveResult.clearLanes();
             }
         } else {
-            if (moveOperation->secondPosition != INVALID_DOUBLE) {
-                calculateDoubleMovementOverOneLane(moveResult, viewNet, moveOperation, offset);
+            if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE) {
+                // move first position around the entire lane
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
+                                                   0, moveOperation->firstLane->getLaneShapeLength());
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+                // move first position around [0, secondPosition]
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
+                                                   0, moveOperation->secondPosition);
+                } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+                // move first position around [firstPosition, laneLenght]
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->secondPosition, offset,
+                                                   moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
             } else {
-                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
+                // move both first and second positions
+                calculateDoubleMovementOverOneLane(moveResult, viewNet, moveOperation, offset);
+            }
+            // calculate new lane
+            if (moveOperation->allowChangeLane) {
+                calculateNewLane(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);
+            } else {
+                moveResult.clearLanes();
             }
             // calculate new lane
             if (moveOperation->allowChangeLane) {
@@ -352,9 +381,8 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
 
 
 void
-GNEMoveElement::calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, const GNEMoveOffset& offset) {
-    // get lane length
-    const double laneShapeLengt = lane->getLaneShape().length2D();
+GNEMoveElement::calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
+        const double pos, const GNEMoveOffset& offset, const double extremFrom, const double extremTo) {
     // declare position over lane offset
     double posOverLaneOffset = 0;
     // calculate position at offset
@@ -370,28 +398,29 @@ GNEMoveElement::calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, co
         // calculate new posOverLane non-perpendicular
         const double newPosOverLane = lane->getLaneShape().nearest_offset_to_point2D(lanePosition, false);
         // out of lane shape, then place element in lane extremes
-        if (newPosOverLane == 0) {
-            posOverLaneOffset = pos;
+        if (newPosOverLane < extremFrom) {
+            moveResult.newFirstPos = extremFrom;
+        } else if (newPosOverLane > extremTo) {
+            moveResult.newFirstPos = extremTo;
         } else {
-            posOverLaneOffset = pos - laneShapeLengt;
+            moveResult.newFirstPos = newPosOverLane / lane->getLengthGeometryFactor();
         }
     } else {
         // within of lane shape
-        if (newPosOverLanePerpendicular < 0) {
-            posOverLaneOffset = pos;
-        } else if (newPosOverLanePerpendicular > laneShapeLengt) {
-            posOverLaneOffset = laneShapeLengt;
+        if (newPosOverLanePerpendicular < extremFrom) {
+            moveResult.newFirstPos = extremFrom;
+        } else if (newPosOverLanePerpendicular > extremTo) {
+            moveResult.newFirstPos = extremTo;
         } else {
-            posOverLaneOffset = pos - newPosOverLanePerpendicular;
+            moveResult.newFirstPos = newPosOverLanePerpendicular / lane->getLengthGeometryFactor();
         }
     }
-    // update moveResult
-    moveResult.newFirstPos = (pos - posOverLaneOffset) / lane->getLengthGeometryFactor();
 }
 
 
 void
-GNEMoveElement::calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
+GNEMoveElement::calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, 
+        const GNEMoveOffset& offset) {
     // calculate lenght between pos over lanes
     const double centralPosition = (moveOperation->firstPosition + moveOperation->secondPosition) * 0.5;
     // calculate middle lenght between first and last pos over lanes
@@ -435,18 +464,21 @@ GNEMoveElement::calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, co
 
 
 void
-GNEMoveElement::calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset) {
+GNEMoveElement::calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, 
+        const GNEMoveOffset& offset) {
     // calculate movements over both lanes separately
     if (moveOperation->firstPosition != INVALID_DOUBLE) {
         GNEMoveResult moveResultTemporal(moveOperation);
-        calculateSingleMovementOverOneLane(moveResultTemporal, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
+        calculateSingleMovementOverOneLane(moveResultTemporal, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
+                                           0, moveOperation->firstLane->getLaneShapeLength());
         moveResult.newFirstPos = moveResultTemporal.newFirstPos;
     } else {
         moveResult.newFirstPos = INVALID_DOUBLE;
     }
     if (moveOperation->secondPosition != INVALID_DOUBLE) {
         GNEMoveResult moveResultTemporal(moveOperation);
-        calculateSingleMovementOverOneLane(moveResultTemporal, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset);
+        calculateSingleMovementOverOneLane(moveResultTemporal, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset,
+                                           0, moveOperation->secondLane->getLaneShapeLength());
         moveResult.newSecondPos = moveResultTemporal.newFirstPos;
     } else {
         moveResult.newSecondPos = INVALID_DOUBLE;

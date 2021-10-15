@@ -44,6 +44,9 @@ public:
         SHAPE,
         GEOMETRY_POINTS,
         ONE_LANE,
+        ONE_LANE_MOVEFIRST,
+        ONE_LANE_MOVESECOND,
+        ONE_LANE_MOVEBOTH,
         TWO_LANES
     };
 
@@ -73,7 +76,8 @@ public:
                      const GNELane* lane,
                      const double firstPosition,
                      const double secondPosition,
-                     const bool allowChangeLane);
+                     const bool allowChangeLane,
+                     const OperationType operationType);
 
     /// @brief constructor for elements placed over two lanes with two positions (E2 Multilane, vehicles..)
     GNEMoveOperation(GNEMoveElement* moveElement,
@@ -237,13 +241,17 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief calculate single movement over one lane
-    static void calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, const GNEMoveOffset& offset);
+    static void calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
+                                                   const double pos, const GNEMoveOffset& offset, const double extremFrom, 
+                                                   const double extremTo);
 
     /// @brief calculate double movement over one lane
-    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, 
+                                                   const GNEMoveOffset& offset);
 
     /// @brief calculate double movement over two lanes
-    static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+    static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, 
+                                                    const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
     static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
