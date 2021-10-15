@@ -754,11 +754,13 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
         // add access to all stopping places
         const SumoXMLTag element = stopType.first;
         for (const auto& stop : stopType.second) {
-            router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., 0., element, false, taxiWait);
+            router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane),
+                                           stop.second->startPos, stop.second->endPos, 0., element, false, taxiWait);
             // add access to all public transport stops
             if (element == SUMO_TAG_BUS_STOP) {
                 for (const auto& a : stop.second->accessPos) {
-                    router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(std::get<0>(a)), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, true, taxiWait);
+                    router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(std::get<0>(a)),
+                                                   std::get<1>(a), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, true, taxiWait);
                 }
             }
         }

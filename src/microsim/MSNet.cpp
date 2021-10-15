@@ -1439,11 +1439,12 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
         const SumoXMLTag element = stopType.first;
         for (const auto& i : stopType.second) {
             const MSEdge* const edge = &i.second->getLane().getEdge();
-            router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), element, false, taxiWait);
+            router.getNetwork()->addAccess(i.first, edge, i.second->getBeginLanePosition(), i.second->getEndLanePosition(),
+                                           i.second->getAccessDistance(edge), element, false, taxiWait);
             if (element == SUMO_TAG_BUS_STOP) {
                 // add access to all public transport stops
                 for (const auto& a : i.second->getAllAccessPos()) {
-                    router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), element, true, taxiWait);
+                    router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<1>(a), std::get<2>(a), element, true, taxiWait);
                 }
                 if (external != nullptr) {
                     external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);

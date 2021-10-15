@@ -193,6 +193,7 @@ public:
     }
 
     inline void setLength(const double length) {
+        assert(length >= 0);
         myLength = length;
     }
 

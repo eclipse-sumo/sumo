@@ -30,10 +30,26 @@
 template<class E, class L, class N, class V>
 class StopEdge : public IntermodalEdge<E, L, N, V> {
 public:
-    StopEdge(const std::string id, int numericalID, const E* edge) :
-        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop", 0) { }
+    StopEdge(const std::string id, int numericalID, const E* edge, const double startPos, const double endPos) :
+        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop", 0), myStartPos(startPos), myEndPos(endPos) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
     }
+
+    double getStartPos() const {
+        return myStartPos;
+    }
+
+    double getEndPos() const {
+        return myEndPos;
+    }
+
+private:
+    /// @brief start position
+    const double myStartPos;
+
+    /// @brief end position
+    const double myEndPos;
+
 };
