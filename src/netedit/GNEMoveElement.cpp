@@ -231,7 +231,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 // move first position around [0, secondPosition]
                 calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
                                                    0, moveOperation->secondPosition);
-                } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
                 // move first position around [firstPosition, laneLenght]
                 calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->secondPosition, offset,
                                                    moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
