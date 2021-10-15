@@ -6,9 +6,9 @@ function(setTestProperties targetname)
     add_test(${targetname} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${targetname})
 
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        target_link_libraries(${targetname} ${FOX_LIBRARY} -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} -lpthread -lm)
+        target_link_libraries(${targetname} ${ARGN} -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} -lpthread -lm)
     else ()
-        target_link_libraries(${targetname} ${FOX_LIBRARY} ${commonlibs} ${GTEST_BOTH_LIBRARIES})
+        target_link_libraries(${targetname} ${ARGN} ${commonlibs} ${GTEST_BOTH_LIBRARIES})
     endif ()
 endfunction()
 
