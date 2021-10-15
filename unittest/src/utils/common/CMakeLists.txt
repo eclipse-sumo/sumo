@@ -5,4 +5,4 @@ add_executable(testcommon
         RGBColorTest.cpp
         ValueTimeLineTest.cpp
         )
-setTestProperties(testcommon)
+setTestProperties(testcommon utils_common utils_iodevices)

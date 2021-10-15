@@ -4,12 +4,7 @@ function(setTestProperties targetname)
     add_dependencies(${targetname} install_test_dll)
     set_property(TARGET ${targetname} PROPERTY FOLDER "test_exe")
     add_test(${targetname} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${targetname})
-
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        target_link_libraries(${targetname} ${ARGN} -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} -lpthread -lm)
-    else ()
-        target_link_libraries(${targetname} ${ARGN} ${commonlibs} ${GTEST_BOTH_LIBRARIES})
-    endif ()
+    target_link_libraries(${targetname} ${ARGN} ${commonlibs} ${GTEST_BOTH_LIBRARIES})
 endfunction()
 
 add_subdirectory(utils)

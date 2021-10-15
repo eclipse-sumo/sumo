@@ -4,4 +4,4 @@ add_executable(testgeom
         PositionVectorTest.cpp
         GeomHelperTest.cpp
         )
-setTestProperties(testgeom)
+setTestProperties(testgeom utils_geom)
