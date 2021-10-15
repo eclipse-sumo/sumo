@@ -1,3 +1,17 @@
+function(setTestProperties targetname)
+    set_target_properties(${targetname} PROPERTIES OUTPUT_NAME ${targetname}${BINARY_SUFFIX})
+    set_target_properties(${targetname} PROPERTIES OUTPUT_NAME_DEBUG ${targetname}${BINARY_SUFFIX}D)
+    add_dependencies(${targetname} install_test_dll)
+    set_property(TARGET ${targetname} PROPERTY FOLDER "test_exe")
+    add_test(${targetname} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${targetname})
+
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        target_link_libraries(${targetname} ${FOX_LIBRARY} -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} -lpthread -lm)
+    else ()
+        target_link_libraries(${targetname} ${FOX_LIBRARY} ${commonlibs} ${GTEST_BOTH_LIBRARIES})
+    endif ()
+endfunction()
+
 add_subdirectory(utils)
 add_subdirectory(microsim)
 add_subdirectory(netbuild)
