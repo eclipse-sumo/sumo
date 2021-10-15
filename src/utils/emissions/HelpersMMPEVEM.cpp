@@ -17,6 +17,7 @@
 #include <fstream>
 #include <exception>
 #include <cmath>
+#include <cctype>
 
 
 
