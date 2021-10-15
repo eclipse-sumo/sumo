@@ -477,24 +477,24 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.colorSettings.containerStopColorSign = MFXUtils::getRGBColor(myContainerStopColorSign->getRGBA());
     tmpSettings.colorSettings.chargingStationColor = MFXUtils::getRGBColor(myChargingStationColor->getRGBA());
     tmpSettings.colorSettings.chargingStationColorSign = MFXUtils::getRGBColor(myChargingStationColorSign->getRGBA());
-    tmpSettings.colorSettings.stopColor = MFXUtils::getRGBColor(myStopsColor->getRGBA());
-    tmpSettings.colorSettings.vehicleTripColor = MFXUtils::getRGBColor(myVehicleTripsColor->getRGBA());
-    tmpSettings.colorSettings.stopPersonColor = MFXUtils::getRGBColor(myStopPersonsColor->getRGBA());
-    tmpSettings.colorSettings.personTripColor = MFXUtils::getRGBColor(myPersonTripColor->getRGBA());
-    tmpSettings.colorSettings.walkColor = MFXUtils::getRGBColor(myWalkColor->getRGBA());
-    tmpSettings.colorSettings.rideColor = MFXUtils::getRGBColor(myRideColor->getRGBA());
-    tmpSettings.colorSettings.stopContainerColor = MFXUtils::getRGBColor(myStopContainersColor->getRGBA());
-    tmpSettings.colorSettings.transportColor = MFXUtils::getRGBColor(myTransportColor->getRGBA());
-    tmpSettings.colorSettings.transhipColor = MFXUtils::getRGBColor(myTranshipColor->getRGBA());
-
-    tmpSettings.widthSettings.tripWidth = myTripWidth->getValue();
-    tmpSettings.widthSettings.personTripWidth = myPersonTripWidth->getValue();
-    tmpSettings.widthSettings.walkWidth = myWalkWidth->getValue();
-    tmpSettings.widthSettings.rideWidth = myRideWidth->getValue();
-    tmpSettings.widthSettings.transportWidth = myTransportWidth->getValue();
-    tmpSettings.widthSettings.transhipWidth = myTranshipWidth->getValue();
-
     if (mySettings->netedit) {
+        tmpSettings.colorSettings.stopColor = MFXUtils::getRGBColor(myStopsColor->getRGBA());
+        tmpSettings.colorSettings.vehicleTripColor = MFXUtils::getRGBColor(myVehicleTripsColor->getRGBA());
+        tmpSettings.colorSettings.stopPersonColor = MFXUtils::getRGBColor(myStopPersonsColor->getRGBA());
+        tmpSettings.colorSettings.personTripColor = MFXUtils::getRGBColor(myPersonTripColor->getRGBA());
+        tmpSettings.colorSettings.walkColor = MFXUtils::getRGBColor(myWalkColor->getRGBA());
+        tmpSettings.colorSettings.rideColor = MFXUtils::getRGBColor(myRideColor->getRGBA());
+        tmpSettings.colorSettings.stopContainerColor = MFXUtils::getRGBColor(myStopContainersColor->getRGBA());
+        tmpSettings.colorSettings.transportColor = MFXUtils::getRGBColor(myTransportColor->getRGBA());
+        tmpSettings.colorSettings.transhipColor = MFXUtils::getRGBColor(myTranshipColor->getRGBA());
+
+        tmpSettings.widthSettings.tripWidth = myTripWidth->getValue();
+        tmpSettings.widthSettings.personTripWidth = myPersonTripWidth->getValue();
+        tmpSettings.widthSettings.walkWidth = myWalkWidth->getValue();
+        tmpSettings.widthSettings.rideWidth = myRideWidth->getValue();
+        tmpSettings.widthSettings.transportWidth = myTransportWidth->getValue();
+        tmpSettings.widthSettings.transhipWidth = myTranshipWidth->getValue();
+
         tmpSettings.colorSettings.selectionColor = MFXUtils::getRGBColor(mySelectionColor->getRGBA());
         tmpSettings.colorSettings.selectedEdgeColor = MFXUtils::getRGBColor(mySelectedEdgeColor->getRGBA());
         tmpSettings.colorSettings.selectedLaneColor = MFXUtils::getRGBColor(mySelectedLaneColor->getRGBA());
