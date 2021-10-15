@@ -297,6 +297,9 @@ struct GUIVisualizationNeteditSizeSettings {
 
     /// @brief poly line width
     static const double polylineWidth;
+
+    /// @brief moving additional geometry point radius
+    static const double additionalGeometryPointRadius;
 };
 
 /// @brief struct for connection settings

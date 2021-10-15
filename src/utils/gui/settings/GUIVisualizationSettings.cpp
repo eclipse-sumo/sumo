@@ -88,6 +88,7 @@ const double GUIVisualizationNeteditSizeSettings::crossingGeometryPointRadius(1)
 const double GUIVisualizationNeteditSizeSettings::polygonGeometryPointRadius(1.2);
 const double GUIVisualizationNeteditSizeSettings::polygonContourWidth(0.3);
 const double GUIVisualizationNeteditSizeSettings::polylineWidth(1);
+const double GUIVisualizationNeteditSizeSettings::additionalGeometryPointRadius(0.9);
 
 // -------------------------------------------------------------------------
 // additional values
