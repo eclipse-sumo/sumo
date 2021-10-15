@@ -115,7 +115,7 @@ GNEJunction::getMoveOperation() {
     if (isShapeEdited()) {
         // calculate move shape operation
         return calculateMoveShapeOperation(myNBNode->getShape(), myNet->getViewNet()->getPositionInformation(), 
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius, true);
     } else {
         // return move junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());

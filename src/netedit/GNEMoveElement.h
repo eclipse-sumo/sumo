@@ -227,7 +227,7 @@ protected:
     double myMoveElementLateralOffset;
 
     /// @brief calculate move shape operation
-    GNEMoveOperation* calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
+    GNEMoveOperation* calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius, const bool onlyContour);
 
 private:
     /// @brief set move shape

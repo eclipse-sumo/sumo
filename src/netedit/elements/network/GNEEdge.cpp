@@ -166,18 +166,18 @@ GNEEdge::getMoveOperation() {
         if (getFromJunction()->isAttributeCarrierSelected() && getToJunction()->isAttributeCarrierSelected()) {
             return processMoveBothJunctionSelected();
         } else if (getFromJunction()->isAttributeCarrierSelected()) {
-            return processMoveFromJunctionSelected();
+            return processMoveFromJunctionSelected(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
         } else if (getToJunction()->isAttributeCarrierSelected()) {
-            return processMoveToJunctionSelected();
+            return processMoveToJunctionSelected(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
         } else if (myNet->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
             return processNoneJunctionSelected(snapRadius);
         } else {
             // calculate move shape operation (because there are only an edge selected)
-            return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
+            return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius, false);
         }
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius);
+        return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), snapRadius, false);
     }
 }
 
@@ -2206,14 +2206,90 @@ GNEEdge::areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, cons
 
 
 GNEMoveOperation* 
-GNEEdge::processMoveFromJunctionSelected() {
-    return nullptr;
+GNEEdge::processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius) {
+    // calculate squared snapRadius
+    const double squaredSnapRadius = (snapRadius * snapRadius);
+    // declare shape to move
+    PositionVector shapeToMove = originalShape;
+    // obtain nearest index
+    const int nearestIndex = originalShape.indexOfClosest(mousePosition);
+    // obtain nearest position
+    const Position nearestPosition = originalShape.positionAtOffset2D(originalShape.nearest_offset_to_point2D(mousePosition));
+    // generate indexes
+    std::vector<int> indexes;
+    // check conditions
+    if (nearestIndex == -1) {
+        return nullptr;
+    } else if (nearestPosition == Position::INVALID) {
+        // special case for extremes
+        if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
+            for (int i = 1; i <= nearestIndex; i++) {
+                indexes.push_back(i);
+            }
+            // move extrem without creating new geometry point
+            return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+        } else {
+            return nullptr;
+        }
+    } else if (nearestPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
+        for (int i = 1; i <= nearestIndex; i++) {
+            indexes.push_back(i);
+        }
+        // move geometry point without creating new geometry point
+        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+    } else {
+        // create new geometry point and keep new index (if we clicked near of shape)
+        const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
+        for (int i = 1; i <= newIndex; i++) {
+            indexes.push_back(i);
+        }
+        // move after setting new geometry point in shapeToMove
+        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+    }
 }
 
 
 GNEMoveOperation*
-GNEEdge::processMoveToJunctionSelected() {
-    return nullptr;
+GNEEdge::processMoveToJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius) {
+    // calculate squared snapRadius
+    const double squaredSnapRadius = (snapRadius * snapRadius);
+    // declare shape to move
+    PositionVector shapeToMove = originalShape;
+    // obtain nearest index
+    const int nearestIndex = originalShape.indexOfClosest(mousePosition);
+    // obtain nearest position
+    const Position nearestPosition = originalShape.positionAtOffset2D(originalShape.nearest_offset_to_point2D(mousePosition));
+    // generate indexes
+    std::vector<int> indexes;
+    // check conditions
+    if (nearestIndex == -1) {
+        return nullptr;
+    } else if (nearestPosition == Position::INVALID) {
+        // special case for extremes
+        if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
+            for (int i = nearestIndex; i < ((int)originalShape.size() - 1); i++) {
+                indexes.push_back(i);
+            }
+            // move extrem without creating new geometry point
+            return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+        } else {
+            return nullptr;
+        }
+    } else if (nearestPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
+        for (int i = nearestIndex; i < ((int)originalShape.size() - 1); i++) {
+            indexes.push_back(i);
+        }
+        // move geometry point without creating new geometry point
+        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+    } else {
+        // create new geometry point and keep new index (if we clicked near of shape)
+        const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
+        for (int i = newIndex; i < ((int)originalShape.size() - 1); i++) {
+            indexes.push_back(i);
+        }
+        // move after setting new geometry point in shapeToMove
+        return new GNEMoveOperation(this, originalShape, indexes, shapeToMove, indexes);
+    }
 }
 
 

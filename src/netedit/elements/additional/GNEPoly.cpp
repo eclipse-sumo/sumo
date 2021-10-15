@@ -73,7 +73,7 @@ GNEPoly::getMoveOperation() {
     } else {
         // calculate move shape operation
         return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), 
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius);
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius, true);
     }
 }
 

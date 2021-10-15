@@ -169,7 +169,7 @@ GNEMoveElement::GNEMoveElement() :
 
 
 GNEMoveOperation* 
-GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius) {
+GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius, const bool onlyContour) {
     // calculate squared snapRadius
     const double squaredSnapRadius = (snapRadius * snapRadius);
     // declare shape to move
@@ -192,7 +192,7 @@ GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, 
     } else if (nearestPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
         // move geometry point without creating new geometry point
         return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
-    } else if (nearestPosition.distanceSquaredTo2D(mousePosition) <= squaredSnapRadius) {
+    } else if (!onlyContour || nearestPosition.distanceSquaredTo2D(mousePosition) <= squaredSnapRadius) {
         // create new geometry point and keep new index (if we clicked near of shape)
         const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
         // move after setting new geometry point in shapeToMove

@@ -417,10 +417,10 @@ private:
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
 
     /// @brief process moving edge when only from junction is selected
-    GNEMoveOperation* processMoveFromJunctionSelected();
+    GNEMoveOperation* processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
 
     /// @brief process moving edge when only to junction is selected
-    GNEMoveOperation* processMoveToJunctionSelected();
+    GNEMoveOperation* processMoveToJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
 
     /// @brief process moving edge when both junctions are selected
     GNEMoveOperation* processMoveBothJunctionSelected();
