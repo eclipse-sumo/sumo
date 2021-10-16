@@ -304,7 +304,7 @@ public:
             double bestDist = std::numeric_limits<double>::max();
             const _IntermodalEdge* best = nullptr;
             for (const _IntermodalEdge* const split : it->second) {
-                if (pos >= split->getStartPos() && pos <= split->getEndPos()) {
+                if (pos >= split->getStartPos() - POSITION_EPS && pos <= split->getEndPos() + POSITION_EPS) {
                     const double dist = split->getEndPos() - split->getStartPos();
                     if (dist < bestDist) {
                         bestDist = dist;
