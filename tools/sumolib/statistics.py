@@ -22,7 +22,7 @@ import math
 import warnings
 from collections import defaultdict
 try:
-    from numpy import sqrt, all
+    from numpy import sqrt, all, set_printoptions
 except ImportError:
     from math import sqrt
 
@@ -70,7 +70,10 @@ uMax = _ExtremeType(True, "uMax")
 uMin = _ExtremeType(False, "uMin")
 
 
-def setPrecision(formatstr, precision):
+def setPrecision(formatstr, precision, isArray=False):
+    if isArray:
+        set_printoptions(precision=2)
+        return formatstr.replace('%.2f', '%s')
     return formatstr.replace('%.2f', '%.' + str(int(precision)) + 'f')
 
 
@@ -86,6 +89,7 @@ class Statistics:
         self.abs = abs
         self.printMin = printMin
         self.scale = scale
+        self.isArray = False
         if histogram:
             self.counts = defaultdict(int)
         else:
@@ -94,11 +98,13 @@ class Statistics:
     def add(self, v, label=None):
         self.values.append(v)
         isMin = v < self.min
-        if (type(isMin) is bool and isMin) or all(isMin):
+        if type(isMin) is not bool:
+            self.isArray = True
+            v = tuple(v)
+        if v < self.min:
             self.min = v
             self.min_label = label
-        isMax = v > self.max
-        if (type(isMax) is bool and isMax) or all(isMax):
+        if v > self.max:
             self.max = v
             self.max_label = label
         if self.counts is not None:
@@ -186,7 +192,7 @@ class Statistics:
             return None
 
     def quartiles(self):
-        s = sorted(self.values)
+        s = sorted(self.values, key=lambda v: tuple(v) if self.isArray else v)
         return s[len(self.values) // 4], s[len(self.values) // 2], s[3 * len(self.values) // 4]
 
     def rank(self, fraction):
@@ -210,17 +216,17 @@ class Statistics:
         if len(self.values) > 0:
             min = ''
             if self.printMin:
-                min = setPrecision('min %.2f%s, ', precision) % (
+                min = setPrecision('min %.2f%s, ', precision, self.isArray) % (
                     self.min, ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
-            result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision) % (
+            result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision, self.isArray) % (
                 self.label, len(self.values), min,
                 self.max,
                 ('' if self.max_label is None else ' (%s)' %
                  (self.max_label,)),
                 self.avg())
-            result += setPrecision(' Q1 %.2f, median %.2f, Q3 %.2f', precision) % self.quartiles()
+            result += setPrecision(' Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray) % self.quartiles()
             if self.abs:
-                result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision) % (
+                result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray) % (
                     self.avg_abs(), self.median_abs())
             if self.counts is not None:
                 if histStyle == 1:
@@ -238,14 +244,14 @@ class Statistics:
     def toXML(self, precision=2):
         result = '    <statistic description="%s"' % self.label
         if len(self.values) > 0:
-            result += setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"', precision) % (
+            result += setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"', precision, self.isArray) % (
                 self.min, self.min_label, self.max, self.max_label, self.avg())
-            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision) % self.quartiles()
-            result += setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision) % (self.avg_abs(), self.median_abs())
+            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray) % self.quartiles()
+            result += setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray) % (self.avg_abs(), self.median_abs())
         if self.counts is not None:
             result += '>\n'
             for kv in self.histogram():
-                result += setPrecision(8 * ' ' + '<hist key="%.2f" value="%i"/>\n', precision) % kv
+                result += setPrecision(8 * ' ' + '<hist key="%.2f" value="%i"/>\n', precision, self.isArray) % kv
             result += '    </statistic>\n'
         else:
             result += '/>\n'
