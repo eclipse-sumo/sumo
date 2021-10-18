@@ -1063,6 +1063,7 @@ NBNode::hasConflict() const {
 
 void
 NBNode::updateSurroundingGeometry() {
+    NBTurningDirectionsComputer::computeTurnDirectionsForNode(this, false);
     sortEdges(false);
     computeNodeShape(-1);
     for (NBEdge* edge : myAllEdges) {
