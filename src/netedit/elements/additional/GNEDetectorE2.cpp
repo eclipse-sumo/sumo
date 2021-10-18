@@ -500,10 +500,12 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEDetectorE2::setMoveShape(const GNEMoveResult& moveResult) {
-    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) || 
+        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // change only start position
         myPositionOverLane = moveResult.newFirstPos;
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
+               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
         // change only end position
         myEndPositionOverLane = moveResult.newFirstPos;
     } else {
@@ -523,12 +525,14 @@ GNEDetectorE2::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
     // begin change attribute
     undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     // set attributes depending of operation type
-    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) || 
+        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // set only start position
         setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
+               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
         // set only end position
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
     } else {
         // set both
         setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);

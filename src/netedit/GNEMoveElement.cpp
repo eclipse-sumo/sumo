@@ -222,7 +222,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
             } else if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND) {
                 // move only two position
                 calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset,
-                                                   0, moveOperation->secondPosition);
+                                                   0, moveOperation->secondLane->getLaneShapeLength());
             } else {
                 // move both first and second positions
                 calculateDoubleMovementOverTwoLanes(moveResult, viewNet, moveOperation, offset);
