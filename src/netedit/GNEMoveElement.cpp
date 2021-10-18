@@ -383,8 +383,6 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
 void
 GNEMoveElement::calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
         const double pos, const GNEMoveOffset& offset, const double extremFrom, const double extremTo) {
-    // declare position over lane offset
-    double posOverLaneOffset = 0;
     // calculate position at offset
     Position lanePosition = lane->getLaneShape().positionAtOffset2D(pos);
     // apply offset to positionAtCentralPosition

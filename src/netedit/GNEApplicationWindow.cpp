@@ -3856,7 +3856,7 @@ GNEApplicationWindow::getFolder(const std::string& folder) const {
             // new folder empty, then stop
             stop = true;
         } else if ((newFolder.back() == '\'') || (newFolder.back() == '\\') || 
-                   (newFolder.back() == '/') || (newFolder.back() == '//')) {
+                   (newFolder.back() == '/') /* || (newFolder.back() == '//') */) {
             // removed file, then stop
             stop = true;
         } else {
