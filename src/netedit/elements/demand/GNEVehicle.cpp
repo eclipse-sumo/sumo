@@ -1973,15 +1973,17 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 void
 GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
-    // check departPos
-    if (moveResult.newFirstPos != INVALID_DOUBLE) {
+    if ((moveResult.newFirstPos != INVALID_DOUBLE) && 
+        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+        // change depart
         departPosProcedure = DepartPosDefinition::GIVEN;
         departPos = moveResult.newFirstPos;
-    }
-    // check arrivalPos
-    if (moveResult.newSecondPos != INVALID_DOUBLE) {
+    }     
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
+               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
+        // change arrival
         arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
-        arrivalPos = moveResult.newSecondPos;
+        arrivalPos = moveResult.newFirstPos;
     }
     // set lateral offset
     myMoveElementLateralOffset = moveResult.firstLaneOffset;
