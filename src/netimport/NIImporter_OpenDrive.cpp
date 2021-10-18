@@ -1601,7 +1601,6 @@ PositionVector
 NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution) {
     UNUSED_PARAMETER(e);
     PositionVector ret;
-    double dist = 0.0;
     double centerX = g.x;
     double centerY = g.y;
     // left: positive value
@@ -1625,11 +1624,8 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
             geo_posE = g.s + g.length;
         }
         calcPointOnCurve(&endX, &endY, centerX, centerY, radius, geo_posE - geo_posS);
-
-        dist += (geo_posE - geo_posS);
-        //
         ret.push_back(Position(startX, startY));
-        //
+
         startX = endX;
         startY = endY;
         geo_posS = geo_posE;
@@ -1638,6 +1634,7 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
             end = true;
         }
     } while (!end);
+    ret.push_back(Position(startX, startY));
     return ret.getSubpart2D(0, g.length);
 }
 
