@@ -96,6 +96,9 @@ public:
     // @brief the factor for random slow-down
     static double dawdling;
 
+    // @brief the safety buffer to vehicles
+    static double minGapToVehicle;
+
     // @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;

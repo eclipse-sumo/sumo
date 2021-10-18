@@ -85,6 +85,7 @@ MSPModel_Striping::Pedestrians MSPModel_Striping::noPedestrians;
 // model parameters (static to simplify access from class PState
 double MSPModel_Striping::stripeWidth;
 double MSPModel_Striping::dawdling;
+double MSPModel_Striping::minGapToVehicle;
 SUMOTime MSPModel_Striping::jamTime;
 SUMOTime MSPModel_Striping::jamTimeCrossing;
 SUMOTime MSPModel_Striping::jamTimeNarrow;
@@ -102,8 +103,6 @@ double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS(0.34);
 const double MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const double MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
-
-#define MINGAP_TO_VEHICLE 0.25
 
 
 // ===========================================================================
@@ -123,6 +122,7 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     }
 
     dawdling = oc.getFloat("pedestrian.striping.dawdling");
+    minGapToVehicle = oc.getFloat("pedestrian.striping.mingap-to-vehicle");
     RESERVE_FOR_ONCOMING_FACTOR = oc.getFloat("pedestrian.striping.reserve-oncoming");
     RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS = oc.getFloat("pedestrian.striping.reserve-oncoming.junctions");
 
@@ -1265,7 +1265,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
             // the vehicle to enter the junction first has priority
             const MSVehicle* veh = (*it).vehAndGap.first;
             if (veh != nullptr) {
-                Obstacle vo((*it).distToCrossing, 0, OBSTACLE_VEHICLE, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE);
+                Obstacle vo((*it).distToCrossing, 0, OBSTACLE_VEHICLE, veh->getID(), veh->getVehicleType().getWidth() + 2 * minGapToVehicle);
                 // block entry to the crossing in walking direction but allow leaving it
                 Obstacle voBlock = vo;
                 if (dir == FORWARD) {
@@ -1284,12 +1284,12 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 // relY increases from left to right (the other way around from vehicles)
                 if ((*it).fromLeft) {
                     vehYmin = -(*it).vehAndGap.second + lateral_offset; // vehicle back
-                    vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap + MINGAP_TO_VEHICLE;
-                    vehYmin -= MINGAP_TO_VEHICLE;
+                    vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap + minGapToVehicle;
+                    vehYmin -= minGapToVehicle;
                 } else {
                     vehYmax = crossing->getWidth() + (*it).vehAndGap.second - lateral_offset; // vehicle back
-                    vehYmin = vehYmax - veh->getVehicleType().getLength() - bGap - MINGAP_TO_VEHICLE;
-                    vehYmax += MINGAP_TO_VEHICLE;
+                    vehYmin = vehYmax - veh->getVehicleType().getLength() - bGap - minGapToVehicle;
+                    vehYmax += minGapToVehicle;
 
                 }
                 for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax), stripes); ++s) {
