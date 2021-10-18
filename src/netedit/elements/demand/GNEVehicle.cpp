@@ -323,10 +323,12 @@ GNEVehicle::getMoveOperation() {
     // return move operation depending if we're editing departPos or arrivalPos
     if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_DEPARTPOS)) < (diameter * diameter)) {
         return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
+                                    GNEMoveOperation::OperationType::TWO_LANE_MOVEFIRST);
     } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_ARRIVALPOS)) < (myArrivalPositionDiameter * myArrivalPositionDiameter)) {
         return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, arrivalPosDouble,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
+                                    GNEMoveOperation::OperationType::TWO_LANE_MOVESECOND);
     } else {
         return nullptr;
     }

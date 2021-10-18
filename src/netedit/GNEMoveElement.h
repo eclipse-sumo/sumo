@@ -47,7 +47,9 @@ public:
         ONE_LANE_MOVEFIRST,
         ONE_LANE_MOVESECOND,
         ONE_LANE_MOVEBOTH,
-        TWO_LANES
+        TWO_LANE_MOVEFIRST,
+        TWO_LANE_MOVESECOND,
+        TWO_LANE_MOVEBOTH,
     };
 
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
@@ -85,7 +87,8 @@ public:
                      const double firstStartPos,
                      const GNELane* secondLane,
                      const double secondStartPos,
-                     const bool allowChangeLane);
+                     const bool allowChangeLane,
+                     const OperationType operationType);
 
     /// @brief destructor
     ~GNEMoveOperation();

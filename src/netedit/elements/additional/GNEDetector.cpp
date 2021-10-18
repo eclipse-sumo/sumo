@@ -256,8 +256,6 @@ GNEMoveOperation*
 GNEDetector::getMoveOperationE2SingleLane() {
     // get allow change lane
     const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
-    // calculate virtual end position
-    const double endPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
         (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
@@ -269,18 +267,18 @@ GNEDetector::getMoveOperationE2SingleLane() {
         // check if we clicked over start or end position
         if (myAdditionalGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // move only start position
-            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, endPos,
+            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS),
                                         allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
         } else if (myAdditionalGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // move only end position
-            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, endPos,
+            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS),
                                         allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
         } else {
             return nullptr;
         }
     } else {
         // move both start and end positions
-        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, endPos,
+        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS),
                                     allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEBOTH);
     }
 }
@@ -288,7 +286,37 @@ GNEDetector::getMoveOperationE2SingleLane() {
 
 GNEMoveOperation* 
 GNEDetector::getMoveOperationE2MultiLane() {
-    return nullptr;
+    // fist check if we're moving only extremes
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        // get mouse position
+        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        // calculate both geometries
+        GUIGeometry fromGeometry, toGeometry;
+        fromGeometry.updateGeometry(getParentLanes().front()->getLaneGeometry().getShape(), myPositionOverLane, 0);
+        toGeometry.updateGeometry(getParentLanes().back()->getLaneGeometry().getShape(), getAttributeDouble(SUMO_ATTR_ENDPOS), 0);
+        // check if we clicked over start or end position
+        if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move only start position
+            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, 
+                                        getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
+                                        false, GNEMoveOperation::OperationType::TWO_LANE_MOVEFIRST);
+        } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // move only end position
+            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, 
+                                        getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
+                                        false, GNEMoveOperation::OperationType::TWO_LANE_MOVESECOND);
+        } else {
+            return nullptr;
+        }
+    } else {
+        // move both start and end positions
+        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
+                                   false, GNEMoveOperation::OperationType::TWO_LANE_MOVEBOTH);
+    }
 }
 
 /****************************************************************************/

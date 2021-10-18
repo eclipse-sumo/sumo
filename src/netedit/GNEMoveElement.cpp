@@ -95,14 +95,15 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const double _firstStartPos,
                                    const GNELane* _secondLane,
                                    const double _secondStartPos,
-                                   const bool _allowChangeLane) :
+                                   const bool _allowChangeLane,
+                                   const OperationType _operationType) :
     moveElement(_moveElement),
     firstLane(_firstLane),
     firstPosition((_firstStartPos != INVALID_DOUBLE) ? _firstStartPos * _firstLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     secondLane(_secondLane),
     secondPosition((_secondStartPos != INVALID_DOUBLE) ? _secondStartPos * _secondLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     allowChangeLane(_allowChangeLane),
-    operationType(OperationType::TWO_LANES) {
+    operationType(_operationType) {
 }
 
 

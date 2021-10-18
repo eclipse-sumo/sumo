@@ -649,19 +649,19 @@ GNEDetectorE2::getStartGeometryPositionOverLane() const {
 double
 GNEDetectorE2::getEndGeometryPositionOverLane() const {
     // get lane final and shape length
-    const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    const double laneLength = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
     // get endPosition
     double fixedPos = myEndPositionOverLane;
     // adjust fixedPos
     if (fixedPos < 0) {
         fixedPos += laneLength;
     }
-    fixedPos *= getParentLanes().front()->getLengthGeometryFactor();
+    fixedPos *= getParentLanes().back()->getLengthGeometryFactor();
     // return depending of fixedPos
     if (fixedPos < POSITION_EPS) {
         return POSITION_EPS;
-    } else if (fixedPos > getParentLanes().front()->getLaneShapeLength()) {
-        return getParentLanes().front()->getLaneShapeLength();
+    } else if (fixedPos > getParentLanes().back()->getLaneShapeLength()) {
+        return getParentLanes().back()->getLaneShapeLength();
     } else {
         return fixedPos;
     }
