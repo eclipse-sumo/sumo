@@ -229,7 +229,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
     // get edge prefix
     const std::string edgePrefix = OptionsCont::getOptions().getString("edge-prefix");
     // get edge infix
-    const std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
+    std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // prevent duplicate edge (same geometry)
     for (const auto& outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
         if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
@@ -242,6 +242,8 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
     if (suggestedName != "" && !retrieveEdge(suggestedName, false)) {
         id = suggestedName;
     } else if (edgeInfix.size() > 0) {
+        // permit empty infix by setting it to <SPACE>
+        edgeInfix = StringUtils::trim(edgeInfix);
         // check if exist edge with id <fromNodeID><infix><toNodeID>
         if (myAttributeCarriers->getEdges().count(src->getID() + edgeInfix + dest->getID()) == 0) {
             id = src->getID() + edgeInfix + dest->getID();
