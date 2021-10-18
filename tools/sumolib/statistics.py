@@ -22,7 +22,7 @@ import math
 import warnings
 from collections import defaultdict
 try:
-    from numpy import sqrt, all, set_printoptions
+    from numpy import sqrt, set_printoptions
 except ImportError:
     from math import sqrt
 
@@ -244,10 +244,12 @@ class Statistics:
     def toXML(self, precision=2):
         result = '    <statistic description="%s"' % self.label
         if len(self.values) > 0:
-            result += setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"', precision, self.isArray) % (
-                self.min, self.min_label, self.max, self.max_label, self.avg())
+            result += (setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"',
+                                    precision, self.isArray) %
+                       (self.min, self.min_label, self.max, self.max_label, self.avg()))
             result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray) % self.quartiles()
-            result += setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray) % (self.avg_abs(), self.median_abs())
+            result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray) %
+                       (self.avg_abs(), self.median_abs()))
         if self.counts is not None:
             result += '>\n'
             for kv in self.histogram():
