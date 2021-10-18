@@ -70,8 +70,8 @@ public:
     ~GNEDetector();
 
     /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
+     * @note returned GNEMoveOperation can be nullptr
+     */
     GNEMoveOperation* getMoveOperation();
 
     /// @name members and functions relative to write additionals into XML
@@ -192,10 +192,16 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
+    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
 
     /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
+
+    /// @brief get moveOperation for E2 single lane
+    GNEMoveOperation* getMoveOperationE2SingleLane();
+
+    /// @brief get moveOperation for E2 multi lane
+    GNEMoveOperation* getMoveOperationE2MultiLane();
 
     /// @brief Invalidate return position of additional
     const Position& getPosition() const = delete;

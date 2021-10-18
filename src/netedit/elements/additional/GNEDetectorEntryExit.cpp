@@ -349,4 +349,32 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEDetectorEntryExit::setMoveShape(const GNEMoveResult& moveResult) {
+    // change position
+    myPositionOverLane = moveResult.newFirstPos;
+    // set lateral offset
+    myMoveElementLateralOffset = moveResult.firstLaneOffset;
+    // update geometry
+    updateGeometry();
+}
+
+
+void 
+GNEDetectorEntryExit::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // reset lateral offset
+    myMoveElementLateralOffset = 0;
+    // begin change attribute
+    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
+    // set startPosition
+    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+    // check if lane has to be changed
+    if (moveResult.newFirstLane) {
+        // set new lane
+        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+    }
+    // end change attribute
+    undoList->end();
+}
+
 /****************************************************************************/
