@@ -232,7 +232,7 @@ MSTransportable::appendStage(MSStage* stage, int next) {
 
 
 void
-MSTransportable::removeStage(int next) {
+MSTransportable::removeStage(int next, bool stayInSim) {
     assert(myStep + next < myPlan->end());
     assert(next >= 0);
     if (next > 0) {
@@ -242,12 +242,14 @@ MSTransportable::removeStage(int next) {
         myPlan->erase(myStep + next);
         myStep = myPlan->begin() + stepIndex;
     } else {
-        if (myStep + 1 == myPlan->end()) {
+        if (myStep + 1 == myPlan->end() && stayInSim) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
             appendStage(new MSStageWaiting(getEdge(), nullptr, 0, 0, getEdgePos(), "last stage removed", false));
         }
         (*myStep)->abort(this);
-        proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
+        if (!proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+            MSNet::getInstance()->getPersonControl().erase(this);
+        };
     }
 }
 

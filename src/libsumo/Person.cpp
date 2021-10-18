@@ -1101,6 +1101,16 @@ Person::setActionStepLength(const std::string& personID, double actionStepLength
     getPerson(personID)->getSingularType().setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
 }
 
+void
+Person::remove(const std::string& personID, char /*reason*/) {
+    MSPerson* person = getPerson(personID);
+    // remove all stages after the current and then abort the current stage
+    // (without adding a zero-length waiting stage)
+    while (person->getNumRemainingStages() > 1) {
+        person->removeStage(1);
+    }
+    person->removeStage(0, false);
+}
 
 void
 Person::setColor(const std::string& personID, const TraCIColor& c) {

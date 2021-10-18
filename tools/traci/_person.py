@@ -346,6 +346,11 @@ class PersonDomain(Domain):
         """
         self._setCmd(tc.CMD_REROUTE_TRAVELTIME, personID, "t", 0)
 
+    def remove(self, personID, reason=tc.REMOVE_VAPORIZED):
+        '''Remove person with the given ID for the give reason.
+           Reasons are defined in module constants and start with REMOVE_'''
+        self._setCmd(tc.REMOVE, personID, "b", reason)
+
     def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
         '''Place person at the given x,y coordinates and force it's angle to
         the given value (for drawing).

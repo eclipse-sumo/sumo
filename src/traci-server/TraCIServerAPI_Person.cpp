@@ -129,6 +129,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::VAR_PARAMETER
             && variable != libsumo::ADD
+            && variable != libsumo::REMOVE
             && variable != libsumo::APPEND_STAGE
             && variable != libsumo::REPLACE_STAGE
             && variable != libsumo::REMOVE_STAGE
@@ -218,6 +219,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
                 }
                 libsumo::Person::add(id, edgeID, pos, depart, vTypeID);
+            }
+            break;
+            case libsumo::REMOVE: {
+                int why = 0;
+                if (!server.readTypeCheckingByte(inputStorage, why)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Removing a person requires a byte.", outputStorage);
+                }
+                libsumo::Person::remove(id, (char)why);
             }
             break;
             case libsumo::APPEND_STAGE: {

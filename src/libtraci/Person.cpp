@@ -608,6 +608,14 @@ Person::setActionStepLength(const std::string& personID, double actionStepLength
     Dom::setDouble(libsumo::VAR_ACTIONSTEPLENGTH, personID, actionStepLength);
 }
 
+void
+Person::remove(const std::string& personID, char reason) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_BYTE);
+    content.writeUnsignedByte(reason);
+    Dom::set(libsumo::REMOVE, personID, &content);
+}
+
 
 void
 Person::setColor(const std::string& personID, const libsumo::TraCIColor& color) {

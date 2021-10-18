@@ -267,7 +267,7 @@ public:
     void appendStage(MSStage* stage, int next = -1);
 
     /// @brief removes the nth next stage
-    void removeStage(int next);
+    void removeStage(int next, bool stayInSim = true);
 
     /// sets the walking speed (ignored in other stages)
     void setSpeed(double speed);

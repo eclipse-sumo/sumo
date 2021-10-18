@@ -78,6 +78,7 @@ public:
     static void rerouteTraveltime(const std::string& personID);
     static void moveTo(const std::string& personID, const std::string& edgeID, double position);
     static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1, double matchThreshold = 100);
+    static void remove(const std::string& personID, char reason = libsumo::REMOVE_VAPORIZED);
     static void setSpeed(const std::string& personID, double speed);
     static void setType(const std::string& personID, const std::string& typeID);
 
