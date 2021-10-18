@@ -1055,6 +1055,8 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
         // change "delete last created point" depending of shift key
         myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
+        updateViewNet();
     }
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
 }
@@ -1077,6 +1079,8 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
         // change "delete last created point" depending of shift key
         myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        updateViewNet();
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
         updateViewNet();
     }
     // check if selecting using rectangle has to be disabled
