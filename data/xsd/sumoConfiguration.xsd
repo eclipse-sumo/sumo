@@ -181,6 +181,7 @@
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.mingap-to-vehicle" type="floatOptionType" minOccurs="0" />
             <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
