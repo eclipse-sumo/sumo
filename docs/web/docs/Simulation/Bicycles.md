@@ -103,7 +103,7 @@ Bike lanes may be defined explicitly in plain XML input when describing edges [e
 
 ### Explicit specification of bike lanes
 
-Alternatively to the above method, the `<edge>`-attribute [`bikeLanWidth` may be used](../Networks/PlainXML.md#edge_descriptions). It will cause a bike lane of the specified width to be added to that edge, connections to be remapped and bicycle permissions to be removed from all other lanes.
+Alternatively to the above method, the `<edge>`-attribute [`bikeLaneWidth` may be used](../Networks/PlainXML.md#edge_descriptions). It will cause a bike lane of the specified width to be added to that edge, connections to be remapped and bicycle permissions to be removed from all other lanes.
 
 !!! note
     The heuristic methods described below, also perform automatic connection shifting and removal of bicycle permissions from non-bike lanes
