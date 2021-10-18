@@ -89,9 +89,6 @@ public:
     void fixAdditionalProblem();
     /// @}
 
-    /// @brief get length of E2 Detector
-    double getLength() const;
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -139,9 +136,6 @@ public:
     /// @}
 
 protected:
-    /// @brief E2 detector length
-    double myLength;
-
     /// @brief end position over lane (only for Multilane E2 detectors)
     double myEndPositionOverLane;
 
@@ -161,8 +155,20 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief set move shape
+    void setMoveShape(const GNEMoveResult& moveResult);
+
+    /// @brief commit move shape
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
     /// @brief check if lanes are consecutives
     bool areLaneConsecutives() const;
+
+    /// @brief get start position over lane that is applicable to the shape
+    double getStartGeometryPositionOverLane() const;
+
+    /// @brief get end position over lane that is applicable to the shape
+    double getEndGeometryPositionOverLane() const;
 
     /// @brief Invalidated copy constructor.
     GNEDetectorE2(const GNEDetectorE2&) = delete;

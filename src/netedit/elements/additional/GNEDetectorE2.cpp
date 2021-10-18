@@ -38,15 +38,12 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, 
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                              SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos,
                              const std::map<std::string, std::string>& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {
-    lane
-}, filename, vehicleTypes, name, friendlyPos, parameters),
-myLength(length),
-myEndPositionOverLane(0.),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold),
-myJamThreshold(jamThreshold),
-myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters),
+    myEndPositionOverLane(pos + length),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -56,7 +53,6 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes,
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
                              double speedThreshold, double jamThreshold, bool friendlyPos, const std::map<std::string, std::string>& parameters) :
     GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
-    myLength(0),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -78,7 +74,7 @@ GNEDetectorE2::isAdditionalValid() const {
         if (myFriendlyPosition) {
             return true;
         } else {
-            return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+            return (myPositionOverLane >= 0) && (myEndPositionOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
         }
     } else {
         // first check if there is connection between all consecutive lanes
@@ -109,7 +105,7 @@ GNEDetectorE2::getAdditionalProblem() const {
         if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
         }
-        if ((myPositionOverLane + myLength) > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+        if ((myEndPositionOverLane) > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " + " + toString(SUMO_ATTR_LENGTH) + " > lanes's length");
         }
     } else {
@@ -146,12 +142,12 @@ GNEDetectorE2::fixAdditionalProblem() {
     if (getParentLanes().size() == 1) {
         // obtain position and length
         double newPositionOverLane = myPositionOverLane;
-        double newLength = myLength;
+        double newLength = (myEndPositionOverLane - myPositionOverLane);
         // fix pos and length using fixE2DetectorPosition
         GNEAdditionalHandler::fixE2SingleLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength());
         // set new position and length
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
-        setAttribute(SUMO_ATTR_LENGTH, toString(myLength), myNet->getViewNet()->getUndoList());
+        setAttribute(SUMO_ATTR_LENGTH, toString(newLength), myNet->getViewNet()->getUndoList());
     } else {
         if (!areLaneConsecutives()) {
             // build connections between all consecutive lanes
@@ -200,42 +196,11 @@ GNEDetectorE2::updateGeometry() {
         // compute path
         computePathElement();
     } else {
-        // declare variables for start and end positions
-        double startPosFixed = myPositionOverLane;
-        double endPosFixed = myPositionOverLane + myLength;
-        // adjust start and end pos
-        if (startPosFixed < 0) {
-            startPosFixed += myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        }
-        if (endPosFixed < 0) {
-            endPosFixed += myPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-        }
-        // set start position
-        if (myPositionOverLane < 0) {
-            startPosFixed = 0;
-        } else if (myPositionOverLane > (getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - myLength)) {
-            startPosFixed = (getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() - myLength);
-        }
-        // set end position
-        if ((myPositionOverLane + myLength) < 0) {
-            endPosFixed = 0;
-        } else if ((myPositionOverLane + myLength) > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            endPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-        }
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(),
-                                            (startPosFixed * getParentLanes().front()->getLengthGeometryFactor()),
-                                            (endPosFixed * getParentLanes().back()->getLengthGeometryFactor()),
-                                            myMoveElementLateralOffset);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane(), myMoveElementLateralOffset);
         // update centering boundary without updating grid
         updateCenteringBoundary(false);
     }
-}
-
-
-double
-GNEDetectorE2::getLength() const {
-    return myLength;
 }
 
 
@@ -315,7 +280,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TLID:
             return myTrafficLight;
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            return toString(myEndPositionOverLane - myPositionOverLane);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
@@ -347,6 +312,8 @@ GNEDetectorE2::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
             return myPositionOverLane;
+        case SUMO_ATTR_LENGTH:
+            return (myEndPositionOverLane - myPositionOverLane);
         case SUMO_ATTR_ENDPOS:
             return myEndPositionOverLane;
         default:
@@ -472,9 +439,11 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
+            updateGeometry();
             break;
         case SUMO_ATTR_ENDPOS:
             myEndPositionOverLane = parse<double>(value);
+            updateGeometry();
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = string2time(value);
@@ -483,7 +452,8 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myTrafficLight = value;
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            myEndPositionOverLane = (myPositionOverLane + parse<double>(value));
+            updateGeometry();
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
@@ -525,6 +495,52 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEDetectorE2::setMoveShape(const GNEMoveResult& moveResult) {
+    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+        // change only start position
+        myPositionOverLane = moveResult.newFirstPos;
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+        // change only end position
+        myEndPositionOverLane = moveResult.newFirstPos;
+    } else {
+        // change both position
+        myPositionOverLane = moveResult.newFirstPos;
+        myEndPositionOverLane = moveResult.newSecondPos;
+        // set lateral offset
+        myMoveElementLateralOffset = moveResult.firstLaneOffset;
+    }
+    // update geometry
+    updateGeometry();
+}
+
+
+void 
+GNEDetectorE2::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // begin change attribute
+    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
+    // set attributes depending of operation type
+    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+        // set only start position
+        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+        // set only end position
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
+    } else {
+        // set both
+        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
+        // check if lane has to be changed
+        if (moveResult.newFirstLane) {
+            // set new lane
+            setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+        }
+    }
+    // end change attribute
+    undoList->end();
+}
+
+
 bool
 GNEDetectorE2::areLaneConsecutives() const {
     // declare lane iterator
@@ -550,5 +566,48 @@ GNEDetectorE2::areLaneConsecutives() const {
     return true;
 }
 
+
+double
+GNEDetectorE2::getStartGeometryPositionOverLane() const {
+    // get lane final and shape length
+    const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    // get startPosition
+    double fixedPos = myPositionOverLane;
+    // adjust fixedPos
+    if (fixedPos < 0) {
+        fixedPos += laneLength;
+    }
+    fixedPos *= getParentLanes().front()->getLengthGeometryFactor();
+    // return depending of fixedPos
+    if (fixedPos < 0) {
+        return 0;
+    } else if (fixedPos > (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS)) {
+        return (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS);
+    } else {
+        return fixedPos;
+    }
+}
+
+
+double
+GNEDetectorE2::getEndGeometryPositionOverLane() const {
+    // get lane final and shape length
+    const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    // get endPosition
+    double fixedPos = myEndPositionOverLane;
+    // adjust fixedPos
+    if (fixedPos < 0) {
+        fixedPos += laneLength;
+    }
+    fixedPos *= getParentLanes().front()->getLengthGeometryFactor();
+    // return depending of fixedPos
+    if (fixedPos < POSITION_EPS) {
+        return POSITION_EPS;
+    } else if (fixedPos > getParentLanes().front()->getLaneShapeLength()) {
+        return getParentLanes().front()->getLaneShapeLength();
+    } else {
+        return fixedPos;
+    }
+}
 
 /****************************************************************************/
