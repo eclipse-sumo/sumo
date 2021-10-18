@@ -851,12 +851,14 @@ GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return 0;
     }
+#ifdef WIN32
     // check that python folder is defined in PATH
     const char* path = getenv("PATH");
     if((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
         WRITE_ERROR("Python folder must be defined in PATH");
         return 0;
     }
+#endif
     // check that SUMO_HOME is defined
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath == nullptr) {
