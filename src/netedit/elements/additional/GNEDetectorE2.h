@@ -164,12 +164,6 @@ private:
     /// @brief check if lanes are consecutives
     bool areLaneConsecutives() const;
 
-    /// @brief draw first geometry points
-    void drawFirstGeometryPoint(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
-
-    /// @brief draw second geometry points
-    void drawSecondGeometryPoint(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
-
     /// @brief get start position over lane that is applicable to the shape
     double getStartGeometryPositionOverLane() const;
 

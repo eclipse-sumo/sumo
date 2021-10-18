@@ -240,8 +240,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                 drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
             }
             // draw geometry points
-            drawFirstGeometryPoint(s, E2Color);
-            drawSecondGeometryPoint(s, E2Color);
+            drawGeometryPoint(s, myAdditionalGeometry.getShape().front(), E2Color);
+            drawGeometryPoint(s, myAdditionalGeometry.getShape().back(), E2Color);
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
@@ -567,60 +567,6 @@ GNEDetectorE2::areLaneConsecutives() const {
     }
     // there are connections between all lanes, then return true
     return true;
-}
-
-
-void 
-GNEDetectorE2::drawFirstGeometryPoint(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
-    // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // calculate new color
-        const RGBColor color = baseColor.changedBrightness(-50);
-        // push matrix
-        GLHelper::pushMatrix();
-        // translated to front
-        glTranslated(0, 0, 0.1);
-        // set color
-        GLHelper::setColor(color);
-        // push geometry point matrix
-        GLHelper::pushMatrix();
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0.1);
-        // draw geometry point
-        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
-        // pop geometry point matrix
-        GLHelper::popMatrix();
-        // pop draw matrix
-        GLHelper::popMatrix();
-    }
-}
-
-
-void 
-GNEDetectorE2::drawSecondGeometryPoint(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
-    // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // calculate new color
-        const RGBColor color = baseColor.changedBrightness(-50);
-        // push matrix
-        GLHelper::pushMatrix();
-        // translated to front
-        glTranslated(0, 0, 0.1);
-        // set color
-        GLHelper::setColor(color);
-        // push geometry point matrix
-        GLHelper::pushMatrix();
-        glTranslated(myAdditionalGeometry.getShape().back().x(), myAdditionalGeometry.getShape().back().y(), 0.1);
-        // draw geometry point
-        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
-        // pop geometry point matrix
-        GLHelper::popMatrix();
-        // pop draw matrix
-        GLHelper::popMatrix();
-    }
 }
 
 

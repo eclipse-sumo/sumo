@@ -303,19 +303,19 @@ GNEDetector::getMoveOperationE2MultiLane() {
             // move only start position
             return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, 
                                         getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
-                                        false, GNEMoveOperation::OperationType::TWO_LANE_MOVEFIRST);
+                                        false, GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST);
         } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // move only end position
             return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, 
                                         getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
-                                        false, GNEMoveOperation::OperationType::TWO_LANE_MOVESECOND);
+                                        false, GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND);
         } else {
             return nullptr;
         }
     } else {
         // move both start and end positions
         return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
-                                   false, GNEMoveOperation::OperationType::TWO_LANE_MOVEBOTH);
+                                   false, GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH);
     }
 }
 

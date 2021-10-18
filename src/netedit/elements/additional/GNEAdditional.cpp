@@ -357,7 +357,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
-        // Add a draw matrix
+        // push layer matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
@@ -365,7 +365,16 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         GLHelper::setColor(E2Color);
         // draw geometry
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
-        // Pop last matrix
+        // draw geometry points
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
+            drawGeometryPoint(s, E2Geometry.getShape().front(), E2Color);
+            drawGeometryPoint(s, E2Geometry.getShape().back(), E2Color);
+        } else if (segment->isFirstSegment()) {
+            drawGeometryPoint(s, E2Geometry.getShape().front(), E2Color);
+        } else if (segment->isLastSegment()) {
+            drawGeometryPoint(s, E2Geometry.getShape().back(), E2Color);
+        }
+        // Pop layer matrix
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
@@ -545,6 +554,33 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, 0);
         }
+    }
+}
+
+
+void 
+GNEAdditional::drawGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const RGBColor& baseColor) const {
+    // first check that we're in move mode and shift key is pressed
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // calculate new color
+        const RGBColor color = baseColor.changedBrightness(-50);
+        // push matrix
+        GLHelper::pushMatrix();
+        // translated to front
+        glTranslated(0, 0, 0.1);
+        // set color
+        GLHelper::setColor(color);
+        // push geometry point matrix
+        GLHelper::pushMatrix();
+        glTranslated(pos.x(), pos.y(), 0.1);
+        // draw geometry point
+        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
+        // pop geometry point matrix
+        GLHelper::popMatrix();
+        // pop draw matrix
+        GLHelper::popMatrix();
     }
 }
 

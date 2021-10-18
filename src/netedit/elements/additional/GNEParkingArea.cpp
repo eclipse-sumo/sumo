@@ -137,7 +137,12 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // draw geometry points
-            drawGeometryPoints(s, baseColor);
+            if (myStartPosition != INVALID_DOUBLE) {
+                drawGeometryPoint(s, myAdditionalGeometry.getShape().front(), baseColor);
+            }
+            if (myEndPosition != INVALID_DOUBLE) {
+                drawGeometryPoint(s, myAdditionalGeometry.getShape().back(), baseColor);
+            }
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
