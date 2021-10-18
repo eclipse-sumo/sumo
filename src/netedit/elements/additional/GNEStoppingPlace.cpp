@@ -503,14 +503,14 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
     // set attributes depending of operation type
     if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
         // set only start position
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
+        setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
         // set only end position
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos)));
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {
         // set both
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos)));
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos)));
+        setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
         // check if lane has to be changed
         if (moveResult.newFirstLane) {
             // set new lane
