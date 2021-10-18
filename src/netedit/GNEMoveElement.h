@@ -47,9 +47,9 @@ public:
         ONE_LANE_MOVEFIRST,
         ONE_LANE_MOVESECOND,
         ONE_LANE_MOVEBOTH,
-        TWO_LANE_MOVEFIRST,
-        TWO_LANE_MOVESECOND,
-        TWO_LANE_MOVEBOTH,
+        TWO_LANES_MOVEFIRST,
+        TWO_LANES_MOVESECOND,
+        TWO_LANES_MOVEBOTH,
     };
 
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)

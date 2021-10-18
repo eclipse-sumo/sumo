@@ -215,7 +215,18 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
     if (moveOperation->firstLane) {
         // calculate movement over lane
         if (moveOperation->secondLane) {
-            calculateDoubleMovementOverTwoLanes(moveResult, viewNet, moveOperation, offset);
+            if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST) {
+                // move only first position
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
+                                                   0, moveOperation->firstLane->getLaneShapeLength());
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND) {
+                // move only two position
+                calculateSingleMovementOverOneLane(moveResult, viewNet, moveOperation->secondLane, moveOperation->secondPosition, offset,
+                                                   0, moveOperation->secondPosition);
+            } else {
+                // move both first and second positions
+                calculateDoubleMovementOverTwoLanes(moveResult, viewNet, moveOperation, offset);
+            }
             // calculate new lane
             if (moveOperation->allowChangeLane) {
                 calculateNewLane(viewNet, moveOperation->firstLane, moveResult.newFirstLane, moveResult.firstLaneOffset);

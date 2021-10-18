@@ -324,11 +324,11 @@ GNEVehicle::getMoveOperation() {
     if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_DEPARTPOS)) < (diameter * diameter)) {
         return new GNEMoveOperation(this, firstLane, departPosDouble, lastLane, INVALID_DOUBLE,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
-                                    GNEMoveOperation::OperationType::TWO_LANE_MOVEFIRST);
+                                    GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST);
     } else if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(getAttributePosition(SUMO_ATTR_ARRIVALPOS)) < (myArrivalPositionDiameter * myArrivalPositionDiameter)) {
         return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, arrivalPosDouble,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane(),
-                                    GNEMoveOperation::OperationType::TWO_LANE_MOVESECOND);
+                                    GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND);
     } else {
         return nullptr;
     }
