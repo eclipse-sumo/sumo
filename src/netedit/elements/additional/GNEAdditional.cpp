@@ -332,7 +332,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
     // check if E2 can be drawn
     if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // calculate startPos
-        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION) + getAttributeDouble(SUMO_ATTR_ENDPOS);
+        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
         // get endPos
         const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
         // declare path geometry
