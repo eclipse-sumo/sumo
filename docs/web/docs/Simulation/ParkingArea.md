@@ -78,7 +78,7 @@ The space element supports the following attributes:
 
 # Letting Vehicles stop at a parking area
 
-The declare a vehicle that stops at a parkingPlace, a `<stop>`-definition must
+To declare a vehicle that stops at a parkingPlace, a `<stop>`-definition must
 be part of the vehicle or it's route:
 
 ```
