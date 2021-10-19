@@ -45,6 +45,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
+#include <microsim/MSStop.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -646,6 +647,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         return nullptr;
     }
     if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity()) {
+        // remember blocked time
+        const_cast<SUMOVehicleParameter&>(veh.getParameter()).setParameter(destParkArea->getID(), time2string(SIMSTEP));
         // if the current route ends at the parking area, the new route will
         // also and at the new area
         newDestination = (&destParkArea->getLane().getEdge() == route.getLastEdge()
@@ -719,6 +722,22 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             // alternative occupancy is randomized (but never full) if invisible
             // current destination must be visible at this point
             int paOccupancy = parks[i].second || pa == destParkArea ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
+            // previously visited?
+            SUMOTime blockedTime = string2time(veh.getParameter().getParameter(pa->getID(), "-1"));
+            if (blockedTime >= 0) {
+                if (SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
+                    // assume it's still occupied
+                    paOccupancy = pa->getCapacity();
+                } else {
+                    // forget blocked time
+                    const_cast<SUMOVehicleParameter&>(veh.getParameter()).unsetParameter(pa->getID());
+                }
+#ifdef DEBUG_PARKING
+                if (DEBUGCOND) {
+                    std::cout << "    altPA=" << pa->getID() << " was blocked at " << time2string(blockedTime) << "\n";
+                }
+#endif
+            }
             if (paOccupancy < pa->getCapacity()) {
 
                 // a map stores the parking values
