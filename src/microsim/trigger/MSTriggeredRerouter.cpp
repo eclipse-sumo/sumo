@@ -867,8 +867,13 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             // get the parking values
             ParkingParamMap_t parkValues = it->second;
 
-            // normalizing parking values with maximum values (we want to maximize some parameters then we reverse the value)
-            parkValues["probability"] = maxValues["probability"] > 0.0 ? 1.0 - parkValues["probability"] / maxValues["probability"] : 0.0;
+            if (weights["probability"] > 0 && maxValues["probability"] > 0.0) {
+                const double prob = RandHelper::rand(parkValues["probability"], veh.getRNG());
+                parkValues["probability"] = 1.0 - prob / maxValues["probability"];
+            } else {
+                parkValues["probability"] = 0;
+            }
+            // normalizing with maximum values (we want to maximize some parameters then we reverse the value)
             parkValues["capacity"] = maxValues["capacity"] > 0.0 ? 1.0 - parkValues["capacity"] / maxValues["capacity"] : 0.0;
             parkValues["absfreespace"] = maxValues["absfreespace"] > 0.0 ? 1.0 - parkValues["absfreespace"] / maxValues["absfreespace"] : 0.0;
             parkValues["relfreespace"] = maxValues["relfreespace"] > 0.0 ? 1.0 - parkValues["relfreespace"] / maxValues["relfreespace"] : 0.0;
