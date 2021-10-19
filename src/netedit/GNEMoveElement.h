@@ -243,14 +243,18 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
+    /// @brief calculate lane offset
+    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane *lane, const double firstPosition, const double secondPosition, 
+                                      const GNEMoveOffset &offset, const double extremFrom, const double extremTo);
+
     /// @brief calculate single movement over one lane
     static void calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
                                                    const double pos, const GNEMoveOffset& offset, const double extremFrom, 
                                                    const double extremTo);
 
     /// @brief calculate double movement over one lane
-    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, 
-                                                   const GNEMoveOffset& offset);
+    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
+                                                   const double firstPos, const double secondPos, const GNEMoveOffset& offset);
 
     /// @brief calculate double movement over two lanes
     static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, 
