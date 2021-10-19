@@ -69,3 +69,6 @@ default_begin
 
 # test for crash when loading additional file with vehicles before the state
 earlier_begin
+
+# when loading state, replace the vType attributes with new values
+replace_vtype
