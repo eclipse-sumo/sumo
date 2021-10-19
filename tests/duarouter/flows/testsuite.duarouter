@@ -4,6 +4,9 @@
 # Test with 10 vehicles being divided on 100s
 100s_interval
 
+# define flow without end time
+period_number
+
 # Same as 100s_interval, but the interval is defined as being enclosing
 100s_interval_ext
 
