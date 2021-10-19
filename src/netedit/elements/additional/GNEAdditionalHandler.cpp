@@ -861,8 +861,21 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
         std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_REROUTER, edgeIDs);
         // check edges
         if (edges.size() > 0) {
-            // create reroute
-            GNEAdditional* rerouter = new GNERerouter(id, myNet, pos, name, file, prob, off, timeThreshold, vTypes, parameters);
+            GNEAdditional* rerouter = nullptr;
+            // continue depending of position
+            if (pos == Position::INVALID) {
+                if (edges.size() > 0) {
+                    PositionVector laneShape = edges.front()->getLanes().front()->getLaneShape();
+                    // move to side
+                    laneShape.move2side(3);
+                    // create rerouter
+                    rerouter = new GNERerouter(id, myNet, laneShape.positionAtOffset2D(laneShape.length2D() - 6), name, file, prob, off, timeThreshold, vTypes, parameters);
+                } else {
+                    rerouter = new GNERerouter(id, myNet, Position(0, 0), name, file, prob, off, timeThreshold, vTypes, parameters);
+                }
+            } else {
+                rerouter = new GNERerouter(id, myNet, pos, name, file, prob, off, timeThreshold, vTypes, parameters);
+            }
             // create rerouter Symbols
             std::vector<GNEAdditional*> rerouterSymbols;
             for (const auto& edge : edges) {
