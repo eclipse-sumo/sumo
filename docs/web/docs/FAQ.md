@@ -1136,7 +1136,10 @@ python script.py <argument>
 ### [osmWebWizard.py](Tools/Import/OSM.md#osmWebWizard.py) fails to generate Scenario on Windows 10
 
 This can happen with an outdated version of python 2.7. Updating to
-2.715 (64bit) has been reported as fixing this problem.
+2.7.15 (64bit) has been reported as fixing this problem.
+
+Also have a look at the output in the shell window that opens. If it reports missing or outdated 
+SSL certificates try: `pip install certifi`.
 
 ## (Communication) Network Simulators
 
