@@ -248,17 +248,16 @@ private:
                                       const GNEMoveOffset &offset, const double extremFrom, const double extremTo);
 
     /// @brief calculate single movement over one lane
-    static void calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
-                                                   const double pos, const GNEMoveOffset& offset, const double extremFrom, 
-                                                   const double extremTo);
+    static void calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, 
+                                                   const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
 
     /// @brief calculate double movement over one lane
-    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
-                                                   const double firstPos, const double secondPos, const GNEMoveOffset& offset);
+    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double firstPos,
+                                                   const double secondPos, const GNEMoveOffset& offset);
 
     /// @brief calculate double movement over two lanes
-    static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, 
-                                                    const GNEMoveOffset& offset);
+    static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, const double firstPos, 
+                                                    const GNELane* secondLane, const double secondPos, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
     static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
