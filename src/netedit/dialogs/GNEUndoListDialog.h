@@ -52,8 +52,8 @@ public:
     /// @brief open window
     void open();
 
-    /// @brief close window
-    void close();
+    /// @brief hide window
+    void hide();
 
     /// @brief shown
     bool shown() const;

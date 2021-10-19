@@ -76,8 +76,8 @@ GNEUndoListDialog::open() {
 
 
 void 
-GNEUndoListDialog::close() {
-    hide();
+GNEUndoListDialog::hide() {
+    FXTopWindow::hide();
 }
 
 
@@ -96,7 +96,7 @@ GNEUndoListDialog::setFocus() {
 long
 GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // just close dialog
-    close();
+    hide();
     return 1;
 }
 

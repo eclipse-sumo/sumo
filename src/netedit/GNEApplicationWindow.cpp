@@ -2277,7 +2277,7 @@ GNEApplicationWindow::onUpdOpenUndoListDialog(FXObject* sender, FXSelector, void
     } else {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         if (myUndoListDialog->shown()) {
-            myUndoListDialog->close();
+            myUndoListDialog->hide();
         }
     }
     return 1;
