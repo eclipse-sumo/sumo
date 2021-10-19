@@ -55,6 +55,7 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSDriverState.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <traci-server/TraCIServer.h>
 
 #include "NLHandler.h"
@@ -169,6 +170,7 @@ NLBuilder::build() {
                 tll->initMesoTLSPenalties();
             }
         }
+        MSTriggeredRerouter::checkParkingRerouteConsistency();
     }
     if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
         throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");

@@ -182,6 +182,8 @@ public:
         return myInstances;
     }
 
+    /// @brief issues warning for incomplete parkingReroute relationships
+    static void checkParkingRerouteConsistency();
 
 protected:
     /// @name inherited from GenericSAXHandler
