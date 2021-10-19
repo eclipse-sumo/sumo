@@ -159,7 +159,7 @@ GNEMoveFrame::DemandModeOptions::getLeaveStopPersonsConnected() const {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Shift edge selected geometry", GUIDesignGroupBoxFrame),
+    FXGroupBox(moveFrameParent->myContentFrame, "Shift selected edges geometry", GUIDesignGroupBoxFrame),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -168,7 +168,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame*
     myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myShiftValueTextField->setText("0");
     // create apply button
-    myApplyZValue = new FXButton(this, "Shift edge geometry\t\tShift edge geometry orthogonally to driving direction for all selected edges",
+    myApplyZValue = new FXButton(this, "Apply shift value\t\tShift edge geometry orthogonally to driving direction for all selected edges",
                                 GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
