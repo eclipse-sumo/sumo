@@ -654,7 +654,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 #ifdef DEBUG_PARKING
         if (DEBUGCOND) {
-            std::cout << SIMTIME << " veh=" << veh.getID()
+            std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID()
                       << " rerouteParkingArea dest=" << destParkArea->getID()
                       << " onDestEdge=" << (&(destParkArea->getLane().getEdge()) == veh.getEdge())
                       << " newDest=" << newDestination
@@ -900,6 +900,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             }
 #endif
         }
+    } else {
+#ifdef DEBUG_PARKING
+        if (DEBUGCOND) {
+            std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID() << " rerouteParkingArea dest=" << destParkArea->getID() << " sufficient space\n";
+        }
+#endif
     }
 
 #ifdef DEBUG_PARKING
