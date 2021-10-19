@@ -253,10 +253,9 @@ Different methods to extract TextTest tests (offline and online) are explained [
 
 ## Developing for Python2 and Python3
 
-Sumo is downwards compatible, hence contributed code should be able to 
-compile both in Python2 and Python3. You can either use python launcher
-to have access to both Python versions, or use converters from 2 to 3.
-Another option is using free online compilers to check for compatibility
-like paiza.io.
-
-- (1): <https://paiza.io/en/languages/python> 
+SUMO is downwards compatible, hence contributed code should be able to 
+run with both Python 2.7 and Python 3.5 and above. On Windows you can either use python launcher
+to have access to both Python versions, or use free online tools
+like [paiza.io](https://paiza.io/en/languages/python) to check for compatibility.
+If you cannot support both Python versions because for instance your library is not
+available you should of course prefer Python3.
