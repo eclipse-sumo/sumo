@@ -532,7 +532,7 @@ GNEDetectorE2::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
     } else if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
                (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
         // set only end position
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
+        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {
         // set both
         setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
