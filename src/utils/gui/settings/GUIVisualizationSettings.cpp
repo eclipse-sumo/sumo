@@ -1706,8 +1706,6 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("stopContainerColor", colorSettings.stopContainerColor);
     dev.writeAttr("transportColor", colorSettings.transportColor);
     dev.writeAttr("transhipColor", colorSettings.transhipColor);
-    dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
-    dev.writeAttr("parkingSpaceColor", colorSettings.parkingSpaceColor);
     dev.writeAttr("tripWidth", widthSettings.tripWidth);
     dev.writeAttr("personTripWidth", widthSettings.personTripWidth);
     dev.writeAttr("walkWidth", widthSettings.walkWidth);
