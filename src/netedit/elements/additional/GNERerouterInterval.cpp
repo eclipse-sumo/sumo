@@ -94,8 +94,11 @@ GNERerouterInterval::getParentName() const {
 
 
 void
-GNERerouterInterval::drawGL(const GUIVisualizationSettings&) const {
-    // Currently This additional isn't drawn
+GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
+    // draw children (needes for connection between rerouter and parking areas)
+    for (const auto &additional : getChildAdditionals()) {
+        additional->drawGL(s);
+    }
 }
 
 

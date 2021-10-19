@@ -467,17 +467,17 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &p
             GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .05);
             // move front
             glTranslated(0, 0, 0.1);
-            // draw second box line with lenght 5
+            // draw second box line
             GLHelper::setColor(color);
             GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .04);
         } else if (distanceSquared > 25) {
-            // draw first box line with lenght 5
+            // draw first box line with lenght 4.9
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(parent, rot, 5, .05);
+            GLHelper::drawBoxLine(parent, rot, 4.9, .05);
             glTranslated(0, 0, 0.1);
-            // draw second box line with lenght 5
+            // draw second box line with lenght 4.9
             GLHelper::setColor(color);
-            GLHelper::drawBoxLine(parent, rot, 5, .04);
+            GLHelper::drawBoxLine(parent, rot, 4.9, .04);
             // draw arrow depending of distanceSquared (10*10)
             if (distanceSquared > 100) {
                 // calculate positionVector between both points
@@ -529,17 +529,17 @@ GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &ch
             GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .05);
             // move front
             glTranslated(0, 0, 0.1);
-            // draw second box line with lenght 5
+            // draw second box line
             GLHelper::setColor(color);
             GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .04);
         } else {
-            // draw first box line with lenght 5
+            // draw first box line with lenght 4.9
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(child, rot, 5, .05);
+            GLHelper::drawBoxLine(child, rot, 4.9, .05);
             glTranslated(0, 0, 0.1);
-            // draw second box line with lenght 5
+            // draw second box line with lenght 
             GLHelper::setColor(color);
-            GLHelper::drawBoxLine(child, rot, 5, .04);
+            GLHelper::drawBoxLine(child, rot, 4.9, .04);
             // draw arrow depending of distanceSquared (10*10)
             if (distanceSquared > 100) {
                 // calculate positionVector between both points
