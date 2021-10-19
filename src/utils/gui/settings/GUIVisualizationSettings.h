@@ -595,7 +595,7 @@ public:
     bool operator==(const GUIVisualizationSettings& vs2);
 
     /// @brief map from LinkState to color constants
-    static const RGBColor& getLinkColor(const LinkState& ls);
+    static const RGBColor& getLinkColor(const LinkState& ls, bool realistic = false);
 
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;
@@ -672,6 +672,9 @@ public:
 
     /// @brief Information whether link textures (arrows) shall be drawn
     bool showLinkDecals;
+
+    /// @brief Information whether link rules (colored bars) shall be drawn with a realistic color scheme
+    bool realisticLinkRules;
 
     /// @brief Information whether link rules (colored bars) shall be drawn
     bool showLinkRules;

@@ -491,6 +491,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),
     laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
+    realisticLinkRules(false),
     showLinkRules(true), showRails(true),
     edgeName(false, 60, RGBColor(255, 128, 0, 255)),
     internalEdgeName(false, 45, RGBColor(128, 64, 0, 255)),
@@ -1551,6 +1552,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("laneShowBorders", laneShowBorders);
     dev.writeAttr("showBikeMarkings", showBikeMarkings);
     dev.writeAttr("showLinkDecals", showLinkDecals);
+    dev.writeAttr("realisticLinkRules", realisticLinkRules);
     dev.writeAttr("showLinkRules", showLinkRules);
     dev.writeAttr("showRails", showRails);
     dev.writeAttr("hideConnectors", hideConnectors);
@@ -1796,6 +1798,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showLinkDecals != v2.showLinkDecals) {
+        return false;
+    }
+    if (realisticLinkRules != v2.realisticLinkRules) {
         return false;
     }
     if (showLinkRules != v2.showLinkRules) {
@@ -2046,7 +2051,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 
 
 const RGBColor&
-GUIVisualizationSettings::getLinkColor(const LinkState& ls) {
+GUIVisualizationSettings::getLinkColor(const LinkState& ls, bool realistic) {
     switch (ls) {
         case LINKSTATE_TL_GREEN_MAJOR:
             return SUMO_color_TL_GREEN_MAJOR;
@@ -2065,17 +2070,17 @@ GUIVisualizationSettings::getLinkColor(const LinkState& ls) {
         case LINKSTATE_TL_OFF_NOSIGNAL:
             return SUMO_color_TL_OFF_NOSIGNAL;
         case LINKSTATE_MAJOR:
-            return SUMO_color_MAJOR;
+            return realistic ? RGBColor::INVISIBLE : SUMO_color_MAJOR;
         case LINKSTATE_MINOR:
-            return SUMO_color_MINOR;
+            return realistic ? SUMO_color_MAJOR :  SUMO_color_MINOR;
         case LINKSTATE_EQUAL:
             return SUMO_color_EQUAL;
         case LINKSTATE_STOP:
-            return SUMO_color_STOP;
+            return realistic ? SUMO_color_MAJOR : SUMO_color_STOP;
         case LINKSTATE_ALLWAY_STOP:
-            return SUMO_color_ALLWAY_STOP;
+            return realistic ? SUMO_color_MAJOR : SUMO_color_ALLWAY_STOP;
         case LINKSTATE_ZIPPER:
-            return SUMO_color_ZIPPER;
+            return realistic ? RGBColor::INVISIBLE : SUMO_color_ZIPPER;
         case LINKSTATE_DEADEND:
             return SUMO_color_DEADEND;
         default:
