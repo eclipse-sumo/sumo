@@ -4,7 +4,7 @@
 	
     <vType id="car" sigma="0">
         <param key="parking.distanceto.weight" value="0"/>
-        <param key="parking.probability.weight" value="0"/>
+        <param key="parking.probability.weight" value="1"/>
     </vType>
 
 </additional>
