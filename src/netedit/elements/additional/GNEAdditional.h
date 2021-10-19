@@ -339,8 +339,11 @@ protected:
     /// @brief draw additional name
     void drawAdditionalName(const GUIVisualizationSettings& s) const;
 
-    /// @brief draw geometry point
-    void drawGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const RGBColor& baseColor) const;
+    /// @brief draw first geometry point
+    void drawFirstGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
+
+    /// @brief draw last geometry point
+    void drawLastGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
 
     /// @brief replace additional parent edges
     void replaceAdditionalParentEdges(const std::string& value);
