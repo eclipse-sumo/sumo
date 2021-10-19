@@ -704,8 +704,6 @@ enum {
     MID_GNE_UNLOCK_ALLELEMENTS,
     /// @brief lock selected element
     MID_GNE_LOCK_SELECTEDELEMENTS,
-    /// @brief unlock selected element
-    MID_GNE_UNLOCK_SELECTEDELEMENTS,
 
     /// @}
 

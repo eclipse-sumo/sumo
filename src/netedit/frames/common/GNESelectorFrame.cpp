@@ -282,7 +282,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                 // obtain GLObject
                 GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);
                 // check if GUIGlObject exist and their  their GL type isn't blocked
-                if ((object != nullptr) && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(object->getType())) {
+                if ((object != nullptr) && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(object->getType(), false)) {
                     // obtain GNEAttributeCarrier
                     GNEAttributeCarrier* AC = mySelectorFrameParent->myViewNet->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
                     // check if AC exist and if is selectable
@@ -407,7 +407,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     // iterate over junctions
     for (const auto& junction : ACs->getJunctions()) {
         // check if junction selection is locked
-        if (ignoreLocking || !locks.isObjectLocked(GLO_JUNCTION)) {
+        if (ignoreLocking || !locks.isObjectLocked(GLO_JUNCTION, false)) {
             if (onlyCount) {
                 return true;
             } else if (onlyUnselect || junction.second->isAttributeCarrierSelected()) {
@@ -424,7 +424,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
             // special case for clear
             if (onlyUnselect) {
                 // check if edge selection is locked
-                if (ignoreLocking || !locks.isObjectLocked(GLO_EDGE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_EDGE, false)) {
                     if (onlyCount) {
                         return true;
                     } else {
@@ -435,7 +435,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                     return true;
                 }
                 // check if lane selection is locked
-                if (ignoreLocking || !locks.isObjectLocked(GLO_LANE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_LANE, false)) {
                     for (const auto& lane : incomingEdge->getLanes()) {
                         if (onlyCount) {
                             return true;
@@ -449,7 +449,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 }
             } else if (mySelectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
                 // check if edge selection is locked
-                if (ignoreLocking || !locks.isObjectLocked(GLO_EDGE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_EDGE, false)) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || incomingEdge->isAttributeCarrierSelected()) {
@@ -463,7 +463,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 }
             } else {
                 // check if lane selection is locked
-                if (ignoreLocking || !locks.isObjectLocked(GLO_LANE)) {
+                if (ignoreLocking || !locks.isObjectLocked(GLO_LANE, false)) {
                     for (const auto& lane : incomingEdge->getLanes()) {
                         if (onlyCount) {
                             return true;
@@ -479,7 +479,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 }
             }
             // check if connection selection is locked
-            if (ignoreLocking || !locks.isObjectLocked(GLO_CONNECTION)) {
+            if (ignoreLocking || !locks.isObjectLocked(GLO_CONNECTION, false)) {
                 for (const auto& connection : incomingEdge->getGNEConnections()) {
                     if (onlyCount) {
                         return true;
@@ -495,7 +495,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
             }
         }
         // check if crossing selection is locked
-        if (ignoreLocking || !locks.isObjectLocked(GLO_CROSSING)) {
+        if (ignoreLocking || !locks.isObjectLocked(GLO_CROSSING, false)) {
             for (const auto& crossing : junction.second->getGNECrossings()) {
                 if (onlyCount) {
                     return true;
@@ -511,7 +511,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         }
     }
     // check if additionals selection is locked
-    if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
         for (const auto& additionals : ACs->getAdditionals()) {
             // first check if additional is selectable
             if (GNEAttributeCarrier::getTagProperties(additionals.first).isSelectable()) {
@@ -544,7 +544,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         return true;
     }
     // invert polygons
-    if (ignoreLocking || !locks.isObjectLocked(GLO_POLYGON)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_POLYGON, false)) {
         for (const auto& polygon : ACs->getShapes().at(SUMO_TAG_POLY)) {
             if (onlyCount) {
                 return true;
@@ -559,7 +559,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         return true;
     }
     // invert TAZs
-    if (ignoreLocking || !locks.isObjectLocked(GLO_TAZ)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_TAZ, false)) {
         for (const auto& polygon : ACs->getTAZElements().at(SUMO_TAG_TAZ)) {
             if (onlyCount) {
                 return true;
@@ -574,7 +574,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         return true;
     }
     // invert POIs and POILanes
-    if (ignoreLocking || !locks.isObjectLocked(GLO_POI)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_POI, false)) {
         for (const auto& POI : ACs->getShapes().at(SUMO_TAG_POI)) {
             if (onlyCount) {
                 return true;
@@ -601,7 +601,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     // get demand elements
     const auto &demandElements = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
     // invert routes
-    if (ignoreLocking || !locks.isObjectLocked(GLO_ROUTE)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_ROUTE, false)) {
         for (const auto& route : demandElements.at(SUMO_TAG_ROUTE)) {
             if (onlyCount) {
                 return true;
@@ -635,7 +635,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert vehicles
-    if (ignoreLocking || !locks.isObjectLocked(GLO_VEHICLE)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_VEHICLE, false)) {
         for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
             if (onlyCount) {
                 return true;
@@ -695,7 +695,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert persons
-    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSON)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSON, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             if (onlyCount) {
                 return true;
@@ -719,7 +719,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert person trip
-    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto &personPlan : person.second->getChildDemandElements()) {
                 if (onlyCount) {
@@ -751,7 +751,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert ride
-    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto &personPlan : person.second->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isRide()) {
@@ -783,7 +783,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert walks
-    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto &personPlan : person.second->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isWalk()) {
@@ -815,7 +815,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert containers
-    if (ignoreLocking || !locks.isObjectLocked(GLO_CONTAINER)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_CONTAINER, false)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
             if (onlyCount) {
                 return true;
@@ -839,7 +839,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert container
-    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSPORT)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSPORT, false)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
             for (const auto &containerPlan : container.second->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTransportPlan()) {
@@ -871,7 +871,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert ride
-    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSHIP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSHIP, false)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
             for (const auto &containerPlan : container.second->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTranshipPlan()) {
@@ -903,7 +903,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert stops
-    if (ignoreLocking || !locks.isObjectLocked(GLO_STOP)) {
+    if (ignoreLocking || !locks.isObjectLocked(GLO_STOP, false)) {
         for (const auto& demandElementTag : demandElements) {
             for (const auto& demandElement : demandElementTag.second) {
                 // avoid vTypes
@@ -954,12 +954,12 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
     for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
         for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
             for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                if (onlyCount && locks.isObjectLocked(genericData->getType())) {
+                if (onlyCount && locks.isObjectLocked(genericData->getType(), false)) {
                     ignoreLocking = askContinueIfLock();
                     return true;
-                } else if ((ignoreLocking || (!locks.isObjectLocked(GLO_EDGEDATA) && genericData->getType() == GLO_EDGEDATA)) ||
-                    (ignoreLocking || (!locks.isObjectLocked(GLO_EDGERELDATA) && genericData->getType() == GLO_EDGERELDATA)) ||
-                    (ignoreLocking || (!locks.isObjectLocked(GLO_TAZRELDATA) && genericData->getType() == GLO_TAZRELDATA))) {
+                } else if ((ignoreLocking || (!locks.isObjectLocked(GLO_EDGEDATA, false) && genericData->getType() == GLO_EDGEDATA)) ||
+                    (ignoreLocking || (!locks.isObjectLocked(GLO_EDGERELDATA, false) && genericData->getType() == GLO_EDGERELDATA)) ||
+                    (ignoreLocking || (!locks.isObjectLocked(GLO_TAZRELDATA, false) && genericData->getType() == GLO_TAZRELDATA))) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {

@@ -304,7 +304,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration,
                                                 myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ) && 
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ, isAttributeCarrierSelected()) && 
                     (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
                     GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), invertedColor, 
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);

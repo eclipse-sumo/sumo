@@ -934,6 +934,7 @@ GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWin
     menuCheckLockEdgeDatas(nullptr),
     menuCheckLockEdgeRelDatas(nullptr),
     menuCheckLockEdgeTAZRels(nullptr),
+    menuCheckLockSelectedElements(nullptr),
     myGNEApp(GNEApp) {
 }
 
@@ -1050,6 +1051,13 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                                "Lock edge&TAZRel", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA),
                                myGNEApp, MID_GNE_LOCK_ELEMENT);
+        
+    // separator
+    new FXMenuSeparator(fileMenu);
+
+    menuCheckLockSelectedElements = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                    "Lock selected elements", "", "Lock selected elemens",
+                                    GUIIconSubSys::getIcon(GUIIcon::LOCK_SELECTED), myGNEApp, MID_GNE_LOCK_SELECTEDELEMENTS);
 
     // separator
     new FXMenuSeparator(fileMenu);
@@ -1061,17 +1069,6 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Unlock all elements", "", "Unlock all elemens",
         GUIIconSubSys::getIcon(GUIIcon::UNLOCK), myGNEApp, MID_GNE_UNLOCK_ALLELEMENTS);
-    
-    // separator
-    new FXMenuSeparator(fileMenu);
-
-    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Lock selected elements", "", "Lock selected elemens",
-        GUIIconSubSys::getIcon(GUIIcon::LOCK_SELECTED), myGNEApp, MID_GNE_LOCK_SELECTEDELEMENTS);
-
-    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Unlock selected elements", "", "Unlock selected elemens",
-        GUIIconSubSys::getIcon(GUIIcon::UNLOCK_SELECTED), myGNEApp, MID_GNE_UNLOCK_SELECTEDELEMENTS);
 }
 
 

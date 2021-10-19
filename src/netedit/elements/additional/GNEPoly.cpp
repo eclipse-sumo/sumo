@@ -294,7 +294,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration,
                                                 myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON) && 
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON, isAttributeCarrierSelected()) && 
                     (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
                     GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor, 
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);

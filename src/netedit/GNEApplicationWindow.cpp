@@ -265,7 +265,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_ALLELEMENTS,                       GNEApplicationWindow::onCmdLockAllElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNLOCK_ALLELEMENTS,                     GNEApplicationWindow::onCmdUnlockAllElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_SELECTEDELEMENTS,                  GNEApplicationWindow::onCmdLockSelectElements),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNLOCK_SELECTEDELEMENTS,                GNEApplicationWindow::onCmdUnlockSelectElements),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_LOCK_MENUTITLE,                         GNEApplicationWindow::onUpdLockMenuTitle),
 
     // Toolbar processing
@@ -1705,26 +1704,9 @@ GNEApplicationWindow::onCmdUnlockAllElements(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdLockSelectElements(FXObject*, FXSelector, void*) {
-    // set get selected ACs
-    const auto selectedACs = myViewNet->getNet()->retrieveAttributeCarriers(myViewNet->getEditModes().currentSupermode, true);
-    // lock
-    for (const auto &AC : selectedACs) {
-        myLockMenuCommands.editLocking(AC, TRUE);
+    if (myViewNet) {
+        myViewNet->update();
     }
-    myViewNet->getLockManager().updateFlags();
-    return 1;
-}
-
-
-long 
-GNEApplicationWindow::onCmdUnlockSelectElements(FXObject*, FXSelector, void*) {
-    // set get selected ACs
-    const auto selectedACs = myViewNet->getNet()->retrieveAttributeCarriers(myViewNet->getEditModes().currentSupermode, true);
-    // unlock
-    for (const auto &AC : selectedACs) {
-        myLockMenuCommands.editLocking(AC, FALSE);
-    }
-    myViewNet->getLockManager().updateFlags();
     return 1;
 }
 

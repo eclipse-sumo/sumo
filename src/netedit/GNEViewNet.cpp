@@ -402,7 +402,8 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
                     retrievedAC = nullptr;
                 }
                 // make sure that AttributeCarrier can be selected
-                if (retrievedAC && retrievedAC->getTagProperty().isSelectable() && !myLockManager.isObjectLocked(retrievedAC->getGUIGlObject()->getType())) {
+                if (retrievedAC && retrievedAC->getTagProperty().isSelectable() && 
+                    !myLockManager.isObjectLocked(retrievedAC->getGUIGlObject()->getType(), retrievedAC->isAttributeCarrierSelected())) {
                     result.insert(std::make_pair(retrievedAC->getID(), retrievedAC));
                 }
             }
@@ -1402,14 +1403,6 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
     } else {
         glTranslated(0, 0, typeOrLayer + extraOffset);
     }
-}
-
-
-bool
-GNEViewNet::showLockIcon() const {
-    return ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) ||
-            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) ||
-            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL));
 }
 
 
@@ -4625,7 +4618,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // check that we have clicked over network element element
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) &&
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
                 (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement() ||
                  AC->getTagProperty().isShape() || AC->getTagProperty().isTAZElement())) {
                 // now check if we want only delete geometry points
@@ -4660,15 +4653,12 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
-                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && !AC->getTagProperty().isDemandElement()) {
-                        // Check if this GLobject type is locked
-                        if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toggle networkElement selection
-                            if (AC->isAttributeCarrierSelected()) {
-                                AC->unselectAttributeCarrier();
-                            } else {
-                                AC->selectAttributeCarrier();
-                            }
+                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && !AC->getTagProperty().isDemandElement()) {
+                        // toggle networkElement selection
+                        if (AC->isAttributeCarrierSelected()) {
+                            AC->unselectAttributeCarrier();
+                        } else {
+                            AC->selectAttributeCarrier();
                         }
                     }
                     // update information label
@@ -4738,7 +4728,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // allways swap lane to edges in movement mode
                 myObjectsUnderCursor.swapLane2Edge();
                 // check that AC under cursor isn't a demand element
-                if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && !AC->getTagProperty().isDemandElement()) {
+                if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && !AC->getTagProperty().isDemandElement()) {
                     // check if we're moving a set of selected items
                     if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs
@@ -4948,7 +4938,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_DELETE: {
             // check conditions
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && AC->getTagProperty().isDemandElement()) {
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDemandElement()) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (AC->isAttributeCarrierSelected()) {
                     myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
@@ -4970,15 +4960,12 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier, is demand element and is selectable
-                    if (AC && AC->getTagProperty().isDemandElement()) {
-                        // Check if this GLobject type is locked
-                        if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toggle networkElement selection
-                            if (AC->isAttributeCarrierSelected()) {
-                                AC->unselectAttributeCarrier();
-                            } else {
-                                AC->selectAttributeCarrier();
-                            }
+                    if (AC && AC->getTagProperty().isDemandElement() && !myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront(), AC->isAttributeCarrierSelected())) {
+                        // toggle networkElement selection
+                        if (AC->isAttributeCarrierSelected()) {
+                            AC->unselectAttributeCarrier();
+                        } else {
+                            AC->selectAttributeCarrier();
                         }
                     }
                     // update information label
@@ -4993,7 +4980,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         case DemandEditMode::DEMAND_MOVE: {
             // check that AC under cursor is a demand element
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) &&
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
                 AC->getTagProperty().isDemandElement()) {
                 // check if we're moving a set of selected items
                 if (AC->isAttributeCarrierSelected()) {
@@ -5121,7 +5108,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         }
         case DataEditMode::DATA_DELETE: {
             // check conditions
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && AC->getTagProperty().isDataElement()) {
+            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDataElement()) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (AC->isAttributeCarrierSelected()) {
                     myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
@@ -5143,15 +5130,12 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier, is data element and is selectable
-                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType()) && AC->getTagProperty().isDataElement()) {
-                        // Check if this GLobject type is locked
-                        if (!myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toggle networkElement selection
-                            if (AC->isAttributeCarrierSelected()) {
-                                AC->unselectAttributeCarrier();
-                            } else {
-                                AC->selectAttributeCarrier();
-                            }
+                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDataElement()) {
+                        // toggle networkElement selection
+                        if (AC->isAttributeCarrierSelected()) {
+                            AC->unselectAttributeCarrier();
+                        } else {
+                            AC->selectAttributeCarrier();
                         }
                     }
                     // update information label

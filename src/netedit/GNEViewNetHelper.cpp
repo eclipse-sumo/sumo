@@ -3501,7 +3501,7 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
         return false;
     }
     // check if is locked
-    if (!viewNet->getLockManager().isObjectLocked(type)) {
+    if (!viewNet->getLockManager().isObjectLocked(type, AC->isAttributeCarrierSelected())) {
         return false;
     }
     // check visualizationSettings
@@ -3510,10 +3510,6 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
     }
     // check detail
     if (!s.drawDetail(s.detailSettings.lockIcon, exaggeration)) {
-        return false;
-    }
-    // check modes
-    if (!viewNet->showLockIcon()) {
         return false;
     }
     // all ok, then draw
@@ -3558,8 +3554,10 @@ GNEViewNetHelper::LockManager::~LockManager() {}
 
 
 bool
-GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType) const {
-    if ((objectType >= GLO_ADDITIONALELEMENT) && (objectType <= GLO_ACCESS)) {
+GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType, const bool selected) const {
+    if (selected && (myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck() == TRUE)) {
+        return true;
+    } else if ((objectType >= GLO_ADDITIONALELEMENT) && (objectType <= GLO_ACCESS)) {
         // additionals
         return myLockedElements.at(GLO_ADDITIONALELEMENT).lock;
     } else if ((objectType >= GLO_VEHICLE) && (objectType <= GLO_ROUTEFLOW)) {

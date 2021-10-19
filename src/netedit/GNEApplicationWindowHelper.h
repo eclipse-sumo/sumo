@@ -746,6 +746,9 @@ struct GNEApplicationWindowHelper {
 
         /// @}
 
+        /// @brief menu check for lock selected elemetns
+        FXMenuCheckIcon* menuCheckLockSelectedElements;
+
     protected:
         /// @brief Parse hot key from string
         FXHotKey parseHotKey(const FXwchar character);
