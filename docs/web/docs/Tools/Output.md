@@ -256,5 +256,14 @@ A distinct output file will be created for each stopping place.
 
 Example:
 ```
-python tools/output/computeStoppingPlaceUsage.py -s input_routes.rou.xml -o 
+python tools/output/computeStoppingPlaceUsage.py -s stopinfos.xml
+```
+
+## computePassengerCounts.py
+This tool reads stop-output and generates occupancy-over-time for vehicles
+A distinct output file will be created for each vehicle.
+
+Example:
+```
+python tools/output/computePassengerCounts.py -s stopinfos.xml
 ```
