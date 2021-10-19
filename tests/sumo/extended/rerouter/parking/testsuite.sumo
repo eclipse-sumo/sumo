@@ -1,6 +1,9 @@
 # test for rerouting ahead of an occupied parkingArea
 visibility
 
+# tests for determining the destination parkingArea from a list of alternatives when there is no prior knowledge of capacity, (iteratively until a space is found)
+parkingSearch
+
 # tests for rerouting persons along with the vehicles
 riders
 
