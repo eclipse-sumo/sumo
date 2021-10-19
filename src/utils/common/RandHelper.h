@@ -92,8 +92,13 @@ private:
 
 };
 
-//typedef XoShiRo256PlusPlus SumoRNG;
-typedef std::mt19937 SumoRNG;
+
+//class SumoRNG : public XoShiRo256PlusPlus {
+class SumoRNG : public std::mt19937 {
+public:
+    unsigned long long int count = 0;
+};
+
 
 /**
  * @class RandHelper
@@ -116,13 +121,13 @@ public:
             rng = &myRandomNumberGenerator;
         }
         const double res = double((*rng)() / 4294967296.0);
-        myCallCount[rng]++; // this slows down the rand call to about 180% on Windows, using an unordered_map makes it even worse
+        rng->count++;
 #ifdef DEBUG_RANDCALLS
-        if (myCallCount[rng] == myDebugIndex) {
+        if (rng->count == myDebugIndex) {
             std::cout << "DEBUG\n"; // for setting breakpoint
         }
         std::stringstream stream; // to reduce output interleaving from different threads
-        stream << " rng" << myRngId.find(rng)->second << " rand call=" << myCallCount[rng] << " val=" << res << "\n";
+        stream << " rng" << myRngId.find(rng)->second << " rand call=" << rng->count << " val=" << res << "\n";
         std::cout << stream.str();
 #endif
         return res;
@@ -154,7 +159,7 @@ public:
         int result;
         do {
             result = (*rng)() & usedBits;
-            myCallCount[rng]++;
+            rng->count++;
         } while (result >= maxV);
         return result;
     }
@@ -184,7 +189,7 @@ public:
         long long int result;
         do {
             result = (((unsigned long long int)(*rng)() << 32) | (*rng)()) & usedBits;    // toss unused bits to shorten search
-            myCallCount[rng] += 2;
+            rng->count += 2;
         } while (result >= maxV);
         return result;
     }
@@ -220,8 +225,8 @@ public:
             rng = &myRandomNumberGenerator;
         }
         std::ostringstream oss;
-        if (myCallCount[rng] < 1000000) { // TODO make this configurable
-            oss << myCallCount[rng];
+        if (rng->count < 1000000) { // TODO make this configurable
+            oss << rng->count;
         } else {
             oss << (*rng);
         }
@@ -235,8 +240,8 @@ public:
         }
         std::istringstream iss(state);
         if (state.size() < 10) {
-            iss >> myCallCount[rng];
-            rng->discard(myCallCount[rng]);
+            iss >> rng->count;
+            rng->discard(rng->count);
         } else {
             iss >> (*rng);
         }
@@ -247,7 +252,6 @@ protected:
     /// @brief the default random number generator to use
     static SumoRNG myRandomNumberGenerator;
 
-    static std::map<SumoRNG*, unsigned long long int> myCallCount;
 #ifdef DEBUG_RANDCALLS
     static std::map<SumoRNG*, int> myRngId;
     static int myDebugIndex;
