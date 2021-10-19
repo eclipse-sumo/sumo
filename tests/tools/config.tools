@@ -171,6 +171,10 @@ parkingA:parkingA.csv
 parkingB:parkingB.csv
 parkingC:parkingC.csv
 parkingD:parkingD.csv
+vehicleA:vehicleA.xml
+vehicleB:vehicleB.xml
+vehicleA:vehicleA.csv
+vehicleB:vehicleB.csv
 validate0:validate0.rou.xml
 validate900:validate900.rou.xml
 validate2700:validate2700.rou.xml

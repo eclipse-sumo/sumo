@@ -31,4 +31,7 @@ tripStatistics
 
 # compute stopping place usage
 computeStoppingPlaceUsage
+
+# compute number of passengers in vehicle
+computePassengerCounts
 stopOrder
