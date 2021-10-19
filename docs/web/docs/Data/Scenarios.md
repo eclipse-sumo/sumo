@@ -127,3 +127,8 @@ Tools"](https://web.archive.org/web/20170808122505/http://elib.dlr.de/98046/1/CO
 This scenario can be followed as a tutorial - it showcases how routes can be generated within a network, using counting data.
 
 - [Wildau Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/master/Wildau)
+
+# Test cases
+
+SUMO comes with a large set of tests which are run at least once per day (and most are run on each repository commit).
+You can [extract them](../Tutorials/index.md#using_examples_from_the_test_suite) and use them as basis for your own (small) scenarios.
