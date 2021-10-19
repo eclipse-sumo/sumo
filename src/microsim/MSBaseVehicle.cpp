@@ -147,6 +147,7 @@ MSBaseVehicle::~MSBaseVehicle() {
         delete dev;
     }
     delete myParameter;
+    delete myParkingMemory;
 }
 
 
@@ -1775,6 +1776,27 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
         return hasDevice(tok.get(1)) ? "true" : "false";
     } else {
         return getParameter().getParameter(key, "");
+    }
+}
+
+void
+MSBaseVehicle::rememberBlockedParkingArea(const MSParkingArea* pa) {
+    if (myParkingMemory == nullptr) {
+        myParkingMemory = new ParkingMemory();
+    }
+    (*myParkingMemory)[pa] = SIMSTEP;
+}
+
+SUMOTime
+MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa) {
+    if (myParkingMemory == nullptr) {
+        return -1;
+    }
+    auto it = myParkingMemory->find(pa);
+    if (it == myParkingMemory->end()) {
+        return -1;
+    } else {
+        return it->second;
     }
 }
 

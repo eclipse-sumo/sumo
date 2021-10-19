@@ -363,6 +363,8 @@ public:
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
 
+    virtual void rememberBlockedParkingArea(const MSParkingArea* pa) = 0;
+    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa) = 0;
     /// @name state io
     //@{
 

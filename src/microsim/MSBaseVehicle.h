@@ -827,6 +827,9 @@ public:
     /// @brief interpret stop lane on opposite side of the road
     static MSLane* interpretOppositeStop(SUMOVehicleParameter::Stop& stop);
 
+    void rememberBlockedParkingArea(const MSParkingArea* pa);
+    SUMOTime sawBlockedParkingArea(const MSParkingArea* pa);
+
 protected:
     /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
@@ -896,6 +899,10 @@ protected:
 
     /// @brief status of the current vehicle route
     int myRouteValidity;
+
+    /// memory for parking search
+    typedef std::map<const MSParkingArea*, SUMOTime> ParkingMemory;
+    ParkingMemory* myParkingMemory = nullptr;
 
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1
