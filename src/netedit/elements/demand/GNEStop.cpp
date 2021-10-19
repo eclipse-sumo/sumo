@@ -929,9 +929,17 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
         // change only start position
         startPos = moveResult.newFirstPos;
+        // adjust startPos
+        if (startPos > (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS)) {
+            startPos = (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS);
+        }
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
         // change only end position
         endPos = moveResult.newFirstPos;
+        // adjust endPos
+        if (endPos < (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS)) {
+            endPos = (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS);
+        }
     } else {
         // change both position
         startPos = moveResult.newFirstPos;

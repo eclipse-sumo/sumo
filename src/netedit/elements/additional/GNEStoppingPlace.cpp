@@ -442,9 +442,17 @@ GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
         // change only start position
         myStartPosition = moveResult.newFirstPos;
+        // adjust startPos
+        if (myStartPosition > (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS)) {
+            myStartPosition = (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS);
+        }
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
         // change only end position
         myEndPosition = moveResult.newFirstPos;
+        // adjust endPos
+        if (myEndPosition < (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS)) {
+            myEndPosition = (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS);
+        }
     } else {
         // change both position
         myStartPosition = moveResult.newFirstPos;
