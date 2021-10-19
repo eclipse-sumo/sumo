@@ -1,2 +1,5 @@
 default
+
+# driver instantly forgets parkingarea occupancy
+no_memory
 probability
