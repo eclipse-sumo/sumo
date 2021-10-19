@@ -28,7 +28,6 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-
 traci.start([sumolib.checkBinary('sumo'),
              "-n", "input_net2.net.xml",
              "-r", "input_routes.rou.xml",
@@ -43,7 +42,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     t = traci.simulation.getTime()
     if t == 10:
         edge = traci.person.getRoadID(personID)
-        pos =  traci.person.getLanePosition(personID)
+        pos = traci.person.getLanePosition(personID)
         traci.person.remove(personID)
         traci.person.add(personID, edge, pos)
         traci.person.appendWalkingStage(personID, [edge], "-1")
