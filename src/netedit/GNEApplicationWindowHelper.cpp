@@ -1056,18 +1056,18 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
     new FXMenuSeparator(fileMenu);
 
     menuCheckLockSelectedElements = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                                    "Lock selected elements", "", "Lock selected elemens",
+                                    "Lock selected elements", "", "Lock selected elements",
                                     GUIIconSubSys::getIcon(GUIIcon::LOCK_SELECTED), myGNEApp, MID_GNE_LOCK_SELECTEDELEMENTS);
 
     // separator
     new FXMenuSeparator(fileMenu);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Lock all elements", "", "Lock all elemens",
+        "Lock all elements", "", "Lock all elements",
         GUIIconSubSys::getIcon(GUIIcon::LOCK), myGNEApp, MID_GNE_LOCK_ALLELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Unlock all elements", "", "Unlock all elemens",
+        "Unlock all elements", "", "Unlock all elements",
         GUIIconSubSys::getIcon(GUIIcon::UNLOCK), myGNEApp, MID_GNE_UNLOCK_ALLELEMENTS);
 }
 
