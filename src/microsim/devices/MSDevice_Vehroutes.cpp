@@ -332,12 +332,13 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
     tmp.write(od, oc, SUMO_TAG_VEHICLE, typeID);
     if (hasArrived) {
         od.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
-        if (myRouteLength) {
-            const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
-            const double routeLength = myHolder.getRoute().getDistanceBetween(myHolder.getDepartPos(), myHolder.getArrivalPos(),
-                                       myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
-            od.writeAttr("routeLength", routeLength);
-        }
+    }
+    if (myRouteLength) {
+        const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+        const double finalPos = hasArrived ? myHolder.getArrivalPos() : myHolder.getPositionOnLane();
+        const double routeLength = myHolder.getRoute().getDistanceBetween(myHolder.getDepartPos(), finalPos,
+                myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
+        od.writeAttr("routeLength", routeLength);
     }
     if (myDUAStyle) {
         const RandomDistributor<const MSRoute*>* const routeDist = MSRoute::distDictionary("!" + myHolder.getID());
