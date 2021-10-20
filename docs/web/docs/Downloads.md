@@ -219,7 +219,7 @@ binary downloads above which already contain the runtime dependencies.
 - [complete scenarios](Data/Scenarios.md)
 - [networks](Data/Networks.md)
 - [traffic data](Data/Traffic_Data.md)
-- [Test cases](../Tutorials/index.md#using_examples_from_the_test_suite)
+- [Test cases](Tutorials/index.md#using_examples_from_the_test_suite)
 
 ## Note on Licensing
 
