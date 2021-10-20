@@ -720,17 +720,20 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             const double prob = probs[i];
             // alternative occupancy is randomized (but never full) if invisible
             // current destination must be visible at this point
-            int paOccupancy = parks[i].second || pa == destParkArea ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
-            // previously visited?
-            SUMOTime blockedTime = veh.sawBlockedParkingArea(pa);
-            if (blockedTime >= 0 && SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
-                // assume it's still occupied
-                paOccupancy = pa->getCapacity();
+            const bool visible = parks[i].second || pa == destParkArea;
+            int paOccupancy = visible ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
+            if (!visible) {
+                // previously visited?
+                SUMOTime blockedTime = veh.sawBlockedParkingArea(pa);
+                if (blockedTime >= 0 && SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
+                    // assume it's still occupied
+                    paOccupancy = pa->getCapacity();
 #ifdef DEBUG_PARKING
-                if (DEBUGCOND) {
-                    std::cout << "    altPA=" << pa->getID() << " was blocked at " << time2string(blockedTime) << "\n";
-                }
+                    if (DEBUGCOND) {
+                        std::cout << "    altPA=" << pa->getID() << " was blocked at " << time2string(blockedTime) << "\n";
+                    }
 #endif
+                }
             }
             if (paOccupancy < pa->getCapacity()) {
 
@@ -863,6 +866,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 #endif
                     }
                 }
+            } else if (visible) {
+                // might only be visible now (i.e. because it's on the other
+                // side of the street), so we should remember this for later.
+                veh.rememberBlockedParkingArea(pa);
             }
         }
         MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
