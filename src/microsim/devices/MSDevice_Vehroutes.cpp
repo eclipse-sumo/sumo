@@ -252,6 +252,13 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         }
         myReplacedRoutes[index].route->writeEdgeIDs(os, lastEdge);
         os << "\"";
+        if (myRouteLength) {
+            const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+            const MSRoute* route = myReplacedRoutes[index].route;
+            const double routeLength = route->getDistanceBetween(myHolder.getDepartPos(), route->getEdges().back()->getLength(),
+                    route->begin(), route->end(), includeInternalLengths);
+            os.writeAttr("routeLength", routeLength);
+        }
     } else {
         if (myDUAStyle || myWriteCosts) {
             os.writeAttr(SUMO_ATTR_COST, myHolder.getRoute().getCosts());
