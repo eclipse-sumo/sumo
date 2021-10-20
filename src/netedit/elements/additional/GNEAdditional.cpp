@@ -559,60 +559,26 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
 
 
 void 
+GNEAdditional::drawUpGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
+    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 0, 180);
+}
+
+
+void 
+GNEAdditional::drawDownGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
+    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 180, 0);
+}
+
+
+void 
 GNEAdditional::drawLeftGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // calculate new color
-        const RGBColor color = baseColor.changedBrightness(-50);
-        // push matrix
-        GLHelper::pushMatrix();
-        // translated to front
-        glTranslated(0, 0, 0.1);
-        // set color
-        GLHelper::setColor(color);
-        // push geometry point matrix
-        GLHelper::pushMatrix();
-        // translate and rotate
-        glTranslated(pos.x(), pos.y(), 0.1);
-        glRotated(rot, 0, 0, 1);
-        // draw geometry point
-        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution(), -90, 90);
-        // pop geometry point matrix
-        GLHelper::popMatrix();
-        // pop draw matrix
-        GLHelper::popMatrix();
-    }
+    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, -90, 90);
 }
 
 
 void 
 GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // calculate new color
-        const RGBColor color = baseColor.changedBrightness(-50);
-        // push matrix
-        GLHelper::pushMatrix();
-        // translated to front
-        glTranslated(0, 0, 0.1);
-        // set color
-        GLHelper::setColor(color);
-        // push geometry point matrix
-        GLHelper::pushMatrix();
-        // translate and rotate
-        glTranslated(pos.x(), pos.y(), 0.1);
-        glRotated(rot, 0, 0, 1);
-        // draw geometry point
-        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution(), 270, 90);
-        // pop geometry point matrix
-        GLHelper::popMatrix();
-        // pop draw matrix
-        GLHelper::popMatrix();
-    }
+    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 270, 90);
 }
 
 
@@ -857,5 +823,34 @@ GNEAdditional::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 
+
+void 
+GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor, 
+        const double fromAngle, const double toAngle) const {
+    // first check that we're in move mode and shift key is pressed
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // calculate new color
+        const RGBColor color = baseColor.changedBrightness(-50);
+        // push matrix
+        GLHelper::pushMatrix();
+        // translated to front
+        glTranslated(0, 0, 0.1);
+        // set color
+        GLHelper::setColor(color);
+        // push geometry point matrix
+        GLHelper::pushMatrix();
+        // translate and rotate
+        glTranslated(pos.x(), pos.y(), 0.1);
+        glRotated(rot, 0, 0, 1);
+        // draw geometry point
+        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution(), fromAngle, toAngle);
+        // pop geometry point matrix
+        GLHelper::popMatrix();
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+}
 
 /****************************************************************************/

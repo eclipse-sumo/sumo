@@ -339,6 +339,12 @@ protected:
     /// @brief draw additional name
     void drawAdditionalName(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw up geometry point
+    void drawUpGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
+
+    /// @brief draw down geometry point
+    void drawDownGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
+
     /// @brief draw left geometry point
     void drawLeftGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
 
@@ -389,6 +395,10 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
+
+    /// @brief draw geometry point
+    void drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor, 
+                                     const double fromAngle, const double toAngle) const;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;
