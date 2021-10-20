@@ -271,8 +271,21 @@ The attributes used within such definitions are:
 | Attribute Name | Value Type  | Description              |
 | -------------- | ----------- | ----------------------------------------------------------------------------------------- |
 | **id**         | id (string) | The id of an existing parking area                                                                                                                          |
-| probability    | float       | The probability for each of the alternatives to be selected (default 1). The probabilities are automatically normalized over all definitions in a rerouter. |
+| probability    | float       | The probability for each of the alternatives to be selected (default 1). |
 | visible        | bool        | Whether occupancy of this parkingArea is known before reaching the parkingArea edge (this models line-of-sight as well as parking information systems).     |
+
+### Memory in parking search
+
+Parking search refers to the situation where a vehicle encounters an occupied parkingArea and has to pick among a list of alternative destinations without knowing their occupancy state. The vehicle has to iteratively drive to alternative destinations until a free parking space is found. ParkingAreas that were visited earlier (and occupied) might be reasonably visited again with the expectation that they have cleared up since the last visit. By default, vehicles will not visit an occupied parkingArea again for 600s. This can be modified with vehicle-param or vType-param as follows:
+
+```
+   <vehicle ...>
+      <param key="parking.memory" value="300"/>
+   </vehicle
+```
+
+!!! caution
+    Up to version 1.10.0 parking memory was 0 which could cause vehicles to only visited a small set of areas repeatedly
 
 ### Determining the alternative parking area
 
@@ -300,6 +313,8 @@ vType](../Simulation/GenericParameters.md):
 | parking.timeto.weight       | 0             | The assumed travel time to the parking area                              | no                         |
 | parking.distancefrom.weight | 0             | The road distance from the parking area to the vehicles destination      | no                         |
 | parking.timefrom.weight     | 0             | The assumed travel time from the parking area to the vehicle destination | no                         |
+
+When 'parking.probability.weight' is set to a positive value, a random number between 0 and attribute 'probability' is drawn for each candidate parkingArea. This value is then normalized to then range [0,1] by dividing with the maximum probability value of all parkingAreaReroute elements. The negative normalized value is then multiplied with parking.probability.weight to enter into the candidate score.
 
 ### Destination after rerouting
 
