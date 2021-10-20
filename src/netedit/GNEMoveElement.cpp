@@ -38,13 +38,14 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
 }
 
 
-GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
-                                   const PositionVector _originalShape) :
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement, 
+                                   const PositionVector _originalShape,
+                                   const OperationType _operationType) :
     moveElement(_moveElement),
     originalShape(_originalShape),
     shapeToMove(_originalShape),
     allowChangeLane(false),
-    operationType(OperationType::SHAPE) {
+    operationType(operationType) {
 }
 
 

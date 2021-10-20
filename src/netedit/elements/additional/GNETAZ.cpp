@@ -77,7 +77,7 @@ GNETAZ::getMoveOperation() {
         return new GNEMoveOperation(this, myTAZCenter);
     } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
-        return new GNEMoveOperation(this, myShape);
+        return new GNEMoveOperation(this, myShape, GNEMoveOperation::OperationType::ENTIRE_SHAPE);
     } else {
         // calculate move shape operation
         return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true);
@@ -722,7 +722,7 @@ GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
         // update new center
         myTAZCenter = moveResult.shapeToUpdate.front();
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SHAPE) {
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ENTIRE_SHAPE) {
         // update new shape and center
         myTAZCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
         myShape = moveResult.shapeToUpdate;
@@ -753,7 +753,7 @@ GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
         undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
         undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front())));
         undoList->end();
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SHAPE) {
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ENTIRE_SHAPE) {
         // calculate offset between old and new shape
         Position newCenter = myTAZCenter;
         newCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());

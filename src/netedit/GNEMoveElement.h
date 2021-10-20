@@ -41,8 +41,10 @@ class GNEMoveOperation {
 public:
     enum class OperationType {
         POSITION,
-        SHAPE,
+        ENTIRE_SHAPE,
         GEOMETRY_POINTS,
+        WIDTH,
+        HEIGHT,
         ONE_LANE,
         ONE_LANE_MOVEFIRST,
         ONE_LANE_MOVESECOND,
@@ -58,7 +60,8 @@ public:
 
     /// @brief constructor for entire geometries (Polygon with blocked shapes)
     GNEMoveOperation(GNEMoveElement* moveElement,
-                     const PositionVector originalShape);
+                     const PositionVector originalShape,
+                     const OperationType operationType);
 
     /// @brief constructor for elements with editable shapes (edges, polygons...)
     GNEMoveOperation(GNEMoveElement* moveElement,

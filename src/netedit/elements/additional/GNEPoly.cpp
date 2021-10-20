@@ -69,7 +69,7 @@ GNEPoly::getMoveOperation() {
     // edit depending if shape is blocked
     if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
-        return new GNEMoveOperation(this, myShape);
+        return new GNEMoveOperation(this, myShape, GNEMoveOperation::OperationType::ENTIRE_SHAPE);
     } else {
         // calculate move shape operation
         return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), 
