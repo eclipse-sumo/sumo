@@ -35,13 +35,13 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, 
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
-parameters),
-            myPosition(pos),
-            myWidth(width),
-            myLength(length),
-            myAngle(angle),
-mySlope(slope) {
+        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
+    parameters),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle),
+    mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -52,13 +52,57 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 GNEMoveOperation*
 GNEParkingSpace::getMoveOperation() {
-    // return move operation for additional placed in view
-    return new GNEMoveOperation(this, myPosition);
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        // get mouse position
+        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        // check if we're editing width or height
+        if ((myShapeLength.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) || 
+            (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
+            /*
+            // move only start position
+            return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
+            */
+            return nullptr;
+        } else if ((myShapeWidth.getPolygonCenter().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) || 
+                   (myShapeWidth.getPolygonCenter().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
+            /*
+            // move only end position
+            return new GNEMoveOperation(this, getParentLanes().front(), 0, myEndPosition,
+                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
+            */
+            return nullptr;
+        } else {
+            return nullptr;
+        }
+    } else {
+        // move entire space
+        return new GNEMoveOperation(this, myPosition);
+    }
 }
 
 
 void
 GNEParkingSpace::updateGeometry() {
+    // calculate shape lenght
+    myShapeLength.clear();
+    myShapeLength.push_back(Position(0, 0));
+    myShapeLength.push_back(Position(0, getAttributeDouble(SUMO_ATTR_LENGTH)));
+    // rotate
+    myShapeLength.rotate2D(DEG2RAD(getAttributeDouble(SUMO_ATTR_ANGLE)));
+    // move
+    myShapeLength.add(myPosition);
+    // calculate shape width
+    PositionVector leftShape = myShapeLength;
+    leftShape.move2side(getAttributeDouble(SUMO_ATTR_WIDTH) * -0.5);
+    PositionVector rightShape = myShapeLength;
+    rightShape.move2side(getAttributeDouble(SUMO_ATTR_WIDTH) * 0.5);
+    myShapeWidth = {leftShape.getCentroid(), rightShape.getCentroid()};
+    // update centering boundary
     updateCenteringBoundary(true);
 }
 
@@ -109,24 +153,12 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(parkingAreaExaggeration)) {
-        // obtain double values
-        const double width = myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
-        const double length = myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
-        const double angle = myAngle.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
-        // obtain exaggerated values
-        const double widthExaggeration = width * parkingAreaExaggeration;
-        const double lengthExaggeration = length * parkingAreaExaggeration;
+        // obtain  values
+        const double width = getAttributeDouble(SUMO_ATTR_WIDTH) * 0.5 + (parkingAreaExaggeration * 0.1);
+        const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
         // get colors
         const RGBColor baseColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
         const RGBColor contourColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
-        // generate central shape
-        PositionVector centralShape;
-        centralShape.push_back(Position(0, 0));
-        centralShape.push_back(Position(0, lengthExaggeration));
-        // rotate
-        centralShape.rotate2D(DEG2RAD(angle));
-        // move
-        centralShape.add(myPosition);
         // push name
         GLHelper::pushName(getGlID());
         // push later matrix
@@ -138,9 +170,10 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // set contour color
         GLHelper::setColor(contourColor);
         // draw extern
-        GLHelper::drawBoxLines(centralShape, widthExaggeration * 0.5);
-        // make vector shot
-        centralShape.scaleAbsolute(-0.1);
+        GLHelper::drawBoxLines(myShapeLength, width);
+        // make a copy of myShapeLength and scale
+        PositionVector shapeLengthInner = myShapeLength;
+        shapeLengthInner.scaleAbsolute(-0.1);
         // draw intern
         if (!s.drawForRectangleSelection) {
             // Traslate to front
@@ -148,32 +181,27 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             //draw intern
-            GLHelper::drawBoxLines(centralShape, (widthExaggeration * 0.5) - 0.1);
+            GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
         }
+        // draw geometry points
+        drawUpGeometryPoint(s, myShapeLength.back(), angle, contourColor);
+        drawDownGeometryPoint(s, myShapeLength.front(), angle, contourColor);
+        drawLeftGeometryPoint(s, myShapeWidth.back(), angle - 90, contourColor);
+        drawRightGeometryPoint(s, myShapeWidth.front(), angle - 90, contourColor);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
-        // calulate shapes for geometry points
-        PositionVector leftShape = centralShape;
-        leftShape.move2side(widthExaggeration * -0.5);
-        PositionVector rightShape = centralShape;
-        rightShape.move2side(widthExaggeration * 0.5);
-        // draw geometry points
-        drawUpGeometryPoint(s, centralShape.back(), angle, baseColor);
-        drawDownGeometryPoint(s, centralShape.front(), angle, baseColor);
-        drawLeftGeometryPoint(s, leftShape.getCentroid(), angle + 90, baseColor);
-        drawRightGeometryPoint(s, rightShape.getCentroid(), angle + 90, baseColor);
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), centralShape.getPolygonCenter(), parkingAreaExaggeration);
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw using drawDottedContourClosedShape
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, centralShape, widthExaggeration * 0.5, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             // draw using drawDottedContourClosedShape
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, centralShape, widthExaggeration * 0.5, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // Draw additional ID
         drawAdditionalID(s);
@@ -214,7 +242,16 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    switch (key) {
+        case SUMO_ATTR_WIDTH:
+            return myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+        case SUMO_ATTR_LENGTH:
+            return myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
+        case SUMO_ATTR_ANGLE:
+            return myAngle.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 

@@ -138,6 +138,12 @@ protected:
     /// @brief Length of Parking Space
     std::string myLength;
 
+    /// @brief shape width of Parking Space
+    PositionVector myShapeWidth;
+
+    /// @brief shape length of Parking Space
+    PositionVector myShapeLength;
+
     /// @brief Angle of Parking Space
     std::string myAngle;
 
