@@ -560,13 +560,13 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
 
 void 
 GNEAdditional::drawUpGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 0, 180);
+    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, -90, 90);
 }
 
 
 void 
 GNEAdditional::drawDownGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 180, 0);
+    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 90, 270);
 }
 
 

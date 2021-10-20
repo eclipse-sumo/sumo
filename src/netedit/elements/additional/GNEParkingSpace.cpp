@@ -160,10 +160,10 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         PositionVector rightShape = centralShape;
         rightShape.move2side(widthExaggeration * 0.5);
         // draw geometry points
-        drawUpGeometryPoint(s, centralShape.back(), 90 + DEG2RAD(angle), baseColor);
-        drawDownGeometryPoint(s, centralShape.front(), 90 + DEG2RAD(angle), baseColor);
-        drawLeftGeometryPoint(s, leftShape.getCentroid(), 90, baseColor);
-        drawRightGeometryPoint(s, rightShape.getCentroid(), 90, baseColor);
+        drawUpGeometryPoint(s, centralShape.back(), angle, baseColor);
+        drawDownGeometryPoint(s, centralShape.front(), angle, baseColor);
+        drawLeftGeometryPoint(s, leftShape.getCentroid(), angle + 90, baseColor);
+        drawRightGeometryPoint(s, rightShape.getCentroid(), angle + 90, baseColor);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), centralShape.getPolygonCenter(), parkingAreaExaggeration);
         // check if dotted contours has to be drawn
