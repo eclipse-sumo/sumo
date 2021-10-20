@@ -157,10 +157,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw geometry points
             if (myStartPosition != INVALID_DOUBLE) {
-                drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             if (myEndPosition != INVALID_DOUBLE) {
-                drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix
             GLHelper::popMatrix();

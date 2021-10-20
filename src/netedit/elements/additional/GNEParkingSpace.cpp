@@ -116,6 +116,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // obtain exaggerated values
         const double widthExaggeration = width * parkingAreaExaggeration;
         const double lengthExaggeration = length * parkingAreaExaggeration;
+        // get colors
+        const RGBColor baseColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
+        const RGBColor contourColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
         // generate central shape
         PositionVector centralShape;
         centralShape.push_back(Position(0, 0));
@@ -132,12 +135,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // Set Color depending of selection
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.colorSettings.parkingSpaceColorContour);
-        }
+        // set contour color
+        GLHelper::setColor(contourColor);
         // draw extern
         GLHelper::drawBoxLines(centralShape, widthExaggeration * 0.5);
         // make vector shot
@@ -146,12 +145,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForRectangleSelection) {
             // Traslate to front
             glTranslated(0, 0, 0.1);
-            // Set Color depending of selection
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-            } else {
-                GLHelper::setColor(s.colorSettings.parkingSpaceColor);
-            }
+            // set base color
+            GLHelper::setColor(baseColor);
             //draw intern
             GLHelper::drawBoxLines(centralShape, (widthExaggeration * 0.5) - 0.1);
         }
@@ -159,6 +154,16 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
+        // calulate shapes for geometry points
+        PositionVector leftShape = centralShape;
+        leftShape.move2side(widthExaggeration * -0.5);
+        PositionVector rightShape = centralShape;
+        rightShape.move2side(widthExaggeration * 0.5);
+        // draw geometry points
+        drawUpGeometryPoint(s, centralShape.back(), 90 + DEG2RAD(angle), baseColor);
+        drawDownGeometryPoint(s, centralShape.front(), 90 + DEG2RAD(angle), baseColor);
+        drawLeftGeometryPoint(s, leftShape.getCentroid(), 90, baseColor);
+        drawRightGeometryPoint(s, rightShape.getCentroid(), 90, baseColor);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), centralShape.getPolygonCenter(), parkingAreaExaggeration);
         // check if dotted contours has to be drawn

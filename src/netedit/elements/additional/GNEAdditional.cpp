@@ -368,11 +368,11 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // draw geometry points
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             drawLeftGeometryPoint(s, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color);
-            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().front(), E2Color);
+            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
         } else if (segment->isFirstSegment()) {
             drawLeftGeometryPoint(s, E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color);
         } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().front(), E2Color);
+            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
         }
         // Pop layer matrix
         GLHelper::popMatrix();

@@ -123,7 +123,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
             }
             if (myEndPosition != INVALID_DOUBLE) {
-                drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix
             GLHelper::popMatrix();
