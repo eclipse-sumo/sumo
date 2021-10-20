@@ -40,6 +40,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
 #include "MSLCM_DK2008.h"
@@ -434,13 +435,17 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
     myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
     myVehicle.fixPosition();
     if (myAmOpposite && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
-        // aborted maneuver
+        if (reason == MSMoveReminder::NOTIFICATION_PARKING && myVehicle.getNextStop().isOpposite) {
+            // opposite driving continues after parking
+        } else {
+            // aborted maneuver
 #ifdef DEBUG_OPPOSITE
-        if (debugVehicle()) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " aborted maneuver (no longer opposite)\n";
-        }
+            if (debugVehicle()) {
+                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " aborted maneuver (no longer opposite)\n";
+            }
 #endif
-        changedToOpposite();
+            changedToOpposite();
+        }
     }
 }
 
