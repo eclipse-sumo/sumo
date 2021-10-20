@@ -45,7 +45,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     originalShape(_originalShape),
     shapeToMove(_originalShape),
     allowChangeLane(false),
-    operationType(operationType) {
+    operationType(_operationType) {
 }
 
 
