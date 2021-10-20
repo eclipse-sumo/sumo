@@ -68,7 +68,7 @@ def main(options):
             loaded = stop.loadedContainers
             unloaded = stop.unloadedContainers
 
-        if not stop.id in pCounts:
+        if stop.id not in pCounts:
             pCounts[stop.id].append((parseTime(stop.started) - 1, int(initial)))
         pCounts[stop.id].append((parseTime(stop.started), -int(unloaded)))
         pCounts[stop.id].append((parseTime(stop.ended), int(loaded)))
