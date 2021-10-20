@@ -108,39 +108,43 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(parkingAreaExaggeration)) {
         // obtain double values
         const double width = myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
         const double length = myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
         const double angle = myAngle.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
-        // obtain values with exaggeration
+        // obtain exaggerated values
         const double widthExaggeration = width * parkingAreaExaggeration;
         const double lengthExaggeration = length * parkingAreaExaggeration;
-        // check exaggeration
-        if (s.drawAdditionals(parkingAreaExaggeration)) {
-            // push name
-            GLHelper::pushName(getGlID());
-            // push later matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // translate to position
-            glTranslated(myPosition.x(), myPosition.y(), 0);
-            // rotate
-            glRotated(angle, 0, 0, 1);
-            // only drawn small box if isn't being drawn for selecting
-            if (!s.drawForRectangleSelection) {
-                // Set Color depending of selection
-                if (drawUsingSelectColor()) {
-                    GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-                } else {
-                    GLHelper::setColor(s.colorSettings.parkingSpaceColorContour);
-                }
-                GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
-            }
-            // Traslate matrix and draw blue innen
+        // generate central shape
+        PositionVector centralShape;
+        centralShape.push_back(Position(0, 0));
+        centralShape.push_back(Position(0, lengthExaggeration));
+        // rotate
+        centralShape.rotate2D(DEG2RAD(angle));
+        // move
+        centralShape.add(myPosition);
+        // push name
+        GLHelper::pushName(getGlID());
+        // push later matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
+        // Set Color depending of selection
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(s.colorSettings.parkingSpaceColorContour);
+        }
+        // draw extern
+        GLHelper::drawBoxLines(centralShape, widthExaggeration * 0.5);
+        // make vector shot
+        centralShape.scaleAbsolute(-0.1);
+        // draw intern
+        if (!s.drawForRectangleSelection) {
+            // Traslate to front
             glTranslated(0, 0, 0.1);
             // Set Color depending of selection
             if (drawUsingSelectColor()) {
@@ -148,24 +152,23 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 GLHelper::setColor(s.colorSettings.parkingSpaceColor);
             }
-            GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
-            // Traslate matrix and draw lock icon if isn't being drawn for selecting
-            glTranslated(0, lengthExaggeration * 0.5, 0.1);
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), parkingAreaExaggeration);
-            // check if dotted contours has to be drawn
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                // draw using drawDottedContourClosedShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
-            }
-            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                // draw using drawDottedContourClosedShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, angle, 1);
-            }
+            //draw intern
+            GLHelper::drawBoxLines(centralShape, (widthExaggeration * 0.5) - 0.1);
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), centralShape.getPolygonCenter(), parkingAreaExaggeration);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            // draw using drawDottedContourClosedShape
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, centralShape, widthExaggeration * 0.5, parkingAreaExaggeration, true, true);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            // draw using drawDottedContourClosedShape
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, centralShape, widthExaggeration * 0.5, parkingAreaExaggeration, true, true);
         }
         // Draw additional ID
         drawAdditionalID(s);
