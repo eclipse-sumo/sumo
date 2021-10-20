@@ -367,12 +367,12 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
         // draw geometry points
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawFirstGeometryPoint(s, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color);
-            drawLastGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().front(), E2Color);
+            drawLeftGeometryPoint(s, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color);
+            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().front(), E2Color);
         } else if (segment->isFirstSegment()) {
-            drawFirstGeometryPoint(s, E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color);
+            drawLeftGeometryPoint(s, E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color);
         } else if (segment->isLastSegment()) {
-            drawLastGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().front(), E2Color);
+            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().front(), E2Color);
         }
         // Pop layer matrix
         GLHelper::popMatrix();
@@ -559,7 +559,7 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
 
 
 void 
-GNEAdditional::drawFirstGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
+GNEAdditional::drawLeftGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
     // first check that we're in move mode and shift key is pressed
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
         (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
@@ -588,7 +588,7 @@ GNEAdditional::drawFirstGeometryPoint(const GUIVisualizationSettings& s, const P
 
 
 void 
-GNEAdditional::drawLastGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
+GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
     // first check that we're in move mode and shift key is pressed
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
         (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&

@@ -240,8 +240,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
                 drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
             }
             // draw geometry points
-            drawFirstGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
-            drawLastGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+            drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+            drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
