@@ -865,7 +865,7 @@ GNEApplicationWindowHelper::EditMenuCommands::buildUndoRedoMenuCommands(FXMenuPa
                      "Redo", "Ctrl+Y", "Redo the last change.",
                      GUIIconSubSys::getIcon(GUIIcon::REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
     openUndolistDialog = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                         "Open undo list", "", "Open undo list dialog.",
+                         "Show undo/redo history", "", "Open undo/redo history dialog.",
                          GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_UNDOLISTDIALOG);
 }
 
