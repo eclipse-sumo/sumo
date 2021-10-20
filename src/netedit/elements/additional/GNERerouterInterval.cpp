@@ -19,9 +19,19 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <foreign/fontstash/fontstash.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
-#include <netedit/GNEUndoList.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNERerouterInterval.h"
 
@@ -95,6 +105,24 @@ GNERerouterInterval::getParentName() const {
 
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
+    // get index
+    const int index = getIndex();
+    // get position
+    Position pos = getParentAdditionals().front()->getPositionInView();
+    // move to right
+    pos.add(4, (index * -1) + 2, 0);
+    // Add layer matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
+    // set base color
+    GLHelper::setColor(RGBColor::RED);
+    GLHelper::drawBoxLine(pos, 0, 0.9, 2);
+    // move position down
+    pos.add(0, -0.5, 0);
+    GLHelper::drawText(getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END), pos, .1, 0.5, RGBColor::YELLOW);
+    // pop layer matrix
+    GLHelper::popMatrix();
     // draw children (needes for connection between rerouter and parking areas)
     for (const auto &additional : getChildAdditionals()) {
         additional->drawGL(s);
@@ -205,14 +233,26 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void GNERerouterInterval::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+void 
+GNERerouterInterval::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
-void GNERerouterInterval::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+void 
+GNERerouterInterval::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 
+
+int 
+GNERerouterInterval::getIndex() const {
+    for (int i = 0; i < (int)getParentAdditionals().front()->getChildAdditionals().size(); i++) {
+        if (getParentAdditionals().front()->getChildAdditionals().at(i) == this) {
+            return i;
+        }
+    }
+    return 0;
+}
 
 /****************************************************************************/

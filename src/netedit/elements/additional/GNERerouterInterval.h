@@ -143,6 +143,9 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
+    /// @brief get rerouter interval index
+    int getIndex() const;
+
     /// @brief Invalidated copy constructor.
     GNERerouterInterval(GNERerouterInterval*) = delete;
 
