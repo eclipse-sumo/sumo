@@ -60,12 +60,9 @@ GNEParkingSpace::getMoveOperation() {
         // get mouse position
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // check if we're editing width or height
-        if (myShapeLength.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // edit height
-            return new GNEMoveOperation(this, myShapeLength, true, GNEMoveOperation::OperationType::HEIGHT);
-        } else if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // edit height
-            return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::HEIGHT);
+        if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit lenght
+            return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::LENGTH);
         } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // edit width
             return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
@@ -178,7 +175,6 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw geometry points
         drawUpGeometryPoint(s, myShapeLength.back(), angle, contourColor);
-        drawDownGeometryPoint(s, myShapeLength.front(), angle, contourColor);
         drawLeftGeometryPoint(s, myShapeWidth.back(), angle - 90, contourColor);
         drawRightGeometryPoint(s, myShapeWidth.front(), angle - 90, contourColor);
         // pop layer matrix
@@ -370,8 +366,8 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
     // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        myShapeLength = moveResult.shapeToUpdate;
+    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
+        myShapeLength[1] = moveResult.shapeToUpdate[1];
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
         myShapeWidth = moveResult.shapeToUpdate;
     } else {
@@ -385,9 +381,9 @@ GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
+    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
         undoList->begin(myTagProperty.getGUIIcon(), "length of " + getTagStr());
-        setAttribute(SUMO_ATTR_LENGTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        setAttribute(SUMO_ATTR_LENGTH, toString(myShapeLength[0].distanceTo2D(moveResult.shapeToUpdate[1])), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
         undoList->begin(myTagProperty.getGUIIcon(), "width of " + getTagStr());

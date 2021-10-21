@@ -307,7 +307,8 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         }
         // check if we're adjusting width or height
         if ((moveOperation->operationType == GNEMoveOperation::OperationType::WIDTH) ||
-            (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT)) {
+            (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT) ||
+            (moveOperation->operationType == GNEMoveOperation::OperationType::LENGTH)) {
             // calculate extrapolate vector
             moveResult.shapeToUpdate = calculateExtrapolatedVector(moveOperation, moveResult);
         }
@@ -432,7 +433,8 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             }
             // check if we're adjusting width or height
             if ((moveOperation->operationType == GNEMoveOperation::OperationType::WIDTH) ||
-                (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT)) {
+                (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT) ||
+                (moveOperation->operationType == GNEMoveOperation::OperationType::LENGTH)) {
                 // calculate extrapolate vector
                 moveResult.shapeToUpdate = calculateExtrapolatedVector(moveOperation, moveResult);
             }

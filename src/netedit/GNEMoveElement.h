@@ -45,6 +45,7 @@ public:
         GEOMETRY_POINTS,
         WIDTH,
         HEIGHT,
+        LENGTH,
         ONE_LANE,
         ONE_LANE_MOVEFIRST,
         ONE_LANE_MOVESECOND,
