@@ -105,6 +105,9 @@ GNERerouterInterval::getParentName() const {
 
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
+    // declare main color
+    const RGBColor color = RGBColor::RED;
+    const RGBColor secondColor = RGBColor(220, 0, 0);
     // get index
     const int index = getIndex();
     // get position
@@ -115,12 +118,30 @@ GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     // translate to front
     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
-    // set base color
-    GLHelper::setColor(RGBColor::RED);
-    GLHelper::drawBoxLine(pos, 0, 0.9, 2);
+    // draw extern rectangle
+    GLHelper::setColor(secondColor);
+    GLHelper::drawBoxLine(pos, 0, 0.96, 2.25);    
+    // move to front
+    glTranslated(0, 0, 0.1);
+    // draw intern rectangle
+    GLHelper::setColor(color);
+    GLHelper::drawBoxLine(pos, 0, 0.9, 2.19);
     // move position down
-    pos.add(0, -0.5, 0);
-    GLHelper::drawText(getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END), pos, .1, 0.5, RGBColor::YELLOW);
+    pos.add(-1.6, -0.5, 0);
+    // draw interval
+    GLHelper::drawText(getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END), pos, .1, 0.5, RGBColor::YELLOW, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE);
+    // draw icon
+
+    // translate to position
+    glTranslated(pos.x() - 0.3, pos.y(), 0.1);
+    // set White color
+    glColor3d(1, 1, 1);
+    // rotate
+    glRotated(180, 0, 0, 1);
+    // draw texture
+    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::E3), 0.25);
+
+
     // pop layer matrix
     GLHelper::popMatrix();
     // draw children (needes for connection between rerouter and parking areas)
