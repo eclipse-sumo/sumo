@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - simulation
+  - Fixed crash in parallel simulation. Issue #9359 (regression in 1.10.0)
   - Fixed invalid approach information with step-method.ballistic that could cause collision. Issue #8955
   - Fixed rare collision on junction when the outbound lane is jammed. Issue #6415
   - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
@@ -29,9 +30,11 @@ title: ChangeLog
   - Attribute personCapacity is no longer ignored for trainStop. Issue #9262
   - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
   - Railway routing now longer creates routes where a train gets stuck on very short reversal edges. Issue #9323
+  - Parking search is no longer deterministic when param 'parking.probability.weight' is set. Issue #9364
+  - Fixed invalid edges and exitTimes in **vehroute-output** when using rerouting and looped routes. Issue #9374
   
 - netedit
-  - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
+  - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
   - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
   - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
@@ -65,6 +68,7 @@ title: ChangeLog
   - Attribute 'opposite' is now preserved when splitting edges. Issue #9316
   - Minor fixes to save-load tls-program dialog. Issue #9269
   - Fixed lost window focus. Issue #9274, #9275
+  - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348
 
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -86,6 +90,7 @@ title: ChangeLog
   - Fixed missing tlType in plain .nod.xml output. Issue #9281
   - Fixed invalid network when importing OSM with 'nan' values for maxspeed. Issue #9302
   - Fixed crash when loading joined traffic lights togher with option **tls.join**. Issue #9299
+  - Fixed errors and invalid shape when converting short roads with arc-geometry from OpenDRIVE. Issue #9332
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -143,6 +148,10 @@ title: ChangeLog
   - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199 
   - BoardingDuration / loadingDuration are now also applied when exiting a vehicle. Issue #4216
   - Delays for opening a rail crossing can now be [customized](Simulation/Railways.md#rail_crossing_parameters) and their values were increased to be more realistic. Issue #9301
+  - Loading parkingReroute elements that can potetially cause blockage in parking search now results in a warning. Issue #9363
+  - [Parking search](Simulation/Rerouter.md#memory_in_parking_search) now employs memory of previously visited and occupied parking areas. Issue #9047
+  - Option **--vehroute-output.route-length** now also applies to unfinished routes. Issue #9373
+  - Option **--vehroute-output.route-length** is now written for all routes of a vehicle. Issue #9375
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
@@ -162,6 +171,7 @@ title: ChangeLog
   - Breakpoints are now rounded down to reachable step value. Issue #6789
   - Clicking on timestamps in message window now creates breakpoints with a conigurable offset. Issue #7617
   - Lane params and street names are now shown in meso edge parameter dialog. Issue #9300
+  - Coloring of stop lines can now be switched to "realistic" mode. Issue #9358
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -183,6 +193,10 @@ title: ChangeLog
   - Added options **--node-prefix**, **--edge-prefix** and **--edge-infix** to customize the default names for new objects. Issue #4375
   - Generic paramters (`<param>`) of traffic light programs can now be edited in the traffic light frame. Issue #7659
   - [stopOffset](Networks/PlainXML.md#stop_offsets) can now be defined. Issue #3799
+  - Object attributes that are computed rather than user-defined (i.e. edge length) are now distinguised in blue. Issue #4633
+  - Stopping places can now be resized via shift + drag #3966
+  - Loaded rerouters are now drawn near their edges rather than (0, 0), when no position is defined. Issue #9365
+  - Parking spaces and textured POIs can now be resized with the mouse. Issue #8825
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
@@ -204,6 +218,7 @@ title: ChangeLog
 - traci
   - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764
   - addSubscriptionFilterTurn can now be combined (additively) with addSubscriptionFilterLateralDistance and with addSubscriptionFilterLanes. Issue #9177
+  - Added function 'traci.person.remove. Issue #9351
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
@@ -220,6 +235,10 @@ title: ChangeLog
   - generateContinousRerouters.py: added option **--vlcass** to avoid errors in multi-modal networks. Issue #9188
   - generateTurnRatios.py: Added option **--interval** to write time-dependent turn counts / ratios. Issue #9294
   - duaIterate.py: Now supports options **--save-configuration** (**-C**) and **--configuration-file** (**-c**) to save and load configurations. Issue #9314
+  - Added tool [computePassengercounts.py](Tools/Output.md#computepassengercountspy) to count passenger number in vehicle over time #9366
+  - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy) is now much faster #9379
+  - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy) added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9379
+  - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy) no longer generates targets beyond other targets to ensure that random parking search creates plausible behavior. Issue #9379
 
 ### Other
 
