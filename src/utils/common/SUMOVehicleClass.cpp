@@ -171,7 +171,7 @@ const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 // Stop Offset
 
 StopOffset::StopOffset() :
-    myPermissions(SVC_IGNORING),
+    myPermissions(SVCAll),
     myOffset(0) {
 }
 
@@ -207,7 +207,7 @@ StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
 
 bool 
 StopOffset::isDefined() const {
-    return myPermissions != SVC_IGNORING;
+    return myOffset != 0;
 }
 
 
