@@ -76,7 +76,7 @@ public:
     };
 
     enum TagProperty {
-        DRAWABLE =                  1 << 0,     // Element can be drawed in view
+        NOTDRAWABLE =               1 << 0,     // Element cannot be drawed in view
         CLOSESHAPE =                1 << 1,     // Element can close their shape
         GEOSHAPE =                  1 << 2,     // Element's shape acn be defined using a GEO Shape
         DIALOG =                    1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
@@ -231,8 +231,8 @@ public:
     /// @brief return true if tag correspond to a internal lane
     bool isInternalLane() const;
 
-    /// @brief return true if tag correspond to a drawable element
-    bool isDrawable() const;
+    /// @brief return true if tag correspond to a non drawable element
+    bool isNotDrawable() const;
 
     /// @brief return true if tag correspond to a selectable element
     bool isSelectable() const;

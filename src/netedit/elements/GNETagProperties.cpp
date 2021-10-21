@@ -400,8 +400,8 @@ GNETagProperties::isInternalLane() const {
 
 
 bool
-GNETagProperties::isDrawable() const {
-    return (myTagProperty & DRAWABLE) != 0;
+GNETagProperties::isNotDrawable() const {
+    return (myTagProperty & NOTDRAWABLE) != 0;
 }
 
 
