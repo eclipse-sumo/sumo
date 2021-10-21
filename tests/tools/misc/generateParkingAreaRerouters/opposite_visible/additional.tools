@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-10-21 13:11:00.398663 by additional v1_10_0+1578-6dd6611
-  options: -n net.net.xml -a input_additional.add.xml -o out.add.xml <doubleminus>max-number-alternatives 4 <doubleminus>max-distance-alternatives 500 <doubleminus>min-capacity-visibility-true 50 <doubleminus>max-distance-visibility-true 0 <doubleminus>opposite-visible
+<!-- generated on 2021-10-21 15:07:30.091007 by additional v1_10_0+1584-d5a831d
+  options: -n net.net.xml -a input_additional.add.xml -o out.add.xml <doubleminus>max-number-alternatives 4 <doubleminus>max-distance-alternatives 1000 <doubleminus>min-capacity-visibility-true 50 <doubleminus>max-distance-visibility-true 0 <doubleminus>opposite-visible
 -->
 <additional>
 
@@ -8,6 +8,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="parking_-a" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_a" visible="true"/> <!-- dist: 600.0 -->
+            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 650.0 -->
         </interval>
     </rerouter>
 
@@ -18,7 +20,6 @@
             <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 100.0 -->
             <parkingAreaReroute id="parking_c" visible="false"/> <!-- dist: 250.0 -->
             <parkingAreaReroute id="parking_-a" visible="false"/> <!-- dist: 350.0 -->
-            <parkingAreaReroute id="parking_-c" visible="false"/> <!-- dist: 400.0 -->
         </interval>
     </rerouter>
 
@@ -27,9 +28,7 @@
             <!-- in order of distance --> 
             <parkingAreaReroute id="parking_-c" visible="true"/> <!-- dist: 0.0 -->
             <parkingAreaReroute id="parking_-b" visible="false"/> <!-- dist: 200.0 -->
-            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 250.0 -->
             <parkingAreaReroute id="parking_c" visible="true"/> <!-- dist: 300.0 -->
-            <parkingAreaReroute id="parking_-a" visible="false"/> <!-- dist: 500.0 -->
         </interval>
     </rerouter>
 
@@ -38,8 +37,7 @@
             <!-- in order of distance --> 
             <parkingAreaReroute id="parking_a" visible="true"/> <!-- dist: 0.0 -->
             <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 350.0 -->
-            <parkingAreaReroute id="parking_-b" visible="false"/> <!-- dist: 400.0 -->
-            <parkingAreaReroute id="parking_c" visible="false"/> <!-- dist: 500.0 -->
+            <parkingAreaReroute id="parking_-a" visible="true"/> <!-- dist: 600.0 -->
         </interval>
     </rerouter>
 
@@ -49,7 +47,6 @@
             <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 0.0 -->
             <parkingAreaReroute id="parking_-b" visible="true"/> <!-- dist: 100.0 -->
             <parkingAreaReroute id="parking_c" visible="false"/> <!-- dist: 200.0 -->
-            <parkingAreaReroute id="parking_-c" visible="false"/> <!-- dist: 350.0 -->
             <parkingAreaReroute id="parking_-a" visible="false"/> <!-- dist: 400.0 -->
         </interval>
     </rerouter>
@@ -60,7 +57,6 @@
             <parkingAreaReroute id="parking_c" visible="true"/> <!-- dist: 0.0 -->
             <parkingAreaReroute id="parking_-c" visible="true"/> <!-- dist: 300.0 -->
             <parkingAreaReroute id="parking_-b" visible="false"/> <!-- dist: 350.0 -->
-            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 400.0 -->
         </interval>
     </rerouter>
 </additional>
