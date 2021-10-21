@@ -28,6 +28,7 @@ title: ChangeLog
   - Fixed invalid duplicate ids when using option **--scale**. Added option **--scale-suffix** to deal with unavoidable id collisions. Issue #9055
   - Attribute personCapacity is no longer ignored for trainStop. Issue #9262
   - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
+  - Railway routing now longer creates routes where a train gets stuck on very short reversal edges. Issue #9323
   
 - netedit
   - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regrssion in 1.7.0)
@@ -61,6 +62,7 @@ title: ChangeLog
   - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
   - Fixed invalid error when loading program in tls frame. Issue #9270
   - Attribute 'opposite' is now updated when changing lane count. Issue #9283
+  - Attribute 'opposite' is now preserved when splitting edges. Issue #9316
   - Minor fixes to save-load tls-program dialog. Issue #9269
   - Fixed lost window focus. Issue #9274, #9275
 
@@ -93,6 +95,7 @@ title: ChangeLog
   - Persons and containers with depart=triggered are now written in the correct order: directly after their intended vehicle. Issue #9000
   - Fixed crash when loading transport outside a container #9008
   - Fixed invalid treatment of loaded routeDistribution input. Issue #9229
+  - Person params are no longer lost. Issue #9320
 
 - marouter
   - Fixed invalid route-not-found error. Issue #9193
@@ -111,6 +114,7 @@ title: ChangeLog
   - Fixed bug where intended teleport after replaceStop failed due to oncoming train. Issue #9175
   - Fixed invalid route after adding vehicle with trip-route and forcing insertion with moveTo. Issue #9257
   - Fixed invalid departedIDList after reloading a libsumo simulation. Issue #6239
+  - Subscription filter "turn" now includes foe on junction. Issue #9330
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -138,6 +142,7 @@ title: ChangeLog
   - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
   - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199 
   - BoardingDuration / loadingDuration are now also applied when exiting a vehicle. Issue #4216
+  - Delays for opening a rail crossing can now be [customized](Simulation/Railways.md#rail_crossing_parameters) and their values were increased to be more realistic. Issue #9301
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
@@ -160,7 +165,7 @@ title: ChangeLog
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
-  - Added now 'Lock' menu to protect differnt types of objects from inspect,move,select and delete operations. Issue #8342
+  - Added new 'Lock' menu to protect different types of objects from inspect,move,select and delete operations. Issue #8342
   - Vehicle stop attribute posLat is now supported. Issue #8808
   - Saved busStop attributes now have the same order as netconvert. Issue #7624
   - Data mode now permits attributes with non-numeric values. Issue #9060
@@ -174,6 +179,10 @@ title: ChangeLog
   - The number of routes passing an edge can now optionally be drawn. Issue #8584
   - Routes referenced in routeProbReroute are now  written in additional files. Issue #8547
   - TAZ now support a custom center point for showing their ID and attaching tazRelations. Issue #9298
+  - Colors for traffic demand elements (routes, stops, ...) can now be customized in the 'Demand' tab of the view settings dialog. Issue #6318
+  - Added options **--node-prefix**, **--edge-prefix** and **--edge-infix** to customize the default names for new objects. Issue #4375
+  - Generic paramters (`<param>`) of traffic light programs can now be edited in the traffic light frame. Issue #7659
+  - [stopOffset](Networks/PlainXML.md#stop_offsets) can now be defined. Issue #3799
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
