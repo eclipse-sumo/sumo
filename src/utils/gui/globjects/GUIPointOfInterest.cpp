@@ -98,7 +98,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s, this, this, false, getShapeLayer());
+        drawInnerPOI(s, this, this, false, getShapeLayer(), getWidth(), getHeight());
         // pop name
         GLHelper::popName();
     }
@@ -134,7 +134,7 @@ GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInt
 
 void
 GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o,
-                                 const bool disableSelectionColor, const double layer) {
+                                 const bool disableSelectionColor, const double layer, const double width, const double height) {
     const double exaggeration = o->getExaggeration(s);
     GLHelper::pushMatrix();
     setColor(s, POI, o, disableSelectionColor);
@@ -145,8 +145,8 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         int textureID = GUITexturesHelper::getTextureID(POI->getShapeImgFile());
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
-                                               POI->getWidth() * -0.5 * exaggeration, POI->getHeight() * -0.5 * exaggeration,
-                                               POI->getWidth() * 0.5 * exaggeration,  POI->getHeight() * 0.5 * exaggeration);
+                                               width * -0.5 * exaggeration, height * -0.5 * exaggeration,
+                                               width * 0.5 * exaggeration,  height * 0.5 * exaggeration);
         }
     } else {
         // fallback if no image is defined

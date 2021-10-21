@@ -199,6 +199,13 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
+protected:
+    /// @brief shape width of POI
+    PositionVector myShapeWidth;
+
+    /// @brief shape height of POI
+    PositionVector myShapeHeight;
+
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

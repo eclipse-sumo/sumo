@@ -78,7 +78,32 @@ GNEPOI::~GNEPOI() {}
 
 GNEMoveOperation*
 GNEPOI::getMoveOperation() {
-    if (getTagProperty().getTag() == GNE_TAG_POILANE) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        // get mouse position
+        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        // check if we're editing width or height
+        if ((myShapeWidth.size() == 0) || (myShapeHeight.size() == 0)) {
+            return nullptr;
+        } else if (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit height
+            return new GNEMoveOperation(this, myShapeHeight, true, GNEMoveOperation::OperationType::HEIGHT);
+        } else if (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit height
+            return new GNEMoveOperation(this, myShapeHeight, false, GNEMoveOperation::OperationType::HEIGHT);
+        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit width
+            return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
+        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit width
+            return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
+        } else {
+            return nullptr;
+        }
+    } else if (getTagProperty().getTag() == GNE_TAG_POILANE) {
         // return move operation for POI placed over lane
         return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
@@ -141,11 +166,27 @@ GNEPOI::writeShape(OutputDevice& device) {
 
 void
 GNEPOI::updateGeometry() {
+    // set position
     if (getParentLanes().size() > 0) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > getParentLanes().at(0)->getLaneShapeLength() ? getParentLanes().at(0)->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
         set(getParentLanes().at(0)->getLaneShape().positionAtOffset(fixedPositionOverLane * getParentLanes().at(0)->getLengthGeometryFactor(), -myPosLat));
+    }
+    // check if update width and height shapes
+    if ((getWidth() > 0) && (getHeight() > 0)) {
+        // calculate shape lenght
+        myShapeHeight.clear();
+        myShapeHeight.push_back(Position(0, getHeight() * -0.5));
+        myShapeHeight.push_back(Position(0, getHeight() * 0.5));
+        // move
+        myShapeHeight.add(*this);
+        // calculate shape width
+        PositionVector leftShape = myShapeHeight;
+        leftShape.move2side(getWidth() * -0.5);
+        PositionVector rightShape = myShapeHeight;
+        rightShape.move2side(getWidth() * 0.5);
+        myShapeWidth = {leftShape.getCentroid(), rightShape.getCentroid()};
     }
 }
 
@@ -246,9 +287,11 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushName(getGlID());
             // draw inner polygon
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT);
+                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT, 
+                                                 myShapeWidth.length2D(), myShapeHeight.length2D());
             } else {
-                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer());
+                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
+                                                 myShapeWidth.length2D(), myShapeHeight.length2D());
             }
             // draw an orange square mode if there is an image(see #4036)
             if (!getShapeImgFile().empty() && myNet->getViewNet()->getTestingMode().isTestingEnabled()) {
@@ -259,6 +302,11 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 GLHelper::popMatrix();
             }
+            // draw geometry points
+            GNEAdditional::drawUpGeometryPoint(myNet->getViewNet(), myShapeHeight.front(), 180, RGBColor::ORANGE);
+            GNEAdditional::drawDownGeometryPoint(myNet->getViewNet(), myShapeHeight.back(), 180, RGBColor::ORANGE);
+            GNEAdditional::drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), -90, RGBColor::ORANGE);
+            GNEAdditional::drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), -90, RGBColor::ORANGE);
             // pop name
             GLHelper::popName();
             // draw lock icon
@@ -486,6 +534,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update centering boundary
             updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_FRIENDLY_POS:
@@ -495,6 +545,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPosLat = parse<double>(value);
             // update centering boundary
             updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         case SUMO_ATTR_LON: {
             // calculate cartesian
@@ -504,6 +556,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             set(cartesian);
             // update centering boundary
             updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_LAT: {
@@ -514,6 +568,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             set(cartesian);
             // update centering boundary
             updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_TYPE:
@@ -543,12 +599,16 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setWidth(parse<double>(value));
             // update centering boundary
             updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         case SUMO_ATTR_HEIGHT:
             // set new height
             setHeight(parse<double>(value));
             // update centering boundary
             updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));
@@ -577,25 +637,43 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
-    // set geometry
-    if (getTagProperty().getTag() == GNE_TAG_POILANE) {
-        myPosOverLane = moveResult.newFirstPos;
+    // check what are being updated
+    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
+        myShapeHeight = moveResult.shapeToUpdate;
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
+        myShapeWidth = moveResult.shapeToUpdate;
     } else {
-        set(moveResult.shapeToUpdate.front());
+        if (getTagProperty().getTag() == GNE_TAG_POILANE) {
+            myPosOverLane = moveResult.newFirstPos;
+        } else {
+            set(moveResult.shapeToUpdate.front());
+        }
+        // update geometry
+        updateGeometry();
     }
-    updateGeometry();
 }
 
 
 void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::POI, "position of " + getTagStr());
-    if (getTagProperty().getTag() == GNE_TAG_POILANE) {
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos)));
+    // check what are being updated
+    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
+        undoList->begin(myTagProperty.getGUIIcon(), "height of " + getTagStr());
+        setAttribute(SUMO_ATTR_HEIGHT, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        undoList->end();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
+        undoList->begin(myTagProperty.getGUIIcon(), "width of " + getTagStr());
+        setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        undoList->end();
     } else {
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+        undoList->begin(GUIIcon::POI, "position of " + getTagStr());
+        if (getTagProperty().getTag() == GNE_TAG_POILANE) {
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos)));
+        } else {
+            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+        }
+        undoList->end();
     }
-    undoList->end();
 }
 
 /****************************************************************************/
