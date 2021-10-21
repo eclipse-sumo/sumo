@@ -13,6 +13,7 @@
 
 # @file    generateParkingAreaRerouters.py
 # @author  Lara CODECA
+# @author  Jakob Erdmann
 # @date    11-3-2019
 
 """ Generate parking area rerouters from the parking area definition. """
@@ -76,6 +77,25 @@ def get_options(cmd_args=None):
     return parser.parse_args(cmd_args)
 
 
+def initRTree(all_parkings):
+    try:
+        import rtree  # noqa
+    except ImportError:
+        sys.stdout.write("Warning: Module 'rtree' not available. Using slow brute-force search for alternative parkingAreas\n")
+        return None
+
+    result = None
+    result = rtree.index.Index()
+    result.interleaved = True
+    # build rtree for parkingAreas
+    for index, parking in enumerate(all_parkings.values()):
+        x, y  = parking['pos']
+        r = 1
+        bbox = (x - r, y - r, x + r, y + r)
+        result.add(index, bbox)
+    return result
+
+
 class ReroutersGeneration(object):
     """ Generate parking area rerouters from the parking area definition. """
 
@@ -104,7 +124,16 @@ class ReroutersGeneration(object):
             sequence = xml_tree
         for child in sequence:
             self._parking_areas[child.attrib['id']] = child.attrib
-            self._parking_areas[child.attrib['id']]['edge'] = child.attrib['lane'].split('_')[0]
+
+            laneID = child.attrib['lane']
+            lane = self._sumo_net.getLane(laneID)
+            endPos =  float(child.attrib['endPos'])
+            if endPos < 0:
+                endPos = lane.getLength()
+
+            self._parking_areas[child.attrib['id']]['edge'] = lane.getEdge().getID()
+            self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)
+            #print(child.attrib['id'], self._parking_areas[child.attrib['id']]['edge'], self._parking_areas[child.attrib['id']]['pos'])
 
     # ---------------------------------------------------------------------------------------- #
     #                                 Rerouter Generation                                      #
@@ -180,6 +209,7 @@ def generate_rerouters_process(parameters):
     """ Compute the rerouters for the given parking areas."""
 
     sumo_net = sumolib.net.readNet(parameters['net_file'])
+    rtree = initRTree(parameters['all_parking_areas'])
     ret_rerouters = dict()
 
     @functools.lru_cache(maxsize=None)
@@ -188,16 +218,27 @@ def generate_rerouters_process(parameters):
         return sumo_net.getShortestPath(from_edge, to_edge)
 
     distances = collections.defaultdict(dict)
+    routes = collections.defaultdict(dict)
     sequence = None
     if parameters['with_tqdm']:
         from tqdm import tqdm
         sequence = tqdm(parameters['selection'])
     else:
         sequence = parameters['selection']
+
     for parking_id in sequence:
         parking_a = parameters['all_parking_areas'][parking_id]
         from_edge = sumo_net.getEdge(parking_a['edge'])
-        for parking_b in parameters['all_parking_areas'].values():
+        candidates = parameters['all_parking_areas'].values()
+        if rtree is not None:
+            allParkings = list(candidates)
+            candidates = []
+            x, y = parking_a['pos']
+            r = parameters['dist_alternatives']
+            for i in rtree.intersection((x - r, y - r, x + r, y + r)):
+                candidates.append(allParkings[i])
+
+        for parking_b in candidates:
             if parking_a['id'] == parking_b['id']:
                 continue
             if parking_a['edge'] == parking_b['edge']:
@@ -206,6 +247,8 @@ def generate_rerouters_process(parameters):
                                                     sumo_net.getEdge(parking_b['edge']))
             if route:
                 distances[parking_a['id']][parking_b['id']] = cost
+                routes[parking_a['id']][parking_b['id']] = route
+
     cache_info = _cached_get_shortest_path.cache_info()
     total = float(cache_info.hits + cache_info.misses)
     perc = cache_info.hits * 100.0

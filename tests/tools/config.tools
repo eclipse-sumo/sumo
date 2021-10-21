@@ -202,7 +202,7 @@ output:Building scenario in.*{REPLACE Building scenario in <DIR>}
 output:^Performance:{->}^Vehicles:
 output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 output:Written configuration to .*{REPLACE Written configuration to <PATH>}
-output:Warning: Module 'rtree' not available. Using brute-force fallback
+output:Warning: Module 'rtree' not available.
 output:2147483647{REPLACE 9223372036854775807}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:Retrying in
