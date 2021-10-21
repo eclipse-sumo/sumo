@@ -77,7 +77,7 @@ GNETAZ::getMoveOperation() {
         return new GNEMoveOperation(this, myTAZCenter);
     } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
-        return new GNEMoveOperation(this, myShape, GNEMoveOperation::OperationType::ENTIRE_SHAPE);
+        return new GNEMoveOperation(this, myShape);
     } else {
         // calculate move shape operation
         return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true);

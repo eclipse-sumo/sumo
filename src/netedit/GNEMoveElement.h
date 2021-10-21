@@ -60,7 +60,12 @@ public:
 
     /// @brief constructor for entire geometries (Polygon with blocked shapes)
     GNEMoveOperation(GNEMoveElement* moveElement,
+                     const PositionVector originalShape);
+
+    /// @brief constructor for entire geometries (Polygon with blocked shapes)
+    GNEMoveOperation(GNEMoveElement* moveElement,
                      const PositionVector originalShape,
+                     const bool firstGeometryPoint,
                      const OperationType operationType);
 
     /// @brief constructor for elements with editable shapes (edges, polygons...)
@@ -127,6 +132,9 @@ public:
 
     /// @brief allow change lane
     const bool allowChangeLane;
+
+    /// @brief first position (used for edit with/height
+    const bool firstGeometryPoint;
 
     /// @brief operation type
     const OperationType operationType;
@@ -264,6 +272,9 @@ private:
 
     /// @brief calculate new lane
     static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
+
+    /// @brief calculate width/height shape
+    static PositionVector calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult &moveResult);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

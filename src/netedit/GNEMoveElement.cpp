@@ -34,20 +34,32 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     originalShape({_originalPosition}),
     shapeToMove({_originalPosition}),
     allowChangeLane(false),
+    firstGeometryPoint(false),
     operationType(OperationType::POSITION) {
 }
 
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement, 
+                                   const PositionVector _originalShape) :
+    moveElement(_moveElement),
+    originalShape(_originalShape),
+    shapeToMove(_originalShape),
+    allowChangeLane(false),
+    firstGeometryPoint(false),
+    operationType(OperationType::ENTIRE_SHAPE) {
+}
+
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const PositionVector _originalShape,
+                                   const bool _firstGeometryPoint,
                                    const OperationType _operationType) :
     moveElement(_moveElement),
     originalShape(_originalShape),
     shapeToMove(_originalShape),
     allowChangeLane(false),
+    firstGeometryPoint(_firstGeometryPoint),
     operationType(_operationType) {
 }
-
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const PositionVector _originalShape,
@@ -60,6 +72,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     shapeToMove(_shapeToMove),
     geometryPointsToMove(_geometryPointsToMove),
     allowChangeLane(false),
+    firstGeometryPoint(false),
     operationType(OperationType::GEOMETRY_POINTS) {
 }
 
@@ -72,6 +85,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstLane(_lane),
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane),
+    firstGeometryPoint(false),
     operationType(OperationType::ONE_LANE) {
 }
 
@@ -87,6 +101,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
     secondPosition(_secondPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane),
+    firstGeometryPoint(false),
     operationType(_operationType) {
 }
 
@@ -104,6 +119,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     secondLane(_secondLane),
     secondPosition((_secondStartPos != INVALID_DOUBLE) ? _secondStartPos * _secondLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     allowChangeLane(_allowChangeLane),
+    firstGeometryPoint(false),
     operationType(_operationType) {
 }
 
@@ -261,7 +277,21 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 moveResult.clearLanes();
             }
         }
-    } else if (moveOperation->geometryPointsToMove.empty()) {
+    } else if (moveOperation->geometryPointsToMove.size() > 0) {
+        // set values in moveResult
+        moveResult.shapeToUpdate = moveOperation->shapeToMove;
+        // move geometry points
+        for (const auto& geometryPointIndex : moveOperation->geometryPointsToMove) {
+            if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
+                // add offset
+                moveResult.shapeToUpdate[geometryPointIndex].add(offset.x, offset.y, offset.z);
+                // apply snap to active grid
+                moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
+            } else {
+                throw ProcessError("trying to move an invalid position");
+            }
+        }
+    } else {
         // set values in moveResult
         moveResult.shapeToUpdate = moveOperation->shapeToMove;
         // move entire shape
@@ -275,19 +305,11 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 throw ProcessError("trying to move an invalid position");
             }
         }
-    } else {
-        // set values in moveResult
-        moveResult.shapeToUpdate = moveOperation->shapeToMove;
-        // move geometry points
-        for (const auto& geometryPointIndex : moveOperation->geometryPointsToMove) {
-            if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
-                // add offset
-                moveResult.shapeToUpdate[geometryPointIndex].add(offset.x, offset.y, offset.z);
-                // apply snap to active grid
-                moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
-            } else {
-                throw ProcessError("trying to move an invalid position");
-            }
+        // check if we're adjusting width or height
+        if ((moveOperation->operationType == GNEMoveOperation::OperationType::WIDTH) ||
+            (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT)) {
+            // calculate extrapolate vector
+            moveResult.shapeToUpdate = calculateExtrapolatedVector(moveOperation, moveResult);
         }
     }
     // move shape element
@@ -379,20 +401,8 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         moveResult.geometryPointsToMove = moveOperation->geometryPointsToMove;
         // set values in moveResult
         moveResult.shapeToUpdate = moveOperation->shapeToMove;
-        // check if we're moving an entire shape or  only certain geometry point
-        if (moveOperation->geometryPointsToMove.empty()) {
-            // move entire shape
-            for (auto& geometryPointIndex : moveResult.shapeToUpdate) {
-                if (geometryPointIndex != Position::INVALID) {
-                    // add offset
-                    geometryPointIndex.add(offset.x, offset.y, offset.z);
-                    // apply snap to active grid
-                    geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
-                } else {
-                    throw ProcessError("trying to move an invalid position");
-                }
-            }
-        } else {
+        // check if we're moving an entire shape or only certain geometry point
+        if (moveOperation->geometryPointsToMove.size() > 0) {
             // only move certain geometry points
             for (const auto& geometryPointIndex : moveOperation->geometryPointsToMove) {
                 if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
@@ -407,6 +417,24 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             // remove double points (only in commitMove)
             if (moveResult.shapeToUpdate.size() > 2) {
                 moveResult.shapeToUpdate.removeDoublePoints(2);
+            }
+        } else {
+            // move entire shape
+            for (auto& geometryPointIndex : moveResult.shapeToUpdate) {
+                if (geometryPointIndex != Position::INVALID) {
+                    // add offset
+                    geometryPointIndex.add(offset.x, offset.y, offset.z);
+                    // apply snap to active grid
+                    geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
+                } else {
+                    throw ProcessError("trying to move an invalid position");
+                }
+            }
+            // check if we're adjusting width or height
+            if ((moveOperation->operationType == GNEMoveOperation::OperationType::WIDTH) ||
+                (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT)) {
+                // calculate extrapolate vector
+                moveResult.shapeToUpdate = calculateExtrapolatedVector(moveOperation, moveResult);
             }
         }
     }
@@ -517,6 +545,42 @@ GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* origi
                 }
             }
         }
+    }
+}
+
+
+PositionVector 
+GNEMoveElement::calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult &moveResult) {
+    // get original shape half lenght
+    const double halfLenght = moveOperation->originalShape.length2D() * -0.5;
+    // get original shape and extrapolate
+    PositionVector extendedShape = moveOperation->originalShape;
+    extendedShape.extrapolate2D(10e5);
+    // get geometry point
+    const Position geometryPoint = moveOperation->firstGeometryPoint? moveResult.shapeToUpdate.front() : moveResult.shapeToUpdate.back();
+    // calculate offsets to first and last positions
+    const double offset = extendedShape.nearest_offset_to_point2D(geometryPoint, false);
+    // calculate extrapolate value
+    double extrapolateValue = (10e5 - offset);
+    // adjust extrapolation
+    if (moveOperation->firstGeometryPoint) { 
+        if (extrapolateValue < halfLenght) {
+            extrapolateValue = (halfLenght - POSITION_EPS);
+        }
+    } else { 
+        if (extrapolateValue > halfLenght) {
+            extrapolateValue = (halfLenght - POSITION_EPS);
+        }
+    }
+    // restore shape in in moveResult
+    PositionVector extrapolatedShape = moveOperation->shapeToMove;
+    // extrapolate
+    extrapolatedShape.extrapolate2D(extrapolateValue);
+    // check if return reverse
+    if (moveOperation->firstGeometryPoint) {
+        return extrapolatedShape;
+    } else {
+        return extrapolatedShape.reverse();
     }
 }
 
