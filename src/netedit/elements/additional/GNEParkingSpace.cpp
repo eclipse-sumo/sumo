@@ -60,22 +60,18 @@ GNEParkingSpace::getMoveOperation() {
         // get mouse position
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // check if we're editing width or height
-        if ((myShapeLength.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) || 
-            (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
-            /*
-            // move only start position
-            return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
-                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
-            */
-            return nullptr;
-        } else if ((myShapeWidth.getPolygonCenter().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) || 
-                   (myShapeWidth.getPolygonCenter().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
-            /*
-            // move only end position
-            return new GNEMoveOperation(this, getParentLanes().front(), 0, myEndPosition,
-                                        allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
-            */
-            return nullptr;
+        if (myShapeLength.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit height
+            return new GNEMoveOperation(this, myShapeLength, true, GNEMoveOperation::OperationType::HEIGHT);
+        } else if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit height
+            return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::HEIGHT);
+        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit width
+            return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
+        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit width
+            return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
         } else {
             return nullptr;
         }
@@ -88,19 +84,22 @@ GNEParkingSpace::getMoveOperation() {
 
 void
 GNEParkingSpace::updateGeometry() {
+    // get width an lenght
+    const double width = getAttributeDouble(SUMO_ATTR_WIDTH) <= 0? POSITION_EPS : getAttributeDouble(SUMO_ATTR_WIDTH);
+    const double lenght = getAttributeDouble(SUMO_ATTR_LENGTH) <= 0? POSITION_EPS : getAttributeDouble(SUMO_ATTR_LENGTH);
     // calculate shape lenght
     myShapeLength.clear();
     myShapeLength.push_back(Position(0, 0));
-    myShapeLength.push_back(Position(0, getAttributeDouble(SUMO_ATTR_LENGTH)));
+    myShapeLength.push_back(Position(0, lenght));
     // rotate
     myShapeLength.rotate2D(DEG2RAD(getAttributeDouble(SUMO_ATTR_ANGLE)));
     // move
     myShapeLength.add(myPosition);
     // calculate shape width
     PositionVector leftShape = myShapeLength;
-    leftShape.move2side(getAttributeDouble(SUMO_ATTR_WIDTH) * -0.5);
+    leftShape.move2side(width * -0.5);
     PositionVector rightShape = myShapeLength;
-    rightShape.move2side(getAttributeDouble(SUMO_ATTR_WIDTH) * 0.5);
+    rightShape.move2side(width * 0.5);
     myShapeWidth = {leftShape.getCentroid(), rightShape.getCentroid()};
     // update centering boundary
     updateCenteringBoundary(true);
@@ -115,19 +114,13 @@ GNEParkingSpace::getPositionInView() const {
 
 void
 GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // obtain double values
-    const double width = myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
-    const double length = myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
     // first reset boundary
     myAdditionalBoundary.reset();
     // add position
     myAdditionalBoundary.add(myPosition);
     // grow width and lenght
-    if (myWidth > myLength) {
-        myAdditionalBoundary.grow(width);
-    } else {
-        myAdditionalBoundary.grow(length);
-    }
+    myAdditionalBoundary.grow(myShapeLength.length2D());
+    myAdditionalBoundary.grow(myShapeWidth.length2D());
     // grow
     myAdditionalBoundary.grow(10);
     // update centering boundary of parent
@@ -154,7 +147,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(parkingAreaExaggeration)) {
         // obtain  values
-        const double width = getAttributeDouble(SUMO_ATTR_WIDTH) * 0.5 + (parkingAreaExaggeration * 0.1);
+        const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
         const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
         // get colors
         const RGBColor baseColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
@@ -286,11 +279,11 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return value.empty() || (canParse<double>(value) && (parse<double>(value) > 0));
         case SUMO_ATTR_LENGTH:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return value.empty() || (canParse<double>(value) && (parse<double>(value) > 0));
         case SUMO_ATTR_ANGLE:
-            return canParse<double>(value);
+            return value.empty() || canParse<double>(value);
         case SUMO_ATTR_SLOPE:
             return canParse<double>(value);
         case GNE_ATTR_PARENT:
@@ -331,26 +324,26 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
-            // update boundary
-            updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = value;
-            // update boundary
-            updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         case SUMO_ATTR_LENGTH:
             myLength = value;
-            // update boundary
-            updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = value;
-            // update boundary
-            updateCenteringBoundary(true);
+            // update geometry
+            updateGeometry();
             break;
         case SUMO_ATTR_SLOPE:
             mySlope = parse<double>(value);
@@ -376,18 +369,35 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
-    // update position
-    myPosition = moveResult.shapeToUpdate.front();
-    // update geometry
-    updateGeometry();
+    // check what are being updated
+    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
+        myShapeLength = moveResult.shapeToUpdate;
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
+        myShapeWidth = moveResult.shapeToUpdate;
+    } else {
+        myPosition = moveResult.shapeToUpdate.front();
+        // update geometry
+        updateGeometry();
+    }
 }
 
 
 void
 GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
-    undoList->end();
+    // check what are being updated
+    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
+        undoList->begin(myTagProperty.getGUIIcon(), "length of " + getTagStr());
+        setAttribute(SUMO_ATTR_LENGTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        undoList->end();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
+        undoList->begin(myTagProperty.getGUIIcon(), "width of " + getTagStr());
+        setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        undoList->end();
+    } else {
+        undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
+        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
+        undoList->end();
+    }
 }
 
 /****************************************************************************/
