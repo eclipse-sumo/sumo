@@ -71,7 +71,7 @@ def get_options(cmd_args=None):
         '--processes', type=int, dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
     parser.add_argument(
-        '-o', type=str, dest='output', required=True,
+        '-o', '--output', type=str, dest='output', required=True,
         help='Name for the output file.')
     parser.add_argument(
         '--tqdm', dest='with_tqdm', action='store_true',
