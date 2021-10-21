@@ -156,6 +156,9 @@ class ReroutersGeneration(object):
                 'with_tqdm': self._opt.with_tqdm,
                 'num_alternatives': self._opt.num_alternatives,
                 'dist_alternatives': self._opt.dist_alternatives,
+                'dist_threshold': self._opt.dist_threshold,
+                'capacity_threshold': self._opt.capacity_threshold,
+                'opposite_visible': self._opt.opposite_visible,
             }
             list_parameters.append(parameters)
         for res in pool.imap_unordered(generate_rerouters_process, list_parameters):
@@ -191,19 +194,13 @@ class ReroutersGeneration(object):
                 rerouter = self._sumo_rerouters[rerouter_id]
                 alternatives = ''
                 for alt, dist in rerouter['rerouters']:
-                    _visibility = 'false'
-                    if alt == rerouter['rid']:
-                        _visibility = 'true'
-                    if (int(self._parking_areas[alt].get('roadsideCapacity', 0)) >=
-                            self._opt.capacity_threshold):
-                        _visibility = 'true'
-                    if dist <= self._opt.dist_threshold:
-                        _visibility = 'true'
-                    if self._opt.opposite_visible:
-                        rrEdge = self._sumo_net.getEdge(rerouter['edge'])
-                        altEdge = self._sumo_net.getEdge(self._parking_areas[alt]['edge'])
-                        if rrEdge.getFromNode() == altEdge.getToNode() and rrEdge.getToNode() == altEdge.getFromNode():
-                            _visibility = 'true'
+                    _visibility = isVisible(rerouter_id, alt, dist,
+                            self._sumo_net,
+                            self._parking_areas,
+                            self._opt.dist_threshold,
+                            self._opt.capacity_threshold,
+                            self._opt.opposite_visible)
+                    _visibility = str(_visibility).lower()
                     alternatives += self._RR_PARKING.format(pid=alt, visible=_visibility, dist=dist)
                 outfile.write(self._REROUTER.format(
                     rid=rerouter['rid'], edges=rerouter['edge'], parkings=alternatives))
@@ -211,6 +208,22 @@ class ReroutersGeneration(object):
         print("{} created.".format(self._opt.output))
 
     # ----------------------------------------------------------------------------------------- #
+
+
+def isVisible(pID, altID, dist, net, parking_areas, dist_threshold, capacity_threshold, opposite_visible):
+    _visibility = 'false'
+    if altID == pID:
+        return True;
+    if (int(parking_areas[altID].get('roadsideCapacity', 0)) >= capacity_threshold):
+        return True
+    if dist <= dist_threshold:
+        return True
+    if opposite_visible:
+        rrEdge = net.getEdge(parking_areas[pID]['edge'])
+        altEdge = net.getEdge(parking_areas[altID]['edge'])
+        if rrEdge.getFromNode() == altEdge.getToNode() and rrEdge.getToNode() == altEdge.getFromNode():
+            return True
+    return False
 
 
 def generate_rerouters_process(parameters):
@@ -277,6 +290,25 @@ def generate_rerouters_process(parameters):
         list_of_dist = sorted(list_of_dist)
         temp_rerouters = [(pid, 0.0)]
         for distance, parking in list_of_dist:
+            route = routes[pid][parking]
+            dominated = False
+            for alt2, altRoute in routes[pid].items():
+                if isVisible(pid, alt2, distance, sumo_net,
+                        parameters['all_parking_areas'],
+                        parameters['dist_threshold'],
+                        parameters['capacity_threshold'],
+                        parameters['opposite_visible']):
+                    # target parkingArea might be observed as occupired and thus
+                    # cannot dominate a candidate beyond
+                    continue
+                if len(altRoute) < len(route) and altRoute == route[0:len(altRoute)]:
+                    #print("origin", pid, "cand", parking,
+                    #        "route", [e.getID() for e in route],
+                    #        "dominated by", [e.getID() for e in altRoute])
+                    dominated = True
+                    break
+            if dominated:
+                continue
             if len(temp_rerouters) > parameters['num_alternatives']:
                 break
             if distance > parameters['dist_alternatives']:
