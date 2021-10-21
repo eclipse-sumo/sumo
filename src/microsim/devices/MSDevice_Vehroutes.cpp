@@ -131,6 +131,7 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
     myCurrentRoute(&holder.getRoute()),
     myMaxRoutes(maxRoutes),
     myLastSavedAt(nullptr),
+    myLastRouteIndex(-1),
     myDepartLane(-1),
     myDepartPos(-1),
     myDepartSpeed(-1),
@@ -167,13 +168,14 @@ MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notifica
     if (myWriteStopPriorEdges) {
         myPriorEdges.push_back(&enteredLane->getEdge());
     }
-    return mySaveExits || myWriteStopPriorEdges;
+    myLastRouteIndex = myHolder.getRoutePosition();
+    return true;
 }
 
 
 bool
 MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE) {
+    if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE && reason != NOTIFICATION_PARKING) {
         if (reason != NOTIFICATION_TELEPORT && myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
             myExits.back() = MSNet::getInstance()->getCurrentTimeStep();
         } else if (myLastSavedAt != veh.getEdge()) {
@@ -181,7 +183,7 @@ MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
             myLastSavedAt = veh.getEdge();
         }
     }
-    return mySaveExits || myWriteStopPriorEdges;
+    return true;
 }
 
 
@@ -221,6 +223,8 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         return;
     }
     // check if a previous route shall be written
+    //std::cout << " writeXMLRoute index=" << index << " numReroutes=" << myHolder.getNumberReroutes() << "\n";
+    const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) ? 1 : 0;
     os.openTag(SUMO_TAG_ROUTE);
     if (index >= 0) {
         assert((int)myReplacedRoutes.size() > index);
@@ -239,19 +243,20 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         // write the time at which the route was replaced
         os.writeAttr("replacedAtTime", time2string(myReplacedRoutes[index].time));
         os.writeAttr(SUMO_ATTR_PROB, "0");
-        os << " edges=\"";
-        // get the route
-        int i = index;
-        while (i > 0 && myReplacedRoutes[i - 1].edge != nullptr && !myIncludeIncomplete) {
-            i--;
+        OutputDevice_String edgesD;
+        // always write the part that was actually driven and the rest of the current route that wasn't yet driven
+        int start = 0;
+        for (int i = routesToSkip; i < index; i++) {
+            if (myReplacedRoutes[i].edge != nullptr) {
+                int end = myReplacedRoutes[i].lastRouteIndex;
+                myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end);
+            }
+            start = myReplacedRoutes[i].newRouteIndex;
         }
-        const MSEdge* lastEdge = nullptr;
-        for (; i < index; ++i) {
-            myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
-            lastEdge = myReplacedRoutes[i].edge;
-        }
-        myReplacedRoutes[index].route->writeEdgeIDs(os, lastEdge);
-        os << "\"";
+        myReplacedRoutes[index].route->writeEdgeIDs(edgesD, start, -1);
+        std::string edgesS = edgesD.getString();
+        edgesS.pop_back(); // remove last ' '
+        os.writeAttr(SUMO_ATTR_EDGES, edgesS);
         if (myRouteLength) {
             const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
             const MSRoute* route = myReplacedRoutes[index].route;
@@ -266,22 +271,23 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         if (myWriteCosts) {
             os.writeAttr(SUMO_ATTR_SAVINGS, myHolder.getRoute().getSavings());
         }
-        os << " edges=\"";
-        const MSEdge* lastEdge = nullptr;
+        OutputDevice_String edgesD;
         int numWritten = 0;
+        int start = 0;
         if (myHolder.getNumberReroutes() > 0) {
             assert((int)myReplacedRoutes.size() <= myHolder.getNumberReroutes());
-            int i = (int)myReplacedRoutes.size();
-            while (i > 0 && myReplacedRoutes[i - 1].edge) {
-                i--;
-            }
-            for (; i < (int)myReplacedRoutes.size(); ++i) {
-                numWritten += myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
-                lastEdge = myReplacedRoutes[i].edge;
+            for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); i++) {
+                if (myReplacedRoutes[i].edge != nullptr) {
+                    int end = myReplacedRoutes[i].lastRouteIndex;
+                    numWritten += myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end);
+                }
+                start = myReplacedRoutes[i].newRouteIndex;
             }
         }
-        numWritten += myCurrentRoute->writeEdgeIDs(os, lastEdge, nullptr);
-        os << "\"";
+        numWritten += myCurrentRoute->writeEdgeIDs(edgesD, start, -1);
+        std::string edgesS = edgesD.getString();
+        edgesS.pop_back(); // remove last ' '
+        os.writeAttr(SUMO_ATTR_EDGES, edgesS);
 
         if (mySaveExits) {
             std::vector<std::string> exits;
@@ -367,9 +373,12 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
                 od.setPrecision(8);
                 od.writeAttr(SUMO_ATTR_PROB, probs[i]);
                 od.setPrecision();
-                od << " edges=\"";
-                routes[i]->writeEdgeIDs(od, *routes[i]->begin());
-                (od << "\"").closeTag();
+                OutputDevice_String edgesD;
+                routes[i]->writeEdgeIDs(edgesD);
+                std::string edgesS = edgesD.getString();
+                edgesS.pop_back(); // remove last ' '
+                od.writeAttr(SUMO_ATTR_EDGES, edgesS);
+                od.closeTag();
             }
             od.closeTag();
         } else {
@@ -424,11 +433,12 @@ MSDevice_Vehroutes::getRoute(int index) const {
 void
 MSDevice_Vehroutes::addRoute(const std::string& info) {
     if (myMaxRoutes > 0) {
-        if (myHolder.hasDeparted()) {
-            myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute, info));
-        } else {
-            myReplacedRoutes.push_back(RouteReplaceInfo(nullptr, MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute, info));
-        }
+        //std::cout << SIMTIME << " " << getID() << " departed=" << myHolder.hasDeparted() << " lastIndex=" << myLastRouteIndex << " start=" << myHolder.getRoutePosition() << "\n";
+        myReplacedRoutes.push_back(RouteReplaceInfo(
+                    myHolder.hasDeparted() ?  myHolder.getEdge() : nullptr,
+                    MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute, info,
+                    myLastRouteIndex,
+                    myHolder.hasDeparted() ? myHolder.getRoutePosition() : 0));
         if ((int)myReplacedRoutes.size() > myMaxRoutes) {
             myReplacedRoutes.front().route->release();
             myReplacedRoutes.erase(myReplacedRoutes.begin());
@@ -477,6 +487,8 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
         internals.push_back(toString(myReplacedRoutes[i].time));
         internals.push_back(myReplacedRoutes[i].route->getID());
         internals.push_back(myReplacedRoutes[i].info);
+        internals.push_back(toString(myReplacedRoutes[i].lastRouteIndex));
+        internals.push_back(toString(myReplacedRoutes[i].newRouteIndex));
     }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     if (mySaveExits && myExits.size() > 0) {
@@ -502,13 +514,18 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         SUMOTime time;
         std::string routeID;
         std::string info;
+        int lastIndex;
+        int newIndex;
         bis >> edgeID;
         bis >> time;
         bis >> routeID;
         bis >> info;
+        bis >> lastIndex;
+        bis >> newIndex;
+
         const MSRoute* route = MSRoute::dictionary(routeID);
         route->addReference();
-        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info));
+        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info, lastIndex, newIndex));
     }
     if (mySaveExits && attrs.hasAttribute(SUMO_ATTR_EXITTIMES)) {
         for (const std::string& t : attrs.getStringVector(SUMO_ATTR_EXITTIMES)) {

@@ -252,8 +252,12 @@ private:
          * @param[in] time_ The time the route was replaced
          * @param[in] route_ The prior route
          */
-        RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, const MSRoute* const route_, const std::string& info_)
-            : edge(edge_), time(time_), route(route_), info(info_) {}
+        RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, const MSRoute* const route_,
+                const std::string& info_, int lastRouteIndex_, int newRouteIndex_) :
+            edge(edge_), time(time_), route(route_), info(info_),
+            lastRouteIndex(lastRouteIndex_),
+            newRouteIndex(newRouteIndex_)
+        {}
 
         /// @brief Destructor
         ~RouteReplaceInfo() { }
@@ -269,6 +273,14 @@ private:
 
         /// @brief Information regarding rerouting
         std::string info;
+
+        /// @brief The last index in the replaced route
+        // (vehicle may or may not have driven to the end of it)
+        int lastRouteIndex;
+
+        /// @brief The current index in the replacement route
+        // (new route may or may not include prior driven route edges)
+        int newRouteIndex;
 
     };
 
@@ -286,6 +298,9 @@ private:
 
     /// @brief The last edge the exit time was saved for
     const MSEdge* myLastSavedAt;
+
+    /// @brief The route index of the last edge that the vehicle left
+    int myLastRouteIndex;
 
     /// @brief The lane the vehicle departed at
     int myDepartLane;

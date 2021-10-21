@@ -90,11 +90,11 @@ public:
 
     /** @brief Output the edge ids up to but not including the id of the given edge
      * @param[in] os The stream to write the routes into (binary)
-     * @param[in] from The first edge to be written
-     * @param[in] upTo The first edge that shall not be written
+     * @param[in] firstIndex index of the first edge to be written
+     * @param[in] lastIndex index of the first edge that shall not be written (-1 writes all remaining)
      * @return The number of edges written
      */
-    int writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo = 0) const;
+    int writeEdgeIDs(OutputDevice& os, int firstIndex = 0, int lastIndex = -1) const;
 
     bool contains(const MSEdge* const edge) const {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();

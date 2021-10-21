@@ -223,23 +223,15 @@ MSRoute::insertIDs(std::vector<std::string>& into) {
 
 
 int
-MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo) const {
-    int numWritten = 0;
-    ConstMSEdgeVector::const_iterator i = myEdges.begin();
-    if (from != nullptr) {
-        i = std::find(myEdges.begin(), myEdges.end(), from);
+MSRoute::writeEdgeIDs(OutputDevice& os, int firstIndex, int lastIndex) const {
+    //std::cout << SIMTIME << " writeEdgeIDs " << getID() << " first=" << firstIndex << " lastIndex=" << lastIndex << " edges=" << toString(myEdges) << "\n";
+    if (lastIndex < 0) {
+        lastIndex = myEdges.size();
     }
-    for (; i != myEdges.end(); ++i) {
-        if ((*i) == upTo) {
-            return numWritten;
-        }
-        os << (*i)->getID();
-        numWritten++;
-        if (upTo || i != myEdges.end() - 1) {
-            os << ' ';
-        }
+    for (int i = firstIndex; i < lastIndex; i++) {
+        os << myEdges[i]->getID() << ' ';
     }
-    return numWritten;
+    return lastIndex - firstIndex;
 }
 
 
