@@ -65,6 +65,9 @@ def get_options(cmd_args=None):
         '--max-distance-visibility-true', type=float, dest='dist_threshold', default=250.0,
         help='Rerouter: parking distance for the visibility threshold.')
     parser.add_argument(
+        '--opposite-visible', action="store_true", dest='opposite_visible',
+        default=False, help="ParkingArea on the opposite side of the road is always visible")
+    parser.add_argument(
         '--processes', type=int, dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
     parser.add_argument(
@@ -196,6 +199,11 @@ class ReroutersGeneration(object):
                         _visibility = 'true'
                     if dist <= self._opt.dist_threshold:
                         _visibility = 'true'
+                    if self._opt.opposite_visible:
+                        rrEdge = self._sumo_net.getEdge(rerouter['edge'])
+                        altEdge = self._sumo_net.getEdge(self._parking_areas[alt]['edge'])
+                        if rrEdge.getFromNode() == altEdge.getToNode() and rrEdge.getToNode() == altEdge.getFromNode():
+                            _visibility = 'true'
                     alternatives += self._RR_PARKING.format(pid=alt, visible=_visibility, dist=dist)
                 outfile.write(self._REROUTER.format(
                     rid=rerouter['rid'], edges=rerouter['edge'], parkings=alternatives))
