@@ -43,7 +43,7 @@ if not hasattr(functools, "lru_cache"):
 
 def get_options(cmd_args=None):
     """ Argument Parser. """
-    parser = argparse.ArgumentParser(
+    parser = sumolib.options.ArgumentParser(
         prog='generateParkingAreaRerouters.py', usage='%(prog)s [options]',
         description='Generate parking area rerouters from the parking area definition.')
     parser.add_argument(
@@ -186,8 +186,7 @@ class ReroutersGeneration(object):
             with threshold visibility set to True. """
         print("Creation of {}".format(self._opt.output))
         with open(self._opt.output, 'w') as outfile:
-            sumolib.xml.writeHeader(outfile, "additional")
-            outfile.write("<additional>\n")
+            sumolib.writeXMLHeader(outfile, "$Id$", "additional", options=self._opt)  # noqa
             # remove the randomness introduced by the multiprocessing and allows meaningful diffs
             ordered_rerouters = sorted(self._sumo_rerouters.keys())
             for rerouter_id in ordered_rerouters:
