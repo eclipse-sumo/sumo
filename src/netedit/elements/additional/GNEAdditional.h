@@ -306,6 +306,18 @@ public:
     /// @brief draw parent and child lines
     void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const;
 
+    /// @brief draw up geometry point
+    static void drawUpGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+
+    /// @brief draw down geometry point
+    static void drawDownGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+
+    /// @brief draw left geometry point
+    static void drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+
+    /// @brief draw right geometry point
+    static void drawRightGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+
 protected:
     /// @brief Additional Boundary
     Boundary myAdditionalBoundary;
@@ -338,18 +350,6 @@ protected:
 
     /// @brief draw additional name
     void drawAdditionalName(const GUIVisualizationSettings& s) const;
-
-    /// @brief draw up geometry point
-    void drawUpGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
-
-    /// @brief draw down geometry point
-    void drawDownGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
-
-    /// @brief draw left geometry point
-    void drawLeftGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
-
-    /// @brief draw right geometry point
-    void drawRightGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const;
 
     /// @brief replace additional parent edges
     void replaceAdditionalParentEdges(const std::string& value);
@@ -397,8 +397,8 @@ private:
     void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief draw geometry point
-    void drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor, 
-                                     const double fromAngle, const double toAngle) const;
+    static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor, 
+                                            const double fromAngle, const double toAngle);
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;

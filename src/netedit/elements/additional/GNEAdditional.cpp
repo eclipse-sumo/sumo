@@ -367,12 +367,12 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
         // draw geometry points
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(s, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color);
-            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
+            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color);
+            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
         } else if (segment->isFirstSegment()) {
-            drawLeftGeometryPoint(s, E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color);
+            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color);
         } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
+            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color);
         }
         // Pop layer matrix
         GLHelper::popMatrix();
@@ -555,30 +555,6 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, 0);
         }
     }
-}
-
-
-void 
-GNEAdditional::drawUpGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, -90, 90);
-}
-
-
-void 
-GNEAdditional::drawDownGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 90, 270);
-}
-
-
-void 
-GNEAdditional::drawLeftGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, -90, 90);
-}
-
-
-void 
-GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 270, 90);
 }
 
 
@@ -811,6 +787,30 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
 }
 
 
+void 
+GNEAdditional::drawUpGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
+}
+
+
+void 
+GNEAdditional::drawDownGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 90, 270);
+}
+
+
+void 
+GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
+}
+
+
+void 
+GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+    drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 270, 90);
+}
+
+
 bool
 GNEAdditional::checkChildAdditionalRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
@@ -825,12 +825,11 @@ GNEAdditional::setEnabledAttribute(const int /*enabledAttributes*/) {
 
 
 void 
-GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const Position &pos, const double rot, const RGBColor& baseColor, 
-        const double fromAngle, const double toAngle) const {
+GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor, 
+        const double fromAngle, const double toAngle) {
     // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        viewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // calculate new color
         const RGBColor color = baseColor.changedBrightness(-50);
         // push matrix
@@ -845,7 +844,8 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, co
         glTranslated(pos.x(), pos.y(), 0.1);
         glRotated(rot, 0, 0, 1);
         // draw geometry point
-        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution(), fromAngle, toAngle);
+        GLHelper::drawFilledCircle(viewNet->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius, 
+                                   viewNet->getVisualisationSettings().getCircleResolution(), fromAngle, toAngle);
         // pop geometry point matrix
         GLHelper::popMatrix();
         // pop draw matrix
