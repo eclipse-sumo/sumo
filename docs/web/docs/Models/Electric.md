@@ -262,7 +262,7 @@ SUMO can be used together with the battery device when setting the
 
 ## Tracking fuel consumption for non-electrical vehicles
 
-By setting option **--device.battery.track-fuel**, equipped vehicles will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
+By setting option **--device.battery.track-fuel**, equipped vehicles with a convential drive train (emissionClass other than `Energy`) will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
 
 ## TraCI
 
