@@ -84,8 +84,9 @@ offset of 1m ahead of the lane end.
 
 ## Vehicle Class
 
-!!! caution
-    Vehicle class specific offsets can be created by using the `<stopOffset>` element but this is still experimental.
+Each edge or lane may carry a `stopOffset` child element to specify an additional
+stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line).
+The exact syntax is explained at [stopOffset](Networks/PlainXML.md#stop_offsets).
 
 # Waiting Within the Intersection
 
