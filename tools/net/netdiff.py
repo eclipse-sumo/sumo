@@ -33,13 +33,13 @@ except ImportError:
     from io import StringIO
 from xml.dom import pulldom
 from xml.dom import Node
-from optparse import OptionParser
 from subprocess import call
 from collections import defaultdict
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.datastructures.OrderedMultiSet import OrderedMultiSet  # noqa
+from sumolib.options import ArgumentParser
 
 INDENT = 4
 
@@ -444,7 +444,7 @@ class AttributeStore:
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <source> <dest> <output-prefix>"
-    optParser = OptionParser()
+    optParser = ArgumentParser()
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("-p", "--use-prefix", action="store_true",
@@ -455,12 +455,12 @@ def parse_args():
                          dest="patchImport",
                          default=False, help="generate patch that can be applied during initial network import" +
                          " (exports additional connection elements)")
-    optParser.add_option("-c", "--copy",
+    optParser.add_option("--copy",
                          help="comma-separated list of element names to copy (if they are unchanged)")
     optParser.add_option("--path", dest="path", help="Path to binaries")
     optParser.add_option("--remove-plain", action="store_true",
                          help="avoid saving plain xml files of source and destination networks")
-    options, args = optParser.parse_args()
+    options, args = optParser.parse_known_args()
     if len(args) != 3:
         sys.exit(USAGE)
     if options.use_prefix and options.direct:
