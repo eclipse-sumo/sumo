@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-22 11:23:53 by Eclipse SUMO sumo Version v1_10_0+1611-9f8272a
+<!-- generated on 2021-10-22 14:05:35 by Eclipse SUMO sumo Version v1_10_0+1614-d4aad2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,4 +38,8 @@ SPDX-License-Identifier: EPL-2.0
 <lanechanges>
     <change id="ego" type="DEFAULT_VEHTYPE" time="3.00" from="a_0" to="a_1" dir="1" speed="7.80" pos="15.60" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
     <change id="ego" type="DEFAULT_VEHTYPE" time="6.00" from="a_1" to="-a_2" dir="1" speed="13.89" pos="52.89" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="10.00" from="-b_2" to="-b_1" dir="1" speed="9.65" pos="95.79" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="13.00" from="-b_1" to="-b_0" dir="1" speed="0.00" pos="90.00" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="25.00" from="-b_0" to="-b_1" dir="-1" speed="5.20" pos="82.20" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="28.00" from="-b_1" to="-b_2" dir="-1" speed="13.00" pos="51.00" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>
