@@ -18,7 +18,6 @@
 
 """ Generate parking area rerouters from the parking area definition. """
 
-import argparse
 import collections
 import functools
 import multiprocessing
@@ -84,7 +83,7 @@ def initRTree(all_parkings):
     try:
         import rtree  # noqa
     except ImportError:
-        sys.stdout.write("Warning: Module 'rtree' not available. Using slow brute-force search for alternative parkingAreas\n")
+        sys.stdout.write("Warning: Module 'rtree' not available. Using slow brute-force search for alternative parkingAreas\n")  # noqa
         return None
 
     result = None
@@ -92,7 +91,7 @@ def initRTree(all_parkings):
     result.interleaved = True
     # build rtree for parkingAreas
     for index, parking in enumerate(all_parkings.values()):
-        x, y  = parking['pos']
+        x, y = parking['pos']
         r = 1
         bbox = (x - r, y - r, x + r, y + r)
         result.add(index, bbox)
@@ -130,17 +129,16 @@ class ReroutersGeneration(object):
 
             laneID = child.attrib['lane']
             lane = self._sumo_net.getLane(laneID)
-            endPos =  float(child.attrib['endPos'])
+            endPos = float(child.attrib['endPos'])
             if endPos < 0:
                 endPos = lane.getLength()
 
             self._parking_areas[child.attrib['id']]['edge'] = lane.getEdge().getID()
-            self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)
-            #print(child.attrib['id'], self._parking_areas[child.attrib['id']]['edge'], self._parking_areas[child.attrib['id']]['pos'])
+            self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)  # noqa
 
-    # ---------------------------------------------------------------------------------------- #
-    #                                 Rerouter Generation                                      #
-    # ---------------------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+#                                 Rerouter Generation                                      #
+# ---------------------------------------------------------------------------------------- #
 
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
@@ -194,11 +192,11 @@ class ReroutersGeneration(object):
                 alternatives = ''
                 for alt, dist in rerouter['rerouters']:
                     _visibility = isVisible(rerouter_id, alt, dist,
-                            self._sumo_net,
-                            self._parking_areas,
-                            self._opt.dist_threshold,
-                            self._opt.capacity_threshold,
-                            self._opt.opposite_visible)
+                                            self._sumo_net,
+                                            self._parking_areas,
+                                            self._opt.dist_threshold,
+                                            self._opt.capacity_threshold,
+                                            self._opt.opposite_visible)
                     _visibility = str(_visibility).lower()
                     alternatives += self._RR_PARKING.format(pid=alt, visible=_visibility, dist=dist)
                 outfile.write(self._REROUTER.format(
@@ -210,9 +208,8 @@ class ReroutersGeneration(object):
 
 
 def isVisible(pID, altID, dist, net, parking_areas, dist_threshold, capacity_threshold, opposite_visible):
-    _visibility = 'false'
     if altID == pID:
-        return True;
+        return True
     if (int(parking_areas[altID].get('roadsideCapacity', 0)) >= capacity_threshold):
         return True
     if dist <= dist_threshold:
@@ -293,17 +290,15 @@ def generate_rerouters_process(parameters):
             dominated = False
             for alt2, altRoute in routes[pid].items():
                 if isVisible(pid, alt2, distance, sumo_net,
-                        parameters['all_parking_areas'],
-                        parameters['dist_threshold'],
-                        parameters['capacity_threshold'],
-                        parameters['opposite_visible']):
+                             parameters['all_parking_areas'],
+                             parameters['dist_threshold'],
+                             parameters['capacity_threshold'],
+                             parameters['opposite_visible']):
                     # target parkingArea might be observed as occupired and thus
                     # cannot dominate a candidate beyond
                     continue
                 if len(altRoute) < len(route) and altRoute == route[0:len(altRoute)]:
-                    #print("origin", pid, "cand", parking,
-                    #        "route", [e.getID() for e in route],
-                    #        "dominated by", [e.getID() for e in altRoute])
+                    # print("origin", pid, "cand", parking, "route", [e.getID() for e in route], "dominated by", [e.getID() for e in altRoute])  # noqa
                     dominated = True
                     break
             if dominated:
