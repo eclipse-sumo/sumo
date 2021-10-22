@@ -252,7 +252,7 @@ The attributes are given in the following table.
 
 Each edge or lane may carry a `stopOffset` child element to specify an additional
 stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line).
-The exact syntax is explained at [stopOffset](Networks/PlainXML.md#stop_offsets).
+The exact syntax is explained at [stopOffset](../Networks/PlainXML.md#stop_offsets).
 
 ### Traffic Light Programs
 
