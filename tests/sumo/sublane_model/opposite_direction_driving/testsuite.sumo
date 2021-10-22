@@ -1,3 +1,6 @@
+# tests for stopping on the opposite side
+stop_opposite
+
 # a stopped vehicle is overtaken
 overtaking_noconflict
 
