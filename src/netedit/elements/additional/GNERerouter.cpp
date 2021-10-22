@@ -89,8 +89,8 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
             myAdditionalBoundary.add(additionalChildren->getPositionInView());
         }
     }
-    // grow
-    myAdditionalBoundary.grow(10);
+    // grow for cover children
+    myAdditionalBoundary.grow(15);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
@@ -121,10 +121,23 @@ void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // draw Rerouter
     drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
-    // draw children (needes for connection between rerouter and parking areas)
-    if (/*myNet->getViewNet()->isAttributeCarrierInspected(this)*/ true) {
-        for (const auto &additional : getChildAdditionals()) {
-            additional->drawGL(s);
+    // check if draw intervals
+    bool drawIntervals = false;
+    // check if interval is being inspected
+    for (const auto &interval : getChildAdditionals()) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(interval)) {
+            drawIntervals = true;
+        }
+        for (const auto &rerouterElement : interval->getChildAdditionals()) {
+            if (myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement)) {
+                drawIntervals = true;
+            }
+        }
+    }
+    // if drawIntervals is true or this rerouter is inspected, draw all children
+    if (drawIntervals || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        for (const auto &interval : getChildAdditionals()) {
+            interval->drawGL(s);
         }
     }
 }
