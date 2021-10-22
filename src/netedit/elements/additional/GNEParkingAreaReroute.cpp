@@ -84,7 +84,7 @@ void
 GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw route prob reroute as listed attribute
     drawListedAddtional(s, 1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::VAPORIZER, 
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE, 
                         getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB));
     // draw parent and child lines
     //drawParentChildLines(s, s.additionalSettings.connectionColor);
@@ -104,8 +104,8 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
             return toString(myVisible);
         case GNE_ATTR_PARENT:
             return toString(getParentAdditionals().at(0)->getID());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -128,7 +128,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_VISIBLE:
-        case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -148,8 +148,8 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         case SUMO_ATTR_VISIBLE:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -192,7 +192,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VISIBLE:
             myVisible = parse<bool>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SELECTED:
             setParametersStr(value);
             break;
         default:
