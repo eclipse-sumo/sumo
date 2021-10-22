@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
+    GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
     {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
     std::map<std::string, std::string>()),
     myBegin(0),
@@ -98,7 +98,7 @@ GNERerouterInterval::getParentName() const {
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, 0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::E3, 
+    drawListedAddtional(s, 0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL, 
                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
     // check if draw rerouter elements
     bool drawRerouterElements = false;
@@ -130,8 +130,6 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -160,7 +158,6 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -178,8 +175,6 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) > myBegin);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -222,9 +217,6 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
