@@ -701,7 +701,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 
 
 void 
-GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const RGBColor base, const RGBColor text, GUITexture texture) const {
+GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position parentPosition, const int offsetIndex, const RGBColor baseCol, 
+                                  const RGBColor textCol, GUITexture texture, const std::string text) const {
 // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
@@ -711,19 +712,17 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const RGBC
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // calculate colors
-        const RGBColor baseColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor : base;
+        const RGBColor baseColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor : baseCol;
         const RGBColor secondColor = baseColor.changedBrightness(-30);
-        const RGBColor textColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : text;
-        // get index
-        const int index = getDrawPositionIndex();
+        const RGBColor textColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
         // get position
-        Position pos = getParentAdditionals().front()->getPositionInView();
+        Position pos = parentPosition;
         // move to right
-        pos.add(4.5, (index * -1) + 2, 0);
+        pos.add(4.5, (getDrawPositionIndex() * -1) + 2, 0);
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // draw extern rectangle
         GLHelper::setColor(secondColor);
         GLHelper::drawBoxLine(pos, 0, 0.96, 2.75);    
@@ -735,7 +734,7 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const RGBC
         // move position down
         pos.add(-2, -0.43, 0);
         // draw interval
-        GLHelper::drawText(getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END), pos, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
+        GLHelper::drawText(text, pos, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
         // move to icon position
         pos.add(-0.3, 0);
         // check if draw lock icon or rerouter interval icon

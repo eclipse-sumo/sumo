@@ -379,7 +379,8 @@ protected:
     void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
 
     /// @brief draw listed additional
-    void drawListedAddtional(const GUIVisualizationSettings& s, const RGBColor base, const RGBColor text, GUITexture texture) const;
+    void drawListedAddtional(const GUIVisualizationSettings& s, const Position parentPosition, const int offsetIndex, const RGBColor baseCol, 
+                             const RGBColor textCol, GUITexture texture, const std::string text) const;
 
     /// @brief get draw position index
     int getDrawPositionIndex() const;
