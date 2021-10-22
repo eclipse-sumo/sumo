@@ -59,7 +59,7 @@
 //#define DEBUG_CONTINUE_CHANGE
 //#define DEBUG_CHECK_CHANGE
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
-//#define DEBUG_CHANGE_OPPOSITE
+#define DEBUG_CHANGE_OPPOSITE
 //#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
@@ -1313,41 +1313,23 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 
         MSVehicle* oncomingVeh = oncoming.first;
         // check for dangerous oncoming leader
-        if (oncomingVeh != 0 && !oncomingVeh->getLaneChangeModel().isOpposite() && oncomingVeh->getLaneChangeModel().getShadowLane() != opposite) {
-            // conservative: assume that the oncoming vehicle accelerates to its maximum speed
-            oncomingSpeed = oncomingVeh->isStopped() ? 0 : oncomingVeh->getLane()->getVehicleMaxSpeed(oncomingVeh);
-            const double safetyGap = ((oncomingSpeed + vehicle->getLane()->getVehicleMaxSpeed(vehicle))
-                                      * vehicle->getCarFollowModel().getHeadwayTime()
-                                      * OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR);
-            surplusGap = oncoming.second - spaceToOvertake - timeToOvertake * oncomingSpeed - safetyGap;
+
+        surplusGap = computeSurplusGap(vehicle, opposite, oncoming, timeToOvertake, spaceToOvertake, oncomingSpeed);
+        if (!isOpposite && surplusGap < 0) {
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " oncoming=" << oncomingVeh->getID()
-                          << " oncomingGap=" << oncoming.second
-                          << " leaderGap=" << leader.second
-                          << " safetyGap=" << safetyGap
-                          << " surplusGap=" << surplusGap
-                          << "\n";
+                std::cout << "   cannot changeOpposite due to dangerous oncoming (surplusGap=" << surplusGap << ")\n";
             }
-#endif
-            if (!isOpposite && surplusGap < 0) {
-
-#ifdef DEBUG_CHANGE_OPPOSITE
-                if (DEBUG_COND) {
-                    std::cout << "   cannot changeOpposite due to dangerous oncoming (surplusGap=" << surplusGap << ")\n";
-                }
 #endif
 
 #ifdef DEBUG_CHANGE_OPPOSITE
-                if (DEBUG_COND) {
-                    if (oncomingVeh->getLaneChangeModel().isOpposite()) {
-                        std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << oncomingVeh->getID() << "  (but the leader is also opposite)\n";
-                    }
+            if (DEBUG_COND) {
+                if (oncomingVeh->getLaneChangeModel().isOpposite()) {
+                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << oncomingVeh->getID() << "  (but the leader is also opposite)\n";
                 }
-#endif
-                return false;
             }
+#endif
+            return false;
         }
     }
     // compute remaining space on the opposite side
@@ -1520,6 +1502,31 @@ MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, 
     return oncoming;
 }
 
+
+double
+MSLaneChanger::computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake, double spaceToOvertake, double& oncomingSpeed) {
+    double surplusGap = std::numeric_limits<double>::max();
+    const MSVehicle* oncomingVeh = oncoming.first;
+    if (oncomingVeh != 0 && !oncomingVeh->getLaneChangeModel().isOpposite() && oncomingVeh->getLaneChangeModel().getShadowLane() != opposite) {
+        // conservative: assume that the oncoming vehicle accelerates to its maximum speed
+        oncomingSpeed = oncomingVeh->isStopped() ? 0 : oncomingVeh->getLane()->getVehicleMaxSpeed(oncomingVeh);
+        const double safetyGap = ((oncomingSpeed + vehicle->getLane()->getVehicleMaxSpeed(vehicle))
+                * vehicle->getCarFollowModel().getHeadwayTime()
+                * OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR);
+        surplusGap = oncoming.second - spaceToOvertake - timeToOvertake * oncomingSpeed - safetyGap;
+#ifdef DEBUG_CHANGE_OPPOSITE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME
+                << " oncoming=" << oncomingVeh->getID()
+                << " oncomingGap=" << oncoming.second
+                << " safetyGap=" << safetyGap
+                << " surplusGap=" << surplusGap
+                << "\n";
+        }
+#endif
+    }
+    return surplusGap;
+}
 
 bool
 MSLaneChanger::checkChangeOpposite(
