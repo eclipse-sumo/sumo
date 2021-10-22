@@ -40,6 +40,7 @@
 #include "GNETexture_Rerouter_ClosingLaneReroute.cpp"
 #include "GNETexture_Rerouter_ClosingReroute.cpp"
 #include "GNETexture_Rerouter_DestProbReroute.cpp"
+#include "GNETexture_Rerouter_Interval.cpp"
 #include "GNETexture_Rerouter_ParkingAreaReroute.cpp"
 #include "GNETexture_Rerouter_RouteProbReroute.cpp"
 #include "GNETexture_RouteProbe.cpp"
@@ -138,6 +139,9 @@ GUITextureSubSys::getTexture(GUITexture which) {
                 break;
             case GUITexture::REROUTER_SELECTED :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_RerouterSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::REROUTER_INTERVAL :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_Interval, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             case GUITexture::REROUTER_CLOSINGREROUTE :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_ClosingReroute, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
