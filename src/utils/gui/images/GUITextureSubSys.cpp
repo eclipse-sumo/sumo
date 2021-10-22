@@ -84,6 +84,7 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GUITexture::REROUTER_CLOSINGLANEREROUTE] = 0;
     myTextures[GUITexture::REROUTER_ROUTEPROBREROUTE] = 0;
     myTextures[GUITexture::REROUTER_DESTPROBREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_PARKINGAREAREROUTE] = 0;
     myTextures[GUITexture::ROUTEPROBE] = 0;
     myTextures[GUITexture::ROUTEPROBE_SELECTED] = 0;
     myTextures[GUITexture::TLS] = 0;
