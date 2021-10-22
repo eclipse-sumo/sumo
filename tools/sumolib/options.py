@@ -95,6 +95,11 @@ class ArgumentParser(argparse.ArgumentParser):
                 if s.startswith("--"):
                     self._fix_path_args.add(s[2:])
 
+    def add_option(self, *args, **kwargs):
+        """alias for compatibility with OptionParser"""
+        self.add_argument(*args, **kwargs)
+
+
     def write_config_file(self, namespace, exit=True, toString=False):
         if namespace.save_configuration:
             out_file = namespace.save_configuration
