@@ -34,7 +34,7 @@ title: ChangeLog
   - Fixed invalid edges and exitTimes in **vehroute-output** when using rerouting and looped routes. Issue #9374
   
 - netedit
-  - Fixed probablity statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
+  - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
   - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
   - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
