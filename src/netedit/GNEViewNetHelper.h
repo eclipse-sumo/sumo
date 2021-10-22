@@ -1288,12 +1288,12 @@ struct GNEViewNetHelper {
                                  const double exaggeration, const double size = 0.5, 
                                  const double offsetx = 0, const double offsety = 0);
 
+        /// @brief check if icon can be drawn
+        static bool checkDrawing(const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration);
+
     private:
         /// @brief constructor
         LockIcon();
-
-        /// @brief check drawing
-        static bool checkDrawing(const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration);
 
         /// @brief Invalidated assignment operator
         LockIcon& operator=(const LockIcon& other) = delete;
