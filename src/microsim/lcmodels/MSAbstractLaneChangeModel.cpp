@@ -332,8 +332,9 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
 #endif
         myAlreadyChanged = true;
         myVehicle.setTentativeLaneAndPosition(target, myVehicle.getPositionOnLane(), myVehicle.getLateralPositionOnLane());
-        if (MSGlobals::gLaneChangeDuration <= DELTA_T) {
+        if (!MSGlobals::gSublane) {
             // in the continous case, the vehicle is added to the target lane via MSLaneChanger::continueChange
+            // in the sublane case, the vehicle is added to the target lane via MSLaneChangerSublane::continueChangeSublane
             target->forceVehicleInsertion(&myVehicle, myVehicle.getPositionOnLane(), MSMoveReminder::NOTIFICATION_LANE_CHANGE, myVehicle.getLateralPositionOnLane());
         }
     } else {

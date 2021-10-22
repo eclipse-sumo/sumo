@@ -320,17 +320,30 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     }
     MSLane* source = from->lane;
     // Prevent continuation of LC beyond lane borders if change is not allowed
-    double distToRightLaneBorder = latDist < 0 ? vehicle->getLane()->getWidth() * 0.5 + vehicle->getLateralPositionOnLane() - vehicle->getWidth() * 0.5 : 0.;
-    double distToLeftLaneBorder = latDist > 0 ? vehicle->getLane()->getWidth() * 0.5 - vehicle->getLateralPositionOnLane() - vehicle->getWidth() * 0.5 : 0.;
+    double distToRightLaneBorder = vehicle->getLane()->getWidth() * 0.5 + vehicle->getLateralPositionOnLane() - vehicle->getWidth() * 0.5;
+    double distToLeftLaneBorder = vehicle->getLane()->getWidth() * 0.5 - vehicle->getLateralPositionOnLane() - vehicle->getWidth() * 0.5;
     if (vehicle->getLaneChangeModel().isOpposite()) {
         std::swap(distToRightLaneBorder, distToLeftLaneBorder);
     }
     // determine direction of LC
-    const int direction = (latDist >= -distToRightLaneBorder && latDist <= distToLeftLaneBorder) ? 0 : (latDist < 0 ? -1 : 1);
+    int direction = 0;
+    if (latDist > 0 && latDist > distToLeftLaneBorder) {
+        direction = 1;
+    } else if (latDist < 0 && -latDist > distToRightLaneBorder) {
+        direction = -1;
+    }
+    const int changerDirection = vehicle->getLaneChangeModel().isOpposite() ? -direction : direction;
     ChangerIt to = from;
-    if (mayChange(direction) && !vehicle->getLaneChangeModel().isOpposite()) {
-        to = from + direction;
-    } else if (source->getOpposite() != nullptr) {
+#ifdef DEBUG_MANEUVER
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' latDist=" << latDist << "  maneuverDist=" << maneuverDist
+            << " distRight=" << distToRightLaneBorder << " distLeft=" << distToLeftLaneBorder
+            << " dir=" << direction << " cDir=" << changerDirection << " mayChange=" << mayChange(changerDirection) << "\n";
+    }
+#endif
+    if (mayChange(changerDirection)) {
+        to = from + changerDirection;
+    } else if (changerDirection == 1 && source->getOpposite() != nullptr) {
         // change to the opposite direction lane
         to = (source->getOpposite()->getEdge().myLaneChanger->getChanger().end() - 1);
     } else {
@@ -497,12 +510,12 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
 
 bool
 MSLaneChangerSublane::checkChangeToNewLane(MSVehicle* vehicle, const int direction, ChangerIt from, ChangerIt to) {
+    const int oppositeSign = vehicle->getLaneChangeModel().isOpposite() ? -1 : 1;
     const bool opposite = (&from->lane->getEdge() != &to->lane->getEdge());
     const bool changedToNewLane = (to->lane != from->lane
                                    && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth()
-                                   && (mayChange(direction) || opposite));
+                                   && (mayChange(direction * oppositeSign) || opposite));
     if (changedToNewLane) {
-        const int oppositeSign = vehicle->getLaneChangeModel().isOpposite() ? -1 : 1;
         vehicle->myState.myPosLat -= direction * 0.5 * (from->lane->getWidth() + to->lane->getWidth()) * oppositeSign;
         if (!opposite) {
             to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);

@@ -83,22 +83,22 @@
 // ===========================================================================
 // Debug flags
 // ===========================================================================
-//#define DEBUG_ACTIONSTEPS
-//#define DEBUG_STATE
-//#define DEBUG_SURROUNDING
 //#define DEBUG_MANEUVER
+//#define DEBUG_WANTSCHANGE
+//#define DEBUG_STRATEGIC_CHANGE
+//#define DEBUG_KEEP_LATGAP
+//#define DEBUG_STATE
+//#define DEBUG_ACTIONSTEPS
+//#define DEBUG_SURROUNDING
 //#define DEBUG_COMMITTED_SPEED
 //#define DEBUG_PATCHSPEED
 //#define DEBUG_INFORM
 //#define DEBUG_ROUNDABOUTS
-//#define DEBUG_WANTSCHANGE
 //#define DEBUG_COOPERATE
 //#define DEBUG_SLOWDOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 //#define DEBUG_BLOCKING
 //#define DEBUG_TRACI
-//#define DEBUG_STRATEGIC_CHANGE
-//#define DEBUG_KEEP_LATGAP
 //#define DEBUG_EXPECTED_SLSPEED
 //#define DEBUG_SLIDING
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
@@ -1049,7 +1049,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             neighDist = neigh.length;
             bestLaneOffset = curr.bestLaneOffset;
             // VARIANT_13 (equalBest)
-            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0) {
+            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0 && !checkOpposite) {
 #ifdef DEBUG_WANTSCHANGE
                 if (gDebugFlag2) {
                     std::cout << STEPS2TIME(currentTime)
@@ -1087,15 +1087,6 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
-    }
-    if (isOpposite()) {
-        neigh = preb[preb.size() - 1];
-        curr = neigh;
-        best = neigh;
-        bestLaneOffset = -1;
-        curr.bestLaneOffset = -1;
-        neighDist = neigh.length;
-        currentDist = curr.length;
     }
     // direction specific constants
     const bool right = (laneOffset == -1);
@@ -3670,7 +3661,7 @@ MSLCM_SL2015::wantsChange(
 double
 MSLCM_SL2015::getLeftBorder(bool checkOpposite) const {
     return (myVehicle.getLane()->getEdge().getWidth()
-            + ((myVehicle.getLane()->getParallelOpposite() != nullptr && checkOpposite) ? myVehicle.getLane()->getParallelOpposite()->getWidth() : 0));
+            + ((myVehicle.getLane()->getParallelOpposite() != nullptr && checkOpposite) ? myVehicle.getLane()->getParallelOpposite()->getEdge().getWidth() : 0));
 }
 
 double
