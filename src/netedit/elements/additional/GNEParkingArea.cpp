@@ -160,7 +160,9 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw child spaces
             for (const auto& parkingSpace : getChildAdditionals()) {
-                parkingSpace->drawGL(s);
+                if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
+                    parkingSpace->drawGL(s);
+                }
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {

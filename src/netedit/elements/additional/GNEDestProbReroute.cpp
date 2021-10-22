@@ -83,7 +83,8 @@ GNEDestProbReroute::getParentName() const {
 void
 GNEDestProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw dest prob reroute as listed attribute
-    drawListedAddtional(s, getPositionInView(), 1, RGBColor::RED, RGBColor::YELLOW, GUITexture::VAPORIZER, 
+    drawListedAddtional(s, 1, getParentAdditionals().front()->getDrawPositionIndex(),
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::VAPORIZER, 
                         getAttribute(SUMO_ATTR_EDGE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 

@@ -82,7 +82,8 @@ GNERouteProbReroute::getParentName() const {
 void
 GNERouteProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw route prob reroute as listed attribute
-    drawListedAddtional(s, getPositionInView(), 1, RGBColor::RED, RGBColor::YELLOW, GUITexture::VAPORIZER, 
+    drawListedAddtional(s, 1, getParentAdditionals().front()->getDrawPositionIndex(),
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::VAPORIZER, 
                         getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 
