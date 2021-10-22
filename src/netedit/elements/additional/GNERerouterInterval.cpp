@@ -19,7 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 
@@ -96,8 +98,22 @@ GNERerouterInterval::getParentName() const {
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, getPositionInView(), 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::E3, 
+    drawListedAddtional(s, 0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::E3, 
                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
+    // check if draw rerouter elements
+    bool drawRerouterElements = false;
+    // check if a rerouter element of this interval is being inspected
+    for (const auto &rerouterElement : getChildAdditionals()) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement)) {
+            drawRerouterElements = true;
+        }
+    }
+    // if this interval is being inspected or drawRerouterElements is true, draw all children
+    if (drawRerouterElements || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        for (const auto &interval : getChildAdditionals()) {
+            interval->drawGL(s);
+        }
+    }
 }
 
 
