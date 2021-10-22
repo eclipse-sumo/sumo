@@ -154,9 +154,9 @@ coherently, we need a precise age distribution of this population.
     <parameters ... />
 
     <population>
-        <bracket beginAge="0" endAge"4" peopleNbr="1745" />
+        <bracket beginAge="0" endAge="4" peopleNbr="1745" />
             ...
-        <bracket beginAge="66" endAge"90" peopleNbr="978" />
+        <bracket beginAge="66" endAge="90" peopleNbr="978" />
     </population>
 
 </city>
