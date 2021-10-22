@@ -26,3 +26,6 @@ noconflict_parking
 
 # stopping on the opposite side without oncoming traffic
 3oncoming_parking
+
+# stopping on the opposite side without oncoming traffic
+3oncoming_parking_continuous
