@@ -703,7 +703,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 void 
 GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position parentPosition, const int offsetIndex, const RGBColor baseCol, 
                                   const RGBColor textCol, GUITexture texture, const std::string text) const {
-// first check if additional has to be drawn
+    // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
@@ -717,8 +717,14 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         const RGBColor textColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
         // get position
         Position pos = parentPosition;
-        // move to right
-        pos.add(4.5, (getDrawPositionIndex() * -1) + 2, 0);
+        // set position depending of indexes
+        if (offsetIndex == 0) {
+            pos.add(4.5, (getDrawPositionIndex() * -1) + 2, 0);
+        } else if (offsetIndex == 1) {
+            pos.add(4.5 + 6.25, (getDrawPositionIndex() * -1) + 2, 0);
+        } else {
+            pos.add(0, (getDrawPositionIndex() * -1) + 2, 0);
+        }
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front

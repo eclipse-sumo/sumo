@@ -82,8 +82,9 @@ GNEClosingLaneReroute::getParentName() const {
 
 
 void
-GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
-    // Currently this additional isn't drawn
+GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& s) const {
+    // draw closing lane reroute as listed attribute
+    drawListedAddtional(s, getPositionInView(), 1, RGBColor::RED, RGBColor::YELLOW, GUITexture::VAPORIZER, getAttribute(SUMO_ATTR_LANE));
 }
 
 
