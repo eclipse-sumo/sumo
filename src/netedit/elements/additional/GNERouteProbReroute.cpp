@@ -30,8 +30,8 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement *route, double probability) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "",
-    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {route}, {},
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, "",
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {route}, {},
     std::map<std::string, std::string>()),
     myProbability(probability) {
     // update centering boundary without updating grid
@@ -83,7 +83,7 @@ void
 GNERouteProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw route prob reroute as listed attribute
     drawListedAddtional(s, 1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::VAPORIZER, 
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_ROUTEPROBREROUTE, 
                         getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 
@@ -99,8 +99,8 @@ GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
             return toString(myProbability);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -122,7 +122,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_ID:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_PROB:
-        case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -140,8 +140,8 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
             return (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -181,8 +181,12 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
