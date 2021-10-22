@@ -396,6 +396,19 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
             if (additional.second->isAttributeCarrierSelected()) {
                 counter++;
             }
+            // also check children (Entry/Exit, spaces...)
+            for (const auto& additionalChild : additional.second->getChildAdditionals()) {
+                if (additionalChild->isAttributeCarrierSelected()) {
+                    counter++;
+                }
+                // also check grandchildren (rerouters)
+                for (const auto& additionalGrandChild : additionalChild->getChildAdditionals()) {
+                    if (additionalGrandChild->isAttributeCarrierSelected()) {
+                        counter++;
+                    }
+                }
+
+            }
         }
     }
     return counter;
