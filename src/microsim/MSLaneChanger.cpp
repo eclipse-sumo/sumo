@@ -1351,8 +1351,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
-                if (oncomingVeh->getLaneChangeModel().isOpposite()) {
-                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << oncomingVeh->getID() << "  (but the leader is also opposite)\n";
+                if (oncoming.first->getLaneChangeModel().isOpposite()) {
+                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << oncoming.first->getID() << "  (but the leader is also opposite)\n";
                 }
             }
 #endif
