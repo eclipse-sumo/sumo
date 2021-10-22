@@ -118,6 +118,20 @@ void
 GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // draw VSS
     drawSquaredAdditional(s, myPosition, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
+    // check if draw steps
+    bool drawSteps = false;
+    // check if step is being inspected
+    for (const auto &step : getChildAdditionals()) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(step)) {
+            drawSteps = true;
+        }
+    }
+    // if drawSteps is true or this VSS is inspected, draw all steps
+    if (drawSteps || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        for (const auto &step : getChildAdditionals()) {
+            step->drawGL(s);
+        }
+    }
 }
 
 

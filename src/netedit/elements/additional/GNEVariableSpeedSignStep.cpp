@@ -87,8 +87,10 @@ GNEVariableSpeedSignStep::getParentName() const {
 
 
 void
-GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings&) const {
-    // Currently This additional isn't drawn
+GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings& s) const {
+    // draw rerouter interval as listed attribute
+    drawListedAddtional(s, 0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::E3, 
+                        getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + "km/h");
 }
 
 
