@@ -1340,9 +1340,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             assert(spaceToOvertake != std::numeric_limits<double>::max());
         }
 
-        MSVehicle* oncomingVeh = oncoming.first;
         // check for dangerous oncoming leader
-
         surplusGap = computeSurplusGap(vehicle, opposite, oncoming, timeToOvertake, spaceToOvertake, oncomingSpeed);
         if (!isOpposite && surplusGap < 0) {
 #ifdef DEBUG_CHANGE_OPPOSITE

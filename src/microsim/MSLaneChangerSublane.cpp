@@ -180,16 +180,19 @@ MSLaneChangerSublane::change() {
     }
 #endif
 
+    const bool stopOpposite = hasOppositeStop(vehicle);
     if (myChangeToOpposite && (
                 // cannot overtake since there is only one usable lane (or emergency)
                 ((!mayChange(-1) && !mayChange(1)) || vehicle->getVClass() == SVC_EMERGENCY)
+                || stopOpposite
                 // can alway come back from the opposite side
                 || vehicle->getLaneChangeModel().isOpposite())) {
         const MSLeaderDistanceInfo& leaders = myCandi->aheadNext;
-        if (leaders.hasVehicles() || vehicle->getLaneChangeModel().isOpposite()) {
+        if (leaders.hasVehicles() || vehicle->getLaneChangeModel().isOpposite()
+                || stopOpposite) {
             std::pair<MSVehicle*, double> leader = findClosestLeader(leaders, vehicle);
             myCheckedChangeOpposite = false;
-            if ((leader.first != nullptr || vehicle->getLaneChangeModel().isOpposite())
+            if ((leader.first != nullptr || vehicle->getLaneChangeModel().isOpposite() || stopOpposite)
                     && changeOpposite(vehicle, leader)) {
                 return true;
             } else if (myCheckedChangeOpposite) {
@@ -777,7 +780,5 @@ MSLaneChangerSublane::findClosestLeader(const MSLeaderDistanceInfo& leaders, con
     }
     return leader;
 }
-
-
 
 /****************************************************************************/
