@@ -1125,12 +1125,63 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     if (!opposite->allowsVehicleClass(vehicle->getVClass())) {
         return false;
     }
+
+    const MSLane* oncomingLane = isOpposite ? source : opposite;
+    // changing into the opposite direction is always to the left (XXX except for left-hand networkds)
+    int direction = isOpposite ? -1 : 1;
+    std::pair<MSVehicle*, double> neighLead((MSVehicle*)nullptr, -1);
+
+    // distance that can safely be driven on the opposite side
+    double surplusGap = std::numeric_limits<double>::max();
+
+    // we need to find two vehicles:
+    // 1) the leader that shall be overtaken (not necessarily the current leader but one of its leaders that has enough space in front)
+    // 2) the oncoming vehicle (we need to look past vehicles that are currently overtaking through the opposite direction themselves)
+    //
+    // if the vehicle is driving normally, then the search for 1) starts on the current lane and 2) on the opposite lane
+    // if the vehicle is driving on the opposite side then 1) is found on the neighboring lane and 2) on the current lane
+
+    std::pair<MSVehicle*, double> overtaken;
+    std::pair<MSVehicle*, double> oncoming;
+    // the maximum speed while overtaking (may be lowered if slow vehicles are
+    // currently overtaking ahead of vehicle)
+    double vMax = vehicle->getLane()->getVehicleMaxSpeed(vehicle);
+    double oncomingSpeed = oncomingLane->getSpeedLimit();
+
     // check for opposite direction stop
     if (!oppositeChangeByTraci && hasOppositeStop(vehicle)) {
         const std::vector<MSVehicle::LaneQ> preb = getBestLanesOpposite(vehicle, vehicle->getNextStop().lane, -1);
         const int laneIndex = vehicle->getLaneChangeModel().getNormalizedLaneIndex();
         const int bestOffset = preb[laneIndex].bestLaneOffset;
         //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneIndex=" << laneIndex << " bestOffset=" << bestOffset << " target=" << target->getID() << "\n";
+
+        // compute saftey constraints (assume vehicle is safe once stop is reached)
+        double spaceToStop = vehicle->nextStopDist();
+        double timeToStopForward = spaceToStop / MAX2(vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxAccel());
+        double timeToStopLateral = MSGlobals::gLaneChangeDuration > 0 ? MSGlobals::gLaneChangeDuration * bestOffset : 0; 
+        double timeToStop = MAX2(timeToStopForward, timeToStopLateral);
+        if (!isOpposite) {
+            // we keep neighLead distinct from oncoiming because it determines blocking on the neigh lane
+            // but also look for an oncoming leader to compute safety constraint
+            double searchDist = timeToStop * oncomingLane->getSpeedLimit() * 2 + spaceToStop;
+            neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
+            oncoming = getOncomingVehicle(oncomingLane, neighLead, searchDist, vMax);
+        } else {
+            double searchDist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
+            oncoming = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
+            oncoming = getOncomingVehicle(oncomingLane, oncoming, searchDist, vMax);
+        }
+        surplusGap = computeSurplusGap(vehicle, opposite, oncoming, timeToStop, spaceToStop, oncomingSpeed);
+        if (!isOpposite && surplusGap < 0) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "   cannot changeOppositeStop due to dangerous oncoming spaceToStop=" << spaceToStop
+                    << " timeToStopForward=" << timeToStopForward << " timeToStopLateral=" << timeToStopLateral << " surplusGap=" << surplusGap << "\n";
+            }
+#endif
+            return false;
+        }
+
         if (bestOffset > 0) {
             MSLane* const target = preb[laneIndex + 1].lane;
             std::pair<MSVehicle* const, double> neighLead = target->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_MAX_LOOKAHEAD, true);
@@ -1173,31 +1224,9 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         }
     }
 
-
-    const MSLane* oncomingLane = isOpposite ? source : opposite;
-    // changing into the opposite direction is always to the left (XXX except for left-hand networkds)
-    int direction = isOpposite ? -1 : 1;
-    std::pair<MSVehicle*, double> neighLead((MSVehicle*)nullptr, -1);
-
     // checks for overtaking space
     double timeToOvertake = std::numeric_limits<double>::max();
     double spaceToOvertake = std::numeric_limits<double>::max();
-    // distance that can safely be driven on the opposite side
-    double surplusGap = std::numeric_limits<double>::max();
-
-    // we need to find two vehicles:
-    // 1) the leader that shall be overtaken (not necessarily the current leader but one of its leaders that has enough space in front)
-    // 2) the oncoming vehicle (we need to look past vehicles that are currently overtaking through the opposite direction themselves)
-    //
-    // if the vehicle is driving normally, then the search for 1) starts on the current lane and 2) on the opposite lane
-    // if the vehicle is driving on the opposite side then 1) is found on the neighboring lane and 2) on the current lane
-
-    std::pair<MSVehicle*, double> overtaken;
-    std::pair<MSVehicle*, double> oncoming;
-    // the maximum speed while overtaking (may be lowered if slow vehicles are
-    // currently overtaking ahead of vehicle)
-    double vMax = vehicle->getLane()->getVehicleMaxSpeed(vehicle);
-    double oncomingSpeed = oncomingLane->getSpeedLimit();
 
     if (oppositeChangeByTraci) {
         timeToOvertake = STEPS2TIME(vehicle->getInfluencer().getLaneTimeLineDuration());//todo discuss concept
@@ -1266,7 +1295,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         if (!isOpposite) {
             assert(timeToOvertake != std::numeric_limits<double>::max());
             assert(spaceToOvertake != std::numeric_limits<double>::max());
-            // we keep neighLead disticnt from oncoiming because it determines blocking on the neigh lane
+            // we keep neighLead distinct from oncoiming because it determines blocking on the neigh lane
             // but also look for an oncoming leader to compute safety constraint
             double searchDist = timeToOvertake * oncomingLane->getSpeedLimit() * 2 + spaceToOvertake;
             neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
