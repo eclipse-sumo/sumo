@@ -378,6 +378,12 @@ protected:
     /// @brief draw squared additional
     void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
 
+    /// @brief draw listed additional
+    void drawListedAddtional(const GUIVisualizationSettings& s, const RGBColor base, const RGBColor text, GUITexture texture) const;
+
+    /// @brief get draw position index
+    int getDrawPositionIndex() const;
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if is called without be reimplemented in child class

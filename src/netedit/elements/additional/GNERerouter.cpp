@@ -122,7 +122,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // draw Rerouter
     drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
     // draw children (needes for connection between rerouter and parking areas)
-    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+    if (/*myNet->getViewNet()->isAttributeCarrierInspected(this)*/ true) {
         for (const auto &additional : getChildAdditionals()) {
             additional->drawGL(s);
         }

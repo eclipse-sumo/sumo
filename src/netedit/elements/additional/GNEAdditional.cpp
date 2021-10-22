@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/GNELane2laneConnection.h>
+#include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
@@ -697,6 +697,92 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // draw additional name
         drawAdditionalName(s);
     }
+}
+
+
+void 
+GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const RGBColor base, const RGBColor text, GUITexture texture) const {
+// first check if additional has to be drawn
+    if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // Start drawing adding an gl identificator
+        GLHelper::pushName(getGlID());
+        // calculate colors
+        const RGBColor baseColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor : base;
+        const RGBColor secondColor = baseColor.changedBrightness(-30);
+        const RGBColor textColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : text;
+        // get index
+        const int index = getDrawPositionIndex();
+        // get position
+        Position pos = getParentAdditionals().front()->getPositionInView();
+        // move to right
+        pos.add(4.5, (index * -1) + 2, 0);
+        // Add layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
+        // draw extern rectangle
+        GLHelper::setColor(secondColor);
+        GLHelper::drawBoxLine(pos, 0, 0.96, 2.75);    
+        // move to front
+        glTranslated(0, -0.06, 0.1);
+        // draw intern rectangle
+        GLHelper::setColor(baseColor);
+        GLHelper::drawBoxLine(pos, 0, 0.84, 2.69);
+        // move position down
+        pos.add(-2, -0.43, 0);
+        // draw interval
+        GLHelper::drawText(getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END), pos, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
+        // move to icon position
+        pos.add(-0.3, 0);
+        // check if draw lock icon or rerouter interval icon
+        if (GNEViewNetHelper::LockIcon::checkDrawing(this, getType(), 1)) {
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, 1, 0.4, 0.0, -0.05);
+        } else {
+            // translate to front
+            glTranslated(pos.x(), pos.y(), 0.1);
+            // set White color
+            glColor3d(1, 1, 1);
+            // rotate
+            glRotated(180, 0, 0, 1);
+            // draw texture
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), 0.25);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+        }
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, 0.56, 2.75, 0, -2.3, 0, 1);
+        }
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, 0.56, 2.75, 0, -2.3, 0, 1);
+        }
+        // draw children (needes for connection between rerouter and parking areas)
+        for (const auto &additional : getChildAdditionals()) {
+            additional->drawGL(s);
+        }
+    }
+}
+
+
+int 
+GNEAdditional::getDrawPositionIndex() const {
+    for (int i = 0; i < (int)getParentAdditionals().front()->getChildAdditionals().size(); i++) {
+        if (getParentAdditionals().front()->getChildAdditionals().at(i) == this) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 
