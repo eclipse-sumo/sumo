@@ -1,3 +1,0 @@
-Warning: Teleporting vehicle 'ego'; frontal collision with vehicle 'oncoming1', lane='-a_0', gap=-4.92, time=9.00 stage=move.
-Warning: Vehicle 'ego' teleports beyond arrival edge 'a', time 9.00.
-Warning: Vehicle 'ego' skips stop on lane '-a_0' time=9.00.
