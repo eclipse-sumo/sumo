@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
-    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "",
+    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, "",
     {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
     std::map<std::string, std::string>()),
     myTime(time),
@@ -89,7 +89,7 @@ GNEVariableSpeedSignStep::getParentName() const {
 void
 GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, 0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::E3, 
+    drawListedAddtional(s, 0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, 
                         getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + "km/h");
 }
 
@@ -105,8 +105,8 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
             return mySpeed;
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -132,7 +132,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
     switch (key) {
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
-        case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -169,8 +169,8 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<double>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -207,8 +207,12 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_SPEED:
             mySpeed = value;
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
