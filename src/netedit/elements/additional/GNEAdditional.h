@@ -317,6 +317,9 @@ public:
 
     /// @brief draw right geometry point
     static void drawRightGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+    
+    /// @brief get draw position index (used in rerouters and VSS)
+    int getDrawPositionIndex() const;
 
 protected:
     /// @brief Additional Boundary
@@ -379,11 +382,8 @@ protected:
     void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
 
     /// @brief draw listed additional
-    void drawListedAddtional(const GUIVisualizationSettings& s, const Position parentPosition, const int offsetIndex, const RGBColor baseCol, 
+    void drawListedAddtional(const GUIVisualizationSettings& s, const int offsetX, const int extraOffsetY, const RGBColor baseCol, 
                              const RGBColor textCol, GUITexture texture, const std::string text) const;
-
-    /// @brief get draw position index
-    int getDrawPositionIndex() const;
 
 private:
     /**@brief check restriction with the number of children

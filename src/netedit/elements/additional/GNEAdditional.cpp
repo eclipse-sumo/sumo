@@ -701,7 +701,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 
 
 void 
-GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position parentPosition, const int offsetIndex, const RGBColor baseCol, 
+GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int offsetX, const int extraOffsetY, const RGBColor baseCol, 
                                   const RGBColor textCol, GUITexture texture, const std::string text) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
@@ -716,15 +716,11 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         const RGBColor secondColor = baseColor.changedBrightness(-30);
         const RGBColor textColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
         // get position
-        Position pos = parentPosition;
+        Position pos = getPositionInView();
         // set position depending of indexes
-        if (offsetIndex == 0) {
-            pos.add(4.5, (getDrawPositionIndex() * -1) + 2, 0);
-        } else if (offsetIndex == 1) {
-            pos.add(4.5 + 6.25, (getDrawPositionIndex() * -1) + 2, 0);
-        } else {
-            pos.add(0, (getDrawPositionIndex() * -1) + 2, 0);
-        }
+        pos.add(4.5 + (6.25 * offsetX), 
+                (getDrawPositionIndex() * -1) - extraOffsetY + 1, 
+                0);
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -772,22 +768,7 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, 0.56, 2.75, 0, -2.3, 0, 1);
         }
-        // draw children (needes for connection between rerouter and parking areas)
-        for (const auto &additional : getChildAdditionals()) {
-            additional->drawGL(s);
-        }
     }
-}
-
-
-int 
-GNEAdditional::getDrawPositionIndex() const {
-    for (int i = 0; i < (int)getParentAdditionals().front()->getChildAdditionals().size(); i++) {
-        if (getParentAdditionals().front()->getChildAdditionals().at(i) == this) {
-            return i;
-        }
-    }
-    return 0;
 }
 
 
@@ -899,6 +880,25 @@ GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position &
 void 
 GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
     drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 270, 90);
+}
+
+
+int 
+GNEAdditional::getDrawPositionIndex() const {
+    // filter symbols
+    std::vector<GNEAdditional*> children;
+    for (const auto &child : getParentAdditionals().front()->getChildAdditionals()) {
+        if (!child->getTagProperty().isSymbol()) {
+            children.push_back(child);
+        }
+    }
+    // now get index
+    for (int i = 0; i < (int)children.size(); i++) {
+        if (children.at(i) == this) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 
