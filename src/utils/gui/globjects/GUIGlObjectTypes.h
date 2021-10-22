@@ -91,20 +91,34 @@ enum GUIGlObjectType {
     GLO_DET_EXIT = 112,
     /// @brief a Rerouter
     GLO_REROUTER = 113,
-    /// @brief a Rerouter
-    GLO_REROUTER_EDGE = 114,
+    /// @brief a rerouter interval
+    GLO_REROUTER_INTERVAL = 114,
+    /// @brief a closing reroute
+    GLO_REROUTER_CLOSINGREROUTE = 115,
+    /// @brief a closing lane reroute
+    GLO_REROUTER_CLOSINGLANEREROUTE = 116,
+    /// @brief a parking area reroute
+    GLO_REROUTER_PARKINGAREAREROUTE = 117,
+    /// @brief a destiny probability reroute
+    GLO_REROUTER_DESTPROBREROUTE = 118,
+    /// @brief a route probability reroute
+    GLO_REROUTER_ROUTEPROBREROUTE = 119,
+    /// @brief a Rerouter over edge
+    GLO_REROUTER_EDGE = 120,
     /// @brief a Variable Speed Sign
-    GLO_VSS = 115,
+    GLO_VSS = 121,
+    /// @brief a Variable Speed Sign step
+    GLO_VSS_STEP = 122,
     /// @brief a Calibrator
-    GLO_CALIBRATOR = 116,
+    GLO_CALIBRATOR = 123,
     /// @brief a RouteProbe
-    GLO_ROUTEPROBE = 117,
+    GLO_ROUTEPROBE = 124,
     /// @brief a Vaporizer
-    GLO_VAPORIZER = 118,
+    GLO_VAPORIZER = 125,
     /// @brief a Acces
-    GLO_ACCESS = 119,
+    GLO_ACCESS = 126,
     /// @brief a segment of an overhead line
-    GLO_OVERHEAD_WIRE_SEGMENT = 120,
+    GLO_OVERHEAD_WIRE_SEGMENT = 127,
 
     /// @}
 
