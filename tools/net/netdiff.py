@@ -80,6 +80,7 @@ TAG_ROUNDABOUT = 'roundabout'
 TAG_LANE = 'lane'
 TAG_NEIGH = 'neigh'
 TAG_EDGE = 'edge'
+TAG_NODE = 'node'
 TAG_PARAM = 'param'
 TAG_LOCATION = 'location'
 
@@ -441,6 +442,59 @@ class AttributeStore:
                 return False
         return False
 
+    def writeCreatedSelection(self, file):
+        for tag, id in self.ids_created:
+            # multi-id elements (connections) are not suppored by selection files
+            if len(id) == 1:
+                file.write("%s:%s\n" % (tag, str(id[0])))
+
+    def writeDeletedSelection(self, file):
+        for tag, id in self.ids_deleted:
+            # multi-id elements (connections) are not suppored by selection files
+            if len(id) == 1:
+                file.write("%s:%s\n" % (tag, str(id[0])))
+
+    def writeChangedSelection(self, file):
+        for tag, id in self.getTagidsChanged():
+            # multi-id elements (connections) are not suppored by selection files
+            if len(id) == 1:
+                names, values, children = self.id_attrs[(tag, id)]
+                attrs = self.attr_string(names, values)
+                if attrs:
+                    file.write("%s:%s\n" % (tag, str(id[0])))
+
+    def writeDeletedShapes(self, file, sourceNet):
+        for tag, id in self.ids_deleted:
+            self.writeShape(file, tag, id, "red", sourceNet, id)
+
+    def writeCreatedShapes(self, file, destNet):
+        for tag, id in self.ids_created:
+            self.writeShape(file, tag, id, "green", destNet, id)
+
+    def writeChangedShapes(self, file, sourceNet, destNet):
+        for tag, id in self.getTagidsChanged():
+            names, values, children = self.id_attrs[(tag, id)]
+            attrs = self.attr_string(names, values)
+            if attrs:
+                self.writeShape(file, tag, id, "orange", sourceNet, id)
+                if "shape" in names:
+                    self.writeShape(file, tag, id, "yellow", destNet, id + ("dest",))
+
+    def writeShape(self, file, tag, id, color, net, id2):
+        shape = None
+        fill = False
+        layer = 10
+        if tag == TAG_EDGE:
+            shape = net.getEdge(id[0]).getShape()
+        if tag == TAG_NODE:
+            shape = net.getNode(id[0]).getShape()
+            fill = True
+            layer = 11
+        if shape:
+            shape = ' '.join([','.join(map(str,pos)) for pos in shape])
+            file.write('<poly id="%s" type="%s" shape="%s" fill="%s" layer="%s" color="%s"/>\n' % (
+                ":".join(id2), tag, shape, fill, layer, color))
+
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <source> <dest> <output-prefix>"
@@ -460,12 +514,25 @@ def parse_args():
     optParser.add_option("--path", dest="path", help="Path to binaries")
     optParser.add_option("--remove-plain", action="store_true",
                          help="avoid saving plain xml files of source and destination networks")
+    optParser.add_option("-l", "--write-selections", action="store_true", dest="writeSelections",
+                         default=False, help="Write selection files for created,deleted and changed elements")
+    optParser.add_option("-s", "--write-shapes", action="store_true", dest="writeShapes",
+                         default=False, help="Write shape files for created,deleted and changed elements")
     options, args = optParser.parse_known_args()
     if len(args) != 3:
         sys.exit(USAGE)
     if options.use_prefix and options.direct:
         optParser.error(
             "Options --use-prefix and --direct are mutually exclusive")
+
+    if options.writeShapes:
+        if options.direct:
+            optParser.error(
+                "Options --write-shapes and --direct are mutually exclusive")
+        if options.use_prefix:
+            optParser.error(
+                "Options --write-shapes and --use-prefix are mutually exclusive")
+
     options.source, options.dest, options.outprefix = args
     return options
 
@@ -481,7 +548,8 @@ def create_plain(netfile, netconvert):
 
 # creates diff of a flat xml structure
 # (only children of the root element and their attrs are compared)
-def xmldiff(source, dest, diff, type, copy_tags, patchImport):
+def xmldiff(source, dest, diff, type, copy_tags, patchImport,
+        selectionOutputFiles, shapeOutputFiles, sourceNet = None, destNet = None):
     attributeStore = AttributeStore(type, copy_tags)
     root = None
     have_source = os.path.isfile(source)
@@ -533,6 +601,17 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport):
                 attributeStore.writeChanged(diff_file)
             diff_file.write("</%s>\n" % root)
 
+            if selectionOutputFiles:
+                created, deleted, changed = selectionOutputFiles
+                attributeStore.writeCreatedSelection(created)
+                attributeStore.writeDeletedSelection(deleted)
+                attributeStore.writeChangedSelection(changed)
+            if shapeOutputFiles:
+                created, deleted, changed = shapeOutputFiles
+                attributeStore.writeCreatedShapes(created, destNet)
+                attributeStore.writeDeletedShapes(deleted, sourceNet)
+                attributeStore.writeChangedShapes(changed, sourceNet, destNet )
+
 
 # calls function handle_parsenode for all children of the root element
 # returns opening and closing tag of the root element
@@ -572,6 +651,21 @@ def handle_children(xmlfile, handle_parsenode):
 def main():
     options = parse_args()
     copy_tags = options.copy.split(',') if options.copy else []
+
+    selectionOutputFiles = []
+    shapeOutputFiles = []
+    if options.writeSelections:
+        selectionOutputFiles.append(codecs.open('created.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open('deleted.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(codecs.open('changed.sel.txt', 'w', 'utf-8'))
+    if options.writeShapes:
+        shapeOutputFiles.append(codecs.open('created.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open('deleted.shape.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(codecs.open('changed.shape.xml', 'w', 'utf-8'))
+        for f in shapeOutputFiles:
+            sumolib.writeXMLHeader(f, "$Id$", "additional", options=options)  # noqa
+
+
     if options.direct:
         type = '.xml'
         xmldiff(options.source,
@@ -579,23 +673,37 @@ def main():
                 options.outprefix + type,
                 type,
                 copy_tags,
-                options.patchImport)
+                options.patchImport,
+                selectionOutputFiles,
+                shapeOutputFiles)
     else:
+        sourceNet = None
+        destNet = None
         if not options.use_prefix:
             netconvert = sumolib.checkBinary("netconvert", options.path)
+            sourceNet = sumolib.net.readNet(options.source)
+            destNet = sumolib.net.readNet(options.dest)
             options.source = create_plain(options.source, netconvert)
             options.dest = create_plain(options.dest, netconvert)
+
         for type in PLAIN_TYPES:
             xmldiff(options.source + type,
                     options.dest + type,
                     options.outprefix + type,
                     type,
                     copy_tags,
-                    options.patchImport)
+                    options.patchImport,
+                    selectionOutputFiles,
+                    shapeOutputFiles,
+                    sourceNet, destNet)
             if options.remove_plain:
                 os.remove(options.source + type)
                 os.remove(options.dest + type)
 
+    [f.close() for f in selectionOutputFiles]
+    for f in shapeOutputFiles:
+        f.write("<additional>\n")
+        f.close()
 
 if __name__ == "__main__":
     main()
