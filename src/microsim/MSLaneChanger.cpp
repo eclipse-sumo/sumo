@@ -1155,11 +1155,11 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         const int bestOffset = preb[laneIndex].bestLaneOffset;
         //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneIndex=" << laneIndex << " bestOffset=" << bestOffset << " target=" << target->getID() << "\n";
 
-        // compute saftey constraints (assume vehicle is safe once stop is reached)
-        double spaceToStop = vehicle->nextStopDist();
-        double timeToStopForward = spaceToStop / MAX2(vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxAccel());
-        double timeToStopLateral = MSGlobals::gLaneChangeDuration > 0 ? MSGlobals::gLaneChangeDuration * bestOffset : 0; 
-        double timeToStop = MAX2(timeToStopForward, timeToStopLateral);
+        // compute safety constraints (assume vehicle is safe once stop is reached)
+        const double spaceToStop = vehicle->nextStopDist();
+        const double timeToStopForward = spaceToStop / MAX2(vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxAccel());
+        const double timeToStopLateral = MSGlobals::gLaneChangeDuration > 0 ? STEPS2TIME(MSGlobals::gLaneChangeDuration) * bestOffset : 0.;
+        const double timeToStop = MAX2(timeToStopForward, timeToStopLateral);
         if (!isOpposite) {
             // we keep neighLead distinct from oncoiming because it determines blocking on the neigh lane
             // but also look for an oncoming leader to compute safety constraint

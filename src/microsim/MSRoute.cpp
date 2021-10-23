@@ -226,7 +226,7 @@ int
 MSRoute::writeEdgeIDs(OutputDevice& os, int firstIndex, int lastIndex) const {
     //std::cout << SIMTIME << " writeEdgeIDs " << getID() << " first=" << firstIndex << " lastIndex=" << lastIndex << " edges=" << toString(myEdges) << "\n";
     if (lastIndex < 0) {
-        lastIndex = myEdges.size();
+        lastIndex = (int)myEdges.size();
     }
     for (int i = firstIndex; i < lastIndex; i++) {
         os << myEdges[i]->getID() << ' ';
