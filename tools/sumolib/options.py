@@ -99,7 +99,6 @@ class ArgumentParser(argparse.ArgumentParser):
         """alias for compatibility with OptionParser"""
         self.add_argument(*args, **kwargs)
 
-
     def write_config_file(self, namespace, exit=True, toString=False):
         if namespace.save_configuration:
             out_file = namespace.save_configuration
