@@ -491,7 +491,7 @@ class AttributeStore:
             fill = True
             layer = 11
         if shape:
-            shape = ' '.join([','.join(map(str,pos)) for pos in shape])
+            shape = ' '.join([','.join(map(lambda x: "%.2f" % x, pos)) for pos in shape])
             file.write('<poly id="%s" type="%s" shape="%s" fill="%s" layer="%s" color="%s"/>\n' % (
                 ":".join(id2), tag, shape, fill, layer, color))
 
