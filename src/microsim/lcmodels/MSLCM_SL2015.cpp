@@ -1065,6 +1065,9 @@ MSLCM_SL2015::_wantsChangeSublane(
             break;
         }
     }
+    assert(curr.lane != nullptr);
+    assert(neigh.lane != nullptr);
+    assert(best.lane != nullptr);
     double driveToNextStop = -std::numeric_limits<double>::max();
     UNUSED_PARAMETER(driveToNextStop); // XXX use when computing usableDist
     if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()

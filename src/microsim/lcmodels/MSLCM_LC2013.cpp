@@ -1123,6 +1123,9 @@ MSLCM_LC2013::_wantsChange(
             break;
         }
     }
+    assert(curr.lane != nullptr);
+    assert(neigh.lane != nullptr);
+    assert(best.lane != nullptr);
     // direction specific constants
     const bool right = (laneOffset == -1);
     const double posOnLane = getForwardPos();

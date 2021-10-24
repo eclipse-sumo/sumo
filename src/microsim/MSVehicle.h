@@ -821,7 +821,7 @@ public:
      */
     struct LaneQ {
         /// @brief The described lane
-        MSLane* lane;
+        MSLane* lane = nullptr;
         /// @brief The overall length which may be driven when using this lane without a lane change
         double length;
         /// @brief The length which may be driven on this lane
