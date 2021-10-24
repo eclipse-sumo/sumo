@@ -152,7 +152,8 @@ MSLaneChangerSublane::change() {
     }
 #endif
     vehicle->updateBestLanes(); // needed?
-    if (!vehicle->getLaneChangeModel().isOpposite()) {
+    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
+    if (!isOpposite) {
         for (int i = 0; i < (int) myChanger.size(); ++i) {
             vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
         }
@@ -176,7 +177,7 @@ MSLaneChangerSublane::change() {
     // Check for changes to the opposite lane if vehicle is active
 #ifdef DEBUG_ACTIONSTEPS
     if (DEBUG_COND) {
-        std::cout << "  myChangeToOpposite=" << myChangeToOpposite << " isOpposite=" << vehicle->getLaneChangeModel().isOpposite() << " mayChangeRight=" << mayChange(-1) << " mayChangeLeft=" << mayChange(1) << "\n";
+        std::cout << "  myChangeToOpposite=" << myChangeToOpposite << " isOpposite=" << isOpposite << " mayChangeRight=" << mayChange(-1) << " mayChangeLeft=" << mayChange(1) << "\n";
     }
 #endif
 
@@ -186,13 +187,12 @@ MSLaneChangerSublane::change() {
                 ((!mayChange(-1) && !mayChange(1)) || vehicle->getVClass() == SVC_EMERGENCY)
                 || stopOpposite
                 // can alway come back from the opposite side
-                || vehicle->getLaneChangeModel().isOpposite())) {
+                || isOpposite)) {
         const MSLeaderDistanceInfo& leaders = myCandi->aheadNext;
-        if (leaders.hasVehicles() || vehicle->getLaneChangeModel().isOpposite()
-                || stopOpposite) {
+        if (leaders.hasVehicles() || isOpposite || stopOpposite) {
             std::pair<MSVehicle*, double> leader = findClosestLeader(leaders, vehicle);
             myCheckedChangeOpposite = false;
-            if ((leader.first != nullptr || vehicle->getLaneChangeModel().isOpposite() || stopOpposite)
+            if ((leader.first != nullptr || isOpposite || stopOpposite)
                     && changeOpposite(vehicle, leader)) {
                 return true;
             } else if (myCheckedChangeOpposite) {
@@ -275,7 +275,12 @@ MSLaneChangerSublane::StateAndDist
 MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives) {
     StateAndDist result = StateAndDist(0, 0, 0, 0);
     if (mayChange(laneOffset)) {
-        const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
+        if (laneOffset != 0 && vehicle->getLaneChangeModel().isOpposite()) {
+            return result;
+        }
+        const std::vector<MSVehicle::LaneQ>& preb = (vehicle->getLaneChangeModel().isOpposite()
+                ? getBestLanesOpposite(vehicle, nullptr, 1000)
+                : vehicle->getBestLanes());
         result.state = checkChangeSublane(laneOffset, alternatives, preb, result.latDist, result.maneuverDist);
         result.dir = laneOffset;
         if ((result.state & LCA_WANTS_LANECHANGE) != 0 && (result.state & LCA_URGENT) != 0 && (result.state & LCA_BLOCKED) != 0) {
