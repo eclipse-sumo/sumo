@@ -1326,7 +1326,7 @@ class VehicleDomain(Domain):
         self._setCmd(tc.VAR_SIGNALS, vehID, "i", signals)
 
     def moveTo(self, vehID, laneID, pos, reason=tc.MOVE_AUTOMATIC):
-        """moveTo(string, double, integer) -> None
+        """moveTo(string, string, double, integer) -> None
 
         Move a vehicle to a new position along it's current route.
         """
