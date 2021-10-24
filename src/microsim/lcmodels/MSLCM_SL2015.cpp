@@ -1035,7 +1035,11 @@ MSLCM_SL2015::_wantsChangeSublane(
     const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
-        prebLane = prebLane->getLinkCont()[0]->getLane();
+        if (isOpposite()) {
+            prebLane = prebLane->getNormalPredecessorLane();
+        } else {
+            prebLane = prebLane->getLinkCont()[0]->getLane();
+        }
     }
     // special case: vehicle considers changing to the opposite direction edge
     const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
