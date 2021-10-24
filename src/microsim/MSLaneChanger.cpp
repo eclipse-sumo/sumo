@@ -253,7 +253,7 @@ MSLaneChanger::mayChange(int direction) const {
     if (!myAllowsChanging) {
         return false;
     }
-    SUMOVehicleClass svc = veh(myCandi)->getVehicleType().getVehicleClass();
+    SUMOVehicleClass svc = veh(myCandi)->getVClass();
     if (direction == -1) {
         return myCandi->mayChangeRight && (myCandi - 1)->lane->allowsVehicleClass(svc) && myCandi->lane->allowsChangingRight(svc);
     } else if (direction == 1) {
