@@ -37,7 +37,9 @@ python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr
 *duaIterate.py* supports many of the same options as
 [sumo](../sumo.md). Any options not listed when calling
 *duaIterate.py* ***--help*** can be passed to [sumo](../sumo.md) by adding **sumo--long-option-name arg**
-after the regular options (i.e. **sumo--step-length 0.5**).
+after the regular options (i.e. **sumo--step-length 0.5**). The same is true for duarouter options
+using **duarouter--long-option-name arg**. Be aware that those options have to come *after* the regular
+options.
 
 This script tries to calculate a user equilibrium, that is, it tries to
 find a route for each vehicle (each trip from the trip-file above) such
