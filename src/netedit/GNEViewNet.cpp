@@ -102,7 +102,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToggleShowDemandElementsNetwork),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToggleSelectEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToggleShowConnections),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,      GNEViewNet::onCmdToggleHideConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS,      GNEViewNet::onCmdToggleHideConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS,   GNEViewNet::onCmdToggleShowAdditionalSubElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,      GNEViewNet::onCmdToggleExtendSelection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES,      GNEViewNet::onCmdToggleChangeAllPhases),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE,          GNEViewNet::onCmdToggleWarnAboutMerge),
@@ -3033,6 +3034,25 @@ GNEViewNet::onCmdToggleHideConnections(FXObject*, FXSelector sel, void*) {
 }
 
 
+long 
+GNEViewNet::onCmdToggleShowAdditionalSubElements(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckShowAdditionalSubElements
+    if (myNetworkViewOptions.menuCheckShowAdditionalSubElements->amChecked() == TRUE) {
+        myNetworkViewOptions.menuCheckShowAdditionalSubElements->setChecked(FALSE);
+    } else {
+        myNetworkViewOptions.menuCheckShowAdditionalSubElements->setChecked(TRUE);
+    }
+    myNetworkViewOptions.menuCheckShowAdditionalSubElements->update();
+    // Update viewnNet to show/hide sub elements
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS)) {
+        myNetworkViewOptions.menuCheckShowAdditionalSubElements->setFocus();
+    }
+    return 1;
+}
+
+
 long
 GNEViewNet::onCmdToggleExtendSelection(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckExtendSelection
@@ -3791,9 +3811,11 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
+            myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
+            menuChecks.menuCheckShowAdditionalSubElements->show();
             // update lock menu bar
             myLockManager.updateLockMenuBar();
             // show
@@ -3804,9 +3826,11 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getDeleteFrame();
             myCommonCheckableButtons.deleteButton->setChecked(true);
             myNetworkViewOptions.menuCheckShowConnections->show();
+            myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
+            menuChecks.menuCheckShowAdditionalSubElements->show();
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
@@ -3820,10 +3844,12 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckExtendSelection->show();
+            myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
             // show menu checks
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
             menuChecks.menuCheckExtendSelection->show();
+            menuChecks.menuCheckShowAdditionalSubElements->show();
             break;
         // specific modes
         case NetworkEditMode::NETWORK_CREATE_EDGE:
