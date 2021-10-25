@@ -141,14 +141,20 @@ GUIMessageWindow::getTimeString(const FXString& text, const FXint pos, const FXi
     std::string time;
     if (end >= 0) {
         time = text.mid(pos, end - pos).text();
-    } else{
+    } else {
         time = text.mid(pos, text.length() - pos).text();
+        if (time.empty()) {
+            return -1;
+        }
         if (time.back() == '\n') {
             time.pop_back();
         }
         if (time.back() == '.') {
             time.pop_back();
         }
+    }
+    if (time.empty()) {
+        return -1;
     }
     if (time.front() == ' ') {
         time = time.substr(1);
