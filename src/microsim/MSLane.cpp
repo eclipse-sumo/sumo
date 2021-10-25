@@ -1619,6 +1619,9 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     double gap = victimBack - colliderPos - minGapFactor * collider->getVehicleType().getMinGap();
     if (bothOpposite) {
         gap = colliderPos - victimBack - minGapFactor * collider->getVehicleType().getMinGap();
+    } else if (colliderOpposite) {
+        // vehicles are back to back so (frontal) minGap doesn't apply
+        gap += minGapFactor * collider->getVehicleType().getMinGap();
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND && (DEBUG_COND2(collider) || DEBUG_COND2(victim))) {
