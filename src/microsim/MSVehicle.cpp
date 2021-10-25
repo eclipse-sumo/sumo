@@ -2088,17 +2088,23 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             const double gapOffset = leaderLane == myLane ? 0 : seen - leaderLane->getLength();
             const MSLeaderDistanceInfo cands = leaderLane->getFollowersOnConsecutive(this, backOffset, true, backOffset, true);
             MSLeaderDistanceInfo oppositeLeaders(leaderLane, this, 0);
+            const double minTimeToLeaveLane = MSGlobals::gSublane ? MAX2(TS, (0.5 *  myLane->getWidth() - getLateralPositionOnLane()) / getVehicleType().getMaxSpeedLat()) : 0;
             for (int i = 0; i < cands.numSublanes(); i++) {
                 CLeaderDist cand = cands[i];
-                if (cand.first != 0
-                        && ((cand.first->myLaneChangeModel->isOpposite() && cand.first->getLane() == leaderLane)
-                            || (!cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() == leaderLane))) {
-                    oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap() + cand.first->getVehicleType().getMinGap() - cand.first->getVehicleType().getLength());
+                if (cand.first != 0) {
+                    if ((cand.first->myLaneChangeModel->isOpposite() && cand.first->getLane() == leaderLane)
+                            || (!cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() == leaderLane)) {
+                        // respect leaders that also drive in the opposite direction (fully or with some overlap)
+                        oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap() + cand.first->getVehicleType().getMinGap() - cand.first->getVehicleType().getLength());
+                    } else if (cand.second >= 0 && cand.second - (v + cand.first->getSpeed()) * minTimeToLeaveLane < 0) {
+                        oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap());
+                    }
                 }
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout <<  " leaderLane=" << leaderLane->getID() << " gapOffset=" << gapOffset << " cands=" << cands.toString() << " oppositeLeaders=" <<  oppositeLeaders.toString() << "\n";
+                std::cout <<  " leaderLane=" << leaderLane->getID() << " gapOffset=" << gapOffset << " minTimeToLeaveLane=" << minTimeToLeaveLane
+                    << " cands=" << cands.toString() << " oppositeLeaders=" <<  oppositeLeaders.toString() << "\n";
             }
 #endif
             adaptToLeaderDistance(oppositeLeaders, 0, seen, lastLink, myLane, v, vLinkPass);
