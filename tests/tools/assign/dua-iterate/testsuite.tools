@@ -51,6 +51,7 @@ addWeights
 # add additional weights only for first iteration
 addWeights_once
 mapmatchJunctions
+1alternative
 
 # using marginal costs
 marginal_cost
