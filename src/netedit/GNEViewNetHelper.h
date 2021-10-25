@@ -542,6 +542,9 @@ struct GNEViewNetHelper {
         /// @brief checkable button to hide connections in connect mode
         MFXCheckableButton* menuCheckHideConnections;
 
+        /// @brief checkable button to show additional sub-elements
+        MFXCheckableButton* menuCheckShowAdditionalSubElements;
+
         /// @brief checkable button to extend to edge nodes
         MFXCheckableButton* menuCheckExtendSelection;
 
