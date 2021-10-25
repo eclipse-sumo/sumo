@@ -4,6 +4,9 @@ title: TraaS
 
 # TraaS
 
+!!! caution
+    TraaS is no longer maintained. Use the [java bindings for libtraci](../Libtraci.md#java) or [libsumo](../Libsumo.md#java) instead. 
+
 TraaS is a java library for working with TraCI. The name **TraaS**
 stands for *TraCI as a Service*. It was developed by Mario Krumnow and
 uses code from the now discontinued
