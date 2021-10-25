@@ -584,7 +584,7 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
     menuCheckToggleGrid = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                          "Toggle grid", "Ctrl+G or Alt+1", "",
+                          "Show grid", "Ctrl+G or Alt+1", "",
                           GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID),
                           myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID);
 
@@ -594,7 +594,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                                   myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES);
 
     menuCheckShowDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  "Toggle show demand elements", "Alt+3", "",
+                                  "Show demand elements", "Alt+3", "",
                                   GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
                                   myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS);
 
@@ -604,17 +604,17 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                            myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES);
 
     menuCheckShowConnections = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                               "Toggle show connections over junctions", "Alt+5", "",
+                               "Show connections over junctions", "Alt+5", "",
                                GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS),
                                myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS);
 
     menuCheckHideConnections = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                               "Hide connections", "", "",
+                               "Hide connections", "Alt+6", "",
                                GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS),
                                myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS);
 
     menuCheckShowAdditionalSubElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                         "show sub-additional elements", "", "",
+                                         "Show sub-additional elements", "Alt+7", "",
                                          GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWSUBADDITIONALS),
                                          myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS);
 
@@ -675,6 +675,71 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
     menuCheckChainEdges->hide();
     menuCheckAutoOppositeEdge->hide();
     separator->hide();
+}
+
+
+void 
+GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateAltLabels() {
+    /* currently this function doesn't work
+    // declare index
+    int index = 1;
+    // update label depending of shown
+    if (menuCheckToggleGrid->shown()) {
+        menuCheckToggleGrid->setText(("Ctrl+G or Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckDrawSpreadVehicles->shown()) {
+        menuCheckDrawSpreadVehicles->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckShowDemandElements->shown()) {
+        menuCheckShowDemandElements->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckSelectEdges->shown()) {
+        menuCheckSelectEdges->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckShowConnections->shown()) {
+        menuCheckShowConnections->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckHideConnections->shown()) {
+        menuCheckHideConnections->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckShowAdditionalSubElements->shown()) {
+        menuCheckShowAdditionalSubElements->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckExtendSelection->shown()) {
+        menuCheckExtendSelection->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckChangeAllPhases->shown()) {
+        menuCheckChangeAllPhases->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckWarnAboutMerge->shown()) {
+        menuCheckWarnAboutMerge->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckShowJunctionBubble->shown()) {
+        menuCheckShowJunctionBubble->setText(("Alt+" + toString(index) + "\t").c_str());
+    }
+    if (menuCheckMoveElevation->shown()) {
+        menuCheckMoveElevation->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckChainEdges->shown()) {
+        menuCheckChainEdges->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    if (menuCheckAutoOppositeEdge->shown()) {
+        menuCheckAutoOppositeEdge->setText(("Alt+" + toString(index) + "\t").c_str());
+        index++;
+    }
+    */
 }
 
 // ---------------------------------------------------------------------------

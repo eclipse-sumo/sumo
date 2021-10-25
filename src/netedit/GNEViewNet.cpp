@@ -3770,7 +3770,7 @@ GNEViewNet::buildEditModeControls() {
 void
 GNEViewNet::updateNetworkModeSpecificControls() {
     // get menu checks
-    const auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions;
+    auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().networkViewOptions;
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
@@ -3935,6 +3935,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Network buttons
     myNetworkCheckableButtons.updateNetworkCheckableButtons();
+    // update alt labels
+    menuChecks.updateAltLabels();
     // recalc toolbar
     myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
     myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->repaint();

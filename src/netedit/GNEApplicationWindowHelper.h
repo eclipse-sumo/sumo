@@ -411,6 +411,9 @@ struct GNEApplicationWindowHelper {
             /// @brief hide all options menu checks
             void hideNetworkViewOptionsMenuChecks();
 
+            /// @brief update alt labels
+            void updateAltLabels();
+
             /// @brief menu check to show grid button
             FXMenuCheckIcon* menuCheckToggleGrid;
 
