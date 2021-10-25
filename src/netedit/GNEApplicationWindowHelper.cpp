@@ -567,6 +567,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::NetworkViewOpt
     menuCheckSelectEdges(nullptr),
     menuCheckShowConnections(nullptr),
     menuCheckHideConnections(nullptr),
+    menuCheckShowAdditionalSubElements(nullptr),
     menuCheckExtendSelection(nullptr),
     menuCheckChangeAllPhases(nullptr),
     menuCheckWarnAboutMerge(nullptr),
@@ -611,6 +612,11 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                                "Hide connections", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS),
                                myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS);
+
+    menuCheckShowAdditionalSubElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                         "show sub-additional elements", "", "",
+                                         GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWSUBADDITIONALS),
+                                         myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS);
 
     menuCheckExtendSelection = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
                                "Selecting multiple edges automatically select their junctions", "Alt+6", "",
@@ -660,6 +666,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
     menuCheckSelectEdges->hide();
     menuCheckShowConnections->hide();
     menuCheckHideConnections->hide();
+    menuCheckShowAdditionalSubElements->hide();
     menuCheckExtendSelection->hide();
     menuCheckChangeAllPhases->hide();
     menuCheckWarnAboutMerge->hide();
@@ -1711,6 +1718,17 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
         }
         // Call manually onCmdToggleHideConnections
         viewNet->onCmdToggleHideConnections(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowAdditionalSubElements) {
+        // Toggle menuCheckShowAdditionalSubElements
+        if (viewNet->getNetworkViewOptions().menuCheckShowAdditionalSubElements->amChecked() == TRUE) {
+            // show extra information for tests
+            WRITE_DEBUG("Disabled show additional sub-elements throught alt + " + toString(numericalKeyPressed + 1));
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Enabled show additional sub-elements throught alt + " + toString(numericalKeyPressed + 1));
+        }
+        // Call manually onCmdToggleShowAdditionalSubElements
+        viewNet->onCmdToggleShowAdditionalSubElements(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckExtendSelection) {
         // Toggle menuCheckExtendSelection
         if (viewNet->getNetworkViewOptions().menuCheckExtendSelection->amChecked() == TRUE) {

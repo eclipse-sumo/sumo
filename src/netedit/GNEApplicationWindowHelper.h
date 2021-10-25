@@ -429,6 +429,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu check to hide connections in connect mode
             FXMenuCheckIcon* menuCheckHideConnections;
 
+            /// @brief menu check to show additional sub-elements
+            FXMenuCheckIcon* menuCheckShowAdditionalSubElements;
+
             /// @brief menu check to extend to edge nodes
             FXMenuCheckIcon* menuCheckExtendSelection;
 
