@@ -135,6 +135,9 @@ GNECrossing::getNBCrossing() const {
 
 void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
+    // check if draw start und end
+    const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
     // declare flag for drawing crossing
     bool drawCrossing = s.drawCrossingsAndWalkingareas;
     // don't draw in supermode data
@@ -224,9 +227,9 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // color
                 const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                 // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, darkerColor, 
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK, 
                                                 s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale, 
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint
                 if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
                     GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor,

@@ -98,7 +98,7 @@ public:
     /// @brief draw geometry points
     static void drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
                                    const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, 
-                                   const double exaggeration, const bool editingElevation);
+                                   const double exaggeration, const bool editingElevation, const bool drawExtremeSymbols);
 
     /// @brief draw moving hint
     static void drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,

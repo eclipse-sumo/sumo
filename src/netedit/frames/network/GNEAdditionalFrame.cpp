@@ -758,6 +758,10 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::updateLaneColors() {
 void
 GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVisualizationSettings& s) const {
     if (myLanePath.size() > 0) {
+        // check if draw start und end
+        const bool drawExtremeSymbols = myAdditionalFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                        myAdditionalFrameParent->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
+        // get widths
         const double lineWidth = 0.35;
         const double lineWidthin = 0.25;
         // Add a draw matrix
@@ -813,7 +817,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
         // draw geometry points
         GUIGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition}, 
                                         pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, 
-                                        myAdditionalFrameParent->getViewNet()->getNetworkViewOptions().editingElevation());
+                                        myAdditionalFrameParent->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
         // Pop last matrix
         GLHelper::popMatrix();
     }

@@ -324,6 +324,9 @@ GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
+    // check if draw start und end
+    const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
     // get edited network element
     const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
     // declare a flag to check if shape has to be draw
@@ -403,9 +406,9 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // color
                 const RGBColor darkerColor = connectionColor.changedBrightness(-32);
                 // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, darkerColor, 
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK, 
                                                 s.neteditSizeSettings.connectionGeometryPointRadius, 1, 
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint
                 if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
                     GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, 

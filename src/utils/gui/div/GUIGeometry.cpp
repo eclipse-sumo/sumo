@@ -314,7 +314,7 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 void
 GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
         const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration, 
-        const bool editingElevation) {
+        const bool editingElevation, const bool drawExtremeSymbols) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // get radius squared
@@ -345,14 +345,14 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Positio
                     GLHelper::drawText(toString(vertex.z()), vertex, 0.3, 0.7, textColor);
                     // pop Z matrix
                     GLHelper::popMatrix();
-                } else if ((vertex == shape.front()) && drawDetail) {
+                } else if ((vertex == shape.front()) && drawDetail && drawExtremeSymbols) {
                     // push "S" matrix
                     GLHelper::pushMatrix();
                     // draw a "s" over first point
                     GLHelper::drawText("S", vertex, 0.3, 2 * exaggeratedRadio, textColor);
                     // pop "S" matrix
                     GLHelper::popMatrix();
-                } else if ((vertex == shape.back()) && (shape.isClosed() == false) && drawDetail) {
+                } else if ((vertex == shape.back()) && (shape.isClosed() == false) && drawDetail && drawExtremeSymbols) {
                     // push "E" matrix
                     GLHelper::pushMatrix();
                     // draw a "e" over last point if polygon isn't closed

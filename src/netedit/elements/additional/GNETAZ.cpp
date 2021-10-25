@@ -241,6 +241,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     }
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
+        // check if draw start und end
+        const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
         // Obtain constants
         const double TAZExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -302,7 +305,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // draw geometry points
                 GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), darkerColor, invertedColor, 
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint points
                 if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ, isAttributeCarrierSelected()) && 
                     (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {

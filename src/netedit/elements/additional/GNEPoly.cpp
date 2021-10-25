@@ -232,6 +232,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
             myNet->getViewNet()->getDataViewOptions().showShapes() &&
             GUIPolygon::checkDraw(s, this, this)) {
+        // check if draw start und end
+        const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
         // Obtain constants
         const double polyExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -292,7 +295,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 // draw geometry points
                 GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor, 
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint points
                 if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON, isAttributeCarrierSelected()) && 
                     (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {

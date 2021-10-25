@@ -335,6 +335,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
+    // check if draw start und end
+    const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
     // declare variables
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
     const double junctionExaggeration = getExaggeration(s);
@@ -431,9 +434,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // draw shape
                         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
                         // draw geometry points
-                        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, darkerColor, 
+                        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, RGBColor::BLACK, 
                                                         s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration,
-                                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                         // draw moving hint
                         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
                             GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, 
