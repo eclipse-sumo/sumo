@@ -1305,11 +1305,11 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             // but also look for an oncoming leader to compute safety constraint
             double searchDist = timeToOvertake * oncomingLane->getSpeedLimit() * 2 + spaceToOvertake;
             neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
-            oncoming = getOncomingVehicle(oncomingLane, neighLead, searchDist, vMax);
+            oncoming = getOncomingVehicle(oncomingLane, neighLead, searchDist, vMax, overtaken.first);
         } else {
             double searchDist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
             oncoming = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
-            oncoming = getOncomingVehicle(oncomingLane, oncoming, searchDist, vMax);
+            oncoming = getOncomingVehicle(oncomingLane, oncoming, searchDist, vMax, overtaken.first);
 
         }
         if (overtaken.first != nullptr && vMax != vehicle->getLane()->getVehicleMaxSpeed(vehicle)) {
@@ -1506,13 +1506,15 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 
 
 std::pair<MSVehicle* const, double>
-MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double searchDist, double& vMax) {
+MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double searchDist, double& vMax, const MSVehicle* overtaken) {
     double gap = oncoming.second;
     while (oncoming.first != nullptr && (oncoming.first->getLaneChangeModel().isOpposite() || oncoming.first->getLaneChangeModel().getShadowLane() == opposite)) {
         searchDist -= (oncoming.first->getVehicleType().getLengthWithGap() + MAX2(0.0, oncoming.second));
         // leader is itself overtaking through the opposite side. find real oncoming vehicle
         gap += oncoming.first->getVehicleType().getLengthWithGap();
-        vMax = MIN2(vMax, oncoming.first->getSpeed());
+        if (oncoming.first != overtaken) {
+            vMax = MIN2(vMax, oncoming.first->getSpeed());
+        } // else: might be the case if we are overtaking a vehicle that is stopped on the opposite side
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (gDebugFlag5) {
             std::cout << SIMTIME << " oncoming=" << oncoming.first->getID() << " isOpposite gap=" << oncoming.second

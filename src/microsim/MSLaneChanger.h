@@ -149,7 +149,8 @@ protected:
 
     /** try changing to the opposite direction edge. */
     bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
-    std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, double> neighOncoming, double searchDist, double& vMax);
+    std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*,
+            double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr);
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
