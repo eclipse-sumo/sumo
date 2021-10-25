@@ -28,3 +28,6 @@ noconflict_parking
 
 # stopping on the opposite side with oncoming traffic, forcing opposite traffic to evade
 3oncoming_stopPosLat_danger
+
+# stopping on the opposite side with oncoming traffic, forcing opposite traffic to evade
+3oncoming_stopPosLat_danger2

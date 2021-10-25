@@ -5,7 +5,7 @@
     <route id="r1" edges="-a"/>
 
     <vehicle id="ego" route="r0" departPos="0" depart="0">
-        <stop lane="a_1" duration="10" endPos="80" posLat="-0.7"/>
+        <stop lane="a_1" duration="10" endPos="90" posLat="-0.7"/>
     </vehicle>
 
     <vehicle id="oncoming1" route="r1" departSpeed="max" departPos="0" depart="0"/>

@@ -43,12 +43,12 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="-a"/>
     </vehicle>
 
-    <vehicle id="ego" depart="0.00" departPos="0.00" arrival="25.00">
+    <vehicle id="ego" depart="0.00" departPos="0.00" arrival="24.00">
         <route edges="a"/>
-        <stop lane="a_1" endPos="80.00" posLat="-0.70" duration="10.00"/>
+        <stop lane="a_1" endPos="90.00" posLat="-0.70" duration="10.00"/>
     </vehicle>
 
-    <vehicle id="oncoming3" depart="12.00" departPos="0.00" departSpeed="13.89" speedFactor="1.00" arrival="33.00">
+    <vehicle id="oncoming3" depart="12.00" departPos="0.00" departSpeed="13.89" speedFactor="1.00" arrival="32.00">
         <route edges="-a"/>
     </vehicle>
 
