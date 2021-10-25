@@ -2342,7 +2342,7 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
                     "Save Network as", ".net.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVENETWORKELEMENTS),
+                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     gCurrentFolder);
     // add xml extension
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".net.xml");

@@ -202,7 +202,7 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
 long
 GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Load Viewport");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -220,7 +220,7 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Viewport", ".xml", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Save Viewport", ".xml", GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return 1;
     }
