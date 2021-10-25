@@ -20,5 +20,11 @@ noconflict_parking
 # need to cross 3 opposite lanes.
 2edges
 
-# stopping on the opposite side without oncoming traffic
+# stopping on the opposite side with oncoming traffic
 3oncoming_parking
+
+# stopping on the opposite side with oncoming traffic
+3oncoming_stopPosLat
+
+# stopping on the opposite side with oncoming traffic, forcing opposite traffic to evade
+3oncoming_stopPosLat_danger
