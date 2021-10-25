@@ -121,28 +121,20 @@ void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // draw Rerouter
     drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
-    // check if draw intervals
-    bool drawIntervals = false;
-    // check if interval is being inspected
+    // iterate over additionals and check if drawn
     for (const auto &interval : getChildAdditionals()) {
-        if (myNet->getViewNet()->isAttributeCarrierInspected(interval)) {
-            drawIntervals = true;
-        }
-        for (const auto &rerouterElement : interval->getChildAdditionals()) {
-            if (myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement)) {
-                drawIntervals = true;
-            }
-        }
-    }
-    // if drawIntervals is true or this rerouter is inspected, draw all children
-    if (isAttributeCarrierSelected() || myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() || drawIntervals || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        for (const auto &interval : getChildAdditionals()) {
+        // if rerouter or their intevals are selected, then draw
+        if (isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||           
+            interval->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(interval) || 
+            (myNet->getViewNet()->getFrontAttributeCarrier() == interval)) {
             interval->drawGL(s);
-        }
-    } else {
-        for (const auto &interval : getChildAdditionals()) {
-            if (interval->isAttributeCarrierSelected()) {
-                interval->drawGL(s);
+        } else {
+            // if rerouterElements are inspected or selected, then draw
+            for (const auto &rerouterElement : interval->getChildAdditionals()) {
+                if (rerouterElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement) ||
+                    (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
+                    interval->drawGL(s);
+                }
             }
         }
     }
