@@ -705,6 +705,26 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int 
                                   const RGBColor textCol, GUITexture texture, const std::string text) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // declare offsets
+        const double lineOffset = 0.1875;
+        const double baseOffsetX = 6.25;
+        const double baseOffsetY = 0.6;
+        // get draw position index
+        const int drawPositionIndex = getDrawPositionIndex();
+        // calculate lineA position (from parent to middle)
+        Position positionLineA = getPositionInView();
+        const double positionLineA_Y = (0 - extraOffsetY + baseOffsetY);
+        // set position depending of indexes
+        positionLineA.add(1 + lineOffset + (baseOffsetX * offsetX), positionLineA_Y, 0);
+        // calculate lineC position (From middle until current listenAdditional
+        Position positionLineB = getPositionInView();
+        const double positionLineB_Y= ((drawPositionIndex * -1) - extraOffsetY + baseOffsetY);
+        // set position depending of indexes
+        positionLineB.add(1 + lineOffset + (baseOffsetX * offsetX) + (2 * lineOffset), positionLineB_Y, 0);
+        // calculate signPosition position
+        Position signPosition = getPositionInView();
+        // set position depending of indexes
+        signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -715,30 +735,44 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int 
         const RGBColor baseColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor : baseCol;
         const RGBColor secondColor = baseColor.changedBrightness(-30);
         const RGBColor textColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
-        // get position
-        Position pos = getPositionInView();
-        // set position depending of indexes
-        pos.add(4.5 + (6.25 * offsetX), 
-                (getDrawPositionIndex() * -1) - extraOffsetY + 1, 
-                0);
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+        // set line color
+        GLHelper::setColor(RGBColor::YELLOW);
+        // draw both lines
+        GLHelper::drawBoxLine(positionLineA, 0, 0.1, lineOffset);
+        GLHelper::drawBoxLine(positionLineB, 0, 0.1, lineOffset);
+        // check if draw middle lane
+        if (drawPositionIndex != 0) {
+            // calculate length
+            const double lenght = std::abs(positionLineA_Y - positionLineB_Y);
+            // push middle lane matrix
+            GLHelper::pushMatrix();
+            //move and rotate
+            glTranslated(positionLineA.x() + lineOffset, positionLineA.y(), 0);
+            glRotated(90, 0, 0, 1);
+            glTranslated((lenght * -0.5), 0, 0);
+            // draw line
+            GLHelper::drawBoxLine(Position(0,0), 0, 0.1, lenght * 0.5);
+            // pop middle lane matrix
+            GLHelper::popMatrix();
+        }
         // draw extern rectangle
         GLHelper::setColor(secondColor);
-        GLHelper::drawBoxLine(pos, 0, 0.96, 2.75);    
+        GLHelper::drawBoxLine(signPosition, 0, 0.96, 2.75);    
         // move to front
         glTranslated(0, -0.06, 0.1);
         // draw intern rectangle
         GLHelper::setColor(baseColor);
-        GLHelper::drawBoxLine(pos, 0, 0.84, 2.69);
+        GLHelper::drawBoxLine(signPosition, 0, 0.84, 2.69);
         // move position down
-        pos.add(-2, -0.43, 0);
+        signPosition.add(-2, -0.43, 0);
         // draw interval
-        GLHelper::drawText(text, pos, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
+        GLHelper::drawText(text, signPosition, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
         // move to icon position
-        pos.add(-0.3, 0);
+        signPosition.add(-0.3, 0);
         // check if draw lock icon or rerouter interval icon
         if (GNEViewNetHelper::LockIcon::checkDrawing(this, getType(), 1)) {
             // pop layer matrix
@@ -746,10 +780,10 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int 
             // Pop name
             GLHelper::popName();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, 1, 0.4, 0.0, -0.05);
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), signPosition, 1, 0.4, 0.0, -0.05);
         } else {
             // translate to front
-            glTranslated(pos.x(), pos.y(), 0.1);
+            glTranslated(signPosition.x(), signPosition.y(), 0.1);
             // set White color
             glColor3d(1, 1, 1);
             // rotate
@@ -763,10 +797,10 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int 
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, 0.56, 2.75, 0, -2.3, 0, 1);
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, 0.56, 2.75, 0, -2.3, 0, 1);
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
         }
     }
 }
