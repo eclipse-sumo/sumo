@@ -150,6 +150,7 @@
 #include "checkbox_elevation.xpm"
 #include "checkbox_grid.xpm"
 #include "checkbox_hideconnections.xpm"
+#include "checkbox_showsubadditionals.xpm"
 #include "checkbox_hidenoninspecteddemandelements.xpm"
 #include "checkbox_hideshapes.xpm"
 #include "checkbox_lockcontainer.xpm"
@@ -507,6 +508,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_CHAIN] = new FXXPMIcon(a, checkbox_chain_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY] = new FXXPMIcon(a, checkbox_twoway_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS] = new FXXPMIcon(a, checkbox_hideconnections_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SHOWSUBADDITIONALS] = new FXXPMIcon(a, checkbox_showsubadditionals_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES] = new FXXPMIcon(a, checkbox_applytoallphases_xpm);
 
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES] = new FXXPMIcon(a, checkbox_hideshapes_xpm);

@@ -678,6 +678,8 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS,
     /// @brief hide connections
     MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS,
+    /// @brief show sub-additionals
+    MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS,
     /// @brief extend selection
     MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION,
     /// @brief change all phases
