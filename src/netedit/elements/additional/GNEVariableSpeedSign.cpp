@@ -121,7 +121,8 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // iterate over additionals and check if drawn
     for (const auto &step : getChildAdditionals()) {
         // if rerouter or their intevals are selected, then draw
-        if (isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||           
+        if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+            isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||           
             step->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(step) || 
             (myNet->getViewNet()->getFrontAttributeCarrier() == step)) {
             step->drawGL(s);

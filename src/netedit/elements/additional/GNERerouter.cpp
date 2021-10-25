@@ -124,7 +124,8 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // iterate over additionals and check if drawn
     for (const auto &interval : getChildAdditionals()) {
         // if rerouter or their intevals are selected, then draw
-        if (isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||           
+        if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+            isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||           
             interval->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(interval) || 
             (myNet->getViewNet()->getFrontAttributeCarrier() == interval)) {
             interval->drawGL(s);
