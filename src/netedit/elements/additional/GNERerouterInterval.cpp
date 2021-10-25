@@ -109,9 +109,15 @@ GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // if this interval is being inspected or drawRerouterElements is true, draw all children
-    if (drawRerouterElements || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        for (const auto &interval : getChildAdditionals()) {
-            interval->drawGL(s);
+    if (isAttributeCarrierSelected() || drawRerouterElements || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        for (const auto &rerouterElement : getChildAdditionals()) {
+            rerouterElement->drawGL(s);
+        }
+    } else {
+        for (const auto &rerouterElement : getChildAdditionals()) {
+            if (rerouterElement->isAttributeCarrierSelected()) {
+                rerouterElement->drawGL(s);
+            }
         }
     }
 }
