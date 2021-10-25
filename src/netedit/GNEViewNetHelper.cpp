@@ -2282,7 +2282,7 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideNonInspectedDemandElements->create();
 
     menuCheckShowOverlappedRoutes = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            ("\t\tToggle show overlapped routes."),
+            ("\t\tToggle show number of overlapped routes."),
             GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES),
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES, GUIDesignMFXCheckableButton);
     menuCheckShowOverlappedRoutes->setChecked(false);
