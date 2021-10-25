@@ -2174,6 +2174,18 @@ GNEViewNetHelper::NetworkViewOptions::showConnections() const {
 
 
 bool
+GNEViewNetHelper::NetworkViewOptions::showSubAdditionals() const {
+    if (!myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
+        return false;
+    } else if (menuCheckShowAdditionalSubElements->shown() == false) {
+        return false;
+    } else {
+        return menuCheckShowAdditionalSubElements->amChecked();
+    }
+}
+
+
+bool
 GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
     if (menuCheckMoveElevation->shown()) {
         return (menuCheckMoveElevation->amChecked() == TRUE);

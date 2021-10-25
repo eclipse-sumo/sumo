@@ -127,7 +127,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // if drawSteps is true or this VSS is inspected, draw all steps
-    if (drawSteps || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() || drawSteps || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         for (const auto &step : getChildAdditionals()) {
             step->drawGL(s);
         }

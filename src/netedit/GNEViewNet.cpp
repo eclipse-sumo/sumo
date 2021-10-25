@@ -3899,6 +3899,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getAdditionalFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getAdditionalFrame();
             myNetworkCheckableButtons.additionalButton->setChecked(true);
+            // show view options
+            myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
+            // show menu checks
+            menuChecks.menuCheckShowAdditionalSubElements->show();
             break;
         case NetworkEditMode::NETWORK_CROSSING:
             myViewParent->getCrossingFrame()->show();

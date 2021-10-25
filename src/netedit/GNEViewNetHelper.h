@@ -521,6 +521,9 @@ struct GNEViewNetHelper {
         /// @brief check if select show connections checkbox is enabled
         bool showConnections() const;
 
+        /// @brief check if show sub-additionals
+        bool showSubAdditionals() const;
+
         /// @brief check if we're editing elevation
         bool editingElevation() const;
 

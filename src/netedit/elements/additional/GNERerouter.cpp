@@ -135,7 +135,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // if drawIntervals is true or this rerouter is inspected, draw all children
-    if (drawIntervals || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() || drawIntervals || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         for (const auto &interval : getChildAdditionals()) {
             interval->drawGL(s);
         }
