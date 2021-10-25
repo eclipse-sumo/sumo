@@ -740,7 +740,7 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int 
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // set line color
-        GLHelper::setColor(RGBColor::YELLOW);
+        GLHelper::setColor(s.additionalSettings.connectionColor);
         // draw both lines
         GLHelper::drawBoxLine(positionLineA, 0, 0.1, lineOffset);
         GLHelper::drawBoxLine(positionLineB, 0, 0.1, lineOffset);
