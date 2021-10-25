@@ -191,8 +191,8 @@ ROFrame::checkOptions(OptionsCont& oc) {
         return false;
     }
     //
-    if (oc.getInt("max-alternatives") < 2) {
-        WRITE_ERROR("At least two alternatives should be enabled.");
+    if (oc.getInt("max-alternatives") < 1) {
+        WRITE_ERROR("A positive number of alternatives must be enabled.");
         return false;
     }
 #ifndef HAVE_FOX
