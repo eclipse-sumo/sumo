@@ -1688,8 +1688,6 @@ public:
 
 protected:
 
-    double getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const;
-
     /// @name Interaction with move reminders
     ///@{
 

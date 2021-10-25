@@ -4360,29 +4360,6 @@ MSVehicle::isFrontOnLane(const MSLane* lane) const {
 }
 
 
-double
-MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
-    double lengths = 0;
-    const MSLane::VehCont& vehs = l->getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        const MSVehicle* last = *i;
-        if (last->getSpeed() < SUMO_const_haltingSpeed && !last->getLane()->getEdge().isRoundabout()
-                && last != this
-                // @todo recheck
-                && last->isFrontOnLane(l)) {
-            foundStopped = true;
-            const double lastBrakeGap = last->getCarFollowModel().brakeGap(last->getSpeed());
-            const double ret = last->getBackPositionOnLane() + lastBrakeGap - lengths;
-            l->releaseVehicles();
-            return ret;
-        }
-        lengths += (*i)->getVehicleType().getLengthWithGap();
-    }
-    l->releaseVehicles();
-    return l->getLength() - lengths;
-}
-
-
 void
 MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const {
     if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !myLaneChangeModel->isOpposite()) {
@@ -4425,7 +4402,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                         seenSpace += getVehicleType().getLengthWithGap();
                     }
                 } else {
-                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
+                    seenSpace = seenSpace + approachedLane->getSpaceTillLastStanding(this, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
                 }
                 item.availableSpace = seenSpace;
 #ifdef DEBUG_CHECKREWINDLINKLANES
@@ -4455,7 +4432,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 #endif
             } else {
                 bool foundStopped2 = false;
-                const double spaceTillLastStanding = getSpaceTillLastStanding(approachedLane, foundStopped2);
+                const double spaceTillLastStanding = approachedLane->getSpaceTillLastStanding(this, foundStopped2);
                 seenSpace += spaceTillLastStanding;
                 if (foundStopped2) {
                     foundStopped = true;

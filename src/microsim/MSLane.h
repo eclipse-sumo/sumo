@@ -1241,6 +1241,9 @@ public:
     /// This is just a wrapper around MSPModel::nextBlocking. You should always check using hasPedestrians before calling this method.
     std::pair<const MSPerson*, double> nextBlocking(double minPos, double minRight, double maxLeft, double stopTime = 0) const;
 
+    /// @brief return the empty space up to the last standing vehicle or the empty space on the whole lane if no vehicle is standing
+    double getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const;
+
     static void initCollisionOptions(const OptionsCont& oc);
 
     static CollisionAction getCollisionAction() {

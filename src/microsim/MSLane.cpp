@@ -4008,4 +4008,23 @@ MSLane::mustCheckJunctionCollisions() const {
 }
 
 
+double
+MSLane::getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const {
+    /// @todo if ego isn't on this lane, we could use a cached value
+    double lengths = 0;
+    for (const MSVehicle* last : myVehicles) {
+        if (last->getSpeed() < SUMO_const_haltingSpeed && !last->getLane()->getEdge().isRoundabout()
+                && last != ego
+                // @todo recheck
+                && last->isFrontOnLane(this)) {
+            foundStopped = true;
+            const double lastBrakeGap = last->getCarFollowModel().brakeGap(last->getSpeed());
+            const double ret = last->getBackPositionOnLane() + lastBrakeGap - lengths;
+            return ret;
+        }
+        lengths += last->getVehicleType().getLengthWithGap();
+    }
+    return getLength() - lengths;
+}
+
 /****************************************************************************/
