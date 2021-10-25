@@ -1158,7 +1158,11 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         // compute safety constraints (assume vehicle is safe once stop is reached)
         const double spaceToStop = vehicle->nextStopDist();
         const double timeToStopForward = spaceToStop / MAX2(vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxAccel());
-        const double timeToStopLateral = MSGlobals::gLaneChangeDuration > 0 ? STEPS2TIME(MSGlobals::gLaneChangeDuration) * bestOffset : 0.;
+        const double timeToStopLateral = (MSGlobals::gLaneChangeDuration > 0
+            ? STEPS2TIME(MSGlobals::gLaneChangeDuration) * bestOffset
+            : (MSGlobals::gLateralResolution > 0
+                ? bestOffset * SUMO_const_laneWidth / vehicle->getVehicleType().getMaxSpeedLat()
+                : 0.));
         const double timeToStop = MAX2(timeToStopForward, timeToStopLateral);
         if (!isOpposite) {
             // we keep neighLead distinct from oncoiming because it determines blocking on the neigh lane
@@ -1292,10 +1296,12 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             }
         }
 
+        // if we have a leader vehicle that is driving in the opposite
+        // direction, it may slow us down (update vMax)
         if (!isOpposite) {
             assert(timeToOvertake != std::numeric_limits<double>::max());
             assert(spaceToOvertake != std::numeric_limits<double>::max());
-            // we keep neighLead distinct from oncoiming because it determines blocking on the neigh lane
+            // we keep neighLead distinct from oncoming because it determines blocking on the neigh lane
             // but also look for an oncoming leader to compute safety constraint
             double searchDist = timeToOvertake * oncomingLane->getSpeedLimit() * 2 + spaceToOvertake;
             neighLead = oncomingLane->getOppositeLeader(vehicle, searchDist, true);
@@ -1577,7 +1583,7 @@ MSLaneChanger::checkChangeOpposite(
         const bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(source, targetLane, laneOffset);
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " changing to opposite veh=" << vehicle->getID() << " dir=" << laneOffset << " opposite=" << Named::getIDSecure(targetLane) 
+            std::cout << SIMTIME << " changing to opposite veh=" << vehicle->getID() << " dir=" << laneOffset << " opposite=" << Named::getIDSecure(targetLane)
                 << " state=" << toString((LaneChangeAction)state) << "\n";
         }
 #endif
