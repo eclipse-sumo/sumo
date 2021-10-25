@@ -549,7 +549,8 @@ def create_plain(netfile, netconvert):
 # creates diff of a flat xml structure
 # (only children of the root element and their attrs are compared)
 def xmldiff(source, dest, diff, type, copy_tags, patchImport,
-        selectionOutputFiles, shapeOutputFiles, sourceNet = None, destNet = None):
+            selectionOutputFiles, shapeOutputFiles,
+            sourceNet=None, destNet=None):
     attributeStore = AttributeStore(type, copy_tags)
     root = None
     have_source = os.path.isfile(source)
@@ -610,7 +611,7 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport,
                 created, deleted, changed = shapeOutputFiles
                 attributeStore.writeCreatedShapes(created, destNet)
                 attributeStore.writeDeletedShapes(deleted, sourceNet)
-                attributeStore.writeChangedShapes(changed, sourceNet, destNet )
+                attributeStore.writeChangedShapes(changed, sourceNet, destNet)
 
 
 # calls function handle_parsenode for all children of the root element
@@ -665,7 +666,6 @@ def main():
         for f in shapeOutputFiles:
             sumolib.writeXMLHeader(f, "$Id$", "additional", options=options)  # noqa
 
-
     if options.direct:
         type = '.xml'
         xmldiff(options.source,
@@ -704,6 +704,7 @@ def main():
     for f in shapeOutputFiles:
         f.write("<additional>\n")
         f.close()
+
 
 if __name__ == "__main__":
     main()
