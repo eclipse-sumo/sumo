@@ -37,10 +37,10 @@
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
         const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-            myPosition(pos),
-myVehicleTypes(vTypes) {
+        {}, {}, {}, {}, {}, {}, {}, {},
+    parameters),
+    myPosition(pos),
+    myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -61,6 +61,10 @@ void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
+    // update geometries (boundaries of all children)
+    for (const auto& additionalChildren : getChildAdditionals()) {
+        additionalChildren->updateGeometry();
+    }
 }
 
 
@@ -80,11 +84,11 @@ GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
     updateGeometry();
     // add shape boundary
     myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // add positions of all childrens
+    // add positions of all childrens (symbols and steps)
     for (const auto& additionalChildren : getChildAdditionals()) {
-        if (additionalChildren->getTagProperty().isSymbol()) {
-            myAdditionalBoundary.add(additionalChildren->getPositionInView());
-        }
+        myAdditionalBoundary.add(additionalChildren->getPositionInView());
+        // also update centering boundary
+        additionalChildren->updateCenteringBoundary(false);
     }
     // grow
     myAdditionalBoundary.grow(10);
