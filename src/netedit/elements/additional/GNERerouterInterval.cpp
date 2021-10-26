@@ -37,10 +37,10 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     std::map<std::string, std::string>()),
     myBegin(0),
     myEnd(0) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
     // fill reroute interval with default values
     setDefaultValues();
+    // update boundary of rerouter parent
+    rerouterDialog->getEditedAdditional()->updateCenteringBoundary(true);
 }
 
 
@@ -50,8 +50,8 @@ GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime
     std::map<std::string, std::string>()),
     myBegin(begin),
     myEnd(end) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    // update boundary of rerouter parent
+    rerouterParent->updateCenteringBoundary(true);
 }
 
 
@@ -67,19 +67,31 @@ GNERerouterInterval::getMoveOperation() {
 
 void
 GNERerouterInterval::updateGeometry() {
-    // This additional doesn't own a geometry
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
+    // update geometries (boundaries of all children)
+    for (const auto& rerouterElement : getChildAdditionals()) {
+        rerouterElement->updateGeometry();
+    }
 }
 
 
 Position
 GNERerouterInterval::getPositionInView() const {
-    return getParentAdditionals().front()->getPositionInView();
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNERerouterInterval::updateCenteringBoundary(const bool /*updateGrid*/) {
-    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary.reset();
+    myAdditionalBoundary.add(getPositionInView());
+    myAdditionalBoundary.grow(5);
 }
 
 
@@ -98,7 +110,8 @@ GNERerouterInterval::getParentName() const {
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, 0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL, 
+    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
+                        0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL, 
                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
     // iterate over additionals and check if drawn
     for (const auto &rerouterElement : getChildAdditionals()) {
