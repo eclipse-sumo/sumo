@@ -57,9 +57,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"tlLogic",                 GLO_TLLOGIC},
     {"type",                    GLO_TYPE},
     //
-    {"edgeData",                GLO_EDGEDATA},
-    {"edgeRelData",             GLO_EDGERELDATA},
-    {"TAZRelData",              GLO_TAZRELDATA},
+    {"parentChildLine",         GLO_PARENTCHILDLINE},
     //
     {"additional",              GLO_ADDITIONALELEMENT},
     {"busStop",                 GLO_BUS_STOP},
@@ -120,6 +118,10 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"person",                  GLO_PERSON},
     {"personFlow",              GLO_PERSONFLOW},
+    //
+    {"edgeData",                GLO_EDGEDATA},
+    {"edgeRelData",             GLO_EDGERELDATA},
+    {"TAZRelData",              GLO_TAZRELDATA},
     //
     {"lockIcon",                GLO_LOCKICON},
     {"textName",                GLO_TEXTNAME},

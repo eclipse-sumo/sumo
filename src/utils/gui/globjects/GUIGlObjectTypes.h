@@ -60,6 +60,9 @@ enum GUIGlObjectType {
 
     /// @}
 
+    /// @brief line between parent and childrens
+    GLO_PARENTCHILDLINE = 90,
+
     /// @name additional elements
     /// @{
 
