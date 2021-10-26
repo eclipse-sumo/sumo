@@ -45,7 +45,7 @@ Includes sources, tests and docs but no binaries. Download as:
 ## Linux binaries
 
 The community maintains several repositories notably at the 
-[open build service](https://build.opensuse.org/project/show/home:behrisch).
+[open build service](https://build.opensuse.org/project/show/dlr:science).
 For a detailed list of repositories see below.
 
 Furthermore there are a debian and an ubuntu
@@ -71,24 +71,23 @@ the distribution or you will need them from another repository (you may
 try one of the build service repositories here too, e.g.
 [Application:Geo](https://download.opensuse.org/repositories/Application:/Geo/)).
 At the moment there is no documentation included in the packages. The
-repositories include a nightly build as well (called sumo_nightly).
+repositories include a nightly build as well (called sumo-git).
 
-- [openSUSE Leap 42.2 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_42.2/)
-- [openSUSE Leap 42.3 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_42.3/)
-- [openSUSE Leap 15.0 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.0/)
-- [openSUSE Leap 15.1 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.1/)
-- [openSUSE Leap 15.2 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.2/)
-- [openSUSE Leap 15.3 repository](http://download.opensuse.org/repositories/home:/behrisch/15.3/)
-- [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Tumbleweed/)
-- [Fedora 29 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_29/)
-- [Fedora 30 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_30/)
-- [Fedora 31 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_31/)
-- [Fedora 32 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_32/)
-- [Fedora 33 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_33/)
-- [Fedora 34 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_34/)
-- [Fedora Rawhide repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_Rawhide/)
-- [CentOS 7 repository](http://download.opensuse.org/repositories/home:/behrisch/CentOS_7/)
-- [CentOS 8 repository](http://download.opensuse.org/repositories/home:/behrisch/CentOS_8/)
+- [openSUSE Leap 42.3 repository](http://download.opensuse.org/repositories/dlr:/science/openSUSE_Leap_42.3/)
+- [openSUSE Leap 15.0 repository](http://download.opensuse.org/repositories/dlr:/science/openSUSE_Leap_15.0/)
+- [openSUSE Leap 15.1 repository](http://download.opensuse.org/repositories/dlr:/science/openSUSE_Leap_15.1/)
+- [openSUSE Leap 15.2 repository](http://download.opensuse.org/repositories/dlr:/science/openSUSE_Leap_15.2/)
+- [openSUSE Leap 15.3 repository](http://download.opensuse.org/repositories/dlr:/science/15.3/)
+- [openSUSE Leap 15.3 repository](http://download.opensuse.org/repositories/dlr:/science/15.4/)
+- [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/dlr:/science/openSUSE_Tumbleweed/)
+- [Fedora 30 repository](http://download.opensuse.org/repositories/dlr:/science/Fedora_30/)
+- [Fedora 31 repository](http://download.opensuse.org/repositories/dlr:/science/Fedora_31/)
+- [Fedora 32 repository](http://download.opensuse.org/repositories/dlr:/science/Fedora_32/)
+- [Fedora 33 repository](http://download.opensuse.org/repositories/dlr:/science/Fedora_33/)
+- [Fedora 34 repository](http://download.opensuse.org/repositories/dlr:/science/Fedora_34/)
+- [Fedora Rawhide repository](http://download.opensuse.org/repositories/dlr:/science/Fedora_Rawhide/)
+- [CentOS 7 repository](http://download.opensuse.org/repositories/dlr:/science/CentOS_7/)
+- [CentOS 8 repository](http://download.opensuse.org/repositories/dlr:/science/CentOS_8/)
 
 Ubuntu, Debian and Arch users please see the community repositories above.
 
