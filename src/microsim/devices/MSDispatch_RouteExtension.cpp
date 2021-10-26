@@ -75,7 +75,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
     for (auto it2 = resIt + 1; it2 != reservations.end();) {
         Reservation* const res2 = *it2;
         const bool isPerson2 = (*res2->persons.begin())->isPerson();
-        if (capacityLeft < (int)res2->persons.size() || isPerson != isPerson2) {
+        if (capacityLeft < (int)res2->persons.size() || isPerson != isPerson2 || !taxi->compatibleLine(res2)) {
             it2++;
             continue;
         }

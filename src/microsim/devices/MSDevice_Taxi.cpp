@@ -62,6 +62,7 @@ int MSDevice_Taxi::myMaxCapacity(0);
 int MSDevice_Taxi::myMaxContainerCapacity(0);
 
 #define TAXI_SERVICE "taxi"
+#define TAXI_SERVICE_PREFIX "taxi:"
 
 // ===========================================================================
 // method definitions
@@ -152,7 +153,9 @@ MSDevice_Taxi::initDispatch() {
 
 bool
 MSDevice_Taxi::isReservation(const std::set<std::string>& lines) {
-    return lines.size() == 1 && *lines.begin() == TAXI_SERVICE;
+    return lines.size() == 1 && (
+            *lines.begin() == TAXI_SERVICE
+            || StringUtils::startsWith(*lines.begin(), TAXI_SERVICE_PREFIX));
 }
 
 void
@@ -179,7 +182,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
     if (myDispatchCommand == nullptr) {
         initDispatch();
     }
-    myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity, myMaxContainerCapacity);
+    myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, *lines.begin(), myMaxCapacity, myMaxContainerCapacity);
 }
 
 void
@@ -658,6 +661,18 @@ MSDevice_Taxi::setParameter(const std::string& key, const std::string& value) {
         UNUSED_PARAMETER(doubleValue);
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
+}
+
+bool
+MSDevice_Taxi::compatibleLine(const std::string& taxiLine, const std::string& rideLine) {
+    return (taxiLine == TAXI_SERVICE
+            || rideLine == TAXI_SERVICE
+            || taxiLine == rideLine);
+}
+
+bool
+MSDevice_Taxi::compatibleLine(const Reservation* res) {
+    return compatibleLine(myHolder.getParameter().line, res->line);
 }
 
 

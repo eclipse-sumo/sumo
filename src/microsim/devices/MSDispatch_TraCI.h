@@ -50,6 +50,7 @@ public:
                                 const MSEdge* from, double fromPos,
                                 const MSEdge* to, double toPos,
                                 std::string group,
+                                const std::string& line,
                                 int maxCapacity,
                                 int maxContainerCapacity) override;
 

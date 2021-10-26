@@ -196,7 +196,10 @@ public:
      */
     void generateOutput(OutputDevice* tripinfoOut) const;
 
+    /// @brief whether the given reservation is compatible with the taxi line
+    bool compatibleLine(const Reservation* res);
 
+    static bool compatibleLine(const std::string& taxiLine, const std::string& rideLine);
 
 private:
     /** @brief Constructor

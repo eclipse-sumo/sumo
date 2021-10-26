@@ -345,8 +345,10 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
 
 bool
 MSStageDriving::isWaitingFor(const SUMOVehicle* vehicle) const {
+    assert(myLines.size() > 0);
     return (myLines.count(vehicle->getID()) > 0
             || myLines.count(vehicle->getParameter().line) > 0
+            || MSDevice_Taxi::compatibleLine(vehicle->getParameter().line, *myLines.begin())
             || (myLines.count("ANY") > 0 && (
                     myDestinationStop == nullptr
                     ? vehicle->stopsAtEdge(myDestination)

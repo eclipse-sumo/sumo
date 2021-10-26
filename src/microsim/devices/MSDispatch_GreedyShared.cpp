@@ -59,7 +59,7 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>
         res2 = *it2;
         const bool isPerson2 = (*res2->persons.begin())->isPerson();
 
-        if (capacityLeft < (int)res2->persons.size() || isPerson != isPerson2) {
+        if (capacityLeft < (int)res2->persons.size() || isPerson != isPerson2 || !taxi->compatibleLine(res2)) {
             // do not try to mix person and container dispatch
             continue;
         }

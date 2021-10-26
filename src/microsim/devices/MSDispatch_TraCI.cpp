@@ -42,9 +42,10 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
                                  const MSEdge* from, double fromPos,
                                  const MSEdge* to, double toPos,
                                  std::string group,
+                                 const std::string& line,
                                  int maxCapacity,
                                  int maxContainerCapacity) {
-    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, maxCapacity, maxContainerCapacity);
+    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, line, maxCapacity, maxContainerCapacity);
     if (!myReservationLookup.has(res)) {
         myReservationLookup.insert(res->id, res);
     }
@@ -131,7 +132,7 @@ MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> p
         Reservation* newRes = new Reservation(toString(myReservationCount++), split,
                                               res->reservationTime, res->pickupTime,
                                               res->from, res->fromPos,
-                                              res->to, res->toPos, res->group);
+                                              res->to, res->toPos, res->group, res->line);
         myGroupReservations[res->group].push_back(newRes);
         myReservationLookup.insert(newRes->id, newRes);
         return newRes->id;
