@@ -720,7 +720,8 @@ GNEInspectorFrame::ParametersEditorInspector::~ParametersEditorInspector() {}
 void
 GNEInspectorFrame::ParametersEditorInspector::showParametersEditorInspector() {
     // firt check if there is
-    if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+    if ((myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) &&
+        myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
         // refresh ParametersEditorInspector
         refreshParametersEditorInspector();
         // show groupbox
