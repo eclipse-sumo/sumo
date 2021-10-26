@@ -1056,8 +1056,8 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             return nullptr;
         }
     } else if (myHE->getTagProperty().isAdditionalElement()) {
-        // Obtain Additional
-        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(myHE->getTagProperty().getTag(), myHE->getID(), false);
+        // Obtain Additional (use dynamic_cast due rerouter and vss elements)
+        const GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myHE);
         if (additional) {
             // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
