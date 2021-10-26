@@ -36,8 +36,8 @@ GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEE
     std::map<std::string, std::string>()),
     myClosedEdge(closedEdge),
     myPermissions(permissions) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    // update boundary of rerouter parent
+    rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
 
 
@@ -53,20 +53,27 @@ GNEClosingReroute::getMoveOperation() {
 
 void
 GNEClosingReroute::updateGeometry() {
-    // use geometry of rerouter parent
-    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
 }
 
 
 Position
 GNEClosingReroute::getPositionInView() const {
-    return getParentAdditionals().front()->getPositionInView();
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNEClosingReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary.reset();
+    myAdditionalBoundary.add(getPositionInView());
+    myAdditionalBoundary.grow(5);
 }
 
 
@@ -85,7 +92,8 @@ GNEClosingReroute::getParentName() const {
 void
 GNEClosingReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw closing reroute as listed attribute
-    drawListedAddtional(s, 1, getParentAdditionals().front()->getDrawPositionIndex(), 
+    drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+                        1, getParentAdditionals().front()->getDrawPositionIndex(), 
                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGREROUTE, 
                         getAttribute(SUMO_ATTR_EDGE));
 }
