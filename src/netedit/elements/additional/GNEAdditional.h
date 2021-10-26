@@ -406,6 +406,7 @@ private:
     /// @brief draw geometry point
     static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor, 
                                             const double fromAngle, const double toAngle);
+    
     /// @brief adjust listed addtitional text
     std::string adjustListedAdditionalText(const std::string &text) const;
 
