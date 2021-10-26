@@ -121,7 +121,7 @@ GNEVariableSpeedSign::getParentName() const {
 void
 GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor);
+    drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw VSS
     drawSquaredAdditional(s, myPosition, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
     // iterate over additionals and check if drawn

@@ -857,7 +857,7 @@ GNEAdditional::getACParametersMap() const {
 
 
 void
-GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const {
+GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color, const bool onlySymbols) const {
     // check if current additional is inspected, front or selected
     const bool currentDrawEntire = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
         (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
@@ -867,21 +867,47 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
     glTranslated(0, 0, GLO_PARENTCHILDLINE);
     // iterate over parent additionals
     for (const auto &parent : getParentAdditionals()) {
-        // get flags
+        // get inspected flag
         const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parent);
         // draw parent lines
         GUIGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(), 
             (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
             currentDrawEntire || inspected || parent->isAttributeCarrierSelected());
     }
+    // special case for Parking area reroutes
+    if (getTagProperty().getTag() == SUMO_TAG_REROUTER) {
+        // iterate over rerouter elements
+        for (const auto &rerouterInterval : getChildAdditionals()) {
+            for (const auto &rerouterElement : rerouterInterval->getChildAdditionals()) {
+                if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+                    // get parking area
+                    const auto parkingArea = rerouterElement->getParentAdditionals().at(1);
+                    // get inspected flag
+                    const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parkingArea);
+                    // draw parent lines
+                    GUIGeometry::drawParentLine(s, getPositionInView(), parkingArea->getPositionInView(), 
+                        (isAttributeCarrierSelected() || parkingArea->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
+                        currentDrawEntire || inspected || parkingArea->isAttributeCarrierSelected());
+                }
+            }
+        }
+    }
     // iterate over child additionals
     for (const auto &child : getChildAdditionals()) {
-        // get flags
+        // get inspected flag
         const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(child);
-        // draw child line
-        GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(), 
-            (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
-            currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+        // special case for parking zone reroute
+        if (child->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+            // draw child line between parking area and rerouter
+            GUIGeometry::drawChildLine(s, getPositionInView(), child->getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 
+                (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
+                currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+        } else if (!onlySymbols || child->getTagProperty().isSymbol()) {
+            // draw child line
+            GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(), 
+                (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
+                currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+        }
     }
     // pop layer matrix
     GLHelper::popMatrix();

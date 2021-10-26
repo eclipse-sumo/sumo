@@ -304,7 +304,7 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
     /// @brief draw parent and child lines
-    void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color) const;
+    void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color, const bool onlySymbols = false) const;
 
     /// @brief draw up geometry point
     static void drawUpGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
