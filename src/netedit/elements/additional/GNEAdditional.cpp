@@ -760,7 +760,7 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         // move position down
         signPosition.add(-2, -0.43, 0);
         // draw interval
-        GLHelper::drawText(text, signPosition, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
+        GLHelper::drawText(adjustListedAdditionalText(text), signPosition, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
         // move to icon position
         signPosition.add(-0.3, 0);
         // check if draw lock icon or rerouter interval icon
@@ -996,6 +996,30 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Posi
         GLHelper::popMatrix();
         // pop draw matrix
         GLHelper::popMatrix();
+    }
+}
+
+
+std::string 
+GNEAdditional::adjustListedAdditionalText(const std::string &text) const {
+    // 10 + 3 + 10
+    if (text.size() <= 23) {
+        return text;
+    } else {
+        // get text size
+        const int textPosition = (int)text.size() - 10;
+        // declare strings
+        std::string partA, partB;
+        // resize
+        partA.reserve(10);
+        partB.reserve(10);
+        // fill both 
+        for (int i = 0; i < 10; i++) {
+            partA.push_back(text.at(i));
+            partB.push_back(text.at(textPosition + i));
+        }
+        // return composition
+        return (partA + "..." + partB);
     }
 }
 
