@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_10_0+0979-9637fe4
+Eclipse SUMO sumo Version v1_10_0+1715-3bec16d486b
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -287,6 +287,9 @@ Processing Options:
                                         with model 'striping'
   --pedestrian.striping.dawdling FLOAT  Factor for random slow-downs [0,1] for
                                         use with model 'striping'
+  --pedestrian.striping.mingap-to-vehicle FLOAT  Minimal gap / safety buffer
+                                        (in meters) from a pedestrian to another
+                                        vehicle for use with model 'striping'
   --pedestrian.striping.jamtime TIME   Time in seconds after which pedestrians
                                         start squeezing through a jam when using
                                         model 'striping' (non-positive values
@@ -748,6 +751,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

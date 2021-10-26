@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-24 12:59:30 by Eclipse SUMO sumo Version v1_10_0+0979-9637fe4
+<!-- generated on 2021-10-26 18:03:06 by Eclipse SUMO sumo Version v1_10_0+1715-3bec16d486b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -422,6 +422,9 @@
 
         <!-- Factor for random slow-downs [0,1] for use with model &apos;striping&apos; -->
         <pedestrian.striping.dawdling value="0.2" type="FLOAT"/>
+
+        <!-- Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model &apos;striping&apos; -->
+        <pedestrian.striping.mingap-to-vehicle value="0.25" type="FLOAT"/>
 
         <!-- Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing) -->
         <pedestrian.striping.jamtime value="300" type="TIME"/>
@@ -1067,6 +1070,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

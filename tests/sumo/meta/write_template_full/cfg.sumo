@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-24 12:59:29 by Eclipse SUMO sumo Version v1_10_0+0979-9637fe4
+<!-- generated on 2021-10-26 18:03:06 by Eclipse SUMO sumo Version v1_10_0+1715-3bec16d486b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -153,6 +153,7 @@
         <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;]"/>
         <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
+        <pedestrian.striping.mingap-to-vehicle value="0.25" type="FLOAT" help="Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle for use with model &apos;striping&apos;"/>
         <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamtime.crossing value="10" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamtime.narrow value="1" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos;"/>
@@ -408,6 +409,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>
