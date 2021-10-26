@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "",
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
     {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
     std::map<std::string, std::string>()),
     myProbability(probability),

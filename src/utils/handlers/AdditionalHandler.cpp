@@ -131,7 +131,7 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             case SUMO_TAG_DEST_PROB_REROUTE:
                 parseDestProbRerouteAttributes(attrs);
                 break;
-            case SUMO_TAG_PARKING_ZONE_REROUTE:
+            case SUMO_TAG_PARKING_AREA_REROUTE:
                 parseParkingAreaRerouteAttributes(attrs);
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
@@ -497,7 +497,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                  obj->getStringAttribute(SUMO_ATTR_ID),
                                  obj->getDoubleAttribute(SUMO_ATTR_PROB));
             break;
-        case SUMO_TAG_PARKING_ZONE_REROUTE:
+        case SUMO_TAG_PARKING_AREA_REROUTE:
             buildParkingAreaReroute(obj,
                                     obj->getStringAttribute(SUMO_ATTR_ID),
                                     obj->getDoubleAttribute(SUMO_ATTR_PROB),
@@ -1378,11 +1378,11 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
     const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, 1);
     // check parent
-    checkParent(SUMO_TAG_PARKING_ZONE_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
+    checkParent(SUMO_TAG_PARKING_AREA_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PARKING_ZONE_REROUTE);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PARKING_AREA_REROUTE);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, parkingAreaID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probability);

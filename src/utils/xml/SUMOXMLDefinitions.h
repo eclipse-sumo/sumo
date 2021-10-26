@@ -201,7 +201,7 @@ enum SumoXMLTag {
     /// @brief probability of route of a reroute
     SUMO_TAG_ROUTE_PROB_REROUTE,
     /// @brief entry for an alternative parking zone
-    SUMO_TAG_PARKING_ZONE_REROUTE,
+    SUMO_TAG_PARKING_AREA_REROUTE,
     /// @brief type of polygon
     SUMO_TAG_POLYTYPE,
     /// @brief connectio between two lanes

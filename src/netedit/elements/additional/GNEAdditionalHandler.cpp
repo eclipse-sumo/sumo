@@ -1053,9 +1053,9 @@ GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBase
     GNEAdditional* parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, newParkignAreaID, false);
     // check parents
     if (rerouterInterval == nullptr) {
-        writeErrorInvalidParent(SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_TAG_INTERVAL);
+        writeErrorInvalidParent(SUMO_TAG_PARKING_AREA_REROUTE, SUMO_TAG_INTERVAL);
     } else if (parkingArea == nullptr) {
-        writeErrorInvalidParent(SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_TAG_PARKING_AREA);
+        writeErrorInvalidParent(SUMO_TAG_PARKING_AREA_REROUTE, SUMO_TAG_PARKING_AREA);
     } else {
         // create parking area reroute
         GNEAdditional* parkingAreaReroute = new GNEParkingAreaReroute(rerouterInterval, parkingArea, probability, visible);

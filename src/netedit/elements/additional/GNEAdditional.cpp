@@ -879,7 +879,7 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
         // iterate over rerouter elements
         for (const auto &rerouterInterval : getChildAdditionals()) {
             for (const auto &rerouterElement : rerouterInterval->getChildAdditionals()) {
-                if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+                if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
                     // get parking area
                     const auto parkingArea = rerouterElement->getParentAdditionals().at(1);
                     // get inspected flag
@@ -897,7 +897,7 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
         // get inspected flag
         const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(child);
         // special case for parking zone reroute
-        if (child->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+        if (child->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
             // draw child line between parking area and rerouter
             GUIGeometry::drawChildLine(s, getPositionInView(), child->getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 
                 (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 

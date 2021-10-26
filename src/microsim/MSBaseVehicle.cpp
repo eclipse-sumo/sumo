@@ -353,7 +353,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
         }
         edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     }
-    if (edges == myRoute->getEdges() && !StringUtils::endsWith(info, toString(SUMO_TAG_PARKING_ZONE_REROUTE))) {
+    if (edges == myRoute->getEdges() && !StringUtils::endsWith(info, toString(SUMO_TAG_PARKING_AREA_REROUTE))) {
         // re-assign stop iterators when rerouting to a new parkingArea
         return true;
     }

@@ -2604,7 +2604,7 @@ GNEAttributeCarrier::fillAdditionals() {
                                               "1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_PARKING_ZONE_REROUTE;
+    currentTag = SUMO_TAG_PARKING_AREA_REROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

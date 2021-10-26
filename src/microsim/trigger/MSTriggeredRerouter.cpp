@@ -207,7 +207,7 @@ MSTriggeredRerouter::myStartElement(int element,
         myCurrentRouteProb.add(route, prob);
     }
 
-    if (element == SUMO_TAG_PARKING_ZONE_REROUTE) {
+    if (element == SUMO_TAG_PARKING_AREA_REROUTE) {
         // by giving probabilities of new destinations
         // get the destination edge
         std::string parkingarea = attrs.getStringSecure(SUMO_ATTR_ID, "");
@@ -457,7 +457,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
 
             std::string errorMsg;
             if (veh.replaceParkingArea(newParkingArea, errorMsg)) {
-                veh.replaceRouteEdges(newRoute, routeCost, savings, getID() + ":" + toString(SUMO_TAG_PARKING_ZONE_REROUTE), false, false, false);
+                veh.replaceRouteEdges(newRoute, routeCost, savings, getID() + ":" + toString(SUMO_TAG_PARKING_AREA_REROUTE), false, false, false);
             } else {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
                               + "' could not reroute to new parkingArea '" + newParkingArea->getID()

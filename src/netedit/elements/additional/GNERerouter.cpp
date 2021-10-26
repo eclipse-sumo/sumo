@@ -96,7 +96,7 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
         for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
             myAdditionalBoundary.add(rerouterElement->getPositionInView());
             // special case for parking area rerouter
-            if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+            if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
                 myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getPositionInView());
             }
         }
