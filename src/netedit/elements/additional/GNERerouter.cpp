@@ -64,6 +64,13 @@ void
 GNERerouter::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
+    // update geometries (boundaries of all children)
+    for (const auto& additionalChildren : getChildAdditionals()) {
+        additionalChildren->updateGeometry();
+        for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
+            rerouterElement->updateGeometry();
+        }
+    }
 }
 
 
@@ -83,14 +90,19 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
     updateGeometry();
     // add shape boundary
     myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // add positions of all childrens
+    // add positions of all childrens (intervals and symbols)
     for (const auto& additionalChildren : getChildAdditionals()) {
-        if (additionalChildren->getTagProperty().isSymbol()) {
-            myAdditionalBoundary.add(additionalChildren->getPositionInView());
+        myAdditionalBoundary.add(additionalChildren->getPositionInView());
+        for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
+            myAdditionalBoundary.add(rerouterElement->getPositionInView());
+            // special case for parking area rerouter
+            if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+                myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getPositionInView());
+            }
         }
     }
-    // grow for cover children
-    myAdditionalBoundary.grow(15);
+    // grow
+    myAdditionalBoundary.grow(10);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
