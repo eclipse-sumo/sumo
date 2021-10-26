@@ -208,7 +208,7 @@ GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, 
         } else {
             return nullptr;
         }
-    } else if (nearestPosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
+    } else if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
         // move geometry point without creating new geometry point
         return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
     } else if (!onlyContour || nearestPosition.distanceSquaredTo2D(mousePosition) <= squaredSnapRadius) {
