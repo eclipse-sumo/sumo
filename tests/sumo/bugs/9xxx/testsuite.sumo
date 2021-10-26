@@ -9,3 +9,6 @@ ticket9211
 
 # crash in bluelight device with multiple equipped vehicle and opposite direction driving 
 ticket9310
+
+# crash when combining waypoints with busStop 	
+ticket9399
