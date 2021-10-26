@@ -2601,6 +2601,10 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
                 return myViewNet->onCmdToggleSelectEdges(obj, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS:
                 return myViewNet->onCmdToggleShowConnections(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS:
+                return myViewNet->onCmdToggleHideConnections(obj, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS:
+                return myViewNet->onCmdToggleShowAdditionalSubElements(obj, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION:
                 return myViewNet->onCmdToggleExtendSelection(obj, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES:
