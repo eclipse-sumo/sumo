@@ -4914,12 +4914,30 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
                               + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
                 myStops.pop_front();
             } else {
+                MSStop& stop = myStops.front();
                 // passed waypoint at the end of the lane
-                if (!myStops.front().reached) {
+                if (!stop.reached) {
                     if (MSStopOut::active()) {
                         MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), MSNet::getInstance()->getCurrentTimeStep());
                     }
-                    myStops.front().reached = true;
+                    stop.reached = true;
+                    // enter stopping place so leaveFrom works as expected
+                    if (stop.busstop != nullptr) {
+                        // let the bus stop know the vehicle
+                        stop.busstop->enter(this, stop.pars.parking);
+                    }
+                    if (stop.containerstop != nullptr) {
+                        // let the container stop know the vehicle
+                        stop.containerstop->enter(this, stop.pars.parking);
+                    }
+                    if (stop.parkingarea != nullptr) {
+                        // let the parking area know the vehicle
+                        stop.parkingarea->enter(this);
+                    }
+                    if (stop.chargingStation != nullptr) {
+                        // let the container stop know the vehicle
+                        stop.chargingStation->enter(this, stop.pars.parking);
+                    }
                 }
                 resumeFromStopping();
             }
