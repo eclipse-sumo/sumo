@@ -106,14 +106,14 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             vaporizerColor = s.additionalSettings.vaporizerColor;
             centralLineColor = RGBColor::WHITE;
         }
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add layer matrix matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VAPORIZER);
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // set base color
         GLHelper::setColor(vaporizerColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

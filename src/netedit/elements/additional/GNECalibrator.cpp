@@ -355,12 +355,12 @@ GNECalibrator::getHierarchyName() const {
 // ===========================================================================
 
 void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+    // draw parent and child lines
+    drawParentChildLines(s, s.additionalSettings.connectionColor);
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor);
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
     // rotate over lane

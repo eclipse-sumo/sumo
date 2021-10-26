@@ -149,14 +149,14 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get colors
         const RGBColor baseColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
         const RGBColor contourColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // push name
         GLHelper::pushName(getGlID());
         // push later matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // set contour color
         GLHelper::setColor(contourColor);
         // draw extern

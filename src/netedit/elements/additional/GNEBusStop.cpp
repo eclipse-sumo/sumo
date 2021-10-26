@@ -136,14 +136,14 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.busStopColor;
                 signColor = s.colorSettings.busStopColorSign;
             }
+            // draw parent and child lines
+            drawParentChildLines(s, baseColor);
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
             // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
-            // draw parent and child lines
-            drawParentChildLines(s, baseColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

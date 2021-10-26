@@ -655,8 +655,6 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // translate to position
         glTranslated(pos.x(), pos.y(), 0);
         // scale
@@ -675,14 +673,6 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
-        // push connection matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR, -0.1);
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // Pop connection matrix
-        GLHelper::popMatrix();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
         // check if dotted contour has to be drawn
@@ -871,7 +861,10 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
     // check if current additional is inspected, front or selected
     const bool currentDrawEntire = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
         (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
-
+    // push layer matrix
+    GLHelper::pushMatrix();
+    // translate to parentChildLine layer
+    glTranslated(0, 0, GLO_PARENTCHILDLINE);
     // iterate over parent additionals
     for (const auto &parent : getParentAdditionals()) {
         // get flags
@@ -890,6 +883,8 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
             (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
             currentDrawEntire || inspected || child->isAttributeCarrierSelected());
     }
+    // pop layer matrix
+    GLHelper::popMatrix();
 }
 
 

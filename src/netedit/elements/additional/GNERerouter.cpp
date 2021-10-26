@@ -131,6 +131,8 @@ GNERerouter::getParentName() const {
 
 void
 GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
+    // draw parent and child lines
+    drawParentChildLines(s, s.additionalSettings.connectionColor);
     // draw Rerouter
     drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
     // iterate over additionals and check if drawn

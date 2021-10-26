@@ -121,14 +121,14 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
                 secondColor = RGBColor::WHITE;
                 textColor = RGBColor::BLACK;
             }
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // start drawing
             GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw E1 shape
             drawE1Shape(s, E1Exaggeration, scaledWidth, mainColor, secondColor);
             // Check if the distance is enought to draw details

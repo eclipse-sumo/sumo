@@ -105,6 +105,8 @@ GNEDetectorE3::getParentName() const {
 
 void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
+    // draw parent and child lines
+    drawParentChildLines(s, s.additionalSettings.connectionColor);
     // draw E3
     drawSquaredAdditional(s, myPosition, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
 }

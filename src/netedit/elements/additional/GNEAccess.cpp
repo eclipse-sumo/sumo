@@ -166,14 +166,14 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             color = s.colorSettings.busStopColor;
         }
+        // draw parent and child lines
+        drawParentChildLines(s, color);
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
-        // draw parent and child lines
-        drawParentChildLines(s, color);
         // set color
         GLHelper::setColor(color);
         // translate to geometry position

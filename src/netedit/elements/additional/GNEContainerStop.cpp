@@ -99,14 +99,14 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.containerStopColor;
                 signColor = s.colorSettings.containerStopColorSign;
             }
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
             // Add a layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

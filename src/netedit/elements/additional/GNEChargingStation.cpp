@@ -96,14 +96,14 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.chargingStationColor;
                 signColor = s.colorSettings.chargingStationColorSign;
             }
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
             // Add a layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

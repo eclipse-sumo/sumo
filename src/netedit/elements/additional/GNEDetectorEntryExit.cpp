@@ -108,14 +108,14 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     const double entryExitExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Start drawing adding gl identificator
         GLHelper::pushName(getGlID());
         // Push layer matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
-        // draw lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Set color
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
