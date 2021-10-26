@@ -701,8 +701,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 
 
 void 
-GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int offsetX, const int extraOffsetY, const RGBColor baseCol, 
-                                  const RGBColor textCol, GUITexture texture, const std::string text) const {
+GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const int offsetX, const int extraOffsetY, 
+                                   const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare offsets
@@ -712,17 +712,17 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const int 
         // get draw position index
         const int drawPositionIndex = getDrawPositionIndex();
         // calculate lineA position (from parent to middle)
-        Position positionLineA = getPositionInView();
+        Position positionLineA = parentPosition;
         const double positionLineA_Y = (0 - extraOffsetY + baseOffsetY);
         // set position depending of indexes
         positionLineA.add(1 + lineOffset + (baseOffsetX * offsetX), positionLineA_Y, 0);
         // calculate lineC position (From middle until current listenAdditional
-        Position positionLineB = getPositionInView();
+        Position positionLineB = parentPosition;
         const double positionLineB_Y= ((drawPositionIndex * -1) - extraOffsetY + baseOffsetY);
         // set position depending of indexes
         positionLineB.add(1 + lineOffset + (baseOffsetX * offsetX) + (2 * lineOffset), positionLineB_Y, 0);
         // calculate signPosition position
-        Position signPosition = getPositionInView();
+        Position signPosition = parentPosition;
         // set position depending of indexes
         signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
         // check if boundary has to be drawn
