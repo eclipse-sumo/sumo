@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 19 14:36:56 2020 by Eclipse SUMO sumo Version v1_7_0+0644-c2b60a409c
+<!-- generated on 2021-10-27 14:25:49 by Eclipse SUMO sumo Version v1_10_0+1740-a59df310fb4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,6 +39,6 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="v2" depart="0.00" departLane="" departPos="289.73" departSpeed="13.89" departDelay="0.00" arrival="16.00" arrivalLane="" arrivalPos="50.00" arrivalSpeed="13.89" duration="16.00" routeLength="164.58" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_v2 routing_v2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v0" depart="0.00" departLane="" departPos="289.87" departSpeed="13.89" departDelay="0.00" arrival="17.00" arrivalLane="" arrivalPos="50.00" arrivalSpeed="13.89" duration="17.00" routeLength="164.93" waitingTime="0.01" waitingCount="0" stopTime="0.00" timeLoss="1.01" rerouteNo="1" devices="tripinfo_v0 routing_v0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v1" depart="0.00" departLane="" departPos="289.81" departSpeed="13.89" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="50.00" arrivalSpeed="13.89" duration="18.00" routeLength="164.26" waitingTime="1.30" waitingCount="0" stopTime="0.00" timeLoss="2.33" rerouteNo="1" devices="tripinfo_v1 routing_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v0" depart="0.00" departLane="" departPos="289.87" departSpeed="13.89" departDelay="0.00" arrival="17.00" arrivalLane="" arrivalPos="50.00" arrivalSpeed="13.89" duration="17.00" routeLength="164.93" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.01" rerouteNo="1" devices="tripinfo_v0 routing_v0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="" departPos="289.81" departSpeed="13.89" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="50.00" arrivalSpeed="13.89" duration="18.00" routeLength="164.26" waitingTime="2.00" waitingCount="0" stopTime="0.00" timeLoss="2.33" rerouteNo="1" devices="tripinfo_v1 routing_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
