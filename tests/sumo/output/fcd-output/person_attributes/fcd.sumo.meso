@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun  4 14:44:55 2018 by Eclipse SUMO Version 4ce83f2
+<!-- generated on 2021-10-27 14:02:31 by Eclipse SUMO sumo Version v1_10_0+1740-a59df310fb4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="x,y,speed,vehicle"/>
     </output>
 
     <time>
@@ -23,11 +24,13 @@ SPDX-License-Identifier: EPL-2.0
     </time>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -41,11 +44,11 @@ SPDX-License-Identifier: EPL-2.0
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <person id="noFCDByTypeEnableViaParam" x="395.25" y="401.65" angle="270.00" speed="1.39" pos="0.00" edge="1/1to0/1" slope="0.00"/>
-        <person id="default" x="1595.25" y="401.65" angle="270.00" speed="1.39" pos="0.00" edge="4/1to3/1" slope="0.00"/>
+        <person id="noFCDByTypeEnableViaParam" x="395.25" y="401.65" speed="1.39" vehicle=""/>
+        <person id="default" x="1595.25" y="401.65" speed="1.39" vehicle=""/>
     </timestep>
     <timestep time="1.00">
-        <person id="noFCDByTypeEnableViaParam" x="393.87" y="401.65" angle="270.00" speed="1.39" pos="1.38" edge="1/1to0/1" slope="0.00"/>
-        <person id="default" x="1593.87" y="401.65" angle="270.00" speed="1.39" pos="1.38" edge="4/1to3/1" slope="0.00"/>
+        <person id="noFCDByTypeEnableViaParam" x="393.87" y="401.65" speed="1.39" vehicle=""/>
+        <person id="default" x="1593.87" y="401.65" speed="1.39" vehicle=""/>
     </timestep>
 </fcd-export>
