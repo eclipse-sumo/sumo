@@ -205,7 +205,7 @@ MESegment::jamThresholdForSpeed(double speed, double jamThresh) const {
                   << "\n";
     }
 #endif
-    return std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGTH_WITH_GAP)))) * DEFAULT_VEH_LENGTH_WITH_GAP;
+    return std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGTH_WITH_GAP, 1.)))) * DEFAULT_VEH_LENGTH_WITH_GAP;
 }
 
 
@@ -242,7 +242,7 @@ MESegment::prepareDetectorForWriting(MSMoveReminder& data) {
         for (std::vector<MEVehicle*>::const_reverse_iterator i = q.getVehicles().rbegin(); i != q.getVehicles().rend(); ++i) {
             const SUMOTime exitTime = MAX2(earliestExitTime, (*i)->getEventTime());
             (*i)->updateDetectorForWriting(&data, currentTime, exitTime);
-            earliestExitTime = exitTime + tauWithVehLength(myTau_ff, (*i)->getVehicleType().getLengthWithGap());
+            earliestExitTime = exitTime + tauWithVehLength(myTau_ff, (*i)->getVehicleType().getLengthWithGap(), (*i)->getVehicleType().getCarFollowModel().getHeadwayTime());
         }
     }
 }
@@ -327,7 +327,7 @@ MESegment::getMeanSpeed(bool useCached) const {
             count += q.size();
             for (std::vector<MEVehicle*>::const_reverse_iterator veh = q.getVehicles().rbegin(); veh != q.getVehicles().rend(); ++veh) {
                 v += (*veh)->getConservativeSpeed(earliestExitTime); // earliestExitTime is updated!
-                earliestExitTime += tauWithVehLength(tau, (*veh)->getVehicleType().getLengthWithGap());
+                earliestExitTime += tauWithVehLength(tau, (*veh)->getVehicleType().getLengthWithGap(), (*veh)->getVehicleType().getCarFollowModel().getHeadwayTime());
             }
         }
         if (count == 0) {
@@ -478,7 +478,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
                               ? (nextFree ? myTau_ff : myTau_fj)
                               : (nextFree ? myTau_jf : getTauJJ((double)next->myQueues[nextQIdx].size(), next->myQueueCapacity, next->myJamThreshold)));
         assert(tau >= 0);
-        myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap());
+        myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
         if (myTLSPenalty) {
             const MSLink* const tllink = getLink(veh, true);
             if (tllink != nullptr && tllink->isTLSControlled()) {
@@ -510,7 +510,7 @@ MESegment::getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJ
     // f(n_jam_threshold) = tau_jf_withLength (for continuity)
     // f(headwayCapacity) = myTau_jj * headwayCapacity
 
-    const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGTH_WITH_GAP);
+    const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGTH_WITH_GAP, 1.);
     // number of vehicles that fit into the NEXT queue (could be larger than expected with DEFAULT_VEH_LENGTH_WITH_GAP!)
     const double headwayCapacity = MAX2(nextQueueSize, nextQueueCapacity / DEFAULT_VEH_LENGTH_WITH_GAP);
     // number of vehicles above which the NEXT queue is jammed
@@ -590,7 +590,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
                 }
                 cars.insert(cars.begin() + 1, veh);
             } else {
-                tleave = MAX2(leaderOut + tauWithVehLength(myTau_ff, cars[0]->getVehicleType().getLengthWithGap()), tleave);
+                tleave = MAX2(leaderOut + tauWithVehLength(myTau_ff, cars[0]->getVehicleType().getLengthWithGap(), cars[0]->getVehicleType().getCarFollowModel().getHeadwayTime()), tleave);
                 cars.insert(cars.begin(), veh);
             }
         }
@@ -599,7 +599,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         if (!isDepart && !isTeleport) {
             // departs and teleports could take place anywhere on the edge so they should not block regular flow
             // the -1 facilitates interleaving of multiple streams
-            q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap()) - 1);
+            q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime()) - 1);
         }
         q.setOccupancy(MIN2(myQueueCapacity, q.getOccupancy() + veh->getVehicleType().getLengthWithGap()));
         veh->setEventTime(tleave);

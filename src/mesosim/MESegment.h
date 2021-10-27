@@ -471,8 +471,8 @@ private:
     bool limitedControlOverride(const MSLink* link) const;
 
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
-    inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap) const {
-        return tau + (SUMOTime)(lengthWithGap * myTau_length);
+    inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap, double vehicleTau) const {
+        return (SUMOTime)(tau * vehicleTau + lengthWithGap * myTau_length);
     }
 
     SUMOTime getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
