@@ -508,6 +508,8 @@ GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(const GNEEdge* edg
     edgeParameters[SUMO_ATTR_TYPE] = edge->getAttribute(SUMO_ATTR_TYPE);
     edgeParameters[SUMO_ATTR_PRIORITY] = edge->getAttribute(SUMO_ATTR_PRIORITY);
     edgeParameters[SUMO_ATTR_SPREADTYPE] = edge->getAttribute(SUMO_ATTR_SPREADTYPE);
+    edgeParameters[GNE_ATTR_STOPOFFSET] = edge->getAttribute(GNE_ATTR_STOPOFFSET);
+    edgeParameters[GNE_ATTR_STOPOEXCEPTION] = edge->getAttribute(GNE_ATTR_STOPOEXCEPTION);
     edgeParameters[GNE_ATTR_PARAMETERS] = edge->getAttribute(GNE_ATTR_PARAMETERS);
     // copy raw values for lane-specific attributes
     edgeParameters[SUMO_ATTR_ALLOW] = edge->getAttribute(SUMO_ATTR_ALLOW);
@@ -523,6 +525,8 @@ GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(const GNEEdge* edg
         laneParameter[SUMO_ATTR_SPEED] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_SPEED);
         laneParameter[SUMO_ATTR_WIDTH] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_WIDTH);
         laneParameter[SUMO_ATTR_ENDOFFSET] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_ENDOFFSET);
+        laneParameter[GNE_ATTR_STOPOFFSET] = edge->getLanes().at(i)->getAttribute(GNE_ATTR_STOPOFFSET);
+        laneParameter[GNE_ATTR_STOPOEXCEPTION] = edge->getLanes().at(i)->getAttribute(GNE_ATTR_STOPOEXCEPTION);
         laneParameter[GNE_ATTR_PARAMETERS] = edge->getLanes().at(i)->getAttribute(GNE_ATTR_PARAMETERS);
         laneParameters.push_back(laneParameter);
     }
