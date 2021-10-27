@@ -4287,6 +4287,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         } else {
             return myState.myPos - myType->getLength();
         }
+    } else if (lane == myLane->getBidiLane()) {
+        return lane->getLength() - myState.myPos;
     } else if (myFurtherLanes.size() > 0 && lane == myFurtherLanes.back()) {
         return myState.myBackPos;
     } else if ((myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
