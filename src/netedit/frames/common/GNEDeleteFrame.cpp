@@ -225,8 +225,6 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
-        // get clicked position
-        const Position clickedPosition = myViewNet->getPositionInformation();
         // check type of of object under cursor object
         if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
             // Check if junction can be deleted
@@ -538,7 +536,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
         // check demand elements
         for (const auto& demandElementTag : myViewNet->getNet()->getAttributeCarriers()->getDemandElements()) {
             for (const auto& demandElement : demandElementTag.second) {
-                if (demandElement.second->isAttributeCarrierSelected()) {
+                if (demandElement->isAttributeCarrierSelected()) {
                     return true;
                 }
             }
