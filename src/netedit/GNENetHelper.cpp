@@ -47,17 +47,17 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     // fill additionals with tags
     auto additionalTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL, false);
     for (const auto& additionalTag : additionalTags) {
-        myAdditionals.insert(std::make_pair(additionalTag.first.getTag(), std::map<std::string, GNEAdditional*>()));
+        myAdditionals.insert(std::make_pair(additionalTag.first.getTag(), std::vector<GNEAdditional*>()));
     }
     // fill shapes with tags
     auto shapeTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE, false);
     for (const auto& shapeTag : shapeTags) {
-        myShapes.insert(std::make_pair(shapeTag.first.getXMLTag(), std::map<std::string, GNEShape*>()));
+        myShapes.insert(std::make_pair(shapeTag.first.getTag(), std::vector<GNEShape*>()));
     }
     // fill TAZElements with tags
     auto TAZElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT, false);
     for (const auto& TAZElementTag : TAZElementTags) {
-        myTAZElements.insert(std::make_pair(TAZElementTag.first.getTag(), std::map<std::string, GNETAZElement*>()));
+        myTAZElements.insert(std::make_pair(TAZElementTag.first.getTag(), std::vector<GNETAZElement*>()));
     }
     // fill demand elements with tags
     auto demandElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
@@ -97,20 +97,30 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     for (const auto& additionalTag : myAdditionals) {
         for (const auto& additional : additionalTag.second) {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
-            additional.second->decRef();
+            additional->decRef();
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + additional.second->getTagStr() + " '" + additional.second->getID() + "' in AttributeCarriers destructor");
-            delete additional.second;
+            WRITE_DEBUG("Deleting unreferenced " + additional->getTagStr() + " '" + additional->getID() + "' in AttributeCarriers destructor");
+            delete additional;
         }
     }
     // Drop Shapes (Only used for shapes that were inserted without using GNEChange_Shape)
     for (const auto& shapeTag : myShapes) {
         for (const auto& shape : shapeTag.second) {
             // decrease reference manually (because it was increased manually in GNEShapeHandler)
-            shape.second->decRef();
+            shape->decRef();
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + shape.second->getTagStr() + " '" + shape.second->getID() + "' in AttributeCarriers destructor");
-            delete shape.second;
+            WRITE_DEBUG("Deleting unreferenced " + shape->getTagStr() + " '" + shape->getID() + "' in AttributeCarriers destructor");
+            delete shape;
+        }
+    }
+    // Drop TAZElements (Only used for TAZElements that were inserted without using GNEChange_TAZElement)
+    for (const auto& TAZElementTag : myTAZElements) {
+        for (const auto& TAZElement : TAZElementTag.second) {
+            // decrease reference manually (because it was increased manually in GNETAZElementHandler)
+            TAZElement->decRef();
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + TAZElement->getTagStr() + " '" + TAZElement->getID() + "' in AttributeCarriers destructor");
+            delete TAZElement;
         }
     }
     // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement, for example the default VType")
@@ -134,12 +144,6 @@ GNENetHelper::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::st
         updateEdgeID(AC, newID);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_TYPE) {
         updateEdgeTypeID(AC, newID);
-    } else if (AC->getTagProperty().isAdditionalElement()) {
-        updateAdditionalID(AC, newID);
-    } else if (AC->getTagProperty().isShape()) {
-        updateShapeID(AC, newID);
-    } else if (AC->getTagProperty().isTAZElement()) {
-        updateTAZElementID(AC, newID);
     } else if (AC->getTagProperty().isDataElement()) {
         updateDataSetID(AC, newID);
     } else {
@@ -209,7 +213,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
             return shape.overlapsWith(dynamic_cast<GNEPoly*>(AC)->getShape());
         } else {
             // POI
-            return shape.around(myShapes.at(SUMO_TAG_POI).at(AC->getID())->getPositionInView());
+            return shape.around(dynamic_cast<GNEPoly*>(AC)->getPositionInView());
         }
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
         // TAZ
@@ -365,7 +369,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
 }
 
 
-const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> >&
+const std::map<SumoXMLTag, std::vector<GNEAdditional*> >&
 GNENetHelper::AttributeCarriers::getAdditionals() const {
     return myAdditionals;
 }
@@ -376,7 +380,7 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
     // clear elements in grid
     for (const auto& additionalsTags : myAdditionals) {
         for (const auto& additional : additionalsTags.second) {
-            myNet->removeGLObjectFromGrid(additional.second);
+            myNet->removeGLObjectFromGrid(additional);
         }
     }
     // iterate over myAdditionals and clear all additionals
@@ -391,11 +395,11 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
     int counter = 0;
     for (const auto& additionalsTags : myAdditionals) {
         for (const auto& additional : additionalsTags.second) {
-            if (additional.second->isAttributeCarrierSelected()) {
+            if (additional->isAttributeCarrierSelected()) {
                 counter++;
             }
             // also check children (Entry/Exit, spaces...)
-            for (const auto& additionalChild : additional.second->getChildAdditionals()) {
+            for (const auto& additionalChild : additional->getChildAdditionals()) {
                 if (additionalChild->isAttributeCarrierSelected()) {
                     counter++;
                 }
@@ -413,7 +417,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 }
 
 
-const std::map<SumoXMLTag, std::map<std::string, GNEShape*> >&
+const std::map<SumoXMLTag, std::vector<GNEShape*> >&
 GNENetHelper::AttributeCarriers::getShapes() const {
     return myShapes;
 }
@@ -424,7 +428,7 @@ GNENetHelper::AttributeCarriers::clearShapes() {
     // clear elements in grid
     for (const auto& shapesTags : myShapes) {
         for (const auto& shape : shapesTags.second) {
-            myNet->removeGLObjectFromGrid(shape.second);
+            myNet->removeGLObjectFromGrid(shape);
         }
     }
     // iterate over myShapes and clear all shapes
@@ -438,7 +442,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
     int counter = 0;
     for (const auto &poly : myShapes.at(SUMO_TAG_POLY)) {
-        if (poly.second->isAttributeCarrierSelected()) {
+        if (poly->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -450,7 +454,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
     int counter = 0;
     for (const auto &POI : myShapes.at(SUMO_TAG_POI)) {
-        if (POI.second->isAttributeCarrierSelected()) {
+        if (POI->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -458,7 +462,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
 }
 
 
-const std::map<SumoXMLTag, std::map<std::string, GNETAZElement*> >&
+const std::map<SumoXMLTag, std::vector<GNETAZElement*> >&
 GNENetHelper::AttributeCarriers::getTAZElements() const {
     return myTAZElements;
 }
@@ -469,7 +473,7 @@ GNENetHelper::AttributeCarriers::clearTAZElements() {
     // clear elements in grid
     for (const auto& TAZElementsTags : myTAZElements) {
         for (const auto& TAZElement : TAZElementsTags.second) {
-            myNet->removeGLObjectFromGrid(TAZElement.second);
+            myNet->removeGLObjectFromGrid(TAZElement);
         }
     }
     // iterate over myTAZElements and clear all TAZElements
@@ -483,7 +487,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZs() const {
     int counter = 0;
     for (const auto &poly : myTAZElements.at(SUMO_TAG_TAZ)) {
-        if (poly.second->isAttributeCarrierSelected()) {
+        if (poly->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -495,8 +499,10 @@ bool
 GNENetHelper::AttributeCarriers::TAZElementExist(const GNETAZElement* TAZElement) const {
     // first check that TAZElement pointer is valid
     if (TAZElement) {
-        return myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement->getID()) !=
-               myTAZElements.at(TAZElement->getTagProperty().getTag()).end();
+        // get vector with this TAZ element type
+        const auto &TAZElementTag = myTAZElements.at(TAZElement->getTagProperty().getTag());
+        // find demanElement in TAZElementTag
+        return std::find(TAZElementTag.begin(), TAZElementTag.end(), TAZElement) != TAZElementTag.end();
     } else {
         throw ProcessError("Invalid TAZElement pointer");
     }
@@ -1107,8 +1113,10 @@ bool
 GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional) const {
     // first check that additional pointer is valid
     if (additional) {
-        return myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID()) !=
-               myAdditionals.at(additional->getTagProperty().getTag()).end();
+        // get vector with this additional element type
+        const auto &additionalElementTag = myAdditionals.at(additional->getTagProperty().getTag());
+        // find demanElement in additionalElementTag
+        return std::find(additionalElementTag.begin(), additionalElementTag.end(), additional) != additionalElementTag.end();
     } else {
         throw ProcessError("Invalid additional pointer");
     }
@@ -1117,16 +1125,12 @@ GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional
 
 void
 GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
-    // check if additional is a slave
-    if (!additional->getTagProperty().isSlave()) {
-        // check if previously was inserted
-        if (!additionalExist(additional)) {
-            // insert additional
-            myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
-        } else {
-            throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
-        }
+    // check if previously was inserted
+    if (additionalExist(additional)) {
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
     }
+    // insert additional    
+    myAdditionals.at(additional->getTagProperty().getTag()).push_back(additional);
     // add element in grid
     if (additional->getTagProperty().isPlacedInRTree()) {
         myNet->addGLObjectIntoGrid(additional);
@@ -1142,20 +1146,19 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
 
 void
 GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
-    // check if additional is a slave
-    if (!additional->getTagProperty().isSlave()) {
-        // check if previously was inserted
-        if (additionalExist(additional)) {
-            // remove it from inspected elements and HierarchicalElementTree
-            myNet->getViewNet()->removeFromAttributeCarrierInspected(additional);
-            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
-            // obtain additional iterator and erase it from container
-            auto it = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID());
-            myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
-        } else {
-            throw ProcessError("Invalid additional pointer");
-        }
+    // get vector with this additional type
+    const auto &additionalTag = myAdditionals.at(additional->getTagProperty().getTag());
+    // find demanElement in additionalTag
+    const auto itFind = std::find(additionalTag.begin(), additionalTag.end(), additional);
+    // check if additional was previously inserted
+    if (itFind == additionalTag.end()) {
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' wasn't previously inserted");
     }
+    // remove it from inspected elements and HierarchicalElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(additional);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
+    // remove it from container
+    myAdditionals.at(additional->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
     if (additional->getTagProperty().isPlacedInRTree()) {
         myNet->removeGLObjectFromGrid(additional);
@@ -1167,32 +1170,14 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
 }
 
 
-void
-GNENetHelper::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myAdditionals.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.additionals");
-    } else if (myAdditionals.at(AC->getTagProperty().getTag()).count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.additionals");
-    } else {
-        // retrieve additional
-        GNEAdditional* additional = myAdditionals.at(AC->getTagProperty().getTag()).at(AC->getID());
-        // remove additional from container
-        myAdditionals.at(additional->getTagProperty().getTag()).erase(additional->getID());
-        // set new ID in additional
-        additional->setMicrosimID(newID);
-        // insert additional again in container
-        myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
-        // additionals has to be saved
-        myNet->requireSaveAdditionals(true);
-    }
-}
-
-
 bool
 GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
     // first check that shape pointer is valid
     if (shape) {
-        return myShapes.at(shape->getTagProperty().getXMLTag()).find(shape->getID()) != myShapes.at(shape->getTagProperty().getXMLTag()).end();
+        // get vector with this shape element type
+        const auto &shapeElementTag = myShapes.at(shape->getTagProperty().getTag());
+        // find demanElement in shapeElementTag
+        return std::find(shapeElementTag.begin(), shapeElementTag.end(), shape) != shapeElementTag.end();
     } else {
         throw ProcessError("Invalid shape pointer");
     }
@@ -1202,121 +1187,82 @@ GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
 void
 GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
     // Check if shape element exists before insertion
-    if (!shapeExist(shape)) {
-        myShapes.at(shape->getTagProperty().getXMLTag()).insert(std::make_pair(shape->getID(), shape));
-        // add element in grid
-        myNet->addGLObjectIntoGrid(shape);
-        // update geometry after insertion of shapes if myUpdateGeometryEnabled is enabled
-        if (myNet->isUpdateGeometryEnabled()) {
-            shape->updateGeometry();
-        }
-        // shapes has to be saved
-        myNet->requireSaveAdditionals(true);
-    } else {
+    if (shapeExist(shape)) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' already exist");
     }
+    // insert shape
+    myShapes.at(shape->getTagProperty().getTag()).push_back(shape);
+    // add element in grid
+    myNet->addGLObjectIntoGrid(shape);
+    // update geometry after insertion of shapes if myUpdateGeometryEnabled is enabled
+    if (myNet->isUpdateGeometryEnabled()) {
+        shape->updateGeometry();
+    }
+    // shapes has to be saved
+    myNet->requireSaveAdditionals(true);
 }
 
 
 void
 GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
-    // first check that shape pointer is valid
-    if (shapeExist(shape)) {
-        // remove it from inspected elements and HierarchicalElementTree
-        myNet->getViewNet()->removeFromAttributeCarrierInspected(shape);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(shape);
-        // obtain demand element and erase it from container
-        auto it = myShapes.at(shape->getTagProperty().getXMLTag()).find(shape->getID());
-        myShapes.at(shape->getTagProperty().getXMLTag()).erase(it);
-        // remove element from grid
-        myNet->removeGLObjectFromGrid(shape);
-        // shapes has to be saved
-        myNet->requireSaveAdditionals(true);
-    } else {
-        throw ProcessError("Invalid shape pointer");
+    // get vector with this shape type
+    const auto &shapeTag = myShapes.at(shape->getTagProperty().getTag());
+    // find demanElement in shapeTag
+    const auto itFind = std::find(shapeTag.begin(), shapeTag.end(), shape);
+    // check if shape was previously inserted
+    if (itFind == shapeTag.end()) {
+        throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' wasn't previously inserted");
     }
-}
-
-
-void
-GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    // check conditions
-    if (myShapes.at(AC->getTagProperty().getXMLTag()).count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.shapes");
-    } else if (myShapes.at(AC->getTagProperty().getXMLTag()).count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.shapes");
-    } else {
-        // retrieve shape
-        GNEShape* shape = myShapes.at(AC->getTagProperty().getXMLTag()).at(AC->getID());
-        // remove shape from container
-        myShapes.at(AC->getTagProperty().getXMLTag()).erase(shape->getID());
-        // set new ID in shape
-        shape->getGUIGlObject()->setMicrosimID(newID);
-        // insert shape again in container
-        myShapes.at(AC->getTagProperty().getXMLTag()).insert(std::make_pair(shape->getID(), shape));
-        // shapes has to be saved
-        myNet->requireSaveAdditionals(true);
-    }
+    // remove it from inspected elements and HierarchicalElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(shape);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(shape);
+    // remove it from container
+    myShapes.at(shape->getTagProperty().getTag()).erase(itFind);
+    // remove element from grid
+    myNet->removeGLObjectFromGrid(shape);
+    // shapes has to be saved
+    myNet->requireSaveAdditionals(true);
 }
 
 
 void
 GNENetHelper::AttributeCarriers::insertTAZElement(GNETAZElement* TAZElement) {
     // Check if TAZElement element exists before insertion
-    if (!TAZElementExist(TAZElement)) {
-        myTAZElements.at(TAZElement->getTagProperty().getTag()).insert(std::make_pair(TAZElement->getID(), TAZElement));
-        // add element in grid
-        myNet->addGLObjectIntoGrid(TAZElement);
-        // update geometry after insertion of TAZElements if myUpdateGeometryEnabled is enabled
-        if (myNet->isUpdateGeometryEnabled()) {
-            TAZElement->updateGeometry();
-        }
-        // TAZElements has to be saved
-        myNet->requireSaveAdditionals(true);
-    } else {
+    if (TAZElementExist(TAZElement)) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' already exist");
     }
+    // insert TAZElement
+    myTAZElements.at(TAZElement->getTagProperty().getTag()).push_back(TAZElement);
+    // add element in grid
+    myNet->addGLObjectIntoGrid(TAZElement);
+    // update geometry after insertion of TAZElements if myUpdateGeometryEnabled is enabled
+    if (myNet->isUpdateGeometryEnabled()) {
+        TAZElement->updateGeometry();
+    }
+    // TAZElements has to be saved
+    myNet->requireSaveAdditionals(true);
 }
 
 
 void
 GNENetHelper::AttributeCarriers::deleteTAZElement(GNETAZElement* TAZElement) {
-    // first check that TAZElement pointer is valid
-    if (TAZElementExist(TAZElement)) {
-        // remove it from inspected elements and HierarchicalElementTree
-        myNet->getViewNet()->removeFromAttributeCarrierInspected(TAZElement);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(TAZElement);
-        // obtain demand element and erase it from container
-        auto it = myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement->getID());
-        myTAZElements.at(TAZElement->getTagProperty().getTag()).erase(it);
-        // remove element from grid
-        myNet->removeGLObjectFromGrid(TAZElement);
-        // TAZElements has to be saved
-        myNet->requireSaveAdditionals(true);
-    } else {
-        throw ProcessError("Invalid TAZElement pointer");
+    // get vector with this TAZElement type
+    const auto &TAZElementTag = myTAZElements.at(TAZElement->getTagProperty().getTag());
+    // find demanElement in TAZElementTag
+    const auto itFind = std::find(TAZElementTag.begin(), TAZElementTag.end(), TAZElement);
+    // check if TAZElement was previously inserted
+    if (itFind == TAZElementTag.end()) {
+        throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' wasn't previously inserted");
     }
-}
-
-
-void
-GNENetHelper::AttributeCarriers::updateTAZElementID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myTAZElements.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.TAZElements");
-    } else if (myTAZElements.at(AC->getTagProperty().getTag()).count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.TAZElements");
-    } else {
-        // retrieve TAZElement
-        GNETAZElement* TAZElement = myTAZElements.at(AC->getTagProperty().getTag()).at(AC->getID());
-        // remove TAZElement from container
-        myTAZElements.at(TAZElement->getTagProperty().getTag()).erase(TAZElement->getID());
-        // set new ID in TAZElement
-        TAZElement->getGUIGlObject()->setMicrosimID(newID);
-        // insert TAZElement again in container
-        myTAZElements.at(TAZElement->getTagProperty().getTag()).insert(std::make_pair(TAZElement->getID(), TAZElement));
-        // TAZElements has to be saved
-        myNet->requireSaveAdditionals(true);
-    }
+    // remove it from inspected elements and HierarchicalElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(TAZElement);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(TAZElement);
+    // remove it from container
+    myTAZElements.at(TAZElement->getTagProperty().getTag()).erase(itFind);
+    // remove element from grid
+    myNet->removeGLObjectFromGrid(TAZElement);
+    // TAZElements has to be saved
+    myNet->requireSaveAdditionals(true);
 }
 
 
@@ -1339,10 +1285,9 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
     // Check if demandElement element exists before insertion
     if (demandElementExist(demandElement)) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
-    } else {
-        // insert in demandElements container
-        myDemandElements.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
     }
+    // insert in demandElements container
+    myDemandElements.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
     // add element in grid
     myNet->addGLObjectIntoGrid(demandElement);
     // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
@@ -1358,18 +1303,17 @@ void
 GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement) {
     // get vector with this demand element type
     const auto &demandElementTag = myDemandElements.at(demandElement->getTagProperty().getTag());
-    // find demanElement in tagVector
+    // find demanElement in demandElementTag
     const auto itFind = std::find(demandElementTag.begin(), demandElementTag.end(), demandElement);
     // check if demandElement was previously inserted
     if (itFind == demandElementTag.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' wasn't previously inserted");
-    } else {
-        // remove it from inspected elements and HierarchicalElementTree
-        myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
-        // erase it from container
-        myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
     }
+    // remove it from inspected elements and HierarchicalElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
+    // erase it from container
+    myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element
@@ -1398,16 +1342,15 @@ GNENetHelper::AttributeCarriers::dataSetExist(const GNEDataSet* dataSet) const {
 void
 GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
     // Check if dataSet element exists before insertion
-    if (!dataSetExist(dataSet)) {
-        // insert in dataSets container
-        myDataSets.insert(std::make_pair(dataSet->getID(), dataSet));
-        // dataSets has to be saved
-        myNet->requireSaveDataElements(true);
-        // update interval toolbar
-        myNet->getViewNet()->getIntervalBar().updateIntervalBar();
-    } else {
+    if (dataSetExist(dataSet)) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
     }
+    // insert in dataSets container
+    myDataSets.insert(std::make_pair(dataSet->getID(), dataSet));
+    // dataSets has to be saved
+    myNet->requireSaveDataElements(true);
+    // update interval toolbar
+    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
 }
 
 

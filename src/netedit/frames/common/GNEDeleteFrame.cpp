@@ -519,7 +519,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
         // check shapes
         for (const auto& shapeTag : myViewNet->getNet()->getAttributeCarriers()->getShapes()) {
             for (const auto& shape : shapeTag.second) {
-                if (shape.second->isAttributeCarrierSelected()) {
+                if (shape->isAttributeCarrierSelected()) {
                     return true;
                 }
             }
@@ -527,7 +527,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
         // check additionals
         for (const auto& additionalTag : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
             for (const auto& additional : additionalTag.second) {
-                if (additional.second->isAttributeCarrierSelected()) {
+                if (additional->isAttributeCarrierSelected()) {
                     return true;
                 }
             }

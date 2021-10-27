@@ -448,7 +448,8 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             break;
         case SUMO_ATTR_TYPE:
             replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);

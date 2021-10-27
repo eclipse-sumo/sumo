@@ -253,7 +253,8 @@ void
 GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             // Change IDs of all Entry/Exits children
             for (const auto& entryExit : getChildAdditionals()) {
                 entryExit->setMicrosimID(getID());

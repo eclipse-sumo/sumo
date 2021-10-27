@@ -296,7 +296,8 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             throw InvalidArgument(getTagStr() + " cannot be edited");
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);

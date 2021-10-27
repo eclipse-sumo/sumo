@@ -323,7 +323,8 @@ void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             // Change IDs of all access children
             for (const auto& access : getChildAdditionals()) {
                 access->setMicrosimID(getID());

@@ -518,13 +518,13 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 for (const auto& additional : additionals.second) {
                     if (onlyCount) {
                         return true;
-                    } else if (onlyUnselect || additional.second->isAttributeCarrierSelected()) {
-                        additional.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else if (onlyUnselect || additional->isAttributeCarrierSelected()) {
+                        additional->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                     } else {
-                        additional.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        additional->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                     // now iterate over additional children
-                    for (const auto& additionalChild : additional.second->getChildAdditionals()) {
+                    for (const auto& additionalChild : additional->getChildAdditionals()) {
                         // first check if additional child is selectable
                         if (additionalChild->getTagProperty().isSelectable()) {
                             if (onlyCount) {
@@ -548,10 +548,10 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         for (const auto& polygon : ACs->getShapes().at(SUMO_TAG_POLY)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || polygon.second->isAttributeCarrierSelected()) {
-                polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || polygon->isAttributeCarrierSelected()) {
+                polygon->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                polygon->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {
@@ -560,13 +560,13 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert TAZs
     if (ignoreLocking || !locks.isObjectLocked(GLO_TAZ, false)) {
-        for (const auto& polygon : ACs->getTAZElements().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : ACs->getTAZElements().at(SUMO_TAG_TAZ)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || polygon.second->isAttributeCarrierSelected()) {
-                polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || TAZ->isAttributeCarrierSelected()) {
+                TAZ->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                TAZ->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {
@@ -578,10 +578,10 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         for (const auto& POI : ACs->getShapes().at(SUMO_TAG_POI)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || POI.second->isAttributeCarrierSelected()) {
-                POI.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || POI->isAttributeCarrierSelected()) {
+                POI->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                POI.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                POI->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {

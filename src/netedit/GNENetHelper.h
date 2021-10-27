@@ -161,7 +161,7 @@ struct GNENetHelper {
         /// @name function for additionals
         /// @{
         /// @brief get additionals
-        const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> >& getAdditionals() const;
+        const std::map<SumoXMLTag, std::vector<GNEAdditional*> >& getAdditionals() const;
 
         /// @brief clear additionals
         void clearAdditionals();
@@ -174,7 +174,7 @@ struct GNENetHelper {
         /// @name function for shapes
         /// @{
         /// @brief get shapes
-        const std::map<SumoXMLTag, std::map<std::string, GNEShape*> >& getShapes() const;
+        const std::map<SumoXMLTag, std::vector<GNEShape*> >& getShapes() const;
 
         /// @brief clear shapes
         void clearShapes();
@@ -190,7 +190,7 @@ struct GNENetHelper {
         /// @name function for TAZElements
         /// @{
         /// @brief get TAZElements
-        const std::map<SumoXMLTag, std::map<std::string, GNETAZElement*> >& getTAZElements() const;
+        const std::map<SumoXMLTag, std::vector<GNETAZElement*> >& getTAZElements() const;
 
         /// @brief clear TAZElements
         void clearTAZElements();
@@ -337,9 +337,6 @@ struct GNENetHelper {
          */
         void deleteAdditional(GNEAdditional* additional);
 
-        /// @brief update additional ID in container
-        void updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID);
-
         /// @}
 
         /// @name Insertion and erasing of GNEShapes items
@@ -358,9 +355,6 @@ struct GNENetHelper {
          */
         void deleteShape(GNEShape* shape);
 
-        /// @brief update shape ID in container
-        void updateShapeID(GNEAttributeCarrier* AC, const std::string& newID);
-
         /// @name Insertion and erasing of GNETAZElements items
         /// @{
 
@@ -373,9 +367,6 @@ struct GNENetHelper {
          * @throw processError if TAZElement wasn't previously inserted
          */
         void deleteTAZElement(GNETAZElement* TAZElement);
-
-        /// @brief update TAZElement ID in container
-        void updateTAZElementID(GNEAttributeCarrier* AC, const std::string& newID);
 
         /// @}
 
@@ -429,13 +420,13 @@ struct GNENetHelper {
         std::map<std::string, GNEEdge*> myEdges;
 
         /// @brief map with the ID and pointer to additional elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
+        std::map<SumoXMLTag, std::vector<GNEAdditional*> > myAdditionals;
 
         /// @brief map with the ID and pointer to shape elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEShape*> > myShapes;
+        std::map<SumoXMLTag, std::vector<GNEShape*> > myShapes;
 
         /// @brief map with the ID and pointer to TAZElement elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNETAZElement*> > myTAZElements;
+        std::map<SumoXMLTag, std::vector<GNETAZElement*> > myTAZElements;
 
         /// @brief map with the ID and pointer to demand elements of net
         std::map<SumoXMLTag, std::vector<GNEDemandElement*> > myDemandElements;

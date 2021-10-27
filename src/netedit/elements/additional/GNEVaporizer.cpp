@@ -281,7 +281,8 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             replaceAdditionalParentEdges(value);
             break;
         case SUMO_ATTR_BEGIN:

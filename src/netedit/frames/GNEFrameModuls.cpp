@@ -422,6 +422,8 @@ GNEFrameModuls::DemandElementSelector::isDemandElementSelectorShown() const {
 
 void
 GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
+    // get demand elemenst container
+    const auto &demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
     // clear demand elements comboBox
     myDemandElementsMatchBox->clearItems();
     // fill myTypeMatchBox with list of demand elements
@@ -432,7 +434,7 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
             myDemandElementsMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
             myDemandElementsMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
             // add rest of vTypes
-            for (const auto& vType : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
+            for (const auto& vType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default vType
                 if ((vType->getID() != DEFAULT_VTYPE_ID) && (vType->getID() != DEFAULT_BIKETYPE_ID)) {
                     myDemandElementsMatchBox->appendItem(vType->getID().c_str());
@@ -442,7 +444,7 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
             // add default Person type in the firs
             myDemandElementsMatchBox->appendItem(DEFAULT_PEDTYPE_ID.c_str());
             // add rest of pTypes
-            for (const auto& pType : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
+            for (const auto& pType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default pType
                 if (pType->getID() != DEFAULT_PEDTYPE_ID) {
                     myDemandElementsMatchBox->appendItem(pType->getID().c_str());
@@ -450,7 +452,7 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
             }
         } else {
             // insert all Ids
-            for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
+            for (const auto& demandElement : demandElements.at(demandElementTag)) {
                 myDemandElementsMatchBox->appendItem(demandElement->getID().c_str());
             }
         }
@@ -481,8 +483,8 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
             myCurrentDemandElement = nullptr;
             // update myCurrentDemandElement with the first allowed element
             for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
-                if (myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(*i).size() > 0) {
-                    myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(*i).front();
+                if (demandElements.at(*i).size() > 0) {
+                    myCurrentDemandElement = demandElements.at(*i).front();
                 }
             }
         }
@@ -858,7 +860,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
         myClickedTAZElement = dynamic_cast<GNETAZElement*>(clickedAC);
         myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
-        myClickedDemandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(clickedAC, false);
+        myClickedDemandElement = clickedAC->getTagProperty().isDemandElement()? myFrameParent->myViewNet->getNet()->retrieveDemandElement(clickedAC) : nullptr;
         myClickedDataSet = dynamic_cast<GNEDataSet*>(clickedAC);
         myClickedDataInterval = dynamic_cast<GNEDataInterval*>(clickedAC);
         myClickedGenericData = dynamic_cast<GNEGenericData*>(clickedAC);
@@ -1762,9 +1764,9 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     myParentsList->clearItems();
     if (myParentTags.size() > 0) {
         // fill list with IDs of additionals
-        for (const auto& ptag : myParentTags) {
-            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(ptag)) {
-                myParentsList->appendItem(additional.first.c_str());
+        for (const auto& parentTag : myParentTags) {
+            for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {
+                myParentsList->appendItem(additional->getID().c_str());
             }
         }
     }

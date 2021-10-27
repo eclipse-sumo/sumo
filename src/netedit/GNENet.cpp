@@ -1386,8 +1386,8 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
     // return all polys depending of onlySelected
     for (const auto& shape : myAttributeCarriers->getShapes().at(shapeTag)) {
-        if (!onlySelected || shape.second->isAttributeCarrierSelected()) {
-            result.push_back(shape.second);
+        if (!onlySelected || shape->isAttributeCarrierSelected()) {
+            result.push_back(shape);
         }
     }
     return result;
@@ -1400,8 +1400,8 @@ GNENet::retrieveShapes(bool onlySelected) {
     // return all polygons and POIs
     for (const auto& shapeTag : myAttributeCarriers->getShapes()) {
         for (const auto& shape : shapeTag.second) {
-            if (!onlySelected || shape.second->isAttributeCarrierSelected()) {
-                result.push_back(shape.second);
+            if (!onlySelected || shape->isAttributeCarrierSelected()) {
+                result.push_back(shape);
             }
         }
     }
@@ -1478,17 +1478,17 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         }
         for (const auto& additionalSet : myAttributeCarriers->getAdditionals()) {
             for (const auto& additional : additionalSet.second) {
-                result.push_back(additional.second);
+                result.push_back(additional);
             }
         }
         for (const auto& shapeSet : myAttributeCarriers->getShapes()) {
             for (const auto& shape : shapeSet.second) {
-                result.push_back(shape.second);
+                result.push_back(shape);
             }
         }
         for (const auto& TAZSet : myAttributeCarriers->getTAZElements()) {
             for (const auto& TAZElement : TAZSet.second) {
-                result.push_back(TAZElement.second);
+                result.push_back(TAZElement);
             }
         }
         for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
@@ -1509,11 +1509,11 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         // iterate over all additionals
         for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
             for (const auto& additional : additionalTag.second) {
-                if (additional.second->getTagProperty().getTag() == type) {
-                    result.push_back(additional.second);
+                if (additional->getTagProperty().getTag() == type) {
+                    result.push_back(additional);
                 } else {
                     // check additional children
-                    for (const auto& additionalChild : additional.second->getChildAdditionals()) {
+                    for (const auto& additionalChild : additional->getChildAdditionals()) {
                         if (additionalChild->getTagProperty().getTag() == type) {
                             result.push_back(additionalChild);
                         }
@@ -1524,12 +1524,12 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     } else if (GNEAttributeCarrier::getTagProperties(type).isShape()) {
         // only returns shapes of a certain type.
         for (const auto& shape : myAttributeCarriers->getShapes().at(type)) {
-            result.push_back(shape.second);
+            result.push_back(shape);
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isTAZElement()) {
         // only returns TAZ of a certain type.
         for (const auto& TAZElement : myAttributeCarriers->getTAZElements().at(type)) {
-            result.push_back(TAZElement.second);
+            result.push_back(TAZElement);
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement()) {
         // only returns demand elements of a certain type.
@@ -1635,22 +1635,22 @@ GNENet::retrieveAttributeCarriers(Supermode supermode, const bool onlySelected) 
         }
         for (const auto& additionalSet : myAttributeCarriers->getAdditionals()) {
             for (const auto& additional : additionalSet.second) {
-                if (!onlySelected || additional.second->isAttributeCarrierSelected()) {
-                    result.push_back(additional.second);
+                if (!onlySelected || additional->isAttributeCarrierSelected()) {
+                    result.push_back(additional);
                 }
             }
         }
         for (const auto& shapeSet : myAttributeCarriers->getShapes()) {
             for (const auto& shape : shapeSet.second) {
-                if (!onlySelected || shape.second->isAttributeCarrierSelected()) {
-                    result.push_back(shape.second);
+                if (!onlySelected || shape->isAttributeCarrierSelected()) {
+                    result.push_back(shape);
                 }
             }
         }
         for (const auto& TAZSet : myAttributeCarriers->getTAZElements()) {
             for (const auto& TAZElement : TAZSet.second) {
-                if (!onlySelected || TAZElement.second->isAttributeCarrierSelected()) {
-                    result.push_back(TAZElement.second);
+                if (!onlySelected || TAZElement->isAttributeCarrierSelected()) {
+                    result.push_back(TAZElement);
                 }
             }
         }
@@ -2372,19 +2372,19 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
     // clear additionals
     for (const auto& additionalMap : myAttributeCarriers->getAdditionals()) {
         while (additionalMap.second.size() > 0) {
-            deleteAdditional(additionalMap.second.begin()->second, undoList);
+            deleteAdditional(additionalMap.second.front(), undoList);
         }
     }
     // clear shapes
     for (const auto& shapeMap : myAttributeCarriers->getShapes()) {
         while (shapeMap.second.size() > 0) {
-            deleteShape(shapeMap.second.begin()->second, undoList);
+            deleteShape(shapeMap.second.front(), undoList);
         }
     }
     // clear TAZs
     for (const auto& TAZMap : myAttributeCarriers->getTAZElements()) {
         while (TAZMap.second.size() > 0) {
-            deleteTAZElement(TAZMap.second.begin()->second, undoList);
+            deleteTAZElement(TAZMap.second.front(), undoList);
         }
     }
     undoList->end();
@@ -2497,9 +2497,12 @@ GNENet::generateEdgeTypeID() const {
 
 GNEAdditional*
 GNENet::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if ((myAttributeCarriers->getAdditionals().count(type) > 0) && (myAttributeCarriers->getAdditionals().at(type).count(id) != 0)) {
-        return myAttributeCarriers->getAdditionals().at(type).at(id);
-    } else if (hardFail) {
+    for (const auto &additional : myAttributeCarriers->getAdditionals().at(type)) {
+        if (additional->getID() == id) {
+            return additional;
+        }
+    }
+    if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional");
     } else {
         return nullptr;
@@ -2511,16 +2514,10 @@ std::vector<GNEAdditional*>
 GNENet::retrieveAdditionals(bool onlySelected) const {
     std::vector<GNEAdditional*> result;
     // returns additionals depending of selection
-    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
-        for (const auto& additional : additionalTag.second) {
-            if (!onlySelected || additional.second->isAttributeCarrierSelected()) {
-                result.push_back(additional.second);
-            }
-            // iterate over children
-            for (const auto& additionalChild : additional.second->getChildAdditionals()) {
-                if (!onlySelected || additionalChild->isAttributeCarrierSelected()) {
-                    result.push_back(additionalChild);
-                }
+    for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
+        for (const auto& additional : additionalTags.second) {
+            if (!onlySelected || additional->isAttributeCarrierSelected()) {
+                result.push_back(additional);
             }
         }
     }
@@ -2585,10 +2582,10 @@ GNENet::saveAdditionals(const std::string& filename) {
     for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
         for (const auto& addditional : additionalPair.second) {
             // check if has to be fixed
-            if (addditional.second->getTagProperty().hasAttribute(SUMO_ATTR_LANE) && !addditional.second->isAdditionalValid()) {
-                invalidSingleLaneAdditionals.push_back(addditional.second);
-            } else if (addditional.second->getTagProperty().hasAttribute(SUMO_ATTR_LANES) && !addditional.second->isAdditionalValid()) {
-                invalidMultiLaneAdditionals.push_back(addditional.second);
+            if (addditional->getTagProperty().hasAttribute(SUMO_ATTR_LANE) && !addditional->isAdditionalValid()) {
+                invalidSingleLaneAdditionals.push_back(addditional);
+            } else if (addditional->getTagProperty().hasAttribute(SUMO_ATTR_LANES) && !addditional->isAdditionalValid()) {
+                invalidMultiLaneAdditionals.push_back(addditional);
             }
         }
     }
@@ -2630,7 +2627,7 @@ GNENet::isAdditionalsSaved() const {
 std::string
 GNENet::generateAdditionalID(SumoXMLTag type) const {
     int counter = 0;
-    while (myAttributeCarriers->getAdditionals().at(type).count(toString(type) + "_" + toString(counter)) != 0) {
+    while (retrieveAdditional(type, toString(type) + "_" + toString(counter), false) != nullptr) {
         counter++;
     }
     return (toString(type) + "_" + toString(counter));
@@ -3053,58 +3050,58 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         }
     }
     // now write all route probes (see Ticket #4058)
-    for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
-        if (additionalPair.first == SUMO_TAG_ROUTEPROBE) {
-            for (const auto& additional : additionalPair.second) {
-                additional.second->writeAdditional(device);
+    for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
+        if (additionalTags.first == SUMO_TAG_ROUTEPROBE) {
+            for (const auto& additional : additionalTags.second) {
+                additional->writeAdditional(device);
             }
         }
     }
     // now write all stoppingPlaces
-    for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperties(additionalPair.first).isStoppingPlace()) {
-            for (const auto& additional : additionalPair.second) {
+    for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperties(additionalTags.first).isStoppingPlace()) {
+            for (const auto& additional : additionalTags.second) {
                 // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (additional.second->getParentAdditionals().empty()) {
-                    additional.second->writeAdditional(device);
+                if (additional->getParentAdditionals().empty()) {
+                    additional->writeAdditional(device);
                 }
             }
         }
     }
     // now write all detectors
-    for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperties(additionalPair.first).isDetector()) {
-            for (const auto& additional : additionalPair.second) {
+    for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperties(additionalTags.first).isDetector()) {
+            for (const auto& additional : additionalTags.second) {
                 // only save Detectors that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (additional.second->getParentAdditionals().empty()) {
-                    additional.second->writeAdditional(device);
+                if (additional->getParentAdditionals().empty()) {
+                    additional->writeAdditional(device);
                 }
             }
         }
     }
     // now write rest of additionals
-    for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(additionalPair.first);
-        if (!tagValue.isStoppingPlace() && !tagValue.isDetector() && (additionalPair.first != SUMO_TAG_ROUTEPROBE) && (additionalPair.first != SUMO_TAG_VTYPE) && (additionalPair.first != SUMO_TAG_ROUTE)) {
-            for (const auto& additional : additionalPair.second) {
+    for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
+        const auto& tagValue = GNEAttributeCarrier::getTagProperties(additionalTags.first);
+        if (!tagValue.isStoppingPlace() && !tagValue.isDetector() && (additionalTags.first != SUMO_TAG_ROUTEPROBE) && (additionalTags.first != SUMO_TAG_VTYPE) && (additionalTags.first != SUMO_TAG_ROUTE)) {
+            for (const auto& additional : additionalTags.second) {
                 // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (additional.second->getParentAdditionals().empty()) {
-                    additional.second->writeAdditional(device);
+                if (additional->getParentAdditionals().empty()) {
+                    additional->writeAdditional(device);
                 }
             }
         }
     }
     // write TAZs
     for (const auto& TAZ : myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ)) {
-        TAZ.second->writeTAZElement(device);
+        TAZ->writeTAZElement(device);
     }
     // write Polygons
     for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POLY)) {
-        poly.second->writeShape(device);
+        poly->writeShape(device);
     }
     // write POIs
     for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
-        poly.second->writeShape(device);
+        poly->writeShape(device);
     }
     device.close();
 }
@@ -3163,9 +3160,12 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
 
 GNEShape*
 GNENet::retrieveShape(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if ((myAttributeCarriers->getShapes().count(type) > 0) && (myAttributeCarriers->getShapes().at(type).count(id) != 0)) {
-        return myAttributeCarriers->getShapes().at(type).at(id);
-    } else if (hardFail) {
+    for (const auto &shape : myAttributeCarriers->getShapes().at(type)) {
+        if (shape->getID() == id) {
+            return shape;
+        }
+    }
+    if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant shape");
     } else {
         return nullptr;
@@ -3177,10 +3177,10 @@ std::vector<GNEShape*>
 GNENet::retrieveShapes(bool onlySelected) const {
     std::vector<GNEShape*> result;
     // returns shapes depending of selection
-    for (auto i : myAttributeCarriers->getShapes()) {
-        for (auto j : i.second) {
-            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
-                result.push_back(j.second);
+    for (const auto &shapeTags : myAttributeCarriers->getShapes()) {
+        for (const auto &shape : shapeTags.second) {
+            if (!onlySelected || shape->isAttributeCarrierSelected()) {
+                result.push_back(shape);
             }
         }
     }
@@ -3194,13 +3194,13 @@ GNENet::generateShapeID(SumoXMLTag tag) const {
     // generate tag depending of shape tag
     if (tag == SUMO_TAG_POLY) {
         // Polys and TAZs share namespace
-        while ((myAttributeCarriers->getShapes().at(SUMO_TAG_POLY).count(toString(tag) + "_" + toString(counter)) != 0) ||
-               (myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ).count(toString(tag) + "_" + toString(counter)) != 0)) {
+        while ((retrieveShape(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr) ||
+               (retrieveTAZElement(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
     } else {
-        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+        while (retrieveShape(tag, toString(tag) + "_" + toString(counter)) != nullptr) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
@@ -3222,9 +3222,12 @@ GNENet::getNumberOfShapes(SumoXMLTag type) const {
 
 GNETAZElement*
 GNENet::retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if ((myAttributeCarriers->getTAZElements().count(type) > 0) && (myAttributeCarriers->getTAZElements().at(type).count(id) != 0)) {
-        return myAttributeCarriers->getTAZElements().at(type).at(id);
-    } else if (hardFail) {
+    for (const auto &TAZElement : myAttributeCarriers->getTAZElements().at(type)) {
+        if (TAZElement->getID() == id) {
+            return TAZElement;
+        }
+    }
+    if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant TAZElement");
     } else {
         return nullptr;
@@ -3236,10 +3239,10 @@ std::vector<GNETAZElement*>
 GNENet::retrieveTAZElements(bool onlySelected) const {
     std::vector<GNETAZElement*> result;
     // returns TAZElements depending of selection
-    for (auto i : myAttributeCarriers->getTAZElements()) {
-        for (auto j : i.second) {
-            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
-                result.push_back(j.second);
+    for (const auto &TAZElementTags : myAttributeCarriers->getTAZElements()) {
+        for (const auto &TAZElement : TAZElementTags.second) {
+            if (!onlySelected || TAZElement->isAttributeCarrierSelected()) {
+                result.push_back(TAZElement);
             }
         }
     }
@@ -3253,13 +3256,13 @@ GNENet::generateTAZElementID(SumoXMLTag tag) const {
     // generate tag depending of shape tag
     if (tag == SUMO_TAG_TAZ) {
         // Polys and TAZs share namespace
-        while ((myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ).count(toString(tag) + "_" + toString(counter)) != 0) ||
-               (myAttributeCarriers->getShapes().at(SUMO_TAG_POLY).count(toString(tag) + "_" + toString(counter)) != 0)) {
+        while ((retrieveShape(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr) ||
+               (retrieveTAZElement(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
     } else {
-        while (myAttributeCarriers->getShapes().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+        while (retrieveTAZElement(tag, toString(tag) + "_" + toString(counter)) != nullptr) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));

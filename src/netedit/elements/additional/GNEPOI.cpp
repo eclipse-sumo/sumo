@@ -431,8 +431,27 @@ bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidTypeID(value) &&
-                   (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr);
+            if (SUMOXMLDefinitions::isValidTypeID(value)) {
+                if (myTagProperty.getTag() == SUMO_TAG_POI) {
+                    // POI
+                   return (myNet->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr) &&
+                          (myNet->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
+                } else if (myTagProperty.getTag() == GNE_TAG_POILANE) {
+                    // POILane
+                   return (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                          (myNet->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
+                } else if (myTagProperty.getTag() == GNE_TAG_POIGEO) {
+                    // POI Geo
+                   return (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                          (myNet->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr);
+                } else {
+                    // invalid POI tag
+                    return false;
+                }
+            } else {
+                // invalid id
+                return false;
+            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
@@ -510,8 +529,8 @@ void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID: {
-            // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             // set named ID
             myID = value;
             break;
