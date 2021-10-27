@@ -825,7 +825,8 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             // Change IDs of all person plans children
             for (const auto& personPlans : getChildDemandElements()) {
                 personPlans->setMicrosimID(getID());

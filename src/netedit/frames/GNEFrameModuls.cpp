@@ -858,7 +858,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
         myClickedTAZElement = dynamic_cast<GNETAZElement*>(clickedAC);
         myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
-        myClickedDemandElement = dynamic_cast<GNEDemandElement*>(clickedAC);
+        myClickedDemandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(clickedAC, false);
         myClickedDataSet = dynamic_cast<GNEDataSet*>(clickedAC);
         myClickedDataInterval = dynamic_cast<GNEDataInterval*>(clickedAC);
         myClickedGenericData = dynamic_cast<GNEGenericData*>(clickedAC);
@@ -1186,70 +1186,68 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             return root;
         }
     } else if (myHE->getTagProperty().isDemandElement()) {
-        // Obtain DemandElement (dynamic cast neede due embedded routes)
-        GNEDemandElement* demandElement = dynamic_cast<GNEDemandElement*>(myHE);
-        if (demandElement) {
-            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
-            FXTreeItem* root = nullptr;
-            // check if there is demand elements parents
-            if (demandElement->getParentAdditionals().size() > 0) {
-                // check if we have more than one edge
-                if (demandElement->getParentAdditionals().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getParentAdditionals().front());
-                    // insert "spacer"
-                    if (demandElement->getParentAdditionals().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
-                    }
+        // Obtain DemandElement 
+        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myHE);
+        // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
+        FXTreeItem* root = nullptr;
+        // check if there are demand element parents
+        if (demandElement->getParentAdditionals().size() > 0) {
+            // check if we have more than one edge
+            if (demandElement->getParentAdditionals().size() > 1) {
+                // insert first item
+                addListItem(demandElement->getParentAdditionals().front());
+                // insert "spacer"
+                if (demandElement->getParentAdditionals().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
                 }
-                // return last inserted item
-                root = addListItem(demandElement->getParentAdditionals().back());
             }
-            // check if there is parent demand elements
-            if (demandElement->getParentDemandElements().size() > 0) {
-                // check if we have more than one demand element
-                if (demandElement->getParentDemandElements().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getParentDemandElements().front());
-                    // insert "spacer"
-                    if (demandElement->getParentDemandElements().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(demandElement->getParentDemandElements().back());
-            }
-            // check if there is parent edges
-            if (demandElement->getParentEdges().size() > 0) {
-                // check if we have more than one edge
-                if (demandElement->getParentEdges().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getParentEdges().front());
-                    // insert "spacer"
-                    if (demandElement->getParentEdges().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(demandElement->getParentEdges().back());
-            }
-            // check if there is parent lanes
-            if (demandElement->getParentLanes().size() > 0) {
-                // check if we have more than one parent lane
-                if (demandElement->getParentLanes().size() > 1) {
-                    // insert first item
-                    addListItem(demandElement->getParentLanes().front());
-                    // insert "spacer"
-                    if (demandElement->getParentLanes().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)demandElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(demandElement->getParentLanes().back());
-            }
-            // return last inserted list item
-            return root;
+            // return last inserted item
+            root = addListItem(demandElement->getParentAdditionals().back());
         }
+        // check if there is parent demand elements
+        if (demandElement->getParentDemandElements().size() > 0) {
+            // check if we have more than one demand element
+            if (demandElement->getParentDemandElements().size() > 1) {
+                // insert first item
+                addListItem(demandElement->getParentDemandElements().front());
+                // insert "spacer"
+                if (demandElement->getParentDemandElements().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(demandElement->getParentDemandElements().back());
+        }
+        // check if there is parent edges
+        if (demandElement->getParentEdges().size() > 0) {
+            // check if we have more than one edge
+            if (demandElement->getParentEdges().size() > 1) {
+                // insert first item
+                addListItem(demandElement->getParentEdges().front());
+                // insert "spacer"
+                if (demandElement->getParentEdges().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(demandElement->getParentEdges().back());
+        }
+        // check if there is parent lanes
+        if (demandElement->getParentLanes().size() > 0) {
+            // check if we have more than one parent lane
+            if (demandElement->getParentLanes().size() > 1) {
+                // insert first item
+                addListItem(demandElement->getParentLanes().front());
+                // insert "spacer"
+                if (demandElement->getParentLanes().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(demandElement->getParentLanes().back());
+        }
+        // return last inserted list item
+        return root;
     } else if (myHE->getTagProperty().isDataElement()) {
         // check if is a GNEDataInterval or a GNEGenericData
         if (myHE->getTagProperty().getTag() == SUMO_TAG_DATASET) {

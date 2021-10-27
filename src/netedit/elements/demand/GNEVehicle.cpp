@@ -1672,7 +1672,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     bool updateSpreadStackGeometry = false;
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             // set manually vehicle ID (needed for saving)
             id = value;
             // Change IDs of all person plans children (stops, embedded routes...)

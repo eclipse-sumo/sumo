@@ -786,15 +786,15 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
-    // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
-    // cast demand element from attribute carrier
-    if (AC == frontAC) {
+    // get demandElement
+    GNEDemandElement* demandElement = myViewNet->getNet()->retrieveDemandElement(AC); 
+    // insert depending if is the front attribute carrier
+    if (demandElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
-        container.demandElements.insert(container.demandElements.begin(), dynamic_cast<GNEDemandElement*>(AC));
+        container.demandElements.insert(container.demandElements.begin(), demandElement);
     } else {
         // insert at back
-        container.demandElements.push_back(dynamic_cast<GNEDemandElement*>(AC));
+        container.demandElements.push_back(demandElement);
     }
 }
 

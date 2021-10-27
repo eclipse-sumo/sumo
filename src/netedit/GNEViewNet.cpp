@@ -4273,23 +4273,15 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
 
 void 
 GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
-    /*
-    std::vector<GNEDemandElement*> types;
-    std::vector<GNEDemandElement*> personContainers;
-    std::vector<GNEDemandElement*> routes;
-    std::vector<GNEDemandElement*> vehicles;
-    std::vector<GNEDemandElement*> personContainerPlans;
-
+    // iterate over ACs and delete it
     for (const auto &AC : ACs) {
-        if (AC->getTagProperty().isVehicleType()) {
-            types.push_back(dynamic_cast<GNEDemandElement*>(AC));
-        } else if (AC->getTagProperty().isPerson() || AC->getTagProperty().isContainer()) {
-            personContainers.push_back(dynamic_cast<GNEDemandElement*>(AC));
+        // get demand Element (note: could be already removed if is a child, then hardfail=false)
+        GNEDemandElement* demandElement = myNet->retrieveDemandElement(AC, false);
+        // if exist, remove it
+        if (demandElement) {
+            myNet->deleteDemandElement(demandElement, myUndoList);
         }
-
     }
-    */
-    //XX;
 }
 
 

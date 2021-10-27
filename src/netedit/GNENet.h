@@ -590,6 +590,12 @@ public:
      */
     GNEDemandElement* retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
+    /**@brief Returns the named demand element
+     * @param[in] id The attribute carrier related with the demand element
+     * @param[in] failHard Whether attempts to retrieve a nonexisting demand element should result in an exception
+     */
+    GNEDemandElement* retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
     /**@brief return all demand elements
      * @param[in] onlySelected Whether to return only selected demand elements
      */

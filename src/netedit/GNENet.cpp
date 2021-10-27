@@ -2645,7 +2645,22 @@ GNENet::retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardF
         }
     }
     if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant demand element");
+        throw ProcessError("Attempted to retrieve non-existant demand element (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDemandElement*
+GNENet::retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &demandElement : myAttributeCarriers->getDemandElements().at(AC->getTagProperty().getTag())) {
+        if (demandElement == AC) {
+            return demandElement;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
     } else {
         return nullptr;
     }
