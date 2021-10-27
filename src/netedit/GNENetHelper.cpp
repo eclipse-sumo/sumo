@@ -200,7 +200,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
         return shape.overlapsWith(dynamic_cast<GNECrossing*>(AC)->getCrossingShape());
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // Additional
-        const GNEAdditional *additional = dynamic_cast<GNEAdditional*>(AC);
+        const GNEAdditional *additional = myNet->retrieveAdditional(AC);
         if (additional->getAdditionalGeometry().getShape().size() <= 1) {
             return shape.around(additional->getPositionInView());
         } else {

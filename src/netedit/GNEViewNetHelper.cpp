@@ -701,85 +701,88 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
-    // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
-    // cast additional element from attribute carrier
-    if (AC == frontAC) {
+    // get additional element
+    GNEAdditional* additionalElement = myViewNet->getNet()->retrieveAdditional(AC); 
+    // insert depending if is the front attribute carrier
+    if (additionalElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
-        container.additionals.insert(container.additionals.begin(), dynamic_cast<GNEAdditional*>(AC));
+        container.additionals.insert(container.additionals.begin(), additionalElement);
     } else {
         // insert at back
-        container.additionals.push_back(dynamic_cast<GNEAdditional*>(AC));
+        container.additionals.push_back(additionalElement);
     }
 }
 
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
-    // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
-    // cast TAZ element from attribute carrier
-    if (AC == frontAC) {
+    // get TAZ element
+    GNETAZElement* TAZElement = myViewNet->getNet()->retrieveTAZElement(AC);
+    // insert depending if is the front attribute carrier
+    if (TAZElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
-        container.TAZElements.insert(container.TAZElements.begin(), dynamic_cast<GNETAZElement*>(AC));
+        container.TAZElements.insert(container.TAZElements.begin(), TAZElement);
     } else {
         // insert at back
-        container.TAZElements.push_back(dynamic_cast<GNETAZElement*>(AC));
+        container.TAZElements.push_back(TAZElement);
     }
     // cast specific TAZ
-    switch (AC->getGUIGlObject()->getType()) {
-        case GLO_TAZ:
+    if (AC->getGUIGlObject()->getType() == GLO_TAZ) {
+        // cast TAZ
+        GNETAZ* TAZ = dynamic_cast<GNETAZ*>(TAZElement);
+        if (TAZ) {
             // check front element
-            if (AC == frontAC) {
+            if (AC == myViewNet->getFrontAttributeCarrier()) {
                 // insert at front
-                container.TAZs.insert(container.TAZs.begin(), dynamic_cast<GNETAZ*>(AC));
+                container.TAZs.insert(container.TAZs.begin(), TAZ);
             } else {
                 // insert at back
-                container.TAZs.push_back(dynamic_cast<GNETAZ*>(AC));
+                container.TAZs.push_back(TAZ);
             }
-            break;
-        default:
-            break;
+        }
     }
 }
 
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
-    // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
-    // cast shape element from attribute carrier
-    if (AC == frontAC) {
+    // get shape element
+    GNEShape* shapeElement = myViewNet->getNet()->retrieveShape(AC); 
+    // insert depending if is the front attribute carrier
+    if (shapeElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
-        container.shapes.insert(container.shapes.begin(), dynamic_cast<GNEShape*>(AC));
+        container.shapes.insert(container.shapes.begin(), shapeElement);
     } else {
         // insert at back
-        container.shapes.push_back(dynamic_cast<GNEShape*>(AC));
+        container.shapes.push_back(shapeElement);
     }
     // cast specific shape
-    switch (AC->getGUIGlObject()->getType()) {
-        case GLO_POI:
+    if (AC->getGUIGlObject()->getType() == GLO_POI) {
+        // cast POI
+        GNEPOI* POI = dynamic_cast<GNEPOI*>(shapeElement);
+        if (POI) {
             // check front element
-            if (AC == frontAC) {
+            if (AC == myViewNet->getFrontAttributeCarrier()) {
                 // insert at front
-                container.POIs.insert(container.POIs.begin(), dynamic_cast<GNEPOI*>(AC));
+                container.POIs.insert(container.POIs.begin(), POI);
             } else {
                 // insert at back
-                container.POIs.push_back(dynamic_cast<GNEPOI*>(AC));
+                container.POIs.push_back(POI);
             }
-            break;
-        case GLO_POLYGON:
+        }
+    } else if (AC->getGUIGlObject()->getType() == GLO_POLYGON) {
+        // cast poly
+        GNEPoly* poly = dynamic_cast<GNEPoly*>(shapeElement);
+        if (poly) {
             // check front element
-            if (AC == frontAC) {
+            if (AC == myViewNet->getFrontAttributeCarrier()) {
                 // insert at front
-                container.polys.insert(container.polys.begin(), dynamic_cast<GNEPoly*>(AC));
+                container.polys.insert(container.polys.begin(), poly);
             } else {
                 // insert at back
-                container.polys.push_back(dynamic_cast<GNEPoly*>(AC));
+                container.polys.push_back(poly);
             }
-            break;
-        default:
-            break;
+        }
     }
 }
 
@@ -1425,9 +1428,9 @@ GNEViewNetHelper::SelectingArea::processEdgeRectangleSelection() {
             // obtain all ACs in Rectangle BOundary
             std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(rectangleBoundary);
             // Filter ACs in Boundary and get only edges
-            for (auto i : ACsInBoundary) {
-                if (i.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                    result.push_back(dynamic_cast<GNEEdge*>(i.second));
+            for (const auto &AC : ACsInBoundary) {
+                if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    result.push_back(dynamic_cast<GNEEdge*>(AC.second));
                 }
             }
             myViewNet->makeNonCurrent();

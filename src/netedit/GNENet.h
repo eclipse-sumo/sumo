@@ -540,11 +540,18 @@ public:
     /// @{
 
     /**@brief Returns the named additional
+     * @param[in] id The attribute carrier related with the additional element
      * @param[in] type tag with the type of additional
      * @param[in] id The id of the additional to return.
      * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
      */
     GNEAdditional* retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief Returns the named additional
+     * @param[in] id The attribute carrier related with the additional element
+     * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
+     */
+    GNEAdditional* retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
     /**@brief return all additionals
      * @param[in] onlySelected Whether to return only selected additionals
@@ -684,6 +691,12 @@ public:
      */
     GNEShape* retrieveShape(SumoXMLTag, const std::string& id, bool hardFail = true) const;
 
+    /**@brief Returns the named shape
+     * @param[in] id The attribute carrier related with the additional element
+     * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
+     */
+    GNEShape* retrieveShape(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
     /**@brief return all shapes
      * @param[in] onlySelected Whether to return only selected shapes
      */
@@ -708,6 +721,12 @@ public:
      * @param[in] failHard Whether attempts to retrieve a nonexisting TAZElement should result in an exception
      */
     GNETAZElement* retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief Returns the named TAZElement
+     * @param[in] id The attribute carrier related with the additional element
+     * @param[in] failHard Whether attempts to retrieve a nonexisting TAZElement should result in an exception
+     */
+    GNETAZElement* retrieveTAZElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
     /**@brief return all TAZElements
      * @param[in] onlySelected Whether to return only selected TAZElements

@@ -2503,7 +2503,22 @@ GNENet::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail
         }
     }
     if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant additional");
+        throw ProcessError("Attempted to retrieve non-existant additional (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional* 
+GNENet::retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &additional : myAttributeCarriers->getAdditionals().at(AC->getTagProperty().getTag())) {
+        if (additional == AC) {
+            return additional;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
     } else {
         return nullptr;
     }
@@ -3173,6 +3188,21 @@ GNENet::retrieveShape(SumoXMLTag type, const std::string& id, bool hardFail) con
 }
 
 
+GNEShape*
+GNENet::retrieveShape(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &shape : myAttributeCarriers->getShapes().at(AC->getTagProperty().getTag())) {
+        if (shape == AC) {
+            return shape;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant shape");
+    } else {
+        return nullptr;
+    }
+}
+
+
 std::vector<GNEShape*>
 GNENet::retrieveShapes(bool onlySelected) const {
     std::vector<GNEShape*> result;
@@ -3224,6 +3254,21 @@ GNETAZElement*
 GNENet::retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
     for (const auto &TAZElement : myAttributeCarriers->getTAZElements().at(type)) {
         if (TAZElement->getID() == id) {
+            return TAZElement;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant TAZElement");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNETAZElement*
+GNENet::retrieveTAZElement(const GNEAttributeCarrier *AC, bool hardFail) const {
+    for (const auto &TAZElement : myAttributeCarriers->getTAZElements().at(AC->getTagProperty().getTag())) {
+        if (TAZElement == AC) {
             return TAZElement;
         }
     }

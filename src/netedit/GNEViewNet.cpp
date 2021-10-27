@@ -4267,7 +4267,34 @@ GNEViewNet::updateDataModeSpecificControls() {
 
 void 
 GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
-    //XX;
+    // iterate over ACs and delete it
+    for (const auto &AC : ACs) {
+
+        /* */
+
+        if (AC->getTagProperty().isAdditionalElement()) {
+            // get additional Element (note: could be already removed if is a child, then hardfail=false)
+            GNEAdditional* additionalElement = myNet->retrieveAdditional(AC, false);
+            // if exist, remove it
+            if (additionalElement) {
+                myNet->deleteAdditional(additionalElement, myUndoList);
+            }
+        } else if (AC->getTagProperty().isShape()) {
+            // get shape Element (note: could be already removed if is a child, then hardfail=false)
+            GNEShape* shapeElement = myNet->retrieveShape(AC, false);
+            // if exist, remove it
+            if (shapeElement) {
+                myNet->deleteShape(shapeElement, myUndoList);
+            }
+        } else if (AC->getTagProperty().isTAZElement()) {
+            // get TAZ Element (note: could be already removed if is a child, then hardfail=false)
+            GNETAZElement* TAZElement = myNet->retrieveTAZElement(AC, false);
+            // if exist, remove it
+            if (TAZElement) {
+                myNet->deleteTAZElement(TAZElement, myUndoList);
+            }
+        }
+    }
 }
 
 

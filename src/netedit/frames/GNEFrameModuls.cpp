@@ -857,9 +857,9 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         myClickedLane = dynamic_cast<GNELane*>(clickedAC);
         myClickedCrossing = dynamic_cast<GNECrossing*>(clickedAC);
         myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
-        myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
+        myClickedShape = clickedAC->getTagProperty().isShape()? myFrameParent->myViewNet->getNet()->retrieveShape(clickedAC) : nullptr;
         myClickedTAZElement = dynamic_cast<GNETAZElement*>(clickedAC);
-        myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
+        myClickedAdditional = clickedAC->getTagProperty().isAdditionalElement()? myFrameParent->myViewNet->getNet()->retrieveAdditional(clickedAC) : nullptr;
         myClickedDemandElement = clickedAC->getTagProperty().isDemandElement()? myFrameParent->myViewNet->getNet()->retrieveDemandElement(clickedAC) : nullptr;
         myClickedDataSet = dynamic_cast<GNEDataSet*>(clickedAC);
         myClickedDataInterval = dynamic_cast<GNEDataInterval*>(clickedAC);
@@ -1031,162 +1031,154 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         }
     } else if (myHE->getTagProperty().getTag() == GNE_TAG_POILANE) {
         // Obtain POILane
-        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(SUMO_TAG_POI, myHE->getID(), false);
-        if (POILane) {
-            // obtain parent lane
-            GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getParentLanes().at(0)->getID());
-            // obtain parent edge
-            GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
-            //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-            FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
-            FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
-            junctionDestinyItem->setExpanded(true);
-            // Create edge item
-            FXTreeItem* edgeItem = myTreeListDinamic->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
-            edgeItem->setExpanded(true);
-            // Create lane item
-            FXTreeItem* laneItem = myTreeListDinamic->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
-            laneItem->setExpanded(true);
-            // Save items in myTreeItemToACMap
-            myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
-            myTreeItemToACMap[junctionDestinyItem] = edge->getToJunction();
-            myTreeItemToACMap[edgeItem] = edge;
-            myTreeItemToACMap[laneItem] = lane;
-            // return Lane item
-            return laneItem;
-        } else {
-            return nullptr;
-        }
+        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(myHE);
+        // obtain parent lane
+        GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getParentLanes().at(0)->getID());
+        // obtain parent edge
+        GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
+        //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+        FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
+        FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
+        junctionDestinyItem->setExpanded(true);
+        // Create edge item
+        FXTreeItem* edgeItem = myTreeListDinamic->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
+        edgeItem->setExpanded(true);
+        // Create lane item
+        FXTreeItem* laneItem = myTreeListDinamic->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
+        laneItem->setExpanded(true);
+        // Save items in myTreeItemToACMap
+        myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
+        myTreeItemToACMap[junctionDestinyItem] = edge->getToJunction();
+        myTreeItemToACMap[edgeItem] = edge;
+        myTreeItemToACMap[laneItem] = lane;
+        // return Lane item
+        return laneItem;
     } else if (myHE->getTagProperty().isAdditionalElement()) {
-        // Obtain Additional (use dynamic_cast due rerouter and vss elements)
-        const GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myHE);
-        if (additional) {
-            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
-            FXTreeItem* root = nullptr;
-            // check if there is demand elements parents
-            if (additional->getParentAdditionals().size() > 0) {
-                // check if we have more than one edge
-                if (additional->getParentAdditionals().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getParentAdditionals().front());
-                    // insert "spacer"
-                    if (additional->getParentAdditionals().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
-                    }
+        // Obtain Additional
+        const GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myHE);
+        // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
+        FXTreeItem* root = nullptr;
+        // check if there is demand elements parents
+        if (additional->getParentAdditionals().size() > 0) {
+            // check if we have more than one edge
+            if (additional->getParentAdditionals().size() > 1) {
+                // insert first item
+                addListItem(additional->getParentAdditionals().front());
+                // insert "spacer"
+                if (additional->getParentAdditionals().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
                 }
-                // return last inserted item
-                root = addListItem(additional->getParentAdditionals().back());
             }
-            // check if there is parent demand elements
-            if (additional->getParentDemandElements().size() > 0) {
-                // check if we have more than one demand element
-                if (additional->getParentDemandElements().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getParentDemandElements().front());
-                    // insert "spacer"
-                    if (additional->getParentDemandElements().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(additional->getParentDemandElements().back());
-            }
-            // check if there is parent edges
-            if (additional->getParentEdges().size() > 0) {
-                // check if we have more than one edge
-                if (additional->getParentEdges().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getParentEdges().front());
-                    // insert "spacer"
-                    if (additional->getParentEdges().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(additional->getParentEdges().back());
-            }
-            // check if there is parent lanes
-            if (additional->getParentLanes().size() > 0) {
-                // check if we have more than one parent lane
-                if (additional->getParentLanes().size() > 1) {
-                    // insert first item
-                    addListItem(additional->getParentLanes().front());
-                    // insert "spacer"
-                    if (additional->getParentLanes().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)additional->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(additional->getParentLanes().back());
-            }
-            // return last inserted list item
-            return root;
+            // return last inserted item
+            root = addListItem(additional->getParentAdditionals().back());
         }
+        // check if there is parent demand elements
+        if (additional->getParentDemandElements().size() > 0) {
+            // check if we have more than one demand element
+            if (additional->getParentDemandElements().size() > 1) {
+                // insert first item
+                addListItem(additional->getParentDemandElements().front());
+                // insert "spacer"
+                if (additional->getParentDemandElements().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(additional->getParentDemandElements().back());
+        }
+        // check if there is parent edges
+        if (additional->getParentEdges().size() > 0) {
+            // check if we have more than one edge
+            if (additional->getParentEdges().size() > 1) {
+                // insert first item
+                addListItem(additional->getParentEdges().front());
+                // insert "spacer"
+                if (additional->getParentEdges().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(additional->getParentEdges().back());
+        }
+        // check if there is parent lanes
+        if (additional->getParentLanes().size() > 0) {
+            // check if we have more than one parent lane
+            if (additional->getParentLanes().size() > 1) {
+                // insert first item
+                addListItem(additional->getParentLanes().front());
+                // insert "spacer"
+                if (additional->getParentLanes().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(additional->getParentLanes().back());
+        }
+        // return last inserted list item
+        return root;
     } else if (myHE->getTagProperty().isTAZElement()) {
         // Obtain TAZElement
-        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(myHE->getTagProperty().getTag(), myHE->getID(), false);
-        if (TAZElement) {
-            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
-            FXTreeItem* root = nullptr;
-            // check if there is demand elements parents
-            if (TAZElement->getParentTAZElements().size() > 0) {
-                // check if we have more than one edge
-                if (TAZElement->getParentTAZElements().size() > 1) {
-                    // insert first item
-                    addListItem(TAZElement->getParentTAZElements().front());
-                    // insert "spacer"
-                    if (TAZElement->getParentTAZElements().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentTAZElements().size() - 2) + " TAZElements...").c_str(), 0, false);
-                    }
+        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(myHE);
+        // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
+        FXTreeItem* root = nullptr;
+        // check if there is demand elements parents
+        if (TAZElement->getParentTAZElements().size() > 0) {
+            // check if we have more than one edge
+            if (TAZElement->getParentTAZElements().size() > 1) {
+                // insert first item
+                addListItem(TAZElement->getParentTAZElements().front());
+                // insert "spacer"
+                if (TAZElement->getParentTAZElements().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentTAZElements().size() - 2) + " TAZElements...").c_str(), 0, false);
                 }
-                // return last inserted item
-                root = addListItem(TAZElement->getParentTAZElements().back());
             }
-            // check if there is parent demand elements
-            if (TAZElement->getParentDemandElements().size() > 0) {
-                // check if we have more than one demand element
-                if (TAZElement->getParentDemandElements().size() > 1) {
-                    // insert first item
-                    addListItem(TAZElement->getParentDemandElements().front());
-                    // insert "spacer"
-                    if (TAZElement->getParentDemandElements().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(TAZElement->getParentDemandElements().back());
-            }
-            // check if there is parent edges
-            if (TAZElement->getParentEdges().size() > 0) {
-                // check if we have more than one edge
-                if (TAZElement->getParentEdges().size() > 1) {
-                    // insert first item
-                    addListItem(TAZElement->getParentEdges().front());
-                    // insert "spacer"
-                    if (TAZElement->getParentEdges().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(TAZElement->getParentEdges().back());
-            }
-            // check if there is parent lanes
-            if (TAZElement->getParentLanes().size() > 0) {
-                // check if we have more than one parent lane
-                if (TAZElement->getParentLanes().size() > 1) {
-                    // insert first item
-                    addListItem(TAZElement->getParentLanes().front());
-                    // insert "spacer"
-                    if (TAZElement->getParentLanes().size() > 2) {
-                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
-                    }
-                }
-                // return last inserted item
-                root = addListItem(TAZElement->getParentLanes().back());
-            }
-            // return last inserted list item
-            return root;
+            // return last inserted item
+            root = addListItem(TAZElement->getParentTAZElements().back());
         }
+        // check if there is parent demand elements
+        if (TAZElement->getParentDemandElements().size() > 0) {
+            // check if we have more than one demand element
+            if (TAZElement->getParentDemandElements().size() > 1) {
+                // insert first item
+                addListItem(TAZElement->getParentDemandElements().front());
+                // insert "spacer"
+                if (TAZElement->getParentDemandElements().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(TAZElement->getParentDemandElements().back());
+        }
+        // check if there is parent edges
+        if (TAZElement->getParentEdges().size() > 0) {
+            // check if we have more than one edge
+            if (TAZElement->getParentEdges().size() > 1) {
+                // insert first item
+                addListItem(TAZElement->getParentEdges().front());
+                // insert "spacer"
+                if (TAZElement->getParentEdges().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(TAZElement->getParentEdges().back());
+        }
+        // check if there is parent lanes
+        if (TAZElement->getParentLanes().size() > 0) {
+            // check if we have more than one parent lane
+            if (TAZElement->getParentLanes().size() > 1) {
+                // insert first item
+                addListItem(TAZElement->getParentLanes().front());
+                // insert "spacer"
+                if (TAZElement->getParentLanes().size() > 2) {
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                }
+            }
+            // return last inserted item
+            root = addListItem(TAZElement->getParentLanes().back());
+        }
+        // return last inserted list item
+        return root;
     } else if (myHE->getTagProperty().isDemandElement()) {
         // Obtain DemandElement 
         GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myHE);
