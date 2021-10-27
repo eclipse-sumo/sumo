@@ -4,6 +4,9 @@ crossing_tracks_collision
 # unsafe train insertion with an oncoming train beyond the insertion lookahead-horizon.
 frontal_collision
 
+# unsafe train insertion with an oncoming train beyond the insertion lookahead-horizon.	Collision occurs between when only the back of one vehicle is still on the collision edge
+frontal_collision_further
+
 # change train speeds to change assigned collider and victim roles
 frontal_collision_reverseRoles
 
