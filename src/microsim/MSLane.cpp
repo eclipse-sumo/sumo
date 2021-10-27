@@ -1446,6 +1446,11 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
                     double high = (*veh)->getPositionOnLane(this);
                     double low = (*veh)->getBackPositionOnLane(this);
+                    if (stage == MSNet::STAGE_MOVEMENTS) {
+                        // use previous back position to catch trains that
+                        // "jump" through each other
+                        low -= SPEED2DIST((*veh)->getSpeed());
+                    }
                     for (AnyVehicleIterator veh2 = bidiLane->anyVehiclesBegin(); veh2 != bidiLane->anyVehiclesEnd(); ++veh2) {
                         // self-collisions might legitemately occur when a long train loops back on itself
                         //if (*veh == *veh2) {
@@ -1454,6 +1459,11 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         //}
                         double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
                         double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
+                        if (stage == MSNet::STAGE_MOVEMENTS) {
+                            // use previous back position to catch trains that
+                            // "jump" through each other
+                            high2 += SPEED2DIST((*veh2)->getSpeed());
+                        }
                         if (!(high < low2 || high2 < low)) {
 #ifdef DEBUG_COLLISIONS
                             if (DEBUG_COND) {

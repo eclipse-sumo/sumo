@@ -828,6 +828,12 @@ public:
     /// @brief return whether given electrical substation exists in the network
     bool existTractionSubstation(const std::string& substationId);
 
+    /// @brief string constants for simstep stages
+    static const std::string STAGE_EVENTS;
+    static const std::string STAGE_MOVEMENTS;
+    static const std::string STAGE_LANECHANGE;
+    static const std::string STAGE_INSERTIONS;
+
 protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
@@ -1013,13 +1019,6 @@ protected:
     ///        (ensures removal of shape dynamics when the objects are removed)
     /// @see utils/shapes/PolygonDynamics
     std::unique_ptr<MSDynamicShapeUpdater> myDynamicShapeUpdater;
-
-
-    /// @brief string constants for simstep stages
-    static const std::string STAGE_EVENTS;
-    static const std::string STAGE_MOVEMENTS;
-    static const std::string STAGE_LANECHANGE;
-    static const std::string STAGE_INSERTIONS;
 
 private:
     /// @brief Invalidated copy constructor.
