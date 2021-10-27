@@ -134,17 +134,6 @@ GNEDataSet::getGUIGlObject() {
 
 
 void
-GNEDataSet::setDataSetID(const std::string& newID) {
-    // update ID
-    myDataSetID = newID;
-    // iterate over all intervals
-    for (const auto& interval : myDataIntervalChildren) {
-        interval.second->updateGenericDataIDs();
-    }
-}
-
-
-void
 GNEDataSet::updateAttributeColors() {
     // first update attribute colors in data interval childrens
     for (const auto& interval : myDataIntervalChildren) {
@@ -219,6 +208,8 @@ GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
     if (myDataIntervalChildren.count(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)) == 0) {
         // add data interval child
         myDataIntervalChildren[dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)] = dataInterval;
+        // add reference in attributeCarriers
+        myNet->getAttributeCarriers()->insertDataInterval(dataInterval);
     } else {
         throw ProcessError("DataInterval was already inserted");
     }
@@ -234,6 +225,8 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
         // remove it from inspected elements and HierarchicalElementTree
         myNet->getViewNet()->removeFromAttributeCarrierInspected(dataInterval);
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataInterval);
+        // remove reference from attributeCarriers
+        myNet->getAttributeCarriers()->deleteDataInterval(dataInterval);
     } else {
         throw ProcessError("DataInterval wasn't previously inserted");
     }
@@ -391,7 +384,11 @@ void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            myDataSetID = value;
+            // update all intervals
+            for (const auto& interval : myDataIntervalChildren) {
+                interval.second->updateGenericDataIDs();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

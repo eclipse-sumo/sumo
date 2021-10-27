@@ -68,6 +68,11 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     for (const auto& stopTag : stopTags) {
         myDemandElements.insert(std::make_pair(stopTag.first.getTag(), std::vector<GNEDemandElement*>()));
     }
+    // fill data elements with tags
+    auto genericDataElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, false);
+    for (const auto& genericDataElementTag : genericDataElementTags) {
+        myGenericDatas.insert(std::make_pair(genericDataElementTag.first.getTag(), std::set<GNEGenericData*>()));
+    }
 }
 
 
@@ -144,8 +149,6 @@ GNENetHelper::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::st
         updateEdgeID(AC, newID);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_TYPE) {
         updateEdgeTypeID(AC, newID);
-    } else if (AC->getTagProperty().isDataElement()) {
-        updateDataSetID(AC, newID);
     } else {
         throw ProcessError("Unknow Attribute Carrier");
     }
@@ -851,24 +854,21 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() const {
 }
 
 
-const std::map<std::string, GNEDataSet*>&
+const std::set<GNEDataSet*>&
 GNENetHelper::AttributeCarriers::getDataSets() const {
     return myDataSets;
 }
 
 
-void
-GNENetHelper::AttributeCarriers::clearDataSets() {
-    // clear elements in grid
-    for (const auto& dataSet : myDataSets) {
-        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-            for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                myNet->removeGLObjectFromGrid(genericData);
-            }
-        }
-    }
-    // just clear myDataSets
-    myDataSets.clear();
+const std::set<GNEDataInterval*>&
+GNENetHelper::AttributeCarriers::getDataIntervals() const {
+    return myDataIntervals;
+}
+
+
+const std::map<SumoXMLTag, std::set<GNEGenericData*> >&
+GNENetHelper::AttributeCarriers::getGenericDatas() const {
+    return myGenericDatas;
 }
 
 
@@ -877,17 +877,11 @@ GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDa
     // declare generic data vector
     std::vector<GNEGenericData*> genericDatas;
     // iterate over all data sets
-    for (const auto& dataSet : myDataSets) {
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            // check interval
-            if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
-                // iterate over generic datas
-                for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                    if (genericData->getTagProperty().getTag() == genericDataTag) {
-                        genericDatas.push_back(genericData);
-                    }
-                }
-            }
+    for (const auto& genericData : myGenericDatas.at(genericDataTag)) {
+        // check interval
+        if ((genericData->getDataIntervalParent()->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && 
+            (genericData->getDataIntervalParent()->getAttributeDouble(SUMO_ATTR_END) <= end)) {
+            genericDatas.push_back(genericData);
         }
     }
     return genericDatas;
@@ -897,15 +891,10 @@ GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDa
 int 
 GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeDatas() const {
     int counter = 0;
-    // iterate over generic datas
-    for (const auto& dataSet : myDataSets) {
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && 
-                    genericData->isAttributeCarrierSelected()) {
-                    counter++;
-                }
-            }
+    // iterate over all edgeDatas
+    for (const auto& genericData : myGenericDatas.at(SUMO_TAG_MEANDATA_EDGE)) {
+        if (genericData->isAttributeCarrierSelected()) {
+            counter++;
         }
     }
     return counter;
@@ -915,15 +904,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeDatas() const {
 int 
 GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeRelDatas() const {
     int counter = 0;
-    // iterate over generic datas
-    for (const auto& dataSet : myDataSets) {
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && 
-                    genericData->isAttributeCarrierSelected()) {
-                    counter++;
-                }
-            }
+    // iterate over all edgeDatas
+    for (const auto& genericData : myGenericDatas.at(SUMO_TAG_EDGEREL)) {
+        if (genericData->isAttributeCarrierSelected()) {
+            counter++;
         }
     }
     return counter;
@@ -933,15 +917,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeRelDatas() const {
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeTAZRel() const {
     int counter = 0;
-    // iterate over generic datas
-    for (const auto& dataSet : myDataSets) {
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) && 
-                    genericData->isAttributeCarrierSelected()) {
-                    counter++;
-                }
-            }
+    // iterate over all edgeDatas
+    for (const auto& genericData : myGenericDatas.at(SUMO_TAG_TAZREL)) {
+        if (genericData->isAttributeCarrierSelected()) {
+            counter++;
         }
     }
     return counter;
@@ -1324,15 +1303,14 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
 
 
 bool
-GNENetHelper::AttributeCarriers::dataSetExist(const GNEDataSet* dataSet) const {
+GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
     // first check that dataSet pointer is valid
     if (dataSet) {
-        for (const auto& dataset : myDataSets) {
-            if (dataset.second == dataSet) {
-                return true;
-            }
+        if (myDataSets.find(dataSet) != myDataSets.end()) {
+            return true;
+        } else {
+            return false;
         }
-        return false;
     } else {
         throw ProcessError("Invalid dataSet pointer");
     }
@@ -1346,7 +1324,7 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
     }
     // insert in dataSets container
-    myDataSets.insert(std::make_pair(dataSet->getID(), dataSet));
+    myDataSets.insert(dataSet);
     // dataSets has to be saved
     myNet->requireSaveDataElements(true);
     // update interval toolbar
@@ -1356,42 +1334,64 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
 
 void
 GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
+    // find dataSet
+    const auto itFind = myDataSets.find(dataSet);
     // first check that dataSet pointer is valid
-    if (dataSetExist(dataSet)) {
-        // remove it from inspected elements and HierarchicalElementTree
-        myNet->getViewNet()->removeFromAttributeCarrierInspected(dataSet);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
-        // obtain demand element and erase it from container
-        myDataSets.erase(myDataSets.find(dataSet->getID()));
-        // dataSets has to be saved
-        myNet->requireSaveDataElements(true);
-        // update interval toolbar
-        myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+    if (itFind == myDataSets.end()) {
+        throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' wasn't previously inserted");
+    }
+    // remove it from inspected elements and HierarchicalElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(dataSet);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
+    // obtain demand element and erase it from container
+    myDataSets.erase(itFind);
+    // dataSets has to be saved
+    myNet->requireSaveDataElements(true);
+    // update interval toolbar
+    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+}
+
+
+
+void 
+GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterval) {
+    if (myDataIntervals.find(dataInterval) != myDataIntervals.end()) {
+        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
     } else {
-        throw ProcessError("Invalid dataSet pointer");
+        myDataIntervals.insert(dataInterval);
     }
 }
 
 
-void
-GNENetHelper::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myDataSets.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.dataSets");
-    } else if (myDataSets.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in dataSets");
+void 
+GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterval) {
+    auto finder = myDataIntervals.find(dataInterval);
+    if (finder == myDataIntervals.end()) {
+        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' wasn't previously inserted");
     } else {
-        // retrieve dataSet
-        GNEDataSet* dataSet = myDataSets.at(AC->getID());
-        // remove dataSet from container
-        myDataSets.erase(dataSet->getID());
-        // set new ID in dataSet
-        dataSet->setDataSetID(newID);
-        // insert dataSet again in container
-        myDataSets[dataSet->getID()] = dataSet;
-        // data sets has to be saved
-        myNet->requireSaveDataElements(true);
-        // update interval toolbar
-        myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+        myDataIntervals.erase(finder);
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::insertGenericData(GNEGenericData* genericData) {
+    if (myGenericDatas.at(genericData->getTagProperty().getTag()).find(genericData) != 
+        myGenericDatas.at(genericData->getTagProperty().getTag()).end()) {
+        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' already exist");
+    } else {
+        myGenericDatas.at(genericData->getTagProperty().getTag()).insert(genericData);
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) {
+    auto finder = myGenericDatas.at(genericData->getTagProperty().getTag()).find(genericData);
+    if (finder == myGenericDatas.at(genericData->getTagProperty().getTag()).end()) {
+        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' wasn't previously inserted");
+    } else {
+        myGenericDatas.at(genericData->getTagProperty().getTag()).erase(finder);
     }
 }
 

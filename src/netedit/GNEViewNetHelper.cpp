@@ -1906,7 +1906,7 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         }
         // update all datasets
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
-            dataSet.second->updateAttributeColors();
+            dataSet->updateAttributeColors();
         }
         // update cursors
         myViewNet->updateCursor();

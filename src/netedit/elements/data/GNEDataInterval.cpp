@@ -171,6 +171,8 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
             // update generic data RTREE
             genericData->updateGeometry();
         }
+        // add reference in attributeCarriers
+        myNet->getAttributeCarriers()->insertGenericData(genericData);
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
     } else {
@@ -197,6 +199,8 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         if (genericData->getTagProperty().isPlacedInRTree()) {
             myNet->getGrid().removeAdditionalGLObject(genericData->getGUIGlObject());
         }
+        // remove reference from attributeCarriers
+        myNet->getAttributeCarriers()->deleteGenericData(genericData);
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }

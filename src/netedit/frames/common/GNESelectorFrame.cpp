@@ -951,22 +951,20 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
     // obtan locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
     // invert dataSets
-    for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
-        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-            for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                if (onlyCount && locks.isObjectLocked(genericData->getType(), false)) {
-                    ignoreLocking = askContinueIfLock();
+    for (const auto& genericDataTag : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
+        for (const auto& genericData : genericDataTag.second) {
+            if (onlyCount && locks.isObjectLocked(genericData->getType(), false)) {
+                ignoreLocking = askContinueIfLock();
+                return true;
+            } else if ((ignoreLocking || (!locks.isObjectLocked(GLO_EDGEDATA, false) && genericData->getType() == GLO_EDGEDATA)) ||
+                       (ignoreLocking || (!locks.isObjectLocked(GLO_EDGERELDATA, false) && genericData->getType() == GLO_EDGERELDATA)) ||
+                       (ignoreLocking || (!locks.isObjectLocked(GLO_TAZRELDATA, false) && genericData->getType() == GLO_TAZRELDATA))) {
+                if (onlyCount) {
                     return true;
-                } else if ((ignoreLocking || (!locks.isObjectLocked(GLO_EDGEDATA, false) && genericData->getType() == GLO_EDGEDATA)) ||
-                    (ignoreLocking || (!locks.isObjectLocked(GLO_EDGERELDATA, false) && genericData->getType() == GLO_EDGERELDATA)) ||
-                    (ignoreLocking || (!locks.isObjectLocked(GLO_TAZRELDATA, false) && genericData->getType() == GLO_TAZRELDATA))) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {
-                        genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
-                    } else {
-                        genericData->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
-                    }
+                } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {
+                    genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                } else {
+                    genericData->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
                 }
             }
         }

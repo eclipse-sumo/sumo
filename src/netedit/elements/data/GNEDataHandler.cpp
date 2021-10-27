@@ -62,6 +62,8 @@ GNEDataHandler::buildDataSet(const std::string& dataSetID) {
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
+            // insert dataSet without allowing undo/redo
+            myNet->getAttributeCarriers()->insertDataSet(dataSet);
             dataSet->incRef("buildDataSet");
         }
     } else {
@@ -86,6 +88,8 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
+            // insert dataInterval without allowing undo/redo
+            myNet->getAttributeCarriers()->insertDataSet(dataSet);
             dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
         }
@@ -96,6 +100,7 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
+            // insert dataInterval without allowing undo/redo
             dataSet->addDataIntervalChild(dataInterval);
             dataInterval->incRef("buildDataInterval");
         }

@@ -543,12 +543,10 @@ GNEDeleteFrame::selectedACsToDelete() const {
         }
     } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
         // iterate over all generic datas
-        for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
-            for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-                for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                    if (genericData->isAttributeCarrierSelected()) {
-                        return true;
-                    }
+        for (const auto &genericDataTag : myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
+            for (const auto &genericData : genericDataTag.second) {
+                if (genericData->isAttributeCarrierSelected()) {
+                    return true;
                 }
             }
         }

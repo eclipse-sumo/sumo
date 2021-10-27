@@ -73,9 +73,11 @@ struct GNENetHelper {
     class AttributeCarriers {
 
         /// @brief declare friend class
-        //friend class GNEAdditionalHandler;
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
+        friend class GNEDataHandler;
+        friend class GNEDataSet;
+        friend class GNEDataInterval;
         friend class GNEChange_Junction;
         friend class GNEChange_EdgeType;
         friend class GNEChange_LaneType;
@@ -252,18 +254,17 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name function for data sets
+        /// @name function for data sets, data intervals and generic datas
         /// @{
         /// @brief get demand elements
-        const std::map<std::string, GNEDataSet*>& getDataSets() const;
+        const std::set<GNEDataSet*>& getDataSets() const;
 
-        /// @brief clear demand elements
-        void clearDataSets();
+        /// @brief get all data intervals of network
+        const std::set<GNEDataInterval*> &getDataIntervals() const;
 
-        /// @}
+        /// @brief get all generic datas
+        const std::map<SumoXMLTag, std::set<GNEGenericData*> > &getGenericDatas() const;
 
-        /// @name function for generic datas
-        /// @{
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
 
@@ -388,11 +389,11 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNEDataSets items
+        /// @name Insertion and erasing of data items
         /// @{
 
         /// @brief return true if given demand element exist
-        bool dataSetExist(const GNEDataSet* dataSet) const;
+        bool dataSetExist(GNEDataSet* dataSet) const;
 
         /**@brief Insert a demand element element int GNENet container.
          * @throw processError if route was already inserted
@@ -404,8 +405,17 @@ struct GNENetHelper {
          */
         void deleteDataSet(GNEDataSet* dataSet);
 
-        /// @brief update data element ID in container
-        void updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID);
+        /// @brief insert data interval
+        void insertDataInterval(GNEDataInterval* dataInterval);
+
+        /// @brief delete data interval
+        void deleteDataInterval(GNEDataInterval* dataInterval);
+
+        /// @brief insert generic data
+        void insertGenericData(GNEGenericData* genericData);
+
+        /// @brief delete generic data
+        void deleteGenericData(GNEGenericData* genericData);
 
         /// @}
 
@@ -419,20 +429,26 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to edges of net
         std::map<std::string, GNEEdge*> myEdges;
 
-        /// @brief map with the ID and pointer to additional elements of net
+        /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::vector<GNEAdditional*> > myAdditionals;
 
-        /// @brief map with the ID and pointer to shape elements of net
+        /// @brief map with the tag and pointer to shape elements of net
         std::map<SumoXMLTag, std::vector<GNEShape*> > myShapes;
 
-        /// @brief map with the ID and pointer to TAZElement elements of net
+        /// @brief map with the tag and pointer to TAZElement elements of net
         std::map<SumoXMLTag, std::vector<GNETAZElement*> > myTAZElements;
 
-        /// @brief map with the ID and pointer to demand elements of net
+        /// @brief map with the tag and pointer to demand elements of net
         std::map<SumoXMLTag, std::vector<GNEDemandElement*> > myDemandElements;
 
-        /// @brief map with the ID and pointer to data sets of net
-        std::map<std::string, GNEDataSet*> myDataSets;
+        /// @brief set with the ID and pointer to all datasets of net
+        std::set<GNEDataSet*> myDataSets;
+
+        /// @brief set with all data intervals of network
+        std::set<GNEDataInterval*> myDataIntervals;
+
+        /// @brief map with the tag and pointer to all generic datas
+        std::map<SumoXMLTag, std::set<GNEGenericData*> > myGenericDatas;
 
         /// @brief pointer to net
         GNENet* myNet;

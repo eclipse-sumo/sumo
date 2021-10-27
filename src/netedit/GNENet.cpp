@@ -1497,8 +1497,8 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
             }
         }
         for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            result.push_back(dataSet.second);
-            for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+            result.push_back(dataSet);
+            for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
                 result.push_back(dataInterval.second);
                 for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                     result.push_back(genericData);
@@ -1537,14 +1537,8 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
             result.push_back(demandElemet);
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isGenericData()) {
-        for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-                for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                    if (genericData->getTagProperty().getTag() == type) {
-                        result.push_back(genericData);
-                    }
-                }
-            }
+        for (const auto& genericData : myAttributeCarriers->getGenericDatas().at(type)) {
+            result.push_back(genericData);
         }
     } else {
         // return only a part of elements, depending of type
@@ -1582,14 +1576,12 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
                 break;
             case SUMO_TAG_DATASET:
                 for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-                    result.push_back(dataSet.second);
+                    result.push_back(dataSet);
                 }
                 break;
             case SUMO_TAG_DATAINTERVAL:
-                for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-                    for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-                        result.push_back(dataInterval.second);
-                    }
+                for (const auto& dataInterval : myAttributeCarriers->getDataIntervals()) {
+                    result.push_back(dataInterval);
                 }
                 break;
             default:
@@ -1666,10 +1658,10 @@ GNENet::retrieveAttributeCarriers(Supermode supermode, const bool onlySelected) 
     } else if (supermode == Supermode::DATA) {
         // data
         for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            if (!onlySelected || dataSet.second->isAttributeCarrierSelected()) {
-                result.push_back(dataSet.second);
+            if (!onlySelected || dataSet->isAttributeCarrierSelected()) {
+                result.push_back(dataSet);
             }
-            for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
                 if (!onlySelected || dataInterval.second->isAttributeCarrierSelected()) {
                     result.push_back(dataInterval.second);
                 }
@@ -1765,11 +1757,9 @@ void
 GNENet::computeDataElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing data elements ...");
     // iterate over all demand elements and compute
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-            for (const auto& genericData : dataInterval.second->getChildGenericDatas()) {
-                genericData->computePathElement();
-            }
+    for (const auto& genericDataTag : myAttributeCarriers->getGenericDatas()) {
+        for (const auto& genericData : genericDataTag.second) {
+            genericData->computePathElement();
         }
     }
     window->setStatusBarText("Finished computing data elements.");
@@ -2409,7 +2399,7 @@ GNENet::clearDataElements(GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, "clear data elements");
     // clear data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        deleteDataSet(dataSet.second, undoList);
+        deleteDataSet(dataSet, undoList);
     }
     undoList->end();
 }
@@ -2817,9 +2807,12 @@ GNENet::generateDemandElementID(SumoXMLTag tag) const {
 
 GNEDataSet*
 GNENet::retrieveDataSet(const std::string& id, bool hardFail) const {
-    if (myAttributeCarriers->getDataSets().count(id) > 0) {
-        return myAttributeCarriers->getDataSets().at(id);
-    } else if (hardFail) {
+    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
+        if (dataSet->getID() == id) {
+            return dataSet;
+        }
+    }
+    if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;
@@ -2831,9 +2824,10 @@ std::vector<GNEDataSet*>
 GNENet::retrieveDataSets() const {
     std::vector<GNEDataSet*> result;
     result.reserve(myAttributeCarriers->getDataSets().size());
+    // sort?
     // returns data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        result.push_back(dataSet.second);
+        result.push_back(dataSet);
     }
     return result;
 }
@@ -2842,21 +2836,12 @@ GNENet::retrieveDataSets() const {
 std::vector<GNEGenericData*>
 GNENet::retrieveGenericDatas(bool onlySelected) const {
     std::vector<GNEGenericData*> result;
-    size_t numGenericDatas = 0;
-    // first reserve
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-            numGenericDatas += dataInterval.second->getGenericDataChildren().size();
-        }
-    }
-    result.reserve(numGenericDatas);
+    result.reserve(myAttributeCarriers->getGenericDatas().size());
     // returns generic datas depending of selection
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-            for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                if (!onlySelected || genericData->isAttributeCarrierSelected()) {
-                    result.push_back(genericData);
-                }
+    for (const auto& genericDataTag : myAttributeCarriers->getGenericDatas()) {
+        for (const auto& genericData : genericDataTag.second) {
+            if (!onlySelected || genericData->isAttributeCarrierSelected()) {
+                result.push_back(genericData);
             }
         }
     }
@@ -2906,7 +2891,7 @@ std::string
 GNENet::generateDataSetID(const std::string& prefix) const {
     const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
     int counter = 0;
-    while (myAttributeCarriers->getDataSets().count(prefix + dataSetTagStr + "_" + toString(counter)) != 0) {
+    while (retrieveDataSet(prefix + dataSetTagStr + "_" + toString(counter), false) != nullptr) {
         counter++;
     }
     return (prefix + dataSetTagStr + "_" + toString(counter));
@@ -2920,15 +2905,13 @@ GNENet::retrieveGenericDataParameters(const std::string& genericDataTag, const d
     // declare generic data vector
     std::vector<GNEGenericData*> genericDatas;
     // iterate over all data sets
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            // check interval
-            if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
-                // iterate over generic datas
-                for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                    if (genericDataTag.empty() || (genericData->getTagProperty().getTagStr() == genericDataTag)) {
-                        genericDatas.push_back(genericData);
-                    }
+    for (const auto& interval : myAttributeCarriers->getDataIntervals()) {
+        // check interval
+        if ((interval->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval->getAttributeDouble(SUMO_ATTR_END) <= end)) {
+            // iterate over generic datas
+            for (const auto& genericData : interval->getGenericDataChildren()) {
+                if (genericDataTag.empty() || (genericData->getTagProperty().getTagStr() == genericDataTag)) {
+                    genericDatas.push_back(genericData);
                 }
             }
         }
@@ -2951,15 +2934,17 @@ GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::s
     // vector of data sets and intervals
     std::vector<GNEDataSet*> dataSets;
     std::vector<GNEDataInterval*> dataIntervals;
+    // get dataSet
+    GNEDataSet *retrievedDataSet = retrieveDataSet(dataSetID, false);
     // if dataSetID is empty, return all parameters
     if (dataSetID.empty()) {
         // add all data sets
         dataSets.reserve(myAttributeCarriers->getDataSets().size());
         for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            dataSets.push_back(dataSet.second);
+            dataSets.push_back(dataSet);
         }
-    } else if (myAttributeCarriers->getDataSets().count(dataSetID) > 0) {
-        dataSets.push_back(myAttributeCarriers->getDataSets().at(dataSetID));
+    } else if (retrievedDataSet) {
+        dataSets.push_back(retrievedDataSet);
     } else {
         return attributesSolution;
     }
@@ -3018,16 +3003,13 @@ double
 GNENet::getDataSetIntervalMinimumBegin() const {
     double minimumBegin = 0;
     // update with first minimum (if exist)
-    if ((myAttributeCarriers->getDataSets().size() > 0) && (myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().size() > 0)) {
-        minimumBegin = myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_BEGIN);
+    if (myAttributeCarriers->getDataIntervals().size() > 0) {
+        minimumBegin = (*myAttributeCarriers->getDataIntervals().begin())->getAttributeDouble(SUMO_ATTR_BEGIN);
     }
-    // iterate over all data sets
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        // iterate over interval
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            if (interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) < minimumBegin) {
-                minimumBegin = interval.second->getAttributeDouble(SUMO_ATTR_BEGIN);
-            }
+    // iterate over interval
+    for (const auto& interval : myAttributeCarriers->getDataIntervals()) {
+        if (interval->getAttributeDouble(SUMO_ATTR_BEGIN) < minimumBegin) {
+            minimumBegin = interval->getAttributeDouble(SUMO_ATTR_BEGIN);
         }
     }
     return minimumBegin;
@@ -3038,16 +3020,13 @@ double
 GNENet::getDataSetIntervalMaximumEnd() const {
     double maximumEnd = 0;
     // update with first maximum (if exist)
-    if ((myAttributeCarriers->getDataSets().size() > 0) && (myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().size() > 0)) {
-        maximumEnd = myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_END);
+    if (myAttributeCarriers->getDataIntervals().size() > 0) {
+        maximumEnd = (*myAttributeCarriers->getDataIntervals().begin())->getAttributeDouble(SUMO_ATTR_END);
     }
-    // iterate over all data sets
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        // iterate over interval
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            if (interval.second->getAttributeDouble(SUMO_ATTR_END) > maximumEnd) {
-                maximumEnd = interval.second->getAttributeDouble(SUMO_ATTR_END);
-            }
+    // iterate over intervals
+    for (const auto& interval : myAttributeCarriers->getDataIntervals()) {
+        if (interval->getAttributeDouble(SUMO_ATTR_END) > maximumEnd) {
+            maximumEnd = interval->getAttributeDouble(SUMO_ATTR_END);
         }
     }
     return maximumEnd;
@@ -3166,7 +3145,7 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
     device.writeXMLHeader("data", "datamode_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        dataSet.second->writeDataSet(device);
+        dataSet->writeDataSet(device);
     }
     // close device
     device.close();
@@ -3408,11 +3387,9 @@ void
 GNENet::enableUpdateData() {
     myUpdateDataEnabled = true;
     // update data elements
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
-            dataInterval.second->updateGenericDataIDs();
-            dataInterval.second->updateAttributeColors();
-        }
+    for (const auto& dataInterval : myAttributeCarriers->getDataIntervals()) {
+        dataInterval->updateGenericDataIDs();
+        dataInterval->updateAttributeColors();
     }
 }
 

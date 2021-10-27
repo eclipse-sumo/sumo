@@ -90,9 +90,6 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
-    /// @brief set new ID in dataSet
-    void setDataSetID(const std::string& newID);
-
     /// @brief update attribute colors deprecated
     void updateAttributeColors();
 
