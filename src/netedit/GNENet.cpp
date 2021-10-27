@@ -2820,6 +2820,53 @@ GNENet::retrieveDataSet(const std::string& id, bool hardFail) const {
 }
 
 
+GNEDataSet* 
+GNENet::retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
+        if (dataSet == AC) {
+            return dataSet;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data set");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDataInterval* 
+GNENet::retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &dataInterval : myAttributeCarriers->getDataIntervals()) {
+        if (dataInterval == AC) {
+            return dataInterval;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data interval");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEGenericData* 
+GNENet::retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &genericDataTag : myAttributeCarriers->getGenericDatas()) {
+        for (const auto &genericData : genericDataTag.second) {
+            if (genericData == AC) {
+                return genericData;
+            }
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data set");
+    } else {
+        return nullptr;
+    }
+}
+
+
 std::vector<GNEDataSet*>
 GNENet::retrieveDataSets() const {
     std::vector<GNEDataSet*> result;

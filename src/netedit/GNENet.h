@@ -639,6 +639,24 @@ public:
      */
     GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
 
+    /**@brief Returns the named data set
+     * @param[in] id The attribute carrier related with the dataSet element
+     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+     */
+    GNEDataSet* retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+    /**@brief Returns the data interval
+     * @param[in] id The attribute carrier related with the dataInterval element
+     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+     */
+    GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+    /**@brief Returns the generic data
+     * @param[in] id The attribute carrier related with the genericData element
+     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+     */
+    GNEGenericData* retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
     ///@brief return all data sets
     std::vector<GNEDataSet*> retrieveDataSets() const;
 
