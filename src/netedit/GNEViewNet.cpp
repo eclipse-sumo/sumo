@@ -4314,7 +4314,31 @@ GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*
 
 void 
 GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
-    //XX;
+    // iterate over ACs and delete it
+    for (const auto &AC : ACs) {
+        if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+            // get data set (note: could be already removed if is a child, then hardfail=false)
+            GNEDataSet* dataSet = myNet->retrieveDataSet(AC, false);
+            // if exist, remove it
+            if (dataSet) {
+                myNet->deleteDataSet(dataSet, myUndoList);
+            }
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+            // get data interval (note: could be already removed if is a child, then hardfail=false)
+            GNEDataInterval* dataInterval = myNet->retrieveDataInterval(AC, false);
+            // if exist, remove it
+            if (dataInterval) {
+                myNet->deleteDataInterval(dataInterval, myUndoList);
+            }
+        } else {
+            // get generic data (note: could be already removed if is a child, then hardfail=false)
+            GNEGenericData* genericData = myNet->retrieveGenericData(AC, false);
+            // if exist, remove it
+            if (genericData) {
+                myNet->deleteGenericData(genericData, myUndoList);
+            }
+        }
+    }
 }
 
 
