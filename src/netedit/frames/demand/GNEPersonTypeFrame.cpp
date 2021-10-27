@@ -64,8 +64,8 @@ GNEPersonTypeFrame::PersonTypeSelector::PersonTypeSelector(GNEPersonTypeFrame* p
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // fill myTypeMatchBox with list of pTypes IDs
-    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
-        myTypeMatchBox->appendItem(i.first.c_str());
+    for (const auto& pType : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
+        myTypeMatchBox->appendItem(pType->getID().c_str());
     }
     // set DEFAULT_PEDTYPE_ID as default pType
     myCurrentPersonType = myPersonTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID);
@@ -101,8 +101,8 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
     bool valid = false;
     myTypeMatchBox->clearItems();
     // fill myTypeMatchBox with list of pTypes IDs
-    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
-        myTypeMatchBox->appendItem(i.first.c_str());
+    for (const auto& pType : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
+        myTypeMatchBox->appendItem(pType->getID().c_str());
     }
     // Set visible items
     if (myTypeMatchBox->getNumItems() <= 20) {
@@ -138,10 +138,10 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
 long
 GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
-        if (i.first == myTypeMatchBox->getText().text()) {
+    for (const auto& pType : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
+        if (pType->getID() == myTypeMatchBox->getText().text()) {
             // set pointer
-            myCurrentPersonType = i.second;
+            myCurrentPersonType = pType;
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
             // refresh person type editor modul

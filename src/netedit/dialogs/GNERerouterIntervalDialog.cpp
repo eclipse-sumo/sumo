@@ -370,7 +370,7 @@ GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*
     // check if there is at least one route
     if (routes.size() > 0) {
         // create route Prob Reroute
-        GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(myEditedAdditional, routes.begin()->second, 1);
+        GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(myEditedAdditional, routes.front(), 1);
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
         myRouteProbReroutesEdited.push_back(routeProbReroute);
         // update route prob reroutes table

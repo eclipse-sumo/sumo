@@ -64,8 +64,8 @@ GNEPersonPlanFrame::~GNEPersonPlanFrame() {}
 void
 GNEPersonPlanFrame::show() {
     // get persons maps
-    const std::map<std::string, GNEDemandElement*>& persons = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON);
-    const std::map<std::string, GNEDemandElement*>& personFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW);
+    const auto& persons = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON);
+    const auto& personFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW);
     // Only show moduls if there is at least one person
     if ((persons.size() > 0) || (personFlows.size() > 0)) {
         // show person selector
@@ -74,9 +74,9 @@ GNEPersonPlanFrame::show() {
         myPersonPlanTagSelector->refreshTagProperties();
         // set first person as demand element (this will call demandElementSelected() function)
         if (persons.size() > 0) {
-            myPersonSelector->setDemandElement(persons.begin()->second);
+            myPersonSelector->setDemandElement(persons.front());
         } else {
-            myPersonSelector->setDemandElement(personFlows.begin()->second);
+            myPersonSelector->setDemandElement(personFlows.front());
         }
     } else {
         // hide all moduls except helpCreation

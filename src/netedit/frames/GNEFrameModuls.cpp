@@ -425,33 +425,33 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
     // clear demand elements comboBox
     myDemandElementsMatchBox->clearItems();
     // fill myTypeMatchBox with list of demand elements
-    for (const auto& i : myDemandElementTags) {
+    for (const auto& demandElementTag : myDemandElementTags) {
         // special case for VTypes and PTypes
-        if (i == SUMO_TAG_VTYPE) {
+        if (demandElementTag == SUMO_TAG_VTYPE) {
             // add default Vehicle an Bike types in the first and second positions
             myDemandElementsMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
             myDemandElementsMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
             // add rest of vTypes
-            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(i)) {
+            for (const auto& vType : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
                 // avoid insert duplicated default vType
-                if ((j.first != DEFAULT_VTYPE_ID) && (j.first != DEFAULT_BIKETYPE_ID)) {
-                    myDemandElementsMatchBox->appendItem(j.first.c_str());
+                if ((vType->getID() != DEFAULT_VTYPE_ID) && (vType->getID() != DEFAULT_BIKETYPE_ID)) {
+                    myDemandElementsMatchBox->appendItem(vType->getID().c_str());
                 }
             }
-        } else if (i == SUMO_TAG_PTYPE) {
+        } else if (demandElementTag == SUMO_TAG_PTYPE) {
             // add default Person type in the firs
             myDemandElementsMatchBox->appendItem(DEFAULT_PEDTYPE_ID.c_str());
             // add rest of pTypes
-            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(i)) {
+            for (const auto& pType : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
                 // avoid insert duplicated default pType
-                if (j.first != DEFAULT_PEDTYPE_ID) {
-                    myDemandElementsMatchBox->appendItem(j.first.c_str());
+                if (pType->getID() != DEFAULT_PEDTYPE_ID) {
+                    myDemandElementsMatchBox->appendItem(pType->getID().c_str());
                 }
             }
         } else {
             // insert all Ids
-            for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(i)) {
-                myDemandElementsMatchBox->appendItem(j.first.c_str());
+            for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
+                myDemandElementsMatchBox->appendItem(demandElement->getID().c_str());
             }
         }
     }
@@ -473,16 +473,16 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
     } else {
         // set first element in the list as myCurrentDemandElement (Special case for default person and vehicle type)
         if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_VTYPE_ID) {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).at(DEFAULT_VTYPE_ID);
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDefaultVType();
         } else if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_PEDTYPE_ID) {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE).at(DEFAULT_PEDTYPE_ID);
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDefaultPType();
         } else {
             // disable myCurrentDemandElement
             myCurrentDemandElement = nullptr;
             // update myCurrentDemandElement with the first allowed element
             for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
                 if (myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(*i).size() > 0) {
-                    myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(*i).begin()->second;
+                    myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(*i).front();
                 }
             }
         }
@@ -572,13 +572,13 @@ GNEFrameModuls::DemandElementSelector::getContainerPlanPreviousEdge() const {
 long
 GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond to a demand element
-    for (const auto& i : myDemandElementTags) {
-        for (const auto& j : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(i)) {
-            if (j.first == myDemandElementsMatchBox->getText().text()) {
+    for (const auto& demandElementTag : myDemandElementTags) {
+        for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
+            if (demandElement->getID() == myDemandElementsMatchBox->getText().text()) {
                 // set color of myTypeMatchBox to black (valid)
                 myDemandElementsMatchBox->setTextColor(FXRGB(0, 0, 0));
                 // Set new current demand element
-                myCurrentDemandElement = j.second;
+                myCurrentDemandElement = demandElement;
                 // call demandElementSelected function
                 myFrameParent->demandElementSelected();
                 // Write Warning in console if we're in testing mode

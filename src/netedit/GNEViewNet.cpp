@@ -26,6 +26,7 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNETAZRelData.h>
+#include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -1184,26 +1185,53 @@ GNEViewNet::hotkeyDel() {
     if (myEditModes.isCurrentSupermodeNetwork()) {
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) || (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS)) {
             setStatusBarText("Cannot delete in this mode");
-        } else {
-            myUndoList->begin(GUIIcon::MODEDELETE, "delete network selection");
-            deleteSelectedConnections();
-            deleteSelectedCrossings();
-            deleteSelectedAdditionals();
-            deleteSelectedLanes();
-            deleteSelectedEdges();
-            deleteSelectedJunctions();
-            deleteSelectedShapes();
-            deleteSelectedTAZElements();
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) && (myInspectedAttributeCarriers.size() > 0)) {
+            // delete inspected elements
+            myUndoList->begin(GUIIcon::MODEDELETE, "delete network inspected elements");
+            deleteNetworkAttributeCarriers(myInspectedAttributeCarriers);
             myUndoList->end();
+        } else {
+            // get selected ACs
+            const auto selectedACs = myNet->getSelectedAttributeCarriers(false);
+            // delete selected elements
+            if (selectedACs.size() > 0) {
+                myUndoList->begin(GUIIcon::MODEDELETE, "delete network selection");
+                deleteNetworkAttributeCarriers(myNet->getSelectedAttributeCarriers(false));
+                myUndoList->end();
+            }
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete demand selection");
-        deleteSelectedDemandElements();
-        myUndoList->end();
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && (myInspectedAttributeCarriers.size() > 0)) {
+            // delete inspected elements
+            myUndoList->begin(GUIIcon::MODEDELETE, "delete demand inspected elements");
+            deleteDemandAttributeCarriers(myInspectedAttributeCarriers);
+            myUndoList->end();
+        } else {
+            // get selected ACs
+            const auto selectedACs = myNet->getSelectedAttributeCarriers(false);
+            // delete selected elements
+            if (selectedACs.size() > 0) {
+                myUndoList->begin(GUIIcon::MODEDELETE, "delete demand selection");
+                deleteDemandAttributeCarriers(myNet->getSelectedAttributeCarriers(false));
+                myUndoList->end();
+            }
+        }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete data selection");
-        deleteSelectedGenericDatas();
-        myUndoList->end();
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && (myInspectedAttributeCarriers.size() > 0)) {
+            // delete inspected elements
+            myUndoList->begin(GUIIcon::MODEDELETE, "delete data inspected elements");
+            deleteDataAttributeCarriers(myInspectedAttributeCarriers);
+            myUndoList->end();
+        } else {
+            // get selected ACs
+            const auto selectedACs = myNet->getSelectedAttributeCarriers(false);
+            // delete selected elements
+            if (selectedACs.size() > 0) {
+                myUndoList->begin(GUIIcon::MODEDELETE, "delete data selection");
+                deleteDataAttributeCarriers(myNet->getSelectedAttributeCarriers(false));
+                myUndoList->end();
+            }
+        }
     }
     // update view
     updateViewNet();
@@ -3134,27 +3162,27 @@ GNEViewNet::onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     std::set<GNEEdge*> edgesToUpdate;
     // compute vehicle geometry
     for (const auto& vehicle : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
-        if (vehicle.second->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(vehicle.second->getParentEdges().front());
-        } else if (vehicle.second->getChildDemandElements().size() > 0 && (vehicle.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-            edgesToUpdate.insert(vehicle.second->getChildDemandElements().front()->getParentEdges().front());
+        if (vehicle->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(vehicle->getParentEdges().front());
+        } else if (vehicle->getChildDemandElements().size() > 0 && (vehicle->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+            edgesToUpdate.insert(vehicle->getChildDemandElements().front()->getParentEdges().front());
         }
     }
     for (const auto& routeFlow : myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
-        if (routeFlow.second->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(routeFlow.second->getParentEdges().front());
-        } else if (routeFlow.second->getChildDemandElements().size() > 0 && (routeFlow.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-            edgesToUpdate.insert(routeFlow.second->getChildDemandElements().front()->getParentEdges().front());
+        if (routeFlow->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(routeFlow->getParentEdges().front());
+        } else if (routeFlow->getChildDemandElements().size() > 0 && (routeFlow->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+            edgesToUpdate.insert(routeFlow->getChildDemandElements().front()->getParentEdges().front());
         }
     }
     for (const auto& trip : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
-        if (trip.second->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(trip.second->getParentEdges().front());
+        if (trip->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(trip->getParentEdges().front());
         }
     }
     for (const auto& flow : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
-        if (flow.second->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(flow.second->getParentEdges().front());
+        if (flow->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(flow->getParentEdges().front());
         }
     }
     // update spread geometries of all edges
@@ -4236,197 +4264,38 @@ GNEViewNet::updateDataModeSpecificControls() {
     updateViewNet();
 }
 
-void
-GNEViewNet::deleteSelectedJunctions() {
-    std::vector<GNEJunction*> junctions = myNet->retrieveJunctions(true);
-    if (junctions.size() > 0) {
-        std::string plural = junctions.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected " + toString(SUMO_TAG_JUNCTION) + plural);
-        for (const auto &junction : junctions) {
-            myNet->deleteJunction(junction, myUndoList);
-        }
-        myUndoList->end();
-    }
+
+void 
+GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
+    //XX;
 }
 
 
-void
-GNEViewNet::deleteSelectedLanes() {
-    std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
-    if (lanes.size() > 0) {
-        std::string plural = lanes.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected " + toString(SUMO_TAG_LANE) + plural);
-        for (const auto &lane : lanes) {
-            // when deleting multiple lanes, recompute connections
-            myNet->deleteLane(lane, myUndoList, true);
+void 
+GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
+    /*
+    std::vector<GNEDemandElement*> types;
+    std::vector<GNEDemandElement*> personContainers;
+    std::vector<GNEDemandElement*> routes;
+    std::vector<GNEDemandElement*> vehicles;
+    std::vector<GNEDemandElement*> personContainerPlans;
+
+    for (const auto &AC : ACs) {
+        if (AC->getTagProperty().isVehicleType()) {
+            types.push_back(dynamic_cast<GNEDemandElement*>(AC));
+        } else if (AC->getTagProperty().isPerson() || AC->getTagProperty().isContainer()) {
+            personContainers.push_back(dynamic_cast<GNEDemandElement*>(AC));
         }
-        myUndoList->end();
+
     }
+    */
+    //XX;
 }
 
 
-void
-GNEViewNet::deleteSelectedEdges() {
-    std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
-    if (edges.size() > 0) {
-        std::string plural = edges.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected " + toString(SUMO_TAG_EDGE) + plural);
-        for (const auto &edge : edges) {
-            // when deleting multiple edges, recompute connections
-            myNet->deleteEdge(edge, myUndoList, true);
-        }
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedAdditionals() {
-    const std::vector<GNEAdditional*> selectedAdditionals = myNet->retrieveAdditionals(true);
-    if (selectedAdditionals.size() > 0) {
-        std::string plural = selectedAdditionals.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected additional" + plural);
-        // do it in two phases: In the first phase remove slaves...
-        for (const auto& selectedAdditional : selectedAdditionals) {
-            if (selectedAdditional->getTagProperty().isSlave()) {
-                myNet->deleteAdditional(selectedAdditional, myUndoList);
-            }
-        }
-        // ... and in the second remove rest
-        for (const auto& selectedAdditional : selectedAdditionals) {
-            if (!selectedAdditional->getTagProperty().isSlave()) {
-                myNet->deleteAdditional(selectedAdditional, myUndoList);
-            }
-        }
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedDemandElements() {
-    std::vector<GNEDemandElement*> demandElements = myNet->retrieveDemandElements(true);
-    if (demandElements.size() > 0) {
-        std::string plural = demandElements.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected demand elements" + plural);
-        // declare vector for persons
-        std::vector<GNEDemandElement*> persons;
-        for (const auto& demandElement : demandElements) {
-            // check if element is a personplan
-            if (demandElement->getTagProperty().isPersonPlan()) {
-                persons.push_back(demandElement->getParentDemandElements().front());
-            }
-            // due there are demand elements that are removed when their parent is removed, we need to check if yet exists before removing
-            if (myNet->retrieveDemandElement(demandElement->getTagProperty().getTag(), demandElement->getID(), false) != nullptr) {
-                myNet->deleteDemandElement(demandElement, myUndoList);
-            }
-        }
-        // check if we have to remove empty persons
-        for (const auto& person : persons) {
-            // due person could be removed previously, check if exist
-            if (person->getChildDemandElements().empty() && myNet->retrieveDemandElement(person->getTagProperty().getTag(), person->getID(), false) != nullptr) {
-                myNet->deleteDemandElement(person, myUndoList);
-            }
-        }
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedGenericDatas() {
-    std::vector<GNEGenericData*> genericDatas = myNet->retrieveGenericDatas(true);
-    if (genericDatas.size() > 0) {
-        std::string plural = genericDatas.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected generic data" + plural);
-        // iterate over generic datas
-        for (const auto& genericData : genericDatas) {
-            myNet->deleteGenericData(genericData, myUndoList);
-        }
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedCrossings() {
-    // obtain selected crossings
-    std::vector<GNEJunction*> junctions = myNet->retrieveJunctions();
-    std::vector<GNECrossing*> crossings;
-    for (const auto &junction : junctions) {
-        for (const auto &crossing : junction->getGNECrossings()) {
-            if (crossing->isAttributeCarrierSelected()) {
-                crossings.push_back(crossing);
-            }
-        }
-    }
-    // remove selected crossings
-    if (crossings.size() > 0) {
-        std::string plural = crossings.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected " + toString(SUMO_TAG_CROSSING) + "s");
-        for (const auto &crossing : crossings) {
-            if (myNet->retrieveCrossing(crossing->getID(), false)) {
-                myNet->deleteCrossing(crossing, myUndoList);
-            }
-        }
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedConnections() {
-    // obtain selected connections
-    std::vector<GNEEdge*> edges = myNet->retrieveEdges();
-    std::vector<GNEConnection*> connections;
-    for (const auto &edge : edges) {
-        for (const auto &connection : edge->getGNEConnections()) {
-            if (connection->isAttributeCarrierSelected()) {
-                connections.push_back(connection);
-            }
-        }
-    }
-    // remove selected connections
-    if (connections.size() > 0) {
-        std::string plural = connections.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected " + toString(SUMO_TAG_CONNECTION) + plural);
-        for (const auto &connection : connections) {
-            myNet->deleteConnection(connection, myUndoList);
-        }
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedShapes() {
-    // obtain selected shapes
-    std::vector<GNEShape*> selectedShapes = myNet->retrieveShapes(true);
-    // remove it
-    if (selectedShapes.size() > 0) {
-        std::string plural = selectedShapes.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected shape" + plural);
-        for (const auto &shape : selectedShapes) {
-            myNet->deleteShape(shape, myUndoList);
-        }
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedTAZElements() {
-    // obtain selected TAZ Elements
-    std::vector<GNETAZElement*> selectedTAZElements = myNet->retrieveTAZElements(true);
-    // remove it
-    if (selectedTAZElements.size() > 0) {
-        std::string plural = selectedTAZElements.size() == 1 ? ("") : ("s");
-        myUndoList->begin(GUIIcon::MODEDELETE, "delete selected TAZ" + plural);
-        for (const auto &TAZElement : selectedTAZElements) {
-            myNet->deleteTAZElement(TAZElement, myUndoList);
-        }
-        myUndoList->end();
-    }
+void 
+GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
+    //XX;
 }
 
 

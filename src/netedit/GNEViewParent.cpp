@@ -504,19 +504,19 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW).size());
                     // fill ACsToLocate with vehicles
                     for (const auto& vehicle : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
-                        ACsToLocate.push_back(vehicle.second);
+                        ACsToLocate.push_back(vehicle);
                     }
                     // fill ACsToLocate with vehicles
                     for (const auto& trip : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
-                        ACsToLocate.push_back(trip.second);
+                        ACsToLocate.push_back(trip);
                     }
                     // fill ACsToLocate with routeFlows
                     for (const auto& flowRoute : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
-                        ACsToLocate.push_back(flowRoute.second);
+                        ACsToLocate.push_back(flowRoute);
                     }
                     // fill ACsToLocate with routeFlowsFromTo
                     for (const auto& flow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
-                        ACsToLocate.push_back(flow.second);
+                        ACsToLocate.push_back(flow);
                     }
                     myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
                 }
@@ -533,11 +533,11 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
                     // fill ACsToLocate with persons
                     for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
-                        ACsToLocate.push_back(person.second);
+                        ACsToLocate.push_back(person);
                     }
                     // fill ACsToLocate with personFlows
                     for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
-                        ACsToLocate.push_back(personFlow.second);
+                        ACsToLocate.push_back(personFlow);
                     }
                     myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser", ACsToLocate);
                 }
@@ -553,7 +553,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
                     // fill ACsToLocate with routes
                     for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-                        ACsToLocate.push_back(route.second);
+                        ACsToLocate.push_back(route);
                     }
                     myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), "Route Chooser", ACsToLocate);
                 }
@@ -573,23 +573,23 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA).size());
                     // fill ACsToLocate with stop over lanes
                     for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
-                        ACsToLocate.push_back(stopLane.second);
+                        ACsToLocate.push_back(stopLane);
                     }
                     // fill ACsToLocate with stop over busstops
                     for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
-                        ACsToLocate.push_back(stopBusStop.second);
+                        ACsToLocate.push_back(stopBusStop);
                     }
                     // fill ACsToLocate with stop over container stops
                     for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
-                        ACsToLocate.push_back(stopContainerStop.second);
+                        ACsToLocate.push_back(stopContainerStop);
                     }
                     // fill ACsToLocate with stop over charging stations
                     for (const auto& stopChargingStation : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
-                        ACsToLocate.push_back(stopChargingStation.second);
+                        ACsToLocate.push_back(stopChargingStation);
                     }
                     // fill ACsToLocate with stop over parking areas
                     for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
-                        ACsToLocate.push_back(stopParkingArea.second);
+                        ACsToLocate.push_back(stopParkingArea);
                     }
                     myACChoosers.ACChooserStops = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), "Stop Chooser", ACsToLocate);
                 }

@@ -64,8 +64,8 @@ GNEContainerPlanFrame::~GNEContainerPlanFrame() {}
 void
 GNEContainerPlanFrame::show() {
     // get containers maps
-    const std::map<std::string, GNEDemandElement*>& containers = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINER);
-    const std::map<std::string, GNEDemandElement*>& containerFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINERFLOW);
+    const auto& containers = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINER);
+    const auto& containerFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINERFLOW);
     // Only show moduls if there is at least one container
     if ((containers.size() > 0) || (containerFlows.size() > 0)) {
         // show container selector
@@ -74,9 +74,9 @@ GNEContainerPlanFrame::show() {
         myContainerPlanTagSelector->refreshTagProperties();
         // set first container as demand element (this will call demandElementSelected() function)
         if (containers.size() > 0) {
-            myContainerSelector->setDemandElement(containers.begin()->second);
+            myContainerSelector->setDemandElement(containers.front());
         } else {
-            myContainerSelector->setDemandElement(containerFlows.begin()->second);
+            myContainerSelector->setDemandElement(containerFlows.front());
         }
     } else {
         // hide all moduls except helpCreation

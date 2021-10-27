@@ -206,7 +206,13 @@ struct GNENetHelper {
         /// @name function for demand elements
         /// @{
         /// @brief get demand elements
-        const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& getDemandElements() const;
+        const std::map<SumoXMLTag, std::vector<GNEDemandElement*> >& getDemandElements() const;
+
+        /// @brief get default vType
+        GNEDemandElement* getDefaultVType() const;
+
+        /// @brief get default personType
+        GNEDemandElement* getDefaultPType() const;
 
         /// @brief clear demand elements
         void clearDemandElements();
@@ -377,7 +383,7 @@ struct GNENetHelper {
         /// @{
 
         /// @brief return true if given demand element exist
-        bool demandElementExist(const GNEDemandElement* demandElement) const;
+        bool demandElementExist(GNEDemandElement* demandElement) const;
 
         /**@brief Insert a demand element element int GNENet container.
          * @throw processError if route was already inserted
@@ -388,9 +394,6 @@ struct GNENetHelper {
          * @throw processError if demand element wasn't previously inserted
          */
         void deleteDemandElement(GNEDemandElement* demandElement);
-
-        /// @brief update demand element ID in container
-        void updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID);
 
         /// @}
 
@@ -435,7 +438,7 @@ struct GNENetHelper {
         std::map<SumoXMLTag, std::map<std::string, GNETAZElement*> > myTAZElements;
 
         /// @brief map with the ID and pointer to demand elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > myDemandElements;
+        std::map<SumoXMLTag, std::vector<GNEDemandElement*> > myDemandElements;
 
         /// @brief map with the ID and pointer to data sets of net
         std::map<std::string, GNEDataSet*> myDataSets;

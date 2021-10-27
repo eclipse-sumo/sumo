@@ -1493,7 +1493,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         }
         for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
             for (const auto& demandElement : demandElementSet.second) {
-                result.push_back(demandElement.second);
+                result.push_back(demandElement);
             }
         }
         for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
@@ -1534,7 +1534,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement()) {
         // only returns demand elements of a certain type.
         for (const auto& demandElemet : myAttributeCarriers->getDemandElements().at(type)) {
-            result.push_back(demandElemet.second);
+            result.push_back(demandElemet);
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isGenericData()) {
         for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
@@ -1658,8 +1658,8 @@ GNENet::retrieveAttributeCarriers(Supermode supermode, const bool onlySelected) 
         // demand
         for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
             for (const auto& demandElement : demandElementSet.second) {
-                if (!onlySelected || demandElement.second->isAttributeCarrierSelected()) {
-                    result.push_back(demandElement.second);
+                if (!onlySelected || demandElement->isAttributeCarrierSelected()) {
+                    result.push_back(demandElement);
                 }
             }
         }
@@ -1754,7 +1754,7 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
     // iterate over all demand elements and compute
     for (const auto& demandElements : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElements.second) {
-            demandElement.second->computePathElement();
+            demandElement->computePathElement();
         }
     }
     window->setStatusBarText("Finished computing demand elements.");
@@ -2041,9 +2041,9 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
     std::vector<GNEDemandElement*> routesWithoutChildren;
     routesWithoutChildren.reserve(myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE).size());
     // iterate over routes
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (i.second->getChildDemandElements().empty()) {
-            routesWithoutChildren.push_back(i.second);
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+        if (route->getChildDemandElements().empty()) {
+            routesWithoutChildren.push_back(route);
         }
     }
     // finally remove all routesWithoutChildren
@@ -2066,16 +2066,16 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
     // first declare a sorted set of sorted route's edges in string format
     std::set<std::pair<std::string, GNEDemandElement*> > mySortedRoutes;
     // iterate over routes and save it in mySortedRoutes  (only if it doesn't have Stop Children)
-    for (const auto& i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
+    for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         // first check route has stops
         bool hasStops = false;
-        for (const auto& j : i.second->getChildDemandElements()) {
-            if (j->getTagProperty().isStop()) {
+        for (const auto& stop : route->getChildDemandElements()) {
+            if (stop->getTagProperty().isStop()) {
                 hasStops = true;
             }
         }
         if (!hasStops) {
-            mySortedRoutes.insert(std::make_pair(GNEAttributeCarrier::parseIDs(i.second->getParentEdges()), i.second));
+            mySortedRoutes.insert(std::make_pair(GNEAttributeCarrier::parseIDs(route->getParentEdges()), route));
         }
     }
     // now declare a matrix in which organice routes to be merged
@@ -2134,15 +2134,15 @@ GNENet::adjustPersonPlans(GNEUndoList* undoList) {
                 SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW
             }) {
         for (const auto& person : myAttributeCarriers->getDemandElements().at(persontag)) {
-            if (person.second->getChildDemandElements().size() > 0) {
+            if (person->getChildDemandElements().size() > 0) {
                 // get person plan
-                GNEDemandElement* personPlan = person.second->getChildDemandElements().front();
+                GNEDemandElement* personPlan = person->getChildDemandElements().front();
                 // iterate over all personPlans
                 while (personPlan) {
                     // check if personPlan is a stopPerson over edge
                     if (personPlan->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) {
                         // get previous person plan
-                        GNEDemandElement* previousPersonPlan = person.second->getPreviousChildDemandElement(personPlan);
+                        GNEDemandElement* previousPersonPlan = person->getPreviousChildDemandElement(personPlan);
                         // check if arrivalPos of previous personPlan is different of endPos of stopPerson
                         if (previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS) &&
                                 (previousPersonPlan->getAttribute(SUMO_ATTR_ARRIVALPOS) != personPlan->getAttribute(SUMO_ATTR_ENDPOS))) {
@@ -2150,7 +2150,7 @@ GNENet::adjustPersonPlans(GNEUndoList* undoList) {
                         }
                     }
                     // go to next person plan
-                    personPlan = person.second->getNextChildDemandElement(personPlan);
+                    personPlan = person->getNextChildDemandElement(personPlan);
                 }
             }
         }
@@ -2179,20 +2179,20 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
                                   myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP).size());
     // iterate over routes
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (!route.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(route.second);
+        if (!route->isDemandElementValid()) {
+            invalidDemandElements.push_back(route);
         }
     }
     // iterate over flows
     for (const auto& flow : myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW)) {
-        if (!flow.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(flow.second);
+        if (!flow->isDemandElementValid()) {
+            invalidDemandElements.push_back(flow);
         }
     }
     // iterate over trip
     for (const auto& trip : myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP)) {
-        if (!trip.second->isDemandElementValid()) {
-            invalidDemandElements.push_back(trip.second);
+        if (!trip->isDemandElementValid()) {
+            invalidDemandElements.push_back(trip);
         }
     }
     // continue if there is invalidDemandElements to remove
@@ -2397,7 +2397,7 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
     // clear demand elements
     for (const auto& demandElementsMap : myAttributeCarriers->getDemandElements()) {
         while (demandElementsMap.second.size() > 0) {
-            deleteDemandElement(demandElementsMap.second.begin()->second, undoList);
+            deleteDemandElement(*demandElementsMap.second.begin(), undoList);
         }
     }
     undoList->end();
@@ -2639,9 +2639,12 @@ GNENet::generateAdditionalID(SumoXMLTag type) const {
 
 GNEDemandElement*
 GNENet::retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if ((myAttributeCarriers->getDemandElements().count(type) > 0) && (myAttributeCarriers->getDemandElements().at(type).count(id) != 0)) {
-        return myAttributeCarriers->getDemandElements().at(type).at(id);
-    } else if (hardFail) {
+    for (const auto &demandElement : myAttributeCarriers->getDemandElements().at(type)) {
+        if (demandElement->getID() == id) {
+            return demandElement;
+        }
+    }
+    if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element");
     } else {
         return nullptr;
@@ -2653,10 +2656,10 @@ std::vector<GNEDemandElement*>
 GNENet::retrieveDemandElements(bool onlySelected) const {
     std::vector<GNEDemandElement*> result;
     // returns demand elements depending of selection
-    for (auto i : myAttributeCarriers->getDemandElements()) {
-        for (auto j : i.second) {
-            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
-                result.push_back(j.second);
+    for (const auto &demandElementTag : myAttributeCarriers->getDemandElements()) {
+        for (const auto &demandElement : demandElementTag.second) {
+            if (!onlySelected || demandElement->isAttributeCarrierSelected()) {
+                result.push_back(demandElement);
             }
         }
     }
@@ -2699,10 +2702,10 @@ GNENet::saveDemandElements(const std::string& filename) {
     for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementSet.second) {
             // compute before check if demand element is valid
-            demandElement.second->computePathElement();
+            demandElement->computePathElement();
             // check if has to be fixed
-            if (!demandElement.second->isDemandElementValid()) {
-                invalidSingleLaneDemandElements.push_back(demandElement.second);
+            if (!demandElement->isDemandElementValid()) {
+                invalidSingleLaneDemandElements.push_back(demandElement);
             }
         }
     }
@@ -2743,16 +2746,6 @@ GNENet::isDemandElementsSaved() const {
 
 std::string
 GNENet::generateDemandElementID(SumoXMLTag tag) const {
-    // get references to vehicle maps
-    const std::map<std::string, GNEDemandElement*>& vehicles = myAttributeCarriers->getDemandElements().at(SUMO_TAG_VEHICLE);
-    const std::map<std::string, GNEDemandElement*>& trips = myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP);
-    const std::map<std::string, GNEDemandElement*>& vehiclesEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_VEHICLE_WITHROUTE);
-    const std::map<std::string, GNEDemandElement*>& routeFlows = myAttributeCarriers->getDemandElements().at(GNE_TAG_FLOW_ROUTE);
-    const std::map<std::string, GNEDemandElement*>& flows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW);
-    const std::map<std::string, GNEDemandElement*>& flowsEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_FLOW_WITHROUTE);
-    // get references to persons maps
-    const std::map<std::string, GNEDemandElement*>& persons = myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSON);
-    const std::map<std::string, GNEDemandElement*>& personFlows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSONFLOW);
     // declare flags
     const bool isVehicle = ((tag == SUMO_TAG_VEHICLE) || (tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_VEHICLE_WITHROUTE));
     const bool isFlow = ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_FLOW) || (tag == GNE_TAG_FLOW_WITHROUTE));
@@ -2760,34 +2753,37 @@ GNENet::generateDemandElementID(SumoXMLTag tag) const {
     // declare counter
     int counter = 0;
     if (isVehicle || isFlow) {
-        // declare tag
+        // get vehicle tag in string format
         const std::string tagStr = isVehicle ? toString(SUMO_TAG_VEHICLE) : toString(SUMO_TAG_FLOW);
         // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
-        while ((vehicles.count(tagStr + "_" + toString(counter)) != 0) ||
-                (trips.count(tagStr + "_" + toString(counter)) != 0) ||
-                (vehiclesEmbebbed.count(tagStr + "_" + toString(counter)) != 0) ||
-                (routeFlows.count(tagStr + "_" + toString(counter)) != 0) ||
-                (flows.count(tagStr + "_" + toString(counter)) != 0) ||
-                (flowsEmbebbed.count(tagStr + "_" + toString(counter)) != 0) ||
-                (vehicles.count(tagStr + "_" + toString(counter)) != 0)) {
+        while ((retrieveDemandElement(SUMO_TAG_VEHICLE, tagStr + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(SUMO_TAG_TRIP, tagStr + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, tagStr + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(SUMO_TAG_FLOW, tagStr + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new vehicle ID
         return (tagStr + "_" + toString(counter));
     } else if (isPerson) {
+        // get person tag in string format
+        const std::string tagStr = toString(tag);
         // special case for persons (person and personFlows share nameSpaces)
-        while ((persons.count(toString(tag) + "_" + toString(counter)) != 0) ||
-                (personFlows.count(toString(tag) + "_" + toString(counter)) != 0)) {
+        while ((retrieveDemandElement(SUMO_TAG_FLOW, tagStr + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new person ID
-        return (toString(tag) + "_" + toString(counter));
+        return (tagStr + "_" + toString(counter));
     } else {
-        while (myAttributeCarriers->getDemandElements().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+        // get tag in string format
+        const std::string tagStr = toString(tag);
+        while (retrieveDemandElement(tag, tagStr + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
         // return new element ID
-        return (toString(tag) + "_" + toString(counter));
+        return (tagStr + "_" + toString(counter));
     }
 }
 
@@ -3037,8 +3033,8 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     device.writeXMLHeader("additional", "additional_file.xsd");
     // first write routes with additional children (due route prob reroutes)
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (route.second->getChildAdditionals().size() > 0) {
-            route.second->writeDemandElement(device);
+        if (route->getChildAdditionals().size() > 0) {
+            route->writeDemandElement(device);
         }
     }
     // now write all route probes (see Ticket #4058)
@@ -3105,25 +3101,25 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     device.writeXMLHeader("routes", "routes_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
     // first  write all vehicle types
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        vType.second->writeDemandElement(device);
+        vType->writeDemandElement(device);
     }
     // first  write all person types
     for (const auto& pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
-        pType.second->writeDemandElement(device);
+        pType->writeDemandElement(device);
     }
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (route.second->getChildAdditionals().empty()) {
-            route.second->writeDemandElement(device);
+        if (route->getChildAdditionals().empty()) {
+            route->writeDemandElement(device);
         }
     }
     // sort vehicles/persons by depart
     std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementTag.second) {
-            if (demandElement.second->getTagProperty().isVehicle() || demandElement.second->getTagProperty().isPerson() || demandElement.second->getTagProperty().isContainer()) {
+            if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson() || demandElement->getTagProperty().isContainer()) {
                 // save it in myVehiclesSortedByDepart
-                vehiclesSortedByDepart[GNEAttributeCarrier::parse<double>(demandElement.second->getBegin())].push_back(demandElement.second);
+                vehiclesSortedByDepart[GNEAttributeCarrier::parse<double>(demandElement->getBegin())].push_back(demandElement);
             }
         }
     }

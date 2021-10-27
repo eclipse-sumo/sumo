@@ -610,35 +610,14 @@ private:
     /// @brief updates Data mode specific controls
     void updateDataModeSpecificControls();
 
-    /// @brief delete all currently selected junctions
-    void deleteSelectedJunctions();
+    /// @brief delete given network attribute carriers
+    void deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs);
 
-    /// @brief delete all currently selected lanes
-    void deleteSelectedLanes();
+    /// @brief delete given demand attribute carriers
+    void deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs);
 
-    /// @brief delete all currently selected edges
-    void deleteSelectedEdges();
-
-    /// @brief delete all currently selected additionals
-    void deleteSelectedAdditionals();
-
-    /// @brief delete all currently selected demand elements
-    void deleteSelectedDemandElements();
-
-    /// @brief delete all currently selected generic data elements
-    void deleteSelectedGenericDatas();
-
-    /// @brief delete all currently selected crossings
-    void deleteSelectedCrossings();
-
-    /// @brief delete all currently selected connections
-    void deleteSelectedConnections();
-
-    /// @brief delete all currently selected shapes
-    void deleteSelectedShapes();
-
-    /// @brief delete all currently selected TAZ Elements
-    void deleteSelectedTAZElements();
+    /// @brief delete data attribute carriers
+    void deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs);
 
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();
