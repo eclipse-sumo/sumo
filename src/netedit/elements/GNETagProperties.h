@@ -83,7 +83,7 @@ public:
         SLAVE =                     1 << 4,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
         MINIMUMCHILDREN =           1 << 5,     // Element will be only writed in XML if has a minimum number of children
         REPARENT =                  1 << 6,     // Element can be reparent
-        SELECTABLE =                1 << 7,     // Element is selectable
+        NOTSELECTABLE =             1 << 7,     // Element cannot be selected
         MASKSTARTENDPOS =           1 << 8,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
         MASKXYZPOSITION =           1 << 9,     // Element mask attributes X, Y and Z as "Position"
         WRITECHILDRENSEPARATE =     1 << 10,    // Element writes their children in a separated filename

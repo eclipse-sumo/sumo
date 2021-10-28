@@ -407,7 +407,8 @@ GNETagProperties::isNotDrawable() const {
 
 bool
 GNETagProperties::isSelectable() const {
-    return (myTagProperty & SELECTABLE) != 0;
+    // note: By default all elements can be selected, except Tags with "NOTSELECTABLE"
+    return (myTagProperty & NOTSELECTABLE) == 0;
 }
 
 
@@ -437,7 +438,7 @@ GNETagProperties::hasMinimumNumberOfChildren() const {
 
 bool
 GNETagProperties::hasParameters() const {
-    // note: By default all Tags supports parameters, except Tags with "NOPARAMETERS"
+    // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
     return (myTagProperty & NOPARAMETERS) == 0;
 }
 
