@@ -600,7 +600,9 @@ GNEEdge::remakeGNEConnections() {
         // delete GNEConnection if is unreferenced
         if (connection->unreferenced()) {
             // remove it from network
-            myNet->addGLObjectIntoGrid(connection);
+            myNet->removeGLObjectFromGrid(connection);
+            // and from AttributeCarreirs
+            myNet->getAttributeCarriers()->deleteConnection(connection);
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in rebuildGNEConnections()");
             delete connection;
@@ -614,18 +616,22 @@ GNEEdge::remakeGNEConnections() {
 void
 GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
-    for (auto i : myGNEConnections) {
+    for (const auto &connection : myGNEConnections) {
         // check if connection is selected
-        if (i->isAttributeCarrierSelected()) {
-            i->unselectAttributeCarrier();
+        if (connection->isAttributeCarrierSelected()) {
+            connection->unselectAttributeCarrier();
         }
         // Dec reference of connection
-        i->decRef("GNEEdge::clearGNEConnections");
+        connection->decRef("GNEEdge::clearGNEConnections");
+        // remove it from network
+        myNet->removeGLObjectFromGrid(connection);
+        // and from AttributeCarreirs
+        myNet->getAttributeCarriers()->deleteConnection(connection);
         // Delete GNEConnectionToErase if is unreferenced
-        if (i->unreferenced()) {
+        if (connection->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + i->getTagStr() + " '" + i->getID() + "' in clearGNEConnections()");
-            delete i;
+            WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in clearGNEConnections()");
+            delete connection;
         }
     }
     myGNEConnections.clear();
@@ -1841,18 +1847,21 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     // remove NBEdge::connection from NBEdge
     myNBEdge->removeFromConnections(nbCon);
     // remove their associated GNEConnection
-    GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
-    if (con != nullptr) {
-        con->decRef("GNEEdge::removeConnection");
-        myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
+    GNEConnection* connection = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
+    if (connection != nullptr) {
+        connection->decRef("GNEEdge::removeConnection");
+        myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), connection));
         // check if connection is selected
-        if (con->isAttributeCarrierSelected()) {
-            con->unselectAttributeCarrier();
+        if (connection->isAttributeCarrierSelected()) {
+            connection->unselectAttributeCarrier();
         }
-        if (con->unreferenced()) {
+        // remove it from network
+        myNet->removeGLObjectFromGrid(connection);
+        // and from AttributeCarreirs
+        myNet->getAttributeCarriers()->deleteConnection(connection);
+        if (connection->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + con->getTagStr() + " '" + con->getID() + "' in removeConnection()");
-            delete con;
+            WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in removeConnection()");
             // actually we only do this to force a redraw
             updateGeometry();
         }
@@ -1862,39 +1871,40 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
 
 GNEConnection*
 GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool createIfNoExist) {
-    for (auto i : myGNEConnections) {
-        if ((i->getFromLaneIndex() == fromLane) && (i->getEdgeTo()->getNBEdge() == to) && (i->getToLaneIndex() == toLane)) {
-            return i;
+    for (const auto &connection : myGNEConnections) {
+        if ((connection->getFromLaneIndex() == fromLane) && (connection->getEdgeTo()->getNBEdge() == to) && (connection->getToLaneIndex() == toLane)) {
+            return connection;
         }
     }
     if (createIfNoExist) {
         // create new connection. Will be added to the rTree on first geometry computation
-        GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
+        GNEConnection* connection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
-        WRITE_DEBUG("Created " + createdConnection->getTagStr() + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
+        WRITE_DEBUG("Created " + connection->getTagStr() + " '" + connection->getID() + "' in retrieveGNEConnection()");
         // add it into network
-        myNet->addGLObjectIntoGrid(createdConnection);
-        return createdConnection;
+        myNet->addGLObjectIntoGrid(connection);
+        // add it in attributeCarriers
+        myNet->getAttributeCarriers()->insertConnection(connection);
+        return connection;
     } else {
         return nullptr;
     }
 }
 
 
-
 void
 GNEEdge::setMicrosimID(const std::string& newID) {
     GUIGlObject::setMicrosimID(newID);
-    for (auto i : myLanes) {
-        i->setMicrosimID(getNBEdge()->getLaneID(i->getIndex()));
+    for (const auto &lane : myLanes) {
+        lane->setMicrosimID(getNBEdge()->getLaneID(lane->getIndex()));
     }
 }
 
 
 bool
 GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
-    for (auto i : myLanes) {
-        if (i->isRestricted(vclass)) {
+    for (const auto &lane : myLanes) {
+        if (lane->isRestricted(vclass)) {
             return true;
         }
     }
@@ -1905,9 +1915,9 @@ GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
 void
 GNEEdge::removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList) {
     // Remove all crossings that contain this edge in parameter "edges"
-    for (GNECrossing* const i : junction->getGNECrossings()) {
-        if (i->checkEdgeBelong(this)) {
-            myNet->deleteCrossing(i, undoList);
+    for (const auto &crossing : junction->getGNECrossings()) {
+        if (crossing->checkEdgeBelong(this)) {
+            myNet->deleteCrossing(crossing, undoList);
         }
     }
 }

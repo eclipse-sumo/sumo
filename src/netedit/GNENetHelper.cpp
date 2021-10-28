@@ -280,10 +280,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
 
 void
 GNENetHelper::AttributeCarriers::insertCrossing(GNECrossing* crossing) {
-    if (myCrossings.find(crossing) != myCrossings.end()) {
+    if (myCrossings.insert(crossing).second == false) {
         throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' already exist");
     } else {
-        myCrossings.insert(crossing);
+        ;
     }
 }
 
@@ -296,6 +296,18 @@ GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
     } else {
         myCrossings.erase(finder);
     }
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
+    int counter = 0;
+    for (const auto &crossing : myCrossings) {
+        if (crossing->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
 }
 
 
@@ -410,13 +422,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
 }
 
 
-
 void
 GNENetHelper::AttributeCarriers::insertLane(GNELane* lane) {
-    if (myLanes.find(lane) != myLanes.end()) {
+    if (myLanes.insert(lane).second == false) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' already exist");
-    } else {
-        myLanes.insert(lane);
     }
 }
 
@@ -432,7 +441,6 @@ GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
 }
 
 
-
 int 
 GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
     int counter = 0;
@@ -445,28 +453,33 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
 }
 
 
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
-    int counter = 0;
-    for (const auto &edge : myEdges) {
-        for (const auto &connection : edge.second->getGNEConnections()) {
-            if (connection->isAttributeCarrierSelected()) {
-                counter++;
-            }
-        }
+void
+GNENetHelper::AttributeCarriers::insertConnection(GNEConnection* connection) {
+    if (myConnections.insert(connection).second == false) {
+        throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' already exist");
+    } else {
+        ;
     }
-    return counter;
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
+    const auto finder = myConnections.find(connection);
+    if (finder == myConnections.end()) {
+        throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' wasn't previously inserted");
+    } else {
+        myConnections.erase(finder);
+    }
 }
 
 
 int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
     int counter = 0;
-    for (const auto& junction : myJunctions) {
-        for (const auto &crossing : junction.second->getGNECrossings()) {
-            if (crossing->isAttributeCarrierSelected()) {
-                counter++;
-            }
+    for (const auto &connection : myConnections) {
+        if (connection->isAttributeCarrierSelected()) {
+            counter++;
         }
     }
     return counter;
@@ -1040,10 +1053,8 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeTAZRel() const {
 
 void 
 GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterval) {
-    if (myDataIntervals.find(dataInterval) != myDataIntervals.end()) {
+    if (myDataIntervals.insert(dataInterval).second == false) {
         throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
-    } else {
-        myDataIntervals.insert(dataInterval);
     }
 }
 
@@ -1061,11 +1072,10 @@ GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterva
 
 void 
 GNENetHelper::AttributeCarriers::insertGenericData(GNEGenericData* genericData) {
-    if (myGenericDatas.at(genericData->getTagProperty().getTag()).find(genericData) != 
-        myGenericDatas.at(genericData->getTagProperty().getTag()).end()) {
+    if (myGenericDatas.at(genericData->getTagProperty().getTag()).insert(genericData).second == false) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' already exist");
     } else {
-        myGenericDatas.at(genericData->getTagProperty().getTag()).insert(genericData);
+        ;
     }
 }
 
@@ -1404,11 +1414,9 @@ GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
 void
 GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
     // Check if dataSet element exists before insertion
-    if (dataSetExist(dataSet)) {
+    if (myDataSets.insert(dataSet).second == false) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
     }
-    // insert in dataSets container
-    myDataSets.insert(dataSet);
     // dataSets has to be saved
     myNet->requireSaveDataElements(true);
     // update interval toolbar

@@ -118,11 +118,18 @@ struct GNENetHelper {
         /// @brief get number of selected junctions
         int getNumberOfSelectedJunctions() const;
 
+        /// @}
+
+        /// @name function for crossings
+        /// @{
         /// @brief insert crossing
         void insertCrossing(GNECrossing* crossing);
 
         /// @brief delete crossing
         void deleteCrossing(GNECrossing* crossing);
+
+        /// @brief get number of selected crossings
+        int getNumberOfSelectedCrossings() const;
 
         /// @}
 
@@ -161,6 +168,7 @@ struct GNENetHelper {
 
         /// @name function for lanes
         /// @{
+
         /// @brief insert lane
         void insertLane(GNELane* lane);
 
@@ -172,11 +180,19 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name function for connections
+        /// @{
+
+        /// @brief insert connection
+        void insertConnection(GNEConnection* connection);
+
+        /// @brief delete connection
+        void deleteConnection(GNEConnection* connection);
+
         /// @brief get number of selected connections
         int getNumberOfSelectedConnections() const;
 
-        /// @brief get number of selected crossings
-        int getNumberOfSelectedCrossings() const;
+        /// @}
 
         /// @name function for additionals
         /// @{
@@ -443,6 +459,9 @@ struct GNENetHelper {
 
         /// @brief set with lanes
         std::set<GNELane*> myLanes;
+
+        /// @brief set with connetions
+        std::set<GNEConnection*> myConnections;
 
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::vector<GNEAdditional*> > myAdditionals;
