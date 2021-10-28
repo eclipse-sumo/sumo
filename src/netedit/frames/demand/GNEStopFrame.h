@@ -96,8 +96,8 @@ private:
     /// @brief route handler
     GNERouteHandler myRouteHandler;
 
-    /// @brief stop base object
-    CommonXMLStructure::SumoBaseObject* myStopBaseObject;
+    /// @brief stop parent base object
+    CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
 
     /// @brief Stop parent selectors
     GNEFrameModuls::DemandElementSelector* myStopParentSelector;

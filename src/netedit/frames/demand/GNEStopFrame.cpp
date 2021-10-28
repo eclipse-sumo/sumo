@@ -107,7 +107,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Stops"),
     myRouteHandler("", viewNet->getNet(), true),
-    myStopBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
+    myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
     myStopParentSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
@@ -130,7 +130,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
 
 
 GNEStopFrame::~GNEStopFrame() {
-    delete myStopBaseObject;
+    delete myStopParentBaseObject;
 }
 
 
@@ -189,8 +189,9 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         // create stop base object
         getStopParameter(myStopTagSelector->getCurrentTagProperties().getTag(),
             objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
-        if (myStopBaseObject->getTag() != SUMO_TAG_NOTHING) {
-            myRouteHandler.buildStop(myStopBaseObject, myStopBaseObject->getStopParameter());
+        if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
+            myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), 
+                myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
             // stop sucesfully created, then return true
             return true;
         } else {
@@ -202,7 +203,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 bool
 GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, const GNEAdditional* stoppingPlace) {
     // first clear stop base object
-    myStopBaseObject->clear();
+    myStopParentBaseObject->clear();
     // declare stop parameters
     SUMOVehicleParameter::Stop stop;
     // first check that current selected Stop is valid
@@ -280,86 +281,93 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         myStopAttributes->showWarningMessage();
         return false;
     }
+     // get parent
+    const GNEDemandElement* stopParent = myStopParentSelector->getCurrentDemandElement();
+    // set parent tag and id
+    myStopParentBaseObject->setTag(stopParent->getTagProperty().getTag());
+    myStopParentBaseObject->addStringAttribute(SUMO_ATTR_ID, stopParent->getID());
+    // create stop object
+    CommonXMLStructure::SumoBaseObject* stopBaseObject = new CommonXMLStructure::SumoBaseObject(myStopParentBaseObject);
     // get stop attributes
-    myStopAttributes->getAttributesAndValues(myStopBaseObject, false);
+    myStopAttributes->getAttributesAndValues(stopBaseObject, false);
     // add netedit values
     if (!stop.lane.empty()) {
-        myNeteditAttributes->getNeteditAttributesAndValues(myStopBaseObject, lane);
+        myNeteditAttributes->getNeteditAttributesAndValues(stopBaseObject, lane);
         // check if start position can be parsed
-        if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::canParse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_STARTPOS))) {
-            stop.startPos = GNEAttributeCarrier::parse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_ENDPOS));
+        if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_STARTPOS)) {
+            stop.startPos = stopBaseObject->getDoubleAttribute(SUMO_ATTR_STARTPOS);
             stop.parametersSet |= STOP_START_SET;
         }
         // check if end position can be parsed
-        if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_ENDPOS) && GNEAttributeCarrier::canParse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_ENDPOS))) {
-            stop.endPos = GNEAttributeCarrier::parse<double>(myStopBaseObject->getStringAttribute(SUMO_ATTR_ENDPOS));
+        if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_ENDPOS)) {
+            stop.endPos = stopBaseObject->getDoubleAttribute(SUMO_ATTR_ENDPOS);
             stop.parametersSet |= STOP_END_SET;
         }
     }
     // obtain friendly position
-    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS)) {
-        stop.friendlyPos = myStopBaseObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS);
+    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS)) {
+        stop.friendlyPos = stopBaseObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS);
     }
     // obtain actType
-    if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_ACTTYPE)) {
-        stop.actType = myStopBaseObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_ACTTYPE)) {
+        stop.actType = stopBaseObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
     }
     // fill rest of parameters depending if it was edited
-    if (myStopBaseObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
-        stop.duration = myStopBaseObject->getTimeAttribute(SUMO_ATTR_DURATION);
+    if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
+        stop.duration = stopBaseObject->getTimeAttribute(SUMO_ATTR_DURATION);
         stop.parametersSet |= STOP_DURATION_SET;
     } else {
         stop.duration = -1;
         stop.parametersSet &= ~STOP_DURATION_SET;
     }
-    if (myStopBaseObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
-        stop.until = myStopBaseObject->getTimeAttribute(SUMO_ATTR_UNTIL);
+    if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
+        stop.until = stopBaseObject->getTimeAttribute(SUMO_ATTR_UNTIL);
         stop.parametersSet |= STOP_UNTIL_SET;
     } else {
         stop.until = -1;
         stop.parametersSet &= ~STOP_UNTIL_SET;
     }
-    if (myStopBaseObject->hasTimeAttribute(SUMO_ATTR_EXTENSION)) {
-        stop.extension = myStopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
+    if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_EXTENSION)) {
+        stop.extension = stopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
-    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_TRIGGERED)) {
-        stop.triggered = myStopBaseObject->getBoolAttribute(SUMO_ATTR_TRIGGERED);
+    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_TRIGGERED)) {
+        stop.triggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_TRIGGERED);
         stop.parametersSet |= STOP_TRIGGER_SET;
     }
-    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
-        stop.containerTriggered = myStopBaseObject->getBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED);
+    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
+        stop.containerTriggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED);
         stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
     }
-    if (myStopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
-        stop.parking = myStopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING);
+    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
+        stop.parking = stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING);
         stop.parametersSet |= STOP_PARKING_SET;
     }
-    if (myStopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
-        const auto expected = myStopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
+    if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
+        const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
         for (const auto &id : expected) {
             stop.awaitedPersons.insert(id);
         }
         stop.parametersSet |= STOP_EXPECTED_SET;
     }
-    if (myStopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
-        const auto expected = myStopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS);
+    if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
+        const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS);
         for (const auto &id : expected) {
             stop.awaitedPersons.insert(id);
         }
         stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
     }
-    if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
-        stop.tripId = myStopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
+        stop.tripId = stopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
         stop.parametersSet |= STOP_TRIP_ID_SET;
     }
-    if (myStopBaseObject->hasStringAttribute(SUMO_ATTR_INDEX)) {
-        if (myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "fit") {
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_INDEX)) {
+        if (stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "fit") {
             stop.index = STOP_INDEX_FIT;
-        } else if (myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "end") {
+        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "end") {
             stop.index = STOP_INDEX_END;
-        } else if (GNEAttributeCarrier::canParse<int>(myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX))) {
-            stop.index = GNEAttributeCarrier::parse<int>(myStopBaseObject->getStringAttribute(SUMO_ATTR_INDEX));
+        } else if (GNEAttributeCarrier::canParse<int>(stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX))) {
+            stop.index = GNEAttributeCarrier::parse<int>(stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX));
         } else {
             stop.index = STOP_INDEX_END;
         }
@@ -369,8 +377,8 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // refresh stop attributes
     myStopAttributes->refreshRows();
     // set tag
-    myStopBaseObject->setTag(stopTag);
-    myStopBaseObject->setStopParameter(stop);
+    stopBaseObject->setTag(stopTag);
+    stopBaseObject->setStopParameter(stop);
     return true;
 }
 
