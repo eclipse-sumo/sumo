@@ -481,10 +481,9 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserEdges->setFocus();
                 } else {
                     // fill ACsToLocate with edges
-                    std::vector<GNEEdge*> edges = viewNet->getNet()->getAttributeCarriers()->retrieveEdges();
-                    ACsToLocate.reserve(edges.size());
-                    for (const auto& edge : edges) {
-                        ACsToLocate.push_back(edge);
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
+                    for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                        ACsToLocate.push_back(edge.second);
                     }
                     myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
                 }

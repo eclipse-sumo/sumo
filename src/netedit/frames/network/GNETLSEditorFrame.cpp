@@ -906,9 +906,9 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
         } else {
             // if the edge is selected, apply changes to all lanes of all selected edges
             if (lane->getParentEdge()->isAttributeCarrierSelected()) {
-                std::vector<GNEEdge*> edges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
-                for (auto it : edges) {
-                    for (auto it_lane : it->getLanes()) {
+                const auto selectedEdge = myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
+                for (const auto &edge : selectedEdge) {
+                    for (auto it_lane : edge->getLanes()) {
                         fromIDs.insert(it_lane->getMicrosimID());
                     }
                 }

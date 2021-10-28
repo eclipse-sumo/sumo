@@ -1267,7 +1267,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
         }
     }
     // now move all selected edges
-    const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
+    const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
     // iterate over selected edges
     for (const auto& edge : selectedEdges) {
         moveOperation = edge->getMoveOperation();
@@ -1300,7 +1300,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
         myEdgeOffset = shape.length2D() - shape.nearest_offset_to_point2D(myViewNet->getPositionInformation());
     }
     // now move all selected edges
-    const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
+    const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
     // iterate over edges betwen 0 and 180 degrees
     for (const auto& edge : selectedEdges) {
         GNEMoveOperation* moveOperation = edge->getMoveOperation();

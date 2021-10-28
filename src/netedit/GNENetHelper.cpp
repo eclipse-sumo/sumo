@@ -233,7 +233,7 @@ GNENetHelper::AttributeCarriers::getJunctions() const {
 
 
 std::vector<GNEJunction*>
-GNENetHelper::AttributeCarriers::getSelectedJunctions() {
+GNENetHelper::AttributeCarriers::getSelectedJunctions() const {
     std::vector<GNEJunction*> result;
     // returns junctions depending of selection
     for (const auto &junction : myJunctions) {
@@ -320,11 +320,11 @@ GNENetHelper::AttributeCarriers::retrieveCrossing(const GNEAttributeCarrier* AC,
 
 
 std::vector<GNECrossing*>
-GNENetHelper::AttributeCarriers::retrieveCrossings(bool onlySelected) const {
+GNENetHelper::AttributeCarriers::getSelectedCrossings() const {
     std::vector<GNECrossing*> result;
     // iterate over crossings
     for (const auto &crossing : myCrossings) {
-        if (!onlySelected || crossing->isAttributeCarrierSelected()) {
+        if (crossing->isAttributeCarrierSelected()) {
             result.push_back(crossing);
         }
     }
@@ -451,12 +451,18 @@ GNENetHelper::AttributeCarriers::retrieveEdge(GNEJunction* from, GNEJunction* to
 }
 
 
+const std::map<std::string, GNEEdge*>&
+GNENetHelper::AttributeCarriers::getEdges() const {
+    return myEdges;
+}
+
+
 std::vector<GNEEdge*>
-GNENetHelper::AttributeCarriers::retrieveEdges(bool onlySelected) {
+GNENetHelper::AttributeCarriers::getSelectedEdges() const {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
     for (const auto& edge : myEdges) {
-        if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+        if (edge.second->isAttributeCarrierSelected()) {
             result.push_back(edge.second);
         }
     }
@@ -482,12 +488,6 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     edge->getFromJunction()->addOutgoingGNEEdge(edge);
     edge->getToJunction()->addIncomingGNEEdge(edge);
     return edge;
-}
-
-
-const std::map<std::string, GNEEdge*>&
-GNENetHelper::AttributeCarriers::getEdges() const {
-    return myEdges;
 }
 
 

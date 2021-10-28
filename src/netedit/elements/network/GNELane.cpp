@@ -1667,7 +1667,7 @@ void
 GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // Create basic commands
     std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
-    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected()? (int)myNet->getAttributeCarriers()->retrieveEdges(true).size() : 0;
+    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected()? myNet->getAttributeCarriers()->getNumberOfSelectedEdges() : 0;
     if (edgeSelSize && myParentEdge->isAttributeCarrierSelected() && (edgeSelSize > 1)) {
         edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
     }

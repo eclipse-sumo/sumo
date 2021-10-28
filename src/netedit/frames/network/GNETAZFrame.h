@@ -104,9 +104,6 @@ public:
         /// @brief check if given edge belongs to current TAZ
         bool isTAZEdge(GNEEdge* edge) const;
 
-        /// @brief get current net edges
-        const std::vector<GNEEdge*>& getNetEdges() const;
-
         /// @brief get current selected edges
         const std::vector<GNEEdge*>& getSelectedEdges() const;
 
@@ -126,9 +123,6 @@ public:
 
         /// @brief current edited TAZ
         GNETAZ* myEditedTAZ;
-
-        /// @brief vector with pointers to edges (it's used to avoid slowdowns during Source/Sinks manipulations)
-        std::vector<GNEEdge*> myNetEdges;
 
         /// @brief vector with pointers to selected edges
         std::vector<GNEEdge*> mySelectedEdges;

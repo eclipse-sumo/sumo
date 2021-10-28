@@ -114,7 +114,7 @@ struct GNENetHelper {
         const std::map<std::string, GNEJunction*> &getJunctions() const;
 
         /// @brief return selected junctions
-        std::vector<GNEJunction*> getSelectedJunctions();
+        std::vector<GNEJunction*> getSelectedJunctions() const;
 
         /// @brief registers a junction in GNENet containers
         GNEJunction* registerJunction(GNEJunction* junction);
@@ -139,10 +139,8 @@ struct GNENetHelper {
          */
         GNECrossing* retrieveCrossing(const GNEAttributeCarrier* AC, bool failHard = true) const;
 
-        /**@brief return all crossings
-         * @param[in] onlySelected Whether to return only selected crossings
-         */
-        std::vector<GNECrossing*> retrieveCrossings(bool onlySelected = false) const;
+        /// @brief return all selected crossings
+        std::vector<GNECrossing*> getSelectedCrossings() const;
 
         /// @brief insert crossing
         void insertCrossing(GNECrossing* crossing);
@@ -193,17 +191,17 @@ struct GNENetHelper {
          * @throws UnknownElement
          */
         GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true) const;
+        
+        /// @brief map with the ID and pointer to edges of net
+        const std::map<std::string, GNEEdge*>& getEdges() const;
 
         /**@brief return all edges
          * @param[in] onlySelected Whether to return only selected edges
          */
-        std::vector<GNEEdge*> retrieveEdges(bool onlySelected = false);
+        std::vector<GNEEdge*> getSelectedEdges() const;
 
         /// @brief registers an edge with GNENet containers
         GNEEdge* registerEdge(GNEEdge* edge);
-
-        /// @brief map with the ID and pointer to edges of net
-        const std::map<std::string, GNEEdge*>& getEdges() const;
 
         /// @brief clear edges
         void clearEdges();

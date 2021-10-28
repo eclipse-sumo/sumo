@@ -168,32 +168,32 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
         // delete selected attribute carriers depending of current supermode
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             //junctions
-            auto selectedJunctions = attributeCarriers->getSelectedJunctions();
+            const auto selectedJunctions = attributeCarriers->getSelectedJunctions();
             for (const auto& selectedJunction : selectedJunctions) {
                 myViewNet->getNet()->deleteJunction(selectedJunction, myViewNet->getUndoList());
             }
             // edges
-            auto selectedEdges = attributeCarriers->retrieveEdges(true);
+            const auto selectedEdges = attributeCarriers->getSelectedEdges();
             for (const auto& selectedEdge : selectedEdges) {
                 myViewNet->getNet()->deleteEdge(selectedEdge, myViewNet->getUndoList(), false);
             }
             // lanes
-            auto selectedLanes = attributeCarriers->retrieveLanes(true);
+            const auto selectedLanes = attributeCarriers->retrieveLanes(true);
             for (const auto& selectedLane : selectedLanes) {
                 myViewNet->getNet()->deleteLane(selectedLane, myViewNet->getUndoList(), false);
             }
             // connections
-            auto selectedConnections = attributeCarriers->retrieveConnections(true);
+            const auto selectedConnections = attributeCarriers->retrieveConnections(true);
             for (const auto& selectedConnection : selectedConnections) {
                 myViewNet->getNet()->deleteConnection(selectedConnection, myViewNet->getUndoList());
             }
             // crossings
-            auto selectedCrossings = attributeCarriers->retrieveCrossings(true);
+            const auto selectedCrossings = attributeCarriers->getSelectedCrossings();
             for (const auto& selectedCrossing : selectedCrossings) {
                 myViewNet->getNet()->deleteCrossing(selectedCrossing, myViewNet->getUndoList());
             }
             // shapes
-            auto selectedShapes = attributeCarriers->retrieveShapes(true);
+            const auto selectedShapes = attributeCarriers->retrieveShapes(true);
             for (const auto& selectedShape : selectedShapes) {
                 myViewNet->getNet()->deleteShape(selectedShape, myViewNet->getUndoList());
             }

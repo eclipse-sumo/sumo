@@ -1760,9 +1760,9 @@ GNEViewNet::onCmdReverseEdge(FXObject*, FXSelector, void*) {
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::EDGE, "Reverse selected " + toString(SUMO_TAG_EDGE) + "s");
-            std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
-            for (auto it : edges) {
-                myNet->reverseEdge(it, myUndoList);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto &selectedEdge : selectedEdges) {
+                myNet->reverseEdge(selectedEdge, myUndoList);
             }
             myUndoList->end();
         } else {
@@ -1781,9 +1781,9 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::EDGE, "Add Reverse edge for selected " + toString(SUMO_TAG_EDGE) + "s");
-            std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
-            for (auto it : edges) {
-                myNet->addReversedEdge(it, myUndoList);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto &selectedEdge : selectedEdges) {
+                myNet->addReversedEdge(selectedEdge, myUndoList);
             }
             myUndoList->end();
         } else {
@@ -1814,7 +1814,7 @@ GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
         // check if edge is selected
         if (edge->isAttributeCarrierSelected()) {
             // get all selected edges
-            const auto selectedEdges = myNet->getAttributeCarriers()->retrieveEdges(true);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
             // begin operation
             myUndoList->begin(GUIIcon::EDGE, "reset geometry points");
             // iterate over selected edges
@@ -1838,9 +1838,9 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::EDGE, "straighten selected " + toString(SUMO_TAG_EDGE) + "s");
-            std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
-            for (auto it : edges) {
-                it->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto &selectedEdge : selectedEdges) {
+                selectedEdge->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
             myUndoList->end();
         } else {
@@ -1860,9 +1860,9 @@ GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::EDGE, "straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
-            std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
-            for (auto it : edges) {
-                it->smooth(myUndoList);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto &selectedEdge : selectedEdges) {
+                selectedEdge->smooth(myUndoList);
             }
             myUndoList->end();
         } else {
@@ -1881,9 +1881,9 @@ GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::EDGE, "straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
-            std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
-            for (auto it : edges) {
-                it->straightenElevation(myUndoList);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto &selectedEdge : selectedEdges) {
+                selectedEdge->straightenElevation(myUndoList);
             }
             myUndoList->end();
         } else {
@@ -1902,9 +1902,9 @@ GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::EDGE, "smooth elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
-            std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
-            for (auto it : edges) {
-                it->smoothElevation(myUndoList);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto &selectedEdge : selectedEdges) {
+                selectedEdge->smoothElevation(myUndoList);
             }
             myUndoList->end();
         } else {
@@ -1923,9 +1923,9 @@ GNEViewNet::onCmdResetLength(FXObject*, FXSelector, void*) {
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::EDGE, "reset edge lengths");
-            std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
-            for (auto it : edges) {
-                it->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto &selectedEdge : selectedEdges) {
+                selectedEdge->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
             }
             myUndoList->end();
         } else {
@@ -2256,7 +2256,7 @@ GNEViewNet::onCmdResetEndPoints(FXObject*, FXSelector, void*) {
         // check if edge is selected
         if (edge->isAttributeCarrierSelected()) {
             // get selected edges
-            auto selectedEdges = myNet->getAttributeCarriers()->retrieveEdges(true);
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
             // begin undo list
             myUndoList->begin(GUIIcon::EDGE, "reset end points of selected edges");
             // iterate over edges
@@ -2503,13 +2503,13 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
     GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
     if (laneAtPopupPosition != nullptr) {
         // Get selected edges
-        std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
+        const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
         // get selected lanes
         std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for (const auto& edge : edges) {
+        for (const auto& edge : selectedEdges) {
             setOfEdges.insert(edge);
         }
         // iterate over selected lanes
@@ -2594,13 +2594,13 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
     GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
     if (laneAtPopupPosition != nullptr) {
         // Get selected edges
-        std::vector<GNEEdge*> edges = myNet->getAttributeCarriers()->retrieveEdges(true);
+        const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
         // get selected lanes
         std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for (const auto& edge : edges) {
+        for (const auto& edge : selectedEdges) {
             setOfEdges.insert(edge);
         }
         // iterate over selected lanes
@@ -2814,8 +2814,8 @@ GNEViewNet::onCmdResetJunctionShape(FXObject*, FXSelector, void*) {
         if (junction->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::JUNCTION, "reset custom junction shapes");
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
-            for (const auto &junction : selectedJunctions) {
-                junction->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            for (const auto &selectedJunction : selectedJunctions) {
+                selectedJunction->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
             myUndoList->end();
         } else {
@@ -2913,10 +2913,10 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
-            const auto selectedJunction = myNet->getAttributeCarriers()->getSelectedJunctions();
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
             myUndoList->begin(GUIIcon::CONNECTION, "clear connections of selected junctions");
-            for (const auto &junction : selectedJunction) {
-                myNet->clearJunctionConnections(junction, myUndoList);
+            for (const auto &selectedJunction : selectedJunctions) {
+                myNet->clearJunctionConnections(selectedJunction, myUndoList);
             }
             myUndoList->end();
         } else {
@@ -2945,10 +2945,10 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
-            const auto selectedJunction = myNet->getAttributeCarriers()->getSelectedJunctions();
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
             myUndoList->begin(GUIIcon::CONNECTION, "reset connections of selected junctions");
-            for (const auto junction : selectedJunction) {
-                myNet->resetJunctionConnections(junction, myUndoList);
+            for (const auto &selectedJunction : selectedJunctions) {
+                myNet->resetJunctionConnections(selectedJunction, myUndoList);
             }
             myUndoList->end();
         } else {

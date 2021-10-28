@@ -339,7 +339,7 @@ GNEAdditionalFrame::SelectorChildEdges::getEdgeIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedEdgesCheckButton->getCheck()) {
         // get Selected edges
-        std::vector<GNEEdge*> selectedEdges = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
+        const auto selectedEdges = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedEdges();
         // Iterate over selectedEdges and getId
         for (const auto& edge : selectedEdges) {
             vectorOfIds.push_back(edge->getID());
@@ -360,14 +360,11 @@ void
 GNEAdditionalFrame::SelectorChildEdges::showSelectorChildEdgesModul(std::string search) {
     // clear list of egdge ids
     myList->clearItems();
-    // get all edges of net
-    /// @todo this function must be improved.
-    std::vector<GNEEdge*> vectorOfEdges = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(false);
     // iterate over edges of net
-    for (auto i : vectorOfEdges) {
+    for (const auto &edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         // If search criterium is correct, then append ittem
-        if (i->getID().find(search) != std::string::npos) {
-            myList->appendItem(i->getID().c_str());
+        if (edge.second->getID().find(search) != std::string::npos) {
+            myList->appendItem(edge.second->getID().c_str());
         }
     }
     // By default, CheckBox for useSelectedEdges isn't checked
@@ -390,7 +387,7 @@ GNEAdditionalFrame::SelectorChildEdges::hideSelectorChildEdgesModul() {
 void
 GNEAdditionalFrame::SelectorChildEdges::updateUseSelectedEdges() {
     // Enable or disable use selected edges
-    if (myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true).size() > 0) {
+    if (myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getNumberOfSelectedEdges() > 0) {
         myUseSelectedEdgesCheckButton->enable();
     } else {
         myUseSelectedEdgesCheckButton->disable();
