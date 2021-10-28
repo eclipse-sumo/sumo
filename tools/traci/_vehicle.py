@@ -847,8 +847,8 @@ class VehicleDomain(Domain):
     def getStops(self, vehID, limit=0):
         """getStops(string, int) -> [StopData, ...],
 
-        Return a StopData object. The flags are the same as for setStop and
-        replaceStop (and different from getNextStops!):
+        Return a list of StopData object. The flags are the same as for setStop and
+        replaceStop (and different from getNextStops(!) for backward compatibility):
                1 * parking +
                2 * personTriggered +
                4 * containerTriggered +
