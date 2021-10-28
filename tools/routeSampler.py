@@ -94,6 +94,8 @@ def get_options(args=None):
                         help="set optimization method level (full, INT boundary)")
     parser.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
                         help="Skip resampling and run optimize directly on the input routes")
+    parser.add_argument("--min-count", dest="minCount", type=int, default=1,
+                        help="Set minimum number of counting locations that a route must visit")
     parser.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
                         help="Set optimization factor from [0, 1[ for reducing the number of vehicles"
                         + "(prefer routes that pass multiple counting locations over routes that pass fewer)")
@@ -601,9 +603,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                  )
 
     routeUsage = getRouteUsage(routes, countData)
-    unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) == 0])
+    unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) < options.minCount])
     if options.verbose and len(unrestricted) > 0:
-        print("Ignored %s routes which do not pass any counting location" % len(unrestricted))
+        if options.minCount == 1:
+            print("Ignored %s routes which do not pass any counting location" % len(unrestricted))
+        else:
+            print("Ignored %s routes which pass fewer than %s counting location" % (
+                len(unrestricted), options.minCount))
 
     # pick a random counting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
