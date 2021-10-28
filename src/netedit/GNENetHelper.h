@@ -197,7 +197,7 @@ struct GNENetHelper {
         /// @name function for additionals
         /// @{
         /// @brief get additionals
-        const std::map<SumoXMLTag, std::vector<GNEAdditional*> >& getAdditionals() const;
+        const std::map<SumoXMLTag, std::set<GNEAdditional*> >& getAdditionals() const;
 
         /// @brief clear additionals
         void clearAdditionals();
@@ -210,7 +210,7 @@ struct GNENetHelper {
         /// @name function for shapes
         /// @{
         /// @brief get shapes
-        const std::map<SumoXMLTag, std::vector<GNEShape*> >& getShapes() const;
+        const std::map<SumoXMLTag, std::set<GNEShape*> >& getShapes() const;
 
         /// @brief clear shapes
         void clearShapes();
@@ -226,7 +226,7 @@ struct GNENetHelper {
         /// @name function for TAZElements
         /// @{
         /// @brief get TAZElements
-        const std::map<SumoXMLTag, std::vector<GNETAZElement*> >& getTAZElements() const;
+        const std::map<SumoXMLTag, std::set<GNETAZElement*> >& getTAZElements() const;
 
         /// @brief clear TAZElements
         void clearTAZElements();
@@ -242,7 +242,7 @@ struct GNENetHelper {
         /// @name function for demand elements
         /// @{
         /// @brief get demand elements
-        const std::map<SumoXMLTag, std::vector<GNEDemandElement*> >& getDemandElements() const;
+        const std::map<SumoXMLTag, std::set<GNEDemandElement*> >& getDemandElements() const;
 
         /// @brief get default vType
         GNEDemandElement* getDefaultVType() const;
@@ -464,16 +464,16 @@ struct GNENetHelper {
         std::set<GNEConnection*> myConnections;
 
         /// @brief map with the tag and pointer to additional elements of net
-        std::map<SumoXMLTag, std::vector<GNEAdditional*> > myAdditionals;
+        std::map<SumoXMLTag, std::set<GNEAdditional*> > myAdditionals;
 
         /// @brief map with the tag and pointer to shape elements of net
-        std::map<SumoXMLTag, std::vector<GNEShape*> > myShapes;
+        std::map<SumoXMLTag, std::set<GNEShape*> > myShapes;
 
         /// @brief map with the tag and pointer to TAZElement elements of net
-        std::map<SumoXMLTag, std::vector<GNETAZElement*> > myTAZElements;
+        std::map<SumoXMLTag, std::set<GNETAZElement*> > myTAZElements;
 
         /// @brief map with the tag and pointer to demand elements of net
-        std::map<SumoXMLTag, std::vector<GNEDemandElement*> > myDemandElements;
+        std::map<SumoXMLTag, std::set<GNEDemandElement*> > myDemandElements;
 
         /// @brief set with the ID and pointer to all datasets of net
         std::set<GNEDataSet*> myDataSets;

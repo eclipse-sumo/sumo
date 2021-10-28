@@ -2362,19 +2362,19 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
     // clear additionals
     for (const auto& additionalMap : myAttributeCarriers->getAdditionals()) {
         while (additionalMap.second.size() > 0) {
-            deleteAdditional(additionalMap.second.front(), undoList);
+            deleteAdditional(*additionalMap.second.begin(), undoList);
         }
     }
     // clear shapes
     for (const auto& shapeMap : myAttributeCarriers->getShapes()) {
         while (shapeMap.second.size() > 0) {
-            deleteShape(shapeMap.second.front(), undoList);
+            deleteShape(*shapeMap.second.begin(), undoList);
         }
     }
     // clear TAZs
     for (const auto& TAZMap : myAttributeCarriers->getTAZElements()) {
         while (TAZMap.second.size() > 0) {
-            deleteTAZElement(TAZMap.second.front(), undoList);
+            deleteTAZElement(*TAZMap.second.begin(), undoList);
         }
     }
     undoList->end();

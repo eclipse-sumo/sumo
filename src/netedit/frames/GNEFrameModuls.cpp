@@ -484,7 +484,7 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
             // update myCurrentDemandElement with the first allowed element
             for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
                 if (demandElements.at(*i).size() > 0) {
-                    myCurrentDemandElement = demandElements.at(*i).front();
+                    myCurrentDemandElement = *demandElements.at(*i).begin();
                 }
             }
         }

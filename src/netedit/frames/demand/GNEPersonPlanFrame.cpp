@@ -74,9 +74,9 @@ GNEPersonPlanFrame::show() {
         myPersonPlanTagSelector->refreshTagProperties();
         // set first person as demand element (this will call demandElementSelected() function)
         if (persons.size() > 0) {
-            myPersonSelector->setDemandElement(persons.front());
+            myPersonSelector->setDemandElement(*persons.begin());
         } else {
-            myPersonSelector->setDemandElement(personFlows.front());
+            myPersonSelector->setDemandElement(*personFlows.begin());
         }
     } else {
         // hide all moduls except helpCreation

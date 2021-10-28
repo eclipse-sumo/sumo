@@ -74,9 +74,9 @@ GNEContainerPlanFrame::show() {
         myContainerPlanTagSelector->refreshTagProperties();
         // set first container as demand element (this will call demandElementSelected() function)
         if (containers.size() > 0) {
-            myContainerSelector->setDemandElement(containers.front());
+            myContainerSelector->setDemandElement(*containers.begin());
         } else {
-            myContainerSelector->setDemandElement(containerFlows.front());
+            myContainerSelector->setDemandElement(*containerFlows.begin());
         }
     } else {
         // hide all moduls except helpCreation

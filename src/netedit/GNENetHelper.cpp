@@ -47,26 +47,26 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     // fill additionals with tags
     auto additionalTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL, false);
     for (const auto& additionalTag : additionalTags) {
-        myAdditionals.insert(std::make_pair(additionalTag.first.getTag(), std::vector<GNEAdditional*>()));
+        myAdditionals.insert(std::make_pair(additionalTag.first.getTag(), std::set<GNEAdditional*>()));
     }
     // fill shapes with tags
     auto shapeTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE, false);
     for (const auto& shapeTag : shapeTags) {
-        myShapes.insert(std::make_pair(shapeTag.first.getTag(), std::vector<GNEShape*>()));
+        myShapes.insert(std::make_pair(shapeTag.first.getTag(), std::set<GNEShape*>()));
     }
     // fill TAZElements with tags
     auto TAZElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT, false);
     for (const auto& TAZElementTag : TAZElementTags) {
-        myTAZElements.insert(std::make_pair(TAZElementTag.first.getTag(), std::vector<GNETAZElement*>()));
+        myTAZElements.insert(std::make_pair(TAZElementTag.first.getTag(), std::set<GNETAZElement*>()));
     }
     // fill demand elements with tags
     auto demandElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandElementTag : demandElementTags) {
-        myDemandElements.insert(std::make_pair(demandElementTag.first.getTag(), std::vector<GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(demandElementTag.first.getTag(), std::set<GNEDemandElement*>()));
     }
     auto stopTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::STOP, false);
     for (const auto& stopTag : stopTags) {
-        myDemandElements.insert(std::make_pair(stopTag.first.getTag(), std::vector<GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(stopTag.first.getTag(), std::set<GNEDemandElement*>()));
     }
     // fill data elements with tags
     auto genericDataElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, false);
@@ -486,7 +486,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
 }
 
 
-const std::map<SumoXMLTag, std::vector<GNEAdditional*> >&
+const std::map<SumoXMLTag, std::set<GNEAdditional*> >&
 GNENetHelper::AttributeCarriers::getAdditionals() const {
     return myAdditionals;
 }
@@ -534,7 +534,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 }
 
 
-const std::map<SumoXMLTag, std::vector<GNEShape*> >&
+const std::map<SumoXMLTag, std::set<GNEShape*> >&
 GNENetHelper::AttributeCarriers::getShapes() const {
     return myShapes;
 }
@@ -589,7 +589,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
 }
 
 
-const std::map<SumoXMLTag, std::vector<GNETAZElement*> >&
+const std::map<SumoXMLTag, std::set<GNETAZElement*> >&
 GNENetHelper::AttributeCarriers::getTAZElements() const {
     return myTAZElements;
 }
@@ -636,7 +636,7 @@ GNENetHelper::AttributeCarriers::TAZElementExist(const GNETAZElement* TAZElement
 }
 
 
-const std::map<SumoXMLTag, std::vector<GNEDemandElement*> >&
+const std::map<SumoXMLTag, std::set<GNEDemandElement*> >&
 GNENetHelper::AttributeCarriers::getDemandElements() const {
     return myDemandElements;
 }
@@ -683,17 +683,17 @@ void
 GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
     GNEVehicleType* defaultVehicleType = new GNEVehicleType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
-    myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).push_back(defaultVehicleType);
+    myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(defaultVehicleType);
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
     GNEVehicleType* defaultBikeType = new GNEVehicleType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
-    myDemandElements.at(defaultBikeType->getTagProperty().getTag()).push_back(defaultBikeType);
+    myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(defaultBikeType);
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
 
     // Create default person Type (it has to be created here due myViewNet was previously nullptr)
     GNEVehicleType* defaultPersonType = new GNEVehicleType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
-    myDemandElements.at(defaultPersonType->getTagProperty().getTag()).push_back(defaultPersonType);
+    myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(defaultPersonType);
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 }
 
@@ -1198,12 +1198,10 @@ GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional
 
 void
 GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
-    // check if previously was inserted
-    if (additionalExist(additional)) {
+    // insert additional    
+    if (myAdditionals.at(additional->getTagProperty().getTag()).insert(additional).second == false) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
     }
-    // insert additional    
-    myAdditionals.at(additional->getTagProperty().getTag()).push_back(additional);
     // add element in grid
     if (additional->getTagProperty().isPlacedInRTree()) {
         myNet->addGLObjectIntoGrid(additional);
@@ -1259,12 +1257,10 @@ GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
 
 void
 GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
-    // Check if shape element exists before insertion
-    if (shapeExist(shape)) {
+    // insert shape
+    if (myShapes.at(shape->getTagProperty().getTag()).insert(shape).second == false) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' already exist");
     }
-    // insert shape
-    myShapes.at(shape->getTagProperty().getTag()).push_back(shape);
     // add element in grid
     myNet->addGLObjectIntoGrid(shape);
     // update geometry after insertion of shapes if myUpdateGeometryEnabled is enabled
@@ -1300,12 +1296,10 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
 
 void
 GNENetHelper::AttributeCarriers::insertTAZElement(GNETAZElement* TAZElement) {
-    // Check if TAZElement element exists before insertion
-    if (TAZElementExist(TAZElement)) {
+    // insert TAZElement
+    if (myTAZElements.at(TAZElement->getTagProperty().getTag()).insert(TAZElement).second == false) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' already exist");
     }
-    // insert TAZElement
-    myTAZElements.at(TAZElement->getTagProperty().getTag()).push_back(TAZElement);
     // add element in grid
     myNet->addGLObjectIntoGrid(TAZElement);
     // update geometry after insertion of TAZElements if myUpdateGeometryEnabled is enabled
@@ -1355,12 +1349,10 @@ GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElem
 
 void
 GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandElement) {
-    // Check if demandElement element exists before insertion
-    if (demandElementExist(demandElement)) {
+    // insert in demandElements container
+    if (myDemandElements.at(demandElement->getTagProperty().getTag()).insert(demandElement).second == false) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
     }
-    // insert in demandElements container
-    myDemandElements.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
     // add element in grid
     myNet->addGLObjectIntoGrid(demandElement);
     // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
