@@ -383,7 +383,7 @@ void
 GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateEdgeTypeID(this, value);
             break;
         case SUMO_ATTR_NUMLANES:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");

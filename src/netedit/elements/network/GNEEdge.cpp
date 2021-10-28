@@ -1455,7 +1455,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     const bool updateTemplate = edgeParameters.empty() ? false : (edgeParameters.at(SUMO_ATTR_ID) == getID());
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateEdgeID(this, value);
             break;
         case SUMO_ATTR_FROM:
             myNet->changeEdgeEndpoints(this, value, getToJunction()->getID());

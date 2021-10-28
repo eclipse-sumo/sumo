@@ -76,8 +76,6 @@ struct GNENetHelper {
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEDataHandler;
-        friend class GNEDataSet;
-        friend class GNEDataInterval;
         friend class GNEChange_Junction;
         friend class GNEChange_EdgeType;
         friend class GNEChange_LaneType;
@@ -97,9 +95,6 @@ struct GNENetHelper {
         /// @brief destructor
         ~AttributeCarriers();
 
-        /// @brief update ID
-        void updateID(GNEAttributeCarrier* AC, const std::string newID);
-
         /// @brief remap junction and edge IDs
         void remapJunctionAndEdgeIds();
 
@@ -117,8 +112,17 @@ struct GNENetHelper {
         /// @brief clear junctions
         void clearJunctions();
 
+        /// @brief update junction ID in container
+        void updateJunctionID(GNEJunction* junction, const std::string& newID);
+
         /// @brief get number of selected junctions
         int getNumberOfSelectedJunctions() const;
+
+        /// @brief insert crossing
+        void insertCrossing(GNECrossing* crossing);
+
+        /// @brief delete crossing
+        void deleteCrossing(GNECrossing* crossing);
 
         /// @}
 
@@ -133,6 +137,9 @@ struct GNENetHelper {
         /// @brief clear edgeTypes
         void clearEdgeTypes();
 
+        /// @brief update edgeType ID in container
+        void updateEdgeTypeID(GNEEdgeType* edgeType, const std::string& newID);
+
         /// @}
 
         /// @name function for edges
@@ -145,6 +152,9 @@ struct GNENetHelper {
 
         /// @brief clear edges
         void clearEdges();
+
+        /// @brief update edge ID in container
+        void updateEdgeID(GNEEdge *edge, const std::string& newID);
 
         /// @brief get number of selected edges
         int getNumberOfSelectedEdges() const;
@@ -277,6 +287,18 @@ struct GNENetHelper {
         /// @brief get number of selected edge TAZ Rels
         int getNumberOfSelectedEdgeTAZRel() const;
 
+        /// @brief insert data interval
+        void insertDataInterval(GNEDataInterval* dataInterval);
+
+        /// @brief delete data interval
+        void deleteDataInterval(GNEDataInterval* dataInterval);
+
+        /// @brief insert generic data
+        void insertGenericData(GNEGenericData* genericData);
+
+        /// @brief delete generic data
+        void deleteGenericData(GNEGenericData* genericData);
+
         /// @}
 
     protected:
@@ -287,9 +309,6 @@ struct GNENetHelper {
 
         /// @brief deletes a single junction
         void deleteSingleJunction(GNEJunction* junction);
-
-        /// @brief update junction ID in container
-        void updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID);
 
         /// @}
 
@@ -304,9 +323,6 @@ struct GNENetHelper {
         /// @brief deletes edgeType
         void deleteEdgeType(GNEEdgeType* edgeType);
 
-        /// @brief update edgeType ID in container
-        void updateEdgeTypeID(GNEAttributeCarrier* AC, const std::string& newID);
-
         /// @}
 
         /// @name Insertion and erasing of GNEEdges
@@ -316,9 +332,6 @@ struct GNENetHelper {
 
         /// @brief deletes a single edge
         void deleteSingleEdge(GNEEdge* edge);
-
-        /// @brief update edge ID in container
-        void updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID);
 
         /// @}
 
@@ -405,23 +418,14 @@ struct GNENetHelper {
          */
         void deleteDataSet(GNEDataSet* dataSet);
 
-        /// @brief insert data interval
-        void insertDataInterval(GNEDataInterval* dataInterval);
-
-        /// @brief delete data interval
-        void deleteDataInterval(GNEDataInterval* dataInterval);
-
-        /// @brief insert generic data
-        void insertGenericData(GNEGenericData* genericData);
-
-        /// @brief delete generic data
-        void deleteGenericData(GNEGenericData* genericData);
-
         /// @}
 
     private:
         /// @brief map with the ID and pointer to junctions of net
         std::map<std::string, GNEJunction*> myJunctions;
+
+        /// @brief set with crossings
+        std::set<GNECrossing*> myCrossings;
 
         /// @brief map with the ID and pointer to edgeTypes of net
         std::map<std::string, GNEEdgeType*> myEdgeTypes;

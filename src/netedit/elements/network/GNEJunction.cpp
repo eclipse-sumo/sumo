@@ -189,6 +189,8 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             if (crossing->unreferenced()) {
                 // remove it from net
                 myNet->removeGLObjectFromGrid(crossing);
+                // remove it from attributeCarriers
+                myNet->getAttributeCarriers()->deleteCrossing(crossing);
                 // show extra information for tests
                 WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " in rebuildGNECrossings()");
                 delete crossing;
@@ -533,11 +535,11 @@ std::vector<GNEJunction*>
 GNEJunction::getJunctionNeighbours() const {
     // use set to avoid duplicates junctions
     std::set<GNEJunction*> junctions;
-    for (const auto& i : myGNEIncomingEdges) {
-        junctions.insert(i->getFromJunction());
+    for (const auto& incomingEdge : myGNEIncomingEdges) {
+        junctions.insert(incomingEdge->getFromJunction());
     }
-    for (const auto& i : myGNEOutgoingEdges) {
-        junctions.insert(i->getToJunction());
+    for (const auto& outgoingEdge : myGNEOutgoingEdges) {
+        junctions.insert(outgoingEdge->getToJunction());
     }
     return std::vector<GNEJunction*>(junctions.begin(), junctions.end());
 }
@@ -922,6 +924,8 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIf
         createdGNECrossing->updateGeometry();
         // add it in Network
         myNet->addGLObjectIntoGrid(createdGNECrossing);
+        // add it in attributeCarriers
+        myNet->getAttributeCarriers()->insertCrossing(createdGNECrossing);
         return createdGNECrossing;
     } else {
         return nullptr;
@@ -1316,7 +1320,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(key) + " cannot be edited");
         }
         case SUMO_ATTR_ID: {
-            myNet->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateJunctionID(this, value);
             break;
         }
         case SUMO_ATTR_TYPE: {

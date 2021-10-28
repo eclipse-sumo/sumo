@@ -142,20 +142,6 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
 
 
 void
-GNENetHelper::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::string newID) {
-    if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-        updateJunctionID(AC, newID);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-        updateEdgeID(AC, newID);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TYPE) {
-        updateEdgeTypeID(AC, newID);
-    } else {
-        throw ProcessError("Unknow Attribute Carrier");
-    }
-}
-
-
-void
 GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
     std::map<std::string, GNEEdge*> newEdgeMap;
     std::map<std::string, GNEJunction*> newJunctionMap;
@@ -257,6 +243,29 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 }
 
 
+void
+GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const std::string& newID) {
+    if (myJunctions.count(junction->getID()) == 0) {
+        throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' doesn't exist in AttributeCarriers.junction");
+    } else if (myJunctions.count(newID) != 0) {
+        throw ProcessError("There is another " + junction->getTagStr() + " with new ID='" + newID + "' in myJunctions");
+    } else {
+        // remove junction from container
+        myJunctions.erase(junction->getNBNode()->getID());
+        // rename in NetBuilder
+        myNet->getNetBuilder()->getNodeCont().rename(junction->getNBNode(), newID);
+        // update microsim ID
+        junction->setMicrosimID(newID);
+        // add it into myJunctions again
+        myJunctions[junction->getID()] = junction;
+        // build crossings
+        junction->getNBNode()->buildCrossings();
+        // net has to be saved
+        myNet->requireSaveNet(true);
+    }
+}
+
+
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
     int counter = 0;
@@ -266,6 +275,27 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
         }
     }
     return counter;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertCrossing(GNECrossing* crossing) {
+    if (myCrossings.find(crossing) != myCrossings.end()) {
+        throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' already exist");
+    } else {
+        myCrossings.insert(crossing);
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
+    const auto finder = myCrossings.find(crossing);
+    if (finder == myCrossings.end()) {
+        throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' wasn't previously inserted");
+    } else {
+        myCrossings.erase(finder);
+    }
 }
 
 
@@ -287,6 +317,27 @@ GNENetHelper::AttributeCarriers::getEdgeTypes() const {
 
 void GNENetHelper::AttributeCarriers::clearEdgeTypes() {
     myEdgeTypes.clear();
+}
+
+
+void
+GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEEdgeType* edgeType, const std::string& newID) {
+    if (myEdgeTypes.count(edgeType->getID()) == 0) {
+        throw ProcessError(edgeType->getTagStr() + " with ID='" + edgeType->getID() + "' doesn't exist in AttributeCarriers.edgeType");
+    } else if (myEdgeTypes.count(newID) != 0) {
+        throw ProcessError("There is another " + edgeType->getTagStr() + " with new ID='" + newID + "' in myEdgeTypes");
+    } else {
+        // remove edgeType from container
+        myEdgeTypes.erase(edgeType->getID());
+        // rename in typeCont
+        myNet->getNetBuilder()->getTypeCont().updateEdgeTypeID(edgeType->getID(), newID);
+        // update microsim ID
+        edgeType->setMicrosimID(newID);
+        // add it into myEdgeTypes again
+        myEdgeTypes[edgeType->getID()] = edgeType;
+        // net has to be saved
+        myNet->requireSaveNet(true);
+    }
 }
 
 
@@ -315,6 +366,31 @@ GNENetHelper::AttributeCarriers::getEdges() const {
 
 void GNENetHelper::AttributeCarriers::clearEdges() {
     myEdges.clear();
+}
+
+
+void
+GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge *edge, const std::string& newID) {
+    if (myEdges.count(edge->getID()) == 0) {
+        throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' doesn't exist in AttributeCarriers.edge");
+    } else if (myEdges.count(newID) != 0) {
+        throw ProcessError("There is another " + edge->getTagStr() + " with new ID='" + newID + "' in myEdges");
+    } else {
+        // remove edge from container
+        myEdges.erase(edge->getNBEdge()->getID());
+        // rename in NetBuilder
+        myNet->getNetBuilder()->getEdgeCont().rename(edge->getNBEdge(), newID);
+        // update microsim ID
+        edge->setMicrosimID(newID);
+        // add it into myEdges again
+        myEdges[edge->getID()] = edge;
+        // rename all connections related to this edge
+        for (const auto& lane : edge->getLanes()) {
+            lane->updateConnectionIDs();
+        }
+        // net has to be saved
+        myNet->requireSaveNet(true);
+    }
 }
 
 
@@ -937,6 +1013,49 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeTAZRel() const {
 }
 
 
+void 
+GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterval) {
+    if (myDataIntervals.find(dataInterval) != myDataIntervals.end()) {
+        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
+    } else {
+        myDataIntervals.insert(dataInterval);
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterval) {
+    const auto finder = myDataIntervals.find(dataInterval);
+    if (finder == myDataIntervals.end()) {
+        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' wasn't previously inserted");
+    } else {
+        myDataIntervals.erase(finder);
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::insertGenericData(GNEGenericData* genericData) {
+    if (myGenericDatas.at(genericData->getTagProperty().getTag()).find(genericData) != 
+        myGenericDatas.at(genericData->getTagProperty().getTag()).end()) {
+        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' already exist");
+    } else {
+        myGenericDatas.at(genericData->getTagProperty().getTag()).insert(genericData);
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) {
+    const auto finder = myGenericDatas.at(genericData->getTagProperty().getTag()).find(genericData);
+    if (finder == myGenericDatas.at(genericData->getTagProperty().getTag()).end()) {
+        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' wasn't previously inserted");
+    } else {
+        myGenericDatas.at(genericData->getTagProperty().getTag()).erase(finder);
+    }
+}
+
+
 void
 GNENetHelper::AttributeCarriers::insertJunction(GNEJunction* junction) {
     myNet->getNetBuilder()->getNodeCont().insert(junction->getNBNode());
@@ -955,31 +1074,6 @@ GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
     myNet->getNetBuilder()->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
-}
-
-
-void
-GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myJunctions.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.junction");
-    } else if (myJunctions.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in myJunctions");
-    } else {
-        // retrieve junction
-        GNEJunction* junction = myJunctions.at(AC->getID());
-        // remove junction from container
-        myJunctions.erase(junction->getNBNode()->getID());
-        // rename in NetBuilder
-        myNet->getNetBuilder()->getNodeCont().rename(junction->getNBNode(), newID);
-        // update microsim ID
-        junction->setMicrosimID(newID);
-        // add it into myJunctions again
-        myJunctions[AC->getID()] = junction;
-        // build crossings
-        junction->getNBNode()->buildCrossings();
-        // net has to be saved
-        myNet->requireSaveNet(true);
-    }
 }
 
 
@@ -1020,29 +1114,6 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
 
 
 void
-GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myEdgeTypes.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.edgeType");
-    } else if (myEdgeTypes.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in myEdgeTypes");
-    } else {
-        // retrieve edgeType
-        GNEEdgeType* edgeType = myEdgeTypes.at(AC->getID());
-        // remove edgeType from container
-        myEdgeTypes.erase(edgeType->getID());
-        // rename in typeCont
-        myNet->getNetBuilder()->getTypeCont().updateEdgeTypeID(edgeType->getID(), newID);
-        // update microsim ID
-        edgeType->setMicrosimID(newID);
-        // add it into myEdgeTypes again
-        myEdgeTypes[AC->getID()] = edgeType;
-        // net has to be saved
-        myNet->requireSaveNet(true);
-    }
-}
-
-
-void
 GNENetHelper::AttributeCarriers::insertEdge(GNEEdge* edge) {
     NBEdge* nbe = edge->getNBEdge();
     myNet->getNetBuilder()->getEdgeCont().insert(nbe); // should we ignore pruning double edges?
@@ -1068,33 +1139,6 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     // Remove refrences from GNEJunctions
     edge->getFromJunction()->removeOutgoingGNEEdge(edge);
     edge->getToJunction()->removeIncomingGNEEdge(edge);
-}
-
-
-void
-GNENetHelper::AttributeCarriers::updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myEdges.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.edge");
-    } else if (myEdges.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in myEdges");
-    } else {
-        // retrieve edge
-        GNEEdge* edge = myEdges.at(AC->getID());
-        // remove edge from container
-        myEdges.erase(edge->getNBEdge()->getID());
-        // rename in NetBuilder
-        myNet->getNetBuilder()->getEdgeCont().rename(edge->getNBEdge(), newID);
-        // update microsim ID
-        edge->setMicrosimID(newID);
-        // add it into myEdges again
-        myEdges[AC->getID()] = edge;
-        // rename all connections related to this edge
-        for (const auto& lane : edge->getLanes()) {
-            lane->updateConnectionIDs();
-        }
-        // net has to be saved
-        myNet->requireSaveNet(true);
-    }
 }
 
 
@@ -1359,50 +1403,6 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     myNet->requireSaveDataElements(true);
     // update interval toolbar
     myNet->getViewNet()->getIntervalBar().updateIntervalBar();
-}
-
-
-
-void 
-GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterval) {
-    if (myDataIntervals.find(dataInterval) != myDataIntervals.end()) {
-        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
-    } else {
-        myDataIntervals.insert(dataInterval);
-    }
-}
-
-
-void 
-GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterval) {
-    auto finder = myDataIntervals.find(dataInterval);
-    if (finder == myDataIntervals.end()) {
-        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' wasn't previously inserted");
-    } else {
-        myDataIntervals.erase(finder);
-    }
-}
-
-
-void 
-GNENetHelper::AttributeCarriers::insertGenericData(GNEGenericData* genericData) {
-    if (myGenericDatas.at(genericData->getTagProperty().getTag()).find(genericData) != 
-        myGenericDatas.at(genericData->getTagProperty().getTag()).end()) {
-        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' already exist");
-    } else {
-        myGenericDatas.at(genericData->getTagProperty().getTag()).insert(genericData);
-    }
-}
-
-
-void 
-GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) {
-    auto finder = myGenericDatas.at(genericData->getTagProperty().getTag()).find(genericData);
-    if (finder == myGenericDatas.at(genericData->getTagProperty().getTag()).end()) {
-        throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' wasn't previously inserted");
-    } else {
-        myGenericDatas.at(genericData->getTagProperty().getTag()).erase(finder);
-    }
 }
 
 // ---------------------------------------------------------------------------
