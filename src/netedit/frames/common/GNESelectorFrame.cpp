@@ -512,10 +512,10 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // check if additionals selection is locked
     if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
-        for (const auto& additionals : ACs->getAdditionals()) {
+        for (const auto& additionalTag : ACs->getAdditionals()) {
             // first check if additional is selectable
-            if (GNEAttributeCarrier::getTagProperties(additionals.first).isSelectable()) {
-                for (const auto& additional : additionals.second) {
+            if (GNEAttributeCarrier::getTagProperties(additionalTag.first).isSelectable()) {
+                for (const auto& additional : additionalTag.second) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || additional->isAttributeCarrierSelected()) {
@@ -575,18 +575,22 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     }
     // invert POIs and POILanes
     if (ignoreLocking || !locks.isObjectLocked(GLO_POI, false)) {
-        for (const auto& POI : ACs->getShapes().at(SUMO_TAG_POI)) {
-            if (onlyCount) {
+        for (const auto& shapeTag : ACs->getShapes()) {
+            if (shapeTag.first != SUMO_TAG_POLY) {
+                for (const auto& POI : shapeTag.second) {
+                    if (onlyCount) {
+                        return true;
+                    } else if (onlyUnselect || POI->isAttributeCarrierSelected()) {
+                        POI->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        POI->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            } else if (onlyCount) {
+                ignoreLocking = askContinueIfLock();
                 return true;
-            } else if (onlyUnselect || POI->isAttributeCarrierSelected()) {
-                POI->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                POI->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
     }
     return false;
 }

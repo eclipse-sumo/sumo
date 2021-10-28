@@ -461,6 +461,16 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
             counter++;
         }
     }
+    for (const auto &POILane : myShapes.at(GNE_TAG_POILANE)) {
+        if (POILane->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    for (const auto &POIGEO : myShapes.at(GNE_TAG_POIGEO)) {
+        if (POIGEO->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
     return counter;
 }
 
