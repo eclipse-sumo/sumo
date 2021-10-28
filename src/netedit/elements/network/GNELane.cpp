@@ -1718,7 +1718,7 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     bool edgeHasBuslane = false;
     bool differentLaneShapes = false;
     if (isAttributeCarrierSelected()) {
-        const auto selectedLanes = myNet->getAttributeCarriers()->retrieveLanes(true);
+        const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
         // update numSelectedLanes
         numSelectedLanes = (int)selectedLanes.size();
         // iterate over selected lanes

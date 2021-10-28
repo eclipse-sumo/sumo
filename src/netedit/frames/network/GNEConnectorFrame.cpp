@@ -275,9 +275,9 @@ GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*
         }
     }
     // clear lane's connection
-    auto lanes = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(true);
-    for (auto i : lanes) {
-        myConnectorFrameParent->removeConnections(dynamic_cast<GNELane*>(i));
+    const auto selectedLanes = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedLanes();
+    for (const auto &lane : selectedLanes) {
+        myConnectorFrameParent->removeConnections(lane);
     }
     myConnectorFrameParent->getViewNet()->getUndoList()->end();
     return 1;
@@ -402,9 +402,9 @@ GNEConnectorFrame::removeConnections(GNELane* lane) {
     // select lane as current lane
     buildConnection(lane, false, false, true); // select as current lane
     // iterate over all potential targets
-    for (auto i : myPotentialTargets) {
+    for (const auto & potentialTarget : myPotentialTargets) {
         // remove connections using the apropiate parameters in function "buildConnection"
-        buildConnection(i, false, false, false);
+        buildConnection(potentialTarget, false, false, false);
     }
     // save modifications
     myConnectionModifications->onCmdSaveModifications(0, 0, 0);

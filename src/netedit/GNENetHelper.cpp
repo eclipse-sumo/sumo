@@ -582,12 +582,18 @@ GNENetHelper::AttributeCarriers::retrieveLane(const GNEAttributeCarrier* AC, boo
 }
 
 
+const std::set<GNELane*>&
+GNENetHelper::AttributeCarriers::getLanes() const {
+    return myLanes;
+}
+
+
 std::vector<GNELane*>
-GNENetHelper::AttributeCarriers::retrieveLanes(bool onlySelected) {
+GNENetHelper::AttributeCarriers::getSelectedLanes() const {
     std::vector<GNELane*> result;
     // returns lanes depending of selection
     for (const auto &lane : myLanes) {
-        if (!onlySelected || lane->isAttributeCarrierSelected()) {
+        if (lane->isAttributeCarrierSelected()) {
             result.push_back(lane);
         }
     }

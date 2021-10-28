@@ -915,8 +915,8 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
             }
             // if the lane is selected, apply changes to all selected lanes
             if (lane->isAttributeCarrierSelected()) {
-                std::vector<GNELane*> lanes = myViewNet->getNet()->getAttributeCarriers()->retrieveLanes(true);
-                for (auto it_lane : lanes) {
+                const auto selectedLanes = myViewNet->getNet()->getAttributeCarriers()->getSelectedLanes();
+                for (auto it_lane : selectedLanes) {
                     fromIDs.insert(it_lane->getMicrosimID());
                 }
             }

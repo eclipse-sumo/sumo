@@ -565,7 +565,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         } else if (active == 11) {
             active = 10; // segment incline, fall back to total incline
         }
-        for (GNELane* lane : myNet->getAttributeCarriers()->retrieveLanes()) {
+        for (const auto &lane : myNet->getAttributeCarriers()->getLanes()) {
             const double val = lane->getColorValue(s, active);
             if (val == s.MISSING_DATA) {
                 continue;
@@ -595,7 +595,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         scheme.clear();
         // add threshold for every distinct value
         std::set<SVCPermissions> codes;
-        for (GNELane* lane : myNet->getAttributeCarriers()->retrieveLanes()) {
+        for (const auto &lane : myNet->getAttributeCarriers()->getLanes()) {
             codes.insert(lane->getParentEdge()->getNBEdge()->getPermissions(lane->getIndex()));
         }
         int step = MAX2(1, 360 / (int)codes.size());
@@ -2289,8 +2289,8 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
         // are, otherwise recompute them
         if (laneAtPopupPosition->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::LANE, "duplicate selected " + toString(SUMO_TAG_LANE) + "s");
-            std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
-            for (const auto& lane : lanes) {
+            const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
+            for (const auto& lane : selectedLanes) {
                 myNet->duplicateLane(lane, myUndoList, true);
             }
             myUndoList->end();
@@ -2312,8 +2312,8 @@ GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
         // are, otherwise recompute them
         if (laneAtPopupPosition->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::LANE, "reset custom lane shapes");
-            std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
-            for (const auto& lane : lanes) {
+            const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
+            for (const auto& lane : selectedLanes) {
                 lane->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
             }
             myUndoList->end();
@@ -2335,8 +2335,8 @@ GNEViewNet::onCmdResetOppositeLane(FXObject*, FXSelector, void*) {
         // are, otherwise recompute them
         if (laneAtPopupPosition->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::LANE, "reset opposite lanes");
-            std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
-            for (const auto& lane : lanes) {
+            const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
+            for (const auto& lane : selectedLanes) {
                 lane->setAttribute(GNE_ATTR_OPPOSITE, "", myUndoList);
             }
             myUndoList->end();
@@ -2428,15 +2428,15 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
     GNELane* laneAtPopupPosition = getLaneAtPopupPosition();
     if (laneAtPopupPosition != nullptr) {
         // Get selected lanes
-        std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
+        const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
         // Declare map of edges and lanes
         std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
         // Iterate over selected lanes
-        for (const auto& lane : lanes) {
+        for (const auto& lane : selectedLanes) {
             mapOfEdgesAndLanes[myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID())] = lane;
         }
         // Throw warning dialog if there hare multiple lanes selected in the same edge
-        if (mapOfEdgesAndLanes.size() != lanes.size()) {
+        if (mapOfEdgesAndLanes.size() != selectedLanes.size()) {
             FXMessageBox::information(getApp(), MBOX_OK,
                                       "Multiple lane in the same edge selected", "%s",
                                       ("There are selected lanes that belong to the same edge.\n Only one lane per edge will be restricted for " + toString(vclass) + ".").c_str());
@@ -2505,7 +2505,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
         // Get selected edges
         const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
         // get selected lanes
-        std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
+        const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
@@ -2513,7 +2513,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
             setOfEdges.insert(edge);
         }
         // iterate over selected lanes
-        for (const auto& lane : lanes) {
+        for (const auto& lane : selectedLanes) {
             // Insert pointer to edge into set of edges (To avoid duplicates)
             setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
         }
@@ -2596,7 +2596,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
         // Get selected edges
         const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
         // get selected lanes
-        std::vector<GNELane*> lanes = myNet->getAttributeCarriers()->retrieveLanes(true);
+        const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
@@ -2604,7 +2604,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             setOfEdges.insert(edge);
         }
         // iterate over selected lanes
-        for (const auto& lane : lanes) {
+        for (const auto& lane : selectedLanes) {
             // Insert pointer to edge into set of edges (To avoid duplicates)
             setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
         }

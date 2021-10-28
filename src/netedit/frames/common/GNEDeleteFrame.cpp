@@ -178,7 +178,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
                 myViewNet->getNet()->deleteEdge(selectedEdge, myViewNet->getUndoList(), false);
             }
             // lanes
-            const auto selectedLanes = attributeCarriers->retrieveLanes(true);
+            const auto selectedLanes = attributeCarriers->getSelectedLanes();
             for (const auto& selectedLane : selectedLanes) {
                 myViewNet->getNet()->deleteLane(selectedLane, myViewNet->getUndoList(), false);
             }

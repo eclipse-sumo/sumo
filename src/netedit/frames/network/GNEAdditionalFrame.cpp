@@ -491,7 +491,7 @@ GNEAdditionalFrame::SelectorChildLanes::getLaneIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedLanesCheckButton->getCheck()) {
         // get Selected lanes
-        std::vector<GNELane*> selectedLanes = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(true);
+        const auto selectedLanes = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedLanes();
         // Iterate over selectedLanes and getId
         for (const auto& lane : selectedLanes) {
             vectorOfIds.push_back(lane->getID());
@@ -511,10 +511,10 @@ GNEAdditionalFrame::SelectorChildLanes::getLaneIdsSelected() const {
 void
 GNEAdditionalFrame::SelectorChildLanes::showSelectorChildLanesModul(std::string search) {
     myList->clearItems();
-    std::vector<GNELane*> vectorOfLanes = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(false);
-    for (auto i : vectorOfLanes) {
-        if (i->getID().find(search) != std::string::npos) {
-            myList->appendItem(i->getID().c_str());
+    // add all network lanes
+    for (const auto &lane : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
+        if (lane->getID().find(search) != std::string::npos) {
+            myList->appendItem(lane->getID().c_str());
         }
     }
     // By default, CheckBox for useSelectedLanes isn't checked
@@ -533,7 +533,7 @@ GNEAdditionalFrame::SelectorChildLanes::hideSelectorChildLanesModul() {
 void
 GNEAdditionalFrame::SelectorChildLanes::updateUseSelectedLanes() {
     // Enable or disable use selected Lanes
-    if (myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(true).size() > 0) {
+    if (myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getNumberOfSelectedLanes() > 0) {
         myUseSelectedLanesCheckButton->enable();
     } else {
         myUseSelectedLanesCheckButton->disable();

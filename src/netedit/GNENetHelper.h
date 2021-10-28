@@ -229,10 +229,11 @@ struct GNENetHelper {
          */
         GNELane* retrieveLane(const GNEAttributeCarrier *AC, bool failHard = true) const;
 
-        /**@brief return all lanes
-         * @param[in] onlySelected Whether to return only selected lanes
-         */
-        std::vector<GNELane*> retrieveLanes(bool onlySelected = false);
+        /// @brief get lanes
+        const std::set<GNELane*>& getLanes() const;
+
+        /// @brief get selected lanes
+        std::vector<GNELane*> getSelectedLanes() const;
 
         /// @brief insert lane
         void insertLane(GNELane* lane);
