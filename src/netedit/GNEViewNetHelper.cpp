@@ -1156,9 +1156,6 @@ void
 GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
-    // obtain Junctions and edges selected
-    const auto movedJunctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
-    const auto movedEdges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // continue depending of clicked element
     if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
         calculateJunctionSelection();
@@ -1261,7 +1258,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
     // declare move operation
     GNEMoveOperation* moveOperation = nullptr;
     // first move all selected junctions
-    const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
+    const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->getSelectedJunctions();
     // iterate over selected junctions
     for (const auto& junction : selectedJunctions) {
         moveOperation = junction->getMoveOperation();
@@ -1284,7 +1281,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
 void
 GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdge* clickedEdge) {
     // first move all selected junctions
-    const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
+    const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->getSelectedJunctions();
     // iterate over selected junctions
     for (const auto& junction : selectedJunctions) {
         GNEMoveOperation* moveOperation = junction->getMoveOperation();

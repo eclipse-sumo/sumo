@@ -575,9 +575,9 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         }
     } else if (objectType == GLO_JUNCTION) {
         if (active == 3) {
-            for (GNEJunction* junction : myNet->getAttributeCarriers()->retrieveJunctions()) {
-                minValue = MIN2(minValue, junction->getPositionInView().z());
-                maxValue = MAX2(maxValue, junction->getPositionInView().z());
+            for (const auto &junction : myNet->getAttributeCarriers()->getJunctions()) {
+                minValue = MIN2(minValue, junction.second->getPositionInView().z());
+                maxValue = MAX2(maxValue, junction.second->getPositionInView().z());
             }
         }
     } else if (objectType == GLO_TAZRELDATA) {
@@ -2813,9 +2813,9 @@ GNEViewNet::onCmdResetJunctionShape(FXObject*, FXSelector, void*) {
         // are, otherwise recompute them
         if (junction->isAttributeCarrierSelected()) {
             myUndoList->begin(GUIIcon::JUNCTION, "reset custom junction shapes");
-            std::vector<GNEJunction*> junctions = myNet->getAttributeCarriers()->retrieveJunctions(true);
-            for (auto it : junctions) {
-                it->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
+            for (const auto &junction : selectedJunctions) {
+                junction->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
             myUndoList->end();
         } else {
@@ -2913,10 +2913,10 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
-            std::vector<GNEJunction*> selectedJunction = myNet->getAttributeCarriers()->retrieveJunctions(true);
+            const auto selectedJunction = myNet->getAttributeCarriers()->getSelectedJunctions();
             myUndoList->begin(GUIIcon::CONNECTION, "clear connections of selected junctions");
-            for (auto i : selectedJunction) {
-                myNet->clearJunctionConnections(i, myUndoList);
+            for (const auto &junction : selectedJunction) {
+                myNet->clearJunctionConnections(junction, myUndoList);
             }
             myUndoList->end();
         } else {
@@ -2945,10 +2945,10 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
-            std::vector<GNEJunction*> selectedJunction = myNet->getAttributeCarriers()->retrieveJunctions(true);
+            const auto selectedJunction = myNet->getAttributeCarriers()->getSelectedJunctions();
             myUndoList->begin(GUIIcon::CONNECTION, "reset connections of selected junctions");
-            for (auto i : selectedJunction) {
-                myNet->resetJunctionConnections(i, myUndoList);
+            for (const auto junction : selectedJunction) {
+                myNet->resetJunctionConnections(junction, myUndoList);
             }
             myUndoList->end();
         } else {

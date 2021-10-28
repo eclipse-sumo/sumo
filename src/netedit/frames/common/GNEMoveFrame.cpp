@@ -314,13 +314,13 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
     // get value
     const double zValue = GNEAttributeCarrier::parse<double>(myZValueTextField->getText().text());
     // get junctions
-    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
+    const auto selectedJunctions = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedJunctions();
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::MODEMOVE, "change Z values in selection");
     // iterate over junctions
-    for (const auto& junction : junctions) {
+    for (const auto& junction : selectedJunctions) {
         if (junction->getNBNode()->hasCustomShape()) {
             // get junction position
             PositionVector junctionShape = junction->getNBNode()->getShape();
@@ -394,18 +394,18 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
 void
 GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
     // get junctions
-    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
+    const auto selectedJunctions = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedJunctions();
     // get selected edges
     const auto edges = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // check if there is edges or junctions
-    if ((junctions.size() > 0) || (edges.size() > 0)) {
+    if ((selectedJunctions.size() > 0) || (edges.size() > 0)) {
         // declare minimum and maximun
         double selectionMinimum = 0;
         double selectionMaximun = 0;
         // set first values
-        if (junctions.size() > 0) {
-            selectionMinimum = junctions.front()->getNBNode()->getPosition().z();
-            selectionMaximun = junctions.front()->getNBNode()->getPosition().z();
+        if (selectedJunctions.size() > 0) {
+            selectionMinimum = selectedJunctions.front()->getNBNode()->getPosition().z();
+            selectionMaximun = selectedJunctions.front()->getNBNode()->getPosition().z();
         } else {
             selectionMinimum = edges.front()->getNBEdge()->getGeometry().front().z();
             selectionMaximun = edges.front()->getNBEdge()->getGeometry().front().z();
@@ -415,7 +415,7 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
         // declare numPoints
         int numPoints = 0;
         // iterate over junctions
-        for (const auto& junction : junctions) {
+        for (const auto& junction : selectedJunctions) {
             // get z
             const double z = junction->getNBNode()->getPosition().z();
             // check min
@@ -637,14 +637,14 @@ GNEMoveFrame::show() {
         myDemandModeOptions->hideDemandModeOptions();
     }
     // get selected junctions
-    const auto junctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
+    const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->getSelectedJunctions();
     // get selected edges
     const auto edges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // get selected polygons and POIs (avoid POILanes)
     const auto polygons = myViewNet->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POLY, true);
     const auto POIs = myViewNet->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POI, true);
     // check if there are junctions and edge selected
-    if ((junctions.size() > 0) || (edges.size() > 0)) {
+    if ((selectedJunctions.size() > 0) || (edges.size() > 0)) {
         myChangeZInSelection->enableChangeZInSelection();
     } else {
         myChangeZInSelection->disableChangeZInSelection();

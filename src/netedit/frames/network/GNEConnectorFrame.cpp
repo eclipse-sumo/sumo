@@ -200,20 +200,17 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadStarts(FXObject*, FXSele
     std::set<GNEAttributeCarrier*> deadStarts;
     GNENet* net = myConnectorFrameParent->getViewNet()->getNet();
     // every edge knows only its outgoing connections so we look at whole junctions
-    const std::vector<GNEJunction*> junctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions();
-    for (auto i : junctions) {
+    for (const auto &junction : myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
         // first collect all outgoing lanes
-        for (auto j : i->getNBNode()->getOutgoingEdges()) {
-            GNEEdge* edge = net->getAttributeCarriers()->retrieveEdge(j->getID());
-            for (auto k : edge->getLanes()) {
-                deadStarts.insert(k);
+        for (const auto &outgoingEdge : junction.second->getGNEOutgoingEdges()) {
+            for (const auto &lane : outgoingEdge->getLanes()) {
+                deadStarts.insert(lane);
             }
         }
         // then remove all approached lanes
-        for (auto j : i->getNBNode()->getIncomingEdges()) {
-            GNEEdge* edge = net->getAttributeCarriers()->retrieveEdge(j->getID());
-            for (auto k : edge->getNBEdge()->getConnections()) {
-                deadStarts.erase(net->getAttributeCarriers()->retrieveEdge(k.toEdge->getID())->getLanes()[k.toLane]);
+        for (const auto &incomingEdge : junction.second->getGNEIncomingEdges()) {
+            for (const auto &connection : incomingEdge->getNBEdge()->getConnections()) {
+                deadStarts.erase(net->getAttributeCarriers()->retrieveEdge(connection.toEdge->getID())->getLanes()[connection.toLane]);
             }
         }
     }
@@ -268,10 +265,10 @@ GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*
     myConnectorFrameParent->myConnectionModifications->onCmdCancelModifications(0, 0, 0);
     myConnectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::CONNECTION, "clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
     // clear junction's connection
-    auto junctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
-    for (auto i : junctions) {
-        i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList()); // clear connections
-        i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList(), GNEAttributeCarrier::FEATURE_MODIFIED); // prevent re-guessing
+    const auto selectedJunctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedJunctions();
+    for (const auto &junction : selectedJunctions) {
+        junction->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList()); // clear connections
+        junction->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList(), GNEAttributeCarrier::FEATURE_MODIFIED); // prevent re-guessing
     }
     // clear edge's connection
     auto edges = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
@@ -294,12 +291,12 @@ long
 GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
     myConnectorFrameParent->myConnectionModifications->onCmdCancelModifications(0, 0, 0);
     myConnectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::CONNECTION, "reset connections from selected lanes");
-    auto junctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
-    for (auto i : junctions) {
-        i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList());
+    const auto selectedJunctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedJunctions();
+    for (const auto &junction : selectedJunctions) {
+        junction->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList());
     }
     myConnectorFrameParent->getViewNet()->getUndoList()->end();
-    if (junctions.size() > 0) {
+    if (selectedJunctions.size() > 0) {
         auto viewNet = myConnectorFrameParent->getViewNet();
         viewNet->getNet()->requireRecompute();
         viewNet->getNet()->computeNetwork(viewNet->getViewParent()->getGNEAppWindows());

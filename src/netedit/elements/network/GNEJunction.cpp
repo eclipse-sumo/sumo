@@ -229,9 +229,10 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         //    // XXX if joinable
         //    GUIDesigns::buildFXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
         //}
+        const int numSelectedJunctions = myNet->getAttributeCarriers()->getNumberOfSelectedJunctions();
         const int numEndpoints = (int)myNBNode->getEndPoints().size();
         // check if we're handling a selection
-        bool handlingSelection = isAttributeCarrierSelected() && (myNet->getAttributeCarriers()->retrieveJunctions(true).size() > 1);
+        bool handlingSelection = isAttributeCarrierSelected() && (numSelectedJunctions > 1);
         // check if menu commands has to be disabled
         const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CONNECT) ||
                                (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) ||
@@ -259,9 +260,8 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             }
         }
         std::string multi;
-        const int junctionSelSize = (int)myNet->getAttributeCarriers()->retrieveJunctions(true).size();
-        if (junctionSelSize > 1 && isAttributeCarrierSelected()) {
-            multi = " of " + toString(junctionSelSize) + " junctions";
+        if ((numSelectedJunctions > 1) && isAttributeCarrierSelected()) {
+            multi = " of " + toString(numSelectedJunctions) + " junctions";
         }
         FXMenuCommand* mcClearConnections = GUIDesigns::buildFXMenuCommand(ret, "Clear connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
         FXMenuCommand* mcResetConnections = GUIDesigns::buildFXMenuCommand(ret, "Reset connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);

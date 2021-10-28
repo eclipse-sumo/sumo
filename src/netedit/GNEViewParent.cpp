@@ -466,10 +466,9 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserJunction->setFocus();
                 } else {
                     // fill ACsToLocate with junctions
-                    std::vector<GNEJunction*> junctions = viewNet->getNet()->getAttributeCarriers()->retrieveJunctions();
-                    ACsToLocate.reserve(junctions.size());
-                    for (const auto& junction : junctions) {
-                        ACsToLocate.push_back(junction);
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
+                    for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                        ACsToLocate.push_back(junction.second);
                     }
                     myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
                 }
@@ -602,11 +601,10 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserTLS->setFocus();
                 } else {
                     // fill ACsToLocate with junctions that haven TLS
-                    std::vector<GNEJunction*> junctions = viewNet->getNet()->getAttributeCarriers()->retrieveJunctions();
-                    ACsToLocate.reserve(junctions.size());
-                    for (const auto& junction : junctions) {
-                        if (junction->getNBNode()->getControllingTLS().size() > 0) {
-                            ACsToLocate.push_back(junction);
+                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
+                    for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                        if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
+                            ACsToLocate.push_back(junction.second);
                         }
                     }
                     myACChoosers.ACChooserTLS = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "TLS Chooser", ACsToLocate);

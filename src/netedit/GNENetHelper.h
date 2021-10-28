@@ -110,16 +110,14 @@ struct GNENetHelper {
          */
         GNEJunction* retrieveJunction(const std::string& id, bool failHard = true) const;
 
-        /**@brief return all junctions
-         * @param[in] onlySelected Whether to return only selected junctions
-         */
-        std::vector<GNEJunction*> retrieveJunctions(bool onlySelected = false);
+        /// @brief get junctions
+        const std::map<std::string, GNEJunction*> &getJunctions() const;
+
+        /// @brief return selected junctions
+        std::vector<GNEJunction*> getSelectedJunctions();
 
         /// @brief registers a junction in GNENet containers
         GNEJunction* registerJunction(GNEJunction* junction);
-
-        /// @brief map with the ID and pointer to junctions of net
-        const std::map<std::string, GNEJunction*>& getJunctions() const;
 
         /// @brief clear junctions
         void clearJunctions();

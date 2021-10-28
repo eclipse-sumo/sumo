@@ -226,12 +226,18 @@ GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool fa
 }
 
 
+const std::map<std::string, GNEJunction*> &
+GNENetHelper::AttributeCarriers::getJunctions() const {
+    return myJunctions;
+}
+
+
 std::vector<GNEJunction*>
-GNENetHelper::AttributeCarriers::retrieveJunctions(bool onlySelected) {
+GNENetHelper::AttributeCarriers::getSelectedJunctions() {
     std::vector<GNEJunction*> result;
     // returns junctions depending of selection
     for (const auto &junction : myJunctions) {
-        if (!onlySelected || junction.second->isAttributeCarrierSelected()) {
+        if (junction.second->isAttributeCarrierSelected()) {
             result.push_back(junction.second);
         }
     }
@@ -254,12 +260,6 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     // add z in net boundary
     myNet->addZValueInBoundary(junction->getNBNode()->getPosition().z());
     return junction;
-}
-
-
-const std::map<std::string, GNEJunction*>&
-GNENetHelper::AttributeCarriers::getJunctions() const {
-    return myJunctions;
 }
 
 

@@ -168,7 +168,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
         // delete selected attribute carriers depending of current supermode
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             //junctions
-            auto selectedJunctions = attributeCarriers->retrieveJunctions(true);
+            auto selectedJunctions = attributeCarriers->getSelectedJunctions();
             for (const auto& selectedJunction : selectedJunctions) {
                 myViewNet->getNet()->deleteJunction(selectedJunction, myViewNet->getUndoList());
             }

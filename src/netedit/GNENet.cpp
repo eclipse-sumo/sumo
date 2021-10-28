@@ -1588,7 +1588,7 @@ GNENet::getNetBuilder() const {
 
 bool
 GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
-    std::vector<GNEJunction*> selectedJunctions = myAttributeCarriers->retrieveJunctions(true);
+    const auto selectedJunctions = myAttributeCarriers->getSelectedJunctions();
     if (selectedJunctions.size() < 2) {
         return false;
     }
