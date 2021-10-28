@@ -523,19 +523,6 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                     } else {
                         additional->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
-                    // now iterate over additional children
-                    for (const auto& additionalChild : additional->getChildAdditionals()) {
-                        // first check if additional child is selectable
-                        if (additionalChild->getTagProperty().isSelectable()) {
-                            if (onlyCount) {
-                                return true;
-                            } else if (onlyUnselect || additionalChild->isAttributeCarrierSelected()) {
-                                additionalChild->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                additionalChild->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        }
-                    }
                 }
             }
         }
