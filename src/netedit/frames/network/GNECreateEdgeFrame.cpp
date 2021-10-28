@@ -1418,7 +1418,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     newEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
                 }
                 // create another edge, if create opposite edge is enabled
-                if (oppositeEdge) {
+                if (oppositeEdge && (myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(junction, myCreateEdgeSource, false) == nullptr)) {
                     GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
                                                myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
