@@ -159,6 +159,14 @@ struct GNENetHelper {
         /// @brief get number of selected edges
         int getNumberOfSelectedEdges() const;
 
+        /// @name function for lanes
+        /// @{
+        /// @brief insert lane
+        void insertLane(GNELane* lane);
+
+        /// @brief delete lane
+        void deleteLane(GNELane* lane);
+
         /// @brief get number of selected lanes
         int getNumberOfSelectedLanes() const;
 
@@ -432,6 +440,9 @@ struct GNENetHelper {
 
         /// @brief map with the ID and pointer to edges of net
         std::map<std::string, GNEEdge*> myEdges;
+
+        /// @brief set with lanes
+        std::set<GNELane*> myLanes;
 
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::vector<GNEAdditional*> > myAdditionals;

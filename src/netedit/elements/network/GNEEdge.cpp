@@ -1712,13 +1712,14 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     if (lane) {
         // restore a previously deleted lane
         myLanes.insert(myLanes.begin() + index, lane);
-
     } else {
         // create a new lane by copying leftmost lane
         lane = new GNELane(this, index);
         myLanes.push_back(lane);
     }
     lane->incRef("GNEEdge::addLane");
+    // add in attributeCarriers
+    myNet->getAttributeCarriers()->insertLane(lane);
     // check if lane is selected
     if (lane->isAttributeCarrierSelected()) {
         lane->selectAttributeCarrier();
@@ -1774,6 +1775,8 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     myNBEdge->deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
     lane->decRef("GNEEdge::removeLane");
     myLanes.erase(myLanes.begin() + lane->getIndex());
+    // remove from attributeCarriers
+    myNet->getAttributeCarriers()->deleteLane(lane);
     // Delete lane if is unreferenced
     if (lane->unreferenced()) {
         // show extra information for tests
@@ -1791,12 +1794,12 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // Remake connections of this edge
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (auto i : getFromJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    for (const auto &fromEdge : getFromJunction()->getChildEdges()) {
+        fromEdge->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (auto i : getToJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    for (const auto &toEdge : getToJunction()->getChildEdges()) {
+        toEdge->remakeGNEConnections();
     }
     // Update element
     updateGeometry();

@@ -351,6 +351,10 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     myNet->expandBoundary(edge->getCenteringBoundary());
     // add edge into grid
     myNet->addGLObjectIntoGrid(edge);
+    // insert all lanes
+    for (const auto &lane : edge->getLanes()) {
+        insertLane(lane);
+    }
     // Add references into GNEJunctions
     edge->getFromJunction()->addOutgoingGNEEdge(edge);
     edge->getToJunction()->addIncomingGNEEdge(edge);
@@ -406,14 +410,35 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
 }
 
 
+
+void
+GNENetHelper::AttributeCarriers::insertLane(GNELane* lane) {
+    if (myLanes.find(lane) != myLanes.end()) {
+        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' already exist");
+    } else {
+        myLanes.insert(lane);
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
+    const auto finder = myLanes.find(lane);
+    if (finder == myLanes.end()) {
+        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' wasn't previously inserted");
+    } else {
+        myLanes.erase(finder);
+    }
+}
+
+
+
 int 
 GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
     int counter = 0;
-    for (const auto &edge : myEdges) {
-        for (const auto &lane : edge.second->getLanes()) {
-            if (lane->isAttributeCarrierSelected()) {
-                counter++;
-            }
+    for (const auto &lane : myLanes) {
+        if (lane->isAttributeCarrierSelected()) {
+            counter++;
         }
     }
     return counter;
@@ -1120,6 +1145,7 @@ GNENetHelper::AttributeCarriers::insertEdge(GNEEdge* edge) {
     // if this edge was previouls extracted from the edgeContainer we have to rewire the nodes
     nbe->getFromNode()->addOutgoingEdge(nbe);
     nbe->getToNode()->addIncomingEdge(nbe);
+    // register edge
     registerEdge(edge);
 }
 
@@ -1132,6 +1158,10 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     // remove edge from visual grid and container
     myNet->removeGLObjectFromGrid(edge);
     myEdges.erase(edge->getMicrosimID());
+    // remove all lanes
+    for (const auto &lane : edge->getLanes()) {
+        deleteLane(lane);
+    }
     // extract edge of district container
     myNet->getNetBuilder()->getEdgeCont().extract(myNet->getNetBuilder()->getDistrictCont(), edge->getNBEdge());
     edge->decRef("GNENet::deleteSingleEdge");
