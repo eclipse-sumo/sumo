@@ -1255,13 +1255,13 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
         PositionVector laneShape = lane->getShape();
         if (isFirstLane) {
             isFirstLane = false;
-            if (posOnLane == 0) {
+            double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
+            if (geometryPos <= POSITION_EPS) {
                 if (!isDownstream) {
                     continue;
                 }
             } else {
-                double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
-                if (geometryPos >= laneShape.length()) {
+                if (geometryPos >= laneShape.length() - POSITION_EPS) {
                     laneShape = isDownstream ? PositionVector() : laneShape;
                 } else {
                     auto pair = laneShape.splitAt(geometryPos, false);
@@ -1272,8 +1272,10 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
         double laneLength = lane->interpolateGeometryPosToLanePos(laneShape.length());
         if (distRemaining - laneLength < 0.) {
             double geometryPos = lane->interpolateLanePosToGeometryPos(isDownstream ? distRemaining : laneLength - distRemaining);
-            auto pair = laneShape.splitAt(geometryPos, false);
-            laneShape = isDownstream ? pair.first : pair.second;
+            if (geometryPos > POSITION_EPS && geometryPos < laneShape.length() - POSITION_EPS) {
+                auto pair = laneShape.splitAt(geometryPos, false);
+                laneShape = isDownstream ? pair.first : pair.second;
+            }
         }
         distRemaining -= laneLength;
         try {
@@ -1285,7 +1287,7 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
         std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";
 #endif
         combinedShape.append(laneShape);
-        if (distRemaining <= 0) {
+        if (distRemaining <= POSITION_EPS) {
             break;
         }
     }
