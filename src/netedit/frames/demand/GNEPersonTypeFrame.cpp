@@ -68,7 +68,7 @@ GNEPersonTypeFrame::PersonTypeSelector::PersonTypeSelector(GNEPersonTypeFrame* p
         myTypeMatchBox->appendItem(pType->getID().c_str());
     }
     // set DEFAULT_PEDTYPE_ID as default pType
-    myCurrentPersonType = myPersonTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID);
+    myCurrentPersonType = myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID);
     // Set visible items
     if (myTypeMatchBox->getNumItems() <= 20) {
         myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
@@ -120,7 +120,7 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
     // Check that give vType type is valid
     if (!valid) {
         // set DEFAULT_VEHTYPE as default pType
-        myCurrentPersonType = myPersonTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_VTYPE_ID);
+        myCurrentPersonType = myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_VTYPE_ID);
         // refresh myTypeMatchBox again
         for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
             if (myTypeMatchBox->getItem(i).text() == myCurrentPersonType->getID()) {
@@ -360,7 +360,7 @@ GNEPersonTypeFrame::GNEPersonTypeFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonTypeAttributesEditor = new GNEFrameAttributesModuls::AttributesEditor(this);
 
     // set "VTYPE_DEFAULT" as default person Type
-    myPersonTypeSelector->setCurrentPersonType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID));
+    myPersonTypeSelector->setCurrentPersonType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID));
 }
 
 

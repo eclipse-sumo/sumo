@@ -147,7 +147,7 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            return (myNet->retrieveEdge(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         case GNE_ATTR_SELECTED:
@@ -187,7 +187,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setMicrosimID(value);
             break;
         case SUMO_ATTR_EDGE:
-            myNewEdgeDestination = myNet->retrieveEdge(value);
+            myNewEdgeDestination = myNet->getAttributeCarriers()->retrieveEdge(value);
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);

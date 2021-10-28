@@ -279,13 +279,13 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            if (myNet->retrieveEdge(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if (myNet->retrieveLane(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -313,7 +313,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return (myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr);
+                return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr);
             }
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return canParse<double>(value) ? (parse<double>(value) >= 0) : false;

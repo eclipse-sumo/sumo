@@ -171,9 +171,9 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
     if (myEditedTAZ != nullptr) {
         myCurrentTAZLabel->setText(("Current TAZ: " + myEditedTAZ->getID()).c_str());
         // obtain a copy of all edges of the net (to avoid slowdown during manipulations)
-        myNetEdges = myTAZFrameParent->myViewNet->getNet()->retrieveEdges();
+        myNetEdges = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdges();
         // obtain a copy of all SELECTED edges of the net (to avoid slowdown during manipulations)
-        mySelectedEdges = myTAZFrameParent->myViewNet->getNet()->retrieveEdges(true);
+        mySelectedEdges = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
         // resfresh TAZ Edges
         refreshTAZEdges();
         // hide TAZ parameters
@@ -289,7 +289,7 @@ void
 GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
     // first make sure that TAZElements is an TAZ Source or Sink
     if (sourceSink && ((sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSINK))) {
-        GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
+        GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
         // first check if TAZEdgeColor has to be created
         bool createTAZEdge = true;
         for (auto& TAZEdgeColor : myTAZEdgeColors) {

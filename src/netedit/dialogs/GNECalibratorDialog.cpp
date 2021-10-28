@@ -160,7 +160,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size(); i++) {
         // obtain rerouter
-        GNEDemandElement* routeToEdit = myEditedAdditional->getNet()->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteList->getItem(i, 0)->getText().text());
+        GNEDemandElement* routeToEdit = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteList->getItem(i, 0)->getText().text());
         if (myRouteList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains route to delete as "route" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
@@ -279,7 +279,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).size(); i++) {
         // obtain vehicle type
-        GNEDemandElement* vType = myEditedAdditional->getNet()->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
+        GNEDemandElement* vType = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
         // Make sure that default vehicle isn't edited
         if ((i == 0) && (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus() || myVehicleTypeList->getItem(i, 2)->hasFocus())) {
             FXMessageBox::warning(getApp(), MBOX_OK,

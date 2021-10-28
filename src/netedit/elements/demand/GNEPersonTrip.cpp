@@ -388,7 +388,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 // obtain busStop
-                const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
                 undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -411,9 +411,9 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         // specific person plan attributes
         case SUMO_ATTR_MODES: {
             SVCPermissions dummyModeSet;

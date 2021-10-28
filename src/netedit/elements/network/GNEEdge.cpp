@@ -56,8 +56,8 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, 
-        {net->retrieveJunction(nbe->getFromNode()->getID()), 
-         net->retrieveJunction(nbe->getToNode()->getID())},
+        {net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()), 
+         net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())},
     {}, {}, {}, {}, {}, {}, {}),
     myNBEdge(nbe),
     myLanes(0),
@@ -363,7 +363,7 @@ GNEEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GNEEdge*
 GNEEdge::getOppositeEdge() const {
-    return myNet->retrieveEdge(getToJunction(), getFromJunction(), false);
+    return myNet->getAttributeCarriers()->retrieveEdge(getToJunction(), getFromJunction(), false);
 }
 
 
@@ -890,7 +890,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             getFromJunction()->setLogicValid(false, undoList);
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             getFromJunction()->setLogicValid(false, undoList);
-            myNet->retrieveJunction(value)->setLogicValid(false, undoList);
+            myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_START, toString(getFromJunction()->getNBNode()->getPosition()), undoList);
             getFromJunction()->invalidateShape();
             undoList->end();
@@ -909,7 +909,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             getToJunction()->setLogicValid(false, undoList);
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             getToJunction()->setLogicValid(false, undoList);
-            myNet->retrieveJunction(value)->setLogicValid(false, undoList);
+            myNet->getAttributeCarriers()->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_END, toString(getToJunction()->getNBNode()->getPosition()), undoList);
             getToJunction()->invalidateShape();
             undoList->end();
@@ -965,13 +965,13 @@ bool
 GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) == nullptr);
         case SUMO_ATTR_FROM: {
             // check that is a valid ID and is different of ID of junction destiny
             if (SUMOXMLDefinitions::isValidNetID(value) && (value != getToJunction()->getID())) {
-                GNEJunction* junctionFrom = myNet->retrieveJunction(value, false);
+                GNEJunction* junctionFrom = myNet->getAttributeCarriers()->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
-                if ((junctionFrom != nullptr) && (myNet->retrieveEdge(junctionFrom, getToJunction(), false) == nullptr)) {
+                if ((junctionFrom != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(junctionFrom, getToJunction(), false) == nullptr)) {
                     return true;
                 } else {
                     return false;
@@ -983,9 +983,9 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO: {
             // check that is a valid ID and is different of ID of junction Source
             if (SUMOXMLDefinitions::isValidNetID(value) && (value != getFromJunction()->getID())) {
-                GNEJunction* junctionTo = myNet->retrieveJunction(value, false);
+                GNEJunction* junctionTo = myNet->getAttributeCarriers()->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
-                if ((junctionTo != nullptr) && (myNet->retrieveEdge(getFromJunction(), junctionTo, false) == nullptr)) {
+                if ((junctionTo != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(getFromJunction(), junctionTo, false) == nullptr)) {
                     return true;
                 } else {
                     return false;
@@ -1694,7 +1694,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 void
 GNEEdge::updateFirstParentJunction(const std::string& value) {
     std::vector<GNEJunction*> parentJunctions = getParentJunctions();
-    parentJunctions[0] = myNet->retrieveJunction(value);
+    parentJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
     // replace parent junctions
     replaceParentElements(this, parentJunctions);
 }
@@ -1703,7 +1703,7 @@ GNEEdge::updateFirstParentJunction(const std::string& value) {
 void
 GNEEdge::updateSecondParentJunction(const std::string& value) {
     std::vector<GNEJunction*> parentJunctions = getParentJunctions();
-    parentJunctions[1] = myNet->retrieveJunction(value);
+    parentJunctions[1] = myNet->getAttributeCarriers()->retrieveJunction(value);
     // replace parent junctions
     replaceParentElements(this, parentJunctions);
 }
@@ -1878,7 +1878,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
     }
     if (createIfNoExist) {
         // create new connection. Will be added to the rTree on first geometry computation
-        GNEConnection* connection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
+        GNEConnection* connection = new GNEConnection(myLanes[fromLane], myNet->getAttributeCarriers()->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
         WRITE_DEBUG("Created " + connection->getTagStr() + " '" + connection->getID() + "' in retrieveGNEConnection()");
         // add it into network

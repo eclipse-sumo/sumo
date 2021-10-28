@@ -202,7 +202,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
             NBTrafficLightDefinition* copy = new NBLoadedSUMOTLDef(*def, *logic);
             std::vector<NBNode*> nodes = def->getNodes();
             for (auto it_node : nodes) {
-                GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
+                GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(it_node->getID());
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, false, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, copy, true), true);
             }
@@ -232,7 +232,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
         std::vector<NBNode*> nodes = def->getNodes();
         //std::cout << " add " << def->getDescription() << " for nodes=" << toString(nodes) << "\n";
         for (auto it_node : nodes) {
-            GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
+            GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(it_node->getID());
             //myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, false), true);
             myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, true), true);
         }
@@ -263,7 +263,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
             NBTrafficLightDefinition* oldDefinition = myTLSAttributes->getCurrentTLSDefinition();
             std::vector<NBNode*> nodes = oldDefinition->getNodes();
             for (auto it : nodes) {
-                GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it->getID());
+                GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(it->getID());
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
@@ -775,7 +775,7 @@ GNETLSEditorFrame::cleanup() {
         myTLSJunction->getCurrentJunction()->selectTLS(false);
         if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
             for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
-                myViewNet->getNet()->retrieveJunction(node->getID())->selectTLS(false);
+                myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(false);
             }
         }
     }
@@ -906,7 +906,7 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
         } else {
             // if the edge is selected, apply changes to all lanes of all selected edges
             if (lane->getParentEdge()->isAttributeCarrierSelected()) {
-                std::vector<GNEEdge*> edges = myViewNet->getNet()->retrieveEdges(true);
+                std::vector<GNEEdge*> edges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
                 for (auto it : edges) {
                     for (auto it_lane : it->getLanes()) {
                         fromIDs.insert(it_lane->getMicrosimID());
@@ -915,7 +915,7 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
             }
             // if the lane is selected, apply changes to all selected lanes
             if (lane->isAttributeCarrierSelected()) {
-                std::vector<GNELane*> lanes = myViewNet->getNet()->retrieveLanes(true);
+                std::vector<GNELane*> lanes = myViewNet->getNet()->getAttributeCarriers()->retrieveLanes(true);
                 for (auto it_lane : lanes) {
                     fromIDs.insert(it_lane->getMicrosimID());
                 }
@@ -963,7 +963,7 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
         }
         if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
             for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
-                myViewNet->getNet()->retrieveJunction(node->getID())->selectTLS(true);
+                myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
             }
         }
     } else {
@@ -1444,7 +1444,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
             std::vector<NBNode*> nodes = myTLSEditorParent->myEditedDef->getNodes();
             for (auto newProg : newDefsOtherProgram) {
                 for (auto it_node : nodes) {
-                    GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(it_node->getID());
+                    GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(it_node->getID());
                     myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newProg, true), true);
                 }
             }

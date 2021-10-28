@@ -264,7 +264,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // Show position parameters
     if (myTagProperty.hasAttribute(SUMO_ATTR_LANE) && (myAdditionalGeometry.getShape().size() > 1)) {
-        const GNELane* lane = myNet->retrieveLane(getAttribute(SUMO_ATTR_LANE));
+        const GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         GUIDesigns::buildFXMenuCommand(ret, "Cursor position over additional shape: " + toString(innerPos), nullptr, nullptr, 0);
@@ -274,7 +274,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             GUIDesigns::buildFXMenuCommand(ret, "Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos), nullptr, nullptr, 0);
         }
     } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE) && (myAdditionalGeometry.getShape().size() > 1)) {
-        const GNEEdge* edge = myNet->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
+        const GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         GUIDesigns::buildFXMenuCommand(ret, "Cursor position over additional shape: " + toString(innerPos), nullptr, nullptr, 0);
@@ -502,7 +502,7 @@ GNEAdditional::setDefaultValues() {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -512,7 +512,7 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 
 bool
 GNEAdditional::isValidDetectorID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myNet->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -589,9 +589,9 @@ GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string& value,
     if (value.size() > 0) {
         parentAdditionals = getParentAdditionals();
         if ((parentAdditionals.size() == 0) && (parentIndex == 0)) {
-            parentAdditionals.push_back(myNet->retrieveAdditional(tag, value));
+            parentAdditionals.push_back(myNet->getAttributeCarriers()->retrieveAdditional(tag, value));
         } else {
-            parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
+            parentAdditionals[parentIndex] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
         }
     }
     // replace parent additionals
@@ -602,7 +602,7 @@ GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string& value,
 void
 GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
     std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
-    parentDemandElements[parentIndex] = myNet->retrieveDemandElement(tag, value);
+    parentDemandElements[parentIndex] = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
     // replace parent demand elements
     replaceParentElements(this, parentDemandElements);
 }

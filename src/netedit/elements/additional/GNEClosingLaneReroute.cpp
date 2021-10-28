@@ -151,7 +151,7 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            return (myNet->retrieveLane(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
@@ -192,7 +192,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setMicrosimID(value);
             break;
         case SUMO_ATTR_LANE:
-            myClosedLane = myNet->retrieveLane(value);
+            myClosedLane = myNet->getAttributeCarriers()->retrieveLane(value);
             break;
         case SUMO_ATTR_ALLOW:
             myPermissions = parseVehicleClasses(value);

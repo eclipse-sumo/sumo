@@ -253,7 +253,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            if (myNet->retrieveEdge(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

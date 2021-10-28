@@ -180,7 +180,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
         return false;
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
         // Lane
-        return shape.overlapsWith(myNet->retrieveLane(AC->getID())->getLaneShape());
+        return shape.overlapsWith(retrieveLane(AC->getID())->getLaneShape());
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
         // connection
         return shape.overlapsWith(dynamic_cast<GNEConnection*>(AC)->getConnectionShape());
@@ -189,7 +189,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
         return shape.overlapsWith(dynamic_cast<GNECrossing*>(AC)->getCrossingShape());
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // Additional
-        const GNEAdditional *additional = myNet->retrieveAdditional(AC);
+        const GNEAdditional *additional = retrieveAdditional(AC);
         if (additional->getAdditionalGeometry().getShape().size() <= 1) {
             return shape.around(additional->getPositionInView());
         } else {
@@ -210,6 +210,32 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
     } else {
         return false;
     }
+}
+
+
+GNEJunction*
+GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool failHard) const {
+    if (myJunctions.count(id)) {
+        return myJunctions.at(id);
+    } else if (failHard) {
+        // If junction wasn't found, throw exception
+        throw UnknownElement("Junction " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEJunction*>
+GNENetHelper::AttributeCarriers::retrieveJunctions(bool onlySelected) {
+    std::vector<GNEJunction*> result;
+    // returns junctions depending of selection
+    for (const auto &junction : myJunctions) {
+        if (!onlySelected || junction.second->isAttributeCarrierSelected()) {
+            result.push_back(junction.second);
+        }
+    }
+    return result;
 }
 
 
@@ -278,12 +304,40 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
 }
 
 
+GNECrossing*
+GNENetHelper::AttributeCarriers::retrieveCrossing(const std::string& id, bool failHard) const {
+    // iterate over crossings
+    for (const auto &crossing : myCrossings) {
+        if (crossing->getID() == id) {
+            return crossing;
+        }
+    }
+    if (failHard) {
+        // If POI wasn't found, throw exception
+        throw UnknownElement("Crossing " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNECrossing*>
+GNENetHelper::AttributeCarriers::retrieveCrossings(bool onlySelected) const {
+    std::vector<GNECrossing*> result;
+    // iterate over crossings
+    for (const auto &crossing : myCrossings) {
+        if (!onlySelected || crossing->isAttributeCarrierSelected()) {
+            result.push_back(crossing);
+        }
+    }
+    return result;
+}
+
+
 void
 GNENetHelper::AttributeCarriers::insertCrossing(GNECrossing* crossing) {
     if (myCrossings.insert(crossing).second == false) {
         throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' already exist");
-    } else {
-        ;
     }
 }
 
@@ -308,6 +362,19 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
         }
     }
     return counter;
+}
+
+
+GNEEdgeType*
+GNENetHelper::AttributeCarriers::retrieveEdgeType(const std::string& id, bool failHard) const {
+    if (myEdgeTypes.count(id) > 0) {
+        return myEdgeTypes.at(id);
+    } else if (failHard) {
+        // If edge wasn't found, throw exception
+        throw UnknownElement("EdgeType " + id);
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -350,6 +417,52 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEEdgeType* edgeType, const s
         // net has to be saved
         myNet->requireSaveNet(true);
     }
+}
+
+
+GNEEdge*
+GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool failHard) const {
+    if (myEdges.count(id) > 0) {
+        return myEdges.at(id);
+    } else if (failHard) {
+        // If edge wasn't found, throw exception
+        throw UnknownElement("Edge " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEEdge*
+GNENetHelper::AttributeCarriers::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) const {
+    if ((from == nullptr) || (to == nullptr)) {
+        throw UnknownElement("Junctions cannot be nullptr");
+    }
+    // iterate over Junctions
+    for (const auto& edge : myEdges) {
+        if ((edge.second->getFromJunction() == from) && (edge.second->getToJunction() == to)) {
+            return edge.second;
+        }
+    }
+    // if edge wasn't found, throw exception or return nullptr
+    if (failHard) {
+        throw UnknownElement("Edge with from='" + from->getID() + "' and to='" + to->getID() + "'");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEEdge*>
+GNENetHelper::AttributeCarriers::retrieveEdges(bool onlySelected) {
+    std::vector<GNEEdge*> result;
+    // returns edges depending of selection
+    for (const auto& edge : myEdges) {
+        if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+            result.push_back(edge.second);
+        }
+    }
+    return result;
 }
 
 
@@ -422,6 +535,53 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
 }
 
 
+GNELane*
+GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool failHard, bool checkVolatileChange) const {
+    const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
+    const GNEEdge* edge = myEdges.at(edge_id);
+    if (edge != nullptr) {
+        GNELane* lane = nullptr;
+        // search  lane in lane's edges
+        for (auto laneIt : edge->getLanes()) {
+            if (laneIt->getID() == id) {
+                lane = laneIt;
+            }
+        }
+        // throw exception or return nullptr if lane wasn't found
+        if (lane == nullptr) {
+            if (failHard) {
+                // Throw exception if failHard is enabled
+                throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
+            }
+        } else {
+            // check if the recomputing with volatile option has changed the number of lanes (needed for additionals and demand elements)
+            if (checkVolatileChange && (myNet->getEdgesAndNumberOfLanes().count(edge_id) == 1) && 
+                myNet->getEdgesAndNumberOfLanes().at(edge_id) != (int)edge->getLanes().size()) {
+                return edge->getLanes().at(lane->getIndex() + 1);
+            }
+            return lane;
+        }
+    } else if (failHard) {
+        // Throw exception if failHard is enabled
+        throw UnknownElement(toString(SUMO_TAG_EDGE) + " " + edge_id);
+    }
+    return nullptr;
+}
+
+
+std::vector<GNELane*>
+GNENetHelper::AttributeCarriers::retrieveLanes(bool onlySelected) {
+    std::vector<GNELane*> result;
+    // returns lanes depending of selection
+    for (const auto &lane : myLanes) {
+        if (!onlySelected || lane->isAttributeCarrierSelected()) {
+            result.push_back(lane);
+        }
+    }
+    return result;
+}
+
+
 void
 GNENetHelper::AttributeCarriers::insertLane(GNELane* lane) {
     if (myLanes.insert(lane).second == false) {
@@ -453,14 +613,42 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
 }
 
 
+GNEConnection*
+GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool failHard) const {
+    // iterate over connections
+    for (const auto &connection : myConnections) {
+        if (connection->getID() == id) {
+            return connection;
+        }
+    }
+    if (failHard) {
+        // If POI wasn't found, throw exception
+        throw UnknownElement("Connection " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEConnection*>
+GNENetHelper::AttributeCarriers::retrieveConnections(bool onlySelected) const {
+    std::vector<GNEConnection*> result;
+    for (const auto &connection : myConnections) {
+        if (!onlySelected || connection->isAttributeCarrierSelected()) {
+            result.push_back(connection);
+        }
+    }
+    return result;
+}
+
+
 void
 GNENetHelper::AttributeCarriers::insertConnection(GNEConnection* connection) {
     if (myConnections.insert(connection).second == false) {
         throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' already exist");
-    } else {
-        ;
     }
 }
+
 
 
 void 
@@ -483,6 +671,36 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
         }
     }
     return counter;
+}
+
+
+GNEAdditional*
+GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    for (const auto &additional : myAdditionals.at(type)) {
+        if (additional->getID() == id) {
+            return additional;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant additional (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional* 
+GNENetHelper::AttributeCarriers::retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &additional : myAdditionals.at(AC->getTagProperty().getTag())) {
+        if (additional == AC) {
+            return additional;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -531,6 +749,34 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
         }
     }
     return counter;
+}
+
+
+std::vector<GNEShape*>
+GNENetHelper::AttributeCarriers::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
+    std::vector<GNEShape*> result;
+    // return all polys depending of onlySelected
+    for (const auto& shape : myShapes.at(shapeTag)) {
+        if (!onlySelected || shape->isAttributeCarrierSelected()) {
+            result.push_back(shape);
+        }
+    }
+    return result;
+}
+
+
+std::vector<GNEShape*>
+GNENetHelper::AttributeCarriers::retrieveShapes(bool onlySelected) {
+    std::vector<GNEShape*> result;
+    // return all polygons and POIs
+    for (const auto& shapeTag : myShapes) {
+        for (const auto& shape : shapeTag.second) {
+            if (!onlySelected || shape->isAttributeCarrierSelected()) {
+                result.push_back(shape);
+            }
+        }
+    }
+    return result;
 }
 
 
@@ -633,6 +879,51 @@ GNENetHelper::AttributeCarriers::TAZElementExist(const GNETAZElement* TAZElement
     } else {
         throw ProcessError("Invalid TAZElement pointer");
     }
+}
+
+
+GNEDemandElement*
+GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    for (const auto &demandElement : myDemandElements.at(type)) {
+        if (demandElement->getID() == id) {
+            return demandElement;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant demand element (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDemandElement*
+GNENetHelper::AttributeCarriers::retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &demandElement : myDemandElements.at(AC->getTagProperty().getTag())) {
+        if (demandElement == AC) {
+            return demandElement;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEDemandElement*>
+GNENetHelper::AttributeCarriers::retrieveDemandElements(bool onlySelected) const {
+    std::vector<GNEDemandElement*> result;
+    // returns demand elements depending of selection
+    for (const auto &demandElementTag : myDemandElements) {
+        for (const auto &demandElement : demandElementTag.second) {
+            if (!onlySelected || demandElement->isAttributeCarrierSelected()) {
+                result.push_back(demandElement);
+            }
+        }
+    }
+    return result;
 }
 
 

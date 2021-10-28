@@ -265,9 +265,9 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     std::vector<GNEEdge*> parsedEdges;
     // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
     for (const auto& i : edgeIds) {
-        GNEEdge* retrievedEdge = net->retrieveEdge(i, false);
+        GNEEdge* retrievedEdge = net->getAttributeCarriers()->retrieveEdge(i, false);
         if (retrievedEdge) {
-            parsedEdges.push_back(net->retrieveEdge(i));
+            parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(i));
         } else {
             throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "' doesn't exist");
         }
@@ -283,9 +283,9 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     std::vector<GNELane*> parsedLanes;
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
     for (const auto& i : laneIds) {
-        GNELane* retrievedLane = net->retrieveLane(i, false);
+        GNELane* retrievedLane = net->getAttributeCarriers()->retrieveLane(i, false);
         if (retrievedLane) {
-            parsedLanes.push_back(net->retrieveLane(i));
+            parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(i));
         } else {
             throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist");
         }

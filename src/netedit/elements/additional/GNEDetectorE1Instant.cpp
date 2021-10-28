@@ -226,7 +226,7 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDetectorID(value);
         case SUMO_ATTR_LANE:
-            if (myNet->retrieveLane(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

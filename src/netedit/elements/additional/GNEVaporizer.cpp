@@ -226,7 +226,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            if (myNet->retrieveEdge(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return isValidAdditionalID(value);
             } else {
                 return false;

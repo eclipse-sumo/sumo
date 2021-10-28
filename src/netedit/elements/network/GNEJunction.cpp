@@ -231,7 +231,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         //}
         const int numEndpoints = (int)myNBNode->getEndPoints().size();
         // check if we're handling a selection
-        bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
+        bool handlingSelection = isAttributeCarrierSelected() && (myNet->getAttributeCarriers()->retrieveJunctions(true).size() > 1);
         // check if menu commands has to be disabled
         const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CONNECT) ||
                                (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) ||
@@ -259,7 +259,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             }
         }
         std::string multi;
-        const int junctionSelSize = (int)myNet->retrieveJunctions(true).size();
+        const int junctionSelSize = (int)myNet->getAttributeCarriers()->retrieveJunctions(true).size();
         if (junctionSelSize > 1 && isAttributeCarrierSelected()) {
             multi = " of " + toString(junctionSelSize) + " junctions";
         }
@@ -671,7 +671,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(myNBNode, false);
         EdgeVector incoming = myNBNode->getIncomingEdges();
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
-            GNEEdge* srcEdge = myNet->retrieveEdge((*it)->getID());
+            GNEEdge* srcEdge = myNet->getAttributeCarriers()->retrieveEdge((*it)->getID());
             removeConnectionsFrom(srcEdge, undoList, false); // false, because the whole tls will be invalidated at the end
             undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
@@ -719,7 +719,7 @@ GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool upda
     NBEdge* destNBE = edge->getNBEdge();
     std::vector<NBConnection> removeConnections;
     for (NBEdge* srcNBE : myNBNode->getIncomingEdges()) {
-        GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
+        GNEEdge* srcEdge = myNet->getAttributeCarriers()->retrieveEdge(srcNBE->getID());
         std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
         for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
             if ((*con_it).toEdge == destNBE) {
@@ -762,7 +762,7 @@ GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUnd
                 // the removed traffic light may have controlled more than one junction. These too have become invalid now
                 const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
                 for (const auto& node : copyOfNodes) {
-                    GNEJunction* sharing = myNet->retrieveJunction(node->getID());
+                    GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                     undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
                     undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
                 }
@@ -798,7 +798,7 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
             // the removed traffic light may have controlled more than one junction. These too have become invalid now
             const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
             for (const auto& node : copyOfNodes) {
-                GNEJunction* sharing = myNet->retrieveJunction(node->getID());
+                GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                 undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
             }
@@ -812,7 +812,7 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
     EdgeVector incoming = myNBNode->getIncomingEdges();
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
         NBEdge* srcNBE = *it;
-        GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
+        GNEEdge* srcEdge = myNet->getAttributeCarriers()->retrieveEdge(srcNBE->getID());
         undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, FEATURE_MODIFIED), true);
     }
 }
@@ -866,7 +866,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             // the removed traffic light may have controlled more than one junction. These too have become invalid now
             const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
             for (const auto& node : copyOfNodes) {
-                GNEJunction* sharing = myNet->retrieveJunction(node->getID());
+                GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                 undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
             }
@@ -1087,7 +1087,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     newDef->guessMinMaxDuration();
                     std::vector<NBNode*> nodes = TLS->getNodes();
                     for (const auto& node : nodes) {
-                        GNEJunction* junction = myNet->retrieveJunction(node->getID());
+                        GNEJunction* junction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                         undoList->add(new GNEChange_TLS(junction, TLS, false), true);
                         undoList->add(new GNEChange_TLS(junction, newDef, true), true);
                     }
@@ -1106,11 +1106,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 newTLS->setLayout(SUMOXMLDefinitions::TrafficLightLayouts.get(value));
                 newTLS->setProgramID(oldTLS->getProgramID());
                 for (const auto& node : copyOfNodes) {
-                    GNEJunction* oldJunction = myNet->retrieveJunction(node->getID());
+                    GNEJunction* oldJunction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                     undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
                 }
                 for (const auto& node : copyOfNodes) {
-                    GNEJunction* oldJunction = myNet->retrieveJunction(node->getID());
+                    GNEJunction* oldJunction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                     undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
                 }
             }
@@ -1156,7 +1156,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                         // switch from old to new definition
                         std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
                         for (const auto& node : copyOfNodes) {
-                            GNEJunction* oldJunction = myNet->retrieveJunction(node->getID());
+                            GNEJunction* oldJunction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
                             undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
                         }
@@ -1189,7 +1189,7 @@ bool
 GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveJunction(value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveJunction(value, false) == nullptr);
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
         case SUMO_ATTR_POSITION:
@@ -1527,7 +1527,7 @@ GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoun
     myNBNode->reinit(pos, myNBNode->getType());
     // set new position of adjacent edges
     for (const auto& edge : getNBNode()->getEdges()) {
-        myNet->retrieveEdge(edge->getID())->updateJunctionPosition(this, orig);
+        myNet->getAttributeCarriers()->retrieveEdge(edge->getID())->updateJunctionPosition(this, orig);
     }
     // declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;

@@ -426,7 +426,7 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
                 // obtain stopContainer
-                const GNEAdditional* stopContainer = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
+                const GNEAdditional* stopContainer = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
                 undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, stopContainer->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -476,10 +476,10 @@ GNEStopContainer::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_CONTAINER_STOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         // specific of stops over edges/lanes
         case SUMO_ATTR_EDGE:
-            if (myNet->retrieveEdge(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

@@ -580,7 +580,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
 
 bool
 GNEFrameAttributesModuls::AttributesCreatorRow::isValidID() const {
-    return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->retrieveAdditional(
+    return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
                 myAttrProperties.getTagPropertyParent().getTag(),
                 myValueTextField->getText().text(), false) == nullptr);
 }
@@ -1558,7 +1558,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
     // check if we're editing junction position
     if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
         // retrieve original junction
-        GNEJunction* movedJunction = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->retrieveJunction(inspectedACs.front()->getID());
+        GNEJunction* movedJunction = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(inspectedACs.front()->getID());
         // parse position
         const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
         // iterate over network junction

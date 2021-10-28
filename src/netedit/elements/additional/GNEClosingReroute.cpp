@@ -151,7 +151,7 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            return (myNet->retrieveEdge(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:
@@ -193,7 +193,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setMicrosimID(value);
             break;
         case SUMO_ATTR_EDGE:
-            myClosedEdge = myNet->retrieveEdge(value);
+            myClosedEdge = myNet->getAttributeCarriers()->retrieveEdge(value);
             break;
         case SUMO_ATTR_ALLOW:
             myPermissions = parseVehicleClasses(value);

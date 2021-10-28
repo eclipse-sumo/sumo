@@ -1098,7 +1098,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
         // iterate over ACsToSelect and extract edges
         for (const auto& AC : ACsToSelect) {
             if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                edgesToSelect.insert(myViewNet->getNet()->retrieveEdge(AC.second->getID()));
+                edgesToSelect.insert(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(AC.second->getID()));
             }
         }
         // iterate over extracted edges

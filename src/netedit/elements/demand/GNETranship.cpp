@@ -423,7 +423,7 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
                 // obtain containerStop
-                const GNEAdditional* containerStop = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
+                const GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
                 undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -463,9 +463,9 @@ GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
         // Common container plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_CONTAINERSTOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         case SUMO_ATTR_EDGES:
             if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
                 // all edges exist, then check if compounds a valid route

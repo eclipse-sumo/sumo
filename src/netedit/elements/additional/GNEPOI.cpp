@@ -455,7 +455,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
-            return (myNet->retrieveLane(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
             if (getParentLanes().size() > 0) {
                 return canParse<double>(value);

@@ -642,8 +642,8 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Vtypes and PTypes shares namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;

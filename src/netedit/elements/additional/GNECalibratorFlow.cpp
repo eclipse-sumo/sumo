@@ -309,9 +309,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
@@ -348,7 +348,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
                 return true;
             } else {
-                return (myNet->retrieveLane(value, false) != nullptr);
+                return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_DEPARTPOS:
             if ((value == "random") || (value == "free") || (value == "random_free") || (value == "base") || (value == "last")) {
@@ -366,7 +366,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "current") {
                 return true;
             } else {
-                return (myNet->retrieveLane(value, false) != nullptr);
+                return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_ARRIVALPOS:
             if ((value == "random") || (value == "max")) {

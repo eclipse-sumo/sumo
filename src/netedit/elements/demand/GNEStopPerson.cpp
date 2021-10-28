@@ -426,7 +426,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 // obtain busStop
-                const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
                 undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -476,10 +476,10 @@ GNEStopPerson::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         // specific of stops over edges/lanes
         case SUMO_ATTR_EDGE:
-            if (myNet->retrieveEdge(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

@@ -526,7 +526,7 @@ GUIGLObjectPopupMenu*
 GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (isAttributeCarrierSelected()) {
         // obtain all selected vehicles
-        std::vector<GNEDemandElement*> selectedDemandElements = myNet->retrieveDemandElements(true);
+        std::vector<GNEDemandElement*> selectedDemandElements = myNet->getAttributeCarriers()->retrieveDemandElements(true);
         std::vector<GNEVehicle*> selectedVehicles;
         selectedVehicles.reserve(selectedDemandElements.size());
         for (const auto& i : selectedDemandElements) {
@@ -1283,16 +1283,16 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Vehicles, Trips and Flows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(GNE_TAG_FLOW_ROUTE, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(GNE_TAG_FLOW_ROUTE, value, false) == nullptr) &&
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTLANE: {
@@ -1385,14 +1385,14 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
-                return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+                return SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
             } else {
                 return true;
             }
         // Specific of Trips
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_DEPARTEDGE:
         case SUMO_ATTR_ARRIVALEDGE: {
             if (value.empty()) {

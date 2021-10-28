@@ -440,7 +440,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 // obtain busStop
-                const GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
                 undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
@@ -474,7 +474,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
                 // obtain route
-                const GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value);
+                const GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value);
                 // change from attribute using edge ID
                 undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, route->getParentEdges().back()->getID(), undoList);
@@ -497,9 +497,9 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_EDGES:
             if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
                 // all edges exist, then check if compounds a valid route
@@ -508,7 +508,7 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_ROUTE:
-            return (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         // specific person plan attributes
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {

@@ -74,7 +74,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::VehicleTypeSelector(GNEVehicleTypeFram
         }
     }
     // set DEFAULT_VEHTYPE as default VType
-    myCurrentVehicleType = myVehicleTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
+    myCurrentVehicleType = myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
     // Set visible items
     if (myTypeMatchBox->getNumItems() <= 20) {
         myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
@@ -132,7 +132,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
     // Check that give vType type is valid
     if (!valid) {
         // set DEFAULT_VEHTYPE as default VType
-        myCurrentVehicleType = myVehicleTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
+        myCurrentVehicleType = myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
         // refresh myTypeMatchBox again
         for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
             if (myTypeMatchBox->getItem(i).text() == myCurrentVehicleType->getID()) {
@@ -389,7 +389,7 @@ GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParen
     myAttributesEditorExtended = new GNEFrameAttributesModuls::AttributesEditorExtended(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
-    myVehicleTypeSelector->setCurrentVehicleType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
+    myVehicleTypeSelector->setCurrentVehicleType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 }
 
 

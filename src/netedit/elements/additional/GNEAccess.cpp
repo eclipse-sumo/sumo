@@ -256,7 +256,7 @@ bool
 GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE: {
-            GNELane* lane = myNet->retrieveLane(value, false);
+            GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(value, false);
             if (lane != nullptr) {
                 if (getParentLanes().front()->getParentEdge()->getID() != lane->getParentEdge()->getID()) {
                     return GNEAdditionalHandler::accessCanBeCreated(getParentAdditionals().at(0), lane->getParentEdge());

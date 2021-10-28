@@ -339,7 +339,7 @@ GNEAdditionalFrame::SelectorChildEdges::getEdgeIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedEdgesCheckButton->getCheck()) {
         // get Selected edges
-        std::vector<GNEEdge*> selectedEdges = myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+        std::vector<GNEEdge*> selectedEdges = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
         // Iterate over selectedEdges and getId
         for (const auto& edge : selectedEdges) {
             vectorOfIds.push_back(edge->getID());
@@ -362,7 +362,7 @@ GNEAdditionalFrame::SelectorChildEdges::showSelectorChildEdgesModul(std::string 
     myList->clearItems();
     // get all edges of net
     /// @todo this function must be improved.
-    std::vector<GNEEdge*> vectorOfEdges = myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(false);
+    std::vector<GNEEdge*> vectorOfEdges = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(false);
     // iterate over edges of net
     for (auto i : vectorOfEdges) {
         // If search criterium is correct, then append ittem
@@ -390,7 +390,7 @@ GNEAdditionalFrame::SelectorChildEdges::hideSelectorChildEdgesModul() {
 void
 GNEAdditionalFrame::SelectorChildEdges::updateUseSelectedEdges() {
     // Enable or disable use selected edges
-    if (myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(true).size() > 0) {
+    if (myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true).size() > 0) {
         myUseSelectedEdgesCheckButton->enable();
     } else {
         myUseSelectedEdgesCheckButton->disable();
@@ -494,7 +494,7 @@ GNEAdditionalFrame::SelectorChildLanes::getLaneIdsSelected() const {
     std::vector<std::string> vectorOfIds;
     if (myUseSelectedLanesCheckButton->getCheck()) {
         // get Selected lanes
-        std::vector<GNELane*> selectedLanes = myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(true);
+        std::vector<GNELane*> selectedLanes = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(true);
         // Iterate over selectedLanes and getId
         for (const auto& lane : selectedLanes) {
             vectorOfIds.push_back(lane->getID());
@@ -514,7 +514,7 @@ GNEAdditionalFrame::SelectorChildLanes::getLaneIdsSelected() const {
 void
 GNEAdditionalFrame::SelectorChildLanes::showSelectorChildLanesModul(std::string search) {
     myList->clearItems();
-    std::vector<GNELane*> vectorOfLanes = myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(false);
+    std::vector<GNELane*> vectorOfLanes = myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(false);
     for (auto i : vectorOfLanes) {
         if (i->getID().find(search) != std::string::npos) {
             myList->appendItem(i->getID().c_str());
@@ -536,7 +536,7 @@ GNEAdditionalFrame::SelectorChildLanes::hideSelectorChildLanesModul() {
 void
 GNEAdditionalFrame::SelectorChildLanes::updateUseSelectedLanes() {
     // Enable or disable use selected Lanes
-    if (myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(true).size() > 0) {
+    if (myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(true).size() > 0) {
         myUseSelectedLanesCheckButton->enable();
     } else {
         myUseSelectedLanesCheckButton->disable();
@@ -1230,20 +1230,22 @@ GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
     int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myAdditionalTagSelector->getCurrentTagProperties().getTag());
     // obtain tag Properties (only for improve code legilibility
     const auto& tagProperties = myAdditionalTagSelector->getCurrentTagProperties();
+    // get attribute carriers
+    const auto &attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
     if (networkElement) {
         // special case for vaporizers
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
             return networkElement->getID();
         } else {
             // generate ID using networkElement
-            while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + networkElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
+            while (attributeCarriers->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + networkElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
                 additionalIndex++;
             }
             return tagProperties.getTagStr() + "_" + networkElement->getID() + "_" + toString(additionalIndex);
         }
     } else {
         // generate ID without networkElement
-        while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + toString(additionalIndex), false) != nullptr) {
+        while (attributeCarriers->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + toString(additionalIndex), false) != nullptr) {
             additionalIndex++;
         }
         return tagProperties.getTagStr() + "_" + toString(additionalIndex);

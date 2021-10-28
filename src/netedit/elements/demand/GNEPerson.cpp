@@ -587,14 +587,14 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Persons and personflows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_PERSON, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) == nullptr)) {
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) == nullptr) &&
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTPOS: {

@@ -268,7 +268,7 @@ GNERouteFrame::createPath() {
         for (const auto& path : myPathCreator->getPath()) {
             for (const auto& edgeID : path.getSubPath()) {
                 // get edge
-                GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID->getID());
+                GNEEdge* edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(edgeID->getID());
                 // avoid double edges
                 if (edges.empty() || (edges.back() != edge->getID())) {
                     edges.push_back(edge->getID());
@@ -284,7 +284,7 @@ GNERouteFrame::createPath() {
         // refresh route attributes
         myRouteAttributes->refreshRows();
         // compute path route
-        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteBaseObject->getStringAttribute(SUMO_ATTR_ID))->computePathElement();
+        myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteBaseObject->getStringAttribute(SUMO_ATTR_ID))->computePathElement();
     }
 }
 

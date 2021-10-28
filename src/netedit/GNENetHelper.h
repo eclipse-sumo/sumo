@@ -103,6 +103,18 @@ struct GNENetHelper {
 
         /// @name function for junctions
         /// @{
+        /**@brief get junction by id
+         * @param[in] id The id of the desired junction
+         * @param[in] failHard Whether attempts to retrieve a nonexisting junction should result in an exception
+         * @throws UnknownElement
+         */
+        GNEJunction* retrieveJunction(const std::string& id, bool failHard = true) const;
+
+        /**@brief return all junctions
+         * @param[in] onlySelected Whether to return only selected junctions
+         */
+        std::vector<GNEJunction*> retrieveJunctions(bool onlySelected = false);
+
         /// @brief registers a junction in GNENet containers
         GNEJunction* registerJunction(GNEJunction* junction);
 
@@ -122,6 +134,18 @@ struct GNENetHelper {
 
         /// @name function for crossings
         /// @{
+        /**@brief get Crossing by id
+         * @param[in] id The id of the desired Crossing
+         * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
+         * @throws UnknownElement
+         */
+        GNECrossing* retrieveCrossing(const std::string& id, bool failHard = true) const;
+
+        /**@brief return all crossings
+         * @param[in] onlySelected Whether to return only selected crossings
+         */
+        std::vector<GNECrossing*> retrieveCrossings(bool onlySelected = false) const;
+
         /// @brief insert crossing
         void insertCrossing(GNECrossing* crossing);
 
@@ -135,6 +159,13 @@ struct GNENetHelper {
 
         /// @name function for edgeTypes
         /// @{
+        /**@brief get edge type by id
+         * @param[in] id The id of the desired edge type
+         * @param[in] failHard Whether attempts to retrieve a nonexisting edge type should result in an exception
+         * @throws UnknownElement
+         */
+        GNEEdgeType* retrieveEdgeType(const std::string& id, bool failHard = true) const;
+
         /// @brief registers a edge in GNENet containers
         GNEEdgeType* registerEdgeType(GNEEdgeType* edgeType);
 
@@ -151,6 +182,25 @@ struct GNENetHelper {
 
         /// @name function for edges
         /// @{
+        /**@brief get edge by id
+         * @param[in] id The id of the desired edge
+         * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
+         * @throws UnknownElement
+         */
+        GNEEdge* retrieveEdge(const std::string& id, bool failHard = true) const;
+
+        /**@brief get edge by from and to GNEJunction
+         * @param[in] id The id of the desired edge
+         * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
+         * @throws UnknownElement
+         */
+        GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true) const;
+
+        /**@brief return all edges
+         * @param[in] onlySelected Whether to return only selected edges
+         */
+        std::vector<GNEEdge*> retrieveEdges(bool onlySelected = false);
+
         /// @brief registers an edge with GNENet containers
         GNEEdge* registerEdge(GNEEdge* edge);
 
@@ -168,6 +218,18 @@ struct GNENetHelper {
 
         /// @name function for lanes
         /// @{
+        /**@brief get lane by id
+         * @param[in] id The id of the desired lane
+         * @param[in] failHard Whether attempts to retrieve a nonexisting lane should result in an exception
+         * @param[in] checkVolatileChange Used by additionals after recomputing with volatile options.
+         * @throws UnknownElement
+         */
+        GNELane* retrieveLane(const std::string& id, bool failHard = true, bool checkVolatileChange = false) const;
+
+        /**@brief return all lanes
+         * @param[in] onlySelected Whether to return only selected lanes
+         */
+        std::vector<GNELane*> retrieveLanes(bool onlySelected = false);
 
         /// @brief insert lane
         void insertLane(GNELane* lane);
@@ -182,6 +244,17 @@ struct GNENetHelper {
 
         /// @name function for connections
         /// @{
+        /**@brief get Connection by id
+         * @param[in] id The id of the desired Connection
+         * @param[in] failHard Whether attempts to retrieve a nonexisting Connection should result in an exception
+         * @throws UnknownElement
+         */
+        GNEConnection* retrieveConnection(const std::string& id, bool failHard = true) const;
+
+        /**@brief return all connections
+         * @param[in] onlySelected Whether to return only selected connections
+         */
+        std::vector<GNEConnection*> retrieveConnections(bool onlySelected = false) const;
 
         /// @brief insert connection
         void insertConnection(GNEConnection* connection);
@@ -196,6 +269,20 @@ struct GNENetHelper {
 
         /// @name function for additionals
         /// @{
+        /**@brief Returns the named additional
+         * @param[in] id The attribute carrier related with the additional element
+         * @param[in] type tag with the type of additional
+         * @param[in] id The id of the additional to return.
+         * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
+         */
+        GNEAdditional* retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named additional
+         * @param[in] id The attribute carrier related with the additional element
+         * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
+         */
+        GNEAdditional* retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
         /// @brief get additionals
         const std::map<SumoXMLTag, std::set<GNEAdditional*> >& getAdditionals() const;
 
@@ -209,6 +296,17 @@ struct GNENetHelper {
 
         /// @name function for shapes
         /// @{
+        /**@brief return shape by type shapes
+         * @param[in] shapeTag Type of shape.
+         * @param[in] onlySelected Whether to return only selected junctions
+         */
+        std::vector<GNEShape*> retrieveShapes(SumoXMLTag shapeTag, bool onlySelected = false);
+
+        /**@brief return all shapes
+         * @param[in] onlySelected Whether to return only selected junctions
+         */
+        std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
+
         /// @brief get shapes
         const std::map<SumoXMLTag, std::set<GNEShape*> >& getShapes() const;
 
@@ -241,6 +339,24 @@ struct GNENetHelper {
 
         /// @name function for demand elements
         /// @{
+        /**@brief Returns the named demand element
+         * @param[in] type tag with the type of demand element
+         * @param[in] id The id of the demand element to return.
+         * @param[in] failHard Whether attempts to retrieve a nonexisting demand element should result in an exception
+         */
+        GNEDemandElement* retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named demand element
+         * @param[in] id The attribute carrier related with the demand element
+         * @param[in] failHard Whether attempts to retrieve a nonexisting demand element should result in an exception
+         */
+        GNEDemandElement* retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /**@brief return all demand elements
+         * @param[in] onlySelected Whether to return only selected demand elements
+         */
+        std::vector<GNEDemandElement*> retrieveDemandElements(bool onlySelected = false) const;
+
         /// @brief get demand elements
         const std::map<SumoXMLTag, std::set<GNEDemandElement*> >& getDemandElements() const;
 

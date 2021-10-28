@@ -181,7 +181,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadEnds(FXObject*, FXSelect
     // select all lanes that have no successor lane
     std::vector<GNEAttributeCarrier*> deadEnds;
     // every edge knows its outgoing connections so we can look at each edge in isolation
-    const std::vector<GNEEdge*> edges = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdges();
+    const std::vector<GNEEdge*> edges = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges();
     for (auto i : edges) {
         for (auto j : i->getLanes()) {
             if (i->getNBEdge()->getConnectionsFromLane(j->getIndex()).size() == 0) {
@@ -200,20 +200,20 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadStarts(FXObject*, FXSele
     std::set<GNEAttributeCarrier*> deadStarts;
     GNENet* net = myConnectorFrameParent->getViewNet()->getNet();
     // every edge knows only its outgoing connections so we look at whole junctions
-    const std::vector<GNEJunction*> junctions = myConnectorFrameParent->getViewNet()->getNet()->retrieveJunctions();
+    const std::vector<GNEJunction*> junctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions();
     for (auto i : junctions) {
         // first collect all outgoing lanes
         for (auto j : i->getNBNode()->getOutgoingEdges()) {
-            GNEEdge* edge = net->retrieveEdge(j->getID());
+            GNEEdge* edge = net->getAttributeCarriers()->retrieveEdge(j->getID());
             for (auto k : edge->getLanes()) {
                 deadStarts.insert(k);
             }
         }
         // then remove all approached lanes
         for (auto j : i->getNBNode()->getIncomingEdges()) {
-            GNEEdge* edge = net->retrieveEdge(j->getID());
+            GNEEdge* edge = net->getAttributeCarriers()->retrieveEdge(j->getID());
             for (auto k : edge->getNBEdge()->getConnections()) {
-                deadStarts.erase(net->retrieveEdge(k.toEdge->getID())->getLanes()[k.toLane]);
+                deadStarts.erase(net->getAttributeCarriers()->retrieveEdge(k.toEdge->getID())->getLanes()[k.toLane]);
             }
         }
     }
@@ -227,11 +227,11 @@ long
 GNEConnectorFrame::ConnectionOperations::onCmdSelectConflicts(FXObject*, FXSelector, void*) {
     std::vector<GNEAttributeCarrier*> conflicts;
     // conflicts happen per edge so we can look at each edge in isolation
-    const std::vector<GNEEdge*> edges = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdges();
+    const std::vector<GNEEdge*> edges = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges();
     for (auto i : edges) {
         const EdgeVector destinations = i->getNBEdge()->getConnectedEdges();
         for (auto j : destinations) {
-            GNEEdge* dest = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdge(j->getID());
+            GNEEdge* dest = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdge(j->getID());
             for (auto k : dest->getLanes()) {
                 const bool isConflicted = count_if(i->getNBEdge()->getConnections().begin(), i->getNBEdge()->getConnections().end(),
                                                    NBEdge::connections_toedgelane_finder(j, (int)(k)->getIndex(), -1)) > 1;
@@ -250,7 +250,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectConflicts(FXObject*, FXSelec
 long
 GNEConnectorFrame::ConnectionOperations::onCmdSelectPass(FXObject*, FXSelector, void*) {
     std::vector<GNEAttributeCarrier*> pass;
-    const std::vector<GNEEdge*> edges = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdges();
+    const std::vector<GNEEdge*> edges = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges();
     for (auto i : edges) {
         for (auto j : i->getNBEdge()->getConnections()) {
             if (j.mayDefinitelyPass) {
@@ -268,20 +268,20 @@ GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*
     myConnectorFrameParent->myConnectionModifications->onCmdCancelModifications(0, 0, 0);
     myConnectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::CONNECTION, "clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
     // clear junction's connection
-    auto junctions = myConnectorFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
+    auto junctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
     for (auto i : junctions) {
         i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList()); // clear connections
         i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList(), GNEAttributeCarrier::FEATURE_MODIFIED); // prevent re-guessing
     }
     // clear edge's connection
-    auto edges = myConnectorFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+    auto edges = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
     for (auto i : edges) {
         for (auto j : i->getLanes()) {
             myConnectorFrameParent->removeConnections(j);
         }
     }
     // clear lane's connection
-    auto lanes = myConnectorFrameParent->getViewNet()->getNet()->retrieveLanes(true);
+    auto lanes = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLanes(true);
     for (auto i : lanes) {
         myConnectorFrameParent->removeConnections(dynamic_cast<GNELane*>(i));
     }
@@ -294,7 +294,7 @@ long
 GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
     myConnectorFrameParent->myConnectionModifications->onCmdCancelModifications(0, 0, 0);
     myConnectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::CONNECTION, "reset connections from selected lanes");
-    auto junctions = myConnectorFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
+    auto junctions = myConnectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
     for (auto i : junctions) {
         i->setLogicValid(false, myConnectorFrameParent->getViewNet()->getUndoList());
     }
@@ -499,7 +499,7 @@ GNEConnectorFrame::initTargets() {
     NBNode* nbn = myCurrentEditedLane->getParentEdge()->getToJunction()->getNBNode();
     // get potencial targets
     for (const auto& NBEEdge : nbn->getOutgoingEdges()) {
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(NBEEdge->getID());
+        GNEEdge* edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(NBEEdge->getID());
         for (const auto& lane : edge->getLanes()) {
             myPotentialTargets.insert(lane);
         }

@@ -631,7 +631,7 @@ GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*
         throw ProcessError("Only one edge must be inspected");
     }
     // retrieve edge ID (and throw exception if edge doesn't exist)
-    GNEEdge* edge = myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID());
+    GNEEdge* edge = myInspectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID());
     // set template
     setEdgeTemplate(edge);
     // update buttons
@@ -649,7 +649,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
         // iterate over inspected ACs
         for (const auto& inspectedAC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             // retrieve edge ID (and throw exception if edge doesn't exist)
-            myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(inspectedAC->getID())->copyTemplate(myEdgeTemplate, myInspectorFrameParent->myViewNet->getUndoList());
+            myInspectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(inspectedAC->getID())->copyTemplate(myEdgeTemplate, myInspectorFrameParent->myViewNet->getUndoList());
         }
         // end copy template
         myInspectorFrameParent->myViewNet->getUndoList()->end();

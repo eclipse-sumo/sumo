@@ -1667,7 +1667,7 @@ void
 GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // Create basic commands
     std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
-    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected()? (int)myNet->retrieveEdges(true).size() : 0;
+    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected()? (int)myNet->getAttributeCarriers()->retrieveEdges(true).size() : 0;
     if (edgeSelSize && myParentEdge->isAttributeCarrierSelected() && (edgeSelSize > 1)) {
         edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
     }
@@ -1718,7 +1718,7 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     bool edgeHasBuslane = false;
     bool differentLaneShapes = false;
     if (isAttributeCarrierSelected()) {
-        const auto selectedLanes = myNet->retrieveLanes(true);
+        const auto selectedLanes = myNet->getAttributeCarriers()->retrieveLanes(true);
         // update numSelectedLanes
         numSelectedLanes = (int)selectedLanes.size();
         // iterate over selected lanes

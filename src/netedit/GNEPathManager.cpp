@@ -296,7 +296,7 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
             myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
             // save partial route in solution
             for (const auto& edgeID : partialRoute) {
-                solution.push_back(net->retrieveEdge(edgeID->getID()));
+                solution.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID->getID()));
             }
         }
     }

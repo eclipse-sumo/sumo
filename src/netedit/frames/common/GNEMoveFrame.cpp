@@ -206,7 +206,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSel
     // get value
     const double shiftValue = GNEAttributeCarrier::parse<double>(myShiftValueTextField->getText().text());
     // get selected edges
-    const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+    const auto edges = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "shift edge geometries");
     // iterate over edges
@@ -314,9 +314,9 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
     // get value
     const double zValue = GNEAttributeCarrier::parse<double>(myZValueTextField->getText().text());
     // get junctions
-    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
+    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
     // get selected edges
-    const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+    const auto edges = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::MODEMOVE, "change Z values in selection");
     // iterate over junctions
@@ -394,9 +394,9 @@ GNEMoveFrame::ChangeZInSelection::onCmdApplyZ(FXObject*, FXSelector, void*) {
 void
 GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
     // get junctions
-    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->retrieveJunctions(true);
+    const auto junctions = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunctions(true);
     // get selected edges
-    const auto edges = myMoveFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+    const auto edges = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // check if there is edges or junctions
     if ((junctions.size() > 0) || (edges.size() > 0)) {
         // declare minimum and maximun
@@ -560,8 +560,8 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const double shiftValueY = GNEAttributeCarrier::parse<double>(myShiftValueYTextField->getText().text());
     const Position shiftValue(shiftValueX, shiftValueY);
     // get selected polygons and POIs
-    const auto polygons = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
-    const auto POIs = myMoveFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true);
+    const auto polygons = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POLY, true);
+    const auto POIs = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POI, true);
     // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "shift shape geometries");
     // iterate over shapes
@@ -637,12 +637,12 @@ GNEMoveFrame::show() {
         myDemandModeOptions->hideDemandModeOptions();
     }
     // get selected junctions
-    const auto junctions = myViewNet->getNet()->retrieveJunctions(true);
+    const auto junctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
     // get selected edges
-    const auto edges = myViewNet->getNet()->retrieveEdges(true);
+    const auto edges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // get selected polygons and POIs (avoid POILanes)
-    const auto polygons = myViewNet->getNet()->retrieveShapes(SUMO_TAG_POLY, true);
-    const auto POIs = myViewNet->getNet()->retrieveShapes(SUMO_TAG_POI, true);
+    const auto polygons = myViewNet->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POLY, true);
+    const auto POIs = myViewNet->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POI, true);
     // check if there are junctions and edge selected
     if ((junctions.size() > 0) || (edges.size() > 0)) {
         myChangeZInSelection->enableChangeZInSelection();

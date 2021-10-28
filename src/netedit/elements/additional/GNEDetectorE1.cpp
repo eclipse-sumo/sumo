@@ -219,7 +219,6 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-
 }
 
 
@@ -229,7 +228,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDetectorID(value);
         case SUMO_ATTR_LANE:
-            if (myNet->retrieveLane(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

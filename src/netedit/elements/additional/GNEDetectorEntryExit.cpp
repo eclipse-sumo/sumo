@@ -292,13 +292,13 @@ bool
 GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE:
-            return (myNet->retrieveLane(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
-            return (myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E3DETECTOR, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:

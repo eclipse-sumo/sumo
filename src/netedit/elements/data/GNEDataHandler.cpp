@@ -120,7 +120,7 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
                                             sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get data
-            GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+            GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
             if (edge) {
                 GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
                 if (myAllowUndoRedo) {
@@ -156,8 +156,8 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                                             sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
         if (dataInterval != nullptr) {
             // get data
-            GNEEdge* fromEdge = myNet->retrieveEdge(fromEdgeID, false);
-            GNEEdge* toEdge = myNet->retrieveEdge(toEdgeID, false);
+            GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
+            GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
             if (fromEdge && toEdge) {
                 GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
                 if (myAllowUndoRedo) {

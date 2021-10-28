@@ -375,7 +375,7 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     myCurrentSelectedEdges.clear();
     // iterate over vector of edge IDs
     for (auto i : crossingEdges) {
-        GNEEdge* edge = myCrossingFrameParent->getViewNet()->getNet()->retrieveEdge(i, false);
+        GNEEdge* edge = myCrossingFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdge(i, false);
         GNEJunction* currentJunction = myCrossingFrameParent->myEdgeSelector->getCurrentJunction();
         // Check that edge exists and belongs to Junction
         if (edge == nullptr) {

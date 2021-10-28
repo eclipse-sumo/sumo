@@ -375,7 +375,7 @@ GNEDemandElement::isAttributeComputed(SumoXMLAttr /*key*/) const {
 
 bool
 GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidVehicleID(newID) && (myNet->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidVehicleID(newID) && (myNet->getAttributeCarriers()->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -679,7 +679,7 @@ GNEDemandElement::replaceDemandParentLanes(const std::string& value) {
 void
 GNEDemandElement::replaceFirstParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[0] = myNet->retrieveEdge(value);
+    parentEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // replace parent edges
     replaceParentElements(this, parentEdges);
 }
@@ -703,7 +703,7 @@ GNEDemandElement::replaceMiddleParentEdges(const std::string& value, const bool 
 void
 GNEDemandElement::replaceLastParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[(int)parentEdges.size() - 1] = myNet->retrieveEdge(value);
+    parentEdges[(int)parentEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // replace parent edges
     replaceParentElements(this, parentEdges);
 }
@@ -712,7 +712,7 @@ GNEDemandElement::replaceLastParentEdge(const std::string& value) {
 void
 GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string& value) {
     std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
-    parentAdditionals[0] = myNet->retrieveAdditional(tag, value);
+    parentAdditionals[0] = myNet->getAttributeCarriers()->retrieveAdditional(tag, value);
     // replace parent additionals
     replaceParentElements(this, parentAdditionals);
 }
@@ -721,7 +721,7 @@ GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string& val
 void
 GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
     std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
-    parentDemandElements[parentIndex] = myNet->retrieveDemandElement(tag, value);
+    parentDemandElements[parentIndex] = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
     // replace parent demand elements
     replaceParentElements(this, parentDemandElements);
 }

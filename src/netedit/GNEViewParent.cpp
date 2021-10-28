@@ -466,7 +466,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserJunction->setFocus();
                 } else {
                     // fill ACsToLocate with junctions
-                    std::vector<GNEJunction*> junctions = viewNet->getNet()->retrieveJunctions();
+                    std::vector<GNEJunction*> junctions = viewNet->getNet()->getAttributeCarriers()->retrieveJunctions();
                     ACsToLocate.reserve(junctions.size());
                     for (const auto& junction : junctions) {
                         ACsToLocate.push_back(junction);
@@ -482,7 +482,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserEdges->setFocus();
                 } else {
                     // fill ACsToLocate with edges
-                    std::vector<GNEEdge*> edges = viewNet->getNet()->retrieveEdges();
+                    std::vector<GNEEdge*> edges = viewNet->getNet()->getAttributeCarriers()->retrieveEdges();
                     ACsToLocate.reserve(edges.size());
                     for (const auto& edge : edges) {
                         ACsToLocate.push_back(edge);
@@ -602,7 +602,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserTLS->setFocus();
                 } else {
                     // fill ACsToLocate with junctions that haven TLS
-                    std::vector<GNEJunction*> junctions = viewNet->getNet()->retrieveJunctions();
+                    std::vector<GNEJunction*> junctions = viewNet->getNet()->getAttributeCarriers()->retrieveJunctions();
                     ACsToLocate.reserve(junctions.size());
                     for (const auto& junction : junctions) {
                         if (junction->getNBNode()->getControllingTLS().size() > 0) {

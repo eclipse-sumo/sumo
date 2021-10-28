@@ -85,11 +85,11 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_BUS_STOP, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_BUS_STOP, SUMO_TAG_LANE);
@@ -128,11 +128,11 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TRAIN_STOP, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_TRAIN_STOP, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_TRAIN_STOP, SUMO_TAG_LANE);
@@ -169,11 +169,11 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
     // get NETEDIT parameters
     NeteditParameters neteditParameters(sumoBaseObject);
     // get lane
-    GNELane* lane = myNet->retrieveLane(laneID, false);
+    GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
     // get busStop (or trainStop)
-    GNEAdditional* busStop = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (busStop == nullptr) {
-        busStop = myNet->retrieveAdditional(SUMO_TAG_TRAIN_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+        busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     }
     // Check if busStop parent and lane is correct
     if (lane == nullptr) {
@@ -213,11 +213,11 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CONTAINER_STOP, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_CONTAINER_STOP, SUMO_TAG_LANE);
@@ -256,11 +256,11 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CHARGING_STATION, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_CHARGING_STATION, SUMO_TAG_LANE);
@@ -299,11 +299,11 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_PARKING_AREA, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // get departPos double
         const double departPosDouble = GNEAttributeCarrier::canParse<double>(departPos) ? GNEAttributeCarrier::parse<double>(departPos) : 0;
         // check lane
@@ -358,7 +358,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNEAdditional* parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+        GNEAdditional* parkingArea = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
         // get double values
         const double widthDouble = width.empty() ? 0 : GNEAttributeCarrier::parse<double>(width);
         const double lengthDouble = length.empty() ? 0 : GNEAttributeCarrier::parse<double>(length);
@@ -396,11 +396,11 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_E1DETECTOR, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE);
@@ -440,12 +440,12 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_E2DETECTOR, id);
-    } else if ((myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) &&
-               (myNet->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr)) {
+    } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) &&
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_E2DETECTOR, SUMO_TAG_LANE);
@@ -504,8 +504,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_E2DETECTOR, id);
-    } else if ((myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) &&
-               (myNet->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr)) {
+    } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) &&
+               (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lanes
@@ -571,7 +571,7 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         writeErrorInvalidFilename(SUMO_TAG_E3DETECTOR, id);
     } else if (!vehicleTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vehicleTypes)) {
         writeErrorInvalidVTypes(SUMO_TAG_E3DETECTOR, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build E3
@@ -595,9 +595,9 @@ void
 GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const double pos,
         const bool friendlyPos, const std::map<std::string, std::string>& parameters) {
     // get lane
-    GNELane* lane = myNet->retrieveLane(laneID, false);
+    GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
     // get E3 parent
-    GNEAdditional* E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEAdditional* E3 = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_ENTRY, SUMO_TAG_LANE);
@@ -629,9 +629,9 @@ void
 GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const double pos,
                                         const bool friendlyPos, const std::map<std::string, std::string>& parameters) {
     // get lane
-    GNELane* lane = myNet->retrieveLane(laneID, false);
+    GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
     // get E3 parent
-    GNEAdditional* E3 = myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEAdditional* E3 = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E3DETECTOR, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_DET_EXIT, SUMO_TAG_LANE);
@@ -665,11 +665,11 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE);
@@ -702,14 +702,14 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
         const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
         const std::map<std::string, std::string>& parameters) {
     // get lane
-    GNELane* lane = myNet->retrieveLane(laneID, false);
+    GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
     // get routeProbe
-    GNEAdditional* routeProbe = myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
+    GNEAdditional* routeProbe = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CALIBRATOR, id);
-    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) != nullptr) ||
-               (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) != nullptr)) {
+    } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) != nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) != nullptr)) {
         writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
         writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_ROUTEPROBE);
@@ -757,14 +757,14 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
         const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
         const std::map<std::string, std::string>& parameters) {
     // get edge
-    GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // get routeProbe
-    GNEAdditional* routeProbe = myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
+    GNEAdditional* routeProbe = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, routeprobeID, false);
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CALIBRATOR, id);
-    } else if ((myNet->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) != nullptr) ||
-               (myNet->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) != nullptr)) {
+    } else if ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) != nullptr) ||
+               (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) != nullptr)) {
         writeErrorDuplicated(SUMO_TAG_CALIBRATOR, id);
     } else if ((routeprobeID.size() > 0) && (routeProbe == nullptr)) {
         writeErrorInvalidParent(SUMO_TAG_CALIBRATOR, SUMO_TAG_ROUTEPROBE);
@@ -809,11 +809,11 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
 void
 GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameter) {
     // get vType
-    GNEDemandElement* vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid, false);
+    GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid, false);
     // get route
-    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.routeid, false);
+    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.routeid, false);
     // get calibrator parent
-    GNEAdditional* calibrator = myNet->retrieveAdditional(sumoBaseObject->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEAdditional* calibrator = myNet->getAttributeCarriers()->retrieveAdditional(sumoBaseObject->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
     // check parents
     if (vType == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_FLOW, SUMO_TAG_VTYPE);
@@ -854,7 +854,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
         writeErrorInvalidFilename(SUMO_TAG_REROUTER, id);
     } else if (!vTypes.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(vTypes)) {
         writeErrorInvalidVTypes(SUMO_TAG_REROUTER, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // parse edges
@@ -926,7 +926,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
 void
 GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime begin, const SUMOTime end) {
     // get rerouter parent
-    GNEAdditional* rerouter = myNet->retrieveAdditional(SUMO_TAG_REROUTER, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEAdditional* rerouter = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_REROUTER, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     // check if rerouter exist
     if (rerouter == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_INTERVAL, SUMO_TAG_REROUTER);
@@ -964,7 +964,7 @@ GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBase
     // get rerouter interval parent
     GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get closed lane
-    GNELane* lane = myNet->retrieveLane(closedLaneID, false);
+    GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(closedLaneID, false);
     // check parents
     if (lane == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_TAG_LANE);
@@ -993,7 +993,7 @@ GNEAdditionalHandler::buildClosingReroute(const CommonXMLStructure::SumoBaseObje
     // get rerouter interval parent
     GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get closed edge
-    GNEEdge* edge = myNet->retrieveEdge(closedEdgeID, false);
+    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(closedEdgeID, false);
     // check parents
     if (edge == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_CLOSING_REROUTE, SUMO_TAG_EDGE);
@@ -1021,7 +1021,7 @@ GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObj
     // get rerouter interval parent
     GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get edge
-    GNEEdge* edge = myNet->retrieveEdge(newEdgeDestinationID, false);
+    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(newEdgeDestinationID, false);
     // check parents
     if (edge == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_DEST_PROB_REROUTE, SUMO_TAG_EDGE);
@@ -1050,7 +1050,7 @@ GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBase
     // get rerouter interval parent
     GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get parking area
-    GNEAdditional* parkingArea = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, newParkignAreaID, false);
+    GNEAdditional* parkingArea = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, newParkignAreaID, false);
     // check parents
     if (rerouterInterval == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_PARKING_AREA_REROUTE, SUMO_TAG_INTERVAL);
@@ -1079,7 +1079,7 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
     // get rerouter interval parent
     GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get route parent
-    GNEDemandElement* route = myNet->retrieveDemandElement(SUMO_TAG_ROUTE, newRouteID, false);
+    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, newRouteID, false);
     // check parents
     if (rerouterInterval == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_TAG_INTERVAL);
@@ -1107,11 +1107,11 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_ROUTEPROBE, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get edge
-        GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+        GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
         // check lane
         if (edge == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_ROUTEPROBE, SUMO_TAG_EDGE);
@@ -1151,7 +1151,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
     /// check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_VSS, id);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // parse lanes
@@ -1197,7 +1197,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
 void
 GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& speed) {
     // get VSS parent
-    GNEAdditional* VSS = myNet->retrieveAdditional(SUMO_TAG_VSS, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEAdditional* VSS = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_VSS, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     // check lane
     if (VSS == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_STEP, SUMO_TAG_VSS);
@@ -1229,11 +1229,11 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(edgeID)) {
         writeInvalidID(SUMO_TAG_VAPORIZER, edgeID);
-    } else if (myNet->retrieveAdditional(SUMO_TAG_VAPORIZER, edgeID, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_VAPORIZER, edgeID, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get edge
-        GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+        GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
         // check lane
         if (edge == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_VAPORIZER, SUMO_TAG_EDGE);
@@ -1283,7 +1283,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         }
         // iterate over children and add sourceSinkEdge boundaries
         for (const auto &sourceSink : sumoBaseObject->getSumoBaseObjectChildren()) {
-            const GNEEdge* sourceSinkEdge = myNet->retrieveEdge(sourceSink->getStringAttribute(SUMO_ATTR_ID), false);
+            const GNEEdge* sourceSinkEdge = myNet->getAttributeCarriers()->retrieveEdge(sourceSink->getStringAttribute(SUMO_ATTR_ID), false);
             if (sourceSinkEdge) {
                 TAZBoundary.add(sourceSinkEdge->getCenteringBoundary());
             }
@@ -1348,7 +1348,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
     // get TAZ parent
     GNETAZElement* TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // get edge
-    GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // declare TAZ Sink
     GNETAZElement* TAZSink = nullptr;
     // check parents
@@ -1418,7 +1418,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
     // get TAZ parent
     GNETAZElement* TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // get edge
-    GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // check parents
     if (TAZ == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_SINK, SUMO_TAG_TAZ);
@@ -1565,7 +1565,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // check lane
         if (lane == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_POI, SUMO_TAG_LANE);
@@ -1882,7 +1882,7 @@ std::vector<GNEEdge*>
 GNEAdditionalHandler::parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const {
     std::vector<GNEEdge*> edges;
     for (const auto& edgeID : edgeIDs) {
-        GNEEdge* edge = myNet->retrieveEdge(edgeID, false);
+        GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
         // empty edges aren't allowed. If edge is empty, write error, clear edges and stop
         if (edge == nullptr) {
             WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(SUMO_TAG_EDGE) + " doesn't exist.");
@@ -1900,7 +1900,7 @@ std::vector<GNELane*>
 GNEAdditionalHandler::parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs) const {
     std::vector<GNELane*> lanes;
     for (const auto& laneID : laneIDs) {
-        GNELane* lane = myNet->retrieveLane(laneID, false);
+        GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
         // empty lanes aren't allowed. If lane is empty, write error, clear lanes and stop
         if (lane == nullptr) {
             WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");

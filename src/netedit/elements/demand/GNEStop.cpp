@@ -595,16 +595,16 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidVehicleID(value);
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_CONTAINER_STOP:
-            return (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         case SUMO_ATTR_CHARGING_STATION:
-            return (myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, value, false) != nullptr);
         case SUMO_ATTR_PARKING_AREA:
-            return (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         // specific of stops over lanes
         case SUMO_ATTR_LANE:
-            if (myNet->retrieveLane(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

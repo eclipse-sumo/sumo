@@ -312,7 +312,7 @@ bool
 GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdgeType(value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdgeType(value, false) == nullptr);
         case SUMO_ATTR_NUMLANES:
             return canParse<int>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_SPEED:

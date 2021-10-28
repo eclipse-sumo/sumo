@@ -702,7 +702,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get additional element
-    GNEAdditional* additionalElement = myViewNet->getNet()->retrieveAdditional(AC); 
+    GNEAdditional* additionalElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(AC); 
     // insert depending if is the front attribute carrier
     if (additionalElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
@@ -790,7 +790,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get demandElement
-    GNEDemandElement* demandElement = myViewNet->getNet()->retrieveDemandElement(AC); 
+    GNEDemandElement* demandElement = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(AC); 
     // insert depending if is the front attribute carrier
     if (demandElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
@@ -1157,8 +1157,8 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // obtain Junctions and edges selected
-    const auto movedJunctions = myViewNet->getNet()->retrieveJunctions(true);
-    const auto movedEdges = myViewNet->getNet()->retrieveEdges(true);
+    const auto movedJunctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
+    const auto movedEdges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // continue depending of clicked element
     if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
         calculateJunctionSelection();
@@ -1261,7 +1261,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
     // declare move operation
     GNEMoveOperation* moveOperation = nullptr;
     // first move all selected junctions
-    const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+    const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
     // iterate over selected junctions
     for (const auto& junction : selectedJunctions) {
         moveOperation = junction->getMoveOperation();
@@ -1270,7 +1270,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
         }
     }
     // now move all selected edges
-    const auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+    const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // iterate over selected edges
     for (const auto& edge : selectedEdges) {
         moveOperation = edge->getMoveOperation();
@@ -1284,7 +1284,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
 void
 GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdge* clickedEdge) {
     // first move all selected junctions
-    const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+    const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->retrieveJunctions(true);
     // iterate over selected junctions
     for (const auto& junction : selectedJunctions) {
         GNEMoveOperation* moveOperation = junction->getMoveOperation();
@@ -1303,7 +1303,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
         myEdgeOffset = shape.length2D() - shape.nearest_offset_to_point2D(myViewNet->getPositionInformation());
     }
     // now move all selected edges
-    const auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+    const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(true);
     // iterate over edges betwen 0 and 180 degrees
     for (const auto& edge : selectedEdges) {
         GNEMoveOperation* moveOperation = edge->getMoveOperation();

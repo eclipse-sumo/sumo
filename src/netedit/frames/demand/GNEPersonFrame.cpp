@@ -342,7 +342,7 @@ GNEPersonFrame::buildPerson() {
     myPersonAttributes->refreshRows();
     myPersonPlanAttributes->refreshRows();
     // return created person
-    return myViewNet->getNet()->retrieveDemandElement(personTag, myPersonBaseObject->getStringAttribute(SUMO_ATTR_ID));
+    return myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(personTag, myPersonBaseObject->getStringAttribute(SUMO_ATTR_ID));
 }
 
 

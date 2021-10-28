@@ -279,7 +279,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
         myEdgeTypeSelected = nullptr;
     }
     // get edgeType to remove
-    GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
+    GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
     // remove it using undoList
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "create new edge type");
     // iterate over all laneType
@@ -374,7 +374,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdSelectEdgeType(FXObject*, FXSelector,
         // enable parameter fields
         myCreateEdgeFrameParent->myEdgeTypeParameters->enableEdgeTypeParameters();
         // set myEdgeTypeSelected
-        myEdgeTypeSelected = myCreateEdgeFrameParent->myViewNet->getNet()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
+        myEdgeTypeSelected = myCreateEdgeFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
         // set edgeType in myEdgeTypeParameters
         myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(myEdgeTypeSelected, true);
     } else {

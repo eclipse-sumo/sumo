@@ -157,6 +157,8 @@ GNEDeleteFrame::hide() {
 
 void
 GNEDeleteFrame::removeSelectedAttributeCarriers() {
+    // get attribute carriers
+    const auto &attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
     // first check if there is additional to remove
     if (selectedACsToDelete()) {
         // remove all selected attribute carrier susing the following parent-child sequence
@@ -166,32 +168,32 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
         // delete selected attribute carriers depending of current supermode
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             //junctions
-            auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+            auto selectedJunctions = attributeCarriers->retrieveJunctions(true);
             for (const auto& selectedJunction : selectedJunctions) {
                 myViewNet->getNet()->deleteJunction(selectedJunction, myViewNet->getUndoList());
             }
             // edges
-            auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+            auto selectedEdges = attributeCarriers->retrieveEdges(true);
             for (const auto& selectedEdge : selectedEdges) {
                 myViewNet->getNet()->deleteEdge(selectedEdge, myViewNet->getUndoList(), false);
             }
             // lanes
-            auto selectedLanes = myViewNet->getNet()->retrieveLanes(true);
+            auto selectedLanes = attributeCarriers->retrieveLanes(true);
             for (const auto& selectedLane : selectedLanes) {
                 myViewNet->getNet()->deleteLane(selectedLane, myViewNet->getUndoList(), false);
             }
             // connections
-            auto selectedConnections = myViewNet->getNet()->retrieveConnections(true);
+            auto selectedConnections = attributeCarriers->retrieveConnections(true);
             for (const auto& selectedConnection : selectedConnections) {
                 myViewNet->getNet()->deleteConnection(selectedConnection, myViewNet->getUndoList());
             }
             // crossings
-            auto selectedCrossings = myViewNet->getNet()->retrieveCrossings(true);
+            auto selectedCrossings = attributeCarriers->retrieveCrossings(true);
             for (const auto& selectedCrossing : selectedCrossings) {
                 myViewNet->getNet()->deleteCrossing(selectedCrossing, myViewNet->getUndoList());
             }
             // shapes
-            auto selectedShapes = myViewNet->getNet()->retrieveShapes(true);
+            auto selectedShapes = attributeCarriers->retrieveShapes(true);
             for (const auto& selectedShape : selectedShapes) {
                 myViewNet->getNet()->deleteShape(selectedShape, myViewNet->getUndoList());
             }
@@ -201,8 +203,8 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // demand elements
-            while (myViewNet->getNet()->retrieveDemandElements(true).size() > 0) {
-                myViewNet->getNet()->deleteDemandElement(myViewNet->getNet()->retrieveDemandElements(true).front(), myViewNet->getUndoList());
+            while (attributeCarriers->retrieveDemandElements(true).size() > 0) {
+                myViewNet->getNet()->deleteDemandElement(attributeCarriers->retrieveDemandElements(true).front(), myViewNet->getUndoList());
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
             // generic datas

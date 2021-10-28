@@ -256,7 +256,7 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
 void
 GNEGenericData::replaceFirstParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[0] = myNet->retrieveEdge(value);
+    parentEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // replace parent edges
     replaceParentElements(this, parentEdges);
 }
@@ -265,7 +265,7 @@ GNEGenericData::replaceFirstParentEdge(const std::string& value) {
 void
 GNEGenericData::replaceLastParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[(int)parentEdges.size() - 1] = myNet->retrieveEdge(value);
+    parentEdges[(int)parentEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);
     // replace parent edges
     replaceParentElements(this, parentEdges);
 }

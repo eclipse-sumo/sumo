@@ -847,6 +847,8 @@ GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector
 
 void
 GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
+    // get attributeCarrirs
+    const auto &attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // first check that AC exist
     if (clickedAC) {
         // set current clicked AC
@@ -859,8 +861,8 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
         myClickedShape = clickedAC->getTagProperty().isShape()? myFrameParent->myViewNet->getNet()->retrieveShape(clickedAC) : nullptr;
         myClickedTAZElement = dynamic_cast<GNETAZElement*>(clickedAC);
-        myClickedAdditional = clickedAC->getTagProperty().isAdditionalElement()? myFrameParent->myViewNet->getNet()->retrieveAdditional(clickedAC) : nullptr;
-        myClickedDemandElement = clickedAC->getTagProperty().isDemandElement()? myFrameParent->myViewNet->getNet()->retrieveDemandElement(clickedAC) : nullptr;
+        myClickedAdditional = clickedAC->getTagProperty().isAdditionalElement()? attributeCarriers->retrieveAdditional(clickedAC) : nullptr;
+        myClickedDemandElement = clickedAC->getTagProperty().isDemandElement()? attributeCarriers->retrieveDemandElement(clickedAC) : nullptr;
         myClickedDataSet = dynamic_cast<GNEDataSet*>(clickedAC);
         myClickedDataInterval = dynamic_cast<GNEDataInterval*>(clickedAC);
         myClickedGenericData = dynamic_cast<GNEGenericData*>(clickedAC);
@@ -943,12 +945,15 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
 
 FXTreeItem*
 GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
+    // get attributeCarrirs
+    const auto &attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    // check tags
     if (myHE->getTagProperty().isNetworkElement()) {
         // check demand element type
         switch (myHE->getTagProperty().getTag()) {
             case SUMO_TAG_EDGE: {
                 // obtain Edge
-                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(myHE->getID(), false);
+                GNEEdge* edge = attributeCarriers->retrieveEdge(myHE->getID(), false);
                 if (edge) {
                     // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
                     FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
@@ -965,10 +970,10 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             }
             case SUMO_TAG_LANE: {
                 // obtain lane
-                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(myHE->getID(), false);
+                GNELane* lane = attributeCarriers->retrieveLane(myHE->getID(), false);
                 if (lane) {
                     // obtain parent edge
-                    GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
+                    GNEEdge* edge = attributeCarriers->retrieveEdge(lane->getParentEdge()->getID());
                     //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
                     FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
                     FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
@@ -988,7 +993,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CROSSING: {
                 // obtain Crossing
-                GNECrossing* crossing = myFrameParent->myViewNet->getNet()->retrieveCrossing(myHE->getID(), false);
+                GNECrossing* crossing = attributeCarriers->retrieveCrossing(myHE->getID(), false);
                 if (crossing) {
                     // obtain junction
                     GNEJunction* junction = crossing->getParentJunction();
@@ -1005,7 +1010,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CONNECTION: {
                 // obtain Connection
-                GNEConnection* connection = myFrameParent->myViewNet->getNet()->retrieveConnection(myHE->getID(), false);
+                GNEConnection* connection = attributeCarriers->retrieveConnection(myHE->getID(), false);
                 if (connection) {
                     // create edge from item
                     FXTreeItem* edgeFromItem = myTreeListDinamic->insertItem(nullptr, nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
@@ -1033,9 +1038,9 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         // Obtain POILane
         GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(myHE);
         // obtain parent lane
-        GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getParentLanes().at(0)->getID());
+        GNELane* lane = attributeCarriers->retrieveLane(POILane->getParentLanes().at(0)->getID());
         // obtain parent edge
-        GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
+        GNEEdge* edge = attributeCarriers->retrieveEdge(lane->getParentEdge()->getID());
         //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
         FXTreeItem* junctionSourceItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
         FXTreeItem* junctionDestinyItem = myTreeListDinamic->insertItem(nullptr, nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon(), edge->getFromJunction()->getIcon());
@@ -1055,7 +1060,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         return laneItem;
     } else if (myHE->getTagProperty().isAdditionalElement()) {
         // Obtain Additional
-        const GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myHE);
+        const GNEAdditional* additional = attributeCarriers->retrieveAdditional(myHE);
         // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
         FXTreeItem* root = nullptr;
         // check if there is demand elements parents
@@ -1181,7 +1186,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         return root;
     } else if (myHE->getTagProperty().isDemandElement()) {
         // Obtain DemandElement 
-        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myHE);
+        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myHE);
         // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
         FXTreeItem* root = nullptr;
         // check if there are demand element parents
@@ -1339,7 +1344,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
         switch (HE->getTagProperty().getTag()) {
             case SUMO_TAG_JUNCTION: {
                 // retrieve junction
-                GNEJunction* junction = myFrameParent->myViewNet->getNet()->retrieveJunction(HE->getID(), false);
+                GNEJunction* junction = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(HE->getID(), false);
                 if (junction) {
                     // insert junction item
                     FXTreeItem* junctionItem = addListItem(HE, itemParent);
@@ -1356,7 +1361,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
             }
             case SUMO_TAG_EDGE: {
                 // retrieve edge
-                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(HE->getID(), false);
+                GNEEdge* edge = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(HE->getID(), false);
                 if (edge) {
                     // insert edge item
                     FXTreeItem* edgeItem = addListItem(HE, itemParent);
@@ -1404,7 +1409,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
             }
             case SUMO_TAG_LANE: {
                 // retrieve lane
-                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(HE->getID(), false);
+                GNELane* lane = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveLane(HE->getID(), false);
                 if (lane) {
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(HE, itemParent);

@@ -360,9 +360,9 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             if (isValidDetectorID(value)) {
                 if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
-                    return (myNet->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr);
+                    return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr);
                 } else {
-                    return (myNet->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
+                    return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
                 }
             } else {
                 return false;
