@@ -305,16 +305,14 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
 
 
 GNECrossing*
-GNENetHelper::AttributeCarriers::retrieveCrossing(const std::string& id, bool failHard) const {
-    // iterate over crossings
-    for (const auto &crossing : myCrossings) {
-        if (crossing->getID() == id) {
-            return crossing;
-        }
+GNENetHelper::AttributeCarriers::retrieveCrossing(const GNEAttributeCarrier* AC, bool failHard) const {
+    // reinterprete AC as crossing, and find it
+    const auto finder = myCrossings.find((GNECrossing*)AC);
+    if (finder != myCrossings.end()) {
+        return *finder;
     }
     if (failHard) {
-        // If POI wasn't found, throw exception
-        throw UnknownElement("Crossing " + id);
+        throw UnknownElement("Crossing " + AC->getID());
     } else {
         return nullptr;
     }
@@ -569,6 +567,21 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool failHa
 }
 
 
+GNELane*
+GNENetHelper::AttributeCarriers::retrieveLane(const GNEAttributeCarrier* AC, bool failHard) const {
+    // reinterprete AC as lane, and find it
+    const auto finder = myLanes.find((GNELane*)AC);
+    if (finder != myLanes.end()) {
+        return *finder;
+    }
+    if (failHard) {
+        throw UnknownElement("Lane " + AC->getID());
+    } else {
+        return nullptr;
+    }
+}
+
+
 std::vector<GNELane*>
 GNENetHelper::AttributeCarriers::retrieveLanes(bool onlySelected) {
     std::vector<GNELane*> result;
@@ -624,6 +637,21 @@ GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool 
     if (failHard) {
         // If POI wasn't found, throw exception
         throw UnknownElement("Connection " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEConnection*
+GNENetHelper::AttributeCarriers::retrieveConnection(const GNEAttributeCarrier* AC, bool failHard) const {
+    // reinterprete AC as connection, and find it
+    const auto finder = myConnections.find((GNEConnection*)AC);
+    if (finder != myConnections.end()) {
+        return *finder;
+    }
+    if (failHard) {
+        throw UnknownElement("Connection " + AC->getID());
     } else {
         return nullptr;
     }

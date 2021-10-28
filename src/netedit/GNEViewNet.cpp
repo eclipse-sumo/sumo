@@ -4269,10 +4269,42 @@ void
 GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
     // iterate over ACs and delete it
     for (const auto &AC : ACs) {
-
-        /* */
-
-        if (AC->getTagProperty().isAdditionalElement()) {
+        if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+            // get junction (note: could be already removed if is a child, then hardfail=false)
+            GNEJunction* junction = myNet->getAttributeCarriers()->retrieveJunction(AC->getID(), false);
+            // if exist, remove it
+            if (junction) {
+                myNet->deleteJunction(junction, myUndoList);
+            }
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+            // get crossing (note: could be already removed if is a child, then hardfail=false)
+            GNECrossing* crossing = myNet->getAttributeCarriers()->retrieveCrossing(AC, false);
+            // if exist, remove it
+            if (crossing) {
+                myNet->deleteCrossing(crossing, myUndoList);
+            }
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            // get edge (note: could be already removed if is a child, then hardfail=false)
+            GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(AC->getID(), false);
+            // if exist, remove it
+            if (edge) {
+                myNet->deleteEdge(edge, myUndoList, false);
+            }
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+            // get lane (note: could be already removed if is a child, then hardfail=false)
+            GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(AC, false);
+            // if exist, remove it
+            if (lane) {
+                myNet->deleteLane(lane, myUndoList, false);
+            }
+        } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+            // get connection (note: could be already removed if is a child, then hardfail=false)
+            GNEConnection* connection = myNet->getAttributeCarriers()->retrieveConnection(AC, false);
+            // if exist, remove it
+            if (connection) {
+                myNet->deleteConnection(connection, myUndoList);
+            }
+        } else if (AC->getTagProperty().isAdditionalElement()) {
             // get additional Element (note: could be already removed if is a child, then hardfail=false)
             GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(AC, false);
             // if exist, remove it

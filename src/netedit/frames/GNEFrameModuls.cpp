@@ -992,21 +992,15 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
                 }
             }
             case SUMO_TAG_CROSSING: {
-                // obtain Crossing
-                GNECrossing* crossing = attributeCarriers->retrieveCrossing(myHE->getID(), false);
-                if (crossing) {
-                    // obtain junction
-                    GNEJunction* junction = crossing->getParentJunction();
-                    // create junction item
-                    FXTreeItem* junctionItem = myTreeListDinamic->insertItem(nullptr, nullptr, junction->getHierarchyName().c_str(), junction->getIcon(), junction->getIcon());
-                    junctionItem->setExpanded(true);
-                    // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[junctionItem] = junction;
-                    // return junction Item
-                    return junctionItem;
-                } else {
-                    return nullptr;
-                }
+                // obtain crossing parent junction
+                GNEJunction* junction = attributeCarriers->retrieveCrossing(myHE)->getParentJunction();
+                // create junction item
+                FXTreeItem* junctionItem = myTreeListDinamic->insertItem(nullptr, nullptr, junction->getHierarchyName().c_str(), junction->getIcon(), junction->getIcon());
+                junctionItem->setExpanded(true);
+                // Save items in myTreeItemToACMap
+                myTreeItemToACMap[junctionItem] = junction;
+                // return junction Item
+                return junctionItem;
             }
             case SUMO_TAG_CONNECTION: {
                 // obtain Connection

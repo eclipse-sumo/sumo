@@ -186,11 +186,11 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             if (crossing->isAttributeCarrierSelected()) {
                 crossing->unselectAttributeCarrier();
             }
+            // remove it from net
+            myNet->removeGLObjectFromGrid(crossing);
+            // remove it from attributeCarriers
+            myNet->getAttributeCarriers()->deleteCrossing(crossing);
             if (crossing->unreferenced()) {
-                // remove it from net
-                myNet->removeGLObjectFromGrid(crossing);
-                // remove it from attributeCarriers
-                myNet->getAttributeCarriers()->deleteCrossing(crossing);
                 // show extra information for tests
                 WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " in rebuildGNECrossings()");
                 delete crossing;

@@ -134,12 +134,12 @@ struct GNENetHelper {
 
         /// @name function for crossings
         /// @{
-        /**@brief get Crossing by id
-         * @param[in] id The id of the desired Crossing
+        /**@brief get Crossing by AC
+         * @param[in] AC The attribute carrier related with the crossing
          * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
          * @throws UnknownElement
          */
-        GNECrossing* retrieveCrossing(const std::string& id, bool failHard = true) const;
+        GNECrossing* retrieveCrossing(const GNEAttributeCarrier* AC, bool failHard = true) const;
 
         /**@brief return all crossings
          * @param[in] onlySelected Whether to return only selected crossings
@@ -226,6 +226,13 @@ struct GNENetHelper {
          */
         GNELane* retrieveLane(const std::string& id, bool failHard = true, bool checkVolatileChange = false) const;
 
+        /**@brief get lane by Attribute Carrier
+         * @param[in] AC The attribute carrier related with the lane
+         * @param[in] failHard Whether attempts to retrieve a nonexisting lane should result in an exception
+         * @throws UnknownElement
+         */
+        GNELane* retrieveLane(const GNEAttributeCarrier *AC, bool failHard = true) const;
+
         /**@brief return all lanes
          * @param[in] onlySelected Whether to return only selected lanes
          */
@@ -250,6 +257,13 @@ struct GNENetHelper {
          * @throws UnknownElement
          */
         GNEConnection* retrieveConnection(const std::string& id, bool failHard = true) const;
+
+        /**@brief get connection by Attribute Carrier
+         * @param[in] AC The attribute carrier related with the connection
+         * @param[in] failHard Whether attempts to retrieve a nonexisting connection should result in an exception
+         * @throws UnknownElement
+         */
+        GNEConnection* retrieveConnection(const GNEAttributeCarrier *AC, bool failHard = true) const;
 
         /**@brief return all connections
          * @param[in] onlySelected Whether to return only selected connections
