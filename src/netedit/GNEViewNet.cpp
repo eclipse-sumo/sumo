@@ -582,12 +582,10 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         }
     } else if (objectType == GLO_TAZRELDATA) {
         if (active == 4) {
-            for (GNEGenericData* d : myNet->retrieveGenericDatas()) {
-                if (d->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
-                    const double value = dynamic_cast<GNETAZRelData*>(d)->getColorValue(s, active);
-                    minValue = MIN2(minValue, value);
-                    maxValue = MAX2(maxValue, value);
-                }
+            for (const auto &genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
+                const double value = genericData->getColorValue(s, active);
+                minValue = MIN2(minValue, value);
+                maxValue = MAX2(maxValue, value);
             }
         }
     }
@@ -785,11 +783,9 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
 std::vector<std::string>
 GNEViewNet::getEdgeDataAttrs() const {
     std::set<std::string> keys;
-    for (GNEGenericData* d : myNet->retrieveGenericDatas()) {
-        if (d->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-            for (auto item : d->getACParametersMap()) {
-                keys.insert(item.first);
-            }
+    for (const auto &genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_MEANDATA_EDGE)) {
+        for (const auto parameter : genericData->getACParametersMap()) {
+            keys.insert(parameter.first);
         }
     }
     return std::vector<std::string>(keys.begin(), keys.end());
@@ -799,11 +795,14 @@ GNEViewNet::getEdgeDataAttrs() const {
 std::vector<std::string>
 GNEViewNet::getRelDataAttrs() const {
     std::set<std::string> keys;
-    for (GNEGenericData* d : myNet->retrieveGenericDatas()) {
-        if (d->getTagProperty().getTag() == SUMO_TAG_TAZREL || d->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
-            for (auto item : d->getACParametersMap()) {
-                keys.insert(item.first);
-            }
+    for (const auto &genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
+        for (const auto parameter : genericData->getACParametersMap()) {
+            keys.insert(parameter.first);
+        }
+    }
+    for (const auto &genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_EDGEREL)) {
+        for (const auto parameter : genericData->getACParametersMap()) {
+            keys.insert(parameter.first);
         }
     }
     return std::vector<std::string>(keys.begin(), keys.end());
@@ -4350,21 +4349,21 @@ GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> 
     for (const auto &AC : ACs) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
             // get data set (note: could be already removed if is a child, then hardfail=false)
-            GNEDataSet* dataSet = myNet->retrieveDataSet(AC, false);
+            GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(AC, false);
             // if exist, remove it
             if (dataSet) {
                 myNet->deleteDataSet(dataSet, myUndoList);
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
             // get data interval (note: could be already removed if is a child, then hardfail=false)
-            GNEDataInterval* dataInterval = myNet->retrieveDataInterval(AC, false);
+            GNEDataInterval* dataInterval = myNet->getAttributeCarriers()->retrieveDataInterval(AC, false);
             // if exist, remove it
             if (dataInterval) {
                 myNet->deleteDataInterval(dataInterval, myUndoList);
             }
         } else {
             // get generic data (note: could be already removed if is a child, then hardfail=false)
-            GNEGenericData* genericData = myNet->retrieveGenericData(AC, false);
+            GNEGenericData* genericData = myNet->getAttributeCarriers()->retrieveGenericData(AC, false);
             // if exist, remove it
             if (genericData) {
                 myNet->deleteGenericData(genericData, myUndoList);

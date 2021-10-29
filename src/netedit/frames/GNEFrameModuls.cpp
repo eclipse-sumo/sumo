@@ -1246,7 +1246,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         if (myHE->getTagProperty().getTag() == SUMO_TAG_DATASET) {
             return nullptr;
         } else if (myHE->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
-            return addListItem(myFrameParent->myViewNet->getNet()->retrieveDataSet(myHE->getID()));
+            return addListItem(myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveDataSet(myHE->getID()));
         } else {
             // Obtain DataElement
             GNEGenericData* dataElement = dynamic_cast<GNEGenericData*>(myHE);
@@ -1489,7 +1489,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
         FXTreeItem* dataElementItem = addListItem(HE, itemParent);
         // insert intervals
         if (HE->getTagProperty().getTag() == SUMO_TAG_DATASET) {
-            GNEDataSet* dataSet = myFrameParent->myViewNet->getNet()->retrieveDataSet(HE->getID());
+            GNEDataSet* dataSet = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveDataSet(HE->getID());
             // iterate over intevals
             for (const auto& interval : dataSet->getDataIntervalChildren()) {
                 showHierarchicalElementChildren(interval.second, dataElementItem);

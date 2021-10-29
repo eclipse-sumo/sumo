@@ -453,13 +453,6 @@ public:
     /// @brief generate edgeType id
     std::string generateEdgeTypeID() const;
 
-    /// @name Functions related to Additional Items
-    /// @{
-    /**@brief return all additionals
-     * @param[in] onlySelected Whether to return only selected additionals
-     */
-    std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false) const;
-
     /**@brief Returns the rerouter interval defined by given begin and end
      * @param[in] rerouter ID
      * @param[in] begin SUMOTime begin
@@ -515,43 +508,6 @@ public:
 
     /// @name Functions related to DataSet Items
     /// @{
-
-    /**@brief Returns the named data set
-     * @param[in] id The id of the data set to return.
-     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
-     */
-    GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
-
-    /**@brief Returns the named data set
-     * @param[in] id The attribute carrier related with the dataSet element
-     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
-     */
-    GNEDataSet* retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail = true) const;
-
-    /**@brief Returns the data interval
-     * @param[in] id The attribute carrier related with the dataInterval element
-     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
-     */
-    GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail = true) const;
-
-    /**@brief Returns the generic data
-     * @param[in] id The attribute carrier related with the genericData element
-     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
-     */
-    GNEGenericData* retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail = true) const;
-
-    ///@brief return all data sets
-    std::vector<GNEDataSet*> retrieveDataSets() const;
-
-    /**@brief return all generic datas
-     * @param[in] onlySelected Whether to return only selected generic datas
-    */
-    std::vector<GNEGenericData*> retrieveGenericDatas(bool onlySelected = false) const;
-
-    /**@brief Returns the number of data sets of the net
-     * @return Number of data sets of the net
-     */
-    int getNumberOfDataSets() const;
 
     /// @brief inform that data sets has to be saved
     void requireSaveDataElements(bool value);

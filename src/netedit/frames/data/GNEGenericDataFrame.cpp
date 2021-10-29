@@ -99,8 +99,7 @@ GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet* c
     // declare item index
     int currentItemIndex = -1;
     // fill myDataSetsComboBox with all DataSets
-    auto dataSetCopy = myGenericDataFrameParent->getViewNet()->getNet()->retrieveDataSets();
-    for (const auto& dataSet : dataSetCopy) {
+    for (const auto& dataSet : myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDataSets()) {
         // check if we have to set currentItemIndex
         if ((currentItemIndex == -1) && (dataSet == currentDataSet)) {
             currentItemIndex = myDataSetsComboBox->getNumItems();
@@ -127,7 +126,7 @@ GNEGenericDataFrame::DataSetSelector::getDataSet() const {
     if ((myNewDataSetCheckButton->getCheck() == TRUE) || (myDataSetsComboBox->getNumItems() == 0)) {
         return nullptr;
     } else {
-        return myGenericDataFrameParent->getViewNet()->getNet()->retrieveDataSet(myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text(), false);
+        return myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text(), false);
     }
 }
 
@@ -141,14 +140,14 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
         WRITE_WARNING("Invalid dataSet ID");
     } else if (dataSetID.empty()) {
         WRITE_WARNING("Invalid empty dataSet ID");
-    } else if (myGenericDataFrameParent->getViewNet()->getNet()->retrieveDataSet(dataSetID, false) != nullptr) {
+    } else if (myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID, false) != nullptr) {
         WRITE_WARNING("Invalid duplicated dataSet ID");
     } else {
         // build data set
         GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true);
         dataHandler.buildDataSet(dataSetID);
         // refresh tag selector
-        refreshDataSetSelector(myGenericDataFrameParent->getViewNet()->getNet()->retrieveDataSet(dataSetID));
+        refreshDataSetSelector(myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID));
         // change check button
         myNewDataSetCheckButton->setCheck(FALSE, TRUE);
     }

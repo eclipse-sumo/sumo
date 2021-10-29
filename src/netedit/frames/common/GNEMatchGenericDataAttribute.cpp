@@ -93,7 +93,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
     // first drop intervals
     myIntervals.clear();
     // iterate over all data sets
-    for (const auto& dataSet : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveDataSets()) {
+    for (const auto& dataSet : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getDataSets()) {
         for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
             myIntervals[std::make_pair(dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN), dataInterval.second->getAttributeDouble(SUMO_ATTR_END))] = -1;
         }

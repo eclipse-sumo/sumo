@@ -55,7 +55,7 @@ GNEDataHandler::~GNEDataHandler() {}
 void
 GNEDataHandler::buildDataSet(const std::string& dataSetID) {
     // first check if dataSet exist
-    if (myNet->retrieveDataSet(dataSetID, false) == nullptr) {
+    if (myNet->getAttributeCarriers()->retrieveDataSet(dataSetID, false) == nullptr) {
         GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::DATASET, "add " + toString(SUMO_TAG_DATASET));
@@ -76,7 +76,7 @@ void
 GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */,
                                   const std::string& dataSetID, const double begin, const double end) {
     // get dataSet
-    GNEDataSet* dataSet = myNet->retrieveDataSet(dataSetID, false);
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(dataSetID, false);
     // first check if dataSet exist
     if (dataSet == nullptr) {
         // create dataset AND data interval
@@ -112,7 +112,7 @@ void
 GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
                               const std::map<std::string, std::string>& parameters) {
     // get dataSet
-    GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
@@ -148,7 +148,7 @@ void
 GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
                                       const std::string& toEdgeID, const std::map<std::string, std::string>& parameters) {
     // get dataSet
-    GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
@@ -186,7 +186,7 @@ void
 GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
                                      const std::string& toTAZID, const std::map<std::string, std::string>& parameters) {
     // get dataSet
-    GNEDataSet* dataSet = myNet->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (dataSet != nullptr) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(

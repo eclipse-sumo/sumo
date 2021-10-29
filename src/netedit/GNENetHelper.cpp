@@ -664,11 +664,18 @@ GNENetHelper::AttributeCarriers::retrieveConnection(const GNEAttributeCarrier* A
 }
 
 
+const std::set<GNEConnection*>&
+GNENetHelper::AttributeCarriers::getConnections() const {
+    return myConnections;
+}
+
+
 std::vector<GNEConnection*>
-GNENetHelper::AttributeCarriers::retrieveConnections(bool onlySelected) const {
+GNENetHelper::AttributeCarriers::getSelectedConnections() const {
     std::vector<GNEConnection*> result;
+    // returns connections depending of selection
     for (const auto &connection : myConnections) {
-        if (!onlySelected || connection->isAttributeCarrierSelected()) {
+        if (connection->isAttributeCarrierSelected()) {
             result.push_back(connection);
         }
     }
@@ -682,7 +689,6 @@ GNENetHelper::AttributeCarriers::insertConnection(GNEConnection* connection) {
         throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' already exist");
     }
 }
-
 
 
 void 
@@ -741,6 +747,21 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(const GNEAttributeCarrier* A
 const std::map<SumoXMLTag, std::set<GNEAdditional*> >&
 GNENetHelper::AttributeCarriers::getAdditionals() const {
     return myAdditionals;
+}
+
+
+std::vector<GNEAdditional*> 
+GNENetHelper::AttributeCarriers::getSelectedAdditionals() const {
+    std::vector<GNEAdditional*> result;
+    // returns additionals depending of selection
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional->isAttributeCarrierSelected()) {
+                result.push_back(additional);
+            }
+        }
+    }
+    return result;
 }
 
 
@@ -1303,15 +1324,111 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() const {
 }
 
 
+GNEDataSet*
+GNENetHelper::AttributeCarriers::retrieveDataSet(const std::string& id, bool hardFail) const {
+    for (const auto &dataSet : myDataSets) {
+        if (dataSet->getID() == id) {
+            return dataSet;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data set");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDataSet* 
+GNENetHelper::AttributeCarriers::retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &dataSet : myDataSets) {
+        if (dataSet == AC) {
+            return dataSet;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data set");
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::set<GNEDataSet*>&
 GNENetHelper::AttributeCarriers::getDataSets() const {
     return myDataSets;
 }
 
 
+GNEDataInterval* 
+GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &dataInterval : myDataIntervals) {
+        if (dataInterval == AC) {
+            return dataInterval;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data interval");
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::set<GNEDataInterval*>&
 GNENetHelper::AttributeCarriers::getDataIntervals() const {
     return myDataIntervals;
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterval) {
+    if (myDataIntervals.insert(dataInterval).second == false) {
+        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
+    }
+}
+
+
+void 
+GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterval) {
+    const auto finder = myDataIntervals.find(dataInterval);
+    if (finder == myDataIntervals.end()) {
+        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' wasn't previously inserted");
+    } else {
+        myDataIntervals.erase(finder);
+    }
+}
+
+
+GNEGenericData* 
+GNENetHelper::AttributeCarriers::retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &genericDataTag : myGenericDatas) {
+        for (const auto &genericData : genericDataTag.second) {
+            if (genericData == AC) {
+                return genericData;
+            }
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant data set");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEGenericData*>
+GNENetHelper::AttributeCarriers::retrieveGenericDatas(bool onlySelected) const {
+    std::vector<GNEGenericData*> result;
+    // returns generic datas depending of selection
+    for (const auto& genericDataTag : myGenericDatas) {
+        for (const auto& genericData : genericDataTag.second) {
+            if (!onlySelected || genericData->isAttributeCarrierSelected()) {
+                result.push_back(genericData);
+            }
+        }
+    }
+    return result;
 }
 
 
@@ -1373,25 +1490,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeTAZRel() const {
         }
     }
     return counter;
-}
-
-
-void 
-GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterval) {
-    if (myDataIntervals.insert(dataInterval).second == false) {
-        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
-    }
-}
-
-
-void 
-GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterval) {
-    const auto finder = myDataIntervals.find(dataInterval);
-    if (finder == myDataIntervals.end()) {
-        throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' wasn't previously inserted");
-    } else {
-        myDataIntervals.erase(finder);
-    }
 }
 
 

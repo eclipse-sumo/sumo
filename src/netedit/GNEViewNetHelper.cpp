@@ -2788,9 +2788,7 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         myDataSetsComboBox->clearItems();
         myGenericDataTypesComboBox->clearItems();
         if (myViewNet->getNet()) {
-            // retrieve data sets
-            const auto dataSets = myViewNet->getNet()->retrieveDataSets();
-            if (dataSets.empty()) {
+            if (myViewNet->getNet()->getAttributeCarriers()->getDataSets().size() > 0) {
                 myGenericDataTypesComboBox->appendItem(myNoGenericDatas);
                 myDataSetsComboBox->appendItem(myNoDataSets);
                 // disable elements
@@ -2811,7 +2809,7 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
                 }
                 myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
                 // add data sets
-                for (const auto& dataSet : dataSets) {
+                for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                     // check if current data set is the previous data set
                     if (dataSet->getID() == previousDataSet) {
                         previousDataSetIndex = myDataSetsComboBox->getNumItems();
@@ -2920,7 +2918,7 @@ GNEViewNetHelper::IntervalBar::setDataSet() {
     } else if (myDataSetsComboBox->getText().empty()) {
         myDataSetsComboBox->setTextColor(FXRGB(0, 0, 0));
         myDataSetsComboBox->setText(myAllDataSets);
-    } else if (myViewNet->getNet()->retrieveDataSet(myDataSetsComboBox->getText().text(), false)) {
+    } else if (myViewNet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetsComboBox->getText().text(), false)) {
         myDataSetsComboBox->setTextColor(FXRGB(0, 0, 0));
     } else {
         myDataSetsComboBox->setTextColor(FXRGB(255, 0, 0));

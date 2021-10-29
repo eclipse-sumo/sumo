@@ -327,7 +327,7 @@ bool
 GNEDataSet::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveDataSet(value, false) == nullptr)) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveDataSet(value, false) == nullptr)) {
                 return true;
             } else {
                 return false;

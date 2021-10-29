@@ -1542,7 +1542,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             demandElementsSavePath = "";
         }
         // Check if there are data elements in our net
-        if (myNet->getNumberOfDataSets() > 0) {
+        if (myNet->getAttributeCarriers()->getDataSets().size() > 0) {
             // ask user if want to save data elements if weren't saved previously
             if (oc.getString("data-files") == "") {
                 // write warning if netedit is running in testing mode

@@ -183,7 +183,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
                 myViewNet->getNet()->deleteLane(selectedLane, myViewNet->getUndoList(), false);
             }
             // connections
-            const auto selectedConnections = attributeCarriers->retrieveConnections(true);
+            const auto selectedConnections = attributeCarriers->getSelectedConnections();
             for (const auto& selectedConnection : selectedConnections) {
                 myViewNet->getNet()->deleteConnection(selectedConnection, myViewNet->getUndoList());
             }
@@ -198,8 +198,8 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
                 myViewNet->getNet()->deleteShape(selectedShape, myViewNet->getUndoList());
             }
             // additionals (note: We need to use while (...) because there is a
-            while (myViewNet->getNet()->retrieveAdditionals(true).size() > 0) {
-                myViewNet->getNet()->deleteAdditional(myViewNet->getNet()->retrieveAdditionals(true).front(), myViewNet->getUndoList());
+            while (myViewNet->getNet()->getAttributeCarriers()->getNumberOfSelectedAdditionals() > 0) {
+                myViewNet->getNet()->deleteAdditional(myViewNet->getNet()->getAttributeCarriers()->getSelectedAdditionals().front(), myViewNet->getUndoList());
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // demand elements
@@ -208,7 +208,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
             // generic datas
-            auto selectedGenericDatas = myViewNet->getNet()->retrieveGenericDatas(true);
+            auto selectedGenericDatas = myViewNet->getNet()->getAttributeCarriers()->retrieveGenericDatas(true);
             for (const auto& selectedGenericData : selectedGenericDatas) {
                 myViewNet->getNet()->deleteGenericData(selectedGenericData, myViewNet->getUndoList());
             }

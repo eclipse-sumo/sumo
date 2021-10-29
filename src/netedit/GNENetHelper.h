@@ -262,10 +262,11 @@ struct GNENetHelper {
          */
         GNEConnection* retrieveConnection(const GNEAttributeCarrier *AC, bool failHard = true) const;
 
-        /**@brief return all connections
-         * @param[in] onlySelected Whether to return only selected connections
-         */
-        std::vector<GNEConnection*> retrieveConnections(bool onlySelected = false) const;
+        /// @brief get connections
+        const std::set<GNEConnection*>& getConnections() const;
+
+        /// @brief get selected connections
+        std::vector<GNEConnection*> getSelectedConnections() const;
 
         /// @brief insert connection
         void insertConnection(GNEConnection* connection);
@@ -296,6 +297,9 @@ struct GNENetHelper {
 
         /// @brief get additionals
         const std::map<SumoXMLTag, std::set<GNEAdditional*> >& getAdditionals() const;
+
+        /// @brief get selected additionals
+        std::vector<GNEAdditional*> getSelectedAdditionals() const;
 
         /// @brief clear additionals
         void clearAdditionals();
@@ -415,13 +419,57 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name function for data sets, data intervals and generic datas
+        /// @name function for data sets
         /// @{
+        
+        /**@brief Returns the named data set
+         * @param[in] id The id of the data set to return.
+         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         */
+        GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named data set
+         * @param[in] id The attribute carrier related with the dataSet element
+         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         */
+        GNEDataSet* retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
         /// @brief get demand elements
         const std::set<GNEDataSet*>& getDataSets() const;
+        
+        /// @}
+
+        /// @name function for data intervals
+        /// @{
+        /**@brief Returns the data interval
+         * @param[in] id The attribute carrier related with the dataInterval element
+         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         */
+        GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get all data intervals of network
         const std::set<GNEDataInterval*> &getDataIntervals() const;
+
+        /// @brief insert data interval
+        void insertDataInterval(GNEDataInterval* dataInterval);
+
+        /// @brief delete data interval
+        void deleteDataInterval(GNEDataInterval* dataInterval);
+
+         /// @}
+
+        /// @name function for generic datas
+        /// @{
+        /**@brief Returns the generic data
+         * @param[in] id The attribute carrier related with the genericData element
+         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         */
+        GNEGenericData* retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /**@brief return all generic datas
+         * @param[in] onlySelected Whether to return only selected generic datas
+         */
+        std::vector<GNEGenericData*> retrieveGenericDatas(bool onlySelected = false) const;
 
         /// @brief get all generic datas
         const std::map<SumoXMLTag, std::set<GNEGenericData*> > &getGenericDatas() const;
@@ -437,12 +485,6 @@ struct GNENetHelper {
 
         /// @brief get number of selected edge TAZ Rels
         int getNumberOfSelectedEdgeTAZRel() const;
-
-        /// @brief insert data interval
-        void insertDataInterval(GNEDataInterval* dataInterval);
-
-        /// @brief delete data interval
-        void deleteDataInterval(GNEDataInterval* dataInterval);
 
         /// @brief insert generic data
         void insertGenericData(GNEGenericData* genericData);

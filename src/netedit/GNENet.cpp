@@ -2252,21 +2252,6 @@ GNENet::generateEdgeTypeID() const {
 }
 
 
-std::vector<GNEAdditional*>
-GNENet::retrieveAdditionals(bool onlySelected) const {
-    std::vector<GNEAdditional*> result;
-    // returns additionals depending of selection
-    for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
-        for (const auto& additional : additionalTags.second) {
-            if (!onlySelected || additional->isAttributeCarrierSelected()) {
-                result.push_back(additional);
-            }
-        }
-    }
-    return result;
-}
-
-
 GNEAdditional*
 GNENet::retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const {
     // first retrieve rerouter
@@ -2497,103 +2482,6 @@ GNENet::generateDemandElementID(SumoXMLTag tag) const {
 }
 
 
-GNEDataSet*
-GNENet::retrieveDataSet(const std::string& id, bool hardFail) const {
-    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
-        if (dataSet->getID() == id) {
-            return dataSet;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant data set");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEDataSet* 
-GNENet::retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
-        if (dataSet == AC) {
-            return dataSet;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant data set");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEDataInterval* 
-GNENet::retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &dataInterval : myAttributeCarriers->getDataIntervals()) {
-        if (dataInterval == AC) {
-            return dataInterval;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant data interval");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEGenericData* 
-GNENet::retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &genericDataTag : myAttributeCarriers->getGenericDatas()) {
-        for (const auto &genericData : genericDataTag.second) {
-            if (genericData == AC) {
-                return genericData;
-            }
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant data set");
-    } else {
-        return nullptr;
-    }
-}
-
-
-std::vector<GNEDataSet*>
-GNENet::retrieveDataSets() const {
-    std::vector<GNEDataSet*> result;
-    result.reserve(myAttributeCarriers->getDataSets().size());
-    // sort?
-    // returns data sets
-    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        result.push_back(dataSet);
-    }
-    return result;
-}
-
-
-std::vector<GNEGenericData*>
-GNENet::retrieveGenericDatas(bool onlySelected) const {
-    std::vector<GNEGenericData*> result;
-    result.reserve(myAttributeCarriers->getGenericDatas().size());
-    // returns generic datas depending of selection
-    for (const auto& genericDataTag : myAttributeCarriers->getGenericDatas()) {
-        for (const auto& genericData : genericDataTag.second) {
-            if (!onlySelected || genericData->isAttributeCarrierSelected()) {
-                result.push_back(genericData);
-            }
-        }
-    }
-    return result;
-}
-
-
-int
-GNENet::getNumberOfDataSets() const {
-    return (int)myAttributeCarriers->getDataSets().size();
-}
-
-
 void
 GNENet::requireSaveDataElements(bool value) {
     myDataElementsSaved = !value;
@@ -2630,7 +2518,7 @@ std::string
 GNENet::generateDataSetID(const std::string& prefix) const {
     const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
     int counter = 0;
-    while (retrieveDataSet(prefix + dataSetTagStr + "_" + toString(counter), false) != nullptr) {
+    while (myAttributeCarriers->retrieveDataSet(prefix + dataSetTagStr + "_" + toString(counter), false) != nullptr) {
         counter++;
     }
     return (prefix + dataSetTagStr + "_" + toString(counter));
@@ -2674,7 +2562,7 @@ GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::s
     std::vector<GNEDataSet*> dataSets;
     std::vector<GNEDataInterval*> dataIntervals;
     // get dataSet
-    GNEDataSet *retrievedDataSet = retrieveDataSet(dataSetID, false);
+    GNEDataSet *retrievedDataSet = myAttributeCarriers->retrieveDataSet(dataSetID, false);
     // if dataSetID is empty, return all parameters
     if (dataSetID.empty()) {
         // add all data sets
