@@ -171,7 +171,7 @@ GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can have parent
-    if (tagValue.isSlave()) {
+    if (tagValue.isChild()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARENT,
                             GNEAttributeProperties::AttrProperty::STRING,
@@ -368,7 +368,7 @@ GNEMatchAttribute::updateAttribute() {
             }
         }
         // check if item can have parent
-        if (tagProperty.isSlave()) {
+        if (tagProperty.isChild()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
             if (myCurrentAttribute == GNE_ATTR_PARENT) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);

@@ -45,14 +45,14 @@ GNETagProperties::GNETagProperties() :
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag>& masterTags) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag> parentTags) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
     myXMLTag(XMLTag),
-    myMasterTags(masterTags) {
+    myParentTags(parentTags) {
 }
 
 
@@ -98,12 +98,16 @@ GNETagProperties::checkTagIntegrity() const {
         throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
     }
     // check that master tag is valid
-    if (isSlave() && myMasterTags.empty()) {
+    if (isChild() && myParentTags.empty()) {
         throw FormatException("Master tags cannot be empty");
     }
     // check that master was defined
-    if (!isSlave() && !myMasterTags.empty()) {
+    if (!isChild() && !myParentTags.empty()) {
         throw FormatException("Tag doesn't support master elements");
+    }
+    // check reparent
+    if (!isChild() && canBeReparent()) {
+        throw FormatException("Only Child elements can be reparent");
     }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
@@ -221,9 +225,10 @@ GNETagProperties::getXMLTag() const {
     return myXMLTag;
 }
 
+
 const std::vector<SumoXMLTag>&
-GNETagProperties::getMasterTags() const {
-    return myMasterTags;
+GNETagProperties::getParentTags() const {
+    return myParentTags;
 }
 
 
@@ -249,6 +254,7 @@ bool
 GNETagProperties::isAdditionalElement() const {
     return (myTagType & ADDITIONALELEMENT) != 0;
 }
+
 
 bool
 GNETagProperties::isShape() const {
@@ -296,6 +302,7 @@ bool
 GNETagProperties::isVehicle() const {
     return (myTagType & VEHICLE) != 0;
 }
+
 
 bool
 GNETagProperties::isRoute() const {
@@ -382,8 +389,8 @@ GNETagProperties::isGenericData() const {
 
 
 bool
-GNETagProperties::isSlave() const {
-    return (myTagProperty & SLAVE) != 0;
+GNETagProperties::isChild() const {
+    return (myTagProperty & CHILD) != 0;
 }
 
 

@@ -1121,8 +1121,8 @@ GNEAdditionalFrame::tagSelected() {
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModul(myAdditionalTagSelector->getCurrentTagProperties());
         // Show myAdditionalFrameParent if we're adding an slave element
-        if (myAdditionalTagSelector->getCurrentTagProperties().isSlave()) {
-            mySelectorAdditionalParent->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getMasterTags());
+        if (myAdditionalTagSelector->getCurrentTagProperties().isChild()) {
+            mySelectorAdditionalParent->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getParentTags());
         } else {
             mySelectorAdditionalParent->hideSelectorParentModul();
         }
@@ -1138,8 +1138,8 @@ GNEAdditionalFrame::tagSelected() {
         } else if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
             myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModul();
             // Show SelectorChildLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
-            if (myAdditionalTagSelector->getCurrentTagProperties().isSlave() &&
-                    (myAdditionalTagSelector->getCurrentTagProperties().getMasterTags().front() == SUMO_TAG_LANE)) {
+            if (myAdditionalTagSelector->getCurrentTagProperties().isChild() &&
+                    (myAdditionalTagSelector->getCurrentTagProperties().getParentTags().front() == SUMO_TAG_LANE)) {
                 // show selector parent lane and hide selector child lane
                 mySelectorLaneParents->showSelectorParentLanesModul();
                 mySelectorChildLanes->hideSelectorChildLanesModul();
@@ -1187,24 +1187,24 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
     } else if (baseAdditionalTag == GNE_TAG_FLOW_CALIBRATOR) {
         baseAdditionalTag = SUMO_TAG_FLOW;
     }
-    // check if additional is slave
-    if (tagProperty.isSlave()) {
+    // check if additional is child
+    if (tagProperty.isChild()) {
         // get additional under cursor
         const GNEAdditional* additionalUnderCursor = myViewNet->getObjectsUnderCursor().getAdditionalFront();
         // if user click over an additional element parent, mark int in ParentAdditionalSelector
-        if (additionalUnderCursor && (additionalUnderCursor->getTagProperty().getTag() == tagProperty.getMasterTags().front())) {
+        if (additionalUnderCursor && (additionalUnderCursor->getTagProperty().getTag() == tagProperty.getParentTags().front())) {
             // update parent additional selected
             mySelectorAdditionalParent->setIDSelected(additionalUnderCursor->getID());
         }
         // stop if currently there isn't a valid selected parent
         if (mySelectorAdditionalParent->getIdSelected().empty()) {
-            myAdditionalAttributes->showWarningMessage("A " + toString(tagProperty.getMasterTags().front()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
+            myAdditionalAttributes->showWarningMessage("A " + toString(tagProperty.getParentTags().front()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
             return false;
         } else {
             // create baseAdditional parent
             myBaseAdditional = new CommonXMLStructure::SumoBaseObject(nullptr);
             // set parent tag
-            myBaseAdditional->setTag(tagProperty.getMasterTags().front());
+            myBaseAdditional->setTag(tagProperty.getParentTags().front());
             // add ID
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, mySelectorAdditionalParent->getIdSelected());
             // create baseAdditional again as child of current myBaseAdditional

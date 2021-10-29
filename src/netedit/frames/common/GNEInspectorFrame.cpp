@@ -162,7 +162,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // Check if item has another item as parent and can be reparemt
-        if (tagValue.isSlave() && tagValue.canBeReparent()) {
+        if (tagValue.isChild() && tagValue.canBeReparent()) {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent
@@ -175,7 +175,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             // show help button
             myHelpButton->show();
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isSlave()) + " parent").c_str());
+            myLabelParentAdditional->setText((toString(myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isChild()) + " parent").c_str());
             myTextFieldParentAdditional->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
@@ -201,9 +201,11 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
 
 void
 GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool forceRefresh) {
-    if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+    // get inspected Attribute carriers
+    const auto &ACs  = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    if (ACs.size() > 0) {
         // enable or disable mark front element button
-        if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()) {
+        if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == ACs.front()) {
             myMarkFrontElementButton->disable();
         } else {
             myMarkFrontElementButton->enable();
@@ -212,7 +214,7 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
         if (myHorizontalFrameCloseShape->shown()) {
             // Iterate over AC to obtain values
             bool value = true;
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+            for (const auto& i : ACs) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
             }
             // set check box value and update label
@@ -227,8 +229,8 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
         // Check if item has another item as parent (Currently only for single Additionals)
         if (myHorizontalFrameParentAdditional->shown() && ((myTextFieldParentAdditional->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getMasterTags().front()) + " parent").c_str());
-            myTextFieldParentAdditional->setText(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARENT).c_str());
+            myLabelParentAdditional->setText((toString(ACs.front()->getTagProperty().getParentTags().front()) + " parent").c_str());
+            myTextFieldParentAdditional->setText(ACs.front()->getAttribute(GNE_ATTR_PARENT).c_str());
         }
     }
 }

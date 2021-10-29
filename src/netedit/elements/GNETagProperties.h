@@ -80,7 +80,7 @@ public:
         CLOSESHAPE =                1 << 1,     // Element can close their shape
         GEOSHAPE =                  1 << 2,     // Element's shape acn be defined using a GEO Shape
         DIALOG =                    1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        SLAVE =                     1 << 4,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
+        CHILD =                     1 << 4,     // Element is child of another element and will be writed in XML without id (Example: E3Entry -> E3Detector...)
         MINIMUMCHILDREN =           1 << 5,     // Element will be only writed in XML if has a minimum number of children
         REPARENT =                  1 << 6,     // Element can be reparent
         NOTSELECTABLE =             1 << 7,     // Element cannot be selected
@@ -97,7 +97,7 @@ public:
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag>& masterTags = {});
+    GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag> parentTags = {});
 
     /// @brief destructor
     ~GNETagProperties();
@@ -144,8 +144,8 @@ public:
     /// @brief get XML tag
     SumoXMLTag getXMLTag() const;
 
-    /// @brief get master tags
-    const std::vector<SumoXMLTag>& getMasterTags() const;
+    /// @brief get parent tags
+    const std::vector<SumoXMLTag>& getParentTags() const;
 
     /// @brief check if current TagProperties owns the attribute "attr"
     bool hasAttribute(SumoXMLAttr attr) const;
@@ -222,8 +222,8 @@ public:
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
 
-    /// @brief return true if tag correspond to an element slave of another element (I.e. doesn't have their own ID)
-    bool isSlave() const;
+    /// @brief return true if tag correspond to an element child of another element (Example: E3->Entry/Exit)
+    bool isChild() const;
 
     /// @brief return true if tag correspond to a symbol element
     bool isSymbol() const;
@@ -298,8 +298,8 @@ private:
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
     SumoXMLTag myXMLTag;
 
-    /// @brief vector with master tags (used by slave elements)
-    std::vector<SumoXMLTag> myMasterTags;
+    /// @brief vector with master tags (used by child elements)
+    std::vector<SumoXMLTag> myParentTags;
 
     /// @brief List with the deprecated Attributes
     std::vector<SumoXMLAttr> myDeprecatedAttributes;
