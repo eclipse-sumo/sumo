@@ -216,7 +216,7 @@ GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return SUMOXMLDefinitions::isValidAdditionalID(value) &&
-                   (myNet->retrieveTAZElement(myTagProperty.getTag(), value, false) == nullptr);
+                   (myNet->getAttributeCarriers()->retrieveTAZElement(myTagProperty.getTag(), value, false) == nullptr);
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_PARAMETERS:

@@ -541,24 +541,6 @@ public:
     /// @name Functions related with Shapes
     /// @{
 
-    /**@brief Returns the named shape
-     * @param[in] type tag with the type of shape
-     * @param[in] id The id of the shape to return.
-     * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
-     */
-    GNEShape* retrieveShape(SumoXMLTag, const std::string& id, bool hardFail = true) const;
-
-    /**@brief Returns the named shape
-     * @param[in] id The attribute carrier related with the additional element
-     * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
-     */
-    GNEShape* retrieveShape(const GNEAttributeCarrier* AC, bool hardFail = true) const;
-
-    /**@brief return all shapes
-     * @param[in] onlySelected Whether to return only selected shapes
-     */
-    std::vector<GNEShape*> retrieveShapes(bool onlySelected = false) const;
-
     /// @brief generate Shape ID
     std::string generateShapeID(SumoXMLTag shapeTag) const;
 
@@ -571,24 +553,6 @@ public:
 
     /// @name Functions related with TAZElements
     /// @{
-
-    /**@brief Returns the named TAZElement
-     * @param[in] type tag with the type of TAZElement
-     * @param[in] id The id of the TAZElement to return.
-     * @param[in] failHard Whether attempts to retrieve a nonexisting TAZElement should result in an exception
-     */
-    GNETAZElement* retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
-
-    /**@brief Returns the named TAZElement
-     * @param[in] id The attribute carrier related with the additional element
-     * @param[in] failHard Whether attempts to retrieve a nonexisting TAZElement should result in an exception
-     */
-    GNETAZElement* retrieveTAZElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
-
-    /**@brief return all TAZElements
-     * @param[in] onlySelected Whether to return only selected TAZElements
-     */
-    std::vector<GNETAZElement*> retrieveTAZElements(bool onlySelected = false) const;
 
     /// @brief generate TAZElement ID
     std::string generateTAZElementID(SumoXMLTag TAZElementTag) const;

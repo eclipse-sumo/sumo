@@ -402,7 +402,8 @@ GNETAZRelData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveTAZElement(SUMO_TAG_TAZ, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && 
+                   (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:

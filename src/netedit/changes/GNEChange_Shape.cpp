@@ -43,7 +43,7 @@ GNEChange_Shape::~GNEChange_Shape() {
     myShape->decRef("GNEChange_Shape");
     if (myShape->unreferenced()) {
         // make sure that shape are removed of ShapeContainer (net) AND grid
-        if (myShape->getNet()->retrieveShape(myShape->getTagProperty().getTag(), myShape->getID(), false) != nullptr) {
+        if (myShape->getNet()->getAttributeCarriers()->retrieveShape(myShape, false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             // remove polygon from AttributeCarreirs

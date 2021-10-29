@@ -717,7 +717,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer&
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get TAZ element
-    GNETAZElement* TAZElement = myViewNet->getNet()->retrieveTAZElement(AC);
+    GNETAZElement* TAZElement = myViewNet->getNet()->getAttributeCarriers()->retrieveTAZElement(AC);
     // insert depending if is the front attribute carrier
     if (TAZElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
@@ -747,7 +747,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& contai
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get shape element
-    GNEShape* shapeElement = myViewNet->getNet()->retrieveShape(AC); 
+    GNEShape* shapeElement = myViewNet->getNet()->getAttributeCarriers()->retrieveShape(AC); 
     // insert depending if is the front attribute carrier
     if (shapeElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front

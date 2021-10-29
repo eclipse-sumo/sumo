@@ -485,8 +485,8 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return SUMOXMLDefinitions::isValidAdditionalID(value) &&
-                   (myNet->retrieveTAZElement(SUMO_TAG_TAZ, value, false) == nullptr) &&
-                   (myNet->retrieveShape(SUMO_TAG_POLY, value, false) == nullptr);
+                   (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, value, false) == nullptr) &&
+                   (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POLY, value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
             if (value.empty()) {
                 return false;

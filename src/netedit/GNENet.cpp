@@ -2779,64 +2779,22 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
 }
 
 
-GNEShape*
-GNENet::retrieveShape(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    for (const auto &shape : myAttributeCarriers->getShapes().at(type)) {
-        if (shape->getID() == id) {
-            return shape;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant shape");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEShape*
-GNENet::retrieveShape(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &shape : myAttributeCarriers->getShapes().at(AC->getTagProperty().getTag())) {
-        if (shape == AC) {
-            return shape;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant shape");
-    } else {
-        return nullptr;
-    }
-}
-
-
-std::vector<GNEShape*>
-GNENet::retrieveShapes(bool onlySelected) const {
-    std::vector<GNEShape*> result;
-    // returns shapes depending of selection
-    for (const auto &shapeTags : myAttributeCarriers->getShapes()) {
-        for (const auto &shape : shapeTags.second) {
-            if (!onlySelected || shape->isAttributeCarrierSelected()) {
-                result.push_back(shape);
-            }
-        }
-    }
-    return result;
-}
-
-
 std::string
 GNENet::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;
     // generate tag depending of shape tag
     if (tag == SUMO_TAG_POLY) {
         // Polys and TAZs share namespace
-        while ((retrieveShape(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr) ||
-               (retrieveTAZElement(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr)) {
+        while ((myAttributeCarriers->retrieveShape(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr) ||
+               (getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
     } else {
-        while (retrieveShape(tag, toString(tag) + "_" + toString(counter)) != nullptr) {
+        const std::string POI = toString(SUMO_TAG_POI);
+        while ((myAttributeCarriers->retrieveShape(SUMO_TAG_POI, POI + "_" + toString(counter)) != nullptr) ||
+               (myAttributeCarriers->retrieveShape(GNE_TAG_POILANE, POI + "_" + toString(counter)) != nullptr) ||
+               (myAttributeCarriers->retrieveShape(GNE_TAG_POIGEO, POI + "_" + toString(counter)) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
@@ -2856,64 +2814,19 @@ GNENet::getNumberOfShapes(SumoXMLTag type) const {
 }
 
 
-GNETAZElement*
-GNENet::retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    for (const auto &TAZElement : myAttributeCarriers->getTAZElements().at(type)) {
-        if (TAZElement->getID() == id) {
-            return TAZElement;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant TAZElement");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNETAZElement*
-GNENet::retrieveTAZElement(const GNEAttributeCarrier *AC, bool hardFail) const {
-    for (const auto &TAZElement : myAttributeCarriers->getTAZElements().at(AC->getTagProperty().getTag())) {
-        if (TAZElement == AC) {
-            return TAZElement;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant TAZElement");
-    } else {
-        return nullptr;
-    }
-}
-
-
-std::vector<GNETAZElement*>
-GNENet::retrieveTAZElements(bool onlySelected) const {
-    std::vector<GNETAZElement*> result;
-    // returns TAZElements depending of selection
-    for (const auto &TAZElementTags : myAttributeCarriers->getTAZElements()) {
-        for (const auto &TAZElement : TAZElementTags.second) {
-            if (!onlySelected || TAZElement->isAttributeCarrierSelected()) {
-                result.push_back(TAZElement);
-            }
-        }
-    }
-    return result;
-}
-
-
 std::string
 GNENet::generateTAZElementID(SumoXMLTag tag) const {
     int counter = 0;
     // generate tag depending of shape tag
     if (tag == SUMO_TAG_TAZ) {
         // Polys and TAZs share namespace
-        while ((retrieveShape(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr) ||
-               (retrieveTAZElement(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr)) {
+        while ((myAttributeCarriers->retrieveShape(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr) ||
+               (getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
     } else {
-        while (retrieveTAZElement(tag, toString(tag) + "_" + toString(counter)) != nullptr) {
+        while (getAttributeCarriers()->retrieveTAZElement(tag, toString(tag) + "_" + toString(counter)) != nullptr) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));

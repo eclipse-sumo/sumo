@@ -434,16 +434,16 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             if (SUMOXMLDefinitions::isValidTypeID(value)) {
                 if (myTagProperty.getTag() == SUMO_TAG_POI) {
                     // POI
-                   return (myNet->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr) &&
-                          (myNet->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
+                   return (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr) &&
+                          (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
                 } else if (myTagProperty.getTag() == GNE_TAG_POILANE) {
                     // POILane
-                   return (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                          (myNet->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
+                   return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                          (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
                 } else if (myTagProperty.getTag() == GNE_TAG_POIGEO) {
                     // POI Geo
-                   return (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                          (myNet->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr);
+                   return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                          (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr);
                 } else {
                     // invalid POI tag
                     return false;

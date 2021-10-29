@@ -859,7 +859,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         myClickedLane = dynamic_cast<GNELane*>(clickedAC);
         myClickedCrossing = dynamic_cast<GNECrossing*>(clickedAC);
         myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
-        myClickedShape = clickedAC->getTagProperty().isShape()? myFrameParent->myViewNet->getNet()->retrieveShape(clickedAC) : nullptr;
+        myClickedShape = clickedAC->getTagProperty().isShape()? myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveShape(clickedAC) : nullptr;
         myClickedTAZElement = dynamic_cast<GNETAZElement*>(clickedAC);
         myClickedAdditional = clickedAC->getTagProperty().isAdditionalElement()? attributeCarriers->retrieveAdditional(clickedAC) : nullptr;
         myClickedDemandElement = clickedAC->getTagProperty().isDemandElement()? attributeCarriers->retrieveDemandElement(clickedAC) : nullptr;
@@ -1030,7 +1030,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         }
     } else if (myHE->getTagProperty().getTag() == GNE_TAG_POILANE) {
         // Obtain POILane
-        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(myHE);
+        const GNEShape* POILane = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveShape(myHE);
         // obtain parent lane
         GNELane* lane = attributeCarriers->retrieveLane(POILane->getParentLanes().at(0)->getID());
         // obtain parent edge
@@ -1117,7 +1117,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         return root;
     } else if (myHE->getTagProperty().isTAZElement()) {
         // Obtain TAZElement
-        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(myHE);
+        const GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveTAZElement(myHE);
         // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
         FXTreeItem* root = nullptr;
         // check if there is demand elements parents

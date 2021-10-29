@@ -1294,10 +1294,10 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check TAZ
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TAZ, id);
-    } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
-        writeErrorDuplicated(SUMO_TAG_TAG, id);
-    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
-        writeErrorDuplicated(SUMO_TAG_TAG, id);
+    } else if (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAZ, id);
+    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (TAZShape.size() == 0) {
         WRITE_ERROR("Could not build " + toString(SUMO_TAG_TAZ) + " with ID '" + id + "' in netedit; Invalid Shape.");
     } else {
@@ -1346,7 +1346,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
 void
 GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const double departWeight) {
     // get TAZ parent
-    GNETAZElement* TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+    GNETAZElement* TAZ = myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // declare TAZ Sink
@@ -1416,7 +1416,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
 void
 GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const double arrivalWeight) {
     // get TAZ parent
-    GNETAZElement* TAZ = myNet->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+    GNETAZElement* TAZ = myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     // check parents
@@ -1489,10 +1489,10 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
-    } else if (myNet->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
-        writeErrorDuplicated(SUMO_TAG_TAG, id);
-    } else if (myNet->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
-        writeErrorDuplicated(SUMO_TAG_TAG, id);
+    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POLY, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAZ, id);
+    } else if (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
+        writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (lineWidth < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
     } else {
@@ -1527,7 +1527,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
@@ -1561,7 +1561,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -1605,7 +1605,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (myNet->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
+    } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POIGEO

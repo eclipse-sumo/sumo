@@ -81,7 +81,7 @@ GNETAZElement::getGUIGlObject() {
 std::string
 GNETAZElement::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getChildTAZElements().size();
-    while (myNet->retrieveTAZElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
+    while (myNet->getAttributeCarriers()->retrieveTAZElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));

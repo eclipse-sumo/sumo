@@ -807,6 +807,36 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 }
 
 
+GNEShape*
+GNENetHelper::AttributeCarriers::retrieveShape(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    for (const auto &shape : myShapes.at(type)) {
+        if (shape->getID() == id) {
+            return shape;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant shape");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEShape*
+GNENetHelper::AttributeCarriers::retrieveShape(const GNEAttributeCarrier* AC, bool hardFail) const {
+    for (const auto &shape : myShapes.at(AC->getTagProperty().getTag())) {
+        if (shape == AC) {
+            return shape;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant shape");
+    } else {
+        return nullptr;
+    }
+}
+
+
 std::vector<GNEShape*>
 GNENetHelper::AttributeCarriers::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
@@ -887,6 +917,51 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
         }
     }
     return counter;
+}
+
+
+GNETAZElement*
+GNENetHelper::AttributeCarriers::retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    for (const auto &TAZElement : myTAZElements.at(type)) {
+        if (TAZElement->getID() == id) {
+            return TAZElement;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant TAZElement");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNETAZElement*
+GNENetHelper::AttributeCarriers::retrieveTAZElement(const GNEAttributeCarrier *AC, bool hardFail) const {
+    for (const auto &TAZElement : myTAZElements.at(AC->getTagProperty().getTag())) {
+        if (TAZElement == AC) {
+            return TAZElement;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant TAZElement");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNETAZElement*>
+GNENetHelper::AttributeCarriers::retrieveTAZElements(bool onlySelected) const {
+    std::vector<GNETAZElement*> result;
+    // returns TAZElements depending of selection
+    for (const auto &TAZElementTags : myTAZElements) {
+        for (const auto &TAZElement : TAZElementTags.second) {
+            if (!onlySelected || TAZElement->isAttributeCarrierSelected()) {
+                result.push_back(TAZElement);
+            }
+        }
+    }
+    return result;
 }
 
 

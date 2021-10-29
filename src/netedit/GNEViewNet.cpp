@@ -1943,10 +1943,10 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
     if (polygonUnderMouse) {
         // check if shape is selected
         if (polygonUnderMouse->isAttributeCarrierSelected()) {
-            // get shapes
-            const auto selectedShapes = myNet->retrieveShapes(true);
             // begin undo-list
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "simplify shapes");
+            // get shapes
+            const auto selectedShapes = myNet->getAttributeCarriers()->retrieveShapes(true);
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
@@ -1985,10 +1985,10 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
     if (polygonUnderMouse) {
         // check if shape is selected
         if (polygonUnderMouse->isAttributeCarrierSelected()) {
-            // get shapes
-            const auto selectedShapes = myNet->retrieveShapes(true);
             // begin undo-list
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "close polygon shapes");
+            // get selectedshapes
+            const auto selectedShapes = myNet->getAttributeCarriers()->retrieveShapes(true);
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
@@ -2016,10 +2016,10 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
     if (polygonUnderMouse) {
         // check if shape is selected
         if (polygonUnderMouse->isAttributeCarrierSelected()) {
-            // get shapes
-            const auto selectedShapes = myNet->retrieveShapes(true);
             // begin undo-list
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "open polygon shapes");
+            // get shapes
+            const auto selectedShapes = myNet->getAttributeCarriers()->retrieveShapes(true);
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
@@ -4312,14 +4312,14 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
             }
         } else if (AC->getTagProperty().isShape()) {
             // get shape Element (note: could be already removed if is a child, then hardfail=false)
-            GNEShape* shapeElement = myNet->retrieveShape(AC, false);
+            GNEShape* shapeElement = myNet->getAttributeCarriers()->retrieveShape(AC, false);
             // if exist, remove it
             if (shapeElement) {
                 myNet->deleteShape(shapeElement, myUndoList);
             }
         } else if (AC->getTagProperty().isTAZElement()) {
             // get TAZ Element (note: could be already removed if is a child, then hardfail=false)
-            GNETAZElement* TAZElement = myNet->retrieveTAZElement(AC, false);
+            GNETAZElement* TAZElement = myNet->getAttributeCarriers()->retrieveTAZElement(AC, false);
             // if exist, remove it
             if (TAZElement) {
                 myNet->deleteTAZElement(TAZElement, myUndoList);

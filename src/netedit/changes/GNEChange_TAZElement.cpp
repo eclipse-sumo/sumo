@@ -43,7 +43,7 @@ GNEChange_TAZElement::~GNEChange_TAZElement() {
     myTAZElement->decRef("GNEChange_TAZElement");
     if (myTAZElement->unreferenced()) {
         // make sure that TAZElement are removed of TAZElementContainer (net) AND grid
-        if (myTAZElement->getNet()->retrieveTAZElement(myTAZElement->getTagProperty().getTag(), myTAZElement->getID(), false) != nullptr) {
+        if (myTAZElement->getNet()->getAttributeCarriers()->retrieveTAZElement(myTAZElement, false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' from net in ~GNEChange_TAZElement()");
             // remove TAZElement from AttributeCarreirs
