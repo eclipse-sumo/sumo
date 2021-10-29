@@ -405,10 +405,10 @@ private:
     GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Modul for select parent lanes (currently only consecutives)
-    SelectorParentLanes* mySelectorParentLanes;
+    SelectorParentLanes* mySelectorLaneParents;
 
     /// @brief Modul for select a single parent additional
-    GNEFrameModuls::SelectorParent* myParentAdditional;
+    GNEFrameModuls::SelectorParent* mySelectorAdditionalParent;
 
     /// @brief Modul for select child edges
     SelectorChildEdges* mySelectorChildEdges;
