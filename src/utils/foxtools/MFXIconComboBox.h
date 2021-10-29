@@ -25,48 +25,46 @@
 #include "fxheader.h"
 
 
-/** A list item which allows for custom coloring
-*/
-
+/// @briefA list item which allows for custom coloring
 class MFXListItem : public FXListItem {
+    /// @brief fox declaration
     FXDECLARE(MFXListItem)
 
 public:
-    /// Construct new item with given text, icon, and user-data
-    MFXListItem(const FXString& text, FXIcon* ic, FXColor _bgColor, void* ptr = NULL):
-        FXListItem(text, ic, ptr),
-        bgColor(_bgColor) {}
-    FXColor bgColor;
+    /// @brief Construct new item with given text, icon, and user-data
+    MFXListItem(const FXString& text, FXIcon* ic, FXColor _bgColor, void* ptr = NULL);
 
-
+    /// @brief draw MFXListItem
     void draw(const FXList* list, FXDC& dc, FXint x, FXint y, FXint w, FXint h);
 
 protected:
-    MFXListItem(): FXListItem("", nullptr) {}
+    /// @brief fox need this
+    MFXListItem();
 
+    /// @brief backGround color
+    FXColor myBackGroundColor;
 };
 
 /** A combobox which allows for icons and background color
 * This class behaves behaves just like FXComboBox but allows appending items with an icon
 */
 class MFXIconComboBox : public FXComboBox {
-protected:
-    // FOX stuff
+    /// @brief fox declaration
     FXDECLARE(MFXIconComboBox)
-    MFXIconComboBox() {}
-public:
 
-    /// same constructor as parent
+public:
+    /// @brief constructor same constructor as parent
     MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt = nullptr, FXSelector sel = 0, FXuint opts = COMBOBOX_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// Destructor.
-    virtual ~MFXIconComboBox() {};
+    virtual ~MFXIconComboBox();
 
+    /// @brief append icon
     FXint appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor = FXRGBA(0, 0, 0, 0), void* ptr = NULL);
 
+protected:
+    /// @brief fox need this
+    MFXIconComboBox();
 };
-
-
-
 
 #endif

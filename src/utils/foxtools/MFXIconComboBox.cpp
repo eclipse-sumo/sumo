@@ -38,7 +38,15 @@
 FXIMPLEMENT(MFXListItem, FXListItem, nullptr, 0)
 FXIMPLEMENT(MFXIconComboBox, FXComboBox, nullptr, 0)
 
-void MFXListItem::draw(const FXList* list, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
+
+MFXListItem::MFXListItem(const FXString& text, FXIcon* ic, FXColor _bgColor, void* ptr):
+    FXListItem(text, ic, ptr),
+    myBackGroundColor(_bgColor) {
+}
+
+
+void 
+MFXListItem::draw(const FXList* list, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     // almost the same code as FXListItem::draw except for using custom background color
     FXFont* font = list->getFont();
     FXint ih = 0, th = 0;
@@ -50,8 +58,8 @@ void MFXListItem::draw(const FXList* list, FXDC& dc, FXint xx, FXint yy, FXint w
     }
     if (isSelected()) {
         dc.setForeground(list->getSelBackColor());
-    } else if (bgColor != FXRGBA(0, 0, 0, 0)) {
-        dc.setForeground(bgColor);     // custom code here
+    } else if (myBackGroundColor != FXRGBA(0, 0, 0, 0)) {
+        dc.setForeground(myBackGroundColor);
     } else {
         dc.setForeground(list->getBackColor());
     }
@@ -78,13 +86,21 @@ void MFXListItem::draw(const FXList* list, FXDC& dc, FXint xx, FXint yy, FXint w
 }
 
 
-MFXIconComboBox::MFXIconComboBox(
-    FXComposite* p, FXint cols, FXObject* tgt,
-    FXSelector sel, FXuint opts,
-    FXint x, FXint y, FXint w, FXint h,
-    FXint pl, FXint pr, FXint pt, FXint pb):
-    FXComboBox(p, cols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb)
-{}
+MFXListItem::MFXListItem() : 
+    FXListItem("", nullptr),
+    myBackGroundColor(FXRGB(255, 255, 255)) {
+}
+
+
+MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt,
+        FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h,
+        FXint pl, FXint pr, FXint pt, FXint pb) :
+    FXComboBox(p, cols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
+}
+
+
+MFXIconComboBox::~MFXIconComboBox() {};
+
 
 FXint
 MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor,  void* ptr) {
@@ -95,4 +111,8 @@ MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
     recalc();
     return index;
 }
+
+
+MFXIconComboBox::MFXIconComboBox() {
+};
 
