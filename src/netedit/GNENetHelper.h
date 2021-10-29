@@ -366,16 +366,8 @@ struct GNENetHelper {
          */
         GNEShape* retrieveShape(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
-        /**@brief return shape by type shapes
-         * @param[in] shapeTag Type of shape.
-         * @param[in] onlySelected Whether to return only selected junctions
-         */
-        std::vector<GNEShape*> retrieveShapes(SumoXMLTag shapeTag, bool onlySelected = false);
-
-        /**@brief return all shapes
-         * @param[in] onlySelected Whether to return only selected junctions
-         */
-        std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
+        /// @brief get selected shapes
+        std::vector<GNEShape*> getSelectedShapes();
 
         /// @brief get shapes
         const std::map<SumoXMLTag, std::set<GNEShape*> >& getShapes() const;
@@ -412,10 +404,8 @@ struct GNENetHelper {
          */
         GNETAZElement* retrieveTAZElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
-        /**@brief return all TAZElements
-         * @param[in] onlySelected Whether to return only selected TAZElements
-         */
-        std::vector<GNETAZElement*> retrieveTAZElements(bool onlySelected = false) const;
+        /// @brief get selected TAZElements
+        std::vector<GNETAZElement*> getSelectedTAZElements() const;
 
         /// @brief get TAZElements
         const std::map<SumoXMLTag, std::set<GNETAZElement*> >& getTAZElements() const;
@@ -455,10 +445,8 @@ struct GNENetHelper {
          */
         GNEDemandElement* retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
-        /**@brief return all demand elements
-         * @param[in] onlySelected Whether to return only selected demand elements
-         */
-        std::vector<GNEDemandElement*> retrieveDemandElements(bool onlySelected = false) const;
+        /// @brief get selected demand elements
+        std::vector<GNEDemandElement*> getSelectedDemandElements() const;
 
         /// @brief get demand elements
         const std::map<SumoXMLTag, std::set<GNEDemandElement*> >& getDemandElements() const;
@@ -480,6 +468,9 @@ struct GNENetHelper {
 
         /// @brief add default VTypes
         void addDefaultVTypes();
+
+        /// @brief get number of selected demand elements
+        int getNumberOfSelectedDemandElements() const;
 
         /// @brief get number of selected routes
         int getNumberOfSelectedRoutes() const;
@@ -563,10 +554,8 @@ struct GNENetHelper {
          */
         GNEGenericData* retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
-        /**@brief return all generic datas
-         * @param[in] onlySelected Whether to return only selected generic datas
-         */
-        std::vector<GNEGenericData*> retrieveGenericDatas(bool onlySelected = false) const;
+        /// @brief get selected generic datas
+        std::vector<GNEGenericData*> getSelectedGenericDatas() const;
 
         /// @brief get all generic datas
         const std::map<SumoXMLTag, std::set<GNEGenericData*> > &getGenericDatas() const;
@@ -718,6 +707,9 @@ struct GNENetHelper {
         /// @}
 
     private:
+        /// @brief pointer to net
+        GNENet* myNet;
+
         /// @brief map with the ID and pointer to junctions of net
         std::map<std::string, GNEJunction*> myJunctions;
 
@@ -756,12 +748,6 @@ struct GNENetHelper {
 
         /// @brief map with the tag and pointer to all generic datas
         std::map<SumoXMLTag, std::set<GNEGenericData*> > myGenericDatas;
-
-        /// @brief pointer to net
-        GNENet* myNet;
-
-        /// @brief flag used to indicate if created shape can be undo
-        bool myAllowUndoShapes;
 
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;

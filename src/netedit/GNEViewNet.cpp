@@ -1946,7 +1946,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
             // begin undo-list
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "simplify shapes");
             // get shapes
-            const auto selectedShapes = myNet->getAttributeCarriers()->retrieveShapes(true);
+            const auto selectedShapes = myNet->getAttributeCarriers()->getSelectedShapes();
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
@@ -1988,7 +1988,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
             // begin undo-list
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "close polygon shapes");
             // get selectedshapes
-            const auto selectedShapes = myNet->getAttributeCarriers()->retrieveShapes(true);
+            const auto selectedShapes = myNet->getAttributeCarriers()->getSelectedShapes();
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
@@ -2019,7 +2019,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
             // begin undo-list
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "open polygon shapes");
             // get shapes
-            const auto selectedShapes = myNet->getAttributeCarriers()->retrieveShapes(true);
+            const auto selectedShapes = myNet->getAttributeCarriers()->getSelectedShapes();
             // iterate over shapes
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly

@@ -526,12 +526,12 @@ GUIGLObjectPopupMenu*
 GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (isAttributeCarrierSelected()) {
         // obtain all selected vehicles
-        std::vector<GNEDemandElement*> selectedDemandElements = myNet->getAttributeCarriers()->retrieveDemandElements(true);
+        const auto selectedDemandElements = myNet->getAttributeCarriers()->getSelectedDemandElements();
         std::vector<GNEVehicle*> selectedVehicles;
         selectedVehicles.reserve(selectedDemandElements.size());
-        for (const auto& i : selectedDemandElements) {
-            if (i->getTagProperty().isVehicle()) {
-                selectedVehicles.push_back(dynamic_cast<GNEVehicle*>(i));
+        for (const auto& selectedDemandElement : selectedDemandElements) {
+            if (selectedDemandElement->getTagProperty().isVehicle()) {
+                selectedVehicles.push_back(dynamic_cast<GNEVehicle*>(selectedDemandElement));
             }
         }
         // return a GNESelectedVehiclesPopupMenu

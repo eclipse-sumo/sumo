@@ -21,11 +21,8 @@
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -44,8 +41,7 @@
 // ---------------------------------------------------------------------------
 
 GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
-    myNet(net),
-    myAllowUndoShapes(true) {
+    myNet(net) {
     // fill additionals with tags
     auto additionalTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL, false);
     for (const auto& additionalTag : additionalTags) {
@@ -944,10 +940,10 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::
 
 GNEAdditional* 
 GNENetHelper::AttributeCarriers::retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &additional : myAdditionals.at(AC->getTagProperty().getTag())) {
-        if (additional == AC) {
-            return additional;
-        }
+    // reinterprete AC as additional, and find it
+    const auto finder = myAdditionals.at(AC->getTagProperty().getTag()).find((GNEAdditional*)AC);
+    if (finder != myAdditionals.at(AC->getTagProperty().getTag()).end()) {
+        return *finder;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
@@ -1034,19 +1030,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
             if (additional->isAttributeCarrierSelected()) {
                 counter++;
             }
-            // also check children (Entry/Exit, spaces...)
-            for (const auto& additionalChild : additional->getChildAdditionals()) {
-                if (additionalChild->isAttributeCarrierSelected()) {
-                    counter++;
-                }
-                // also check grandchildren (rerouters)
-                for (const auto& additionalGrandChild : additionalChild->getChildAdditionals()) {
-                    if (additionalGrandChild->isAttributeCarrierSelected()) {
-                        counter++;
-                    }
-                }
-
-            }
         }
     }
     return counter;
@@ -1080,10 +1063,10 @@ GNENetHelper::AttributeCarriers::retrieveShape(SumoXMLTag type, const std::strin
 
 GNEShape*
 GNENetHelper::AttributeCarriers::retrieveShape(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &shape : myShapes.at(AC->getTagProperty().getTag())) {
-        if (shape == AC) {
-            return shape;
-        }
+    // reinterprete AC as shape, and find it
+    const auto finder = myShapes.at(AC->getTagProperty().getTag()).find((GNEShape*)AC);
+    if (finder != myShapes.at(AC->getTagProperty().getTag()).end()) {
+        return *finder;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant shape");
@@ -1094,25 +1077,12 @@ GNENetHelper::AttributeCarriers::retrieveShape(const GNEAttributeCarrier* AC, bo
 
 
 std::vector<GNEShape*>
-GNENetHelper::AttributeCarriers::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
-    std::vector<GNEShape*> result;
-    // return all polys depending of onlySelected
-    for (const auto& shape : myShapes.at(shapeTag)) {
-        if (!onlySelected || shape->isAttributeCarrierSelected()) {
-            result.push_back(shape);
-        }
-    }
-    return result;
-}
-
-
-std::vector<GNEShape*>
-GNENetHelper::AttributeCarriers::retrieveShapes(bool onlySelected) {
+GNENetHelper::AttributeCarriers::getSelectedShapes() {
     std::vector<GNEShape*> result;
     // return all polygons and POIs
     for (const auto& shapeTag : myShapes) {
         for (const auto& shape : shapeTag.second) {
-            if (!onlySelected || shape->isAttributeCarrierSelected()) {
+            if (shape->isAttributeCarrierSelected()) {
                 result.push_back(shape);
             }
         }
@@ -1226,10 +1196,10 @@ GNENetHelper::AttributeCarriers::retrieveTAZElement(SumoXMLTag type, const std::
 
 GNETAZElement*
 GNENetHelper::AttributeCarriers::retrieveTAZElement(const GNEAttributeCarrier *AC, bool hardFail) const {
-    for (const auto &TAZElement : myTAZElements.at(AC->getTagProperty().getTag())) {
-        if (TAZElement == AC) {
-            return TAZElement;
-        }
+    // reinterprete AC as TAZElement, and find it
+    const auto finder = myTAZElements.at(AC->getTagProperty().getTag()).find((GNETAZElement*)AC);
+    if (finder != myTAZElements.at(AC->getTagProperty().getTag()).end()) {
+        return *finder;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant TAZElement");
@@ -1240,12 +1210,12 @@ GNENetHelper::AttributeCarriers::retrieveTAZElement(const GNEAttributeCarrier *A
 
 
 std::vector<GNETAZElement*>
-GNENetHelper::AttributeCarriers::retrieveTAZElements(bool onlySelected) const {
+GNENetHelper::AttributeCarriers::getSelectedTAZElements() const {
     std::vector<GNETAZElement*> result;
     // returns TAZElements depending of selection
     for (const auto &TAZElementTags : myTAZElements) {
         for (const auto &TAZElement : TAZElementTags.second) {
-            if (!onlySelected || TAZElement->isAttributeCarrierSelected()) {
+            if (TAZElement->isAttributeCarrierSelected()) {
                 result.push_back(TAZElement);
             }
         }
@@ -1348,10 +1318,10 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const st
 
 GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &demandElement : myDemandElements.at(AC->getTagProperty().getTag())) {
-        if (demandElement == AC) {
-            return demandElement;
-        }
+    // reinterprete AC as demandElement, and find it
+    const auto finder = myDemandElements.at(AC->getTagProperty().getTag()).find((GNEDemandElement*)AC);
+    if (finder != myDemandElements.at(AC->getTagProperty().getTag()).end()) {
+        return *finder;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
@@ -1362,12 +1332,12 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(const GNEAttributeCarrier
 
 
 std::vector<GNEDemandElement*>
-GNENetHelper::AttributeCarriers::retrieveDemandElements(bool onlySelected) const {
+GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
     std::vector<GNEDemandElement*> result;
     // returns demand elements depending of selection
     for (const auto &demandElementTag : myDemandElements) {
         for (const auto &demandElement : demandElementTag.second) {
-            if (!onlySelected || demandElement->isAttributeCarrierSelected()) {
+            if (demandElement->isAttributeCarrierSelected()) {
                 result.push_back(demandElement);
             }
         }
@@ -1489,6 +1459,20 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     GNEVehicleType* defaultPersonType = new GNEVehicleType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
     myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(defaultPersonType);
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
+}
+
+
+int 
+GNENetHelper::AttributeCarriers::getNumberOfSelectedDemandElements() const {
+    int counter = 0;
+    for (const auto& demandElementsTags : myDemandElements) {
+        for (const auto& demandElement : demandElementsTags.second) {
+            if (demandElement->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+    }
+    return counter;
 }
 
 
@@ -1789,10 +1773,10 @@ GNENetHelper::AttributeCarriers::retrieveDataSet(const std::string& id, bool har
 
 GNEDataSet* 
 GNENetHelper::AttributeCarriers::retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &dataSet : myDataSets) {
-        if (dataSet == AC) {
-            return dataSet;
-        }
+    // reinterprete AC as dataSet, and find it
+    const auto finder = myDataSets.find((GNEDataSet*)AC);
+    if (finder != myDataSets.end()) {
+        return *finder;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
@@ -1821,10 +1805,10 @@ GNENetHelper::AttributeCarriers::generateDataSetID(const std::string& prefix) co
 
 GNEDataInterval* 
 GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &dataInterval : myDataIntervals) {
-        if (dataInterval == AC) {
-            return dataInterval;
-        }
+    // reinterprete AC as dataInterval, and find it
+    const auto finder = myDataIntervals.find((GNEDataInterval*)AC);
+    if (finder != myDataIntervals.end()) {
+        return *finder;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data interval");
@@ -1861,12 +1845,10 @@ GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterva
 
 GNEGenericData* 
 GNENetHelper::AttributeCarriers::retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail) const {
-    for (const auto &genericDataTag : myGenericDatas) {
-        for (const auto &genericData : genericDataTag.second) {
-            if (genericData == AC) {
-                return genericData;
-            }
-        }
+    // reinterprete AC as genericData, and find it
+    const auto finder = myGenericDatas.at(AC->getTagProperty().getTag()).find((GNEGenericData*)AC);
+    if (finder != myGenericDatas.at(AC->getTagProperty().getTag()).end()) {
+        return *finder;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
@@ -1877,12 +1859,12 @@ GNENetHelper::AttributeCarriers::retrieveGenericData(const GNEAttributeCarrier* 
 
 
 std::vector<GNEGenericData*>
-GNENetHelper::AttributeCarriers::retrieveGenericDatas(bool onlySelected) const {
+GNENetHelper::AttributeCarriers::getSelectedGenericDatas() const {
     std::vector<GNEGenericData*> result;
     // returns generic datas depending of selection
     for (const auto& genericDataTag : myGenericDatas) {
         for (const auto& genericData : genericDataTag.second) {
-            if (!onlySelected || genericData->isAttributeCarrierSelected()) {
+            if (genericData->isAttributeCarrierSelected()) {
                 result.push_back(genericData);
             }
         }
@@ -2112,19 +2094,21 @@ GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
 
 void
 GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
+    // get pointer to create edge frame
+    const auto &createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(edgeType);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
     // check if this is the selected edge type in edgeSelector
-    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->getEdgeTypeSelected() == edgeType) {
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->clearEdgeTypeSelected();
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+    if (createEdgeFrame->getEdgeTypeSelector()->getEdgeTypeSelected() == edgeType) {
+        createEdgeFrame->getEdgeTypeSelector()->clearEdgeTypeSelected();
+        createEdgeFrame->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // update edge selector
-    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+    if (createEdgeFrame->shown()) {
+        createEdgeFrame->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
 }
 

@@ -560,8 +560,16 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     const double shiftValueY = GNEAttributeCarrier::parse<double>(myShiftValueYTextField->getText().text());
     const Position shiftValue(shiftValueX, shiftValueY);
     // get selected polygons and POIs
-    const auto polygons = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POLY, true);
-    const auto POIs = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POI, true);
+    const auto selectedShapes = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedShapes();
+    std::vector<GNEShape*> polygons, POIs;
+    for (const auto &shape : selectedShapes) {
+        if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
+            polygons.push_back(shape);
+        } else {
+            POIs.push_back(shape);
+        }
+    }
+
     // begin undo-redo
     myMoveFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::POLY, "shift shape geometries");
     // iterate over shapes
@@ -640,9 +648,6 @@ GNEMoveFrame::show() {
     const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->getSelectedJunctions();
     // get selected edges
     const auto selectedEdges = myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
-    // get selected polygons and POIs (avoid POILanes)
-    const auto polygons = myViewNet->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POLY, true);
-    const auto POIs = myViewNet->getNet()->getAttributeCarriers()->retrieveShapes(SUMO_TAG_POI, true);
     // check if there are junctions and edge selected
     if ((selectedJunctions.size() > 0) || (selectedEdges.size() > 0)) {
         myChangeZInSelection->enableChangeZInSelection();
@@ -655,8 +660,8 @@ GNEMoveFrame::show() {
     } else {
         myShiftEdgeSelectedGeometry->disableShiftEdgeGeometry();
     }
-    // check if there are polygons and POIs selected
-    if ((polygons.size() + POIs.size()) > 0) {
+    // check if there are shapes selected
+    if (myViewNet->getNet()->getAttributeCarriers()->getSelectedShapes().size() > 0) {
         myShiftShapeGeometry->showShiftShapeGeometry();
     } else {
         myShiftShapeGeometry->hideShiftShapeGeometry();

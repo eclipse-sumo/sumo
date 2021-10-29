@@ -193,22 +193,22 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
                 myViewNet->getNet()->deleteCrossing(selectedCrossing, myViewNet->getUndoList());
             }
             // shapes
-            const auto selectedShapes = attributeCarriers->retrieveShapes(true);
+            const auto selectedShapes = attributeCarriers->getSelectedShapes();
             for (const auto& selectedShape : selectedShapes) {
                 myViewNet->getNet()->deleteShape(selectedShape, myViewNet->getUndoList());
             }
-            // additionals (note: We need to use while (...) because there is a
-            while (myViewNet->getNet()->getAttributeCarriers()->getNumberOfSelectedAdditionals() > 0) {
-                myViewNet->getNet()->deleteAdditional(myViewNet->getNet()->getAttributeCarriers()->getSelectedAdditionals().front(), myViewNet->getUndoList());
+            // additionals
+            while (attributeCarriers->getNumberOfSelectedAdditionals() > 0) {
+                myViewNet->getNet()->deleteAdditional(attributeCarriers->getSelectedAdditionals().front(), myViewNet->getUndoList());
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // demand elements
-            while (attributeCarriers->retrieveDemandElements(true).size() > 0) {
-                myViewNet->getNet()->deleteDemandElement(attributeCarriers->retrieveDemandElements(true).front(), myViewNet->getUndoList());
+            while (attributeCarriers->getNumberOfSelectedDemandElements() > 0) {
+                myViewNet->getNet()->deleteDemandElement(attributeCarriers->getSelectedDemandElements().front(), myViewNet->getUndoList());
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
             // generic datas
-            auto selectedGenericDatas = myViewNet->getNet()->getAttributeCarriers()->retrieveGenericDatas(true);
+            auto selectedGenericDatas = attributeCarriers->getSelectedGenericDatas();
             for (const auto& selectedGenericData : selectedGenericDatas) {
                 myViewNet->getNet()->deleteGenericData(selectedGenericData, myViewNet->getUndoList());
             }
