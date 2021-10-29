@@ -240,35 +240,55 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
             }
         }
     }
-    std::string id;
-    if ((suggestedName.size() > 0) && (myAttributeCarriers->retrieveEdge(suggestedName, false) == nullptr)) {
-        id = suggestedName;
+    // check if exist opposite edge
+    const GNEEdge *oppositeEdge = myAttributeCarriers->retrieveEdge(dest, src, false);
+    // declare edge id
+    std::string edgeID;
+    // update id
+    if (oppositeEdge) {
+        // avoid ids with "--..."
+        if ((oppositeEdge->getID().size() > 1) && (oppositeEdge->getID().front() == '-')) {
+            edgeID = oppositeEdge->getID().substr(1);
+        } else {
+            edgeID = "-" + oppositeEdge->getID();
+        }
+        // check if already exist an edge with edgeID
+        if (myAttributeCarriers->getEdges().count(edgeID) > 0) {
+            int counter = 0;
+            // generate new ID using edgeID and counter
+            while (myAttributeCarriers->getEdges().count(edgeID + toString(counter)) > 0) {
+                counter++;
+            }
+            edgeID = edgeID + toString(counter);
+        }
+    } else if ((suggestedName.size() > 0) && (myAttributeCarriers->retrieveEdge(suggestedName, false) == nullptr)) {
+        edgeID = suggestedName;
     } else if (edgeInfix.size() > 0) {
         // permit empty infix by setting it to <SPACE>
         edgeInfix = StringUtils::trim(edgeInfix);
         // check if exist edge with id <fromNodeID><infix><toNodeID>
         if (myAttributeCarriers->getEdges().count(src->getID() + edgeInfix + dest->getID()) == 0) {
-            id = src->getID() + edgeInfix + dest->getID();
+            edgeID = src->getID() + edgeInfix + dest->getID();
         } else {
             int counter = 0;
             // generate new ID using edgeInfix and counter
             while (myAttributeCarriers->getEdges().count(src->getID() + edgeInfix + toString(counter) + dest->getID()) != 0) {
                 myEdgeIDCounter++;
             }
-        id = src->getID() + edgeInfix + toString(counter) + dest->getID();
+            edgeID = src->getID() + edgeInfix + toString(counter) + dest->getID();
         }
     } else {
         // generate new ID
         while (myAttributeCarriers->getEdges().count(edgePrefix + toString(myEdgeIDCounter)) != 0) {
             myEdgeIDCounter++;
         }
-        id = edgePrefix + toString(myEdgeIDCounter);
+        edgeID = edgePrefix + toString(myEdgeIDCounter);
     }
     GNEEdge* edge;
     // check if there is a template edge
     if (edgeTemplate) {
         // create NBEdgeTemplate
-        NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), edgeTemplate->getNBEdge());
+        NBEdge* nbe = new NBEdge(edgeID, src->getNBNode(), dest->getNBNode(), edgeTemplate->getNBEdge());
         edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
@@ -281,7 +301,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         const double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
         const LaneSpreadFunction spread = LaneSpreadFunction::RIGHT;
         // build NBEdge
-        NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(),
+        NBEdge* nbe = new NBEdge(edgeID, src->getNBNode(), dest->getNBNode(),
                                  defaultType, defaultSpeed,
                                  defaultNrLanes, defaultPriority,
                                  defaultWidth, defaultOffset, spread);
