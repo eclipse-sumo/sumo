@@ -252,12 +252,6 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         with open(makeAllLog, 'a') as debugLog:
             ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
                                   cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
-            if os.path.exists(os.path.join(buildDir, "src", "libsumo", "libsumo.vcxproj")):
-                subprocess.call(["cmake", "--build", ".", "--config", "Debug", "--target", "libsumo"],
-                                cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
-            if os.path.exists(os.path.join(buildDir, "src", "libtraci", "libtraci.vcxproj")):
-                subprocess.call(["cmake", "--build", ".", "--config", "Debug", "--target", "libtraci"],
-                                cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
             if ret == 0 and sumoAllZip:
                 status.printLog("Creating sumoDebug.zip.", debugLog)
                 try:
