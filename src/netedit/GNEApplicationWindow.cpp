@@ -3246,6 +3246,8 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         // Start saving additionals
         getApp()->beginWaitCursor();
         try {
+            // compute before saving (for detectors positions)
+            myNet->computeNetwork(this);
             myNet->saveAdditionals(oc.getString("additional-files"));
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Additionals saved in " + oc.getString("additional-files") + ".\n");
             myFileMenuCommands.saveAdditionals->disable();
