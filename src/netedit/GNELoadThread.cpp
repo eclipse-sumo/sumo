@@ -248,10 +248,10 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("edgeTypes-output", new Option_String());
     oc.addDescription("edgeTypes-output", "Netedit", "file in which edgeTypes must be saved");
 
-    oc.doRegister("node-prefix", new Option_String("gneJ"));
+    oc.doRegister("node-prefix", new Option_String("J"));
     oc.addDescription("node-prefix", "Netedit", "prefix for node naming");
 
-    oc.doRegister("edge-prefix", new Option_String("gneE"));
+    oc.doRegister("edge-prefix", new Option_String("E"));
     oc.addDescription("edge-prefix", "Netedit", "prefix for edge naming naming");
 
     oc.doRegister("edge-infix", new Option_String(""));
