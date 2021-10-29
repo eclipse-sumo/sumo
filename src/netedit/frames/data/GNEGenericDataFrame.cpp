@@ -422,7 +422,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         myAttributesComboBox->appendItem("<all>");
         // add attributes depending of interval
         if (myGenericDataFrameParent->myIntervalSelector->getDataInterval() == nullptr) {
-            const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
+            const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(
                                         myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag), "", "");
             // add all parameters
             for (const auto& attribute : parameters) {
@@ -430,7 +430,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
             }
         } else {
             // retrieve all parameters within begin and end
-            const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
+            const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(
                                         myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag),
                                         myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_BEGIN),
                                         myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));

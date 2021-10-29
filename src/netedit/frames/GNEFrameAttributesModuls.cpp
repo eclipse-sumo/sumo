@@ -566,12 +566,15 @@ GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std:
 
 std::string
 GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
+    // get attribute carriers
+    const auto &GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
+    // continue depending of type
     if (myAttrProperties.getTagPropertyParent().isShape()) {
-        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getXMLTag());
+        return GNEAttributeCarriers->generateShapeID(myAttrProperties.getTagPropertyParent().getXMLTag());
     } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
-        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
+        return GNEAttributeCarriers->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
-        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateDemandElementID(myAttrProperties.getTagPropertyParent().getTag());
+        return GNEAttributeCarriers->generateDemandElementID(myAttrProperties.getTagPropertyParent().getTag());
     } else {
         return "";
     }

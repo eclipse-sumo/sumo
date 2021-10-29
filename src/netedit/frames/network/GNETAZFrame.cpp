@@ -1525,7 +1525,7 @@ GNETAZFrame::shapeDrawed() {
         // obtain Netedit attributes
         myNeteditAttributes->getNeteditAttributesAndValues(myBaseTAZ, nullptr);
         // generate new ID
-        myBaseTAZ->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateTAZElementID(SUMO_TAG_TAZ));
+        myBaseTAZ->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateTAZElementID(SUMO_TAG_TAZ));
         // obtain shape and close it
         PositionVector shape = myDrawingShape->getTemporalShape();
         shape.closePolygon();

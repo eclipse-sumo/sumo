@@ -962,7 +962,7 @@ GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBase
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional* rerouterInterval = myNet->getAttributeCarriers()->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get closed lane
     GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(closedLaneID, false);
     // check parents
@@ -991,7 +991,7 @@ GNEAdditionalHandler::buildClosingReroute(const CommonXMLStructure::SumoBaseObje
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional* rerouterInterval = myNet->getAttributeCarriers()->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get closed edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(closedEdgeID, false);
     // check parents
@@ -1019,7 +1019,7 @@ GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObj
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional* rerouterInterval = myNet->getAttributeCarriers()->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(newEdgeDestinationID, false);
     // check parents
@@ -1048,7 +1048,7 @@ GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBase
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional* rerouterInterval = myNet->getAttributeCarriers()->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get parking area
     GNEAdditional* parkingArea = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, newParkignAreaID, false);
     // check parents
@@ -1077,7 +1077,7 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
     // get rerouter id
     const std::string rerouterID = sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
     // get rerouter interval parent
-    GNEAdditional* rerouterInterval = myNet->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
+    GNEAdditional* rerouterInterval = myNet->getAttributeCarriers()->retrieveRerouterInterval(rerouterID, sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_BEGIN), sumoBaseObject->getParentSumoBaseObject()->getTimeAttribute(SUMO_ATTR_END));
     // get route parent
     GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, newRouteID, false);
     // check parents

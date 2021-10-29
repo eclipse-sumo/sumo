@@ -1213,7 +1213,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // change tag in vehicle parameters
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
             // generate a new route id
-            const std::string routeID = net->generateDemandElementID(SUMO_TAG_ROUTE);
+            const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
 /*
             buildRoute(net, true, routeParameters, {});
@@ -1298,7 +1298,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_ROUTE;
             // generate a new route id
-            const std::string routeID = net->generateDemandElementID(SUMO_TAG_ROUTE);
+            const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
 /*
             buildRoute(net, true, routeParameters, {});

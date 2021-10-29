@@ -1418,7 +1418,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
         // Check if there are additionals in our net
-        if (myNet->getNumberOfAdditionals() > 0) {
+        if (myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) {
             // ask user if want to save additionals if weren't saved previously
             if (oc.getString("additional-files") == "") {
                 // write warning if netedit is running in testing mode
@@ -1480,7 +1480,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             additionalsSavePath = "";
         }
         // Check if there are demand elements in our net (3 due default vehicle types and person types)
-        if (myNet->getNumberOfDemandElements() > 3) {
+        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 3) {
             // ask user if want to save demand elements if weren't saved previously
             if (oc.getString("route-files") == "") {
                 // write warning if netedit is running in testing mode
@@ -1871,7 +1871,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         }
         // now check if additionals must be loaded and are saved
         if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getNumberOfAdditionals() > 0)) {
+                (myViewNet->getNet()->getAttributeCarriers()->getNumberOfAdditionals() > 0)) {
             // save additionals
             onCmdSaveAdditionals(nullptr, 0, nullptr);
             // check if additionals were sucesfully saved. If not, abort
@@ -1881,7 +1881,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         }
         // finally check if demand elements must be loaded and are saved
         if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getNumberOfDemandElements() > 0)) {
+                (myViewNet->getNet()->getAttributeCarriers()->getNumberOfDemandElements() > 0)) {
             // save additionals
             onCmdSaveDemandElements(nullptr, 0, nullptr);
             // check if demand elements were sucesfully saved. If not, abort

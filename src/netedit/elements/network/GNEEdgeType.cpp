@@ -46,7 +46,7 @@ GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
-    GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     laneType->incRef("GNEEdgeType::GNEEdgeType");

@@ -318,7 +318,7 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
     try {
         OutputDevice& dev = OutputDevice::getDevice(file.text());
         // get selected attribute carriers
-        const auto selectedACs = mySelectorFrameParent->myViewNet->getNet()->getSelectedAttributeCarriers(false);
+        const auto selectedACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
         for (const auto& selectedAC : selectedACs) {
             GUIGlObject* object = dynamic_cast<GUIGlObject*>(selectedAC);
             if (object) {
@@ -1069,7 +1069,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     // in restrict AND replace mode all current selected attribute carriers will be unselected
     if ((setOperation == ModificationMode::Operation::REPLACE) || (setOperation == ModificationMode::Operation::RESTRICT)) {
         // obtain selected ACs depending of current supermode
-        std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+        std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
         // add id into ACs to unselect
         for (const auto& selectedAC : selectedACs) {
             ACsToUnselect.insert(std::make_pair(selectedAC->getID(), selectedAC));

@@ -846,7 +846,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     }
     // Check if ID has to be generated
     if (!myAdditionalFrameParent->myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-        myAdditionalFrameParent->myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myAdditionalFrameParent->myViewNet->getNet()->generateAdditionalID(GNE_TAG_E2DETECTOR_MULTILANE));
+        myAdditionalFrameParent->myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myAdditionalFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(GNE_TAG_E2DETECTOR_MULTILANE));
     }
     // obtain lane IDs
     std::vector<std::string> laneIDs;
@@ -1224,7 +1224,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
 std::string
 GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
     // obtain current number of additionals to generate a new index faster
-    int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myAdditionalTagSelector->getCurrentTagProperties().getTag());
+    int additionalIndex = (int)myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(myAdditionalTagSelector->getCurrentTagProperties().getTag()).size();
     // obtain tag Properties (only for improve code legilibility
     const auto& tagProperties = myAdditionalTagSelector->getCurrentTagProperties();
     // get attribute carriers

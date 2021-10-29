@@ -1490,7 +1490,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::RESTRICT) ||
                 (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
             // obtain selected ACs depending of current supermode
-            std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+            const auto selectedAC = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // add id into ACs to unselect
             for (const auto &AC : selectedAC) {
                 ACToUnselect.push_back(AC);
@@ -2990,8 +2990,8 @@ GNEViewNetHelper::IntervalBar::setAttribute() {
 void
 GNEViewNetHelper::IntervalBar::updateComboBoxAttributes() {
     // update attributes
-    myFilteredAttributes = myViewNet->getNet()->retrieveGenericDataParameters(getDataSetStr(),
-                           getGenericDataTypeStr(), getBeginStr(), getEndStr());
+    myFilteredAttributes = myViewNet->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(
+                           getDataSetStr(), getGenericDataTypeStr(), getBeginStr(), getEndStr());
     // clear combo box
     myFilteredAttributesComboBox->clearItems();
     // check if there is dataSets

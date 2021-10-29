@@ -173,7 +173,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     myVehicleAttributes->getAttributesAndValues(myVehicleBaseObject, false);
     // Check if ID has to be generated
     if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(vehicleTag));
+        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
     }
     // add VType
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myVTypeSelector->getCurrentDemandElement()->getID());
@@ -318,7 +318,7 @@ GNEVehicleFrame::createPath() {
         myVehicleAttributes->getAttributesAndValues(myVehicleBaseObject, false);
         // Check if ID has to be generated
         if (!myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-            myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(vehicleTag));
+            myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
         }
         // add VType
         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myVTypeSelector->getCurrentDemandElement()->getID());

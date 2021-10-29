@@ -101,6 +101,9 @@ struct GNENetHelper {
         /// @brief check if shape of given AC (network element) is around the given shape
         bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector &shape) const;
 
+        /// @name function for attribute carriers
+        /// @{
+
         /**@brief get a single attribute carrier based on a GLID
          * @param[in] ids the GL IDs for which to retrive the AC
          * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
@@ -115,6 +118,11 @@ struct GNENetHelper {
 
         /// @brief get the attribute carriers based on supermode and selected
         std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(Supermode supermode, const bool onlySelected);
+
+        /// @brief get all selected attribute carriers (or only relative to current supermode
+        std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers(const bool ignoreCurrentSupermode);
+
+        /// @}
 
         /// @name function for junctions
         /// @{
@@ -191,6 +199,9 @@ struct GNENetHelper {
 
         /// @brief update edgeType ID in container
         void updateEdgeTypeID(GNEEdgeType* edgeType, const std::string& newID);
+
+        /// @brief generate edgeType id
+        std::string generateEdgeTypeID() const;
 
         /// @}
 
@@ -313,17 +324,30 @@ struct GNENetHelper {
          */
         GNEAdditional* retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
+        /**@brief Returns the rerouter interval defined by given begin and end
+         * @param[in] rerouter ID
+         * @param[in] begin SUMOTime begin
+         * @param[in] end SUMOTime begin
+         */
+        GNEAdditional* retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const;
+
         /// @brief get additionals
         const std::map<SumoXMLTag, std::set<GNEAdditional*> >& getAdditionals() const;
 
         /// @brief get selected additionals
         std::vector<GNEAdditional*> getSelectedAdditionals() const;
 
+        /// @brief get number of additonals
+        int getNumberOfAdditionals() const;
+
         /// @brief clear additionals
         void clearAdditionals();
 
         /// @brief get number of selected additionals
         int getNumberOfSelectedAdditionals() const;
+
+        /// @brief generate additional id
+        std::string generateAdditionalID(SumoXMLTag type) const;
 
         /// @}
 
@@ -355,6 +379,12 @@ struct GNENetHelper {
 
         /// @brief get shapes
         const std::map<SumoXMLTag, std::set<GNEShape*> >& getShapes() const;
+
+        /// @brief generate Shape ID
+        std::string generateShapeID(SumoXMLTag shapeTag) const;
+
+        /// @brief Returns the number of shapes
+        int getNumberOfShapes() const;
 
         /// @brief clear shapes
         void clearShapes();
@@ -393,11 +423,20 @@ struct GNENetHelper {
         /// @brief clear TAZElements
         void clearTAZElements();
 
+        /**@brief Returns the number of TAZElements of the net
+         * @param[in] type type of TAZElement to count. SUMO_TAG_NOTHING will count all TAZElements
+         * @return Number of TAZElements of the net
+         */
+        int getNumberOfTAZElements() const;
+
         /// @brief get number of selected TAZs
         int getNumberOfSelectedTAZs() const;
 
         /// @brief return true if given TAZElement exist
         bool TAZElementExist(const GNETAZElement* TAZElement) const;
+
+        /// @brief generate TAZElement ID
+        std::string generateTAZElementID(SumoXMLTag TAZElementTag) const;
 
         /// @}
 
@@ -423,6 +462,12 @@ struct GNENetHelper {
 
         /// @brief get demand elements
         const std::map<SumoXMLTag, std::set<GNEDemandElement*> >& getDemandElements() const;
+
+        /// @brief Return the number of demand elements
+        int getNumberOfDemandElements() const;
+
+        /// @brief generate demand element id
+        std::string generateDemandElementID(SumoXMLTag tag) const;
 
         /// @brief get default vType
         GNEDemandElement* getDefaultVType() const;
@@ -486,6 +531,9 @@ struct GNENetHelper {
         /// @brief get demand elements
         const std::set<GNEDataSet*>& getDataSets() const;
         
+        /// @brief generate data set id
+        std::string generateDataSetID(const std::string& prefix) const;
+
         /// @}
 
         /// @name function for data intervals
@@ -540,6 +588,13 @@ struct GNENetHelper {
 
         /// @brief delete generic data
         void deleteGenericData(GNEGenericData* genericData);
+
+        /// @brief return a set of parameters for the given data Interval
+        std::set<std::string> retrieveGenericDataParameters(const std::string& genericDataTag, const double begin, const double end) const;
+
+        /// @brief return a set of parameters for the given dataSet, generic data Type, begin and end
+        std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
+                const std::string& beginStr, const std::string& endStr) const;
 
         /// @}
 

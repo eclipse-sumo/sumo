@@ -1121,12 +1121,12 @@ GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
         myViewNet->setInspectedAttributeCarriers({ AC });
         if (AC->isAttributeCarrierSelected()) {
             // obtain selected ACs depending of current supermode
-            std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+            const auto selectedACs = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // iterate over selected ACs
-            for (const auto& i : selectedACs) {
+            for (const auto& selectedAC : selectedACs) {
                 // filter ACs to inspect using Tag as criterium
-                if (i->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
-                    itemsToInspect.push_back(i);
+                if (selectedAC->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
+                    itemsToInspect.push_back(selectedAC);
                 }
             }
         } else {

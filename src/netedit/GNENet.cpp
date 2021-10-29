@@ -1932,37 +1932,6 @@ GNENet::getViewNet() const {
 }
 
 
-std::vector<GNEAttributeCarrier*>
-GNENet::getSelectedAttributeCarriers(bool ignoreCurrentSupermode) {
-    // declare vector to save result
-    std::vector<GNEAttributeCarrier*> result;
-    result.reserve(gSelected.getSelected().size());
-    // iterate over all elements of global selection
-    for (const auto& glID : gSelected.getSelected()) {
-        // obtain AC
-        GNEAttributeCarrier* AC = myAttributeCarriers->retrieveAttributeCarrier(glID, false);
-        // check if attribute carrier exist and is selected
-        if (AC && AC->isAttributeCarrierSelected()) {
-            bool insert = false;
-            if (ignoreCurrentSupermode) {
-                insert = true;
-            } else if (myViewNet->getEditModes().isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() ||
-                       AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isShape() || AC->getTagProperty().isTAZElement())) {
-                insert = true;
-            } else if (myViewNet->getEditModes().isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
-                insert = true;
-            } else if (myViewNet->getEditModes().isCurrentSupermodeData() && AC->getTagProperty().isDataElement()) {
-                insert = true;
-            }
-            if (insert) {
-                result.push_back(AC);
-            }
-        }
-    }
-    return result;
-}
-
-
 NBTrafficLightLogicCont&
 GNENet::getTLLogicCont() {
     return myNetBuilder->getTLLogicCont();
@@ -1984,51 +1953,6 @@ GNENet::addExplicitTurnaround(std::string id) {
 void
 GNENet::removeExplicitTurnaround(std::string id) {
     myExplicitTurnarounds.erase(id);
-}
-
-
-std::string
-GNENet::generateEdgeTypeID() const {
-    int counter = 0;
-    while (myAttributeCarriers->getEdgeTypes().count("edgeType_" + toString(counter)) != 0) {
-        counter++;
-    }
-    return ("edgeType_" + toString(counter));
-}
-
-
-GNEAdditional*
-GNENet::retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const {
-    // first retrieve rerouter
-    GNEAdditional* rerouter = myAttributeCarriers->retrieveAdditional(SUMO_TAG_REROUTER, rerouterID);
-    // parse begin and end
-    const std::string beginStr = time2string(begin);
-    const std::string endStr = time2string(end);
-    // now iterate over all children and check begin and end
-    for (const auto& interval : rerouter->getChildAdditionals()) {
-        // check tag
-        if (interval->getTagProperty().getTag() == SUMO_TAG_INTERVAL) {
-            // check begin and end
-            if ((interval->getAttribute(SUMO_ATTR_BEGIN) == beginStr) &&
-                    (interval->getAttribute(SUMO_ATTR_END) == endStr)) {
-                return interval;
-            }
-        }
-    }
-    // throw exception
-    throw ProcessError("Attempted to retrieve non-existant rerouter interval");
-}
-
-
-int
-GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
-    int counter = 0;
-    for (auto i : myAttributeCarriers->getAdditionals()) {
-        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
-            counter += (int)i.second.size();
-        }
-    }
-    return counter;
 }
 
 
@@ -2093,28 +2017,6 @@ GNENet::saveAdditionals(const std::string& filename) {
 bool
 GNENet::isAdditionalsSaved() const {
     return myAdditionalsSaved;
-}
-
-
-std::string
-GNENet::generateAdditionalID(SumoXMLTag type) const {
-    int counter = 0;
-    while (myAttributeCarriers->retrieveAdditional(type, toString(type) + "_" + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (toString(type) + "_" + toString(counter));
-}
-
-
-int
-GNENet::getNumberOfDemandElements(SumoXMLTag type) const {
-    int counter = 0;
-    for (auto i : myAttributeCarriers->getDemandElements()) {
-        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
-            counter += (int)i.second.size();
-        }
-    }
-    return counter;
 }
 
 
@@ -2183,50 +2085,6 @@ GNENet::isDemandElementsSaved() const {
 }
 
 
-std::string
-GNENet::generateDemandElementID(SumoXMLTag tag) const {
-    // declare flags
-    const bool isVehicle = ((tag == SUMO_TAG_VEHICLE) || (tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_VEHICLE_WITHROUTE));
-    const bool isFlow = ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_FLOW) || (tag == GNE_TAG_FLOW_WITHROUTE));
-    const bool isPerson = ((tag == SUMO_TAG_PERSON) || (tag == SUMO_TAG_PERSONFLOW));
-    // declare counter
-    int counter = 0;
-    if (isVehicle || isFlow) {
-        // get vehicle tag in string format
-        const std::string tagStr = isVehicle ? toString(SUMO_TAG_VEHICLE) : toString(SUMO_TAG_FLOW);
-        // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
-        while ((myAttributeCarriers->retrieveDemandElement(SUMO_TAG_VEHICLE, tagStr + "_" + toString(counter), false) != nullptr) ||
-               (myAttributeCarriers->retrieveDemandElement(SUMO_TAG_TRIP, tagStr + "_" + toString(counter), false) != nullptr) ||
-               (myAttributeCarriers->retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr) ||
-               (myAttributeCarriers->retrieveDemandElement(GNE_TAG_FLOW_ROUTE, tagStr + "_" + toString(counter), false) != nullptr) ||
-               (myAttributeCarriers->retrieveDemandElement(SUMO_TAG_FLOW, tagStr + "_" + toString(counter), false) != nullptr) ||
-               (myAttributeCarriers->retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr)) {
-            counter++;
-        }
-        // return new vehicle ID
-        return (tagStr + "_" + toString(counter));
-    } else if (isPerson) {
-        // get person tag in string format
-        const std::string tagStr = toString(tag);
-        // special case for persons (person and personFlows share nameSpaces)
-        while ((myAttributeCarriers->retrieveDemandElement(SUMO_TAG_FLOW, tagStr + "_" + toString(counter), false) != nullptr) ||
-               (myAttributeCarriers->retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr)) {
-            counter++;
-        }
-        // return new person ID
-        return (tagStr + "_" + toString(counter));
-    } else {
-        // get tag in string format
-        const std::string tagStr = toString(tag);
-        while (myAttributeCarriers->retrieveDemandElement(tag, tagStr + "_" + toString(counter), false) != nullptr) {
-            counter++;
-        }
-        // return new element ID
-        return (tagStr + "_" + toString(counter));
-    }
-}
-
-
 void
 GNENet::requireSaveDataElements(bool value) {
     myDataElementsSaved = !value;
@@ -2256,118 +2114,6 @@ GNENet::saveDataElements(const std::string& filename) {
 bool
 GNENet::isDataElementsSaved() const {
     return myDataElementsSaved;
-}
-
-
-std::string
-GNENet::generateDataSetID(const std::string& prefix) const {
-    const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
-    int counter = 0;
-    while (myAttributeCarriers->retrieveDataSet(prefix + dataSetTagStr + "_" + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (prefix + dataSetTagStr + "_" + toString(counter));
-}
-
-
-std::set<std::string>
-GNENet::retrieveGenericDataParameters(const std::string& genericDataTag, const double begin, const double end) const {
-    // declare solution
-    std::set<std::string> attributesSolution;
-    // declare generic data vector
-    std::vector<GNEGenericData*> genericDatas;
-    // iterate over all data sets
-    for (const auto& interval : myAttributeCarriers->getDataIntervals()) {
-        // check interval
-        if ((interval->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval->getAttributeDouble(SUMO_ATTR_END) <= end)) {
-            // iterate over generic datas
-            for (const auto& genericData : interval->getGenericDataChildren()) {
-                if (genericDataTag.empty() || (genericData->getTagProperty().getTagStr() == genericDataTag)) {
-                    genericDatas.push_back(genericData);
-                }
-            }
-        }
-    }
-    // iterate over generic datas
-    for (const auto& genericData : genericDatas) {
-        for (const auto& attribute : genericData->getParametersMap()) {
-            attributesSolution.insert(attribute.first);
-        }
-    }
-    return attributesSolution;
-}
-
-
-std::set<std::string>
-GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
-                                      const std::string& beginStr, const std::string& endStr) const {
-    // declare solution
-    std::set<std::string> attributesSolution;
-    // vector of data sets and intervals
-    std::vector<GNEDataSet*> dataSets;
-    std::vector<GNEDataInterval*> dataIntervals;
-    // get dataSet
-    GNEDataSet *retrievedDataSet = myAttributeCarriers->retrieveDataSet(dataSetID, false);
-    // if dataSetID is empty, return all parameters
-    if (dataSetID.empty()) {
-        // add all data sets
-        dataSets.reserve(myAttributeCarriers->getDataSets().size());
-        for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            dataSets.push_back(dataSet);
-        }
-    } else if (retrievedDataSet) {
-        dataSets.push_back(retrievedDataSet);
-    } else {
-        return attributesSolution;
-    }
-    // now continue with data intervals
-    int numberOfIntervals = 0;
-    for (const auto& dataSet : dataSets) {
-        numberOfIntervals += (int)dataSet->getDataIntervalChildren().size();
-    }
-    // resize dataIntervals
-    dataIntervals.reserve(numberOfIntervals);
-    // add intervals
-    for (const auto& dataSet : dataSets) {
-        for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
-            // continue depending of begin and end
-            if (beginStr.empty() && endStr.empty()) {
-                dataIntervals.push_back(dataInterval.second);
-            } else if (endStr.empty()) {
-                // parse begin
-                const double begin = GNEAttributeCarrier::parse<double>(beginStr);
-                if (dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) {
-                    dataIntervals.push_back(dataInterval.second);
-                }
-            } else if (beginStr.empty()) {
-                // parse end
-                const double end = GNEAttributeCarrier::parse<double>(endStr);
-                if (dataInterval.second->getAttributeDouble(SUMO_ATTR_END) <= end) {
-                    dataIntervals.push_back(dataInterval.second);
-                }
-            } else {
-                // parse both begin end
-                const double begin = GNEAttributeCarrier::parse<double>(beginStr);
-                const double end = GNEAttributeCarrier::parse<double>(endStr);
-                if ((dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) &&
-                        (dataInterval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
-                    dataIntervals.push_back(dataInterval.second);
-                }
-            }
-        }
-    }
-    // finally iterate over intervals and get attributes
-    for (const auto& dataInterval : dataIntervals) {
-        for (const auto& genericData : dataInterval->getGenericDataChildren()) {
-            // check generic data tag
-            if (genericDataTag.empty() || (genericData->getTagProperty().getTagStr() == genericDataTag)) {
-                for (const auto& attribute : genericData->getParametersMap()) {
-                    attributesSolution.insert(attribute.first);
-                }
-            }
-        }
-    }
-    return attributesSolution;
 }
 
 
@@ -2521,73 +2267,6 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
     }
     // close device
     device.close();
-}
-
-
-std::string
-GNENet::generateShapeID(SumoXMLTag tag) const {
-    int counter = 0;
-    // generate tag depending of shape tag
-    if (tag == SUMO_TAG_POLY) {
-        // Polys and TAZs share namespace
-        while ((myAttributeCarriers->retrieveShape(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr) ||
-               (getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr)) {
-            counter++;
-        }
-        return (toString(tag) + "_" + toString(counter));
-    } else {
-        const std::string POI = toString(SUMO_TAG_POI);
-        while ((myAttributeCarriers->retrieveShape(SUMO_TAG_POI, POI + "_" + toString(counter)) != nullptr) ||
-               (myAttributeCarriers->retrieveShape(GNE_TAG_POILANE, POI + "_" + toString(counter)) != nullptr) ||
-               (myAttributeCarriers->retrieveShape(GNE_TAG_POIGEO, POI + "_" + toString(counter)) != nullptr)) {
-            counter++;
-        }
-        return (toString(tag) + "_" + toString(counter));
-    }
-}
-
-
-int
-GNENet::getNumberOfShapes(SumoXMLTag type) const {
-    int counter = 0;
-    for (auto i : myAttributeCarriers->getShapes()) {
-        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
-            counter += (int)i.second.size();
-        }
-    }
-    return counter;
-}
-
-
-std::string
-GNENet::generateTAZElementID(SumoXMLTag tag) const {
-    int counter = 0;
-    // generate tag depending of shape tag
-    if (tag == SUMO_TAG_TAZ) {
-        // Polys and TAZs share namespace
-        while ((myAttributeCarriers->retrieveShape(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr) ||
-               (getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr)) {
-            counter++;
-        }
-        return (toString(tag) + "_" + toString(counter));
-    } else {
-        while (getAttributeCarriers()->retrieveTAZElement(tag, toString(tag) + "_" + toString(counter)) != nullptr) {
-            counter++;
-        }
-        return (toString(tag) + "_" + toString(counter));
-    }
-}
-
-
-int
-GNENet::getNumberOfTAZElements(SumoXMLTag type) const {
-    int counter = 0;
-    for (auto i : myAttributeCarriers->getTAZElements()) {
-        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
-            counter += (int)i.second.size();
-        }
-    }
-    return counter;
 }
 
 

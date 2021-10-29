@@ -1191,11 +1191,11 @@ GNEViewNet::hotkeyDel() {
             myUndoList->end();
         } else {
             // get selected ACs
-            const auto selectedACs = myNet->getSelectedAttributeCarriers(false);
+            const auto selectedACs = myNet->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // delete selected elements
             if (selectedACs.size() > 0) {
                 myUndoList->begin(GUIIcon::MODEDELETE, "delete network selection");
-                deleteNetworkAttributeCarriers(myNet->getSelectedAttributeCarriers(false));
+                deleteNetworkAttributeCarriers(selectedACs);
                 myUndoList->end();
             }
         }
@@ -1207,11 +1207,11 @@ GNEViewNet::hotkeyDel() {
             myUndoList->end();
         } else {
             // get selected ACs
-            const auto selectedACs = myNet->getSelectedAttributeCarriers(false);
+            const auto selectedACs = myNet->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // delete selected elements
             if (selectedACs.size() > 0) {
                 myUndoList->begin(GUIIcon::MODEDELETE, "delete demand selection");
-                deleteDemandAttributeCarriers(myNet->getSelectedAttributeCarriers(false));
+                deleteDemandAttributeCarriers(selectedACs);
                 myUndoList->end();
             }
         }
@@ -1223,11 +1223,11 @@ GNEViewNet::hotkeyDel() {
             myUndoList->end();
         } else {
             // get selected ACs
-            const auto selectedACs = myNet->getSelectedAttributeCarriers(false);
+            const auto selectedACs = myNet->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // delete selected elements
             if (selectedACs.size() > 0) {
                 myUndoList->begin(GUIIcon::MODEDELETE, "delete data selection");
-                deleteDataAttributeCarriers(myNet->getSelectedAttributeCarriers(false));
+                deleteDataAttributeCarriers(selectedACs);
                 myUndoList->end();
             }
         }

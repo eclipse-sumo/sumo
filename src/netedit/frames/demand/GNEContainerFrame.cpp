@@ -293,7 +293,7 @@ GNEContainerFrame::buildContainer() {
     myContainerAttributes->getAttributesAndValues(myContainerBaseObject, false);
     // Check if ID has to be generated
     if (!myContainerBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-        myContainerBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(containerTag));
+        myContainerBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(containerTag));
     }
     // add pType parameter
     myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myPTypeSelector->getCurrentDemandElement()->getID());

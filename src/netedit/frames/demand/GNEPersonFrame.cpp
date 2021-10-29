@@ -295,7 +295,7 @@ GNEPersonFrame::buildPerson() {
     myPersonAttributes->getAttributesAndValues(myPersonBaseObject, false);
     // Check if ID has to be generated
     if (!myPersonBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-        myPersonBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(personTag));
+        myPersonBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(personTag));
     }
     // add pType parameter
     myPersonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myPTypeSelector->getCurrentDemandElement()->getID());

@@ -261,7 +261,7 @@ GNERouteFrame::createPath() {
         // obtain attributes
         myRouteAttributes->getAttributesAndValues(myRouteBaseObject, true);
         if (!myRouteBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
-            myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE));
+            myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE));
         }
         // declare edge vector
         std::vector<std::string> edges;

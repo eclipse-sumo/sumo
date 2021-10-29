@@ -262,7 +262,7 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
         const double begin = GNEAttributeCarrier::parse<double>(myBegin->getText().text());
         const double end = GNEAttributeCarrier::parse<double>(myEnd->getText().text());
         // obtain all Generic Data attributes for current generic tag
-        auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveGenericDataParameters(toString(myCurrentTag), begin, end);
+        const auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(toString(myCurrentTag), begin, end);
         // set color and enable items
         myMatchGenericDataTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchGenericDataAttrComboBox->enable();
@@ -290,9 +290,8 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
 long
 GNEMatchGenericDataAttribute::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // obtain all Generic Data attributes for current generic tag
-    std::set<std::string> attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveGenericDataParameters(
-                                           toString(myCurrentTag),
-                                           GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
+    auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(
+                                           toString(myCurrentTag), GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
                                            GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     // add extra data set parent attribute
     attributes.insert(toString(GNE_ATTR_DATASET));

@@ -71,7 +71,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(GNENet* net) :
-    GNEDemandElement(net->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
+    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
         GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
         {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
