@@ -1752,12 +1752,22 @@ GNEFrameModuls::SelectorParent::hideSelectorParentModul() {
 
 void
 GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
+    // save current edited elements
+    std::set<std::string> selectedItems;
+    for (int i = 0; i < myParentsList->getNumItems(); i++) {
+        if (myParentsList->isItemSelected(i)) {
+            selectedItems.insert(myParentsList->getItem(i)->getText().text());
+        }
+    }
     myParentsList->clearItems();
     if (myParentTags.size() > 0) {
         // fill list with IDs of additionals
         for (const auto& parentTag : myParentTags) {
             for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {
-                myParentsList->appendItem(additional->getID().c_str());
+                const int item = myParentsList->appendItem(additional->getID().c_str());
+                if (selectedItems.find(additional->getID()) != selectedItems.end()) {
+                    myParentsList->selectItem(item);
+                }
             }
         }
     }
