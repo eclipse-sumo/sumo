@@ -20,9 +20,10 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXTreeListDinamic.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/foxtools/FXTreeListDinamic.h>
+#include <utils/foxtools/MFXIconComboBox.h>
 
 // ===========================================================================
 // class declaration
@@ -82,23 +83,38 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(TagSelector)
 
     private:
+        struct TagType {
+            /// @brief constructor
+            TagType(std::string _tag, GNETagProperties::TagType _tagType, GUIIcon _icon);
+
+            // @brief tag in string format
+            const std::string tag;
+
+            /// @brief tag type
+            const GNETagProperties::TagType tagType;
+
+            /// @brief icon
+            const GUIIcon icon;
+        };
+
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
 
         /// @brief comboBox with tag type
-        FXComboBox* myTagTypesMatchBox;
+        MFXIconComboBox* myTagTypesMatchBox;
 
         /// @brief comboBox with the list of tags
-        FXComboBox* myTagsMatchBox;
+        MFXIconComboBox* myTagsMatchBox;
 
         /// @brief current tag properties
         GNETagProperties myCurrentTagProperties;
 
         /// @brief list of tags types that will be shown in Match Box
-        std::vector<std::pair<std::string, GNETagProperties::TagType> > myListOfTagTypes;
+        std::vector<TagType> myTagTypes;
 
         /// @brief list of tags that will be shown in Match Box
         std::vector<std::pair<GNETagProperties, std::string> > myTagPropertiesString;

@@ -128,10 +128,10 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         case GNETagProperties::TagType::PERSONPLAN:
             setText("Person plans");
             // person plan type has four sub-groups
-            myListOfTagTypes.push_back(std::make_pair("person trips", GNETagProperties::TagType::PERSONTRIP));
-            myListOfTagTypes.push_back(std::make_pair("walks", GNETagProperties::TagType::WALK));
-            myListOfTagTypes.push_back(std::make_pair("rides", GNETagProperties::TagType::RIDE));
-            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::STOPPERSON));
+            myTagTypes.push_back(TagType("person trips", GNETagProperties::TagType::PERSONTRIP, GUIIcon::PERSONTRIP_FROMTO));
+            myTagTypes.push_back(TagType("walks", GNETagProperties::TagType::WALK, GUIIcon::WALK_FROMTO));
+            myTagTypes.push_back(TagType("rides", GNETagProperties::TagType::RIDE, GUIIcon::RIDE_FROMTO));
+            myTagTypes.push_back(TagType("stops", GNETagProperties::TagType::STOPPERSON, GUIIcon::STOPELEMENT));
             break;
         case GNETagProperties::TagType::CONTAINER:
             setText("Container");
@@ -139,9 +139,9 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         case GNETagProperties::TagType::CONTAINERPLAN:
             setText("Container plans");
             // container plan type has four sub-groups
-            myListOfTagTypes.push_back(std::make_pair("transport", GNETagProperties::TagType::TRANSPORT));
-            myListOfTagTypes.push_back(std::make_pair("tranship", GNETagProperties::TagType::TRANSHIP));
-            myListOfTagTypes.push_back(std::make_pair("stops", GNETagProperties::TagType::STOPCONTAINER));
+            myTagTypes.push_back(TagType("transport", GNETagProperties::TagType::TRANSPORT, GUIIcon::TRANSHIP_FROMTO));
+            myTagTypes.push_back(TagType("tranship", GNETagProperties::TagType::TRANSHIP, GUIIcon::TRANSHIP_FROMTO));
+            myTagTypes.push_back(TagType("stops", GNETagProperties::TagType::STOPCONTAINER, GUIIcon::STOPELEMENT));
             break;
         case GNETagProperties::TagType::PERSONTRIP:
             setText("Person trips");
@@ -159,14 +159,14 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
             throw ProcessError("invalid tag property");
     }
     // Create FXComboBox
-    myTagTypesMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAGTYPE_SELECTED, GUIDesignComboBox);
+    myTagTypesMatchBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAGTYPE_SELECTED, GUIDesignComboBox);
     // Create FXComboBox
-    myTagsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
-    // Fill comboBox depending of TagTypes
-    if (myListOfTagTypes.size() > 0) {
+    myTagsMatchBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    // Fill comboBox depending of myTagTypes
+    if (myTagTypes.size() > 0) {
         // fill myTypeMatchBox with list of tags
-        for (const auto& tagType : myListOfTagTypes) {
-            myTagTypesMatchBox->appendItem(tagType.first.c_str());
+        for (const auto& tagType : myTagTypes) {
+            myTagTypesMatchBox->appendIconItem(tagType.tag.c_str(), GUIIconSubSys::getIcon(tagType.icon));
         }
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
@@ -260,12 +260,12 @@ GNEFrameModuls::TagSelector::refreshTagProperties() {
 
 long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myListOfTagTypes) {
-        if (i.first == myTagTypesMatchBox->getText().text()) {
+    for (const auto& tagType : myTagTypes) {
+        if (tagType.tag == myTagTypesMatchBox->getText().text()) {
             // set color of myTagTypesMatchBox to black (valid)
             myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
             // fill myTagPropertiesString with personTrips (the first Tag Type)
-            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(i.second, true);
+            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType.tagType, true);
             // show and clear myTagsMatchBox
             myTagsMatchBox->show();
             myTagsMatchBox->clearItems();
@@ -320,6 +320,13 @@ GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in TagSelector");
     return 1;
+}
+
+
+GNEFrameModuls::TagSelector::TagType::TagType(std::string _tag, GNETagProperties::TagType _tagType, GUIIcon _icon) :
+    tag(_tag),
+    tagType(_tagType),
+    icon(_icon) {
 }
 
 // ---------------------------------------------------------------------------
