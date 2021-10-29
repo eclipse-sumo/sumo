@@ -44,7 +44,6 @@
 #include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
@@ -52,12 +51,10 @@
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNENet.h"
