@@ -78,7 +78,7 @@ void GNEChange_Crossing::undo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
+        if (myJunctionParent->getNet()->getAttributeCarriers()->getCrossings().empty() && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
@@ -137,7 +137,7 @@ void GNEChange_Crossing::redo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
+        if (myJunctionParent->getNet()->getAttributeCarriers()->getCrossings().empty() && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests

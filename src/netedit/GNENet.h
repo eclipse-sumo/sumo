@@ -101,6 +101,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @brief returns the bounder of the network
@@ -291,21 +292,6 @@ public:
     /// @brief transform the given junction into a roundabout
     void createRoundabout(GNEJunction* junction, GNEUndoList* undoList);
 
-    /**@brief get a single attribute carrier based on a GLID
-     * @param[in] ids the GL IDs for which to retrive the AC
-     * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
-     * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
-     */
-    GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool failHard = true) const;
-
-    /**@brief get the attribute carriers based on Type
-     * @param[in] type The GUI-type of the AC. SUMO_TAG_NOTHING returns all elements (Warning: bottleneck)
-     */
-    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(SumoXMLTag type = SUMO_TAG_NOTHING);
-
-    /// @brief get the attribute carriers based on supermode
-    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(Supermode supermode, const bool onlySelected);
-
     /// @brief inform that net has to be saved
     void requireSaveNet(bool value);
 
@@ -342,8 +328,8 @@ public:
     /// @brief get view net
     GNEViewNet* getViewNet() const;
 
-    /// @brief get all selected attribute carriers (or only relative to current supermode
-    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers(bool ignoreCurrentSupermode);
+                /// @brief get all selected attribute carriers (or only relative to current supermode
+                std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers(bool ignoreCurrentSupermode);
 
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
@@ -435,9 +421,6 @@ public:
     /// @brief check if net requiere recomputing
     bool isNetRecomputed() const;
 
-    /// @brief check if net has GNECrossings
-    bool netHasGNECrossings() const;
-
     /// @brief get pointer to the main App
     FXApp* getApp();
 
@@ -450,21 +433,21 @@ public:
     /// @brief remove edge id from the list of explicit turnarounds
     void removeExplicitTurnaround(std::string id);
 
-    /// @brief generate edgeType id
-    std::string generateEdgeTypeID() const;
+            /// @brief generate edgeType id
+            std::string generateEdgeTypeID() const;
 
-    /**@brief Returns the rerouter interval defined by given begin and end
-     * @param[in] rerouter ID
-     * @param[in] begin SUMOTime begin
-     * @param[in] end SUMOTime begin
-     */
-    GNEAdditional* retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const;
+            /**@brief Returns the rerouter interval defined by given begin and end
+             * @param[in] rerouter ID
+             * @param[in] begin SUMOTime begin
+             * @param[in] end SUMOTime begin
+             */
+            GNEAdditional* retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const;
 
-    /**@brief Returns the number of additionals of the net
-     * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
-     * @return Number of additionals of the net
-     */
-    int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+            /**@brief Returns the number of additionals of the net
+             * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
+             * @return Number of additionals of the net
+             */
+            int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
     /// @brief inform that additionals has to be saved
     void requireSaveAdditionals(bool value);
@@ -477,18 +460,14 @@ public:
     /// @brief check if additionals are saved
     bool isAdditionalsSaved() const;
 
-    /// @brief generate additional id
-    std::string generateAdditionalID(SumoXMLTag type) const;
+            /// @brief generate additional id
+            std::string generateAdditionalID(SumoXMLTag type) const;
 
-    /// @}
-
-    /// @name Functions related to DemandElement Items
-    /// @{
-    /**@brief Returns the number of demand elements of the net
-     * @param[in] type type of demand element to count. SUMO_TAG_NOTHING will count all demand elements
-     * @return Number of demand elements of the net
-     */
-    int getNumberOfDemandElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+            /**@brief Returns the number of demand elements of the net
+             * @param[in] type type of demand element to count. SUMO_TAG_NOTHING will count all demand elements
+             * @return Number of demand elements of the net
+             */
+            int getNumberOfDemandElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
     /// @brief inform that demand elements has to be saved
     void requireSaveDemandElements(bool value);
@@ -501,13 +480,8 @@ public:
     /// @brief check if demand elements are saved
     bool isDemandElementsSaved() const;
 
-    /// @brief generate demand element id
-    std::string generateDemandElementID(SumoXMLTag tag) const;
-
-    /// @}
-
-    /// @name Functions related to DataSet Items
-    /// @{
+            /// @brief generate demand element id
+            std::string generateDemandElementID(SumoXMLTag tag) const;
 
     /// @brief inform that data sets has to be saved
     void requireSaveDataElements(bool value);
@@ -520,15 +494,15 @@ public:
     /// @brief check if data sets are saved
     bool isDataElementsSaved() const;
 
-    /// @brief generate data set id
-    std::string generateDataSetID(const std::string& prefix) const;
+                /// @brief generate data set id
+                std::string generateDataSetID(const std::string& prefix) const;
 
-    /// @brief return a set of parameters for the given data Interval
-    std::set<std::string> retrieveGenericDataParameters(const std::string& genericDataTag, const double begin, const double end) const;
+                /// @brief return a set of parameters for the given data Interval
+                std::set<std::string> retrieveGenericDataParameters(const std::string& genericDataTag, const double begin, const double end) const;
 
-    /// @brief return a set of parameters for the given dataSet, generic data Type, begin and end
-    std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
-            const std::string& beginStr, const std::string& endStr) const;
+                /// @brief return a set of parameters for the given dataSet, generic data Type, begin and end
+                std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
+                        const std::string& beginStr, const std::string& endStr) const;
 
     /// @brief get minimum interval
     double getDataSetIntervalMinimumBegin() const;
@@ -536,36 +510,25 @@ public:
     /// @brief get maximum interval
     double getDataSetIntervalMaximumEnd() const;
 
-    /// @}
 
-    /// @name Functions related with Shapes
-    /// @{
+                /// @brief generate Shape ID
+                std::string generateShapeID(SumoXMLTag shapeTag) const;
 
-    /// @brief generate Shape ID
-    std::string generateShapeID(SumoXMLTag shapeTag) const;
+                /**@brief Returns the number of shapes of the net
+                 * @param[in] type type of shape to count. SUMO_TAG_NOTHING will count all shapes
+                 * @return Number of shapes of the net
+                 */
+                int getNumberOfShapes(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /**@brief Returns the number of shapes of the net
-     * @param[in] type type of shape to count. SUMO_TAG_NOTHING will count all shapes
-     * @return Number of shapes of the net
-     */
-    int getNumberOfShapes(SumoXMLTag type = SUMO_TAG_NOTHING) const;
-    /// @}
+                /// @brief generate TAZElement ID
+                std::string generateTAZElementID(SumoXMLTag TAZElementTag) const;
 
-    /// @name Functions related with TAZElements
-    /// @{
+                /**@brief Returns the number of TAZElements of the net
+                 * @param[in] type type of TAZElement to count. SUMO_TAG_NOTHING will count all TAZElements
+                 * @return Number of TAZElements of the net
+                 */
+                int getNumberOfTAZElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /// @brief generate TAZElement ID
-    std::string generateTAZElementID(SumoXMLTag TAZElementTag) const;
-
-    /**@brief Returns the number of TAZElements of the net
-     * @param[in] type type of TAZElement to count. SUMO_TAG_NOTHING will count all TAZElements
-     * @return Number of TAZElements of the net
-     */
-    int getNumberOfTAZElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
-    /// @}
-
-    /// @name Functions related to TLS Programs
-    /// @{
     /// @brief inform that TLS Programs has to be saved
     void requireSaveTLSPrograms();
 
@@ -577,16 +540,10 @@ public:
     /// @brief get number of TLS Programs
     int getNumberOfTLSPrograms() const;
 
-    /// @}
-
-    /// @name Functions related to TLS Programs
-    /// @{
     /**@brief save edgeTypes elements of the network
      * @param[in] filename name of the file in wich save edgeTypes
     */
     void saveEdgeTypes(const std::string& filename);
-
-    /// @}
 
     /// @name Functions related to Enable or disable update geometry of elements after insertio
     /// @{

@@ -25,15 +25,16 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #include "GNENetHelper.h"
 
@@ -213,6 +214,168 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
 }
 
 
+GNEAttributeCarrier*
+GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool failHard) const {
+    // obtain blocked GUIGlObject
+    GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    // Make sure that object exists
+    if (object != nullptr) {
+        // unblock and try to parse to AtributeCarrier
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(object);
+        // If was sucesfully parsed, return it
+        if (ac == nullptr) {
+            throw ProcessError("GUIGlObject does not match the declared type");
+        } else {
+            return ac;
+        }
+    } else if (failHard) {
+        throw ProcessError("Attempted to retrieve non-existant GUIGlObject");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEAttributeCarrier*>
+GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
+    std::vector<GNEAttributeCarrier*> result;
+    if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_JUNCTION)) {
+        for (const auto& junction : myJunctions) {
+            result.push_back(junction.second);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_EDGE)) {
+        for (const auto& edge : myEdges) {
+            result.push_back(edge.second);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_LANE)) {
+        for (const auto& lane : myLanes) {
+            result.push_back(lane);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CONNECTION)) {
+        for (const auto& connection : myConnections) {
+            result.push_back(connection);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CROSSING)) {
+        for (const auto& crossing : myCrossings) {
+            result.push_back(crossing);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isAdditionalElement())) {
+        for (const auto& additional : myAdditionals.at(tag)) {
+            result.push_back(additional);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isShape())) {
+        for (const auto& shape : myShapes.at(tag)) {
+            result.push_back(shape);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isTAZElement())) {
+        for (const auto& TAZElement : myTAZElements.at(tag)) {
+            result.push_back(TAZElement);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isDemandElement())) {
+        for (const auto& demandElemet : myDemandElements.at(tag)) {
+            result.push_back(demandElemet);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_DATASET)) {
+        for (const auto& dataSet : myDataSets) {
+            result.push_back(dataSet);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_DATAINTERVAL)) {
+        for (const auto& dataInterval : myDataIntervals) {
+            result.push_back(dataInterval);
+        }
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isGenericData())) {
+        for (const auto& genericData : myGenericDatas.at(tag)) {
+            result.push_back(genericData);
+        }
+    }
+    return result;
+}
+
+
+std::vector<GNEAttributeCarrier*>
+GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(Supermode supermode, const bool onlySelected) {
+    std::vector<GNEAttributeCarrier*> result;
+    // continue depending of supermode
+    if (supermode == Supermode::NETWORK) {
+        // network
+        for (const auto& junction : myJunctions) {
+            if (!onlySelected || junction.second->isAttributeCarrierSelected()) {
+                result.push_back(junction.second);
+            }
+        }
+        for (const auto& crossing : myCrossings) {
+            if (!onlySelected || crossing->isAttributeCarrierSelected()) {
+                result.push_back(crossing);
+            }
+        }
+        for (const auto& edge : myEdges) {
+            if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+                result.push_back(edge.second);
+            }
+        }
+        for (const auto& lane : myLanes) {
+            if (!onlySelected || lane->isAttributeCarrierSelected()) {
+                result.push_back(lane);
+            }
+        }
+        for (const auto& connection : myConnections) {
+            if (!onlySelected || connection->isAttributeCarrierSelected()) {
+                result.push_back(connection);
+            }
+        }
+        for (const auto& additionalSet : myAdditionals) {
+            for (const auto& additional : additionalSet.second) {
+                if (!onlySelected || additional->isAttributeCarrierSelected()) {
+                    result.push_back(additional);
+                }
+            }
+        }
+        for (const auto& shapeSet : myShapes) {
+            for (const auto& shape : shapeSet.second) {
+                if (!onlySelected || shape->isAttributeCarrierSelected()) {
+                    result.push_back(shape);
+                }
+            }
+        }
+        for (const auto& TAZSet : myTAZElements) {
+            for (const auto& TAZElement : TAZSet.second) {
+                if (!onlySelected || TAZElement->isAttributeCarrierSelected()) {
+                    result.push_back(TAZElement);
+                }
+            }
+        }
+    } else if (supermode == Supermode::DEMAND) {
+        for (const auto& demandElementSet : myDemandElements) {
+            for (const auto& demandElement : demandElementSet.second) {
+                if (!onlySelected || demandElement->isAttributeCarrierSelected()) {
+                    result.push_back(demandElement);
+                }
+            }
+        }
+    } else if (supermode == Supermode::DATA) {
+        for (const auto& dataSet : myDataSets) {
+            if (!onlySelected || dataSet->isAttributeCarrierSelected()) {
+                result.push_back(dataSet);
+            }
+        }
+        for (const auto& dataInterval : myDataIntervals) {
+            if (!onlySelected || dataInterval->isAttributeCarrierSelected()) {
+                result.push_back(dataInterval);
+            }
+        }
+        for (const auto& genericDataSet : myGenericDatas) {
+            for (const auto& genericData : genericDataSet.second) {
+                if (!onlySelected || genericData->isAttributeCarrierSelected()) {
+                    result.push_back(genericData);
+                }
+            }
+        }
+    }
+    return result;
+}
+
+
 GNEJunction*
 GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool failHard) const {
     if (myJunctions.count(id)) {
@@ -316,6 +479,12 @@ GNENetHelper::AttributeCarriers::retrieveCrossing(const GNEAttributeCarrier* AC,
     } else {
         return nullptr;
     }
+}
+
+
+const std::set<GNECrossing*> &
+GNENetHelper::AttributeCarriers::getCrossings() const {
+    return myCrossings;
 }
 
 

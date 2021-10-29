@@ -269,7 +269,7 @@ GNEViewNet::recalculateBoundaries() {
         std::set<GNEAttributeCarrier*> ACs;
         // iterate over GUIGlIDs
         for (const auto& GLId : GLIDs) {
-            GNEAttributeCarrier* AC = myNet->retrieveAttributeCarrier(GLId);
+            GNEAttributeCarrier* AC = myNet->getAttributeCarriers()->retrieveAttributeCarrier(GLId);
             // Make sure that object exists
             if (AC && AC->getTagProperty().isPlacedInRTree()) {
                 ACs.insert(AC);
@@ -395,10 +395,10 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
         for (const auto& GLId : GLIds) {
             // avoid to select Net (i = 0)
             if (GLId != 0) {
-                GNEAttributeCarrier* retrievedAC = myNet->retrieveAttributeCarrier(GLId);
+                GNEAttributeCarrier* retrievedAC = myNet->getAttributeCarriers()->retrieveAttributeCarrier(GLId);
                 // in the case of a Lane, we need to change the retrieved lane to their the parent if myNetworkViewOptions.mySelectEdges is enabled
                 if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_LANE) && (myNetworkViewOptions.selectEdges() || forceSelectEdges)) {
-                    retrievedAC = dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
+                    retrievedAC = myNet->getAttributeCarriers()->retrieveEdge(retrievedAC->getAttribute(GNE_ATTR_PARENT));
                 } else if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) && !(myNetworkViewOptions.selectEdges() || forceSelectEdges)) {
                     // just ignore this AC
                     retrievedAC = nullptr;

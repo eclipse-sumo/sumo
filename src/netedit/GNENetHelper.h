@@ -101,6 +101,21 @@ struct GNENetHelper {
         /// @brief check if shape of given AC (network element) is around the given shape
         bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector &shape) const;
 
+        /**@brief get a single attribute carrier based on a GLID
+         * @param[in] ids the GL IDs for which to retrive the AC
+         * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
+         * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
+         */
+        GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool failHard = true) const;
+
+        /**@brief get the attribute carriers based on Type
+         * @param[in] type The GUI-type of the AC. SUMO_TAG_NOTHING returns all elements (Warning: bottleneck)
+         */
+        std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(SumoXMLTag tag = SUMO_TAG_NOTHING);
+
+        /// @brief get the attribute carriers based on supermode and selected
+        std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(Supermode supermode, const bool onlySelected);
+
         /// @name function for junctions
         /// @{
         /**@brief get junction by id
@@ -138,6 +153,9 @@ struct GNENetHelper {
          * @throws UnknownElement
          */
         GNECrossing* retrieveCrossing(const GNEAttributeCarrier* AC, bool failHard = true) const;
+
+        /// @brief get crossings
+        const std::set<GNECrossing*> &getCrossings() const;
 
         /// @brief return all selected crossings
         std::vector<GNECrossing*> getSelectedCrossings() const;

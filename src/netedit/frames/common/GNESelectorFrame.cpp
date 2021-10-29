@@ -284,7 +284,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                 // check if GUIGlObject exist and their  their GL type isn't blocked
                 if ((object != nullptr) && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(object->getType(), false)) {
                     // obtain GNEAttributeCarrier
-                    GNEAttributeCarrier* AC = mySelectorFrameParent->myViewNet->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
+                    GNEAttributeCarrier* AC = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarrier(object->getGlID(), false);
                     // check if AC exist and if is selectable
                     if (AC && AC->getTagProperty().isSelectable())
                         // now check if we're in the correct supermode to load this element
@@ -1145,7 +1145,7 @@ std::vector<GNEAttributeCarrier*>
 GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
     // first retrieve all ACs using ACTag
-    std::vector<GNEAttributeCarrier*> allACbyTag = myViewNet->getNet()->retrieveAttributeCarriers(ACTag);
+    const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(ACTag);
     // get Tag value
     const auto& tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
     // iterate over all ACs
