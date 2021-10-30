@@ -516,7 +516,9 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM, SUMOTime responseTime) {
         // Initialize preparation phase
         if (responseTime == -1000) {
             // Sample response time from distribution
-            responseTime = TIME2STEPS(sampleResponseTime(STEPS2TIME(timeTillMRM)));
+            const double sample = sampleResponseTime(STEPS2TIME(timeTillMRM));
+            // this needs to be a separate line because TIME2STEPS may otherwise do two calls to sampleResponseTime
+            responseTime = TIME2STEPS(sample);
         }
 
         // Schedule ToC Event
