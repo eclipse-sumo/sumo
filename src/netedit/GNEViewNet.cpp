@@ -783,8 +783,8 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
 std::vector<std::string>
 GNEViewNet::getEdgeDataAttrs() const {
     std::set<std::string> keys;
-    for (const auto &genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_MEANDATA_EDGE)) {
-        for (const auto parameter : genericData->getACParametersMap()) {
+    for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_MEANDATA_EDGE)) {
+        for (const auto& parameter : genericData->getACParametersMap()) {
             keys.insert(parameter.first);
         }
     }
@@ -795,13 +795,13 @@ GNEViewNet::getEdgeDataAttrs() const {
 std::vector<std::string>
 GNEViewNet::getRelDataAttrs() const {
     std::set<std::string> keys;
-    for (const auto &genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
-        for (const auto parameter : genericData->getACParametersMap()) {
+    for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
+        for (const auto& parameter : genericData->getACParametersMap()) {
             keys.insert(parameter.first);
         }
     }
-    for (const auto &genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_EDGEREL)) {
-        for (const auto parameter : genericData->getACParametersMap()) {
+    for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_EDGEREL)) {
+        for (const auto& parameter : genericData->getACParametersMap()) {
             keys.insert(parameter.first);
         }
     }
