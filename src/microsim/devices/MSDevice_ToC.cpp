@@ -1029,9 +1029,9 @@ MSDevice_ToC::writeOutput() {
         return;
     }
     while (!myEvents.empty()) {
-        std::pair<SUMOTime, std::string>& e = myEvents.front();
-        std::pair<std::string, double>& l = myEventLanes.front();
-        std::pair<double, double>& p = myEventXY.front();
+        const std::pair<SUMOTime, std::string> e = myEvents.front(); // make a copy, it is used after pop
+        const std::pair<std::string, double>& l = myEventLanes.front();
+        const std::pair<double, double>& p = myEventXY.front();
         myOutputFile->openTag(e.second);
         myOutputFile->writeAttr("id", myHolder.getID()).writeAttr("t", STEPS2TIME(e.first));
         myOutputFile->writeAttr("lane", l.first).writeAttr("lanePos", l.second);
