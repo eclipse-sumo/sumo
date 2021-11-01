@@ -258,12 +258,6 @@ public:
     /// Get the tool tip message for this combobox
     const FXString& getTipText() const;
 
-    /// Save combobox to a stream
-    virtual void save(FXStream& store) const;
-
-    /// Load combobox from a stream
-    virtual void load(FXStream& store);
-
     /// @brief Commands
     /// @{
     long onFocusUp(FXObject*,FXSelector,void*);

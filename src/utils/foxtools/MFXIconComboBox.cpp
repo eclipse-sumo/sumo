@@ -634,27 +634,6 @@ MFXIconComboBox::getTipText() const {
 }
 
 
-void
-MFXIconComboBox::save(FXStream& store) const {
-    FXPacker::save(store);
-    store << myTextField;
-    store << myButton;
-    store << myList;
-    store << myPane;
-}
-
-
-void
-MFXIconComboBox::load(FXStream& store) {
-    FXPacker::load(store);
-    store >> myTextField;
-    store >> myButton;
-    store >> myList;
-    store >> myPane;
-}
-
-
-
 long
 MFXIconComboBox::onUpdFmText(FXObject*, FXSelector, void*) {
     return target && !isPaneShown() && target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL);
