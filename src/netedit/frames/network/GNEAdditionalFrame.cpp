@@ -1391,6 +1391,25 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;
     }
+    // special case for VSS Steps
+    if (myBaseAdditional->getTag() == SUMO_TAG_STEP) {
+        // get VSS parent
+        const auto VSSParent = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_VSS, 
+            myBaseAdditional->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+        // get last step
+        GNEAdditional *step = nullptr;
+        for (const auto &additionalChild : VSSParent->getChildAdditionals()) {
+            if (!additionalChild->getTagProperty().isSymbol()) {
+                step = additionalChild;
+            }
+        }
+        // set time
+        if (step) {
+            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, string2time(step->getAttribute(SUMO_ATTR_TIME)) + TIME2STEPS(900));
+        } else {
+            myBaseAdditional->addTimeAttribute(SUMO_ATTR_TIME, 0);
+        }
+    }
     // show warning dialogbox and stop check if input parameters are valid
     if (myAdditionalAttributes->areValuesValid() == false) {
         myAdditionalAttributes->showWarningMessage();
