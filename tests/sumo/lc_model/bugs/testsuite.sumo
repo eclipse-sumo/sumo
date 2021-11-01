@@ -19,3 +19,6 @@ ticket5124
 
 # lane change decision should be independent of step length
 ticket8804
+
+# lcSigma should not cause deadlock
+ticket9395
