@@ -730,15 +730,15 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             const auto &laneShape = myLaneGeometry.getShape();
             // get variables
             const double pos = laneShape.nearest_offset_to_point2D(mousePosition);
-            const Position firstAnglePos = laneShape.positionAtOffset2D(pos);
-            const Position secondAnglePos = laneShape.positionAtOffset2D(pos - 0.001);
-            const double angleDegree = (firstAnglePos == Position::INVALID) || (secondAnglePos == Position::INVALID)? 0 : RAD2DEG(firstAnglePos.angleTo2D(secondAnglePos)) - 90;
+            const Position firstAnglePos = laneShape.positionAtOffset2D(pos - 0.001);
+            const Position secondAnglePos = laneShape.positionAtOffset2D(pos);
+            const double angle = firstAnglePos.angleTo2D(secondAnglePos);
             
             // build menu commands
             GUIDesigns::buildFXMenuCommand(ret, "Shape pos: " + toString(pos), nullptr, nullptr, 0);
             GUIDesigns::buildFXMenuCommand(ret, "Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength()), nullptr, nullptr, 0);
             GUIDesigns::buildFXMenuCommand(ret, "Height: " + toString(firstAnglePos.z()), nullptr, nullptr, 0);
-            GUIDesigns::buildFXMenuCommand(ret, "Angle: " + toString((angleDegree < 0)? (angleDegree + 360.0) : angleDegree), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, "Angle: " + toString((GeomHelper::naviDegree(angle))), nullptr, nullptr, 0);
         }
     }
     return ret;
