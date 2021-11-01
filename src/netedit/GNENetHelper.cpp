@@ -501,7 +501,9 @@ GNECrossing*
 GNENetHelper::AttributeCarriers::retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast crossing
     GNECrossing* crossing = dynamic_cast<GNECrossing*>(AC);
-    if ((crossing == nullptr) && hardFail) {
+    if (crossing) {
+        return crossing;
+    } else if (hardFail) {
         throw UnknownElement("Crossing " + AC->getID());
     } else {
         return nullptr;
@@ -777,7 +779,9 @@ GNELane*
 GNENetHelper::AttributeCarriers::retrieveLane(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast lane
     GNELane* Lane = dynamic_cast<GNELane*>(AC);
-    if ((Lane == nullptr) && hardFail) {
+    if (Lane) {
+        return Lane;
+    } else if (hardFail) {
         throw UnknownElement("Lane " + AC->getID());
     } else {
         return nullptr;
@@ -856,7 +860,9 @@ GNEConnection*
 GNENetHelper::AttributeCarriers::retrieveConnection(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast connection
     GNEConnection* connection = dynamic_cast<GNEConnection*>(AC);
-    if ((connection == nullptr) && hardFail) {
+    if (connection) {
+        return connection;
+    } else if (hardFail) {
         throw UnknownElement("Connection " + AC->getID());
     } else {
         return nullptr;
@@ -933,7 +939,9 @@ GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast additional
     GNEAdditional* additional = dynamic_cast<GNEAdditional*>(AC);
-    if ((additional == nullptr) && hardFail) {
+    if (additional) {
+        return additional;
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
     } else {
         return nullptr;
@@ -1053,7 +1061,9 @@ GNEShape*
 GNENetHelper::AttributeCarriers::retrieveShape(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast shape
     GNEShape* shape = dynamic_cast<GNEShape*>(AC);
-    if ((shape == nullptr) && hardFail) {
+    if (shape) {
+        return shape;
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant shape");
     } else {
         return nullptr;
@@ -1302,7 +1312,9 @@ GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast demandElement
     GNEDemandElement* demandElement = dynamic_cast<GNEDemandElement*>(AC);
-    if ((demandElement == nullptr) && hardFail) {
+    if (demandElement) {
+        return demandElement;
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
     } else {
         return nullptr;
@@ -1754,7 +1766,9 @@ GNEDataSet*
 GNENetHelper::AttributeCarriers::retrieveDataSet(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast dataSet
     GNEDataSet* dataSet = dynamic_cast<GNEDataSet*>(AC);
-    if ((dataSet == nullptr) && hardFail) {
+    if (dataSet) {
+        return dataSet;
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;
@@ -1783,7 +1797,9 @@ GNEDataInterval*
 GNENetHelper::AttributeCarriers::retrieveDataInterval(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast dataInterval
     GNEDataInterval* dataInterval = dynamic_cast<GNEDataInterval*>(AC);
-    if ((dataInterval == nullptr) && hardFail) {
+    if (dataInterval) {
+        return dataInterval;
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data interval");
     } else {
         return nullptr;
@@ -1820,7 +1836,9 @@ GNEGenericData*
 GNENetHelper::AttributeCarriers::retrieveGenericData(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast genericData
     GNEGenericData* genericData = dynamic_cast<GNEGenericData*>(AC);
-    if ((genericData == nullptr) && hardFail) {
+    if (genericData) {
+        return genericData;
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;
