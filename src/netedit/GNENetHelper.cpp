@@ -212,7 +212,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
 
 
 GNEAttributeCarrier*
-GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool failHard) const {
+GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool hardFail) const {
     // obtain blocked GUIGlObject
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     // Make sure that object exists
@@ -226,7 +226,7 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool
         } else {
             return ac;
         }
-    } else if (failHard) {
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant GUIGlObject");
     } else {
         return nullptr;
@@ -407,10 +407,10 @@ GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreC
 
 
 GNEJunction*
-GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool failHard) const {
+GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool hardFail) const {
     if (myJunctions.count(id)) {
         return myJunctions.at(id);
-    } else if (failHard) {
+    } else if (hardFail) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Junction " + id);
     } else {
@@ -498,13 +498,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
 
 
 GNECrossing*
-GNENetHelper::AttributeCarriers::retrieveCrossing(const GNEAttributeCarrier* AC, bool failHard) const {
-    // reinterprete AC as crossing, and find it
-    const auto finder = myCrossings.find((GNECrossing*)AC);
-    if (finder != myCrossings.end()) {
-        return *finder;
-    }
-    if (failHard) {
+GNENetHelper::AttributeCarriers::retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast crossing
+    GNECrossing* crossing = dynamic_cast<GNECrossing*>(AC);
+    if ((crossing == nullptr) && hardFail) {
         throw UnknownElement("Crossing " + AC->getID());
     } else {
         return nullptr;
@@ -563,10 +560,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
 
 
 GNEEdgeType*
-GNENetHelper::AttributeCarriers::retrieveEdgeType(const std::string& id, bool failHard) const {
+GNENetHelper::AttributeCarriers::retrieveEdgeType(const std::string& id, bool hardFail) const {
     if (myEdgeTypes.count(id) > 0) {
         return myEdgeTypes.at(id);
-    } else if (failHard) {
+    } else if (hardFail) {
         // If edge wasn't found, throw exception
         throw UnknownElement("EdgeType " + id);
     } else {
@@ -628,10 +625,10 @@ GNENetHelper::AttributeCarriers::generateEdgeTypeID() const {
 
 
 GNEEdge*
-GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool failHard) const {
+GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool hardFail) const {
     if (myEdges.count(id) > 0) {
         return myEdges.at(id);
-    } else if (failHard) {
+    } else if (hardFail) {
         // If edge wasn't found, throw exception
         throw UnknownElement("Edge " + id);
     } else {
@@ -641,7 +638,7 @@ GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool failHa
 
 
 GNEEdge*
-GNENetHelper::AttributeCarriers::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) const {
+GNENetHelper::AttributeCarriers::retrieveEdge(GNEJunction* from, GNEJunction* to, bool hardFail) const {
     if ((from == nullptr) || (to == nullptr)) {
         throw UnknownElement("Junctions cannot be nullptr");
     }
@@ -652,7 +649,7 @@ GNENetHelper::AttributeCarriers::retrieveEdge(GNEJunction* from, GNEJunction* to
         }
     }
     // if edge wasn't found, throw exception or return nullptr
-    if (failHard) {
+    if (hardFail) {
         throw UnknownElement("Edge with from='" + from->getID() + "' and to='" + to->getID() + "'");
     } else {
         return nullptr;
@@ -743,7 +740,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
 
 
 GNELane*
-GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool failHard, bool checkVolatileChange) const {
+GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFail, bool checkVolatileChange) const {
     const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
     const GNEEdge* edge = myEdges.at(edge_id);
     if (edge != nullptr) {
@@ -756,8 +753,8 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool failHa
         }
         // throw exception or return nullptr if lane wasn't found
         if (lane == nullptr) {
-            if (failHard) {
-                // Throw exception if failHard is enabled
+            if (hardFail) {
+                // Throw exception if hardFail is enabled
                 throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
             }
         } else {
@@ -768,8 +765,8 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool failHa
             }
             return lane;
         }
-    } else if (failHard) {
-        // Throw exception if failHard is enabled
+    } else if (hardFail) {
+        // Throw exception if hardFail is enabled
         throw UnknownElement(toString(SUMO_TAG_EDGE) + " " + edge_id);
     }
     return nullptr;
@@ -777,13 +774,10 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool failHa
 
 
 GNELane*
-GNENetHelper::AttributeCarriers::retrieveLane(const GNEAttributeCarrier* AC, bool failHard) const {
-    // reinterprete AC as lane, and find it
-    const auto finder = myLanes.find((GNELane*)AC);
-    if (finder != myLanes.end()) {
-        return *finder;
-    }
-    if (failHard) {
+GNENetHelper::AttributeCarriers::retrieveLane(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast lane
+    GNELane* Lane = dynamic_cast<GNELane*>(AC);
+    if ((Lane == nullptr) && hardFail) {
         throw UnknownElement("Lane " + AC->getID());
     } else {
         return nullptr;
@@ -842,14 +836,14 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
 
 
 GNEConnection*
-GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool failHard) const {
+GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool hardFail) const {
     // iterate over connections
     for (const auto &connection : myConnections) {
         if (connection->getID() == id) {
             return connection;
         }
     }
-    if (failHard) {
+    if (hardFail) {
         // If POI wasn't found, throw exception
         throw UnknownElement("Connection " + id);
     } else {
@@ -859,13 +853,10 @@ GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool 
 
 
 GNEConnection*
-GNENetHelper::AttributeCarriers::retrieveConnection(const GNEAttributeCarrier* AC, bool failHard) const {
-    // reinterprete AC as connection, and find it
-    const auto finder = myConnections.find((GNEConnection*)AC);
-    if (finder != myConnections.end()) {
-        return *finder;
-    }
-    if (failHard) {
+GNENetHelper::AttributeCarriers::retrieveConnection(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast connection
+    GNEConnection* connection = dynamic_cast<GNEConnection*>(AC);
+    if ((connection == nullptr) && hardFail) {
         throw UnknownElement("Connection " + AC->getID());
     } else {
         return nullptr;
@@ -939,13 +930,10 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::
 
 
 GNEAdditional* 
-GNENetHelper::AttributeCarriers::retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail) const {
-    // reinterprete AC as additional, and find it
-    const auto finder = myAdditionals.at(AC->getTagProperty().getTag()).find((GNEAdditional*)AC);
-    if (finder != myAdditionals.at(AC->getTagProperty().getTag()).end()) {
-        return *finder;
-    }
-    if (hardFail) {
+GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast additional
+    GNEAdditional* additional = dynamic_cast<GNEAdditional*>(AC);
+    if ((additional == nullptr) && hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
     } else {
         return nullptr;
@@ -1062,13 +1050,10 @@ GNENetHelper::AttributeCarriers::retrieveShape(SumoXMLTag type, const std::strin
 
 
 GNEShape*
-GNENetHelper::AttributeCarriers::retrieveShape(const GNEAttributeCarrier* AC, bool hardFail) const {
-    // reinterprete AC as shape, and find it
-    const auto finder = myShapes.at(AC->getTagProperty().getTag()).find((GNEShape*)AC);
-    if (finder != myShapes.at(AC->getTagProperty().getTag()).end()) {
-        return *finder;
-    }
-    if (hardFail) {
+GNENetHelper::AttributeCarriers::retrieveShape(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast shape
+    GNEShape* shape = dynamic_cast<GNEShape*>(AC);
+    if ((shape == nullptr) && hardFail) {
         throw ProcessError("Attempted to retrieve non-existant shape");
     } else {
         return nullptr;
@@ -1195,13 +1180,10 @@ GNENetHelper::AttributeCarriers::retrieveTAZElement(SumoXMLTag type, const std::
 
 
 GNETAZElement*
-GNENetHelper::AttributeCarriers::retrieveTAZElement(const GNEAttributeCarrier *AC, bool hardFail) const {
-    // reinterprete AC as TAZElement, and find it
-    const auto finder = myTAZElements.at(AC->getTagProperty().getTag()).find((GNETAZElement*)AC);
-    if (finder != myTAZElements.at(AC->getTagProperty().getTag()).end()) {
-        return *finder;
-    }
-    if (hardFail) {
+GNENetHelper::AttributeCarriers::retrieveTAZElement(GNEAttributeCarrier *AC, bool hardFail) const {
+    // cast TAZElement
+    GNETAZElement* TAZElement = dynamic_cast<GNETAZElement*>(AC);
+    if ((TAZElement == nullptr) && hardFail) {
         throw ProcessError("Attempted to retrieve non-existant TAZElement");
     } else {
         return nullptr;
@@ -1317,13 +1299,10 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const st
 
 
 GNEDemandElement*
-GNENetHelper::AttributeCarriers::retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail) const {
-    // reinterprete AC as demandElement, and find it
-    const auto finder = myDemandElements.at(AC->getTagProperty().getTag()).find((GNEDemandElement*)AC);
-    if (finder != myDemandElements.at(AC->getTagProperty().getTag()).end()) {
-        return *finder;
-    }
-    if (hardFail) {
+GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast demandElement
+    GNEDemandElement* demandElement = dynamic_cast<GNEDemandElement*>(AC);
+    if ((demandElement == nullptr) && hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
     } else {
         return nullptr;
@@ -1772,13 +1751,10 @@ GNENetHelper::AttributeCarriers::retrieveDataSet(const std::string& id, bool har
 
 
 GNEDataSet* 
-GNENetHelper::AttributeCarriers::retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail) const {
-    // reinterprete AC as dataSet, and find it
-    const auto finder = myDataSets.find((GNEDataSet*)AC);
-    if (finder != myDataSets.end()) {
-        return *finder;
-    }
-    if (hardFail) {
+GNENetHelper::AttributeCarriers::retrieveDataSet(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast dataSet
+    GNEDataSet* dataSet = dynamic_cast<GNEDataSet*>(AC);
+    if ((dataSet == nullptr) && hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;
@@ -1804,13 +1780,10 @@ GNENetHelper::AttributeCarriers::generateDataSetID(const std::string& prefix) co
 
 
 GNEDataInterval* 
-GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail) const {
-    // reinterprete AC as dataInterval, and find it
-    const auto finder = myDataIntervals.find((GNEDataInterval*)AC);
-    if (finder != myDataIntervals.end()) {
-        return *finder;
-    }
-    if (hardFail) {
+GNENetHelper::AttributeCarriers::retrieveDataInterval(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast dataInterval
+    GNEDataInterval* dataInterval = dynamic_cast<GNEDataInterval*>(AC);
+    if ((dataInterval == nullptr) && hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data interval");
     } else {
         return nullptr;
@@ -1844,13 +1817,10 @@ GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterva
 
 
 GNEGenericData* 
-GNENetHelper::AttributeCarriers::retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail) const {
-    // reinterprete AC as genericData, and find it
-    const auto finder = myGenericDatas.at(AC->getTagProperty().getTag()).find((GNEGenericData*)AC);
-    if (finder != myGenericDatas.at(AC->getTagProperty().getTag()).end()) {
-        return *finder;
-    }
-    if (hardFail) {
+GNENetHelper::AttributeCarriers::retrieveGenericData(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast genericData
+    GNEGenericData* genericData = dynamic_cast<GNEGenericData*>(AC);
+    if ((genericData == nullptr) && hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;

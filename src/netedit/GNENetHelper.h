@@ -106,10 +106,10 @@ struct GNENetHelper {
 
         /**@brief get a single attribute carrier based on a GLID
          * @param[in] ids the GL IDs for which to retrive the AC
-         * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
          * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
          */
-        GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool failHard = true) const;
+        GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool hardFail = true) const;
 
         /**@brief get the attribute carriers based on Type
          * @param[in] type The GUI-type of the AC. SUMO_TAG_NOTHING returns all elements (Warning: bottleneck)
@@ -128,10 +128,10 @@ struct GNENetHelper {
         /// @{
         /**@brief get junction by id
          * @param[in] id The id of the desired junction
-         * @param[in] failHard Whether attempts to retrieve a nonexisting junction should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting junction should result in an exception
          * @throws UnknownElement
          */
-        GNEJunction* retrieveJunction(const std::string& id, bool failHard = true) const;
+        GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
         /// @brief get junctions
         const std::map<std::string, GNEJunction*> &getJunctions() const;
@@ -157,10 +157,10 @@ struct GNENetHelper {
         /// @{
         /**@brief get Crossing by AC
          * @param[in] AC The attribute carrier related with the crossing
-         * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting Crossing should result in an exception
          * @throws UnknownElement
          */
-        GNECrossing* retrieveCrossing(const GNEAttributeCarrier* AC, bool failHard = true) const;
+        GNECrossing* retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get crossings
         const std::set<GNECrossing*> &getCrossings() const;
@@ -183,10 +183,10 @@ struct GNENetHelper {
         /// @{
         /**@brief get edge type by id
          * @param[in] id The id of the desired edge type
-         * @param[in] failHard Whether attempts to retrieve a nonexisting edge type should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting edge type should result in an exception
          * @throws UnknownElement
          */
-        GNEEdgeType* retrieveEdgeType(const std::string& id, bool failHard = true) const;
+        GNEEdgeType* retrieveEdgeType(const std::string& id, bool hardFail = true) const;
 
         /// @brief registers a edge in GNENet containers
         GNEEdgeType* registerEdgeType(GNEEdgeType* edgeType);
@@ -209,17 +209,17 @@ struct GNENetHelper {
         /// @{
         /**@brief get edge by id
          * @param[in] id The id of the desired edge
-         * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
          * @throws UnknownElement
          */
-        GNEEdge* retrieveEdge(const std::string& id, bool failHard = true) const;
+        GNEEdge* retrieveEdge(const std::string& id, bool hardFail = true) const;
 
         /**@brief get edge by from and to GNEJunction
          * @param[in] id The id of the desired edge
-         * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
          * @throws UnknownElement
          */
-        GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true) const;
+        GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool hardFail = true) const;
         
         /// @brief map with the ID and pointer to edges of net
         const std::map<std::string, GNEEdge*>& getEdges() const;
@@ -245,18 +245,18 @@ struct GNENetHelper {
         /// @{
         /**@brief get lane by id
          * @param[in] id The id of the desired lane
-         * @param[in] failHard Whether attempts to retrieve a nonexisting lane should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting lane should result in an exception
          * @param[in] checkVolatileChange Used by additionals after recomputing with volatile options.
          * @throws UnknownElement
          */
-        GNELane* retrieveLane(const std::string& id, bool failHard = true, bool checkVolatileChange = false) const;
+        GNELane* retrieveLane(const std::string& id, bool hardFail = true, bool checkVolatileChange = false) const;
 
         /**@brief get lane by Attribute Carrier
          * @param[in] AC The attribute carrier related with the lane
-         * @param[in] failHard Whether attempts to retrieve a nonexisting lane should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting lane should result in an exception
          * @throws UnknownElement
          */
-        GNELane* retrieveLane(const GNEAttributeCarrier *AC, bool failHard = true) const;
+        GNELane* retrieveLane(GNEAttributeCarrier *AC, bool hardFail = true) const;
 
         /// @brief get lanes
         const std::set<GNELane*>& getLanes() const;
@@ -279,17 +279,17 @@ struct GNENetHelper {
         /// @{
         /**@brief get Connection by id
          * @param[in] id The id of the desired Connection
-         * @param[in] failHard Whether attempts to retrieve a nonexisting Connection should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting Connection should result in an exception
          * @throws UnknownElement
          */
-        GNEConnection* retrieveConnection(const std::string& id, bool failHard = true) const;
+        GNEConnection* retrieveConnection(const std::string& id, bool hardFail = true) const;
 
         /**@brief get connection by Attribute Carrier
          * @param[in] AC The attribute carrier related with the connection
-         * @param[in] failHard Whether attempts to retrieve a nonexisting connection should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting connection should result in an exception
          * @throws UnknownElement
          */
-        GNEConnection* retrieveConnection(const GNEAttributeCarrier *AC, bool failHard = true) const;
+        GNEConnection* retrieveConnection(GNEAttributeCarrier *AC, bool hardFail = true) const;
 
         /// @brief get connections
         const std::set<GNEConnection*>& getConnections() const;
@@ -314,15 +314,15 @@ struct GNENetHelper {
          * @param[in] id The attribute carrier related with the additional element
          * @param[in] type tag with the type of additional
          * @param[in] id The id of the additional to return.
-         * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
          */
         GNEAdditional* retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named additional
          * @param[in] id The attribute carrier related with the additional element
-         * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
          */
-        GNEAdditional* retrieveAdditional(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEAdditional* retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /**@brief Returns the rerouter interval defined by given begin and end
          * @param[in] rerouter ID
@@ -356,15 +356,15 @@ struct GNENetHelper {
         /**@brief Returns the named shape
          * @param[in] type tag with the type of shape
          * @param[in] id The id of the shape to return.
-         * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting shape should result in an exception
          */
         GNEShape* retrieveShape(SumoXMLTag, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named shape
          * @param[in] id The attribute carrier related with the additional element
-         * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting shape should result in an exception
          */
-        GNEShape* retrieveShape(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEShape* retrieveShape(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get selected shapes
         std::vector<GNEShape*> getSelectedShapes();
@@ -394,15 +394,15 @@ struct GNENetHelper {
         /**@brief Returns the named TAZElement
          * @param[in] type tag with the type of TAZElement
          * @param[in] id The id of the TAZElement to return.
-         * @param[in] failHard Whether attempts to retrieve a nonexisting TAZElement should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting TAZElement should result in an exception
          */
         GNETAZElement* retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named TAZElement
          * @param[in] id The attribute carrier related with the additional element
-         * @param[in] failHard Whether attempts to retrieve a nonexisting TAZElement should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting TAZElement should result in an exception
          */
-        GNETAZElement* retrieveTAZElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNETAZElement* retrieveTAZElement(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get selected TAZElements
         std::vector<GNETAZElement*> getSelectedTAZElements() const;
@@ -435,15 +435,15 @@ struct GNENetHelper {
         /**@brief Returns the named demand element
          * @param[in] type tag with the type of demand element
          * @param[in] id The id of the demand element to return.
-         * @param[in] failHard Whether attempts to retrieve a nonexisting demand element should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting demand element should result in an exception
          */
         GNEDemandElement* retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named demand element
          * @param[in] id The attribute carrier related with the demand element
-         * @param[in] failHard Whether attempts to retrieve a nonexisting demand element should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting demand element should result in an exception
          */
-        GNEDemandElement* retrieveDemandElement(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEDemandElement* retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get selected demand elements
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
@@ -509,15 +509,15 @@ struct GNENetHelper {
         
         /**@brief Returns the named data set
          * @param[in] id The id of the data set to return.
-         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
         GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named data set
          * @param[in] id The attribute carrier related with the dataSet element
-         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
-        GNEDataSet* retrieveDataSet(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEDataSet* retrieveDataSet(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get demand elements
         const std::set<GNEDataSet*>& getDataSets() const;
@@ -531,9 +531,9 @@ struct GNENetHelper {
         /// @{
         /**@brief Returns the data interval
          * @param[in] id The attribute carrier related with the dataInterval element
-         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
-        GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEDataInterval* retrieveDataInterval(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get all data intervals of network
         const std::set<GNEDataInterval*> &getDataIntervals() const;
@@ -550,9 +550,9 @@ struct GNENetHelper {
         /// @{
         /**@brief Returns the generic data
          * @param[in] id The attribute carrier related with the genericData element
-         * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
-        GNEGenericData* retrieveGenericData(const GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEGenericData* retrieveGenericData(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get selected generic datas
         std::vector<GNEGenericData*> getSelectedGenericDatas() const;
