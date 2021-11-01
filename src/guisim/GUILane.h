@@ -269,6 +269,9 @@ public:
     /// @brief gets the color value according to the current scheme index
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
+    /// @brief gets the color value according to the current scheme index including values for things that set the color indirectly
+    double getColorValueWithFunctional(const GUIVisualizationSettings& s, int activeScheme) const;
+
     /// @brief return color value based on cached settings
     double getColorValueForTracker() const;
 

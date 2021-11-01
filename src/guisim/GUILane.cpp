@@ -1069,6 +1069,18 @@ GUILane::getLoadedEdgeWeight() const {
 }
 
 
+double
+GUILane::getColorValueWithFunctional(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 18: {
+            return GeomHelper::naviDegree(myShape.beginEndAngle()); // [0-360]
+        }
+        default: return getColorValue(s, activeScheme);
+    }
+
+}
+
+
 RGBColor
 GUILane::setColor(const GUIVisualizationSettings& s) const {
     // setting and retrieving the color does not work in OSGView so we return it explicitliy
@@ -1167,7 +1179,7 @@ GUILane::getColorValueForTracker() const {
     if (myCachedGUISettings != nullptr) {
         const GUIVisualizationSettings& s = *myCachedGUISettings;
         const GUIColorer& c = s.laneColorer;
-        return getColorValue(s, c.getActive());
+        return getColorValueWithFunctional(s, c.getActive());
     } else {
         return 0;
     }

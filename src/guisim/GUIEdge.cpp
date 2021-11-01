@@ -322,7 +322,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                     // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
                     const double doubleValue = (MSGlobals::gUseMesoSim
                                                 ? getColorValue(s, activeScheme)
-                                                : lane2->getColorValue(s, activeScheme));
+                                                : lane2->getColorValueWithFunctional(s, activeScheme));
                     const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
                     if (doubleValue != s.MISSING_DATA
                             && color.alpha() != 0
