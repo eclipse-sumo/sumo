@@ -292,13 +292,14 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                // check move mode flag
+                const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                 // draw geometry points
                 GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor, 
-                                                s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration,
+                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode? 1 : 0.5), polyExaggeration,
                                                 myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON, isAttributeCarrierSelected()) && 
-                    (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON, isAttributeCarrierSelected()) && moveMode) {
                     GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor, 
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
