@@ -8,7 +8,7 @@ title: ChangeLog
 
 - simulation
   - Fixed crash in parallel simulation. Issue #9359 (regression in 1.10.0)
-  - Fixed freezing parallel simulation. Issue #9385
+  - Fixed freezing in parallel simulation. Issue #9385
   - Fixed invalid approach information with step-method.ballistic that could cause collision. Issue #8955
   - Fixed rare collision on junction when the outbound lane is jammed. Issue #6415
   - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
@@ -82,7 +82,7 @@ title: ChangeLog
   - Fixed invalid person angle in output. Issue #9014
   - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
   - Fixed unresponsive UI on linux when the simulation has little to do. Issue #9028
-  - Speed mode in vehicle parametr dialog now shows all 6 bits. Issue #9078
+  - Speed mode in vehicle parameter dialog now shows all 6 bits. Issue #9078
   - Option **--no-warnings** now supresses warnings from actuated tls. Issue #9104
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
   - Fixed invalid error when defining step-length with human readable time. Issue #9196
@@ -90,7 +90,7 @@ title: ChangeLog
   - Edge color value is now correct when coloring 'by angle'. Issue #9431
   
 - netconvert
-  - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
+  - Connection attribute visibility is now working if the connection has an internal junction. Issue #8953
   - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
   - Attribute 'color' and generic params of loaded stops are now kept. Issue #9011, #9048
   - Guessed bicycle lanes are now always placed to the left of an existing sidewalk. Issue #9084
@@ -98,7 +98,7 @@ title: ChangeLog
   - Option **--no-turnarounds.geometry** now ignores pedestrian paths and bike paths that attach to the main road. Issue #9068
   - Fixed missing tlType in plain .nod.xml output. Issue #9281
   - Fixed invalid network when importing OSM with 'nan' values for maxspeed. Issue #9302
-  - Fixed crash when loading joined traffic lights togher with option **tls.join**. Issue #9299
+  - Fixed crash when loading joined traffic lights togher with option **--tls.join**. Issue #9299
   - Fixed errors and invalid shape when converting short roads with arc-geometry from OpenDRIVE. Issue #9332
 
 - duarouter
@@ -158,7 +158,7 @@ title: ChangeLog
   - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199 
   - BoardingDuration / loadingDuration are now also applied when exiting a vehicle. Issue #4216
   - Delays for opening a rail crossing can now be [customized](Simulation/Railways.md#rail_crossing_parameters) and their values were increased to be more realistic. Issue #9301
-  - Loading parkingReroute elements that can potetially cause blockage in parking search now results in a warning. Issue #9363
+  - Loading parkingReroute elements that can potentially cause blockage in parking search now results in a warning. Issue #9363
   - [Parking search](Simulation/Rerouter.md#memory_in_parking_search) now employs memory of previously visited and occupied parking areas. Issue #9047
   - Option **--vehroute-output.route-length** now also applies to unfinished routes. Issue #9373
   - Option **--vehroute-output.route-length** is now written for all routes of a vehicle. Issue #9375
@@ -176,11 +176,11 @@ title: ChangeLog
   - Improved visualization of teleporting vehicles when shown because of active route visualization. Issue #9174
   - Added vehicle context menu function 'Select transported'. Issue #2241
   - Time range and intervals in loaded edgedata are now reported. Issue #9217
-  - Meso vehicles are now drawn with interpolate positions
+  - Meso vehicles are now drawn with interpolated positions
   - Segment boundaries are now drawn in meso simulation. Issue #9227
   - Added support for custom coloring of busStops. Issue #8280
   - Breakpoints are now rounded down to reachable step value. Issue #6789
-  - Clicking on timestamps in message window now creates breakpoints with a conigurable offset. Issue #7617
+  - Clicking on timestamps in message window now creates breakpoints with a configurable offset. Issue #7617
   - Lane params and street names are now shown in meso edge parameter dialog. Issue #9300
   - Coloring of stop lines can now be switched to "realistic" mode. Issue #9358
   
@@ -191,7 +191,7 @@ title: ChangeLog
   - Saved busStop attributes now have the same order as netconvert. Issue #7624
   - Data mode now permits attributes with non-numeric values. Issue #9060
   - Drawing detail of POIs can now be configured. Issue #9203
-  - Objects witin a polygon boundary can now be selected by using the polygon context menu. Issue #9158
+  - Objects within a polygon boundary can now be selected by using the polygon context menu. Issue #9158
   - Improved drawing style of connecting lines between dependent objects (i.e. busstop/access). Issue #8914, #9258
   - Writing shortened xml header for demand and data output. Issue #9261
   - New network is started in create-edge mode. Issue #9272
