@@ -1088,16 +1088,16 @@ GNENetHelper::AttributeCarriers::generateShapeID(SumoXMLTag tag) const {
     // generate tag depending of shape tag
     if (tag == SUMO_TAG_POLY) {
         // Polys and TAZs share namespace
-        while ((retrieveShape(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr) ||
-               (retrieveTAZElement(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr)) {
+        while ((retrieveShape(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter), false) != nullptr) ||
+               (retrieveTAZElement(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
     } else {
         const std::string POI = toString(SUMO_TAG_POI);
-        while ((retrieveShape(SUMO_TAG_POI, POI + "_" + toString(counter)) != nullptr) ||
-               (retrieveShape(GNE_TAG_POILANE, POI + "_" + toString(counter)) != nullptr) ||
-               (retrieveShape(GNE_TAG_POIGEO, POI + "_" + toString(counter)) != nullptr)) {
+        while ((retrieveShape(SUMO_TAG_POI, POI + "_" + toString(counter), false) != nullptr) ||
+               (retrieveShape(GNE_TAG_POILANE, POI + "_" + toString(counter), false) != nullptr) ||
+               (retrieveShape(GNE_TAG_POIGEO, POI + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
@@ -1269,8 +1269,8 @@ GNENetHelper::AttributeCarriers::generateTAZElementID(SumoXMLTag tag) const {
     // generate tag depending of shape tag
     if (tag == SUMO_TAG_TAZ) {
         // Polys and TAZs share namespace
-        while ((retrieveShape(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter)) != nullptr) ||
-               (retrieveTAZElement(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter)) != nullptr)) {
+        while ((retrieveShape(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter), false) != nullptr) ||
+               (retrieveTAZElement(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
