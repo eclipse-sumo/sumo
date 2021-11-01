@@ -413,8 +413,18 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     double forwardWidth = tc.getEdgeTypeWidth(type);
     double backwardWidth = tc.getEdgeTypeWidth(type);
-    const bool addSidewalk = (tc.getEdgeTypeSidewalkWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
+    double sidewalkWidth = tc.getEdgeTypeSidewalkWidth(type);
+    bool addSidewalk = sidewalkWidth != NBEdge::UNSPECIFIED_WIDTH;
     const bool addBikeLane = (tc.getEdgeTypeBikeLaneWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
+    if (myImportSidewalks) {
+        if (addSidewalk) {
+            // only use sidewalk width from typemap but don't add sidewalks
+            // unless OSM specifies them
+            addSidewalk = false;
+        } else {
+            sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
+        }
+    }
     // check directions
     bool addForward = true;
     bool addBackward = true;
@@ -581,7 +591,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0))
                     || (myImportSidewalks && (sidewalkType & WAY_FORWARD) != 0)) {
-                nbe->addSidewalk(tc.getEdgeTypeSidewalkWidth(type) * offsetFactor);
+                nbe->addSidewalk(sidewalkWidth * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceStart);
@@ -609,7 +619,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0))
                     || (myImportSidewalks && (sidewalkType & WAY_BACKWARD) != 0)) {
-                nbe->addSidewalk(tc.getEdgeTypeSidewalkWidth(type) * offsetFactor);
+                nbe->addSidewalk(sidewalkWidth * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceEnd);
