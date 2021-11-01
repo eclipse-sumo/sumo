@@ -2188,31 +2188,49 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     if (vehPerm != SVC_PEDESTRIAN) {
         vehPerm &= ~SVC_PEDESTRIAN;
     }
-    if (abs((int) angle) + 1 < 45) {
+    if (fabs(angle) < 44.) {
+        /*
+        if (fabs(angle) < 5.) {
+            return LinkDirection::STRAIGHT;
+        }
         // check whether there is a straighter edge
         NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, true);
         if (outCW != nullptr) {
             const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCW->getAngleAtNode(this));
-            if (fabs(angle2) < fabs(angle)) {
-                if (fabs(angle2 - angle) > 5) {
-                    if (angle2 > angle) {
-                        return LinkDirection::PARTLEFT;
-                    } else {
-                        return LinkDirection::PARTRIGHT;
-                    }
+            // either at least 5 degree straighter or on the other side of the street
+            if (fabs(angle2) < fabs(angle) - 5. || (fabs(angle2) < 44. && angle2 * angle < 0)) {
+                return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
+            }
+        }
+        NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, false);
+        if (outCCW != nullptr) {
+            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCCW->getAngleAtNode(this));
+            // either at least 5 degree straighter or on the other side of the street
+            if (fabs(angle2) < fabs(angle) - 5. || (fabs(angle2) < 44. && angle2 * angle < 0)) {
+                return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
+            }
+        }
+        */
+        // check whether there is a straighter edge
+        NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, true);
+        if (outCW != nullptr) {
+            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCW->getAngleAtNode(this));
+            if (fabs(angle2) < fabs(angle) - 5.) {
+                if (angle2 > angle) {
+                    return LinkDirection::PARTLEFT;
+                } else {
+                    return LinkDirection::PARTRIGHT;
                 }
             }
         }
         NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, false);
         if (outCCW != nullptr) {
             const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCCW->getAngleAtNode(this));
-            if (fabs(angle2) < fabs(angle)) {
-                if (fabs(angle2 - angle) > 5) {
-                    if (angle2 > angle) {
-                        return LinkDirection::PARTLEFT;
-                    } else {
-                        return LinkDirection::PARTRIGHT;
-                    }
+            if (fabs(angle2) < fabs(angle) - 5.) {
+                if (angle2 > angle) {
+                    return LinkDirection::PARTLEFT;
+                } else {
+                    return LinkDirection::PARTRIGHT;
                 }
             }
         }
