@@ -33,6 +33,8 @@ set(utils_foxtools_STAT_SRCS
    MFXMenuHeader.h
    MFXIconComboBox.cpp
    MFXIconComboBox.h
+   FXMenuButtonIcon.h
+   FXMenuButtonIcon.cpp
    MFXUtils.cpp
    MFXUtils.h
    FXTreeListDinamic.h
