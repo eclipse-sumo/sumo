@@ -55,7 +55,18 @@ Multiple persons can travel together as a group using attribute `group` (if the 
         <ride from="B2C2" to="A0B0" lines="taxi" group="g0"/>
     </person>
 
-# Dispatch
+# Multiple Taxi Fleets
+
+By default, there is only a single taxi fleet using line attribute 'taxi' and taxi customers use attribute `lines="taxi"` for their rides.
+It is permitted to define the line attribute for taxi with the prefix 'taxi:' and an arbitrary suffix (i.e. "taxi:fleetA").
+Likewise, tt is permitted to define the lines attribute for rides with the prefix 'taxi:' and a suffix.
+When this is done, the following rules are applied when assigning taxis to customers:
+
+- a taxi with line 'taxi:X' may only pick up customers with matching ride attribute lines="taxi:X" (for any value of X)
+- a customer with lines="taxi" may use any taxi regardless of taxi fleet suffix
+- a taxi with line 'taxi' may be pick up any customer regardless of the ride fleet suffix
+
+# Dispatch Algorithms
 The dispatch algorithm assigns taxis to waiting customers. The algorithm is
 selected using option **--device.taxi.dispatch-algorithm ALGONAME**. The following
 algorithms are available
