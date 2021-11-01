@@ -195,6 +195,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.bike-access", new Option_Bool(false));
     oc.addDescription("osm.bike-access", "Formats", "Check additional attributes to fix directions and permissions on bike paths");
 
+    oc.doRegister("osm.sidewalks", new Option_Bool(false));
+    oc.addDescription("osm.sidewalks", "Formats", "Import sidewalks");
+
     oc.doRegister("osm.stop-output.length", new Option_Float(25));
     oc.addDescription("osm.stop-output.length", "Formats", "The default length of a public transport stop in FLOAT m");
     oc.doRegister("osm.stop-output.length.bus", new Option_Float(15));

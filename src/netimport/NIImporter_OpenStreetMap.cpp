@@ -133,6 +133,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     std::vector<std::string> files = oc.getStringVector("osm-files");
 
     myImportLaneAccess = oc.getBool("osm.lane-access");
+    myImportSidewalks = OptionsCont::getOptions().getBool("osm.sidewalks");
 
     // load nodes, first
     NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc);
@@ -505,7 +506,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // deal with sidewalks that run in the opposite direction of a one-way street
     WayType sidewalkType = e->mySidewalkType; // make a copy because we do some temporary modifications
-    if (addSidewalk) {
+    if (addSidewalk || (myImportSidewalks && (permissions & SVC_ROAD_CLASSES) != 0)) {
         if (!addForward && (sidewalkType & WAY_FORWARD) != 0) {
             addForward = true;
             forwardPermissions = SVC_PEDESTRIAN;
@@ -578,7 +579,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
-            if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0)) {
+            if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0))
+                    || (myImportSidewalks && (sidewalkType & WAY_FORWARD) != 0)) {
                 nbe->addSidewalk(tc.getEdgeTypeSidewalkWidth(type) * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());
@@ -605,7 +607,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
-            if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0)) {
+            if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0))
+                    || (myImportSidewalks && (sidewalkType & WAY_BACKWARD) != 0)) {
                 nbe->addSidewalk(tc.getEdgeTypeSidewalkWidth(type) * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());

@@ -286,6 +286,10 @@ private:
     /// @brief import lane specific access restrictions
     bool myImportLaneAccess;
 
+    /// @brief import sidewalks
+    bool myImportSidewalks;
+
+
     /** @brief Builds an NBNode
      *
      * If a node with the given id is already known, nothing is done.
@@ -498,7 +502,6 @@ protected:
 
         /// @brief import bike path specific permissions and directions
         bool myImportBikeAccess;
-
 
     private:
         /** @brief invalidated copy constructor */
