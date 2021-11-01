@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_9_2+0975-19cfc19
+Eclipse SUMO netconvert Version v1_10_0+1813-0414620
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -521,6 +521,7 @@ Formats Options:
   --osm.lane-access                    Import lane-specific access restrictions
   --osm.bike-access                    Check additional attributes to fix
                                         directions and permissions on bike paths
+  --osm.sidewalks                      Import sidewalks
   --osm.stop-output.length FLOAT       The default length of a public transport
                                         stop in FLOAT m
   --osm.stop-output.length.bus FLOAT   The default length of a bus stop in
