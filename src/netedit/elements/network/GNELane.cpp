@@ -652,6 +652,8 @@ GUIGLObjectPopupMenu*
 GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // first obtain edit mode (needed because certain Commands depend of current edit mode)
     const NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
+    // get mouse position
+    const auto mousePosition = myNet->getViewNet()->getPositionInformation();
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -691,7 +693,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             resetEndPoints->disable();
         }
         // check if we clicked over a geometry point
-        if ((editMode == NetworkEditMode::NETWORK_MOVE) && myParentEdge->clickedOverGeometryPoint(myNet->getViewNet()->getPositionInformation())) {
+        if ((editMode == NetworkEditMode::NETWORK_MOVE) && myParentEdge->clickedOverGeometryPoint(mousePosition)) {
             GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
         }
         // add separator
@@ -724,11 +726,19 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // build shape positions menu
         if (editMode != NetworkEditMode::NETWORK_TLS) {
             new FXMenuSeparator(ret);
-            const double pos = myLaneGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
-            const double height = myLaneGeometry.getShape().positionAtOffset2D(myLaneGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
+            // get lane shape
+            const auto &laneShape = myLaneGeometry.getShape();
+            // get variables
+            const double pos = laneShape.nearest_offset_to_point2D(mousePosition);
+            const Position firstAnglePos = laneShape.positionAtOffset2D(pos);
+            const Position secondAnglePos = laneShape.positionAtOffset2D(pos - 0.001);
+            const double angleDegree = (firstAnglePos == Position::INVALID) || (secondAnglePos == Position::INVALID)? 0 : RAD2DEG(firstAnglePos.angleTo2D(secondAnglePos)) - 90;
+            
+            // build menu commands
             GUIDesigns::buildFXMenuCommand(ret, "Shape pos: " + toString(pos), nullptr, nullptr, 0);
             GUIDesigns::buildFXMenuCommand(ret, "Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength()), nullptr, nullptr, 0);
-            GUIDesigns::buildFXMenuCommand(ret, "Height: " + toString(height), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, "Height: " + toString(firstAnglePos.z()), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, "Angle: " + toString((angleDegree < 0)? (angleDegree + 360.0) : angleDegree), nullptr, nullptr, 0);
         }
     }
     return ret;
