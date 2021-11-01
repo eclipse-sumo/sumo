@@ -2274,7 +2274,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SYMBOL,
                                       GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
-                                      GUIIcon::VARIABLESPEEDSIGN, currentTag, {SUMO_TAG_VSS});
+                                      GUIIcon::LANE, currentTag, {SUMO_TAG_VSS});
     }
     currentTag = SUMO_TAG_STEP;
     {
@@ -2514,7 +2514,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SYMBOL,
                                       GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
-                                      GUIIcon::REROUTER, currentTag, {GNE_TAG_REROUTER_SYMBOL});
+                                      GUIIcon::EDGE, currentTag, {GNE_TAG_REROUTER_SYMBOL});
     }
     currentTag = SUMO_TAG_INTERVAL;
     {

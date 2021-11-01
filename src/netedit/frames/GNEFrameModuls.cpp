@@ -861,18 +861,18 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         // set current clicked AC
         myClickedAC = clickedAC;
         // cast all elements
-        myClickedJunction = dynamic_cast<GNEJunction*>(clickedAC);
-        myClickedEdge = dynamic_cast<GNEEdge*>(clickedAC);
-        myClickedLane = dynamic_cast<GNELane*>(clickedAC);
-        myClickedCrossing = dynamic_cast<GNECrossing*>(clickedAC);
-        myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
-        myClickedShape = clickedAC->getTagProperty().isShape()? myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveShape(clickedAC) : nullptr;
-        myClickedTAZElement = dynamic_cast<GNETAZElement*>(clickedAC);
-        myClickedAdditional = clickedAC->getTagProperty().isAdditionalElement()? attributeCarriers->retrieveAdditional(clickedAC) : nullptr;
-        myClickedDemandElement = clickedAC->getTagProperty().isDemandElement()? attributeCarriers->retrieveDemandElement(clickedAC) : nullptr;
-        myClickedDataSet = dynamic_cast<GNEDataSet*>(clickedAC);
-        myClickedDataInterval = dynamic_cast<GNEDataInterval*>(clickedAC);
-        myClickedGenericData = dynamic_cast<GNEGenericData*>(clickedAC);
+        myClickedJunction = attributeCarriers->retrieveJunction(clickedAC->getID(), false);
+        myClickedEdge = attributeCarriers->retrieveEdge(clickedAC->getID(), false);
+        myClickedLane = attributeCarriers->retrieveLane(clickedAC, false);
+        myClickedCrossing = attributeCarriers->retrieveCrossing(clickedAC, false);
+        myClickedConnection = attributeCarriers->retrieveConnection(clickedAC, false);
+        myClickedShape = attributeCarriers->retrieveShape(clickedAC, false);
+        myClickedTAZElement = attributeCarriers->retrieveTAZElement(clickedAC, false);
+        myClickedAdditional = attributeCarriers->retrieveAdditional(clickedAC, false);
+        myClickedDemandElement = attributeCarriers->retrieveDemandElement(clickedAC, false);
+        myClickedDataSet = attributeCarriers->retrieveDataSet(clickedAC, false);
+        myClickedDataInterval = attributeCarriers->retrieveDataInterval(clickedAC, false);
+        myClickedGenericData = attributeCarriers->retrieveGenericData(clickedAC, false);
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreeListDinamic);
         // set item name and icon
@@ -1463,7 +1463,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
             default:
                 break;
         }
-    } else if (!HE->getTagProperty().isSymbol() && (HE->getTagProperty().isAdditionalElement() || HE->getTagProperty().isShape() || HE->getTagProperty().isTAZElement() || HE->getTagProperty().isDemandElement())) {
+    } else if (HE->getTagProperty().isAdditionalElement() || HE->getTagProperty().isShape() || HE->getTagProperty().isTAZElement() || HE->getTagProperty().isDemandElement()) {
         // insert additional item
         FXTreeItem* treeItem = addListItem(HE, itemParent);
         // insert child edges
@@ -1474,9 +1474,29 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
         for (const auto& lane : HE->getChildLanes()) {
             showHierarchicalElementChildren(lane, treeItem);
         }
+        // insert additional symbols
+        std::vector<GNEAdditional*> symbols;
+        for (const auto& additional : HE->getChildAdditionals()) {
+            if (additional->getTagProperty().isSymbol()) {
+                symbols.push_back(additional);
+            }
+        }
+        if (symbols.size() > 0) {
+            // insert intermediate list item
+            const auto additionalParent = symbols.front()->getParentAdditionals().front();
+            const std::string symbolType = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)? "Edges" : "Lanes";
+            GUIIcon symbolIcon = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)? GUIIcon::EDGE : GUIIcon::LANE;
+            FXTreeItem* symbolListItem = addListItem(treeItem, symbolType, GUIIconSubSys::getIcon(symbolIcon), false);
+            // insert symbols
+            for (const auto &symbol : symbols) {
+                showHierarchicalElementChildren(symbol, symbolListItem);
+            }
+        }
         // insert additional children
         for (const auto& additional : HE->getChildAdditionals()) {
-            showHierarchicalElementChildren(additional, treeItem);
+            if (!additional->getTagProperty().isSymbol()) {
+                showHierarchicalElementChildren(additional, treeItem);
+            }
         }
         // insert child shapes
         for (const auto& shape : HE->getChildShapes()) {

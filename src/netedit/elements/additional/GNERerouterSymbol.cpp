@@ -221,13 +221,13 @@ GNERerouterSymbol::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 
 std::string
 GNERerouterSymbol::getPopUpID() const {
-    return getParentAdditionals().at(0)->getPopUpID();
+    return getParentEdges().front()->getPopUpID();
 }
 
 
 std::string
 GNERerouterSymbol::getHierarchyName() const {
-    return getParentAdditionals().at(0)->getHierarchyName();
+    return getParentEdges().front()->getID();
 }
 
 // ===========================================================================

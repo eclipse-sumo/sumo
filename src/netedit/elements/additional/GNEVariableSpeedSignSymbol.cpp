@@ -191,13 +191,13 @@ GNEVariableSpeedSignSymbol::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 
 std::string
 GNEVariableSpeedSignSymbol::getPopUpID() const {
-    return getParentAdditionals().at(0)->getPopUpID();
+    return getParentLanes().front()->getPopUpID();
 }
 
 
 std::string
 GNEVariableSpeedSignSymbol::getHierarchyName() const {
-    return getParentAdditionals().at(0)->getHierarchyName();
+    return getParentLanes().front()->getHierarchyName();
 }
 
 // ===========================================================================
