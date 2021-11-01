@@ -127,7 +127,7 @@ public:
     FXbool isItemCurrent(FXint index) const;
 
     /// Set the current item (index is zero-based)
-    void setCurrentItem(FXint index,FXbool notify=FALSE);
+    void setCurrentItem(FXint index, FXbool notify=FALSE);
 
     /// Get the current item's index
     FXint getCurrentItem() const;
@@ -136,7 +136,7 @@ public:
     FXString getItem(FXint index) const;
 
     /// Replace the item at index
-    FXint setItem(FXint index,const FXString& text,void* ptr=NULL);
+    FXint setItem(FXint index, const FXString& text, void* ptr=NULL);
 
     /// Fill combo box by appending items from array of strings
     FXint fillItems(const FXchar** strings);
@@ -145,19 +145,19 @@ public:
     FXint fillItems(const FXString& strings);
 
     /// Insert a new item at index
-    FXint insertItem(FXint index,const FXString& text,void* ptr=NULL);
+    FXint insertItem(FXint index, const FXString& text, void* ptr=NULL);
 
     /// Append an item to the list
-    FXint appendItem(const FXString& text,void* ptr=NULL);
+    FXint appendItem(const FXString& text, void* ptr=NULL);
 
     /// @brief append icon
-    FXint appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor = FXRGBA(0, 0, 0, 0), void* ptr = NULL);
+    FXint appendIconItem(const FXString& text,  FXIcon* icon,  FXColor bgColor = FXRGBA(0,  0,  0,  0),  void* ptr = NULL);
 
     /// Prepend an item to the list
-    FXint prependItem(const FXString& text,void* ptr=NULL);
+    FXint prependItem(const FXString& text, void* ptr=NULL);
 
     /// Move item from oldindex to newindex
-    FXint moveItem(FXint newindex,FXint oldindex);
+    FXint moveItem(FXint newindex, FXint oldindex);
 
     /// Remove this item from the list
     void removeItem(FXint index);
@@ -166,34 +166,34 @@ public:
     void clearItems();
 
     /**
-    * Search items by name, beginning from item start.  If the start item
+    * Search items by name,  beginning from item start.  If the start item
     * is -1 the search will start at the first item in the list.  Flags
     * may be SEARCH_FORWARD or SEARCH_BACKWARD to control the search
     * direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
     * to control whether the search wraps at the start or end of the list.
-    * The option SEARCH_IGNORECASE causes a case-insensitive match.  Finally,
+    * The option SEARCH_IGNORECASE causes a case-insensitive match.  Finally, 
     * passing SEARCH_PREFIX causes searching for a prefix of the item name.
     * Return -1 if no matching item is found.
     */
-    FXint findItem(const FXString& text,FXint start=-1,FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
+    FXint findItem(const FXString& text, FXint start=-1, FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
 
     /**
-    * Search items by associated user data, beginning from item start. If the
+    * Search items by associated user data,  beginning from item start. If the
     * start item is -1 the search will start at the first item in the list.
     * Flags may be SEARCH_FORWARD or SEARCH_BACKWARD to control the
     * search direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
     * to control whether the search wraps at the start or end of the list.
     */
-    FXint findItemByData(const void *ptr,FXint start=-1,FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
+    FXint findItemByData(const void *ptr, FXint start=-1, FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
 
     /// Set text for specified item
-    void setItemText(FXint index,const FXString& text);
+    void setItemText(FXint index, const FXString& text);
 
     /// Get text for specified item
     FXString getItemText(FXint index) const;
 
     /// Set data pointer for specified item
-    void setItemData(FXint index,void* ptr) const;
+    void setItemData(FXint index, void* ptr) const;
 
     /// Get data pointer for specified item
     void* getItemData(FXint index) const;
@@ -260,16 +260,16 @@ public:
 
     /// @brief Commands
     /// @{
-    long onFocusUp(FXObject*,FXSelector,void*);
-    long onFocusDown(FXObject*,FXSelector,void*);
-    long onFocusSelf(FXObject*,FXSelector,void*);
-    long onMouseWheel(FXObject*,FXSelector,void*);
-    long onTextButton(FXObject*,FXSelector,void*);
-    long onTextChanged(FXObject*,FXSelector,void*);
-    long onTextCommand(FXObject*,FXSelector,void*);
-    long onListClicked(FXObject*,FXSelector,void*);
-    long onFwdToText(FXObject*,FXSelector,void*);
-    long onUpdFmText(FXObject*,FXSelector,void*);
+    long onFocusUp(FXObject*, FXSelector, void*);
+    long onFocusDown(FXObject*, FXSelector, void*);
+    long onFocusSelf(FXObject*, FXSelector, void*);
+    long onMouseWheel(FXObject*, FXSelector, void*);
+    long onTextButton(FXObject*, FXSelector, void*);
+    long onTextChanged(FXObject*, FXSelector, void*);
+    long onTextCommand(FXObject*, FXSelector, void*);
+    long onListClicked(FXObject*, FXSelector, void*);
+    long onFwdToText(FXObject*, FXSelector, void*);
+    long onUpdFmText(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
