@@ -1193,7 +1193,9 @@ GNETAZElement*
 GNENetHelper::AttributeCarriers::retrieveTAZElement(GNEAttributeCarrier *AC, bool hardFail) const {
     // cast TAZElement
     GNETAZElement* TAZElement = dynamic_cast<GNETAZElement*>(AC);
-    if ((TAZElement == nullptr) && hardFail) {
+    if (TAZElement) {
+        return TAZElement;
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant TAZElement");
     } else {
         return nullptr;
