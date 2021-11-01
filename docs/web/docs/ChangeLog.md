@@ -8,6 +8,7 @@ title: ChangeLog
 
 - simulation
   - Fixed crash in parallel simulation. Issue #9359 (regression in 1.10.0)
+  - Fixed freezing parallel simulation. Issue #9385
   - Fixed invalid approach information with step-method.ballistic that could cause collision. Issue #8955
   - Fixed rare collision on junction when the outbound lane is jammed. Issue #6415
   - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
@@ -32,9 +33,15 @@ title: ChangeLog
   - Railway routing now longer creates routes where a train gets stuck on very short reversal edges. Issue #9323
   - Parking search is no longer deterministic when param 'parking.probability.weight' is set. Issue #9364
   - Fixed invalid edges and exitTimes in **vehroute-output** when using rerouting and looped routes. Issue #9374
+  - Fixed invalid collision warning during opposite direction driving. Issue #9388
+  - Fix bug where simulation with waypoints at stopping place freezes. Issue #9399
+  - Fixed invalid warning in railway simulation. Issue #9398
+  - Fixed bug where frontal collision between fast vehicleds was not detected. Issue #9402
+  - Fixed deadlock when using lcSigma without sublane model. Issue #9395
   
 - netedit
   - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
+  - Fixed crash when creating reverse edge with "both directions" active. Issue #9408 (regression in 1.8.0)
   - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
   - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
   - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
@@ -69,7 +76,8 @@ title: ChangeLog
   - Minor fixes to save-load tls-program dialog. Issue #9269
   - Fixed lost window focus. Issue #9274, #9275
   - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348
-
+  - Fixed invalid e3detector position when placing entry/exit detectors close to junction. Issue #9421
+  
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
   - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
@@ -79,6 +87,7 @@ title: ChangeLog
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
   - Fixed invalid error when defining step-length with human readable time. Issue #9196
   - Coloring by edgedata is now working in meso. Issue #9215
+  - Edge color value is now correct when coloring 'by angle'. Issue #9431
   
 - netconvert
   - Connection attribute visibility does is now working if the connection has an internal junction. Issue #8953
@@ -120,6 +129,7 @@ title: ChangeLog
   - Fixed invalid route after adding vehicle with trip-route and forcing insertion with moveTo. Issue #9257
   - Fixed invalid departedIDList after reloading a libsumo simulation. Issue #6239
   - Subscription filter "turn" now includes foe on junction. Issue #9330
+  - Fixed warning "splitting vector close to end" when using subscription filter. Issue #9404
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -128,7 +138,7 @@ title: ChangeLog
     - Initial tripId set via vehicle param is now used. Issue #8959
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
-  - generateContinousRerouters.py: fixed infinite loop. Issue #9167
+  - generateContinousRerouters.py: fixed infinite loop. Issue #9167  
   - GTFS import no longer ignores trips with routes not starting in the simulation area. Issue #9224
   - GTFS import now works when crossing day boundaries. Issue #9002
 
@@ -152,6 +162,7 @@ title: ChangeLog
   - [Parking search](Simulation/Rerouter.md#memory_in_parking_search) now employs memory of previously visited and occupied parking areas. Issue #9047
   - Option **--vehroute-output.route-length** now also applies to unfinished routes. Issue #9373
   - Option **--vehroute-output.route-length** is now written for all routes of a vehicle. Issue #9375
+  - Taxi simulation now supports the use of multiple taxi fleets and customer choice of fleet. Issue #7818
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
@@ -191,12 +202,16 @@ title: ChangeLog
   - TAZ now support a custom center point for showing their ID and attaching tazRelations. Issue #9298
   - Colors for traffic demand elements (routes, stops, ...) can now be customized in the 'Demand' tab of the view settings dialog. Issue #6318
   - Added options **--node-prefix**, **--edge-prefix** and **--edge-infix** to customize the default names for new objects. Issue #4375
+    - New default prefix for edges is 'E' and new prefix for junctions is 'J'. Issue #9424
   - Generic paramters (`<param>`) of traffic light programs can now be edited in the traffic light frame. Issue #7659
   - [stopOffset](Networks/PlainXML.md#stop_offsets) can now be defined. Issue #3799
   - Object attributes that are computed rather than user-defined (i.e. edge length) are now distinguised in blue. Issue #4633
   - Stopping places can now be resized via shift + drag #3966
   - Loaded rerouters are now drawn near their edges rather than (0, 0), when no position is defined. Issue #9365
   - Parking spaces and textured POIs can now be resized with the mouse. Issue #8825
+  - Parent e3 detector now remains selected after creating detEntry/detExit. Issue #9420
+  - Newly created reverse-direction edges now receive an id based on the forward direction edge and a '-' sign. Issue #9396
+  - Local lane angle is now shown in context menu. Issue #9432
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
@@ -210,6 +225,9 @@ title: ChangeLog
 
 - duarouter & jtrrouter
   - Added option **--named-routes** which writes routes with an id and lets vehicles reference them. Can reduce output size if many vehicles using the same route. Issue #8643
+
+- meso
+  - Tau value of vehicles types now affect simulation (by acting as a multiplier on the segment tau value) Issue #9356
 
 - marouter
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
@@ -236,13 +254,16 @@ title: ChangeLog
   - generateTurnRatios.py: Added option **--interval** to write time-dependent turn counts / ratios. Issue #9294
   - duaIterate.py: Now supports options **--save-configuration** (**-C**) and **--configuration-file** (**-c**) to save and load configurations. Issue #9314
   - Added tool [computePassengercounts.py](Tools/Output.md#computepassengercountspy) to count passenger number in vehicle over time #9366
-  - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy) is now much faster #9379
-  - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy) added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9379
-  - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy) no longer generates targets beyond other targets to ensure that random parking search creates plausible behavior. Issue #9379
+  - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy)
+    - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9379
+    - generateParkingAreaReroutes.py: searching vehicles no longer drive past an avilable parkingArea. Issue #9371
+    - now runs much faster. Issue #9379
+  - routeSampler.py: added option **--min-count** to set mininum number of counting locations for each used route. Issue #9415
 
 ### Other
 
 - Miscellaneous: Renamed the "master" branch in git to "main". Issue #8591  
+- Simulation: Default efficiency of chargingStation is now 0.95 (previously 0). Issue #9414
 - Traci: Parameter 'upstreamDist' of function 'traci.vehicle.addSubscriptionFilterTurn' was renamed to upstreamDist. Issue #9141
 - Netedit
   - Some Undo-Redo operations are now restricted to the supermode of the operation. Issue #9097
