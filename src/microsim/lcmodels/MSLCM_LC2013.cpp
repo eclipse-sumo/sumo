@@ -1031,11 +1031,24 @@ MSLCM_LC2013::prepareStep() {
     myKeepRightProbability = ceil(myKeepRightProbability * 100000.0) * 0.00001;
     if (mySigma > 0 && !isChangingLanes()) {
         // disturb lateral position directly
+        const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
         const double oldPosLat = myVehicle.getLateralPositionOnLane();
-        const double deltaPosLat = OUProcess::step(oldPosLat,
+        const double overlap = myVehicle.getLateralOverlap();
+        double scaledDelta;
+        if (overlap > 0) {
+            // return to within lane boundary
+            scaledDelta = MIN2(overlap, maxDist);
+            if (myVehicle.getLateralPositionOnLane() > 0) {
+                scaledDelta *= -1;
+            }
+        } else {
+            // random drift
+            double deltaPosLat = OUProcess::step(oldPosLat,
                                    myVehicle.getActionStepLengthSecs(),
                                    MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
-        const double scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
+            deltaPosLat = MAX2(MIN2(deltaPosLat, maxDist), -maxDist);
+            scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
+        }
         myVehicle.setLateralPositionOnLane(oldPosLat + scaledDelta);
     }
 }
