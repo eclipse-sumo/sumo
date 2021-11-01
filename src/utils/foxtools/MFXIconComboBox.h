@@ -26,9 +26,9 @@
 #include "fxheader.h"
 
 
-/// @briefA list item which allows for custom coloring
+/// @brief A list item which allows for custom coloring
 class MFXListItem : public FXListItem {
-    /// @brief fox declaration
+    /// @brief FOX declaration
     FXDECLARE(MFXListItem)
 
 public:
@@ -47,39 +47,24 @@ protected:
 };
 
 
+/// @brief ComboBox with icon
 class MFXIconComboBox : public FXPacker {
+    /// @brief FOX declaration
     FXDECLARE(MFXIconComboBox)
-    protected:
-    FXTextField   *field;
-    FXMenuButton  *button;
-    FXList        *list;
-    FXPopup       *pane;
-    protected:
-    MFXIconComboBox(){}
-    private:
-    MFXIconComboBox(const MFXIconComboBox&);
-    MFXIconComboBox &operator=(const MFXIconComboBox&);
-    public:
-    long onFocusUp(FXObject*,FXSelector,void*);
-    long onFocusDown(FXObject*,FXSelector,void*);
-    long onFocusSelf(FXObject*,FXSelector,void*);
-    long onMouseWheel(FXObject*,FXSelector,void*);
-    long onTextButton(FXObject*,FXSelector,void*);
-    long onTextChanged(FXObject*,FXSelector,void*);
-    long onTextCommand(FXObject*,FXSelector,void*);
-    long onListClicked(FXObject*,FXSelector,void*);
-    long onFwdToText(FXObject*,FXSelector,void*);
-    long onUpdFmText(FXObject*,FXSelector,void*);
-    public:
+
+public:
+    /// @brief enum for ID
     enum {
-    ID_LIST=FXPacker::ID_LAST,
-    ID_TEXT,
-    ID_LAST
+        ID_LIST = FXPacker::ID_LAST,
+        ID_TEXT,
+        ID_LAST
     };
-    public:
 
     /// Construct a Combo Box widget with room to display cols columns of text
     MFXIconComboBox(FXComposite *p,FXint cols,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=COMBOBOX_NORMAL,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+
+    /// Destructor
+    virtual ~MFXIconComboBox();
 
     /// Create server-side resources
     virtual void create();
@@ -279,8 +264,42 @@ class MFXIconComboBox : public FXPacker {
     /// Load combobox from a stream
     virtual void load(FXStream& store);
 
-    /// Destructor
-    virtual ~MFXIconComboBox();
+    /// @brief Commands
+    /// @{
+    long onFocusUp(FXObject*,FXSelector,void*);
+    long onFocusDown(FXObject*,FXSelector,void*);
+    long onFocusSelf(FXObject*,FXSelector,void*);
+    long onMouseWheel(FXObject*,FXSelector,void*);
+    long onTextButton(FXObject*,FXSelector,void*);
+    long onTextChanged(FXObject*,FXSelector,void*);
+    long onTextCommand(FXObject*,FXSelector,void*);
+    long onListClicked(FXObject*,FXSelector,void*);
+    long onFwdToText(FXObject*,FXSelector,void*);
+    long onUpdFmText(FXObject*,FXSelector,void*);
+    /// @}
+
+protected:
+    /// @brief FOX need this
+    MFXIconComboBox();
+
+    /// @brief text myTextField
+    FXTextField* myTextField = nullptr;
+
+    /// @brief myButton
+    FXMenuButton* myButton = nullptr;
+
+    /// @brief list
+    FXList* myList = nullptr;
+
+    /// @brief popup
+    FXPopup* myPane = nullptr;
+    
+private:
+    /// @brief invalidate copy constructor
+    MFXIconComboBox(const MFXIconComboBox&);
+
+    /// @brief invalidate assignment operator
+    MFXIconComboBox &operator=(const MFXIconComboBox&) = delete;
 };
 
 #endif
