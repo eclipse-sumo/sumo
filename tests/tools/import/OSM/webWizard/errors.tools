@@ -7,8 +7,6 @@ Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.oppos
 Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.primary' (first occurence for edge '4611698').
 Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '22972195').
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '23809674').
-Warning: Edge '23852038' already has a dedicated lane for pedestrians. Not adding another one.
-Warning: Edge '25945967' already has a dedicated lane for pedestrians. Not adding another one.
 Warning: Ambiguous railway kilometrage direction for way '25946680' (assuming forward)
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '25959781').
 Warning: Discarding unusable type 'waterway.stream' (first occurence for edge '31112384').
@@ -19,8 +17,6 @@ Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming fo
 Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
 Warning: Discarding unusable type 'railway.construction' (first occurence for edge '71326270').
-Warning: Edge '235503139#0' already has a dedicated lane for pedestrians. Not adding another one.
-Warning: Edge '235503139#1' already has a dedicated lane for pedestrians. Not adding another one.
 Warning: Removing pt stop '1257007152' on non existing edge '71326270'.
 Warning: Removing pt stop '587624704' on non existing edge '71326270'.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 28270 are ignored
@@ -93,11 +89,7 @@ Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
 Warning: Found sharp turn with radius 7.23 at the end of edge '150634670#1'.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
 Warning: Edge '170077661' is not connected to outgoing edges at junction '1244624818'.
-Warning: Lane '23852032_1' is not connected from any incoming edge at junction '102333389'.
-Warning: Edge '23852035#1' is not connected to outgoing edges at junction '102972899'.
-Warning: Edge '4610599' is not connected to outgoing edges at junction '5343946685'.
 Warning: Edge '51236793#1' is not connected to outgoing edges at junction '293226261'.
-Warning: Edge '553649892' is not connected to outgoing edges at junction '5343946685'.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
 Warning: The rail crossing '4567083492' does not have any roads.
@@ -153,9 +145,7 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
-Warning: Vehicle 'veh35' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=236.00.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
 Warning: Teleporting person 'ped150' from vehicle destination edge '295255789' to intended destination edge '378664954'
-Warning: Person 'ped148' aborted waiting for M4:0 at busStop '4673135647'.
-Warning: Person 'ped83' aborted waiting for M6:1 at busStop '30731497'.
-Warning: Person 'ped95' aborted waiting for U6:1 at busStop '2071423334'.
+Warning: Person 'ped100' aborted waiting for 100:0 at busStop '3867910420'.
+Warning: Person 'ped84' aborted waiting for M2:0 at busStop '1615531689'.
