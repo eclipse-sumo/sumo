@@ -1,0 +1,4 @@
+<routes>
+    <vType id="t0" maxSpeed="5"/>
+    <route id="SN" edges="SC CN"/>
+</routes>

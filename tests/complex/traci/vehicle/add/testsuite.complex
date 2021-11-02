@@ -12,3 +12,6 @@ remove_reinsert
 
 # add a vehicle with triggered departure
 departTriggered
+
+# test error handling and reporting
+departSpeed_invalid
