@@ -35,6 +35,7 @@ The detail of information given for each conflict and the criteria to qualify an
         <param key="device.ssm.file" value="ssm_v0.xml" />
         <param key="device.ssm.trajectories" value="false" />
         <param key="device.ssm.geo" value="false" />
+        <param key="device.ssm.write-positions" value="false" />
         <param key="device.ssm.filter-edges.input-file" value="input_list.txt" />
     </vehicle>
     ....
@@ -54,6 +55,7 @@ The possible parameters are summarized in the following table
 | file  | string  | "ssm_<equipped_vehicleID\>.xml"  | The filename for storing the conflict information of the equipped vehicle. Several vehicles may write to the same file. Conflicts of a single vehicle are written in the order of the log-begin of the encounter.   |
 | trajectories  | bool  | false  | Whether the full time lines of the different measured values shall be written to the output. This includes logging the time values, encounter types, vehicle positions and velocities, values of the selected SSMs, and associated conflict point locations. If turned off (default) only the extremal values for the selected SSMs are written.  |
 | geo  | bool  | false  | Whether the positions in the output file shall be given in the original coordinate reference system of the network (if available).  |
+| write-positions  | bool  | false  | Whether to write the positions (coordinates) to the output.  |
 | filter-edges.input-file | string | - | If defined, only conflicts occured at the provided edges and junctions are measured. See [Restricting SSM Device to Edges and Junctions](#restricting_ssm_device_to_edges_and_junctions)  |
 
 ## Encounter types
@@ -226,6 +228,7 @@ value="3.66"/>
      ...
     <globalMeasures ego="ToC_veh">
         <timeSpan values="0.00 0.10 0.20 0.30 0.40 0.50 0.60 0.70 0.80 0.90 1.00 ..."/>
+        <positions values="98.35,61.20 98.35,60.20 98.35,59.25 ..."/>
         <BRSpan values="0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 ..."/>
         <maxBR time="363.20" position="1850.01,-4.95" value="5.53"/>
         <SGAPSpan values="27.50 27.50 27.49 27.45 27.38 27.29 27.17 27.02 26.85 26.65 ..."/>
@@ -268,6 +271,7 @@ The `<globalMeasures>` element has the following structure:
 | Element  | Attribute | Type           | Description                                                               |
 |----------|-----------|----------------|---------------------------------------------------------------------------|
 | timeSpan | values    | list of floats | Simulation time points at which the reported measures are logged.         |
+| positions| values    | list of 2D-coordinates | Simulation positions at which the reported measures are logged.   |
 | BRSpan   | values    | list of floats | Values of the brake rate at the time points given in timeSpan.            |
 | SGAPSpan | values    | list of floats | Values of the spacing at the time points given in timeSpan.               |
 | TGAPSpan | values    | list of floats | Values of the time headway at the time points given in timeSpan.          |
