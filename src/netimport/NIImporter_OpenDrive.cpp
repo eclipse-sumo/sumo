@@ -1389,7 +1389,17 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             e.geom.push_back(last);
         }
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
-            e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
+            // simplify geometry for both directions consistently but ensure
+            // that start an end angles are preserved
+            if (e.geom.size() > 4) {
+                Position first = e.geom.front();
+                Position last = e.geom.back();
+                e.geom.pop_front();
+                e.geom.pop_back();
+                e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
+                e.geom.push_front(first);
+                e.geom.push_back(last);
+            }
         }
         if (!NBNetBuilder::transformCoordinates(e.geom)) {
             WRITE_ERROR("Unable to project coordinates for edge '" + e.id + "'.");
