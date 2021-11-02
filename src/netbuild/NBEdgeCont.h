@@ -568,6 +568,10 @@ public:
      */
     const std::set<EdgeSet> getRoundabouts() const;
 
+    bool hasGuessedRoundabouts() const {
+        return myGuessedRoundabouts.size() > 0;
+    }
+
     /// @brief add user specified roundabout
     void addRoundabout(const EdgeSet& roundabout);
 
