@@ -3,15 +3,15 @@ set(utils_foxtools_STAT_SRCS
    fxexdefs.h
    FXBaseObject.cpp
    FXBaseObject.h
-   FXMenuCheckIcon.h
-   FXMenuCheckIcon.cpp
    FXConditionalLock.h
-   MFXImageHelper.cpp
-   MFXImageHelper.h
    FXLCDLabel.cpp
    FXLCDLabel.h
    FXLinkLabel.cpp
    FXLinkLabel.h
+   FXMenuCheckIcon.cpp
+   FXMenuCheckIcon.h
+   FXRecentNetworks.cpp
+   FXRecentNetworks.h
    FXSevenSegment.cpp
    FXSevenSegment.h
    FXSingleEventThread.cpp
@@ -20,27 +20,27 @@ set(utils_foxtools_STAT_SRCS
    FXSynchSet.h
    FXThreadEvent.cpp
    FXThreadEvent.h
+   FXTreeListDinamic.cpp
+   FXTreeListDinamic.h
    FXWorkerThread.h
-   MsgHandlerSynchronized.h
-   MFXCheckableButton.cpp
-   MFXCheckableButton.h
-   MFXInterThreadEventClient.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h
+   MFXCheckableButton.cpp
+   MFXCheckableButton.h
    MFXEditableTable.cpp
    MFXEditableTable.h
-   MFXMenuHeader.cpp
-   MFXMenuHeader.h
    MFXIconComboBox.cpp
    MFXIconComboBox.h
-   FXMenuButtonIcon.h
-   FXMenuButtonIcon.cpp
+   MFXImageHelper.cpp
+   MFXImageHelper.h
+   MFXInterThreadEventClient.h
+   MFXMenuHeader.cpp
+   MFXMenuHeader.h
+   MFXTextFieldIcon.cpp
+   MFXTextFieldIcon.h
    MFXUtils.cpp
    MFXUtils.h
-   FXTreeListDinamic.h
-   FXTreeListDinamic.cpp
-   FXRecentNetworks.h
-   FXRecentNetworks.cpp
+   MsgHandlerSynchronized.h
 )
 
 add_library(utils_foxtools STATIC ${utils_foxtools_STAT_SRCS})
