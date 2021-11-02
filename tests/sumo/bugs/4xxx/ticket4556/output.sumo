@@ -5,3 +5,4 @@ vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.range'. Using def
 vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'
 vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.file'. Using default of 'ssm_Pkw1.1.xml'
 vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'
+vehicle 'Pkw1.1' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'
