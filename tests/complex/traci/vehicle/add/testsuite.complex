@@ -15,3 +15,6 @@ departTriggered
 
 # test error handling and reporting
 departSpeed_invalid
+
+# test error handling and reporting
+departSpeed_invalid_ignore
