@@ -400,7 +400,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int numLanesBackward = tc.getEdgeTypeNumLanes(type);
     double speed = tc.getEdgeTypeSpeed(type);
     bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
-    SVCPermissions permissions = tc.getEdgeTypePermissions(type) | e->myExtraAllowed;
+    SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
+    SVCPermissions permissions = defaultPermissions | e->myExtraAllowed;
     permissions &= ~e->myExtraDisallowed;
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
@@ -516,7 +517,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // deal with sidewalks that run in the opposite direction of a one-way street
     WayType sidewalkType = e->mySidewalkType; // make a copy because we do some temporary modifications
-    if (addSidewalk || (myImportSidewalks && (permissions & SVC_ROAD_CLASSES) != 0)) {
+    if (addSidewalk || (myImportSidewalks && (permissions & SVC_ROAD_CLASSES) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
         if (!addForward && (sidewalkType & WAY_FORWARD) != 0) {
             addForward = true;
             forwardPermissions = SVC_PEDESTRIAN;
@@ -590,7 +591,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0))
-                    || (myImportSidewalks && (sidewalkType & WAY_FORWARD) != 0)) {
+                    || (myImportSidewalks && (sidewalkType & WAY_FORWARD) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
                 nbe->addSidewalk(sidewalkWidth * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());
@@ -618,7 +619,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0))
-                    || (myImportSidewalks && (sidewalkType & WAY_BACKWARD) != 0)) {
+                    || (myImportSidewalks && (sidewalkType & WAY_BACKWARD) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
                 nbe->addSidewalk(sidewalkWidth * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());
