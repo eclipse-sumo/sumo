@@ -1,6 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-02 14:57:05 by Eclipse SUMO netconvert Version v1_10_0+1846-87b5ddb
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <opendrive-output value="foreign.net"/>
+        <output.original-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 10 19:27:37 2020" north="100.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov  2 14:57:05 2021" north="100.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="95.27796539" id="30" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
