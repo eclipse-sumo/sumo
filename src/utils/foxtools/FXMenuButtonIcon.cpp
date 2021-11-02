@@ -54,17 +54,18 @@ FXDEFMAP(FXMenuButtonIcon) FXMenuButtonIconMap[] = {
 FXIMPLEMENT(FXMenuButtonIcon,   FXLabel,    FXMenuButtonIconMap,    ARRAYNUMBER(FXMenuButtonIconMap))
 
 
-FXMenuButtonIcon::FXMenuButtonIcon(FXComposite* p, const FXString& text, FXIcon* ic, FXPopup* pup, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
-    FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb) {
-    myPane = pup;
-    myoffsetX = 0;
-    myOffsetY = 0;
-    myState = FALSE;
+FXMenuButtonIcon::FXMenuButtonIcon(FXComposite* p, const FXString& text, FXIcon* ic, FXPopup* pup, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+    FXLabel(p, text, nullptr, opts, x, y, w, h, pl, pr, pt, pb),
+    myPane(pup),
+    myIcon(ic),
+    myoffsetX(0),
+    myOffsetY(0),
+    myState(FALSE) {
 }
 
 
 FXMenuButtonIcon::~FXMenuButtonIcon() {
-    myPane = (FXPopup*)-1L;
+    myPane = (FXPopup*) - 1L;
 }
 
 
@@ -106,15 +107,17 @@ FXint FXMenuButtonIcon::getDefaultWidth() {
             iw = MENUBUTTONARROW_WIDTH;
         }
     }
+/*
     if (icon) {
         iw = icon->getWidth();
     }
+*/
     if (!(options & (ICON_AFTER_TEXT | ICON_BEFORE_TEXT))) {
         w = FXMAX(tw, iw); 
     } else {
-        w = tw+iw+s;
+        w = tw + iw + s;
     }
-    w = padleft+padright+(border<<1)+w;
+    w = padleft + padright + (border<<1) + w;
     if (!(options & MENUBUTTON_LEFT) && (options & MENUBUTTON_ATTACH_RIGHT) && (options & MENUBUTTON_ATTACH_CENTER)) {
         if (myPane) { 
             pw = myPane->getDefaultWidth(); 
@@ -140,15 +143,17 @@ FXMenuButtonIcon::getDefaultHeight() {
             ih = MENUBUTTONARROW_HEIGHT;
         }
     }
+/*
     if (icon) {
         ih = icon->getHeight();
     }
+*/
     if (!(options & (ICON_ABOVE_TEXT|ICON_BELOW_TEXT)))  {
         h = FXMAX(th, ih); 
     } else {
-        h = th+ih;
+        h = th + ih;
     }
-    h = padtop+padbottom+(border<<1)+h;
+    h = padtop + padbottom + (border<<1) + h;
     if ((options & MENUBUTTON_LEFT) && (options & MENUBUTTON_ATTACH_BOTTOM) && (options & MENUBUTTON_ATTACH_CENTER)) {
         if (myPane) { 
             ph = myPane->getDefaultHeight(); 
@@ -184,6 +189,42 @@ FXMenuButtonIcon::setMenu(FXPopup *pup) {
         myPane = pup;
         recalc();
     }
+}
+
+
+FXPopup* 
+FXMenuButtonIcon::getMenu() const { 
+    return myPane; 
+}
+
+
+void 
+FXMenuButtonIcon::setXOffset(FXint offx) {
+    myoffsetX = offx; 
+}
+
+
+FXint 
+FXMenuButtonIcon::getXOffset() const { 
+    return myoffsetX; 
+}
+
+
+void
+FXMenuButtonIcon::setYOffset(FXint offy) { 
+    myOffsetY = offy; 
+}
+
+
+FXint 
+FXMenuButtonIcon::getYOffset() const { 
+    return myOffsetY; 
+}
+
+
+void 
+FXMenuButtonIcon::setIcon(FXIcon* ic) {
+    myIcon = ic;
 }
 
 
@@ -254,7 +295,7 @@ FXMenuButtonIcon::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
 long 
 FXMenuButtonIcon::onFocusIn(FXObject* sender, FXSelector sel, void* ptr) {
     FXLabel::onFocusIn(sender, sel, ptr);
-    update(border, border, width-(border<<1), height-(border<<1));
+    update(border, border, width - (border<<1), height - (border<<1));
     return 1;
 }
 
@@ -262,7 +303,7 @@ FXMenuButtonIcon::onFocusIn(FXObject* sender, FXSelector sel, void* ptr) {
 long 
 FXMenuButtonIcon::onFocusOut(FXObject* sender, FXSelector sel, void* ptr) {
     FXLabel::onFocusOut(sender, sel, ptr);
-    update(border, border, width-(border<<1), height-(border<<1));
+    update(border, border, width - (border<<1), height - (border<<1));
     return 1;
 }
 
@@ -432,45 +473,45 @@ FXMenuButtonIcon::onCmdPost(FXObject*, FXSelector, void*) {
                 if ((options & MENUBUTTON_ATTACH_BOTTOM) && (options & MENUBUTTON_ATTACH_CENTER)) {
                     h = height;
                 } else if (options & MENUBUTTON_ATTACH_CENTER) {
-                    y = y+(height-h)/2;
+                    y = y + (height - h)/2;
                 } else if (options & MENUBUTTON_ATTACH_BOTTOM) {
-                    y = y+height-h;
+                    y = y + height - h;
                 }
-                x = x+myoffsetX+width;
-                y = y+myOffsetY;
+                x = x + myoffsetX + width;
+                y = y + myOffsetY;
             } else if (options & MENUBUTTON_LEFT) {   
                 // Left
                 if ((options & MENUBUTTON_ATTACH_BOTTOM) && (options & MENUBUTTON_ATTACH_CENTER)) {
                     h = height;
                 } else if (options & MENUBUTTON_ATTACH_CENTER) {
-                    y = y+(height-h)/2;
+                    y = y + (height - h)/2;
                 } else if (options & MENUBUTTON_ATTACH_BOTTOM) {
-                    y = y+height-h;
+                    y = y + height - h;
                 }
-                x = x-myoffsetX-w;
-                y = y+myOffsetY;
+                x = x - myoffsetX - w;
+                y = y + myOffsetY;
             } else if (options & MENUBUTTON_UP) { 
                 // Up
                 if ((options & MENUBUTTON_ATTACH_RIGHT) && (options & MENUBUTTON_ATTACH_CENTER)) {
                     w = width;
                 } else if (options & MENUBUTTON_ATTACH_CENTER) {
-                    x = x+(width-w)/2;
+                    x = x + (width - w)/2;
                 } else if (options & MENUBUTTON_ATTACH_RIGHT) {
-                    x = x+width-w;
+                    x = x + width - w;
                 }
-                x = x+myoffsetX;
-                y = y-myOffsetY-h;
+                x = x + myoffsetX;
+                y = y - myOffsetY - h;
             } else {
                 // Down
                 if ((options & MENUBUTTON_ATTACH_RIGHT) && (options & MENUBUTTON_ATTACH_CENTER)) {
                     w = width;
                 } else if (options & MENUBUTTON_ATTACH_CENTER) {
-                    x = x+(width-w)/2;
+                    x = x + (width - w)/2;
                 } else if (options & MENUBUTTON_ATTACH_RIGHT) {
-                    x = x+width-w;
+                    x = x + width - w;
                 }
-                x = x+myoffsetX;
-                y = y+myOffsetY+height;
+                x = x + myoffsetX;
+                y = y + myOffsetY + height;
             }
             myPane->popup(this, x, y, w, h);
             if (!grabbed()) grab();
@@ -511,7 +552,7 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             // Enabled and cursor inside,  and not popped up
             if (isEnabled() && underCursor() && !myState) {
                 dc.setForeground(backColor);
-                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                dc.fillRectangle(border, border, width - border*2, height - border*2);
                 if (options & FRAME_THICK) {
                     drawDoubleRaisedRectangle(dc, 0, 0, width, height);
                 } else {
@@ -520,7 +561,7 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             } else if (isEnabled() && myState) {    
                 // Enabled and popped up
                 dc.setForeground(hiliteColor);
-                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                dc.fillRectangle(border, border, width - border*2, height - border*2);
                 if (options & FRAME_THICK) {
                     drawDoubleSunkenRectangle(dc, 0, 0, width, height);
                 } else {
@@ -535,7 +576,7 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             // Draw in up myState if disabled or up
             if (!isEnabled() || !myState) {
                 dc.setForeground(backColor);
-                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                dc.fillRectangle(border, border, width - border*2, height - border*2);
                 if (options & FRAME_THICK) {
                     drawDoubleRaisedRectangle(dc, 0, 0, width, height);
                 } else {
@@ -543,7 +584,7 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
                 }
             } else {
                 dc.setForeground(hiliteColor);
-                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                dc.fillRectangle(border, border, width - border*2, height - border*2);
                 if (options & FRAME_THICK) {
                     drawDoubleSunkenRectangle(dc, 0, 0, width, height);
                 } else {
@@ -565,12 +606,8 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     if (!label.empty()) {
 
     }
-    // Icon?
-    if (icon) {
-        iw = icon->getWidth();
-        ih = icon->getHeight();
-    } else if (!(options & MENUBUTTON_NOARROWS)) {
-        // Arrows?
+    // Arrows?
+    if (!(options & MENUBUTTON_NOARROWS)) {
         if (options & MENUBUTTON_LEFT) {
             ih = MENUBUTTONARROW_WIDTH;
             iw = MENUBUTTONARROW_HEIGHT;
@@ -584,19 +621,13 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     just_y(ty, iy, th, ih);
     // Move a bit when pressed
     if (myState) { 
-        ++tx; 
-        ++ty; 
-        ++ix; 
-        ++iy; 
+         ++tx; 
+         ++ty; 
+         ++ix; 
+         ++iy; 
     }
-    // Draw icon
-    if (icon) {
-        if (isEnabled()) {
-            dc.drawIcon(icon, ix, iy);
-        } else {
-            dc.drawIconSunken(icon, ix, iy);
-        }
-    } else if (!(options & MENUBUTTON_NOARROWS)) {
+    // draw arrows
+    if (!(options & MENUBUTTON_NOARROWS)) {
         // Right arrow
         if ((options & MENUBUTTON_RIGHT) == MENUBUTTON_RIGHT) {
             if (isEnabled()) {
@@ -604,12 +635,12 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             } else {
                 dc.setForeground(shadowColor);
             }
-            points[0].x = ix;
-            points[0].y = iy;
-            points[1].x = ix;
-            points[1].y = iy+MENUBUTTONARROW_WIDTH-1;
-            points[2].x = ix+MENUBUTTONARROW_HEIGHT;
-            points[2].y = (FXshort)(iy+(MENUBUTTONARROW_WIDTH>>1));
+            points[0].x = (FXshort)ix;
+            points[0].y = (FXshort)iy;
+            points[1].x = (FXshort)ix;
+            points[1].y = (FXshort)(iy + MENUBUTTONARROW_WIDTH - 1);
+            points[2].x = (FXshort)(ix + MENUBUTTONARROW_HEIGHT);
+            points[2].y = (FXshort)(iy + (MENUBUTTONARROW_WIDTH >> 1));
             dc.fillPolygon(points, 3);
         } else if (options & MENUBUTTON_LEFT) {
             // Left arrow
@@ -618,12 +649,12 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             } else {
                 dc.setForeground(shadowColor);
             }
-            points[0].x = ix+MENUBUTTONARROW_HEIGHT;
-            points[0].y = iy;
-            points[1].x = ix+MENUBUTTONARROW_HEIGHT;
-            points[1].y = iy+MENUBUTTONARROW_WIDTH-1;
-            points[2].x = ix;
-            points[2].y = (FXshort)(iy+(MENUBUTTONARROW_WIDTH>>1));
+            points[0].x = (FXshort)(ix + MENUBUTTONARROW_HEIGHT);
+            points[0].y = (FXshort)iy;
+            points[1].x = (FXshort)(ix + MENUBUTTONARROW_HEIGHT);
+            points[1].y = (FXshort)(iy + MENUBUTTONARROW_WIDTH - 1);
+            points[2].x = (FXshort)ix;
+            points[2].y = (FXshort)(iy + (MENUBUTTONARROW_WIDTH >> 1));
             dc.fillPolygon(points, 3);
         } else if (options & MENUBUTTON_UP) {
             // Up arrow
@@ -632,12 +663,12 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             } else {
                 dc.setForeground(shadowColor);
             }
-            points[0].x = (FXshort)(ix+(MENUBUTTONARROW_WIDTH>>1));
-            points[0].y = iy-1;
-            points[1].x = ix;
-            points[1].y = iy+MENUBUTTONARROW_HEIGHT;
-            points[2].x = ix+MENUBUTTONARROW_WIDTH;
-            points[2].y = iy+MENUBUTTONARROW_HEIGHT;
+            points[0].x = (FXshort)(ix + (MENUBUTTONARROW_WIDTH >> 1));
+            points[0].y = (FXshort)(iy - 1);
+            points[1].x = (FXshort)ix;
+            points[1].y = (FXshort)(iy + MENUBUTTONARROW_HEIGHT);
+            points[2].x = (FXshort)(ix + MENUBUTTONARROW_WIDTH);
+            points[2].y = (FXshort)(iy + MENUBUTTONARROW_HEIGHT);
             dc.fillPolygon(points, 3);
         } else {
             // Down arrow
@@ -646,13 +677,21 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             } else {
                 dc.setForeground(shadowColor);
             }
-            points[0].x = ix+1;
-            points[0].y = iy;
-            points[2].x = ix+MENUBUTTONARROW_WIDTH-1;
-            points[2].y = iy;
-            points[1].x = (FXshort)(ix+(MENUBUTTONARROW_WIDTH>>1));
-            points[1].y = iy+MENUBUTTONARROW_HEIGHT;
+            points[0].x = (FXshort)(ix + 1);
+            points[0].y = (FXshort)iy;
+            points[2].x = (FXshort)(ix + MENUBUTTONARROW_WIDTH - 1);
+            points[2].y = (FXshort)iy;
+            points[1].x = (FXshort)(ix + (MENUBUTTONARROW_WIDTH >> 1));
+            points[1].y = (FXshort)(iy + MENUBUTTONARROW_HEIGHT);
             dc.fillPolygon(points, 3);
+        }
+    }
+    // draw icon
+    if (myIcon) {
+        if (isEnabled()) {
+            dc.drawIcon(myIcon, tx, ty);
+        } else {
+            dc.drawIconSunken(myIcon, tx, ty);
         }
     }
     // Draw text
@@ -663,7 +702,7 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
             drawLabel(dc, label, hotoff, tx, ty, tw, th);
         } else {
             dc.setForeground(hiliteColor);
-            drawLabel(dc, label, hotoff, tx+1, ty+1, tw, th);
+            drawLabel(dc, label, hotoff, tx + 1, ty + 1, tw, th);
             dc.setForeground(shadowColor);
             drawLabel(dc, label, hotoff, tx, ty, tw, th);
         }
@@ -671,7 +710,7 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     // Draw focus
     if (hasFocus()) {
         if (isEnabled()) {
-            dc.drawFocusRectangle(border+1, border+1, width-2*border-2, height-2*border-2);
+            dc.drawFocusRectangle(border + 1, border + 1, width - 2*border - 2, height - 2*border - 2);
         }
     }
     return 1;
@@ -679,7 +718,7 @@ FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
 
 
 FXMenuButtonIcon::FXMenuButtonIcon() {
-    myPane = (FXPopup*)-1L;
+    myPane = (FXPopup*) - 1L;
     myoffsetX = 0;
     myOffsetY = 0;
     myState = FALSE;

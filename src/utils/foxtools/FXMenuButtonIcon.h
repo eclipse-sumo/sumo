@@ -61,19 +61,22 @@ public:
     void setMenu(FXPopup *pup);
 
     /// @brief Return current popup menu
-    FXPopup* getMenu() const { return myPane; }
+    FXPopup* getMenu() const;
 
     /// @brief Set X offset where menu pops up relative to button
-    void setXOffset(FXint offx){ myoffsetX=offx; }
+    void setXOffset(FXint offx);
 
     /// @brief Return current X offset
-    FXint getXOffset() const { return myoffsetX; }
+    FXint getXOffset() const;
 
     /// @brief Set Y offset where menu pops up relative to button
-    void setYOffset(FXint offy){ myOffsetY=offy; }
+    void setYOffset(FXint offy);
 
     /// @brief Return current Y offset
-    FXint getYOffset() const { return myOffsetY; }
+    FXint getYOffset() const;
+
+    /// @brief set icon
+    void setIcon(FXIcon* ic);
 
     /// @brief Change menu button style
     void setButtonStyle(FXuint style);
@@ -120,6 +123,9 @@ protected:
     /// @brief Pane to pop up
     FXPopup *myPane;
 
+    /// @brief icon
+    FXIcon* myIcon;
+
     /// @brief Shift attachment point x
     FXint myoffsetX;
 
@@ -127,7 +133,7 @@ protected:
     FXint myOffsetY;
 
     /// @brief Pane was popped
-    FXbool myState;                 
+    FXbool myState;            
 
 private:
     /// @brief invalidate copy constructor
