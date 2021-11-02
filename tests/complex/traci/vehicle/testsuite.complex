@@ -16,6 +16,9 @@ replaceStop
 # test taxi API
 taxi
 
+# test adding vehicles
+add
+
 # Tests the vehicle API
 vehicle
 
@@ -81,9 +84,6 @@ getLeader
 # test access to driverstate parameters
 driverstate
 
-# add vehicle with route on internal
-add_internal
-
 # test setRoute with internal edges
 setRoute_internal
 
@@ -92,15 +92,3 @@ junctionModel.ignore
 
 # test bit5 (ignore foes within junction)
 ignoreJunctionFoes
-
-# add a vehicle with triggered departure
-departTriggered
-
-# test removing and re-inserting the same vehicle id in a single simulation step (#5647)
-remove_reinsert
-
-# add trip (ticket4307)
-addTrip
-
-# add trip with high insertion speed at edge end (ticket9257)
-addTrip2
