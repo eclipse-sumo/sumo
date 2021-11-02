@@ -325,7 +325,7 @@ long
 GNEMultipleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the Parameter Template file", ".xml",
+                    "Save Parameter Template file", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
                     gCurrentFolder);
     if (file == "") {

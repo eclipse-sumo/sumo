@@ -681,7 +681,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open TLSProgram dialog");
     // get the shape file name
-    FXFileDialog opendialog(this, "Open TLSPrograms file");
+    FXFileDialog opendialog(this, "Open TLS Programs file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("TLSProgram files (*.xml)\nAll files (*)");
@@ -1438,7 +1438,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     FXString file = MFXUtils::getFilename2Write(this,
-                                    "Select name of the demand element file", ".xml",
+                                    "Save demand element file", ".xml",
                                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
@@ -1500,7 +1500,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     FXString file = MFXUtils::getFilename2Write(this,
-                                    "Select name of the demand element file", ".rou.xml",
+                                    "Save demand element file", ".rou.xml",
                                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
@@ -1562,7 +1562,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     FXString file = MFXUtils::getFilename2Write(this,
-                                    "Select name of the data element file", ".rou.xml",
+                                    "Save data element file", ".rou.xml",
                                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
@@ -2375,7 +2375,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     }
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the plain-xml edge-file (other names will be deduced from this)", "",
+                    "Save plain-xml edge-file (other names will be deduced from this)", "",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     currentFolder);
     // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
@@ -2432,7 +2432,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     }
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the joined-junctions file", ".nod.xml",
+                    "Save joined-junctions", ".nod.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     currentFolder);
     // add xml extension
@@ -2974,7 +2974,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the TLS file", ".xml",
+                            "Save TLS Programs", ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                             currentFolder);
             // add xml extension
@@ -3032,7 +3032,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the edgeType file", ".xml",
+                            "Save edgeType file", ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
                             currentFolder);
             // add xml extension
@@ -3085,7 +3085,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select TLS Programs file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the TLS Program file", ".xml",
+                    "Save TLS Programs as", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                     currentFolder);
     // add xml extension
@@ -3116,7 +3116,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select edgeType file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the edgeType file", ".xml",
+                    "Save edgeType file as", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
                     currentFolder);
     // add xml extension
@@ -3228,7 +3228,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the additional file", ".xml",
+                            "Save Additionals file", ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                             currentFolder);
             // add xml extension
@@ -3283,7 +3283,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the additional file", ".xml",
+                    "Save Additionals file as", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                     currentFolder);
     // add xml extension
@@ -3399,7 +3399,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the demand element file", ".rou.xml",
+                            "Save demand element file", ".rou.xml",
                             GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
                             currentFolder);
             // add xml extension
@@ -3452,7 +3452,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the demand element file", ".rou.xml",
+                    "Save demand element file as", ".rou.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
                     currentFolder);
     // add xml extension
@@ -3586,7 +3586,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the data element file", ".xml",
+                            "Save data element file", ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                             currentFolder);
             // add xml extension
@@ -3639,7 +3639,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the data element file", ".xml",
+                    "Save data element file as", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                     currentFolder);
     // add xml extension
