@@ -26,18 +26,75 @@
 
 /// @brief FXMenuButtonIcon (based on FXMenuButton)
 class FXMenuButtonIcon : public FXLabel {
+    /// @brief FOX declaration
     FXDECLARE(FXMenuButtonIcon)
-    protected:
-    FXPopup *pane;                  // Pane to pop up
-    FXint    offsetx;               // Shift attachment point x
-    FXint    offsety;               // Shift attachment point y
-    FXbool   state;                 // Pane was popped
-    protected:
-    FXMenuButtonIcon();
-    private:
-    FXMenuButtonIcon(const FXMenuButtonIcon&);
-    FXMenuButtonIcon &operator=(const FXMenuButtonIcon&);
-    public:
+
+public:
+    /// @brief Constructor
+    FXMenuButtonIcon(FXComposite* p, const FXString& text, FXIcon* ic=NULL, FXPopup* pup=NULL, FXuint opts=JUSTIFY_NORMAL|ICON_BEFORE_TEXT|MENUBUTTON_DOWN, FXint x=0, FXint y=0, FXint w=0, FXint h=0, FXint pl=DEFAULT_PAD, FXint pr=DEFAULT_PAD, FXint pt=DEFAULT_PAD, FXint pb=DEFAULT_PAD);
+
+    /// @brief Destructor
+    virtual ~FXMenuButtonIcon();
+
+    /// @brief Create server-side resources
+    virtual void create();
+
+    /// @brief Detach server-side resources
+    virtual void detach();
+
+    /// @brief Return default width
+    virtual FXint getDefaultWidth();
+
+    /// @brief Return default height
+    virtual FXint getDefaultHeight();
+
+    /// @brief Returns true because a menu button can receive focus
+    virtual bool canFocus() const;
+
+    /// @brief Remove the focus from this window
+    virtual void killFocus();
+
+    /// @brief Return true if window logically contains the given point
+    virtual bool contains(FXint parentx, FXint parenty) const;
+
+    /// @brief Change the popup menu
+    void setMenu(FXPopup *pup);
+
+    /// @brief Return current popup menu
+    FXPopup* getMenu() const { return myPane; }
+
+    /// @brief Set X offset where menu pops up relative to button
+    void setXOffset(FXint offx){ myoffsetX=offx; }
+
+    /// @brief Return current X offset
+    FXint getXOffset() const { return myoffsetX; }
+
+    /// @brief Set Y offset where menu pops up relative to button
+    void setYOffset(FXint offy){ myOffsetY=offy; }
+
+    /// @brief Return current Y offset
+    FXint getYOffset() const { return myOffsetY; }
+
+    /// @brief Change menu button style
+    void setButtonStyle(FXuint style);
+
+    /// Get menu button style
+    FXuint getButtonStyle() const;
+
+    /// @brief Change popup style
+    void setPopupStyle(FXuint style);
+
+    /// @brief Get popup style
+    FXuint getPopupStyle() const;
+
+    /// @brief Change attachment
+    void setAttachment(FXuint att);
+
+    /// @brief Get attachment
+    FXuint getAttachment() const;
+
+    /// @name fox calls
+    /// @{
     long onPaint(FXObject*, FXSelector, void*);
     long onUpdate(FXObject*, FXSelector, void*);
     long onEnter(FXObject*, FXSelector, void*);
@@ -54,68 +111,28 @@ class FXMenuButtonIcon : public FXLabel {
     long onHotKeyRelease(FXObject*, FXSelector, void*);
     long onCmdPost(FXObject*, FXSelector, void*);
     long onCmdUnpost(FXObject*, FXSelector, void*);
-    public:
+    /// @}
 
-    /// Constructor
-    FXMenuButtonIcon(FXComposite* p, const FXString& text, FXIcon* ic=NULL, FXPopup* pup=NULL, FXuint opts=JUSTIFY_NORMAL|ICON_BEFORE_TEXT|MENUBUTTON_DOWN, FXint x=0, FXint y=0, FXint w=0, FXint h=0, FXint pl=DEFAULT_PAD, FXint pr=DEFAULT_PAD, FXint pt=DEFAULT_PAD, FXint pb=DEFAULT_PAD);
+protected:
+    /// @brief FOX need this
+    FXMenuButtonIcon();
 
-    /// Create server-side resources
-    virtual void create();
+    /// @brief Pane to pop up
+    FXPopup *myPane;
 
-    /// Detach server-side resources
-    virtual void detach();
+    /// @brief Shift attachment point x
+    FXint myoffsetX;
 
-    /// Return default width
-    virtual FXint getDefaultWidth();
+    /// @brief Shift attachment point y
+    FXint myOffsetY;
 
-    /// Return default height
-    virtual FXint getDefaultHeight();
+    /// @brief Pane was popped
+    FXbool myState;                 
 
-    /// Returns true because a menu button can receive focus
-    virtual bool canFocus() const;
+private:
+    /// @brief invalidate copy constructor
+    FXMenuButtonIcon(const FXMenuButtonIcon&);
 
-    /// Remove the focus from this window
-    virtual void killFocus();
-
-    /// Return true if window logically contains the given point
-    virtual bool contains(FXint parentx, FXint parenty) const;
-
-    /// Change the popup menu
-    void setMenu(FXPopup *pup);
-
-    /// Return current popup menu
-    FXPopup* getMenu() const { return pane; }
-
-    /// Set X offset where menu pops up relative to button
-    void setXOffset(FXint offx){ offsetx=offx; }
-
-    /// Return current X offset
-    FXint getXOffset() const { return offsetx; }
-
-    /// Set Y offset where menu pops up relative to button
-    void setYOffset(FXint offy){ offsety=offy; }
-
-    /// Return current Y offset
-    FXint getYOffset() const { return offsety; }
-
-    /// Change menu button style
-    void setButtonStyle(FXuint style);
-
-    /// Get menu button style
-    FXuint getButtonStyle() const;
-
-    /// Change popup style
-    void setPopupStyle(FXuint style);
-
-    /// Get popup style
-    FXuint getPopupStyle() const;
-
-    /// Change attachment
-    void setAttachment(FXuint att);
-
-    /// Get attachment
-    FXuint getAttachment() const;
-
-    /// Destructor
-    virtual ~FXMenuButtonIcon();
+    /// @brief invalidate assignment operator
+    FXMenuButtonIcon &operator=(const FXMenuButtonIcon&) = delete;
 };

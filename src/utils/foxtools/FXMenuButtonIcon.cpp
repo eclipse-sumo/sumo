@@ -54,28 +54,25 @@ FXDEFMAP(FXMenuButtonIcon) FXMenuButtonIconMap[] = {
 FXIMPLEMENT(FXMenuButtonIcon,   FXLabel,    FXMenuButtonIconMap,    ARRAYNUMBER(FXMenuButtonIconMap))
 
 
-FXMenuButtonIcon::FXMenuButtonIcon() {
-    pane = (FXPopup*)-1L;
-    offsetx = 0;
-    offsety = 0;
-    state = FALSE;
+FXMenuButtonIcon::FXMenuButtonIcon(FXComposite* p, const FXString& text, FXIcon* ic, FXPopup* pup, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
+    FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb) {
+    myPane = pup;
+    myoffsetX = 0;
+    myOffsetY = 0;
+    myState = FALSE;
 }
 
 
-FXMenuButtonIcon::FXMenuButtonIcon(FXComposite* p, const FXString& text, FXIcon* ic, FXPopup* pup, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
-    FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb) {
-    pane = pup;
-    offsetx = 0;
-    offsety = 0;
-    state = FALSE;
+FXMenuButtonIcon::~FXMenuButtonIcon() {
+    myPane = (FXPopup*)-1L;
 }
 
 
 void 
 FXMenuButtonIcon::create() {
     FXLabel::create();
-    if (pane) {
-        pane->create();
+    if (myPane) {
+        myPane->create();
     }
 }
 
@@ -83,8 +80,8 @@ FXMenuButtonIcon::create() {
 void 
 FXMenuButtonIcon::detach() {
     FXLabel::detach();
-    if (pane) {
-        pane->detach();
+    if (myPane) {
+        myPane->detach();
     }
 }
 
@@ -102,8 +99,8 @@ FXint FXMenuButtonIcon::getDefaultWidth() {
         tw = labelWidth(label); 
         s = 4; 
     }
-    if (!(options&MENUBUTTON_NOARROWS)) {
-        if (options&MENUBUTTON_LEFT) {
+    if (!(options & MENUBUTTON_NOARROWS)) {
+        if (options & MENUBUTTON_LEFT) {
             iw = MENUBUTTONARROW_HEIGHT; 
         } else {
             iw = MENUBUTTONARROW_WIDTH;
@@ -118,9 +115,9 @@ FXint FXMenuButtonIcon::getDefaultWidth() {
         w = tw+iw+s;
     }
     w = padleft+padright+(border<<1)+w;
-    if (!(options&MENUBUTTON_LEFT) && (options&MENUBUTTON_ATTACH_RIGHT) && (options&MENUBUTTON_ATTACH_CENTER)) {
-        if (pane) { 
-            pw = pane->getDefaultWidth(); 
+    if (!(options & MENUBUTTON_LEFT) && (options & MENUBUTTON_ATTACH_RIGHT) && (options & MENUBUTTON_ATTACH_CENTER)) {
+        if (myPane) { 
+            pw = myPane->getDefaultWidth(); 
             if (pw>w) {
                 w = pw;
             }
@@ -136,8 +133,8 @@ FXMenuButtonIcon::getDefaultHeight() {
     if (!label.empty()) { 
         th = labelHeight(label); 
     }
-    if (!(options&MENUBUTTON_NOARROWS)) {
-        if (options&MENUBUTTON_LEFT) {
+    if (!(options & MENUBUTTON_NOARROWS)) {
+        if (options & MENUBUTTON_LEFT) {
             ih = MENUBUTTONARROW_WIDTH; 
         } else {
             ih = MENUBUTTONARROW_HEIGHT;
@@ -146,15 +143,15 @@ FXMenuButtonIcon::getDefaultHeight() {
     if (icon) {
         ih = icon->getHeight();
     }
-    if (!(options&(ICON_ABOVE_TEXT|ICON_BELOW_TEXT)))  {
+    if (!(options & (ICON_ABOVE_TEXT|ICON_BELOW_TEXT)))  {
         h = FXMAX(th, ih); 
     } else {
         h = th+ih;
     }
     h = padtop+padbottom+(border<<1)+h;
-    if ((options&MENUBUTTON_LEFT) && (options&MENUBUTTON_ATTACH_BOTTOM)&&(options&MENUBUTTON_ATTACH_CENTER)) {
-        if (pane) { 
-            ph = pane->getDefaultHeight(); 
+    if ((options & MENUBUTTON_LEFT) && (options & MENUBUTTON_ATTACH_BOTTOM) && (options & MENUBUTTON_ATTACH_CENTER)) {
+        if (myPane) { 
+            ph = myPane->getDefaultHeight(); 
             if (ph>h) {
                 h = ph; 
             }
@@ -164,15 +161,89 @@ FXMenuButtonIcon::getDefaultHeight() {
 }
 
 
+void 
+FXMenuButtonIcon::killFocus() {
+    FXLabel::killFocus();
+    handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
+}
+
+
+bool 
+FXMenuButtonIcon::contains(FXint parentx, FXint parenty) const {
+    if (myPane && myPane->shown() && myPane->contains(parentx, parenty)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void 
+FXMenuButtonIcon::setMenu(FXPopup *pup) {
+    if (pup != myPane) {
+        myPane = pup;
+        recalc();
+    }
+}
+
+
+void
+FXMenuButtonIcon::setButtonStyle(FXuint style) {
+    FXuint opts = (options & ~MENUBUTTON_MASK) | (style & MENUBUTTON_MASK);
+    if (options != opts) {
+        options = opts;
+        update();
+    }
+}
+
+
+FXuint
+FXMenuButtonIcon::getButtonStyle() const {
+    return (options & MENUBUTTON_MASK);
+}
+
+
+void 
+FXMenuButtonIcon::setPopupStyle(FXuint style) {
+    FXuint opts = (options & ~POPUP_MASK) | (style & POPUP_MASK);
+    if (options != opts) {
+        options = opts;
+        update();
+    }
+}
+
+
+FXuint
+FXMenuButtonIcon::getPopupStyle() const {
+    return (options & POPUP_MASK);
+}
+
+
+void 
+FXMenuButtonIcon::setAttachment(FXuint att) {
+    FXuint opts = (options & ~ATTACH_MASK) | (att&ATTACH_MASK);
+    if (options != opts) {
+        options = opts;
+        update();
+    }
+}
+
+
+FXuint 
+FXMenuButtonIcon::getAttachment() const {
+    return (options & ATTACH_MASK);
+}
+
+
 long
 FXMenuButtonIcon::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     if (!FXLabel::onUpdate(sender, sel, ptr)) {
-        if (options&MENUBUTTON_AUTOHIDE) {
+        if (options & MENUBUTTON_AUTOHIDE) {
             if (shown()) {
                 hide();recalc();
             }
         }
-        if (options&MENUBUTTON_AUTOGRAY) {
+        if (options & MENUBUTTON_AUTOGRAY) {
             disable();
         }
     }
@@ -200,7 +271,7 @@ long
 FXMenuButtonIcon::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     FXLabel::onEnter(sender, sel, ptr);
     if (isEnabled()) {
-        if (options&MENUBUTTON_TOOLBAR) {
+        if (options & MENUBUTTON_TOOLBAR) {
             update();
         }
     }
@@ -212,7 +283,7 @@ long
 FXMenuButtonIcon::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     FXLabel::onLeave(sender, sel, ptr);
     if (isEnabled()) {
-        if (options&MENUBUTTON_TOOLBAR) {
+        if (options & MENUBUTTON_TOOLBAR) {
             update();
         }
     }
@@ -228,7 +299,7 @@ FXMenuButtonIcon::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
         if (target && target->tryHandle(this, FXSEL(SEL_LEFTBUTTONPRESS, message), ptr)) {
             return 1;
         }
-        if (state) {
+        if (myState) {
             handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
         } else {
             handle(this, FXSEL(SEL_COMMAND, ID_POST), NULL);
@@ -258,9 +329,9 @@ FXMenuButtonIcon::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
 long 
 FXMenuButtonIcon::onMotion(FXObject*, FXSelector, void* ptr) {
     FXEvent* ev = (FXEvent*)ptr;
-    if (state) {
-        if (pane) {
-            if (pane->contains(ev->root_x, ev->root_y)) {
+    if (myState) {
+        if (myPane) {
+            if (myPane->contains(ev->root_x, ev->root_y)) {
                 if (grabbed()) {
                     ungrab();
                 }
@@ -284,36 +355,45 @@ FXMenuButtonIcon::onUngrabbed(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-// Keyboard press; forward to menu pane,  or handle it here
-long FXMenuButtonIcon::onKeyPress(FXObject*, FXSelector sel, void* ptr) {
-FXEvent* event = (FXEvent*)ptr;
-flags &= ~FLAG_TIP;
-if (pane && pane->shown() && pane->handle(pane, sel, ptr)) return 1;
-if (isEnabled()) {
-if (target && target->tryHandle(this, FXSEL(SEL_KEYPRESS, message), ptr)) return 1;
-if (event->code == KEY_space || event->code == KEY_KP_Space) {
-if (state)
-handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
-else
-handle(this, FXSEL(SEL_COMMAND, ID_POST), NULL);
-return 1;
-}
-}
-return 0;
+long 
+FXMenuButtonIcon::onKeyPress(FXObject*, FXSelector sel, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
+    flags &= ~FLAG_TIP;
+    if (myPane && myPane->shown() && myPane->handle(myPane, sel, ptr)) {
+        return 1;
+    }
+    if (isEnabled()) {
+        if (target && target->tryHandle(this, FXSEL(SEL_KEYPRESS, message), ptr)) {
+            return 1;
+        }
+        if (event->code == KEY_space || event->code == KEY_KP_Space) {
+            if (myState) {
+                handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
+            } else {
+                handle(this, FXSEL(SEL_COMMAND, ID_POST), NULL);
+            }
+            return 1;
+        }
+    }
+    return 0;
 }
 
 
-// Keyboard release; forward to menu pane,  or handle here
-long FXMenuButtonIcon::onKeyRelease(FXObject*, FXSelector sel, void* ptr) {
-FXEvent* event = (FXEvent*)ptr;
-if (pane && pane->shown() && pane->handle(pane, sel, ptr)) return 1;
-if (isEnabled()) {
-if (target && target->tryHandle(this, FXSEL(SEL_KEYRELEASE, message), ptr)) return 1;
-if (event->code == KEY_space || event->code == KEY_KP_Space) {
-return 1;
-}
-}
-return 0;
+long 
+FXMenuButtonIcon::onKeyRelease(FXObject*, FXSelector sel, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
+    if (myPane && myPane->shown() && myPane->handle(myPane, sel, ptr)) {
+        return 1;
+    }
+    if (isEnabled()) {
+        if (target && target->tryHandle(this, FXSEL(SEL_KEYRELEASE, message), ptr)) {
+            return 1;
+        }
+        if (event->code == KEY_space || event->code == KEY_KP_Space) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 
@@ -321,8 +401,8 @@ long
 FXMenuButtonIcon::onHotKeyPress(FXObject*, FXSelector, void* ptr) {
     flags &= ~FLAG_TIP;
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
-        if (isEnabled()) {
-        if (state) {
+    if (isEnabled()) {
+        if (myState) {
             handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
         } else {
             handle(this, FXSEL(SEL_COMMAND, ID_POST), NULL);
@@ -339,279 +419,255 @@ FXMenuButtonIcon::onHotKeyRelease(FXObject*, FXSelector, void*) {
 }
 
 
-// Post the menu
-long FXMenuButtonIcon::onCmdPost(FXObject*, FXSelector, void*) {
-if (!state) {
-if (pane) {
-FXint x, y, w, h;
-translateCoordinatesTo(x, y, getRoot(), 0, 0);
-w = pane->getShrinkWrap() ? pane->getDefaultWidth() : pane->getWidth();
-h = pane->getShrinkWrap() ? pane->getDefaultHeight() : pane->getHeight();
-if ((options&MENUBUTTON_LEFT)&&(options&MENUBUTTON_UP)) {   // Right
-if ((options&MENUBUTTON_ATTACH_BOTTOM)&&(options&MENUBUTTON_ATTACH_CENTER)) {
-h = height;
-}
-else if (options&MENUBUTTON_ATTACH_CENTER) {
-y = y+(height-h)/2;
-}
-else if (options&MENUBUTTON_ATTACH_BOTTOM) {
-y = y+height-h;
-}
-x = x+offsetx+width;
-y = y+offsety;
-}
-else if (options&MENUBUTTON_LEFT) {                         // Left
-if ((options&MENUBUTTON_ATTACH_BOTTOM)&&(options&MENUBUTTON_ATTACH_CENTER)) {
-h = height;
-}
-else if (options&MENUBUTTON_ATTACH_CENTER) {
-y = y+(height-h)/2;
-}
-else if (options&MENUBUTTON_ATTACH_BOTTOM) {
-y = y+height-h;
-}
-x = x-offsetx-w;
-y = y+offsety;
-}
-else if (options&MENUBUTTON_UP) {                           // Up
-if ((options&MENUBUTTON_ATTACH_RIGHT)&&(options&MENUBUTTON_ATTACH_CENTER)) {
-w = width;
-}
-else if (options&MENUBUTTON_ATTACH_CENTER) {
-x = x+(width-w)/2;
-}
-else if (options&MENUBUTTON_ATTACH_RIGHT) {
-x = x+width-w;
-}
-x = x+offsetx;
-y = y-offsety-h;
-}
-else{                                                     // Down
-if ((options&MENUBUTTON_ATTACH_RIGHT)&&(options&MENUBUTTON_ATTACH_CENTER)) {
-w = width;
-}
-else if (options&MENUBUTTON_ATTACH_CENTER) {
-x = x+(width-w)/2;
-}
-else if (options&MENUBUTTON_ATTACH_RIGHT) {
-x = x+width-w;
-}
-x = x+offsetx;
-y = y+offsety+height;
-}
-pane->popup(this, x, y, w, h);
-if (!grabbed()) grab();
-}
-flags &= ~FLAG_UPDATE;
-state = TRUE;
-update();
-}
-return 1;
-}
-
-
 long 
-FXMenuButtonIcon::onCmdUnpost(FXObject*, FXSelector, void*) {
-    if (state) {
-        if (pane) {
-            pane->popdown();
-            if (grabbed()) ungrab();
+FXMenuButtonIcon::onCmdPost(FXObject*, FXSelector, void*) {
+    if (!myState) {
+        if (myPane) {
+            FXint x, y, w, h;
+            translateCoordinatesTo(x, y, getRoot(), 0, 0);
+            w = myPane->getShrinkWrap() ? myPane->getDefaultWidth() : myPane->getWidth();
+            h = myPane->getShrinkWrap() ? myPane->getDefaultHeight() : myPane->getHeight();
+            if ((options & MENUBUTTON_LEFT) && (options & MENUBUTTON_UP)) {   
+                // Right
+                if ((options & MENUBUTTON_ATTACH_BOTTOM) && (options & MENUBUTTON_ATTACH_CENTER)) {
+                    h = height;
+                } else if (options & MENUBUTTON_ATTACH_CENTER) {
+                    y = y+(height-h)/2;
+                } else if (options & MENUBUTTON_ATTACH_BOTTOM) {
+                    y = y+height-h;
+                }
+                x = x+myoffsetX+width;
+                y = y+myOffsetY;
+            } else if (options & MENUBUTTON_LEFT) {   
+                // Left
+                if ((options & MENUBUTTON_ATTACH_BOTTOM) && (options & MENUBUTTON_ATTACH_CENTER)) {
+                    h = height;
+                } else if (options & MENUBUTTON_ATTACH_CENTER) {
+                    y = y+(height-h)/2;
+                } else if (options & MENUBUTTON_ATTACH_BOTTOM) {
+                    y = y+height-h;
+                }
+                x = x-myoffsetX-w;
+                y = y+myOffsetY;
+            } else if (options & MENUBUTTON_UP) { 
+                // Up
+                if ((options & MENUBUTTON_ATTACH_RIGHT) && (options & MENUBUTTON_ATTACH_CENTER)) {
+                    w = width;
+                } else if (options & MENUBUTTON_ATTACH_CENTER) {
+                    x = x+(width-w)/2;
+                } else if (options & MENUBUTTON_ATTACH_RIGHT) {
+                    x = x+width-w;
+                }
+                x = x+myoffsetX;
+                y = y-myOffsetY-h;
+            } else {
+                // Down
+                if ((options & MENUBUTTON_ATTACH_RIGHT) && (options & MENUBUTTON_ATTACH_CENTER)) {
+                    w = width;
+                } else if (options & MENUBUTTON_ATTACH_CENTER) {
+                    x = x+(width-w)/2;
+                } else if (options & MENUBUTTON_ATTACH_RIGHT) {
+                    x = x+width-w;
+                }
+                x = x+myoffsetX;
+                y = y+myOffsetY+height;
+            }
+            myPane->popup(this, x, y, w, h);
+            if (!grabbed()) grab();
         }
-        flags |= FLAG_UPDATE;
-        state = FALSE;
+        flags &= ~FLAG_UPDATE;
+        myState = TRUE;
         update();
     }
     return 1;
 }
 
 
-// Handle repaint
-long FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
-FXint tw = 0, th = 0, iw = 0, ih = 0, tx, ty, ix, iy;
-FXEvent *ev = (FXEvent*)ptr;
-FXPoint points[3];
-FXDCWindow dc(this, ev);
-
-// Got a border at all?
-if (options&(FRAME_RAISED|FRAME_SUNKEN)) {
-
-// Toolbar style
-if (options&MENUBUTTON_TOOLBAR) {
-
-// Enabled and cursor inside,  and not popped up
-if (isEnabled() && underCursor() && !state) {
-dc.setForeground(backColor);
-dc.fillRectangle(border, border, width-border*2, height-border*2);
-if (options&FRAME_THICK) drawDoubleRaisedRectangle(dc, 0, 0, width, height);
-else drawRaisedRectangle(dc, 0, 0, width, height);
+long 
+FXMenuButtonIcon::onCmdUnpost(FXObject*, FXSelector, void*) {
+    if (myState) {
+        if (myPane) {
+            myPane->popdown();
+            if (grabbed()) ungrab();
+        }
+        flags |= FLAG_UPDATE;
+        myState = FALSE;
+        update();
+    }
+    return 1;
 }
 
-// Enabled and popped up
-else if (isEnabled() && state) {
-dc.setForeground(hiliteColor);
-dc.fillRectangle(border, border, width-border*2, height-border*2);
-if (options&FRAME_THICK) drawDoubleSunkenRectangle(dc, 0, 0, width, height);
-else drawSunkenRectangle(dc, 0, 0, width, height);
-}
 
-// Disabled or unchecked or not under cursor
-else{
-dc.setForeground(backColor);
-dc.fillRectangle(0, 0, width, height);
-}
-}
+long
+FXMenuButtonIcon::onPaint(FXObject*, FXSelector, void* ptr) {
+    FXint tw = 0, th = 0, iw = 0, ih = 0, tx, ty, ix, iy;
+    FXEvent *ev = (FXEvent*)ptr;
+    FXPoint points[3];
+    FXDCWindow dc(this, ev);
+    // Got a border at all?
+    if (options & (FRAME_RAISED|FRAME_SUNKEN)) {
+        // Toolbar style
+        if (options & MENUBUTTON_TOOLBAR) {
+            // Enabled and cursor inside,  and not popped up
+            if (isEnabled() && underCursor() && !myState) {
+                dc.setForeground(backColor);
+                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                if (options & FRAME_THICK) {
+                    drawDoubleRaisedRectangle(dc, 0, 0, width, height);
+                } else {
+                    drawRaisedRectangle(dc, 0, 0, width, height);
+                }
+            } else if (isEnabled() && myState) {    
+                // Enabled and popped up
+                dc.setForeground(hiliteColor);
+                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                if (options & FRAME_THICK) {
+                    drawDoubleSunkenRectangle(dc, 0, 0, width, height);
+                } else {
+                    drawSunkenRectangle(dc, 0, 0, width, height);
+                }
+            } else {
+                // Disabled or unchecked or not under cursor
+                dc.setForeground(backColor);
+                dc.fillRectangle(0, 0, width, height);
+            }
+        } else {
+            // Draw in up myState if disabled or up
+            if (!isEnabled() || !myState) {
+                dc.setForeground(backColor);
+                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                if (options & FRAME_THICK) {
+                    drawDoubleRaisedRectangle(dc, 0, 0, width, height);
+                } else {
+                    drawRaisedRectangle(dc, 0, 0, width, height);
+                }
+            } else {
+                dc.setForeground(hiliteColor);
+                dc.fillRectangle(border, border, width-border*2, height-border*2);
+                if (options & FRAME_THICK) {
+                    drawDoubleSunkenRectangle(dc, 0, 0, width, height);
+                } else {
+                    drawSunkenRectangle(dc, 0, 0, width, height);
+                }
+            }
+        }
+    } else {
+        // No borders
+        if (isEnabled() && myState) {
+            dc.setForeground(hiliteColor);
+            dc.fillRectangle(0, 0, width, height);
+        } else {
+            dc.setForeground(backColor);
+            dc.fillRectangle(0, 0, width, height);
+        }
+    }
+    // Position text & icon
+    if (!label.empty()) {
 
-// Normal style
-else{
-
-// Draw in up state if disabled or up
-if (!isEnabled() || !state) {
-dc.setForeground(backColor);
-dc.fillRectangle(border, border, width-border*2, height-border*2);
-if (options&FRAME_THICK) drawDoubleRaisedRectangle(dc, 0, 0, width, height);
-else drawRaisedRectangle(dc, 0, 0, width, height);
-}
-
-// Draw sunken if enabled and either checked or pressed
-else{
-dc.setForeground(hiliteColor);
-dc.fillRectangle(border, border, width-border*2, height-border*2);
-if (options&FRAME_THICK) drawDoubleSunkenRectangle(dc, 0, 0, width, height);
-else drawSunkenRectangle(dc, 0, 0, width, height);
-}
-}
-}
-
-// No borders
-else{
-if (isEnabled() && state) {
-dc.setForeground(hiliteColor);
-dc.fillRectangle(0, 0, width, height);
-}
-else{
-dc.setForeground(backColor);
-dc.fillRectangle(0, 0, width, height);
-}
-}
-
-// Position text & icon
-if (!label.empty()) {
-tw = labelWidth(label);
-th = labelHeight(label);
-}
-
-// Icon?
-if (icon) {
-iw = icon->getWidth();
-ih = icon->getHeight();
-}
-
-// Arrows?
-else if (!(options&MENUBUTTON_NOARROWS)) {
-if (options&MENUBUTTON_LEFT) {
-ih = MENUBUTTONARROW_WIDTH;
-iw = MENUBUTTONARROW_HEIGHT;
-}
-else{
-iw = MENUBUTTONARROW_WIDTH;
-ih = MENUBUTTONARROW_HEIGHT;
-}
-}
-
-// Keep some room for the arrow!
-just_x(tx, ix, tw, iw);
-just_y(ty, iy, th, ih);
-
-// Move a bit when pressed
-if (state) { ++tx; ++ty; ++ix; ++iy; }
-
-// Draw icon
-if (icon) {
-if (isEnabled())
-dc.drawIcon(icon, ix, iy);
-else
-dc.drawIconSunken(icon, ix, iy);
-}
-
-// Draw arrows
-else if (!(options&MENUBUTTON_NOARROWS)) {
-
-// Right arrow
-if ((options&MENUBUTTON_RIGHT) == MENUBUTTON_RIGHT) {
-if (isEnabled())
-dc.setForeground(textColor);
-else
-dc.setForeground(shadowColor);
-points[0].x = ix;
-points[0].y = iy;
-points[1].x = ix;
-points[1].y = iy+MENUBUTTONARROW_WIDTH-1;
-points[2].x = ix+MENUBUTTONARROW_HEIGHT;
-points[2].y = (FXshort)(iy+(MENUBUTTONARROW_WIDTH>>1));
-dc.fillPolygon(points, 3);
-}
-
-// Left arrow
-else if (options&MENUBUTTON_LEFT) {
-if (isEnabled())
-dc.setForeground(textColor);
-else
-dc.setForeground(shadowColor);
-points[0].x = ix+MENUBUTTONARROW_HEIGHT;
-points[0].y = iy;
-points[1].x = ix+MENUBUTTONARROW_HEIGHT;
-points[1].y = iy+MENUBUTTONARROW_WIDTH-1;
-points[2].x = ix;
-points[2].y = (FXshort)(iy+(MENUBUTTONARROW_WIDTH>>1));
-dc.fillPolygon(points, 3);
-}
-
-// Up arrow
-else if (options&MENUBUTTON_UP) {
-if (isEnabled())
-dc.setForeground(textColor);
-else
-dc.setForeground(shadowColor);
-points[0].x = (FXshort)(ix+(MENUBUTTONARROW_WIDTH>>1));
-points[0].y = iy-1;
-points[1].x = ix;
-points[1].y = iy+MENUBUTTONARROW_HEIGHT;
-points[2].x = ix+MENUBUTTONARROW_WIDTH;
-points[2].y = iy+MENUBUTTONARROW_HEIGHT;
-dc.fillPolygon(points, 3);
-}
-
-// Down arrow
-else{
-if (isEnabled())
-dc.setForeground(textColor);
-else
-dc.setForeground(shadowColor);
-points[0].x = ix+1;
-points[0].y = iy;
-points[2].x = ix+MENUBUTTONARROW_WIDTH-1;
-points[2].y = iy;
-points[1].x = (FXshort)(ix+(MENUBUTTONARROW_WIDTH>>1));
-points[1].y = iy+MENUBUTTONARROW_HEIGHT;
-dc.fillPolygon(points, 3);
-}
-}
-
-// Draw text
-if (!label.empty()) {
-dc.setFont(font);
-if (isEnabled()) {
-dc.setForeground(textColor);
-drawLabel(dc, label, hotoff, tx, ty, tw, th);
-}
-else{
-dc.setForeground(hiliteColor);
-drawLabel(dc, label, hotoff, tx+1, ty+1, tw, th);
-dc.setForeground(shadowColor);
-drawLabel(dc, label, hotoff, tx, ty, tw, th);
-}
-}
-
+    }
+    // Icon?
+    if (icon) {
+        iw = icon->getWidth();
+        ih = icon->getHeight();
+    } else if (!(options & MENUBUTTON_NOARROWS)) {
+        // Arrows?
+        if (options & MENUBUTTON_LEFT) {
+            ih = MENUBUTTONARROW_WIDTH;
+            iw = MENUBUTTONARROW_HEIGHT;
+        } else {
+            iw = MENUBUTTONARROW_WIDTH;
+            ih = MENUBUTTONARROW_HEIGHT;
+        }
+    }
+    // Keep some room for the arrow!
+    just_x(tx, ix, tw, iw);
+    just_y(ty, iy, th, ih);
+    // Move a bit when pressed
+    if (myState) { 
+        ++tx; 
+        ++ty; 
+        ++ix; 
+        ++iy; 
+    }
+    // Draw icon
+    if (icon) {
+        if (isEnabled()) {
+            dc.drawIcon(icon, ix, iy);
+        } else {
+            dc.drawIconSunken(icon, ix, iy);
+        }
+    } else if (!(options & MENUBUTTON_NOARROWS)) {
+        // Right arrow
+        if ((options & MENUBUTTON_RIGHT) == MENUBUTTON_RIGHT) {
+            if (isEnabled()) {
+                dc.setForeground(textColor);
+            } else {
+                dc.setForeground(shadowColor);
+            }
+            points[0].x = ix;
+            points[0].y = iy;
+            points[1].x = ix;
+            points[1].y = iy+MENUBUTTONARROW_WIDTH-1;
+            points[2].x = ix+MENUBUTTONARROW_HEIGHT;
+            points[2].y = (FXshort)(iy+(MENUBUTTONARROW_WIDTH>>1));
+            dc.fillPolygon(points, 3);
+        } else if (options & MENUBUTTON_LEFT) {
+            // Left arrow
+            if (isEnabled()) {
+                dc.setForeground(textColor);
+            } else {
+                dc.setForeground(shadowColor);
+            }
+            points[0].x = ix+MENUBUTTONARROW_HEIGHT;
+            points[0].y = iy;
+            points[1].x = ix+MENUBUTTONARROW_HEIGHT;
+            points[1].y = iy+MENUBUTTONARROW_WIDTH-1;
+            points[2].x = ix;
+            points[2].y = (FXshort)(iy+(MENUBUTTONARROW_WIDTH>>1));
+            dc.fillPolygon(points, 3);
+        } else if (options & MENUBUTTON_UP) {
+            // Up arrow
+            if (isEnabled()) {
+                dc.setForeground(textColor);
+            } else {
+                dc.setForeground(shadowColor);
+            }
+            points[0].x = (FXshort)(ix+(MENUBUTTONARROW_WIDTH>>1));
+            points[0].y = iy-1;
+            points[1].x = ix;
+            points[1].y = iy+MENUBUTTONARROW_HEIGHT;
+            points[2].x = ix+MENUBUTTONARROW_WIDTH;
+            points[2].y = iy+MENUBUTTONARROW_HEIGHT;
+            dc.fillPolygon(points, 3);
+        } else {
+            // Down arrow
+            if (isEnabled()) {
+                dc.setForeground(textColor);
+            } else {
+                dc.setForeground(shadowColor);
+            }
+            points[0].x = ix+1;
+            points[0].y = iy;
+            points[2].x = ix+MENUBUTTONARROW_WIDTH-1;
+            points[2].y = iy;
+            points[1].x = (FXshort)(ix+(MENUBUTTONARROW_WIDTH>>1));
+            points[1].y = iy+MENUBUTTONARROW_HEIGHT;
+            dc.fillPolygon(points, 3);
+        }
+    }
+    // Draw text
+    if (!label.empty()) {
+        dc.setFont(font);
+        if (isEnabled()) {
+            dc.setForeground(textColor);
+            drawLabel(dc, label, hotoff, tx, ty, tw, th);
+        } else {
+            dc.setForeground(hiliteColor);
+            drawLabel(dc, label, hotoff, tx+1, ty+1, tw, th);
+            dc.setForeground(shadowColor);
+            drawLabel(dc, label, hotoff, tx, ty, tw, th);
+        }
+    }
     // Draw focus
     if (hasFocus()) {
         if (isEnabled()) {
@@ -622,79 +678,9 @@ drawLabel(dc, label, hotoff, tx, ty, tw, th);
 }
 
 
-void FXMenuButtonIcon::killFocus() {
-    FXLabel::killFocus();
-    handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
-}
-
-
-bool 
-FXMenuButtonIcon::contains(FXint parentx, FXint parenty) const {
-    if (pane && pane->shown() && pane->contains(parentx, parenty)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-void 
-FXMenuButtonIcon::setMenu(FXPopup *pup) {
-    if (pup != pane) {
-        pane = pup;
-        recalc();
-    }
-}
-
-
-void
-FXMenuButtonIcon::setButtonStyle(FXuint style) {
-    FXuint opts = (options&~MENUBUTTON_MASK) | (style&MENUBUTTON_MASK);
-    if (options != opts) {
-        options = opts;
-        update();
-    }
-}
-
-
-FXuint
-FXMenuButtonIcon::getButtonStyle() const {
-    return (options&MENUBUTTON_MASK);
-}
-
-
-void 
-FXMenuButtonIcon::setPopupStyle(FXuint style) {
-    FXuint opts = (options&~POPUP_MASK) | (style&POPUP_MASK);
-    if (options != opts) {
-        options = opts;
-        update();
-    }
-}
-
-
-FXuint
-FXMenuButtonIcon::getPopupStyle() const {
-    return (options&POPUP_MASK);
-}
-
-
-void 
-FXMenuButtonIcon::setAttachment(FXuint att) {
-    FXuint opts = (options&~ATTACH_MASK) | (att&ATTACH_MASK);
-    if (options != opts) {
-        options = opts;
-        update();
-    }
-}
-
-
-FXuint 
-FXMenuButtonIcon::getAttachment() const {
-    return (options&ATTACH_MASK);
-}
-
-
-FXMenuButtonIcon::~FXMenuButtonIcon() {
-    pane = (FXPopup*)-1L;
+FXMenuButtonIcon::FXMenuButtonIcon() {
+    myPane = (FXPopup*)-1L;
+    myoffsetX = 0;
+    myOffsetY = 0;
+    myState = FALSE;
 }
