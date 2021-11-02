@@ -12,8 +12,8 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    filterDebugDLL.py
-# @author  Michael Behrisch
-# @date    2021-09-16
+# @author  Pablo Alvarez Lopez
+# @date    2021-11-02
 
 """
 Filters a list of filenames whether the names are debug DLLs.
@@ -27,12 +27,10 @@ import sys
 def filterDLL(filelist):
     baselist = [os.path.basename(d) for d in filelist]
     for idx, dll in enumerate(baselist):
-        keep = False
-        if (dll == "FOXDLL-1.6D.dll") :
-            keep = True
+        keep = dll != "FOXDLLD-1.6.dll"
         for suffix in ("d.dll", "D.dll", "-d.dll", "-D.dll", "_d.dll", "_D.dll"):
             if dll.endswith(suffix) and dll[:-len(suffix)] + ".dll" in baselist:
-                keep = True
+                keep = False
                 break
         if keep:
             yield filelist[idx]
