@@ -68,8 +68,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     StringBijection<int> nodeMap;
     //
     OutputDevice& device = OutputDevice::getDevice(oc.getString("opendrive-output"));
-    device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-    device.openTag("OpenDRIVE");
+    OutputDevice::createDeviceByOption("opendrive-output", "OpenDRIVE");
     time_t now = time(nullptr);
     std::string dstr(ctime(&now));
     const Boundary& b = GeoConvHelper::getFinal().getConvBoundary();
