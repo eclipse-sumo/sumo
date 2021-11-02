@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-16 21:09:19 by Eclipse SUMO netconvert Version v1_10_0+0751-9e8cba3d7fc
+<!-- generated on 2021-11-02 23:28:28 by Eclipse SUMO netconvert Version v1_10_0+1864-38501b1aeb1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -77,9 +77,9 @@ SPDX-License-Identifier: EPL-2.0
         <access lane="32055586#4_0" pos="0.00" length="77.60" friendlyPos="1"/>
     </busStop>
     <busStop id="3144398475" name="Friedrich-Wilhelm-Platz" lane="833551067_0" startPos="18.26" endPos="41.96" friendlyPos="true">
-        <access lane="-23209152#1_0" pos="0.00" length="53.66" friendlyPos="1"/>
+        <access lane="-19045106_0" pos="12.49" length="32.65" friendlyPos="1"/>
         <access lane="-23209152#4_0" pos="25.43" length="5.22" friendlyPos="1"/>
-        <access lane="19045106_0" pos="70.85" length="34.15" friendlyPos="1"/>
+        <access lane="19045106_0" pos="70.87" length="35.65" friendlyPos="1"/>
         <access lane="23209152#1_0" pos="11.11" length="53.42" friendlyPos="1"/>
         <access lane="23209152#4_0" pos="36.62" length="0.42" friendlyPos="1"/>
     </busStop>
@@ -130,10 +130,10 @@ SPDX-License-Identifier: EPL-2.0
         <access lane="43328051#2_0" pos="12.27" length="16.95" friendlyPos="1"/>
     </busStop>
     <busStop id="52768325" name="Friedrich-Wilhelm-Platz" lane="308958253#1_0" startPos="39.76" endPos="54.62" friendlyPos="true">
+        <access lane="-19045106_0" pos="0.00" length="7.25" friendlyPos="1"/>
         <access lane="-23209152#1_0" pos="0.00" length="22.37" friendlyPos="1"/>
         <access lane="-23209152#4_0" pos="46.80" length="2.04" friendlyPos="1"/>
-        <access lane="19045106_0" pos="83.33" length="8.74" friendlyPos="1"/>
-        <access lane="23209152#1_0" pos="11.11" length="23.34" friendlyPos="1"/>
+        <access lane="19045106_0" pos="83.33" length="10.24" friendlyPos="1"/>
         <access lane="23209152#4_0" pos="15.12" length="6.84" friendlyPos="1"/>
     </busStop>
     <busStop id="52780750" name="Europaplatz" lane="23329789#1_0" startPos="30.27" endPos="55.27" friendlyPos="true">
