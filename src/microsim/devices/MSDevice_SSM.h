@@ -741,7 +741,7 @@ private:
     /// @{
     std::vector<double> myGlobalMeasuresTimeSpan;
     /// @brief All values for positions (coordinates)
-    std::vector<Position> myGlobalMeasuresPositions;
+    PositionVector myGlobalMeasuresPositions;
     /// @brief All values for brake rate
     std::vector<double> myBRspan;
     /// @brief All values for space gap
