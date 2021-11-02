@@ -64,6 +64,9 @@ FXDEFMAP(MFXIconComboBox) MFXIconComboBoxMap[] = {
 FXIMPLEMENT(MFXIconComboBox,    FXPacker,   MFXIconComboBoxMap, ARRAYNUMBER(MFXIconComboBoxMap))
 FXIMPLEMENT(MFXListItem,        FXListItem, nullptr,            0)
 
+// ---------------------------------------------------------------------------
+// MFXListItem - methods
+// ---------------------------------------------------------------------------
 
 MFXListItem::MFXListItem(const FXString& text, FXIcon* ic, FXColor _bgColor, void* ptr):
     FXListItem(text, ic, ptr),
@@ -117,9 +120,9 @@ MFXListItem::MFXListItem() :
     myBackGroundColor(FXRGB(255, 255, 255)) {
 }
 
-
-/********************************************************************/
-
+// ---------------------------------------------------------------------------
+// MFXIconComboBox - methods
+// ---------------------------------------------------------------------------
 
 MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0) {
@@ -135,9 +138,9 @@ MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt, FXSe
     if (options & COMBOBOX_STATIC) {
         myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLING_OFF);
     }
-    myButton = new FXMenuButton(this, FXString::null, NULL, myPane, FRAME_RAISED | FRAME_THICK | MENUBUTTON_DOWN | MENUBUTTON_ATTACH_RIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
-    myButton->setXOffset(border);
-    myButton->setYOffset(border);
+    myMenuButtonIcon = new FXMenuButtonIcon(this, FXString::null, NULL, myPane, FRAME_RAISED | FRAME_THICK | MENUBUTTON_DOWN | MENUBUTTON_ATTACH_RIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
+    myMenuButtonIcon->setXOffset(border);
+    myMenuButtonIcon->setYOffset(border);
     flags &= ~FLAG_UPDATE;  // Never GUI update
 }
 
@@ -146,7 +149,7 @@ MFXIconComboBox::~MFXIconComboBox() {
     delete myPane;
     myPane = (FXPopup*) - 1L;
     myTextField = (FXTextField*) - 1L;
-    myButton = (FXMenuButton*) - 1L;
+    myMenuButtonIcon = (FXMenuButtonIcon*) - 1L;
     myList = (FXList*) - 1L;
 }
 
@@ -177,7 +180,7 @@ MFXIconComboBox::enable() {
     if (!isEnabled()) {
         FXPacker::enable();
         myTextField->enable();
-        myButton->enable();
+        myMenuButtonIcon->enable();
     }
 }
 
@@ -187,7 +190,7 @@ MFXIconComboBox::disable() {
     if (isEnabled()) {
         FXPacker::disable();
         myTextField->disable();
-        myButton->disable();
+        myMenuButtonIcon->disable();
     }
 }
 
@@ -195,7 +198,7 @@ MFXIconComboBox::disable() {
 FXint
 MFXIconComboBox::getDefaultWidth() {
     FXint ww, pw;
-    ww = myTextField->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+    ww = myTextField->getDefaultWidth() + myMenuButtonIcon->getDefaultWidth() + (border << 1);
     pw = myPane->getDefaultWidth();
     return FXMAX(ww, pw);
 }
@@ -205,7 +208,7 @@ FXint
 MFXIconComboBox::getDefaultHeight() {
     FXint th, bh;
     th = myTextField->getDefaultHeight();
-    bh = myButton->getDefaultHeight();
+    bh = myMenuButtonIcon->getDefaultHeight();
     return FXMAX(th, bh) + (border << 1);
 }
 
@@ -214,10 +217,10 @@ void
 MFXIconComboBox::layout() {
     FXint buttonWidth, textWidth, itemHeight;
     itemHeight = height - (border << 1);
-    buttonWidth = myButton->getDefaultWidth();
+    buttonWidth = myMenuButtonIcon->getDefaultWidth();
     textWidth = width - buttonWidth - (border << 1);
     myTextField->position(border, border, textWidth, itemHeight);
-    myButton->position(border + textWidth, border, buttonWidth, itemHeight);
+    myMenuButtonIcon->position(border + textWidth, border, buttonWidth, itemHeight);
     myPane->resize(width, myPane->getDefaultHeight());
     flags &= ~FLAG_DIRTY;
 }
@@ -648,7 +651,7 @@ MFXIconComboBox::onFwdToText(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXIconComboBox::onListClicked(FXObject*, FXSelector sel, void* ptr) {
-    myButton->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
+    myMenuButtonIcon->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (FXSELTYPE(sel) == SEL_COMMAND) {
         myTextField->setText(myList->getItemText((FXint)(FXival)ptr));
         if (!(options & COMBOBOX_STATIC)) {
@@ -667,7 +670,7 @@ long
 MFXIconComboBox::onTextButton(FXObject*, FXSelector, void*) {
     if (options & COMBOBOX_STATIC) {
         // Post the myList
-        myButton->handle(this, FXSEL(SEL_COMMAND, ID_POST), NULL);
+        myMenuButtonIcon->handle(this, FXSEL(SEL_COMMAND, ID_POST), NULL);
         return 1;
     }
     return 0;

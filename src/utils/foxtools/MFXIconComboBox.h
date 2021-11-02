@@ -23,7 +23,7 @@
 #define MFXIconComboBox_h
 #include <config.h>
 
-#include "fxheader.h"
+#include "FXMenuButtonIcon.h"
 
 
 /// @brief A list item which allows for custom coloring
@@ -279,8 +279,8 @@ protected:
     /// @brief text myTextField
     FXTextField* myTextField = nullptr;
 
-    /// @brief myButton
-    FXMenuButton* myButton = nullptr;
+    /// @brief menu button with icon
+    FXMenuButtonIcon* myMenuButtonIcon = nullptr;
 
     /// @brief list
     FXList* myList = nullptr;
