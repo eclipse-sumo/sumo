@@ -403,6 +403,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
     SVCPermissions permissions = defaultPermissions | e->myExtraAllowed;
     permissions &= ~e->myExtraDisallowed;
+    if (defaultsToOneWay && defaultPermissions == SVC_PEDESTRIAN && (permissions & (~SVC_PEDESTRIAN)) != 0) {
+        defaultsToOneWay = false;
+    }
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
     }
