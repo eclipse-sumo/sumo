@@ -31,7 +31,7 @@ FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[]={
 FXIMPLEMENT(MFXTextFieldIcon, FXTextField, MFXTextFieldIconMap,ARRAYNUMBER(MFXTextFieldIconMap))
 
 
-MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p,FXint ncols,FXObject* tgt,FXSelector sel,FXuint opt, FXint x ,FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXTextField(p, ncols, tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
     myIcon(nullptr) {
 }

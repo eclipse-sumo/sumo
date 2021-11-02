@@ -45,7 +45,7 @@ public:
     /// Constructor
     GUIPropertyScheme(const std::string& name, const T& baseColor,
                       const std::string& colName = "", const bool isFixed = false, double baseValue = 0,
-                      RGBColor bgColor = RGBColor::INVISIBLE,
+                      RGBColor bgColor = RGBColor::WHITE,
                       GUIIcon icon = GUIIcon::EMPTY) :
         myName(name), myIsInterpolated(!isFixed),
         myIsFixed(isFixed),

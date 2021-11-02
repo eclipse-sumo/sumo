@@ -179,7 +179,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
     }
     // fill myTypeMatchBox with list of tags
     for (const auto& tagIt : myTagPropertiesString) {
-        myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()), FXRGB(255, 0, 255));
+        myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()));
     }
     // Set visible items
     myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -223,7 +223,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
             for (const auto& tagIt : myTagPropertiesString) {
-                myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()), FXRGB(255, 0, 255));
+                myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()));
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -271,7 +271,7 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
             for (const auto& tagIt : myTagPropertiesString) {
-                myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()), FXRGB(255, 0, 255));
+                myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()));
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());

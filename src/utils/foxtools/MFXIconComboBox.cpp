@@ -84,10 +84,8 @@ MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, 
     }
     if (isSelected()) {
         dc.setForeground(myList->getSelBackColor());
-    } else if (myBackGroundColor != FXRGBA(0, 0, 0, 0)) {
-        dc.setForeground(myBackGroundColor);
     } else {
-        dc.setForeground(myList->getBackColor());
+        dc.setForeground(myBackGroundColor);
     }
     dc.fillRectangle(xx, yy, ww, hh);
     if (hasFocus()) {
@@ -119,7 +117,7 @@ MFXListItem::getBackGroundColor() const {
 
 MFXListItem::MFXListItem() :
     FXListItem("", nullptr),
-    myBackGroundColor(FXRGB(255, 255, 255)) {
+    myBackGroundColor(FXRGB(0, 0, 0)) {
 }
 
 
@@ -351,7 +349,7 @@ MFXIconComboBox::insertIconItem(FXint index, const FXString& text, FXIcon* icon,
 
 
 FXint
-MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor,  void* ptr) {
+MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     FXint index  =  myList->appendItem(new MFXListItem(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
         myTextFieldIcon->setText(text);
