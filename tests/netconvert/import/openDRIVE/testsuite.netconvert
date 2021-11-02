@@ -24,6 +24,9 @@ imprecise_geometry
 # import and export elevation
 elevation_roundtrip
 
+# import and export elevation
+elevation_flatten
+
 # convert sumo network to xodr
 sumo_to_xodr
 
