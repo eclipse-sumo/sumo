@@ -432,7 +432,7 @@ public:
     virtual bool hasValidRouteStart(std::string& msg);
 
     /// @brief check for route validity at first insertion attempt
-    int getRouteValidity(bool update = true, bool silent = false);
+    int getRouteValidity(bool update = true, bool silent = false, std::string* msgReturn = nullptr);
 
     /** @brief Adds a MoveReminder dynamically
      *

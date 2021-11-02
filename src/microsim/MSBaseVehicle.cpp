@@ -617,7 +617,7 @@ MSBaseVehicle::hasValidRouteStart(std::string& msg) {
 
 
 int
-MSBaseVehicle::getRouteValidity(bool update, bool silent) {
+MSBaseVehicle::getRouteValidity(bool update, bool silent, std::string* msgReturn) {
     if (!update) {
         return myRouteValidity;
     }
@@ -629,6 +629,8 @@ MSBaseVehicle::getRouteValidity(bool update, bool silent) {
         } else if (!silent) {
             // vehicle will be discarded
             WRITE_WARNING(msg);
+        } else if (msgReturn != nullptr) {
+            *msgReturn = msg;
         }
     }
     if (MSGlobals::gCheckRoutes

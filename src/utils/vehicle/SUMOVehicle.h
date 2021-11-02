@@ -131,7 +131,7 @@ public:
     virtual bool hasValidRouteStart(std::string& msg) = 0;
 
     /// @brief computes validity attributes for the current route
-    virtual int getRouteValidity(bool update = true, bool silent = false) = 0;
+    virtual int getRouteValidity(bool update = true, bool silent = false, std::string* msgReturn = nullptr) = 0;
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
      * @return The current route pointer
