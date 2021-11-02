@@ -1,1 +1,2 @@
 vehicle 'ego1' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'
+vehicle 'ego1' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'

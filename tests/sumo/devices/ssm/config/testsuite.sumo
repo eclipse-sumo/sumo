@@ -45,3 +45,6 @@ filter_edges_no_conflict
 
 # White list of edges is given. Conflicts on these edges should be considered.
 filter_edges_with_conflict
+
+# default with option --device.ssm.write-positions
+writePositions_to_globalMeasures

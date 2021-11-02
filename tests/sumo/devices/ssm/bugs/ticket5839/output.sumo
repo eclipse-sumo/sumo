@@ -1,0 +1,1 @@
+vehicle 'flow_0.0' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'

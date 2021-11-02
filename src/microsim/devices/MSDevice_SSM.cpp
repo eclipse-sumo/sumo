@@ -231,6 +231,9 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.ssm.file", "SSM Device", "Give a global default filename for the SSM output.");
     oc.doRegister("device.ssm.geo", Option::makeUnsetWithDefault<Option_Bool, bool>(false));
     oc.addDescription("device.ssm.geo", "SSM Device", "Whether to use coordinates of the original reference system in output (default is false).");
+    oc.doRegister("device.ssm.write-positions", Option::makeUnsetWithDefault<Option_Bool, bool>(false));
+    oc.addDescription("device.ssm.write-positions", "SSM Device", "Whether to use write positions (coordinates) for each timestep.");
+
 }
 
 void
@@ -308,8 +311,10 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
 
         const bool useGeo = useGeoCoords(v);
 
+        const bool writePos = writePositions(v);
+
         // Build the device (XXX: who deletes it?)
-        MSDevice_SSM* device = new MSDevice_SSM(v, deviceID, file, thresholds, trajectories, range, extraTime, useGeo);
+        MSDevice_SSM* device = new MSDevice_SSM(v, deviceID, file, thresholds, trajectories, range, extraTime, useGeo, writePos);
         into.push_back(device);
 
         // Init spatial filter (once)
@@ -514,6 +519,9 @@ void
 MSDevice_SSM::computeGlobalMeasures() {
     if (myComputeBR || myComputeSGAP || myComputeTGAP) {
         myGlobalMeasuresTimeSpan.push_back(SIMTIME);
+        if (myWritePositions) {
+            myGlobalMeasuresPositions.push_back(myHolderMS->getPosition());
+        }
         if (myComputeBR) {
             double br = MAX2(-myHolderMS->getAcceleration(), 0.0);
             if (br > myMaxBR.second) {
@@ -2652,6 +2660,9 @@ MSDevice_SSM::flushGlobalMeasures() {
         myOutputFile->openTag("globalMeasures");
         myOutputFile->writeAttr("ego", egoID);
         myOutputFile->openTag("timeSpan").writeAttr("values", myGlobalMeasuresTimeSpan).closeTag();
+        if (myWritePositions) {
+            myOutputFile->openTag("positions").writeAttr("values", myGlobalMeasuresPositions).closeTag();
+        }
         if (myComputeBR) {
             myOutputFile->openTag("BRSpan").writeAttr("values", myBRspan).closeTag();
 
@@ -2822,13 +2833,14 @@ MSDevice_SSM::makeStringWithNAs(const PositionVector& v, const int precision) {
 // MSDevice_SSM-methods
 // ---------------------------------------------------------------------------
 MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-                           bool trajectories, double range, double extraTime, bool useGeoCoords) :
+                           bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions) :
     MSVehicleDevice(holder, id),
     myThresholds(thresholds),
     mySaveTrajectories(trajectories),
     myRange(range),
     myExtraTime(extraTime),
     myUseGeoCoords(useGeoCoords),
+    myWritePositions(writePositions),
     myOldestActiveEncounterBegin(INVALID_DOUBLE),
     myMaxBR(std::make_pair(-1, Position(0., 0.)), 0.0),
     myMinSGAP(std::make_pair(std::make_pair(-1, Position(0., 0.)), std::numeric_limits<double>::max()), ""),
@@ -3503,6 +3515,36 @@ MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
     return useGeo;
 }
 
+
+bool
+MSDevice_SSM::writePositions(const SUMOVehicle& v) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    bool writePos = false;
+    if (v.getParameter().knowsParameter("device.ssm.write-positions")) {
+        try {
+            writePos = StringUtils::toBool(v.getParameter().getParameter("device.ssm.write-positions", "no"));
+        }
+        catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.write-positions", "no") + "'for vehicle parameter 'ssm.write-positions'");
+        }
+    }
+    else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-positions")) {
+        try {
+            writePos = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no"));
+        }
+        catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no") + "'for vType parameter 'ssm.write-positions'");
+        }
+    }
+    else {
+        writePos = oc.getBool("device.ssm.write-positions");
+        if (!oc.isSet("device.ssm.write-positions") && (issuedParameterWarnFlags & SSM_WARN_POS) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" << ::toString(writePos) << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_POS;
+        }
+    }
+    return writePos;
+}
 
 double
 MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
