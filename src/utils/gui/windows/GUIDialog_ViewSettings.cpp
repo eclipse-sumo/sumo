@@ -1814,11 +1814,11 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     FXMatrix* matrixShowAs = new FXMatrix(verticalframe, 2, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixShowAs, "Show As", nullptr, GUIDesignViewSettingsLabel1);
     myVehicleShapeDetail = new MFXIconComboBox(matrixShowAs, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myVehicleShapeDetail->appendItem("'triangles'");
-    myVehicleShapeDetail->appendItem("'boxes'");
-    myVehicleShapeDetail->appendItem("'simple shapes'");
-    myVehicleShapeDetail->appendItem("'raster images'");
-    myVehicleShapeDetail->appendItem("'circles'");
+    myVehicleShapeDetail->appendIconItem("'triangles'");
+    myVehicleShapeDetail->appendIconItem("'boxes'");
+    myVehicleShapeDetail->appendIconItem("'simple shapes'");
+    myVehicleShapeDetail->appendIconItem("'raster images'");
+    myVehicleShapeDetail->appendIconItem("'circles'");
     myVehicleShapeDetail->setNumVisible(5);
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
 
@@ -1882,10 +1882,10 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     FXMatrix* m101 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix3);
     new FXLabel(m101, "Show As", nullptr, GUIDesignViewSettingsLabel1);
     myPersonShapeDetail = new MFXIconComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myPersonShapeDetail->appendItem("'triangles'");
-    myPersonShapeDetail->appendItem("'circles'");
-    myPersonShapeDetail->appendItem("'simple shapes'");
-    myPersonShapeDetail->appendItem("'raster images'");
+    myPersonShapeDetail->appendIconItem("'triangles'");
+    myPersonShapeDetail->appendIconItem("'circles'");
+    myPersonShapeDetail->appendIconItem("'simple shapes'");
+    myPersonShapeDetail->appendIconItem("'raster images'");
     myPersonShapeDetail->setNumVisible(4);
     myPersonShapeDetail->setCurrentItem(mySettings->personQuality);
 
@@ -1922,10 +1922,10 @@ GUIDialog_ViewSettings::buildContainersFrame(FXTabBook* tabbook) {
     FXMatrix* m101 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix3);
     new FXLabel(m101, "Show As", nullptr, GUIDesignViewSettingsLabel1);
     myContainerShapeDetail = new MFXIconComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myContainerShapeDetail->appendItem("'triangles'");
-    myContainerShapeDetail->appendItem("'boxes'");
-    myContainerShapeDetail->appendItem("'simple shapes'");
-    myContainerShapeDetail->appendItem("'raster images'");
+    myContainerShapeDetail->appendIconItem("'triangles'");
+    myContainerShapeDetail->appendIconItem("'boxes'");
+    myContainerShapeDetail->appendIconItem("'simple shapes'");
+    myContainerShapeDetail->appendIconItem("'raster images'");
     myContainerShapeDetail->setNumVisible(4);
     myContainerShapeDetail->setCurrentItem(mySettings->containerQuality);
 

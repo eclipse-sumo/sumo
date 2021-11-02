@@ -19,11 +19,10 @@
 //
 /****************************************************************************/
 
-#ifndef MFXIconComboBox_h
-#define MFXIconComboBox_h
+#pragma once
 #include <config.h>
 
-#include "FXMenuButtonIcon.h"
+#include "MFXTextFieldIcon.h"
 
 
 /// @brief A list item which allows for custom coloring
@@ -33,10 +32,13 @@ class MFXListItem : public FXListItem {
 
 public:
     /// @brief Construct new item with given text, icon, and user-data
-    MFXListItem(const FXString& text, FXIcon* ic, FXColor _bgColor, void* ptr = NULL);
+    MFXListItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr = NULL);
 
     /// @brief draw MFXListItem
     void draw(const FXList* list, FXDC& dc, FXint x, FXint y, FXint w, FXint h);
+
+    /// @brief get background color
+    const FXColor &getBackGroundColor() const;
 
 protected:
     /// @brief fox need this
@@ -136,22 +138,13 @@ public:
     FXString getItem(FXint index) const;
 
     /// Replace the item at index
-    FXint setItem(FXint index, const FXString& text, void* ptr=NULL);
-
-    /// Fill combo box by appending items from array of strings
-    FXint fillItems(const FXchar** strings);
-
-    /// Fill combo box by appending items from newline separated strings
-    FXint fillItems(const FXString& strings);
+    FXint setIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr=nullptr);
 
     /// Insert a new item at index
-    FXint insertItem(FXint index, const FXString& text, void* ptr=NULL);
-
-    /// Append an item to the list
-    FXint appendItem(const FXString& text, void* ptr=NULL);
+    FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr,  FXColor bgColor = FXRGB(255, 255, 255),  void* ptr=nullptr);
 
     /// @brief append icon
-    FXint appendIconItem(const FXString& text,  FXIcon* icon,  FXColor bgColor = FXRGBA(0,  0,  0,  0),  void* ptr = NULL);
+    FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
     /// Prepend an item to the list
     FXint prependItem(const FXString& text, void* ptr=NULL);
@@ -276,11 +269,11 @@ protected:
     /// @brief FOX need this
     MFXIconComboBox();
 
-    /// @brief text myTextField
-    FXTextField* myTextField = nullptr;
+    /// @brief textField with icon
+    MFXTextFieldIcon* myTextFieldIcon = nullptr;
 
-    /// @brief menu button with icon
-    FXMenuButtonIcon* myMenuButtonIcon = nullptr;
+    /// @brief myButton
+    FXMenuButton* myButton = nullptr;
 
     /// @brief list
     FXList* myList = nullptr;
@@ -295,5 +288,3 @@ private:
     /// @brief invalidate assignment operator
     MFXIconComboBox &operator=(const MFXIconComboBox&) = delete;
 };
-
-#endif
