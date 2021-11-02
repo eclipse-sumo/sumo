@@ -90,7 +90,7 @@ private:
     GNEElementSet* myElementSet;
 
     /// @brief tag of the match box
-    FXComboBox* myMatchTagComboBox;
+    MFXIconComboBox* myMatchTagComboBox;
 
     /// @brief attributes of the match box
     FXComboBox* myMatchAttrComboBox;

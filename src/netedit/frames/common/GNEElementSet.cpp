@@ -51,28 +51,28 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
     myMatchGenericDataAttribute(nullptr),
     myCurrentSet(Type::INVALID) {
     // Create MatchTagBox for tags and fill it
-    mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
+    mySetComboBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
     // continue depending of supermode
     if (supermode == Supermode::NETWORK) {
         // append elements
-        mySetComboBox->appendItem("Network");
-        mySetComboBox->appendItem("Additional");
-        mySetComboBox->appendItem("Shape");
-        mySetComboBox->appendItem("TAZ");
+        mySetComboBox->appendIconItem("Network", GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE));
+        mySetComboBox->appendIconItem("Additional", GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
+        mySetComboBox->appendIconItem("Shape", GUIIconSubSys::getIcon(GUIIcon::MODEPOLYGON));
+        mySetComboBox->appendIconItem("TAZ", GUIIconSubSys::getIcon(GUIIcon::MODETAZ));
         // set default set
         myCurrentSet = Type::NETWORK;
         // build MatchAttribute
         myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);
     } else if (supermode == Supermode::DEMAND) {
         // append elements
-        mySetComboBox->appendItem("Demand");
+        mySetComboBox->appendIconItem("Demand", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
         // set default set
         myCurrentSet = Type::DEMAND;
         // build MatchAttribute
         myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);
     } else if (supermode == Supermode::DATA) {
         // append elements
-        mySetComboBox->appendItem("Data");
+        mySetComboBox->appendIconItem("Data", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
         // set default set
         myCurrentSet = Type::DATA;
         /// build MatchGenericAttribute

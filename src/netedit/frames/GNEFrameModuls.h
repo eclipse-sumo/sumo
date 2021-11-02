@@ -182,7 +182,7 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief comboBox with the list of elements type
-        FXComboBox* myDemandElementsMatchBox;
+        MFXIconComboBox* myDemandElementsMatchBox;
 
         /// @brief current demand element
         GNEDemandElement* myCurrentDemandElement;

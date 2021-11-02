@@ -143,6 +143,9 @@ public:
     /// @brief append icon
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
+    /// @brief set Item
+    bool setItem(const FXString& text, FXIcon* icon);
+
     /// Prepend an item to the list
     FXint prependItem(const FXString& text, void* ptr=NULL);
 

@@ -23,6 +23,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
+#include <utils/foxtools/MFXIconComboBox.h>
 
 // ===========================================================================
 // class declaration

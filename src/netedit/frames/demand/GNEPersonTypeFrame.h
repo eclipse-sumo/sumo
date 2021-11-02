@@ -78,7 +78,7 @@ public:
         /// @brief pointer to current person type
         GNEDemandElement* myCurrentPersonType;
 
-        /// @brief comboBox with the list of elements type
+        /// @brief comboBox with the list of person types
         FXComboBox* myTypeMatchBox;
     };
 

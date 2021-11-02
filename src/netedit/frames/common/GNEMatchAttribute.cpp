@@ -48,9 +48,9 @@ GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defau
     myElementSet(elementSet),
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {
-    // Create MatchTagBox for tags
-    myMatchTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
-    // Create listBox for Attributes
+    // Create MFXIconComboBox for tags
+    myMatchTagComboBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create FXComboBox for Attributes
     myMatchAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
@@ -317,7 +317,7 @@ GNEMatchAttribute::updateTag() {
     // itreate over myTagPropertiesString
     for (int i = 0; i < (int)myTagPropertiesString.size(); i++) {
         // add tag in combo Box
-        myMatchTagComboBox->appendItem(myTagPropertiesString.at(i).second.c_str());
+        myMatchTagComboBox->appendIconItem(myTagPropertiesString.at(i).second.c_str(), GUIIconSubSys::getIcon(myTagPropertiesString.at(i).first.getGUIIcon()));
         // check tag index
         if (myTagPropertiesString.at(i).first.getTag() == myCurrentTag) {
             tagIndex = i;

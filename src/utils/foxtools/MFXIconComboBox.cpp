@@ -350,7 +350,7 @@ MFXIconComboBox::insertIconItem(FXint index, const FXString& text, FXIcon* icon,
 
 FXint
 MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
-    FXint index  =  myList->appendItem(new MFXListItem(text, icon, bgColor, ptr));
+    FXint index = myList->appendItem(new MFXListItem(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
         myTextFieldIcon->setText(text);
         myTextFieldIcon->setIcon(icon);
@@ -358,6 +358,21 @@ MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
     }
     recalc();
     return index;
+}
+
+
+bool 
+MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        // cast MFXListItem
+        const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem(i));
+        // set icon and background color
+        if (item && (item->getText() == text) && (item->getIcon() == icon)) {
+            myList->setCurrentItem(i, FALSE);
+            return true;
+        }
+    }
+    return false;
 }
 
 

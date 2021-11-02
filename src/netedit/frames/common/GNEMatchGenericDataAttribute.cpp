@@ -60,15 +60,15 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myCurrentTag(defaultTag),
     myCurrentAttribute(toString(defaultAttr)),
     myMatchGenericDataString(nullptr) {
-    // Create MatchGenericDataTagBox for tags
+    // Create MFXIconComboBox for interval
     new FXLabel(this, "Interval [begin, end]", nullptr, GUIDesignLabelThick);
-    myIntervalSelector = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
+    myIntervalSelector = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
     FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBegin = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
     myEnd = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
-    // Create MatchGenericDataTagBox myHorizontalFrameEnd tags
-    myMatchGenericDataTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create MFXIconComboBox for generic datas
+    myMatchGenericDataTagComboBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
     myMatchGenericDataAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string
@@ -113,7 +113,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myIntervalSelector->clearItems();
         // fill combo Box
         for (auto& interval : myIntervals) {
-            interval.second = myIntervalSelector->appendItem((" [" + toString(interval.first.first) + "," + toString(interval.first.second) + "]").c_str());
+            interval.second = myIntervalSelector->appendIconItem((" [" + toString(interval.first.first) + "," + toString(interval.first.second) + "]").c_str(), GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL));
         }
         // set number of visible items
         if (myIntervalSelector->getNumItems() < 10) {
@@ -132,7 +132,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
         // fill combo box
         for (const auto& genericDataTag : genericDataTags) {
-            myMatchGenericDataTagComboBox->appendItem(genericDataTag.second.c_str());
+            myMatchGenericDataTagComboBox->appendIconItem(genericDataTag.second.c_str(), GUIIconSubSys::getIcon(genericDataTag.first.getGUIIcon()));
         }
         // set first item as current item
         myMatchGenericDataTagComboBox->setCurrentItem(0);

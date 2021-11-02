@@ -338,8 +338,8 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     myDemandElementTags({demandElementTag}) {
-    // Create FXComboBox
-    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // Create MFXIconComboBox
+    myDemandElementsMatchBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -358,8 +358,8 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
             myDemandElementTags.push_back(tagProperty.first.getTag());
         }
     }
-    // Create FXComboBox
-    myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // Create MFXIconComboBox
+    myDemandElementsMatchBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -387,7 +387,7 @@ GNEFrameModuls::DemandElementSelector::setDemandElement(GNEDemandElement* demand
     // first check that demandElement tag correspond to a tag of myDemandElementTags
     if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
         // update text of myDemandElementsMatchBox
-        myDemandElementsMatchBox->setText(demandElement->getID().c_str());
+        myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getIcon());
         // Set new current demand element
         myCurrentDemandElement = demandElement;
         // call demandElementSelected function
@@ -402,12 +402,14 @@ GNEFrameModuls::DemandElementSelector::showDemandElementSelector() {
     refreshDemandElementSelector();
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
     if (myCurrentDemandElement) {
-        myDemandElementsMatchBox->setText(myCurrentDemandElement->getID().c_str());
+        myDemandElementsMatchBox->setItem(myCurrentDemandElement->getID().c_str(), myCurrentDemandElement->getIcon());
     } else if (myDemandElementTags.size() == 1) {
         if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
-            myDemandElementsMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+            const auto defaultVType = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
+            myDemandElementsMatchBox->setItem(defaultVType->getID().c_str(), defaultVType->getIcon());
         } else if (myDemandElementTags.at(0) == SUMO_TAG_PTYPE) {
-            myDemandElementsMatchBox->setText(DEFAULT_PEDTYPE_ID.c_str());
+            const auto defaultPType = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID);
+            myDemandElementsMatchBox->setItem(defaultPType->getID().c_str(), defaultPType->getIcon());
         }
     }
     onCmdSelectDemandElement(nullptr, 0, nullptr);
@@ -438,29 +440,29 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
         // special case for VTypes and PTypes
         if (demandElementTag == SUMO_TAG_VTYPE) {
             // add default Vehicle an Bike types in the first and second positions
-            myDemandElementsMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
-            myDemandElementsMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
             // add rest of vTypes
             for (const auto& vType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default vType
                 if ((vType->getID() != DEFAULT_VTYPE_ID) && (vType->getID() != DEFAULT_BIKETYPE_ID)) {
-                    myDemandElementsMatchBox->appendItem(vType->getID().c_str());
+                    myDemandElementsMatchBox->appendIconItem(vType->getID().c_str(), vType->getIcon());
                 }
             }
         } else if (demandElementTag == SUMO_TAG_PTYPE) {
             // add default Person type in the firs
-            myDemandElementsMatchBox->appendItem(DEFAULT_PEDTYPE_ID.c_str());
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::PTYPE));
             // add rest of pTypes
             for (const auto& pType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default pType
                 if (pType->getID() != DEFAULT_PEDTYPE_ID) {
-                    myDemandElementsMatchBox->appendItem(pType->getID().c_str());
+                    myDemandElementsMatchBox->appendIconItem(pType->getID().c_str(), pType->getIcon());
                 }
             }
         } else {
             // insert all Ids
             for (const auto& demandElement : demandElements.at(demandElementTag)) {
-                myDemandElementsMatchBox->appendItem(demandElement->getID().c_str());
+                myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getIcon());
             }
         }
     }

@@ -81,7 +81,7 @@ public:
         /// @brief pointer to current vehicle type
         GNEDemandElement* myCurrentVehicleType;
 
-        /// @brief comboBox with the list of elements type
+        /// @brief comboBox with the list of vTypes
         FXComboBox* myTypeMatchBox;
     };
 
