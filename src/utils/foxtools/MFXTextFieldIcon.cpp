@@ -43,6 +43,14 @@ MFXTextFieldIcon::setIcon(FXIcon *icon) {
 }
 
 
+void 
+MFXTextFieldIcon::resetTextField() {
+    setText("");
+    setBackColor(FXRGB(255, 255, 255));
+    setIcon(nullptr);
+}
+
+
 long 
 MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent *ev=(FXEvent*)ptr;
@@ -84,7 +92,7 @@ MFXTextFieldIcon::MFXTextFieldIcon() :
 
 void 
 MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
-    const FXint iconWidth = myIcon->getWidth();
+    const FXint iconWidth = myIcon->getWidth() + 4;
     FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
     const FXint rr = width - border - padright;
     const FXint ll = border + padleft;
@@ -99,7 +107,7 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
     hh = font->getFontHeight();
     // Text sticks to top of field
     if (options&JUSTIFY_TOP) {
-        yy=padtop + border;
+        yy = padtop + border;
     }
     // Text sticks to bottom of field
     else if (options&JUSTIFY_BOTTOM) {
@@ -257,4 +265,6 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
             }
         }
     }
+    // draw icon
+    dc.drawIcon(myIcon, xx - myIcon->getWidth() - 3, yy + (hh - myIcon->getHeight()) / 2);
 }

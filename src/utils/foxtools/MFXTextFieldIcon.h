@@ -35,8 +35,11 @@ public:
     /// @brief set icon
     void setIcon(FXIcon *icon);
 
+    /// @brief reset textField
+    void resetTextField();
+
     /// @brief paint
-    long onPaint(FXObject*, FXSelector,void* ptr);
+    long onPaint(FXObject*, FXSelector,void* ptr); 
 
 protected:
     /// @brief FOX need this

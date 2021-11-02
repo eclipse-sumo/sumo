@@ -98,9 +98,6 @@ public:
     /// Set editable state
     void setEditable(FXbool edit=TRUE);
 
-    /// Set the text
-    void setText(const FXString& text);
-
     /// Get the text
     FXString getText() const;
 
@@ -178,9 +175,6 @@ public:
     * to control whether the search wraps at the start or end of the list.
     */
     FXint findItemByData(const void *ptr, FXint start=-1, FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
-
-    /// Set text for specified item
-    void setItemText(FXint index, const FXString& text);
 
     /// Get text for specified item
     FXString getItemText(FXint index) const;

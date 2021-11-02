@@ -237,12 +237,6 @@ MFXIconComboBox::setEditable(FXbool edit) {
 }
 
 
-void 
-MFXIconComboBox::setText(const FXString& text) {
-    myTextFieldIcon->setText(text);
-}
-
-
 FXString 
 MFXIconComboBox::getText() const {
     return myTextFieldIcon->getText();
@@ -292,9 +286,18 @@ MFXIconComboBox::setCurrentItem(FXint index, FXbool notify) {
         myList->setCurrentItem(index);
         myList->makeItemVisible(index);
         if (0 <= index) {
-            setText(myList->getItemText(index));
+            // cast MFXListItem
+            const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem(index));
+            // set icon and background color
+            if (item) {
+                myTextFieldIcon->setText(item->getText());
+                myTextFieldIcon->setBackColor(item->getBackGroundColor());
+                myTextFieldIcon->setIcon(item->getIcon());
+            } else {
+                myTextFieldIcon->resetTextField();
+            }
         } else {
-            setText(FXString::null);
+            myTextFieldIcon->resetTextField();
         }
         if (notify && target) {
             target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)getText().text());
@@ -409,9 +412,7 @@ MFXIconComboBox::removeItem(FXint index) {
 
 void
 MFXIconComboBox::clearItems() {
-    myTextFieldIcon->setText(FXString::null);
-    myTextFieldIcon->setIcon(nullptr);
-    myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
+    myTextFieldIcon->resetTextField();
     myList->clearItems();
     recalc();
 }
@@ -426,16 +427,6 @@ MFXIconComboBox::findItem(const FXString& text, FXint start, FXuint flgs) const 
 FXint
 MFXIconComboBox::findItemByData(const void* ptr, FXint start, FXuint flgs) const {
     return myList->findItemByData(ptr, start, flgs);
-}
-
-
-void
-MFXIconComboBox::setItemText(FXint index, const FXString& txt) {
-    if (isItemCurrent(index)) {
-        setText(txt);
-    }
-    myList->setItemText(index, txt);
-    recalc();
 }
 
 
