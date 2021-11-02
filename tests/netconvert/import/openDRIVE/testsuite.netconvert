@@ -51,5 +51,8 @@ pRange
 # resample line geometry for smooth z-data
 ticket5314
 
+# interaction of --geometry.min-dist, --roundabouts.guess and --junctions.join
+ticket9448
+
 # tests for importin connectivity
 connections
