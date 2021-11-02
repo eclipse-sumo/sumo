@@ -1398,18 +1398,20 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         int k = 0;
         double pos = 0;
         //std::cout << " edge=" << e.id << " geom.size=" << e.geom.size() << " geom.len=" << e.geom.length2D() << " ele.size=" << e.elevations.size() << "\n";
-        for (std::vector<OpenDriveElevation>::iterator j = e.elevations.begin(); j != e.elevations.end(); ++j) {
-            const OpenDriveElevation& el = *j;
-            const double sNext = (j + 1) == e.elevations.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
-            while (k < (int)e.geom.size() && pos < sNext) {
-                const double z = el.computeAt(pos);
-                //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " el.s=" << el.s << " el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
-                e.geom[k].add(0, 0, z);
-                k++;
-                if (k < (int)e.geom.size()) {
-                    // XXX pos understimates the actual position since the
-                    // actual geometry between k-1 and k could be curved
-                    pos += e.geom[k - 1].distanceTo2D(e.geom[k]);
+        if (!oc.getBool("flatten")) {
+            for (std::vector<OpenDriveElevation>::iterator j = e.elevations.begin(); j != e.elevations.end(); ++j) {
+                const OpenDriveElevation& el = *j;
+                const double sNext = (j + 1) == e.elevations.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
+                while (k < (int)e.geom.size() && pos < sNext) {
+                    const double z = el.computeAt(pos);
+                    //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " el.s=" << el.s << " el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
+                    e.geom[k].add(0, 0, z);
+                    k++;
+                    if (k < (int)e.geom.size()) {
+                        // XXX pos understimates the actual position since the
+                        // actual geometry between k-1 and k could be curved
+                        pos += e.geom[k - 1].distanceTo2D(e.geom[k]);
+                    }
                 }
             }
         }
