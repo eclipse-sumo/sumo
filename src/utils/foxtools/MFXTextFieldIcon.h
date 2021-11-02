@@ -42,6 +42,9 @@ protected:
     /// @brief FOX need this
     MFXTextFieldIcon();
 
+    /// @brief draw icon text range
+    void drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to);
+
     /// @brief icon
     FXIcon *myIcon;
 };
