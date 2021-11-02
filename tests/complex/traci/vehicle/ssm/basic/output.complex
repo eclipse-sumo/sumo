@@ -1,8 +1,4 @@
 Loading configuration ... done.
-vehicle 'leader' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'
-vehicle 'leader' does not supply vehicle parameter 'device.ssm.range'. Using default of '50.00'
-vehicle 'leader' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'
-vehicle 'leader' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'
  Retrying in 1 seconds
 step 0
   veh=ego minTTC= maxDRAC= minPET=
