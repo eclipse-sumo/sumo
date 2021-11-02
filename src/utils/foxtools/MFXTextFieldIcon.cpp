@@ -32,7 +32,14 @@ FXIMPLEMENT(MFXTextFieldIcon, FXTextField, MFXTextFieldIconMap,ARRAYNUMBER(MFXTe
 
 
 MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p,FXint ncols,FXObject* tgt,FXSelector sel,FXuint opt, FXint x ,FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXTextField(p, ncols, tgt, sel, opt, x, y, w, h, pl, pr, pt, pb) {
+    FXTextField(p, ncols, tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
+    myIcon(nullptr) {
+}
+
+
+void 
+MFXTextFieldIcon::setIcon(FXIcon *icon) {
+    myIcon = icon;
 }
 
 
@@ -65,4 +72,6 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
 }
 
 
-MFXTextFieldIcon::MFXTextFieldIcon() {}
+MFXTextFieldIcon::MFXTextFieldIcon() :
+    myIcon(nullptr) {
+}
