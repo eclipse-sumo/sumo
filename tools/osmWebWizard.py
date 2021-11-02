@@ -210,6 +210,7 @@ class Builder(object):
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
+            netconvertOptions += ",--osm.sidewalks"
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
         if "ship" in self.data["vehicles"]:
