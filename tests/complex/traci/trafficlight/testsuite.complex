@@ -4,6 +4,9 @@ constraints
 # Tests the trafficlight API
 trafficlight
 
+# Tests the trafficlight API for an intersection with controlled pedestrian crossings
+crossings
+
 # test offset manipulation
 offset
 
