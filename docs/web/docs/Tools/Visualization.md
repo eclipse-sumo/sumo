@@ -54,6 +54,7 @@ The option **-t (--trajectory-type)** supports different plot styles:
 - ta: time vs acceleration
 - ds: distance vs speed
 - da: distance vs acceleration
+- kt: kilometrage vs time (requires **--fcd-output.distance**)
 
 When option **-s** is set, a interactive plot is opened that allows
 identifying vehicles by clicking on the respective line (vehicle ids is
