@@ -92,7 +92,7 @@ This Documentation is continuously updated and always refers to the latest devel
 
 ## TraCI (On-line Interaction)
 - [TraCI overview](TraCI.md) - The **Tra**ffic **C**ontrol **I**nterface
-- [Libtraci](Libtraci.md) - Using sumo as a library
+- [Libsumo](Libsumo.md) - Using sumo as a library
 
 ## Traffic Management and Other Structures
 
