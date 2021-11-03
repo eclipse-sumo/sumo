@@ -185,11 +185,21 @@ When checking the 'Elevation' checkbox, elevation of junctions and existing geom
 
 ## Moving Object Selections
 
+Special movement operations are available when multiple objects are selected (via Selection mode).
+
+### View Operations
+
 - When selecting neighboring edges and dragging one of them, the neighboring edge will receive the same shape modifications
 - When selecting an edge and its junctions and dragging any part of the selection, all parts including edge geometry will be moved in parallel
 - When selecting an edge an one if its junctions:
   - When dragging the junction, only the junction will move
   - When dragging the edge, the edge will move locally and the junction will move in parallel
+
+### Frame Operation
+
+For a selection of edges, the Move-mode sidebar allows to move the whole geometry sideway using the "Shift selected edges geoemtry" element. A position value shifts geometry to the right (relative to the driving direction) and a negatve value shifts geometry to the left.
+
+For a selection edges and/or junctions the Move-mode sidebar allows to move all objects in Z-direction using the "Change Z in selection" element. The applied value can either be set as the new "absolute" Z value or it can be applied relative to the existing Z position.
 
 ## Moving Polygons and TAZs
 
