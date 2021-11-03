@@ -55,3 +55,6 @@ reached_invalid
 
 # test replaceStop failure
 unreachable
+
+# replace first stop while on a junction leading away from the new stop
+on_junction
