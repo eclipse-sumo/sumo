@@ -179,11 +179,23 @@ GNEElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     if (myCurrentSet == Type::INVALID) {
         // set invalid color
         mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+        // hide match attribute
+        if (myMatchAttribute) {
+            myMatchAttribute->hideMatchAttribute();
+        }
+        if (myMatchGenericDataAttribute) {
+            myMatchGenericDataAttribute->hideMatchGenericDataAttribute();
+        }
     } else {
         // set default color
         mySetComboBox->setTextColor(FXRGB(0, 0, 0));
         // set current set
-        myMatchAttribute->showMatchAttribute(myCurrentSet);
+        if (myMatchAttribute) {
+            myMatchAttribute->showMatchAttribute(myCurrentSet);
+        }
+        if (myMatchGenericDataAttribute) {
+            myMatchGenericDataAttribute->showMatchGenericDataAttribute();
+        }
     }
     return 1;
 }
