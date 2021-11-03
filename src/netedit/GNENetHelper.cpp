@@ -501,7 +501,7 @@ GNECrossing*
 GNENetHelper::AttributeCarriers::retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast crossing
     GNECrossing* crossing = dynamic_cast<GNECrossing*>(AC);
-    if (crossing) {
+    if (crossing && (myCrossings.count(crossing) > 0)) {
         return crossing;
     } else if (hardFail) {
         throw UnknownElement("Crossing " + AC->getID());
@@ -778,9 +778,9 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFa
 GNELane*
 GNENetHelper::AttributeCarriers::retrieveLane(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast lane
-    GNELane* Lane = dynamic_cast<GNELane*>(AC);
-    if (Lane) {
-        return Lane;
+    GNELane* lane = dynamic_cast<GNELane*>(AC);
+    if (lane && (myLanes.count(lane) > 0)) {
+        return lane;
     } else if (hardFail) {
         throw UnknownElement("Lane " + AC->getID());
     } else {
@@ -860,7 +860,7 @@ GNEConnection*
 GNENetHelper::AttributeCarriers::retrieveConnection(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast connection
     GNEConnection* connection = dynamic_cast<GNEConnection*>(AC);
-    if (connection) {
+    if (connection && (myConnections.count(connection) > 0)) {
         return connection;
     } else if (hardFail) {
         throw UnknownElement("Connection " + AC->getID());
@@ -939,7 +939,7 @@ GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast additional
     GNEAdditional* additional = dynamic_cast<GNEAdditional*>(AC);
-    if (additional) {
+    if (additional && (myAdditionals.at(AC->getTagProperty().getTag()).count(additional) > 0)) {
         return additional;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
@@ -1061,7 +1061,7 @@ GNEShape*
 GNENetHelper::AttributeCarriers::retrieveShape(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast shape
     GNEShape* shape = dynamic_cast<GNEShape*>(AC);
-    if (shape) {
+    if (shape && (myShapes.at(AC->getTagProperty().getTag()).count(shape) > 0)) {
         return shape;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant shape");
@@ -1193,7 +1193,7 @@ GNETAZElement*
 GNENetHelper::AttributeCarriers::retrieveTAZElement(GNEAttributeCarrier *AC, bool hardFail) const {
     // cast TAZElement
     GNETAZElement* TAZElement = dynamic_cast<GNETAZElement*>(AC);
-    if (TAZElement) {
+    if (TAZElement && (myTAZElements.at(AC->getTagProperty().getTag()).count(TAZElement) > 0)) {
         return TAZElement;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant TAZElement");
@@ -1314,7 +1314,7 @@ GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast demandElement
     GNEDemandElement* demandElement = dynamic_cast<GNEDemandElement*>(AC);
-    if (demandElement) {
+    if (demandElement && (myDemandElements.at(AC->getTagProperty().getTag()).count(demandElement) > 0)) {
         return demandElement;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
@@ -1768,7 +1768,7 @@ GNEDataSet*
 GNENetHelper::AttributeCarriers::retrieveDataSet(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast dataSet
     GNEDataSet* dataSet = dynamic_cast<GNEDataSet*>(AC);
-    if (dataSet) {
+    if (dataSet && (myDataSets.count(dataSet) > 0)) {
         return dataSet;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
@@ -1799,7 +1799,7 @@ GNEDataInterval*
 GNENetHelper::AttributeCarriers::retrieveDataInterval(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast dataInterval
     GNEDataInterval* dataInterval = dynamic_cast<GNEDataInterval*>(AC);
-    if (dataInterval) {
+    if (dataInterval && (myDataIntervals.count(dataInterval) > 0)) {
         return dataInterval;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data interval");
@@ -1838,7 +1838,7 @@ GNEGenericData*
 GNENetHelper::AttributeCarriers::retrieveGenericData(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast genericData
     GNEGenericData* genericData = dynamic_cast<GNEGenericData*>(AC);
-    if (genericData) {
+    if (genericData && (myGenericDatas.at(AC->getTagProperty().getTag()).count(genericData) > 0)) {
         return genericData;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
