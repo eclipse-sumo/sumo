@@ -69,12 +69,12 @@ enum SumoXMLTag {
     SUMO_TAG_ACCESS,
     /// @brief  A container stop
     SUMO_TAG_CONTAINER_STOP,
+    /// @brief A Charging Station
+    SUMO_TAG_CHARGING_STATION,
     /// @brief A parking area
     SUMO_TAG_PARKING_AREA,
     /// @brief A parking space for a single vehicle within a parking area
     SUMO_TAG_PARKING_SPACE,
-    /// @brief  A Charging Station
-    SUMO_TAG_CHARGING_STATION,
     /// @brief an e1 detector
     SUMO_TAG_E1DETECTOR,
     /// @brief alternative tag for e1 detector
