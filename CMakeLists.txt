@@ -433,11 +433,10 @@ if (NOT ${SETUPTOOLS_MISSING})
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
-    # split debug and release libraries
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_DEBUG_DLL)
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterReleaseDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
+	# filter release DLLs
+    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
     # copy debug dlls
-    foreach(DEBUG_DLL ${SUMO_LIBRARIES_DEBUG_DLL})
+    foreach(DEBUG_DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
         get_filename_component(DLL_BASENAME ${DEBUG_DLL} NAME)
         set(TARGET_DEBUG_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
         list(FIND TARGET_DEBUG_DLLS ${TARGET_DEBUG_DLL} DLL_KNOWN)
