@@ -172,11 +172,11 @@ public:
         return myBgColor;
     }
 
-    void save(OutputDevice& dev) const {
+    void save(OutputDevice& dev, const std::string& prefix = "") const {
         const std::string tag = getTagName(myColors);
 
         dev.openTag(tag);
-        dev.writeAttr(SUMO_ATTR_NAME, myName);
+        dev.writeAttr(SUMO_ATTR_NAME, prefix + myName);
         if (!myIsFixed) {
             dev.writeAttr(SUMO_ATTR_INTERPOLATED, myIsInterpolated);
         }

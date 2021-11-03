@@ -156,35 +156,43 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.laneScaler.setActive(laneEdgeScaleMode);
         }
         break;
-        case SUMO_TAG_COLORSCHEME:
+        case SUMO_TAG_COLORSCHEME: {
             myCurrentScheme = nullptr;
             myCurrentScaleScheme = nullptr;
+            const std::string name = attrs.getStringSecure(SUMO_ATTR_NAME, "");
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
-                myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                if (StringUtils::startsWith(name, "meso:")) {
+                    // see edgeColorer.save() in GUIVisualizationSettings::save
+                    myCurrentScheme = mySettings.edgeColorer.getSchemeByName(name.substr(5));
+                } else {
+                    myCurrentScheme = mySettings.laneColorer.getSchemeByName(name);
+                }
                 if (myCurrentScheme == nullptr) {
-                    myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                    // legacy: meso schemes without prefix
+                    myCurrentScheme = mySettings.edgeColorer.getSchemeByName(name);
                 }
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
-                myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_PERSONS) {
-                myCurrentScheme = mySettings.personColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.personColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_JUNCTIONS) {
-                myCurrentScheme = mySettings.junctionColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.junctionColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_POIS) {
-                myCurrentScheme = mySettings.poiColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.poiColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_POLYS) {
-                myCurrentScheme = mySettings.polyColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.polyColorer.getSchemeByName(name);
             }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
                 myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScheme->clear();
             }
-            break;
+        }
+        break;
         case SUMO_TAG_SCALINGSCHEME:
             myCurrentScheme = nullptr;
             myCurrentScaleScheme = nullptr;
@@ -404,7 +412,7 @@ GUISettingsHandler::myEndElement(int element) {
 }
 
 
-RGBColor 
+RGBColor
 GUISettingsHandler::parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor &defaultValue) const {
     bool ok = true;
     return RGBColor::parseColorReporting(attrs.getStringSecure(attribute, toString(defaultValue)), attribute.c_str(), nullptr, true, ok);

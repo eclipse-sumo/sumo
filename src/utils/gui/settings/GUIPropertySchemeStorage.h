@@ -104,9 +104,9 @@ public:
         }
     }
 
-    void save(OutputDevice& dev) const {
+    void save(OutputDevice& dev, const std::string& prefix = "") const {
         for (typename std::vector<T>::const_iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
-            i->save(dev);
+            i->save(dev, prefix);
         }
     }
 

@@ -1583,7 +1583,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     edgeValue.print(dev, "edgeValue");
     laneColorer.save(dev);
     laneScaler.save(dev);
-    edgeColorer.save(dev);
+    edgeColorer.save(dev, "meso:");
     edgeScaler.save(dev);
     dev.closeTag();
     // vehicles
