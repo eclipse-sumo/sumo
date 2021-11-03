@@ -31,8 +31,13 @@ main(int argc, char** argv) {
         options.push_back(argv[i]);
     }
     options.insert(options.begin(), "sumo");
-    libtraci::Simulation::start(options);
-    std::cout << "Simulation started\n";
+    try {
+        libtraci::Simulation::start(options);
+        // libtraci::Simulation::start(options, -1, libsumo::DEFAULT_NUM_RETRIES, "default", true);
+        std::cout << "Simulation started\n";
+    } catch (const std::runtime_error& e) {
+        std::cerr << "Could not start simulation: " << e.what() << "\n";
+    }
     /*
       std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute("64455492", "-22913705", "public", 21600, 3, -1, -1, 0, 0,0,"ped");
       double cost = 0;
