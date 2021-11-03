@@ -161,11 +161,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
             const std::vector<MSTransportable*>& persons = veh->getPersons();
             for (MSTransportable* person : persons) {
-                writeTransportable(of, edge, person, veh, true, SUMO_TAG_PERSON, useGeo, elevation, mask);
+                writeTransportable(of, edge, person, veh, inRadius.count(person), SUMO_TAG_PERSON, useGeo, elevation, mask);
             }
             const std::vector<MSTransportable*>& containers = veh->getContainers();
             for (MSTransportable* container : containers) {
-                writeTransportable(of, edge, container, veh, true, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
+                writeTransportable(of, edge, container, veh, inRadius.count(container), SUMO_TAG_CONTAINER, useGeo, elevation, mask);
             }
         }
     }
