@@ -186,6 +186,8 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             if (crossing->isAttributeCarrierSelected()) {
                 crossing->unselectAttributeCarrier();
             }
+            // remove it from inspected ACS
+            myNet->getViewNet()->removeFromAttributeCarrierInspected(crossing);
             // remove it from net
             myNet->removeGLObjectFromGrid(crossing);
             // remove it from attributeCarriers
@@ -877,23 +879,21 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
 void
 GNEJunction::removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
     // obtain a copy of GNECrossing of junctions
-    auto copyOfGNECrossings = myGNECrossings;
+    const auto copyOfGNECrossings = myGNECrossings;
     // iterate over copy of GNECrossings
-    for (int i = 0; i < (int)myGNECrossings.size(); i++) {
-        auto c = myGNECrossings.at(i);
+    for (const auto &crossing : copyOfGNECrossings) {
         // obtain the set of edges vinculated with the crossing (due it works as ID)
-        EdgeSet edgeSet(c->getCrossingEdges().begin(), c->getCrossingEdges().end());
+        EdgeSet edgeSet(crossing->getCrossingEdges().begin(), crossing->getCrossingEdges().end());
         // If this edge is part of the set of edges of crossing
         if (edgeSet.count(edge->getNBEdge()) == 1) {
             // delete crossing if this is their last edge
-            if ((c->getCrossingEdges().size() == 1) && (c->getCrossingEdges().front() == edge->getNBEdge())) {
-                myNet->deleteCrossing(c, undoList);
-                i = 0;
+            if ((crossing->getCrossingEdges().size() == 1) && (crossing->getCrossingEdges().front() == edge->getNBEdge())) {
+                myNet->deleteCrossing(crossing, undoList);
             } else {
                 // remove this edge of the edge's attribute of crossing (note: This can invalidate the crossing)
-                std::vector<std::string> edges = GNEAttributeCarrier::parse<std::vector<std::string>>(c->getAttribute(SUMO_ATTR_EDGES));
+                std::vector<std::string> edges = GNEAttributeCarrier::parse<std::vector<std::string>>(crossing->getAttribute(SUMO_ATTR_EDGES));
                 edges.erase(std::find(edges.begin(), edges.end(), edge->getID()));
-                c->setAttribute(SUMO_ATTR_EDGES, joinToString(edges, " "), undoList);
+                crossing->setAttribute(SUMO_ATTR_EDGES, joinToString(edges, " "), undoList);
             }
         }
     }
