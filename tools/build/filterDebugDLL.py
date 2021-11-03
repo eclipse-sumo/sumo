@@ -28,7 +28,7 @@ def filterDLL(filelist):
     baselist = [os.path.basename(d) for d in filelist]
     for idx, dll in enumerate(baselist):
         keep = False
-        if (dll == "FOXDLL-1.6D.dll") :
+        if (dll == "FOXDLL-1.6D.dll"):
             keep = True
         for suffix in ("d.dll", "D.dll", "-d.dll", "-D.dll", "_d.dll", "_D.dll"):
             if dll.endswith(suffix) and dll[:-len(suffix)] + ".dll" in baselist:
