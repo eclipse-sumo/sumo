@@ -8,25 +8,31 @@ The following modes are available in all super modes (Network, Demand and Data).
 
 # Inspect
 
-Inspect and modify attributes of edges, lanes, junctions, connections and additional network items (i.e. bus stops). Modifications have to be confirmed by hitting <Enter\> (except for Boolean attributes). If the entered value is not appropriate for the modified attribute, the value will turn red to indicate the problem.
+Inspect and modify attributes of edges, lanes, junctions, connections and additional network items (i.e. bus stops). 
+When there are multiple ojbects in the same location, the inspection frame will indicate their number and allow switching between them.
+
+Repeatedly clicking on the same location will also cycle through all elements at the same location.
+
+## Setting Attributes
+
+Modifications have to be confirmed by hitting <Enter\> (except for Boolean attributes). If the entered value is not appropriate for the modified attribute, the value will turn red to indicate the problem.
+
+Some attributes have pre-computed values (i.e. edge length) but can be overrule by user-defined input. Pre-computed values are indicated in blue.
+
+## Inspecting Lanes
+
+By default, clicking on an edge will inspect the edge object. To inspect individiual lanes of an edge either
+
+- shift-click on the lane
+- deactive the "click selects edges" toggle button in the top bar (Alt+4)
+
+## Inspecting Selections
 
 When inspecting an element that is [selected](#select) along with multiple elements of the same type this mode behaves differently:
 
 - Only non-unique attributes are listed (i.e. lane-width but not lane-ID)
 - If the elements differ in their attributes, the whole range of occurring values is shown
 - All selected elements of the same type are modified at the same time when setting a new value
-
-![](../images/InspectMode1.png)   
-Changing the number of lanes of an edge
-
-![](../images/InspectMode2.png)   
-Number of lanes of the edge changed
-
-![](../images/InspectMode3.png)   
-Changing the width of a lane. Note that option "select edges" is disabled
-
-![](../images/InspectMode4.png)   
-Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
 
 ## Generic Parameters
 Most simulation objects support [Generic Parameters](../Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
@@ -49,6 +55,21 @@ The following (non-unique) attributes are set/copied:
 - width
 
 When copying attributes from one edge to another, lane-specific attributes will be copied as well.
+
+### Examples
+
+![](../images/InspectMode1.png)   
+Changing the number of lanes of an edge
+
+![](../images/InspectMode2.png)   
+Number of lanes of the edge changed
+
+![](../images/InspectMode3.png)   
+Changing the width of a lane. Note that option "select edges" is disabled
+
+![](../images/InspectMode4.png)   
+Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
+
 
 # Delete
 
