@@ -59,6 +59,22 @@ enum SumoXMLTag {
     SUMO_TAG_RESTRICTION,
     /// @brief edge-specific meso settings
     SUMO_TAG_MESO,
+    /// @brief  A bus stop
+    SUMO_TAG_BUS_STOP,
+    /// @brief  A train stop (alias for bus stop)
+    SUMO_TAG_TRAIN_STOP,
+    /// @brief A pt line
+    SUMO_TAG_PT_LINE,
+    /// @brief  An access point for a train stop
+    SUMO_TAG_ACCESS,
+    /// @brief  A container stop
+    SUMO_TAG_CONTAINER_STOP,
+    /// @brief A parking area
+    SUMO_TAG_PARKING_AREA,
+    /// @brief A parking space for a single vehicle within a parking area
+    SUMO_TAG_PARKING_SPACE,
+    /// @brief  A Charging Station
+    SUMO_TAG_CHARGING_STATION,
     /// @brief an e1 detector
     SUMO_TAG_E1DETECTOR,
     /// @brief alternative tag for e1 detector
@@ -85,30 +101,34 @@ enum SumoXMLTag {
     SUMO_TAG_EDGEFOLLOWDETECTOR,
     /// @brief An instantenous induction loop
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
-    /// @brief A variable speed sign
-    SUMO_TAG_VSS,
     /// @brief A calibrator placed over edge
     SUMO_TAG_CALIBRATOR,
     /// @brief A calibrator placed over lane (used in netedit)
     SUMO_TAG_LANECALIBRATOR,
+    /// @brief a flow definition within in Calibrator
+    GNE_TAG_FLOW_CALIBRATOR,
     /// @brief  A rerouter
     SUMO_TAG_REROUTER,
-    /// @brief  A bus stop
-    SUMO_TAG_BUS_STOP,
-    /// @brief  A train stop (alias for bus stop)
-    SUMO_TAG_TRAIN_STOP,
-    /// @brief A pt line
-    SUMO_TAG_PT_LINE,
-    /// @brief  An access point for a train stop
-    SUMO_TAG_ACCESS,
-    /// @brief  A container stop
-    SUMO_TAG_CONTAINER_STOP,
-    /// @brief A parking area
-    SUMO_TAG_PARKING_AREA,
-    /// @brief A parking space for a single vehicle within a parking area
-    SUMO_TAG_PARKING_SPACE,
-    /// @brief  A Charging Station
-    SUMO_TAG_CHARGING_STATION,
+    /// @brief an aggreagated-output interval
+    SUMO_TAG_INTERVAL,
+    /// @brief probability of destiny of a reroute
+    SUMO_TAG_DEST_PROB_REROUTE,
+    /// @brief reroute of type closing
+    SUMO_TAG_CLOSING_REROUTE,
+    /// @brief lane of a reroute of type closing
+    SUMO_TAG_CLOSING_LANE_REROUTE,
+    /// @brief probability of route of a reroute
+    SUMO_TAG_ROUTE_PROB_REROUTE,
+    /// @brief entry for an alternative parking zone
+    SUMO_TAG_PARKING_AREA_REROUTE,
+    /// @brief A variable speed sign
+    SUMO_TAG_VSS,
+    /// @brief trigger: a step description
+    SUMO_TAG_STEP,
+    /// @brief a routeprobe detector
+    SUMO_TAG_ROUTEPROBE,
+    /// @brief vaporizer of vehicles
+    SUMO_TAG_VAPORIZER,
     /// @brief  An overhead wire segment
     SUMO_TAG_OVERHEAD_WIRE_SEGMENT,
     /// @brief  An overhead wire section
@@ -119,8 +139,6 @@ enum SumoXMLTag {
     SUMO_TAG_OVERHEAD_WIRE_CLAMP,
     /// @brief a vtypeprobe detector
     SUMO_TAG_VTYPEPROBE,
-    /// @brief a routeprobe detector
-    SUMO_TAG_ROUTEPROBE,
     /// @brief root element of a route file
     SUMO_TAG_ROUTES,
     /// @brief description of a vehicle
@@ -155,10 +173,6 @@ enum SumoXMLTag {
     SUMO_TAG_FLOW,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
-    /// @brief trigger: a step description
-    SUMO_TAG_STEP,
-    /// @brief an aggreagated-output interval
-    SUMO_TAG_INTERVAL,
     /// @brief a relation between two edges
     SUMO_TAG_EDGEREL,
     /// @brief a relation between two TAZs
@@ -192,16 +206,6 @@ enum SumoXMLTag {
     SUMO_TAG_STOP_CHARGINGSTATION,
     /// @brief stop placed over a parking area (used in netedit)
     SUMO_TAG_STOP_PARKINGAREA,
-    /// @brief probability of destiny of a reroute
-    SUMO_TAG_DEST_PROB_REROUTE,
-    /// @brief reroute of type closing
-    SUMO_TAG_CLOSING_REROUTE,
-    /// @brief lane of a reroute of type closing
-    SUMO_TAG_CLOSING_LANE_REROUTE,
-    /// @brief probability of route of a reroute
-    SUMO_TAG_ROUTE_PROB_REROUTE,
-    /// @brief entry for an alternative parking zone
-    SUMO_TAG_PARKING_AREA_REROUTE,
     /// @brief type of polygon
     SUMO_TAG_POLYTYPE,
     /// @brief connectio between two lanes
@@ -222,8 +226,6 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTE_DISTRIBUTION,
     /// @brief distribution of a vehicle type
     SUMO_TAG_VTYPE_DISTRIBUTION,
-    /// @brief vaporizer of vehicles
-    SUMO_TAG_VAPORIZER,
     /// @brief roundabout defined in junction
     SUMO_TAG_ROUNDABOUT,
     /// @brief Join operation
@@ -384,8 +386,6 @@ enum SumoXMLTag {
     /// @{
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
-    /// @brief a flow definition within in Calibrator
-    GNE_TAG_FLOW_CALIBRATOR,
     /// @brief Point of interest over Lane
     GNE_TAG_POILANE,
     /// @brief Point of interest over view with GEO attributes
