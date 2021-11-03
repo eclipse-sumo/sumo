@@ -1,2 +1,2 @@
 #Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
-Error: Answered with error to command 0xc4: Route replacement failed for veh0
+Error: Answered with error to command 0xc4: Route replacement failed for vehicle 'veh0' (Vehicle is on junction-internal edge leading elsewhere).
