@@ -190,9 +190,9 @@ MEVehicle::setApproaching(MSLink* link) {
 
 
 bool
-MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addRouteStops, bool removeStops) {
+MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
     MSLink* const oldLink = mySegment != nullptr ? mySegment->getLink(this) : nullptr;
-    if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops)) {
+    if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops, msgReturn)) {
         if (mySegment != nullptr) {
             MSLink* const newLink = mySegment->getLink(this);
             // update approaching vehicle information

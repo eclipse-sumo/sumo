@@ -258,7 +258,8 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true,
+            std::string* msgReturn = nullptr);
 
     /** @brief Replaces the current route by the given one
      *
@@ -270,7 +271,8 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
+    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
+            std::string* msgReturn = nullptr);
 
     /** @brief Returns the vehicle's acceleration
      *

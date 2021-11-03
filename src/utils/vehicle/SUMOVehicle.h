@@ -105,10 +105,10 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true) = 0;
+    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true) = 0;
+    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /** @brief Performs a rerouting using the given router
      *

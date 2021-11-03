@@ -328,7 +328,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit, bool check, bool removeStops) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit, bool check, bool removeStops, std::string* msgReturn) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;
@@ -363,6 +363,9 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
     newRoute->setSavings(savings);
     if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
+        if (msgReturn != nullptr) {
+            *msgReturn = "duplicate routeID '" + id + "'";
+        }
         return false;
     }
 
@@ -375,7 +378,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
             return false;
         }
     }
-    if (!replaceRoute(newRoute, info, onInit, (int)edges.size() - oldSize, false, removeStops)) {
+    if (!replaceRoute(newRoute, info, onInit, (int)edges.size() - oldSize, false, removeStops, msgReturn)) {
         newRoute->addReference();
         newRoute->release();
         return false;
@@ -385,7 +388,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
 
 
 bool
-MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops) {
+MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // rebuild in-vehicle route information
     if (onInit) {
@@ -393,16 +396,25 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
     } else {
         MSRouteIterator newCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
         if (newCurrEdge == edges.end()) {
+            if (msgReturn != nullptr) {
+                *msgReturn = "current edge '" + (*myCurrEdge)->getID() + "' not found in new route";
+            }
             return false;
         }
         if (getLane() != nullptr) {
             if (getLane()->getEdge().isInternal() && (
                         (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(getLane()->getOutgoingViaLanes().front().first->getEdge()))) {
+                if (msgReturn != nullptr) {
+                    *msgReturn = "Vehicle is on junction-internal edge leading elsewhere";
+                }
                 return false;
             } else if (getPositionOnLane() > getLane()->getLength()
                     && (myCurrEdge + 1) != myRoute->end()
                     && (newCurrEdge + 1) != edges.end()
                     && *(myCurrEdge + 1) != *(newCurrEdge + 1)) {
+                if (msgReturn != nullptr) {
+                    *msgReturn = "Vehicle is moving past junction and committed to move to another successor edge";
+                }
                 return false;
             }
         }
@@ -1399,7 +1411,7 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         // stops will be rebuilt from scratch so we must patch the stops in myParameter
         const_cast<SUMOVehicleParameter*>(myParameter)->stops[nextStopIndex] = stop;
     }
-    return replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false);
+    return replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false, &errorMsg);
 }
 
 

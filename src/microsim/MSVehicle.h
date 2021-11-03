@@ -251,7 +251,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
+    bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     //@}
 

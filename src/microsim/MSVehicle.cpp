@@ -1038,8 +1038,8 @@ MSVehicle::hasArrived() const {
 
 
 bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops) {
-    if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops)) {
+MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
+    if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops, msgReturn)) {
         // update best lanes (after stops were added)
         myLastBestLanesEdge = nullptr;
         myLastBestLanesInternalLane = nullptr;

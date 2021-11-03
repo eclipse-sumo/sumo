@@ -330,7 +330,7 @@ public:
     double getCurrentStoppingTimeSeconds() const;
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true);
+    bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction, checks also for triggered stops
      * @return true iff the vehicle may drive over the next junction
