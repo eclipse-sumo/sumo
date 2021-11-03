@@ -154,6 +154,30 @@ The attributes used within such definitions are:
 !!! note
       Modified permissions may cause emergency braking. This can be mitigated by placing [VariableSpeedSigns](../Simulation/Variable_Speed_Signs.md) ahead of the closing and slowing down traffic briefly before the closing.
 
+### Reversible Lanes
+
+Two `closingLaneReroute` definitions may be used to simulate a reversible lane in the following way:
+
+- Define two edges in reverse directions with at least 2 lanes each
+- [prohibit driving on one of the central lanes](Netedit/editModesCommon.md#inspecting_lanes) (disallow="all") 
+-  and modify the edge geometry so that the central lanes occupy the same space.
+  - by shifting geometry of [both edges sideways (-1.6 for default lane width)](../Netedit/editModesCommon.md#frame_operation)
+  - or by [setting the geometry directly](../Netedit/neteditUsageExamples.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
+
+To change their direction for a specific duration, the following rerouter may be used:
+
+```
+<rerouter id="example" edges="E1 -E1">
+      <interval begin="7:0:0" end="8:30:0">
+            <closingLaneReroute id="E1_1" allow="all"/>
+            <closingLaneReroute id="-E1_1" disallow="all"/>
+      </interval>
+
+   </rerouter>
+```
+
+Alternatively to changing lane permissions with a rerouter, the traci functions [`traci.lane.setAllowed` and `setDisallowed`](../TraCI/Change_Lane_State.md) may also be used.
+
 ## Assigning a new Destination
 
 A "dest_prob_reroute" forces the rerouter to assign a new route to
