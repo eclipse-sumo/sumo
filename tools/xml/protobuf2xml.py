@@ -27,9 +27,9 @@ import struct
 import contextlib
 
 from optparse import OptionParser
-import google.protobuf.descriptor
 import xml2csv
 import xml2protobuf
+import google.protobuf.descriptor  # we need to do this late because the xml2protobuf import modifies sys.path
 
 
 def get_options():

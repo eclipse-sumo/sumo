@@ -40,7 +40,7 @@ import xml2csv
 
 
 SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.environ.get("SUMO_HOME", ""), "..", "SUMOLibraries"))
-protobuf_path = glob.glob(os.path.join(SUMO_LIBRARIES, "3rdPartyLibs", "protobuf*", "python"))
+protobuf_path = glob.glob(os.path.join(SUMO_LIBRARIES, "3rdPartyLibs", "protobuf*", "python", "build", "lib"))
 if protobuf_path:
     sys.path.append(protobuf_path[0])
 
