@@ -409,7 +409,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         if (speedOffset != 0 || speedFactor != 1 || speedMin > 0) {
             before = PROGRESS_BEGIN_TIME_MESSAGE("Applying speed modifications");
             for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-                (*i).second->setSpeed(-1, MAX2((*i).second->getSpeed() * speedFactor + speedOffset, speedMin));
+                NBEdge* e = (*i).second;
+                for (int i = 0; i < e->getNumLanes(); i++) {
+                    e->setSpeed(i, MAX2(e->getLaneSpeed(i) * speedFactor + speedOffset, speedMin));
+                }
             }
             PROGRESS_TIME_MESSAGE(before);
         }
