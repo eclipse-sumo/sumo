@@ -221,6 +221,10 @@ except traci.TraCIException:
 traci.vehicle.addLegacy("1", "horizontal")
 traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
 check("1")
+try:
+    traci.vehicle.changeTarget("1", "disconnected")
+except traci.TraCIException:
+    pass
 traci.vehicle.changeTarget("1", "4fi")
 print("routeID", traci.vehicle.getRouteID(vehID))
 print("route", traci.vehicle.getRoute(vehID))
