@@ -122,7 +122,7 @@ public:
     void addDeprecatedAttribute(SumoXMLAttr attr);
 
     /// @brief get background color
-    const unsigned int getBackGroundColor() const;
+    unsigned int getBackGroundColor() const;
 
     /// @brief get attribute (throw error if doesn't exist)
     const GNEAttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;

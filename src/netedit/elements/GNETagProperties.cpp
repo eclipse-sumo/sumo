@@ -180,7 +180,7 @@ GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
 }
 
 
-const unsigned int
+unsigned int
 GNETagProperties::getBackGroundColor() const {
     return myBackgroundColor;
 }
