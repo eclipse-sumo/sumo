@@ -1895,7 +1895,7 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     new FXLabel(m102, "Color", nullptr, GUIDesignViewSettingsLabel1);
     myPersonColorMode = new MFXIconComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     mySettings->personColorer.fill(*myPersonColorMode);
-    myPersonColorMode->setNumVisible(10);
+    myPersonColorMode->setNumVisible(mySettings->personColorer.size());
     myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
 
     myPersonColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
