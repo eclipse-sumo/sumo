@@ -276,7 +276,7 @@ GUIDottedGeometry::invertOffset() {
 void
 GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, 
         const PositionVector& shape, const double exaggeration, const double lineWidth) {
-    if (exaggeration > 0) {
+    if (s.drawDottedContour(exaggeration)) {
         // declare DottedGeometryColor
         DottedGeometryColor dottedGeometryColor(s);
         // scale shape using exaggeration and default dotted geometry width
@@ -307,42 +307,44 @@ void
 GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, 
         const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem, 
         const bool drawLastExtrem, const double lineWidth) {
-    // declare DottedGeometryColor
-    DottedGeometryColor dottedGeometryColor(s);
-    // calculate center dotted geometry
-    GUIDottedGeometry dottedGeometry(s, shape, false);
-    // make a copy of dotted geometry
-    GUIDottedGeometry topDottedGeometry = dottedGeometry;
-    GUIDottedGeometry botDottedGeometry = dottedGeometry;
-    // move geometries top and bot
-    topDottedGeometry.moveShapeToSide(width * exaggeration);
-    botDottedGeometry.moveShapeToSide(width * exaggeration* -1);
-    // invert offset of top dotted geometry
-    topDottedGeometry.invertOffset();
-    // calculate extremes
-    GUIDottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
-    // Push draw matrix
-    GLHelper::pushMatrix();
-    // translate to front
-    if (type == DottedContourType::FRONT) {
+    if (s.drawDottedContour(exaggeration)) {
+        // declare DottedGeometryColor
+        DottedGeometryColor dottedGeometryColor(s);
+        // calculate center dotted geometry
+        GUIDottedGeometry dottedGeometry(s, shape, false);
+        // make a copy of dotted geometry
+        GUIDottedGeometry topDottedGeometry = dottedGeometry;
+        GUIDottedGeometry botDottedGeometry = dottedGeometry;
+        // move geometries top and bot
+        topDottedGeometry.moveShapeToSide(width * exaggeration);
+        botDottedGeometry.moveShapeToSide(width * exaggeration* -1);
+        // invert offset of top dotted geometry
+        topDottedGeometry.invertOffset();
+        // calculate extremes
+        GUIDottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
+        // Push draw matrix
+        GLHelper::pushMatrix();
         // translate to front
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-    } else {
-        // translate to front
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+        if (type == DottedContourType::FRONT) {
+            // translate to front
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+        } else {
+            // translate to front
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+        }
+        // draw top dotted geometry
+        topDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
+        // reset color
+        dottedGeometryColor.reset();
+        // draw top dotted geometry
+        botDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
+        // change color
+        dottedGeometryColor.changeColor();
+        // draw extrem dotted geometry
+        extremes.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
+        // pop matrix
+        GLHelper::popMatrix();
     }
-    // draw top dotted geometry
-    topDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
-    // reset color
-    dottedGeometryColor.reset();
-    // draw top dotted geometry
-    botDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
-    // change color
-    dottedGeometryColor.changeColor();
-    // draw extrem dotted geometry
-    extremes.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
-    // pop matrix
-    GLHelper::popMatrix();
 }
 
 
@@ -361,21 +363,23 @@ GUIDottedGeometry::drawDottedContourCircle(const DottedContourType type, const G
 void
 GUIDottedGeometry::drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
         const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration) {
-    // create shape
-    PositionVector shape;
-    // make rectangle
-    shape.push_back(Position(0 + width, 0 + height));
-    shape.push_back(Position(0 + width, 0 - height));
-    shape.push_back(Position(0 - width, 0 - height));
-    shape.push_back(Position(0 - width, 0 + height));
-    // move shape
-    shape.add(offsetX, offsetY, 0);
-    // rotate shape
-    shape.rotate2D(DEG2RAD((rot * -1) + 90));
-    // move to position
-    shape.add(pos);
-    // draw using drawDottedContourClosedShape
-    drawDottedContourClosedShape(type, s, shape, exaggeration);
+    if (s.drawDottedContour(exaggeration)) {
+        // create shape
+        PositionVector shape;
+        // make rectangle
+        shape.push_back(Position(0 + width, 0 + height));
+        shape.push_back(Position(0 + width, 0 - height));
+        shape.push_back(Position(0 - width, 0 - height));
+        shape.push_back(Position(0 - width, 0 + height));
+        // move shape
+        shape.add(offsetX, offsetY, 0);
+        // rotate shape
+        shape.rotate2D(DEG2RAD((rot * -1) + 90));
+        // move to position
+        shape.add(pos);
+        // draw using drawDottedContourClosedShape
+        drawDottedContourClosedShape(type, s, shape, exaggeration);
+    }
 }
 
 

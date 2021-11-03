@@ -602,7 +602,7 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     // flag for draw fill
     const bool drawFill = getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill() || myTAZGeometry.getShape().isClosed();
     // dotted contour for inspect
-    if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         // draw depending if is closed
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
@@ -612,7 +612,7 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         }
     }
     // dotted contour for front
-    if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+    if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
         // draw depending if is closed
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
@@ -622,7 +622,7 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         }
     }
     // dotted contour for first TAZ 
-    if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
+    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
         // draw depending if is closed
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
@@ -632,7 +632,7 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         }
     }
     // dotted contour for second TAZ
-    if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
+    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
         // draw depending if is closed
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);

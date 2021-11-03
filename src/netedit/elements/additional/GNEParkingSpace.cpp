@@ -184,11 +184,11 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw using drawDottedContourClosedShape
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             // draw using drawDottedContourClosedShape
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
         }

@@ -173,7 +173,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             drawFilteredAttribute(s, lane->getLaneShape(), myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute());
         }
         // draw dotted contour
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             if (getParentEdges().front() == lane->getParentEdge()) {
                 GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, getParentEdges().front(), true, false);
             } else {
@@ -250,7 +250,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 GLHelper::popName();
             }
             // draw dotted contour
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // declare lanes
                 const GNELane* laneTopA = getParentEdges().front()->getLanes().front();
                 const GNELane* laneTopB = getParentEdges().back()->getLanes().front();

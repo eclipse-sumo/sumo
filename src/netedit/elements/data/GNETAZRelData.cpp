@@ -287,14 +287,14 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
         }
         // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
             } else {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
             }
         }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
             } else {

@@ -916,7 +916,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // iterate over all inspected ACs
         for (const auto &inspectedAC : myInspectedAttributeCarriers) {
             // check that inspected AC has an associated GUIGLObject
-            if (inspectedAC->getGUIGlObject()) {
+            if (inspectedAC->getTagProperty().isAdditionalElement() && inspectedAC->getGUIGlObject()) {
                 inspectedAC->getGUIGlObject()->drawGL(*myVisualizationSettings);
             }
         }

@@ -312,7 +312,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
             // check if dotted contour has to be drawn
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, *this, 1.3, POIExaggeration);
                 } else {
@@ -320,7 +320,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // check if front dotted contour has to be drawn
-            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
                 } else {

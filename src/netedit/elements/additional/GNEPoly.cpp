@@ -306,7 +306,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
@@ -316,7 +316,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // check if front dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);

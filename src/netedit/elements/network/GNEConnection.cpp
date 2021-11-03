@@ -436,12 +436,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
             // check if dotted contour has to be drawn (not useful at high zoom)
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // use drawDottedContourGeometry to draw it
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
             // check if front contour has to be drawn (not useful at high zoom)
-            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 // use drawDottedContourGeometry to draw it
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }

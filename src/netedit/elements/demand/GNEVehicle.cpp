@@ -693,11 +693,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), vehiclePosition, exaggeration);
                 // check if dotted contours has to be drawn
-                if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
-                if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
@@ -767,7 +767,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     // check conditions
     if (!s.drawForRectangleSelection &&
-            (drawNetworkMode || drawDemandMode || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+            (drawNetworkMode || drawDemandMode || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.tripWidth;
@@ -853,15 +853,15 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // Pop name
         GLHelper::popName();
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() || dottedElement) {
+        if (dottedElement) {
             // declare trim geometry to draw
             const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? vehicleGeometry.getShape() : lane->getLaneShape());
             // draw inspected dotted contour
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
             // draw front dotted contour
-            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
         }
@@ -881,7 +881,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
     // check conditions
     if (!s.drawForRectangleSelection &&
             fromLane->getLane2laneConnections().exist(toLane) &&
-            (drawNetworkMode || drawDemandMode || s.drawDottedContour() || dottedElement || isAttributeCarrierSelected()) &&
+            (drawNetworkMode || drawDemandMode || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
@@ -904,16 +904,16 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // Pop last matrix
         GLHelper::popMatrix();
         // check if shape dotted contour has to be drawn
-        if (s.drawDottedContour() || dottedElement) {
+        if (dottedElement) {
             // check if exist lane2lane connection
             if (fromLane->getLane2laneConnections().exist(toLane)) {
                 // draw inspected dotted contour
-                if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                         width, 1, false, false, 0.1);
                 }
                 // draw front dotted contour
-                if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                     GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
                                                         width, 1, false, false, 0.1);
                 }

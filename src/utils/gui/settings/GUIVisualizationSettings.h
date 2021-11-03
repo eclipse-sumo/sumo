@@ -613,7 +613,7 @@ public:
     int getCircleResolution() const;
 
     /// @brief check if dotted contour can be drawn
-    bool drawDottedContour() const;
+    bool drawDottedContour(const double exaggeration) const;
 
     /// @brief check if moving geometry point can be draw
     bool drawMovingGeometryPoint(const double exaggeration, const double radius) const;
@@ -917,9 +917,6 @@ public:
 
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;
-
-    /// @brief flag to force draw dotted contour
-    bool forceDrawDottedContour;
 
     /**@brief whether drawing is performed in left-hand networks
      * @note used to avoid calls to OptionsCont::getOptions() in every drawgl(...) function, and

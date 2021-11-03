@@ -402,10 +402,10 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     drawEdgeName(s);
     // draw dotted contours
     if (myLanes.size() > 1) {
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
         }
-        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
         }
     }
