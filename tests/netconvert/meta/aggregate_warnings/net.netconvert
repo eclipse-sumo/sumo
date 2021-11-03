@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-31 22:08:06 by Eclipse SUMO netconvert Version v1_10_0+1798-98e5f12ebd8
+<!-- generated on 2021-11-01 23:13:59 by Eclipse SUMO netconvert Version v1_10_0+1799-3994fee9d71
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -5434,7 +5434,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-38568628#0" to="38568628#0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-38568628#1" to="-180239890" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-38568628#1" to="-38568628#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-38915289" to="142575679#0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="-38915289" to="142575679#0" fromLane="1" toLane="1" dir="R" state="M"/>
     <connection from="-38915289" to="143308521#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="-38915289" to="38915289" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="-46150481#0" to="-169076556#3" fromLane="1" toLane="1" dir="r" state="M"/>
@@ -5611,7 +5611,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="141968830#1" to="141968810" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="141968830#1" to="-141968830#1" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="141968844#0" to="141968844#1" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="141968844#1" to="141968823" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="141968844#1" to="141968823" fromLane="1" toLane="1" dir="R" state="M"/>
     <connection from="141968844#1" to="141968844#2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="141968844#2" to="141968844#3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="141968844#3" to="141873658" fromLane="1" toLane="1" dir="r" state="M"/>

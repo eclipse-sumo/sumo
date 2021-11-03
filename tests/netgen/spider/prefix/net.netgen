@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-31 16:35:05 by Eclipse SUMO netgenerate Version v1_10_0+1798-98e5f12ebd8
+<!-- generated on 2021-11-02 20:22:47 by Eclipse SUMO netgenerate Version v1_10_0+1799-3994fee9d71
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -325,7 +325,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_A1B5" to="foo_B5B1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_A1B5" to="foo_B5A1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B1A1" to="foo_A1B2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B1A1" to="foo_A1B3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="foo_B1A1" to="foo_A1B3" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="foo_B1A1" to="foo_A1B4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B1A1" to="foo_A1B5" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="foo_B1A1" to="foo_A1B1" fromLane="0" toLane="0" dir="t" state="M"/>
@@ -341,7 +341,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_B1C1" to="foo_C1C2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B1C1" to="foo_C1B1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B2A1" to="foo_A1B3" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B2A1" to="foo_A1B4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="foo_B2A1" to="foo_A1B4" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="foo_B2A1" to="foo_A1B5" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B2A1" to="foo_A1B1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="foo_B2A1" to="foo_A1B2" fromLane="0" toLane="0" dir="t" state="M"/>
@@ -357,7 +357,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_B2C2" to="foo_C2C3" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B2C2" to="foo_C2B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B3A1" to="foo_A1B4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B3A1" to="foo_A1B5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="foo_B3A1" to="foo_A1B5" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="foo_B3A1" to="foo_A1B1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B3A1" to="foo_A1B2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="foo_B3A1" to="foo_A1B3" fromLane="0" toLane="0" dir="t" state="M"/>
@@ -373,7 +373,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_B3C3" to="foo_C3C4" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B3C3" to="foo_C3B3" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B4A1" to="foo_A1B5" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B4A1" to="foo_A1B1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="foo_B4A1" to="foo_A1B1" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="foo_B4A1" to="foo_A1B2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B4A1" to="foo_A1B3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="foo_B4A1" to="foo_A1B4" fromLane="0" toLane="0" dir="t" state="M"/>
@@ -389,7 +389,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_B4C4" to="foo_C4C5" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B4C4" to="foo_C4B4" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B5A1" to="foo_A1B1" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B5A1" to="foo_A1B2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="foo_B5A1" to="foo_A1B2" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="foo_B5A1" to="foo_A1B3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B5A1" to="foo_A1B4" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="foo_B5A1" to="foo_A1B5" fromLane="0" toLane="0" dir="t" state="M"/>
