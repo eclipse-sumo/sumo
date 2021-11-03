@@ -97,7 +97,8 @@ public:
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag> parentTags = {});
+    GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, 
+                     const std::vector<SumoXMLTag> parentTags = {}, const RGBColor backgroundColor = RGBColor::WHITE);
 
     /// @brief destructor
     ~GNETagProperties();
@@ -119,6 +120,9 @@ public:
 
     /// @brief add deprecated Attribute
     void addDeprecatedAttribute(SumoXMLAttr attr);
+
+    /// @brief get background color
+    const unsigned int getBackGroundColor() const;
 
     /// @brief get attribute (throw error if doesn't exist)
     const GNEAttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;
@@ -303,6 +307,9 @@ private:
 
     /// @brief List with the deprecated Attributes
     std::vector<SumoXMLAttr> myDeprecatedAttributes;
+
+    /// @brief background color (used in labels and textFields, by default white)
+    unsigned int myBackgroundColor;
 
     /// @brief max number of attributes allowed for every tag
     static const size_t MAXNUMBEROFATTRIBUTES;

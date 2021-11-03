@@ -41,18 +41,21 @@ GNETagProperties::GNETagProperties() :
     myTagType(0),
     myTagProperty(0),
     myIcon(GUIIcon::EMPTY),
-    myXMLTag(SUMO_TAG_NOTHING) {
+    myXMLTag(SUMO_TAG_NOTHING),
+    myBackgroundColor(0) {
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag> parentTags) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, 
+                                   const std::vector<SumoXMLTag> parentTags, const RGBColor backgroundColor) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
     myXMLTag(XMLTag),
-    myParentTags(parentTags) {
+    myParentTags(parentTags),
+    myBackgroundColor(FXRGB(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue())) {
 }
 
 
@@ -174,6 +177,12 @@ GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
     }
     // add it into myDeprecatedAttributes
     myDeprecatedAttributes.push_back(attr);
+}
+
+
+const unsigned int
+GNETagProperties::getBackGroundColor() const {
+    return myBackgroundColor;
 }
 
 
