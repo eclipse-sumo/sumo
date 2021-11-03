@@ -54,7 +54,8 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonHierarchy = new GNEFrameModuls::HierarchicalElementTree(this);
 
     // set PersonPlan tag type in tag selector
-    myPersonPlanTagSelector->setCurrentTagType(GNETagProperties::TagType::PERSONPLAN);
+    myPersonPlanTagSelector->setCurrentTagType(GNETagProperties::TagType::PERSONTRIP);
+    myPersonPlanTagSelector->onCmdSelectTagType(0, 0, 0);
 }
 
 

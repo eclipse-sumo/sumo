@@ -67,6 +67,8 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 
     // set Person as default vehicle
     myPersonTagSelector->setCurrentTag(SUMO_TAG_PERSON);
+    myPersonPlanTagSelector->setCurrentTag(GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector->onCmdSelectTagType(0, 0, 0);
 }
 
 
