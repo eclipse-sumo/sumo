@@ -46,7 +46,7 @@ protected:
     MFXTextFieldIcon();
 
     /// @brief draw icon text range
-    void drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to);
+    void drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint fm, FXint to);
 
     /// @brief icon
     FXIcon *myIcon;

@@ -53,8 +53,9 @@ MFXTextFieldIcon::resetTextField() {
 
 long 
 MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
-    FXEvent *ev=(FXEvent*)ptr;
+    FXEvent *ev = (FXEvent*)ptr;
     FXDCWindow dc(this, ev);
+    const FXint iconWidth = myIcon? myIcon->getWidth() + 4 : 0;
     // Draw frame
     drawFrame(dc, 0, 0, width, height);
     // Gray background if disabled
@@ -65,20 +66,16 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     }
     // Draw background
     dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
-    // Draw text,  clipped against frame interior
+    // Draw text, clipped against frame interior
     dc.setClipRectangle(border, border, width - (border << 1), height - (border << 1));
     // draw text depending of icon
-    if (myIcon) {
-        drawIconTextRange(dc, 0, contents.length());
-    } else {
-        drawTextRange(dc, 0, contents.length());
-    }
+    drawIconTextRange(dc, iconWidth, 0, contents.length());
     // Draw caret
     if(flags & FLAG_CARET){
-        int xx=coord(cursor) - 1;
+        const int xx = coord(cursor) - 1;
         dc.setForeground(cursorColor);
-        dc.fillRectangle(xx, padtop+border, 1, height - padbottom - padtop - (border << 1));
-        dc.fillRectangle(xx - 2, padtop+border, 5, 1);
+        dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
+        dc.fillRectangle(xx - 2, padtop + border, 5, 1);
         dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
     }
     return 1;
@@ -91,8 +88,7 @@ MFXTextFieldIcon::MFXTextFieldIcon() :
 
 
 void 
-MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
-    const FXint iconWidth = myIcon->getWidth() + 4;
+MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint fm, FXint to) {
     FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
     const FXint rr = width - border - padright;
     const FXint ll = border + padleft;
@@ -106,11 +102,11 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
     // Height
     hh = font->getFontHeight();
     // Text sticks to top of field
-    if (options&JUSTIFY_TOP) {
+    if (options & JUSTIFY_TOP) {
         yy = padtop + border;
     }
     // Text sticks to bottom of field
-    else if (options&JUSTIFY_BOTTOM) {
+    else if (options & JUSTIFY_BOTTOM) {
         yy = height - padbottom - border - hh;
     } else {
         // Text centered in y
@@ -177,8 +173,8 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
                 ei = to;
             }
             if (si<ei) {
-                sx = xx + cw*contents.index(si);
-                ex = xx + cw*contents.index(ei);
+                sx = xx + cw * contents.index(si);
+                ex = xx + cw * contents.index(ei);
                 if (hasFocus()) {
                     dc.setForeground(selbackColor);
                     dc.fillRectangle(sx, padtop + border, ex - sx, height - padtop - padbottom - (border << 1));
@@ -217,13 +213,13 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
             lx += cw;
             fm=t;
         }
-        while(fm<to) {
+        while (fm < to) {
             t = contents.dec(to);
             cw = font->getTextWidth(&contents[t], to - t);
-            if (rx - cw<width) {
+            if (rx - cw < width) {
                 break;
             }
-            rx -=cw;
+            rx -= cw;
             to = t;
         }
         // Adjust selected range
@@ -266,5 +262,7 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc,FXint fm,FXint to) {
         }
     }
     // draw icon
-    dc.drawIcon(myIcon, xx - myIcon->getWidth() - 3, yy + (hh - myIcon->getHeight()) / 2);
+    if (myIcon) {
+        dc.drawIcon(myIcon, xx - myIcon->getWidth() - 3, yy + (hh - myIcon->getHeight()) / 2);
+    }
 }
