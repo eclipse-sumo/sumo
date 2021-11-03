@@ -1165,8 +1165,12 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
+    // obtain vClass
+    const auto vClass = originalVehicle->getVClass();
     // set "yellow" as original route color
     RGBColor routeColor = RGBColor::YELLOW;
     // declare edges
@@ -1183,6 +1187,11 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+    }
+    // declare edge IDs
+    std::vector<std::string> edgeIDs;
+    for (const auto &edge : routeEdges) {
+        edgeIDs.push_back(edge->getID());
     }
     // only continue if edges are valid
     if (routeEdges.empty()) {
@@ -1205,25 +1214,27 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         if (createEmbeddedRoute) {
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
-            // create a vehicle with embebbed routes
-/*
-            buildVehicleEmbeddedRoute(net, true, vehicleParameters, routeParameters.edges);
-*/
+            // create a flow with embebbed routes
+            CommonXMLStructure::SumoBaseObject* vehicleBaseOBject = new CommonXMLStructure::SumoBaseObject(nullptr);
+            CommonXMLStructure::SumoBaseObject* routeBaseOBject = new CommonXMLStructure::SumoBaseObject(vehicleBaseOBject);
+            // fill parameters
+            vehicleBaseOBject->setTag(SUMO_TAG_VEHICLE);
+            vehicleBaseOBject->addStringAttribute(SUMO_ATTR_ID, vehicleParameters.id);
+            vehicleBaseOBject->setVehicleParameter(&vehicleParameters);
+            // build embedded route
+            routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, routeColor, false, 0, {});
+            delete vehicleBaseOBject;
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
-            // generate a new route id
+            // generate route ID
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-/*
-            buildRoute(net, true, routeParameters, {});
-*/
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
-/*
-            buildVehicleOverRoute(net, true, vehicleParameters);
-*/
+            routeHandler.buildVehicleOverRoute(nullptr, vehicleParameters);
         }
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
@@ -1237,8 +1248,12 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
+    // obtain vClass
+    const auto vClass = originalVehicle->getVClass();
     // set "yellow" as original route color
     RGBColor routeColor = RGBColor::YELLOW;
     // declare edges
@@ -1255,6 +1270,11 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
+    }
+    // declare edge IDs
+    std::vector<std::string> edgeIDs;
+    for (const auto &edge : routeEdges) {
+        edgeIDs.push_back(edge->getID());
     }
     // only continue if edges are valid
     if (routeEdges.empty()) {
@@ -1291,24 +1311,26 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // create a flow with embebbed routes
-/*
-            buildFlowEmbeddedRoute(net, true, vehicleParameters, routeParameters.edges);
-*/
+            CommonXMLStructure::SumoBaseObject* vehicleBaseOBject = new CommonXMLStructure::SumoBaseObject(nullptr);
+            CommonXMLStructure::SumoBaseObject* routeBaseOBject = new CommonXMLStructure::SumoBaseObject(vehicleBaseOBject);
+            // fill parameters
+            vehicleBaseOBject->setTag(SUMO_TAG_FLOW);
+            vehicleBaseOBject->addStringAttribute(SUMO_ATTR_ID, vehicleParameters.id);
+            vehicleBaseOBject->setVehicleParameter(&vehicleParameters);
+            // build embedded route
+            routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, routeColor, false, 0, {});
+            delete vehicleBaseOBject;
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_ROUTE;
             // generate a new route id
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-/*
-            buildRoute(net, true, routeParameters, {});
-*/
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, false, 0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
-            // create flow
-/*
-            buildFlowOverRoute(net, true, vehicleParameters);
-*/
+            // create vehicle
+            routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
         }
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
@@ -1322,8 +1344,12 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
+    // obtain vClass
+    const auto vClass = originalVehicle->getVClass();
     // get route
     GNEDemandElement* route = nullptr;
     // declare edges
@@ -1365,9 +1391,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         // change tag in vehicle parameters
         vehicleParameters.tag = SUMO_TAG_TRIP;
         // create trip
-/*
-        buildTrip(net, true, vehicleParameters, edges.front(), edges.back(), {});
-*/
+        routeHandler.buildTrip(nullptr, vehicleParameters, edges.front()->getID(), edges.back()->getID(), {});
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
     }
@@ -1380,6 +1404,8 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // declare route handler
+    GNERouteHandler routeHandler("", net, true);
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // declare route
@@ -1436,9 +1462,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // change tag in vehicle parameters
         vehicleParameters.tag = SUMO_TAG_FLOW;
         // create flow
-/*
-        buildFlow(net, true, vehicleParameters, edges.front(), edges.back(), {});
-*/
+        routeHandler.buildFlow(nullptr, vehicleParameters, edges.front()->getID(), edges.back()->getID(), {});
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
     }
