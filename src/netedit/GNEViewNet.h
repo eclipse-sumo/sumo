@@ -611,13 +611,13 @@ private:
     void updateDataModeSpecificControls();
 
     /// @brief delete given network attribute carriers
-    void deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs);
+    void deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 
     /// @brief delete given demand attribute carriers
-    void deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs);
+    void deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 
     /// @brief delete data attribute carriers
-    void deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs);
+    void deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();

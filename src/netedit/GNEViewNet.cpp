@@ -4265,7 +4265,7 @@ GNEViewNet::updateDataModeSpecificControls() {
 
 
 void 
-GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
+GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
     // iterate over ACs and delete it
     for (const auto &AC : ACs) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
@@ -4330,7 +4330,7 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
 
 
 void 
-GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
+GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
     // iterate over ACs and delete it
     for (const auto &AC : ACs) {
         // get demand Element (note: could be already removed if is a child, then hardfail=false)
@@ -4344,7 +4344,7 @@ GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*
 
 
 void 
-GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> &ACs) {
+GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
     // iterate over ACs and delete it
     for (const auto &AC : ACs) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
