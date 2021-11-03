@@ -378,6 +378,9 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
         if (MSGlobals::gCheckRoutes) {
             newRoute->addReference();
             newRoute->release();
+            if (msgReturn != nullptr) {
+                *msgReturn = msg;
+            }
             return false;
         }
     }
