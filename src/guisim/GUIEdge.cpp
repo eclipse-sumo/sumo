@@ -331,6 +331,12 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                     }
                 }
                 if (value != "") {
+                    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName) {
+                        const double dist = 0.4 * (s.edgeName.scaledSize(s.scale) + s.edgeValue.scaledSize(s.scale));
+                        const double shiftA = lane1->getShape().rotationAtOffset(lane1->getShape().length() / (double) 2.) - DEG2RAD(90);
+                        Position shift(dist * cos(shiftA), dist * sin(shiftA));
+                        p.add(shift);
+                    }
                     GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, angle);
                 }
             }
