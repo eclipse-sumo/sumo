@@ -343,17 +343,23 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     if (s.scale * s.personSize.getExaggeration(s, nullptr) > s.personSize.minSize) {
-        FXMutexLock locker(myLock);
-        for (std::set<MSTransportable*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
-            GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
+        // make a copy so we can release the lock before retrieving persons and locking them individually (#9468)
+        lock();
+        const std::set<MSTransportable*> transportables = myPersons;
+        unlock();
+        for (MSTransportable* t : transportables) {
+            GUIPerson* person = dynamic_cast<GUIPerson*>(t);
             assert(person != 0);
             person->drawGL(s);
         }
     }
     if (s.scale * s.containerSize.getExaggeration(s, nullptr) > s.containerSize.minSize) {
-        FXMutexLock locker(myLock);
-        for (std::set<MSTransportable*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
-            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
+        // make a copy so we can release the lock before retrieving containers and locking them individually (#9468)
+        lock();
+        const std::set<MSTransportable*> transportables = myContainers;
+        unlock();
+        for (MSTransportable* t : transportables) {
+            GUIContainer* container = dynamic_cast<GUIContainer*>(t);
             assert(container != 0);
             container->drawGL(s);
         }
