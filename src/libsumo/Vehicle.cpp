@@ -1021,8 +1021,9 @@ Vehicle::changeTarget(const std::string& vehID, const std::string& edgeID) {
     veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()).compute(
         currentEdge, destEdge, veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one (cost is updated by call to reroute())
-    if (!veh->replaceRouteEdges(newRoute, -1, 0, "traci:changeTarget", onInit)) {
-        throw TraCIException("Route replacement failed for vehicle '" + veh->getID() + "'.");
+    std::string errorMsg;
+    if (!veh->replaceRouteEdges(newRoute, -1, 0, "traci:changeTarget", onInit, false, true, &errorMsg)) {
+        throw TraCIException("Route replacement failed for vehicle '" + veh->getID() + "' (" + errorMsg + ").");
     }
     // route again to ensure usage of via/stops
     try {
@@ -1465,8 +1466,9 @@ Vehicle::setRouteID(const std::string& vehID, const std::string& routeID) {
         }
     }
 
-    if (!veh->replaceRoute(r, "traci:setRouteID", veh->getLane() == nullptr)) {
-        throw TraCIException("Route replacement failed for " + veh->getID());
+    std::string errorMsg;
+    if (!veh->replaceRoute(r, "traci:setRouteID", veh->getLane() == nullptr, 0, true, true, &errorMsg)) {
+        throw TraCIException("Route replacement failed for vehicle '" + veh->getID() + "' (" + errorMsg + ").");
     }
 }
 
@@ -1496,8 +1498,9 @@ Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edge
     } catch (ProcessError& e) {
         throw TraCIException("Invalid edge list for vehicle '" + veh->getID() + "' (" + e.what() + ")");
     }
-    if (!veh->replaceRouteEdges(edges, -1, 0, "traci:setRoute", onInit, true)) {
-        throw TraCIException("Route replacement failed for " + veh->getID());
+    std::string errorMsg;
+    if (!veh->replaceRouteEdges(edges, -1, 0, "traci:setRoute", onInit, true, true, &errorMsg)) {
+        throw TraCIException("Route replacement failed for vehicle '" + veh->getID() + "' (" + errorMsg + ").");
     }
 }
 

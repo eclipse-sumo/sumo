@@ -331,6 +331,9 @@ bool
 MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit, bool check, bool removeStops, std::string* msgReturn) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
+        if (msgReturn != nullptr) {
+            *msgReturn = "No route found";
+        }
         return false;
     }
     // build a new id, first
