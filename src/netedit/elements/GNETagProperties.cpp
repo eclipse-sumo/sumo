@@ -47,7 +47,7 @@ GNETagProperties::GNETagProperties() :
 
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, 
-                                   const std::vector<SumoXMLTag> parentTags, const RGBColor backgroundColor) :
+                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
@@ -55,7 +55,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagPro
     myIcon(icon),
     myXMLTag(XMLTag),
     myParentTags(parentTags),
-    myBackgroundColor(FXRGB(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue())) {
+    myBackgroundColor(backgroundColor) {
 }
 
 

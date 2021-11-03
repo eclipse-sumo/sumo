@@ -98,7 +98,7 @@ public:
 
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, 
-                     const std::vector<SumoXMLTag> parentTags = {}, const RGBColor backgroundColor = RGBColor::WHITE);
+                     const std::vector<SumoXMLTag> parentTags = {}, const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255));
 
     /// @brief destructor
     ~GNETagProperties();
