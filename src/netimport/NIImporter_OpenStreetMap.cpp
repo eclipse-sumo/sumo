@@ -1108,7 +1108,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "bicycle") {
             if (myImportBikeAccess) {
                 try {
-                    if (StringUtils::toBool(value)) {
+                    if (value == "use_sidepath") {
+                        myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
+                    } else if (StringUtils::toBool(value)) {
                         myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
                     } else {
                         myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
