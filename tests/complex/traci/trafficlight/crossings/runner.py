@@ -29,7 +29,9 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
-             "-n", "input_net3.net.xml"]
+             "-n", "input_net3.net.xml",
+             '--no-step-log',
+             ]
              + sys.argv[1:])
 for step in range(3):
     print("step", step)
