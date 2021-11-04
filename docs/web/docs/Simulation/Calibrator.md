@@ -166,8 +166,8 @@ Example {{AdditionalFile}}:
 <additional>
    <vType id="t0" speedDev="0.1"/>
    <routeProbe id="cali_edge1_probe" edge="edge1" freq="60" file="output.xml"/>
-   <calibrator id="cali_edge1" lane="edge1_0" pos="0" output="detector.xml" freq="60" routeProbe="cali_edge1_probe">
-      <route id="cali1_fallback" edges="edge1"/>
+   <route id="cali1_fallback" edges="edge1"/>
+   <calibrator id="cali_edge1" lane="edge1_0" pos="0" output="detector.xml" freq="60" routeProbe="cali_edge1_probe">      
       <flow begin="0"    end="1800" route="cal1_fallback" vehsPerHour="2500" speed="27.8" type="t0" departPos="free" departSpeed="max"/>
       <flow begin="1800" end="3600" route="cal1_fallback" vehsPerHour="2500" speed="15.0" type="t0" departPos="free" departSpeed="max"/>
    </calibrator>
