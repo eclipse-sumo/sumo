@@ -31,4 +31,4 @@ sumoBinary = sumolib.checkBinary('sumo')
 os.environ["NETFILENAME"] = "input_net"
 
 # file output direct
-subprocess.call([sumoBinary, "-c", "sumo.sumocfg"])
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log"])
