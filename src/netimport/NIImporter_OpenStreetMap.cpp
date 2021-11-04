@@ -1097,7 +1097,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         } else if (key == "foot") {
             try {
-                if (StringUtils::toBool(value)) {
+                if (value == "use_sidepath") {
+                    myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
+                } else if (StringUtils::toBool(value)) {
                     myCurrentEdge->myExtraAllowed |= SVC_PEDESTRIAN;
                 } else {
                     myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
