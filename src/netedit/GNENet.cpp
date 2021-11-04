@@ -2172,42 +2172,60 @@ void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("additional", "additional_file.xsd");
+    // declare map for saving additional sorted by ID
+    std::map<std::string, GNEAdditional*> sortedAdditionals;
     // first write routes with additional children (due route prob reroutes)
+    std::map<std::string, GNEDemandElement*> sortedRoutes;
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (route->getChildAdditionals().size() > 0) {
-            route->writeDemandElement(device);
+            sortedRoutes[route->getID()] = route;
         }
+    }
+    for (const auto &route : sortedRoutes) {
+        route.second->writeDemandElement(device);
     }
     // now write all route probes (see Ticket #4058)
     for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
         if (additionalTags.first == SUMO_TAG_ROUTEPROBE) {
             for (const auto& additional : additionalTags.second) {
-                additional->writeAdditional(device);
+                sortedAdditionals[additional->getID()] = additional;
             }
         }
     }
+    for (const auto &additional : sortedAdditionals) {
+        additional.second->writeAdditional(device);
+    }
+    sortedAdditionals.clear();
     // now write all stoppingPlaces
     for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperties(additionalTags.first).isStoppingPlace()) {
             for (const auto& additional : additionalTags.second) {
                 // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
                 if (additional->getParentAdditionals().empty()) {
-                    additional->writeAdditional(device);
+                    sortedAdditionals[additional->getID()] = additional;
                 }
             }
         }
     }
+    for (const auto &additional : sortedAdditionals) {
+        additional.second->writeAdditional(device);
+    }
+    sortedAdditionals.clear();
     // now write all detectors
     for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
         if (GNEAttributeCarrier::getTagProperties(additionalTags.first).isDetector()) {
             for (const auto& additional : additionalTags.second) {
                 // only save Detectors that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
                 if (additional->getParentAdditionals().empty()) {
-                    additional->writeAdditional(device);
+                    sortedAdditionals[additional->getID()] = additional;
                 }
             }
         }
     }
+    for (const auto &additional : sortedAdditionals) {
+        additional.second->writeAdditional(device);
+    }
+    sortedAdditionals.clear();
     // now write rest of additionals
     for (const auto& additionalTags : myAttributeCarriers->getAdditionals()) {
         const auto& tagValue = GNEAttributeCarrier::getTagProperties(additionalTags.first);
@@ -2215,22 +2233,44 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
             for (const auto& additional : additionalTags.second) {
                 // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
                 if (additional->getParentAdditionals().empty()) {
-                    additional->writeAdditional(device);
+                    sortedAdditionals[additional->getID()] = additional;
                 }
             }
         }
     }
+    for (const auto &additional : sortedAdditionals) {
+        additional.second->writeAdditional(device);
+    }
+    sortedAdditionals.clear();
     // write TAZs
+    std::map<std::string, GNETAZElement*> sortedTAZs;
     for (const auto& TAZ : myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ)) {
-        TAZ->writeTAZElement(device);
+        sortedTAZs[TAZ->getID()] = TAZ;
+    }
+    for (const auto &TAZElement : sortedTAZs) {
+        TAZElement.second->writeTAZElement(device);
     }
     // write Polygons
+    std::map<std::string, GNEShape*> sortedShapes;
     for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POLY)) {
-        poly->writeShape(device);
+        sortedShapes[poly->getID()] = poly;
     }
+    for (const auto &shape : sortedShapes) {
+        shape.second->writeShape(device);
+    }
+    sortedShapes.clear();
     // write POIs
-    for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
-        poly->writeShape(device);
+    for (const auto& POI : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
+        sortedShapes[POI->getID()] = POI;
+    }
+    for (const auto& POILane : myAttributeCarriers->getShapes().at(GNE_TAG_POILANE)) {
+        sortedShapes[POILane->getID()] = POILane;
+    }
+    for (const auto& POIGEO : myAttributeCarriers->getShapes().at(GNE_TAG_POIGEO)) {
+        sortedShapes[POIGEO->getID()] = POIGEO;
+    }
+    for (const auto &shape : sortedShapes) {
+        shape.second->writeShape(device);
     }
     device.close();
 }
@@ -2240,19 +2280,32 @@ void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
+    // declare map for saving demand elements sorted by ID
+    std::map<std::string, GNEDemandElement*> sortedDemandElements;
     // first  write all vehicle types
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        vType->writeDemandElement(device);
+        sortedDemandElements[vType->getID()] = vType;
     }
+    for (const auto &demandElement : sortedDemandElements) {
+        demandElement.second->writeDemandElement(device);
+    }
+    sortedDemandElements.clear();
     // first  write all person types
     for (const auto& pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
-        pType->writeDemandElement(device);
+        sortedDemandElements[pType->getID()] = pType;
     }
+    for (const auto &demandElement : sortedDemandElements) {
+        demandElement.second->writeDemandElement(device);
+    }
+    sortedDemandElements.clear();
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (route->getChildAdditionals().empty()) {
-            route->writeDemandElement(device);
+            sortedDemandElements[route->getID()] = route;
         }
+    }
+    for (const auto &demandElement : sortedDemandElements) {
+        demandElement.second->writeDemandElement(device);
     }
     // sort vehicles/persons by depart
     std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
