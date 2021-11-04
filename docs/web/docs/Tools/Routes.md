@@ -354,7 +354,7 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
 This tool transforms every vehicle definition to a flow definition with the configured end time and period (depart is used as begin time).
 
 ```
-python tools/route/tracegenerator.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
+python tools/route/vehicles2flow.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
 ```
 
 # tracegenerator.py
