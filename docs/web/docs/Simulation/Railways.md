@@ -322,7 +322,7 @@ To switch a single signal into LZB-mode, the following additional file may be lo
 Parameter *moving-block* may also be updated at runtime with `traci.trafficlight.setParameter`.
 
 ## Schedule Constraints
-Additionally, rail signals can enforce train ordering to ensure that a scheduled order at stations can be kept.
+Additionally, rail signals can enforce train ordering to ensure that a [scheduled order at stations](Public_Transport.md#public_transport_schedules) can be kept.
 To make use of this, the following elements can be loaded from an additional file:
 
 ```
@@ -342,7 +342,7 @@ This constrain defines that a given vehicle id (or tripId) can only pass the cur
 This constrain defines that a given vehicle id (or tripId) can only be inserted on the block leading up to the current signal after some other vehicle ('foe') with the given id or tripId has passed signal 'tl'. The foe vehicle must have been the last vehicle to do so or it must have been one of the last 'limit' vehicles at the time of switching green.
 
 ### constraints generation
-Constraints can be generated using the tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy).
+Constraints can be generated using the tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) by using a route file with [stops that define a schedule](Public_Transport.md#public_transport_schedules).
 
 # TraCI
 
