@@ -1,0 +1,7 @@
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4839228').
+Warning: Discarding unknown compound 'cycleway.crossing' in type 'cycleway.crossing|highway.cycleway' (first occurence for edge '337455368').
+Warning: Not joining junctions 2663214240,4002570893 (only 1 exit node).
+Warning: Found sharp turn with radius 8.35 at the end of edge '337455349#4'.
+Warning: The traffic light 'joinedS_0' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'joinedS_0' has a high cycle time of 250.00.
+Warning: The traffic light 'dummy' has a high cycle time of 220.00.
