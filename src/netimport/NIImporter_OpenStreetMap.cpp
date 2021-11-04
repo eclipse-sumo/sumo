@@ -520,6 +520,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // deal with sidewalks that run in the opposite direction of a one-way street
     WayType sidewalkType = e->mySidewalkType; // make a copy because we do some temporary modifications
+    if (sidewalkType == WAY_UNKNOWN && (e->myExtraAllowed & SVC_PEDESTRIAN) != 0 && (permissions & SVC_PASSENGER) != 0) {
+        // do not assume shared space unless sidewalk is actively disabled
+        sidewalkType = WAY_BOTH;
+    }
     if (addSidewalk || (myImportSidewalks && (permissions & SVC_ROAD_CLASSES) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
         if (!addForward && (sidewalkType & WAY_FORWARD) != 0) {
             addForward = true;
