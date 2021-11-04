@@ -401,6 +401,8 @@ def getReferenceMatch(neProcess):
         pyautogui.moveTo(referencePosition)
         # wait
         time.sleep(DELAY_MOUSE_MOVE)
+        # press i for inspect mode
+        typeKey("i")
         # click over position (used to center view in window)
         pyautogui.click(button='left')
         # wait after every operation
