@@ -396,7 +396,7 @@ GUIBaseVehicle::removedPopupMenu() {
 }
 
 
-double 
+double
 GUIBaseVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.vehicleSize.getExaggeration(s, this);
 }
@@ -455,7 +455,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
                                      ? myVehicle.getLane()->getLengthGeometryFactor()
                                      : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor() : 1)))
                                    : 1);
-    const double scaledLength = length * geometryFactor;
+    double scaledLength = length * geometryFactor;
     if (col.alpha() != 0) {
         switch (s.vehicleQuality) {
             case 0:
@@ -478,6 +478,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             case 4:
                 // do not scale circle radius by lengthGeometryFactor
                 GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(getVType().getWidth(), length, s.scale * upscale);
+                // display text at circle center
+                scaledLength = 0;
                 break;
             default:
                 break;
