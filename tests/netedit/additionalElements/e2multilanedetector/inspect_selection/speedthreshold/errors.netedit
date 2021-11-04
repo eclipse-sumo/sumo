@@ -1,12 +1,24 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Inserting generic parameter 'KeyA1|valueA1' into e2Detector
+Debug: Inserting generic parameter 'KeyA1|valueA1' into 
 Debug: Inserting generic parameter 'KeyA3|valueA2' into e2Detector
+Debug: Inserting generic parameter 'KeyA3|valueA2' into 
 Debug: Inserting generic parameter 'KeyA2|valueA3' into e2Detector
+Debug: Inserting generic parameter 'KeyA2|valueA3' into 
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyB1|valueB1' into e2Detector
+Debug: Inserting generic parameter 'KeyB1|valueB1' into 
 Debug: Inserting generic parameter 'KeyB3|valueB2' into e2Detector
+Debug: Inserting generic parameter 'KeyB3|valueB2' into 
 Debug: Inserting generic parameter 'KeyB2|valueB3' into e2Detector
+Debug: Inserting generic parameter 'KeyB2|valueB3' into 
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
@@ -22,8 +34,8 @@ Debug: Setting new attribute selected 'true' into edge 'gneE2'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE2_0togneE3_0'
 Debug: Setting new attribute selected 'true' into edge 'gneE4'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE4_0togneE5_0'
-Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_1'
+Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Value 'dummySpeedTreshold' for attribute speedThreshold of e2MultilaneDetector isn't valid
 Debug: Value '-12.1' for attribute speedThreshold of e2MultilaneDetector isn't valid
 Debug: Setting new attribute speedThreshold '6.3' into e2MultilaneDetector 'e2MultilaneDetector_0'
@@ -34,8 +46,8 @@ Debug: Setting previous attribute speedThreshold '1.39' into e2MultilaneDetector
 Debug: Setting previous attribute speedThreshold '1.39' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Setting previous attribute selected '0' into connection 'fromgneE4_0togneE5_0'
 Debug: Setting previous attribute selected '0' into edge 'gneE4'
 Debug: Setting previous attribute selected '0' into connection 'fromgneE2_0togneE3_0'
@@ -66,8 +78,8 @@ Debug: Setting new attribute selected 'true' into edge 'gneE2'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE2_0togneE3_0'
 Debug: Setting new attribute selected 'true' into edge 'gneE4'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE4_0togneE5_0'
-Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_1'
+Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute speedThreshold '6.3' into e2MultilaneDetector 'e2MultilaneDetector_0'
@@ -89,7 +101,7 @@ Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
