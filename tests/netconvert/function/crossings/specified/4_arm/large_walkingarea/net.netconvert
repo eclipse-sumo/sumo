@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-04 20:36:21 by Eclipse SUMO netconvert Version v1_10_0+1963-4f32116
+<!-- generated on 2021-11-04 21:19:27 by Eclipse SUMO netconvert Version v1_10_0+1964-4808582
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -95,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="10.57" width="4.50" shape="119.51,78.49 119.52,75.49 105.26,74.18 102.78,75.87 103.73,76.65 105.41,77.29 107.83,77.80 110.98,78.16 114.88,78.39"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="24.91" width="4.50" shape="92.21,83.09 89.73,84.78 96.11,117.86 96.24,120.86 101.99,119.56 105.18,116.26 105.80,110.96 103.84,103.66 99.31,94.38"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="24.91" width="4.50" shape="92.21,83.09 89.73,84.78 96.11,117.86 96.24,120.86 98.86,118.46 99.60,112.56 98.88,104.61 97.13,96.07 94.76,88.41"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
         <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.40" width="3.00" shape="214.26,85.40 214.25,88.40 214.30,76.00 214.29,79.00"/>

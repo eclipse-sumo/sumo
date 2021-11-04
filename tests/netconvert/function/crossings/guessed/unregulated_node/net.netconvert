@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:57 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-04 21:21:00 by Eclipse SUMO netconvert Version v1_10_0+1964-4808582
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.96" width="4.00" shape="7.00,2.47 8.41,1.06 8.85,-0.00 7.60,0.07 6.72,0.27 6.23,0.62 6.11,1.10 6.36,1.72"/>
     </edge>
     <edge id=":gneJ0_w1" function="walkingarea">
-        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.24" width="4.00" shape="8.85,-3.20 8.85,-5.20 2.65,2.31 1.67,0.33 1.80,-1.22 3.04,-2.32 5.39,-2.98"/>
+        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.24" width="4.00" shape="8.85,-3.20 8.85,-5.20 4.10,3.42 4.21,1.74 4.89,-0.02 5.99,-1.61 7.37,-2.76"/>
     </edge>
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
         <lane id="gneE0_0" index="0" allow="pedestrian" speed="13.89" length="91.15" width="2.00" shape="8.85,-4.20 100.00,-4.20"/>

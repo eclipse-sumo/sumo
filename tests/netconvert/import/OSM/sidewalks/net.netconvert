@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:41 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-04 21:20:56 by Eclipse SUMO netconvert Version v1_10_0+1964-4808582
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -179,7 +179,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":23126_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.46" width="3.00" shape="64.82,47.89 63.28,50.47 79.14,59.93 80.67,57.35"/>
     </edge>
     <edge id=":23126_w1" function="walkingarea">
-        <lane id=":23126_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.49" width="4.00" shape="83.95,51.85 85.49,49.28 85.45,48.55 85.51,46.55 84.85,46.28 81.95,46.58 80.14,46.97 79.44,47.69 79.84,48.75 81.34,50.13"/>
+        <lane id=":23126_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.49" width="4.00" shape="83.95,51.85 85.49,49.28 85.45,48.55 85.51,46.55 84.85,46.28 84.06,46.84 83.48,47.68 83.15,48.82 83.10,50.05 83.36,51.14"/>
     </edge>
     <edge id=":23126_w2" function="walkingarea">
         <lane id=":23126_w2_0" index="0" allow="pedestrian" speed="1.00" length="10.01" width="4.00" shape="84.24,39.85 83.59,40.09 83.66,38.09 69.62,39.81 68.08,42.39 71.15,43.65 73.58,43.59 75.74,42.71 77.99,41.51 80.71,40.47"/>
