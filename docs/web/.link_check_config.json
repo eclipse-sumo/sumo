@@ -10,7 +10,7 @@
       "pattern": "{{Version}}"
     },
     {
-      "pattern": "https://build.opensuse.org/project/show/home:behrisch"
+      "pattern": "https://build.opensuse.org/project/show/science:dlr"
     },
     {
       "pattern": "https://github.com/eclipse/sumo/blob/master/"

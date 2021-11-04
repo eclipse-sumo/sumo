@@ -159,7 +159,7 @@ The attributes used within such definitions are:
 Two `closingLaneReroute` definitions may be used to simulate a reversible lane in the following way:
 
 - Define two edges in reverse directions with at least 2 lanes each
-- [prohibit driving on one of the central lanes](Netedit/editModesCommon.md#inspecting_lanes) (disallow="all") 
+- [prohibit driving on one of the central lanes](../Netedit/editModesCommon.md#inspecting_lanes) (disallow="all") 
 -  and modify the edge geometry so that the central lanes occupy the same space.
   - by shifting geometry of [both edges sideways (-1.6 for default lane width)](../Netedit/editModesCommon.md#frame_operation)
   - or by [setting the geometry directly](../Netedit/neteditUsageExamples.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
