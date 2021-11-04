@@ -14,6 +14,12 @@ GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,114.80,110.
 GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,85.20,110.00,110.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:C from SUMORTree with boundary 79.60,79.60,120.40,120.40
@@ -152,8 +158,8 @@ Debug: Deleting unreferenced junction 'E' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'N' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'S' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'W' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 13
