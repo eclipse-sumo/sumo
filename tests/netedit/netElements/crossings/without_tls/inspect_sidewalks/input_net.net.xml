@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 19 09:10:46 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
+<!-- generated on 2021-11-04 08:38:27 by Eclipse SUMO netconvert Version v1_10_0+1919-2fd86b1b558
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netElements\crossings\inspect_sidewalks\width\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netElements\crossings\inspect_sidewalks\width\input_net.edg.xml"/>
-        <connection-files value=".\netedit\netElements\crossings\inspect_sidewalks\width\input_net.con.xml"/>
+        <node-files value=".\netedit\netElements\crossings\without_tls\inspect_sidewalks\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netElements\crossings\without_tls\inspect_sidewalks\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netElements\crossings\without_tls\inspect_sidewalks\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netElements\crossings\inspect_sidewalks\width\input_net.net.xml"/>
+        <output-file value=".\netedit\netElements\crossings\without_tls\inspect_sidewalks\input_net.net.xml"/>
     </output>
 
     <report>
         <verbose value="true"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
