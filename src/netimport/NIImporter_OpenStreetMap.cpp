@@ -1096,26 +1096,18 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
             }
         } else if (key == "foot") {
-            try {
-                if (value == "use_sidepath") {
-                    myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
-                } else if (StringUtils::toBool(value)) {
-                    myCurrentEdge->myExtraAllowed |= SVC_PEDESTRIAN;
-                } else {
-                    myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
-                }
-            } catch (const BoolFormatException&) {}
+            if (value == "use_sidepath" || value == "no") {
+                myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
+            } else if (value == "yes" || value == "designated" || value == "permissive") {
+                myCurrentEdge->myExtraAllowed |= SVC_PEDESTRIAN;
+            }
         } else if (key == "bicycle") {
             if (myImportBikeAccess) {
-                try {
-                    if (value == "use_sidepath") {
-                        myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
-                    } else if (StringUtils::toBool(value)) {
-                        myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
-                    } else {
-                        myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
-                    }
-                } catch (const BoolFormatException&) {}
+                if (value == "use_sidepath" || value == "no") {
+                    myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
+                } else if (value == "yes" || value == "designated" || value == "permissive") {
+                    myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
+                }
             }
         } else if (key == "oneway:bicycle") {
             if (myImportBikeAccess) {
