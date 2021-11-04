@@ -18,17 +18,17 @@ done.
    34 types loaded.
    5080 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops ... done (0ms).
+Removing self-loops ... done (1ms).
 Joining junction clusters ... 
-done (24ms).
+done (18ms).
  Joined 105 junction cluster(s).
-Removing empty nodes and geometry nodes ... done (28ms).
-   801 nodes removed.
-Moving network to origin ... done (128ms).
+Removing empty nodes and geometry nodes ... done (17ms).
+   800 nodes removed.
+Moving network to origin ... done (95ms).
 Computing turning directions ... 
-done (4ms).
+done (3ms).
 Assigning nodes to traffic lights ... done (2ms).
-Guessing and setting on-/off-ramps ... done (9ms).
+Guessing and setting on-/off-ramps ... done (6ms).
 Removing sharp turn with radius 1.40 at the start of edge '144014242#1'.
 Removing sharp turn with radius 1.76 at the end of edge '153522299#3'.
 Removing sharp turn with radius 4.73 at the start of edge '167140670#3'.
@@ -37,32 +37,32 @@ Removing sharp turn with radius 8.03 at the end of edge '30123145#0'.
 Removing sharp turn with radius 4.29 at the start of edge '30123145#2'.
 Removing sharp turn with radius 0.01 at the start of edge '32590429'.
 Removing sharp turn with radius 0.01 at the end of edge '32590434#1'.
-Sorting nodes' edges ... done (9ms).
-Computing node shapes ... done (151ms).
-Computing edge shapes ... done (79ms).
-Computing node types ... done (4ms).
-Computing priorities ... done (6ms).
-Computing approached edges ... done (5ms).
+Sorting nodes' edges ... done (6ms).
+Computing node shapes ... done (91ms).
+Computing edge shapes ... done (60ms).
+Computing node types ... done (3ms).
+Computing priorities ... done (4ms).
+Computing approached edges ... done (3ms).
 Guessing and setting roundabouts ... done (1ms).
-Computing approaching lanes ... done (24ms).
-Dividing of lanes on approached lanes ... done (11ms).
+Computing approaching lanes ... done (16ms).
+Dividing of lanes on approached lanes ... done (9ms).
 Processing turnarounds ... done (1ms).
-Rechecking of lane endings ... done (3ms).
-Joining traffic light nodes ... done (4ms).
+Rechecking of lane endings ... done (2ms).
+Joining traffic light nodes ... done (2ms).
 Computing traffic light control information ... 
 done (1ms).
-Computing node logics ... done (27ms).
+Computing node logics ... done (19ms).
 Computing traffic light logics ... 
-done (15ms).
+done (6ms).
  59 traffic light(s) computed.
 Building inner edges ... 
-done (102ms).
+done (63ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 1393
-  Priority junctions          : 720
+  Priority junctions          : 721
   Right-before-left junctions : 165
   Traffic light junctions      : 65
   Rail crossing junctions      : 31
@@ -72,5 +72,5 @@ Summary:
   Applied offset     : -389937.80,-5819108.12
   Converted boundary : 0.00,0.00,2865.03,3342.17
 -----------------------------------------------------
-Writing network ... done (910ms).
+Writing network ... done (478ms).
 Success.

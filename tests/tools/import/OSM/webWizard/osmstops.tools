@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 23:28:37 by Eclipse SUMO netconvert Version v1_10_0+1864-38501b1aeb1
+<!-- generated on 2021-11-04 15:18:44 by Eclipse SUMO netconvert Version v1_10_0+1956-0b6f419d93d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -72,10 +72,28 @@
         <access lane="72157168#5_0" pos="2.83" length="17.56" friendlyPos="1"/>
     </busStop>
     <busStop id="-2915545317" name="U Weinmeisterstraße/Gipsstraße" lane="-36892597#1_1" startPos="0.00" endPos="7.50" friendlyPos="true" lines="N8 N40"/>
-    <busStop id="-2915579613" name="S Hackescher Markt" lane="-387892378_0" startPos="6.31" endPos="21.31" friendlyPos="true" lines="N8 N40"/>
+    <busStop id="-2915579613" name="S Hackescher Markt" lane="-387892378_0" startPos="6.31" endPos="21.31" friendlyPos="true" lines="N8 N40">
+        <access lane="-574993713#2_0" pos="0.00" length="34.36" friendlyPos="1"/>
+        <access lane="-574993713#3_0" pos="29.77" length="30.66" friendlyPos="1"/>
+        <access lane="473149637_0" pos="21.57" length="32.13" friendlyPos="1"/>
+        <access lane="574993713#2_0" pos="1.74" length="30.16" friendlyPos="1"/>
+        <access lane="574993713#3_0" pos="0.75" length="25.86" friendlyPos="1"/>
+    </busStop>
     <busStop id="-3867910422" name="Neumannsgasse" lane="-43156728#0_2" startPos="0.00" endPos="9.40" friendlyPos="true" lines="147"/>
-    <busStop id="-3867910426" name="S Hackescher Markt" lane="-387892378_0" startPos="6.31" endPos="21.31" friendlyPos="true" lines="N42"/>
-    <busStop id="-3867910429" name="S Hackescher Markt" lane="-478396988_0" startPos="18.52" endPos="26.03" friendlyPos="true" lines="N5 N2"/>
+    <busStop id="-3867910426" name="S Hackescher Markt" lane="-387892378_0" startPos="6.31" endPos="21.31" friendlyPos="true" lines="N42">
+        <access lane="-574993710_0" pos="57.83" length="57.29" friendlyPos="1"/>
+        <access lane="-574993712_0" pos="0.00" length="54.46" friendlyPos="1"/>
+        <access lane="-574993713#3_0" pos="12.34" length="34.71" friendlyPos="1"/>
+        <access lane="574993713#2_0" pos="1.74" length="55.29" friendlyPos="1"/>
+        <access lane="574993713#3_0" pos="18.90" length="29.91" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-3867910429" name="S Hackescher Markt" lane="-478396988_0" startPos="18.52" endPos="26.03" friendlyPos="true" lines="N5 N2">
+        <access lane="222470309#0_0" pos="20.34" length="30.64" friendlyPos="1"/>
+        <access lane="222470309#1_0" pos="0.20" length="28.23" friendlyPos="1"/>
+        <access lane="473149636_0" pos="20.20" length="10.39" friendlyPos="1"/>
+        <access lane="473149637_0" pos="15.83" length="9.62" friendlyPos="1"/>
+        <access lane="574993713#1_0" pos="3.04" length="26.21" friendlyPos="1"/>
+    </busStop>
     <busStop id="-3869306760" name="Deutsches Theater" lane="-176043807#3_1" startPos="2.24" endPos="17.24" friendlyPos="true" lines="147"/>
     <busStop id="-3869306761" name="Friedrichstraße/Reinhardtstraße" lane="-437325051#0_1" startPos="51.54" endPos="66.54" friendlyPos="true" lines="147"/>
     <busStop id="-3869306765" name="S+U Friedrichstraße" lane="-4402228_1" startPos="36.08" endPos="51.08" friendlyPos="true" lines="N6 147"/>
@@ -121,11 +139,11 @@
         <access lane="522374555#1_0" pos="0.00" length="8.08" friendlyPos="1"/>
     </busStop>
     <busStop id="1668497956" name="S Hackescher Markt" lane="153537614#2_0" startPos="20.51" endPos="41.23" friendlyPos="true" lines="M1">
-        <access lane="46140376#0_0" pos="10.84" length="18.53" friendlyPos="1"/>
-        <access lane="46140376#1_0" pos="6.90" length="4.16" friendlyPos="1"/>
+        <access lane="54618192#2_0" pos="0.77" length="48.59" friendlyPos="1"/>
+        <access lane="59286191_0" pos="12.91" length="28.94" friendlyPos="1"/>
+        <access lane="59286499_0" pos="0.00" length="22.45" friendlyPos="1"/>
         <access lane="59286500#0_0" pos="2.41" length="13.51" friendlyPos="1"/>
         <access lane="59286500#2_0" pos="0.00" length="14.21" friendlyPos="1"/>
-        <access lane="83517332#2_0" pos="8.29" length="10.92" friendlyPos="1"/>
     </busStop>
     <busStop id="1668685086" name="U Oranienburger Tor" lane="154321040#2_0" startPos="342.44" endPos="367.44" friendlyPos="true" lines="M5 M1">
         <access lane="-204032443#1_0" pos="7.62" length="6.96" friendlyPos="1"/>
@@ -157,11 +175,11 @@
         <access lane="377110622#3_0" pos="0.07" length="6.43" friendlyPos="1"/>
     </busStop>
     <busStop id="1769645503" name="S Oranienburger Straße" lane="237751551_0" startPos="326.57" endPos="526.57" friendlyPos="true" lines="S1 S2 S25 S26">
-        <access lane="165415452#1_0" pos="11.84" length="11.51" friendlyPos="1"/>
-        <access lane="165415454#0_0" pos="3.28" length="1.51" friendlyPos="1"/>
+        <access lane="225400588#0_0" pos="62.16" length="17.41" friendlyPos="1"/>
         <access lane="398956072_0" pos="2.05" length="7.28" friendlyPos="1"/>
         <access lane="398956073_0" pos="6.16" length="8.07" friendlyPos="1"/>
         <access lane="398956074#1_0" pos="0.48" length="14.89" friendlyPos="1"/>
+        <access lane="523633033_0" pos="0.00" length="16.80" friendlyPos="1"/>
     </busStop>
     <busStop id="1789092673" name="U Alexanderplatz" lane="317013528#1_0" startPos="72.77" endPos="97.77" friendlyPos="true" lines="M4 M5 M6">
         <access lane="272810802_0" pos="14.29" length="6.48" friendlyPos="1"/>
@@ -264,11 +282,11 @@
         <access lane="82658674#2_0" pos="0.00" length="7.83" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266782" name="U Rosa-Luxemburg-Platz" lane="200422335#0_0" startPos="462.07" endPos="662.07" friendlyPos="true" lines="U2">
+        <access lane="-24241762#2_0" pos="52.81" length="215.11" friendlyPos="1"/>
         <access lane="-369223458#0_0" pos="58.89" length="119.16" friendlyPos="1"/>
-        <access lane="-4613293_0" pos="79.06" length="145.56" friendlyPos="1"/>
+        <access lane="24241762#1_0" pos="346.25" length="201.01" friendlyPos="1"/>
         <access lane="369223458#0_0" pos="0.00" length="118.22" friendlyPos="1"/>
-        <access lane="4613293_0" pos="337.15" length="140.76" friendlyPos="1"/>
-        <access lane="4613295#1_0" pos="116.44" length="47.81" friendlyPos="1"/>
+        <access lane="369223458#1_0" pos="0.00" length="212.38" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266983" name="U Alexanderplatz" lane="379102293#1_0" startPos="696.28" endPos="896.28" friendlyPos="true" lines="U8">
         <access lane="272780751#0_0" pos="0.20" length="16.19" friendlyPos="1"/>
@@ -473,17 +491,16 @@
     </busStop>
     <busStop id="3824719830" name="S+U Jannowitzbrücke" lane="379102293#1_0" startPos="203.64" endPos="403.64" friendlyPos="true" lines="U8">
         <access lane="-310177222#0_0" pos="132.63" length="137.33" friendlyPos="1"/>
-        <access lane="-4612966_0" pos="121.44" length="175.47" friendlyPos="1"/>
         <access lane="156364559#0_0" pos="0.18" length="59.60" friendlyPos="1"/>
         <access lane="310177222#0_0" pos="0.00" length="127.87" friendlyPos="1"/>
-        <access lane="4612966_0" pos="0.00" length="172.05" friendlyPos="1"/>
+        <access lane="43165085_0" pos="0.00" length="202.30" friendlyPos="1"/>
     </busStop>
     <busStop id="3834324122" name="S+U Jannowitzbrücke" lane="381201610_0" startPos="1153.49" endPos="1353.49" friendlyPos="true" lines="U8">
+        <access lane="-170077662#5_0" pos="38.44" length="239.86" friendlyPos="1"/>
         <access lane="-310177222#0_0" pos="132.63" length="168.84" friendlyPos="1"/>
-        <access lane="-4612966_0" pos="121.44" length="103.60" friendlyPos="1"/>
         <access lane="156364559#0_0" pos="0.00" length="32.28" friendlyPos="1"/>
         <access lane="310177222#0_0" pos="0.00" length="165.38" friendlyPos="1"/>
-        <access lane="4612966_0" pos="0.00" length="101.89" friendlyPos="1"/>
+        <access lane="43165085_0" pos="0.00" length="207.56" friendlyPos="1"/>
     </busStop>
     <busStop id="3867910416" name="Berliner Rathaus" lane="60333311#2_2" startPos="2.07" endPos="17.07" friendlyPos="true" lines="248"/>
     <busStop id="3867910417" name="Berliner Rathaus" lane="309479676_1" startPos="13.33" endPos="28.33" friendlyPos="true" lines="248"/>
@@ -491,9 +508,27 @@
     <busStop id="3867910421" name="Lustgarten" lane="54048862#3_1" startPos="23.29" endPos="38.29" friendlyPos="true" lines="100 200 N2"/>
     <busStop id="3867910423" name="Neumannsgasse" lane="43156728#2_2" startPos="9.15" endPos="24.15" friendlyPos="true" lines="147"/>
     <busStop id="3867910424" name="Nikolaiviertel" lane="23851927#1_1" startPos="15.43" endPos="30.43" friendlyPos="true" lines="M48 248 N42"/>
-    <busStop id="3867910425" name="S Hackescher Markt" lane="275177453_0" startPos="22.05" endPos="37.05" friendlyPos="true" lines="N65 N8 N40"/>
-    <busStop id="3867910427" name="S Hackescher Markt" lane="275177453_0" startPos="0.98" endPos="15.98" friendlyPos="true" lines="N42"/>
-    <busStop id="3867910428" name="S Hackescher Markt" lane="370359204#2_0" startPos="8.00" endPos="23.00" friendlyPos="true" lines="N2"/>
+    <busStop id="3867910425" name="S Hackescher Markt" lane="275177453_0" startPos="22.05" endPos="37.05" friendlyPos="true" lines="N65 N8 N40">
+        <access lane="-574993710_0" pos="57.83" length="66.34" friendlyPos="1"/>
+        <access lane="-574993712_0" pos="0.00" length="63.08" friendlyPos="1"/>
+        <access lane="-574993713#3_0" pos="5.02" length="36.99" friendlyPos="1"/>
+        <access lane="574993713#2_0" pos="1.74" length="65.35" friendlyPos="1"/>
+        <access lane="574993713#3_0" pos="26.23" length="32.19" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3867910427" name="S Hackescher Markt" lane="275177453_0" startPos="0.98" endPos="15.98" friendlyPos="true" lines="N42">
+        <access lane="-574993712_0" pos="0.00" length="41.66" friendlyPos="1"/>
+        <access lane="-574993713#2_0" pos="0.00" length="41.60" friendlyPos="1"/>
+        <access lane="-574993713#3_0" pos="22.64" length="30.62" friendlyPos="1"/>
+        <access lane="574993713#2_0" pos="1.74" length="38.21" friendlyPos="1"/>
+        <access lane="574993713#3_0" pos="8.24" length="25.80" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3867910428" name="S Hackescher Markt" lane="370359204#2_0" startPos="8.00" endPos="23.00" friendlyPos="true" lines="N2">
+        <access lane="473149636_0" pos="20.58" length="23.41" friendlyPos="1"/>
+        <access lane="473149637_0" pos="21.57" length="16.25" friendlyPos="1"/>
+        <access lane="574993713#1_0" pos="7.40" length="30.09" friendlyPos="1"/>
+        <access lane="574993713#2_0" pos="0.39" length="26.11" friendlyPos="1"/>
+        <access lane="574993713#3_0" pos="0.00" length="30.84" friendlyPos="1"/>
+    </busStop>
     <busStop id="3867910432" name="S+U Alexanderplatz/Grunerstraße" lane="309155392_1" startPos="22.82" endPos="37.82" friendlyPos="true" lines="248">
         <access lane="-312176585#1_0" pos="77.56" length="43.25" friendlyPos="1"/>
         <access lane="195407521_0" pos="0.00" length="43.13" friendlyPos="1"/>
@@ -503,7 +538,13 @@
     </busStop>
     <busStop id="3867910436" name="S+U Jannowitzbrücke" lane="156364559#0_2" startPos="3.34" endPos="18.34" friendlyPos="true" lines="N40"/>
     <busStop id="3867910438" name="Spandauer Straße/Marienkirche" lane="4773465#1_2" startPos="20.15" endPos="35.15" friendlyPos="true" lines="N8 N40 N2 N42"/>
-    <busStop id="3867910439" name="U Weinmeisterstraße" lane="23809678#4_0" startPos="38.51" endPos="53.51" friendlyPos="true" lines="N5 N2 N42"/>
+    <busStop id="3867910439" name="U Weinmeisterstraße" lane="23809678#4_0" startPos="38.51" endPos="53.51" friendlyPos="true" lines="N5 N2 N42">
+        <access lane="-566154993_0" pos="24.77" length="14.16" friendlyPos="1"/>
+        <access lane="566154992_0" pos="0.00" length="9.38" friendlyPos="1"/>
+        <access lane="72463266#0_0" pos="0.00" length="7.96" friendlyPos="1"/>
+        <access lane="72463266#1_0" pos="0.20" length="15.39" friendlyPos="1"/>
+        <access lane="72463267#3_0" pos="6.93" length="5.41" friendlyPos="1"/>
+    </busStop>
     <busStop id="3867910441" name="U Weinmeisterstraße/Gipsstraße" lane="36892597#2_1" startPos="5.42" endPos="20.42" friendlyPos="true" lines="N65 N2 N8 N40 N42"/>
     <busStop id="3867922470" name="Spandauer Straße/Marienkirche" lane="473149643_0" startPos="1.53" endPos="14.03" friendlyPos="true"/>
     <busStop id="3867922477" name="S+U Alexanderplatz/Memhardstraße" lane="473149640_0" startPos="0.00" endPos="12.50" friendlyPos="true"/>
@@ -566,10 +607,7 @@
     </busStop>
     <busStop id="4961125734" name="U Rosa-Luxemburg-Platz" lane="272795470#1_0" startPos="660.46" endPos="860.46" friendlyPos="true" lines="U2">
         <access lane="-24241762#2_0" pos="0.00" length="147.54" friendlyPos="1"/>
-        <access lane="-4613293_0" pos="8.61" length="97.66" friendlyPos="1"/>
         <access lane="24241762#1_0" pos="399.01" length="133.57" friendlyPos="1"/>
-        <access lane="4613293_0" pos="407.68" length="92.86" friendlyPos="1"/>
-        <access lane="4613295#1_0" pos="171.54" length="35.28" friendlyPos="1"/>
     </busStop>
     <busStop id="5227235607" name="U Rosenthaler Platz" lane="379102293#1_0" startPos="696.28" endPos="896.28" friendlyPos="true" lines="U8"/>
     <busStop id="5227235608" name="U Rosenthaler Platz" lane="381201610_0" startPos="622.91" endPos="822.91" friendlyPos="true" lines="U8"/>
