@@ -22,6 +22,7 @@
 #include <utility>
 
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
@@ -195,7 +196,7 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
         passedIDs2 = " (" + toString(passedIDs) + ")";
     }
     return ("predecessor " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
-            + " passed=" + toString(myTrackers.front()->myPassed) + passedIDs2);
+            + " passed=" + StringUtils::prune(toString(myTrackers.front()->myPassed)) + passedIDs2);
 }
 
 // ===========================================================================
