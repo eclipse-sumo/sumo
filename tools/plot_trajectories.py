@@ -198,6 +198,9 @@ def main(options):
             print("Found %s datapoints in %s and kept %s" % (
                 totalVehs, fcdfile, filteredVehs))
 
+    if filteredVehs == 0:
+        sys.exit()
+
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
             return False, dict()
