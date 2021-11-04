@@ -95,3 +95,6 @@ duplicate
 
 # underlying priority junction has a turning priority road but tls layout is oncoming.  Related to #7764
 bent_priority_tls_oncoming
+
+# large walkingarea should not bulge out into the driving space (#9485)
+large_walkingarea
