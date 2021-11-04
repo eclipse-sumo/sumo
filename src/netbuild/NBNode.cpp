@@ -3106,6 +3106,12 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
                     ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                 curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+                if (curve.length2D() - begShape.back().distanceTo2D(endShape.front()) > 5) {
+                    // recompute less bulging curve
+                    //std::cout << " directLength=" << begShape.back().distanceTo2D(endShape.front()) << " curveLength=" << curve.length2D()
+                    //        << " delta=" << curve.length2D() - begShape.back().distanceTo2D(endShape.front()) << "\n";
+                    curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, nullptr, AVOID_WIDE_LEFT_TURN | AVOID_INTERSECTING_LEFT_TURNS);
+                }
             } else {
                 const double extend = MIN2(10.0, begShape.back().distanceTo2D(endShape.front()) / 2);
                 curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
