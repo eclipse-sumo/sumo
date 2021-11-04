@@ -532,7 +532,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             numLanesForward = 1;
             // do not add an additional sidewalk
             sidewalkType = (WayType)(sidewalkType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
-        } else if (addForward && (sidewalkType & WAY_BOTH) == 0
+        } else if (addSidewalk && addForward && (sidewalkType & WAY_BOTH) == 0
                    && numLanesForward == 1 && numLanesBackward <= 1
                    && (e->myExtraDisallowed & SVC_PEDESTRIAN) == 0) {
             // our typemap says pedestrians should walk here but the data says
@@ -547,7 +547,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             numLanesBackward = 1;
             // do not add an additional cycle lane
             sidewalkType = (WayType)(sidewalkType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
-        } else if (addBackward && (sidewalkType & WAY_BOTH) == 0
+        } else if (addSidewalk && addBackward && (sidewalkType & WAY_BOTH) == 0
                    && numLanesBackward == 1 && numLanesForward <= 1
                    && (e->myExtraDisallowed & SVC_PEDESTRIAN) == 0) {
             // our typemap says pedestrians should walk here but the data says
