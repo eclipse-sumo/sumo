@@ -605,8 +605,13 @@ GUIPerson::getStageArrivalPos() const {
 
 bool
 GUIPerson::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
+    const MSEdge* current = getEdge();
+    // acquire lock before locking the person to avoid mutual deadlock (#9468)
+    current->lock();
     FXMutexLock locker(myLock);
-    return MSTransportable::proceed(net, time, vehicleArrived);
+    const bool planContinues = MSTransportable::proceed(net, time, vehicleArrived);
+    current->unlock();
+    return planContinues;
 }
 
 // -------------------------------------------------------------------------
