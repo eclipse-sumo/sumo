@@ -214,6 +214,10 @@ The following [stop attributes](../Definition_of_Vehicles,_Vehicle_Types,_and_Ro
 - extension: The maximum time by which a public transport stop may be extended due to boarding passengers
 - line: A new line attribute to be set on the vehicle when reaching the stop. This is currently ignored by the intermodal router!
 - tripId: Updates the tripId parameter of the vehicle when reaching the stop. This parameter has no impact on simulation behavior but may be useful to reflect real-world bookkeeping on the vehicle status over the course of an operating day
+- started: Defines actual arrival time at the stop (i.e. from a real world data source or a prior simulation run)
+- ended: Defines actual time at which the stop ended (i.e. from a real world data source or a prior simulation run). Can be used to override the 'until' attribute by setting sumo option **--use-stop-ended**.
+
+The attributes `started` and `ended` are used to account for real-life modifications to a railway schedule (train order changes), when [generating railSignalConstraints](Tools/Railways.md#generaterailsignalconstraintspy) for [schedule-based railway simulation](Railways.md#schedule_constraints).
 
 # Stopping without defining a bus stop
 
