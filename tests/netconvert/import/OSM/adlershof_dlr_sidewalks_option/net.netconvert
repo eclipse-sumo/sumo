@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-01 16:18:09 by Eclipse SUMO netconvert Version v1_10_0+1816-09a748e
+<!-- generated on 2021-11-04 14:50:44 by Eclipse SUMO netconvert Version v1_10_0+1951-ba3663e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2046,11 +2046,11 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="206579064#2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="74.29" shape="3965.58,444.13 3959.25,482.89 3956.48,499.91"/>
     </edge>
     <edge id="206579083" from="2165987555" to="27555350" priority="9" type="highway.motorway_link" spreadType="center">
-        <lane id="206579083_0" index="0" disallow="moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="73.03" shape="3346.13,653.53 3294.58,665.22"/>
+        <lane id="206579083_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="73.03" shape="3346.13,653.53 3294.58,665.22"/>
         <param key="ref" value="A 113"/>
     </edge>
     <edge id="206579084" from="1597984547" to="1597984543" priority="9" type="highway.motorway_link" spreadType="center" shape="3709.34,540.16 3730.78,537.37 3783.01,525.79">
-        <lane id="206579084_0" index="0" disallow="moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="44.56" shape="3713.31,539.65 3730.78,537.37 3735.23,536.39"/>
+        <lane id="206579084_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="44.56" shape="3713.31,539.65 3730.78,537.37 3735.23,536.39"/>
         <param key="ref" value="A 113"/>
     </edge>
     <edge id="207517673" from="cluster_1568241686_2177702824" to="2177702821" priority="1" type="highway.service" shape="4154.98,909.17 4143.88,900.75">
