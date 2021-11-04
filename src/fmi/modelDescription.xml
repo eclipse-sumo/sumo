@@ -6,7 +6,7 @@
 >
 
   <CoSimulation modelIdentifier="libsumofmi2" canHandleVariableCommunicationStepSize="true" />
-  
+
   <!-- In CoSimulation the stepSize defines the preferred communication StepSize.  -->
   <DefaultExperiment  stepSize="1" stopTime="60"/>
 
@@ -18,7 +18,7 @@
       <Integer/>
     </ScalarVariable>
   </ModelVariables>
-  
+
   <ModelStructure>
     <Outputs>
       <Unknown index="2"/>

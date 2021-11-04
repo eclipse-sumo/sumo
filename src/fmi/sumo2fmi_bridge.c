@@ -41,33 +41,33 @@ sumo2fmi_set_startValues(ModelInstance *comp) {
     strcpy((char *)comp->libsumoCallOptions, (char *)defaultCallOptions);
 }
 
-void 
+void
 sumo2fmi_logError(ModelInstance *comp, const char *message, ...) {
     if (!comp->logErrors) return;
 
     va_list args;
     va_start(args, message);
     sumo2fmi_logMessage(comp, fmi2Error, "logStatusError", message, args);
-    va_end(args); 
+    va_end(args);
 }
 
-void 
+void
 sumo2fmi_logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args) {
     va_list args1;
     size_t len = 0;
     char *buf = "";
-    
+
     va_copy(args1, args);
     len = vsnprintf(buf, len, message, args1);
     va_end(args1);
-    
+
     va_copy(args1, args);
     buf = comp->allocateMemory(len + 1, sizeof(char));
     vsnprintf(buf, len + 1, message, args);
     va_end(args1);
-    
+
     comp->logger(comp->componentEnvironment, comp->instanceName, status, category, buf);
-    
+
     comp->freeMemory(buf);
 }
 
@@ -86,7 +86,7 @@ sumo2fmi_getInteger(ModelInstance* comp, const fmi2ValueReference vr, int* value
     }
 }
 
-fmi2Status  
+fmi2Status
 sumo2fmi_getString(ModelInstance* comp, const fmi2ValueReference vr, const char* value) {
     switch (vr) {
         case 0:
@@ -97,20 +97,20 @@ sumo2fmi_getString(ModelInstance* comp, const fmi2ValueReference vr, const char*
     }
 }
 
-fmi2Status  
+fmi2Status
 sumo2fmi_setString(ModelInstance* comp, fmi2ValueReference vr, const char* value) {
     switch (vr) {
         case 0:
             comp->freeMemory(comp->libsumoCallOptions);
             comp->libsumoCallOptions = (char *)comp->allocateMemory(1 + strlen(value), sizeof(char));
-            strcpy(comp->libsumoCallOptions, value);     
+            strcpy(comp->libsumoCallOptions, value);
             return fmi2OK;
         default:
             return fmi2Error;
     }
 }
 
-fmi2Status 
+fmi2Status
 sumo2fmi_step(ModelInstance *comp, double tNext) {
     UNREFERENCED_PARAMETER(comp);
 

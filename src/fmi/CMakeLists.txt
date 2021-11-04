@@ -1,10 +1,10 @@
 
 #########################################################
-# Building of the libsumo-FMI2 library 
+# Building of the libsumo-FMI2 library
 set (libsumofmi2_SRCS
-  fmi2Functions.c 
+  fmi2Functions.c
   sumo2fmi_bridge.c
-  libsumocpp2c.cpp 
+  libsumocpp2c.cpp
 )
 
 add_library(libsumofmi2 SHARED ${libsumofmi2_SRCS})
@@ -23,16 +23,16 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(BITS "64")
 else()
     set(BITS "32")
-endif() 
+endif()
 
-if(WIN32) 
+if(WIN32)
   set(PLATFORM_FOLDER_NAME "win${BITS}")
 endif()
 
 if(UNIX AND NOT APPLE)
   set(PLATFORM_FOLDER_NAME "linux${BITS}")
 endif()
-  
+
 if(APPLE)
   set(PLATFORM_FOLDER_NAME "darwin${BITS}")
 endif()
@@ -52,7 +52,7 @@ else()
   set(remove_options "")
 endif()
 
-add_custom_target(create_fmi2_zip 
+add_custom_target(create_fmi2_zip
   # Remove the old directory (if exists) and create a new directory
   COMMAND ${CMAKE_COMMAND} -E ${remove_command} "${remove_options}" "${ZIP_BUILD_FOLDER_NAME}"
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}"
@@ -68,7 +68,7 @@ add_custom_target(create_fmi2_zip
 add_dependencies(create_fmi2_zip libsumofmi2)
 
 ###########################################################
-# Define the custom target FMI to have all of these files 
+# Define the custom target FMI to have all of these files
 # built (also as part of ALL - but of course the happens
 # only when FMI is enabled)
 add_custom_target(fmi ALL)
