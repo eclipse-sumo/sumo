@@ -29,8 +29,8 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
-    "-n", "input_net3.net.xml"]
-    + sys.argv[1:])
+             "-n", "input_net3.net.xml"]
+             + sys.argv[1:])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -50,8 +50,6 @@ def check():
     print("phaseName", traci.trafficlight.getPhaseName(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
     print("duration", traci.trafficlight.getPhaseDuration(tlsID))
-
-
 
 traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseName(tlsID, "setByTraCI")
