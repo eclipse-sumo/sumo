@@ -66,6 +66,7 @@
 /bin/libsumofmi2.dylib
 /bin/libtracicpp.dll.manifest
 /bin/testlibtraci
+/bin/testlibtraciD
 /bin/testlibtraci.exe.manifest
 # data dir
 /data/proj
