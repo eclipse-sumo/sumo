@@ -112,7 +112,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::~EdgeTypeSelector() {
 
 
 void
-GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
+GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
     // get template editor
     const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // get edge types
@@ -123,8 +123,21 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
     fillComboBox();
     // show parameter fields
     myCreateEdgeFrameParent->myEdgeTypeParameters->showEdgeTypeParameters();
-    // check if use custom edge
-    if (myUseDefaultEdgeType->getCheck() == TRUE) {
+    // check conditions
+    if (show && templateEditor->hasTemplate()) {
+        // set buttons
+        myUseDefaultEdgeType->setCheck(FALSE);
+        myUseCustomEdgeType->setCheck(TRUE);
+        // set template as current item
+        myEdgeTypesComboBox->setCurrentItem(0);
+        // update edge parameters (using template
+        myCreateEdgeFrameParent->myEdgeTypeParameters->setTemplateValues();
+        // disable delete edge type button (because templates cannot be removed)
+        myDeleteEdgeTypeButton->disable();
+        myResetEdgeTypeButton->disable();
+        // disable parameter fields (because templates cannot be edited)
+        myCreateEdgeFrameParent->myEdgeTypeParameters->disableEdgeTypeParameters();
+    } else if (myUseDefaultEdgeType->getCheck() == TRUE) {
         // disable comboBox
         myEdgeTypesComboBox->disable();
         // disable buttons
@@ -164,6 +177,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             myCreateEdgeFrameParent->myEdgeTypeParameters->setTemplateValues();
             // disable delete edge type button (because templates cannot be removed)
             myDeleteEdgeTypeButton->disable();
+            myResetEdgeTypeButton->disable();
             // disable parameter fields (because templates cannot be edited)
             myCreateEdgeFrameParent->myEdgeTypeParameters->disableEdgeTypeParameters();
         } else if (edgeTypes.size() > 0) {
@@ -1483,7 +1497,7 @@ GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObjec
 void
 GNECreateEdgeFrame::show() {
     // refresh template selector
-    myEdgeTypeSelector->refreshEdgeTypeSelector();
+    myEdgeTypeSelector->refreshEdgeTypeSelector(true);
     // show frame
     GNEFrame::show();
 }

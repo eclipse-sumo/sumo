@@ -56,7 +56,7 @@ public:
         ~EdgeTypeSelector();
 
         /// @brief refresh edge type selector
-        void refreshEdgeTypeSelector();
+        void refreshEdgeTypeSelector(const bool show = false);
 
         /// @brief check if we have to use edge template
         bool useEdgeTemplate() const;
