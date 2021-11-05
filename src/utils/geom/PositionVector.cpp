@@ -1350,18 +1350,20 @@ PositionVector::isNAN() const {
 
 
 void
-PositionVector::removeDoublePoints(double minDist, bool assertLength) {
-    if (size() > 1) {
-        iterator last = begin();
-        for (iterator i = begin() + 1; i != end() && (!assertLength || size() > 2);) {
+PositionVector::removeDoublePoints(double minDist, bool assertLength, int beginOffset, int endOffset) {
+    int curSize = (int)size() - beginOffset - endOffset;
+    if (curSize > 1) {
+        iterator last = begin() + beginOffset;
+        for (iterator i = last + 1; i != (end() - endOffset) && (!assertLength || curSize > 2);) {
             if (last->almostSame(*i, minDist)) {
-                if (i + 1 == end()) {
+                if (i + 1 == end() - endOffset) {
                     // special case: keep the last point and remove the next-to-last
                     erase(last);
-                    i = end();
+                    i = end() - endOffset;
                 } else {
                     i = erase(i);
                 }
+                curSize--;
             } else {
                 last = i;
                 ++i;

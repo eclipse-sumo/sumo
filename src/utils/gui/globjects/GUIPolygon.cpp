@@ -84,9 +84,9 @@ void CALLBACK combineCallback(GLdouble coords[3],
     *dataOut = vertex;
 }
 
-static const GLfloat INV_POLY_TEX_DIM = 1.0 / 256.0;
-static const GLfloat xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
-static const GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
+static const GLdouble INV_POLY_TEX_DIM = 1.0 / 256.0;
+static const GLdouble xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
+static const GLdouble yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 
 // ===========================================================================
 // method definitions
@@ -330,9 +330,9 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
         glEnable(GL_TEXTURE_GEN_S);
         glEnable(GL_TEXTURE_GEN_T);
         glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-        glTexGenfv(GL_S, GL_OBJECT_PLANE, xPlane);
+        glTexGendv(GL_S, GL_OBJECT_PLANE, xPlane);
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-        glTexGenfv(GL_T, GL_OBJECT_PLANE, yPlane);
+        glTexGendv(GL_T, GL_OBJECT_PLANE, yPlane);
     }
     // recall tesselation
     //glCallList(myDisplayList);

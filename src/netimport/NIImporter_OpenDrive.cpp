@@ -1390,15 +1390,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         }
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
             // simplify geometry for both directions consistently but ensure
-            // that start an end angles are preserved
+            // that start and end angles are preserved
             if (e.geom.size() > 4) {
-                Position first = e.geom.front();
-                Position last = e.geom.back();
-                e.geom.pop_front();
-                e.geom.pop_back();
-                e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
-                e.geom.push_front(first);
-                e.geom.push_back(last);
+                e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true, 1, 1);
             }
         }
         if (!NBNetBuilder::transformCoordinates(e.geom)) {

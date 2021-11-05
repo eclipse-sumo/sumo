@@ -164,10 +164,10 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (width * exaggeration > 1) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0 - 1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
