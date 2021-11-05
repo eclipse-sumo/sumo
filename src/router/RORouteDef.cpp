@@ -321,15 +321,29 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             }
         }
     }
-    if ((int)myAlternatives.size() > RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber()) {
+    int maxNumber = RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber();
+    if ((int)myAlternatives.size() > maxNumber) {
+        const RORoute* last = myAlternatives[myLastUsed];
         // only keep the routes with highest probability
         sort(myAlternatives.begin(), myAlternatives.end(), [](const RORoute * const a, const RORoute * const b) {
             return a->getProbability() > b->getProbability();
         });
-        for (std::vector<RORoute*>::iterator i = myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(); i != myAlternatives.end(); i++) {
+        if (keepRoute) {
+            for (int i = 0; i < (int)myAlternatives.size(); i++) { 
+                if (myAlternatives[i] == last) {
+                    myLastUsed = i;
+                    break;
+                }
+            }
+            if (myLastUsed >= maxNumber) {
+                std::swap(myAlternatives[maxNumber - 1], myAlternatives[myLastUsed]);
+                myLastUsed = maxNumber - 1;
+            }
+        }
+        for (std::vector<RORoute*>::iterator i = myAlternatives.begin() + maxNumber; i != myAlternatives.end(); i++) {
             delete *i;
         }
-        myAlternatives.erase(myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(), myAlternatives.end());
+        myAlternatives.erase(myAlternatives.begin() + maxNumber, myAlternatives.end());
     }
     // rescale probabilities
     double newSum = 0.;
