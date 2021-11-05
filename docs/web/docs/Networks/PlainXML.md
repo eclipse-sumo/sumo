@@ -435,13 +435,15 @@ Let's list an edge's attributes again:
 | priority       | int                                   | The priority of the edge. Used for [\#Right-of-way](#right-of-way)-computation            |
 | length         | float                                 | The length of the edge in meter                                                     |
 | shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | If the shape is given it should start and end with the positions of the from-node and to-node. Alternatively it can also start and end with the position where the edge leaves or enters the junction shape. This gives some control over the final junction shape. When using the option **--plain.extend-edge-shape** it is sufficient to supply inner geometry points and extend the shape with the starting and ending node positions automatically |
-| spreadType     | enum ( "right", "center", "roadCenter")                                                                                          | The description of how to compute lane geometry from edge geometry. See [SpreadType](#spreadtype)  |
-| allow          | list of vehicle classes               | List of permitted vehicle classes (see [access permissions](#road_access_permissions_allow_disallow))       |
-| disallow       | list of vehicle classes               | List of forbidden vehicle classes (see [access permissions](#road_access_permissions_allow_disallow))       |
-| width          | float                                 | lane width for all lanes of this edge in meters (used for visualization)                                    |
-| name           | string                                | street name (need not be unique, used for visualization)                                                    |
+| spreadType     | enum ( "right", "center", "roadCenter") | The description of how to compute lane geometry from edge geometry. See [SpreadType](#spreadtype)  |
+| allow          | list of vehicle classes               | List of permitted vehicle classes (see [access permissions](#road_access_permissions_allow_disallow))|
+| disallow       | list of vehicle classes               | List of forbidden vehicle classes (see [access permissions](#road_access_permissions_allow_disallow))|
+| width          | float                                 | lane width for all lanes of this edge in meters (used for visualization) |
+| name           | string                                | street name (need not be unique, used for visualization)  |
 | endOffset      | float \>= 0                           | Move the stop line back from the intersection by the given amount (effectively shortening the edge and locally enlarging the intersection)  |
-| sidewalkWidth  | float \>= 0                           | Adds a sidewalk with the given width (defaults to -1 which adds nothing).                              |
+| sidewalkWidth  | float \>= 0                           | Adds a sidewalk with the given width (defaults to -1 which adds nothing).  |
+| bikeLaneWidth  | float \>= 0                           | Adds a bicycle lane with the given width (defaults to -1 which adds nothing).  |
+| distance       | float                                 | [Kilometrage](../Simulation/Railways.md#kilometrage_mileage_chainage) at the start of this edge. If the value is positive, kilometrage increases in driving direction; if the value is negative, kilometrage decreases. Kilometrage along the edge is computed as abs(*distance* + *offsetFromStart*).  |
 
 The priority plays a role during the computation of the way-giving rules
 of a node. Normally, the allowed speed on the edge and the edge's number
