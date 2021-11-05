@@ -179,7 +179,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         const std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentName);
         from = junctionID;
         to = junctionID;
-        priority = 0;
+        priority = -1;
     } else {
         from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
         to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
